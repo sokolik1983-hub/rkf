@@ -1,0 +1,13 @@
+$loader-color: red;
+$loader-bg-color: transparent;
+.loading-c {
+  margin-top: -50px;
+  padding: 2em 3em;
+  background-color: rgba(0,0,0,.05);
+
+  border-radius: 2em;
+  &-title{
+    text-align: center;
+    color: white
+  }
+}
