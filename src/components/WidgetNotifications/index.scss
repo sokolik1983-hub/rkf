@@ -1,0 +1,22 @@
+.notifications-widget{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin-left: 51px;
+  &__bell{
+    position: relative;
+    &--active{
+      &:after{
+        content:"";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background-color: #00BFDD;
+        border: solid 1.5px;
+        border-color: #ffffff;
+        border-radius: 50%;
+        right: -1.5px;
+      }
+    }
+  }
+}
