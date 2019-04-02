@@ -1,0 +1,11 @@
+.lang-widget{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: auto;
+  &__lang{
+    &--active{
+      color: #253C5E;
+    }
+  }
+}
