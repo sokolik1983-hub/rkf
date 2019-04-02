@@ -1,12 +1,16 @@
 import React, {Fragment} from 'react'
+import Header from 'components/Layout/Header'
 import Nav from 'components/Nav'
 
 const AppLayout = ({children}) => {
     return (
         <Fragment>
-            <header>
+            <Header>
                 <Nav/>
-            </header>
+            </Header>
+            <aside>
+                left aside block
+            </aside>
             <div className="main-content">
                 {children}
             </div>
