@@ -12,3 +12,13 @@ export const LoadableDemoAside = Loadable({
     loading: Loading,
 });
 
+
+export const LoadableExhibitions = Loadable({
+    loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/index'),
+    loading: Loading,
+});
+
+export const LoadableExhibitionsAside = Loadable({
+    loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/Aside/index'),
+    loading: Loading,
+});
