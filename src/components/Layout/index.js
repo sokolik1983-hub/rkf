@@ -1,10 +1,12 @@
 import React, {Fragment} from 'react'
 import Header from 'components/Layout/Header'
-import Nav from 'components/Nav'
-import WidgetLang from 'components/WidgetLang'
-import WidgetNotifications from 'components/WidgetNotifications'
-import WidgetLogin from 'components/WidgetLogin'
+import Aside from 'components/Layout/Aside'
+import Content from 'components/Layout/Content'
+import Container from 'components/Layout/Container'
+
 import './index.scss'
+
+import Calendar from 'apps/Exhibitions/componentns/Calendar'
 
 const AppLayout = ({children}) => {
     return (
@@ -15,12 +17,14 @@ const AppLayout = ({children}) => {
                 <WidgetNotifications/>
                 <WidgetLogin/>
             </Header>
-            <aside>
-                left aside block
-            </aside>
-            <div className="main-content">
-                {children}
-            </div>
+            <Container>
+                <Aside>
+                    <Calendar/>
+                </Aside>
+                <Content>
+                    {children}
+                </Content>
+            </Container>
         </Fragment>
     )
 };

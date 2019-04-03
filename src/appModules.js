@@ -7,3 +7,8 @@ export const LoadableDemo = Loadable({
     loading: Loading,
 });
 
+export const LoadableDemoAside = Loadable({
+    loader: () => import(/* webpackChunkName: "app.demo.aside" */ './apps/Demo/Aside/index'),
+    loading: Loading,
+});
+

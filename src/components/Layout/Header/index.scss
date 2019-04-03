@@ -1,26 +1,38 @@
 header {
-  display: flex;
-  flex-flow: row nowrap;
-  max-width: 1280px;
-  padding: 0 48px;
+
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  max-height: 70px;
-  color: #9DAFBD;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  .container {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row nowrap;
+    color: #9DAFBD;
+    height: 70px;
+    min-height: 70px;
+    max-height: 70px;
+    align-items: center;
+  }
 
 
-  .header {
-    &__content {
+}
 
-    }
+.header {
+  &__content {
 
-    &__logo {
-      height: 73px;
-      width: 73px;
-      transform: translateY(7px);
+  }
 
-      img {
-        max-width: 100%;
-      }
+  &__logo {
+    display: block;
+    height: 73px;
+    width: 73px;
+    transform: translateY(7px);
+
+    img {
+      max-width: 100%;
     }
   }
 }
