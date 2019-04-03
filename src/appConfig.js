@@ -8,10 +8,26 @@ export const appRoutes = [
     },
 ];
 
-
+// Результаты Расписание рингов Карточка участника Заявки
 export const mainNav = [
     {
-        title: "Demo",
+        title: "Выставки",
+        to: '/exhibitions'
+    },
+    {
+        title: "Результаты",
         to: '/demo'
-    }
+    },
+    {
+        title: "Расписание рингов",
+        to: '/demo'
+    },
+    {
+        title: "Карточка участника",
+        to: '/demo'
+    },
+    {
+        title: "Заявки",
+        to: '/demo'
+    },
 ];
