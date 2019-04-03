@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import SearchField from '../componentns/Search'
+import SearchField from '../components/Search'
 
 export default class ExhibitionsSearch extends PureComponent {
     state = {
