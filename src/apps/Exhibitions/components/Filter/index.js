@@ -1,25 +1,30 @@
 import React, {PureComponent} from 'react'
 import FilterCheckbox from '../FilterCheckbox'
 
-export class DogBreedFilter extends PureComponent {
+export class CheckBoxFilter extends PureComponent {
+    static defaultProps = {
+        multipleSelections: true,
+    };
+
     state = {
         checked: []
     };
 
     onOptionClick = value => {
+        const {multiselect} = this.props;
         const checked = this.checkValueChecked(value) ?
             this.state.checked.filter(c => c !== value)
             :
-            [...this.state.checked, value];
+            multiselect ?
+                [...this.state.checked, value]
+                :
+                [value];
         this.setState({checked: checked});
         this.props.onChange(checked)
     };
 
-    checkValueChecked = value => this.state.checked.filter(val => value).length === 1;
+    checkValueChecked = value => this.state.checked.filter(val => val === value).length === 1;
 
-    optionChecked = option => {
-        return this.state.checked.filter(value => value === option.value).length === 1;
-    };
 
     render() {
         const {options} = this.props;
@@ -29,7 +34,7 @@ export class DogBreedFilter extends PureComponent {
                 options.map(option =>
                     <FilterCheckbox
                         onClick={this.onOptionClick}
-                        checked={this.optionChecked(option)}
+                        checked={this.checkValueChecked(option.value)}
                         {...option}
                     />
                 )

@@ -1,13 +1,23 @@
 import React, {PureComponent} from 'react'
-import {DogBreedFilter} from 'apps/Exhibitions/components/Filter'
+import {CheckBoxFilter} from 'apps/Exhibitions/components/Filter'
 
 import {dogBreedFilterOptions} from 'apps/Exhibitions/config'
 
+export default class Filter extends PureComponent {
+    state = {
+        dogBreedFilter: [],
+        cityFilter: []
+    };
+    dogBreedFilterChanged = values => {
+        this.setState({dogBreedFilter: values})
+    };
 
-const Filter = () =>
-    <div className="exhibition__filters">
-        <h3>Фильтры</h3>
-        <DogBreedFilter options={dogBreedFilterOptions}/>
-    </div>
-
-export default Filter;
+    render() {
+        return (
+            <div className="exhibition__filters">
+                <h3>Фильтры</h3>
+                <CheckBoxFilter multiselect={false} onChange={this.dogBreedFilterChanged} options={dogBreedFilterOptions}/>
+            </div>
+        )
+    }
+}
