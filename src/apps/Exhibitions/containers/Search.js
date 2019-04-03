@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import SearchField from '../componentns/Search'
 
 export default class ExhibitionsSearch extends PureComponent {
     state = {
@@ -12,9 +13,7 @@ export default class ExhibitionsSearch extends PureComponent {
     render() {
         return (
             <div className="exhibitions-search">
-                <div className="exhibitions-search__input">
-                    <input name="search" onChange={this.onChange} value={this.state.search}/>
-                </div>
+                <SearchField onChange={this.onChange} value={this.state.value}/>
             </div>
         )
     }

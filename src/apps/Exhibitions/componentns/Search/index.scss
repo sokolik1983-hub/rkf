@@ -1,0 +1,34 @@
+.exhibitions-search {
+  &__input {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    min-width: 100%;
+    background-color: rgba(186, 191, 199, .05);
+    border-radius: 4px;
+    padding: 0 9px;
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 9px;
+      top: 11px;
+    }
+
+    input {
+      display: flex;
+      flex: 1;
+      height: 40px;
+      box-sizing: border-box;
+      background-color: transparent;
+      border-width: 0;
+      font-size: 16px;
+      line-height: 20px;
+      padding-left: 39px;
+
+      &::placeholder {
+        color: #BABFC7;
+      }
+    }
+  }
+}

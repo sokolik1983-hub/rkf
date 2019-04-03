@@ -1,0 +1,1 @@
+export const searchDefaultPlaceholder = 'Поиск по выставкам';
