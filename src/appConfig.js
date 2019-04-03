@@ -1,4 +1,9 @@
-import {LoadableDemo, LoadableDemoAside} from "./appModules";
+import {
+    LoadableDemo,
+    LoadableDemoAside,
+    LoadableExhibitions,
+    LoadableExhibitionsAside
+} from "./appModules";
 
 export const appRoutes = [
     {
@@ -6,12 +11,22 @@ export const appRoutes = [
         path: '/demo',
         component: LoadableDemo
     },
+    {
+        exact: false,
+        path: '/exhibitions',
+        component: LoadableExhibitions
+    },
 ];
 export const asideRoutes = [
     {
         exact: false,
         path: '/demo',
         component: LoadableDemoAside
+    },
+    {
+        exact: false,
+        path: '/exhibitions',
+        component: LoadableExhibitionsAside
     },
 ];
 

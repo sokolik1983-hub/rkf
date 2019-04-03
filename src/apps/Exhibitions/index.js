@@ -21,9 +21,9 @@ class DemoApp extends Component {
 
     render() {
         return (
-            <div className="demo__holder">
-                <h1>Demo App</h1>
-                <p>Here comes demo</p>
+            <div className="exhibitions__holder">
+                <h1>Exhibitions</h1>
+                <p>Here comes Exhibitions</p>
             </div>
         );
     }
@@ -32,8 +32,8 @@ class DemoApp extends Component {
 
 
 
-const withReducer = injectReducer({key: 'demo', reducer: reducer});
-const withSaga = injectSaga({key: 'demo', saga});
+const withReducer = injectReducer({key: 'exhibitions', reducer: reducer});
+const withSaga = injectSaga({key: 'exhibitions', saga});
 
 const mapStateToProps = state => state.demo;
 
