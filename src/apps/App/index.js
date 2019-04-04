@@ -3,7 +3,9 @@ import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import Header from 'components/Layout/Header'
 import Aside from 'components/Layout/Aside'
 import Content from 'components/Layout/Content'
+import Footer from 'components/Layout/Footer'
 import Container from 'components/Layout/Container'
+
 
 import {appRoutes, asideRoutes} from 'appConfig'
 import 'components/Layout/index.scss'
@@ -51,6 +53,7 @@ class App extends Component {
                             </Switch>
                         </Content>
                     </Container>
+                    <Footer/>
                 </Fragment>
             </BrowserRouter>
         );
