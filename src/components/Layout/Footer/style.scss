@@ -87,18 +87,18 @@ hr {
   justify-content: space-between;
 }
 
-ul {
+.privacy_policy_content_ul {
   display: flex;
   justify-content: space-between;
 }
-li {
+.privacy_policy_content_li {
   position: relative;
   margin-left: 18px;
   margin-right: 18px;
 }
-li:first-child {
+.privacy_policy_content_li:first-child {
   list-style-type: none;
 }
-li:last-child {
+.privacy_policy_content_li:last-child {
   margin-right: 0;
 }

@@ -71,10 +71,10 @@ const Footer = () => (
       <div className="privacy_policy_content">
         <p>2001—2019 Общественная организация «СОКО РКФ»</p>
         <div>
-          <ul>
-            <li>Политика конфиденциальности</li>
-            <li> Лицензии</li>
-            <li> Карта сайта </li>
+          <ul className="privacy_policy_content_ul">
+            <li className="privacy_policy_content_li">Политика конфиденциальности</li>
+            <li className="privacy_policy_content_li"> Лицензии</li>
+            <li className="privacy_policy_content_li"> Карта сайта </li>
           </ul>
         </div>
       </div>
