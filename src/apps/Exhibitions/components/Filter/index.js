@@ -11,19 +11,18 @@ export class CheckBoxFilter extends PureComponent {
     };
 
     onOptionClick = value => {
-        const {multiselect} = this.props;
-        const checked = this.checkValueChecked(value) ?
-            this.state.checked.filter(c => c !== value)
+        const {multiselect, values} = this.props;
+        const newValues = this.checkValueChecked(value) ?
+            values.filter(c => c !== value)
             :
             multiselect ?
-                [...this.state.checked, value]
+                [...values, value]
                 :
                 [value];
-        this.setState({checked: checked});
-        this.props.onChange(checked)
+        this.props.onChange(newValues)
     };
 
-    checkValueChecked = value => this.state.checked.filter(val => val === value).length === 1;
+    checkValueChecked = value => this.props.values.filter(val => val === value).length === 1;
 
 
     render() {

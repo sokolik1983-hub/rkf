@@ -13,10 +13,13 @@
     display: flex;
     flex: 1;
   }
-  &__checked{
+
+  &__checked {
     margin: 0 9px 0 3px;
   }
-  &__reset{
+
+  &__reset {
+    color: #BABFC7;
     border: none;
     font-size: 16px;
     line-height: 24px;
