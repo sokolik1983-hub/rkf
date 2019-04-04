@@ -12,7 +12,7 @@ export default class WidgetLogin extends PureComponent {
             <div className="widget-login">
                 <UserIcon/>
                 <UserLogin title="Клуб №112"/>
-                <UserMenu opened>
+                <UserMenu>
                     <DropDownItem>Личная информация</DropDownItem>
                     <DropDownItem>Документы</DropDownItem>
                     <DropDownItem>Избранное</DropDownItem>
