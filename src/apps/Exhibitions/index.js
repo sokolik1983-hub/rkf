@@ -6,6 +6,7 @@ import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
+import FilterDate from './components/FilterDate'
 
 import {
     fetchDemo
@@ -22,7 +23,7 @@ class DemoApp extends Component {
     render() {
         return (
             <div className="exhibitions__holder">
-                <h1>Exhibitions</h1>
+                <FilterDate/>
                 <p>Here comes Exhibitions</p>
             </div>
         );
