@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewBold-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewBold-Reg.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New Book';
+    src: url('/static/fonts/FuturaNewBook-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewBook-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewExtraBold-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewExtraBold-Obl.woff') format('woff');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewLight-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewLight-Reg.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewMedium-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewMedium-Reg.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewHeavy-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewHeavy-Reg.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New Book';
+    src: url('/static/fonts/FuturaNewBook-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewBook-Obl.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewMedium-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewMedium-Obl.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewBold-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewBold-Obl.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewHeavy-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewHeavy-Obl.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewExtraBold-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewExtraBold-Reg.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New Demi';
+    src: url('/static/fonts/FuturaNewDemi-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewDemi-Obl.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura New Demi';
+    src: url('/static/fonts/FuturaNewDemi-Reg.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewDemi-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura New';
+    src: url('/static/fonts/FuturaNewLight-Obl.woff2') format('woff2'),
+        url('/static/fonts/FuturaNewLight-Obl.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
