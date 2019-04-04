@@ -2,16 +2,45 @@ import React from "react";
 import styled from "styled-components";
 
 const FilterDate = () => (
-  <Ul>
-    <ArchiveLink>Архив</ArchiveLink>
-    <Link>Год</Link>
-    <ActiveLink>Месяц</ActiveLink>
-    <Link>Неделя</Link>
-    <Link>Сегодня</Link>
-  </Ul>
+  <React.Fragment>
+    <FilterBlock>
+      <Ul>
+        <ArchiveLink>Архив</ArchiveLink>
+        <Link>Год</Link>
+        <ActiveLink>Месяц</ActiveLink>
+        <Link>Неделя</Link>
+        <Link>Сегодня</Link>
+      </Ul>
+    </FilterBlock>
+    <BtnBlock>
+      <ButtonCreateExhibition>Создать выставку</ButtonCreateExhibition>
+    </BtnBlock>
+  </React.Fragment>
 );
 
 export default FilterDate;
+
+const FilterBlock = styled.div`
+  float: left;
+`;
+const BtnBlock = styled.div`
+  float: right;
+`;
+
+const ButtonCreateExhibition = styled.button`
+  background: #253c5e;
+  box-shadow: 0px 4px 8px rgba(37, 60, 94, 0.24);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.75px;
+  padding: 15px;
+  color: #ffffff;
+  border: 0;
+`;
 
 const Link = styled.li`
   font-size: 16px;

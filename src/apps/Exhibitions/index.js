@@ -24,7 +24,6 @@ class DemoApp extends Component {
         return (
             <div className="exhibitions__holder">
                 <FilterDate/>
-                <p>Here comes Exhibitions</p>
             </div>
         );
     }
