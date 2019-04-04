@@ -45,11 +45,11 @@ export default class FilterSearch extends PureComponent {
                     className="filter-search__checked">
                     <img src={checked} alt=""/>
                 </div>
-                <div
+                <button
                     onClick={this.onReset}
                     className="filter-search__reset">
                     Все
-                </div>
+                </button>
             </div>
         )
     }
