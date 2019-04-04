@@ -11,11 +11,12 @@
     flex-flow: row nowrap;
     align-items: center;
     padding: 23px 20px;
-
+    margin: 0;
     //background-color: #253C5E;
     a,
     a:visited {
       display: inline-block;
+      white-space: nowrap;
       font-size: 18px;
       line-height: 24px;
       height: 24px;

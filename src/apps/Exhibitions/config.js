@@ -13,3 +13,26 @@ export const dogBreedFilterOptions = [
         count: 1001,
     },
 ];
+
+export const cityFilterOptions = [
+    {
+        value: 1,
+        label: 'Москва'
+    },
+    {
+        value: 2,
+        label: 'Санкт-Петербург'
+    },
+    {
+        value: 3,
+        label: 'Пенза'
+    },
+    {
+        value: 4,
+        label: 'Новгород'
+    },
+    {
+        value: 5,
+        label: 'Екатеринбург'
+    },
+]

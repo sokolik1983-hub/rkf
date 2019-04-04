@@ -1,13 +1,21 @@
-.filter-checkbox{
+.filter-checkbox {
   display: flex;
   flex-flow: row nowrap;
   margin: 20px 0;
   color: #253C5E;
   cursor: pointer;
-  &__checkbox{
-    margin-right: 11px;
+
+  &--checked {
+    font-weight: bold;
   }
-  &__count{
+
+  &__checkbox {
+    margin-right: 11px;
+
+
+  }
+
+  &__count {
     margin-left: auto;
     color: #9DAFBD
   }
