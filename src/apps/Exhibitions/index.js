@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators, compose} from "redux";
-
+import Button from 'components/Button'
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
@@ -24,6 +24,12 @@ class DemoApp extends Component {
             <div className="exhibitions__holder">
                 <h1>Exhibitions</h1>
                 <p>Here comes Exhibitions</p>
+                <div>
+                    <Button className="btn-primary btn-lg">Обычная кнопка</Button>
+                    <Button className="btn-secondary btn-lg">Обычная кнопка</Button>
+                    <Button disabled className="btn-secondary btn-lg">Обычная кнопка</Button>
+                    <Button disabled className="btn-primary">Disabled</Button>
+                </div>
             </div>
         );
     }
