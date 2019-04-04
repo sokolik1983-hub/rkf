@@ -1,6 +1,7 @@
 $primary-color: #253C5E;
 $primary-color--disabled: transparentize($primary-color, .3);
 .btn {
+  color: inherit;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -37,12 +38,13 @@ $primary-color--disabled: transparentize($primary-color, .3);
 .btn-secondary {
   color: $primary-color;
   border-color: transparentize(#253C5E, .62);
-  &:disabled{
+
+  &:disabled {
     color: #BABFC7;
     border-color: #EBF0F2;
   }
 }
 
-.btn-text{
-
+.btn-text {
+  color: rgba(37, 60, 94, 0.7);
 }
