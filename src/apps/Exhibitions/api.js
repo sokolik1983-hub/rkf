@@ -1,17 +1,29 @@
 import request from 'utils/request';
+import {exhibitions} from 'apps/Exhibitions/mock/exhibitions.list'
 
+export const EXHIBITIONS_API = '/api/v1/exhibitions/';
 
-export const DEMO_API = '/api/demo/';
-
-
+export const fakeRequest = (mockData, errors) => {
+    return new Promise((resolve, reject) => {
+        process.nextTick(() =>
+            errors
+                ? reject({
+                    error: errors
+                })
+                :
+                resolve({data: mockData})
+        );
+    });
+}
 
 const Api = {
-    fetchDemo: async () => {
-        return request(
-            {
-                url: DEMO_API,
-            }
-        );
+    fetchExhibitions: async () => {
+        // return request(
+        //     {
+        //         url: EXHIBITIONS_API,
+        //     }
+        // );
+        return fakeRequest(exhibitions)
     },
 };
 

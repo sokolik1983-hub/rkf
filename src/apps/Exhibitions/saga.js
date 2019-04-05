@@ -7,17 +7,17 @@ import * as actions from './actions'
 
 
 
-export function* fetchDemo(action) {
+export function* fetchExhibitions(action) {
     try {
-        const data = yield call(Api.fetchDemo, action);
-        yield put(actions.fetchDemoSuccess(data))
+        const data = yield call(Api.fetchExhibitions, action);
+        yield put(actions.fetchExhibitionsSuccess(data))
     } catch (error) {
         console.log(error.message);
-        yield put(actions.fetchDemoFailed(error))
+        yield put(actions.fetchExhibitionsFailed(error))
     }
 }
 
 export default function* appSaga() {
-    yield takeLatest(actionTypes.FETCH_DEMO, fetchDemo);
+    yield takeLatest(actionTypes.GET_EXHIBITIONS, fetchExhibitions);
 }
 

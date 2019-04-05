@@ -7,23 +7,24 @@ import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
 import FilterDate from './components/FilterDate'
-
+import List from './components/List'
 import {
-    fetchDemo
-} from 'apps/Demo/actions'
+    fetchExhibitions
+} from './actions'
 
 
 
-class DemoApp extends Component {
+class ExhibitionsProxy extends Component {
 
     componentDidMount() {
-        this.props.fetchDemo();
+        this.props.fetchExhibitions();
     }
 
     render() {
         return (
             <div className="exhibitions__holder">
                 <FilterDate/>
+                <List/>
             </div>
         );
     }
@@ -35,10 +36,10 @@ class DemoApp extends Component {
 const withReducer = injectReducer({key: 'exhibitions', reducer: reducer});
 const withSaga = injectSaga({key: 'exhibitions', saga});
 
-const mapStateToProps = state => state.demo;
+const mapStateToProps = state => state.exhibitions;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchDemo,
+    fetchExhibitions,
 }, dispatch);
 
 const withConnect = connect(
@@ -49,4 +50,4 @@ const withConnect = connect(
 export default compose(
     withReducer,
     withSaga,
-    withConnect)(DemoApp)
+    withConnect)(ExhibitionsProxy)
