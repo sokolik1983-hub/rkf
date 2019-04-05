@@ -33,22 +33,27 @@ export const asideRoutes = [
 // Результаты Расписание рингов Карточка участника Заявки
 export const mainNav = [
     {
+        id: 1,
         title: "Выставки",
         to: '/exhibitions'
     },
     {
+        id: 2,
         title: "Результаты",
         to: '/demo'
     },
     {
+        id: 3,
         title: "Расписание рингов",
         to: '/demo'
     },
     {
+        id: 4,
         title: "Карточка участника",
         to: '/demo'
     },
     {
+        id: 5,
         title: "Заявки",
         to: '/demo'
     },
