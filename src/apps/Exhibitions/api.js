@@ -11,7 +11,7 @@ export const fakeRequest = (mockData, errors) => {
                     error: errors
                 })
                 :
-                resolve({data: mockData})
+                resolve(mockData)
         );
     });
 }

@@ -7,11 +7,10 @@ import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
 import FilterDate from './components/FilterDate'
-import List from './components/List'
+import List from './containers/ExhibitionsList'
 import {
     fetchExhibitions
 } from './actions'
-
 
 
 class ExhibitionsProxy extends Component {
@@ -31,19 +30,16 @@ class ExhibitionsProxy extends Component {
 }
 
 
-
-
 const withReducer = injectReducer({key: 'exhibitions', reducer: reducer});
 const withSaga = injectSaga({key: 'exhibitions', saga});
 
-const mapStateToProps = state => state.exhibitions;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchExhibitions,
 }, dispatch);
 
 const withConnect = connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 );
 

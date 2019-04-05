@@ -19,6 +19,7 @@ export default function demoReducer(state = demoInitialState, action) {
         case actiontypes.GET_EXHIBITIONS_SUCCESS: {
             return {
                 ...state,
+                exhibitions: action.data,
                 loadingApi: false,
             };
         }
