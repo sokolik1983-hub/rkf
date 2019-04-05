@@ -9,6 +9,7 @@
   }
 
   &__dropdown {
+    display: none;
     position: absolute;
     border-radius: 8px;
     top: 100%;
@@ -16,6 +17,7 @@
     box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
     padding: 20px 16px;
     background-color: white;
+
     display: none;
     &--opened{
       display: block;

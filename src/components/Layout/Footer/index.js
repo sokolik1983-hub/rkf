@@ -1,10 +1,5 @@
 import React from "react";
 import "./style.scss";
-{/*import logoSvg from "../../../media/logo.svg";
-import facebook from "../../../media/facebookIcon.svg";
-import google from "../../../media/googleIcon.svg";
-import tumblr from "../../../media/tumblrIcon.svg";
-import twitter from "../../../media/twitterIcon.svg";*/}
 
 const Footer = () => (
   <footer>
