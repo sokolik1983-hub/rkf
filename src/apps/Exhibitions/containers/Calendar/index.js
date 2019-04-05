@@ -7,6 +7,10 @@ const Calendar = () => <div className="exhibitions-calendar__holder">
     <div className="exhibitions-calendar">
         <WidgetCalendar/>
     </div>
+    <div className="exhibitions-calendar__legend">
+        <div>Вы участвуете</div>
+        <div>Ваша выставка</div>
+    </div>
 </div>;
 
 export default Calendar;
