@@ -3,7 +3,7 @@
   flex-flow: row nowrap;
   align-items: center;
   position: relative;
-
+  cursor: pointer;
   &__user-icon {
     margin: 0 8px 0 16px;
   }
@@ -17,8 +17,11 @@
     box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
     padding: 20px 16px;
     background-color: white;
-    
 
+    display: none;
+    &--opened{
+      display: block;
+    }
     &:before {
       content: "";
       position: absolute;

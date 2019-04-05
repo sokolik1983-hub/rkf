@@ -7,12 +7,20 @@ import {UserMenu} from './UserMenu'
 import './index.scss'
 
 export default class WidgetLogin extends PureComponent {
+    state = {
+        dropdownVisible: false,
+    };
+
+    toggleDropDown = () => {
+        this.setState(prevState => ({dropdownVisible: !prevState.dropdownVisible}))
+    };
+
     render() {
         return (
-            <div className="widget-login">
+            <div onClick={this.toggleDropDown} className="widget-login">
                 <UserIcon/>
                 <UserLogin title="Клуб №112"/>
-                <UserMenu>
+                <UserMenu opened={this.state.dropdownVisible}>
                     <DropDownItem>Личная информация</DropDownItem>
                     <DropDownItem>Документы</DropDownItem>
                     <DropDownItem>Избранное</DropDownItem>
