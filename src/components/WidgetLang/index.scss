@@ -4,6 +4,7 @@
   align-items: center;
   margin-left: auto;
   &__lang{
+    cursor: pointer;
     &--active{
       color: #253C5E;
     }
