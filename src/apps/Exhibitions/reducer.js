@@ -3,25 +3,27 @@ import * as actiontypes from './actiontypes';
 
 const demoInitialState = {
     loadingApi: false,
+    exhibitions: []
 };
 
 export default function demoReducer(state = demoInitialState, action) {
 
     switch (action.type) {
 
-        case actiontypes.FETCH_DEMO: {
+        case actiontypes.GET_EXHIBITIONS: {
             return {
                 ...state,
                 loadingApi: true,
             };
         }
-        case actiontypes.FETCH_DEMO_SUCCESS: {
+        case actiontypes.GET_EXHIBITIONS_SUCCESS: {
             return {
                 ...state,
+                exhibitions: action.data,
                 loadingApi: false,
             };
         }
-        case actiontypes.FETCH_DEMO_FAILED: {
+        case actiontypes.GET_EXHIBITIONS_FAILED: {
             return {
                 ...state,
                 loadingApi: false,
