@@ -24,5 +24,10 @@
       background-position: center right 10px;
       padding-right: 31px;
     }
+    &--prev{
+      background-image: url("/static/icons/chevron_left.svg");
+      background-position: center left 10px;
+      padding-left: 31px;
+    }
   }
 }
