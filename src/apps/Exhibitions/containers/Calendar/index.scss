@@ -3,4 +3,9 @@
   border: solid 1px;
   border-radius: 5px;
   border-color: transparentize(#BABFC7, .5);
+  &__widget-switch{
+   font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
 }

@@ -22,37 +22,38 @@
   user-select: none;
 }
 
-
-.DayPicker-NavButton {
+.DayPicker-NavBar{
   position: absolute;
-  top: 1em;
-  right: 1.5em;
-  left: auto;
-
-  display: inline-block;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 12px 12px 0 12px;
+  align-items: flex-end;
+  right: 0;
+}
+.DayPicker-NavButton {
+  display: block;
   margin-top: 2px;
-  width: 1.25em;
-  height: 1.25em;
+  width: 24px;
+  height: 24px;
   background-position: center;
-  background-size: 50%;
   background-repeat: no-repeat;
   color: #8B9898;
   cursor: pointer;
   border: solid 1px;
   border-radius: 50%;
   border-color: #BABFC7;
-
+  background-size: 6px 12px;
   &:hover {
     opacity: 0.8;
   }
 
   &--prev {
-    margin-right: 1.5em;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAYAAAB5R9gVAAAABGdBTUEAALGPC/xhBQAAAVVJREFUWAnN2G0KgjAYwPHpGfRkaZeqvgQaK+hY3SUHrk1YzNLay/OiEFp92I+/Mp2F2Mh2lLISWnflFjzH263RQjzMZ19wgs73ez0o1WmtW+dgA01VxrE3p6l2GLsnBy1VYQOtVSEH/atCCgqpQgKKqYIOiq2CBkqtggLKqQIKgqgCBjpJ2Y5CdJ+zrT9A7HHSTA1dxUdHgzCqJIEwq0SDsKsEg6iqBIEoq/wEcVRZBXFV+QJxV5mBtlDFB5VjYTaGZ2sf4R9PM7U9ZU+lLuaetPP/5Die3ToO1+u+MKtHs06qODB2zBnI/jBd4MPQm1VkY79Tb18gB+C62FdBFsZR6yeIo1YQiLJWMIiqVjQIu1YSCLNWFgijVjYIuhYYCKoWKAiiFgoopxYaKLUWOii2FgkophYp6F3r42W5A9s9OcgNvva8xQaysKXlFytoqdYmQH6tF3toSUo0INq9AAAAAElFTkSuQmCC');
+    margin-right: 8px;
+    background-image: url('/static/icons/chevron_left.svg');
   }
 
   &--next {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAYAAAB5R9gVAAAABGdBTUEAALGPC/xhBQAAAXRJREFUWAnN119ugjAcwPHWzJ1gnmxzB/BBE0n24m4xfNkTaOL7wOtsl3AXMMb+Vjaa1BG00N8fSEibPpAP3xAKKs2yjzTPH9RAjhEo9WzPr/Vm8zgE0+gXATAxxuxtqeJ9t5tIwv5AtQAApsfT6TPdbp+kUBcgVwvO51KqVhMkXKsVJFXrOkigVhCIs1Y4iKlWZxB1rX4gwlpRIIpa8SDkWmggrFq4IIRaJKCYWnSgnrXIQV1r8YD+1Vrn+bReagysIFfLABRt31v8oBu1xEBttfRbltmfjgEcWh9snUS2kNdBK6WN1vrOWxObWsz+fjxevsxmB1GQDfINWiev83nhaoiB/CoOU438oPrhXS0WpQ9xc1ZQWxWHqUYe0I0qrKCQKjygDlXIQV2r0IF6ViEBxVTBBSFUQQNhVYkHIVeJAtkNsbQ7c1LtzP6FsObhb2rCKv7NBIGoq4SDmKoEgTirXAcJVGkFSVVpgoSrXICGUMUH/QBZNSUy5XWUhwAAAABJRU5ErkJggg==');
+    background-image: url('/static/icons/chevron_right.svg');
   }
 
   &--interactionDisabled {
@@ -62,19 +63,18 @@
 
 
 .DayPicker-Caption {
-  display: table-caption;
-  margin-bottom: 0.5em;
-  padding: 0 0.5em;
-  text-align: left;
+  position: absolute;
+
 }
 
 .DayPicker-Caption > div {
-  font-weight: 500;
-  font-size: 1.15em;
+  margin: 16px 0 0 8px;
+  color: #253C5E;
+  font-size: 18px;
 }
 
 .DayPicker-Weekdays {
-  margin-top: 1em;
+  margin-top: 40px;
 }
 
 .DayPicker-WeekdaysRow {
