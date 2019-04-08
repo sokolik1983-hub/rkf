@@ -1,10 +1,10 @@
 import {
     LoadableDemo,
     LoadableDemoAside,
-    LoadableExhibitions,
+    //LoadableExhibitions,
     LoadableExhibitionsAside
 } from "./appModules";
-
+import LoadableExhibitions from 'apps/Exhibitions'
 export const appRoutes = [
     {
         exact: false,
