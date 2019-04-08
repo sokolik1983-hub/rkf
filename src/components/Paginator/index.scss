@@ -1,0 +1,28 @@
+.paginator{
+  margin: 24px 0;
+  &__btn{
+    min-width: 40px;
+    min-height: 40px;
+    margin-right: 8px;
+    border-radius: 4px;
+    border-color: #BABFC7;
+    font-size: 18px;
+    line-height: 24px;
+    background-repeat: no-repeat;
+
+    &:last-child{
+      margin-right: 0;
+    }
+    &--active{
+      color: white;
+      background-color: #253C5E;
+      border-color: #253C5E;
+      box-shadow: 0 8px 16px rgba(37, 60, 94, 0.4);
+    }
+    &--next{
+      background-image: url("/static/icons/chevron_right.svg");
+      background-position: center right 10px;
+      padding-right: 31px;
+    }
+  }
+}
