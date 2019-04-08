@@ -1,3 +1,4 @@
+@import '../__shared-sass-vars/typography';
 @import './reset';
 @import './fonts';
 
@@ -6,4 +7,6 @@ body{
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
+  color: #253C5E;
 }
+
