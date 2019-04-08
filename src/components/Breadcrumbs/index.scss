@@ -1,0 +1,41 @@
+.breadcrumbs {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 32px;
+  align-items: center;
+  padding-top: 24px;
+
+  &__link {
+    box-sizing: border-box;
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-image: url('/static/icons/chevron_right.svg');
+    background-position: center right;
+    text-decoration: none;
+    min-height: 32px;
+    line-height: 32px;
+    //background-color: red;
+    margin-right: 12px;
+    &:last-child{
+      background-image: unset;
+      margin-right: 0;
+    }
+
+    &--home {
+      position: relative;
+      width: 52px;
+      height: 32px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        background-position: center;
+        background-image: url('/static/icons/breadcrumbs-home.svg');
+      }
+    }
+  }
+}
