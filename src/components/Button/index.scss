@@ -1,5 +1,11 @@
 $primary-color: #253C5E;
 $primary-color--disabled: transparentize($primary-color, .3);
+button{
+  font-family: 'Futura New Book', Helvetica, sans-serif;
+  font-weight: normal;
+  background-color: transparent;
+  padding: 6px 12px;
+}
 .btn {
   color: inherit;
   font-family: inherit;
