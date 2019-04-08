@@ -1,15 +1,39 @@
-.exhibition-list{
-  &__header{
+.exhibition-list {
+  &__header {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     padding: 20px 0 24px 0;
   }
-  &__date-range-filter{
+
+  &__date-range-filter {
     display: flex;
     flex-flow: row nowrap;
   }
-  &__btn-create{
+
+  &__btn-create {
     margin-left: auto;
+  }
+
+  &__btn {
+    color: #BABFC7;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 6px 12px;
+    margin-right: 12px;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &--archive {
+      background-color: #BABFC7;
+      color: white;
+    }
+
+    &--active {
+      color: rgb(26, 99, 223);
+      text-decoration: underline;
+    }
   }
 }
