@@ -1,0 +1,14 @@
+.tabs {
+  display: flex;
+  flex-flow: row wrap;
+
+  &__tab {
+    flex: 1;
+    font-size: 16px;
+    border-color: transparent;
+    &--active{
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
