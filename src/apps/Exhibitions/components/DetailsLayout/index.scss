@@ -7,13 +7,36 @@
   }
   &__signature{
     &--top{
+      font-size: 18px;
+      margin: 8px 0;
       display: flex;
       flex-flow: row wrap;
+      color: #72839C;
       div{
         margin-right: 65px;
         &:last-child{
           margin-right: 0;
         }
+      }
+    }
+  }
+  &__dates, &__{
+
+  }
+  &__tabs{
+    margin: 32px 0 24px 0;
+    .tabs__tab{
+      flex: unset;
+      padding: 0;
+      margin-right: 24px;
+      font-size: 26px;
+      line-height: 30px;
+      color: #72839C;
+      &--active{
+        color: inherit;
+      }
+      &:last-child{
+        margin-right: 0;
       }
     }
   }
