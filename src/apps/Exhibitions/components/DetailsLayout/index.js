@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom";
+import CountDown from 'components/CountDown'
 import PaymentRequisites from 'components/PaymentRequisites'
 import Breadcrumbs from 'components/Breadcrumbs'
 import DetailsContent from '../DetailsContent'
@@ -97,6 +98,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         <Button className="btn-secondary">В избранное</Button>
                         <Button className="btn-secondary">Поделиться</Button>
                     </div>
+                    <CountDown/>
                 </DetailsAside>
                 <div className="exhibition-details__prices">
                     <h2>Цены</h2>
