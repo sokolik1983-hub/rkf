@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom";
+import PaymentRequisites from 'components/PaymentRequisites'
 import Breadcrumbs from 'components/Breadcrumbs'
 import DetailsContent from '../DetailsContent'
 import DetailsAside from '../DetailsAside'
@@ -51,7 +52,8 @@ const DetailsLayout = ({exhibitionDetails}) =>
                             exhibitionDetails.schedule.length ?
                                 <TabContent label="Расписание">
                                     <Schedule schedule={exhibitionDetails.schedule}/>
-                                    <p>Расписание может изменяться. Для того, тчобы быть в курсе включите оповещения в личном кабинете или просматривайте обновления расписания.</p>
+                                    <p>Расписание может изменяться. Для того, тчобы быть в курсе включите оповещения в
+                                        личном кабинете или просматривайте обновления расписания.</p>
                                 </TabContent>
                                 : null
                         }
@@ -64,13 +66,15 @@ const DetailsLayout = ({exhibitionDetails}) =>
                 </DetailsContent>
                 <DetailsAside>
                     <div className="exhibition-details__aside_holder">
-                        <div
-                            className="exhibition-details__dates-icon">{exhibitionDetails.date.start} {exhibitionDetails.date.end}<br/>
-                            <a href="#">Добавить в календарь</a>
+                        <div className="exhibition-details__short_info">
+                            <div
+                                className="exhibition-details__dates-icon">{exhibitionDetails.date.start} {exhibitionDetails.date.end}<br/>
+                                <a href="#">Добавить в календарь</a>
+                            </div>
+                            <div className="exhibition-details__time-icon">Начало {exhibitionDetails.date.start}</div>
+                            <div
+                                className="exhibition-details__place-icon">{exhibitionDetails.place.city} {exhibitionDetails.place.place}</div>
                         </div>
-                        <div className="exhibition-details__time-icon">Начало {exhibitionDetails.date.start}</div>
-                        <div
-                            className="exhibition-details__place-icon">{exhibitionDetails.place.city} {exhibitionDetails.place.place}</div>
                     </div>
                     <table className="exhibition-details__attrs-table">
                         <tbody>
@@ -88,7 +92,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         </tr>
                         </tbody>
                     </table>
-                    <div className="">
+                    <div className="exhibition-details__controls">
                         <Button className="btn-primary">Участвовать</Button>
                         <Button className="btn-secondary">В избранное</Button>
                         <Button className="btn-secondary">Поделиться</Button>
@@ -99,6 +103,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                     <PriceTable categories={exhibitionDetails.prices.prices}/>
                     <ContestTable categories={exhibitionDetails.prices.contests}/>
                 </div>
+                <PaymentRequisites/>
             </div>
     }
     </ExhibitionsPathContext.Consumer>;

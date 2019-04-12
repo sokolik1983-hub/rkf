@@ -26,7 +26,7 @@ export default class ListItem extends PureComponent {
                         <div className="exhibition-list-item__participants-count">Количество
                             участников: <span>{participants_count}</span></div>
                         <div className="exhibition-list-item__controls">
-                            <Button className="btn-primary">Смотреть</Button><Button className="btn-secondary">В
+                            <Link to={`${path}/${id}/details`} className="btn btn-primary">Смотреть</Link><Button className="btn-secondary">В
                             изранное</Button>
                         </div>
                     </div>

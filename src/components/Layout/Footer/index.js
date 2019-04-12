@@ -1,9 +1,9 @@
 import React from "react";
 import "./style.scss";
-
+import Container from '../Container'
 const Footer = () => (
   <footer>
-    <div className="container_footer">
+    <Container className="container_footer">
       <div>
         {/*<img src={logoSvg} alt="logo" />*/}
         <p className="text_footer text_footer_main">
@@ -35,7 +35,7 @@ const Footer = () => (
       <div>
         <div className="block_footer">
           <div className="social_linls_footer">
-          {/* 
+          {/*
             <img src={twitter} alt="twitter" />
             <img src={facebook} alt="facebook" />
             <img src={google} alt="google" />
@@ -47,7 +47,7 @@ const Footer = () => (
           <div>
             <p className="text_footer_lang_active">Рус/</p>
             <p className="text_footer_lang">Eng</p>
-          </div>  
+          </div>
           <p className="bold_footer">Подпишитесь на новости</p>
           <div className="subscribe_footer">
             <form>
@@ -60,7 +60,7 @@ const Footer = () => (
           </div>
         </div>
       </div>
-    </div>
+    </Container>
     <div className="privacy_policy">
       <hr />
       <div className="privacy_policy_content">
