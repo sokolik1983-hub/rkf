@@ -1,0 +1,39 @@
+.contest-price-table {
+  border-collapse: collapse;
+  max-width: 50%;
+  min-width: 50%;
+  margin: 16px 0;
+  tr {
+    border-bottom: solid 1px;
+    border-color: #D1DBE3;
+  }
+
+  tr td {
+    padding: 32px 0;
+  }
+
+  tr td{
+    &:first-child{
+      padding-left: 22px;
+    }
+    &:last-child{
+      padding-right: 22px;
+    }
+  }
+  thead td {
+    color: #72839C;
+    font-size: 22px;
+    line-height: 30px;
+    padding: 14px 0;
+  }
+
+  tbody td {
+    font-size: 14px;
+    line-height: 16px;
+
+    &:first-child {
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+  }
+}

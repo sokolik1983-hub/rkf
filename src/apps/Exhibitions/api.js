@@ -1,4 +1,4 @@
-import request from 'utils/request';
+//import request from 'utils/request';
 import {exhibitions} from 'apps/Exhibitions/mock/exhibitions.list'
 
 export const EXHIBITIONS_API = '/api/v1/exhibitions/';
@@ -14,7 +14,7 @@ export const fakeRequest = (mockData, errors) => {
                 resolve(mockData)
         );
     });
-}
+};
 
 const Api = {
     fetchExhibitions: async () => {

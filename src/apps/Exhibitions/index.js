@@ -1,37 +1,42 @@
-import React, {Component} from "react";
-import {connect} from 'react-redux';
-import {bindActionCreators, compose} from "redux";
+import React, {Component} from "react"
+import {connect} from 'react-redux'
+import {bindActionCreators, compose} from "redux"
+import {Route, Switch} from 'react-router-dom'
 
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
-import FilterDate from './components/FilterDate'
-import List from './containers/ExhibitionsList'
-import Paginator from 'components/Paginator'
+
+import Details from './containers/Details'
+import ExhibitionsListView from './containers/ListView'
+
 import {
     fetchExhibitions
 } from './actions'
 
+import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
+
+
 
 class ExhibitionsProxy extends Component {
+    state = {
+        path: this.props.match.path
+    };
 
     componentDidMount() {
         this.props.fetchExhibitions();
     }
 
     render() {
+
         return (
-            <div className="exhibitions__holder">
-                <FilterDate/>
-                <List/>
-                <Paginator>
-                    <button className="paginator__btn paginator__btn--active">1</button>
-                    <button className="paginator__btn">2</button>
-                    <button className="paginator__btn">3</button>
-                    <button className="paginator__btn paginator__btn--next">Далее</button>
-                </Paginator>
-            </div>
+            <ExhibitionsPathContext.Provider value={{path: this.state.path}}>
+                <Switch>
+                    <Route path={`${this.state.path}/:id/details`} component={Details}/>
+                    <Route exact path={this.state.path} component={ExhibitionsListView}/>
+                </Switch>
+            </ExhibitionsPathContext.Provider>
         );
     }
 }

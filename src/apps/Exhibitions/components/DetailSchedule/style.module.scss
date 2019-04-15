@@ -1,0 +1,10 @@
+.day {
+  margin-bottom: 24px;
+
+  .event {
+    display: flex;
+    .start{
+      padding-right: 16px;
+    }
+  }
+}

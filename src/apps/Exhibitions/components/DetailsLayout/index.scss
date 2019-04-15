@@ -1,0 +1,69 @@
+.exhibition-details{
+  font-size: 18px;
+  line-height: 24px;
+  &__attrs-table{
+    width: 100%;
+    margin: 20px 0;
+    td:first-child{
+      font-weight: bold;
+      padding-left: 0px;
+    }
+    td{
+      padding-left: 12px;
+    }
+  }
+  &__controls{
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 32px 0;
+    .btn{
+      margin-right: 8px;
+      &:first-child{
+        flex: 1;
+      }
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  &__signature{
+    &--top{
+      font-size: 18px;
+      margin: 8px 0;
+      display: flex;
+      flex-flow: row wrap;
+      color: #72839C;
+      div{
+        margin-right: 65px;
+        &:last-child{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &__short_info{
+    div{
+      margin: 22px 0;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+  &__tabs{
+    margin: 32px 0 24px 0;
+    .tabs__tab{
+      flex: unset;
+      padding: 0;
+      margin-right: 24px;
+      font-size: 26px;
+      line-height: 30px;
+      color: #72839C;
+      &--active{
+        color: inherit;
+      }
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+
+}
