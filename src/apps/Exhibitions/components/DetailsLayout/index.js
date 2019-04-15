@@ -70,7 +70,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         <div className="exhibition-details__short_info">
                             <div
                                 className="exhibition-details__dates-icon">{exhibitionDetails.date.start} {exhibitionDetails.date.end}<br/>
-                                <a href="#">Добавить в календарь</a>
+                                <a href="/caledar/add">Добавить в календарь</a>
                             </div>
                             <div className="exhibition-details__time-icon">Начало {exhibitionDetails.date.start}</div>
                             <div
