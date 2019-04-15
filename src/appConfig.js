@@ -1,11 +1,18 @@
 import {
     LoadableDemo,
     LoadableDemoAside,
-    //LoadableExhibitions,
-    LoadableExhibitionsAside
+    LoadableExhibitions,
+    LoadableExhibitionsAside,
+    LoadableHomePage,
 } from "./appModules";
-import LoadableExhibitions from 'apps/Exhibitions'
+//import LoadableExhibitions from 'apps/Exhibitions'
+//import LoadableHomePage from 'apps/HomePage'
 export const appRoutes = [
+    {
+        exact: true,
+        path: '/',
+        component: LoadableHomePage
+    },
     {
         exact: false,
         path: '/demo',
@@ -16,6 +23,7 @@ export const appRoutes = [
         path: '/exhibitions',
         component: LoadableExhibitions
     },
+
 ];
 export const asideRoutes = [
     {
