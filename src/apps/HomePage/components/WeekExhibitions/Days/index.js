@@ -12,7 +12,7 @@ const Day = ({weekDay, selected, onDayChange}) => {
     const classNames = classnames(
         'week-day',
         {'week-day--active': weekDay.getDate() === selected}
-    )
+    );
     return <div onClick={onClick} className={classNames}>
         <div className="week-day__date">{weekDay.getDate()}</div>
         <div className="week-day__wrap">
