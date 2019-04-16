@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Link} from 'react-router-dom'
-import Container from 'components/Layout/Container'
+
 import './styles.scss'
 
 const Dot = ({active, onClick}) =>
@@ -8,8 +8,6 @@ const Dot = ({active, onClick}) =>
 
 const Arrow = ({onClick, right}) => <button onClick={onClick} className={`arrow ${right ? 'arrow--right' : 'arrow--left'}`}/>
 
-const Slide = ({slideIndex, content}) => <div className="big-slider__slide"
-                                              dangerouslySetInnerHTML={{__html: content}}/>;
 
 export default class BigSlider extends PureComponent {
     state = {
