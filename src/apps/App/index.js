@@ -27,11 +27,11 @@ class App extends Component {
             <BrowserRouter>
                 <Fragment>
                     <Header/>
-                    <Container className="container--content">
-                        <Switch>
-                            {this.renderRoutes()}
-                        </Switch>
-                    </Container>
+
+                    <Switch>
+                        {this.renderRoutes()}
+                    </Switch>
+
                     <Footer/>
                 </Fragment>
             </BrowserRouter>

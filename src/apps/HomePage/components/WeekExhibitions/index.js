@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import Container from 'components/Layout/Container'
 import Days from './Days'
 import Exhibitions from './Exhibitions'
 
@@ -16,13 +17,13 @@ export default class WeekExhibitions extends PureComponent {
     render() {
 
         return (
-            <div className="week-exhibitions">
+            <Container pad className="week-exhibitions">
                 <Days
                     selected={this.state.selectedWeekDay}
                     onDayChange={this.onDayChange}
                 />
                 <Exhibitions/>
-            </div>
+            </Container>
         )
     }
 }

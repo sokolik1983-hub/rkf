@@ -12,7 +12,7 @@ import {
 } from 'apps/HomePage/actions'
 
 
-class DemoApp extends Component {
+class HomePageApp extends Component {
 
     componentDidMount() {
         this.props.fetchHomePage();
@@ -43,4 +43,4 @@ const withConnect = connect(
 export default compose(
     withReducer,
     withSaga,
-    withConnect)(DemoApp)
+    withConnect)(HomePageApp)
