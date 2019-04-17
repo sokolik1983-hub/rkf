@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react'
 import {Link} from 'react-router-dom'
-import FormGroup from 'components/Form/FormGroup'
 import FormInput from 'components/Form/FormInput'
 import Button from 'components/Button'
 import './styles.scss'
