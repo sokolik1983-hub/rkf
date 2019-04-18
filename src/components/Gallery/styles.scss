@@ -1,0 +1,17 @@
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+
+  &-item {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+  }
+
+  &__first-row,&__second-row {
+    display: flex;
+    flex-flow: row no;
+  }
+}
