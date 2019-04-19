@@ -1,0 +1,15 @@
+.form-input {
+  display: flex;
+  flex-flow: column nowrap;
+
+  label {
+    margin-bottom: 8px;
+  }
+
+  .form-input__input {
+    &::placeholder {
+      font-family: inherit;
+      color: #BABFC7;
+    }
+  }
+}

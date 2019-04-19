@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {connect} from 'react-redux'
 import {bindActionCreators, compose} from "redux"
 import {Route, Switch} from 'react-router-dom'
-
+import Container from 'components/Layout/Container'
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
@@ -31,12 +31,14 @@ class ExhibitionsProxy extends Component {
     render() {
 
         return (
+            <Container pad content>
             <ExhibitionsPathContext.Provider value={{path: this.state.path}}>
                 <Switch>
                     <Route path={`${this.state.path}/:id/details`} component={Details}/>
                     <Route exact path={this.state.path} component={ExhibitionsListView}/>
                 </Switch>
             </ExhibitionsPathContext.Provider>
+            </Container>
         );
     }
 }

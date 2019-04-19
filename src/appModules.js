@@ -22,3 +22,8 @@ export const LoadableExhibitionsAside = Loadable({
     loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/Aside/index'),
     loading: Loading,
 });
+
+export const LoadableHomePage = Loadable({
+    loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
+    loading: Loading,
+});

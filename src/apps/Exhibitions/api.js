@@ -1,20 +1,9 @@
 //import request from 'utils/request';
 import {exhibitions} from 'apps/Exhibitions/mock/exhibitions.list'
+import {fakeRequest} from 'utils/fakeRequest'
 
-export const EXHIBITIONS_API = '/api/v1/exhibitions/';
+//export const EXHIBITIONS_API = '/api/v1/exhibitions/';
 
-export const fakeRequest = (mockData, errors) => {
-    return new Promise((resolve, reject) => {
-        process.nextTick(() =>
-            errors
-                ? reject({
-                    error: errors
-                })
-                :
-                resolve(mockData)
-        );
-    });
-};
 
 const Api = {
     fetchExhibitions: async () => {

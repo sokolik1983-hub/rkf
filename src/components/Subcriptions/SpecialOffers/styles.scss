@@ -1,0 +1,58 @@
+.special-offers {
+  background-color: transparentize(#1D6EE3, .75);
+  padding: 64px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  &__title {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__form {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    min-width: 680px;
+    margin-bottom: 16px;
+    .form-controls {
+      button {
+        font-size: 18px;
+        line-height: 24px;
+        padding: 12px 35px;
+      }
+    }
+
+    .form-input,
+    input {
+      display: flex;
+      flex: 1;
+    }
+
+    .form-input {
+      margin-right: 8px;
+    }
+
+
+    input {
+      box-sizing: border-box;
+      font-size: 18px;
+      line-height: 24px;
+      padding: 12px;
+      border-radius: 4px;
+      border: solid 1px;
+      border-color: white;
+    }
+  }
+
+  &__signature {
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #666F7C;
+  }
+}

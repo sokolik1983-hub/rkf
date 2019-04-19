@@ -2,7 +2,6 @@ import React, {Component, Fragment} from "react";
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import Header from 'components/Layout/Header'
 import Footer from 'components/Layout/Footer'
-import Container from 'components/Layout/Container'
 
 import {appRoutes} from 'appConfig'
 
@@ -27,11 +26,9 @@ class App extends Component {
             <BrowserRouter>
                 <Fragment>
                     <Header/>
-                    <Container className="container--content">
-                        <Switch>
-                            {this.renderRoutes()}
-                        </Switch>
-                    </Container>
+                    <Switch>
+                        {this.renderRoutes()}
+                    </Switch>
                     <Footer/>
                 </Fragment>
             </BrowserRouter>

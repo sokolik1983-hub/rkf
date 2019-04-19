@@ -1,0 +1,48 @@
+.register-block {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 80px 0;
+
+  &__banner {
+    max-width: 722px;
+    margin-right: 40px;
+    min-height: 626px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    background-color: #EEF2F4;
+    img{
+      height: 626px;
+    }
+  }
+
+  &__title {
+    font-size: 38px;
+    line-height: 42px;
+    font-weight: 400;
+  }
+
+  &__text {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+
+  }
+
+  ul {
+    color: #666F7C;
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 40px 0;
+    li{
+      margin: 16px 0;
+    }
+  }
+  &__controls{
+    .btn{
+      font-size: 18px;
+      line-height: 24px;
+      padding: 12px 40px;
+    }
+  }
+}
