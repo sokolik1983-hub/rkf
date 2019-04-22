@@ -1,0 +1,23 @@
+.input-password{
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  .form-input__input{
+    min-width: 100%;
+    padding-right: 42px !important;
+    box-sizing: border-box;
+  }
+  &__toggle{
+    box-sizing: border-box;
+    border-width: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+    width: 18px;
+    height: 12px;
+    background-image: url('/static/icons/eye.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}

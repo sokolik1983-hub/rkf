@@ -27,3 +27,8 @@ export const LoadableHomePage = Loadable({
     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
     loading: Loading,
 });
+
+export const LoadableRegistration = Loadable({
+    loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/Registration/index'),
+    loading: Loading,
+});

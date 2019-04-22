@@ -1,0 +1,21 @@
+.input-phone__wrap {
+  display: flex;
+  position: relative;
+
+  button {
+    position: absolute;
+    border-width: 0;
+    border-color: transparent;
+    color: #3366FF;
+    font-size: 14px;
+    line-height: 14px;
+    right: 8px;
+    top:50%;
+    transform: translateY(-50%);
+  }
+
+  .form-input__input {
+    display: flex;
+    flex: 1;
+  }
+}

@@ -1,9 +1,8 @@
 import {
     LoadableDemo,
-    LoadableDemoAside,
     LoadableExhibitions,
-    LoadableExhibitionsAside,
     LoadableHomePage,
+    LoadableRegistration,
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
 //import LoadableHomePage from 'apps/HomePage'
@@ -23,20 +22,14 @@ export const appRoutes = [
         path: '/exhibitions',
         component: LoadableExhibitions
     },
+    {
+        exact: false,
+        path: '/registration',
+        component: LoadableRegistration
+    },
 
 ];
-export const asideRoutes = [
-    {
-        exact: false,
-        path: '/demo',
-        component: LoadableDemoAside
-    },
-    {
-        exact: false,
-        path: '/exhibitions',
-        component: LoadableExhibitionsAside
-    },
-];
+
 
 // Результаты Расписание рингов Карточка участника Заявки
 export const mainNav = [

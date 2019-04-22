@@ -8,15 +8,16 @@ import WidgetNotifications from 'components/WidgetNotifications'
 import WidgetLogin from 'components/WidgetLogin'
 import './index.scss'
 
-const Header = ({children}) => <header>
-    <Container>
-        <HeaderLogo/>
-        <Nav/>
-        <WidgetLang/>
-        <WidgetNotifications/>
-        <WidgetLogin/>
-    </Container>
-</header>;
+const Header = ({children}) =>
+    <header>
+        <Container pad>
+            <HeaderLogo/>
+            <Nav/>
+            <WidgetLang/>
+            <WidgetNotifications/>
+            <WidgetLogin/>
+        </Container>
+    </header>;
 
 
 export default Header;
