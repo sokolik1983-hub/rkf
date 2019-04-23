@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
-import demoReducer from 'apps/Demo/reducer'
+import authenticationReducer from 'apps/Auth/reducer'
 
 export default function createReducer(injectedReducers) {
     return combineReducers({
         routing: routerReducer,
-        ddd: demoReducer,
+        authentication: authenticationReducer,
         ...injectedReducers,
     });
 }

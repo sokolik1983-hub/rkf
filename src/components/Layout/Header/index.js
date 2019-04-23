@@ -5,7 +5,7 @@ import Nav from 'components/Nav'
 
 import WidgetLang from 'components/WidgetLang'
 import WidgetNotifications from 'components/WidgetNotifications'
-import WidgetLogin from 'components/WidgetLogin'
+import HeaderLogin from 'apps/Auth/containers/HeaderLogin'
 import './index.scss'
 
 const Header = ({children}) =>
@@ -15,7 +15,7 @@ const Header = ({children}) =>
             <Nav/>
             <WidgetLang/>
             <WidgetNotifications/>
-            <WidgetLogin/>
+            <HeaderLogin/>
         </Container>
     </header>;
 

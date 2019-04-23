@@ -31,9 +31,6 @@ export default class RegistrationLayout extends Component {
                         <TabContent label="Я - владелец">
                             <RegistrationForm/>
                         </TabContent>
-                        <TabContent label="Я - заводчик">
-                            <RegistrationFormIP/>
-                        </TabContent>
                         <TabContent label="Я - клуб">
                             <RegistrationFormIP/>
                         </TabContent>
@@ -46,7 +43,7 @@ export default class RegistrationLayout extends Component {
                         использования</Link> и&nbsp;<Link to="/">Политику конфиденциальности</Link>
                     </div>
                     <div className="registration__switch-to-login">
-                        Уже есть аккаунт? <Link to="/login">Войти</Link>
+                        Уже есть аккаунт? <Link to="/auth/login">Войти</Link>
                     </div>
                 </div>
             </div>

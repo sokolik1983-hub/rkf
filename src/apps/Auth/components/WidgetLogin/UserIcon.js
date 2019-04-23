@@ -1,10 +1,12 @@
 import React from 'react'
-import NoUserIcon from './NoUserIcon.svg'
-import {Link} from 'react-router-dom'
+
+
+const NoUserIcon = '/static/icons/NoUserIcon.svg';
 
 export const UserIcon = ({url}) => <div className="widget-login__user-icon">
-    <Link to="/registration"><img
+    <img
         src={url ? url : NoUserIcon}
         alt=""
-    /></Link>
+    />
+
 </div>;

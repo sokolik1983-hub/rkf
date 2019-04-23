@@ -1,0 +1,80 @@
+.authorization {
+  &__logo {
+    width: 80px;
+    height: 80px;
+    background-image: url('/static/images/header/rkf-logo.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 40px auto 8px auto;
+  }
+
+  &__wrap {
+    position: fixed;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 300;
+  }
+
+  &__image {
+    img {
+      min-height: 100%;
+    }
+
+  }
+
+  &__holder {
+    box-sizing: border-box;
+    max-width: 572px;
+    min-width: 572px;
+    margin: 80px auto;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 38px;
+    line-height: 42px;
+    font-weight: 400;
+    margin: 0 0 24px 0;
+  }
+
+  &__tabs {
+    flex-flow: row nowrap;
+    margin: 0 0 16px 0;
+
+    .tabs__tab {
+      font-family: 'Futura New', Helvetica, sans-serif;
+      text-decoration: none;
+      color: #CCCCCC;
+      white-space: nowrap;
+      text-transform: uppercase;
+      padding: 16px;
+      box-shadow: 0 1px 0 0 #CCCCCC;
+      font-weight: 400;
+      outline: none;
+
+      &--active {
+        color: #253C5E;
+        box-shadow: 0 2px 0 0 #253C5E;
+      }
+    }
+  }
+
+  &__signature {
+    color: #72839C;
+    margin: 12px 0;
+  }
+
+  &__switch-to-login {
+    text-align: center;
+    margin: 32px 0;
+  }
+
+  &__holder {
+    .form-controls {
+      text-align: center;
+    }
+  }
+}
