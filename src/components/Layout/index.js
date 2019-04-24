@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import Calendar from 'apps/Exhibitions/componentns/Calendar'
 import Header from 'components/Layout/Header'
 import Aside from 'components/Layout/Aside'
 import Content from 'components/Layout/Content'
@@ -6,7 +7,7 @@ import Container from 'components/Layout/Container'
 
 import './index.scss'
 
-import Calendar from 'apps/Exhibitions/componentns/Calendar'
+
 
 const AppLayout = ({children}) => {
     return (

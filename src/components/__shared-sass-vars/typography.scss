@@ -1,1 +1,16 @@
-h1, h2, h3, h4, h5, h6{color: #253C5E; font-weight: normal}
+h1, h2, h3, h4, h5, h6 {
+  color: #253C5E;
+  font-weight: normal
+}
+
+body {
+  a,
+  a:visited,
+  a:active {
+    color: #3366FF;
+
+    &.no-ul {
+      text-decoration: none;
+    }
+  }
+}

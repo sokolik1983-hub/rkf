@@ -2,9 +2,13 @@ import React from 'react'
 import classnames from 'classnames'
 import './styles.scss'
 
-const FormGroup = ({children, inline}) =>
+const FormGroup = ({children, className, inline}) =>
     <div
-        className={classnames('form-group', {'form-group--inline': inline})}
+        className={classnames(
+            'form-group',
+            {'form-group--inline': inline},
+            {[className]: className},
+        )}
     >
         {children}
     </div>;

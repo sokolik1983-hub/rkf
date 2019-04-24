@@ -39,6 +39,13 @@
     font-weight: 400;
     margin: 0 0 24px 0;
   }
+   &__subtitle {
+    text-align: center;
+    color: #72839C;
+     font-size: 22px;
+     line-height: 30px;
+     margin: 24px 0;
+  }
 
   &__tabs {
     flex-flow: row nowrap;

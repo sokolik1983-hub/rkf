@@ -34,6 +34,13 @@ export default function authReducer(state = authInitialState, action) {
             };
         }
 
+        case actiontypes.CLEAR_REQUEST_ERRORS: {
+            return {
+                ...state,
+                requestErrors: {},
+            }
+        }
+
         default:
             return state;
     }

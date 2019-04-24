@@ -3,10 +3,10 @@ import {
     LoadableExhibitions,
     LoadableHomePage,
     LoadableRegistration,
-    LoadableAuthorization
+    //LoadableAuthorization
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
-//import LoadableHomePage from 'apps/HomePage'
+import LoadableAuthorization from 'apps/Auth'
 export const LOGIN_URL = '/auth/login';
 export const REGISTER_URL = '/registration';
 

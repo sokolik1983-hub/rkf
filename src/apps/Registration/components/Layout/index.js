@@ -23,7 +23,7 @@ export default class RegistrationLayout extends Component {
     render() {
         return (
             <div content className="registration__wrap">
-                <div className="registration__image"><img src="/static/images/registration/banner.png"/></div>
+                <div className="registration__image"><img src="/static/images/registration/banner.png" alt=""/></div>
                 <div content className="registration__holder">
                     <div className="registration__logo"/>
                     <div className="registration__title">Регистрацая</div>

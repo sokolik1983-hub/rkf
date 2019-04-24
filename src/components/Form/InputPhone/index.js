@@ -7,7 +7,7 @@ export default class InputPhone extends PureComponent {
     };
 
     submitPhone = () => {
-
+        this.props.submitPhone(this.props.value)
     };
 
     render() {
