@@ -2,11 +2,9 @@ import React, {PureComponent} from 'react'
 import {withFormik, Form} from 'formik';
 import FormField from 'components/Form/Field'
 import FormGroup from "components/Form/FormGroup";
-
 import Button from "components/Button";
-
+import FormInput from "components/Form/Field/FormInput";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
-import FormInput from "../../../../components/Form/Field/FormInput";
 import {Link} from "react-router-dom";
 
 import './styles.scss'

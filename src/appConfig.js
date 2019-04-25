@@ -2,13 +2,12 @@ import {
     LoadableDemo,
     LoadableExhibitions,
     LoadableHomePage,
-    LoadableRegistration,
     //LoadableAuthorization
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
 import LoadableAuthorization from 'apps/Auth'
 export const LOGIN_URL = '/auth/login';
-export const REGISTER_URL = '/registration';
+export const REGISTER_URL = '/auth/registration';
 
 export const appRoutes = [
     {
@@ -28,15 +27,9 @@ export const appRoutes = [
     },
     {
         exact: false,
-        path: '/registration',
-        component: LoadableRegistration
-    },
-    {
-        exact: true,
-        path: '/auth/login',
+        path: '/auth',
         component: LoadableAuthorization
     },
-
 ];
 
 

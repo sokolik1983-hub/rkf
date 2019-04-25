@@ -1,30 +1,19 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {
-    RegistrationForm,
-    RegistrationFormIP,
-} from '../Form'
+
+import RegistrationForm from 'apps/Auth/containers/Register'
 import Tabs from "components/Tabs";
 import {TabContent} from "components/Tabs";
 
 import './style.scss'
 
 export default class RegistrationLayout extends Component {
-    state = {
-        first_name: '',
-        second_name: '',
-        password: '',
-        password_confirm: '',
-        email: '',
-        phone: '',
-        phone_code: ''
-    };
 
     render() {
         return (
-            <div content className="registration__wrap">
+            <div className="registration__wrap">
                 <div className="registration__image"><img src="/static/images/registration/banner.png" alt=""/></div>
-                <div content className="registration__holder">
+                <div className="registration__holder">
                     <div className="registration__logo"/>
                     <div className="registration__title">Регистрацая</div>
                     <Tabs className="registration__tabs">
@@ -32,10 +21,10 @@ export default class RegistrationLayout extends Component {
                             <RegistrationForm/>
                         </TabContent>
                         <TabContent label="Я - клуб">
-                            <RegistrationFormIP/>
+                            <RegistrationForm/>
                         </TabContent>
                         <TabContent label="Я - питомник">
-                            <RegistrationFormIP/>
+                            <RegistrationForm/>
                         </TabContent>
                     </Tabs>
                     <div className="registration__signature">

@@ -4,6 +4,7 @@ import * as actiontypes from './actiontypes';
 const authInitialState = {
     loadingApi: false,
     isAuthenticated: false,
+    registrationComplete: false,
     user: null,
     requestErrors: {}
 };
@@ -31,6 +32,28 @@ export default function authReducer(state = authInitialState, action) {
                 ...state,
                 loadingApi: false,
                 requestErrors: action.errors,
+            };
+        }
+
+        case actiontypes.REGISTER: {
+            return {
+                ...state,
+                loadingApi: true,
+            };
+        }
+        case actiontypes.REGISTER_SUCCESS: {
+            return {
+                ...state,
+                loadingApi: false,
+                registrationComplete: true,
+                isAuthenticated: true,
+                user: action.data
+            };
+        }
+        case actiontypes.REGISTER_FAILED: {
+            return {
+                ...state,
+                loadingApi: false,
             };
         }
 

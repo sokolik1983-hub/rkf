@@ -30,7 +30,7 @@ export default class AuthorizationLayout extends Component {
                     <Login/>
 
                     <div className="authorization__switch-to-login">
-                        Впервые на РКФ? <Link to="/registration">Зарегистрироваться</Link>
+                        Впервые на РКФ? <Link to="/auth/registration">Зарегистрироваться</Link>
                     </div>
                 </div>
             </div>

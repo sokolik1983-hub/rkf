@@ -26,7 +26,7 @@ class Registration extends Component {
 const withReducer = injectReducer({key: 'registration', reducer: reducer});
 const withSaga = injectSaga({key: 'registration', saga});
 
-const mapStateToProps = state => state.demo;
+const mapStateToProps = state => state.registration;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     registerUser,

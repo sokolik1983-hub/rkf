@@ -7,11 +7,6 @@ export const LoadableDemo = Loadable({
     loading: Loading,
 });
 
-export const LoadableDemoAside = Loadable({
-    loader: () => import(/* webpackChunkName: "app.demo.aside" */ './apps/Demo/Aside/index'),
-    loading: Loading,
-});
-
 
 export const LoadableExhibitions = Loadable({
     loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/index'),
@@ -28,10 +23,6 @@ export const LoadableHomePage = Loadable({
     loading: Loading,
 });
 
-export const LoadableRegistration = Loadable({
-    loader: () => import(/* webpackChunkName: "app.registration" */ './apps/Registration/index'),
-    loading: Loading,
-});
 
 export const LoadableAuthorization = Loadable({
     loader: () => import(/* webpackChunkName: "app.authorization" */ './apps/Auth/index'),

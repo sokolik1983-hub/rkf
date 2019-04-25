@@ -23,6 +23,7 @@ const Api = {
             password: ["Неверная комбинация Логин/Пароль"],
         })
     },
+    registerUser: async (action) => fakeRequest(action.data)
 };
 
 export default Api;

@@ -1,127 +1,64 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
+import {withFormik, Form} from 'formik';
+import FormField from 'components/Form/Field'
 import FormGroup from "components/Form/FormGroup";
-import FormInput from "components/Form/FormInput";
-import InputPassword from "components/Form/InputPassword";
-import InputPhone from "components/Form/InputPhone";
 import Button from "components/Button";
+import FormInput from "components/Form/Field/FormInput";
+import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
+import {Link} from "react-router-dom";
 
-export const RegistrationForm = () =>
-    <form>
-        <FormGroup inline>
-            <FormInput>
-                <label>Имя</label>
-                <input
-                    className="form-input__input"
-                    type="text"
-                    placeholder="Иван"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Фамилия</label>
-                <input
-                    className="form-input__input"
-                    type="text"
-                    placeholder="Иванов"
-                />
-            </FormInput>
-        </FormGroup>
-        <FormGroup inline>
-            <FormInput>
-                <label>E-mail</label>
-                <input
-                    className="form-input__input"
-                    type="email"
-                    placeholder="Ведите вашу личную почту"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Пароль</label>
-                <InputPassword
-                    className="form-input__input"
-                    placeholder="Минимум 8 символов"
-                />
-            </FormInput>
-        </FormGroup>
-        <FormGroup inline>
-            <FormInput>
-                <label>Телефон</label>
-                <InputPhone
-                    className="form-input__input"
-                    type="text"
-                    placeholder="7 ( ) ___ __ __"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Проверочный код</label>
-                <input
-                    className="form-input__input"
-                    type="password"
-                    placeholder="******"
-                />
-            </FormInput>
-        </FormGroup>
-        <div className="form-controls">
-            <Button className="btn-primary btn-lg">Зарегистрироваться</Button>
-        </div>
-    </form>
+class RegistrationForm extends PureComponent {
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        processRequestErrors(this.props)
+    }
+
+    render() {
+        const {fields} = this.props;
+        return (
+            <Form className="registration-form">
+                <FormGroup inline>
+                    <FormField
+                        {...fields.first_name}
+                    />
+                    <FormField
+                        {...fields.second_name}
+                    />
+                </FormGroup>
+                <FormGroup inline>
+                    <FormField
+                        {...fields.email}
+                    />
+                    <FormField
+                        {...fields.password}
+                    />
+                </FormGroup>
+                <FormGroup inline>
+                    <FormField
+                        {...fields.phone_number}
+                    />
+                    <FormField
+                        {...fields.submit_phone_code}
+                    />
+                </FormGroup>
+
+                <div className="form-controls">
+                    <Button type="submit" className="btn-primary btn-lg">Зарегистрироваться</Button>
+                </div>
+            </Form>
+        )
+    }
+}
 
 
-export const RegistrationFormIP = () =>
-    <form>
-        <FormGroup inline>
-            <FormInput>
-                <label>Наименование ИП</label>
-                <input
-                    className="form-input__input"
-                    type="text"
-                    placeholder="Полное именование"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Статус</label>
-                <input
-                    className="form-input__input"
-                    type="text"
-                    placeholder="Региональный или федеральный"
-                />
-            </FormInput>
-        </FormGroup>
-        <FormGroup inline>
-            <FormInput>
-                <label>E-mail</label>
-                <input
-                    className="form-input__input"
-                    type="email"
-                    placeholder="Ведите вашу личную почту"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Пароль</label>
-                <InputPassword
-                    className="form-input__input"
-                    placeholder="Минимум 8 символов"
-                />
-            </FormInput>
-        </FormGroup>
-        <FormGroup inline>
-            <FormInput>
-                <label>Телефон</label>
-                <InputPhone
-                    className="form-input__input"
-                    type="text"
-                    placeholder="7 ( ) ___ __ __"
-                />
-            </FormInput>
-            <FormInput>
-                <label>Проверочный код</label>
-                <input
-                    className="form-input__input"
-                    type="password"
-                    placeholder="******"
-                />
-            </FormInput>
-        </FormGroup>
-        <div className="form-controls">
-            <Button className="btn-primary btn-lg">Зарегистрироваться</Button>
-        </div>
-    </form>
+export default withFormik(
+    {
+        mapPropsToValues: props => getFormInitialValues({
+            fields: props.fields,
+            formInitials: props.formInitials
+        }),
+        validationSchema: props => props.validationSchema,
+        handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
+        displayName: props => props.displayName, // helps with React DevTools
+    }
+)(RegistrationForm);

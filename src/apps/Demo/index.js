@@ -1,30 +1,19 @@
 import React, {Component} from "react";
-import {connect} from 'react-redux';
-import {bindActionCreators, compose} from "redux";
 
-import injectReducer from 'utils/injectReducer'
-import injectSaga from 'utils/injectSaga'
-import reducer from './reducer'
-import saga from "./saga";
+import {Link} from 'react-router-dom'
 
-import {
-    fetchDemo
-} from 'apps/Demo/actions'
+import Container from 'components/Layout/Container'
 
 
 
 class DemoApp extends Component {
 
-    componentDidMount() {
-        this.props.fetchDemo();
-    }
-
     render() {
         return (
-            <div className="demo__holder">
-                <h1>Demo App</h1>
-                <p>Here comes demo</p>
-            </div>
+            <Container pad content>
+                <h1>Раздел в разработке</h1>
+                <p>Вернуться на <Link to="/">гравную страницу</Link></p>
+            </Container>
         );
     }
 }
@@ -32,21 +21,5 @@ class DemoApp extends Component {
 
 
 
-const withReducer = injectReducer({key: 'demo', reducer: reducer});
-const withSaga = injectSaga({key: 'demo', saga});
 
-const mapStateToProps = state => state.demo;
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchDemo,
-}, dispatch);
-
-const withConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-);
-
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect)(DemoApp)
+export default DemoApp

@@ -3,7 +3,7 @@
   flex-flow: column nowrap;
   min-width: 278px;
   margin-bottom: 32px;
-
+  position: relative;
   label {
     margin-bottom: 8px;
   }
@@ -52,5 +52,9 @@
     .form-input__feedback{
       color: #FA5D50;
     }
+  }
+  &__feedback{
+    position: absolute;
+    bottom: -24px
   }
 }
