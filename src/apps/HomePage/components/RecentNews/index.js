@@ -53,6 +53,7 @@ export default class RecentNews extends Component {
                             news.map(newsItem => <ListItem
                                 key={newsItem.id}
                                 category={categories[newsItem.category.toString()].title}
+                                image={newsItem.image}
                                 title={newsItem.title}
                             />)
                         }

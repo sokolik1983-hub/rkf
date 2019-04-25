@@ -25,7 +25,7 @@ export default class BigSlider extends PureComponent {
                 <div className="big-slider__content">
                     <div className="big-slider__slide">
 
-                        <div style={{backgroundImage: `url(${'/static/images/noimg/home.svg'})`}}
+                        <div style={{backgroundImage: `url(${'/media/images/home/01.png'})`}}
                              className="big-slider__slide-image"/>
                         <Link to={'/'} className="big-slider__slide-link">Читать<br/>далее</Link>
                         <div className="big-slider__slide-text">

@@ -4,9 +4,7 @@ import './styles.scss'
 
 const RegisterBlock = () =>
     <div className="register-block">
-        <div className="register-block__banner">
-            <img src="/static/images/noimg/details.svg" alt=""/>
-        </div>
+        <div style={{backgroundImage:`url(${'/media/images/home/14.jpeg'})`}} className="register-block__banner"/>
         <div className="register-block__text">
             <div className="register-block__title">Зачем регистрироваться на нашем портале?</div>
             <ul>
