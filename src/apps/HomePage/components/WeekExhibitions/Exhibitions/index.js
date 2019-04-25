@@ -4,11 +4,12 @@ import Container from 'components/Layout/Container'
 import './styles.scss'
 
 
-const Exhibition = ({exhibition}) => <div className="exhibition">
-    <div style={{backgroundImage:`${exhibition.image}`}} className="exhibition__image"/>
-    <div className="exhibition__title">{exhibition.title}</div>
-    <div className="exhibition__preview-text">{exhibition.preview_text}</div>
-</div>
+const Exhibition = ({exhibition}) =>
+    <div className="exhibition">
+        <div style={{backgroundImage: `url(${exhibition.image})`}} className="exhibition__image"/>
+        <div className="exhibition__title">{exhibition.title}</div>
+        <div className="exhibition__preview-text">{exhibition.preview_text}</div>
+    </div>
 
 
 export default class Exhibitions extends PureComponent {
