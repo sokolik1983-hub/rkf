@@ -1,3 +1,13 @@
 .drop-down__item{
-  padding: 10px 46px;
+  padding: 8px;
+  white-space: nowrap;
+  min-width: 160px;
+  a{
+    text-decoration: none;
+    color: currentColor;
+    display: block;
+  }
+  &:hover{
+    background-color: whitesmoke;
+  }
 }

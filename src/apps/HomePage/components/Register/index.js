@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from 'components/Button'
+import {Link} from 'react-router-dom'
 import './styles.scss'
 
 const RegisterBlock = () =>
@@ -16,7 +16,7 @@ const RegisterBlock = () =>
                 <li>Управление информацией Baby Dog</li>
             </ul>
             <div className="register-block__controls">
-                <Button className="btn-primary btn-lg">Регистрация</Button>
+                <Link to="/registration" className="btn btn-primary btn-lg">Регистрация</Link>
             </div>
         </div>
     </div>

@@ -1,12 +1,14 @@
 import {
     LoadableDemo,
-    LoadableDemoAside,
     LoadableExhibitions,
-    LoadableExhibitionsAside,
     LoadableHomePage,
+    //LoadableAuthorization
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
-//import LoadableHomePage from 'apps/HomePage'
+import LoadableAuthorization from 'apps/Auth'
+export const LOGIN_URL = '/auth/login';
+export const REGISTER_URL = '/auth/registration';
+
 export const appRoutes = [
     {
         exact: true,
@@ -23,20 +25,13 @@ export const appRoutes = [
         path: '/exhibitions',
         component: LoadableExhibitions
     },
+    {
+        exact: false,
+        path: '/auth',
+        component: LoadableAuthorization
+    },
+];
 
-];
-export const asideRoutes = [
-    {
-        exact: false,
-        path: '/demo',
-        component: LoadableDemoAside
-    },
-    {
-        exact: false,
-        path: '/exhibitions',
-        component: LoadableExhibitionsAside
-    },
-];
 
 // Результаты Расписание рингов Карточка участника Заявки
 export const mainNav = [

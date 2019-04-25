@@ -1,7 +1,16 @@
 .form-group{
+
   &--inline{
+    margin-bottom: 32px;
     display: flex;
     flex-flow: row;
     align-items: center;
+    .form-input{
+      margin-right: 16px;
+      margin-bottom: 0;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
   }
 }

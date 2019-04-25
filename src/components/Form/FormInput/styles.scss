@@ -1,12 +1,24 @@
 .form-input {
   display: flex;
   flex-flow: column nowrap;
+  min-width: 278px;
 
   label {
     margin-bottom: 8px;
   }
 
   .form-input__input {
+    letter-spacing: 1px;
+    font-family: 'Futura New', Helvetica, sans-serif;
+    font-weight: 200;
+    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 12px;
+    border-radius: 6px;
+    border: solid 1px;
+    border-color: #EBF0F2;
+
     &::placeholder {
       font-family: inherit;
       color: #BABFC7;

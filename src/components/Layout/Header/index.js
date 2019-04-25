@@ -5,18 +5,19 @@ import Nav from 'components/Nav'
 
 import WidgetLang from 'components/WidgetLang'
 import WidgetNotifications from 'components/WidgetNotifications'
-import WidgetLogin from 'components/WidgetLogin'
+import HeaderLogin from 'apps/Auth/containers/HeaderLogin'
 import './index.scss'
 
-const Header = ({children}) => <header>
-    <Container>
-        <HeaderLogo/>
-        <Nav/>
-        <WidgetLang/>
-        <WidgetNotifications/>
-        <WidgetLogin/>
-    </Container>
-</header>;
+const Header = ({children}) =>
+    <header>
+        <Container pad>
+            <HeaderLogo/>
+            <Nav/>
+            <WidgetLang/>
+            <WidgetNotifications/>
+            <HeaderLogin/>
+        </Container>
+    </header>;
 
 
 export default Header;

@@ -1,27 +1,29 @@
 import * as actiontypes from './actiontypes';
 
 
-const demoInitialState = {
+const registrationInitialState = {
     loadingApi: false,
+    registrationComplete: false
 };
 
-export default function demoReducer(state = demoInitialState, action) {
+export default function demoReducer(state = registrationInitialState, action) {
 
     switch (action.type) {
 
-        case actiontypes.FETCH_DEMO: {
+        case actiontypes.REGISTER: {
             return {
                 ...state,
                 loadingApi: true,
             };
         }
-        case actiontypes.FETCH_DEMO_SUCCESS: {
+        case actiontypes.REGISTER_SUCCESS: {
             return {
                 ...state,
                 loadingApi: false,
+                registrationComplete: true,
             };
         }
-        case actiontypes.FETCH_DEMO_FAILED: {
+        case actiontypes.REGISTER_FAILED: {
             return {
                 ...state,
                 loadingApi: false,

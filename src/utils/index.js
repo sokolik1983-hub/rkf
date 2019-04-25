@@ -1,4 +1,3 @@
-
 export const isDevEnv = () => process.env.NODE_ENV !== 'production';
 
 
@@ -52,7 +51,6 @@ export const sortBy = (array, key) => {
 };
 
 
-
 export const scrollSmoothTop = () => window.scrollTo({
     top: 0,
     behavior: "smooth"
@@ -62,3 +60,9 @@ export const scrollSmoothBottom = () => window.scrollTo({
     top: document.body.scrollHeight,
     behavior: "smooth"
 });
+
+
+export const varIsArray = (variable) => Object.prototype.toString.call(variable) === "[object Array]";
+export const varIsObject = (variable) => Object.prototype.toString.call(variable) === "[object Object]";
+
+export const objectNotEmpty = (obj) => varIsObject(obj) && Object.keys(obj).length > 0;
