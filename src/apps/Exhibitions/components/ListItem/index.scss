@@ -33,6 +33,7 @@ $base-class: exhibition-list-item;
 
   &__city {
     margin-right: auto;
+    text-transform: uppercase;
   }
 
   &__title {

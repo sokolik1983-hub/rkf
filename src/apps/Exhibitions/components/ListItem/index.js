@@ -8,14 +8,15 @@ import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
 
 export default class ListItem extends PureComponent {
     render() {
-        const {id, title, start_datetime, end_datetime, city, participants_count} = this.props;
+        const {id, title, start_datetime, end_datetime, city, participants_count, cities} = this.props;
         return <ExhibitionsPathContext.Consumer>{
             ({path}) =>
                 (
                     <div id={'exhibitionsListItem_' + id} className="exhibition-list-item">
                         <div className="exhibition-list-item__header">
                             <div className="exhibition-list-item__city">
-                                <Link to={`${path}/${id}/details`}>{city}</Link>
+                                {/*<Link to={`${path}/${id}/details`}>{cities[city.toString()].title}</Link>*/}
+                                {cities[city.toString()].title}
                             </div>
                             <div
                                 className="exhibition-list-item__datetime">

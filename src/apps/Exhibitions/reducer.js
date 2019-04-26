@@ -17,9 +17,11 @@ export default function demoReducer(state = demoInitialState, action) {
             };
         }
         case actiontypes.GET_EXHIBITIONS_SUCCESS: {
+            const {exhibitions, cities} = action.data;
             return {
                 ...state,
-                exhibitions: action.data,
+                exhibitions: exhibitions,
+                cities: cities,
                 loadingApi: false,
             };
         }

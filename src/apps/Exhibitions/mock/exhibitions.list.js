@@ -86,17 +86,18 @@ export const exhibitions_favorites = [
     1, 2, 3
 ];
 
-export const cities = [
-    {
-        id:1,
+export const cities = {
+    "1": {
+        id: 1,
         title: 'Астрахань',
     },
-    {
-        id:2,
+    "2": {
+        id: 2,
         title: 'Москва',
     },
-    {
-        id:3,
+    "3": {
+        id: 3,
         title: 'Санкт-Петербург',
     },
-];
+}
+
