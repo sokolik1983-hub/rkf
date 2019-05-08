@@ -1,18 +1,27 @@
-//import request from 'utils/request';
-import {fakeRequest} from 'utils/fakeRequest'
+import request, {getHeaders} from "utils/request";
+import {fakeRequest} from "utils/fakeRequest";
 
-//export const DEMO_API = '/api/demo/';
+const SERVER = 'http://192.168.1.228:50003';
 
+export const REGISTER = '/api/Registration';
 
 const Api = {
-    // fetchHomePage: async () => {
-    //     return request(
-    //         {
-    //             url: DEMO_API,
-    //         }
-    //     );
-    // },
-    registerUser: async () => fakeRequest({})
+
+    registerUser: async (action) => {
+        return request(
+            {
+                url: SERVER + REGISTER,
+                options: {
+                    method: "POST",
+                    headers: getHeaders(),
+                    mode: 'cors',
+                    body: JSON.stringify(action.data)
+                }
+            }
+        );
+
+        //return fakeRequest(null, {email:"error"})
+    },
 };
 
 export default Api;

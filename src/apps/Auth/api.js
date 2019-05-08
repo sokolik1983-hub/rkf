@@ -1,29 +1,25 @@
-//import request from 'utils/request';
-import {fakeRequest} from "utils/fakeRequest";
+import request, {getHeaders} from 'utils/request';
+//import {fakeRequest} from "utils/fakeRequest";
 
+const SERVER = 'http://192.168.1.8:50003';
 
-export const LOGIN = '/api/auth/login/';
+export const LOGIN = '/api/Authentication';
 
-const fakeLoginData = {
-    id: 1,
-};
 
 const Api = {
     loginUser: async (action) => {
-        console.log(action);
-        if (action.data.password.toString() === '123456') {
-            return fakeRequest(fakeLoginData)
-        }
-        // return request(
-        //     {
-        //         url: EXHIBITIONS_API,
-        //     }
-        // );
-        return fakeRequest(fakeLoginData, {
-            password: ["Неверная комбинация Логин/Пароль"],
-        })
+        return request(
+            {
+                url: SERVER + LOGIN,
+                options: {
+                    method: "POST",
+                    headers: getHeaders(),
+                    mode: 'cors',
+                    body: JSON.stringify(action.data)
+                }
+            }
+        );
     },
-    registerUser: async (action) => fakeRequest(action.data)
 };
 
 export default Api;

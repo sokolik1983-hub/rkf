@@ -3,10 +3,11 @@ import * as actiontypes from './actiontypes';
 
 const registrationInitialState = {
     loadingApi: false,
-    registrationComplete: false
+    registrationComplete: false,
+    requestErrors: {}
 };
 
-export default function demoReducer(state = registrationInitialState, action) {
+export default function registrationReducer(state = registrationInitialState, action) {
 
     switch (action.type) {
 
@@ -27,6 +28,7 @@ export default function demoReducer(state = registrationInitialState, action) {
             return {
                 ...state,
                 loadingApi: false,
+                requestErrors: action.errors
             };
         }
 

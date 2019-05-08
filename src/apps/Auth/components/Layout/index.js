@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Login from 'apps/Auth/containers/Login'
-import FormInput from 'components/Form/Field/FormInput'
 import './style.scss'
 
 export default class AuthorizationLayout extends Component {

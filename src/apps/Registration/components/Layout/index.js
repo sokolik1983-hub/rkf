@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
-import RegistrationForm from 'apps/Auth/containers/Register'
+import RegistrationForm from 'apps/Registration/containers/Register'
+
 import Tabs from "components/Tabs";
 import {TabContent} from "components/Tabs";
 
@@ -21,10 +22,10 @@ export default class RegistrationLayout extends Component {
                             <RegistrationForm/>
                         </TabContent>
                         <TabContent label="Я - клуб">
-                            <RegistrationForm/>
+                            <RegistrationForm legal/>
                         </TabContent>
                         <TabContent label="Я - питомник">
-                            <RegistrationForm/>
+                            <RegistrationForm legal/>
                         </TabContent>
                     </Tabs>
                     <div className="registration__signature">

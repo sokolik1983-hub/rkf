@@ -18,14 +18,14 @@ class RegistrationForm extends PureComponent {
         return (
             <Form className="registration-form">
                 <FormField
-                        {...fields.registration_type}
-                    />
+                    {...fields.registration_type}
+                />
                 <FormGroup inline>
                     <FormField
-                        {...fields.first_name}
+                        {...fields.company_name}
                     />
                     <FormField
-                        {...fields.second_name}
+                        {...fields.company_type}
                     />
                 </FormGroup>
                 <FormGroup inline>

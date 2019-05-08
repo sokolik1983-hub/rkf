@@ -2,6 +2,11 @@ import {object, string} from 'yup'
 
 export const registrationFormPhysicalPerson = {
     fields: {
+         registration_type: {
+            name: 'registration_type',
+            type: 'hidden',
+            defaultValue: 1
+        },
         first_name: {
             name: 'first_name',
             type: 'text',
@@ -55,6 +60,11 @@ export const registrationFormPhysicalPerson = {
 };
 export const registrationFormLegalEntity = {
     fields: {
+        registration_type: {
+            name: 'registration_type',
+            type: 'hidden',
+            defaultValue: 2
+        },
         company_name: {
             name: 'company_name',
             type: 'text',
@@ -85,6 +95,12 @@ export const registrationFormLegalEntity = {
             label: 'Телефон',
             placeholder: '7 () ___ __ __'
         },
+        submit_phone_code:{
+            name: 'submit_phone_code',
+            type: 'text',
+            label: 'Проверочный код',
+            placeholder: '******'
+        }
     },
     validationSchema: object().shape({
         phone_number: string()
@@ -93,3 +109,4 @@ export const registrationFormLegalEntity = {
             .required('Поле не может быть пустым')
     }),
 };
+
