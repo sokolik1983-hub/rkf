@@ -35,27 +35,6 @@ export default function authReducer(state = authInitialState, action) {
             };
         }
 
-        case actiontypes.REGISTER: {
-            return {
-                ...state,
-                loadingApi: true,
-            };
-        }
-        case actiontypes.REGISTER_SUCCESS: {
-            return {
-                ...state,
-                loadingApi: false,
-                registrationComplete: true,
-                isAuthenticated: true,
-                user: action.data
-            };
-        }
-        case actiontypes.REGISTER_FAILED: {
-            return {
-                ...state,
-                loadingApi: false,
-            };
-        }
 
         case actiontypes.CLEAR_REQUEST_ERRORS: {
             return {

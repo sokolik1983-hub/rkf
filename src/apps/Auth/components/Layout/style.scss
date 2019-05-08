@@ -19,6 +19,8 @@
   }
 
   &__image {
+    max-width: 500px;
+    flex: 1;
     img {
       min-height: 100%;
     }
@@ -29,7 +31,11 @@
     box-sizing: border-box;
     max-width: 572px;
     min-width: 572px;
-    margin: 80px auto;
+    padding: 40px;
+    margin: 40px auto;
+    border: solid 1px;
+    border-color: transparent;
+    flex: 2;
   }
 
   &__title {
@@ -39,12 +45,13 @@
     font-weight: 400;
     margin: 0 0 24px 0;
   }
-   &__subtitle {
+
+  &__subtitle {
     text-align: center;
     color: #72839C;
-     font-size: 22px;
-     line-height: 30px;
-     margin: 24px 0;
+    font-size: 22px;
+    line-height: 30px;
+    margin: 24px 0;
   }
 
   &__tabs {
@@ -82,6 +89,18 @@
   &__holder {
     .form-controls {
       text-align: center;
+    }
+  }
+}
+
+@media screen and(max-width: 1024px) {
+  .authorization {
+    &__image{
+      display: none;
+    }
+    &__holder {
+      padding: 16px;
+
     }
   }
 }

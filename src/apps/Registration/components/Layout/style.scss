@@ -19,6 +19,7 @@
   }
 
   &__image {
+    max-width: 500px;
     img {
       min-height: 100%;
     }
@@ -29,7 +30,8 @@
     box-sizing: border-box;
     max-width: 572px;
     min-width: 572px;
-    margin: 80px auto;
+    padding: 40px;
+    margin: 40px auto;
   }
 
   &__title {

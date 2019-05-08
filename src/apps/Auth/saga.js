@@ -16,18 +16,7 @@ export function* loginUser(action) {
     }
 }
 
-export function* registerUser(action) {
-    try {
-        const data = yield call(Api.registerUser, action);
-        yield put(actions.registerUserSuccess(data))
-    } catch (error) {
-        console.log(error.message);
-        yield put(actions.registerUserFailed(error))
-    }
-}
-
 export default function* authSaga() {
     yield takeLatest(actionTypes.LOGIN, loginUser);
-    yield takeLatest(actionTypes.REGISTER, registerUser);
 }
 

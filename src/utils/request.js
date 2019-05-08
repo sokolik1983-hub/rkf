@@ -8,6 +8,12 @@
  * @return {object}          The parsed JSON from the request
  */
 
+export const getHeaders = () => (
+    {
+        "Content-Type": "application/json, text/plain, */*",
+    }
+);
+
 function RequestError(response) {
     this.name = "RequestError";
     this.response = {};
@@ -27,11 +33,10 @@ RequestError.prototype = Object.create(Error.prototype);
 const getErrorData = (data) => {
     try {
         JSON.stringify(data);
+    } catch (e) {
+        return {data: data, format: 'text'}
     }
-    catch (e) {
-        return {data: data, format:'text'}
-    }
-    return {data: data, format:'json'}
+    return {data: data, format: 'json'}
 };
 
 function parseJSON(response) {
@@ -55,7 +60,7 @@ const checkStatus = async (response) => {
     }
     const error = new RequestError(response.statusText);
     const response_error_content = await response.text();
-    error.response = getErrorData(response_error_content)
+    error.response = getErrorData(response_error_content);
     throw error;
 };
 
