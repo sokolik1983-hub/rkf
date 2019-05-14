@@ -14,29 +14,13 @@ export const getHeaders = () => (
     }
 );
 
-function RequestError(response) {
-    this.name = "RequestError";
-    this.response = {};
-    this.message = response;
 
-    if (Error.captureStackTrace) {
-        Error.captureStackTrace(this, RequestError);
-    } else {
-        this.stack = (new Error()).stack;
-    }
-
-}
-
-RequestError.prototype = Object.create(Error.prototype);
-
-
-const getErrorData = (data) => {
+const getErrors = (error) => {
     try {
-        JSON.stringify(data);
+        return JSON.parse(error);
     } catch (e) {
-        return {data: data, format: 'text'}
+        return {server_error: error}
     }
-    return {data: data, format: 'json'}
 };
 
 function parseJSON(response) {
@@ -58,9 +42,10 @@ const checkStatus = async (response) => {
     if (response.status >= 200 && response.status < 300) {
         return response;
     }
-    const error = new RequestError(response.statusText);
-    const response_error_content = await response.text();
-    error.response = getErrorData(response_error_content);
+    const error = new Error(response.statusText);
+    const response_text = await response.text();
+    error.response = getErrors(response_text);
+    error.responseStatus = response.status;
     throw error;
 };
 
@@ -72,6 +57,7 @@ const checkStatus = async (response) => {
  *
  * @return {object}           The response data
  */
+
 export default function request({url, options}) {
     return fetch(url, options)
         .then(checkStatus)

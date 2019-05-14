@@ -7,7 +7,7 @@ import {
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
 //import LoadableAuthorization from 'apps/Auth/index'
-
+export const SERVER = 'http://192.168.1.8:50003';
 export const LOGIN_URL = '/auth/login';
 
 export const REGISTER_URL = '/auth/registration';
