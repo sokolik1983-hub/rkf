@@ -1,8 +1,11 @@
 import {object, string} from 'yup'
+import {
+    DEFAULT_PHONE_INPUT_MASK
+} from 'appConfig'
 
 export const registrationFormPhysicalPerson = {
     fields: {
-         registration_type: {
+        registration_type: {
             name: 'registration_type',
             type: 'hidden',
             defaultValue: 1
@@ -35,9 +38,10 @@ export const registrationFormPhysicalPerson = {
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '7 () ___ __ __'
+            placeholder: '7 () ___ __ __',
+            mask: DEFAULT_PHONE_INPUT_MASK,
         },
-        submit_phone_code:{
+        submit_phone_code: {
             name: 'submit_phone_code',
             type: 'text',
             label: 'Проверочный код',
@@ -93,9 +97,10 @@ export const registrationFormLegalEntity = {
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '7 () ___ __ __'
+            placeholder: '7 () ___ __ __',
+            mask: DEFAULT_PHONE_INPUT_MASK,
         },
-        submit_phone_code:{
+        submit_phone_code: {
             name: 'submit_phone_code',
             type: 'text',
             label: 'Проверочный код',

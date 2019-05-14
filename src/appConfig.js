@@ -2,13 +2,17 @@ import {
     LoadableDemo,
     LoadableExhibitions,
     LoadableHomePage,
-    //LoadableAuthorization
+    LoadableAuthorization,
     LoadableRegistration
 } from "./appModules";
 //import LoadableExhibitions from 'apps/Exhibitions'
-import LoadableAuthorization from 'apps/Auth'
+//import LoadableAuthorization from 'apps/Auth/index'
+
 export const LOGIN_URL = '/auth/login';
+
 export const REGISTER_URL = '/auth/registration';
+
+export const DEFAULT_PHONE_INPUT_MASK = ['7','(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
 export const appRoutes = [
     {
