@@ -1,7 +1,7 @@
 import request, {getHeaders} from "utils/request";
-import {fakeRequest} from "utils/fakeRequest";
+//import {fakeRequest} from "utils/fakeRequest";
 
-const SERVER = 'http://192.168.1.228:50003';
+const SERVER = 'http://192.168.1.8:50003';
 
 export const REGISTER = '/api/Registration';
 

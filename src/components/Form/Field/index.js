@@ -5,6 +5,7 @@ import FieldError from './Error'
 import Label from './Label'
 import ImageInput from './image'
 import TextArea from "./textarea";
+import MaskedField from './masked'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
@@ -12,6 +13,10 @@ class FastFormField extends PureComponent {
         className: 'form-input__input'
     };
     getComponent = () => {
+        if(this.props.mask){
+
+            return MaskedField
+        }
         switch (this.props.fieldType) {
             case "textarea":
                 return TextArea;
@@ -23,7 +28,7 @@ class FastFormField extends PureComponent {
     };
 
     render() {
-        const FiledInput = this.getComponent();
+        const FieldInput = this.getComponent();
         const {fieldType, ...fieldProps} = this.props;
         return (
             <FormInput
@@ -31,7 +36,7 @@ class FastFormField extends PureComponent {
                 className={fieldProps.type}
             >
                 <Label field={fieldProps}/>
-                <FiledInput
+                <FieldInput
                     id={fieldProps.name}
                     className={'form-input__input'}
                     {...fieldProps}

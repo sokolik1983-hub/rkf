@@ -1,12 +1,17 @@
 import {object, string} from 'yup'
+import {
+    DEFAULT_PHONE_INPUT_MASK
+}from 'appConfig'
 
 export const loginForm = {
     fields: {
         phone_number: {
+            mask: DEFAULT_PHONE_INPUT_MASK,
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '7 () ___ __ __'
+            placeholder: '8 () ___ __ __',
+
         },
         password: {
             name: 'password',

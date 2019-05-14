@@ -17,6 +17,7 @@ class LoginForm extends PureComponent {
 
     render() {
         const {fields} = this.props;
+        console.log(fields)
         return (
             <Form className="login-form">
                 <FormGroup>
