@@ -30,8 +30,10 @@
     box-sizing: border-box;
     max-width: 572px;
     min-width: 572px;
+    width: 572px;
     padding: 40px;
     margin: 40px auto;
+    overflow-y: scroll;
   }
 
   &__title {

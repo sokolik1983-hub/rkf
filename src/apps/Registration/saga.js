@@ -6,14 +6,13 @@ import * as actionTypes from './actiontypes'
 import * as actions from './actions'
 
 
-
 export function* registerUser(action) {
     try {
         const data = yield call(Api.registerUser, action);
         yield put(actions.registerUserSuccess(data))
     } catch (error) {
-        console.log(error.message);
-        yield put(actions.registerUserFailed(error))
+        console.log(error, error.responseStatus, error.response);
+        yield put(actions.registerUserFailed(error.response))
     }
 }
 

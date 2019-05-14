@@ -1,7 +1,8 @@
 import request, {getHeaders} from 'utils/request';
 //import {fakeRequest} from "utils/fakeRequest";
+import {SERVER} from "appConfig";
 
-const SERVER = 'http://192.168.1.8:50003';
+
 
 export const LOGIN = '/api/Authentication';
 

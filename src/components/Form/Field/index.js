@@ -6,6 +6,8 @@ import Label from './Label'
 import ImageInput from './image'
 import TextArea from "./textarea";
 import MaskedField from './masked'
+import EmailField from './email'
+import PhoneField from './phone'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
@@ -13,7 +15,7 @@ class FastFormField extends PureComponent {
         className: 'form-input__input'
     };
     getComponent = () => {
-        if(this.props.mask){
+        if (this.props.mask) {
 
             return MaskedField
         }
@@ -22,6 +24,10 @@ class FastFormField extends PureComponent {
                 return TextArea;
             case "image":
                 return ImageInput;
+            case "customEmail":
+                return EmailField;
+            case "customPhone":
+                return PhoneField;
             default:
                 return Field;
         }

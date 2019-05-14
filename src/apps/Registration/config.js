@@ -26,7 +26,8 @@ export const registrationFormPhysicalPerson = {
             name: 'email',
             type: 'text',
             label: 'E-mail',
-            placeholder: 'Введите вашу личную почту'
+            placeholder: 'Введите вашу личную почту',
+            fieldType: 'customEmail'
         },
         password: {
             name: 'password',
@@ -38,8 +39,8 @@ export const registrationFormPhysicalPerson = {
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '7 () ___ __ __',
-            mask: DEFAULT_PHONE_INPUT_MASK,
+            placeholder: '7 (   ) ___ __ __',
+            fieldType: 'customPhone'
         },
         submit_phone_code: {
             name: 'submit_phone_code',
@@ -60,6 +61,9 @@ export const registrationFormPhysicalPerson = {
             .required('Поле не может быть пустым'),
         password: string()
             .required('Поле не может быть пустым')
+            .test('', 'Ваш пароль короче 8 символов',
+                value => value && value.length > 8
+            ),
     }),
 };
 export const registrationFormLegalEntity = {

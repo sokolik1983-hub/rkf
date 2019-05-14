@@ -9,14 +9,10 @@ export const LoadableDemo = Loadable({
 
 
 export const LoadableExhibitions = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/index'),
+    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Exhibitions/index'),
     loading: Loading,
 });
 
-export const LoadableExhibitionsAside = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions.aside" */ './apps/Exhibitions/Aside/index'),
-    loading: Loading,
-});
 
 export const LoadableHomePage = Loadable({
     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),

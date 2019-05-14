@@ -4,9 +4,6 @@ import AuthorizationLayout from './components/Layout'
 import {Route, Switch} from 'react-router-dom'
 import injectSaga from 'utils/injectSaga'
 import saga from "./saga";
-import * as c from 'appConfig'
-
-console.log('c',c)
 
 class Authorization extends Component {
 
