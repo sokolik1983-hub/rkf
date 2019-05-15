@@ -1,0 +1,44 @@
+.btn-arrow {
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 6px 10px;
+  background-color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #253C5E;
+  }
+
+  svg {
+    max-height: 40%;
+  }
+
+  &--up {
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &--right {
+
+  }
+
+  &--down {
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  &--left {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}

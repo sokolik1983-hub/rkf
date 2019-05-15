@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import Header from 'components/Layout/Header'
 import Footer from 'components/Layout/Footer'
@@ -24,13 +24,11 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Fragment>
-                    <Header/>
-                    <Switch>
-                        {this.renderRoutes()}
-                    </Switch>
-                    <Footer/>
-                </Fragment>
+                <Header/>
+                <Switch>
+                    {this.renderRoutes()}
+                </Switch>
+                <Footer/>
             </BrowserRouter>
         );
     }
