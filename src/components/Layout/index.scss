@@ -1,6 +1,9 @@
-
 @import './reset';
 @import './fonts';
+
+html{
+  height: 100%;
+}
 
 body{
   font-family: 'Futura New', Helvetica, sans-serif;
@@ -8,6 +11,13 @@ body{
   line-height: 24px;
   font-weight: 300;
   color: #253C5E;
+  height: 100%;
+}
+
+#wrap{
+  top:0;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 @import '../__shared-sass-vars/typography';

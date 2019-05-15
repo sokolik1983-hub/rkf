@@ -29,3 +29,9 @@ export const LoadableRegistration = Loadable({
     loader: () => import(/* webpackChunkName: "app.registration" */ './apps/Registration/index'),
     loading: Loading,
 });
+
+
+export const LoadableClient = Loadable({
+    loader: () => import(/* webpackChunkName: "app.client.root" */ './apps/Client/index'),
+    loading: Loading,
+});

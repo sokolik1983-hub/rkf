@@ -3,7 +3,7 @@ import * as actiontypes from './actiontypes';
 
 const registrationInitialState = {
     loadingApi: false,
-    registrationComplete: false,
+    registrationComplete: true,
     requestErrors: {}
 };
 

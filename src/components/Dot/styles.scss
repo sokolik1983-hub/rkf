@@ -1,0 +1,43 @@
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #CCCCCC;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &--active {
+    width: 10px;
+    height: 10px;
+    background-color: #253C5E;
+  }
+}
+
+.dots {
+  display: flex;
+
+  &--inline {
+    flex-flow: row wrap;
+    align-items: center;
+
+    .dot {
+      margin-right: 12px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &--vertical {
+    flex-flow: column wrap;
+    align-items: center;
+
+    .dot {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
