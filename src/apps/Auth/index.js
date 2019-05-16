@@ -10,7 +10,7 @@ class Authorization extends Component {
     render() {
         const {path} = this.props.match;
         return <Switch>
-            <Route path={`${path}`} component={AuthorizationLayout}/>
+            <Route path={path} component={AuthorizationLayout}/>
         </Switch>
     }
 }

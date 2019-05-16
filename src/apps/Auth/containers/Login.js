@@ -17,11 +17,13 @@ class Login extends PureComponent {
     };
 
     render() {
-        return this.props.isAuthenticated ?
+        const {loading, isAuthenticated}=this.props;
+        return isAuthenticated ?
             <Redirect to="/"/>
             :
             (
                 <Form
+                    loading={loading}
                     requestErrors={this.props.requestErrors}
                     clearRequestErrors={this.props.clearRequestErrors}
                     formSubmit={this.fomSubmit}

@@ -16,8 +16,7 @@ class LoginForm extends PureComponent {
     }
 
     render() {
-        const {fields} = this.props;
-        console.log(fields)
+        const {fields, loading} = this.props;
         return (
             <Form className="login-form">
                 <FormGroup>
@@ -36,7 +35,7 @@ class LoginForm extends PureComponent {
                     <div style={{marginLeft:'auto'}}><Link  className="no-ul" to="/auth/login/restore">Забыли пароль</Link></div>
                 </FormGroup>
                 <div className="form-controls">
-                    <Button type="submit" className="btn-primary btn-lg">Войти</Button>
+                    <Button loading={loading} type="submit" className="btn-primary btn-lg">Войти</Button>
                 </div>
             </Form>
         )
