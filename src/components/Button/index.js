@@ -25,21 +25,24 @@ export const ButtonNext = ({
 
 const Button = ({
                     style,
-                    children,
+
                     onClick,
                     className,
                     disabled,
-                    type = 'button'
+                    type = 'button',
+                    loading,
+                    children,
                 }) =>
     <button
         style={style}
         className={classnames(
             'btn',
+            {'btn--loading': loading},
             {[className]: className}
         )}
         type={type}
         onClick={onClick}
-        disabled={disabled}
+        disabled={disabled || loading}
     >
         {children}
 
