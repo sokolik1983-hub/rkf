@@ -21,14 +21,16 @@ const Inner = () =>
 
 export default class WidgetLogin extends PureComponent {
     render() {
-        return this.props.isAuthenticated ?
+        const {isAuthenticated, logOutUser} = this.props;
+        console.log(logOutUser)
+        return isAuthenticated ?
             <DropDown className="widget-login" innerComponent={<DropInner/>}>
                 <DropDownItem>Личная информация</DropDownItem>
                 <DropDownItem>Документы</DropDownItem>
                 <DropDownItem>Избранное</DropDownItem>
                 <DropDownItem>Создать заявку</DropDownItem>
                 <DropDownItem>Упаравление заявками</DropDownItem>
-                <DropDownItem>Выход</DropDownItem>
+                <DropDownItem onClick={logOutUser}>Выход</DropDownItem>
             </DropDown>
             :
             <DropDown className="widget-login" innerComponent={<Inner/>}>

@@ -3,6 +3,9 @@ import {
     DEFAULT_PHONE_INPUT_MASK
 }from 'appConfig'
 
+
+export const redirectAfterLogin = '/'
+
 export const loginForm = {
     fields: {
         phone_number: {
