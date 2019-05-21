@@ -1,19 +1,14 @@
 import React, {PureComponent} from 'react'
 import {Redirect} from 'react-router-dom'
 import Form from 'apps/Registration/components/Form'
-import FormLegalEntity from 'apps/Registration/components/FormLegalEntity'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-
+import {registrationSuccessPath} from 'apps/Registration/config'
 import {
     registerUser,
     clearRequestErrors,
 } from 'apps/Registration/actions'
 
-import {
-    registrationFormPhysicalPerson,
-    registrationFormLegalEntity,
-} from 'apps/Registration/config'
 
 class Register extends PureComponent {
     fomSubmit = (values, {...other}) => {
@@ -21,25 +16,30 @@ class Register extends PureComponent {
     };
 
     render() {
-        const RegistrationForm = this.props.legal ?
-            FormLegalEntity
-            :
-            Form
-        const formFields = this.props.legal?
-            registrationFormLegalEntity
-            :
-            registrationFormPhysicalPerson
-        return this.props.registrationComplete ?
-            <Redirect to="/"/>
+        const {
+            loading,
+            fields,
+            validationSchema,
+            registrationComplete,
+            requestErrors,
+            clearRequestErrors,
+            children
+        } = this.props;
+
+        return registrationComplete ?
+            <Redirect to={registrationSuccessPath}/>
             :
             (
-                <RegistrationForm
-                    requestErrors={this.props.requestErrors}
-                    clearRequestErrors={this.props.clearRequestErrors}
+                <Form
+                    loading={loading}
+                    requestErrors={requestErrors}
+                    clearRequestErrors={clearRequestErrors}
                     formSubmit={this.fomSubmit}
-                    fields={formFields.fields}
-                    validationSchema={formFields.validationSchema}
-                />
+                    fields={fields}
+                    validationSchema={validationSchema}
+                >
+                    {children}
+                </Form>
             )
     }
 }

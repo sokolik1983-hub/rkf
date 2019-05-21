@@ -1,10 +1,11 @@
 .drop-down__item{
-  padding: 8px;
+  color: inherit;
+  padding: 8px 16px;
   white-space: nowrap;
   min-width: 160px;
   a{
     text-decoration: none;
-    color: currentColor;
+    color: currentColor !important;
     display: block;
   }
   &:hover{
