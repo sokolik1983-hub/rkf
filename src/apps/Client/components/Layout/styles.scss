@@ -1,7 +1,17 @@
-.client-layout{
-  &__holder{
-    width: 100%;
+.client-layout {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  min-height: 100%;
+  //background-color: #1a63df;
+  &__sidebar {
+    padding: 48px 0;
+    position: fixed;
+    left: 0;
+    top:0;
+    overflow-y: auto;
     height: 100%;
-    background-color: #FA5D50;
+    padding-bottom: 72px;
+    //background-color: #FA5D50;
   }
 }

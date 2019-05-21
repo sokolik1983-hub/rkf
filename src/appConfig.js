@@ -1,12 +1,12 @@
 import {
     LoadableDemo,
-    LoadableExhibitions,
+    //LoadableExhibitions,
     LoadableHomePage,
     LoadableAuthorization,
     LoadableRegistration,
     LoadableClient,
 } from "./appModules";
-//import LoadableExhibitions from 'apps/Exhibitions'
+import LoadableExhibitions from 'apps/Exhibitions'
 //import LoadableAuthorization from 'apps/Auth/index'
 export const SERVER = 'http://192.168.1.8:50003';
 
