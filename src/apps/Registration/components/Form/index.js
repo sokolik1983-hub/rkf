@@ -1,52 +1,24 @@
 import React, {PureComponent} from 'react'
 import {withFormik, Form} from 'formik';
-import FormField from 'components/Form/Field'
-import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
 
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
-
+import './styles.scss'
 
 class RegistrationForm extends PureComponent {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate() {
         processRequestErrors(this.props)
     }
 
     render() {
-        const {fields} = this.props;
+        const {children, loading} = this.props;
         return (
             <Form className="registration-form">
-                <FormField
-                        {...fields.registration_type}
-                    />
-                <FormGroup inline>
-                    <FormField
-                        {...fields.first_name}
-                    />
-                    <FormField
-                        {...fields.second_name}
-                    />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField
-                        {...fields.email}
-                    />
-                    <FormField
-                        {...fields.password}
-                    />
-                </FormGroup>
-                <FormGroup inline>
-                    <FormField
-                        {...fields.phone_number}
-                    />
-                    <FormField
-                        {...fields.submit_phone_code}
-                    />
-                </FormGroup>
+                {children}
 
                 <div className="form-controls">
-                    <Button type="submit" className="btn-primary btn-lg">Зарегистрироваться</Button>
+                    <Button loading={loading} type="submit" className="btn-primary btn-lg">Зарегистрироваться</Button>
                 </div>
             </Form>
         )

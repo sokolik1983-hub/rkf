@@ -2,8 +2,8 @@ import * as actiontypes from './actiontypes';
 
 
 const registrationInitialState = {
-    loadingApi: false,
-    registrationComplete: true,
+    loading: false,
+    registrationComplete: false,
     requestErrors: {}
 };
 
@@ -14,20 +14,20 @@ export default function registrationReducer(state = registrationInitialState, ac
         case actiontypes.REGISTER: {
             return {
                 ...state,
-                loadingApi: true,
+                loading: true,
             };
         }
         case actiontypes.REGISTER_SUCCESS: {
             return {
                 ...state,
-                loadingApi: false,
+                loading: false,
                 registrationComplete: true,
             };
         }
         case actiontypes.REGISTER_FAILED: {
             return {
                 ...state,
-                loadingApi: false,
+                loading: false,
                 requestErrors: action.errors
             };
         }

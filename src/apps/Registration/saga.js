@@ -11,12 +11,14 @@ export function* registerUser(action) {
         const data = yield call(Api.registerUser, action);
         yield put(actions.registerUserSuccess(data))
     } catch (error) {
-        console.log(error, error.responseStatus, error.response);
-        yield put(actions.registerUserFailed(error.response))
+        console.log(error)
+        if (error.response) {
+            yield put(actions.registerUserFailed(error.response))
+        }
     }
 }
 
-export default function* appSaga() {
+export default function* registrationSaga() {
     yield takeLatest(actionTypes.REGISTER, registerUser);
 }
 
