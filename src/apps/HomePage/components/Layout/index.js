@@ -8,17 +8,20 @@ import Partners from 'apps/HomePage/components/Partners'
 import About from 'apps/HomePage/components/AboutBlock'
 import RegisterBlock from 'apps/HomePage/components/Register'
 import SpecialOffersSubscription from 'components/Subcriptions/SpecialOffers'
+import PublicLayout from 'components/Layout'
 
 const HomePageLayout = () =>
-    <Container className="home">
-        <BigSlider/>
-        <WeekExhibitions/>
-        <About/>
-        <RecentNews/>
-        <Partners/>
-        <RegisterBlock/>
-        <SocialGallery/>
-        <SpecialOffersSubscription/>
-    </Container>;
+    <PublicLayout>
+        <Container className="home">
+            <BigSlider/>
+            <WeekExhibitions/>
+            <About/>
+            <RecentNews/>
+            <Partners/>
+            <RegisterBlock/>
+            <SocialGallery/>
+            <SpecialOffersSubscription/>
+        </Container>
+    </PublicLayout>;
 
 export default HomePageLayout;

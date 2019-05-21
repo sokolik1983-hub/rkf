@@ -7,7 +7,7 @@ import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
-
+import PublicLayout from 'components/Layout'
 import Details from './containers/Details'
 import ExhibitionsListView from './containers/ListView'
 
@@ -16,7 +16,6 @@ import {
 } from './actions'
 
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
-
 
 
 class ExhibitionsProxy extends Component {
@@ -31,14 +30,16 @@ class ExhibitionsProxy extends Component {
     render() {
 
         return (
-            <Container pad content>
-            <ExhibitionsPathContext.Provider value={{path: this.state.path}}>
-                <Switch>
-                    <Route path={`${this.state.path}/:id/details`} component={Details}/>
-                    <Route exact path={this.state.path} component={ExhibitionsListView}/>
-                </Switch>
-            </ExhibitionsPathContext.Provider>
-            </Container>
+            <PublicLayout>
+                <Container pad content>
+                    <ExhibitionsPathContext.Provider value={{path: this.state.path}}>
+                        <Switch>
+                            <Route path={`${this.state.path}/:id/details`} component={Details}/>
+                            <Route exact path={this.state.path} component={ExhibitionsListView}/>
+                        </Switch>
+                    </ExhibitionsPathContext.Provider>
+                </Container>
+            </PublicLayout>
         );
     }
 }
