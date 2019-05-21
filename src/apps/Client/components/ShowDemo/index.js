@@ -15,12 +15,14 @@ export default class RegistrationSuccessScreen extends PureComponent {
     next = () => {
         this.setState(prevState => ({slideIndex: prevState.slideIndex + 1}))
     };
+
     canNext = () => {
         return this.state.slideIndex < slidesData.length - 1
     };
     canPrev = () => {
         return this.state.slideIndex > 0
     };
+
     prev = () => {
         this.setState(prevState => ({slideIndex: prevState.slideIndex - 1}))
     };
