@@ -2,9 +2,9 @@ import React, {PureComponent} from "react"
 import ClientLayout from './components/Layout'
 import {Route, Switch} from 'react-router-dom'
 import {ClientPathContext} from 'apps/Client/context'
+import ClientExhibitions from 'apps/ClientExhibitions'
 
-
-const Test=()=><div>s</div>
+const Test=()=><div>Client Home</div>
 class ClientProxy extends PureComponent {
 
     render() {
@@ -14,7 +14,9 @@ class ClientProxy extends PureComponent {
             <ClientPathContext.Provider value={{path}}>
                 <ClientLayout>
                     <Switch>
-                        <Route path={`${path}`} component={Test}/>
+                        <Route exact path={`${path}`} component={Test}/>
+                        <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
+
                     </Switch>
                 </ClientLayout>
             </ClientPathContext.Provider>

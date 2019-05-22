@@ -1,6 +1,6 @@
 export const menuFakeData1 = [
     {
-        url: '/client',
+        url: '/client/exhibitions',
         title: 'Мои выставки',
         icon: '/static/icons/client/menu-my_exhbitions.svg',
     },

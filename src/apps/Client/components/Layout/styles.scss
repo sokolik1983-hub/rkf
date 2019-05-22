@@ -1,6 +1,4 @@
 .client-layout {
-  display: flex;
-  flex-flow: row nowrap;
   width: 100%;
   min-height: 100%;
   //background-color: #1a63df;
@@ -8,11 +6,16 @@
     padding: 115px 0 72px 0;
     box-sizing: border-box;
     position: fixed;
+    max-width: 250px;
     left: 0;
     top:0;
     overflow-y: auto;
     height: 100%;
     min-height: 100%;
+    box-shadow: 3px 0px 20px rgba(0, 0, 0, 0.03);
     //background-color: #FA5D50;
+  }
+  &__content{
+    //margin-left: 250px;
   }
 }

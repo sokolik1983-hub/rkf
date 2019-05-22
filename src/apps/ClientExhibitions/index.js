@@ -1,27 +1,22 @@
 import React, {PureComponent} from "react"
-import ClientLayout from './components/Layout'
 import {Route, Switch} from 'react-router-dom'
-import {ClientPathContext} from 'apps/Client/context'
 
+const List = () => <div>exhibitions list</div>
+const Create = () => <div>exhibitions create</div>
+const Edit = () => <div>exhibitions edit</div>
 
-const Test=()=><div>s</div>
-class ClientProxy extends PureComponent {
-
+class ClientExhibitionsProxy extends PureComponent {
     render() {
         const {path} = this.props.match;
         return (
-
-            <ClientPathContext.Provider value={{path}}>
-                <ClientLayout>
-                    <Switch>
-                        <Route path={`${path}`} component={Test}/>
-                    </Switch>
-                </ClientLayout>
-            </ClientPathContext.Provider>
-
+                <Switch>
+                    <Route path={`${path}/new`} component={Create}/>
+                    <Route path={`${path}/:id/edit`} component={Edit}/>
+                    <Route path={`${path}`} component={List}/>
+                </Switch>
         );
     }
 }
 
 
-export default ClientProxy
+export default ClientExhibitionsProxy
