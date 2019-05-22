@@ -1,4 +1,4 @@
-export const menuFakeData = [
+export const menuFakeData1 = [
     {
         url: '/client',
         title: 'Мои выставки',
@@ -17,13 +17,15 @@ export const menuFakeData = [
     {
         url: '/client',
         title: 'Питомники',
-        icon:'/static/icons/client/menu-nursery.svg',
+        icon: '/static/icons/client/menu-nursery.svg',
     },
     {
         url: '/client',
         title: 'Щенячьи ведомости',
         icon: '/static/icons/client/menu-puppy_statements.svg',
     },
+]
+export const menuFakeData2 = [
     {
         url: '/client',
         title: 'Мои услуги',
@@ -45,6 +47,10 @@ export const menuFakeData = [
         title: 'Избранное',
         icon: '/static/icons/client/menu-favorites.svg',
     },
+]
+export const menuFakeData3 = [
+
+
     {
         url: '/client',
         title: 'Личный кабинет',
