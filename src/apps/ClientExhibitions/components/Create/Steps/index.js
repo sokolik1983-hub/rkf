@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react'
 import Tabs, {TabContent} from "components/CommonTabs";
+import FirstStepFormFields from 'apps/ClientExhibitions/components/Forms/FirstStepForm'
+
 import './styles.scss'
 
 export default function Steps() {
@@ -13,7 +15,7 @@ export default function Steps() {
                     </Fragment>
                 }
             >
-                step 1
+                <FirstStepFormFields/>
             </TabContent>
             <TabContent
                 tabContent={
