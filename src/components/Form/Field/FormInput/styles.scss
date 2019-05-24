@@ -23,6 +23,11 @@
     border-color: #EBF0F2;
     background-color: white !important;
 
+
+    &:hover {
+      border-color: #b3b3b3;
+    }
+
     &:active,
     &:focus {
       outline: none;
@@ -30,9 +35,6 @@
       border-radius: 6px;
       border-width: 2px;
       padding: 11px;
-    }
-    &:hover{
-      border-color: #b3b3b3;
     }
 
     &::placeholder {
@@ -74,8 +76,9 @@
     line-height: 100%;
     margin-top: 4px;
   }
-  &.select{
-    .form-input__input{
+
+  &.select {
+    .form-input__input {
       padding: 0;
       border-width: 0;
     }
