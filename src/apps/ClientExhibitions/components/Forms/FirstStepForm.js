@@ -9,7 +9,7 @@ import {firstStepForm} from 'apps/ClientExhibitions/config'
 
 const {fields} = firstStepForm;
 
-class FirstStepFormFields extends PureComponent {
+class FirstStepForm extends PureComponent {
 
     componentDidUpdate() {
         processRequestErrors(this.props)
@@ -71,4 +71,4 @@ export default withFormik(
         handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
         displayName: props => props.displayName, // helps with React DevTools
     }
-)(FirstStepFormFields);
+)(FirstStepForm);

@@ -16,7 +16,7 @@ class Tabs extends Component {
     };
 
     state = {
-        activeTabIndex: 0
+        activeTabIndex: 1
     };
 
 

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import Tabs, {TabContent} from "components/CommonTabs";
-import FirstStepFormFields from 'apps/ClientExhibitions/components/Forms/FirstStepForm'
-
+import FirstStepForm from 'apps/ClientExhibitions/components/Forms/FirstStepForm'
+import SecondStepForm from 'apps/ClientExhibitions/components/Forms/SecondStepForm'
 import './styles.scss'
 
 export default function Steps() {
@@ -15,7 +15,7 @@ export default function Steps() {
                     </Fragment>
                 }
             >
-                <FirstStepFormFields/>
+                <FirstStepForm/>
             </TabContent>
             <TabContent
                 tabContent={
@@ -24,7 +24,7 @@ export default function Steps() {
                         <span className="step__number">шаг 1</span>
                     </Fragment>
                 }>
-                step 2
+                <SecondStepForm/>
             </TabContent>
             <TabContent
                 tabContent={
