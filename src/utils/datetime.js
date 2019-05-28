@@ -70,18 +70,17 @@ export const weekDays = {
 
 
 export const transformDate = (date) => {
-    //console.log(date)
-    if(
+    if (
         varIsObject(date) &&
         date.day &&
         date.month &&
-        date.year){
+        date.year) {
         return new Date(`${date.month}.${date.day}.${date.year}`);
     }
     const dateObj = new Date(date);
     return {
-        day: dateObj.getDay(),
-        month: dateObj.getMonth(),
+        day: dateObj.getDate(),
+        month: dateObj.getMonth() + 1,
         year: dateObj.getFullYear()
     }
 };
