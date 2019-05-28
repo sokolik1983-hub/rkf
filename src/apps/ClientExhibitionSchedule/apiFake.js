@@ -4,33 +4,15 @@ import {mockScheduleData} from './mockGetSchedule'
 import {SERVER} from "appConfig";
 import {DAY_URL, DAY_ITEM_URL} from "./config";
 
+import {getRandomInt} from 'utils/index'
 
 const Api = {
-    getSchedule: async (action) => {
-        const {exhibition_id} = action;
-        return request(
-            {
-                url: `${SERVER}/api/exhibition/schedule/?exhibition_id=${exhibition_id}`,
-                options: {
-                    method: "GET",
-                    headers: getHeaders(),
-                    mode: 'cors',
-                }
-            }
-        );
+    getSchedule: async () => {
+        return fakeRequest(mockScheduleData)
     },
     addDay: async (action) => {
-        return request(
-            {
-                url: SERVER + DAY_URL,
-                options: {
-                    method: "POST",
-                    headers: getHeaders(),
-                    mode: 'cors',
-                    body: JSON.stringify(action.data)
-                }
-            }
-        );
+        const day = {id: getRandomInt(), items: [], ...action.data.date};
+        return fakeRequest(day)
     },
     updateDay: async (action) => {
         const {id, data} = action;
@@ -60,17 +42,8 @@ const Api = {
     },
     // DayItem
     addDayItem: async (action) => {
-        return request(
-            {
-                url: SERVER + DAY_ITEM_URL,
-                options: {
-                    method: "POST",
-                    headers: getHeaders(),
-                    mode: 'cors',
-                    body: JSON.stringify(action.data)
-                }
-            }
-        );
+
+        return fakeRequest({id: getRandomInt(), ...action.data})
     },
     updateDayItem: async (action) => {
         const {id, data} = action;

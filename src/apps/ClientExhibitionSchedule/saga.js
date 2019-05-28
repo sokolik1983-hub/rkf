@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects'
 
-import Api from './api'
+import Api from './apiFake'
 
 import * as actionTypes from './actiontypes'
 import * as actions from './actions'

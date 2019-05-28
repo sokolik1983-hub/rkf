@@ -18,7 +18,6 @@ export default function clientExhibitionScheduleReducer(state = clientExhibition
             };
         }
         case actiontypes.GET_SCHEDULE_SUCCESS: {
-            //console.log(normalizeSchedule(action.data))
             const {entities, result} = normalizeSchedule(action.data);
             const {days, items} = entities;
             return {
@@ -27,6 +26,43 @@ export default function clientExhibitionScheduleReducer(state = clientExhibition
                 days,
                 items,
                 dayIdList: result,
+            };
+        }
+        case actiontypes.DAY_ADD: {
+            return {
+                ...state,
+                loading: true,
+            };
+        }
+        case actiontypes.DAY_ADD_SUCCESS: {
+            const {data} = action;
+            const {days, dayIdList} = {...state};
+            days[data.id.toString()] = data;
+            return {
+                ...state,
+                loading: false,
+                days: days,
+                dayIdList: [...dayIdList, data.id]
+            };
+        }
+        case actiontypes.DAY_ITEM_ADD: {
+            return {
+                ...state,
+                loading: true,
+            };
+        }
+        case actiontypes.DAY_ITEM_ADD_SUCCESS: {
+            const {day_id, ...data} = action.data;
+            const {days, items} = {...state};
+            const day = {...days[day_id.toString()]};
+            day.items = [...day.items, data.id];
+            items[data.id.toString()] = data;
+            days[day_id.toString()] = day;
+            return {
+                ...state,
+                loading: false,
+                days,
+                items
             };
         }
 

@@ -1,93 +1,48 @@
 import React, {Component} from "react";
+import {bindActionCreators, compose} from "redux";
+import {connect} from "react-redux";
+import ScheduleDayList from './containers/Day/List'
 
-import ScheduleDayForm from './components/DayForm'
+import {defaultReduxKey} from './config'
+import injectReducer from "utils/injectReducer";
+import reducer from "./reducer";
 
-import Day from './components/Day'
+import injectSaga from "utils/injectSaga";
+import saga from "./saga";
 
-const days = [
-    {
-        id: 12,
-        year: 2019,
-        month: 6,
-        day: 21,
-    },
-    {
-        id: 31,
-        year: 2019,
-        month: 6,
-        day: 22,
-    },
-];
+import {getSchedule} from "./actions";
 
 
-const items = [
-    {
-        id: 11,
-        start: "8:00",
-        title: "Окрытие выставки"
-    },
-    {
-        id: 12,
-        start: "9:00",
-        title: "Конкурс"
-    },
-    {
-        id: 13,
-        start: "10:00",
-        title: "Конкурс"
-    },
-    {
-        id: 14,
-        start: "10:30",
-        title: "Судейство"
-    },
-    {
-        id: 15,
-        start: "12:00",
-        title: "Обед"
-    },
-    {
-        id: 16,
-        start: "13:00",
-        title: "Показ мод"
-    },
-]
+class ClientExhibitionScheduleProxy extends Component {
 
-class ClientExhibitionSchedule extends Component {
-    state = {
-        days: [],
-        addDayFormVisible: false,
-    };
-    onDaySubmit = (values) => {
-        this.setState({days: [...this.state.days, values]})
-    };
-    toggleDayForm = () => this.setState(prevState => ({addDayFormVisible: !prevState.addDayFormVisible}));
+    componentDidMount() {
+        this.props.getSchedule()
+    }
 
     render() {
         return (
             <div className="schedule">
-                {
-                    days.map((day, index) =>
-                        <Day items={items} index={index} key={day.id} {...day}/>
-                    )
-                }
-                {
-                    this.state.days.map((day, index) =>
-                        <Day items={items} index={index} key={day.id} {...day}/>
-                    )
-                }
-                <div className="schedule__day-controls">
-                    <button onClick={this.toggleDayForm} className="btn btn-primary">Добавить день</button>
-                </div>
-                {
-                    this.state.addDayFormVisible ?
-                        <ScheduleDayForm formSubmit={this.onDaySubmit}/>
-                        : null
-                }
+                <ScheduleDayList exhibition_id={12}/>
             </div>
         );
     }
 }
 
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
+const withSaga = injectSaga({key: defaultReduxKey, saga});
 
-export default ClientExhibitionSchedule
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    getSchedule,
+}, dispatch);
+
+
+const withConnect = connect(
+    null,
+    mapDispatchToProps,
+);
+
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect)(ClientExhibitionScheduleProxy)
