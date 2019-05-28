@@ -1,5 +1,9 @@
+export const SCHEDULE_URL = '/api/client/exhibition/';
 export const DAY_URL = '/api/client/exhibition/day';
 export const DAY_ITEM_URL = '/api/client/exhibition/day_item';
+
+
+export const defaultReduxKey = 'exhibition_schedule';
 
 export const scheduleDayForm = {
     fields: {
