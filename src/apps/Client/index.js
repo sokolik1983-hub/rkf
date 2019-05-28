@@ -6,7 +6,13 @@ import ClientExhibitions from 'apps/ClientExhibitions'
 
 const Test=()=><div>Client Home</div>
 class ClientProxy extends PureComponent {
-
+    componentDidMount(){
+        this.wrap=document.getElementById("wrap");
+        this.wrap.classList.add('client_layout')
+    }
+    componentWillUnmount(){
+        this.wrap.classList.remove('client_layout')
+    }
     render() {
         const {path} = this.props.match;
         return (
