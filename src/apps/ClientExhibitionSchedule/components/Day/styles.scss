@@ -1,5 +1,10 @@
-.day{
-  &__items{
+.day {
+  border: solid 1px;
+  border-color: #EBF0F2;
+  margin: 32px 0;
+
+  &__items {
     margin: 32px 0;
   }
+
 }

@@ -61,7 +61,8 @@ class ClientExhibitionSchedule extends Component {
     onDaySubmit = (values) => {
         this.setState({days: [...this.state.days, values]})
     };
-toggleDayForm = () => this.setState(prevState => ({addDayFormVisible: !prevState.addDayFormVisible}));
+    toggleDayForm = () => this.setState(prevState => ({addDayFormVisible: !prevState.addDayFormVisible}));
+
     render() {
         return (
             <div className="schedule">
@@ -75,7 +76,9 @@ toggleDayForm = () => this.setState(prevState => ({addDayFormVisible: !prevState
                         <Day items={items} index={index} key={day.id} {...day}/>
                     )
                 }
-                <button onClick={this.toggleDayForm} className="btn btn-primary">Добавить день</button>
+                <div className="schedule__day-controls">
+                    <button onClick={this.toggleDayForm} className="btn btn-primary">Добавить день</button>
+                </div>
                 {
                     this.state.addDayFormVisible ?
                         <ScheduleDayForm formSubmit={this.onDaySubmit}/>

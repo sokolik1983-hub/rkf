@@ -1,3 +1,6 @@
+export const DAY_URL = '/api/client/exhibition/day';
+export const DAY_ITEM_URL = '/api/client/exhibition/day_item';
+
 export const scheduleDayForm = {
     fields: {
         date: {

@@ -1,0 +1,16 @@
+.schedule-day-item-form{
+  .form-controls{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+  }
+  input[name='start'],
+  input[name='end']{
+    max-width: 120px;
+  }
+  .form-group--inline{
+    .form-input{
+      flex: none
+    }
+  }
+}

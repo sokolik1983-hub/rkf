@@ -23,17 +23,22 @@ export default class ScheduleDay extends PureComponent {
         return (
 
             <div id={'day' + id} className="day">
-                <div className="day__date">День {index + 1} {date.toDateString()}</div>
+                <div className="day__date">
+                    <div className="day__day-number">День {index + 1}</div>
+                    <div>{date.toDateString()}</div></div>
                 <div className="day__items">
                     <Items items={items}/>
                     <Items items={this.state.items}/>
                 </div>
-                <div onClick={this.toggleItemForm} className="btn btn-primary">Добавить пункт</div>
                 {
                     addItemFormVisible ?
                         <ItemForm formSubmit={this.onItemSubmit}/>
                         : null
                 }
+                <div className="day__controls">
+                    <button onClick={this.toggleItemForm} className="btn btn-primary">Добавить пункт</button>
+                </div>
+
             </div>
         )
     }
