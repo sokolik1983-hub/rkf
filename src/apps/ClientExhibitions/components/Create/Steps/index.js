@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import Tabs, {TabContent} from "components/CommonTabs";
 import FirstStepForm from 'apps/ClientExhibitions/components/Forms/FirstStepForm'
-import SecondStepForm from 'apps/ClientExhibitions/components/Forms/SecondStepForm'
+import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
 import './styles.scss'
 
 export default function Steps() {
@@ -24,7 +24,7 @@ export default function Steps() {
                         <span className="step__number">шаг 1</span>
                     </Fragment>
                 }>
-                <SecondStepForm/>
+                <ClientExhibitionSchedule/>
             </TabContent>
             <TabContent
                 tabContent={
