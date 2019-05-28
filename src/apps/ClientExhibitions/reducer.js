@@ -5,7 +5,7 @@ const clientInitialState = {
     loadingApi: false,
 };
 
-export default function clientRootReducer(state = clientInitialState, action) {
+export default function clientExhibitionsReducer(state = clientInitialState, action) {
 
     switch (action.type) {
 
