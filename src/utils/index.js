@@ -66,3 +66,13 @@ export const varIsArray = (variable) => Object.prototype.toString.call(variable)
 export const varIsObject = (variable) => Object.prototype.toString.call(variable) === "[object Object]";
 
 export const objectNotEmpty = (obj) => varIsObject(obj) && Object.keys(obj).length > 0;
+
+export const getRandomInt = (min=1, max=100) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export const getPropsBySchema = (obj, schema) => {
+    const result = {};
+    Object.keys(schema).forEach(key => result[key] = obj[key]);
+    return result
+};

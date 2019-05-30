@@ -15,16 +15,17 @@ class Tabs extends Component {
         children: PropTypes.instanceOf(Array).isRequired,
     };
 
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: this.props.children[0].props.label,
+    };
 
-        this.state = {
-            activeTab: this.props.children[0].props.label,
-        };
-    }
 
     onClickTabItem = (tab) => {
+        const {onClickTab} = this.props;
         this.setState({activeTab: tab});
+        if (onClickTab) {
+            onClickTab(tab)
+        }
     };
 
     render() {

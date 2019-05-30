@@ -1,3 +1,6 @@
+import {varIsObject} from './index'
+
+
 const formatLeadingZero = (number, leadingZeroToHours = true) => number < 10 && leadingZeroToHours ? '0' + number : number;
 
 export const getTimeFromDate = (datetime, leadingZeroToHours = true) => {
@@ -63,4 +66,21 @@ export const weekDays = {
     "4": 'Четверг',
     "5": 'Пятница',
     "6": 'Суббота',
+};
+
+
+export const transformDate = (date) => {
+    if (
+        varIsObject(date) &&
+        date.day &&
+        date.month &&
+        date.year) {
+        return new Date(`${date.month}.${date.day}.${date.year}`);
+    }
+    const dateObj = new Date(date);
+    return {
+        day: dateObj.getDate(),
+        month: dateObj.getMonth() + 1,
+        year: dateObj.getFullYear()
+    }
 };

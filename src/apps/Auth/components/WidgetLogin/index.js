@@ -22,7 +22,6 @@ const Inner = () =>
 export default class WidgetLogin extends PureComponent {
     render() {
         const {isAuthenticated, logOutUser} = this.props;
-        console.log(logOutUser)
         return isAuthenticated ?
             <DropDown className="widget-login" innerComponent={<DropInner/>}>
                 <DropDownItem>Личная информация</DropDownItem>

@@ -8,6 +8,7 @@ import TextArea from "./textarea";
 import MaskedField from './masked'
 import EmailField from './email'
 import PhoneField from './phone'
+import ReactSelect from './select'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
@@ -28,6 +29,8 @@ class FastFormField extends PureComponent {
                 return EmailField;
             case "customPhone":
                 return PhoneField;
+            case "reactSelect":
+                return ReactSelect;
             default:
                 return Field;
         }
