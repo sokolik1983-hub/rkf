@@ -1,3 +1,7 @@
+export const defaultReduxKey = 'client_exhibitions'
+
+export const CLIENT_EXHIBITION_URL = '/api/exhibition';
+
 export const firstStepForm = {
     fields: {
         exhibition_name: {

@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import {Route, Switch, BrowserRouter} from 'react-router-dom';
-
+import {Route, Switch} from 'react-router-dom';
 import {appRoutes} from 'appConfig'
-
 import 'components/Layout/index.scss'
+
 
 class App extends Component {
     renderRoutes = () => {
@@ -21,11 +20,9 @@ class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
-                <Switch>
-                    {this.renderRoutes()}
-                </Switch>
-            </BrowserRouter>
+            <Switch>
+                {this.renderRoutes()}
+            </Switch>
         );
     }
 }

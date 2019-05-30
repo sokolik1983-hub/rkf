@@ -9,8 +9,10 @@ class Tab extends Component {
     };
 
     onClick = () => {
-        const {index, onClick} = this.props;
-        onClick(index);
+        const {index, onClick, disabled} = this.props;
+        if (!disabled) {
+            onClick(index);
+        }
     };
 
     checkActive = () => this.props.activeTabIndex === this.props.index;

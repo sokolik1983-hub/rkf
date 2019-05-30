@@ -1,13 +1,18 @@
 import React, {PureComponent} from "react"
-import {Route, Switch, Link} from 'react-router-dom'
-import ExhibitionsCreate from './components/Create'
+import {compose} from "redux";
+import {Route, Switch} from 'react-router-dom'
+
+import ExhibitionCreate from './components/Create'
 import ExhibitionDetails from './containers/Details'
 import ExhibitionList from './containers/List'
+
+import injectReducer from "utils/injectReducer";
+import reducer from "./reducer";
+import injectSaga from "utils/injectSaga";
+import saga from "./saga";
+
 import {ClientExhibitionsPathContext} from './context'
-
-
-
-const Edit = () => <div>exhibitions edit</div>
+import {defaultReduxKey} from "./config";
 
 class ClientExhibitionsProxy extends PureComponent {
     render() {
@@ -15,9 +20,9 @@ class ClientExhibitionsProxy extends PureComponent {
         return (
             <ClientExhibitionsPathContext.Provider value={{path}}>
                 <Switch>
-                    <Route path={`${path}/add`} component={ExhibitionsCreate}/>
+                    <Route exact path={`${path}`} component={ExhibitionList}/>
+                    <Route path={`${path}/add`} component={ExhibitionCreate}/>
                     <Route path={`${path}/:id/details`} component={ExhibitionDetails}/>
-                    <Route path={`${path}`} component={ExhibitionList}/>
                 </Switch>
             </ClientExhibitionsPathContext.Provider>
         );
@@ -25,4 +30,9 @@ class ClientExhibitionsProxy extends PureComponent {
 }
 
 
-export default ClientExhibitionsProxy
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
+const withSaga = injectSaga({key: defaultReduxKey, saga});
+
+export default compose(
+    withReducer,
+    withSaga)(ClientExhibitionsProxy)

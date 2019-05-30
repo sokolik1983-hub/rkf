@@ -22,7 +22,7 @@ class ClientExhibitionScheduleProxy extends Component {
     render() {
         return (
             <div className="schedule">
-                <ScheduleDayList exhibition_id={12}/>
+                <ScheduleDayList/>
             </div>
         );
     }
@@ -36,9 +36,15 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getSchedule,
 }, dispatch);
 
-
+const mapsStateToProps = (state, props) => {
+    if (props.match !== undefined) {
+        const {id} = props.match.params;
+        return {exhibitionId: id}
+    }
+    return {}
+}
 const withConnect = connect(
-    null,
+    mapsStateToProps,
     mapDispatchToProps,
 );
 

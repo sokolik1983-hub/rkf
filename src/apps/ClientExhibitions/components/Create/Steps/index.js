@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import Tabs, {TabContent} from "components/CommonTabs";
-import FirstStepForm from 'apps/ClientExhibitions/components/Forms/FirstStepForm'
+import ExhibitionForm from 'apps/ClientExhibitions/containers/ExhibitionForm'
 import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
 import './styles.scss'
 
@@ -15,9 +15,10 @@ export default function Steps() {
                     </Fragment>
                 }
             >
-                <FirstStepForm/>
+                <ExhibitionForm/>
             </TabContent>
             <TabContent
+                disabled
                 tabContent={
                     <Fragment>
                         Основаня иформация<br/>
@@ -27,6 +28,7 @@ export default function Steps() {
                 <ClientExhibitionSchedule/>
             </TabContent>
             <TabContent
+                disabled
                 tabContent={
                     <Fragment>
                         Основаня иформация<br/>

@@ -16,7 +16,7 @@ class Tabs extends Component {
     };
 
     state = {
-        activeTabIndex: 1
+        activeTabIndex: 0
     };
 
 
@@ -39,7 +39,7 @@ class Tabs extends Component {
                 <div className={classNames("tabs", {[className]: className})}>
                     {
                         children.map((child, index) => {
-                            const {tabContent} = child.props;
+                            const {tabContent, disabled} = child.props;
 
                             return (
                                 <Tab
@@ -48,6 +48,7 @@ class Tabs extends Component {
                                     index={index}
                                     tabContent={tabContent}
                                     onClick={this.onTabClick}
+                                    disabled={disabled}
                                 />
                             );
                         })
