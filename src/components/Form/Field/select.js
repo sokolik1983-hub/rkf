@@ -30,12 +30,15 @@ class ReactSelect extends Component {
             disabled,
             clearable,
             defaultValue,
-
+            isMulti,
+            closeMenuOnSelect
         } = this.props;
         const value = this.getValue();
         return (
             <Select
                 id={id}
+                isMulti={isMulti}
+                closeMenuOnSelect={closeMenuOnSelect}
                 styles={reactSelect.defaultTheme}
                 className={className}
                 name={name}
