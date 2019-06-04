@@ -44,7 +44,7 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
             };
         }
         case actiontypes.ADD_SUCCESS: {
-            const {id, ...data} = action.data;
+            const {id} = action.data;
             const exhibitionIdList = [...state.exhibitionIdList, id];
             const exhibitions = {...state.exhibitions};
             exhibitions[id.toString()] = action.data;
