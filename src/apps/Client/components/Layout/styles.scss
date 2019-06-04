@@ -14,9 +14,10 @@
     height: 100%;
     min-height: 100%;
     box-shadow: 3px 0 20px rgba(0, 0, 0, 0.03);
-    //background-color: #FA5D50;
+    background-color: white;
   }
   &__content{
-    //margin-left: 250px;
+    max-width: 960px;
+    margin: 0 auto;
   }
 }
