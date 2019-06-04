@@ -14,7 +14,6 @@ import ReactSelect from './select'
 class FastFormField extends PureComponent {
     static defaultProps = {
         type: "text",
-        className: 'form-input__input'
     };
     getComponent = () => {
         if (this.props.mask) {
