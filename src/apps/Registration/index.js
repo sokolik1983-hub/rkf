@@ -5,6 +5,7 @@ import {compose} from "redux";
 import Registration from './components/Registration'
 import ConfirmRegistrationSuccess from './components/ConfirmRegistrationSuccess'
 import ConfirmRegistrationFailed from './components/ConfirmRegistrationFailed'
+import RegistrationSuccess from './components/SuccessScreen'
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
@@ -21,6 +22,7 @@ class RegistrationProxy extends PureComponent {
                 <Switch>
                     <Route exact path={`${path}/confirm/success`} component={ConfirmRegistrationSuccess}/>
                     <Route exact path={`${path}/confirm/failed`} component={ConfirmRegistrationFailed}/>
+                    <Route exact path={`${path}/success`} component={RegistrationSuccess}/>
                     <Route path={path} component={Registration}/>
                 </Switch>
             </RegistrationPathContext.Provider>
