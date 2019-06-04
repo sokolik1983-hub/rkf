@@ -1,0 +1,15 @@
+.confirm-registration{
+  color: white;
+  font-size:20px;
+  line-height: 32px;
+  max-width: 500px;
+  &__title{
+    color: white;
+    font-size: 36px;
+    line-height: 44px;
+    margin: 32px 0;
+  }
+  &__content{
+    margin: 24px 0;
+  }
+}
