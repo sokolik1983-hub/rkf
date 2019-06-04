@@ -31,11 +31,13 @@ class ReactSelect extends Component {
             clearable,
             defaultValue,
             isMulti,
-            closeMenuOnSelect
+            closeMenuOnSelect,
+            components
         } = this.props;
         const value = this.getValue();
         return (
             <Select
+                components={components}
                 id={id}
                 isMulti={isMulti}
                 closeMenuOnSelect={closeMenuOnSelect}

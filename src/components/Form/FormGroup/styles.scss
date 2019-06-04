@@ -4,7 +4,8 @@
     margin-bottom: 32px;
     display: flex;
     flex-flow: row;
-    align-items: flex-start;
+    align-items: flex-end;
+    justify-content: flex-start;
 
     .form-input {
       margin-right: 16px;
