@@ -1,4 +1,5 @@
 import {objectNotEmpty, varIsArray, varIsObject} from "utils/index";
+import {withFormik} from "formik";
 
 const genInitialsFromFields = fields => {
     if (varIsArray(fields)) {
@@ -7,7 +8,7 @@ const genInitialsFromFields = fields => {
     if (varIsObject) {
         return genInitialsFromObject(fields)
     }
-    console.log('genInitialsFromFields invalid fields argument', fields)
+    console.log('genInitialsFromFields invalid fields argument', fields);
     return {}
 };
 
@@ -45,3 +46,15 @@ export const processRequestErrors = props => {
         setErrors(requestErrors);
     }
 };
+
+export const defaultWithFormik = withFormik(
+    {
+        mapPropsToValues: props => getFormInitialValues({
+            fields: props.fields,
+            formInitials: props.formInitials
+        }),
+        validationSchema: props => props.validationSchema,
+        handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
+        displayName: props => props.displayName, // helps with React DevTools
+    }
+)
