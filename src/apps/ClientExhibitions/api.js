@@ -1,19 +1,26 @@
 import request, {getHeaders} from 'utils/request';
-import {fakeRequest} from "utils/fakeRequest";
-import {SERVER} from "appConfig";
 import {CLIENT_EXHIBITION_URL} from "./config";
-
 
 const Api = {
     getExhibitionList: async (action) => {
-        const {exhibition_id} = action;
         return request(
             {
-                url: `${SERVER}/api/exhibition/schedule/?exhibition_id=${exhibition_id}`,
+                url: '/api/Exhibition/list',
                 options: {
                     method: "GET",
                     headers: getHeaders(),
-                    mode: 'cors',
+                }
+            }
+        );
+    },
+    getExhibitionDetails: async (action) => {
+        const {id} = action;
+        return request(
+            {
+                url: `/api/Exhibition?id=${id}`,
+                options: {
+                    method: "GET",
+                    headers: getHeaders(),
                 }
             }
         );
@@ -21,11 +28,10 @@ const Api = {
     addExhibition: async (action) => {
         return request(
             {
-                url: SERVER + CLIENT_EXHIBITION_URL,
+                url: CLIENT_EXHIBITION_URL,
                 options: {
                     method: "POST",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(action.data)
                 }
             }
@@ -35,11 +41,10 @@ const Api = {
         const {id, data} = action;
         return request(
             {
-                url: `${SERVER + CLIENT_EXHIBITION_URL}/${id}/`,
+                url: `${CLIENT_EXHIBITION_URL}/${id}/`,
                 options: {
                     method: "UPDATE",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(data)
                 }
             }
@@ -48,11 +53,10 @@ const Api = {
     deleteExhibition: async (action) => {
         return request(
             {
-                url: `${SERVER + CLIENT_EXHIBITION_URL}/${action.id}/`,
+                url: `${CLIENT_EXHIBITION_URL}/${action.id}/`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
-                    mode: 'cors',
                 }
             }
         );

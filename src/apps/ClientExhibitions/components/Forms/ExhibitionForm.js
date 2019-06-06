@@ -1,74 +1,81 @@
 import React, {PureComponent} from 'react'
 import FormField from 'components/Form/Field'
-import {withFormik, Form} from 'formik';
+import {Form} from 'formik';
 import Button from "components/Button";
 import FormGroup from 'components/Form/FormGroup'
+import {defaultWithFormik, processRequestErrors} from 'components/Form/services'
+import {varIsObject} from "utils";
 
-import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
-import {firstStepForm} from 'apps/ClientExhibitions/config'
-
-const {fields} = firstStepForm;
-
-class FirstStepForm extends PureComponent {
+class ExhibitionForm extends PureComponent {
 
     componentDidUpdate() {
-        processRequestErrors(this.props)
+        const {setFieldValue, values, user_info} = this.props;
+        processRequestErrors(this.props);
+        //TODO remove
+        if (values.user_id === null &&
+            user_info !== null &&
+            varIsObject(user_info) &&
+            user_info.id
+        ) {
+            setFieldValue('user_id', user_info.id)
+        }
     }
 
     render() {
-        const {loading} = this.props;
+        const {loading, fields, disabled} = this.props;
         return (
             <Form className="registration-form">
-
                 <FormField
-                    {...fields.exhibition_name}
+                    disabled={disabled}
+                    {...fields.name}
                 />
                 <FormField
-                    {...fields.exhibition_description}
+                    disabled={disabled}
+                    {...fields.description}
                 />
 
                 <FormGroup inline>
                     <FormField
+                        disabled={disabled}
                         {...fields.rank_type}
                     />
 
                     <FormField
+                        disabled={disabled}
                         {...fields.dignity_types}
                     />
                 </FormGroup>
                 <FormGroup inline>
                     <FormField
-                        {...fields.exhibition_class}
+                        disabled={disabled}
+                        {...fields.class_types}
                     />
                     <FormField
+                        disabled={disabled}
                         {...fields.breed_types}
                     />
                 </FormGroup>
                 <FormField
-                    {...fields.exhibition_city}
+                    disabled={disabled}
+                    {...fields.city_id}
                 />
                 <FormField
-                    {...fields.exhibition_address}
+                    disabled={disabled}
+                    {...fields.address}
                 />
+                {
+                    disabled ?
+                        null :
+                        <div className="form-controls">
+                            <Button loading={loading} type="submit" className="btn-primary btn-lg">Продолжить</Button>
+                        </div>
+                }
 
 
-                <div className="form-controls">
-                    <Button loading={loading} type="submit" className="btn-primary btn-lg">Продолжить</Button>
-                </div>
             </Form>
         )
     }
 }
 
 
-export default withFormik(
-    {
-        mapPropsToValues: props => getFormInitialValues({
-            fields: fields,
-            formInitials: props.formInitials
-        }),
-        validationSchema: props => props.validationSchema,
-        handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
-        displayName: props => props.displayName, // helps with React DevTools
-    }
-)(FirstStepForm);
+export default defaultWithFormik(ExhibitionForm);

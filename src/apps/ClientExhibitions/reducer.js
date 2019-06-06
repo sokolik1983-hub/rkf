@@ -7,6 +7,7 @@ const clientInitialState = {
     exhibitions: {},
     exhibitionsDetails: {},
     requestErrors: {},
+    listDays: []
 };
 
 export default function clientExhibitionsReducer(state = clientInitialState, action) {
@@ -28,6 +29,7 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 loading: false,
                 exhibitions,
                 exhibitionIdList,
+                listDays: action.data,
             };
 
         }
@@ -43,6 +45,7 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 loading: true,
             };
         }
+
         case actiontypes.ADD_SUCCESS: {
             const {id} = action.data;
             const exhibitionIdList = [...state.exhibitionIdList, id];
@@ -56,6 +59,16 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 exhibitions,
                 exhibitionsDetails,
                 loading: false,
+            };
+        }
+        case actiontypes.DETAILS_SUCCESS: {
+            const {id} = action.data;
+            const exhibitionsDetails = {...state.exhibitionsDetails};
+            exhibitionsDetails[id.toString()] = action.data;
+            return {
+                ...state,
+                loading: false,
+                exhibitionsDetails,
             };
         }
         default:

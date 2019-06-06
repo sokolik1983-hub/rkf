@@ -5,9 +5,11 @@ import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
 import {scheduleDayItemForm} from 'apps/ClientExhibitionSchedule/config'
+import {BtnPus} from 'components/Svg'
 import './styles.scss'
 
-const {fields} = scheduleDayItemForm;
+const {fields, validationSchema} = scheduleDayItemForm;
+
 class ScheduleDayItemForm extends PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
         processRequestErrors(this.props)
@@ -19,16 +21,19 @@ class ScheduleDayItemForm extends PureComponent {
             <Form className="schedule-day-item-form">
                 <FormGroup inline>
                     <FormField
-                        {...fields.start}
+                        className={'start'}
+                        {...fields.time_start}
                     />
                     <FormField
-                        {...fields.end}
+                        {...fields.time_end}
                     />
                     <FormField
-                        {...fields.title}
+                        style={{flex: 2}}
+                        {...fields.name}
                     />
                     <div className="form-controls">
-                        <Button loading={loading} type="submit" className="btn-primary btn-lg">Добавить</Button>
+                        <Button leftIcon={<BtnPus/>} loading={loading} type="submit"
+                                className="btn-simple btn-lg">Добавить</Button>
                     </div>
                 </FormGroup>
 
@@ -44,7 +49,7 @@ export default withFormik(
             fields: fields,
             formInitials: props.formInitials
         }),
-        validationSchema: props => props.validationSchema,
+        validationSchema: validationSchema,
         handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
         displayName: props => props.displayName, // helps with React DevTools
     }

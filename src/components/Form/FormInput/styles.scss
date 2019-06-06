@@ -4,20 +4,23 @@
   //min-width: 278px;
   margin-bottom: 32px;
   position: relative;
-  &.hidden{
+
+  &.hidden {
     height: 0;
     padding: 0;
     margin: 0;
   }
+
   label {
     margin-bottom: 8px;
   }
 
   input[type="date"],
-  input[type="time"]{
+  input[type="time"] {
     padding: 9px 11px 10px 11px;
+
     &:active,
-    &:focus{
+    &:focus {
       padding: 8px 10px 9px 10px;
     }
   }
@@ -48,6 +51,18 @@
       border-radius: 6px;
       border-width: 2px;
       padding: 10px 11px;
+
+
+    }
+
+    &:disabled {
+      padding: 11px 12px;
+      border-width: 1px;
+      border-color: #EBF0F2;
+
+      &:hover {
+        border-color: #EBF0F2;
+      }
     }
 
     &::placeholder {
@@ -55,6 +70,7 @@
       color: #BABFC7;
     }
   }
+
 
   &--checkbox {
     display: flex;
@@ -83,15 +99,20 @@
     .form-input__feedback {
       color: #FA5D50;
     }
-    div[class*="-control"]{
+
+    div[class*="-control"] {
       border-color: #FA5D50;
       border-width: 2px;
     }
   }
 
   &__feedback {
+    position: absolute;
     line-height: 100%;
-    margin-top: 4px;
+    bottom: -24px;
+    padding: 4px;
+    white-space: nowrap;
+    background-color: white;
   }
 
   &.select {

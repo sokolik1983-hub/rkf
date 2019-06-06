@@ -15,6 +15,15 @@
   cursor: pointer;
   background-color: white;
   text-decoration: none;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 400;
+
+  .step__number {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
   &.active {
     text-decoration: none;
     color: #3366FF !important;

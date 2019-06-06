@@ -1,7 +1,6 @@
 import request, {getHeaders} from 'utils/request';
-import {fakeRequest} from "utils/fakeRequest";
-import {mockScheduleData} from './mockGetSchedule'
-import {SERVER} from "appConfig";
+//import {fakeRequest} from "utils/fakeRequest";
+//import {mockScheduleData} from './mockGetSchedule'
 import {DAY_URL, DAY_ITEM_URL} from "./config";
 
 
@@ -10,11 +9,10 @@ const Api = {
         const {exhibition_id} = action;
         return request(
             {
-                url: `${SERVER}/api/exhibition/schedule/?exhibition_id=${exhibition_id}`,
+                url: `/api/exhibition/Shedule/?id=${exhibition_id}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),
-                    mode: 'cors',
                 }
             }
         );
@@ -22,11 +20,10 @@ const Api = {
     addDay: async (action) => {
         return request(
             {
-                url: SERVER + DAY_URL,
+                url: DAY_URL,
                 options: {
                     method: "POST",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(action.data)
                 }
             }
@@ -36,11 +33,10 @@ const Api = {
         const {id, data} = action;
         return request(
             {
-                url: `${SERVER + DAY_URL}/${id}/`,
+                url: `${DAY_URL}/${id}/`,
                 options: {
                     method: "UPDATE",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(data)
                 }
             }
@@ -49,11 +45,10 @@ const Api = {
     deleteDay: async (action) => {
         return request(
             {
-                url: `${SERVER + DAY_URL}/${action.id}/`,
+                url: `${DAY_URL}/${action.id}/`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
-                    mode: 'cors',
                 }
             }
         );
@@ -62,11 +57,10 @@ const Api = {
     addDayItem: async (action) => {
         return request(
             {
-                url: SERVER + DAY_ITEM_URL,
+                url: DAY_ITEM_URL,
                 options: {
                     method: "POST",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(action.data)
                 }
             }
@@ -76,11 +70,10 @@ const Api = {
         const {id, data} = action;
         return request(
             {
-                url: `${SERVER + DAY_ITEM_URL}/${id}/`,
+                url: `${DAY_ITEM_URL}/${id}/`,
                 options: {
                     method: "UPDATE",
                     headers: getHeaders(),
-                    mode: 'cors',
                     body: JSON.stringify(data)
                 }
             }
@@ -89,11 +82,10 @@ const Api = {
     deleteDayItem: async (action) => {
         return request(
             {
-                url: `${SERVER + DAY_ITEM_URL}/${action.id}/`,
+                url: `${DAY_ITEM_URL}/${action.id}/`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
-                    mode: 'cors',
                 }
             }
         );

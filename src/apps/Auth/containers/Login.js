@@ -19,7 +19,7 @@ class Login extends PureComponent {
     render() {
         const {loading, isAuthenticated}=this.props;
         return isAuthenticated ?
-            <Redirect to="/"/>
+            <Redirect to="/client"/>
             :
             (
                 <Form

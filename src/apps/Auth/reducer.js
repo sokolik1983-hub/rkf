@@ -16,15 +16,43 @@ const saveApiKey = (key) => {
     localStorage.setItem(API_KEY_LOCAL_STORAGE, key)
 };
 
-const clearApiKey = ()=>{
+const clearApiKey = () => {
     localStorage.removeItem(API_KEY_LOCAL_STORAGE)
 };
+
+const loadUserInfo = () => {
+    const user_info = localStorage.getItem("user_info");
+    return user_info === null ? false : JSON.parse(user_info);
+};
+
+const saveUserInfo = (user_info) => {
+    localStorage.setItem("user_info", JSON.stringify(user_info))
+};
+
+const clearUserInfo = () => {
+    localStorage.removeItem("user_info")
+};
+
+const loadRolesWithActions = () => {
+    const rolesWithActions = localStorage.getItem("rolesWithActions");
+    return rolesWithActions === null ? false : JSON.parse(rolesWithActions);
+};
+
+const saveRolesWithActions = (rolesWithActions) => {
+    localStorage.setItem("rolesWithActions", JSON.stringify(rolesWithActions))
+};
+
+const clearRolesWithActions = () => {
+    localStorage.removeItem("rolesWithActions_info")
+};
+
 
 const authInitialState = {
     loading: false,
     isAuthenticated: isUserAuthenticated(),
-    user: null,
-    requestErrors: {}
+    user_info: loadUserInfo(),
+    requestErrors: {},
+    rolesWithActions: loadRolesWithActions(),
 };
 
 export default function authReducer(state = authInitialState, action) {
@@ -38,12 +66,17 @@ export default function authReducer(state = authInitialState, action) {
             };
         }
         case actiontypes.LOGIN_SUCCESS: {
-            saveApiKey(action.data.token);
+
+            const {access_token, user_info, roles_with_actions} = action.data;
+            saveApiKey(access_token);
+            saveUserInfo(user_info);
+            saveRolesWithActions(roles_with_actions);
             return {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: action.data,
+                user_info,
+                roles_with_actions
             };
         }
         case actiontypes.LOGIN_FAILED: {
@@ -57,11 +90,13 @@ export default function authReducer(state = authInitialState, action) {
         case actiontypes.LOGOUT: {
             //TODO Убрать clearApiKey();
             clearApiKey();
+            clearUserInfo();
+            clearRolesWithActions();
             return {
                 ...state,
                 //TODO Убрать isAuthenticated: false,
                 isAuthenticated: false,
-                loading: true,
+                user_info: null
             };
         }
         case actiontypes.LOGOUT_SUCCESS: {

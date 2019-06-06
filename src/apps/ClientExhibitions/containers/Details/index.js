@@ -1,36 +1,45 @@
-import React, {PureComponent} from 'react'
+import React, {Fragment, PureComponent} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getExhibitionDetails} from "../actions";
-import {defaultReduxKey} from "../config";
-import Container from 'components/Layout/Container'
+import {getExhibitionDetails} from "apps/ClientExhibitions/actions";
+import {defaultReduxKey} from "apps/ClientExhibitions/config";
+
 import NavTab, {NavTabs} from 'apps/ClientExhibitions/components/NavTab'
 import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
-import {objectNotEmpty} from "../../../utils";
+import {objectNotEmpty} from "utils/index";
+import Common from 'apps/ClientExhibitions/containers/Details/Common'
+import {StepTabContent1, StepTabContent2, StepTabContent3} from "apps/ClientExhibitions/components/Steps";
 
-const Common = () => <div>common</div>
 
-const Prices = () => <div>prices</div>
+const Prices = () => <div><h3 style={{padding:40, textAlign:'center'}}>Страница в разработке</h3></div>
 
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
-        const {id, exhibitionsDetails, getExhibitionDetails} = this.props;
+        const {exhibitionId, exhibitionsDetails, getExhibitionDetails} = this.props;
         if (!objectNotEmpty(exhibitionsDetails)) {
-            getExhibitionDetails(id)
+            getExhibitionDetails(exhibitionId)
         }
     }
 
     render() {
-        const {url, path, exhibitionsDetails} = this.props;
+        const {
+            url,
+            path,
+            //exhibitionsDetails,
+        } = this.props;
         return (
-            <Container pad>
+            <Fragment>
                 <NavTabs>
                     <NavTab to={`${url}/common`}>
-                        Step 1
+                        <StepTabContent1/>
                     </NavTab>
-                    <NavTab to={`${url}/schedule`}>Step 2</NavTab>
-                    <NavTab to={`${url}/prices`}>Step 3</NavTab>
+                    <NavTab to={`${url}/schedule`}>
+                        <StepTabContent2/>
+                    </NavTab>
+                    <NavTab to={`${url}/prices`}>
+                        <StepTabContent3/>
+                    </NavTab>
                 </NavTabs>
                 <Switch>
                     <Route path={`${path}/common`} component={Common}/>
@@ -38,7 +47,7 @@ class ExhibitionDetails extends PureComponent {
                     <Route path={`${path}/prices`} component={Prices}/>
                     <div className="client-exhibition-details">details</div>
                 </Switch>
-            </Container>
+            </Fragment>
         )
     }
 }
@@ -55,7 +64,8 @@ const mapsStateToProps = (state, props) => {
     return {
         path,
         url,
-        exhibitionsDetails
+        exhibitionsDetails,
+        exhibitionId: id
     }
 };
 

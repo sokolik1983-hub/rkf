@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom'
 
 import ExhibitionCreate from './components/Create'
 import ExhibitionDetails from './containers/Details'
-import ExhibitionList from './containers/List'
+import ExhibitionList from './containers/DayList'
 
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";

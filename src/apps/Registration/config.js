@@ -1,6 +1,6 @@
 import {object, string} from 'yup'
 
-export const registrationSuccessPath = '/client/show_demo';
+export const registrationSuccessPath = '/auth/registration/success';
 
 export const registrationFormPhysicalPerson = {
     fields: {
@@ -70,7 +70,7 @@ export const registrationFormLegalEntity = {
         registration_type: {
             name: 'registration_type',
             type: 'hidden',
-            defaultValue: 2
+            defaultValue: 3
         },
         company_name: {
             name: 'company_name',
@@ -80,9 +80,14 @@ export const registrationFormLegalEntity = {
         },
         company_type: {
             name: 'company_type',
-            type: 'text',
+            type: 'select',
             label: 'Статус',
-            placeholder: 'Региональный или федеральный'
+            placeholder: 'Региональный или федеральный',
+            fieldType: 'reactSelect',
+            options: [
+                {label: "Федеральный", value: 1},
+                {label: "Региональный", value: 2}
+            ]
         },
         email: {
             name: 'email',
@@ -124,7 +129,7 @@ export const registrationFormLegalEntity = {
         password: string()
             .required('Поле не может быть пустым')
             .test('', 'Ваш пароль короче 8 символов',
-                value => value && value.length > 8
+                value => value && value.length > 7
             ),
     }),
 };

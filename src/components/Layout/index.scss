@@ -19,8 +19,15 @@ body{
   min-height: 100%;
   //overflow: hidden;
   &.client_layout{
-    background-color: #E5E5E5;
+    background-color: #f5f6f6;
   }
+}
+
+.text-upper{
+  text-transform: uppercase;
+}
+.text-center{
+  text-align: center;
 }
 
 @import '../__shared-sass-vars/typography';

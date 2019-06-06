@@ -10,6 +10,7 @@ import MaskedField from './masked'
 import EmailField from './email'
 import PhoneField from './phone'
 import ReactSelect from './select'
+import ReactSelectAsync from './AsyncSelect'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
@@ -31,6 +32,8 @@ class FastFormField extends PureComponent {
                 return PhoneField;
             case "reactSelect":
                 return ReactSelect;
+            case "reactSelectAsync":
+                return ReactSelectAsync;
             default:
                 return Field;
         }
