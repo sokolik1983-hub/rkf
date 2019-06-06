@@ -83,6 +83,10 @@
     .form-input__feedback {
       color: #FA5D50;
     }
+    div[class*="-control"]{
+      border-color: #FA5D50;
+      border-width: 2px;
+    }
   }
 
   &__feedback {
