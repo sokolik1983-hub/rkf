@@ -1,16 +1,19 @@
+//import CheckBoxOption from 'components/Form/CustomSelectOptions/CheckBox'
+import {object, string, array} from "yup";
+
 export const defaultReduxKey = 'client_exhibitions'
 
-export const CLIENT_EXHIBITION_URL = '/api/exhibition';
+export const CLIENT_EXHIBITION_URL = '/api/Exhibition';
 
 export const firstStepForm = {
     fields: {
-        exhibition_name: {
-            name: 'exhibition_name',
+        name: {
+            name: 'name',
             label: 'Название выставки',
             placeholder: 'Всероссийская выставка собак «Летний кубок — 2019»'
         },
-        exhibition_description: {
-            name: 'exhibition_description',
+        description: {
+            name: 'description',
             label: 'Описание выставки',
             fieldType: 'textarea',
             placeholder: 'Расскажите участникам и гостям, что их ожидает на выставке. Также укажите ссылки на необходимые \n' +
@@ -19,44 +22,75 @@ export const firstStepForm = {
         dignity_types: {
             name: 'dignity_types',
             label: 'Титул',
+            placeholder: 'Чемпионы',
+            isMulti: true,
+            closeMenuOnSelect: false,
+            //components: {Option: CheckBoxOption},
+            fieldType: 'reactSelectAsync',
             type: 'select',
-            placeholder: 'Чемп',
-            fieldType: 'reactSelect',
-            options: [
-                {
-                    label: 'Чемпион',
-                    value: 'Чемпион',
-                },
-                {
-                    label: 'Не Чемпион',
-                    value: 'Не Чемпион',
-                },
-            ]
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/dignity/all'
         },
         rank_type: {
             name: 'rank_type',
             label: 'Ранг выставки',
-            placeholder: 'CACIB'
+            placeholder: 'CACIB',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/rank/all'
         },
-        exhibition_class: {
-            name: 'exhibition_class',
+        class_types: {
+            name: 'class_types',
             label: 'Класс',
-            placeholder: 'Ветераны'
+            placeholder: 'Ветераны',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: true,
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/class/all'
         },
         breed_types: {
             name: 'breed_types',
             label: 'Порода',
-            placeholder: 'Лабрадор-ретривер'
+            placeholder: 'Лабрадор-ретривер',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: true,
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/dog/Breed/all'
         },
-        exhibition_city: {
-            name: 'exhibition_city',
+        city_id: {
+            name: 'city_id',
             label: 'Город',
-            placeholder: 'Москва'
+            placeholder: 'Москва',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/city/all'
         },
-        exhibition_address: {
-            name: 'exhibition_address',
+        address: {
+            name: 'address',
             label: 'Адрес',
             placeholder: 'Адрес проведения выставки'
         },
-    }
+        user_id: {
+            name: 'user_id',
+            type: "hidden",
+            defaultValue: null,
+        },
+    },
+    validationSchema: object().shape({
+        name: string()
+            .required('Введите название'),
+        description: string()
+            .required('Добавьте описание'),
+        city_id: string()
+            .required('Укажите город'),
+        address: string()
+            .required('Укажите адрес'),
+        rank_type: string()
+            .required('Укажите Ранг выставки'),
+        dignity_types: array()
+            .required('Укажите титулы'),
+        class_types: array()
+            .required('Укажите Класс выставки'),
+        breed_types: array()
+            .required('Укажите породы'),
+    }),
 };

@@ -3,18 +3,16 @@ import {withFormik, Form} from 'formik';
 import FormField from 'components/Form/Field'
 import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
-import FormInput from "components/Form/Field/FormInput";
+import FormInput from "components/Form/FormInput";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
 import {Link} from "react-router-dom";
 
 import './styles.scss'
 
 class LoginForm extends PureComponent {
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate() {
         processRequestErrors(this.props)
     }
-
     render() {
         const {fields, loading} = this.props;
         return (

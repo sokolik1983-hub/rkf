@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import './index.scss'
 
+
 export const ButtonNext = ({
                                children,
                                type = 'button',
@@ -25,27 +26,38 @@ export const ButtonNext = ({
 
 const Button = ({
                     style,
-
                     onClick,
                     className,
                     disabled,
                     type = 'button',
                     loading,
                     children,
+                    leftIcon,
+                    rightIcon
                 }) =>
+
     <button
         style={style}
         className={classnames(
             'btn',
             {'btn--loading': loading},
+            {'btn-icon': leftIcon || rightIcon},
+            {'btn-icon--left': leftIcon},
+            {'btn-icon--right': rightIcon},
             {[className]: className}
         )}
         type={type}
         onClick={onClick}
         disabled={disabled || loading}
     >
-        {children}
+        {
+            leftIcon
+        }
 
+        {children}
+        {
+            rightIcon
+        }
     </button>;
 
 export default Button

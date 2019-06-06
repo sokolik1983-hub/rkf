@@ -1,4 +1,6 @@
 //import 'whatwg-fetch';
+import {isDevEnv} from "./index";
+import {SERVER} from "appConfig";
 
 /**
  * Parses the JSON returned by a network request
@@ -28,7 +30,13 @@ function parseJSON(response) {
     if (status === 204 || status === 205) {
         return null;
     }
-    return response.json();
+    try {
+        return response.json();
+    } catch (e) {
+        console.log(e);
+        return null
+    }
+
 }
 
 /**
@@ -59,7 +67,15 @@ const checkStatus = async (response) => {
  */
 
 export default function request({url, options}) {
-    return fetch(url, options)
+    const requestOptions = isDevEnv() ?
+        {
+            ...options,
+            mode: "cors"
+        }
+        :
+        options;
+    const requestUrl = isDevEnv() ? SERVER + url : url;
+    return fetch(requestUrl, requestOptions)
         .then(checkStatus)
         .then(parseJSON);
 }

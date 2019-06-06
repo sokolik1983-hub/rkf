@@ -1,7 +1,15 @@
 import {varIsObject} from './index'
 
 
-const formatLeadingZero = (number, leadingZeroToHours = true) => number < 10 && leadingZeroToHours ? '0' + number : number;
+const formatLeadingZero = (number, leadingZero = true) => number < 10 && leadingZero ? '0' + number : number;
+
+export const formatDateCommon = (datetime, leadingZero = true) => {
+    const date = new Date(datetime);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${formatLeadingZero(day, leadingZero)}.${formatLeadingZero(month, leadingZero)}.${year}`
+};
 
 export const getTimeFromDate = (datetime, leadingZeroToHours = true) => {
     const date = new Date(datetime);

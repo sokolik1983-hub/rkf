@@ -13,7 +13,7 @@ export const loginForm = {
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '8 () ___ __ __',
+            placeholder: '7 (   ) ___ __ __',
 
         },
         password: {

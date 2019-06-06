@@ -11,7 +11,7 @@ import './index.scss'
 const DropInner = () =>
     <Fragment>
         <UserIcon/>
-        <UserLogin title="Клуб №112"/>
+        <UserLogin title="Клуб"/>
     </Fragment>;
 
 const Inner = () =>
@@ -24,11 +24,7 @@ export default class WidgetLogin extends PureComponent {
         const {isAuthenticated, logOutUser} = this.props;
         return isAuthenticated ?
             <DropDown className="widget-login" innerComponent={<DropInner/>}>
-                <DropDownItem>Личная информация</DropDownItem>
-                <DropDownItem>Документы</DropDownItem>
-                <DropDownItem>Избранное</DropDownItem>
-                <DropDownItem>Создать заявку</DropDownItem>
-                <DropDownItem>Упаравление заявками</DropDownItem>
+                <DropDownItem><Link to="/client">Личная кабинет</Link></DropDownItem>
                 <DropDownItem onClick={logOutUser}>Выход</DropDownItem>
             </DropDown>
             :

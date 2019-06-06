@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom'
 import {ClientPathContext} from 'apps/Client/context'
 import ClientExhibitions from 'apps/ClientExhibitions'
 
-const Test=()=><div>Client Home</div>
+const Test=()=><div><h3 style={{padding:40, textAlign:'center'}}>Стартовая страница клуба.<br/>в разработке</h3></div>
 class ClientProxy extends PureComponent {
     componentDidMount(){
         this.wrap=document.getElementById("wrap");

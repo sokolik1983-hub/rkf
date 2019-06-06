@@ -1,27 +1,124 @@
 .form-input {
   display: flex;
   flex-flow: column nowrap;
-  min-width: 278px;
+  //min-width: 278px;
+  margin-bottom: 32px;
+  position: relative;
+
+  &.hidden {
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
 
   label {
     margin-bottom: 8px;
+  }
+
+  input[type="date"],
+  input[type="time"] {
+    padding: 9px 11px 10px 11px;
+
+    &:active,
+    &:focus {
+      padding: 8px 10px 9px 10px;
+    }
   }
 
   .form-input__input {
     letter-spacing: 1px;
     font-family: 'Futura New', Helvetica, sans-serif;
     font-weight: 200;
+    padding: 11px 12px;
     box-sizing: border-box;
     font-size: 18px;
     line-height: 24px;
-    padding: 12px;
     border-radius: 6px;
-    border: solid 1px;
+    border-style: solid;
+    border-width: 1px;
     border-color: #EBF0F2;
+    background-color: white !important;
+
+
+    &:hover {
+      border-color: #b3b3b3;
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+      border-color: rgb(114, 160, 233);
+      border-radius: 6px;
+      border-width: 2px;
+      padding: 10px 11px;
+
+
+    }
+
+    &:disabled {
+      padding: 11px 12px;
+      border-width: 1px;
+      border-color: #EBF0F2;
+
+      &:hover {
+        border-color: #EBF0F2;
+      }
+    }
 
     &::placeholder {
       font-family: inherit;
       color: #BABFC7;
+    }
+  }
+
+
+  &--checkbox {
+    display: flex;
+    flex-flow: row nowrap;
+
+    label {
+      order: 2;
+    }
+
+    input {
+      order: 1;
+      border: solid 1px;
+      border-color: #DADADA;
+      margin-right: 8px;
+    }
+  }
+
+  &--error {
+    //color: #FA5D50;
+    .form-input__input {
+      border-color: #FA5D50;
+      border-width: 2px;
+      padding: 10px 11px;
+    }
+
+    .form-input__feedback {
+      color: #FA5D50;
+    }
+
+    div[class*="-control"] {
+      border-color: #FA5D50;
+      border-width: 2px;
+    }
+  }
+
+  &__feedback {
+    position: absolute;
+    line-height: 100%;
+    bottom: -24px;
+    padding: 4px;
+    white-space: nowrap;
+    background-color: white;
+  }
+
+  &.select {
+    .form-input__input {
+      padding: 0;
+      border-width: 0;
     }
   }
 }

@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects'
 
-import Api from './apiFake'
+import Api from './api'
 
 import * as actionTypes from './actiontypes'
 import * as actions from './actions'
@@ -18,7 +18,7 @@ export function* getSchedule(action) {
 export function* addDay(action) {
     try {
         const data = yield call(Api.addDay, action);
-        yield put(actions.addDaySuccess(data))
+        yield put(actions.addDaySuccess({id: data, ...action.data}))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
         yield put(actions.addDayFailed(error.response))
@@ -51,7 +51,7 @@ export function* deleteDay(action) {
 export function* addDayItem(action) {
     try {
         const data = yield call(Api.addDayItem, action);
-        yield put(actions.addDayItemSuccess(data))
+        yield put(actions.addDayItemSuccess({id: data, ...action.data}))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
         yield put(actions.addDayItemFailed(error.response))

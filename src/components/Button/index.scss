@@ -1,12 +1,13 @@
 $primary-color: #253C5E;
 $primary-color--disabled: transparentize($primary-color, .3);
-button{
+button {
   font-family: 'Futura New Book', Helvetica, sans-serif;
   font-weight: normal;
   background-color: transparent;
   padding: 6px 12px;
   color: $primary-color;
 }
+
 .btn {
   color: inherit;
   font-family: inherit;
@@ -21,32 +22,44 @@ button{
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px auto;
-  &--loading{
+  cursor: pointer;
+
+  &--loading {
     color: transparent !important;
     background-image: url('/static/icons/loader_spinning-circles.svg');
-
   }
 }
 
 a.btn,
-a.btn:visited{
+a.btn:visited {
   color: white;
 }
+
 .btn-lg {
-  padding: 12px 16px;
+  padding: 13px 16px;
 }
 
-.btn-icon{
+.btn-icon {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  span{
-    padding: 0 4px;
+
+  svg {
+    fill: currentColor
   }
-  img{
-    margin: 0 12px;
+
+  &--left {
+    img, svg {
+      margin-right: 8px;
+    }
+  }
+  &--right {
+    img, svg {
+      margin-left: 8px;
+    }
   }
 }
+
 .btn-primary {
   color: white;
   border-color: $primary-color;
@@ -77,4 +90,12 @@ a.btn:visited{
 
 .btn-text {
   color: rgba(37, 60, 94, 0.7);
+}
+
+.btn-simple {
+  background-color: transparent;
+
+  &:hover {
+    background-color: #EBF0FE;
+  }
 }

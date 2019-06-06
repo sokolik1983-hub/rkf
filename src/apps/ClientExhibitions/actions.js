@@ -8,7 +8,7 @@ export const getExhibitionListSuccess = makeActionCreator(actionTypes.GET_LIST_S
 export const getExhibitionListFailed = makeActionCreator(actionTypes.GET_LIST_FAILED, 'errors');
 
 export const getExhibitionDetails = makeActionCreator(actionTypes.DETAILS, 'id');
-export const getExhibitionDetailsSuccess = makeActionCreator(actionTypes.DETAILS_SUCCESS, 'id', 'data');
+export const getExhibitionDetailsSuccess = makeActionCreator(actionTypes.DETAILS_SUCCESS, 'data');
 export const getExhibitionDetailsFailed = makeActionCreator(actionTypes.DETAILS_FAILED, 'id', 'errors');
 
 export const addExhibition = makeActionCreator(actionTypes.ADD, 'data','successRedirect');

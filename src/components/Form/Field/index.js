@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Field} from 'formik'
-import FormInput from 'components/Form/Field/FormInput'
+import classnames from 'classnames'
+import FormInput from 'components/Form/FormInput'
 import FieldError from './Error'
 import Label from './Label'
 import ImageInput from './image'
@@ -9,11 +10,11 @@ import MaskedField from './masked'
 import EmailField from './email'
 import PhoneField from './phone'
 import ReactSelect from './select'
+import ReactSelectAsync from './AsyncSelect'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
         type: "text",
-        className: 'form-input__input'
     };
     getComponent = () => {
         if (this.props.mask) {
@@ -31,6 +32,8 @@ class FastFormField extends PureComponent {
                 return PhoneField;
             case "reactSelect":
                 return ReactSelect;
+            case "reactSelectAsync":
+                return ReactSelectAsync;
             default:
                 return Field;
         }
@@ -38,11 +41,15 @@ class FastFormField extends PureComponent {
 
     render() {
         const FieldInput = this.getComponent();
-        const {fieldType, ...fieldProps} = this.props;
+        const {fieldType, className, style, ...fieldProps} = this.props;
         return (
             <FormInput
+                style={style}
                 name={fieldProps.name}
-                className={fieldProps.type}
+                className={classnames(
+                    {[className]: className},
+                    {[fieldProps.type]: fieldProps.type},
+                )}
             >
                 <Label field={fieldProps}/>
                 <FieldInput

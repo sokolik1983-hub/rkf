@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects'
 import { push } from 'connected-react-router'
-import Api from './fakeApi'
+import Api from './api'
 
 import * as actionTypes from './actiontypes'
 import * as actions from './actions'
@@ -62,6 +62,7 @@ export function* deleteExhibition(action) {
 
 export default function* clientExhibitionScheduleSaga() {
     yield takeLatest(actionTypes.GET_LIST, getExhibitionList);
+    yield takeLatest(actionTypes.DETAILS, getExhibitionDetails);
     yield takeLatest(actionTypes.ADD, addExhibition);
 }
 

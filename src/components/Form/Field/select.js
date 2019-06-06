@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import {connect} from "formik";
+import {connect, getIn} from "formik";
 import {reactSelect} from 'appConfig'
-
+const NoOptionsMessage = () => {
+  return ('Нет опций для выбора');
+};
 class ReactSelect extends Component {
     static defaultProps = {
         placeholder: "Выбрать...",
@@ -13,10 +15,17 @@ class ReactSelect extends Component {
         this.props.formik.setFieldValue(name, value.value)
     };
 
-    getValue = () => {
-        const {options, value} = this.props;
-        const optionEl = options.filter(option => option.value === value);
-        return optionEl.length === 1 ? optionEl[0] : value
+     getValue = () => {
+        const {options, formik, isMulti, name} = this.props;
+
+        const value = getIn(formik.values, name);
+        if (options) {
+            return isMulti
+                ? options.filter(option => value.indexOf(option.value) >= 0)
+                : options.find(option => option.value === value);
+        } else {
+            return isMulti ? [] : "";
+        }
     };
 
     render() {
@@ -30,23 +39,29 @@ class ReactSelect extends Component {
             disabled,
             clearable,
             defaultValue,
-
+            isMulti,
+            closeMenuOnSelect,
+            components
         } = this.props;
         const value = this.getValue();
         return (
             <Select
+                components={{...components, NoOptionsMessage}}
                 id={id}
+                isMulti={isMulti}
+                closeMenuOnSelect={closeMenuOnSelect}
                 styles={reactSelect.defaultTheme}
                 className={className}
                 name={name}
                 value={value}
                 options={options}
                 placeholder={placeholder}
-                disabled={disabled}
+                isDisabled={disabled}
                 onChange={this.handleChange}
                 onBlur={onBlur}
                 clearable={clearable}
                 defaultValue={defaultValue}
+                classNamePrefix={"my-react-select-prefix"}
             />
         )
     }
