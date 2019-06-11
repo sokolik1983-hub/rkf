@@ -11,6 +11,8 @@ export function* registerUser(action) {
         const data = yield call(Api.registerUser, action);
         console.log('registerUser.success', data)
         yield put(actions.registerUserSuccess(data))
+
+        //TODO Добавить таймер на обнуление статуса registrationComplete:false
     } catch (error) {
         console.log('registerUser.error', error)
         if (error.response) {

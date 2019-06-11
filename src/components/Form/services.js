@@ -8,7 +8,7 @@ const genInitialsFromFields = fields => {
     if (varIsObject) {
         return genInitialsFromObject(fields)
     }
-    console.log('genInitialsFromFields invalid fields argument', fields);
+
     return {}
 };
 
@@ -34,12 +34,11 @@ const genInitialsFromObject = fields => {
 };
 
 export const getFormInitialValues = ({formInitials, fields}) => {
-    console.log('formInitials, fields', formInitials, varIsObject(formInitials))
     return varIsObject(formInitials) ?
         formInitials
         :
         genInitialsFromFields(fields);
-}
+};
 
 
 export const processRequestErrors = props => {

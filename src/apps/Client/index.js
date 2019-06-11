@@ -3,8 +3,8 @@ import ClientLayout from './components/Layout'
 import {Route, Switch} from 'react-router-dom'
 import {ClientPathContext} from 'apps/Client/context'
 import ClientExhibitions from 'apps/ClientExhibitions'
-
-const Test=()=><div><h3 style={{padding:40, textAlign:'center'}}>Стартовая страница клуба.<br/>в разработке</h3></div>
+import UserProfile from 'apps/Auth/containers/UserProfile'
+//const Test=()=><div><h3 style={{padding:40, textAlign:'center'}}>Стартовая страница клуба.<br/>в разработке</h3></div>
 class ClientProxy extends PureComponent {
     componentDidMount(){
         this.wrap=document.getElementById("wrap");
@@ -20,7 +20,7 @@ class ClientProxy extends PureComponent {
             <ClientPathContext.Provider value={{path}}>
                 <ClientLayout>
                     <Switch>
-                        <Route exact path={`${path}`} component={Test}/>
+                        <Route exact path={`${path}`} component={UserProfile}/>
                         <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
 
                     </Switch>

@@ -4,11 +4,10 @@ import FormField from 'components/Form/Field'
 import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
-import {scheduleDayItemForm} from 'apps/ClientExhibitionSchedule/config'
-import {BtnPus} from 'components/Svg'
+import {exhibitionPricesForm} from 'apps/ClientExhibitionPrices/config'
 import './styles.scss'
 
-const {fields, validationSchema} = scheduleDayItemForm;
+const {fields, validationSchema} = exhibitionPricesForm;
 
 class ScheduleDayItemForm extends PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -18,25 +17,21 @@ class ScheduleDayItemForm extends PureComponent {
     render() {
         const {loading} = this.props;
         return (
-            <Form className="schedule-day-item-form">
-                <FormGroup inline>
-                    <FormField
-                        className={'start'}
-                        {...fields.time_start}
-                    />
-                    <FormField
-                        {...fields.time_end}
-                    />
-                    <FormField
-                        style={{flex: 2}}
-                        {...fields.name}
-                    />
-                    <div className="form-controls">
-                        <Button leftIcon={<BtnPus/>} loading={loading} type="submit"
-                                className="btn-simple btn-lg">Добавить</Button>
-                    </div>
-                </FormGroup>
+            <Form className="exhibition-price-form">
+                <FormGroup style={{justifyContent: 'stretch'}} inline>
 
+                    <FormField
+                        style={{flex: 1}}
+                        {...fields.discont}
+                    />
+                    <FormField
+                        style={{flex: 1}}
+                        className={'start'}
+                        {...fields.sum}
+                    />
+
+                </FormGroup>
+                <div className="form-controls"><Button loading={loading} className="btn-primary" type="submit">Применить</Button></div>
             </Form>
         )
     }

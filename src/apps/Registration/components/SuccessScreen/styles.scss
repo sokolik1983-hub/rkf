@@ -9,4 +9,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 500px;
+  .text-center{
+    margin: 32px 0;
+  }
+  .btn {
+    background: white;
+    color: #1a63df !important;
+    margin: 32px 0;
+    padding: 12px 32px;
+  }
 }

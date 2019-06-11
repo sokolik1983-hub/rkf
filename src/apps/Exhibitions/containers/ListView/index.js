@@ -14,13 +14,13 @@ const ExhibitionsListView = () =>
         <Content>
             <div className="exhibitions__holder">
                 <FilterDate/>
-                <List/>
-                <Paginator>
-                    <button className="paginator__btn paginator__btn--active">1</button>
-                    <button className="paginator__btn">2</button>
-                    <button className="paginator__btn">3</button>
-                    <button className="paginator__btn paginator__btn--next">Далее</button>
-                </Paginator>
+                {/*<List/>*/}
+                {/*<Paginator>*/}
+                {/*    <button className="paginator__btn paginator__btn--active">1</button>*/}
+                {/*    <button className="paginator__btn">2</button>*/}
+                {/*    <button className="paginator__btn">3</button>*/}
+                {/*    <button className="paginator__btn paginator__btn--next">Далее</button>*/}
+                {/*</Paginator>*/}
             </div>
         </Content>
     </Fragment>

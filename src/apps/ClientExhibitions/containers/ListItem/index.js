@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {defaultReduxKey} from 'apps/ClientExhibitions/config'
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
 import {Link} from "react-router-dom";
-import {getTimeFromDate} from "utils/datetime";
+import {getTimeFromDate,timeSecondsCutter} from "utils/datetime";
 import './styles.scss'
 
 class ClientExhibitionListItem extends PureComponent {
@@ -28,7 +28,7 @@ class ClientExhibitionListItem extends PureComponent {
                                 {/*</div>*/}
                                 <div
                                     className="exhibition-list-item__datetime">
-                                    {getTimeFromDate(time_from)} - {getTimeFromDate(time_to)}
+                                    {timeSecondsCutter(getTimeFromDate(time_from))} - {getTimeFromDate(time_to)}
                                 </div>
                             </div>
                             <div className="exhibition-list-item__title">{exhibition_name}</div>

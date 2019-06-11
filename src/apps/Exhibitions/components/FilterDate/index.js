@@ -50,7 +50,7 @@ export default class FilterDateRange extends React.PureComponent {
                         filter={this.state.filter}
                         onClick={this.onClick}>Сегодня</CustomButton>
                 </div>
-                <Button className={'exhibition-list__btn-create btn-primary btn-lg'}>Создать выставку</Button>
+                {/*<Button className={'exhibition-list__btn-create btn-primary btn-lg'}>Создать выставку</Button>*/}
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
 import {Link} from "react-router-dom";
-
+import {timeSecondsCutter} from 'utils/datetime'
 import './styles.scss'
 
 class ClientExhibitionListItem extends PureComponent {
@@ -20,7 +20,7 @@ class ClientExhibitionListItem extends PureComponent {
                                 <div className="exhibition-list-item__city">{city}</div>
                                 <div
                                     className="exhibition-list-item__datetime">
-                                    {time_start} - {time_end}
+                                    {timeSecondsCutter(time_start)} - {timeSecondsCutter(time_end)}
                                 </div>
                             </div>
                             <div className="exhibition-list-item__title">{name}</div>

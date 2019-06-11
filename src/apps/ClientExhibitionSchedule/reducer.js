@@ -30,7 +30,10 @@ export default function clientExhibitionScheduleReducer(state = clientExhibition
                     dayIdList: result,
                 };
             }
-            return state
+            return {
+                ...state,
+                loading: false,
+            }
 
         }
         case actiontypes.DAY_ADD: {

@@ -6,7 +6,9 @@ import ScheduleItemForm from "apps/ClientExhibitionSchedule/components/ItemForm"
 import Button from 'components/Button'
 
 import {
-    addDayItem
+    addDayItem,
+    updateDayItem,
+    deleteDayItem,
 } from 'apps/ClientExhibitionSchedule/actions'
 import {defaultReduxKey} from "../../config";
 
@@ -18,6 +20,8 @@ class ScheduleDayItems extends PureComponent {
 
     state = {
         formVisible: false,
+        editItemId: null,
+        editItem: null,
     };
 
     toggleForm = () => this.setState(prevState => ({formVisible: !prevState.formVisible}));
@@ -27,6 +31,22 @@ class ScheduleDayItems extends PureComponent {
         addDayItem({day_id: day, ...values})
     };
 
+    onItemUpdate = (values) => {
+        const {id} = values;
+        const {updateDayItem} = this.props;
+        updateDayItem(id, {...values})
+    };
+
+    editItem = itemId => {
+        const {dayItems} = this.props;
+        this.setState({editItemId: itemId, editItem: dayItems[itemId]})
+    };
+    onItemDelete = (id) => {
+        const {deleteDayItem} = this.props;
+        console.log('onItemDelete', id)
+        deleteDayItem(id)
+    };
+
     render() {
         const {items, loading} = this.props;
         return (
@@ -34,7 +54,27 @@ class ScheduleDayItems extends PureComponent {
                 {
                     items.length > 0 ?
                         items.map(item =>
-                            <ScheduleDayItem key={item} itemId={item}/>
+                            this.state.editItemId === item ?
+                                <ScheduleItemForm
+                                    key={"form" + item}
+                                    formInitials={this.state.editItem}
+                                    loading={loading}
+                                    formSubmit={this.onItemUpdate}
+                                />
+                                :
+                                <div key={item} className="flex-row">
+                                    <ScheduleDayItem itemId={item}/>
+                                    <Button
+                                        className="btn-secondary"
+                                        onClick={() => this.editItem(item)}>
+                                        изменить
+                                    </Button>
+                                    <Button
+                                        className="btn-secondary"
+                                        onClick={() => this.onItemDelete(item)}>
+                                        удалить
+                                    </Button>
+                                </div>
                         )
                         : null
                 }
@@ -57,12 +97,16 @@ class ScheduleDayItems extends PureComponent {
         )
     }
 }
-const mapStateToProps=state=>({
-    loading: state[defaultReduxKey].loading
-})
+
+const mapStateToProps = state => ({
+    loading: state[defaultReduxKey].loading,
+    dayItems: state[defaultReduxKey].items
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators(
     {
         addDayItem,
+        updateDayItem,
+        deleteDayItem,
     }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduleDayItems)

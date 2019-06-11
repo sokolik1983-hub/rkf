@@ -45,6 +45,7 @@ export const firstStepForm = {
             fieldType: 'reactSelectAsync',
             type: 'select',
             isMulti: true,
+            closeMenuOnSelect: false,
             optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/class/all'
         },
         breed_types: {
@@ -54,6 +55,7 @@ export const firstStepForm = {
             fieldType: 'reactSelectAsync',
             type: 'select',
             isMulti: true,
+            closeMenuOnSelect: false,
             optionsEndpoint: 'http://services.development.ueplatform.ru/api/dog/Breed/all'
         },
         city_id: {

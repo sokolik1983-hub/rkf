@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
 import ClientExhibitionListItem from '../ListItem'
-//import {transformDate,formatDateCommon} from "utils/datetime";
+import {formatDateWithLocaleString, transformDate} from "utils/datetime";
 import './styles.scss'
 
 class ClientExhibitionListDay extends PureComponent {
@@ -15,15 +15,17 @@ class ClientExhibitionListDay extends PureComponent {
             items
         } = this.props;
 
-        //const date = formatDateCommon(transformDate(day))
+        const date = transformDate({day, month, year})
+
         return (
-                <ClientExhibitionsPathContext.Consumer>
+            <ClientExhibitionsPathContext.Consumer>
                 {
                     ({path}) =>
                         <div>
-                            {day}.{month}.{year}
+                            {formatDateWithLocaleString(date)}
+
                             {
-                                items.map(item=><ClientExhibitionListItem key={item.id} item={item}/>)
+                                items.map(item => <ClientExhibitionListItem key={item.id} item={item}/>)
                             }
                         </div>
                 }
@@ -32,4 +34,5 @@ class ClientExhibitionListDay extends PureComponent {
         )
     }
 }
+
 export default ClientExhibitionListDay;

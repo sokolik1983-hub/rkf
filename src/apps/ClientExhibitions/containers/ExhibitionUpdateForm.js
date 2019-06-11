@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Card from 'components/Card'
@@ -11,9 +11,9 @@ import {
     clearRequestErrors,
 } from 'apps/ClientExhibitions/actions'
 
-const {fields,validationSchema} = firstStepForm;
+const {fields, validationSchema} = firstStepForm;
 
-class ExhibitionForm extends PureComponent {
+class ExhibitionUpdateForm extends Component {
     createExhibition = (values, {other}) => {
         const {addExhibition} = this.props;
         addExhibition(values)
@@ -21,8 +21,8 @@ class ExhibitionForm extends PureComponent {
 
     render() {
         const {loading, user_info, formInitials} = this.props;
-        console.log(formInitials)
-        return (
+
+        return formInitials ? (
             <Card lg>
                 <Form
                     disabled
@@ -34,7 +34,7 @@ class ExhibitionForm extends PureComponent {
                     validationSchema={validationSchema}
                 />
             </Card>
-        )
+        ) : null
     }
 }
 
@@ -42,9 +42,7 @@ const mapsStateToProps = state => ({
     user_info: state.authentication.user_info,
     loading: state[defaultReduxKey].loading,
     requestErrors: state[defaultReduxKey].requestErrors,
-
 });
-
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -55,4 +53,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapsStateToProps,
     mapDispatchToProps
-)(ExhibitionForm)
+)(ExhibitionUpdateForm)

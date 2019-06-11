@@ -6,6 +6,13 @@
   margin: 16px;
   &__start{
     margin-right: 16px;
+    position: relative;
+    &:after{
+      content: "-";
+      position: absolute;
+      right: -12px;
+      top: -1px
+    }
   }
   &__end{
     margin-right: 16px;

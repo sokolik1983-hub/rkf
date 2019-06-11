@@ -1,0 +1,22 @@
+.schedule-day-item-form {
+  .form-controls {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+  }
+
+  input[name='start'],
+  input[name='end'] {
+    max-width: 160px;
+  }
+
+  .form-group--inline {
+    .form-input {
+      flex: none
+    }
+
+    .btn {
+      color: #72839C;
+    }
+  }
+}

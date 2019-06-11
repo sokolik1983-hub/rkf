@@ -70,9 +70,9 @@ const Api = {
         const {id, data} = action;
         return request(
             {
-                url: `${DAY_ITEM_URL}/${id}/`,
+                url: `${DAY_ITEM_URL}`,
                 options: {
-                    method: "UPDATE",
+                    method: "PUT",
                     headers: getHeaders(),
                     body: JSON.stringify(data)
                 }
@@ -82,10 +82,11 @@ const Api = {
     deleteDayItem: async (action) => {
         return request(
             {
-                url: `${DAY_ITEM_URL}/${action.id}/`,
+                url: `${DAY_ITEM_URL}`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
+                    body: JSON.stringify({id: action.id})
                 }
             }
         );

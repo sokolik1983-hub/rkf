@@ -23,8 +23,9 @@ class ExhibitionForm extends PureComponent {
 
     render() {
         const {loading, fields, disabled} = this.props;
+
         return (
-            <Form className="registration-form">
+            <Form className="exhibition-form">
                 <FormField
                     disabled={disabled}
                     {...fields.name}

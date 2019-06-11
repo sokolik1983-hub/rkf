@@ -4,10 +4,13 @@ import FormField from 'components/Form/Field'
 import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
-import {scheduleDayForm} from 'apps/ClientExhibitionSchedule/config'
-const {fields, validationSchema} = scheduleDayForm;
+import {exhibitionPricesForm} from 'apps/ClientExhibitionPrices/config'
+import {BtnPus} from 'components/Svg'
+import './styles.scss'
 
-class ScheduleDayForm extends PureComponent {
+const {fields, validationSchema} = exhibitionPricesForm;
+
+class ScheduleDayItemForm extends PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
         processRequestErrors(this.props)
     }
@@ -15,15 +18,24 @@ class ScheduleDayForm extends PureComponent {
     render() {
         const {loading} = this.props;
         return (
-            <Form className="schedule-day-form">
-                <FormGroup inline>
+            <Form className="schedule-day-item-form">
+                <FormGroup  inline>
                     <FormField
-                        {...fields.date}
+                        style={{flex:1}}
+                        className={'start'}
+                        {...fields.price1}
                     />
+                </FormGroup>
+                <FormGroup style={{justifyContent:'stretch'}} inline>
 
-                    <div className="form-controls">
-                        <Button loading={loading} type="submit" className="btn-primary btn-lg">Добавить</Button>
-                    </div>
+                    <FormField
+                        style={{flex:1}}
+                        {...fields.discount}
+                    />
+                    <FormField
+                        style={{flex:1}}
+                        {...fields.price2}
+                    />
                 </FormGroup>
 
             </Form>
@@ -42,4 +54,4 @@ export default withFormik(
         handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
         displayName: props => props.displayName, // helps with React DevTools
     }
-)(ScheduleDayForm);
+)(ScheduleDayItemForm);

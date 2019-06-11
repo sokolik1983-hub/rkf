@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import Items from '../Item/List'
-import {transformDate, formatDateCommon} from 'utils/datetime'
+import {formatDateWithLocaleString, transformDate} from 'utils/datetime'
 import {defaultReduxKey} from 'apps/ClientExhibitionSchedule/config'
 import './styles.scss'
 
@@ -14,7 +14,7 @@ class ScheduleDay extends PureComponent {
 
             <div id={'day' + dayId} className="day">
                 <div className="day__date">
-                    <div className="day__date">{index + 1} день {formatDateCommon(date)}</div>
+                    <div className="day__date"><span className="day__span">{index + 1} день</span><br/> {formatDateWithLocaleString(date)}</div>
                 </div>
                 <Items day={dayId} items={day.items}/>
 

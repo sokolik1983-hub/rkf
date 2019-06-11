@@ -1,3 +1,4 @@
+import TestView from 'apps/TestView'
 import {
     LoadableDemo,
     //LoadableExhibitions,
@@ -45,6 +46,11 @@ export const appRoutes = [
         exact: false,
         path: '/client',
         component: LoadableClient
+    },
+    {
+        exact: false,
+        path: '/testView',
+        component: TestView
     },
 ];
 

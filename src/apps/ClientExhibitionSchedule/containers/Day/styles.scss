@@ -5,6 +5,11 @@
   padding: 16px 0;
   &__date{
     font-weight: 400;
+    margin-bottom: 32px;
+  }
+  &__span{
+    font-size: 20px;
+    line-height: 120%;
   }
 
   &__items {

@@ -39,6 +39,7 @@ export const getCurrentWeekDays = () => {
     return [0, 1, 2, 3, 4, 5, 6].map(index => new Date(dt.setDate(monday.getDate() + index)));
 };
 
+
 export const getLocalizedMonth = (date, locale = 'ru') => {
     try {
         return date.toLocaleString(locale, {
@@ -49,6 +50,23 @@ export const getLocalizedMonth = (date, locale = 'ru') => {
         return e
     }
 };
+
+export const getLocalizedWeekDay = (date, locale = 'ru') => {
+    try {
+        return date.toLocaleString(locale, {
+            weekday: 'long',
+        });
+    } catch (e) {
+        return e
+    }
+};
+
+export const formatDateWithLocaleString = (date, locale = 'ru') => {
+    const day = date.getDate();
+    const month = getLocalizedMonth(date)
+    const weekDay = getLocalizedWeekDay(date)
+    return `${weekDay}, ${day} ${month}`
+}
 
 
 export const months = {
@@ -91,4 +109,9 @@ export const transformDate = (date) => {
         month: dateObj.getMonth() + 1,
         year: dateObj.getFullYear()
     }
+};
+
+export const timeSecondsCutter = time => {
+    const timeSplit = time.split(":");
+    return timeSplit.length > 2 ? timeSplit[0] + ":" + timeSplit[1] : time
 };
