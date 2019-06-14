@@ -52,7 +52,7 @@ const authInitialState = {
     isAuthenticated: isUserAuthenticated(),
     user_info: loadUserInfo(),
     requestErrors: {},
-    rolesWithActions: loadRolesWithActions(),
+    roles_with_actions: loadRolesWithActions(),
 };
 
 export default function authReducer(state = authInitialState, action) {

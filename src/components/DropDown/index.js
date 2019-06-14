@@ -18,7 +18,11 @@ export default class DropDown extends PureComponent {
         }
     }
 
-    toggleDropDown = () => this.setState(prevState => ({opened: !prevState.opened}));
+    toggleDropDown = (e) => {
+        if (e.target.tagName.toUpperCase() !== 'A') {
+            this.setState(prevState => ({opened: !prevState.opened}));
+        }
+    }
     closeDropDown = () => this.setState({opened: false});
     handlerStyles = () => ({
         backgroundImage: `url(${this.state.opened ? closedIcon : openedIcon})`
@@ -27,12 +31,13 @@ export default class DropDown extends PureComponent {
     render() {
         return (
             <OutsideClickHandler onOutsideClick={this.closeDropDown}>
-                <div className={classnames("drop-down", {[this.props.className]: this.props.className})}>
+                <div onClick={this.toggleDropDown}
+                     className={classnames("drop-down", {[this.props.className]: this.props.className})}>
                     {this.props.innerComponent}
 
                     <div
                         style={this.handlerStyles()}
-                        onClick={this.toggleDropDown}
+
                         className="drop-down__handler"
                     />
 

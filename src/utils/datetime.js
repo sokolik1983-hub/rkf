@@ -101,7 +101,8 @@ export const transformDate = (date) => {
         date.day &&
         date.month &&
         date.year) {
-        return new Date(`${date.month}.${date.day}.${date.year}`);
+        //return new Date(`${date.month}.${date.day}.${date.year}`);
+        return new Date(`${date.year}-${date.month}-${date.day}`);
     }
     const dateObj = new Date(date);
     return {

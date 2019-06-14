@@ -3,9 +3,13 @@ import {CLIENT_EXHIBITION_URL} from "./config";
 
 const Api = {
     getExhibitionList: async (action) => {
+        //TODO Remove this shit 001
+        const url = action.user_id ? '/api/Exhibition/list' + '?user_id=' + action.user_id
+            :
+            '/api/Exhibition/list'
         return request(
             {
-                url: '/api/Exhibition/list',
+                url: url,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

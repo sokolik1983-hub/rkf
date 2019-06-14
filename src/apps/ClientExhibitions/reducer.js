@@ -61,6 +61,12 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 loading: false,
             };
         }
+        case actiontypes.ADD_FAILED: {
+            return {
+                ...state,
+                loading: false,
+            };
+        }
         case actiontypes.DETAILS_SUCCESS: {
             const {id} = action.data;
             const exhibitionsDetails = {...state.exhibitionsDetails};
