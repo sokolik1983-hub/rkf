@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 import {Link} from 'react-router-dom'
-import Request from 'utils/ApiCall'
+import Request from 'utils/HttpRequest'
 import Container from 'components/Layout/Container'
 
 

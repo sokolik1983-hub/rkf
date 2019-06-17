@@ -3,12 +3,12 @@ import {
     LoadableDemo,
     //LoadableExhibitions,
     LoadableHomePage,
-    LoadableAuthorization,
+    //LoadableAuthorization,
     LoadableRegistration,
     LoadableClient,
 } from "./appModules";
 import LoadableExhibitions from 'apps/Exhibitions'
-//import LoadableAuthorization from 'apps/Auth/index'
+import LoadableAuthorization from 'apps/Auth/index'
 export const SERVER = 'http://services.development.ueplatform.ru';
 
 export const LOGIN_URL = '/auth/login';

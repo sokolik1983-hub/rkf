@@ -1,12 +1,13 @@
 import {object, string} from 'yup'
 import {
     DEFAULT_PHONE_INPUT_MASK
-}from 'appConfig'
+} from 'appConfig'
 
 
-export const redirectAfterLogin = '/'
+export const redirectAfterLogin = '/';
 
-export const loginForm = {
+export const loginFormConfig = {
+    formAction: '/api/Authentication',
     fields: {
         phone_number: {
             mask: DEFAULT_PHONE_INPUT_MASK,

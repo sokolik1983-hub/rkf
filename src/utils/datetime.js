@@ -67,6 +67,13 @@ export const formatDateWithLocaleString = (date, locale = 'ru') => {
     const weekDay = getLocalizedWeekDay(date)
     return `${weekDay}, ${day} ${month}`
 }
+export const formatDateWithLocaleStringFull = (date, locale = 'ru') => {
+    console.log('date: ', date)
+    const day = date.getDate();
+    const month = getLocalizedMonth(date)
+    const year = date.getFullYear()
+    return `${day} ${month} ${year}`
+}
 
 
 export const months = {
@@ -96,11 +103,14 @@ export const weekDays = {
 
 
 export const transformDate = (date) => {
-    if (
-        varIsObject(date) &&
-        date.day &&
-        date.month &&
-        date.year) {
+    if (varIsObject(date)) {
+
+        //TODO Refactor this
+        if (date.day === 0 ||
+            date.month === 0 ||
+            date.year === 0) {
+            return new Date('01-01-1970')
+        }
         //return new Date(`${date.month}.${date.day}.${date.year}`);
         return new Date(`${date.year}-${date.month}-${date.day}`);
     }

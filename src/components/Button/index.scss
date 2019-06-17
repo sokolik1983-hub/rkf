@@ -8,7 +8,9 @@ button {
   color: $primary-color;
 }
 
-.btn {
+.btn,
+a.btn,
+a.btn:visited {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
@@ -30,20 +32,17 @@ button {
   }
 }
 
-a.btn,
-a.btn:visited {
-  color: white;
-}
-
+a.btn-lg,
 .btn-lg {
   padding: 13px 16px;
 }
 
-.btn-icon {
+.btn-icon,
+a.btn-icon {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-
+  flex: 0 0 auto;
   svg {
     fill: currentColor
   }
@@ -53,6 +52,7 @@ a.btn:visited {
       margin-right: 8px;
     }
   }
+
   &--right {
     img, svg {
       margin-left: 8px;
@@ -60,7 +60,9 @@ a.btn:visited {
   }
 }
 
-.btn-primary {
+.btn-primary,
+a.btn-primary,
+a.btn-primary:visited {
   color: white;
   border-color: $primary-color;
   background-color: $primary-color;
@@ -88,14 +90,20 @@ a.btn:visited {
   }
 }
 
+a.btn-text,
 .btn-text {
   color: rgba(37, 60, 94, 0.7);
 }
 
+a.btn-simple,
 .btn-simple {
   background-color: transparent;
 
   &:hover {
     background-color: #EBF0FE;
   }
+}
+
+.btn-i{
+  fill: currentColor;
 }
