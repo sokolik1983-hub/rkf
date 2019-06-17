@@ -10,12 +10,11 @@ export const loginFormConfig = {
     formAction: '/api/Authentication',
     fields: {
         phone_number: {
-            mask: DEFAULT_PHONE_INPUT_MASK,
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
             placeholder: '7 (   ) ___ __ __',
-
+            fieldType: 'customPhone'
         },
         password: {
             name: 'password',
