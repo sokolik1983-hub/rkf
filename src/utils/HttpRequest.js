@@ -33,14 +33,21 @@ export default class HttpRequest {
     }
 
     request = ({url = this.url, options}) => {
-        fetch(url, options)
+        const requestOptions = isDevEnv() ?
+        {
+            ...options,
+            mode: "cors"
+        }
+        :
+        options;
+        fetch(url, requestOptions)
             .then(this.processResponse)
             .catch(error => console.error('FetchErrors', error))
     };
 
     processResponse = response => {
         // get status
-        const {responseStatus, status, text} = response;
+        const {responseStatus, status} = response;
         this.responseStatus = responseStatus;
         this.status = status;
         if (status === 204 || status === 205) {
@@ -50,11 +57,9 @@ export default class HttpRequest {
                 statusCode, statusText, json, text
             })
         } else {
-            text()
+            response.text()
             // get response text and try to parse JSON
                 .then(this.getResponseContent)
-                // TODO Watch this moment in future
-                .catch(e => console.error('response.text() got an error: ', e))
         }
     };
 

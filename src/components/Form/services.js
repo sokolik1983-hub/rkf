@@ -34,6 +34,7 @@ const genInitialsFromObject = fields => {
 };
 
 export const getFormInitialValues = ({formInitials, fields}) => {
+    console.log(formInitials, fields)
     return varIsObject(formInitials) ?
         formInitials
         :

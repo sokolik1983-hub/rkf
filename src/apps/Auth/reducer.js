@@ -59,12 +59,6 @@ export default function authReducer(state = authInitialState, action) {
 
     switch (action.type) {
 
-        case actiontypes.LOGIN: {
-            return {
-                ...state,
-                loading: true,
-            };
-        }
         case actiontypes.LOGIN_SUCCESS: {
 
             const {access_token, user_info, roles_with_actions} = action.data;
@@ -79,13 +73,7 @@ export default function authReducer(state = authInitialState, action) {
                 roles_with_actions
             };
         }
-        case actiontypes.LOGIN_FAILED: {
-            return {
-                ...state,
-                loading: false,
-                requestErrors: action.errors,
-            };
-        }
+
 
         case actiontypes.LOGOUT: {
             //TODO Убрать clearApiKey();
@@ -114,14 +102,6 @@ export default function authReducer(state = authInitialState, action) {
                 loading: false,
                 requestErrors: action.errors,
             };
-        }
-
-
-        case actiontypes.CLEAR_REQUEST_ERRORS: {
-            return {
-                ...state,
-                requestErrors: {},
-            }
         }
 
         default:

@@ -5,6 +5,7 @@ import HttpRequest from 'utils/HttpRequest'
 import SubmitButton from "./SubmitButton";
 import FormTitle from './FormTitle'
 import FormControls from './FormControls'
+import {getFormInitialValues} from './services'
 
 class DynamicForm extends Component {
 
@@ -41,29 +42,49 @@ class DynamicForm extends Component {
         //Configure Request
         const SubmitRequest = new HttpRequest({
             url: formAction,
-            successAction: this.onSuccess,
-            errorAction: this.onErrors
+            successAction: ({status, responseStatus, json, text}) => this.onSuccess(actions, {
+                status,
+                responseStatus,
+                json,
+                text
+            }),
+            errorAction: ({status, responseStatus, json, text}) => this.onErrors(actions, {
+                status,
+                responseStatus,
+                json,
+                text
+            })
         });
         // Make request
         SubmitRequest.post(values)
     };
 
-    onSuccess = ({status, responseStatus, json, text}) => {
-        const {setSubmitting, successAction, reset, handleReset} = this.props;
+    onSuccess = (actions, {status, responseStatus, json, text}) => {
+        const {successAction, reset} = this.props;
+        const {setSubmitting, resetForm} = actions;
         successAction(json);
         setSubmitting(false);
+        this.clearStoredValues();
         if (reset) {
-            handleReset()
+            resetForm()
         }
     };
 
-    onErrors = ({json}) => {
+    clearStoredValues = () => {
+        localStorage.removeItem(this.props.storageVariableName)
+    }
+
+    onErrors = (actions, {status, responseStatus, json, text}) => {
         const {processErrors} = this.props;
+        const {setSubmitting} = actions;
         if (processErrors) {
             const errors = processErrors(json);
-            this.setFormErrors(errors)
+            this.setFormErrors(errors);
+            setSubmitting(false);
+            return
         }
-        this.setFormErrors(json)
+        this.setFormErrors(json);
+        setSubmitting(false);
     };
 
     setFormErrors = errors => {
@@ -77,19 +98,9 @@ class DynamicForm extends Component {
     };
 
     getInitials = () => {
-        const {formInitials} = this.props;
-        return formInitials ?
-            formInitials
-            :
-            this.genInitialsFromFields();
+        return getFormInitialValues(this.props)
     };
 
-    genInitialsFromFields = () => {
-        const {fields} = this.props;
-        const values = {};
-        fields.forEach(field => values[field.name] = field.defaultValue !== undefined ? field.defaultValue : "");
-        return values
-    };
 
     render() {
         const {
@@ -102,7 +113,7 @@ class DynamicForm extends Component {
 
         return (
             <Formik
-                initialValues={this.getInitials}
+                initialValues={this.getInitials()}
                 onSubmit={this.onSubmit}
                 validationSchema={validationSchema}
                 render={(props) =>
@@ -118,8 +129,6 @@ class DynamicForm extends Component {
                         </FormControls>
                     </Form>}
             />
-
-
         )
     }
 }

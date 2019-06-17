@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Link} from 'react-router-dom'
-
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 //import Form from 'apps/Auth/components/Form'
 import SubmitButton from 'components/Form/SubmitButton'
 import Form from 'components/Form/Form'
@@ -9,9 +10,9 @@ import FormField from "components/Form/Field";
 import FormInput from "components/Form/FormInput";
 
 import {loginFormConfig} from 'apps/Auth/config'
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+
 import {loginUserSuccess} from 'apps/Auth/actions'
+
 const {fields} = loginFormConfig;
 
 class LoginForm extends PureComponent {
@@ -45,5 +46,8 @@ class LoginForm extends PureComponent {
     }
 }
 
-const mapsDispatchToProps=dispatch=>bindActionCreators({loginUserSuccess},dispatch)
-export default connect(null, mapsDispatchToProps())(LoginForm)
+const mapsDispatchToProps = dispatch => bindActionCreators(
+    {
+        loginUserSuccess
+    }, dispatch);
+export default connect(null, mapsDispatchToProps)(LoginForm)
