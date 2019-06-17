@@ -9,7 +9,6 @@ import * as actions from './actions'
 export function* getExhibitionList(action) {
     try {
         const data = yield call(Api.getExhibitionList, action);
-        console.log(data)
         yield put(actions.getExhibitionListSuccess(data))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);

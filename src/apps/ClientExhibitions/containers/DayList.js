@@ -10,7 +10,14 @@ import Card from 'components/Card';
 
 class ClientExhibitionsList extends PureComponent {
     componentDidMount() {
-        this.props.getExhibitionList()
+        //TODO Remove this shit 001
+        let user_info = localStorage.getItem('user_info');
+        if (user_info) {
+            this.props.getExhibitionList(JSON.parse(user_info).id)
+        } else {
+            this.props.getExhibitionList()
+        }
+
     }
 
     render() {

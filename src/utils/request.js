@@ -10,11 +10,15 @@ import {SERVER} from "appConfig";
  * @return {object}          The parsed JSON from the request
  */
 
-export const getHeaders = () => (
-    {
-        "Content-Type": "application/json, text/plain, */*",
+export const getHeaders = () => {
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json, text/plain, */*");
+    const apiKey = localStorage.getItem('apikey')
+    if (apiKey) {
+        headers.append("Authorization", "Bearer " + apiKey);
     }
-);
+    return headers
+}
 
 
 const getErrors = (error) => {

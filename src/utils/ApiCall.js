@@ -50,7 +50,6 @@ export default class Request {
         const {statusCode, statusText, json, text} = this;
         const action = (statusCode >= 200 && statusCode < 300) ? this.successAction : this.errorAction;
         action({statusCode, statusText, json, text})
-
     };
 
     processFetchErrors = error => {

@@ -22,7 +22,9 @@ class ClientExhibitionListDay extends PureComponent {
                 {
                     ({path}) =>
                         <div>
-                            {formatDateWithLocaleString(date)}
+                            {
+                                formatDateWithLocaleString(date)
+                            }
 
                             {
                                 items.map(item => <ClientExhibitionListItem key={item.id} item={item}/>)

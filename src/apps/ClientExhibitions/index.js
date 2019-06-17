@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom'
 
 import ExhibitionCreate from './components/Create'
 import ExhibitionDetails from './containers/Details'
-import ExhibitionList from './containers/DayList'
+import ExhibitionList from './containers/List'
 
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
@@ -13,6 +13,8 @@ import saga from "./saga";
 
 import {ClientExhibitionsPathContext} from './context'
 import {defaultReduxKey} from "./config";
+
+
 
 class ClientExhibitionsProxy extends PureComponent {
     render() {

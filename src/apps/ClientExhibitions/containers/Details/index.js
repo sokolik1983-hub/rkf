@@ -26,6 +26,7 @@ class ExhibitionDetails extends PureComponent {
             path,
             //exhibitionsDetails,
         } = this.props;
+
         return (
             <Fragment>
                 <NavTabs>
@@ -43,7 +44,6 @@ class ExhibitionDetails extends PureComponent {
                     <Route path={`${path}/common`} component={Common}/>
                     <Route path={`${path}/schedule`} component={ClientExhibitionSchedule}/>
                     <Route path={`${path}/prices`} component={ClientExhibitionPrices}/>
-                    <div className="client-exhibition-details">details</div>
                 </Switch>
             </Fragment>
         )

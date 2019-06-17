@@ -2,8 +2,8 @@ import * as actionTypes from './actiontypes';
 import {makeActionCreator} from 'utils/index'
 
 export const loadingApi = makeActionCreator(actionTypes.LOADING, 'bool');
-
-export const getExhibitionList = makeActionCreator(actionTypes.GET_LIST);
+//TODO Remove this shit 001
+export const getExhibitionList = makeActionCreator(actionTypes.GET_LIST,'user_id');
 export const getExhibitionListSuccess = makeActionCreator(actionTypes.GET_LIST_SUCCESS, 'data');
 export const getExhibitionListFailed = makeActionCreator(actionTypes.GET_LIST_FAILED, 'errors');
 

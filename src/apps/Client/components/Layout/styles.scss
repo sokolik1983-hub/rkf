@@ -21,3 +21,12 @@
     margin: 0 auto;
   }
 }
+@media screen and(max-width: 1440px){
+  .client-layout{
+    &__content{
+      min-width: 640px;
+      margin: 0 64px 0 240px;
+    }
+  }
+
+}
