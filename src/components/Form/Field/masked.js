@@ -7,6 +7,7 @@ const MaskedField = ({
                          name,
                          className,
                          mask,
+                         guide = true,
                          ...fieldProps
                      }) =>
     <MaskedInput
