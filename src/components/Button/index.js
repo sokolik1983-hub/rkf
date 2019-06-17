@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router'
 import classnames from 'classnames'
 import './index.scss'
 
@@ -23,6 +24,53 @@ export const ButtonNext = ({
         <span>{children}</span>
         <img src={'/static/icons/arrow-right.svg'} alt=""/>
     </button>;
+
+
+const ActionButton = ({
+                          action,
+                          style,
+                          onClick,
+                          className,
+                          disabled,
+                          type = 'button',
+                          loading,
+                          children,
+                          leftIcon,
+                          rightIcon,
+                          history,
+                          ...other,
+                      }) => {
+    const handleClick = action ? ()=>history.push(action) : onClick;
+    console.log(other)
+    return (
+        <button
+            style={style}
+            className={classnames(
+                'btn',
+                {'btn--loading': loading},
+                {'btn-icon': leftIcon || rightIcon},
+                {'btn-icon--left': leftIcon},
+                {'btn-icon--right': rightIcon},
+                {[className]: className}
+            )}
+            type={type}
+            onClick={handleClick}
+            disabled={disabled || loading}
+        >
+            {
+                leftIcon
+            }
+
+            {children}
+            {
+                rightIcon
+            }
+        </button>
+    )
+}
+
+export const ActButton = withRouter(ActionButton);
+
 
 const Button = ({
                     style,

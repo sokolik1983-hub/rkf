@@ -1,24 +1,30 @@
 import React, {Component} from "react";
 import {compose} from "redux";
+import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom'
 import Login from './components/Login'
-import {Route, Switch} from 'react-router-dom'
 import injectSaga from 'utils/injectSaga'
 import saga from "./saga";
 
-class Authorization extends Component {
 
+class AuthorizationProxy extends Component {
     render() {
-        const {path} = this.props.match;
-        return <Switch>
-            <Route path={path} component={Login}/>
-        </Switch>
+        return this.props.isAuthenticated ?
+            <Redirect to="/"/>
+            :
+            <Login/>
     }
 }
 
-
+const mapStateToProps = state => ({
+    isAuthenticated: state.authentication.isAuthenticated,
+});
+const withConnect = connect(
+    mapStateToProps,
+);
 const withSaga = injectSaga({key: 'authorization', saga});
 
-
 export default compose(
+    withConnect,
     withSaga,
-)(Authorization)
+)(AuthorizationProxy)

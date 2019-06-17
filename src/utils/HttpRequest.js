@@ -1,21 +1,31 @@
-// SuccessCallBack
-// ErrorsCallBack
+import {isDevEnv} from "./index";
+import {SERVER} from 'appConfig'
+import {getHeaders} from 'utils/request'
 const defaultOptions = {
     method: "GET",
-    headers: {}
+    headers: getHeaders()
 };
 
-export default class Request {
+export default class HttpRequest {
+    /**
+     * Initiate an object to run get, post, update, delete fetch
+     * when request is finished it watch response status and run success or error callback
+     * with {status, responseStatus, json, text} object as param
+     * @param  {String} url            Request URL
+     * @param  {Object} options        fetch options
+     * @param  {String} successAction  Success callback run if request completed and response status is less then 300
+     * @param  {String} errorAction    Error callback run if request completed and response status is more then 300
+     */
     constructor({
                     url,
                     options = defaultOptions,
                     successAction,
                     errorAction
                 }) {
-        this.url = url;
+        this.url = isDevEnv() ? SERVER + url : url;
         this.options = options;
-        this.statusCode = null;
-        this.statusText = '';
+        this.status = null;
+        this.responseStatus = '';
         this.json = null;
         this.text = null;
         this.successAction = successAction;
@@ -25,41 +35,36 @@ export default class Request {
     request = ({url = this.url, options}) => {
         fetch(url, options)
             .then(this.processResponse)
-            .catch(this.processFetchErrors)
+            .catch(error => console.error('FetchErrors', error))
     };
 
     processResponse = response => {
         // get status
-        this.statusText = response.responseStatus;
-        this.statusCode = response.status;
-        if (this.checkNoContent()) {
+        const {responseStatus, status, text} = response;
+        this.responseStatus = responseStatus;
+        this.status = status;
+        if (status === 204 || status === 205) {
+            // response with no content
             const {statusCode, statusText, json, text} = this;
             this.successAction({
                 statusCode, statusText, json, text
             })
         } else {
-            response.text()
+            text()
             // get response text and try to parse JSON
                 .then(this.getResponseContent)
                 // TODO Watch this moment in future
-                .catch(e => console.log('processResponse', e))
+                .catch(e => console.error('response.text() got an error: ', e))
         }
     };
 
     checkRequestErrors = () => {
-        const {statusCode, statusText, json, text} = this;
-        const action = (statusCode >= 200 && statusCode < 300) ? this.successAction : this.errorAction;
-        action({statusCode, statusText, json, text})
-
+        const {status, responseStatus, json, text} = this;
+        // call success or error action based on response status
+        const action = (status >= 200 && status < 300) ? this.successAction : this.errorAction;
+        action({status, responseStatus, json, text})
     };
 
-    processFetchErrors = error => {
-        console.log('processFetchErrors', error)
-    };
-
-    checkNoContent = () => {
-        return this.statusCode === 204 || this.statusCode === 205;
-    };
 
     getResponseContent = text => {
         // If no content
@@ -68,12 +73,12 @@ export default class Request {
         } catch (error) {
             if (error.name === 'SyntaxError') {
                 this.text = text;
-                console.log('processResponseContent: Non JSON response', text)
+                console.error('Non JSON response: ', text)
             } else {
                 throw error
             }
         }
-
+        // no got response content so run check errors based on response status
         this.checkRequestErrors()
     };
 
