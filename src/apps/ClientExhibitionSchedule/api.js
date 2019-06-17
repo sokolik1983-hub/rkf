@@ -67,7 +67,7 @@ const Api = {
         );
     },
     updateDayItem: async (action) => {
-        const {id, data} = action;
+        const {data} = action;
         return request(
             {
                 url: `${DAY_ITEM_URL}`,

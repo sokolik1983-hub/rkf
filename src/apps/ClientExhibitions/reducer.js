@@ -20,8 +20,18 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 loading: true,
             };
         }
+        // case actiontypes.GET_LIST_SUCCESS: {
+        //     const {entities, result: exhibitionIdList} = normalizeExhibitionList(action.data)
+        //     const {exhibitions} = entities;
+        //     return {
+        //         ...state,
+        //         loading: false,
+        //         exhibitions,
+        //         exhibitionIdList,
+        //         listDays: action.data,
+        //     };
+        // }
         case actiontypes.GET_LIST_SUCCESS: {
-            console.log(normalizeExhibitionList(action.data))
             const {entities, result: exhibitionIdList} = normalizeExhibitionList(action.data)
             const {exhibitions} = entities;
             return {
@@ -29,9 +39,7 @@ export default function clientExhibitionsReducer(state = clientInitialState, act
                 loading: false,
                 exhibitions,
                 exhibitionIdList,
-                listDays: action.data,
             };
-
         }
         case actiontypes.GET_LIST_FAILED: {
             return {

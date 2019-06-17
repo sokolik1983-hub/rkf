@@ -5,7 +5,7 @@ import {ClientExhibitionsPathContext} from "../context";
 import {getExhibitionList} from "apps/ClientExhibitions/actions";
 import {defaultReduxKey} from "apps/ClientExhibitions/config";
 import {connect} from "react-redux";
-import ClientExhibitionListItem from '../components/ListItem'
+import ClientExhibitionListItem from './ListItem'
 import Card from 'components/Card';
 
 class ClientExhibitionsList extends PureComponent {
