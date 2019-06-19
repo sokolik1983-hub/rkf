@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {string} from 'prop-types'
 import Select from 'react-select';
 import {connect, getIn} from "formik";
-import {reactSelect} from 'appConfig'
+import {defaultReactSelectStyles} from 'appConfig'
 import {getHeaders} from "utils/request";
 
 const NoOptionsMessage = () => {
@@ -10,7 +10,7 @@ const NoOptionsMessage = () => {
 };
 
 
-class AsyncReactSelect extends Component {
+class ReactSelectAsync extends Component {
     static propTypes = {
         optionsEndpoint: string.isRequired
     };
@@ -106,7 +106,7 @@ class AsyncReactSelect extends Component {
                 id={id}
                 isMulti={isMulti}
                 closeMenuOnSelect={closeMenuOnSelect}
-                styles={reactSelect.defaultTheme}
+                styles={defaultReactSelectStyles.defaultTheme}
                 className={className}
                 name={name}
                 value={value}
@@ -123,4 +123,4 @@ class AsyncReactSelect extends Component {
 }
 
 
-export default connect(AsyncReactSelect)
+export default connect(ReactSelectAsync)

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
 import {connect, getIn} from "formik";
-import {reactSelect} from 'appConfig'
-const NoOptionsMessage = () => {
+import {defaultReactSelectStyles} from 'appConfig'
+export const NoOptionsMessage = () => {
   return ('Нет опций для выбора');
 };
 class ReactSelect extends Component {
@@ -50,7 +50,7 @@ class ReactSelect extends Component {
                 id={id}
                 isMulti={isMulti}
                 closeMenuOnSelect={closeMenuOnSelect}
-                styles={reactSelect.defaultTheme}
+                styles={defaultReactSelectStyles.defaultTheme}
                 className={className}
                 name={name}
                 value={value}
