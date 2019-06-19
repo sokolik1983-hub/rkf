@@ -1,6 +1,7 @@
 import {isDevEnv} from "./index";
 import {SERVER} from 'appConfig'
 import {getHeaders} from 'utils/request'
+
 const defaultOptions = {
     method: "GET",
     headers: getHeaders()
@@ -20,7 +21,8 @@ export default class HttpRequest {
                     url,
                     options = defaultOptions,
                     successAction,
-                    errorAction
+                    errorAction,
+                    setErrors,
                 }) {
         this.url = isDevEnv() ? SERVER + url : url;
         this.options = options;
@@ -32,36 +34,28 @@ export default class HttpRequest {
         this.errorAction = errorAction;
     }
 
-    request = ({url = this.url, options}) => {
+    request = async ({url = this.url, options}) => {
         const requestOptions = isDevEnv() ?
-        {
-            ...options,
-            mode: "cors"
+            {
+                ...options,
+                mode: "cors"
+            }
+            :
+            options;
+        try {
+
+            const response = await fetch(url, requestOptions)
+            const {responseStatus, status} = response;
+            this.responseStatus = responseStatus;
+            this.status = status;
+            const content = await response.text();
+            this.getResponseContent(content);
+            this.checkRequestErrors()
+        } catch (e) {
+            console.error('RequestError: ', e)
         }
-        :
-        options;
-        fetch(url, requestOptions)
-            .then(this.processResponse)
-            .catch(error => console.error('FetchErrors', error))
     };
 
-    processResponse = response => {
-        // get status
-        const {responseStatus, status} = response;
-        this.responseStatus = responseStatus;
-        this.status = status;
-        if (status === 204 || status === 205) {
-            // response with no content
-            const {statusCode, statusText, json, text} = this;
-            this.successAction({
-                statusCode, statusText, json, text
-            })
-        } else {
-            response.text()
-            // get response text and try to parse JSON
-                .then(this.getResponseContent)
-        }
-    };
 
     checkRequestErrors = () => {
         const {status, responseStatus, json, text} = this;
