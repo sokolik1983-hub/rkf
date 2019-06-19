@@ -1,8 +1,4 @@
 import {object, string} from 'yup'
-import {
-    DEFAULT_PHONE_INPUT_MASK
-} from 'appConfig'
-
 
 export const redirectAfterLogin = '/';
 
@@ -11,10 +7,11 @@ export const loginFormConfig = {
     fields: {
         phone_number: {
             name: 'phone_number',
-            type: 'text',
             label: 'Телефон',
+            fieldType: 'masked',
+            type: 'text',
             placeholder: '7 (   ) ___ __ __',
-            fieldType: 'customPhone'
+            mask: ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
         },
         password: {
             name: 'password',

@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react'
-import {withFormik, Form} from 'formik';
+import {Form, withFormik} from 'formik';
 import FormField from 'components/Form/Field'
-import FormGroup from "components/Form/FormGroup";
 import Button from "components/Button";
 import {getFormInitialValues, processRequestErrors} from 'components/Form/services'
 import {clientSocialForm} from 'apps/ClientProfile/config'

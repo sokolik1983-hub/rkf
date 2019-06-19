@@ -3,20 +3,22 @@ import {
     LoadableDemo,
     //LoadableExhibitions,
     LoadableHomePage,
-    //LoadableAuthorization,
+    LoadableAuthorization,
     LoadableRegistration,
     LoadableClient,
 } from "./appModules";
 import LoadableExhibitions from 'apps/Exhibitions'
-import LoadableAuthorization from 'apps/Auth/index'
-export const SERVER = 'http://services.development.ueplatform.ru';
+//import LoadableAuthorization from 'apps/Auth/index'
+const SERVER = 'http://services.development.ueplatform.ru';
 
-export const LOGIN_URL = '/auth/login';
-export const REGISTER_URL = '/auth/registration';
+const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
 
-export const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+const LOGIN_URL = '/auth/login';
+const REGISTER_URL = '/auth/registration';
 
-export const appRoutes = [
+
+const appRoutes = [
     {
         exact: true,
         path: '/',
@@ -56,7 +58,7 @@ export const appRoutes = [
 
 
 // Результаты Расписание рингов Карточка участника Заявки
-export const mainNav = [
+const mainNav = [
     {
         id: 1,
         title: "Выставки",
@@ -84,7 +86,7 @@ export const mainNav = [
     },
 ];
 
-export const reactSelect = {
+const defaultReactSelectStyles = {
     defaultTheme: {
         singleValue: styles => ({
             ...styles,
@@ -129,4 +131,15 @@ export const reactSelect = {
             };
         },
     }
+};
+
+export {
+    SERVER,
+    appRoutes,
+    mainNav,
+    DEFAULT_PHONE_INPUT_MASK,
+    DEFAULT_PHONE_INPUT_PLACEHOLDER,
+    LOGIN_URL,
+    REGISTER_URL,
+    defaultReactSelectStyles
 }

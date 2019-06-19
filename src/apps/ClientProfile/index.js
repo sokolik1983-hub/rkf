@@ -7,7 +7,7 @@ import Card from 'components/Card'
 class ClientProfileProxy extends PureComponent {
 
     render() {
-        const {path} = this.props.match;
+        //const {path} = this.props.match;
         return (
             <>
                 <Card lg>

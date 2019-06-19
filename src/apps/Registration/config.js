@@ -1,5 +1,7 @@
 import {object, string} from 'yup'
-
+import {
+    DEFAULT_PHONE_INPUT_PLACEHOLDER
+} from 'appConfig'
 export const registrationSuccessPath = '/auth/registration/success';
 
 export const registrationFormPhysicalPerson = {
@@ -38,7 +40,7 @@ export const registrationFormPhysicalPerson = {
             name: 'phone_number',
             type: 'text',
             label: 'Телефон',
-            placeholder: '7 (   ) ___ __ __',
+            placeholder: DEFAULT_PHONE_INPUT_PLACEHOLDER,
             fieldType: 'customPhone'
         },
         submit_phone_code: {

@@ -25,7 +25,7 @@ export default class SpecialOffersSubscription extends PureComponent {
                         <label>E-mail</label>
                         <input
                             placeholder="Введите вашу почту"
-                            className="form-input__input"
+                            className="formInput__input"
                             name="email"
                             onChange={this.onChange}
                             value={this.state.email}

@@ -2,24 +2,27 @@ import React, {PureComponent} from 'react'
 import {Link} from 'react-router-dom'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-//import Form from 'apps/Auth/components/Form'
-import SubmitButton from 'components/Form/SubmitButton'
-import Form from 'components/Form/Form'
-import FormGroup from "components/Form/FormGroup";
-import FormField from "components/Form/Field";
-import FormInput from "components/Form/FormInput";
+import {
+    FormFormikEnhanced,
+    SubmitButton,
+    FormGroup,
+    FormField,
+    FormInput,
+} from 'components/Form'
+
 
 import {loginFormConfig} from 'apps/Auth/config'
 
 import {loginUserSuccess} from 'apps/Auth/actions'
 
 const {fields} = loginFormConfig;
-
+console.log('fields', fields)
 class LoginForm extends PureComponent {
     render() {
+        console.log(fields)
         return (
-            <Form
-                successAction={this.props.loginUserSuccess}
+            <FormFormikEnhanced
+                onSuccess={this.props.loginUserSuccess}
                 {...loginFormConfig}
             >
                 <FormGroup>
@@ -33,7 +36,7 @@ class LoginForm extends PureComponent {
                 <FormGroup className="login-form__holder" inline>
                     <FormInput checkbox>
                         <label>Запомнить меня</label>
-                        <input type="checkbox" className="form-input__input"/>
+                        <input type="checkbox" className="formInput__input"/>
                     </FormInput>
                     <div style={{marginLeft: 'auto'}}><Link className="no-ul" to="/auth/login/restore">Забыли
                         пароль</Link></div>
@@ -41,7 +44,7 @@ class LoginForm extends PureComponent {
                 <div className="form-controls">
                     <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>
                 </div>
-            </Form>
+            </FormFormikEnhanced>
         )
     }
 }
