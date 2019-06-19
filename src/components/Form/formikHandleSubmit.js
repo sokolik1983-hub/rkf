@@ -55,10 +55,16 @@ export async function formikHandleSubmit({
         return {json, status, text,}
 
     } catch (error) {
+        formik.setSubmitting(false);
         if (error.name === "SyntaxError") {
             console.error("formikHandleSubmit JSON.parse(text): ", error, text);
             alert('formikHandleSubmit JSON.parse(text): \n see response text in console');
-        } else {
+
+        }
+        else if (error.name === "TypeError" && error.message==="Failed to fetch") {
+            alert('Ошибка соединения\n Internet connection error');
+        }
+        else {
             console.error("formikHandleSubmit Unknown Error: ", error);
         }
     }

@@ -1,14 +1,6 @@
 import TestView from 'apps/TestView'
-import {
-    LoadableDemo,
-    //LoadableExhibitions,
-    LoadableHomePage,
-    LoadableAuthorization,
-    LoadableRegistration,
-    LoadableClient,
-} from "./appModules";
-import LoadableExhibitions from 'apps/Exhibitions'
-//import LoadableAuthorization from 'apps/Auth/index'
+import * as LoadableModules from "./appModules";
+
 const SERVER = 'http://services.development.ueplatform.ru';
 
 const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -22,32 +14,32 @@ const appRoutes = [
     {
         exact: true,
         path: '/',
-        component: LoadableHomePage
+        component: LoadableModules.LoadableHomePage
     },
     {
         exact: false,
         path: '/demo',
-        component: LoadableDemo
+        component: LoadableModules.LoadableDemo
     },
     {
         exact: false,
         path: '/exhibitions',
-        component: LoadableExhibitions
+        component: LoadableModules.LoadableExhibitions
     },
     {
         exact: false,
         path: LOGIN_URL,
-        component: LoadableAuthorization
+        component: LoadableModules.LoadableAuthorization
     },
     {
         exact: false,
         path: REGISTER_URL,
-        component: LoadableRegistration
+        component: LoadableModules.LoadableRegistration
     },
     {
         exact: false,
         path: '/client',
-        component: LoadableClient
+        component: LoadableModules.LoadableClient
     },
     {
         exact: false,
