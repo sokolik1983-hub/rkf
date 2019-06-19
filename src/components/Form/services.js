@@ -1,5 +1,6 @@
 import {objectNotEmpty, varIsArray, varIsObject} from "utils/index";
 import {withFormik} from "formik";
+import {formikHandleSubmit} from './formikHandleSubmit'
 
 const genInitialsFromFields = fields => {
     if (varIsArray(fields)) {
@@ -34,7 +35,6 @@ const genInitialsFromObject = fields => {
 };
 
 export const getFormInitialValues = ({formInitials, fields}) => {
-    console.log(formInitials, fields)
     return varIsObject(formInitials) ?
         formInitials
         :
@@ -50,14 +50,33 @@ export const processRequestErrors = props => {
     }
 };
 
+
+const defaultWithFormikObject = {
+    mapPropsToValues: props => getFormInitialValues({
+        fields: props.fields,
+        formInitials: props.formInitials
+    }),
+    validationSchema: props => props.validationSchema,
+    handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
+    displayName: props => props.displayName ? props.displayName: 'FormikFormEnhanced', // helps with React DevTools
+};
+
 export const defaultWithFormik = withFormik(
-    {
-        mapPropsToValues: props => getFormInitialValues({
-            fields: props.fields,
-            formInitials: props.formInitials
+    defaultWithFormikObject
+);
+
+const defaultWithFormikEnhancedObject = {
+    ...defaultWithFormikObject,
+    handleSubmit: (values, {props, ...formik}) =>
+        formikHandleSubmit({
+            url: props.formAction, // POST Url
+            data: values, // Form data
+            successAction: props.onSuccess, // called with response JSON
+            formik,
+            storageVariableName: props.storageVariableName
         }),
-        validationSchema: props => props.validationSchema,
-        handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
-        displayName: props => props.displayName, // helps with React DevTools
-    }
-)
+};
+
+export const defaultWithFormikEnhanced = withFormik(
+    defaultWithFormikEnhancedObject
+);
