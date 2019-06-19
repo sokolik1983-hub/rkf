@@ -23,7 +23,7 @@ export default class InputPhone extends PureComponent {
             <div className="input-phone__wrap">
                 <input
                     placeholder={placeholder}
-                    className="form-input__input"
+                    className="formInput__input"
                     value={value}
                     onChange={onChange}
                     disabled={disabled}
