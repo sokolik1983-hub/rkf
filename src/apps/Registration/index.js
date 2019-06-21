@@ -1,21 +1,22 @@
 import React, {PureComponent} from "react";
 import {Switch, Route} from 'react-router-dom'
 import {compose} from "redux";
+import injectReducer from 'utils/injectReducer'
+import injectSaga from 'utils/injectSaga'
 
 import Registration from './components/Registration'
 import ConfirmRegistrationSuccess from './components/ConfirmRegistrationSuccess'
 import ConfirmRegistrationFailed from './components/ConfirmRegistrationFailed'
 import RegistrationSuccess from './components/SuccessScreen'
-import injectReducer from 'utils/injectReducer'
-import injectSaga from 'utils/injectSaga'
+
 import reducer from './reducer'
 import saga from "./saga";
+import {defaultReduxKey} from './config'
 import {RegistrationPathContext} from './context'
 
 class RegistrationProxy extends PureComponent {
 
     render() {
-        //console.log(this.props);
         const {path} = this.props.match;
         return (
             <RegistrationPathContext.Provider value={{path}}>
@@ -30,10 +31,8 @@ class RegistrationProxy extends PureComponent {
     }
 }
 
-
-const withReducer = injectReducer({key: 'registration', reducer: reducer});
-const withSaga = injectSaga({key: 'registration', saga});
-
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
+const withSaga = injectSaga({key: defaultReduxKey, saga});
 
 export default compose(
     withReducer,

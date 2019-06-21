@@ -1,5 +1,5 @@
 import * as actiontypes from './actiontypes';
-
+import createReducer from 'utils/createReducer'
 
 const registrationInitialState = {
     loading: false,
@@ -7,32 +7,27 @@ const registrationInitialState = {
     requestErrors: {}
 };
 
-export default function registrationReducer(state = registrationInitialState, action) {
+const registrationReducer = createReducer(registrationInitialState, {
+    [actiontypes.REGISTER](state, action) {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+    [actiontypes.REGISTER_SUCCESS](state, action) {
+        return {
+            ...state,
+            loading: false,
+            registrationComplete: true,
+        };
+    },
+    [actiontypes.REGISTER_FAILED](state, action) {
+        return {
+            ...state,
+            loading: false,
+            requestErrors: action.errors
+        };
+    },
+});
 
-    switch (action.type) {
-
-        case actiontypes.REGISTER: {
-            return {
-                ...state,
-                loading: true,
-            };
-        }
-        case actiontypes.REGISTER_SUCCESS: {
-            return {
-                ...state,
-                loading: false,
-                registrationComplete: true,
-            };
-        }
-        case actiontypes.REGISTER_FAILED: {
-            return {
-                ...state,
-                loading: false,
-                requestErrors: action.errors
-            };
-        }
-
-        default:
-            return state;
-    }
-}
+export default registrationReducer

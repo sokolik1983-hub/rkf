@@ -1,7 +1,11 @@
 import {object, string} from 'yup'
+
 import {
     DEFAULT_PHONE_INPUT_PLACEHOLDER
 } from 'appConfig'
+
+export const defaultReduxKey = 'registration';
+
 export const registrationSuccessPath = '/auth/registration/success';
 
 export const registrationFormPhysicalPerson = {
