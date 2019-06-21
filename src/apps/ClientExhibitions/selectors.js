@@ -9,4 +9,32 @@ export const getExhibitionById = createSelector(
     (exhibitions, exhibitionId) => {
         return {...exhibitions[exhibitionId]}
     }
-)
+);
+
+
+export const getRouteParams = (state, props) => {
+    const {path, url, params} = props.match;
+    const {id} = params;
+    return {
+        path,
+        url,
+        exhibitionId: id
+    }
+};
+
+export const getExhibitionsDetails = (state) => state[defaultReduxKey].exhibitionsDetails;
+
+export const getExhibitionsDetailsById = createSelector(
+    [getRouteParams, getExhibitionsDetails],
+    (routeParams, ExhibitionDetails) => {
+        return {
+            ...routeParams,
+            exhibitionsDetails: ExhibitionDetails[routeParams.exhibitionId]
+        }
+    }
+);
+
+
+export const getDaysList = state => ({listDays: state[defaultReduxKey].listDays});
+
+export const getExhibitionsIdList = state => ({exhibitionIdList: state[defaultReduxKey].exhibitionIdList})

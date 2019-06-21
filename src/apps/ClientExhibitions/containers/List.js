@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react'
 import {bindActionCreators} from 'redux'
-import {Link} from "react-router-dom";
-import {ClientExhibitionsPathContext} from "../context";
-import {getExhibitionList} from "apps/ClientExhibitions/actions";
-import {defaultReduxKey} from "apps/ClientExhibitions/config";
-import {connect} from "react-redux";
+import {connect} from "react-redux"
+import {Link} from "react-router-dom"
+import Card from 'components/Card'
 import ClientExhibitionListItem from './ListItem'
-import Card from 'components/Card';
+import {getExhibitionList} from "apps/ClientExhibitions/actions"
+import {getExhibitionsIdList} from 'apps/ClientExhibitions/selectors'
+import {ClientExhibitionsPathContext} from 'apps/ClientExhibitions/context'
 
 class ClientExhibitionsList extends PureComponent {
     componentDidMount() {
@@ -40,12 +40,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getExhibitionList
 }, dispatch);
 
-const mapsStateToProps = (state, props) => ({
-    exhibitionIdList: state[defaultReduxKey].exhibitionIdList,
-
-});
-
 export default connect(
-    mapsStateToProps,
+    getExhibitionsIdList,
     mapDispatchToProps
 )(ClientExhibitionsList)

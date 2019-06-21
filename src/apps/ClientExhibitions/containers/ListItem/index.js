@@ -1,11 +1,13 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
-import {defaultReduxKey} from 'apps/ClientExhibitions/config'
-import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
-import {getExhibitionById} from 'apps/ClientExhibitions/selectors'
-import {BtnEdit, BtnSend, BtnWatch} from 'components/Svg'
 import {formatDateWithLocaleStringFull, timeSecondsCutter, transformDate} from "utils/datetime";
 import {ActButton} from "components/Button";
+import {BtnEdit, BtnSend, BtnWatch} from 'components/Svg'
+import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
+import {getExhibitionById} from 'apps/ClientExhibitions/selectors'
+
+
+
 import {baseClassName} from './styles.scss'
 import './styles.scss'
 
@@ -69,19 +71,13 @@ class ClientExhibitionListItem extends PureComponent {
                         </div>
                 }
             </ClientExhibitionsPathContext.Consumer>
-
         )
     }
 }
 
-// const mapStateToProps = (state, props) => {
-//     return {...state[defaultReduxKey].exhibitions[props.exhibitionId.toString()]}
-// };
 
-const mapStateToProps = (state, props) => {
-    getExhibitionById(state, props)
-};
+
 
 export default connect(
-    mapStateToProps,
+    getExhibitionById,
 )(ClientExhibitionListItem)

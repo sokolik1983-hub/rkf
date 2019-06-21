@@ -3,27 +3,20 @@ import {bindActionCreators} from 'redux'
 import {Link} from "react-router-dom";
 import {ClientExhibitionsPathContext} from "../context";
 import {getExhibitionList} from "apps/ClientExhibitions/actions";
-import {defaultReduxKey} from "apps/ClientExhibitions/config";
 import {connect} from "react-redux";
 import ListDay from '../components/ListDay'
 import Card from 'components/Card';
+import {getDaysList} from 'apps/ClientExhibitions/selectors'
 
 class ClientExhibitionsList extends PureComponent {
     componentDidMount() {
-        //TODO Remove this shit 001
-        let user_info = localStorage.getItem('user_info');
-        if (user_info) {
-            this.props.getExhibitionList(JSON.parse(user_info).id)
-        } else {
-            this.props.getExhibitionList()
-        }
-
+        this.props.getExhibitionList()
     }
 
     render() {
         return (
-            <Card lg>
-                <ClientExhibitionsPathContext.Consumer>
+            <ClientExhibitionsPathContext.Consumer>
+                <Card lg>
                     {
                         ({path}) =>
                             <div className="client-exhibitions">
@@ -37,8 +30,8 @@ class ClientExhibitionsList extends PureComponent {
                                 }
                             </div>
                     }
-                </ClientExhibitionsPathContext.Consumer>
-            </Card>
+                </Card>
+            </ClientExhibitionsPathContext.Consumer>
         )
     }
 }
@@ -47,11 +40,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getExhibitionList
 }, dispatch);
 
-const mapsStateToProps = (state, props) => ({
-    listDays: state[defaultReduxKey].listDays,
-});
 
 export default connect(
-    mapsStateToProps,
+    getDaysList,
     mapDispatchToProps
 )(ClientExhibitionsList)

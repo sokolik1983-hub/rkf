@@ -1,16 +1,16 @@
 import React, {Fragment, PureComponent} from 'react'
-import {Switch, Route} from 'react-router-dom'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getExhibitionDetails} from "apps/ClientExhibitions/actions";
-import {defaultReduxKey} from "apps/ClientExhibitions/config";
-import ClientExhibitionPrices from 'apps/ClientExhibitionPrices'
-import NavTab, {NavTabs} from 'apps/ClientExhibitions/components/NavTab'
-import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
+import {Switch, Route} from 'react-router-dom'
 import {objectNotEmpty} from "utils/index";
+import NavTab, {NavTabs} from 'apps/ClientExhibitions/components/NavTab'
+import ClientExhibitionPrices from 'apps/ClientExhibitionPrices'
+import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
 import Common from 'apps/ClientExhibitions/containers/Details/Common'
 import {StepTabContent1, StepTabContent2, StepTabContent3} from "apps/ClientExhibitions/components/Steps";
 
+import {getExhibitionDetails} from "apps/ClientExhibitions/actions";
+import {getExhibitionsDetailsById} from 'apps/ClientExhibitions/selectors'
 
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
@@ -24,9 +24,7 @@ class ExhibitionDetails extends PureComponent {
         const {
             url,
             path,
-            //exhibitionsDetails,
         } = this.props;
-
         return (
             <Fragment>
                 <NavTabs>
@@ -55,19 +53,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getExhibitionDetails
 }, dispatch);
 
-const mapsStateToProps = (state, props) => {
-    const {path, url, params} = props.match;
-    const {id} = params;
-    const exhibitionsDetails = state[defaultReduxKey].exhibitionsDetails[id.toString()];
-    return {
-        path,
-        url,
-        exhibitionsDetails,
-        exhibitionId: id
-    }
-};
-
+const mapStateToProps = (state, props) => ({...getExhibitionsDetailsById(state, props)})
 export default connect(
-    mapsStateToProps,
+    mapStateToProps,
     mapDispatchToProps
 )(ExhibitionDetails)

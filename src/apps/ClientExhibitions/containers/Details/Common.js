@@ -1,31 +1,24 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {bindActionCreators} from 'redux'
-import ExhibitionUpdateForm from 'apps/ClientExhibitions/containers/ExhibitionUpdateForm'
-import {getExhibitionDetails} from "../../actions";
-import {defaultReduxKey} from "../../config";
 import {connect} from "react-redux";
+import ExhibitionUpdateForm from 'apps/ClientExhibitions/containers/ExhibitionUpdateForm'
+import {getExhibitionDetails} from "apps/ClientExhibitions/actions";
+import {getExhibitionsDetailsById} from 'apps/ClientExhibitions/selectors'
 
-class DetailsCommon extends Component {
+class DetailsCommon extends PureComponent {
     render() {
-        return (
-            <div className="exhibition-details__common">
-                <ExhibitionUpdateForm formInitials={this.props.formInitials}/>
-            </div>
-        )
+        return <ExhibitionUpdateForm formInitials={this.props.formInitials}/>
     }
 }
-
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     getExhibitionDetails
 }, dispatch);
 
 const mapsStateToProps = (state, props) => {
-    const {params} = props.match;
-    const {id} = params;
-    const formInitials = state[defaultReduxKey].exhibitionsDetails[id.toString()];
+    const {exhibitionsDetails} = getExhibitionsDetailsById(state, props);
     return {
-        formInitials,
+        formInitials: exhibitionsDetails,
     }
 };
 
