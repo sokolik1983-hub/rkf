@@ -11,11 +11,15 @@ class ScheduleDay extends PureComponent {
         const {dayId, day, index,} = this.props;
         const date = transformDate(day);
         return (
-
             <div id={'day' + dayId} className="day">
                 <div className="day__date">
-                    <div className="day__date"><span className="day__span">{index + 1} день</span><br/> {formatDateWithLocaleString(date)}</div>
+                    <div className="day__date">
+                        <span className="day__span">{index + 1} день</span>
+                        <br/>
+                        {formatDateWithLocaleString(date)}
+                    </div>
                 </div>
+
                 <Items day={dayId} items={day.items}/>
 
             </div>
