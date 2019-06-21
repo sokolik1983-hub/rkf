@@ -48,7 +48,8 @@ $base-class: exhibition-list-item;
   &__controls {
     margin: 19px 0;
     //display: none;
-
+    display: flex;
+    flex-flow: row wrap;
     .btn {
       margin-right: 16px;
       min-width: 140px;
