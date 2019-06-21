@@ -27,7 +27,6 @@ export const getDateTime = (datetime, leadingZeroToHours = true) => {
     return `${formatLeadingZero(day, leadingZeroToHours)}/${formatLeadingZero(month, leadingZeroToHours)} ${formatLeadingZero(hours)}:${formatLeadingZero(minutes)}`
 };
 
-
 export const getStartDayOfWeek = (date) => {
     const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
     return new Date(date.setDate(diff));
@@ -66,15 +65,14 @@ export const formatDateWithLocaleString = (date, locale = 'ru') => {
     const month = getLocalizedMonth(date)
     const weekDay = getLocalizedWeekDay(date)
     return `${weekDay}, ${day} ${month}`
-}
+};
+
 export const formatDateWithLocaleStringFull = (date, locale = 'ru') => {
-    console.log('date: ', date)
     const day = date.getDate();
     const month = getLocalizedMonth(date)
     const year = date.getFullYear()
     return `${day} ${month} ${year}`
-}
-
+};
 
 export const months = {
     "0": 'январь',

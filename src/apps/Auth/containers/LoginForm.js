@@ -16,10 +16,10 @@ import {loginFormConfig} from 'apps/Auth/config'
 import {loginUserSuccess} from 'apps/Auth/actions'
 
 const {fields} = loginFormConfig;
-console.log('fields', fields)
+
 class LoginForm extends PureComponent {
     render() {
-        console.log(fields)
+
         return (
             <FormFormikEnhanced
                 onSuccess={this.props.loginUserSuccess}

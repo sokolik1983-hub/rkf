@@ -41,7 +41,7 @@ class FastFormField extends PureComponent {
     render() {
         const FieldInput = this.getComponent();
         const {fieldType, className, style, ...fieldProps} = this.props;
-        console.log(fieldProps)
+
         return (
             <FormInput
                 style={style}

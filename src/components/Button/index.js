@@ -40,8 +40,9 @@ const ActionButton = ({
                           history,
                           ...other,
                       }) => {
-    const handleClick = action ? ()=>history.push(action) : onClick;
-    console.log(other)
+
+    const handleClick = action ? () => history.push(action) : onClick;
+
     return (
         <button
             style={style}
