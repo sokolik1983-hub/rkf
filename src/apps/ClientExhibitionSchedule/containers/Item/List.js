@@ -1,16 +1,20 @@
 import React, {PureComponent} from 'react'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import ScheduleDayItem from './index'
-import ScheduleItemForm from "apps/ClientExhibitionSchedule/components/ItemForm";
+import ItemRow from './ListRow'
+import RenderFields from 'apps/ClientExhibitionSchedule/components/ItemForm/RederFields'
+
 import Button from 'components/Button'
 
 import {
-    addDayItem,
-    updateDayItem,
+    addDayItemSuccess,
     deleteDayItem,
+    updateDayItemSuccess
 } from 'apps/ClientExhibitionSchedule/actions'
+
 import {defaultReduxKey} from "../../config";
+import {scheduleDayItemForm} from 'apps/ClientExhibitionSchedule/config'
+import {FormFormikEnhanced} from "components/Form";
 
 
 class ScheduleDayItems extends PureComponent {
@@ -25,25 +29,24 @@ class ScheduleDayItems extends PureComponent {
     };
 
     toggleForm = () => this.setState(prevState => ({formVisible: !prevState.formVisible}));
-
-    onItemSubmit = (values) => {
-        const {day, addDayItem} = this.props;
-        addDayItem({day_id: day, ...values})
+    transformValues=(values)=>({day_id: this.props.day, ...values})
+    createItem = (values) => {
+        addDayItemSuccess(values)
     };
 
-    onItemUpdate = (values) => {
+    updateItem = (values) => {
         const {id} = values;
-        const {updateDayItem} = this.props;
-        updateDayItem(id, {...values})
+        const {updateDayItemSuccess} = this.props;
+        updateDayItemSuccess(id, {...values})
     };
 
     editItem = itemId => {
         const {dayItems} = this.props;
         this.setState({editItemId: itemId, editItem: dayItems[itemId]})
     };
-    onItemDelete = (id) => {
+    deleteItem = (id) => {
         const {deleteDayItem} = this.props;
-        console.log('onItemDelete', id)
+        console.log('deleteItem', id)
         deleteDayItem(id)
     };
 
@@ -55,35 +58,41 @@ class ScheduleDayItems extends PureComponent {
                     items.length > 0 ?
                         items.map(item =>
                             this.state.editItemId === item ?
-                                <ScheduleItemForm
-                                    key={"form" + item}
+                                // Form for Update item
+                                <FormFormikEnhanced
+                                    onSuccess={this.updateItem}
+                                    {...scheduleDayItemForm}
                                     formInitials={this.state.editItem}
-                                    loading={loading}
-                                    formSubmit={this.onItemUpdate}
-                                />
+                                    isUpdate
+                                >
+                                    <RenderFields
+                                        fields={scheduleDayItemForm.fields}
+                                        isUpdate
+                                    />
+                                </FormFormikEnhanced>
+
                                 :
-                                <div key={item} className="flex-row">
-                                    <ScheduleDayItem itemId={item}/>
-                                    <Button
-                                        className="btn-secondary"
-                                        onClick={() => this.editItem(item)}>
-                                        изменить
-                                    </Button>
-                                    <Button
-                                        className="btn-secondary"
-                                        onClick={() => this.onItemDelete(item)}>
-                                        удалить
-                                    </Button>
-                                </div>
+                                <ItemRow
+                                    key={item}
+                                    item={item}
+                                    onEdit={this.editItem}
+                                    onDelete={this.deleteItem}
+                                />
                         )
                         : null
                 }
                 {
                     this.state.formVisible ?
-                        <ScheduleItemForm
-                            loading={loading}
-                            formSubmit={this.onItemSubmit}
-                        />
+                        // Form for creating item
+                        <FormFormikEnhanced
+                                    onSuccess={this.createItem}
+                                    transformValues={this.transformValues}
+                                    {...scheduleDayItemForm}
+                                >
+                                    <RenderFields
+                                        fields={scheduleDayItemForm.fields}
+                                    />
+                                </FormFormikEnhanced>
                         : null
                 }
                 <div className="day-items__controls">
@@ -91,7 +100,9 @@ class ScheduleDayItems extends PureComponent {
                         style={{color: '#3366FF'}}
                         onClick={this.toggleForm}
                         className="btn btn-simple"
-                    >{this.state.formVisible ? 'Скрыть' : '+ Добавить пункт'}</Button>
+                    >
+                        {this.state.formVisible ? 'Скрыть' : '+ Добавить пункт'}
+                    </Button>
                 </div>
             </div>
         )
@@ -105,8 +116,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(
     {
-        addDayItem,
-        updateDayItem,
+        addDayItemSuccess,
+        updateDayItemSuccess,
         deleteDayItem,
     }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduleDayItems)
