@@ -1,5 +1,5 @@
 import * as actiontypes from './actiontypes';
-
+import createReducer from 'utils/createReducer'
 
 const API_KEY_LOCAL_STORAGE = 'apikey';
 
@@ -55,56 +55,51 @@ const authInitialState = {
     roles_with_actions: loadRolesWithActions(),
 };
 
-export default function authReducer(state = authInitialState, action) {
+const authReducer = createReducer(authInitialState, {
 
-    switch (action.type) {
+    [actiontypes.LOGIN_SUCCESS](state, action) {
+        const {access_token, user_info, roles_with_actions} = action.data;
+        saveApiKey(access_token);
+        saveUserInfo(user_info);
+        saveRolesWithActions(roles_with_actions);
+        return {
+            ...state,
+            loading: false,
+            isAuthenticated: true,
+            user_info,
+            roles_with_actions
+        };
+    },
 
-        case actiontypes.LOGIN_SUCCESS: {
+    [actiontypes.LOGOUT](state, action) {
+        //TODO Убрать clearApiKey();
+        clearApiKey();
+        clearUserInfo();
+        clearRolesWithActions();
+        return {
+            ...state,
+            //TODO Убрать isAuthenticated: false,
+            isAuthenticated: false,
+            user_info: null
+        };
+    },
+    [actiontypes.LOGOUT_SUCCESS](state, action) {
+        clearApiKey();
+        return {
+            ...state,
+            loading: false,
+            isAuthenticated: false,
+            user: null,
+        };
+    },
+    [actiontypes.LOGOUT_FAILED](state, action) {
+        return {
+            ...state,
+            loading: false,
+            requestErrors: action.errors,
+        };
+    },
 
-            const {access_token, user_info, roles_with_actions} = action.data;
-            saveApiKey(access_token);
-            saveUserInfo(user_info);
-            saveRolesWithActions(roles_with_actions);
-            return {
-                ...state,
-                loading: false,
-                isAuthenticated: true,
-                user_info,
-                roles_with_actions
-            };
-        }
+});
 
-
-        case actiontypes.LOGOUT: {
-            //TODO Убрать clearApiKey();
-            clearApiKey();
-            clearUserInfo();
-            clearRolesWithActions();
-            return {
-                ...state,
-                //TODO Убрать isAuthenticated: false,
-                isAuthenticated: false,
-                user_info: null
-            };
-        }
-        case actiontypes.LOGOUT_SUCCESS: {
-            clearApiKey();
-            return {
-                ...state,
-                loading: false,
-                isAuthenticated: false,
-                user: null,
-            };
-        }
-        case actiontypes.LOGOUT_FAILED: {
-            return {
-                ...state,
-                loading: false,
-                requestErrors: action.errors,
-            };
-        }
-
-        default:
-            return state;
-    }
-}
+export default authReducer;
