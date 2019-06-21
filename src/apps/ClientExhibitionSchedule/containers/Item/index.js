@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
-import {defaultReduxKey} from 'apps/ClientExhibitionSchedule/config'
 import {timeSecondsCutter} from 'utils/datetime'
+import {getItemById} from 'apps/ClientExhibitionSchedule/selectors'
 import './styles.scss'
 
 
@@ -20,10 +20,6 @@ class ScheduleDayItem extends PureComponent {
     }
 }
 
-const mapStateToProps = (state, props) => ({
-    item: state[defaultReduxKey].items[props.itemId.toString()]
-});
-
 export default connect(
-    mapStateToProps,
+    getItemById,
 )(ScheduleDayItem)
