@@ -2,18 +2,20 @@ import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {defaultReduxKey} from 'apps/ClientExhibitions/config'
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
-import {Link} from "react-router-dom";
-import {BtnEdit} from 'components/Svg'
+
+import {BtnEdit, BtnSend, BtnWatch} from 'components/Svg'
 import {formatDateWithLocaleStringFull, timeSecondsCutter, transformDate} from "utils/datetime";
-import './styles.scss'
 import {ActButton} from "components/Button";
+import {baseClassName} from './styles.scss'
+import './styles.scss'
+
+
 
 const Date = ({day, month, year, time_start, time_end}) => {
     const date = transformDate({day, month, year})
-    console.log(day, month, year, date)
     return (
         <div
-            className="exhibition-list-item__datetime">
+            className={`${baseClassName}__datetime`}>
             {formatDateWithLocaleStringFull(date)} {time_start ? `${timeSecondsCutter(time_start)} - ${timeSecondsCutter(time_end)}` : null}
         </div>
     )
@@ -32,29 +34,38 @@ class ClientExhibitionListItem extends PureComponent {
             <ClientExhibitionsPathContext.Consumer>
                 {
                     ({path}) =>
-                        <div id={'exhibitionsListItem_' + id} className="exhibition-list-item">
-                            <div className="exhibition-list-item__city">
+                        <div className={`${baseClassName}`}>
+                            <div className={`${baseClassName}__city`}>
                                 {city}
                             </div>
-                            <div className="exhibition-list-item__title">{exhibition_name}</div>
-                            <div className="exhibition-list-item__dates">
+                            <div className={`${baseClassName}__title`}>{exhibition_name}</div>
+                            <div className={`${baseClassName}__dates`}>
                                 {
                                     dates ?
                                         dates.map((date, index) => <Date key={index}{...date}/>)
                                         :
-                                        <div className="exhibition-list-item__datetime">
+                                        <div className={`${baseClassName}__datetime`}>
                                             добавьте расписние
                                         </div>
                                 }
                             </div>
 
-                            <div className="exhibition-list-item__controls">
+                            <div className={`${baseClassName}__controls`}>
                                 <ActButton
+                                    className="btn-z"
                                     action={`${path}/${id}/details/common`}
-                                    rightIcon={<BtnEdit/>}
+                                    leftIcon={<BtnEdit/>}
                                 >Редактировать </ActButton>
-                                <Link to={`${path}/${id}/details/common`} className="btn">Опубликовать</Link>
-                                <Link to={`${path}/${id}/details/common`} className="btn">Предпросмотр</Link>
+                                <ActButton
+                                    className="btn-z"
+                                    action={`${path}/${id}/details/common`}
+                                    rightIcon={<BtnSend/>}>Опубликовать</ActButton>
+                                <ActButton
+                                    disabled
+                                    className="btn-z"
+                                    action={`${path}/${id}/details/common`}
+                                    rightIcon={<BtnWatch/>}
+                                    >Предпросмотр</ActButton>
                             </div>
                         </div>
                 }

@@ -1,5 +1,8 @@
 $default-gray-color: #9DAFBD;
-$base-class: exhibition-list-item;
+$base-class: ExhibitionListItem;
+:export {
+  baseClassName: ExhibitionListItem;
+}
 
 .#{$base-class} {
   padding: 24px 40px;
@@ -24,12 +27,14 @@ $base-class: exhibition-list-item;
     margin: 10px 0;
     font-size: 14px;
     line-height: 20px;
+    font-weight: 600;
   }
 
   &__title {
     color: #253C5E;
     font-size: 18px;
     line-height: 24px;
+    font-weight: 600;
   }
 
   &__participants-count {
@@ -37,5 +42,13 @@ $base-class: exhibition-list-item;
     color: $default-gray-color;
   }
 
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    color: #3366FF;
 
+    .btn:disabled {
+      color: #CCCCCC;
+    }
+  }
 }
