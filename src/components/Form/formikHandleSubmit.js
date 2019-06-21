@@ -5,18 +5,17 @@ import {getHeaders} from "utils/request";
 const isDev = isDevEnv();
 
 const defaultOptions = isDev ? {
-        method: "POST",
         headers: getHeaders(),
         mode: "cors"
     }
     :
     {
-        method: "POST",
         headers: getHeaders(),
     };
 
 
 export async function formikHandleSubmit({
+                                             isUpdate,
                                              url, // POST Url
                                              options = defaultOptions,
                                              data, // Form data
@@ -28,7 +27,7 @@ export async function formikHandleSubmit({
     // Block Form
     //formik.setSubmitting(true);
     try {
-        console.log('moving on', formik);
+        options.method = isUpdate ? "PUT" : "POST";
         const requestUrl = isDev ? `${SERVER}${url}` : url;
         const response = await fetch(requestUrl, {
             ...options,
@@ -60,11 +59,9 @@ export async function formikHandleSubmit({
             console.error("formikHandleSubmit JSON.parse(text): ", error, text);
             alert('formikHandleSubmit JSON.parse(text): \n see response text in console');
 
-        }
-        else if (error.name === "TypeError" && error.message==="Failed to fetch") {
+        } else if (error.name === "TypeError" && error.message === "Failed to fetch") {
             alert('Ошибка соединения\n Internet connection error');
-        }
-        else {
+        } else {
             console.error("formikHandleSubmit Unknown Error: ", error);
         }
     }

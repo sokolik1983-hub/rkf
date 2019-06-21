@@ -1,9 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types'
 import {Form} from 'formik';
-import SubmitButton from "./SubmitButton";
 import FormTitle from './FormTitle'
-import FormControls from './FormControls'
 import {defaultWithFormikEnhanced} from './services'
 
 class FormikFormEnhanced extends PureComponent {
@@ -12,6 +10,7 @@ class FormikFormEnhanced extends PureComponent {
         fields: PropTypes.object.isRequired,
         validationSchema: PropTypes.object.isRequired,
         displayName: PropTypes.string,
+        isUpdate: PropTypes.bool,
     };
     static defaultProps = {
         className: "form",
@@ -19,6 +18,7 @@ class FormikFormEnhanced extends PureComponent {
         storeValues: true,
         storageVariableName: 'FormStoredValues',
         reset: true,
+        isUpdate: false
     };
 
     componentWillUnmount() {
@@ -34,7 +34,6 @@ class FormikFormEnhanced extends PureComponent {
         const {
             className,
             formTitle,
-            buttonText,
             children,
         } = this.props;
 
@@ -42,11 +41,6 @@ class FormikFormEnhanced extends PureComponent {
             <Form className={className}>
                 <FormTitle formTitle={formTitle}/>
                 {children}
-                <FormControls>
-                    <SubmitButton>
-                        {buttonText}
-                    </SubmitButton>
-                </FormControls>
             </Form>
         )
     }

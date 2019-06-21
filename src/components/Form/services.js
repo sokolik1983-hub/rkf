@@ -58,7 +58,7 @@ const defaultWithFormikObject = {
     }),
     validationSchema: props => props.validationSchema,
     handleSubmit: (values, {props, ...other}) => props.formSubmit(values, {...other}),
-    displayName: props => props.displayName ? props.displayName: 'FormikFormEnhanced', // helps with React DevTools
+    displayName: props => props.displayName ? props.displayName : 'FormikFormEnhanced', // helps with React DevTools
 };
 
 export const defaultWithFormik = withFormik(
@@ -69,8 +69,9 @@ const defaultWithFormikEnhancedObject = {
     ...defaultWithFormikObject,
     handleSubmit: (values, {props, ...formik}) =>
         formikHandleSubmit({
+            isUpdate: props.isUpdate,
             url: props.formAction, // POST Url
-            data: values, // Form data
+            data: props.transformValues ? props.transformValues(values) : values, // Form data
             successAction: props.onSuccess, // called with response JSON
             formik,
             storageVariableName: props.storageVariableName
