@@ -3,7 +3,7 @@ import {connect} from 'formik';
 import Button from 'components/Button'
 import classnames from 'classnames'
 
-const SubmitButton = ({formik, className, onClick, children}) =>
+const SubmitButton = ({formik, className, onClick, children, ...restProps}) =>
     <Button
         type="submit"
         disabled={formik.isSubmitting}
@@ -14,6 +14,7 @@ const SubmitButton = ({formik, className, onClick, children}) =>
             )
         }
         onClick={onClick}
+        {...restProps}
     >
         {children}
     </Button>;
