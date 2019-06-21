@@ -2,13 +2,12 @@ import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {defaultReduxKey} from 'apps/ClientExhibitions/config'
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context";
-
+import {getExhibitionById} from 'apps/ClientExhibitions/selectors'
 import {BtnEdit, BtnSend, BtnWatch} from 'components/Svg'
 import {formatDateWithLocaleStringFull, timeSecondsCutter, transformDate} from "utils/datetime";
 import {ActButton} from "components/Button";
 import {baseClassName} from './styles.scss'
 import './styles.scss'
-
 
 
 const Date = ({day, month, year, time_start, time_end}) => {
@@ -65,7 +64,7 @@ class ClientExhibitionListItem extends PureComponent {
                                     className="btn-z"
                                     action={`${path}/${id}/details/common`}
                                     rightIcon={<BtnWatch/>}
-                                    >Предпросмотр</ActButton>
+                                >Предпросмотр</ActButton>
                             </div>
                         </div>
                 }
@@ -75,8 +74,12 @@ class ClientExhibitionListItem extends PureComponent {
     }
 }
 
+// const mapStateToProps = (state, props) => {
+//     return {...state[defaultReduxKey].exhibitions[props.exhibitionId.toString()]}
+// };
+
 const mapStateToProps = (state, props) => {
-    return {...state[defaultReduxKey].exhibitions[props.exhibitionId.toString()]}
+    getExhibitionById(state, props)
 };
 
 export default connect(
