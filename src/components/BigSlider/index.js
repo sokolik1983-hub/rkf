@@ -42,7 +42,6 @@ export default class BigSlider extends PureComponent {
         const {slides} = this.props;
         return (
             <div className="BigSlider">
-
                 <div className="BigSlider__content">
                     {
                         slides.map((slide, index) => index === this.state.current ?
