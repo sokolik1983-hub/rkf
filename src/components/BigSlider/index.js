@@ -1,54 +1,70 @@
 import React, {PureComponent} from 'react'
-import {Link} from 'react-router-dom'
-
+import Slide from './Slide'
+import DotBtn from './DotBtn'
+import Arrow from './ArrowBtn'
 import './styles.scss'
-
-const Dot = ({active, onClick}) =>
-    <button onClick={onClick} className={active ? 'active' : ''}/>;
-
-const Arrow = ({onClick, right}) => <button onClick={onClick} className={`arrow ${right ? 'arrow--right' : 'arrow--left'}`}/>
 
 
 export default class BigSlider extends PureComponent {
+    static defaultProps = {
+        slides: []
+    };
     state = {
         current: 0,
     };
 
-    onDotClick = () => {
-        console.log('onDotClick')
+    onDotClick = (index) => {
+        this.setState({current: index})
     };
 
+    nextSlide = () => {
+        const {slides} = this.props;
+        const {current} = this.state;
+        if (current < slides.length - 1) {
+            this.setState({current: current + 1})
+        } else if (current === slides.length - 1) {
+            this.setState({current: 0})
+        }
+    };
+
+    prevSlide = () => {
+        const {slides} = this.props;
+        const {current} = this.state;
+        if (current === 0) {
+            this.setState({current: slides.length - 1})
+        } else if (current >= 1) {
+            this.setState({current: current - 1})
+        }
+    };
+
+
     render() {
+        const {slides} = this.props;
         return (
-            <div className="big-slider">
+            <div className="BigSlider">
 
-                <div className="big-slider__content">
-                    <div className="big-slider__slide">
-
-                        <div style={{backgroundImage: `url(${'/media/images/home/01.png'})`}}
-                             className="big-slider__slide-image"/>
-                        <Link to={'/'} className="big-slider__slide-link">Читать<br/>далее</Link>
-                        <div className="big-slider__slide-text">
-                            <div className="big-slider__slide-title">Хорошая жизнь <br/><span>с собаками</span></div>
-                            <div className="big-slider__slide-preview">Ежедневно РКФ работает над улучшением качества
-                                разведения собак в России с главной целью — благополучие собаки.
-                            </div>
-                        </div>
+                <div className="BigSlider__content">
+                    {
+                        slides.map((slide, index) => index === this.state.current ?
+                            <Slide key={slide.id} {...slide}/> : undefined)
+                    }
+                </div>
+                <div className="BigSlider__controls">
+                    <div className="BigSlider__dots">
+                        {
+                            slides.map((slide, index) =>
+                                <DotBtn
+                                    active={index === this.state.current}
+                                    onClick={this.onDotClick}
+                                    index={index}
+                                />)
+                        }
+                    </div>
+                    <div className="BigSlider__arrows">
+                        <Arrow onClick={this.prevSlide}/>
+                        <Arrow onClick={this.nextSlide} right/>
                     </div>
                 </div>
-                <div className="big-slider__controls">
-                    <div className="big-slider__dots">
-                        <Dot onClick={this.onDotClick} active index="0"/>
-                        <Dot onClick={this.onDotClick} index="1"/>
-                        <Dot onClick={this.onDotClick} index="2"/>
-                        <Dot onClick={this.onDotClick} index="3"/>
-                    </div>
-                    <div className="big-slider__arrows">
-                        <Arrow />
-                        <Arrow right/>
-                    </div>
-                </div>
-
             </div>
         )
     }
