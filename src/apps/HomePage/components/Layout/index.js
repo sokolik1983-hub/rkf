@@ -9,11 +9,11 @@ import About from 'apps/HomePage/components/AboutBlock'
 import RegisterBlock from 'apps/HomePage/components/Register'
 import SpecialOffersSubscription from 'components/Subcriptions/SpecialOffers'
 import PublicLayout from 'components/Layout'
-
+import {demoSlides} from './demoSlides'
 const HomePageLayout = () =>
     <PublicLayout>
         <Container className="home">
-            <BigSlider/>
+            <BigSlider slides={demoSlides}/>
             <WeekExhibitions/>
             <About/>
             <RecentNews/>
