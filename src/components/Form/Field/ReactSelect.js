@@ -28,14 +28,20 @@ class ReactSelect extends Component {
         }
     };
 
+     onBlur=()=>{
+        const {formik,name} = this.props;
+        formik.setFieldTouched(name)
+     };
+
     render() {
         const {
+            formik,
+            //
             options,
             id,
             name,
             className,
             placeholder,
-            onBlur,
             disabled,
             clearable,
             defaultValue,
@@ -44,6 +50,7 @@ class ReactSelect extends Component {
             components
         } = this.props;
         const value = this.getValue();
+        console.log(formik)
         return (
             <Select
                 components={{...components, NoOptionsMessage}}
@@ -58,10 +65,11 @@ class ReactSelect extends Component {
                 placeholder={placeholder}
                 isDisabled={disabled}
                 onChange={this.handleChange}
-                onBlur={onBlur}
+                onBlur={this.onBlur}
                 clearable={clearable}
                 defaultValue={defaultValue}
-                classNamePrefix={"my-react-select-prefix"}
+                isSearchable
+                classNamePrefix={"RSInput"}
             />
         )
     }
