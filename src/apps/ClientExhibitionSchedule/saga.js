@@ -8,10 +8,10 @@ import * as actions from './actions'
 export function* getSchedule(action) {
     try {
         const data = yield call(Api.getSchedule, action);
-        yield put(actions.getScheduleSuccess(data))
+        yield put(actions.getScheduleSuccess(data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.getScheduleFailed(error.response))
+        yield put(actions.getScheduleFailed(error.response.errors))
     }
 }
 
