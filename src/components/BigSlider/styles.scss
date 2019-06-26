@@ -1,4 +1,4 @@
-.big-slider {
+.BigSlider {
   min-height: 667px;
   background-color: #EBF0F2;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -43,7 +43,7 @@
       margin-right: 10px;
 
       cursor: pointer;
-
+      background-color: #ffffff;
       &.active {
         background-color: #253C5E;
       }

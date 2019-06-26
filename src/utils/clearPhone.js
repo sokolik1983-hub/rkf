@@ -1,0 +1,1 @@
+export const clearPhoneNumber = phone => phone.replace('+7', '').replace(/[-)( ]/g, '');

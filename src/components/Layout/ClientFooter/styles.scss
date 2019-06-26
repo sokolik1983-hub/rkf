@@ -1,0 +1,48 @@
+$baseClass: 'ClientFooter';
+
+.#{$baseClass} {
+  margin-top: 80px;
+  background-color: #F6F7F7;
+  padding: 24px 48px;
+
+  &__top {
+    .flex-row {
+      align-items: center;
+
+      svg {
+        padding: 0 16px;
+
+        &.clf__phone {
+          margin-left: 32px;
+        }
+
+        &.clf__mail {
+          transform: translateY(2px);
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    flex-flow: row wrap;
+    border-top: solid 1px;
+    padding-top: 23px;
+    margin-top: 23px;
+
+    .lnkText {
+      margin-left: 48px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &.darkBlue {
+    background-color: #253C5E;
+    color: white
+  }
+}
