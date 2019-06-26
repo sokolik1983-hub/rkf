@@ -28,14 +28,20 @@ h4 {
   line-height: 24px;
 }
 
-body {
-  a,
-  a:visited,
-  a:active {
-    color: #3366FF;
 
-    &.no-ul {
-      text-decoration: none;
-    }
+a,
+a:visited,
+a:active {
+  color: #3366FF;
+
+  &.no-ul {
+    text-decoration: none;
   }
+}
+
+a.lnkText,
+a.lnkText:visited,
+a.lnkText:active {
+  text-decoration: none;
+  color: currentColor;
 }

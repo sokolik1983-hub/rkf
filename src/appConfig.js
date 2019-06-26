@@ -43,6 +43,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/dog_owner',
+        component: LoadableModules.LoadableClientDogOwner
+    },
+    {
+        exact: false,
         path: '/testView',
         component: TestView
     },

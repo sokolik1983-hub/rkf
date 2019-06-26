@@ -35,3 +35,8 @@ export const LoadableClient = Loadable({
     loader: () => import(/* webpackChunkName: "app.client.root" */ './apps/Client/index'),
     loading: Loading,
 });
+
+export const LoadableClientDogOwner = Loadable({
+    loader: () => import(/* webpackChunkName: "app.dog.owner.root" */ './apps/DogOwner/index'),
+    loading: Loading,
+});
