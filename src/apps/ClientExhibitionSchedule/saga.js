@@ -21,7 +21,7 @@ export function* addDay(action) {
         yield put(actions.addDaySuccess({id: data, ...action.data}))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.addDayFailed(error.response))
+        yield put(actions.addDayFailed(error.response.errors))
     }
 }
 
@@ -31,7 +31,7 @@ export function* updateDay(action) {
         yield put(actions.updateDaySuccess(action.id, data))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.updateDayFailed(action.id, error.response))
+        yield put(actions.updateDayFailed(action.id, error.response.errors))
     }
 }
 
@@ -43,7 +43,7 @@ export function* deleteDay(action) {
         }
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.deleteDayFailed(action.id, error.response))
+        yield put(actions.deleteDayFailed(action.id, error.response.errors))
     }
 }
 
@@ -54,17 +54,17 @@ export function* addDayItem(action) {
         yield put(actions.addDayItemSuccess({id: data, ...action.data}))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.addDayItemFailed(error.response))
+        yield put(actions.addDayItemFailed(error.response.errors))
     }
 }
 
 export function* updateDayItem(action) {
     try {
         const data = yield call(Api.updateDayItem, action);
-        yield put(actions.updateDayItemSuccess(action.id, data))
+        yield put(actions.updateDayItemSuccess(action.id, data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.updateDayItemFailed(action.id, error.response))
+        yield put(actions.updateDayItemFailed(action.id, error.response.errors))
     }
 }
 
@@ -77,7 +77,7 @@ export function* deleteDayItem(action) {
 
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.deleteDayItemFailed(action.id, error.response))
+        yield put(actions.deleteDayItemFailed(action.id, error.response.errors))
     }
 }
 
