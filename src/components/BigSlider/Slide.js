@@ -2,10 +2,9 @@ import React from 'react'
 import {Link} from "react-router-dom";
 
 export default function Slide({image, link, title, text, style}) {
-    const slideStyle = image ? {backgroundImage: `url(${image})`} : null; ;
-        //= image ? {backgroundImage: `url(${image})`} : null;
+    const slideStyle = image ? {backgroundImage: `url(${image})`} : null;
     return (
-        <div className="BigSlider__slide">
+        <div style={style} className="BigSlider__slide">
             <div style={slideStyle}
                  className="BigSlider__slide-image"/>
             <Link to={link.to} className="BigSlider__slide-link"><span

@@ -39,9 +39,9 @@ export default class BigSlider extends PureComponent {
 
 
     render() {
-        const {slides} = this.props;
+        const {slides, style} = this.props;
         return (
-            <div className="BigSlider">
+            <div style={style} className="BigSlider">
                 <div className="BigSlider__content">
                     {
                         slides.map((slide, index) => index === this.state.current ?
