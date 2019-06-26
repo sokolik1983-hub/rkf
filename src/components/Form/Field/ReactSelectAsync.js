@@ -4,6 +4,7 @@ import Select from 'react-select';
 import {connect, getIn} from "formik";
 import {defaultReactSelectStyles} from 'appConfig'
 import {getHeaders} from "utils/request";
+import {isDevEnv} from "utils/index";
 
 const NoOptionsMessage = () => {
     return ('Нет опций для выбора');
@@ -22,22 +23,21 @@ class ReactSelectAsync extends Component {
     };
 
     loadOptions = () => {
-        fetch(this.props.optionsEndpoint, {
-            mode: "cors",
-            headers: getHeaders(),
-        })
+        const options = isDevEnv() ?
+            {
+                mode: "cors",
+                headers: getHeaders(),
+            } :
+            {
+                headers: getHeaders(),
+            };
+        fetch(this.props.optionsEndpoint, options)
             .then(response => response.json())
             .then(data => {
-                this.processRequest(data)
+                this.processRequest(data.result)
             })
             .catch(error => this.processErrors(error))
-
-        // fetch(this.props.optionsEndpoint)
-        //     .then(
-        //         result => this.processRequest(result),
-        //         errors => this.processRequestErrors(errors)
-        //     )
-    }
+    };
 
     processRequest = result => {
         const options = this.convertDataToOptions(result)
