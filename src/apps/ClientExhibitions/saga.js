@@ -9,42 +9,42 @@ import * as actions from './actions'
 export function* getExhibitionList(action) {
     try {
         const data = yield call(Api.getExhibitionList, action);
-        yield put(actions.getExhibitionListSuccess(data))
+        yield put(actions.getExhibitionListSuccess(data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.getExhibitionListFailed(error.response))
+        yield put(actions.getExhibitionListFailed(error.response.errors))
     }
 }
 
 export function* getExhibitionDetails(action) {
     try {
         const data = yield call(Api.getExhibitionDetails, action);
-        yield put(actions.getExhibitionDetailsSuccess(data))
+        yield put(actions.getExhibitionDetailsSuccess(data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.getExhibitionDetailsFailed(error.response))
+        yield put(actions.getExhibitionDetailsFailed(error.response.errors))
     }
 }
 
 export function* addExhibition(action) {
     try {
         const data = yield call(Api.addExhibition, action);
-        const {id} = data;
-        yield put(actions.addExhibitionSuccess(data))
+        const {id} = data.result;
+        yield put(actions.addExhibitionSuccess(data.result));
         yield put(push(`/client/exhibitions/${id}/details/schedule`))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.addExhibitionFailed(error.response))
+        yield put(actions.addExhibitionFailed(error.response.errors))
     }
 }
 
 export function* updateExhibition(action) {
     try {
         const data = yield call(Api.updateExhibition, action);
-        yield put(actions.updateExhibitionSuccess(data))
+        yield put(actions.updateExhibitionSuccess(data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.updateExhibitionFailed(error.response))
+        yield put(actions.updateExhibitionFailed(error.response.errors))
     }
 }
 

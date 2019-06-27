@@ -46,7 +46,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/class/all'
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/Caste/all'
         },
         breed_types: {
             name: 'breed_types',

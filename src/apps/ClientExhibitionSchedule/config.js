@@ -1,13 +1,13 @@
 import {object, string} from "yup";
 
-export const DAY_URL = '/api/exhibition/Shedule/day';
-export const DAY_ITEM_URL = '/api/exhibition/Shedule/item';
+export const DATE_URL = '/api/schedule/day';
+export const EVENT_URL = '/api/schedule/Item';
 
 
 export const defaultReduxKey = 'exhibition_schedule';
 
-export const scheduleDayForm = {
-    formAction:DAY_URL,
+export const scheduleScheduleDateForm = {
+    formAction:DATE_URL,
     fields: {
         date: {
             name: 'date',
@@ -21,8 +21,8 @@ export const scheduleDayForm = {
             .required('Укажите дату'),
     })
 };
-export const scheduleDayItemForm = {
-    formAction: DAY_ITEM_URL,
+export const scheduleScheduleEventForm = {
+    formAction: EVENT_URL,
     fields: {
         time_start: {
             name: 'time_start',

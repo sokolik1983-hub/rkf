@@ -8,89 +8,43 @@ import * as actions from './actions'
 export function* getSchedule(action) {
     try {
         const data = yield call(Api.getSchedule, action);
-        yield put(actions.getScheduleSuccess(data))
+        yield put(actions.getScheduleSuccess(data.result))
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.getScheduleFailed(error.response))
+        yield put(actions.getScheduleFailed(error.response.errors))
     }
 }
 
-export function* addDay(action) {
-    try {
-        const data = yield call(Api.addDay, action);
-        yield put(actions.addDaySuccess({id: data, ...action.data}))
-    } catch (error) {
-        console.log(error, error.responseStatus, error.response);
-        yield put(actions.addDayFailed(error.response))
-    }
-}
 
-export function* updateDay(action) {
+export function* deleteScheduleDate(action) {
     try {
-        const data = yield call(Api.updateDay, action);
-        yield put(actions.updateDaySuccess(action.id, data))
-    } catch (error) {
-        console.log(error, error.responseStatus, error.response);
-        yield put(actions.updateDayFailed(action.id, error.response))
-    }
-}
-
-export function* deleteDay(action) {
-    try {
-        const data = yield call(Api.deleteDay, action);
+        const data = yield call(Api.deleteScheduleDate, action);
         if (data === null) {
-            yield put(actions.deleteDaySuccess(action.id))
+            yield put(actions.deleteScheduleDateSuccess(action.id))
         }
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.deleteDayFailed(action.id, error.response))
+        yield put(actions.deleteScheduleDateFailed(action.id, error.response.errors))
     }
 }
 
-
-export function* addDayItem(action) {
+export function* deleteScheduleEvent(action) {
     try {
-        const data = yield call(Api.addDayItem, action);
-        yield put(actions.addDayItemSuccess({id: data, ...action.data}))
-    } catch (error) {
-        console.log(error, error.responseStatus, error.response);
-        yield put(actions.addDayItemFailed(error.response))
-    }
-}
-
-export function* updateDayItem(action) {
-    try {
-        const data = yield call(Api.updateDayItem, action);
-        yield put(actions.updateDayItemSuccess(action.id, data))
-    } catch (error) {
-        console.log(error, error.responseStatus, error.response);
-        yield put(actions.updateDayItemFailed(action.id, error.response))
-    }
-}
-
-export function* deleteDayItem(action) {
-    try {
-        const data = yield call(Api.deleteDayItem, action);
+        const data = yield call(Api.deleteScheduleEvent, action);
         if (data === null) {
-            yield put(actions.deleteDayItemSuccess(action.id))
+            yield put(actions.deleteScheduleEventSuccess(action.id))
         }
 
     } catch (error) {
         console.log(error, error.responseStatus, error.response);
-        yield put(actions.deleteDayItemFailed(action.id, error.response))
+        yield put(actions.deleteScheduleEventFailed(action.id, error.response.errors))
     }
 }
 
 
 export default function* clientExhibitionScheduleSaga() {
     yield takeLatest(actionTypes.GET_SCHEDULE, getSchedule);
-
-    yield takeLatest(actionTypes.DAY_ADD, addDay);
-    yield takeLatest(actionTypes.DAY_UPDATE, updateDay);
-    yield takeLatest(actionTypes.DAY_DELETE, deleteDay);
-
-    yield takeLatest(actionTypes.DAY_ITEM_ADD, addDayItem);
-    yield takeLatest(actionTypes.DAY_ITEM_UPDATE, updateDayItem);
-    yield takeLatest(actionTypes.DAY_ITEM_DELETE, deleteDayItem);
+    yield takeLatest(actionTypes.DATE_DELETE, deleteScheduleDate);
+    yield takeLatest(actionTypes.EVENT_DELETE, deleteScheduleEvent);
 }
 

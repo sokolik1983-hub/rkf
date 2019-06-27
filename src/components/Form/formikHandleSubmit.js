@@ -39,7 +39,7 @@ export async function formikHandleSubmit({
 
         const json = JSON.parse(text);
         if (status >= 200 && status < 300) {
-            successAction(json);
+            successAction(json.result);
             // clear stored formData
             localStorage.removeItem(storageVariableName);
             formik.setSubmitting(false);
@@ -48,7 +48,7 @@ export async function formikHandleSubmit({
             Object.keys(json).forEach(key => touched[key] = true);
             //TODO Handle this in future
             //formik.setTouched(touched);
-            formik.setErrors(json);
+            formik.setErrors(json.errors);
             formik.setSubmitting(false);
         }
         return {json, status, text,}
