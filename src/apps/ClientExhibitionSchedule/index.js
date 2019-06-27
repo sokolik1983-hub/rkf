@@ -1,20 +1,15 @@
-import React, {Component} from "react";
-import {bindActionCreators, compose} from "redux";
-import {connect} from "react-redux";
+import React, {PureComponent} from "react";
+import {compose} from "redux";
 import Card from 'components/Card';
-import ScheduleDayList from './containers/Day/List'
-
+import ScheduleDateList from './components/Date/List'
 import {defaultReduxKey} from './config'
-import injectReducer from "utils/injectReducer";
+import {createDefaultInjectors} from 'utils/createInjectors'
 import reducer from "./reducer";
-
-import injectSaga from "utils/injectSaga";
 import saga from "./saga";
+import {connectClientExhibitionScheduleProxy} from './connectors'
 
-import {getSchedule} from "./actions";
 
-
-class ClientExhibitionScheduleProxy extends Component {
+class ClientExhibitionScheduleProxy extends PureComponent {
 
     componentDidMount() {
         const {exhibitionId, getSchedule} = this.props;
@@ -25,7 +20,7 @@ class ClientExhibitionScheduleProxy extends Component {
         return (
             <Card lg>
                 <h3 className="text-upper">Расписание выставки</h3>
-                <ScheduleDayList
+                <ScheduleDateList
                     exhibitionId={this.props.exhibitionId}
                 />
             </Card>
@@ -33,27 +28,10 @@ class ClientExhibitionScheduleProxy extends Component {
     }
 }
 
-const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
-const withSaga = injectSaga({key: defaultReduxKey, saga});
 
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-    getSchedule,
-}, dispatch);
-
-const mapsStateToProps = (state, props) => {
-    if (props.match !== undefined) {
-        const {id} = props.match.params;
-        return {exhibitionId: id}
-    }
-    return {}
-}
-const withConnect = connect(
-    mapsStateToProps,
-    mapDispatchToProps,
-);
+const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
 
 export default compose(
     withReducer,
     withSaga,
-    withConnect)(ClientExhibitionScheduleProxy)
+    connectClientExhibitionScheduleProxy)(ClientExhibitionScheduleProxy)

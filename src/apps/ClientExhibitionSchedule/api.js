@@ -1,7 +1,5 @@
 import request, {getHeaders} from 'utils/request';
-//import {fakeRequest} from "utils/fakeRequest";
-//import {mockScheduleData} from './mockGetSchedule'
-import {DAY_URL, DAY_ITEM_URL} from "./config";
+import {DATE_URL, EVENT_URL} from "./config";
 
 
 const Api = {
@@ -17,35 +15,11 @@ const Api = {
             }
         );
     },
-    addDay: async (action) => {
+
+    deleteScheduleDate: async (action) => {
         return request(
             {
-                url: DAY_URL,
-                options: {
-                    method: "POST",
-                    headers: getHeaders(),
-                    body: JSON.stringify(action.data)
-                }
-            }
-        );
-    },
-    updateDay: async (action) => {
-        const {id, data} = action;
-        return request(
-            {
-                url: `${DAY_URL}/${id}/`,
-                options: {
-                    method: "UPDATE",
-                    headers: getHeaders(),
-                    body: JSON.stringify(data)
-                }
-            }
-        );
-    },
-    deleteDay: async (action) => {
-        return request(
-            {
-                url: `${DAY_URL}/${action.id}/`,
+                url: `${DATE_URL}/${action.id}/`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
@@ -53,36 +27,10 @@ const Api = {
             }
         );
     },
-    // DayItem
-    addDayItem: async (action) => {
+    deleteScheduleEvent: async (action) => {
         return request(
             {
-                url: DAY_ITEM_URL,
-                options: {
-                    method: "POST",
-                    headers: getHeaders(),
-                    body: JSON.stringify(action.data)
-                }
-            }
-        );
-    },
-    updateDayItem: async (action) => {
-        const {data} = action;
-        return request(
-            {
-                url: `${DAY_ITEM_URL}`,
-                options: {
-                    method: "PUT",
-                    headers: getHeaders(),
-                    body: JSON.stringify(data)
-                }
-            }
-        );
-    },
-    deleteDayItem: async (action) => {
-        return request(
-            {
-                url: `${DAY_ITEM_URL}`,
+                url: `${EVENT_URL}`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
