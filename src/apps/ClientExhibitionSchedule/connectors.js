@@ -1,12 +1,12 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getDatesIds, getScheduleEvents, getItemById} from 'apps/ClientExhibitionSchedule/selectors'
+import {getDatesIds, getScheduleEvents, getItemById, getExhibitionId} from 'apps/ClientExhibitionSchedule/selectors'
 
 import {
     addScheduleEventSuccess,
     addDateSuccess,
     deleteScheduleEvent,
-    updateScheduleEventSuccess
+    updateScheduleEventSuccess, getSchedule
 } from 'apps/ClientExhibitionSchedule/actions'
 
 import {selectScheduleDateProps} from 'apps/ClientExhibitionSchedule/selectors'
@@ -41,3 +41,10 @@ export const connectScheduleEventsList = connect(
             deleteScheduleEvent,
         }, dispatch)
 );
+
+export const connectClientExhibitionScheduleProxy = connect(
+    getExhibitionId,
+    dispatch => bindActionCreators({
+        getSchedule,
+    }, dispatch),
+)
