@@ -1,5 +1,5 @@
 import request, {getHeaders} from 'utils/request';
-import {DAY_URL, EVENT_URL} from "./config";
+import {DATE_URL, EVENT_URL} from "./config";
 
 
 const Api = {
@@ -19,7 +19,7 @@ const Api = {
     deleteScheduleDate: async (action) => {
         return request(
             {
-                url: `${DAY_URL}/${action.id}/`,
+                url: `${DATE_URL}/${action.id}/`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
