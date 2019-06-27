@@ -3,11 +3,6 @@ import './styles.scss'
 
 const defaultIcon = '/static/icons/client/gayDog.png';
 
-const defaultButton = {
-    action: '',
-    text: 'Перейти',
-    icon: null,
-};
 
 export default function ButtonBanner({
                                          title,
