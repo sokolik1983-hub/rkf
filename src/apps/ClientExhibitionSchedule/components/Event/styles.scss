@@ -1,0 +1,43 @@
+.ScheduleEvent{
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 16px;
+  &__start{
+    margin-right: 16px;
+    position: relative;
+    &:after{
+      content: "-";
+      position: absolute;
+      right: -12px;
+      top: -1px
+    }
+  }
+  &__end{
+    margin-right: 16px;
+  }
+}
+
+.ScheduleEvent-form {
+  .form-controls {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+  }
+
+  input[name='start'],
+  input[name='end'] {
+    max-width: 160px;
+  }
+
+  .form-group--inline {
+    .formInput {
+      flex: none
+    }
+
+    .btn {
+      color: #72839C;
+    }
+  }
+}
