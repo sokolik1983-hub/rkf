@@ -6,7 +6,7 @@ const clientExhibitionScheduleStateInitialState = {
     loadingApi: false,
     days: {},
     items: {},
-    dayIdList: [],
+    dateIds: [],
 };
 
 const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleStateInitialState, {
@@ -17,7 +17,6 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
         };
     },
     [actiontypes.GET_SCHEDULE_SUCCESS](state, action) {
-        console.log('GET_SCHEDULE_SUCCESS')
         if (action.data.length) {
             const {entities, result} = normalizeSchedule(action.data);
             const {days, items} = entities;
@@ -26,7 +25,7 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
                 loading: false,
                 days,
                 items,
-                dayIdList: result,
+                dateIds: result,
             };
         }
         return {
@@ -34,31 +33,21 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
             loading: false,
         }
     },
-    [actiontypes.DAY_ADD](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
-    [actiontypes.DAY_ADD_SUCCESS](state, action) {
+
+    [actiontypes.DATE_ADD_SUCCESS](state, action) {
         const {data} = action;
-        const {days, dayIdList} = {...state};
+        const {days, dateIds} = {...state};
         //TODO Убрать items:[]
         days[data.id.toString()] = {...data, items: []};
         return {
             ...state,
             loading: false,
             days: days,
-            dayIdList: [...dayIdList, data.id]
+            dateIds: [...dateIds, data.id]
         };
     },
-    [actiontypes.DAY_ITEM_ADD](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
-    [actiontypes.DAY_ITEM_ADD_SUCCESS](state, action) {
+
+    [actiontypes.EVENT_ADD_SUCCESS](state, action) {
         const {day_id, ...data} = action.data;
         const {days, items} = {...state};
         const day = {...days[day_id.toString()]};
@@ -70,6 +59,16 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
             loading: false,
             days,
             items
+        };
+    },
+    [actiontypes.EVENT_UPDATE_SUCCESS](state, action) {
+        const {id} = action.data;
+        const items = {...state.items};
+        items[id.toString()] = action.data;
+        return {
+            ...state,
+            loading: false,
+            items,
         };
     },
 });
