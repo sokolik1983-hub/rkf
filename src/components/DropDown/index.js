@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React, {useState} from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 import classnames from 'classnames'
 import './styles.scss'
@@ -6,53 +6,43 @@ import './styles.scss'
 const openedIcon = '/static/icons/chevron-down.svg';
 const closedIcon = '/static/icons/chevron-up.svg';
 
-export default class DropDown extends PureComponent {
-    static defaultProps = {
-        opened: false,
-    };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            opened: props.opened
-        }
-    }
+export default function DropDown({
+                                     opened = false,
+                                     innerComponent,
+                                     className,
+                                     children,
+                                 }) {
+    const [isOpened, setOpened] = useState(opened);
+    const handlerStyles = () => ({backgroundImage: `url(${isOpened ? closedIcon : openedIcon})`});
+    const closeDropDown = () => setOpened(false);
+    const toggleDropDown = (e) => e.target.tagName.toUpperCase() !== 'A' ?
+        setOpened(!isOpened)
+        :
+        void 0;
 
-    toggleDropDown = (e) => {
-        if (e.target.tagName.toUpperCase() !== 'A') {
-            this.setState(prevState => ({opened: !prevState.opened}));
-        }
-    }
-    closeDropDown = () => this.setState({opened: false});
-    handlerStyles = () => ({
-        backgroundImage: `url(${this.state.opened ? closedIcon : openedIcon})`
-    });
+    return (
+        <OutsideClickHandler onOutsideClick={closeDropDown}>
+            <div onClick={toggleDropDown}
+                 className={classnames("drop-down", {[className]: className})}>
+                {innerComponent}
 
-    render() {
-        return (
-            <OutsideClickHandler onOutsideClick={this.closeDropDown}>
-                <div onClick={this.toggleDropDown}
-                     className={classnames("drop-down", {[this.props.className]: this.props.className})}>
-                    {this.props.innerComponent}
+                <div
+                    style={handlerStyles()}
 
-                    <div
-                        style={this.handlerStyles()}
+                    className="drop-down__handler"
+                />
 
-                        className="drop-down__handler"
-                    />
-
-                    <div
-                        className={
-                            classnames(
-                                "drop-down__items",
-                                {"drop-down__items--visible": this.state.opened}
-                            )
-                        }>
-                        {this.props.children}
-                    </div>
+                <div
+                    className={
+                        classnames(
+                            "drop-down__items",
+                            {"drop-down__items--visible": isOpened}
+                        )
+                    }>
+                    {children}
                 </div>
-            </OutsideClickHandler>
-        )
-
-    }
+            </div>
+        </OutsideClickHandler>
+    )
 }
