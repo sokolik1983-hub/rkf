@@ -12,12 +12,14 @@ import {
     addScheduleEventSuccess,
     addDateSuccess,
     deleteScheduleEvent,
-    updateScheduleEventSuccess, getSchedule
+    updateScheduleEventSuccess,
+    getSchedule,
+    updateDateSuccess
 } from './actions'
 
 
-
-export const connectScheduleDate = connect(selectScheduleDateProps);
+export const connectScheduleDate = connect(selectScheduleDateProps,
+    dispatch => bindActionCreators({updateDateSuccess}, dispatch));
 
 
 export const connectScheduleDateList = connect(

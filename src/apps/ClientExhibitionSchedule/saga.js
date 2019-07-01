@@ -31,8 +31,8 @@ export function* deleteScheduleDate(action) {
 export function* deleteScheduleEvent(action) {
     try {
         const data = yield call(Api.deleteScheduleEvent, action);
-        if (data === null) {
-            yield put(actions.deleteScheduleEventSuccess(action.id))
+        if (data.result) {
+            yield put(actions.deleteScheduleEventSuccess(action.id, action.day))
         }
 
     } catch (error) {

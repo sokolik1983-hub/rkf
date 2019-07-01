@@ -22,6 +22,6 @@ export const addScheduleEventSuccess = makeActionCreator(actionTypes.EVENT_ADD_S
 export const updateScheduleEventSuccess = makeActionCreator(actionTypes.EVENT_UPDATE_SUCCESS, 'id', 'data');
 
 
-export const deleteScheduleEvent = makeActionCreator(actionTypes.EVENT_DELETE, 'id');
-export const deleteScheduleEventSuccess = makeActionCreator(actionTypes.EVENT_DELETE_SUCCESS, 'id');
-export const deleteScheduleEventFailed = makeActionCreator(actionTypes.EVENT_DELETE_FAILED, 'id', 'errors');
+export const deleteScheduleEvent = makeActionCreator(actionTypes.EVENT_DELETE, 'id', 'day');
+export const deleteScheduleEventSuccess = makeActionCreator(actionTypes.EVENT_DELETE_SUCCESS, 'id', 'day');
+export const deleteScheduleEventFailed = makeActionCreator(actionTypes.EVENT_DELETE_FAILED, 'id', 'day', 'errors');
