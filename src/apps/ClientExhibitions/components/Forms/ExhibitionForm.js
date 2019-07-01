@@ -56,6 +56,12 @@ class ExhibitionForm extends PureComponent {
                         {...fields.breed_types}
                     />
                 </FormGroup>
+                <FormGroup inline>
+                    <FormField
+                        disabled={disabled}
+                        {...fields.referees_id}
+                    />
+                </FormGroup>
                 <FormField
                     disabled={disabled}
                     {...fields.city_id}

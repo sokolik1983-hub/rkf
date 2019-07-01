@@ -48,6 +48,16 @@ export const firstStepForm = {
             closeMenuOnSelect: false,
             optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/Caste/all'
         },
+        referees_id: {
+            name: 'referees_id',
+            label: 'Судьи',
+            placeholder: 'Выбрать',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: true,
+            closeMenuOnSelect: false,
+            optionsEndpoint: 'http://services.development.ueplatform.ru/api/Referee/all'
+        },
         breed_types: {
             name: 'breed_types',
             label: 'Порода',
