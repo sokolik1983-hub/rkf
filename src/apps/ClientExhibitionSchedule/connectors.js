@@ -1,15 +1,20 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getDatesIds, getScheduleEvents, getItemById, getExhibitionId} from 'apps/ClientExhibitionSchedule/selectors'
+import {
+    getDatesIds,
+    getScheduleEvents,
+    getItemById,
+    getExhibitionId,
+    selectScheduleDateProps
+} from './selectors'
 
 import {
     addScheduleEventSuccess,
     addDateSuccess,
     deleteScheduleEvent,
     updateScheduleEventSuccess, getSchedule
-} from 'apps/ClientExhibitionSchedule/actions'
+} from './actions'
 
-import {selectScheduleDateProps} from 'apps/ClientExhibitionSchedule/selectors'
 
 
 export const connectScheduleDate = connect(selectScheduleDateProps);
