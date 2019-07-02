@@ -5,7 +5,7 @@ import {connect, getIn} from "formik";
 import {defaultReactSelectStyles} from 'appConfig'
 import {getHeaders} from "utils/request";
 import {isDevEnv} from "utils/index";
-
+import createFilterOptions from "react-select-fast-filter-options";
 const NoOptionsMessage = () => {
     return ('Нет опций для выбора');
 };
@@ -21,6 +21,16 @@ class ReactSelectAsync extends Component {
     state = {
         options: [],
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const currentValue = getIn(this.props.formik.values, this.props.name);
+        const nextValue = getIn(nextProps.formik.values, this.props.name);
+        return currentValue !== nextValue || this.state.options !== nextState.options;
+    }
+
+    filterOptions = createFilterOptions({
+        options:this.state.options
+    });
 
     loadOptions = () => {
         const options = isDevEnv() ?
@@ -41,6 +51,7 @@ class ReactSelectAsync extends Component {
 
     processRequest = result => {
         const options = this.convertDataToOptions(result)
+
         this.setState({options})
     };
     processErrors = errors => {
@@ -85,6 +96,7 @@ class ReactSelectAsync extends Component {
     }
 
     render() {
+        //console.log('ReactSelectAsync.render()', this.props)
         const {
             //options,
             id,
@@ -102,6 +114,7 @@ class ReactSelectAsync extends Component {
         const value = this.getValue();
         return (
             <Select
+                filterOptions={this.filterOptions}
                 components={{...components, NoOptionsMessage}}
                 id={id}
                 isMulti={isMulti}

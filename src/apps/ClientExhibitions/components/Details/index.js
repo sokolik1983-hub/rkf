@@ -1,16 +1,14 @@
-import React, {Fragment, PureComponent} from 'react'
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
-import {Switch, Route} from 'react-router-dom'
+import React, {PureComponent} from 'react'
+import {Route, Switch} from 'react-router-dom'
 import {objectNotEmpty} from "utils/index";
-import NavTab, {NavTabs} from 'apps/ClientExhibitions/components/NavTab'
+import NavTab, {NavTabs} from '../NavTab'
+//import Common from './Common'
+import {StepTabContent1, StepTabContent2, StepTabContent3} from "../Steps";
 import ClientExhibitionPrices from 'apps/ClientExhibitionPrices'
 import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
-import Common from 'apps/ClientExhibitions/containers/Details/Common'
-import {StepTabContent1, StepTabContent2, StepTabContent3} from "apps/ClientExhibitions/components/Steps";
 
-import {getExhibitionDetails} from "apps/ClientExhibitions/actions";
-import {getExhibitionsDetailsById} from 'apps/ClientExhibitions/selectors'
+import {connectExhibitionDetails} from "apps/ClientExhibitions/connectors"
+import UpdateExhibitionForm from 'apps/ClientExhibitions/components/Forms/UpdateForm'
 
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
@@ -25,8 +23,9 @@ class ExhibitionDetails extends PureComponent {
             url,
             path,
         } = this.props;
+
         return (
-            <Fragment>
+            <>
                 <NavTabs>
                     <NavTab to={`${url}/common`}>
                         <StepTabContent1/>
@@ -39,22 +38,14 @@ class ExhibitionDetails extends PureComponent {
                     </NavTab>
                 </NavTabs>
                 <Switch>
-                    <Route path={`${path}/common`} component={Common}/>
+                    <Route path={`${path}/common`} component={UpdateExhibitionForm}/>
                     <Route path={`${path}/schedule`} component={ClientExhibitionSchedule}/>
                     <Route path={`${path}/prices`} component={ClientExhibitionPrices}/>
                 </Switch>
-            </Fragment>
+            </>
         )
     }
 }
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    getExhibitionDetails
-}, dispatch);
-
-const mapStateToProps = (state, props) => ({...getExhibitionsDetailsById(state, props)})
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ExhibitionDetails)
+export default connectExhibitionDetails(ExhibitionDetails);

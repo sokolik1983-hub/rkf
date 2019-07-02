@@ -67,7 +67,7 @@ export const varIsObject = (variable) => Object.prototype.toString.call(variable
 
 export const objectNotEmpty = (obj) => varIsObject(obj) && Object.keys(obj).length > 0;
 
-export const getRandomInt = (min=1, max=100) => {
+export const getRandomInt = (min = 1, max = 100) => {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -75,4 +75,20 @@ export const getPropsBySchema = (obj, schema) => {
     const result = {};
     Object.keys(schema).forEach(key => result[key] = obj[key]);
     return result
+};
+
+
+export function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
 };

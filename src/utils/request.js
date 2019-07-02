@@ -36,9 +36,19 @@ function parseJSON(response) {
     }
     try {
         return response.json();
-    } catch (e) {
-        console.log(e);
-        return null
+    } catch (error) {
+        if (error.name === "SyntaxError") {
+            try {
+                const text = response.text();
+                console.error('request.parseJSON response.text(): ', text);
+                return {text: text};
+            } catch (e) {
+                console.error('request.parseJSON: ', e)
+                throw e
+            }
+
+        }
+        throw error;
     }
 
 }

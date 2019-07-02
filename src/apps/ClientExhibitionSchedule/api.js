@@ -30,11 +30,11 @@ const Api = {
     deleteScheduleEvent: async (action) => {
         return request(
             {
-                url: `${EVENT_URL}`,
+                url: `${EVENT_URL}?id=${action.id}`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),
-                    body: JSON.stringify({id: action.id})
+                    //body: JSON.stringify({id: action.id})
                 }
             }
         );

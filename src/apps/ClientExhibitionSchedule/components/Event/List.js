@@ -5,7 +5,8 @@ import {scheduleScheduleEventForm} from "apps/ClientExhibitionSchedule/config";
 import RenderFields from "./RederFields";
 import Button from "components/Button";
 import {connectScheduleEventsList} from 'apps/ClientExhibitionSchedule/connectors'
- class ScheduleDateEvents extends PureComponent {
+
+class ScheduleDateEvents extends PureComponent {
     static defaultProps = {
         items: []
     };
@@ -25,15 +26,15 @@ import {connectScheduleEventsList} from 'apps/ClientExhibitionSchedule/connector
     };
 
     render() {
-        const {items} = this.props;
+        const {items, day} = this.props;
         return (
             <div className="day-items">
                 {
                     items.length > 0 ?
                         items.map(item =>
                             <ItemRow
+                                day={day}
                                 itemId={item}
-                                {...this.state}
                                 key={item}
                             />
                         )

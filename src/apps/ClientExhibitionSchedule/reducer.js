@@ -17,6 +17,7 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
         };
     },
     [actiontypes.GET_SCHEDULE_SUCCESS](state, action) {
+        //console.log(action)
         if (action.data.length) {
             const {entities, result} = normalizeSchedule(action.data);
             const {days, items} = entities;
@@ -46,6 +47,18 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
             dateIds: [...dateIds, data.id]
         };
     },
+    [actiontypes.DATE_UPDATE_SUCCESS](state, action) {
+        //TODO добавить пресортировку
+        const {id, data} = action;
+        const {days} = {...state};
+        const day = days[id.toString()];
+        days[id.toString()] = {...day, ...data};
+        return {
+            ...state,
+            loading: false,
+            days: days,
+        };
+    },
 
     [actiontypes.EVENT_ADD_SUCCESS](state, action) {
         const {day_id, ...data} = action.data;
@@ -68,6 +81,21 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
         return {
             ...state,
             loading: false,
+            items,
+        };
+    },
+    [actiontypes.EVENT_DELETE_SUCCESS](state, action) {
+        const {id, day} = action;
+        const items = {...state.items};
+        const {days} = state;
+        delete items[id.toString()];
+        const dayObj = {...days[day.toString()]};
+        dayObj.items = dayObj.items.filter(itemId => itemId !== id);
+        days[day.toString()]={...dayObj};
+        return {
+            ...state,
+            loading: false,
+            days,
             items,
         };
     },

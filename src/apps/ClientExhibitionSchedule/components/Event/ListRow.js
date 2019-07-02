@@ -23,8 +23,9 @@ import {connectScheduleEditableEvent} from 'apps/ClientExhibitionSchedule/connec
     };
 
     deleteEvent = () => {
-        const {deleteScheduleEvent, item} = this.props;
-        deleteScheduleEvent(item.id)
+        const {deleteScheduleEvent, item, day} = this.props;
+        console.log('day', day)
+        deleteScheduleEvent(item.id, day)
     };
 
     render() {

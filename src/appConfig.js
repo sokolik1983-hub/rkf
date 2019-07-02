@@ -93,18 +93,18 @@ const defaultReactSelectStyles = {
         placeholder: styles => ({
             ...styles,
             color: "#CCCCCC",
-
+            fontSize: 16,
         }),
         control: styles => ({
             ...styles,
             backgroundColor: 'white',
             borderColor: '#EBF0F2',
             borderWidth: 1,
-            fontSize: 18,
+            fontSize: 16,
             lineHeight: '100%',
-            paddingTop: 4,
-            paddingBottom: 4,
-            paddingLeft: 2,
+            paddingTop: 7,
+            paddingBottom: 6,
+            paddingLeft: 4,
             borderRadius: 6,
 
         }),

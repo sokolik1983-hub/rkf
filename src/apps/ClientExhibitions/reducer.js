@@ -83,6 +83,16 @@ const clientExhibitionsReducer = createReducer(clientInitialState, {
             exhibitionsDetails,
         };
     },
+    [actiontypes.UPDATE_SUCCESS](state, action) {
+        const {id} = action.data;
+        const exhibitionsDetails = {...state.exhibitionsDetails};
+        exhibitionsDetails[id.toString()] = action.data;
+        return {
+            ...state,
+            loading: false,
+            exhibitionsDetails,
+        };
+    },
 });
 
 export default clientExhibitionsReducer;

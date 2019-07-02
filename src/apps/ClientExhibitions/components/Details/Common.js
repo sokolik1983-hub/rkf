@@ -11,9 +11,6 @@ class DetailsCommon extends PureComponent {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    getExhibitionDetails
-}, dispatch);
 
 const mapsStateToProps = (state, props) => {
     const {exhibitionsDetails} = getExhibitionsDetailsById(state, props);
@@ -24,6 +21,5 @@ const mapsStateToProps = (state, props) => {
 
 export default connect(
     mapsStateToProps,
-    mapDispatchToProps
 )(DetailsCommon)
 

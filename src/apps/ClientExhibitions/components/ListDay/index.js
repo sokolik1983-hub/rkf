@@ -18,20 +18,16 @@ class ClientExhibitionListDay extends PureComponent {
         const date = transformDate({day, month, year})
 
         return (
-            <ClientExhibitionsPathContext.Consumer>
+            <div>
                 {
-                    ({path}) =>
-                        <div>
-                            {
-                                formatDateWithLocaleString(date)
-                            }
-
-                            {
-                                items.map(item => <ClientExhibitionListItem key={item.id} item={item}/>)
-                            }
-                        </div>
+                    formatDateWithLocaleString(date)
                 }
-            </ClientExhibitionsPathContext.Consumer>
+
+                {
+                    items.map(item => <ClientExhibitionListItem key={item.id} item={item}/>)
+                }
+            </div>
+
 
         )
     }

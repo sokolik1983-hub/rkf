@@ -4,6 +4,11 @@ import {defaultReduxKey} from 'apps/ClientExhibitions/config'
 export const getExhibitions = (state) => state[defaultReduxKey].exhibitions;
 export const getExhibitionId = (state, props) => props.exhibitionId;
 
+export const getExhibitionDetailsFor = (state, props) => {
+    const exhibitionId = props.match.params.id;
+    return {exhibitionDetails: state[defaultReduxKey].exhibitionsDetails[exhibitionId]}
+};
+
 export const getExhibitionById = createSelector(
     [getExhibitions, getExhibitionId],
     (exhibitions, exhibitionId) => {
@@ -18,7 +23,7 @@ export const getRouteParams = (state, props) => {
     return {
         path,
         url,
-        exhibitionId: id
+        exhibitionId: params.id
     }
 };
 
@@ -26,10 +31,10 @@ export const getExhibitionsDetails = (state) => state[defaultReduxKey].exhibitio
 
 export const getExhibitionsDetailsById = createSelector(
     [getRouteParams, getExhibitionsDetails],
-    (routeParams, ExhibitionDetails) => {
+    (routeParams, exhibitionDetails) => {
         return {
             ...routeParams,
-            exhibitionsDetails: ExhibitionDetails[routeParams.exhibitionId]
+            exhibitionsDetails: exhibitionDetails[routeParams.exhibitionId]
         }
     }
 );

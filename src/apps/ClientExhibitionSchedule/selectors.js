@@ -6,6 +6,7 @@ export const selectScheduleDateProps = (state, props) => ({
     day: state[defaultReduxKey].days[props.dayId.toString()]
 });
 
+
 export const getExhibitionId = (state, props) => (props.match !== undefined) ?
     {exhibitionId: props.match.params.id}
     :
@@ -13,19 +14,22 @@ export const getExhibitionId = (state, props) => (props.match !== undefined) ?
 
 export const getDatesIds = state => ({dateIds: state[defaultReduxKey].dateIds});
 
-const selectItems = state => state[defaultReduxKey].items;
+const selectItems = state => {
+    console.log('selectItems')
+    return state[defaultReduxKey].items
+};
 
 export const getScheduleEvents = createSelector(
     [selectItems],
-    (ScheduleEvents) => ({ScheduleEvents})
+    (scheduleEvents) => (scheduleEvents)
 );
 
 export const getItemId = (state, props) => props.itemId;
 
 export const getItemById = createSelector(
-    [getScheduleEvents, getItemId],
-    (ScheduleEvents, itemId) => {
-        return {item: ScheduleEvents.ScheduleEvents[itemId]}
+    [selectItems, getItemId],
+    (scheduleEvents, itemId) => {
+        return {item: scheduleEvents[itemId]}
     }
 );
 
