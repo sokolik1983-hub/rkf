@@ -1,11 +1,8 @@
 import React, {PureComponent} from 'react'
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux"
 import {Link} from "react-router-dom"
 import Card from 'components/Card'
 import ClientExhibitionListItem from './ListItem'
-import {getExhibitionList} from "apps/ClientExhibitions/actions"
-import {getExhibitionsIdList} from 'apps/ClientExhibitions/selectors'
+import {connectClientExhibitionsList} from 'apps/ClientExhibitions/connectors'
 import {ClientExhibitionsPathContext} from 'apps/ClientExhibitions/context'
 
 class ClientExhibitionsList extends PureComponent {
@@ -16,6 +13,7 @@ class ClientExhibitionsList extends PureComponent {
     render() {
 
         return (
+
             <Card lg>
                 <ClientExhibitionsPathContext.Consumer>
                     {
@@ -25,8 +23,7 @@ class ClientExhibitionsList extends PureComponent {
                                     <Link className="btn btn-primary" to={`${path}/add`}>Создать выставку</Link>
                                 </div>
                                 {
-                                    this.props.exhibitionIdList.map(id => <ClientExhibitionListItem key={id}
-                                                                                                    exhibitionId={id}/>)
+                                    this.props.exhibitionIdList.map(id => <ClientExhibitionListItem key={id} exhibitionId={id}/>)
                                 }
                             </div>
                     }
@@ -36,11 +33,4 @@ class ClientExhibitionsList extends PureComponent {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    getExhibitionList
-}, dispatch);
-
-export default connect(
-    getExhibitionsIdList,
-    mapDispatchToProps
-)(ClientExhibitionsList)
+export default connectClientExhibitionsList(ClientExhibitionsList)

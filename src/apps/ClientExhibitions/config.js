@@ -1,11 +1,12 @@
 //import CheckBoxOption from 'components/Form/CustomSelectOptions/CheckBox'
-import {object, string, array} from "yup";
+import {array, object, string} from "yup";
 
 export const defaultReduxKey = 'client_exhibitions'
 
 export const CLIENT_EXHIBITION_URL = '/api/Exhibition';
 
 export const firstStepForm = {
+    formAction: CLIENT_EXHIBITION_URL,
     fields: {
         name: {
             name: 'name',
@@ -81,11 +82,11 @@ export const firstStepForm = {
             label: 'Адрес',
             placeholder: 'Адрес проведения выставки'
         },
-        user_id: {
-            name: 'user_id',
-            type: "hidden",
-            defaultValue: null,
-        },
+        // user_id: {
+        //     name: 'user_id',
+        //     type: "hidden",
+        //     defaultValue: 0,
+        // },
     },
     validationSchema: object().shape({
         name: string()

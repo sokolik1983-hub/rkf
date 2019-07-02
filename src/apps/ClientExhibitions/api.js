@@ -25,31 +25,6 @@ const Api = {
             }
         );
     },
-    addExhibition: async (action) => {
-        return request(
-            {
-                url: CLIENT_EXHIBITION_URL,
-                options: {
-                    method: "POST",
-                    headers: getHeaders(),
-                    body: JSON.stringify(action.data)
-                }
-            }
-        );
-    },
-    updateExhibition: async (action) => {
-        const {id, data} = action;
-        return request(
-            {
-                url: `${CLIENT_EXHIBITION_URL}/${id}/`,
-                options: {
-                    method: "UPDATE",
-                    headers: getHeaders(),
-                    body: JSON.stringify(data)
-                }
-            }
-        );
-    },
     deleteExhibition: async (action) => {
         return request(
             {
