@@ -7,10 +7,10 @@ export const selectScheduleDateProps = (state, props) => ({
 });
 
 
-export const getExhibitionId = (state, props) => (props.match !== undefined) ?
+export const getExhibitionId = (state, props) => props.match !== undefined ?
     {exhibitionId: props.match.params.id}
     :
-    {};
+    {exhibitionId: null};
 
 export const getDatesIds = state => ({dateIds: state[defaultReduxKey].dateIds});
 
