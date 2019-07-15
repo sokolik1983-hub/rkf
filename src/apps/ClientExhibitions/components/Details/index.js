@@ -6,10 +6,20 @@ import NavTab, {NavTabs} from '../NavTab'
 import {StepTabContent1, StepTabContent2, StepTabContent3} from "../Steps";
 import ClientExhibitionPrices from 'apps/ClientExhibitionPrices'
 import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
+import ClientExhibitionContests from 'apps/ClientExhibitionContest'
 
 import {connectExhibitionDetails} from "apps/ClientExhibitions/connectors"
 import UpdateExhibitionForm from 'apps/ClientExhibitions/components/Forms/UpdateForm'
 
+
+
+
+
+const Step2=(props)=>
+    <>
+        <ClientExhibitionSchedule {...props}/>
+        <ClientExhibitionContests {...props}/>
+</>
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
         const {exhibitionId, exhibitionsDetails, getExhibitionDetails} = this.props;
@@ -39,7 +49,7 @@ class ExhibitionDetails extends PureComponent {
                 </NavTabs>
                 <Switch>
                     <Route path={`${path}/common`} component={UpdateExhibitionForm}/>
-                    <Route path={`${path}/schedule`} component={ClientExhibitionSchedule}/>
+                    <Route path={`${path}/schedule`} component={Step2}/>
                     <Route path={`${path}/prices`} component={ClientExhibitionPrices}/>
                 </Switch>
             </>
