@@ -1,7 +1,7 @@
 /**
  * Create the store with dynamic reducers
  */
-
+import dictsSaga from 'apps/Dictionaries/saga'
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
@@ -43,6 +43,9 @@ export default function configureStore(initialState = {}, history) {
   );
 
   // Extensions
+  // TODO move dictSaga to more appropriate place
+  sagaMiddleware.run(dictsSaga);
+
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
