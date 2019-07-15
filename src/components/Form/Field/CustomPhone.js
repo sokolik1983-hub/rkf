@@ -12,17 +12,22 @@ class PhoneField extends PureComponent {
     handleBlur = (e) => {
         const {name, formik} = this.props;
         const {handleBlur, setFieldError} = formik;
+        handleBlur(e);
         const value = this.getValue();
         if (value.length > 0) {
-            validationRequest({url: VALIDATE_PHONE, name, value, setFieldError})
+            this.setLoading(true);
+            validationRequest({url: VALIDATE_PHONE, name, value, setFieldError, setLoading: this.setLoading})
         }
-        handleBlur(e)
     };
+
+    setLoading = bool => this.setState({loading: bool});
 
     getValue = () => {
         const {name, formik} = this.props;
         return getIn(formik.values, name);
     };
+
+
 
     render() {
         const {
