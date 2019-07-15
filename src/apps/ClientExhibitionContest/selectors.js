@@ -1,0 +1,36 @@
+import {createSelector} from 'reselect'
+import {defaultReduxKey} from 'apps/ClientExhibitionContest/config'
+
+export const selectContestDateProps = (state, props) => ({
+    dayListIds: state[defaultReduxKey].dayListIds,
+    day: state[defaultReduxKey].days[props.dayId.toString()]
+});
+
+
+export const getExhibitionId = (state, props) => (props.match !== undefined) ?
+    {exhibitionId: props.match.params.id}
+    :
+    {};
+
+export const getDatesIds = state => ({dateIds: state[defaultReduxKey].dateIds});
+
+const selectItems = state => {
+    console.log('selectItems')
+    return state[defaultReduxKey].items
+};
+
+export const getContestEvents = createSelector(
+    [selectItems],
+    (scheduleEvents) => (scheduleEvents)
+);
+
+export const getItemId = (state, props) => props.itemId;
+
+export const getItemById = createSelector(
+    [selectItems, getItemId],
+    (scheduleEvents, itemId) => {
+        return {item: scheduleEvents[itemId]}
+    }
+);
+
+
