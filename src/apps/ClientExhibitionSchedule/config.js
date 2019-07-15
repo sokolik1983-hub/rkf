@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
-export const DATE_URL = '/api/schedule/day';
-export const EVENT_URL = '/api/schedule/Item';
+export const DATE_URL = '/api/schedule/Date';
+export const EVENT_URL = '/api/schedule/Event';
 
 
 export const defaultReduxKey = 'exhibition_schedule';
