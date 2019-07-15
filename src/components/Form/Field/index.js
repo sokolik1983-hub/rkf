@@ -11,6 +11,7 @@ import CustomEmail from './CustomEmail'
 import CustomPhone from './CustomPhone'
 import ReactSelect from './ReactSelect'
 import ReactSelectAsync from './ReactSelectAsync'
+import ReactSelectDict from './ReactSelectDictionary'
 
 
 class FastFormField extends PureComponent {
@@ -31,6 +32,8 @@ class FastFormField extends PureComponent {
                 return ReactSelect;
             case "reactSelectAsync":
                 return ReactSelectAsync;
+                case "reactSelectDict":
+                return ReactSelectDict;
             case "masked":
                 return MaskedField;
             default:
