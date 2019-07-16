@@ -1,0 +1,11 @@
+$normal-size: 22px;
+.ActivityIndicator {
+  box-sizing: border-box;
+  border: solid 2px;
+  border-color: white;
+  background-color: #8B9898;
+  border-radius: 50%;
+  &--active {
+    background-color: #00C48C;
+  }
+}
