@@ -52,7 +52,7 @@ export const menuFakeData3 = [
 
 
     {
-        url: '/client',
+        url: '/client/profile',
         title: 'Личный кабинет',
         icon: '/static/icons/client/menu-my_cabinet.svg',
     },
