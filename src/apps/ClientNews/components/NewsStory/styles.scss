@@ -1,0 +1,30 @@
+.NewsStory {
+  margin-bottom: 48px;
+  &__Head {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 24px;
+  }
+
+  &__StoryInfo {
+    padding-left: 12px;
+  }
+
+  &__Title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__Signature {
+    color: #72839C;
+  }
+  &__Text{
+    margin-bottom: 24px;
+  }
+  &__ImagePreview{
+    img{
+      max-width: 100%;
+    }
+  }
+}
