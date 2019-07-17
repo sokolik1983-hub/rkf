@@ -1,70 +1,43 @@
 import * as actiontypes from './actiontypes';
 import {normalizeNewList} from './normalize'
+import createReducer from 'utils/createReducer'
 
-const newsArr = [
-    {
-        id: 1,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 2,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 3,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 4,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 5,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 6,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-    {
-        id: 7,
-        title: 'Кинологический клуб DoggyDog ',
-        published: '2019-07-16',
-        content: '<p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p><p>But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social. But Brooke Chaffin and Catherine Connors are looking to change that with the introduction of Maverick, a social.</p>',
-        image: '/static/images/client/news/defaultListImagePreview.png'
-    },
-];
-const {entities, result: newsIds} = normalizeNewList(newsArr);
-const clientInitialState = {
+const clientNewsInitialState = {
     loadingApi: false,
-    news: entities.news,
-    newsIds: newsIds,
+    news: {},
+    newsIds: [],
 };
 
-export default function clientRootReducer(state = clientInitialState, action) {
+const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
+    [actiontypes.GET_NEWS](state, action) {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+    [actiontypes.GET_NEWS_SUCCESS](state, action) {
+        if (action.data.length) {
+            const {entities, result: newsIds} = normalizeNewList(action.data);
+            const {news} = entities;
+            return {
+                ...state,
+                loading: false,
+                news,
+                newsIds
+            };
+        }
+        return {
+            ...state,
+            loading: false,
+        }
+    },
 
-    switch (action.type) {
+    [actiontypes.GET_NEWS_FAILED](state, action) {
+        return {
+            ...state,
+            loading: false,
+        }
+    },
+});
 
-
-        default:
-            return state;
-    }
-}
+export default clientExhibitionScheduleReducer;
