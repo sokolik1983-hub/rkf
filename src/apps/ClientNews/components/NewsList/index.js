@@ -4,7 +4,9 @@ import {connectNewsList} from 'apps/ClientNews/connectors'
 
 
 function ClientNewsList({getNews, newsIds}) {
-    useEffect(() => getNews(), []);
+    useEffect(() => {
+        getNews()
+    }, []);
     return newsIds.map(id => <NewsStory key={id} id={id}/>)
 }
 

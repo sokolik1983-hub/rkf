@@ -1,6 +1,37 @@
+import {object, string} from "yup";
+
+const NEWS_URL = '/api/news';
 export const defaultReduxKey = 'client_news';
 
 
+export const newsStoryFormConfig = {
+    formAction: NEWS_URL,
+    fields: {
+        title: {
+            name: 'title',
+            label: 'Заголовок',
+            placeholder: 'Добавьте заголвок...',
+        },
+        content: {
+            name: 'content',
+            fieldType: 'DraftJs',
+            label: 'Содержание',
+            placeholder: 'Текст новости...',
+        },
+        image: {
+            name: 'image',
+            label: 'Фото',
+            fieldType: 'image',
+            placeholder: 'Загрузить фото...',
+        },
+    },
+    validationSchema: object().shape({
+        date: string()
+            .required('Укажите дату'),
+    })
+};
+
+// TODO delete after API connection
 export const newsArr = [
     {
         id: 1,
