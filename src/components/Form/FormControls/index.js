@@ -1,13 +1,17 @@
 import React from 'react'
 import classnames from 'classnames'
+import './styles.scss'
 
-const FormControls = ({formTitle, className}) => formTitle ?
-    <div className={classnames(
-        "form-title",
-        {[className]: className}
-    )}
-         dangerouslySetInnerHTML={{__html: formTitle}}
-    />
-    : null;
-
-export default FormControls;
+export default function FormControls({children, className, inline, style}) {
+    return (
+        <div
+            style={style}
+            className={classnames(
+                'FormControls',
+                {'FormControls--inline': inline},
+                {[className]: className},
+            )}
+        >
+            {children}
+        </div>);
+}
