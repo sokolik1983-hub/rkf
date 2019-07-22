@@ -1,4 +1,4 @@
-.form-group {
+.FormGroup {
 
   &--inline {
     margin-bottom: 32px;
@@ -7,7 +7,7 @@
     align-items: flex-end;
     justify-content: flex-start;
 
-    .formInput {
+    .FormInput {
       margin-right: 16px;
       margin-bottom: 0;
       flex: 1;

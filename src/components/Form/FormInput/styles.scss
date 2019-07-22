@@ -1,4 +1,4 @@
-.formInput {
+.FormInput {
   display: flex;
   flex-flow: column nowrap;
   //min-width: 278px;
@@ -25,7 +25,7 @@
     }
   }
 
-  .formInput__input {
+  .FormInput__input {
     box-sizing: border-box;
     letter-spacing: .2px;
     font-family: 'Futura New', Helvetica, sans-serif;
@@ -90,13 +90,13 @@
 
   &--error {
     //color: #FA5D50;
-    .formInput__input{
+    .FormInput__input{
       border-color: #FA5D50;
       border-width: 2px;
       padding: 11px 13px;
     }
 
-    .formInput__feedback {
+    .FormInput__feedback {
       color: #FA5D50;
     }
 
@@ -118,9 +118,9 @@
   }
 
   &--select {
-    .formInput__input,
-    .formInput__input:focus,
-    .formInput__input:active {
+    .FormInput__input,
+    .FormInput__input:focus,
+    .FormInput__input:active {
       padding: 0;
       border-width: 0;
     }
