@@ -10,9 +10,9 @@ import MaskedField from './MaskedInput'
 import CustomEmail from './CustomEmail'
 import CustomPhone from './CustomPhone'
 import ReactSelect from './ReactSelect'
-import ReactSelectAsync from './ReactSelectAsync'
-import ReactSelectDict from './ReactSelectDictionary'
+import DraftJs from './DraftJs'
 
+import ReactSelectAsync from './ReactSelectAsync'
 
 class FastFormField extends PureComponent {
     static defaultProps = {
@@ -32,10 +32,10 @@ class FastFormField extends PureComponent {
                 return ReactSelect;
             case "reactSelectAsync":
                 return ReactSelectAsync;
-                case "reactSelectDict":
-                return ReactSelectDict;
             case "masked":
                 return MaskedField;
+            case "DraftJs":
+                return DraftJs;
             default:
                 return Field;
         }
@@ -51,13 +51,13 @@ class FastFormField extends PureComponent {
                 name={fieldProps.name}
                 className={classnames(
                     {[className]: className},
-                    {[`formInput--${fieldProps.type}`]: fieldProps.type},
+                    {[`FormInput--${fieldProps.type}`]: fieldProps.type},
                 )}
             >
                 <Label field={fieldProps}/>
                 <FieldInput
                     id={fieldProps.name}
-                    className={'formInput__input'}
+                    className={'FormInput__input'}
                     {...fieldProps}
                 />
                 <FieldError name={fieldProps.name}/>
