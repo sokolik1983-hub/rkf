@@ -1,5 +1,5 @@
-import request, {getHeaders} from 'utils/request'
-import {isDevEnv, debounce} from "./index";
+import {getHeaders} from 'utils/request'
+import {debounce, isDevEnv} from "./index";
 import {SERVER} from 'appConfig'
 
 export const VALIDATE_PHONE = isDevEnv() ? SERVER + '/api/Registration/checkphone' : '/api/Registration/checkphone';
