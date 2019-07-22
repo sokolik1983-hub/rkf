@@ -19,7 +19,6 @@ export const getExhibitionById = createSelector(
 
 export const getRouteParams = (state, props) => {
     const {path, url, params} = props.match;
-    const {id} = params;
     return {
         path,
         url,
