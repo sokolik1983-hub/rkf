@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 const FormTitle = ({formTitle, className}) => formTitle ?
     <div className={classnames(
-        "form-title",
+        "FormTitle",
         {[className]: className}
     )}
          dangerouslySetInnerHTML={{__html: formTitle}}

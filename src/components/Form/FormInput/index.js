@@ -8,10 +8,10 @@ const FormInput = ({formik, name, className, checkbox, style, children}) => {
     const error = getIn(formik.errors, name);
     const touch = getIn(formik.touched, name);
     const classNames = classnames(
-        'formInput',
+        'FormInput',
         {[className]: className},
-        {'formInput--checkbox': checkbox},
-        {'formInput--error': touch && error},
+        {'FormInput--checkbox': checkbox},
+        {'FormInput--error': touch && error},
     );
     return <div style={style} className={classNames}>{children}</div>
 };

@@ -36,7 +36,7 @@ class LoginForm extends PureComponent {
                 <FormGroup className="login-form__holder" inline>
                     <FormInput checkbox>
                         <label>Запомнить меня</label>
-                        <input type="checkbox" className="formInput__input"/>
+                        <input type="checkbox" className="FormInput__input"/>
                     </FormInput>
                     <div style={{marginLeft: 'auto'}}><Link className="no-ul" to="/auth/login/restore">Забыли
                         пароль</Link></div>

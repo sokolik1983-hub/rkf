@@ -6,8 +6,8 @@ const FormGroup = ({children, className, inline, style}) =>
     <div
         style={style}
         className={classnames(
-            'form-group',
-            {'form-group--inline': inline},
+            'FormGroup',
+            {'FormGroup--inline': inline},
             {[className]: className},
         )}
     >
