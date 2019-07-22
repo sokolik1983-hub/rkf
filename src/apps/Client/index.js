@@ -6,6 +6,7 @@ import ClientExhibitions from 'apps/ClientExhibitions'
 import ClientProfile from 'apps/ClientProfile'
 import AuthOrLogin from 'apps/Auth/containers/AuthOrLogin'
 import Home from 'apps/Client/components/Home'
+
 class ClientProxy extends PureComponent {
     componentDidMount() {
         this.wrap = document.getElementById("wrap");
