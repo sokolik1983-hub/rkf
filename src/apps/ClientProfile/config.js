@@ -1,5 +1,5 @@
 import {object, string} from "yup";
-
+export const defaultReduxKey='client_profile';
 
 export const clientProfileForm = {
     fields: {

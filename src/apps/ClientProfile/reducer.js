@@ -1,16 +1,32 @@
 import * as actiontypes from './actiontypes';
+import createReducer from 'utils/createReducer'
 
-
-const clientInitialState = {
+const clientNewsInitialState = {
     loadingApi: false,
+    profile: {},
 };
 
-export default function clientRootReducer(state = clientInitialState, action) {
+const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
+    [actiontypes.GET_PROFILE](state, action) {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+    [actiontypes.GET_PROFILE_SUCCESS](state, action) {
+        return {
+            ...state,
+            profile: action.data,
+            loading: false,
+        }
+    },
 
-    switch (action.type) {
+    [actiontypes.GET_PROFILE_FAILED](state, action) {
+        return {
+            ...state,
+            loading: false,
+        }
+    },
+});
 
-
-        default:
-            return state;
-    }
-}
+export default clientExhibitionScheduleReducer;
