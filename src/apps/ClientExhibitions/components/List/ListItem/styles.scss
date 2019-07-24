@@ -46,7 +46,7 @@ $base-class: ExhibitionListItem;
     display: flex;
     flex-flow: row nowrap;
     color: #3366FF;
-
+    align-items: center;
     .btn:disabled {
       color: #CCCCCC;
     }

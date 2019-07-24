@@ -6,12 +6,24 @@ import {
     FormField,
 } from 'components/Form'
 import {firstStepForm} from 'apps/ClientExhibitions/config'
-const {fields}=firstStepForm;
-export const FormButton = ({isUpdate}) => isUpdate ?
-    <SubmitButton type="submit"
-                  className="btn-simple btn-lg">Обновить</SubmitButton> :
-    <SubmitButton leftIcon={<BtnPus/>} type="submit"
-                  className="btn-simple btn-lg">Добавить</SubmitButton>;
+
+const {fields} = firstStepForm;
+export const FormButton = ({isUpdate, ...rest}) => isUpdate ?
+    <SubmitButton
+        type="submit"
+        className="btn-simple btn-lg"
+        {...rest}
+    >
+        Обновить
+    </SubmitButton> :
+    <SubmitButton
+        leftIcon={<BtnPus/>}
+        type="submit"
+        className="btn-simple btn-lg"
+        {...rest}
+    >
+        Добавить
+    </SubmitButton>;
 
 const RenderFields = ({disabled, isUpdate}) =>
     <>

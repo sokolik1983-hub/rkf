@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react'
+import Card from 'components/Card'
 import {FormFormikEnhanced} from "components/Form";
 import RenderFields, {FormButton} from './RenderFields'
 import {firstStepForm} from "apps/ClientExhibitions/config";
@@ -13,17 +14,19 @@ function UpdateExhibitionForm({updateExhibitionSuccess, exhibitionDetails}) {
     }, []);
 
     const detailsLoaded = objectNotEmpty(exhibitionDetails)
-    console.log('UpdateExhibitionForm.render', exhibitionDetails)
+
     return detailsLoaded ? (
-            <FormFormikEnhanced
-                onSuccess={onUpdateExhibitionSuccess}
-                {...firstStepForm}
-                formInitials={exhibitionDetails}
-                isUpdate
-            >
-                <RenderFields/>
-                <FormButton isUpdate/>
-            </FormFormikEnhanced>
+            <Card style={{marginTop: 40}}>
+                <FormFormikEnhanced
+                    onSuccess={onUpdateExhibitionSuccess}
+                    {...firstStepForm}
+                    formInitials={exhibitionDetails}
+                    isUpdate
+                >
+                    <RenderFields/>
+                    <FormButton className='btn-primary' isUpdate/>
+                </FormFormikEnhanced>
+            </Card>
         )
         :
         <div className="centered-block">Загрузка...</div>
