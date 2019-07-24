@@ -9,12 +9,11 @@ import * as actions from './actions'
 export function* registerUser(action) {
     try {
         const data = yield call(Api.registerUser, action);
-        console.log('registerUser.success', data)
         yield put(actions.registerUserSuccess(data))
 
         //TODO Добавить таймер на обнуление статуса registrationComplete:false
+        //TODO Седлать переадрессацию прямо здесь
     } catch (error) {
-        console.log('registerUser.error', error)
         if (error.response) {
             console.log('registerUser.error.response', error.response)
             yield put(actions.registerUserFailed(error.response))
