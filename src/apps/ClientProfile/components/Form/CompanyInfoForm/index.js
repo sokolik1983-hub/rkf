@@ -17,12 +17,17 @@ class CompanyInfoForm extends PureComponent {
         const {loading} = this.props;
         return (
             <Form className="schedule-day-form">
+                <FormGroup>
+                    <FormField
+                        {...fields.name}
+                    />
+                </FormGroup>
                 <FormGroup inline>
                     <FormField
-                        {...fields.company_name}
+                        {...fields.federation}
                     />
                     <FormField
-                        {...fields.company_type}
+                        {...fields.status}
                     />
                 </FormGroup>
                 <FormGroup inline>
@@ -30,7 +35,7 @@ class CompanyInfoForm extends PureComponent {
                         {...fields.company_region}
                     />
                     <FormField
-                        {...fields.company_head}
+                        {...fields.owner_name}
                     />
                 </FormGroup>
                 <FormGroup inline>
@@ -38,23 +43,23 @@ class CompanyInfoForm extends PureComponent {
                         {...fields.company_date_egrul}
                     />
                     <FormField
-                        {...fields.company_date_registration}
+                        {...fields.registration_date}
                     />
                 </FormGroup>
                 <FormGroup inline>
                     <FormField
-                        {...fields.company_iin}
+                        {...fields.iin}
                     />
                     <FormField
-                        {...fields.company_kpp}
+                        {...fields.kpp}
                     />
                 </FormGroup>
                 <FormGroup inline>
                     <FormField
-                        {...fields.company_ogrn}
+                        {...fields.ogrn}
                     />
                     <FormField
-                        {...fields.company_okpo}
+                        {...fields.okpo}
                     />
                 </FormGroup>
                 <FormGroup inline>
