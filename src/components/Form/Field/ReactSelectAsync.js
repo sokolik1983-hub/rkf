@@ -5,11 +5,15 @@ import {connect, getIn} from "formik";
 import {defaultReactSelectStyles} from 'appConfig'
 import {getHeaders} from "utils/request";
 import {isDevEnv} from "utils/index";
+
 import createFilterOptions from "react-select-fast-filter-options";
+import MenuList from './ReactSelectMenuList'
+
 const NoOptionsMessage = () => {
     return ('Нет опций для выбора');
 };
 
+// TODO Implement this: https://github.com/bvaughn/react-virtualized-select
 
 class ReactSelectAsync extends Component {
     static propTypes = {
@@ -115,7 +119,7 @@ class ReactSelectAsync extends Component {
         return (
             <Select
                 filterOptions={this.filterOptions}
-                components={{...components, NoOptionsMessage}}
+                components={{NoOptionsMessage, MenuList}}
                 id={id}
                 isMulti={isMulti}
                 closeMenuOnSelect={closeMenuOnSelect}
