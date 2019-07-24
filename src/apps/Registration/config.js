@@ -22,11 +22,11 @@ const testPhoneAsync = [
 const commonValidations = {
     email: string()
         .required('Поле не может быть пустым')
-        .email('Неверный формат электронного адреса')
-        .test(...testEmailAsync),
+        .email('Неверный формат электронного адреса'),
+        //.test(...testEmailAsync),
     phone_number: string()
-        .required('Поле не может быть пустым')
-        .test(...testPhoneAsync),
+        .required('Поле не может быть пустым'),
+        //.test(...testPhoneAsync),
     password: string()
         .required('Поле не может быть пустым')
         .test(...testPasswordLength)
@@ -92,6 +92,7 @@ export const registrationFormPhysicalPerson = {
     }),
 };
 export const registrationFormLegalEntity = {
+    formAction:'/api/Registration',
     fields: {
         registration_type: {
             name: 'registration_type',

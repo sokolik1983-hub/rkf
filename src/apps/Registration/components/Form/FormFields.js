@@ -1,7 +1,10 @@
 import React, {Fragment} from 'react'
 import FormField from "components/Form/Field";
-import FormGroup from "components/Form/FormGroup";
-
+import {
+    SubmitButton,
+    FormGroup,
+    FormControls
+} from "components/Form";
 import {
     registrationFormPhysicalPerson,
     registrationFormLegalEntity,
@@ -68,4 +71,7 @@ export const LegalEntity = ({registrationType}) =>
                 {...registrationFormLegalEntity.fields.submit_phone_code}
             />
         </FormGroup>
+        <FormControls className={'text-center'}>
+            <SubmitButton className="btn btn-primary btn-lg" type="submit">Зарегистрироваться</SubmitButton>
+        </FormControls>
     </Fragment>;

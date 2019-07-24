@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Tabs,{TabContent} from "components/Tabs";
 import CommonLayout from 'components/Layout/CommonRegistrationLogin'
 import RegistrationForm from 'apps/Registration/containers/Register'
+import Form from '../Form/Form'
 import {
     PhysicalPerson,
     LegalEntity,
@@ -10,7 +11,7 @@ import {
 
 import {
     registrationFormPhysicalPerson,
-    registrationFormLegalEntity,
+    registrationFormLegalEntity, registrationSuccessPath,
 } from 'apps/Registration/config'
 
 import './style.scss'
@@ -18,6 +19,7 @@ import './style.scss'
 export default class Registration extends PureComponent {
 
     render() {
+
         return (
 
             <CommonLayout image={'/static/images/registration/banner.png'}>
@@ -34,12 +36,11 @@ export default class Registration extends PureComponent {
                         </RegistrationForm>
                     </TabContent>
                     <TabContent label="Я - клуб">
-                        <RegistrationForm
-                            fields={registrationFormLegalEntity.fields}
-                            validationSchema={registrationFormLegalEntity.validationSchema}
+                        <Form
+                            config={registrationFormLegalEntity}
                         >
                             <LegalEntity registrationType="2"/>
-                        </RegistrationForm>
+                        </Form>
                     </TabContent>
                     <TabContent label="Я - питомник">
                         <RegistrationForm
