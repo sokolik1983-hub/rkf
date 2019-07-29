@@ -6,6 +6,7 @@ import {
 
 import {
     getLegalInfo,
+    updateLegalInfoSuccess
 } from './actions'
 
 
@@ -15,5 +16,13 @@ export const connectLegalInfo = connect(
     dispatch => bindActionCreators(
         {
             getLegalInfo
+        }, dispatch)
+);
+
+export const connectLegalInfoForm = connect(
+    selectLegalInfo,
+    dispatch => bindActionCreators(
+        {
+            updateLegalInfoSuccess
         }, dispatch)
 );

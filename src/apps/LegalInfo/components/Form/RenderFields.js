@@ -1,8 +1,8 @@
 import React from 'react'
 import {FormControls, FormField, FormGroup, SubmitButton,} from 'components/Form'
-import {clubLegalInfoFormConfig} from 'apps/LegalInfo/config'
+import {clubLegalInfoLegalInfoFormConfig} from 'apps/LegalInfo/config'
 
-const {fields} = clubLegalInfoFormConfig;
+const {fields} = clubLegalInfoLegalInfoFormConfig;
 
 const RenderFields = () =>
     <React.Fragment>
@@ -50,7 +50,7 @@ const RenderFieldsReal = () =>
     <React.Fragment>
         <FormGroup>
             <FormField
-                name="club_id"
+                name="clubLegalInfo_id"
                 value={16}
                 type="hidden"
             />

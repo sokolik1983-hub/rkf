@@ -17,6 +17,6 @@ export function* getLegalInfo(action) {
 }
 
 export default function* clientLegalInfoSaga() {
-    yield takeLatest(actionTypes.GET_CLUB_INFO, getLegalInfo);
+    yield takeLatest(actionTypes.GET_LEGAL_INFO, getLegalInfo);
 }
 

@@ -1,3 +1,3 @@
 import {defaultReduxKey} from "./config";
 
-export const selectLegalInfo = state => ({clubLegalInfo: state[defaultReduxKey].clubLegalInfo});
+export const selectLegalInfo = state => ({clubLegalInfoLegalInfo: state[defaultReduxKey].clubLegalInfoLegalInfo});

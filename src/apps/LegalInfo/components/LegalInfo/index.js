@@ -1,7 +1,7 @@
 import React from 'react'
 import {connectLegalInfo} from 'apps/LegalInfo/connectors'
 import {DirObject} from 'components/DirObject'
-function LegalInfo({clubLegalInfo}) {
+function LegalInfo({clubLegalInfoLegalInfo}) {
     // const {
     //     id,
     //     name,
@@ -14,10 +14,10 @@ function LegalInfo({clubLegalInfo}) {
     //     registration_number,
     //     registration_date,
     //     is_public
-    // } = clubLegalInfo;
+    // } = clubLegalInfoLegalInfo;
     return (
         <div id={`LegalInfo_`} className="LegalInfo">
-            <DirObject object={clubLegalInfo} className={'LegalInfo'}/>
+            <DirObject object={clubLegalInfoLegalInfo} className={'LegalInfo'}/>
         </div>
     )
 }

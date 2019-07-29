@@ -7,9 +7,9 @@ import reducer from "./reducer";
 import saga from "./saga";
 import {compose} from "redux";
 import {connectLegalInfo} from './connectors'
-import {UpdateLegalInfoForm} from './components/Form'
+import UpdateLegalInfoForm from './components/Form'
 
-function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfo}) {
+function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfoLegalInfo}) {
     const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)
 
     useEffect(() => {
@@ -23,8 +23,8 @@ function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfo
             <button onClick={toggleVisibility}>Редактировать</button>
             {
                 visibility ?
-                    <UpdateLegalInfoForm initialValues={clubLegalInfo}/> :
-                    <ClientLegalInfo {...clubLegalInfo}/>
+                    <UpdateLegalInfoForm initialValues={clubLegalInfoLegalInfo}/> :
+                    <ClientLegalInfo {...clubLegalInfoLegalInfo}/>
             }
         </div>
     )
