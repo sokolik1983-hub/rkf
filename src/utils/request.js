@@ -11,15 +11,18 @@ import {SERVER} from "appConfig";
  */
 
 export const getHeaders = (isMultipart = false) => {
-    const headers = new Headers();
-    headers.append("Accept", "application/json")
-    headers.append("Content-Type", isMultipart ?
+    const headers = {};
+    headers["Accept"] = "application/json";
+
+    headers["Content-Type"] = isMultipart ?
         "multipart/form-data"
         :
-        "application/json, text/plain, */*");
+        "application/json, text/plain, */*";
+
+
     const apiKey = localStorage.getItem('apikey');
     if (apiKey) {
-        headers.append("Authorization", "Bearer " + apiKey);
+        headers["Authorization"] = "Bearer " + apiKey;
     }
     return headers
 };
