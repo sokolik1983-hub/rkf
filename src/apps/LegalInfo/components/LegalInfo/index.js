@@ -1,6 +1,6 @@
 import React from 'react'
 import {connectLegalInfo} from 'apps/LegalInfo/connectors'
-import {DirObject} from 'utils/renderObject'
+import {DirObject} from 'components/DirObject'
 function LegalInfo({clubLegalInfo}) {
     // const {
     //     id,
