@@ -1,5 +1,5 @@
 import React from 'react'
-import {clubLegalInfoLegalInfoFormConfig} from "apps/LegalInfo/config";
+import {clubLegalInfoFormConfig} from "apps/LegalInfo/config";
 import {FormFormikEnhanced} from "components/Form";
 import RenderFields from './RenderFields'
 import {connectLegalInfoForm} from  "apps/LegalInfo/connectors";
@@ -11,7 +11,7 @@ export function LegalInfoForm(isUpdate) {
         <FormFormikEnhanced
             isUpdate
             onSuccess={onSuccess}
-            {...clubLegalInfoLegalInfoFormConfig}
+            {...clubLegalInfoFormConfig}
             transformValues={transformValues}
         >
             <RenderFields/>
@@ -26,7 +26,7 @@ export function UpdateLegalInfoForm({initialValues, updateLegalInfoSuccess}) {
             isUpdate={true}
             formInitials={initialValues}
             onSuccess={onSuccess}
-            {...clubLegalInfoLegalInfoFormConfig}
+            {...clubLegalInfoFormConfig}
         >
             <RenderFields/>
         </FormFormikEnhanced>

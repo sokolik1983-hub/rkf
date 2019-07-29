@@ -9,7 +9,7 @@ import {compose} from "redux";
 import {connectLegalInfo} from './connectors'
 import UpdateLegalInfoForm from './components/Form'
 
-function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfoLegalInfo}) {
+function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfo}) {
     const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)
 
     useEffect(() => {
@@ -23,8 +23,8 @@ function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfo
             <button onClick={toggleVisibility}>Редактировать</button>
             {
                 visibility ?
-                    <UpdateLegalInfoForm initialValues={clubLegalInfoLegalInfo}/> :
-                    <ClientLegalInfo {...clubLegalInfoLegalInfo}/>
+                    <UpdateLegalInfoForm initialValues={clubLegalInfo}/> :
+                    <ClientLegalInfo {...clubLegalInfo}/>
             }
         </div>
     )

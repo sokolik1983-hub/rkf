@@ -4,7 +4,7 @@ export const defaultReduxKey = 'legal_info';
 export const endpointUrl = '/api/club/Legal';
 
 
-export const clubLegalInfoLegalInfoFormConfig = {
+export const clubLegalInfoFormConfig = {
     formAction: endpointUrl,
     fields: {
         clubLegalInfo_id: {

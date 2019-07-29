@@ -3,7 +3,7 @@ import createReducer from 'utils/createReducer'
 
 const clubLegalInfoInfoState = {
     loadingApi: false,
-    clubLegalInfoLegalInfo: null
+    clubLegalInfo: null
 };
 
 const clubLegalInfoInfoReducer = createReducer(clubLegalInfoInfoState, {
@@ -16,7 +16,7 @@ const clubLegalInfoInfoReducer = createReducer(clubLegalInfoInfoState, {
     [actiontypes.GET_LEGAL_INFO_SUCCESS](state, action) {
         return {
             ...state,
-            clubLegalInfoLegalInfo: action.data,
+            clubLegalInfo: action.data,
             loading: false,
         }
     },
@@ -30,7 +30,7 @@ const clubLegalInfoInfoReducer = createReducer(clubLegalInfoInfoState, {
     [actiontypes.UPDATE_LEGAL_INFO_SUCCESS](state, action){
         return {
             ...state,
-            clubLegalInfoLegalInfo: action.data
+            clubLegalInfo: action.data
         }
     }
 });
