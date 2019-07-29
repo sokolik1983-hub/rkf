@@ -1,6 +1,6 @@
 import {object, string} from "yup";
 
-const NEWS_URL = '/api/news';
+const NEWS_URL = '/api/ClubArticle/full';
 export const defaultReduxKey = 'client_news';
 
 
@@ -14,20 +14,20 @@ export const newsStoryFormConfig = {
         },
         content: {
             name: 'content',
-            fieldType: 'DraftJs',
+            fieldType: 'textarea',
             label: 'Содержание',
             placeholder: 'Текст новости...',
         },
-        image: {
-            name: 'image',
+        file: {
+            name: 'file',
             label: 'Фото',
             fieldType: 'image',
+            type: 'file',
             placeholder: 'Загрузить фото...',
         },
     },
     validationSchema: object().shape({
-        date: string()
-            .required('Укажите дату'),
+
     })
 };
 

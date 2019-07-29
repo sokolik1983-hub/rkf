@@ -7,15 +7,24 @@ import {
 
 import {
     getNews,
+    addNewsSuccess
 } from './actions'
 
 
+
+export const connectNewsForm = connect(
+    selectNews,
+    dispatch => bindActionCreators(
+        {
+            addNewsSuccess,
+        }, dispatch)
+);
 
 export const connectNewsList = connect(
     selectNews,
     dispatch => bindActionCreators(
         {
-            getNews
+            getNews,
         }, dispatch)
 );
 

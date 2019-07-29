@@ -5,7 +5,7 @@ import './styles.scss'
 
 function NewsStory({newsStory}) {
 
-    const {title, content, image} = newsStory;
+    const {title, content, image_link} = newsStory;
 
     const getSignature = () => "Сегодня в 14:00";
 
@@ -22,7 +22,8 @@ function NewsStory({newsStory}) {
             <div
                 //style={{backgroundImage: `url(${image})`}}
                 className="NewsStory__ImagePreview">
-                <img src={image} alt=""/>
+                {console.log('image_link',image_link)}
+                <img src={image_link} alt=""/>
             </div>
         </div>
     )

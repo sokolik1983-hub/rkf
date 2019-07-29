@@ -21,14 +21,15 @@ const RenderFields = ({fields, isUpdate}) =>
                 {...fields.title}
             />
         </FormGroup>
+
         <FormGroup>
             <FormField
-                {...fields.image}
+                {...fields.content}
             />
         </FormGroup>
         <FormGroup>
             <FormField
-                {...fields.content}
+                {...fields.file}
             />
         </FormGroup>
 

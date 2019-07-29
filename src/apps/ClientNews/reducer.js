@@ -38,6 +38,19 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
             loading: false,
         }
     },
+    [actiontypes.ADD_NEWS_SUCCESS](state, action) {
+        const {id} = action.data;
+        const news = {...state.news};
+        const newsIds = [id, ...state.newsIds];
+        news[id.toString()]=action.data;
+
+        return {
+            ...state,
+            news,
+            newsIds,
+            loading: false,
+        }
+    },
 });
 
 export default clientExhibitionScheduleReducer;

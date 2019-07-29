@@ -5,7 +5,7 @@ const Api = {
         const {clubId} = action;
         return request(
             {
-                url: `/api/News/List?club=${clubId}`,
+                url: `/api/ClubArticle/list?id=${clubId}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),
