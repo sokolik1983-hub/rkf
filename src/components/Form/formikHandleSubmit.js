@@ -7,7 +7,6 @@ const isDev = isDevEnv();
 
 const defaultOptions = (isMultipart) => isDev ? {
         headers: getHeaders(isMultipart),
-        mode: "cors"
     }
     :
     {
@@ -22,7 +21,7 @@ const getFormData = data => {
 
 
 export async function formikHandleSubmit({
-                                             isMultipart,
+                                             isMultipart=false,
                                              isUpdate,
                                              url, // POST Url
                                              options,
@@ -34,14 +33,18 @@ export async function formikHandleSubmit({
     let text; // define text to be available in catch
     // Block Form
     //formik.setSubmitting(true);
-    const requestOptions = {...defaultOptions(isMultipart), ...options};
-    requestOptions.method = isUpdate ? "PUT" : "POST";
-    const body = isMultipart ? getFormData(data) : JSON.stringify(data);
+    const config = {
+        url: isDev ? `${SERVER}${url}` : url,
+        method: isUpdate ? "PUT" : "POST",
+        data: isMultipart ? getFormData(data) : JSON.stringify(data),
+        headers: getHeaders(isMultipart),
+    };
+    if(isDev){
+        config.crossDomain=true
+    }
 
-
-    const requestUrl = isDev ? `${SERVER}${url}` : url;
     try {
-        const response = await axios.post(requestUrl, body, requestOptions);
+        const response = await axios(config);
         const {status, data} = response;
         if (status >= 200 && status < 300) {
             successAction(data.result);
