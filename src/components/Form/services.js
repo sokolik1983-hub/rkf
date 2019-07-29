@@ -2,6 +2,9 @@ import {objectNotEmpty, varIsArray, varIsObject} from "utils/index";
 import {withFormik} from "formik";
 import {formikHandleSubmit} from './formikHandleSubmit'
 
+
+
+
 const genInitialsFromFields = fields => {
     if (varIsArray(fields)) {
         return genInitialsFromArray(fields)
@@ -70,6 +73,7 @@ const defaultWithFormikEnhancedObject = {
     handleSubmit: (values, {props, ...formik}) =>
         formikHandleSubmit({
             isUpdate: props.isUpdate,
+            isMultipart: props.isMultipart,
             url: props.formAction, // POST Url
             data: props.transformValues ? props.transformValues(values) : values, // Form data
             successAction: props.onSuccess, // called with response JSON
