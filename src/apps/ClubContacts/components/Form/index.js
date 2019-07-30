@@ -1,17 +1,17 @@
 import React from 'react'
-import {clubLegalInfoFormConfig} from "apps/LegalInfo/config";
+import {clubClubContactsClubContactsFormConfig} from "apps/ClubContacts/config";
 import {FormFormikEnhanced} from "components/Form";
 import RenderFields from './RenderFields'
-import {connectLegalInfoForm} from  "apps/LegalInfo/connectors";
+import {connectClubContactsForm} from  "apps/ClubContacts/connectors";
 
-export function LegalInfoForm(isUpdate) {
+export function ClubContactsForm(isUpdate) {
     const onSuccess = data => console.log(data);
-    const transformValues=values=>({...values, clubLegalInfo_id:12})
+    const transformValues=values=>({...values, clubClubContacts_id:12})
     return (
         <FormFormikEnhanced
             isUpdate
             onSuccess={onSuccess}
-            {...clubLegalInfoFormConfig}
+            {...clubClubContactsClubContactsFormConfig}
             transformValues={transformValues}
         >
             <RenderFields/>
@@ -19,18 +19,18 @@ export function LegalInfoForm(isUpdate) {
     )
 }
 
-export function UpdateLegalInfoForm({initialValues, updateLegalInfoSuccess}) {
-    const onSuccess = data => updateLegalInfoSuccess(data);
+export function UpdateClubContactsForm({initialValues, updateClubContactsSuccess}) {
+    const onSuccess = data => updateClubContactsSuccess(data);
     return (
         <FormFormikEnhanced
             isUpdate={true}
             formInitials={initialValues}
             onSuccess={onSuccess}
-            {...clubLegalInfoFormConfig}
+            {...clubClubContactsClubContactsFormConfig}
         >
             <RenderFields/>
         </FormFormikEnhanced>
     )
 }
 
-export default connectLegalInfoForm(UpdateLegalInfoForm)
+export default connectClubContactsForm(UpdateClubContactsForm)

@@ -1,6 +1,6 @@
 import React from 'react'
 import {FormControls, FormField, FormGroup, SubmitButton,} from 'components/Form'
-import {clubLegalInfoFormConfig} from 'apps/LegalInfo/config'
+import {clubLegalInfoFormConfig} from 'apps/ClubLegalInfo/config'
 
 const {fields} = clubLegalInfoFormConfig;
 

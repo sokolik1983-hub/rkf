@@ -1,10 +1,10 @@
 import request, {getHeaders} from 'utils/request';
-
+import {endpointUrl} from './config'
 const Api = {
-    getProfile: async (action) => {
+    getClubContacts: async (action) => {
         return request(
             {
-                url: `/api/Club/full`,
+                url: `${endpointUrl}?id=${action.id}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

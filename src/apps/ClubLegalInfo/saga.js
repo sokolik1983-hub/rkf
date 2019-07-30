@@ -7,7 +7,9 @@ import * as actions from './actions'
 
 
 export function* getLegalInfo(action) {
+    window.alert('GET_LEGAL_INFO')
     try {
+
         const data = yield call(Api.getLegalInfo, action);
         yield put(actions.getLegalInfoSuccess(data.result))
     } catch (error) {

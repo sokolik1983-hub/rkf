@@ -1,5 +1,5 @@
 import React from 'react'
-import {connectLegalInfo} from 'apps/LegalInfo/connectors'
+import {connectLegalInfo} from 'apps/ClubLegalInfo/connectors'
 import {DirObject} from 'components/DirObject'
 function LegalInfo({clubLegalInfo}) {
     // const {

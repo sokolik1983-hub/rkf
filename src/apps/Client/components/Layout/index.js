@@ -7,8 +7,8 @@ import './styles.scss'
 
 import {menuFakeData1, menuFakeData2, menuFakeData3} from './SideBar/data'
 
-export default class ClientLayout extends PureComponent {
-    render() {
+export default function ClientLayout ({children}){
+
         return (
             <Fragment>
                 <Header/>
@@ -21,9 +21,9 @@ export default class ClientLayout extends PureComponent {
                         <MenuSeparator/>
                         <SideBar items={menuFakeData3}/>
                     </div>
-                    <div className="client-layout__content">{this.props.children}</div>
+                    <div className="client-layout__content">{children}</div>
                 </Container>
             </Fragment>
         )
-    }
+
 }
