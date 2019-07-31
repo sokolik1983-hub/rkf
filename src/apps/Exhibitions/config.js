@@ -1,6 +1,8 @@
 export const searchDefaultPlaceholder = 'Поиск по выставкам';
 
 
+export const defaultReduxKey = 'exhibitions';
+
 export const dogBreedFilterOptions = [
     {
         value: 1,

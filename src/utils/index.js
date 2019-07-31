@@ -99,3 +99,7 @@ export function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
+
+
+export const getIdFromRouterParams = props => props.match.params.id;
+export const getPathFromRouterParams = props => props.match.path;

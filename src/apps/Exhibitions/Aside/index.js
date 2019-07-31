@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
-import Search from 'apps/Exhibitions/containers/Search'
-import Calendar from 'apps/Exhibitions/containers/Calendar'
+import Search from 'apps/Exhibitions/components/Search'
+import Calendar from 'apps/Exhibitions/components/Calendar'
 import Filter from 'apps/Exhibitions/containers/Filter'
 
 const ExhibitionsAside = () =>

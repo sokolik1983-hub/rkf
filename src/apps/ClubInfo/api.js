@@ -1,7 +1,7 @@
 import request, {getHeaders} from 'utils/request';
 import {endpointUrl} from './config'
 const Api = {
-    getLegalInfo: async (action) => {
+    getClubInfo: async (action) => {
         return request(
             {
                 url: `${endpointUrl}?id=${action.id}`,

@@ -9,4 +9,4 @@ export const createDefaultInjectors = ({defaultReduxKey, reducer, saga}) => {
         }
     }
     throw Error('No defaultReduxKey was provided')
-}
+};

@@ -1,64 +1,46 @@
-import React, {Component} from "react"
-import {connect} from 'react-redux'
-import {bindActionCreators, compose} from "redux"
+import React from "react"
+import {compose} from "redux"
 import {Route, Switch} from 'react-router-dom'
+import {getPathFromRouterParams} from 'utils/index'
+import {createDefaultInjectors} from "utils/createInjectors";
 import Container from 'components/Layout/Container'
-import injectReducer from 'utils/injectReducer'
-import injectSaga from 'utils/injectSaga'
 import reducer from './reducer'
 import saga from "./saga";
 import PublicLayout from 'components/Layout'
 import Details from './containers/Details'
-import ExhibitionsListView from './containers/ListView'
-
-import {
-    fetchExhibitions
-} from './actions'
+import Details2 from './components/Details'
+import ExhibitionsList from './components/List'
+import {defaultReduxKey} from "./config";
 
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
 
 
-class ExhibitionsProxy extends Component {
-    state = {
-        path: this.props.match.path
-    };
+function ExhibitionsProxy(props) {
 
-    componentDidMount() {
-        this.props.fetchExhibitions();
-    }
-
-    render() {
-
-        return (
+    const path = getPathFromRouterParams(props);
+    return (
+        <ExhibitionsPathContext.Provider value={{path}}>
             <PublicLayout>
                 <Container pad content>
-                    <ExhibitionsPathContext.Provider value={{path: this.state.path}}>
-                        <Switch>
-                            <Route path={`${this.state.path}/:id/details`} component={Details}/>
-                            <Route exact path={this.state.path} component={ExhibitionsListView}/>
-                        </Switch>
-                    </ExhibitionsPathContext.Provider>
+
+                    <Switch>
+                        <Route path={`${path}/:id/details2`} component={Details}/>
+                        <Route path={`${path}/:id/details`} component={Details2}/>
+                        <Route exact path={path} component={ExhibitionsList}/>
+                    </Switch>
+
                 </Container>
             </PublicLayout>
-        );
-    }
+        </ExhibitionsPathContext.Provider>
+    );
+
 }
 
 
-const withReducer = injectReducer({key: 'exhibitions', reducer: reducer});
-const withSaga = injectSaga({key: 'exhibitions', saga});
+const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
 
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchExhibitions,
-}, dispatch);
-
-const withConnect = connect(
-    null,
-    mapDispatchToProps,
-);
 
 export default compose(
     withReducer,
     withSaga,
-    withConnect)(ExhibitionsProxy)
+)(ExhibitionsProxy)

@@ -4,7 +4,7 @@ export const DATE_URL = '/api/schedule/Date';
 export const EVENT_URL = '/api/schedule/Event';
 
 
-export const defaultReduxKey = 'exhibition_schedule';
+export const defaultReduxKey = 'client_exhibition_schedule';
 
 export const scheduleScheduleDateForm = {
     formAction:DATE_URL,

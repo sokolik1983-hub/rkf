@@ -4,7 +4,7 @@ const Api = {
     getProfile: async (action) => {
         return request(
             {
-                url: `/api/Club`,
+                url: `/api/Club/full`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),
