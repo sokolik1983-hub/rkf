@@ -14,6 +14,10 @@ const FormButton = ({isUpdate}) => isUpdate ?
 
 const RenderFields = ({fields, isUpdate}) =>
     <>
+        <FormField
+                style={{flex: 2}}
+                {...fields.name}
+            />
         <FormGroup inline>
             <FormField
                 style={{flex: 2}}

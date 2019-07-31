@@ -83,7 +83,7 @@ export const scheduleContestEventForm = {
             .required('Укажите значение'),
         time_end: string()
             .required('Укажите значение'),
-        name: string()
-            .required('Укажите значение'),
+        // name: string()
+        //     .required('Укажите значение'),
     })
 };
