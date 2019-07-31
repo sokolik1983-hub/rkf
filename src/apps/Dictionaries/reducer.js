@@ -5,6 +5,16 @@ import {dictionariesInitialState} from "./config"
 
 
 const dictionariesReducer = createReducer(dictionariesInitialState, {
+    [actiontypes.STORE_DICT](state, action) {
+        const {dictName, data} = action;
+        const dict = {...state[dictName]};
+
+        return {
+            ...state,
+            [dictName]: {...dict, ...data}
+        };
+    },
+
     [actiontypes.GET_DICT](state, action) {
         const {dictName} = action;
         const dict = {...state[dictName]};
@@ -16,17 +26,18 @@ const dictionariesReducer = createReducer(dictionariesInitialState, {
     },
     [actiontypes.GET_DICT_SUCCESS](state, action) {
         const {dictName, data} = action;
+        const {dictionary, options, dictIndex} = normalizeDictList(data);
         const dict = {...state[dictName]};
-        const {entities: normalizedDict, result: dictIndex} = normalizeDictList(data);
-        //console.log(normalizedDict, dictIndex)
-        dict.dict = normalizedDict.dict;
-        dict.dictIndex = dictIndex;
-        dict.loading = false;
-        dict.loaded = true;
-        dict.options = data.map(i => ({value: i.id, label: i.name}));
         return {
             ...state,
-            [dictName]: dict,
+            [dictName]: {
+                ...dict,
+                dictionary,
+                dictIndex,
+                loading: false,
+                loaded: true,
+                options
+            },
         };
     },
     [actiontypes.GET_DICT_FAILED](state, action) {

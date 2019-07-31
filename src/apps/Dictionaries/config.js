@@ -1,20 +1,21 @@
-export const AppDicts = {
-    cities: {
-        url: '',
-    }
-};
-
 export const dictionariesInitialState = {
+    classTypes: {
+        url: '',
+        dictionary: {},
+        dictIndex: [],
+        loaded: false,
+        loading: false,
+    },
     dogBreeds: {
         url: '',
-        dict: {},
+        dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     referees: {
         url: '/api/Referee/all',
-        dict: {},
+        dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
@@ -22,7 +23,7 @@ export const dictionariesInitialState = {
     cities: {
         options: [],
         url: '/api/exhibition/city/all',
-        dict: {},
+        dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,

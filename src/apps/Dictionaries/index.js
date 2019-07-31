@@ -1,21 +1,8 @@
-import React, {Component} from "react";
+import {useDictionary} from "./hooks";
 
-import {Link} from 'react-router-dom'
+const getDictElement = (dict, elementId) => dict.loaded ? dict.dictionary[String(elementId)] : null;
 
-import Container from 'components/Layout/Container'
-
-
-class DemoApp extends Component {
-
-    render() {
-        return (
-            <Container pad content>
-                <h1>Раздел в разработке</h1>
-                <p>Вернуться на <Link to="/">главную страницу</Link></p>
-            </Container>
-        );
-    }
+export {
+    getDictElement,
+    useDictionary,
 }
-
-
-export default DemoApp

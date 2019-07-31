@@ -6,7 +6,6 @@ import * as actions from './actions'
 
 
 export function* getDict(action) {
-    console.log('action', action)
     try {
         const data = yield call(Api.getDict, action);
         yield put(actions.getDictSuccess(action.dictName, data.result))
