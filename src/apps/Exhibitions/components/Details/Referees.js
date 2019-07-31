@@ -6,7 +6,9 @@ export default function ExhibitionReferees({refereesIds = []}) {
     const referees = getDictElementsArray(dictionary, refereesIds);
     return (
         <React.Fragment>
-            {referees.map(referee => <div key={referee} className="ExhibitionReferee">{referee}</div>)}
+            {referees.map(referee =>
+                <div key={referee} className="ExhibitionReferee">{referee}</div>
+            )}
         </React.Fragment>
     )
 }
