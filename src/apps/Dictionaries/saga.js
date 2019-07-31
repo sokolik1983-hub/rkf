@@ -1,4 +1,4 @@
-import {call, put, takeLatest} from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import Api from './api'
 
 import * as actionTypes from './actiontypes'
@@ -18,6 +18,6 @@ export function* getDict(action) {
 
 
 export default function* dictionariesSaga() {
-    yield takeLatest(actionTypes.GET_DICT, getDict);
+    yield takeEvery(actionTypes.GET_DICT, getDict);
 }
 
