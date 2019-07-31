@@ -1,5 +1,6 @@
 import React from 'react'
 import ExhibitionSchedule from 'apps/ExhibitionSchedule'
+import ExhibitionContests from 'apps/ExhibitionContest'
 import DetailImage from "../DetailsImage";
 import Tabs, {TabContent} from "components/Tabs";
 
@@ -45,13 +46,14 @@ export default function ExhibitionDetailsContent({
                     {id && <ExhibitionSchedule exhibitionId={id}/>}
                 </TabContent>
                 <TabContent label="Судьи">
-                    <h3>Судьи</h3>
                     <ExhibitionReferees
                         refereesIds={referees_id}
                     />
                 </TabContent>
                 <TabContent label="Участники">Участники</TabContent>
-                <TabContent label="Конкурсы">Конкурсы</TabContent>
+                <TabContent label="Конкурсы">
+                    <ExhibitionContests exhibitionId={id}/>
+                </TabContent>
             </Tabs>
 
         </DetailsContent>
