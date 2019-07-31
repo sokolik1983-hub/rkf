@@ -102,7 +102,7 @@ export const registrationFormLegalEntity = {
         company_name: {
             name: 'company_name',
             type: 'text',
-            label: 'Наименование ИП',
+            label: 'Наименование',
             placeholder: 'Полное наименование'
         },
         company_type: {
