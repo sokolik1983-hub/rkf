@@ -1,15 +1,16 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import classnames from 'classnames/bind'
 import style from './style.module.scss'
 
 const cx = classnames.bind(style);
 
-export default class CountDown extends PureComponent {
-    static defaultProps = {
-        eventDate: '2019-05-05 14:00'
+export default function CountDown({eventDate = '2019-05-05 14:00'}) {
+
+    const checkTimeIsOver = () => {
+        return (new Date() > new Date(eventDate))
     };
 
-    calculateCountDown = (date) => {
+    const calculateCountDown = (date) => {
         const now = new Date();
         const countDownDate = new Date(date);
         const totalSeconds = (countDownDate - now) / 1000;
@@ -20,25 +21,27 @@ export default class CountDown extends PureComponent {
         const hoursLeft = parseInt((totalSeconds - (daysLeft * secondsInDay)) / secondsInHour, 10);
         const minutesLeft = parseInt((totalSeconds - (daysLeft * secondsInDay) - (hoursLeft * secondsInHour)) / secondsInMinute, 10);
         return {
-            days: daysLeft,
-            hours: hoursLeft,
-            minutes: minutesLeft
+            days: daysLeft > 0 ? daysLeft : 0,
+            hours: hoursLeft > 0 ? hoursLeft : 0,
+            minutes: minutesLeft > 0 ? minutesLeft : 0,
         }
     };
 
-    render() {
-        const countDown = this.calculateCountDown(this.props.eventDate);
-        return (
-            <div className={cx('count-down__wrap')}>
-                <div className={cx('count-down__title')}>
-                    До конца регистрации осталось:
-                </div>
-                <div className={cx('count-down')}>
-                    <div className={cx('item', 'item--days')}>{countDown.days}</div>
-                    <div className={cx('item', 'item--hours')}>{countDown.hours}</div>
-                    <div className={cx('item', 'item--minutes')}>{countDown.minutes}</div>
-                </div>
+    const countDown = calculateCountDown(eventDate);
+    return (
+        <div className={cx('CountDown__wrap')}>
+            <div className={cx('CountDown__title')}>
+                До конца регистрации осталось:
             </div>
-        )
-    }
+            {
+                checkTimeIsOver() ?
+                    <div>Время вышло</div> : null
+            }
+            <div className={cx('CountDown')}>
+                <div className={cx('item', 'item--days')}>{countDown.days}</div>
+                <div className={cx('item', 'item--hours')}>{countDown.hours}</div>
+                <div className={cx('item', 'item--minutes')}>{countDown.minutes}</div>
+            </div>
+        </div>
+    )
 }
