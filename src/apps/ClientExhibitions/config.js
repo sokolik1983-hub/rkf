@@ -107,3 +107,8 @@ export const firstStepForm = {
             .required('Укажите породы'),
     }),
 };
+
+export const pictureTypes = {
+    AVATAR: 3,
+    MAP: 4,
+};
