@@ -23,3 +23,11 @@ export const deleteExhibitionSuccess = makeActionCreator(actionTypes.DELETE_SUCC
 export const deleteExhibitionFailed = makeActionCreator(actionTypes.DELETE_FAILED, 'id', 'errors');
 
 export const clearRequestErrors = makeActionCreator(actionTypes.CLEAR_ERRORS, 'id', 'errors');
+
+export const addAvatarSuccess = makeActionCreator(actionTypes.ADD_AVATAR_SUCCESS, 'data');
+export const deleteAvatarSuccess = makeActionCreator(actionTypes.ADD_AVATAR_SUCCESS, 'data');
+
+export const addMapSuccess = makeActionCreator(actionTypes.ADD_MAP_SUCCESS, 'data');
+export const deleteMapSuccess = makeActionCreator(actionTypes.DELETE_MAP_SUCCESS, 'data');
+
+

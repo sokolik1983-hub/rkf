@@ -14,6 +14,9 @@ export const getHeaders = (isMultipart = false) => {
     const headers = {};
     headers["Accept"] = "application/json";
 
+    // Trying receive response body with that
+    headers["Cache-Control"] = "no-cache";
+
     headers["Content-Type"] = isMultipart ?
         "multipart/form-data"
         :

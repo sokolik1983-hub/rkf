@@ -13,3 +13,16 @@ export const useVisibility = (initialVisibility = false) => {
         [toggleVisibility, setVisible, setInvisible, visibility],
     );
 };
+
+export const useConfirmDialog = (initialConfirmState = false) => {
+    const [confirm, setConfirm] = useState(initialConfirmState);
+    const onConfirm = () => setConfirm(true);
+    const onCancel = () => setConfirm(false);
+    return useMemo(
+        () => ({
+            confirm,
+            onConfirm, onCancel
+        }),
+        [confirm, onConfirm, onCancel],
+    );
+};

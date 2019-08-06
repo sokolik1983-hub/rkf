@@ -56,9 +56,9 @@ const clientExhibitionsReducer = createReducer(clientInitialState, {
         const {id} = action.data;
         const exhibitionIdList = [...state.exhibitionIdList, id];
         const exhibitions = {...state.exhibitions};
-        exhibitions[id.toString()] = action.data;
+        exhibitions[String(id)] = action.data;
         const exhibitionsDetails = {...state.exhibitionsDetails};
-        exhibitionsDetails[id.toString()] = action.data;
+        exhibitionsDetails[String(id)] = action.data;
         return {
             ...state,
             exhibitionIdList,
@@ -76,7 +76,7 @@ const clientExhibitionsReducer = createReducer(clientInitialState, {
     [actiontypes.DETAILS_SUCCESS](state, action) {
         const {id} = action.data;
         const exhibitionsDetails = {...state.exhibitionsDetails};
-        exhibitionsDetails[id.toString()] = action.data;
+        exhibitionsDetails[String(id)] = action.data;
         return {
             ...state,
             loading: false,
@@ -86,11 +86,56 @@ const clientExhibitionsReducer = createReducer(clientInitialState, {
     [actiontypes.UPDATE_SUCCESS](state, action) {
         const {id} = action.data;
         const exhibitionsDetails = {...state.exhibitionsDetails};
-        exhibitionsDetails[id.toString()] = action.data;
+        exhibitionsDetails[String(id)] = action.data;
         return {
             ...state,
             loading: false,
             exhibitionsDetails,
+        };
+    },
+
+    [actiontypes.ADD_AVATAR_SUCCESS](state, action) {
+        const {exhibition_id} = action.data;
+        const exhibitionsDetails = {...state.exhibitionsDetails};
+        const exhibitionDetails = {...exhibitionsDetails[String(exhibition_id)]};
+        exhibitionDetails.exhibition_avatar_link = action.data.picture_link;
+        exhibitionsDetails[String(exhibition_id)]=exhibitionDetails;
+        return {
+            ...state,
+            exhibitionsDetails
+        };
+    },
+    [actiontypes.DELETE_AVATAR_SUCCESS](state, action) {
+        const {exhibition_id} = action.data;
+        const exhibitionsDetails = {...state.exhibitionsDetails};
+        const exhibitionDetails = {...exhibitionsDetails[String(exhibition_id)]};
+        exhibitionDetails.exhibition_avatar_link = action.data.picture_link;
+        exhibitionsDetails[String(exhibition_id)]=exhibitionDetails;
+        return {
+            ...state,
+            exhibitionsDetails
+        };
+    },
+    [actiontypes.ADD_MAP_SUCCESS](state, action) {
+        const {exhibition_id} = action.data;
+        const exhibitionsDetails = {...state.exhibitionsDetails};
+        const exhibitionDetails = {...exhibitionsDetails[String(exhibition_id)]};
+        exhibitionDetails.exhibition_map_link = action.data.picture_link;
+        exhibitionsDetails[String(exhibition_id)]=exhibitionDetails;
+        return {
+            ...state,
+            exhibitionsDetails
+        };
+    },
+    [actiontypes.DELETE_MAP_SUCCESS](state, action) {
+        const {exhibition_id} = action.data;
+        const exhibitionsDetails = {...state.exhibitionsDetails};
+        const exhibitionDetails = {...exhibitionsDetails[String(exhibition_id)]};
+        exhibitionDetails.exhibition_map_link = null;
+        exhibitionsDetails[String(exhibition_id)]=exhibitionDetails;
+        return {
+            ...state,
+            exhibitionsDetails
         };
     },
 });

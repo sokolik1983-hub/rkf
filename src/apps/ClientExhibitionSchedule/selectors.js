@@ -15,7 +15,6 @@ export const getExhibitionId = (state, props) => props.match !== undefined ?
 export const getDatesIds = state => ({dateIds: state[defaultReduxKey].dateIds});
 
 const selectItems = state => {
-    console.log('selectItems')
     return state[defaultReduxKey].items
 };
 

@@ -21,56 +21,49 @@ const getFormData = data => {
 
 
 export async function formikHandleSubmit({
-                                             isMultipart=false,
+                                             isMultipart = false,
                                              isUpdate,
                                              url, // POST Url
-                                             options,
                                              data, // Form data
                                              successAction, // called with response JSON
                                              formik,
                                              storageVariableName
                                          }) {
-    let text; // define text to be available in catch
-    // Block Form
-    //formik.setSubmitting(true);
+    // Configure request
     const config = {
         url: isDev ? `${SERVER}${url}` : url,
         method: isUpdate ? "PUT" : "POST",
         data: isMultipart ? getFormData(data) : JSON.stringify(data),
         headers: getHeaders(isMultipart),
     };
-    if(isDev){
-        config.crossDomain=true
+    if (isDev) {
+        config.crossDomain = true
     }
 
     try {
+        // Perform request
         const response = await axios(config);
-        const {status, data} = response;
-        if (status >= 200 && status < 300) {
-            successAction(data.result);
-            // clear stored formData
-            localStorage.removeItem(storageVariableName);
-            formik.setSubmitting(false);
-        } else {
+        const {data} = response;
+
+        successAction(data.result);
+        // clear stored formData (request success we don't need it anymore)
+        localStorage.removeItem(storageVariableName);
+        formik.setSubmitting(false);
+        return {response}
+
+    } catch (error) {
+        formik.setSubmitting(false);
+        if (error.isAxiosError) {
+            const {data} = error.response;
             const touched = {};
             Object.keys(data.errors).forEach(key => touched[key] = true);
             //TODO Handle this in future
             //formik.setTouched(touched);
             formik.setErrors(data.errors);
             formik.setSubmitting(false);
-        }
-        return {response}
-
-    } catch (error) {
-        formik.setSubmitting(false);
-        if (error.name === "SyntaxError") {
-            console.error("formikHandleSubmit JSON.parse(text): ", error, text);
-            alert('formikHandleSubmit JSON.parse(text): \n see response text in console');
-
-        } else if (error.name === "TypeError" && error.message === "Failed to fetch") {
-            alert('Ошибка соединения\n Internet connection error');
+            return {response: error.response}
         } else {
-            console.error("formikHandleSubmit Unknown Error: ", error);
+            throw error
         }
     }
 }

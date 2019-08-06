@@ -1,7 +1,7 @@
 import TestView from 'apps/TestView'
 import * as LoadableModules from "./appModules";
 
-const SERVER = 'http://services.development.ueplatform.ru';
+const SERVER = 'http://dev.uep24.ru';
 
 const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';

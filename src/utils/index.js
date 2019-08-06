@@ -101,5 +101,7 @@ export function debounce(func, wait, immediate) {
 };
 
 
-export const getIdFromRouterParams = props => props.match.params.id;
+export const getIdFromMatch = match => match.params.id;
+
+export const getIdFromRouterParams = props => getIdFromMatch(props.match);
 export const getPathFromRouterParams = props => props.match.path;
