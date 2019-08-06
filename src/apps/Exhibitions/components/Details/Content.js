@@ -1,40 +1,21 @@
 import React from 'react'
 import ExhibitionSchedule from 'apps/ExhibitionSchedule'
 import ExhibitionContests from 'apps/ExhibitionContest'
-import DetailImage from "../DetailsImage";
 import Tabs, {TabContent} from "components/Tabs";
-
+import Img from 'components/Img'
 import DetailsContent from "../DetailsContent";
 import ExhibitionReferees from './Referees'
-
-import {useDictionary, getDictElement, getDictElementsArray} from 'apps/Dictionaries'
-
-// address: "Naberezhnaya Leonova 66 -143"
-// breed_types: [1, 2]
-// city_id: 121
-// class_types: [1, 2]
-// club_id: 14
-// description: "Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород Межрегиональная выставка всех пород "
-// dignity_types: [2, 3]
-// id: 26
-// name: "Межрегиональная выставка всех пород"
-// rank_type: 4
-// referees_id: [1, 4]
 
 
 export default function ExhibitionDetailsContent({
                                                      id,
-                                                     images = [],
+                                                     exhibition_avatar_link,
                                                      description,
                                                      referees_id,
                                                  }) {
     return (
         <DetailsContent>
-            {
-                images.length > 0 ?
-                    images.map(image => <DetailImage key={image.url} url={image.url}/>)
-                    : null
-            }
+            {exhibition_avatar_link ? <Img src={exhibition_avatar_link}/> : null}
 
             <Tabs className="exhibition-details__tabs">
 
