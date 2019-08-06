@@ -23,4 +23,12 @@ export const DELETE_FAILED = 'client/exh/DELETE_FAILED';
 
 export const CLEAR_ERRORS = 'client/exh/CLEAR_ERRORS';
 
+export const ADD_IMAGE_SUCCESS = 'client/exh/Image/Add/Success';
+export const ADD_DELETE_SUCCESS = 'client/exh/Image/Delete/Success';
+
+export const ADD_AVATAR_SUCCESS = 'client/exh/Avatar/Add/Success';
+export const DELETE_AVATAR_SUCCESS = 'client/exh/Avatar/Delete/Success';
+
+export const ADD_MAP_SUCCESS = 'client/exh/Map/Add/Success';
+export const DELETE_MAP_SUCCESS = 'client/exh/Map/Delete/Success';
 
