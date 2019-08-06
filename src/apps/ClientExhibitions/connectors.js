@@ -1,12 +1,36 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getExhibitionById, getExhibitionsDetailsById, getExhibitionsIdList, getExhibitionDetailsFor} from "./selectors";
-import {getExhibitionDetails, getExhibitionList, addExhibitionSuccess, updateExhibitionSuccess} from "./actions";
+import {
+    getExhibitionById,
+    getExhibitionsDetailsImages,
+    getExhibitionsDetailsById, getExhibitionsIdList, getExhibitionDetailsFor
+} from "./selectors";
+import {
+    getExhibitionDetails,
+    getExhibitionList,
+    addExhibitionSuccess,
+    updateExhibitionSuccess,
+    addAvatarSuccess,
+    addMapSuccess,
+    deleteAvatarSuccess,
+    deleteMapSuccess,
+} from "./actions";
 
 export const connectExhibitionDetails = connect(
     getExhibitionsDetailsById,
     dispatch => bindActionCreators({
-        getExhibitionDetails
+        getExhibitionDetails,
+    }, dispatch)
+);
+
+
+export const connectExhibitionImages = connect(
+    getExhibitionsDetailsImages,
+    dispatch => bindActionCreators({
+        addAvatarSuccess,
+        addMapSuccess,
+        deleteAvatarSuccess,
+        deleteMapSuccess,
     }, dispatch)
 );
 
