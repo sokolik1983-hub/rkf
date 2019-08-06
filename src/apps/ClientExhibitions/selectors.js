@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect'
 import {defaultReduxKey} from 'apps/ClientExhibitions/config'
+import {objectNotEmpty} from "../../utils";
 
 export const getExhibitions = (state) => state[defaultReduxKey].exhibitions;
 export const getExhibitionId = (state, props) => props.exhibitionId;
@@ -34,6 +35,27 @@ export const getExhibitionsDetailsById = createSelector(
         return {
             ...routeParams,
             exhibitionsDetails: exhibitionDetails[routeParams.exhibitionId]
+        }
+    }
+);
+
+export const getExhibitionsDetailsImages = createSelector(
+    [getRouteParams, getExhibitionsDetails],
+    (routeParams, exhibitionDetails) => {
+        const {exhibitionId} = routeParams;
+        const details = exhibitionDetails[exhibitionId];
+        if (objectNotEmpty(details)) {
+            const {exhibition_map_link, exhibition_avatar_link} = details;
+            return {
+                exhibition_map_link,
+                exhibition_avatar_link,
+                exhibitionId
+            }
+        }
+        return {
+            exhibition_map_link: null,
+            exhibition_avatar_link: null,
+            exhibitionId
         }
     }
 );

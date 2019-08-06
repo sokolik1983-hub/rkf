@@ -10,13 +10,17 @@ import ClientExhibitionContests from 'apps/ClientExhibitionContest'
 
 import {connectExhibitionDetails} from "apps/ClientExhibitions/connectors"
 import UpdateExhibitionForm from 'apps/ClientExhibitions/components/Forms/UpdateForm'
-
+import {ExhibitionAvatar, ExhibitionMap} from 'apps/ClientExhibitions/components/Images'
 
 const Step2 = (props) =>
     <>
+        <h3>Avatar</h3>
+        <ExhibitionAvatar {...props}/>
+        <h3>Map</h3>
+        <ExhibitionMap {...props}/>
         <ClientExhibitionSchedule {...props}/>
         <ClientExhibitionContests {...props}/>
-    </>
+    </>;
 
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
