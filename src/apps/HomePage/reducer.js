@@ -1,34 +1,62 @@
 import * as actiontypes from './actiontypes';
+import {combineReducers} from "redux";
+import {normalizeList} from 'shared/normilizers'
+import createReducer from 'utils/createReducer'
 
-
-const demoInitialState = {
-    loadingApi: false,
+const homePageExhibitionsInitialState = {
+    listCollection: {},
+    listIds: []
 };
 
-export default function demoReducer(state = demoInitialState, action) {
+const homePageNewsInitialState = {
+    listCollection: {},
+    listIds: []
+};
 
-    switch (action.type) {
+const homePageClubInitialState = {
+    listCollection: {},
+    listIds: []
+};
 
-        case actiontypes.FETCH: {
-            return {
-                ...state,
-                loadingApi: true,
-            };
-        }
-        case actiontypes.FETCH_SUCCESS: {
-            return {
-                ...state,
-                loadingApi: false,
-            };
-        }
-        case actiontypes.FETCH_FAILED: {
-            return {
-                ...state,
-                loadingApi: false,
-            };
-        }
 
-        default:
-            return state;
-    }
-}
+const exhibitions = createReducer(homePageExhibitionsInitialState, {
+    [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
+        const {entities, result:listIds} = normalizeList(action.data);
+        return {
+            ...state,
+            listIds,
+            listCollection: entities.listCollection
+        };
+    },
+});
+
+const news = createReducer(homePageNewsInitialState, {
+    [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
+        const {data} = action;
+
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+});
+
+const club = createReducer(homePageClubInitialState, {
+    [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
+        const {data} = action;
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+});
+
+
+const homePageReducer = combineReducers({
+    exhibitions,
+    news,
+    club,
+});
+
+
+export default homePageReducer;
