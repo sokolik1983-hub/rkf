@@ -2,6 +2,8 @@ import {connect} from 'react-redux'
 import {
     selectExhibitions,
     selectExhibition,
+    selectNews,
+    selectNewsStory,
 } from './selectors'
 
 export const connectExhibitionsAnnouncementList=connect(
@@ -10,4 +12,12 @@ export const connectExhibitionsAnnouncementList=connect(
 
 export const connectExhibitionsAnnouncement=connect(
     selectExhibition
+);
+
+export const connectNewsList=connect(
+    selectNews
+);
+
+export const connectNewsStory=connect(
+    selectNewsStory
 );

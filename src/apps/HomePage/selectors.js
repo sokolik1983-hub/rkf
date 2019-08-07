@@ -10,3 +10,15 @@ export const selectExhibition=(state,props)=>{
         ...listCollection[String(props.id)]
     }
 };
+
+
+export const selectNews = state => {
+    return {...state[defaultReduxKey].news}
+};
+
+export const selectNewsStory=(state,props)=>{
+    const {listCollection} = selectNews(state);
+    return {
+        ...listCollection[String(props.id)]
+    }
+};

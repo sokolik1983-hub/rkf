@@ -31,12 +31,12 @@ const exhibitions = createReducer(homePageExhibitionsInitialState, {
 });
 
 const news = createReducer(homePageNewsInitialState, {
-    [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {data} = action;
-
+    [actiontypes.GET_NEWS_SUCCESS](state, action) {
+        const {entities, result:listIds} = normalizeList(action.data);
         return {
             ...state,
-            loading: true,
+            listIds,
+            listCollection: entities.listCollection
         };
     },
 });
