@@ -7,7 +7,7 @@ import reducer from "./reducer";
 import saga from "./saga";
 import {compose} from "redux";
 import {connectClubInfo} from './connectors'
-import {UpdateClubInfoForm} from './components/Form'
+import {ClubInfoForm, UpdateClubInfoForm} from './components/Form'
 
 function ClientClubInfoProxy({clubId, getClubInfo, clubInfo}) {
     const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)

@@ -8,6 +8,9 @@ const RenderFields = () =>
     <React.Fragment>
         <FormGroup>
             <FormField
+                {...fields.name}
+            />
+            <FormField
                 {...fields.description}
             />
         </FormGroup>

@@ -36,6 +36,7 @@ export async function formikHandleSubmit({
         data: isMultipart ? getFormData(data) : JSON.stringify(data),
         headers: getHeaders(isMultipart),
     };
+
     if (isDev) {
         config.crossDomain = true
     }
