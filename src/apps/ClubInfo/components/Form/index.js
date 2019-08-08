@@ -1,14 +1,14 @@
 import React from 'react'
+import {useDispatch} from "react-redux";
 import {clubInfoFormConfig} from "apps/ClubInfo/config";
 import {FormFormikEnhanced} from "components/Form";
 import RenderFields from './RenderFields'
-
+import {updateClubInfoSuccess} from 'apps/ClubInfo/actions'
 export function ClubInfoForm(isUpdate) {
     const onSuccess = data => console.log(data);
-    const transformValues=values=>({...values, club_id:12})
+    const transformValues = values => ({...values, club_id: 12})
     return (
         <FormFormikEnhanced
-            isUpdate
             onSuccess={onSuccess}
             {...clubInfoFormConfig}
             transformValues={transformValues}
@@ -19,11 +19,19 @@ export function ClubInfoForm(isUpdate) {
 }
 
 export function UpdateClubInfoForm({initialValues}) {
-    const onSuccess = data => console.log(data)
+    const dispatch = useDispatch();
+    // TODO
+    const {id, ...rest} = initialValues;
+    rest.club_id = id;
+    const onSuccess = data => {
+        const {id, ...rest} = data;
+        const updateData = {club_id: id, ...rest};
+        dispatch(updateClubInfoSuccess(updateData))
+    };
     return (
         <FormFormikEnhanced
-            isUpade={true}
-            formInitials={initialValues}
+            isUpdate
+            formInitials={rest}
             onSuccess={onSuccess}
             {...clubInfoFormConfig}
         >

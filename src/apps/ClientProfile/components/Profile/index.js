@@ -3,6 +3,7 @@ import {CompanyContactsForm, CompanySocialForm} from '../Form'
 import {connectProfile} from 'apps/ClientProfile/connectors'
 import Card from 'components/Card'
 import ClubInfo from 'apps/ClubInfo'
+import ClientProfileAvatar from '../Avatar'
 import LegalInfo from 'apps/ClubLegalInfo'
 import BankInfo from 'apps/ClubBankInfo'
 
@@ -21,7 +22,7 @@ function ClientProfile(props) {
             <h2>Профиль</h2>
             <Card lg>
                 <h3>ClubInfo</h3>
-                {/*<ClubInfo clubId={12}/>*/}
+                <ClubInfo clubId={12}/>
             </Card>
             <Card lg>
                 <h3>LegalInfo</h3>

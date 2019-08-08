@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 export const defaultReduxKey = 'club_info';
-export const endpointUrl = '/api/club/Additional';
+export const endpointUrl = '/api/club';
 
 export const clubInfoFormConfig = {
     formAction: endpointUrl,
@@ -9,6 +9,10 @@ export const clubInfoFormConfig = {
         club_id: {
             name: 'club_id'
 
+        },
+        name:{
+            name: 'name',
+            label: 'Название клуба',
         },
         address: {
             name: 'address',
@@ -20,7 +24,7 @@ export const clubInfoFormConfig = {
         },
         description: {
             name: 'description',
-            label: 'Адрес клуба',
+            label: 'Описание',
         },
         // federation: {
         //     name: 'federation',

@@ -31,11 +31,12 @@ export async function formikHandleSubmit({
                                          }) {
     // Configure request
     const config = {
-        url: isDev ? `${SERVER}${url}` : url,
+        url,
         method: isUpdate ? "PUT" : "POST",
         data: isMultipart ? getFormData(data) : JSON.stringify(data),
         headers: getHeaders(isMultipart),
     };
+
     if (isDev) {
         config.crossDomain = true
     }

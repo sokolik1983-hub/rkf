@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import Container from 'components/Layout/Container'
 import Days from './Days'
-import Exhibitions from './Exhibitions'
+import Exhibitions from '../ExhibitionsAnnouncement'
 
 
 export default class WeekExhibitions extends PureComponent {
