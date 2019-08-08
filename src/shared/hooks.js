@@ -1,4 +1,7 @@
-import {useState, useMemo} from "react";
+import {useState, useMemo, useEffect} from "react";
+import axios from 'axios'
+import {useDispatch} from "react-redux";
+import {getHeaders} from "../utils/request";
 
 export const useVisibility = (initialVisibility = false) => {
     const [visibility, setVisibility] = useState(initialVisibility);
@@ -25,4 +28,48 @@ export const useConfirmDialog = (initialConfirmState = false) => {
         }),
         [confirm, onConfirm, onCancel],
     );
+};
+
+
+export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onErrorAction) => {
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        let didCancel = false;
+        const axiosConfig={
+            url:resourceUrl,
+            headers: getHeaders(),
+        };
+        const fetchData = async () => {
+
+
+            try {
+                setLoading(true);
+                const response = await axios(axiosConfig);
+
+                if (!didCancel) {
+                    dispatch(onSuccessAction(response.data.result));
+                    setLoading(false);
+                }
+            } catch (error) {
+                if (!didCancel) {
+                    if (onErrorAction) {
+                        dispatch(onErrorAction(error.response.data.errros));
+                    }
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchData();
+
+        return () => {
+            didCancel = true;
+        };
+    }, [resourceUrl]);
+
+    return {
+        loading
+    }
 };

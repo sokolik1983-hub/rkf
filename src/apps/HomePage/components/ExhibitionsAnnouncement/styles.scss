@@ -1,21 +1,16 @@
-.exhibitions {
-  display: flex;
-  flex-flow: row nowrap;
-  overflow-y: hidden;
-  margin: 24px 0;
-  padding-bottom: 16px;
-}
-
-.exhibition {
+.ExhibitionAnnouncement {
   margin-right: 16px;
+  max-width: 284px;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
-    .exhibition__image{
+
+    .exhibition__image {
       box-shadow: 0 22px 30px rgba(0, 0, 0, 0.15);
 
     }
   }
+
   &__image {
     min-width: 284px;
     min-height: 165px;
@@ -39,5 +34,13 @@
     min-height: 60px;
     max-height: 60px;
     text-overflow: ellipsis;
+  }
+
+  &__list {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-y: hidden;
+    margin: 24px 0;
+    padding-bottom: 16px;
   }
 }
