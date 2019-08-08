@@ -9,3 +9,6 @@ export const ADD_NEWS_SUCCESS = 'client/News/AddSuccess';
 export const ADD_NEWS_FAILED = 'client/News/AddFailed';
 
 
+export const DELETE_NEWS_SUCCESS = 'client/News/Delete/Success';
+
+

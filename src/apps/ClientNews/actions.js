@@ -10,3 +10,5 @@ export const getNewsFailed = makeActionCreator(actionTypes.GET_NEWS_FAILED, 'err
 export const addNews = makeActionCreator(actionTypes.ADD_NEWS, 'data');
 export const addNewsSuccess = makeActionCreator(actionTypes.ADD_NEWS_SUCCESS, 'data');
 export const addNewsFailed = makeActionCreator(actionTypes.ADD_NEWS_FAILED, 'errors');
+
+export const deleteNewsStorySuccess = makeActionCreator(actionTypes.DELETE_NEWS_SUCCESS, 'id');

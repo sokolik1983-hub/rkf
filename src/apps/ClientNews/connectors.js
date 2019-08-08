@@ -7,9 +7,9 @@ import {
 
 import {
     getNews,
-    addNewsSuccess
+    addNewsSuccess,
+    deleteNewsStorySuccess
 } from './actions'
-
 
 
 export const connectNewsForm = connect(
@@ -32,6 +32,7 @@ export const connectNewsStory = connect(
     selectNewsStory,
     dispatch => bindActionCreators(
         {
-            getNews
+            getNews,
+            deleteNewsStorySuccess
         }, dispatch)
 );
