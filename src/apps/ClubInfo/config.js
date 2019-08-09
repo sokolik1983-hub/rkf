@@ -32,7 +32,7 @@ export const clubInfoFormConfig = {
         //     type: 'select',
         //     placeholder: 'ОАНКОО',
         //     fieldType: 'reactSelectAsync',
-        //     optionsEndpoint: 'http://services.development.ueplatform.ru/api/club/federation/all'
+        //     optionsEndpoint: '/api/club/federation/all'
         // },
         // status: {
         //     name: 'status',
@@ -40,7 +40,7 @@ export const clubInfoFormConfig = {
         //     type: 'select',
         //     placeholder: 'Региональный',
         //     fieldType: 'reactSelectAsync',
-        //     optionsEndpoint: 'http://services.development.ueplatform.ru/api/club/status/all'
+        //     optionsEndpoint: '/api/club/status/all'
         // },
         // owner_name:{
         //     name: 'owner_name',
