@@ -5,7 +5,7 @@ import './Header.scss'
 
 function ClientHomeHeader({
                               avatar_link = "/static/images/header/clientDefaultBanner.jpeg",
-                              name
+                              name = "Имя не задано"
                           }) {
     return (
         <div className="ClientHomeHeader">
