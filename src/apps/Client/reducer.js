@@ -1,16 +1,18 @@
 import * as actiontypes from './actiontypes';
+import createReducer from "utils/createReducer";
 
 
 const clientInitialState = {
-    loadingApi: false,
+    club_info: {},
 };
 
-export default function clientRootReducer(state = clientInitialState, action) {
+const clientCommonReducer = createReducer(clientInitialState, {
+    [actiontypes.GET_CLUB_INFO_SUCCESS](state, action) {
+        return {
+            ...state,
+            club_info: action.data
+        };
+    },
+});
 
-    switch (action.type) {
-
-
-        default:
-            return state;
-    }
-}
+export default clientCommonReducer;
