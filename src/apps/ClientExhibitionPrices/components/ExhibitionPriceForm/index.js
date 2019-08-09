@@ -22,12 +22,17 @@ class ScheduleDayItemForm extends PureComponent {
 
                     <FormField
                         style={{flex: 1}}
-                        {...fields.discont}
+                        {...fields.description}
                     />
                     <FormField
                         style={{flex: 1}}
                         className={'start'}
                         {...fields.sum}
+                    />
+                    <FormField
+                        style={{flex: 1}}
+                        className={'start'}
+                        {...fields.discont}
                     />
 
                 </FormGroup>

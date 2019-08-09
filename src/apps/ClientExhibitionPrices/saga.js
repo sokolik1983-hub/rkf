@@ -9,7 +9,7 @@ import * as actions from './actions'
 export function* addExhibitionPrice(action) {
     try {
         const data = yield call(Api.addExhibitionPrice, action);
-        yield put(actions.addExhibitionPriceSuccess(data))
+        yield put(actions.addExhibitionPriceSuccess(data.result))
     } catch (error) {
         yield put(actions.addExhibitionPriceFailed(error.response))
     }
