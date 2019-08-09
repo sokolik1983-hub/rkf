@@ -29,7 +29,7 @@ export const firstStepForm = {
             //components: {Option: CheckBoxOption},
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/dignity/all'
+            optionsEndpoint: '/api/exhibition/dignity/all'
         },
         rank_type: {
             name: 'rank_type',
@@ -37,7 +37,7 @@ export const firstStepForm = {
             placeholder: 'CACIB',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/rank/all'
+            optionsEndpoint: '/api/exhibition/rank/all'
         },
         class_types: {
             name: 'class_types',
@@ -47,7 +47,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/Caste/all'
+            optionsEndpoint: '/api/exhibition/Caste/all'
         },
         referees_id: {
             name: 'referees_id',
@@ -57,7 +57,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/Referee/all'
+            optionsEndpoint: '/api/Referee/all'
         },
         breed_types: {
             name: 'breed_types',
@@ -67,7 +67,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/dog/Breed/all'
+            optionsEndpoint: '/api/dog/Breed/all'
         },
         city_id: {
             name: 'city_id',
@@ -75,7 +75,7 @@ export const firstStepForm = {
             placeholder: 'Москва',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: 'http://services.development.ueplatform.ru/api/exhibition/city/all'
+            optionsEndpoint: '/api/exhibition/city/all'
         },
         address: {
             name: 'address',
