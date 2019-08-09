@@ -69,4 +69,9 @@
     display: flex;
     flex-flow: row nowrap;
   }
+  &__avatar{
+    img{
+      max-width: 100%;
+    }
+  }
 }

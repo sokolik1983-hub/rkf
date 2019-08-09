@@ -1,15 +1,24 @@
 import {object, string} from "yup";
 
-export const defaultReduxKey = 'exhibition_prices'
+export const defaultReduxKey = 'exhibition_prices';
+
+
+export const listPricesByExhibitionIdUrl = '/api/exhibition/Price/byexhibition?id=';
 
 export const exhibitionPricesForm = {
     fields: {
         sum: {
             name: 'sum',
+            type: 'number',
             placeholder: 'Цена',
+        },
+        description: {
+            name: 'description',
+            placeholder: 'Описание',
         },
         discont: {
             name: 'discont',
+            type: 'number',
             placeholder: 'Скидка',
         },
     },

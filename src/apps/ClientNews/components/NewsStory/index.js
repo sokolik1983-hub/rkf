@@ -2,15 +2,16 @@ import React from 'react'
 import ClientAvatar from 'components/ClientAvatar'
 import {connectNewsStory} from 'apps/ClientNews/connectors'
 import './styles.scss'
+import DeleteButton from "../../../../components/DeleteButton";
 
-function NewsStory({newsStory}) {
+function NewsStory({newsStory, deleteNewsStorySuccess}) {
 
-    const {title, content, image_link} = newsStory;
+    const {id, title, content, image_link} = newsStory;
 
     const getSignature = () => "Сегодня в 14:00";
-
+    const onDeleteSuccess = () => deleteNewsStorySuccess(id);
     return (
-        <div className="NewsStory">
+        <div id={`NewsStory_${id}`} className="NewsStory">
             <div className="NewsStory__Head">
                 <ClientAvatar size={46}/>
                 <div className="NewsStory__StoryInfo">
@@ -20,11 +21,14 @@ function NewsStory({newsStory}) {
             </div>
             <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>
             <div
-                //style={{backgroundImage: `url(${image})`}}
                 className="NewsStory__ImagePreview">
-                {console.log('image_link',image_link)}
                 <img src={image_link} alt=""/>
             </div>
+            <DeleteButton
+                onDeleteSuccess={onDeleteSuccess}
+                //params={params}
+                actionUrl={'/api/ClubArticle?id=' + id}
+            >удалить</DeleteButton>
         </div>
     )
 }

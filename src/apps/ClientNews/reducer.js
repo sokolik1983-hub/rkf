@@ -42,7 +42,20 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
         const {id} = action.data;
         const news = {...state.news};
         const newsIds = [id, ...state.newsIds];
-        news[id.toString()]=action.data;
+        news[id.toString()] = action.data;
+
+        return {
+            ...state,
+            news,
+            newsIds,
+            loading: false,
+        }
+    },
+    [actiontypes.DELETE_NEWS_SUCCESS](state, action) {
+        const {id} = action;
+        const news = {...state.news};
+        delete news[String(id)];
+        const newsIds = state.newsIds.filter(item => item !== id);
 
         return {
             ...state,

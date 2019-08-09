@@ -2,20 +2,16 @@ import React, {useState} from 'react'
 import Button from 'components/Button'
 import {useConfirmDialog} from 'shared/hooks'
 import axios from 'axios'
-import {isDevEnv} from "../../utils";
-import {SERVER} from "../../appConfig";
 
 export default function DeleteButton(props) {
     const {actionUrl, params, onDeleteSuccess, children} = props;
     const {confirm, onConfirm, onCancel} = useConfirmDialog();
     const [state, setState] = useState({loading: false});
 
-    const url = isDevEnv() ? SERVER + actionUrl : actionUrl;
-
     const onDelete = async () => {
         setState({...state, loading: true});
 
-        const response = await axios.delete(url, {data: params});
+        const response = await axios.delete(actionUrl, {data: params});
 
         console.log(response);
 
@@ -28,15 +24,17 @@ export default function DeleteButton(props) {
         onDelete()
     };
 
-    return confirm ? (
-            <Button disabled={state.loading} onClick={onConfirm}>
-                {children}
-            </Button>
-        )
-        : (
+    return confirm ?
+        (
             <React.Fragment>
                 <Button disabled={state.loading} onClick={onConfirmDelete}>Подвердить</Button>
                 <Button disabled={state.loading} onClick={onCancel}>Отмена</Button>
             </React.Fragment>
+        )
+        :
+        (
+            <Button disabled={state.loading} onClick={onConfirm}>
+                {children}
+            </Button>
         )
 }

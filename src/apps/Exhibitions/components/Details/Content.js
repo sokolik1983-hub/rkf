@@ -15,7 +15,11 @@ export default function ExhibitionDetailsContent({
                                                  }) {
     return (
         <DetailsContent>
-            {exhibition_avatar_link ? <Img src={exhibition_avatar_link}/> : null}
+
+            {exhibition_avatar_link ?
+                <div className="ExhibitionDetails__avatar">
+                    <Img src={exhibition_avatar_link}/>
+                </div> : null}
 
             <Tabs className="exhibition-details__tabs">
 
@@ -31,7 +35,7 @@ export default function ExhibitionDetailsContent({
                         refereesIds={referees_id}
                     />
                 </TabContent>
-                <TabContent label="Участники">Участники</TabContent>
+                {/*<TabContent label="Участники">Участники</TabContent>*/}
                 <TabContent label="Конкурсы">
                     <ExhibitionContests exhibitionId={id}/>
                 </TabContent>

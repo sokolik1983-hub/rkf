@@ -4,26 +4,26 @@ export const menuFakeData1 = [
         title: 'Мои выставки',
         icon: '/static/icons/client/menu-my_exhbitions.svg',
     },
-    {
-        url: '/client',
-        title: 'Карточка участника',
-        icon: '/static/icons/client/menu-owner_card.svg',
-    },
-    {
-        url: '/client',
-        title: 'Владельцы',
-        icon: '/static/icons/client/menu-owners.svg',
-    },
-    {
-        url: '/client',
-        title: 'Питомники',
-        icon: '/static/icons/client/menu-nursery.svg',
-    },
-    {
-        url: '/client',
-        title: 'Щенячьи ведомости',
-        icon: '/static/icons/client/menu-puppy_statements.svg',
-    },
+    // {
+    //     url: '/client',
+    //     title: 'Карточка участника',
+    //     icon: '/static/icons/client/menu-owner_card.svg',
+    // },
+    // {
+    //     url: '/client',
+    //     title: 'Владельцы',
+    //     icon: '/static/icons/client/menu-owners.svg',
+    // },
+    // {
+    //     url: '/client',
+    //     title: 'Питомники',
+    //     icon: '/static/icons/client/menu-nursery.svg',
+    // },
+    // {
+    //     url: '/client',
+    //     title: 'Щенячьи ведомости',
+    //     icon: '/static/icons/client/menu-puppy_statements.svg',
+    // },
 ]
 export const menuFakeData2 = [
     {
@@ -53,18 +53,18 @@ export const menuFakeData3 = [
 
     {
         url: '/client/profile',
-        title: 'Личный кабинет',
+        title: 'Профиль',
         icon: '/static/icons/client/menu-my_cabinet.svg',
     },
-    {
-        url: '/client',
-        title: 'Настройки',
-        icon: '/static/icons/client/menu-my_settings.svg',
-    },
-    {
-        url: '/client',
-        title: 'Помощь',
-        icon: '/static/icons/client/menu-help.svg',
-    },
+    // {
+    //     url: '/client',
+    //     title: 'Настройки',
+    //     icon: '/static/icons/client/menu-my_settings.svg',
+    // },
+    // {
+    //     url: '/client',
+    //     title: 'Помощь',
+    //     icon: '/static/icons/client/menu-help.svg',
+    // },
 
 ];
