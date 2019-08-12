@@ -1,38 +1,36 @@
 import * as actiontypes from './actiontypes';
 import createReducer from 'utils/createReducer'
+import {normalizeList} from "shared/normilizers";
 
-const clubClubContactsInfoState = {
-    loadingApi: false,
-    clubClubContactsClubContacts: null
+const clubClubContactsInitialState = {
+    listCollection: {},
+    listIds: []
 };
 
-const clubClubContactsInfoReducer = createReducer(clubClubContactsInfoState, {
-    [actiontypes.GET_LEGAL_INFO](state, action) {
+const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
+
+    [actiontypes.GET_LIST_SUCCESS](state, action) {
+
+        const {entities, result: listIds} = normalizeList(action.data);
+         console.log(actiontypes.GET_LIST_SUCCESS, entities.listCollection, listIds);
         return {
             ...state,
-            loading: true,
-        };
+            listCollection: entities.listCollection,
+            listIds
+        }
     },
-    [actiontypes.GET_LEGAL_INFO_SUCCESS](state, action) {
+    [actiontypes.ADD_CONTACT_SUCCESS](state, action) {
+        const {data} = action;
+        const listIds = [...state.listIds, data.id];
+        const listCollection = {...state.listCollection};
+        listCollection[String(data.id)] = data;
         return {
             ...state,
-            clubClubContactsClubContacts: action.data,
-            loading: false,
+            listCollection,
+            listIds
         }
     },
 
-    [actiontypes.GET_LEGAL_INFO_FAILED](state, action) {
-        return {
-            ...state,
-            loading: false,
-        }
-    },
-    [actiontypes.UPDATE_LEGAL_INFO_SUCCESS](state, action){
-        return {
-            ...state,
-            clubClubContactsClubContacts: action.data
-        }
-    }
 });
 
-export default clubClubContactsInfoReducer;
+export default clubClubContactsReducer;
