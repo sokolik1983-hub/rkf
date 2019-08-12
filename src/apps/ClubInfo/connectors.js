@@ -5,7 +5,7 @@ import {
 } from './selectors'
 
 import {
-    getClubInfo,
+    getClubInfoSuccess,
 } from './actions'
 
 
@@ -14,6 +14,6 @@ export const connectClubInfo = connect(
     selectClubInfo,
     dispatch => bindActionCreators(
         {
-            getClubInfo
+            getClubInfoSuccess
         }, dispatch)
 );
