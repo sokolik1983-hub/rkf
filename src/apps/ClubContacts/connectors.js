@@ -1,28 +1,31 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {
-    selectClubContacts
+    selectListContact,
+    selectClubId,
+    selectClubContact
 } from './selectors'
 
 import {
-    getClubContacts,
-    updateClubContactsSuccess
+    getClubContactsListSuccess,
+    addClubContactSuccess,
 } from './actions'
 
-
-
-export const connectClubContacts = connect(
-    selectClubContacts,
-    dispatch => bindActionCreators(
-        {
-            getClubContacts
-        }, dispatch)
+export const connectListContact = connect(
+    //Here
+    selectListContact,
+    dispatch => bindActionCreators({
+        getClubContactsListSuccess
+    }, dispatch)
 );
 
-export const connectClubContactsForm = connect(
-    selectClubContacts,
-    dispatch => bindActionCreators(
-        {
-            updateClubContactsSuccess
-        }, dispatch)
+export const connectContactFrom = connect(
+    selectClubId,
+    dispatch => bindActionCreators({
+        addClubContactSuccess
+    }, dispatch)
 );
+
+export const connectClintClubContact=connect(
+    selectClubContact,
+)

@@ -46,28 +46,44 @@ const clearRolesWithActions = () => {
     localStorage.removeItem("rolesWithActions_info")
 };
 
+const saveProfile = (profile_id) => {
+    localStorage.setItem("profile_id", JSON.stringify(profile_id))
+};
+
+const loadProfile = () => {
+    const profile_id = localStorage.getItem("profile_id");
+    return profile_id === null ? null : parseInt(profile_id, 10);
+};
+
+const clearProfile = (profile) => {
+    localStorage.removeItem("profile_id")
+};
+
 
 const authInitialState = {
     loading: false,
     isAuthenticated: isUserAuthenticated(),
     user_info: loadUserInfo(),
     requestErrors: {},
+    profile_id: loadProfile(),
     roles_with_actions: loadRolesWithActions(),
 };
 
 const authReducer = createReducer(authInitialState, {
 
     [actiontypes.LOGIN_SUCCESS](state, action) {
-        const {access_token, user_info, roles_with_actions} = action.data;
+        const {access_token, user_info, roles_with_actions, profile_id} = action.data;
         saveApiKey(access_token);
         saveUserInfo(user_info);
         saveRolesWithActions(roles_with_actions);
+        saveProfile(profile_id);
         return {
             ...state,
             loading: false,
             isAuthenticated: true,
             user_info,
-            roles_with_actions
+            roles_with_actions,
+            profile_id
         };
     },
 
@@ -76,6 +92,7 @@ const authReducer = createReducer(authInitialState, {
         clearApiKey();
         clearUserInfo();
         clearRolesWithActions();
+        clearProfile();
         return {
             ...state,
             //TODO Убрать isAuthenticated: false,

@@ -1,9 +1,3 @@
-export const GET_LEGAL_INFO = 'client/ClubContacts/Get';
-export const GET_LEGAL_INFO_SUCCESS = 'client/ClubContacts/GetSuccess';
-export const GET_LEGAL_INFO_FAILED = 'client/ClubContacts/GetFailed';
+export const GET_LIST_SUCCESS = 'client/Club/Contacts/Get/Success';
 
-
-export const UPDATE_LEGAL_INFO = 'client/ClubContacts/Update';
-export const UPDATE_LEGAL_INFO_SUCCESS = 'client/ClubContacts/UpdateSuccess';
-export const UPDATE_LEGAL_INFO_FAILED = 'client/ClubContacts/UpdateFailed';
-
+export const ADD_CONTACT_SUCCESS = 'client/Club/Contacts/Add/Success';

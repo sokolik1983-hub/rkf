@@ -1,19 +1,16 @@
 import React, {Fragment} from "react";
 import {FormField, FormGroup, SubmitButton, FormControls} from "components/Form";
-import {clubClubContactsConfig} from 'apps/ClubContacts/config'
+import {clubClubDocumentsConfig} from 'apps/ClubDocuments/config'
 
-const {fields} = clubClubContactsConfig;
+const {fields} = clubClubDocumentsConfig;
 export const RenderFields = () =>
     <Fragment>
         <FormGroup inline>
             <FormField
-                {...fields.description}
+                {...fields.name}
             />
             <FormField
-                {...fields.contact_type_id}
-            />
-            <FormField
-                {...fields.value}
+                {...fields.url}
             />
         </FormGroup>
         <FormControls>

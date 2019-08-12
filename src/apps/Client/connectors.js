@@ -1,9 +1,10 @@
 import {connect} from 'react-redux'
 import {bindActionCreators} from "redux";
-import {defaultReduxKey} from "./config";
+
 import {
     selectClubDescription,
-    selectClubHead
+    selectClubHead,
+    selectClientData,
 } from './selectors'
 import {
     getClubInfoSuccess,
@@ -11,7 +12,7 @@ import {
 } from './actions'
 
 export const connectClientProxy = connect(
-    state => ({...state[defaultReduxKey]}),
+    selectClientData,
     dispatch => bindActionCreators(
         {
             getClubInfoSuccess

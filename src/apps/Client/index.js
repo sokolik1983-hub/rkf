@@ -9,19 +9,12 @@ import ClientProfile from 'apps/ClientProfile'
 import Home from './components/Home'
 import ClientLayout from './components/Layout'
 
-import {
-    defaultReduxKey,
-    ClientPathContext,
-    clubInfoUrl,
-} from "./config";
-import injectReducer from "utils/injectReducer";
-import reducer from "./reducer";
+import {ClientCommonContext} from "./config";
 import {connectClientProxy} from './connectors'
-import {useResourceAndStoreToRedux} from "../../shared/hooks";
 
 
 function ClientProxy(props) {
-    const {match, getClubInfoSuccess} = props;
+    const {match, profile_id} = props;
     const {path} = match;
 
     useEffect(() => {
@@ -36,25 +29,23 @@ function ClientProxy(props) {
 
     }, []);
 
-    const {loading} = useResourceAndStoreToRedux(clubInfoUrl, getClubInfoSuccess);
-
     return (
-        <ClientPathContext.Provider value={{path}}>
+        <ClientCommonContext.Provider value={{path, profile_id}}>
             <AuthOrLogin>
-                <ClientLayout>
-                    <Switch>
-                        <Route exact path={`${path}`} component={Home}/>
-                        <Route path={`${path}/profile`} component={ClientProfile}/>
-                        <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
-                    </Switch>
-                </ClientLayout>
-            </AuthOrLogin>
-        </ClientPathContext.Provider>
+                    <ClientLayout>
+                        <Switch>
+                            <Route exact path={`${path}`} component={Home}/>
+                            <Route path={`${path}/profile`} component={ClientProfile}/>
+                            <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
+                        </Switch>
+                    </ClientLayout>
+                </AuthOrLogin>
+            }
+
+        </ClientCommonContext.Provider>
     )
 }
 
-const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 export default compose(
-    withReducer,
     connectClientProxy,
 )(ClientProxy)

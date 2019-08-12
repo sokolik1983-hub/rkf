@@ -4,8 +4,8 @@ import {connectNewsStory} from 'apps/HomePage/connectors'
 
 
 function NewsStory(props) {
-    const {className, image, category, title} = props;
-    return (
+    const {id, className, image, category, title} = props;
+    return id ? (
         <div className={classnames("NewsStory", {[className]: className})}>
 
             <div style={{
@@ -22,7 +22,7 @@ function NewsStory(props) {
             </div>
 
         </div>
-    )
+    ) : null;
 }
 
 export default connectNewsStory(NewsStory)

@@ -1,21 +1,21 @@
 import React from 'react'
-import {connectContactFrom} from 'apps/ClubContacts/connectors'
+import {connectDocumentFrom} from 'apps/ClubDocuments/connectors'
 import {RenderFields} from './RenderFields'
-import {clubClubContactsConfig} from 'apps/ClubContacts/config'
+import {clubClubDocumentsConfig} from 'apps/ClubDocuments/config'
 import {FormFormikEnhanced} from "components/Form";
 
-function ClubContactForm({club_id, addClubContactSuccess}) {
+function ClubDocumentForm({club_id, addClubDocumentSuccess}) {
     const transformValues = values => ({...values, club_id});
-    const onSuccess = data => addClubContactSuccess(data);
+    const onSuccess = data => addClubDocumentSuccess(data);
     return (
         <FormFormikEnhanced
             onSuccess={onSuccess}
             transformValues={transformValues}
-            {...clubClubContactsConfig}
+            {...clubClubDocumentsConfig}
         >
             <RenderFields/>
         </FormFormikEnhanced>
     )
 }
 
-export default connectContactFrom(ClubContactForm)
+export default connectDocumentFrom(ClubDocumentForm)

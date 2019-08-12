@@ -2,17 +2,15 @@ import * as actiontypes from './actiontypes';
 import createReducer from 'utils/createReducer'
 import {normalizeList} from "shared/normilizers";
 
-const clubClubContactsInitialState = {
+const clubClubDocumentsInitialState = {
     listCollection: {},
     listIds: []
 };
 
-const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
+const clubClubDocumentsReducer = createReducer(clubClubDocumentsInitialState, {
 
     [actiontypes.GET_LIST_SUCCESS](state, action) {
-
         const {entities, result: listIds} = normalizeList(action.data);
-         console.log(actiontypes.GET_LIST_SUCCESS, entities.listCollection, listIds);
         return {
             ...state,
             listCollection: entities.listCollection,
@@ -33,4 +31,4 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
 
 });
 
-export default clubClubContactsReducer;
+export default clubClubDocumentsReducer;
