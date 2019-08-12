@@ -9,18 +9,15 @@ import {compose} from "redux";
 import {connectClubInfo} from './connectors'
 import {ClubInfoForm, UpdateClubInfoForm} from './components/Form'
 
-function ClientClubInfoProxy({clubId, getClubInfo, clubInfo}) {
-    const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)
-    if (clubInfo === null) {
-        getClubInfo(clubId)
-    }
+function ClientClubInfoProxy({clubInfo}) {
+    const {visibility, toggleVisibility} = useVisibility(false)
     return (
         <div>
             <button onClick={toggleVisibility}>Редактировать</button>
             {
                 visibility ?
                     <UpdateClubInfoForm initialValues={clubInfo}/> :
-                    <ClientClubInfo {...clubInfo}/>
+                    <ClientClubInfo />
             }
         </div>
     )
