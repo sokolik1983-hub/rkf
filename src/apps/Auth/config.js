@@ -1,6 +1,9 @@
 import {object, string} from 'yup'
 import {DEFAULT_PHONE_INPUT_MASK, DEFAULT_PHONE_INPUT_PLACEHOLDER} from "appConfig";
 
+
+export const defaultReduxKey='authentication';
+
 export const redirectAfterLogin = '/';
 
 export const loginFormConfig = {
