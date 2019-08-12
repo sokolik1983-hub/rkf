@@ -15,7 +15,8 @@ function NewsList({listIds}) {
 
     //const {loading} = useResourceAndStoreToRedux(publicNewsEndpoint, getNewsSuccess);
     const [first, second, third, ...rest] = listIds;
-    return (
+    return (!loading && listIds) ?
+        (
         <div className="NewsList">
             <div className="NewsList__announcement">
                 <NewsStory id={first} className="NewsStory--main"/>
@@ -35,6 +36,7 @@ function NewsList({listIds}) {
             </div>
         </div>
     )
+        :<div>Новости не найдены</div>
 }
 
 export default connectNewsList(NewsList);
