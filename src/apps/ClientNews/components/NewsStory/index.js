@@ -6,7 +6,7 @@ import DeleteButton from "../../../../components/DeleteButton";
 
 function NewsStory({newsStory, deleteNewsStorySuccess}) {
 
-    const {id, title, content, image_link} = newsStory;
+    const {id, title, content, picture_link} = newsStory;
 
     const getSignature = () => "Сегодня в 14:00";
     const onDeleteSuccess = () => deleteNewsStorySuccess(id);
@@ -22,7 +22,7 @@ function NewsStory({newsStory, deleteNewsStorySuccess}) {
             <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>
             <div
                 className="NewsStory__ImagePreview">
-                <img src={image_link} alt=""/>
+                <img src={picture_link} alt=""/>
             </div>
             <DeleteButton
                 onDeleteSuccess={onDeleteSuccess}

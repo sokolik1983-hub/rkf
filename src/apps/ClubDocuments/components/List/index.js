@@ -12,6 +12,7 @@ function ClientDocumentList(props) {
     const {loading} = useResourceAndStoreToRedux(url, getClubDocumentsListSuccess);
     return (
         <div className="ClientDocumentList">
+            <h3>Документы</h3>
             {loading ?
                 "Загрузка..."
                 : listIds.map(id => <ListDocument key={id} id={id}/>)}

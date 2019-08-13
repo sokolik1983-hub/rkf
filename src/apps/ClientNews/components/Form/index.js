@@ -8,12 +8,10 @@ const {fields} = newsStoryFormConfig;
 
 function NewsStoryCreateForm({addNewsSuccess}) {
     const onCreateSuccess = values => addNewsSuccess(values);
-    const transformValues = values => ({...values, profile_id: 12});
     return (
         <FormFormikEnhanced
             isMultipart
             onSuccess={onCreateSuccess}
-            transformValues={transformValues}
             {...newsStoryFormConfig}
         >
             <RenderFields fields={fields}/>

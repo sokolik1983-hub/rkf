@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import {compose} from "redux";
 import {Route, Switch} from 'react-router-dom'
 import AuthOrLogin from 'apps/Auth/containers/AuthOrLogin'
-
+import ClientClub from 'apps/ClientClub'
 import ClientExhibitions from 'apps/ClientExhibitions'
 import ClientProfile from 'apps/ClientProfile'
 
@@ -34,7 +34,7 @@ function ClientProxy(props) {
             <AuthOrLogin>
                     <ClientLayout>
                         <Switch>
-                            <Route exact path={`${path}`} component={Home}/>
+                            <Route exact path={`${path}`} component={ClientClub}/>
                             <Route path={`${path}/profile`} component={ClientProfile}/>
                             <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
                         </Switch>
