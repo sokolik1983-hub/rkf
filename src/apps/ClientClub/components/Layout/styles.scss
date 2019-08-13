@@ -1,0 +1,13 @@
+.ClientHome{
+  &__wrap{
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  &__content{
+    flex: 2;
+    margin-right: 40px;
+  }
+  &__sidebar{
+    flex: 1;
+  }
+}
