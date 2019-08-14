@@ -20,23 +20,23 @@ export const firstStepForm = {
             placeholder: 'Расскажите участникам и гостям, что их ожидает на выставке. Также укажите ссылки на необходимые \n' +
                 'документы: ветеринарные правила и другие... '
         },
-        dignity_types: {
-            name: 'dignity_types',
-            label: 'Титул',
-            placeholder: 'Чемпионы',
-            isMulti: true,
-            closeMenuOnSelect: false,
+        type_id: {
+            name: 'type_id',
+            label: 'type',
+            placeholder: 'CACIB',
             //components: {Option: CheckBoxOption},
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/dignity/all'
+            optionsEndpoint: '/api/exhibition/type/all'
         },
-        rank_type: {
-            name: 'rank_type',
-            label: 'Ранг выставки',
-            placeholder: 'CACIB',
+        rank_types: {
+            name: 'rank_types',
+            label: 'rank',
+            placeholder: 'ЧРКФ',
             fieldType: 'reactSelectAsync',
             type: 'select',
+            isMulti: true,
+            closeMenuOnSelect: false,
             optionsEndpoint: '/api/exhibition/rank/all'
         },
         class_types: {
@@ -97,9 +97,9 @@ export const firstStepForm = {
             .required('Укажите город'),
         address: string()
             .required('Укажите адрес'),
-        rank_type: string()
+        rank_types: array()
             .required('Укажите Ранг выставки'),
-        dignity_types: array()
+        type_id: string()
             .required('Укажите титулы'),
         class_types: array()
             .required('Укажите Класс выставки'),
