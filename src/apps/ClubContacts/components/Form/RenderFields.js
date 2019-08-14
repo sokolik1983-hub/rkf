@@ -3,7 +3,7 @@ import {FormField, FormGroup, SubmitButton, FormControls} from "components/Form"
 import {clubClubContactsConfig} from 'apps/ClubContacts/config'
 
 const {fields} = clubClubContactsConfig;
-export const RenderFields = () =>
+export const RenderFields = ({isUpdate}) =>
     <Fragment>
         <FormGroup inline>
             <FormField
@@ -15,8 +15,9 @@ export const RenderFields = () =>
             <FormField
                 {...fields.value}
             />
+            <FormControls>
+                <SubmitButton>{isUpdate ? 'Обновить' : 'Добавить'}</SubmitButton>
+            </FormControls>
         </FormGroup>
-        <FormControls>
-            <SubmitButton>Добавить</SubmitButton>
-        </FormControls>
+
     </Fragment>;

@@ -26,6 +26,6 @@ export const selectClubId = state => {
 export const selectClubContact = (state, props) => {
     const {listCollection} = selectListContact(state);
     return {
-        ...listCollection[String(props.id)]
+        clubContact: listCollection[String(props.id)]
     }
 };

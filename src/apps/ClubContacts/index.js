@@ -9,20 +9,19 @@ import injectReducer from "../../utils/injectReducer";
 import reducer from "./reducer";
 
 function ClientClubContactsProxy() {
-    const {visibility, toggleVisibility} = useVisibility(false);
+    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     return (
         <div>
             <ClientContactList/>
+            {
+                visibility ?
+                    <ClubContactsForm hideForm={setInvisible}/>
+                    : null
+            }
             <Button onClick={toggleVisibility}>
                 {visibility ? 'Скрыть форму' : 'Добавить контакт'}
             </Button>
-            {
-                visibility ?
-                    <ClubContactsForm/>
-                    : null
-            }
-
         </div>
     )
 }
