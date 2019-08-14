@@ -49,7 +49,7 @@ function Form({
                     headers: getHeaders(isMultipartData),
                 });
 
-                onSuccess(data);
+                onSuccess(data.result);
 
                 actions.setSubmitting(false);
 
@@ -57,7 +57,7 @@ function Form({
                 actions.setSubmitting(false);
                 if (error.isAxiosError) {
                     const {data} = error.response;
-                    actions.setErrors(data);
+                    actions.setErrors(data.errors);
                 } else {
                     throw error
                 }
