@@ -86,7 +86,7 @@ class ReactSelectAsync extends Component {
         const {formik, isMulti, name} = this.props;
         const {options} = this.state;
         const value = getIn(formik.values, name);
-        if (options) {
+        if (value && options) {
             return isMulti
                 ? options.filter(option => value.indexOf(option.value) >= 0)
                 : options.find(option => option.value === value);
