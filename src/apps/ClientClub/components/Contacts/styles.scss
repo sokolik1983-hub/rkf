@@ -1,3 +1,35 @@
-.ClubContact{
+div[class*="ClubContact--type-"] {
+  &:before {
+    position: absolute;
+    left: -16px;
+    content: "";
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-position: center;
+  }
+}
 
+.ClubContact {
+  padding-left: 20px;
+  display: flex;
+  position: relative;
+  margin-bottom: 12px;
+  align-items: center;
+  &__description {
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  &--type-1 {
+    &:before {
+      background-image: url("/static/icons/contacts/cellphone-basic.svg");
+    }
+  }
+
+  &--type-2 {
+    &:before {
+      background-image: url("/static/icons/contacts/at.svg");
+    }
+  }
 }
