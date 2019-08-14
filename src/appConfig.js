@@ -130,7 +130,15 @@ const defaultReactSelectStyles = {
     }
 };
 
+const HTTP = {
+    post: "POST",
+    get: "GET",
+    update: "PUT",
+    delete: "DELETE",
+};
+
 export {
+    HTTP,
     SERVER,
     appRoutes,
     mainNav,
