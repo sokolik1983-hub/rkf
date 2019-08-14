@@ -3,7 +3,8 @@ import createReducer from 'utils/createReducer'
 
 const clubClubContactsInitialState = {
     address: "",
-    avatar_link: "",
+    headliner_link: "",
+    logo_link: "",
     bank_data_id: null,
     city_id: null,
     club_id: null,
@@ -25,6 +26,22 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
         return {
             ...state,
             ...action.data,
+        }
+    },
+    [actiontypes.CLUB_HEADER_UPDATE_SUCCESS](state, action) {
+        const {data} = action;
+        const headliner_link = data.image_link;
+        return {
+            ...state,
+            headliner_link
+        }
+    },
+    [actiontypes.CLUB_LOGO_UPDATE_SUCCESS](state, action) {
+        const {data} = action;
+        const logo_link = data.avatar_link;
+        return {
+            ...state,
+            logo_link
         }
     },
 });
