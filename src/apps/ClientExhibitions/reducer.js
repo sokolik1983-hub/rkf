@@ -30,7 +30,8 @@ const clientExhibitionsReducer = createReducer(clientInitialState, {
     //     };
     // },
     [actiontypes.GET_LIST_SUCCESS](state, action) {
-        const {entities, result: exhibitionIdList} = normalizeExhibitionList(action.data);
+        const {exhibitions:exhibitionsData}=action.data;
+        const {entities, result: exhibitionIdList} = normalizeExhibitionList(exhibitionsData);
         const {exhibitions} = entities;
         return {
             ...state,

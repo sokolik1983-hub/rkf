@@ -2,6 +2,7 @@ import * as actiontypes from './actiontypes';
 import {combineReducers} from "redux";
 import {normalizeList} from 'shared/normilizers'
 import createReducer from 'utils/createReducer'
+import {normalizeExhibitionList} from "../ClientExhibitions/normalize";
 
 const homePageExhibitionsInitialState = {
     listCollection: {},
@@ -21,7 +22,8 @@ const homePageClubInitialState = {
 
 const exhibitions = createReducer(homePageExhibitionsInitialState, {
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {entities, result:listIds} = normalizeList(action.data);
+        const {exhibitions}=action.data;
+        const {entities, result:listIds} = normalizeList(exhibitions);
         return {
             ...state,
             listIds,
