@@ -1,6 +1,7 @@
 import React from 'react'
 import {connectClientClubContacts} from 'apps/ClientClub/connectors'
 import Contact from './Contact'
+import './styles.scss'
 
 function ClientClubContacts({contacts}) {
     return (
