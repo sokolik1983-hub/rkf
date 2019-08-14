@@ -8,21 +8,20 @@ import Button from 'components/Button'
 import injectReducer from "../../utils/injectReducer";
 import reducer from "./reducer";
 
-function ClientClubDocumentsProxy({club_id}) {
-    const {visibility, toggleVisibility} = useVisibility(false);
+function ClientClubDocumentsProxy() {
+    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
 
     return (
         <div>
-            <ClientDocumentList club_id={club_id}/>
+            <ClientDocumentList/>
+            {
+                visibility ?
+                    <ClubDocumentsForm hideForm={setInvisible}/>
+                    : null
+            }
             <Button onClick={toggleVisibility}>
                 {visibility ? 'Скрыть форму' : 'Добавить контакт'}
             </Button>
-            {
-                visibility ?
-                    <ClubDocumentsForm club_id={club_id}/>
-                    : null
-            }
-
         </div>
     )
 }

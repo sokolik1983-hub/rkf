@@ -7,15 +7,14 @@ import {getlistUrl} from 'apps/ClubDocuments/config'
 import './styles.scss'
 
 function ClientDocumentList(props) {
-    const {listIds, getClubDocumentsListSuccess, club_id} = props;
+    const {listIds, getClubDocumentsListSuccess, club_id, editable} = props;
     const url = getlistUrl + String(club_id);
     const {loading} = useResourceAndStoreToRedux(url, getClubDocumentsListSuccess);
     return (
         <div className="ClientDocumentList">
-            <h3>Документы</h3>
             {loading ?
                 "Загрузка..."
-                : listIds.map(id => <ListDocument key={id} id={id}/>)}
+                : listIds.map(id => <ListDocument editable={editable} key={id} id={id}/>)}
         </div>
     )
 

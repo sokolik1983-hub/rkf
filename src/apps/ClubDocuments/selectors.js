@@ -1,15 +1,9 @@
 import {defaultReduxKey} from "./config";
-import {selectProfileId} from "apps/Auth/selectors";
-
-export const selectClubId = state => {
-    const {profile_id: club_id} = selectProfileId(state);
-    return {
-        club_id
-    }
-};
+import {selectProfileId} from 'apps/Auth/selectors'
 
 export const selectListDocument = state => {
     const {profile_id: club_id} = selectProfileId(state);
+
     const {
         listIds,
         listCollection,
@@ -21,11 +15,17 @@ export const selectListDocument = state => {
     }
 };
 
+export const selectClubId = state => {
+    const {profile_id: club_id} = selectProfileId(state);
+    return {
+        club_id
+    }
+};
 
 
-export const selectClubDocument=(state,props)=>{
-    const {listCollection}=selectListDocument(state);
-    return{
-        ...listCollection[String(props.id)]
+export const selectClubDocument = (state, props) => {
+    const {listCollection} = selectListDocument(state);
+    return {
+        clubDocument: listCollection[String(props.id)]
     }
 };

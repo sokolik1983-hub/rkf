@@ -1,13 +1,49 @@
 import React from 'react'
-import {connectClintClubDocument} from 'apps/ClubDocuments/connectors'
+import {useVisibility} from "shared/hooks";
+import {Form} from 'components/Form'
+import {connectClientClubListItem} from 'apps/ClubDocuments/connectors'
+import {RenderFields} from 'apps/ClubDocuments/components/Form/RenderFields'
+import ClubListDocument from './ListDocument'
+import {HTTP} from 'appConfig'
+import DeleteButton from "../../../../components/DeleteButton";
 
-
-function ClintClubDocument({name, url}) {
+function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClubDocumentSuccess}) {
+    const {
+        visibility,
+        toggleVisibility,
+        setInvisible,
+    } = useVisibility(false);
+    const onUpdateSuccess = (values) => {
+        updateClubDocumentSuccess(values);
+        setInvisible()
+    };
+    const onDeleteSuccess = () => {
+        deleteClubDocumentSuccess({id:clubDocument.id})
+    };
     return (
-        <div className="ClintClubDocument">
-            <a href={url} target="__blank">{name}</a>
+        <div className="ClientClubListItem">{
+            visibility ?
+                <Form
+                    action={'/api/club/ClubDocument'}
+                    onSuccess={onUpdateSuccess}
+                    method={HTTP.update}
+                    initialValues={clubDocument}
+                >
+                    <RenderFields isUpdate/>
+                </Form>
+                :
+                <ClubListDocument {...clubDocument}/>
+        }
+            <div className="ClientClubListItem__controls">
+                <button onClick={toggleVisibility}>{visibility ? "отмена" : "изменить"}</button>
+                <DeleteButton
+                    onDeleteSuccess={onDeleteSuccess}
+                    //params={params}
+                    actionUrl={`/api/club/ClubDocument?id=${clubDocument.id}`}
+                >удалить</DeleteButton>
+            </div>
         </div>
     )
 }
 
-export default connectClintClubDocument(ClintClubDocument)
+export default connectClientClubListItem(ClientClubListItem)

@@ -3,15 +3,19 @@ import {connect} from "react-redux";
 import {
     selectListDocument,
     selectClubId,
-    selectClubDocument
+    selectClubDocument,
+
 } from './selectors'
 
 import {
     getClubDocumentsListSuccess,
     addClubDocumentSuccess,
+    updateClubDocumentSuccess,
+    deleteClubDocumentSuccess,
 } from './actions'
 
 export const connectListDocument = connect(
+    //Here
     selectListDocument,
     dispatch => bindActionCreators({
         getClubDocumentsListSuccess
@@ -25,6 +29,10 @@ export const connectDocumentFrom = connect(
     }, dispatch)
 );
 
-export const connectClintClubDocument=connect(
+export const connectClientClubListItem = connect(
     selectClubDocument,
+    dispatch => bindActionCreators({
+        updateClubDocumentSuccess,
+        deleteClubDocumentSuccess
+    }, dispatch)
 )
