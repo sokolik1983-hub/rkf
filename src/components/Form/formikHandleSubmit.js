@@ -5,13 +5,9 @@ import axios from 'axios'
 
 const isDev = isDevEnv();
 
-const defaultOptions = (isMultipart) => isDev ? {
+const defaultOptions = (isMultipart) => ({
         headers: getHeaders(isMultipart),
-    }
-    :
-    {
-        headers: getHeaders(isMultipart),
-    };
+    });
 
 const getFormData = data => {
     const formData = new FormData();

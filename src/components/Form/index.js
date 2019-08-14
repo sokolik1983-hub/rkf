@@ -1,3 +1,4 @@
+import Form from './Form'
 import FormFormikEnhanced from 'components/Form/FormFormikEnhanced'
 import SubmitButton from 'components/Form/SubmitButton'
 import FormControls from "components/Form/FormControls";
@@ -6,6 +7,7 @@ import FormField from "components/Form/Field";
 import FormInput from "components/Form/FormInput";
 
 export {
+    Form,
     FormFormikEnhanced,
     SubmitButton,
     FormControls,
