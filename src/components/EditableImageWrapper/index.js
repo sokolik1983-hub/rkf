@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react'
-import {string, object} from 'prop-types'
+import React, {useEffect, useRef, useState} from 'react'
+import {object, string, func} from 'prop-types'
 import Button from 'components/Button'
-import classnames from 'classnames'
-import {getHeaders} from "../../utils/request";
+import {getHeaders} from "utils/request";
 import axios from "axios";
-import {objectNotEmpty} from "../../utils";
+import {objectNotEmpty} from "utils/index";
 
 function EditableImageWrapper({
                                   requestUrl,
@@ -15,12 +14,14 @@ function EditableImageWrapper({
 
     const inputEl = useRef(null);
     const initialState = {
+        loading: false,
         isEdit: false,
         imagePreview: null,
         inputValue: null,
     };
 
     const [state, setState] = useState(initialState);
+
     const onEdit = () => {
         setState({...state, isEdit: true});
         inputEl.current.click()
@@ -43,6 +44,7 @@ function EditableImageWrapper({
 
     const onSubmit = async () => {
         if (state.inputValue) {
+            setState({...state, loading: true})
             const data = new FormData(requestParams);
             data.append('file', state.inputValue);
             if (objectNotEmpty(requestParams)) {
@@ -54,8 +56,8 @@ function EditableImageWrapper({
                 data: data,
                 headers: getHeaders(true)
             };
-
             const response = await axios(config);
+            setState({...state, loading: false});
             onSubmitSuccess(response.data.result);
             clear()
         }
@@ -67,10 +69,13 @@ function EditableImageWrapper({
     };
     useEffect(() => getChildElSize(), []);
     const renderPreview = () => {
+        // TODO throw error if not single child
         if (children.type === 'img') {
+            // if img element replace it's src
             return React.cloneElement(children, {src: state.imagePreview})
-        } else if (children.props.style.backgroundImage) {
-            console.log(children.props.style.backgroundImage)
+        }
+        if (children.props.style.backgroundImage) {
+            // if not img element but have backgroundImage style prop replace it
             return React.cloneElement(children, {
                 style: {
                     ...children.props.style,
@@ -91,20 +96,18 @@ function EditableImageWrapper({
             />
             {state.imagePreview ? renderPreview() : children}
             <div className="EditableImageWrapper__controls">
-                <Button onClick={onEdit}>Изменить</Button>
-                {state.imagePreview ? <Button onClick={onSubmit}>Заменить</Button> : null}
+                <Button disabled={state.loading} onClick={onEdit}>Изменить</Button>
+                {state.imagePreview ? <Button disabled={state.loading} onClick={onSubmit}>Заменить</Button> : null}
             </div>
         </>
     )
 }
 
 EditableImageWrapper.propTypes = {
-    style: object,
-    //imageUrl: string.isRequired,
+    onSubmitSuccess: func,
     requestUrl: string.isRequired,
     requestParams: object,
-    type: string,
-    className: string,
+    children: object.isRequired,
 };
 
 export default EditableImageWrapper
