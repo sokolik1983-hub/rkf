@@ -23,6 +23,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/public/club',
+        component: LoadableModules.PublicClub
+    },
+    {
+        exact: false,
         path: '/exhibitions',
         component: LoadableModules.LoadableExhibitions
     },
