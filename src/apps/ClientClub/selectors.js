@@ -3,6 +3,20 @@ import {selectProfileId} from 'apps/Auth/selectors'
 
 export const getState = state => ({...state[defaultReduxKey]});
 
+export const selectClubHeaderPicture = state => {
+    const {headliner_link} = getState(state);
+    return {
+        backgroundImage: headliner_link,
+    }
+};
+
+export const selectClubLogoPicture = state => {
+    const {logo_link} = getState(state);
+    return {
+        backgroundImage: logo_link,
+    }
+};
+
 export const selectClubHeader = state => {
     const {headliner_link, logo_link,  name} = getState(state);
     return {
@@ -53,5 +67,12 @@ export const selectClubContact = (state, props) => {
     const {listCollection} = selectListContact(state);
     return {
         ...listCollection[String(props.id)]
+    }
+};
+
+export const selectClubAlias=state=>{
+    const {profile_id: club_id} = selectProfileId(state);
+    return {
+        club_id
     }
 };
