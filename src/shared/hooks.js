@@ -37,8 +37,8 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
 
     useEffect(() => {
         let didCancel = false;
-        const axiosConfig={
-            url:resourceUrl,
+        const axiosConfig = {
+            url: resourceUrl,
             headers: getHeaders(),
         };
         const fetchData = async () => {
@@ -72,4 +72,45 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
     return {
         loading
     }
+};
+
+
+export const usePictureWithUpdate = (endpoint, successAction) => {
+    const [state, setState] = useState({fileInputValue: "", filePreview: null});
+    const handleFileInputChange = e => {
+        if (e.target.files) {
+            const fileInputValue = e.target.files[0];
+            setState({filePreview: URL.createObjectURL(fileInputValue), fileInputValue})
+        }
+    };
+    const clear=()=>setState({...state, fileInputValue:null});
+    const sendFile = () => {
+        let didCancel = false;
+        const send = async () => {
+
+            if (state.fileInputValue) {
+                const data = new FormData();
+                data.append('file', state.fileInputValue);
+                const config = {
+                    url: endpoint,
+                    method: "POST",
+                    data: data,
+                    headers: getHeaders(true)
+                };
+
+                const response = await axios(config);
+                successAction(response.data.result)
+            }
+
+        };
+        if (!didCancel) {
+            send()
+        }
+    };
+    return ({
+        ...state,
+        clear,
+        handleFileInputChange,
+        sendFile
+    })
 };
