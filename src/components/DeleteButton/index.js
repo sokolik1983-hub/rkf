@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Button from 'components/Button'
 import {useConfirmDialog} from 'shared/hooks'
 import axios from 'axios'
+import {getHeaders} from "../../utils/request";
 
 export default function DeleteButton(props) {
     const {actionUrl, params, onDeleteSuccess, children} = props;
@@ -11,7 +12,7 @@ export default function DeleteButton(props) {
     const onDelete = async () => {
         setState({...state, loading: true});
 
-        const response = await axios.delete(actionUrl, {data: params});
+        const response = await axios.delete(actionUrl, {data: params, headers:getHeaders()});
 
         console.log(response);
 
