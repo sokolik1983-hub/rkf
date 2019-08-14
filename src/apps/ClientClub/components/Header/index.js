@@ -1,5 +1,6 @@
 import React from 'react'
-import ClientAvatar from 'components/ClientAvatar'
+import ClubHeaderPicture from '../HeaderPicture'
+import ClubLogoPicture from '../LogoPicture'
 import {connectClientClubHeader} from 'apps/ClientClub/connectors'
 import './styles.scss'
 
@@ -10,10 +11,10 @@ function ClientClubHeader({
                           }) {
     return (
         <div className="ClientClubHeader">
-            <div style={{backgroundImage: `url(${headliner_link})`}} className="ClientClubHeader__banner"/>
+            <ClubHeaderPicture/>
             <div className="ClientClubHeader__footer">
                 <div className="ClientClubHeader__info">
-                    <ClientAvatar avatar={logo_link} className="ClientClubHeader__logo"/>
+                    <ClubLogoPicture/>
                     <h3>{name}</h3>
                 </div>
             </div>

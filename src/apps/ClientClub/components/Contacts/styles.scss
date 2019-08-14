@@ -16,9 +16,13 @@ div[class*="ClubContact--type-"] {
   position: relative;
   margin-bottom: 12px;
   align-items: center;
+  max-width: 216px;
   &__description {
     margin-right: 8px;
     font-weight: 600;
+  }
+  &__value{
+    margin-left: auto;
   }
 
   &--type-1 {

@@ -1,13 +1,13 @@
 import React, {useRef} from 'react'
-import {connectClientClubHeaderPicture} from 'apps/ClientClub/connectors'
+import {connectClientClubLogoPicture} from 'apps/ClientClub/connectors'
 import EditableImageWrapper from 'components/EditableImageWrapper'
 import './styles.scss'
 
-function ClubHeaderPicture({backgroundImage, getClubPictureUpdateSuccess}) {
+function ClubLogoPicture({backgroundImage, getClubPictureUpdateSuccess}) {
     const ref = useRef(null);
     return (
         <EditableImageWrapper
-            requestUrl={'/api/HeaderPicture/full'}
+            requestUrl={'/api/Avatar/full'}
             onSubmitSuccess={getClubPictureUpdateSuccess}
         >
             <div ref={ref} style={{
@@ -15,15 +15,15 @@ function ClubHeaderPicture({backgroundImage, getClubPictureUpdateSuccess}) {
                     backgroundImage ?
                         backgroundImage
                         :
-                        "/static/images/header/clientDefaultBanner.jpeg"
+                        '/static/images/noimg/no-avatar.png'
                 })`
-            }} className="ClubHeaderPicture"/>
+            }} className="ClubLogoPicture"/>
         </EditableImageWrapper>
     )
 }
 
-ClubHeaderPicture.defaultProps = {
-    backgroundImage: "/static/images/header/clientDefaultBanner.jpeg"
+ClubLogoPicture.defaultProps = {
+    backgroundImage: "/static/images/noimg/no-avatar.png"
 };
 
-export default connectClientClubHeaderPicture(ClubHeaderPicture)
+export default connectClientClubLogoPicture(ClubLogoPicture)
