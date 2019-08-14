@@ -39,12 +39,12 @@ const RenderFields = ({disabled, isUpdate}) =>
         <FormGroup inline>
             <FormField
                 disabled={disabled}
-                {...fields.rank_type}
+                {...fields.rank_types}
             />
 
             <FormField
                 disabled={disabled}
-                {...fields.dignity_types}
+                {...fields.type_id}
             />
         </FormGroup>
         <FormGroup inline>
