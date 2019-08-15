@@ -6,50 +6,43 @@ export const endpointUrl = '/api/club';
 export const clubInfoFormConfig = {
     formAction: endpointUrl,
     fields: {
-        club_id: {
-            name: 'club_id'
-
+        name: {
+            name: "name",
+            label: "Название клуба"
         },
-        name:{
-            name: 'name',
-            label: 'Название клуба',
+        correspondence_address: {
+            name: "correspondence_address",
+            label: "Адрес для кореспонденции",
+            fieldType: 'textarea',
         },
         address: {
-            name: 'address',
-            label: 'Адрес клуба',
+            name: "address",
+            label: "Адрес клуба (улица, дом)",
+            fieldType: 'textarea',
         },
-        site: {
-            name: 'site',
-            label: 'site клуба',
+        city_id: {
+            name: 'city_id',
+            label: 'Город',
+            placeholder: 'Выберите город',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            optionsEndpoint: '/api/exhibition/city/all'
         },
         description: {
-            name: 'description',
-            label: 'Описание',
+            name: "description",
+            label: "Краткая информация о клубе",
+            fieldType: 'textarea',
         },
-        // federation: {
-        //     name: 'federation',
-        //     label: 'Федерация',
-        //     type: 'select',
-        //     placeholder: 'ОАНКОО',
-        //     fieldType: 'reactSelectAsync',
-        //     optionsEndpoint: '/api/club/federation/all'
-        // },
-        // status: {
-        //     name: 'status',
-        //     label: 'Статус',
-        //     type: 'select',
-        //     placeholder: 'Региональный',
-        //     fieldType: 'reactSelectAsync',
-        //     optionsEndpoint: '/api/club/status/all'
-        // },
-        // owner_name:{
-        //     name: 'owner_name',
-        //     label: 'Реководство',
-        // },
-        // company_dog_stamp:{
-        //     name: 'company_dog_stamp',
-        //     label: 'Клеймо клуба',
-        // },
+
+        site: {
+            name: "site",
+            label: "Адрес сайта",
+        },
+        status_id: {
+            name: "description",
+            label: "Краткая информация о клубе",
+            fieldType: 'textarea',
+        },
     },
     validationSchema: object().shape({
         //

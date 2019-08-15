@@ -1,31 +1,21 @@
 import React from "react"
-import ClientClubInfo from './components/ClubInfo'
-import {useVisibility} from 'shared/hooks'
-import {createDefaultInjectors} from "utils/createInjectors";
-import {defaultReduxKey} from "./config";
-import reducer from "./reducer";
-import saga from "./saga";
-import {compose} from "redux";
-import {connectClubInfo} from './connectors'
-import {ClubInfoForm, UpdateClubInfoForm} from './components/Form'
+import ClubAlias from './components/Alias'
+import UpdateClubInfoForm from './components/Form'
+import ClubHeaderPicture from './components/HeaderPicture'
+import LogoPicture from './components/LogoPicture'
 
-function ClientClubInfoProxy({clubInfo}) {
-    const {visibility, toggleVisibility} = useVisibility(false)
+function ClientClubInfo() {
     return (
         <div>
-            <button onClick={toggleVisibility}>Редактировать</button>
-            {
-                visibility ?
-                    <UpdateClubInfoForm initialValues={clubInfo}/> :
-                    <ClientClubInfo />
-            }
+            <ClubHeaderPicture/>
+            <div style={{alignItems: 'flex-start', justifyContent: 'space-evenly'}} className="flex-row">
+                <LogoPicture/>
+                <ClubAlias/>
+            </div>
+            <UpdateClubInfoForm/>
         </div>
     )
 }
 
-const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
-export default compose(
-    withReducer,
-    withSaga,
-    connectClubInfo,
-)(ClientClubInfoProxy)
+
+export default ClientClubInfo

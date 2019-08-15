@@ -1,41 +1,26 @@
 import React from 'react'
-import {useDispatch} from "react-redux";
-import {clubInfoFormConfig} from "apps/ClubInfo/config";
-import {FormFormikEnhanced} from "components/Form";
+import {Form} from "components/Form";
+import {connectClubInfoForm} from 'apps/ClientClub/connectors'
 import RenderFields from './RenderFields'
-import {updateClubInfoSuccess} from 'apps/ClubInfo/actions'
-export function ClubInfoForm(isUpdate) {
-    const onSuccess = data => console.log(data);
-    const transformValues = values => ({...values, club_id: 12})
+
+
+function ClubInfoForm({clubInfo, clubInfoUpdateSuccess}) {
+    const transformValues = values => ({...values});
+    const onSuccess = values => clubInfoUpdateSuccess(values);
     return (
-        <FormFormikEnhanced
-            onSuccess={onSuccess}
-            {...clubInfoFormConfig}
-            transformValues={transformValues}
-        >
-            <RenderFields/>
-        </FormFormikEnhanced>
+        <div>
+            <h3>Общая информация</h3>
+            <Form
+                method={"PUT"}
+                action={'/api/Club'}
+                onSuccess={onSuccess}
+                initialValues={clubInfo}
+                transformValues={transformValues}
+            >
+                <RenderFields/>
+            </Form>
+        </div>
     )
 }
 
-export function UpdateClubInfoForm({initialValues}) {
-    const dispatch = useDispatch();
-    // TODO
-    const {id, ...rest} = initialValues;
-    rest.club_id = id;
-    const onSuccess = data => {
-        const {id, ...rest} = data;
-        const updateData = {club_id: id, ...rest};
-        dispatch(updateClubInfoSuccess(updateData))
-    };
-    return (
-        <FormFormikEnhanced
-            isUpdate
-            formInitials={rest}
-            onSuccess={onSuccess}
-            {...clubInfoFormConfig}
-        >
-            <RenderFields/>
-        </FormFormikEnhanced>
-    )
-}
+export default connectClubInfoForm(ClubInfoForm)
