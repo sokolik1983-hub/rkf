@@ -17,7 +17,6 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
         };
     },
     [actiontypes.GET_SCHEDULE_SUCCESS](state, action) {
-        //console.log(action)
         if (action.data.length) {
             const {entities, result} = normalizeSchedule(action.data);
             const {days, items} = entities;

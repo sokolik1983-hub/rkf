@@ -17,7 +17,6 @@ const clientExhibitionContestReducer = createReducer(clientExhibitionContestStat
         };
     },
     [actiontypes.GET_SCHEDULE_SUCCESS](state, action) {
-        //console.log(action)
         if (action.data.length) {
             const {entities, result} = normalizeContest(action.data);
             const {days, items} = entities;

@@ -58,7 +58,6 @@ export default class Filter extends PureComponent {
     };
 
     onReset = () => {
-        console.log('onReset')
         this.setState({...filterInititalState})
     }
 
