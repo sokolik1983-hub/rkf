@@ -34,9 +34,10 @@ function ClientProxy(props) {
             <AuthOrLogin>
                     <ClientLayout>
                         <Switch>
-                            <Route exact path={`${path}`} component={ClientClub}/>
+
                             <Route path={`${path}/profile`} component={ClientProfile}/>
                             <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
+                            <Route path={`${path}`} component={ClientClub}/>
                         </Switch>
                     </ClientLayout>
                 </AuthOrLogin>
