@@ -7,6 +7,11 @@ export const LoadableDemo = Loadable({
     loading: Loading,
 });
 
+export const PublicClub = Loadable({
+    loader: () => import(/* webpackChunkName: "app.demo" */ './apps/PublicClub/index'),
+    loading: Loading,
+});
+
 
 export const LoadableExhibitions = Loadable({
     loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Exhibitions/index'),
