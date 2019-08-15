@@ -2,6 +2,7 @@ import React from 'react'
 import Card from "components/Card";
 import Tabs, {TabContent} from "components/Tabs";
 import ClubLegalInfo from 'apps/ClubLegalInfo'
+import ClubBankInfo from 'apps/ClubBankInfo'
 import ClubInfo from "apps/ClubInfo";
 import ClubContacts from 'apps/ClubContacts'
 import ClubDocuments from 'apps/ClubDocuments'
@@ -25,8 +26,7 @@ function ClubEditPage() {
                 </TabContent>
                 <TabContent label="Банковская информация">
                     <Card lg>
-                        <h3>Банковская информация</h3>
-                        <ClubLegalInfo/>
+                        <ClubBankInfo/>
                     </Card>
                 </TabContent>
                 <TabContent label="Контакты">

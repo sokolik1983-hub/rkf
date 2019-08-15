@@ -8,9 +8,9 @@ import {endpointUrl, defaultReduxKey} from "./config";
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
-function ClientBankInfoProxy({legal_information_id, getBankInfoSuccess}) {
-    const url = `${endpointUrl}?id=${legal_information_id}`;
-    if(!legal_information_id){
+function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
+    const url = `${endpointUrl}?id=${bank_data_id}`;
+    if(!bank_data_id){
         return (
             <div>Не задан идентификатор</div>
         )
@@ -19,7 +19,7 @@ function ClientBankInfoProxy({legal_information_id, getBankInfoSuccess}) {
 
     return (
         <div>
-            <h3>Юридическая информация</h3>
+            <h3>Банковская информация</h3>
             <UpdateBankInfoForm/>
 
         </div>
