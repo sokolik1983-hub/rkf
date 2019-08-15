@@ -1,38 +1,33 @@
-import React, {useEffect} from "react"
-import ClientLegalInfo from './components/LegalInfo'
-import {useVisibility} from 'shared/hooks'
-import {createDefaultInjectors} from "utils/createInjectors";
-import {defaultReduxKey} from "./config";
-import reducer from "./reducer";
-import saga from "./saga";
+import React from "react"
 import {compose} from "redux";
-import {connectLegalInfo} from './connectors'
+import {useResourceAndStoreToRedux} from 'shared/hooks'
 import UpdateLegalInfoForm from './components/Form'
 
-function ClientLegalInfoProxy({legal_information_id, getLegalInfo, clubLegalInfo}) {
-    const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)
+import {connectLegalInfo} from './connectors'
+import {endpointUrl, defaultReduxKey} from "./config";
+import injectReducer from "utils/injectReducer";
+import reducer from "./reducer";
 
-    useEffect(() => {
-        if (legal_information_id) {
-            getLegalInfo(legal_information_id)
-        }
-    }, [legal_information_id]);
+function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
+    const url = `${endpointUrl}?id=${legal_information_id}`;
+    if(!legal_information_id){
+        return (
+            <div>Не задан идентификатор</div>
+        )
+    }
+    const {loading} = useResourceAndStoreToRedux(url, getLegalInfoSuccess);
 
     return (
         <div>
-            <button onClick={toggleVisibility}>Редактировать</button>
-            {
-                visibility ?
-                    <UpdateLegalInfoForm initialValues={clubLegalInfo}/> :
-                    <ClientLegalInfo {...clubLegalInfo}/>
-            }
+            <h3>Юридическая информация</h3>
+            <UpdateLegalInfoForm/>
+
         </div>
     )
 }
 
-const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 export default compose(
     withReducer,
-    withSaga,
     connectLegalInfo,
 )(ClientLegalInfoProxy)
