@@ -1,0 +1,29 @@
+import {object, string} from "yup";
+
+export const defaultReduxKey = 'club_social';
+export const endpointUrl = '/api/club/SocialNetwork';
+
+export const getlistUrl = '/api/club/SocialNetwork/list?id=';
+
+
+export const clubClubSocialConfig = {
+    formAction: endpointUrl,
+    fields: {
+        site: {
+            name: 'site',
+            label: 'Ссылка'
+
+        },
+        description: {
+            name: 'description',
+            label: 'description',
+        },
+        social_network_type_id: {
+            name: 'social_network_type_id',
+            label: 'social_network_type_id',
+        },
+    },
+    validationSchema: object().shape({
+        //
+    })
+};
