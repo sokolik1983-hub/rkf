@@ -22,12 +22,10 @@ function ClientProfile(props) {
                 <ClubInfo/>
             </Card>
             <Card lg>
-                <h3>LegalInfo</h3>
-                <LegalInfo legal_information_id={legal_information_id}/>
+                <LegalInfo/>
             </Card>
             <Card lg>
-                <h3>BankInfo</h3>
-                <BankInfo bank_data_id={bank_data_id}/>
+                <BankInfo/>
             </Card>
             <Card lg>
                 <h3>Контакты</h3>
