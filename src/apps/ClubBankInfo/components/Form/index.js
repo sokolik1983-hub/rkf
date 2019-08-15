@@ -1,35 +1,22 @@
 import React from 'react'
 import {clubBankInfoFormConfig} from "apps/ClubBankInfo/config";
-import {FormFormikEnhanced} from "components/Form";
+import {Form} from "components/Form";
 import RenderFields from './RenderFields'
-import {connectBankInfoForm} from  "apps/ClubBankInfo/connectors";
+import {connectBankInfoForm} from "apps/ClubBankInfo/connectors";
 
-export function BankInfoForm(isUpdate) {
-    const onSuccess = data => console.log(data);
-    const transformValues=values=>({...values, clubBankInfo_id:12})
-    return (
-        <FormFormikEnhanced
-            isUpdate
-            onSuccess={onSuccess}
-            {...clubBankInfoFormConfig}
-            transformValues={transformValues}
-        >
-            <RenderFields/>
-        </FormFormikEnhanced>
-    )
-}
 
-export function UpdateBankInfoForm({initialValues, updateBankInfoSuccess}) {
+export function UpdateBankInfoForm(props) {
+    const {clubBankInfo, updateBankInfoSuccess} = props;
     const onSuccess = data => updateBankInfoSuccess(data);
     return (
-        <FormFormikEnhanced
-            isUpdate={true}
-            formInitials={initialValues}
+        <Form
+
             onSuccess={onSuccess}
             {...clubBankInfoFormConfig}
+            initialValues={clubBankInfo}
         >
             <RenderFields/>
-        </FormFormikEnhanced>
+        </Form>
     )
 }
 

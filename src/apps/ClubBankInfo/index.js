@@ -1,38 +1,33 @@
-import React, {useEffect} from "react"
-import ClientBankInfo from './components/BankInfo'
-import {useVisibility} from 'shared/hooks'
-import {createDefaultInjectors} from "utils/createInjectors";
-import {defaultReduxKey} from "./config";
-import reducer from "./reducer";
-import saga from "./saga";
+import React from "react"
 import {compose} from "redux";
-import {connectBankInfo} from './connectors'
+import {useResourceAndStoreToRedux} from 'shared/hooks'
 import UpdateBankInfoForm from './components/Form'
 
-function ClientBankInfoProxy({legal_information_id, getBankInfo, clubBankInfo}) {
-    const {visibility, toggleVisibility, setVisible, setInvisible} = useVisibility(false)
+import {connectBankInfo} from './connectors'
+import {endpointUrl, defaultReduxKey} from "./config";
+import injectReducer from "utils/injectReducer";
+import reducer from "./reducer";
 
-    useEffect(() => {
-        if (legal_information_id) {
-            getBankInfo(legal_information_id)
-        }
-    }, [legal_information_id]);
+function ClientBankInfoProxy({legal_information_id, getBankInfoSuccess}) {
+    const url = `${endpointUrl}?id=${legal_information_id}`;
+    if(!legal_information_id){
+        return (
+            <div>Не задан идентификатор</div>
+        )
+    }
+    const {loading} = useResourceAndStoreToRedux(url, getBankInfoSuccess);
 
     return (
         <div>
-            <button onClick={toggleVisibility}>Редактировать</button>
-            {
-                visibility ?
-                    <UpdateBankInfoForm initialValues={clubBankInfo}/> :
-                    <ClientBankInfo {...clubBankInfo}/>
-            }
+            <h3>Юридическая информация</h3>
+            <UpdateBankInfoForm/>
+
         </div>
     )
 }
 
-const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 export default compose(
     withReducer,
-    withSaga,
     connectBankInfo,
 )(ClientBankInfoProxy)
