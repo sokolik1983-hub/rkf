@@ -1,11 +1,12 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+
 import {
     selectBankInfo
 } from './selectors'
 
 import {
-    getBankInfo,
+    getBankInfoSuccess,
     updateBankInfoSuccess
 } from './actions'
 
@@ -15,7 +16,7 @@ export const connectBankInfo = connect(
     selectBankInfo,
     dispatch => bindActionCreators(
         {
-            getBankInfo
+            getBankInfoSuccess
         }, dispatch)
 );
 

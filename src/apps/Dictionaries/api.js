@@ -7,7 +7,6 @@ export const DEMO_API = '/api/demo/';
 
 const Api = {
     getDict: async (action) => {
-        console.log('action',action)
         return request(
             {
                 url: dictionariesInitialState[action.dictName].url,

@@ -51,9 +51,14 @@ export const menuFakeData2 = [
 export const menuFakeData3 = [
 
 
+    // {
+    //     url: '/client/profile',
+    //     title: 'Профиль',
+    //     icon: '/static/icons/client/menu-my_cabinet.svg',
+    // },
     {
-        url: '/client/profile',
-        title: 'Профиль',
+        url: '/client/club',
+        title: 'Клуб',
         icon: '/static/icons/client/menu-my_cabinet.svg',
     },
     // {

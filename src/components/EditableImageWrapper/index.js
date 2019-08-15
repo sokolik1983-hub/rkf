@@ -65,7 +65,7 @@ function EditableImageWrapper({
 
 
     const getChildElSize = () => {
-        console.dir(children);
+        //console.dir(children);
     };
     useEffect(() => getChildElSize(), []);
     const renderPreview = () => {

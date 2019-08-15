@@ -5,19 +5,16 @@ export const endpointUrl = '/api/club/Legal';
 
 
 export const clubLegalInfoFormConfig = {
-    formAction: endpointUrl,
+    action: endpointUrl,
+    method: 'PUT',
     fields: {
-        clubLegalInfo_id: {
-            name: 'clubLegalInfo_id'
-
-        },
         name: {
             name: 'name',
-            label: 'name клуба',
+            label: 'Наименование юр. лица',
         },
         owner_name: {
             name: 'owner_name',
-            label: 'owner_name клуба',
+            label: 'Имя владельца',
         },
         address: {
             name: 'address',
@@ -54,5 +51,27 @@ export const clubLegalInfoFormConfig = {
     },
     validationSchema: object().shape({
         //
+        name: string()
+            .required('Поле не может быть пустым'),
+        owner_name: string()
+            .required('Поле не может быть пустым'),
+        address: string()
+            .required('Поле не может быть пустым')
+            .min(35, 'коротко'),
+        inn: string()
+            .required('Поле не может быть пустым')
+            .min(10, 'коротко'),
+        kpp: string()
+            .required('Поле не может быть пустым')
+            .min(9, 'коротко'),
+        ogrn: string()
+            .required('Поле не может быть пустым')
+            .min(13, 'коротко'),
+        okpo: string()
+            .required('Поле не может быть пустым')
+            .min(8, 'коротко'),
+        registration_number: string()
+            .required('Поле не может быть пустым')
+            .min(15, 'коротко'),
     })
 };

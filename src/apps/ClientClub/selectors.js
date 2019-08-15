@@ -71,8 +71,48 @@ export const selectClubContact = (state, props) => {
 };
 
 export const selectClubAlias=state=>{
-    const {profile_id: club_id} = selectProfileId(state);
+    const {club_id, club_alias} = getState(state);
     return {
-        club_id
+        club_id,
+        club_alias
+    }
+};
+
+export const selectLegalInfoId=state=>{
+    const {legal_information_id} = getState(state);
+    return {
+        legal_information_id
+    }
+};
+
+export const selectBankInfoId=state=>{
+    const {bank_data_id} = getState(state);
+    return {
+        bank_data_id
+    }
+};
+
+export const selectClubInfo = state => {
+    const {
+        address,
+        city_id,
+        club_id,
+        correspondence_address,
+        description,
+        name,
+        site,
+        status_id,
+    } = getState(state);
+    return {
+        clubInfo: {
+            club_id,
+            address,
+            description,
+            city_id,
+            site,
+            name,
+            correspondence_address,
+            status_id,
+        }
     }
 };

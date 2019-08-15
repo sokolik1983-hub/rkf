@@ -1,43 +1,48 @@
+import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {
+    selectClubInfo,
     selectClubHeader,
     selectClubDescription,
     selectClubContacts,
     selectClubHeaderPicture,
     selectClubLogoPicture,
-    selectClubAlias
+    selectClubAlias,
 } from './selectors'
 
-import {getClubSuccess,getClubPictureUpdateSuccess, getClubLogoUpdateSuccess} from './actions'
-import {bindActionCreators} from "redux";
+import {
+    getClubSuccess,
+    getClubPictureUpdateSuccess,
+    getClubLogoUpdateSuccess,
+    clubAliasUpdateSuccess,
+    clubInfoUpdateSuccess
+} from './actions'
 
 
 export const connectClientClubHeader = connect(
     selectClubHeader
 );
 
-export const connectClientClubDescription =  connect(
+export const connectClientClubDescription = connect(
     selectClubDescription
 );
 
-export const connectClientClubContacts =  connect(
+export const connectClientClubContacts = connect(
     selectClubContacts
 );
 
-export const connectClientClubHeaderPicture =  connect(
+export const connectClientClubHeaderPicture = connect(
     selectClubHeaderPicture,
-    dispatch=>bindActionCreators({
+    dispatch => bindActionCreators({
         getClubPictureUpdateSuccess
-    },dispatch)
-
+    }, dispatch)
 );
 
-export const connectClientClubLogoPicture =  connect(
+export const connectClientClubLogoPicture = connect(
     selectClubLogoPicture,
-    dispatch=>bindActionCreators({
+    dispatch => bindActionCreators({
         getClubLogoUpdateSuccess
-    },dispatch)
-
+    }, dispatch)
 );
 
 export const connectClientClub = connect(
@@ -50,5 +55,22 @@ export const connectClientClubAlias = connect(
     selectClubAlias,
     dispatch => bindActionCreators({
         getClubSuccess
+    }, dispatch)
+);
+export const connectClubAlias = connect(
+    selectClubAlias,
+    dispatch => bindActionCreators({
+        clubAliasUpdateSuccess
+    }, dispatch)
+);
+
+export const connectClubInfo = connect(
+    selectClubInfo,
+);
+
+export const connectClubInfoForm = connect(
+    selectClubInfo,
+    dispatch => bindActionCreators({
+        clubInfoUpdateSuccess
     }, dispatch)
 );

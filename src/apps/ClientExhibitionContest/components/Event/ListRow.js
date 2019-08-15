@@ -24,7 +24,6 @@ import {connectContestEditableEvent} from 'apps/ClientExhibitionContest/connecto
 
     deleteEvent = () => {
         const {deleteContestEvent, item, day} = this.props;
-        console.log('day', day)
         deleteContestEvent(item.id, day)
     };
 

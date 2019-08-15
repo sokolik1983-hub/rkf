@@ -1,3 +1,11 @@
 import {defaultReduxKey} from "./config";
+import {selectLegalInfoId} from 'apps/ClientClub/selectors'
 
-export const selectLegalInfo = state => ({clubLegalInfo: state[defaultReduxKey].clubLegalInfo});
+export const selectLegalInfo = state => {
+    const {legal_information_id} = selectLegalInfoId(state);
+    const {clubLegalInfo} = state[defaultReduxKey];
+    return {
+        legal_information_id,
+        clubLegalInfo
+    }
+};

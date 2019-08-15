@@ -66,6 +66,7 @@ function Form({
     );
     return useMemo(() =>
         <Formik
+            enableReinitialize
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
@@ -75,7 +76,7 @@ function Form({
                 </form>
             )
             }
-        />, []
+        />, [initialValues]
     )
 }
 

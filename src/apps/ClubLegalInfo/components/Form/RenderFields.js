@@ -4,30 +4,38 @@ import {clubLegalInfoFormConfig} from 'apps/ClubLegalInfo/config'
 
 const {fields} = clubLegalInfoFormConfig;
 
-const RenderFields = () =>
-    <React.Fragment>
-        <FormGroup>
-            <FormField
-                {...fields.name}
-            />
-            <FormField
-                {...fields.owner_name}
-            />
-            <FormField
-                {...fields.address}
-            />
-            <FormField
-                {...fields.inn}
-            />
-            <FormField
-                {...fields.kpp}
-            />
-            <FormField
-                {...fields.ogrn}
-            />
-            <FormField
-                {...fields.okpo}
-            />
+export default function RenderFields() {
+    return (
+        <React.Fragment>
+            <FormGroup inline>
+                <FormField
+                    {...fields.name}
+                />
+                <FormField
+                    {...fields.owner_name}
+                />
+            </FormGroup>
+            <FormGroup inline>
+                <FormField
+                    {...fields.address}
+                />
+            </FormGroup>
+            <FormGroup inline>
+                <FormField
+                    {...fields.inn}
+                />
+                <FormField
+                    {...fields.kpp}
+                />
+            </FormGroup>
+            <FormGroup inline>
+                <FormField
+                    {...fields.ogrn}
+                />
+                <FormField
+                    {...fields.okpo}
+                />
+            </FormGroup>
             <FormField
                 {...fields.registration_number}
             />
@@ -37,41 +45,12 @@ const RenderFields = () =>
             <FormField
                 {...fields.is_public}
             />
-        </FormGroup>
 
 
-        <FormControls>
-            <SubmitButton type="submit"
-                          className="btn-simple btn-lg">Обновить</SubmitButton>
-        </FormControls>
-    </React.Fragment>;
-
-const RenderFieldsReal = () =>
-    <React.Fragment>
-        <FormGroup>
-            <FormField
-                name="clubLegalInfo_id"
-                value={16}
-                type="hidden"
-            />
-            <FormField
-                {...fields.name}
-            />
-            <FormField
-                {...fields.description}
-            />
-        </FormGroup>
-        <FormField
-            {...fields.address}
-        />
-        <FormField
-            {...fields.site}
-        />
-
-        <FormControls>
-            <SubmitButton type="submit"
-                          className="btn-simple btn-lg">Обновить</SubmitButton>
-        </FormControls>
-    </React.Fragment>;
-
-export default RenderFields
+            <FormControls>
+                <SubmitButton type="submit"
+                              className="btn-simple btn-lg">Обновить</SubmitButton>
+            </FormControls>
+        </React.Fragment>
+    )
+}

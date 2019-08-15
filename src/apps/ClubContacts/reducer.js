@@ -12,7 +12,6 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
     [actiontypes.GET_LIST_SUCCESS](state, action) {
 
         const {entities, result: listIds} = normalizeList(action.data);
-        console.log(actiontypes.GET_LIST_SUCCESS, entities.listCollection, listIds);
         return {
             ...state,
             listCollection: entities.listCollection,

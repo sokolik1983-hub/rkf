@@ -44,6 +44,13 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
             logo_link
         }
     },
+    [actiontypes.CLUB_ALIAS_UPDATE_SUCCESS](state, action) {
+        const {alias_name} = action.data;
+        return {
+            ...state,
+            club_alias: alias_name
+        }
+    },
 });
 
 export default clubClubContactsReducer;
