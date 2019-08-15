@@ -4,7 +4,7 @@ import {defaultReduxKey} from './config'
 export const getState = state => state[defaultReduxKey];
 
 export const selectNews = state => {
-    const {listIds, listCollection} = getState(state)
+    const {listIds, listCollection} = getState(state);
     return {listIds, listCollection}
 };
 
