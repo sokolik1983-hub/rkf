@@ -1,52 +1,32 @@
 import * as actiontypes from './actiontypes';
 import createReducer from "utils/createReducer";
-import {normalizeExhibitionsList} from "./normalize";
-
+import {normalizeList} from 'shared/normilizers'
+import {normalizeExhibitionsList} from './normalize'
 
 const exhibitionsInitialState = {
-    loadingApi: false,
-    exhibitions: {},
-    exhibitionsIds: [],
+    listCollection: {},
+    listIds: [],
+    //
+    dates: [],
     exhibitionsDetails: {},
+    breed_ids: [],
+    city_ids: [],
 };
 
 
 const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
-    [actiontypes.GET_EXHIBITIONS](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
+
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        if (action.data.length) {
-            const {entities, result: exhibitionsIds} = normalizeExhibitionsList(action.data);
-            const {exhibitions} = entities;
-            return {
-                ...state,
-                loading: false,
-                exhibitions,
-                exhibitionsIds
-            };
-        }
+        const {exhibitions, city_ids, breed_ids} = action.data;
         return {
             ...state,
-            loading: false,
+            dates: exhibitions,
+            city_ids,
+            breed_ids
         }
     },
 
-    [actiontypes.GET_EXHIBITIONS_FAILED](state, action) {
-        return {
-            ...state,
-            loading: false,
-        }
-    },
-    [actiontypes.GET_EXHIBITION_DETAILS](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
+
     [actiontypes.GET_EXHIBITION_DETAILS_SUCCESS](state, action) {
         const {data} = action;
         const {exhibitionsDetails} = state;
@@ -55,13 +35,6 @@ const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
             ...state,
             loading: false,
             exhibitionsDetails
-        }
-    },
-
-    [actiontypes.GET_EXHIBITION_DETAILS_FAILED](state, action) {
-        return {
-            ...state,
-            loading: false,
         }
     },
 });

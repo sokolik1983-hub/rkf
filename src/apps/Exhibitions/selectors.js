@@ -3,6 +3,8 @@ import {getIdFromRouterParams} from 'utils/index'
 import {defaultReduxKey} from './config'
 
 
+export const getState = state => state[defaultReduxKey];
+
 const selectExhibitionsDetailsById = (state, id) =>
     state[defaultReduxKey].exhibitionsDetails.hasOwnProperty(String(id)) ?
         state[defaultReduxKey].exhibitionsDetails[String(id)]
@@ -10,23 +12,17 @@ const selectExhibitionsDetailsById = (state, id) =>
         null
 ;
 
-export const selectExhibitions = (state, props) => {
-    const {
-        exhibitions,
-        exhibitionsIds
-    } = state[defaultReduxKey];
+export const selectExhibitions = (state) => {
+    const {listIds, listCollection} = getState(state);
     return {
-        exhibitions,
-        exhibitionsIds
+        listIds, listCollection
     }
 };
 
 export const selectExhibitionsListItem = (state, props) => {
-    const {
-        exhibitions,
-    } = state[defaultReduxKey];
+    const {listCollection} = getState(state);
     return {
-        ...exhibitions[String(props.id)]
+        ...listCollection[String(props.id)]
     }
 };
 
@@ -36,4 +32,16 @@ export const selectExhibitionDetails = (state, props) => {
         exhibitionId,
         details: selectExhibitionsDetailsById(state, exhibitionId)
     }
+};
+
+
+export const selectListExhibitionsByDates = state => {
+    const {dates} = getState(state);
+    return {dates}
+};
+
+export const selectCalendar = state => {
+    const {dates} = getState(state);
+    const calendarModifiers = dates.map(date => new Date(date.year, parseInt(date.month - 1, 10), date.day));
+    return {calendarModifiers}
 };
