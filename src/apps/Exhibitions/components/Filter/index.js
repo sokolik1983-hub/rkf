@@ -32,6 +32,7 @@ export class CheckBoxFilter extends PureComponent {
             {
                 options.map(option =>
                     <FilterCheckbox
+                        key={option.value}
                         onClick={this.onOptionClick}
                         checked={this.checkValueChecked(option.value)}
                         {...option}
