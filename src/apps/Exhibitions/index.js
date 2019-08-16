@@ -2,17 +2,17 @@ import React from "react"
 import {compose} from "redux"
 import {Route, Switch} from 'react-router-dom'
 import {getPathFromRouterParams} from 'utils/index'
-import {createDefaultInjectors} from "utils/createInjectors";
 import Container from 'components/Layout/Container'
 import reducer from './reducer'
-import saga from "./saga";
 import PublicLayout from 'components/Layout'
 import Details from './containers/Details'
 import Details2 from './components/Details'
 import ExhibitionsList from './components/List'
+import ListExhibitionsByDates from './components/ListByDates'
 import {defaultReduxKey} from "./config";
 
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
+import injectReducer from "utils/injectReducer";
 
 
 function ExhibitionsProxy(props) {
@@ -26,7 +26,7 @@ function ExhibitionsProxy(props) {
                     <Switch>
                         <Route path={`${path}/:id/details2`} component={Details}/>
                         <Route path={`${path}/:id/details`} component={Details2}/>
-                        <Route exact path={path} component={ExhibitionsList}/>
+                        <Route exact path={path} component={ListExhibitionsByDates}/>
                     </Switch>
 
                 </Container>
@@ -37,10 +37,9 @@ function ExhibitionsProxy(props) {
 }
 
 
-const {withReducer, withSaga} = createDefaultInjectors({defaultReduxKey, reducer, saga});
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 
 
 export default compose(
     withReducer,
-    withSaga,
 )(ExhibitionsProxy)
