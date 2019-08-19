@@ -73,9 +73,10 @@ export const firstStepForm = {
             name: 'city_id',
             label: 'Город',
             placeholder: 'Москва',
-            fieldType: 'reactSelectAsync',
+            fieldType: 'reactSelectDict',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/city'
+            dictName: 'cities'
+            //optionsEndpoint: '/api/exhibition/city'
         },
         address: {
             name: 'address',
