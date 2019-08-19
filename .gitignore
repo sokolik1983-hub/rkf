@@ -25,3 +25,4 @@ yarn-error.log*
 # Local Folders
 /smb_share
 /utility
+/cypress
