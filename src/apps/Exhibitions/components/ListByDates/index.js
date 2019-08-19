@@ -5,12 +5,12 @@ import ListItem from "../ListItem";
 import {mergeDateToString} from 'utils/mergeDateToString'
 import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
 import {endpointExhibitionsList} from "../../config";
-
+import {transformDate, formatDateWithLocaleString} from 'utils/datetime'
 function RenderDate(props) {
     const {items, ...restDate} = props;
     return (
         <React.Fragment>
-            <div> {restDate.day}-{restDate.month}-{restDate.year}</div>
+            <div> {formatDateWithLocaleString(transformDate(restDate))}</div>
             <RenderDateExhibitions exhibitions={items}/>
         </React.Fragment>
     )
