@@ -13,7 +13,7 @@ export const clientProfileForm = {
             type: 'select',
             placeholder: 'ОАНКОО',
             fieldType: 'reactSelectAsync',
-            optionsEndpoint: '/api/club/federation/all'
+            optionsEndpoint: '/api/club/federation'
         },
         status: {
             name: 'status',
@@ -21,7 +21,7 @@ export const clientProfileForm = {
             type: 'select',
             placeholder: 'Региональный',
             fieldType: 'reactSelectAsync',
-            optionsEndpoint: '/api/club/status/all'
+            optionsEndpoint: '/api/club/status'
         },
         company_region:{
             name: 'company_region',

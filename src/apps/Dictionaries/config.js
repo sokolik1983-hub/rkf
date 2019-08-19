@@ -1,34 +1,34 @@
 export const dictionariesInitialState = {
     rank_type:{
-        url: '/api/exhibition/Rank/all',
+        url: '/api/exhibition/Rank',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     class_types: {
-        url: '/api/exhibition/Caste/all',
+        url: '/api/exhibition/Caste',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     dignity_types:{
-        url: '/api/exhibition/dignity/all',
+        url: '/api/exhibition/dignity',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     breed_types: {
-        url: '/api/dog/Breed/all',
+        url: '/api/dog/Breed',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     referees: {
-        url: '/api/Referee/all',
+        url: '/api/Referee',
         dictionary: {},
         dictIndex: [],
         loaded: false,
@@ -36,7 +36,7 @@ export const dictionariesInitialState = {
     },
     cities: {
         options: [],
-        url: '/api/exhibition/city/all',
+        url: '/api/exhibition/city',
         dictionary: {},
         dictIndex: [],
         loaded: false,

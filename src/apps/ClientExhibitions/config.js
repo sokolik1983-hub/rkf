@@ -27,7 +27,7 @@ export const firstStepForm = {
             //components: {Option: CheckBoxOption},
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/type/all'
+            optionsEndpoint: '/api/exhibition/type'
         },
         rank_types: {
             name: 'rank_types',
@@ -37,7 +37,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/rank/all'
+            optionsEndpoint: '/api/exhibition/rank'
         },
         class_types: {
             name: 'class_types',
@@ -47,7 +47,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/Caste/all'
+            optionsEndpoint: '/api/exhibition/Caste'
         },
         referees_id: {
             name: 'referees_id',
@@ -57,7 +57,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/Referee/all'
+            optionsEndpoint: '/api/Referee'
         },
         breed_types: {
             name: 'breed_types',
@@ -67,7 +67,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/dog/Breed/all'
+            optionsEndpoint: '/api/dog/Breed'
         },
         city_id: {
             name: 'city_id',
@@ -75,7 +75,7 @@ export const firstStepForm = {
             placeholder: 'Москва',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/city/all'
+            optionsEndpoint: '/api/exhibition/city'
         },
         address: {
             name: 'address',

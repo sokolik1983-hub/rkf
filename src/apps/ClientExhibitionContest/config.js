@@ -65,7 +65,7 @@ export const scheduleContestEventForm = {
             placeholder: 'Внутрипородный конкурс',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/contest/Type/all'
+            optionsEndpoint: '/api/exhibition/contest/Type'
         },
         breeds_id: {
             name: 'breeds_id',
@@ -75,7 +75,7 @@ export const scheduleContestEventForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/dog/Breed/all'
+            optionsEndpoint: '/api/dog/Breed'
         },
     },
     validationSchema: object().shape({
