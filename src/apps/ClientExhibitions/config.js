@@ -3,7 +3,7 @@ import {array, object, string} from "yup";
 
 export const defaultReduxKey = 'client_exhibitions'
 
-export const CLIENT_EXHIBITION_URL = '/api/Exhibition';
+export const CLIENT_EXHIBITION_URL = '/api/Exhibitions/exhibition';
 
 export const firstStepForm = {
     formAction: CLIENT_EXHIBITION_URL,
@@ -27,7 +27,7 @@ export const firstStepForm = {
             //components: {Option: CheckBoxOption},
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/type'
+            optionsEndpoint: '/api/exhibitions/type'
         },
         rank_types: {
             name: 'rank_types',
@@ -37,7 +37,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/rank'
+            optionsEndpoint: '/api/exhibitions/rank'
         },
         class_types: {
             name: 'class_types',
@@ -47,7 +47,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/Caste'
+            optionsEndpoint: '/api/exhibitions/Caste'
         },
         referees_id: {
             name: 'referees_id',
@@ -76,7 +76,7 @@ export const firstStepForm = {
             fieldType: 'reactSelectDict',
             type: 'select',
             dictName: 'cities'
-            //optionsEndpoint: '/api/exhibition/city'
+            //optionsEndpoint: '/api/exhibitions/city'
         },
         address: {
             name: 'address',

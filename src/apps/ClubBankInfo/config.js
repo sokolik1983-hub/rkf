@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 export const defaultReduxKey = 'club_bank';
-export const endpointUrl = '/api/club/Bank';
+export const endpointUrl = '/api/clubs/Bank';
 
 
 export const clubBankInfoFormConfig = {

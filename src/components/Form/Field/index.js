@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {Field} from 'formik'
 import classnames from 'classnames'
 import FormInput from 'components/Form/FormInput'
-import FieldError from './Error'
+import Error from './Error'
 import Label from './Label'
 import ImageInput from './ImageInput'
 import TextArea from "./textarea";
@@ -13,8 +13,6 @@ import ReactSelect from './ReactSelect'
 import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
-
-
 
 
 const FIELDS = {
@@ -41,7 +39,7 @@ function getField(fieldType) {
 function FormField(props) {
     const {fieldType, className, style, ...fieldProps} = props;
 
-    const FieldInput = getField(fieldType);
+    const Input = getField(fieldType);
 
     return (
         <FormInput
@@ -52,13 +50,13 @@ function FormField(props) {
                 {[`FormInput--${fieldProps.type}`]: fieldProps.type},
             )}
         >
-            <Label field={fieldProps}/>
-            <FieldInput
+            <Label htmlFor={fieldProps.name} label={fieldProps.label}/>
+            <Input
                 id={fieldProps.name}
                 className={'FormInput__input'}
                 {...fieldProps}
             />
-            <FieldError name={fieldProps.name}/>
+            <Error name={fieldProps.name}/>
         </FormInput>
     )
 

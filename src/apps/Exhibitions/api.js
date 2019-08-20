@@ -1,7 +1,7 @@
 
 import request, {getHeaders} from "../../utils/request";
 
-export const EXHIBITIONS_API = '/api/Exhibition/list';
+export const EXHIBITIONS_API = '/api/Exhibitions/Exhibition/list';
 
 
 const Api = {
@@ -18,7 +18,7 @@ const Api = {
     getDetails: async (action) => {
         return request(
             {
-                url: `/api/Exhibition?id=${action.id}`,
+                url: `/api/Exhibitions?id=${action.id}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

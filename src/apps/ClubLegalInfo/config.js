@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 export const defaultReduxKey = 'legal_info';
-export const endpointUrl = '/api/club/Legal';
+export const endpointUrl = '/api/clubs/Legal';
 
 
 export const clubLegalInfoFormConfig = {

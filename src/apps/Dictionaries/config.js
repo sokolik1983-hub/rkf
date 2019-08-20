@@ -1,20 +1,20 @@
 export const dictionariesInitialState = {
     rank_type:{
-        url: '/api/exhibition/Rank',
+        url: '/api/exhibitions/Rank',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     class_types: {
-        url: '/api/exhibition/Caste',
+        url: '/api/exhibitions/Caste',
         dictionary: {},
         dictIndex: [],
         loaded: false,
         loading: false,
     },
     dignity_types:{
-        url: '/api/exhibition/dignity',
+        url: '/api/exhibitions/dignity',
         dictionary: {},
         dictIndex: [],
         loaded: false,
@@ -36,7 +36,7 @@ export const dictionariesInitialState = {
     },
     cities: {
         options: [],
-        url: '/api/exhibition/city',
+        url: '/api/exhibitions/city',
         dictionary: {},
         dictIndex: [],
         loaded: false,

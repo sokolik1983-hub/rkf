@@ -9,7 +9,7 @@ import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
 function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
-    const url = `${endpointUrl}?id=${legal_information_id}`;
+    const url = `${endpointUrl}/${legal_information_id}`;
     if(!legal_information_id){
         return (
             <div>Не задан идентификатор</div>

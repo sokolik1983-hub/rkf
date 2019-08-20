@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Label = ({field}) => field.label ?
-    <label
-        htmlFor={field.name}
-        dangerouslySetInnerHTML={{__html: field.label}}/>
-    : null;
-export default Label;
+function Label({label, htmlFor}) {
+    return label ?
+        <label
+            htmlFor={htmlFor}
+            dangerouslySetInnerHTML={{__html: label}}/>
+        : null;
+}
+
+export default React.memo(Label);
