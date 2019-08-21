@@ -1,7 +1,5 @@
 import * as actiontypes from './actiontypes';
 import createReducer from "utils/createReducer";
-import {normalizeList} from 'shared/normilizers'
-import {normalizeExhibitionsList} from './normalize'
 
 const exhibitionsInitialState = {
     listCollection: {},
