@@ -27,7 +27,10 @@ export const newsStoryFormConfig = {
         },
     },
     validationSchema: object().shape({
-
+        title: string()
+            .required('Укажите заголовок'),
+        content: string()
+            .required('Добавьте сожержание'),
     })
 };
 
