@@ -16,7 +16,6 @@ function ExhibitionsFilter({city_ids, children}) {
     //const {dictionary: breed_types} = useDictionary('breed_types');
     const {dictionary: cities} = useDictionary('cities');
     const changeCitiesFilter = cities => setFilter({...filter, cities});
-    console.log('filter', filter)
     return (
         <Provider value={{
             city_ids,

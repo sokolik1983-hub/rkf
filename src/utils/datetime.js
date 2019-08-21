@@ -1,6 +1,6 @@
 import {varIsObject} from './index'
 
-
+export const capitalizeFirstLetter = str => (str.charAt(0).toUpperCase() + str.substring(1));
 const formatLeadingZero = (number, leadingZero = true) => number < 10 && leadingZero ? '0' + number : number;
 
 export const formatDateCommon = (datetime, leadingZero = true) => {

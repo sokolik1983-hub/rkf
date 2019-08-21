@@ -20,10 +20,14 @@ function ExhibitionsListItem(props) {
                     {timeSecondsCutter(time_start)} - {timeSecondsCutter(time_end)}
                 </div>
             </div>
-            <div className="ExhibitionsListItem__title">{name}</div>
-            <div className="ExhibitionsListItem__controls">
-                <Link to={`${path}/${id}/details`} className="btn btn-primary">Смотреть</Link>
+            <div className="ExhibitionsListItem__title">
+                <Link to={`${path}/${id}/details`}>
+                    {name}
+                </Link>
             </div>
+            {/*<div className="ExhibitionsListItem__controls">*/}
+            {/*    <Link to={`${path}/${id}/details`} className="btn">Смотреть</Link>*/}
+            {/*</div>*/}
         </div>
     )
 };
