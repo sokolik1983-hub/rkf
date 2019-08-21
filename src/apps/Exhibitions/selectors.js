@@ -45,3 +45,16 @@ export const selectCalendar = state => {
     const calendarModifiers = dates.map(date => new Date(date.year, parseInt(date.month - 1, 10), date.day));
     return {calendarModifiers}
 };
+
+
+export const selectExhibitionsFilter = state => {
+    const {
+        breed_ids,
+        city_ids,
+    } = getState(state);
+
+    return {
+        breed_ids,
+        city_ids,
+    }
+};
