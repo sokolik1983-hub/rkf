@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {
     fetchExhibitionsSuccess,
     getDetails,
+    getDetailsSuccess,
 } from './actions'
 
 import {
@@ -10,7 +11,8 @@ import {
     selectExhibitions,
     selectExhibitionsListItem,
     selectListExhibitionsByDates,
-    selectCalendar
+    selectCalendar,
+    selectExhibitionsFilter
 } from './selectors'
 
 export const connectExhibitionsList = connect(
@@ -18,6 +20,10 @@ export const connectExhibitionsList = connect(
     dispatch => bindActionCreators({
         fetchExhibitionsSuccess,
     }, dispatch)
+);
+
+export const connectExhibitionsFilter = connect(
+    selectExhibitionsFilter,
 );
 
 export const connectExhibitionsListItem = connect(
@@ -34,7 +40,7 @@ export const connectListExhibitionsByDates = connect(
 export const connectExhibitionDetails = connect(
     selectExhibitionDetails,
     dispatch => bindActionCreators({
-        getDetails,
+        getDetailsSuccess,
     }, dispatch)
 );
 
