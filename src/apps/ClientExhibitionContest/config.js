@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
-export const DATE_URL = '/api/exhibition/contest/Date';
-export const EVENT_URL = '/api/exhibition/contest/Event';
+export const DATE_URL = '/api/exhibitions/contest/Date';
+export const EVENT_URL = '/api/exhibitions/contest/Event';
 
 
 export const defaultReduxKey = 'exhibition_contest';
@@ -65,7 +65,7 @@ export const scheduleContestEventForm = {
             placeholder: 'Внутрипородный конкурс',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/contest/Type/all'
+            optionsEndpoint: '/api/exhibitions/contest/Type'
         },
         breeds_id: {
             name: 'breeds_id',
@@ -75,7 +75,7 @@ export const scheduleContestEventForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/dog/Breed/all'
+            optionsEndpoint: '/api/dog/Breed'
         },
     },
     validationSchema: object().shape({

@@ -19,7 +19,7 @@ function ExhibitionAvatar({exhibition_avatar_link, exhibitionId, addAvatarSucces
         <ImageEditable
             // here we cat pass checkPermission on canEdit
             canEdit={() => true}
-            formAction={'/api/exhibition/Picture/full'}
+            formAction={'/api/exhibitions/Picture/full'}
             onAddSuccess={onSuccess}
             imageUrl={exhibition_avatar_link}
             transformValues={transformValues}
@@ -27,7 +27,7 @@ function ExhibitionAvatar({exhibition_avatar_link, exhibitionId, addAvatarSucces
                 <DeleteButton
                     onDeleteSuccess={onDeleteSuccess}
                     params={params}
-                    actionUrl={'/api/exhibition/Picture/bytype'}
+                    actionUrl={'/api/exhibitions/Picture/bytype'}
                 >удалить</DeleteButton>
             }
         />

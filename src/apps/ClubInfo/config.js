@@ -26,7 +26,7 @@ export const clubInfoFormConfig = {
             placeholder: 'Выберите город',
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/city/all'
+            optionsEndpoint: '/api/exhibitions/city'
         },
         description: {
             name: "description",

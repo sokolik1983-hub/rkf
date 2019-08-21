@@ -1,6 +1,6 @@
 import {object, string} from "yup";
 
-const DOCUMENTS_URL = '/api/exhibition/documents/full';
+const DOCUMENTS_URL = '/api/exhibitions/documents/full';
 export const defaultReduxKey = 'exhibition_documents';
 
 

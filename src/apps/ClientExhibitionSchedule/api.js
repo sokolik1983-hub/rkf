@@ -7,7 +7,7 @@ const Api = {
         const {exhibition_id} = action;
         return request(
             {
-                url: `/api/Schedule/?id=${exhibition_id}`,
+                url: `/api/Schedule/${exhibition_id}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

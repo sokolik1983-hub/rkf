@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {Field} from 'formik'
 import classnames from 'classnames'
 import FormInput from 'components/Form/FormInput'
-import FieldError from './Error'
+import Error from './Error'
 import Label from './Label'
 import ImageInput from './ImageInput'
 import TextArea from "./textarea";
@@ -11,59 +11,59 @@ import CustomEmail from './CustomEmail'
 import CustomPhone from './CustomPhone'
 import ReactSelect from './ReactSelect'
 import DraftJs from './DraftJs'
-
+import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
 
-class FastFormField extends PureComponent {
-    static defaultProps = {
-        type: "text",
-    };
-    getComponent = () => {
-        switch (this.props.fieldType) {
-            case "textarea":
-                return TextArea;
-            case "image":
-                return ImageInput;
-            case "customEmail":
-                return CustomEmail;
-            case "customPhone":
-                return CustomPhone;
-            case "reactSelect":
-                return ReactSelect;
-            case "reactSelectAsync":
-                return ReactSelectAsync;
-            case "masked":
-                return MaskedField;
-            case "DraftJs":
-                return DraftJs;
-            default:
-                return Field;
-        }
-    };
 
-    render() {
-        const FieldInput = this.getComponent();
-        const {fieldType, className, style, ...fieldProps} = this.props;
+const FIELDS = {
+    textarea: TextArea,
+    image: ImageInput,
+    customEmail: CustomEmail,
+    customPhone: CustomPhone,
+    reactSelect: ReactSelect,
+    reactSelectAsync: ReactSelectAsync,
+    reactSelectDict: ReactSelectDict,
+    masked: MaskedField,
+    DraftJs: DraftJs,
+    Field: Field,
+};
 
-        return (
-            <FormInput
-                style={style}
-                name={fieldProps.name}
-                className={classnames(
-                    {[className]: className},
-                    {[`FormInput--${fieldProps.type}`]: fieldProps.type},
-                )}
-            >
-                <Label field={fieldProps}/>
-                <FieldInput
-                    id={fieldProps.name}
-                    className={'FormInput__input'}
-                    {...fieldProps}
-                />
-                <FieldError name={fieldProps.name}/>
-            </FormInput>
-        )
+function getField(fieldType) {
+    if (FIELDS.hasOwnProperty(fieldType)) {
+        return FIELDS[fieldType]
+    } else {
+        return FIELDS.Field
     }
 }
 
-export default FastFormField
+function FormField(props) {
+    const {fieldType, className, style, ...fieldProps} = props;
+
+    const Input = getField(fieldType);
+
+    return (
+        <FormInput
+            style={style}
+            name={fieldProps.name}
+            className={classnames(
+                {[className]: className},
+                {[`FormInput--${fieldProps.type}`]: fieldProps.type},
+            )}
+        >
+            <Label htmlFor={fieldProps.name} label={fieldProps.label}/>
+            <Input
+                id={fieldProps.name}
+                className={'FormInput__input'}
+                {...fieldProps}
+            />
+            <Error name={fieldProps.name}/>
+        </FormInput>
+    )
+
+}
+
+FormField.defaultProps = {
+    type: "text",
+};
+
+export default React.memo(FormField)

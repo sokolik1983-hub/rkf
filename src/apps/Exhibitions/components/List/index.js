@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react'
+import React from 'react'
+import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectExhibitionsList} from 'apps/Exhibitions/connectors'
 import ListItem from '../ListItem'
 import ListLayout from '../ListLayout'
+import {endpointExhibitionsList} from 'apps/Exhibitions/config'
 
-function ExhibitionsList({fetchExhibitions, exhibitionsIds}) {
-    useEffect(() => {
-        fetchExhibitions()
-    }, []);
+function ExhibitionsList({fetchExhibitionsSuccess, listIds}) {
+    const {loading} = useResourceAndStoreToRedux(endpointExhibitionsList, fetchExhibitionsSuccess);
+
     return (
         <ListLayout>
             <div className="ExhibitionsList">
                 {
-                    exhibitionsIds.map(exhibitionId =>
-                        <ListItem key={exhibitionId} id={exhibitionId}/>
+                    listIds.map(id =>
+                        <ListItem key={id} id={id}/>
                     )
                 }
             </div>

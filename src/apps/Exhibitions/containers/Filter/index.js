@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {CheckBoxFilter} from 'apps/Exhibitions/components/Filter'
+import {CheckBoxFilter} from 'apps/Exhibitions/components/Filter/FilterCheckbox'
 import FilterSearch from 'apps/Exhibitions/components/FilterSearch'
 import Button from 'components/Button'
 import {dogBreedFilterOptions} from 'apps/Exhibitions/config'

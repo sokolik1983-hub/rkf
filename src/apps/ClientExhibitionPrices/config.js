@@ -3,7 +3,7 @@ import {object, string} from "yup";
 export const defaultReduxKey = 'exhibition_prices';
 
 
-export const listPricesByExhibitionIdUrl = '/api/exhibition/Price/byexhibition?id=';
+export const listPricesByExhibitionIdUrl = '/api/exhibitions/Price/byexhibition?id=';
 
 export const exhibitionPricesForm = {
     fields: {

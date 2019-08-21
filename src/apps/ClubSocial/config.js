@@ -3,7 +3,7 @@ import {object, string} from "yup";
 export const defaultReduxKey = 'club_social';
 export const endpointUrl = '/api/club/SocialNetwork';
 
-export const getlistUrl = '/api/club/SocialNetwork/list?id=';
+export const getlistUrl = '/api/clubs/SocialNetwork/list/';
 
 
 export const clubClubSocialConfig = {

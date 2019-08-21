@@ -3,7 +3,7 @@ import {object, string} from "yup";
 export const defaultReduxKey = 'club_contacts';
 export const endpointUrl = '/api/club/Contact';
 
-export const getlistUrl = '/api/club/Contact/list?=';
+export const getlistUrl = '/api/clubs/Contact/list/';
 
 
 export const clubClubContactsConfig = {

@@ -15,7 +15,7 @@ export const useDictionary = (dictName) => {
         if (!dict.loaded && !dict.loading) {
             dispatch(getDict(dictName))
         }
-    },[dictName, dict.loaded]);
+    },[dictName]);
 
     return {
         dictionary: dict

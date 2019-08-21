@@ -4,7 +4,7 @@ const Api = {
     getExhibitionDocuments: async (action) => {
         return request(
             {
-                url: `/api/exhibition/DocumentLink/list`,
+                url: `/api/exhibitions/DocumentLink/list`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

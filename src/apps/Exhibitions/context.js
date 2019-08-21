@@ -1,3 +1,5 @@
-import React from 'react'
+import {createContext} from 'react'
 
-export const ExhibitionsPathContext = React.createContext();
+export const ExhibitionsPathContext = createContext();
+
+export const ExhibitionsFilterContext = createContext();

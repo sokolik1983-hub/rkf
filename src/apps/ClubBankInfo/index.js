@@ -9,7 +9,7 @@ import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
 function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
-    const url = `${endpointUrl}?id=${bank_data_id}`;
+    const url = `${endpointUrl}/${bank_data_id}`;
     if(!bank_data_id){
         return (
             <div>Не задан идентификатор</div>

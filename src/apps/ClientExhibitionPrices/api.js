@@ -1,5 +1,5 @@
 import request, {getHeaders} from 'utils/request';
-export const EXHIBITION_PRICE = '/api/exhibition/Price';
+export const EXHIBITION_PRICE = '/api/exhibitions/Price';
 
 const Api = {
     addExhibitionPrice: async (action) => {

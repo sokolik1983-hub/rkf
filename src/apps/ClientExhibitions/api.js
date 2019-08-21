@@ -5,7 +5,7 @@ const Api = {
     getExhibitionList: async (action) => {
         return request(
             {
-                url: '/api/Exhibition/list',
+                url: '/api/Exhibitions/Exhibition/list',
                 options: {
                     method: "GET",
                     headers: getHeaders(),
@@ -17,7 +17,7 @@ const Api = {
         const {id} = action;
         return request(
             {
-                url: `/api/Exhibition?id=${id}`,
+                url: `/api/Exhibitions/Exhibition/${id}`,
                 options: {
                     method: "GET",
                     headers: getHeaders(),

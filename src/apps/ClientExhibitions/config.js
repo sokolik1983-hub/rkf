@@ -3,7 +3,7 @@ import {array, object, string} from "yup";
 
 export const defaultReduxKey = 'client_exhibitions'
 
-export const CLIENT_EXHIBITION_URL = '/api/Exhibition';
+export const CLIENT_EXHIBITION_URL = '/api/Exhibitions/exhibition';
 
 export const firstStepForm = {
     formAction: CLIENT_EXHIBITION_URL,
@@ -27,7 +27,7 @@ export const firstStepForm = {
             //components: {Option: CheckBoxOption},
             fieldType: 'reactSelectAsync',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/type/all'
+            optionsEndpoint: '/api/exhibitions/type'
         },
         rank_types: {
             name: 'rank_types',
@@ -37,7 +37,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/rank/all'
+            optionsEndpoint: '/api/exhibitions/rank'
         },
         class_types: {
             name: 'class_types',
@@ -47,7 +47,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/exhibition/Caste/all'
+            optionsEndpoint: '/api/exhibitions/Caste'
         },
         referees_id: {
             name: 'referees_id',
@@ -57,7 +57,7 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/Referee/all'
+            optionsEndpoint: '/api/Referee'
         },
         breed_types: {
             name: 'breed_types',
@@ -67,15 +67,16 @@ export const firstStepForm = {
             type: 'select',
             isMulti: true,
             closeMenuOnSelect: false,
-            optionsEndpoint: '/api/dog/Breed/all'
+            optionsEndpoint: '/api/dog/Breed'
         },
         city_id: {
             name: 'city_id',
             label: 'Город',
             placeholder: 'Москва',
-            fieldType: 'reactSelectAsync',
+            fieldType: 'reactSelectDict',
             type: 'select',
-            optionsEndpoint: '/api/exhibition/city/all'
+            dictName: 'cities'
+            //optionsEndpoint: '/api/exhibitions/city'
         },
         address: {
             name: 'address',
