@@ -3,14 +3,15 @@ import {connectClientClubHeaderPicture} from 'apps/ClientClub/connectors'
 import EditableImageWrapper from 'components/EditableImageWrapper'
 import './styles.scss'
 
-function ClubHeaderPicture({backgroundImage, getClubPictureUpdateSuccess}) {
+function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
+    console.log({backgroundImage, clubPictureUpdateSuccess})
     const ref = useRef(null);
     return (
         <div>
             <h3>Картинка в шапке</h3>
             <EditableImageWrapper
                 requestUrl={'/api/HeaderPicture/full'}
-                onSubmitSuccess={getClubPictureUpdateSuccess}
+                onSubmitSuccess={clubPictureUpdateSuccess}
             >
                 <div ref={ref} style={{
                     backgroundImage: `url(${
