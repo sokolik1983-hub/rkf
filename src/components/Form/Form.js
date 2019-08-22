@@ -1,5 +1,5 @@
-import React, {useMemo, useCallback} from 'react';
-import {string, func, object, element, array, oneOf, oneOfType} from 'prop-types';
+import React, {useCallback} from 'react';
+import {array, element, func, object, oneOf, oneOfType, string} from 'prop-types';
 import axios from "axios";
 import classnames from 'classnames'
 import {Formik} from 'formik';
@@ -64,7 +64,7 @@ function Form({
             }
         }
     );
-    return useMemo(() =>
+    return (
         <Formik
             enableReinitialize
             initialValues={initialValues}
@@ -76,7 +76,7 @@ function Form({
                 </form>
             )
             }
-        />, [initialValues]
+        />
     )
 }
 
@@ -97,5 +97,5 @@ Form.defaultProps = {
     transformValues: values => (values)
 };
 
-export default Form
+export default React.memo(Form)
 
