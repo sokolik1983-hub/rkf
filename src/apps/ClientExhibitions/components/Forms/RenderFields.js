@@ -74,4 +74,4 @@ const RenderFields = ({disabled, isUpdate}) =>
     </>;
 
 
-export default RenderFields
+export default React.memo(RenderFields)
