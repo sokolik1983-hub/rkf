@@ -8,9 +8,9 @@ import NewsStory from './NewsStory'
 
 import './styles.scss'
 
-function NewsList({listIds}) {
+function NewsList({listIds, clubRoute}) {
     // TODO fix that shit
-    const url = publicNewsEndpoint + '?profileId=12';
+    const url = clubRoute ? publicNewsEndpoint + clubRoute: publicNewsEndpoint;
     const {loading} = useResourceAndStoreToRedux(url, getNewsSuccess);
 
     //const {loading} = useResourceAndStoreToRedux(publicNewsEndpoint, getNewsSuccess);
