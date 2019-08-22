@@ -52,22 +52,29 @@ export const clubLegalInfoFormConfig = {
     validationSchema: object().shape({
         //
         name: string()
-            .required('Поле не может быть пустым'),
-        owner_name: string()
-            .required('Поле не может быть пустым'),
-        address: string()
             .required('Поле не может быть пустым')
-            .min(35, 'коротко'),
+            .nullable(),
+        owner_name: string()
+            .required('Поле не может быть пустым')
+            .nullable(),
+        address: string()
+            .nullable()
+            .required('Поле не может быть пустым')
+            .min(20, 'коротко от 20'),
         inn: string()
+            .nullable()
             .required('Поле не может быть пустым')
             .min(10, 'коротко'),
         kpp: string()
+            .nullable()
             .required('Поле не может быть пустым')
             .min(9, 'коротко'),
         ogrn: string()
+            .nullable()
             .required('Поле не может быть пустым')
             .min(13, 'коротко'),
         okpo: string()
+            .nullable()
             .required('Поле не может быть пустым')
             .min(8, 'коротко'),
         registration_number: string()

@@ -24,7 +24,7 @@ function ClientClubListItem({clubContact, updateClubContactSuccess, deleteClubCo
         <div className="ClientClubListItem">{
             visibility ?
                 <Form
-                    action={"/api/club/Contact"}
+                    action={"/api/clubs/Contact"}
                     onSuccess={onUpdateSuccess}
                     method={HTTP.update}
                     initialValues={clubContact}

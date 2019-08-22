@@ -17,6 +17,11 @@ const appRoutes = [
         component: LoadableModules.LoadableHomePage
     },
     {
+        exact: true,
+        path: '/club/:route',
+        component: LoadableModules.LoadableHomePage
+    },
+    {
         exact: false,
         path: '/demo',
         component: LoadableModules.LoadableDemo

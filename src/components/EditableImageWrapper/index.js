@@ -57,14 +57,17 @@ function EditableImageWrapper({
                 headers: getHeaders(true)
             };
             const response = await axios(config);
-            setState({...state, loading: false});
             onSubmitSuccess(response.data.result);
+            setState({...state, loading: false});
+
+
             clear()
         }
     };
 
 
     const getChildElSize = () => {
+        console.log('onSubmitSuccess', onSubmitSuccess)
         //console.dir(children);
     };
     useEffect(() => getChildElSize(), []);

@@ -12,8 +12,8 @@ import {
 
 import {
     getClubSuccess,
-    getClubPictureUpdateSuccess,
-    getClubLogoUpdateSuccess,
+    clubPictureUpdateSuccess,
+    clubLogoUpdateSuccess,
     clubAliasUpdateSuccess,
     clubInfoUpdateSuccess
 } from './actions'
@@ -34,14 +34,14 @@ export const connectClientClubContacts = connect(
 export const connectClientClubHeaderPicture = connect(
     selectClubHeaderPicture,
     dispatch => bindActionCreators({
-        getClubPictureUpdateSuccess
+        clubPictureUpdateSuccess
     }, dispatch)
 );
 
 export const connectClientClubLogoPicture = connect(
     selectClubLogoPicture,
     dispatch => bindActionCreators({
-        getClubLogoUpdateSuccess
+        clubLogoUpdateSuccess
     }, dispatch)
 );
 

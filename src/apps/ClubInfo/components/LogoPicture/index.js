@@ -3,14 +3,15 @@ import {connectClientClubLogoPicture} from 'apps/ClientClub/connectors'
 import EditableImageWrapper from 'components/EditableImageWrapper'
 import './styles.scss'
 
-function ClubLogoPicture({backgroundImage, getClubPictureUpdateSuccess}) {
+
+function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
     const ref = useRef(null);
     return (
         <div>
             <h3>Логотип</h3>
         <EditableImageWrapper
             requestUrl={'/api/Avatar/full'}
-            onSubmitSuccess={getClubPictureUpdateSuccess}
+            onSubmitSuccess={clubLogoUpdateSuccess}
         >
             <div ref={ref} style={{
                 backgroundImage: `url(${

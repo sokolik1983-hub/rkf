@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 export const defaultReduxKey = 'club_document';
-export const endpointUrl = '/api/club/ClubDocument';
+export const endpointUrl = '/api/clubs/ClubDocument';
 
 export const getlistUrl = '/api/clubs/ClubDocument/list/';
 

@@ -1,29 +1,23 @@
 import * as actiontypes from './actiontypes';
-import {normalizeNewList} from './normalize'
+import {normalizeList} from "shared/normilizers";
 import createReducer from 'utils/createReducer'
 
 const clientNewsInitialState = {
     loadingApi: false,
-    news: {},
-    newsIds: [],
+    listCollection: {},
+    listIds: [],
 };
 
 const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
-    [actiontypes.GET_NEWS](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
+
     [actiontypes.GET_NEWS_SUCCESS](state, action) {
         if (action.data.length) {
-            const {entities, result: newsIds} = normalizeNewList(action.data);
-            const {news} = entities;
+            const {entities, result: listIds} = normalizeList(action.data);
             return {
                 ...state,
                 loading: false,
-                news,
-                newsIds
+                listCollection: entities.listCollection,
+                listIds
             };
         }
         return {
@@ -32,35 +26,29 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
         }
     },
 
-    [actiontypes.GET_NEWS_FAILED](state, action) {
-        return {
-            ...state,
-            loading: false,
-        }
-    },
     [actiontypes.ADD_NEWS_SUCCESS](state, action) {
         const {id} = action.data;
-        const news = {...state.news};
-        const newsIds = [id, ...state.newsIds];
-        news[id.toString()] = action.data;
+        const listCollection = {...state.listCollection};
+        const listIds = [id, ...state.listIds];
+        listCollection[id.toString()] = action.data;
 
         return {
             ...state,
-            news,
-            newsIds,
+            listCollection,
+            listIds,
             loading: false,
         }
     },
     [actiontypes.DELETE_NEWS_SUCCESS](state, action) {
         const {id} = action;
-        const news = {...state.news};
-        delete news[String(id)];
-        const newsIds = state.newsIds.filter(item => item !== id);
+        const listCollection = {...state.listCollection};
+        delete listCollection[String(id)];
+        const listIds = state.listIds.filter(item => item !== id);
 
         return {
             ...state,
-            news,
-            newsIds,
+            listCollection,
+            listIds,
             loading: false,
         }
     },

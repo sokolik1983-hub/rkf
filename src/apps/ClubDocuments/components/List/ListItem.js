@@ -24,7 +24,7 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
         <div className="ClientClubListItem">{
             visibility ?
                 <Form
-                    action={'/api/club/ClubDocument'}
+                    action={'/api/clubs/ClubDocument'}
                     onSuccess={onUpdateSuccess}
                     method={HTTP.update}
                     initialValues={clubDocument}
@@ -39,7 +39,7 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
                 <DeleteButton
                     onDeleteSuccess={onDeleteSuccess}
                     //params={params}
-                    actionUrl={`/api/club/ClubDocument?id=${clubDocument.id}`}
+                    actionUrl={`/api/clubs/ClubDocument/${clubDocument.id}`}
                 >удалить</DeleteButton>
             </div>
         </div>

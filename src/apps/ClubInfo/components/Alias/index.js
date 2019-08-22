@@ -14,7 +14,7 @@ function ClientClubAlias({club_alias, club_id, clubAliasUpdateSuccess}) {
             <Form
                 method={"PUT"}
                 action={'/api/Alias'}
-                initialValues={{alias_name: club_alias}}
+                initialValues={{alias_name: club_alias ? club_alias : ''}}
                 onSuccess={onSuccess}
                 transformValues={transformValues}
             >

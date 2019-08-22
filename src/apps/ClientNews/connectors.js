@@ -6,7 +6,7 @@ import {
 } from './selectors'
 
 import {
-    getNews,
+    getNewsSuccess,
     addNewsSuccess,
     deleteNewsStorySuccess
 } from './actions'
@@ -24,7 +24,7 @@ export const connectNewsList = connect(
     selectNews,
     dispatch => bindActionCreators(
         {
-            getNews,
+            getNewsSuccess,
         }, dispatch)
 );
 
@@ -32,7 +32,6 @@ export const connectNewsStory = connect(
     selectNewsStory,
     dispatch => bindActionCreators(
         {
-            getNews,
             deleteNewsStorySuccess
         }, dispatch)
 );
