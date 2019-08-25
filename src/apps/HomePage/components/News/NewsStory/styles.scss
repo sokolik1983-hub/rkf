@@ -1,0 +1,32 @@
+.NewsStory {
+  margin-bottom: 24px;
+  &__Head {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 24px;
+  }
+
+  &__StoryInfo {
+    padding-left: 12px;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  &__Signature {
+    color: #72839C;
+  }
+  &__Text{
+    margin-bottom: 24px;
+  }
+  &__ImagePreview{
+    max-height: 367px;
+    min-height: 367px;
+    width: 100%;
+    background-size: cover;
+    border-radius: 6px;
+  }
+}
