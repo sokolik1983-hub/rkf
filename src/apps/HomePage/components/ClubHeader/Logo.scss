@@ -1,0 +1,15 @@
+$size: 110px;
+.ClubHeaderLogo {
+  width:$size;
+  min-width: $size;
+  max-width: $size;
+  height: $size;
+  min-height: $size;
+  max-height: $size;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-radius: 50%;
+  margin-right: 32px;
+}
