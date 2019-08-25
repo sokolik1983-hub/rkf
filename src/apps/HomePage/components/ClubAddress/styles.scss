@@ -1,0 +1,19 @@
+.ClubAddress {
+  position: relative;
+  margin-left: 32px;
+  &:after {
+    top: -4px;
+    left: -32px;
+    position: absolute;
+    content: "";
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/static/icons/ico-pointer.svg");
+  }
+
+  span {
+    color: rgb(97, 121, 124);
+  }
+}
