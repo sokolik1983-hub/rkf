@@ -27,7 +27,7 @@ function NewsStory({newsStory, deleteNewsStorySuccess}) {
             <DeleteButton
                 onDeleteSuccess={onDeleteSuccess}
                 //params={params}
-                actionUrl={'/api/ClubArticle?id=' + id}
+                actionUrl={'/api/ClubArticle/' + id}
             >удалить</DeleteButton>
         </div>
     )
