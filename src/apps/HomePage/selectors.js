@@ -1,7 +1,20 @@
 import {defaultReduxKey} from "./config";
 
+export const getState = state => state[defaultReduxKey];
+
+
+export const selectClubRoute = state => {
+    const {club} = getState(state);
+    return {route: club.route}
+};
+
 export const selectExhibitions = state => {
-    return {...state[defaultReduxKey].exhibitions}
+    const {exhibitions} = getState(state);
+    const {route} = selectClubRoute(state);
+    return {
+        route,
+        ...exhibitions
+    }
 };
 
 export const selectExhibition = (state, props) => {
@@ -13,16 +26,65 @@ export const selectExhibition = (state, props) => {
 
 
 export const selectNews = state => {
-    return {...state[defaultReduxKey].news}
+    const {route} = selectClubRoute(state);
+    const {listIds, listCollection} = getState(state).news;
+    return {
+        route,
+        listIds,
+        listCollection
+    }
+};
+
+export const selectClubHeader = state => {
+    const {common} = getState(state).club;
+    const {logo_link, headliner_link, name} = common;
+    return {
+        clubLogo: logo_link,
+        clubHeaderImg: headliner_link,
+        clubName: name,
+    }
 };
 
 export const selectNewsStory = (state, props) => {
+
     if (props.id) {
         const {listCollection} = selectNews(state);
-
         return {
             ...listCollection[String(props.id)]
         }
     }
+
     return null
+};
+
+export const selectFeaturedExhibitionsList = state => {
+    const {exhibitions} = getState(state);
+    // const {listIds} = exhibitions;
+    const {route} = selectClubRoute(state);
+    return {route, exhibitions:exhibitions.list}
+};
+
+export const selectClubDescription = state => {
+    const {common} = getState(state).club;
+    const {description} = common;
+    return {
+        description
+    }
+};
+
+
+export const selectClubAddress = state => {
+    const {common} = getState(state).club;
+    const {address, city} = common;
+    return {address, city}
+};
+
+export const selectClubContacts = state => {
+    const {contacts} = getState(state).club;
+    return {contacts}
+};
+
+export const selectClubDocuments = state => {
+    const {documents} = getState(state).club;
+    return {documents}
 };

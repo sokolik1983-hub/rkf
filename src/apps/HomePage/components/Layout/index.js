@@ -1,31 +1,58 @@
 import React from 'react'
+import Card from 'components/Card'
+import FooterSmall from 'components/Layout/FooterSmall'
 import Container from 'components/Layout/Container'
-import BigSlider from 'components/BigSlider'
-import SocialGallery from 'apps/HomePage/components/SocialGallery'
-
-import Partners from 'apps/HomePage/components/Partners'
-import About from 'apps/HomePage/components/AboutBlock'
-import RegisterBlock from 'apps/HomePage/components/Register'
-import SpecialOffersSubscription from 'components/Subcriptions/SpecialOffers'
 import PublicLayout from 'components/Layout'
-import {demoSlides} from './demoSlides'
-
-
-import WeekExhibitions from '../WeekExhibitions'
+import ClubHeader from '../ClubHeader'
+import FeaturedExhibitionsList from '../FeaturedExhibitions'
 import News from '../News'
+import ClubAddress from '../ClubAddress'
+import ClubDescription from '../Description'
+import ClubContacts from '../ClubContacts'
+import ClubDocuments from '../ClubDocuments'
+import './styles.scss'
 
-const HomePageLayout = () =>
-    <PublicLayout>
-        <Container className="home">
-            <BigSlider slides={demoSlides}/>
-            <WeekExhibitions/>
-            <About/>
-            <News/>
-            <Partners/>
-            <RegisterBlock/>
-            <SocialGallery/>
-            <SpecialOffersSubscription/>
-        </Container>
-    </PublicLayout>;
+const Wrap = ({children}) => <div className="HomePage__wrap">{children}</div>;
+const Content = ({children}) => <div className="HomePage__content">{children}</div>;
+const Side = ({children}) => <div className="HomePage__side">{children}</div>;
 
-export default HomePageLayout;
+function HomePageLayout() {
+    return (
+        <PublicLayout>
+            <Container className="home">
+                <div style={{padding: `0px 48px`}}>
+                    <ClubHeader/>
+                    <FeaturedExhibitionsList/>
+                    <Wrap>
+                        <Content>
+                            <ClubDescription/>
+                            <News/>
+                        </Content>
+                        <Side>
+                            <Card>
+                                <h4 className="text-upper">Контакты</h4>
+                                <ClubAddress/>
+                                <ClubContacts/>
+                                <h4 className="text-upper">Документы</h4>
+                                <ClubDocuments/>
+                            </Card>
+                        </Side>
+                    </Wrap>
+                    <FooterSmall/>
+                    {/*<BigSlider slides={demoSlides}/>*/}
+                    {/*<WeekExhibitions/>*/}
+                    {/*<About/>*/}
+                    {/*<News/>*/}
+                    {/*<Partners/>*/}
+                    {/*<RegisterBlock/>*/}
+                    {/*<SocialGallery/>*/}
+                    {/*<SpecialOffersSubscription/>*/}
+                </div>
+            </Container>
+        </PublicLayout>
+    )
+
+}
+;
+
+export default React.memo(HomePageLayout);

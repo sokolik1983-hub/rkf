@@ -1,0 +1,21 @@
+.HomePage {
+
+  &__wrap {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 24px;
+  }
+
+  &__content {
+    flex: 2;
+    margin-right: 40px;
+  }
+
+  &__side {
+    flex: 1;
+  }
+}
+
+.container.home{
+  margin-top: 70px
+}

@@ -2,11 +2,9 @@ import * as actiontypes from './actiontypes';
 import {combineReducers} from "redux";
 import {normalizeList} from 'shared/normilizers'
 import createReducer from 'utils/createReducer'
-import {normalizeExhibitionList} from "../ClientExhibitions/normalize";
 
 const homePageExhibitionsInitialState = {
-    listCollection: {},
-    listIds: []
+    list: [],
 };
 
 const homePageNewsInitialState = {
@@ -15,26 +13,25 @@ const homePageNewsInitialState = {
 };
 
 const homePageClubInitialState = {
-    listCollection: {},
-    listIds: []
+    route: '',
+    contacts: [],
+    documents: [],
+    common: {}
 };
 
 
 const exhibitions = createReducer(homePageExhibitionsInitialState, {
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {exhibitions}=action.data;
-        const {entities, result:listIds} = normalizeList(exhibitions);
         return {
             ...state,
-            listIds,
-            listCollection: entities.listCollection
+            list: action.data
         };
     },
 });
 
 const news = createReducer(homePageNewsInitialState, {
     [actiontypes.GET_NEWS_SUCCESS](state, action) {
-        const {entities, result:listIds} = normalizeList(action.data);
+        const {entities, result: listIds} = normalizeList(action.data);
         return {
             ...state,
             listIds,
@@ -44,11 +41,15 @@ const news = createReducer(homePageNewsInitialState, {
 });
 
 const club = createReducer(homePageClubInitialState, {
-    [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {data} = action;
+    [actiontypes.GET_COMMON_SUCCESS](state, action) {
+        const {documents, contacts, ...common} = action.data;
+        const {shortcut_route_name: route} = common;
         return {
             ...state,
-            loading: true,
+            route,
+            documents,
+            contacts,
+            common
         };
     },
 });
