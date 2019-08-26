@@ -36,7 +36,7 @@ export const dictionariesInitialState = {
     },
     cities: {
         options: [],
-        url: '/api/exhibitions/city',
+        url: '/api/city',
         dictionary: {},
         dictIndex: [],
         loaded: false,
