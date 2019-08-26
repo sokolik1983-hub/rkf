@@ -2,22 +2,24 @@ import React from 'react'
 import HeaderLogo from './HeaderLogo'
 import Container from 'components/Layout/Container'
 import Nav from 'components/Nav'
+import CitySelect from 'components/CitySelect'
 
 import WidgetLang from 'components/WidgetLang'
 import WidgetNotifications from 'components/WidgetNotifications'
 import HeaderLogin from 'apps/Auth/containers/HeaderLogin'
 import './index.scss'
 
-const Header = ({children}) =>
+const Header = ({ children }) =>
     <header>
         <Container pad>
-            <HeaderLogo/>
-            <Nav/>
-            <WidgetLang/>
-            <WidgetNotifications/>
-            <HeaderLogin/>
+            <HeaderLogo />
+            <Nav />
+            <CitySelect />
+            <WidgetLang />
+            <WidgetNotifications />
+            <HeaderLogin />
         </Container>
-    </header>;
+    </header>
 
 
 export default Header;

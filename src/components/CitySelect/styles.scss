@@ -1,0 +1,20 @@
+.CitySelect {
+  &__heading {
+    margin: 0;
+    margin-left: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+  }
+  .drop-down {
+    &__items {
+      width: 311px;
+      height: 275px;
+      right: -180px;
+      &--visible:before {
+        right: 270px;
+      }
+    }
+  }
+}
