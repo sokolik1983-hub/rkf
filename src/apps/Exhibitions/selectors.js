@@ -58,3 +58,10 @@ export const selectExhibitionsFilter = state => {
         city_ids,
     }
 };
+
+export const selectExhibitionPrices = state => {
+    const {exhibitionPrices} = getState(state);
+    return {
+        exhibitionPrices
+    }
+};

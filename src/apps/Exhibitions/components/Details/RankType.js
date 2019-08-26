@@ -1,11 +1,14 @@
 import React from 'react'
 import {getDictElement, useDictionary} from "apps/Dictionaries";
 
-export default function ExhibitionRankType({rank_type}) {
+export default function ExhibitionRankType({rank_types}) {
     const {dictionary} = useDictionary('rank_type');
-    const rank = getDictElement(dictionary, rank_type);
-    console.log(dictionary, rank_type)
-    return (
-        <div key={rank_type} className="ExhibitionRankType">{rank}</div>
-    )
+
+    const data = rank_types ? rank_types.map(rt => getDictElement(dictionary, rt)) : []
+    return data ?
+        data.map(type =>
+            <div key={type} className="ExhibitionRankType">{type}</div>
+        )
+        : null
+
 }

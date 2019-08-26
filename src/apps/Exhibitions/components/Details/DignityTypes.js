@@ -1,12 +1,12 @@
 import React from 'react'
-import {getDictElementsArray, useDictionary} from "apps/Dictionaries";
+import {getDictElement, useDictionary} from "apps/Dictionaries";
 
-export default function ExhibitionDignityTypes({dignityTypesIds = []}) {
+export default function ExhibitionDignityTypes({type_id}) {
     const {dictionary} = useDictionary('dignity_types');
-    const dignityTypes = getDictElementsArray(dictionary, dignityTypesIds);
+    const type = getDictElement(dictionary, type_id);
     return (
         <React.Fragment>
-            {dignityTypes.map(dignityType => <div key={dignityType} className="ExhibitionDignityTypes">{dignityType}</div>)}
+            {type}
         </React.Fragment>
     )
 }

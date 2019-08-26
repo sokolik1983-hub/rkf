@@ -5,7 +5,7 @@ import Tabs, {TabContent} from "components/Tabs";
 import Img from 'components/Img'
 import DetailsContent from "../DetailsContent";
 import ExhibitionReferees from './Referees'
-
+import ExhibitionDetailsPrices from '../DetailsPrices'
 
 export default function ExhibitionDetailsContent({
                                                      id,
@@ -27,20 +27,22 @@ export default function ExhibitionDetailsContent({
 
                     <div dangerouslySetInnerHTML={{__html: description}}/>
                 </TabContent>
-                <TabContent label="Расписание">
-                    {id && <ExhibitionSchedule exhibitionId={id}/>}
+                <TabContent label="Конкурсы">
+                    <ExhibitionContests exhibitionId={id}/>
                 </TabContent>
                 <TabContent label="Судьи">
                     <ExhibitionReferees
                         refereesIds={referees_id}
                     />
                 </TabContent>
-                {/*<TabContent label="Участники">Участники</TabContent>*/}
-                <TabContent label="Конкурсы">
-                    <ExhibitionContests exhibitionId={id}/>
+                <TabContent label="Расписание">
+                    {id && <ExhibitionSchedule exhibitionId={id}/>}
                 </TabContent>
-            </Tabs>
 
+                {/*<TabContent label="Участники">Участники</TabContent>*/}
+
+            </Tabs>
+            {id && <ExhibitionDetailsPrices exhibition_id={id}/>}
         </DetailsContent>
     )
 }

@@ -4,6 +4,7 @@ import {
     fetchExhibitionsSuccess,
     getDetails,
     getDetailsSuccess,
+    storePrices
 } from './actions'
 
 import {
@@ -12,7 +13,8 @@ import {
     selectExhibitionsListItem,
     selectListExhibitionsByDates,
     selectCalendar,
-    selectExhibitionsFilter
+    selectExhibitionsFilter,
+    selectExhibitionPrices
 } from './selectors'
 
 export const connectExhibitionsList = connect(
@@ -49,5 +51,12 @@ export const connectExhibitionCalendar = connect(
     selectCalendar,
     dispatch => bindActionCreators({
         getDetails,
+    }, dispatch)
+);
+
+export const connectExhibitionPrices = connect(
+    selectExhibitionPrices,
+    dispatch => bindActionCreators({
+        storePrices,
     }, dispatch)
 );

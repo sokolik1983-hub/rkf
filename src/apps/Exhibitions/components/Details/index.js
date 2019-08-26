@@ -6,18 +6,23 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import ExhibitionAsideContent from './AsideContent'
 import {connectExhibitionDetails} from 'apps/Exhibitions/connectors'
 import './styles.scss'
+import FooterSmall from 'components/Layout/FooterSmall'
 
 function ExhibitionDetails(props) {
     const {getDetailsSuccess, exhibitionId, details} = props;
-    const {loading} = useResourceAndStoreToRedux('/api/exhibitions/exhibition/'+String(exhibitionId), getDetailsSuccess);
+    const {loading} = useResourceAndStoreToRedux('/api/exhibitions/exhibition/' + String(exhibitionId), getDetailsSuccess);
     return (
-        <Container className="ExhibitionDetails">
-            <Head {...details}/>
-            <div className="ExhibitionDetails__wrap">
-                <Content {...details}/>
-                <ExhibitionAsideContent {...details}/>
-            </div>
-        </Container>
+        <>
+            <Container className="ExhibitionDetails">
+                <Head {...details}/>
+                <div className="ExhibitionDetails__wrap">
+                    <Content {...details}/>
+                    <ExhibitionAsideContent {...details}/>
+                </div>
+
+            </Container>
+            <FooterSmall/>
+        </>
     )
 
 }
