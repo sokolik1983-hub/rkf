@@ -12,33 +12,67 @@ import ClubContacts from '../ClubContacts'
 import ClubDocuments from '../ClubDocuments'
 import './styles.scss'
 
-const Wrap = ({children}) => <div className="HomePage__wrap">{children}</div>;
-const Content = ({children}) => <div className="HomePage__content">{children}</div>;
-const Side = ({children}) => <div className="HomePage__side">{children}</div>;
+const Wrap = ({ children }) => <div className="HomePage__wrap">{children}</div>;
+const Content = ({ children }) => <div className="HomePage__content">{children}</div>;
+//const Side = ({children}) => <div className="HomePage__side">{children}</div>;
+const Contacts = [
+    {
+        class: 'pin',
+        text: 'Адрес: Москва, Гостиничная, 9'
+    },
+    {
+        class: 'phone',
+        text: 'Телефон: +7 (499) 753-22-33'
+    },
+    {
+        class: 'email',
+        text: 'E-mail: rkf@rkf.org.ru'
+    },
+    {
+        class: 'web',
+        text: 'Сайт: rkf.com.ru'
+    }
+];
+const Side = () => {
+    return (
+        <div className="NewsFeed__sidebar">
+            <h3>Об РКФ</h3>
+            <p>Российская кинологическая федерация (РКФ) является некоммерческим, добровольным, самоуправляемым, основанным на членстве союзом общественных объединений, созданным по инициативе общественных объединений, объединившихся на основе общности их интересов для достижения целей, определенных Уставом РКФ.</p>
+            <h3>Контакты</h3>
+            <div className="NewsFeed__contacts">
+                {
+                    Contacts.map((c) => {
+                        return <span className={`NewsFeed__contacts--${c.class}`}>{c.text}</span>
+                    })
+                }
+            </div>
+        </div>
+    )
+}
 
 function HomePageLayout() {
     return (
         <PublicLayout>
             <Container className="home">
-                <div style={{padding: `0px 48px`}}>
-                    <ClubHeader/>
-                    <FeaturedExhibitionsList/>
+                <div style={{ padding: `0px 48px` }}>
+                    <ClubHeader />
+                    <FeaturedExhibitionsList />
                     <Wrap>
                         <Content>
-                            <ClubDescription/>
-                            <News/>
+                            <ClubDescription />
+                            <News />
                         </Content>
                         <Side>
                             <Card>
                                 <h4 className="text-upper">Контакты</h4>
-                                <ClubAddress/>
-                                <ClubContacts/>
+                                <ClubAddress />
+                                <ClubContacts />
                                 <h4 className="text-upper">Документы</h4>
-                                <ClubDocuments/>
+                                <ClubDocuments />
                             </Card>
                         </Side>
                     </Wrap>
-                    <FooterSmall/>
+                    <FooterSmall />
                     {/*<BigSlider slides={demoSlides}/>*/}
                     {/*<WeekExhibitions/>*/}
                     {/*<About/>*/}
