@@ -20,7 +20,7 @@ function ClientClubSocialProxy() {
                     : null
             }
             <Button onClick={toggleVisibility}>
-                {visibility ? 'Скрыть форму' : 'Добавить контакт'}
+                {visibility ? 'Скрыть форму' : 'Добавить'}
             </Button>
         </div>
     )

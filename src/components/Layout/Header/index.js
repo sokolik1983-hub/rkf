@@ -13,8 +13,8 @@ const Header = ({children}) =>
         <Container pad>
             <HeaderLogo/>
             <Nav/>
-            <WidgetLang/>
-            <WidgetNotifications/>
+            {/*<WidgetLang/>*/}
+            {/*<WidgetNotifications/>*/}
             <HeaderLogin/>
         </Container>
     </header>;

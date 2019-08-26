@@ -2,6 +2,10 @@
 
 .DayPicker {
   font-size: 1rem;
+  outline: none;
+  div[class^="DayPicker-"]{
+    outline: none;
+  }
 }
 
 .DayPicker-wrapper {
@@ -119,7 +123,7 @@
   cursor: pointer;
   font-size: 14px;
   position: relative;
-
+  outline: none;
   &--blue {
     &:after {
       content: "";

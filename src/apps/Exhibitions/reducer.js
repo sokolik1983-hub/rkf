@@ -9,6 +9,7 @@ const exhibitionsInitialState = {
     exhibitionsDetails: {},
     breed_ids: [],
     city_ids: [],
+    exhibitionPrices: []
 };
 
 
@@ -33,6 +34,13 @@ const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
             ...state,
             loading: false,
             exhibitionsDetails
+        }
+    },
+    [actiontypes.STORE_PRICES](state, action) {
+        return {
+            ...state,
+            loading: false,
+            exhibitionPrices: action.data
         }
     },
 });
