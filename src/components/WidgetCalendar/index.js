@@ -1,11 +1,6 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import DayPicker from 'react-day-picker';
 import './index.scss'
-
-const modifiers = {
-    green: [new Date(2019, 3, 5), new Date(2019, 3, 3)],
-    blue: [new Date(2019, 3, 5), new Date(2019, 3, 3)],
-};
 
 const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 const MONTHS = [
@@ -24,13 +19,12 @@ const MONTHS = [
 ];
 
 
-export default function CalendarWidget({modifiers = {}}) {
+function CalendarWidget({modifiers = {}}) {
     const onDayPickerClick = e => {
         console.log(e)
     };
 
-
-    return useMemo(() => <DayPicker
+    return <DayPicker
         showOutsideDays={true}
         months={MONTHS}
         weekdaysShort={WEEKDAYS_SHORT}
@@ -38,6 +32,6 @@ export default function CalendarWidget({modifiers = {}}) {
         locale="ru"
         onDayClick={onDayPickerClick}
         firstDayOfWeek={1}
-    />, [modifiers])
-
+    />
 }
+export default React.memo(CalendarWidget)
