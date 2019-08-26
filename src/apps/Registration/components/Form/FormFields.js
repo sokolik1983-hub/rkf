@@ -65,11 +65,12 @@ export const LegalEntity = ({registrationType}) =>
         </FormGroup>
         <FormGroup inline>
             <FormField
+                style={{maxWidth: `50%`}}
                 {...registrationFormLegalEntity.fields.phone_number}
             />
-            <FormField
-                {...registrationFormLegalEntity.fields.submit_phone_code}
-            />
+            {/*<FormField*/}
+            {/*    {...registrationFormLegalEntity.fields.submit_phone_code}*/}
+            {/*/>*/}
         </FormGroup>
         <FormControls className={'text-center'}>
             <SubmitButton className="btn btn-primary btn-lg" type="submit">Зарегистрироваться</SubmitButton>

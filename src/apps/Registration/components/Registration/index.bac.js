@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Link, Redirect} from 'react-router-dom'
-import Tabs, {TabContent} from "components/Tabs";
+import Tabs,{TabContent} from "components/Tabs";
 import CommonLayout from 'components/Layout/CommonRegistrationLogin'
 import RegistrationForm from 'apps/Registration/containers/Register'
 import Form from '../Form/Form'
@@ -26,11 +26,31 @@ export default class Registration extends PureComponent {
 
                 <div className="registration__logo"/>
                 <div className="registration__title">Регистрацая</div>
-                <Form
-                    config={registrationFormLegalEntity}
-                >
-                    <LegalEntity registrationType="2"/>
-                </Form>
+                <Tabs className="registration__tabs">
+                    <TabContent label="Я - владелец">
+                        <RegistrationForm
+                            fields={registrationFormPhysicalPerson.fields}
+                            validationSchema={registrationFormPhysicalPerson.validationSchema}
+                        >
+                            <PhysicalPerson/>
+                        </RegistrationForm>
+                    </TabContent>
+                    <TabContent label="Я - клуб">
+                        <Form
+                            config={registrationFormLegalEntity}
+                        >
+                            <LegalEntity registrationType="2"/>
+                        </Form>
+                    </TabContent>
+                    <TabContent label="Я - питомник">
+                        <RegistrationForm
+                            fields={registrationFormLegalEntity.fields}
+                            validationSchema={registrationFormLegalEntity.validationSchema}
+                        >
+                            <LegalEntity registrationType="3"/>
+                        </RegistrationForm>
+                    </TabContent>
+                </Tabs>
                 <div className="registration__signature">
                     Нажимая кнопку «Зарегистрироваться», вы принимаете <Link to="/auth/registration/terms">Условия
                     использования</Link> и&nbsp;<Link to="/auth/registration/policy">Политику конфиденциальности</Link>
