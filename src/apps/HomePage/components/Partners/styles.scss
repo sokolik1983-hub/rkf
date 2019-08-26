@@ -1,24 +1,19 @@
-.partners {
-  margin: 80px 0;
-  &__title {
-    font-size: 38px;
-    line-height: 42px;
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  &__list {
+.Partners {
+  padding: 0 48px;
+  margin-bottom: 20px;
+  &__row {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-    .partners-item{
-      margin: 24px 0;
-      margin-right: 80px;
-      &:last-child{
-        margin-right: 0;
-      }
+    justify-content: flex-start;
+    h3 {
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    &-item {
+      width: 139px;
+      text-align: center;
+      margin-left: 50px;
     }
   }
 }

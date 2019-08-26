@@ -71,6 +71,11 @@ const mainNav = [
         title: "Выставки",
         to: '/exhibitions'
     },
+    {
+        id: 2,
+        title: "Выбор города",
+        to: '/'
+    },
     // {
     //     id: 2,
     //     title: "Результаты",
