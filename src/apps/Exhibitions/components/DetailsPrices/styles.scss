@@ -1,0 +1,15 @@
+.ExhibitionDetailsPrices{
+  table{
+    min-width: 100%;
+    border-collapse: collapse;
+    th, td{
+      text-align: center;
+      padding: 25px 0;
+      border-bottom: solid 1px;
+      border-bottom-color: #D1DBE3;
+      &:first-child{
+        text-align: left;
+      }
+    }
+  }
+}

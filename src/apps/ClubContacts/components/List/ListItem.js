@@ -39,7 +39,7 @@ function ClientClubListItem({clubContact, updateClubContactSuccess, deleteClubCo
                 <DeleteButton
                     onDeleteSuccess={onDeleteSuccess}
                     //params={params}
-                    actionUrl={`/api/club/Contact?id=${clubContact.id}`}
+                    actionUrl={`/api/clubs/Contact/${clubContact.id}`}
                 >удалить</DeleteButton>
             </div>
         </div>

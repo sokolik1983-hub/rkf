@@ -1,77 +1,110 @@
-.ExhibitionDetails{
+.ExhibitionDetails {
   font-size: 18px;
   line-height: 24px;
-  &__attrs-table{
+  background-color: #fff;
+  padding: 0 24px 64px 24px ;
+
+
+  &__attrs-table {
     width: 100%;
     margin: 20px 0;
-    td:first-child{
+
+    td:first-child {
       font-weight: bold;
       padding-left: 0px;
     }
-    td{
+
+    td {
       padding-left: 12px;
+      vertical-align: top;
     }
   }
-  &__controls{
+
+  &__controls {
     display: flex;
     flex-flow: row nowrap;
     margin: 32px 0;
-    .btn{
+
+    .btn {
       margin-right: 8px;
-      &:first-child{
+
+      &:first-child {
         flex: 1;
       }
-      &:last-child{
+
+      &:last-child {
         margin-right: 0;
       }
     }
   }
-  &__signature{
-    &--top{
+
+  &__signature {
+    &--top {
       font-size: 18px;
       margin: 8px 0;
       display: flex;
       flex-flow: row wrap;
       color: #72839C;
-      div{
+
+      div {
         margin-right: 65px;
-        &:last-child{
+
+        &:last-child {
           margin-right: 0;
         }
       }
     }
   }
-  &__short_info{
-    div{
+
+  &__short_info {
+    div {
       margin: 22px 0;
       font-size: 18px;
       line-height: 24px;
     }
   }
-  &__tabs{
+
+  &__tabs {
     margin: 32px 0 24px 0;
-    .tabs__tab{
+
+    .tabs__tab {
       flex: unset;
       padding: 0;
       margin-right: 24px;
       font-size: 26px;
       line-height: 30px;
       color: #72839C;
-      &--active{
+
+      &--active {
         color: inherit;
       }
-      &:last-child{
+
+      &:last-child {
         margin-right: 0;
       }
     }
   }
-  &__wrap{
+
+  &__wrap {
     display: flex;
     flex-flow: row nowrap;
   }
-  &__avatar{
-    img{
+
+  &__avatar {
+
+
+    img {
       max-width: 100%;
+      border-radius: 6px;
     }
   }
+
+  &__content {
+    max-width: 736px;
+    margin-right: 32px;
+  }
+}
+
+.ExhibitionAsideContent {
+  flex: 1
 }

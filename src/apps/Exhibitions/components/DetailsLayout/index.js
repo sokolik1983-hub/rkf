@@ -12,9 +12,9 @@ import Schedule from '../DetailSchedule'
 import Button from 'components/Button'
 import Tabs from "components/Tabs";
 import {TabContent} from "components/Tabs";
-
+import ExhibitionDetailsPrices from '../DetailsPrices'
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
-
+import FooterSmall from 'components/Layout/FooterSmall'
 import './index.scss'
 
 const DetailsLayout = ({exhibitionDetails}) =>
@@ -63,7 +63,9 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         <TabContent label="Участники">Участники</TabContent>
                         <TabContent label="Конкурсы">Конкурсы</TabContent>
                     </Tabs>
-
+                    <div>
+                        <ExhibitionDetailsPrices exhibition_id={exhibitionDetails.id}/>
+                    </div>
                 </DetailsContent>
                 <DetailsAside>
                     <div className="exhibition-details__aside_holder">

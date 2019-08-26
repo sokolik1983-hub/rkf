@@ -12,3 +12,5 @@ export const fetchExhibitionsFailed = makeActionCreator(actionTypes.GET_EXHIBITI
 export const getDetails = makeActionCreator(actionTypes.GET_EXHIBITION_DETAILS, 'id');
 export const getDetailsSuccess = makeActionCreator(actionTypes.GET_EXHIBITION_DETAILS_SUCCESS, 'data');
 export const getDetailsFailed = makeActionCreator(actionTypes.GET_EXHIBITION_DETAILS_FAILED, 'errors');
+
+export const storePrices = makeActionCreator(actionTypes.STORE_PRICES, 'data');

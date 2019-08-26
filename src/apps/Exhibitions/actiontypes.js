@@ -8,3 +8,6 @@ export const GET_EXHIBITION_DETAILS = 'exhibitions/Details/Get';
 export const GET_EXHIBITION_DETAILS_SUCCESS = 'exhibitions/Details/GetSuccess';
 export const GET_EXHIBITION_DETAILS_FAILED = 'exhibitions/Details/GetFailed';
 
+
+export const STORE_PRICES = 'exhibitions/Prices/Get/Success';
+

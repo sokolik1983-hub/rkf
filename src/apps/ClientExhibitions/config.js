@@ -76,7 +76,7 @@ export const firstStepForm = {
             fieldType: 'reactSelectAsync',
             type: 'select',
             //dictName: 'cities',
-            optionsEndpoint: '/api/exhibitions/city'
+            optionsEndpoint: '/api/city'
         },
         address: {
             name: 'address',
