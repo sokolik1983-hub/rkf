@@ -17,7 +17,7 @@ const style = {
     container: (styles, { isFocused }) => ({
         ...styles,
         outline: isFocused ? 'none' : 'none',
-        margin: '0 24px'
+        margin: '0 8px 0 24px'
     }),
     indicatorSeparator: styles => ({
         ...styles,
@@ -49,6 +49,7 @@ const style = {
         border: 0,
         boxShadow: 0,
         borderRadius: 0,
+        marginRight: '16px',
         borderBottom: '1px solid #f4f4f4 !important',
     }),
     valueContainer: styles => ({
@@ -65,7 +66,11 @@ const style = {
             width: '6px'
         },
         '&::-webkit-scrollbar-thumb': {
-            background: '#90999E',
+            background: '#617CCD',
+            borderRadius: '50px'
+        },
+        '&::-webkit-scrollbar-track': {
+            background: '#EBF0FF',
             borderRadius: '50px'
         }
     }),
@@ -122,7 +127,7 @@ function Dropdown({ innerComponent, children }) {
     const [isOpened, setOpened] = useState(false);
     const closeDropDown = () => setOpened(false);
     const toggleDropDown = () => setOpened(!isOpened);
-    
+
     return (
         <OutsideClickHandler onOutsideClick={closeDropDown}>
             <div class="Dropdown">
