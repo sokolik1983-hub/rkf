@@ -1,0 +1,91 @@
+.HomePage {
+  &__wrap {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 24px;
+  }
+  &__content {
+    flex: 2;
+    margin-right: 40px;
+  }
+  &__side {
+    flex: 1;
+  }
+}
+
+.container.home {
+  .NewsStory__club_name {
+    font-weight: normal;
+  }
+}
+
+.NewsList {
+  &__button {
+    display: block;
+    margin: auto;
+    width: 204px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    color: white !important;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    padding: 12px 18px;
+    background: #3366ff;
+    box-shadow: 0px 4px 8px rgba(51, 102, 255, 0.3);
+    border-radius: 4px;
+    &:hover {
+      box-shadow: 0px 3px 15px rgba(51, 102, 255, 0.5);
+    }
+  }
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 352px;
+    min-width: 310px;
+    height: 470px;
+    background: rgba(51, 102, 255, 0.2);
+    color: #253c5e;
+    border-radius: 6px;
+    padding: 26px 32px;
+    margin-left: 5px;
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin: 16px 0 40px;
+      font-weight: normal;
+      letter-spacing: 0.2px;
+    }
+  }
+  &__contacts {
+    margin-top: 12px;
+    span {
+      display: block;
+      margin-bottom: 12px;
+      letter-spacing: 0.2px;
+      font-weight: normal;
+      padding-left: 30px;
+    }
+    a {
+      color: #3366ff;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &--pin {
+      background: url(/static/icons/public/pin.svg) -8px 50% no-repeat;
+    }
+    &--phone {
+      background: url(/static/icons/public/phone.svg) -8px 50% no-repeat;
+    }
+    &--email {
+      background: url(/static/icons/public/email.svg) -8px 50% no-repeat;
+    }
+    &--web {
+      background: url(/static/icons/public/web.svg) -8px 50% no-repeat;
+    }
+  }
+}

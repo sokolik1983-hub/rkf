@@ -9,16 +9,16 @@ import WidgetNotifications from 'components/WidgetNotifications'
 import HeaderLogin from 'apps/Auth/containers/HeaderLogin'
 import './index.scss'
 
-const Header = ({children}) =>
-    <header>
+const Header = ({ children, className }) =>
+    <header className={className} >
         <Container pad>
-            <HeaderLogo/>
-            <CitySelect/>
-            <Nav/>
+            <HeaderLogo />
+            <CitySelect />
+            <Nav />
 
             {/*<WidgetLang/>*/}
             {/*<WidgetNotifications/>*/}
-            <HeaderLogin/>
+            <HeaderLogin />
 
         </Container>
     </header>

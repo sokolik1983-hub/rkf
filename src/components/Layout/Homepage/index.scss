@@ -1,0 +1,72 @@
+@import "../reset";
+@import "../fonts";
+@import "../../__shared-sass-vars/typography";
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  font-style: normal;
+  color: #253c5e;
+  height: 100%;
+  background-color: white;
+}
+
+#wrap {
+  top: 0;
+  min-height: 100%;
+  //overflow: hidden;
+  &.client_layout {
+    background-color: #F5F8FF//#f5f6f6;
+  }
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+.text-center {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.centered-block {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header.homepage {
+  background: #ebf0f2;
+  border-bottom: 1px solid #e6ecf0;
+  box-shadow: none;
+  .header__logo {
+    transform: none;
+    width: 56px;
+    height: 56px;
+    img {
+      height: 56px;
+      width: 56px;
+    }
+  }
+  .main-nav {
+    margin: 0;
+  }
+}
+
+.Slider.homepage {
+  width: 100%;
+  height: 677px;
+  margin: 70px auto 0;
+  background: url(/static/images/slider/temp.png) center no-repeat;
+  background-color: #ebf0f2;
+}

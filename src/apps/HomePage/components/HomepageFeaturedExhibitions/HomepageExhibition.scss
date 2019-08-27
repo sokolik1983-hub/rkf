@@ -17,6 +17,8 @@
     padding: 24px 16px 16px 24px;
   }
   &__image-wrap {
+    display: flex;
+    justify-content: center;
     height: 227px;
     text-align: center;
     overflow: hidden;
@@ -47,5 +49,11 @@
     margin-top: 10px;
     padding-right: 20px;
     background: url(/static/icons/arrow-right-blue.svg) right 65% no-repeat;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .FeaturedExhibition {
+    margin: 20px;
   }
 }
