@@ -20,6 +20,11 @@ export const LoadableExhibitions = Loadable({
 
 
 export const LoadableHomePage = Loadable({
+    loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/homepage'),
+    loading: Loading,
+});
+
+export const LoadableClubPage = Loadable({
     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
     loading: Loading,
 });
