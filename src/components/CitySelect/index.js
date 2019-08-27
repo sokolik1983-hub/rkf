@@ -1,19 +1,20 @@
-import React from "react";
-import Dropdown from 'components/DropDown';
+import React, { useState } from "react";
+import OutsideClickHandler from 'react-outside-click-handler';
 import Select from "react-select";
 import './styles.scss'
 
 
 const options = [
-    {label: 'Moscow', value: 1},
-    {label: 'Kyiv', value: 2},
-    {label: 'London', value: 1},
-    {label: 'City1', value: 2},
-    {label: 'City2', value: 1},
-    {label: 'City3', value: 1}
+    { label: 'Moscow', value: 1 },
+    { label: 'Kyiv', value: 2 },
+    { label: 'London', value: 3 },
+    { label: 'City1', value: 4 },
+    { label: 'City2', value: 5 },
+    { label: 'City3', value: 6 },
+    { label: 'Москва', value: 7 }
 ];
 const style = {
-    container: (styles, {isFocused}) => ({
+    container: (styles, { isFocused }) => ({
         ...styles,
         outline: isFocused ? 'none' : 'none',
         margin: '0 24px'
@@ -39,7 +40,7 @@ const style = {
         marginLeft: 0,
         opacity: 0.38
     }),
-    control: (styles, {isFocused}) => ({
+    control: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: 'white',
         fontSize: 16,
@@ -75,7 +76,7 @@ const style = {
         borderColor: '#333',
         borderRadius: 0
     }),
-    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {
             ...styles,
             display: 'flex',
@@ -94,8 +95,9 @@ const style = {
 };
 
 function CitySelect() {
+    const [value, setValue] = useState(null);
     return (
-        <Dropdown innerComponent="Выбор города" className="CitySelect" outsideClickHandler={false}>
+        <Dropdown innerComponent="Выбор города" className="CitySelect">
             <h3 className="CitySelect__heading">Выберите ваш город:</h3>
             <Select
                 closeMenuOnSelect={false}
@@ -109,8 +111,29 @@ function CitySelect() {
                 placeholder={"Начните вводить город"}
                 noOptionsMessage={() => 'Город не найден'}
                 isSearchable
+                value={value}
+                onChange={setValue}
             />
         </Dropdown>
+    )
+}
+
+function Dropdown({ innerComponent, children }) {
+    const [isOpened, setOpened] = useState(false);
+    const closeDropDown = () => setOpened(false);
+    const toggleDropDown = () => setOpened(!isOpened);
+    
+    return (
+        <OutsideClickHandler onOutsideClick={closeDropDown}>
+            <div class="Dropdown">
+                <div class="Dropdown__button" onClick={toggleDropDown}>
+                    {innerComponent}
+                </div>
+                <div className={isOpened ? 'Dropdown__content--visible' : 'Dropdown__content'}>
+                    {children}
+                </div>
+            </div>
+        </OutsideClickHandler >
     )
 }
 

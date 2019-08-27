@@ -8,13 +8,44 @@
     line-height: 24px;
     letter-spacing: 0.2px;
   }
-  .drop-down {
-    &__items {
-      width: 311px;
-      height: 275px;
-      right: -180px;
-      &--visible:before {
-        right: 270px;
+}
+
+.Dropdown {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  position: relative;
+  padding: 0 20px;
+  cursor: pointer;
+  &__button {
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-right: 20px;
+    cursor: pointer;
+    background: url("/static/icons/chevron-down.svg") right no-repeat;
+  }
+  &__content {
+    display: none;
+    &--visible {
+      position: absolute;
+      padding: 20px 0;
+      top: 40px;
+      background: white;
+      width: 310px;
+      height: 250px;
+      box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      z-index: 1;
+      display: block;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        top: -8px;
+        left: 40px;
+        transform: rotate(45deg);
       }
     }
   }
