@@ -52,8 +52,42 @@
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
+  .FeaturedExhibition {
+    width: 334px;
+    height: 265px;
+    &__image-wrap {
+      height: 177px;
+    }
+    &:hover {
+      height: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .FeaturedExhibition {
+    width: 284px;
+    height: 215px;
+    &__image-wrap {
+      height: 127px;
+    }
+    &:hover {
+      height: 250px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
   .FeaturedExhibition {
     margin: 20px;
+    width: 334px;
+    height: 265px;
+    &__image-wrap {
+      height: 177px;
+    }
+    &:hover {
+      height: 300px;
+    }
   }
 }

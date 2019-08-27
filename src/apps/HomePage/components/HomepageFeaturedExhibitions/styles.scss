@@ -5,7 +5,17 @@
   margin-top: -100px;
   white-space: nowrap;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
+  .HomepageFeaturedExhibitionsList {
+    height: 300px;
+  }
+}
+@media screen and (max-width: 999px) {
+  .HomepageFeaturedExhibitionsList {
+    height: 250px;
+  }
+}
+@media screen and (max-width: 480px) {
   .HomepageFeaturedExhibitionsList {
     flex-wrap: wrap;
     height: auto;
