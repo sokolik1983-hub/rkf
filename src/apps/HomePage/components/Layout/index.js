@@ -4,7 +4,7 @@ import FooterSmall from 'components/Layout/FooterSmall'
 import Container from 'components/Layout/Container'
 import PublicLayout from 'components/Layout'
 import ClubHeader from '../ClubHeader'
-import HomepageFeaturedExhibitionsList from '../HomepageFeaturedExhibitions'
+import FeaturedExhibitionsList from '../FeaturedExhibitions'
 import News from '../News'
 import ClubAddress from '../ClubAddress'
 import Partners from '../Partners'
@@ -42,7 +42,7 @@ function HomePageLayout() {
             <Container className="home">
                 <div style={{ padding: `0px 48px` }}>
                     <ClubHeader />
-                    <HomepageFeaturedExhibitionsList />
+                    <FeaturedExhibitionsList />
                     <Wrap>
                         <Content>
                             <ClubDescription />
