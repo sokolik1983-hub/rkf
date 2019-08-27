@@ -19,7 +19,7 @@ const appRoutes = [
     {
         exact: true,
         path: '/club/:route',
-        component: LoadableModules.LoadableHomePage
+        component: LoadableModules.LoadableClubPage
     },
     {
         exact: false,

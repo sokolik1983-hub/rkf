@@ -1,6 +1,6 @@
 import React from "react";
 import {compose} from "redux";
-import HomePageLayout from 'apps/HomePage/components/Layout'
+import HomePageLayout from 'apps/HomePage/components/HomepageLayout'
 import injectReducer from 'utils/injectReducer'
 import {defaultReduxKey} from './config'
 import reducer from './reducer'
