@@ -1,4 +1,4 @@
-.FeaturedExhibition {
+.HomeFeaturedExhibition {
   width: 384px;
   height: 315px;
   overflow: hidden;
@@ -19,7 +19,8 @@
   &__image-wrap {
     display: flex;
     justify-content: center;
-    height: 227px;
+    max-height: 227px;
+    min-height: 227px;
     text-align: center;
     overflow: hidden;
     & img {
@@ -53,7 +54,7 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .FeaturedExhibition {
+  .HomeFeaturedExhibition {
     width: 334px;
     height: 265px;
     &__image-wrap {
@@ -66,7 +67,7 @@
 }
 
 @media screen and (max-width: 999px) {
-  .FeaturedExhibition {
+  .HomeFeaturedExhibition {
     width: 284px;
     height: 215px;
     &__image-wrap {
@@ -79,7 +80,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .FeaturedExhibition {
+  .HomeFeaturedExhibition {
     margin: 20px;
     width: 334px;
     height: 265px;

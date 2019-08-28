@@ -1,4 +1,4 @@
-.HomepageFeaturedExhibitionsList {
+.HomeFeaturedExhibitionsList {
   display: flex;
   justify-content: space-between;
   height: 350px;
@@ -6,17 +6,17 @@
   white-space: nowrap;
 }
 @media screen and (max-width: 1200px) {
-  .HomepageFeaturedExhibitionsList {
+  .HomeFeaturedExhibitionsList {
     height: 300px;
   }
 }
 @media screen and (max-width: 999px) {
-  .HomepageFeaturedExhibitionsList {
+  .HomeFeaturedExhibitionsList {
     height: 250px;
   }
 }
 @media screen and (max-width: 480px) {
-  .HomepageFeaturedExhibitionsList {
+  .HomeFeaturedExhibitionsList {
     flex-wrap: wrap;
     height: auto;
     max-width: 400px;

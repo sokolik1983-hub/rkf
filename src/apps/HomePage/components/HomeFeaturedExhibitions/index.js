@@ -1,12 +1,12 @@
 import React from 'react'
 import './styles.scss'
-import HomepageExhibition from './HomepageExhibition'
+import HomeFeaturedExhibition from './HomeFeaturedExhibition'
 import { useResourceAndStoreToRedux } from "shared/hooks";
 import classnames from 'classnames'
 import { connectClubCommonExhibitions } from 'apps/HomePage/connectors'
 
 
-const HomepageFeaturedExhibitionsList = ({ exhibitions, storeExhibitions, route }) => {
+const HomeFeaturedExhibitionsList = ({ exhibitions, storeExhibitions, route }) => {
 
     const url = '/api/exhibitions/Exhibition/featured/' + String(route);
 
@@ -14,14 +14,14 @@ const HomepageFeaturedExhibitionsList = ({ exhibitions, storeExhibitions, route 
     const arr = exhibitions ? exhibitions.slice(0, 3) : [];
     return (
         <div className={classnames(
-            "HomepageFeaturedExhibitionsList",
-            { "HomepageFeaturedExhibitionsList--loading": loading }
+            "HomeFeaturedExhibitionsList",
+            { "HomeFeaturedExhibitionsList--loading": loading }
         )}>
             {
-                arr.map(exhibition => <HomepageExhibition {...exhibition} />)
+                arr.map(exhibition => <HomeFeaturedExhibition {...exhibition} />)
             }
         </div>
     )
 };
 
-export default connectClubCommonExhibitions(HomepageFeaturedExhibitionsList);
+export default connectClubCommonExhibitions(HomeFeaturedExhibitionsList);
