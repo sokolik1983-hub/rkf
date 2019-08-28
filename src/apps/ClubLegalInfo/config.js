@@ -18,31 +18,32 @@ export const clubLegalInfoFormConfig = {
         },
         address: {
             name: 'address',
-            label: 'Адрес клуба',
+            label: 'Юридический адрес',
         },
         inn: {
             name: 'inn',
-            label: 'inn клуба',
+            label: 'ИНН',
         },
         kpp: {
             name: 'kpp',
-            label: 'kpp клуба',
+            label: 'КПП',
         },
         ogrn: {
             name: 'ogrn',
-            label: 'ogrn клуба',
+            label: 'ОГРН',
         },
         okpo: {
             name: 'okpo',
-            label: 'okpo клуба',
+            label: 'ОКПО',
         },
         registration_number: {
             name: 'registration_number',
-            label: 'registration_number клуба',
+            label: 'Регистрационный номер',
         },
         registration_date: {
             name: 'registration_date',
-            label: 'registration_date клуба',
+            label: 'Дата регистрации',
+            type: 'date',
         },
         is_public: {
             name: 'is_public',

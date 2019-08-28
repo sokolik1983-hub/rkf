@@ -12,11 +12,15 @@ class ClientNewsProxy extends PureComponent {
 
     render() {
         return (
-            <Card style={{margin: '52px 0'}}>
-                <h4>Новости</h4>
-                <CreateNewsStory/>
-                <ClientNewsList/>
-            </Card>
+            <>
+                <Card style={{margin: '24px 0'}}>
+                    <CreateNewsStory/>
+                </Card>
+                <Card style={{margin: '24px 0'}}>
+                    <h4>Новости</h4>
+                    <ClientNewsList/>
+                </Card>
+            </>
         );
     }
 }

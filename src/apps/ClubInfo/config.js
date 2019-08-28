@@ -43,6 +43,16 @@ export const clubInfoFormConfig = {
             label: "Краткая информация о клубе",
             fieldType: 'textarea',
         },
+        work_time_from: {
+            name: "work_time_from",
+            label: "Время работы С",
+            type: 'time'
+        },
+        work_time_to: {
+            name: "work_time_to",
+            label: "Вермя работы До",
+            type: 'time'
+        },
     },
     validationSchema: object().shape({
         //

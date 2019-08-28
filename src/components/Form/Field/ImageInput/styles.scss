@@ -2,6 +2,12 @@
   position: relative;
   min-height: 96px;
   max-height: 96px;
+  border: dashed 1px;
+  border-radius: 6px;
+  background-color: #F5F8FF;
+  background-image: url("/static/icons/forms/camera.svg");
+  background-repeat: no-repeat;
+  background-position: center 40%;
 
   .ImagePreview {
     position: absolute;
@@ -13,17 +19,18 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+
   }
 
-  input {
+  .FormInput__input {
     position: absolute;
     top:0;
     left: 0;
-    background-color: #8B9898;
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
     height: 100%;
     min-height: 100%;
+    opacity: 0;
   }
 }

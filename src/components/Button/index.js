@@ -1,4 +1,5 @@
 import React from 'react'
+import {string, bool, func, object} from 'prop-types'
 import {withRouter} from 'react-router'
 import classnames from 'classnames'
 import './index.scss'
@@ -68,12 +69,12 @@ const ActionButton = ({
             }
         </button>
     )
-}
+};
 
 export const ActButton = withRouter(ActionButton);
 
 
-const Button = ({
+function Button({
                     style,
                     onClick,
                     className,
@@ -82,31 +83,51 @@ const Button = ({
                     loading,
                     children,
                     leftIcon,
-                    rightIcon
-                }) =>
+                    rightIcon,
+                    primary,
+                    secondary,
+                    condensed
+                }) {
+    return (
+        <button
+            style={style}
+            className={classnames(
+                'btn',
+                {'btn--loading': loading},
+                {'btn-icon': leftIcon || rightIcon},
+                {'btn-icon--left': leftIcon},
+                {'btn-icon--right': rightIcon},
+                {'btn-primary': primary && !secondary},
+                {'btn-secondary': secondary && !primary},
+                {'btn-condensed': condensed},
+                {[className]: className}
+            )}
+            type={type}
+            onClick={onClick}
+            disabled={disabled || loading}
+        >
+            {
+                leftIcon
+            }
 
-    <button
-        style={style}
-        className={classnames(
-            'btn',
-            {'btn--loading': loading},
-            {'btn-icon': leftIcon || rightIcon},
-            {'btn-icon--left': leftIcon},
-            {'btn-icon--right': rightIcon},
-            {[className]: className}
-        )}
-        type={type}
-        onClick={onClick}
-        disabled={disabled || loading}
-    >
-        {
-            leftIcon
-        }
+            {children}
 
-        {children}
-        {
-            rightIcon
-        }
-    </button>;
+            {
+                rightIcon
+            }
+        </button>
+    )
+}
+
+
+Button.propTypes = {
+    style: object,
+    onClick: func,
+    className: string,
+    disabled: bool,
+    type: string,
+    loading: bool,
+    primary: bool
+};
 
 export default Button

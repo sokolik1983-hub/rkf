@@ -59,6 +59,7 @@
       padding: 11px 12px;
       border-width: 1px;
       border-color: #EBF0F2;
+      color: #90999E;
 
       &:hover {
         border-color: #EBF0F2;
@@ -90,7 +91,7 @@
 
   &--error {
     //color: #FA5D50;
-    .FormInput__input{
+    .FormInput__input {
       border-color: #FA5D50;
       border-width: 2px;
       padding: 11px 13px;

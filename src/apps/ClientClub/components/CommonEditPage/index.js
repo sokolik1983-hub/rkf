@@ -1,6 +1,5 @@
 import React from 'react'
 import Card from "components/Card";
-import Tabs, {TabContent} from "components/Tabs";
 import ClubLegalInfo from 'apps/ClubLegalInfo'
 import ClubBankInfo from 'apps/ClubBankInfo'
 import ClubInfo from "apps/ClubInfo";
@@ -9,46 +8,34 @@ import ClubDocuments from 'apps/ClubDocuments'
 import ClubSocial from 'apps/ClubSocial'
 import './styles.scss'
 
+
 function ClubEditPage() {
     return (
         <div className="ClubEditPage">
-            <h2>Редкатирование клуба</h2>
-            <Tabs className="ClubEditPage__tabs">
-                <TabContent label="Общая информация">
-                    <Card lg>
-                        <ClubInfo/>
-                    </Card>
-                </TabContent>
-                <TabContent label="Юр. Информация">
-                    <Card lg>
-                        <ClubLegalInfo/>
-                    </Card>
-                </TabContent>
-                <TabContent label="Банковская информация">
-                    <Card lg>
-                        <ClubBankInfo/>
-                    </Card>
-                </TabContent>
-                <TabContent label="Контакты">
-                    <Card lg>
-                        <h3>Контакты</h3>
-                        <ClubContacts/>
-                    </Card>
-                </TabContent>
-                <TabContent label="Ссылки на документы">
-                    <Card lg>
-                        <h3>Ссылки на документы</h3>
-                        <ClubDocuments/>
-                    </Card>
-                </TabContent>
-                <TabContent label="Социальные сети">
-                    <Card lg>
-                        <h3>Социальные сети</h3>
-                        <ClubSocial/>
-                    </Card>
-                </TabContent>
+            <h2>Личный кабинет</h2>
 
-            </Tabs>
+            <Card>
+                <ClubInfo/>
+            </Card>
+            <Card>
+                <ClubLegalInfo/>
+            </Card>
+            <Card>
+                <ClubBankInfo/>
+            </Card>
+            <Card>
+                <h3>Контакты</h3>
+                <ClubContacts/>
+            </Card>
+            <Card>
+                <h3>Ссылки на документы</h3>
+                <ClubDocuments/>
+            </Card>
+            <Card>
+                <h3>Социальные сети</h3>
+                <ClubSocial/>
+            </Card>
+
         </div>
     )
 };

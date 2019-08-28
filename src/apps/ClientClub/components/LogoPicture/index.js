@@ -1,13 +1,13 @@
 import React, {useRef} from 'react'
 import {connectClientClubLogoPicture} from 'apps/ClientClub/connectors'
-import EditableImageWrapper from 'components/EditableImageWrapper'
+import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
 function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
     console.log('clubLogoUpdateSuccess',clubLogoUpdateSuccess)
     const ref = useRef(null);
     return (
-        <EditableImageWrapper
+        <ActiveImageWrapper
             requestUrl={'/api/Avatar/full'}
             onSubmitSuccess={clubLogoUpdateSuccess}
         >
@@ -19,7 +19,7 @@ function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
                         '/static/images/noimg/no-avatar.png'
                 })`
             }} className="ClubLogoPicture"/>
-        </EditableImageWrapper>
+        </ActiveImageWrapper>
     )
 }
 

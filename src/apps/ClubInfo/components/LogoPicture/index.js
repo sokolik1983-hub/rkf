@@ -1,27 +1,22 @@
 import React, {useRef} from 'react'
 import {connectClientClubLogoPicture} from 'apps/ClientClub/connectors'
-import EditableImageWrapper from 'components/EditableImageWrapper'
+import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
 
 function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
     const ref = useRef(null);
     return (
-        <div>
+        <div className="ClubLogoPicture__holder">
             <h3>Логотип</h3>
-        <EditableImageWrapper
-            requestUrl={'/api/Avatar/full'}
-            onSubmitSuccess={clubLogoUpdateSuccess}
-        >
-            <div ref={ref} style={{
-                backgroundImage: `url(${
-                    backgroundImage ?
-                        backgroundImage
-                        :
-                        '/static/images/noimg/no-avatar.png'
-                })`
-            }} className="ClubLogoPicture"/>
-        </EditableImageWrapper>
+            <ActiveImageWrapper
+                requestUrl={'/api/Avatar/full'}
+                onSubmitSuccess={clubLogoUpdateSuccess}
+            >
+                <div ref={ref} style={{
+                    backgroundImage: `url(${backgroundImage })`
+                }} className="ClubLogoPicture"/>
+            </ActiveImageWrapper>
         </div>
     )
 }

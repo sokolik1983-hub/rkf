@@ -3,7 +3,7 @@ import {FormField, FormGroup, SubmitButton, FormControls} from "components/Form"
 import {clubClubDocumentsConfig} from 'apps/ClubDocuments/config'
 
 const {fields} = clubClubDocumentsConfig;
-export const RenderFields = ({isUpdate}) =>
+export const RenderFields = ({isUpdate, disabled}) =>
     <Fragment>
         <FormGroup inline>
             <FormField

@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 import {connectClientClubHeaderPicture} from 'apps/ClientClub/connectors'
-import EditableImageWrapper from 'components/EditableImageWrapper'
+import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
 function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
@@ -9,7 +9,7 @@ function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
     return (
         <div>
             <h3>Картинка в шапке</h3>
-            <EditableImageWrapper
+            <ActiveImageWrapper
                 requestUrl={'/api/HeaderPicture/full'}
                 onSubmitSuccess={clubPictureUpdateSuccess}
             >
@@ -21,7 +21,7 @@ function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
                             "/static/images/header/clientDefaultBanner.jpeg"
                     })`
                 }} className="ClubHeaderPicture"/>
-            </EditableImageWrapper>
+            </ActiveImageWrapper>
         </div>
     )
 }

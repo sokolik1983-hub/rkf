@@ -1,18 +1,30 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {useVisibility} from 'shared/hooks'
 import NewsStoryCreateForm from 'apps/ClientNews/components/Form'
+import Button from 'components/Button'
+import OutsideClickHandler from "react-outside-click-handler";
+
 
 export default function CreateNewsStory() {
-    const {visibility, toggleVisibility} = useVisibility(false);
+    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
     return (
-        <>
-            <button onClick={toggleVisibility}>{visibility ? 'Скрыть форму':'Добавить новость'}</button>
-            {visibility ?
-                <div className="CreateNewsStory">
-                    <NewsStoryCreateForm/>
-                </div>
-                : null
+        <Fragment>
+            <div style={{textAlign: 'right'}}>
+                {!visibility ?
+                    <Button className="btn btn-primary"
+                            onClick={toggleVisibility}>
+                        Добавить новость
+                    </Button>
+                    : null
+                }
+            </div>
+            {
+                visibility ?
+                    <OutsideClickHandler onOutsideClick={setInvisible}>
+                        <NewsStoryCreateForm/>
+                    </OutsideClickHandler>
+                    : null
             }
-        </>
+        </Fragment>
     )
 }

@@ -36,28 +36,36 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+
         let didCancel = false;
+
         const axiosConfig = {
             url: resourceUrl,
             headers: getHeaders(),
         };
+
         const fetchData = async () => {
-
-
             try {
+
                 setLoading(true);
+
                 const response = await axios(axiosConfig);
 
                 if (!didCancel) {
                     dispatch(onSuccessAction(response.data.result));
                     setLoading(false);
                 }
+
             } catch (error) {
+
                 if (!didCancel) {
+
                     if (onErrorAction) {
                         dispatch(onErrorAction(error.response.data.errros));
                     }
+
                     setLoading(false);
+
                 }
             }
         };
@@ -65,7 +73,9 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
         fetchData();
 
         return () => {
+
             didCancel = true;
+
         };
     }, [resourceUrl]);
 
@@ -83,7 +93,7 @@ export const usePictureWithUpdate = (endpoint, successAction) => {
             setState({filePreview: URL.createObjectURL(fileInputValue), fileInputValue})
         }
     };
-    const clear=()=>setState({...state, fileInputValue:null});
+    const clear = () => setState({...state, fileInputValue: null});
     const sendFile = () => {
         let didCancel = false;
         const send = async () => {
@@ -113,4 +123,29 @@ export const usePictureWithUpdate = (endpoint, successAction) => {
         handleFileInputChange,
         sendFile
     })
+};
+
+
+export const useWrapClassName = (className) => {
+    useEffect(() => {
+        // Add class on mount
+        const wrap = document.getElementById("wrap");
+        wrap.classList.add(className);
+
+        return (
+            // Remove on Unmount
+            () => wrap.classList.remove(className)
+        )
+
+    }, [className]);
+};
+
+
+export const useTimeOut = (callback, time) => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            callback()
+        }, time);
+        return () => clearTimeout(timer);
+    }, [callback, time]);
 };

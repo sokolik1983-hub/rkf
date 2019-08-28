@@ -1,16 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {object, string, func} from 'prop-types'
-import Button from 'components/Button'
-import {getHeaders} from "utils/request";
 import axios from "axios";
+import {getHeaders} from "utils/request";
 import {objectNotEmpty} from "utils/index";
 
-function EditableImageWrapper({
-                                  requestUrl,
-                                  requestParams,
-                                  onSubmitSuccess,
-                                  children
-                              }) {
+import Button from 'components/Button'
+
+
+function ActiveImageWrapper({
+                                requestUrl,
+                                requestParams,
+                                onSubmitSuccess,
+                                children
+                            }) {
 
     const inputEl = useRef(null);
     const initialState = {
@@ -44,7 +46,7 @@ function EditableImageWrapper({
 
     const onSubmit = async () => {
         if (state.inputValue) {
-            setState({...state, loading: true})
+            setState({...state, loading: true});
             const data = new FormData(requestParams);
             data.append('file', state.inputValue);
             if (objectNotEmpty(requestParams)) {
@@ -98,19 +100,26 @@ function EditableImageWrapper({
                 type="file"
             />
             {state.imagePreview ? renderPreview() : children}
-            <div className="EditableImageWrapper__controls">
-                <Button disabled={state.loading} onClick={onEdit}>Изменить</Button>
-                {state.imagePreview ? <Button disabled={state.loading} onClick={onSubmit}>Заменить</Button> : null}
+            <div className="ActiveImageWrapper__controls">
+                <Button condensed disabled={state.loading} onClick={onEdit}>
+                    Изменить
+                </Button>
+                {
+                    state.imagePreview ?
+                        <Button disabled={state.loading} onClick={onSubmit}>Заменить</Button>
+                        :
+                        null
+                }
             </div>
         </>
     )
 }
 
-EditableImageWrapper.propTypes = {
+ActiveImageWrapper.propTypes = {
     onSubmitSuccess: func,
     requestUrl: string.isRequired,
     requestParams: object,
     children: object.isRequired,
 };
 
-export default EditableImageWrapper
+export default ActiveImageWrapper

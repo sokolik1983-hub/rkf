@@ -18,17 +18,20 @@ function NewsStory({newsStory, deleteNewsStorySuccess}) {
                     <div className="NewsStory__Title">{title}</div>
                     <div className="NewsStory__Signature">{getSignature()}</div>
                 </div>
+                <DeleteButton
+                    onDeleteSuccess={onDeleteSuccess}
+                    //params={params}
+                    actionUrl={'/api/ClubArticle/' + id}
+                >
+                    удалить
+                </DeleteButton>
             </div>
             <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>
             <div
                 className="NewsStory__ImagePreview">
                 <img src={picture_link} alt=""/>
             </div>
-            <DeleteButton
-                onDeleteSuccess={onDeleteSuccess}
-                //params={params}
-                actionUrl={'/api/ClubArticle/' + id}
-            >удалить</DeleteButton>
+
         </div>
     )
 }

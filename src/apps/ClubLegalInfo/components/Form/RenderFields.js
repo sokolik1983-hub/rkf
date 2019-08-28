@@ -15,11 +15,7 @@ export default function RenderFields() {
                     {...fields.owner_name}
                 />
             </FormGroup>
-            <FormGroup inline>
-                <FormField
-                    {...fields.address}
-                />
-            </FormGroup>
+
             <FormGroup inline>
                 <FormField
                     {...fields.inn}
@@ -36,15 +32,22 @@ export default function RenderFields() {
                     {...fields.okpo}
                 />
             </FormGroup>
-            <FormField
-                {...fields.registration_number}
-            />
-            <FormField
-                {...fields.registration_date}
-            />
-            <FormField
-                {...fields.is_public}
-            />
+            <FormGroup inline>
+                <FormField
+                    {...fields.registration_number}
+                />
+                <FormField
+                    {...fields.registration_date}
+                />
+            </FormGroup>
+            <FormGroup inline>
+                <FormField
+                    {...fields.address}
+                />
+            </FormGroup>
+            {/*<FormField*/}
+            {/*    {...fields.is_public}*/}
+            {/*/>*/}
 
 
             <FormControls>

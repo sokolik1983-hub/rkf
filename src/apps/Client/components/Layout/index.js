@@ -13,14 +13,14 @@ export default function ClientLayout ({children}){
             <Fragment>
                 <Header/>
                 <Container content className="client-layout">
-                    <div className="client-layout__sidebar">
+                    {/*<div className="client-layout__sidebar">*/}
 
-                        <SideBar items={menuFakeData1}/>
-                        {/*<MenuSeparator/>*/}
-                        {/*<SideBar items={menuFakeData2}/>*/}
-                        {/*<MenuSeparator/>*/}
-                        <SideBar items={menuFakeData3}/>
-                    </div>
+                    {/*    <SideBar items={menuFakeData1}/>*/}
+                    {/*    /!*<MenuSeparator/>*!/*/}
+                    {/*    /!*<SideBar items={menuFakeData2}/>*!/*/}
+                    {/*    /!*<MenuSeparator/>*!/*/}
+                    {/*    <SideBar items={menuFakeData3}/>*/}
+                    {/*</div>*/}
                     <div className="client-layout__content">{children}</div>
                 </Container>
             </Fragment>

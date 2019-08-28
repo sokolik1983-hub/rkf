@@ -7,12 +7,11 @@ import LogoPicture from './components/LogoPicture'
 function ClientClubInfo() {
     return (
         <div>
+            <ClubAlias/>
             <ClubHeaderPicture/>
-            <div style={{alignItems: 'flex-start', justifyContent: 'space-evenly'}} className="flex-row">
-                <LogoPicture/>
-                <ClubAlias/>
+            <div style={{alignItems: 'flex-start'}} className="flex-row">
+                <LogoPicture/><UpdateClubInfoForm/>
             </div>
-            <UpdateClubInfoForm/>
         </div>
     )
 }

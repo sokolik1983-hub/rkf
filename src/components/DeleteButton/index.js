@@ -5,7 +5,7 @@ import axios from 'axios'
 import {getHeaders} from "../../utils/request";
 
 export default function DeleteButton(props) {
-    const {actionUrl, params, onDeleteSuccess, children} = props;
+    const {actionUrl, params, onDeleteSuccess, style, children} = props;
     const {confirm, onConfirm, onCancel} = useConfirmDialog();
     const [state, setState] = useState({loading: false});
 
@@ -28,7 +28,7 @@ export default function DeleteButton(props) {
     return confirm ?
         (
             <React.Fragment>
-                <Button disabled={state.loading} onClick={onConfirmDelete}>Подвердить</Button>
+                <Button style={style} disabled={state.loading} onClick={onConfirmDelete}>Подвердить</Button>
                 <Button disabled={state.loading} onClick={onCancel}>Отмена</Button>
             </React.Fragment>
         )

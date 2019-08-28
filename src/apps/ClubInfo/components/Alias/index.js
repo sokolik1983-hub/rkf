@@ -1,16 +1,20 @@
 import React from 'react'
 import {connectClubAlias} from 'apps/ClientClub/connectors'
 import {Form, FormGroup, FormField, SubmitButton} from 'components/Form'
+import {usePushMessage} from 'apps/Messages/hooks'
+
+import {defaultSuccessMessage} from 'shared/messages'
 
 
 function ClientClubAlias({club_alias, club_id, clubAliasUpdateSuccess}) {
+    const {push} = usePushMessage();
     const onSuccess = (values) => {
         clubAliasUpdateSuccess(values)
+        push(defaultSuccessMessage)
     };
     const transformValues = values => ({...values, club_id})
     return (
         <div className="ClientClubAlias">
-            <h3>Алиас</h3>
             <Form
                 method={"PUT"}
                 action={'/api/Alias'}
