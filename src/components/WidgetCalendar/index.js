@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DayPicker from 'react-day-picker';
 import './index.scss'
 
@@ -18,11 +18,19 @@ const MONTHS = [
     'Декабрь',
 ];
 
-
-function CalendarWidget({modifiers = {}}) {
-    const onDayPickerClick = e => {
-        console.log(e)
+function CalendarWidget({ modifiers = {} }) {
+    const onDayPickerClick = (e) => {
+        console.log(e);
     };
+    
+    var daysOutside;
+    useEffect(() => disableOutsideDayClick);
+    const disableOutsideDayClick = () => {
+        daysOutside = document.getElementsByClassName('DayPicker-Day--outside');
+        for (let i = 0; i < daysOutside.length; i++) {
+            daysOutside[i].addEventListener('click', (e) => e.cancelBubble = true);
+        }
+    }
 
     return <DayPicker
         showOutsideDays={true}
@@ -31,6 +39,7 @@ function CalendarWidget({modifiers = {}}) {
         modifiers={modifiers}
         locale="ru"
         onDayClick={onDayPickerClick}
+        onMonthChange={disableOutsideDayClick}
         firstDayOfWeek={1}
     />
 }
