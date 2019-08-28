@@ -8,20 +8,29 @@ const options = [
     { label: 'Moscow', value: 1 },
     { label: 'Kyiv', value: 2 },
     { label: 'London', value: 3 },
-    { label: 'City1', value: 4 },
-    { label: 'City2', value: 5 },
-    { label: 'City3', value: 6 },
-    { label: 'Москва', value: 7 }
+    { label: 'Berlin', value: 8 },
+    { label: 'Киев', value: 4 },
+    { label: 'Лондон', value: 5 },
+    { label: 'Берлин', value: 6 },
+    { label: 'Москва', value: 7 },
+    { label: 'City 1', value: 8 },
+    { label: 'City 2', value: 9 },
+    { label: 'City 3', value: 10 },
+    { label: 'City 4', value: 11 },
 ];
 const style = {
     container: (styles, { isFocused }) => ({
         ...styles,
         outline: isFocused ? 'none' : 'none',
-        margin: '0 8px 0 24px'
+        marginRight: '8px'
     }),
     indicatorSeparator: styles => ({
         ...styles,
         display: 'none'
+    }),
+    input: styles => ({
+        ...styles,
+        color: '#72839C'
     }),
     dropdownIndicator: styles => ({
         ...styles,
@@ -43,14 +52,16 @@ const style = {
     control: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: 'white',
-        fontSize: 16,
-        lineHeight: '100%',
-        padding: 0,
+        fontSize: '16px',
+        lineHeight: '42px',
+        paddingLeft: '24px',
         border: 0,
         boxShadow: 0,
         borderRadius: 0,
-        marginRight: '16px',
-        borderBottom: '1px solid #f4f4f4 !important',
+        marginRight: '-8px',
+        borderBottom: isFocused
+            ? '1px solid #3366FF !important'
+            : '1px solid #f4f4f4 !important'
     }),
     valueContainer: styles => ({
         ...styles,
@@ -58,10 +69,11 @@ const style = {
     }),
     menu: styles => ({
         ...styles,
+        marginTop: '16px',
         boxShadow: 'none',
         borderRadius: 0,
         overflowY: 'scroll',
-        height: '170px',
+        height: '220px',
         '&::-webkit-scrollbar': {
             width: '6px'
         },
@@ -79,7 +91,8 @@ const style = {
         backgroundColor: 'white',
         color: 'whitesmoke',
         borderColor: '#333',
-        borderRadius: 0
+        borderRadius: 0,
+        overflowY: 'visible'
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {
@@ -89,12 +102,17 @@ const style = {
             position: 'relative',
             cursor: 'pointer',
             userSelect: 'none',
-            color: '#253C5E',
+            color: '#72839C',
+            fontWeight: 'normal',
             background: 'none!important',
             fontSize: '16px',
             lineHeight: '24px',
             letterSpacing: '0.2px',
-            paddingLeft: 0
+            padding: '6px 0 6px 24px',
+            '&:hover': {
+                backgroundColor: '#EBF0FF!important',
+                color: '#3366FF'
+            }
         }
     }
 };
@@ -131,7 +149,7 @@ function Dropdown({ innerComponent, children }) {
     return (
         <OutsideClickHandler onOutsideClick={closeDropDown}>
             <div class="Dropdown">
-                <div class="Dropdown__button" onClick={toggleDropDown}>
+                <div class={isOpened ? 'Dropdown__button--visible' : 'Dropdown__button'} onClick={toggleDropDown}>
                     {innerComponent}
                 </div>
                 <div className={isOpened ? 'Dropdown__content--visible' : 'Dropdown__content'}>

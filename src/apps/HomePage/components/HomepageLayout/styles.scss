@@ -20,9 +20,33 @@
 }
 
 .NewsList {
+  .Card{
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .NewsStory {
+    margin-bottom: 32px;
+    &__Head {
+      margin: 0;
+    }
+    &__title {
+      margin: 8px 0;
+    }
+    &__Text{
+      margin-bottom: 8px;
+    }
+    &__StoryInfo{
+      padding-left: 8px;
+    }
+    &__Signature{
+      font-weight: normal;
+    }
+  }
+
   &__button {
     display: block;
-    margin: auto;
+    margin: 0 auto 50px;
     width: 204px;
     font-weight: normal;
     text-align: center;
@@ -44,11 +68,11 @@
     flex-direction: column;
     flex-basis: 352px;
     min-width: 310px;
-    height: 470px;
+    min-height: 470px;
     background: rgba(51, 102, 255, 0.2);
     color: #253c5e;
     border-radius: 6px;
-    padding: 26px 32px;
+    padding: 26px 32px 16px 32px;
     margin-left: 5px;
     h3 {
       margin: 0;
