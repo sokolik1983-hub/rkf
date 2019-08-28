@@ -17,24 +17,6 @@ import './styles.scss'
 const Wrap = ({ children }) => <div className="HomePage__wrap">{children}</div>;
 const Content = ({ children }) => <div className="HomePage__content">{children}</div>;
 const Side = ({ children }) => <div className="HomePage__side">{children}</div>;
-const Contacts = [
-    {
-        class: 'pin',
-        text: 'Адрес: Москва, Гостиничная, 9'
-    },
-    {
-        class: 'phone',
-        text: 'Телефон: +7 (499) 753-22-33'
-    },
-    {
-        class: 'email',
-        text: 'E-mail: rkf@rkf.org.ru'
-    },
-    {
-        class: 'web',
-        text: 'Сайт: rkf.com.ru'
-    }
-];
 
 function HomePageLayout() {
     return (
@@ -49,25 +31,13 @@ function HomePageLayout() {
                             <News />
                         </Content>
                         <Side>
-                            {/* <Card>
+                            <Card>
                                 <h4 className="text-upper">Контакты</h4>
                                 <ClubAddress />
                                 <ClubContacts />
                                 <h4 className="text-upper">Документы</h4>
                                 <ClubDocuments />
-                            </Card> */}
-                            <div className="NewsFeed__sidebar">
-                                <h3>Об РКФ</h3>
-                                <p>Российская кинологическая федерация (РКФ) является некоммерческим, добровольным, самоуправляемым, основанным на членстве союзом общественных объединений, созданным по инициативе общественных объединений, объединившихся на основе общности их интересов для достижения целей, определенных Уставом РКФ.</p>
-                                <h3>Контакты</h3>
-                                <div className="NewsFeed__contacts">
-                                    {
-                                        Contacts.map((c) => {
-                                            return <span className={`NewsFeed__contacts--${c.class}`}>{c.text}</span>
-                                        })
-                                    }
-                                </div>
-                            </div>
+                            </Card>
                         </Side>
                     </Wrap>
                     <Partners title="Наши спонсоры" items={SponsorsData} />
