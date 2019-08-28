@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
-import {connectExhibitionsFilter} from 'apps/Exhibitions/connectors'
-import {ExhibitionsFilterContext} from 'apps/Exhibitions/context'
-import {useDictionary} from "apps/Dictionaries";
+import React, { useState } from 'react'
+import { connectExhibitionsFilter } from 'apps/Exhibitions/connectors'
+import { ExhibitionsFilterContext } from 'apps/Exhibitions/context'
+import { useDictionary } from "apps/Dictionaries";
 
-const {Provider} = ExhibitionsFilterContext;
+const { Provider } = ExhibitionsFilterContext;
 const filterInitialState = {
     cities: [],
     breeds: [],
@@ -11,11 +11,16 @@ const filterInitialState = {
 };
 
 
-function ExhibitionsFilter({city_ids, children}) {
+function ExhibitionsFilter({ city_ids, children }) {
+    // city_ids - города которые присутствуют в выставке
     const [filter, setFilter] = useState(filterInitialState);
     //const {dictionary: breed_types} = useDictionary('breed_types');
-    const {dictionary: cities} = useDictionary('cities');
-    const changeCitiesFilter = cities => setFilter({...filter, cities});
+    const { dictionary: cities } = useDictionary('cities');
+    // cities - словарь всех городов
+    const changeCitiesFilter = cities => setFilter({ ...filter, cities });
+    const clearFilter = () => {
+        setFilter({ ...filterInitialState });
+    };
     return (
         <Provider value={{
             city_ids,
@@ -23,7 +28,8 @@ function ExhibitionsFilter({city_ids, children}) {
             setFilter,
             //breed_types,
             cities,
-            changeCitiesFilter
+            changeCitiesFilter,
+            clearFilter
         }}>
             {children}
         </Provider>

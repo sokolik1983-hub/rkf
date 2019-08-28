@@ -1,15 +1,16 @@
-import React, {useContext} from "react";
-import Select, {components} from "react-select";
-import {defaultReactSelectStyles} from "appConfig";
-import {ExhibitionsFilterContext} from 'apps/Exhibitions/context'
-import {getValues} from 'shared/reactSelect'
+import React, { useContext } from "react";
+import Select, { components } from "react-select";
+import { defaultReactSelectStyles } from "appConfig";
+import { ExhibitionsFilterContext } from 'apps/Exhibitions/context'
+import { getValues } from 'shared/reactSelect'
+import { relative } from "path";
 
 
 const Option = props => {
     return (
         <div>
             <components.Option {...props} >
-                <span/>{props.label}
+                <span />{props.label}
             </components.Option>
         </div>
     );
@@ -17,7 +18,7 @@ const Option = props => {
 
 
 const style = {
-    container: (styles, {isFocused}) => ({
+    container: (styles, { isFocused }) => ({
         ...styles,
         outline: isFocused ? 'none' : 'none'
     }),
@@ -38,7 +39,7 @@ const style = {
         marginLeft: 0,
         opacity: 0.38
     }),
-    control: (styles, {isFocused}) => ({
+    control: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: 'white',
         fontSize: 16,
@@ -56,7 +57,8 @@ const style = {
     menu: styles => ({
         ...styles,
         boxShadow: 'none',
-        borderRadius: 0
+        borderRadius: 0,
+        position: 'relative',
     }),
     menuList: styles => ({
         ...styles,
@@ -65,7 +67,7 @@ const style = {
         borderColor: '#333',
         borderRadius: 0
     }),
-    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {
             ...styles,
             display: 'flex',
@@ -115,10 +117,12 @@ const style = {
 
 function CitiesFilter(props) {
     const {
-        city_ids, cities, changeCitiesFilter
+        city_ids, cities, changeCitiesFilter, filter,
     } = useContext(ExhibitionsFilterContext);
+    const {cities:filteredCities}=filter;
 
-    const options = city_ids.map(cityId => ({label: cities.dictionary[String(cityId)], value: cityId}));
+    const options = city_ids.map(cityId => ({ label: cities.dictionary[String(cityId)], value: cityId }));
+    const values = filteredCities.map(cityId => ({ label: cities.dictionary[String(cityId)], value: cityId }));
     //const options = [{ value: 0, label: 'Moscow' }, { value: 1, label: 'Berlin' }];
     console.log(options)
 
@@ -139,7 +143,8 @@ function CitiesFilter(props) {
             isSearchable
             classNamePrefix={"ExInput"}
             placeholder={"Начните вводить город"}
-            components={{Option}}
+            components={{ Option }}
+            value={values}
         />
     )
 }
