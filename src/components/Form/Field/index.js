@@ -36,8 +36,7 @@ function getField(fieldType) {
     }
 }
 
-function FormField(props) {
-    const {fieldType, className, style, ...fieldProps} = props;
+function FormField({fieldType, className, style, disabled, blockIfHasValue, ...fieldProps}) {
 
     const Input = getField(fieldType);
 
@@ -54,6 +53,7 @@ function FormField(props) {
             <Input
                 id={fieldProps.name}
                 className={'FormInput__input'}
+                disabled={disabled || (fieldProps.value && blockIfHasValue)}
                 {...fieldProps}
             />
             <Error name={fieldProps.name}/>
@@ -64,6 +64,7 @@ function FormField(props) {
 
 FormField.defaultProps = {
     type: "text",
+    blockIfHasValue: false,
 };
 
 export default React.memo(FormField)
