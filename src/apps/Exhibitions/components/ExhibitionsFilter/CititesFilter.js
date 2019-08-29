@@ -143,6 +143,7 @@ function CitiesFilter(props) {
             isSearchable
             classNamePrefix={"ExInput"}
             placeholder={"Начните вводить город"}
+            noOptionsMessage={() => "Город не найден"}
             components={{ Option }}
             value={values}
         />
