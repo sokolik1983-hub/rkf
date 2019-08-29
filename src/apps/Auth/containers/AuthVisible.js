@@ -1,15 +1,12 @@
-import {connect} from 'react-redux'
+import React from 'react'
+import {connectAuthVisible} from 'apps/Auth/connectors'
 
-const AuthVisible = ({children, isAuthenticated}) =>
-    isAuthenticated ?
+function AuthVisible({children, isAuthenticated}) {
+    return isAuthenticated ?
         children
         :
-        null;
+        null
+};
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.authentication.isAuthenticated,
-});
 
-export default connect(
-    mapStateToProps,
-)(AuthVisible)
+export default connectAuthVisible(AuthVisible)
