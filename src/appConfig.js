@@ -16,11 +16,7 @@ const appRoutes = [
         path: '/',
         component: LoadableModules.LoadableHomePage
     },
-    {
-        exact: true,
-        path: '/club/:route',
-        component: LoadableModules.LoadableClubPage
-    },
+
     {
         exact: false,
         path: '/demo',
@@ -60,6 +56,11 @@ const appRoutes = [
         exact: false,
         path: '/testView',
         component: TestView
+    },
+    {
+        exact: true,
+        path: '/:route',
+        component: LoadableModules.LoadableClubPage
     },
 ];
 
