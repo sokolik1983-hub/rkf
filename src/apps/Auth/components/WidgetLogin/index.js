@@ -10,8 +10,8 @@ import './index.scss'
 
 const DropInner = () =>
     <Fragment>
-        <UserIcon/>
-        <UserLogin title="Клуб"/>
+        {/*<UserIcon/>*/}
+        <UserLogin title="Личный кабинет"/>
     </Fragment>;
 
 const Inner = () =>

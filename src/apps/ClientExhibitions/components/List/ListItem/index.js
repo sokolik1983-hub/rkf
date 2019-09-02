@@ -1,26 +1,15 @@
 import React from "react"
-import {formatDateWithLocaleStringFull, timeSecondsCutter, transformDate} from "utils/datetime";
+import ExhibitionDateHelper from 'components/Exhibitions/ExhibitionDateHelper'
 import {ActButton} from "components/Button"
 import {BtnEdit, BtnSend, BtnWatch} from "components/Svg"
 import {ClientExhibitionsPathContext} from "apps/ClientExhibitions/context"
 import {connectClientExhibitionListItem} from "apps/ClientExhibitions/connectors"
 
-
 import {baseClassName} from "./styles.scss"
 import "./styles.scss"
 
 
-function Date ({day, month, year, time_start, time_end}) {
-    const date = transformDate({day, month, year});
 
-    return (
-        <div
-            className={`${baseClassName}__datetime`}>
-            {formatDateWithLocaleStringFull(date)}&nbsp;
-            {time_start ? `${timeSecondsCutter(time_start)} - ${timeSecondsCutter(time_end)}` : null}
-        </div>
-    )
-}
 
 function Controls({exhibitionId}) {
     return (
@@ -65,7 +54,7 @@ function ClientExhibitionListItem({
             <div className={`${baseClassName}__dates`}>
                 {
                     dates ?
-                        dates.map((date, index) => <Date key={index}{...date}/>)
+                        dates.map((date, index) => <ExhibitionDateHelper key={index}{...date}/>)
                         :
                         <div className={`${baseClassName}__datetime`}>
                             добавьте расписние

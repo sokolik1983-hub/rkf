@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Container from "components/Layout/Container";
 import Head from "./Head";
 import Content from './Content'
@@ -14,7 +14,7 @@ function ExhibitionDetails(props) {
     return (
         <>
             <Container className="ExhibitionDetails">
-                <Head {...details}/>
+                <Head loading={loading} {...details}/>
                 <div className="ExhibitionDetails__wrap">
                     <Content {...details}/>
                     <ExhibitionAsideContent {...details}/>

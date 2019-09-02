@@ -5,10 +5,9 @@ import {getPathFromRouterParams} from 'utils/index'
 import Container from 'components/Layout/Container'
 import reducer from './reducer'
 import PublicLayout from 'components/Layout'
-import Details2 from './containers/Details'
 import Details from './components/Details'
 import ExhibitionsList from './components/List'
-import ListExhibitionsByDates from './components/ListByDates'
+
 import {defaultReduxKey} from "./config";
 
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
@@ -24,9 +23,8 @@ function ExhibitionsProxy(props) {
                 <Container pad content>
 
                     <Switch>
-                        <Route path={`${path}/:id/details2`} component={Details2}/>
                         <Route path={`${path}/:id/details`} component={Details}/>
-                        <Route exact path={path} component={ListExhibitionsByDates}/>
+                        <Route exact path={path} component={ExhibitionsList}/>
                     </Switch>
 
                 </Container>

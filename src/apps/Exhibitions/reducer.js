@@ -1,5 +1,6 @@
 import * as actiontypes from './actiontypes';
 import createReducer from "utils/createReducer";
+import {normalizeList} from "shared/normilizers";
 
 const exhibitionsInitialState = {
     listCollection: {},
@@ -9,19 +10,23 @@ const exhibitionsInitialState = {
     exhibitionsDetails: {},
     breed_ids: [],
     city_ids: [],
-    exhibitionPrices: []
+    exhibitionPrices: [],
+    filter: {}
 };
 
 
 const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
 
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {exhibitions, city_ids, breed_ids} = action.data;
+        const {exhibitions, city_ids, breed_ids, dates} = action.data;
+        const {entities, result: listIds} = normalizeList(exhibitions);
         return {
             ...state,
-            dates: exhibitions,
+            dates,
+            listIds,
+            listCollection: entities.listCollection,
             city_ids,
-            breed_ids
+            breed_ids,
         }
     },
 

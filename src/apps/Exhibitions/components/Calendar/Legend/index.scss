@@ -4,32 +4,37 @@
     color: #BABFC7;
     padding-top: 8px;
   }
-  &__legend-item{
+
+  &__legend-item {
     display: flex;
     flex-flow: row nowrap;
     padding-left: 32px;
     margin: 8px 0;
     position: relative;
-    &:before{
+
+    &:before {
       content: "";
       width: 8px;
       height: 8px;
       position: absolute;
-      top:50%;
+      top: 50%;
       transform: translateY(-50%);
       left: 16px;
       border: solid 1px;
       border-color: white;
       border-radius: 50%;
     }
-    &--green{
-      &:before{
-        background-color: #00BFDD;
+
+    &--green {
+      &:before {
+        background-color: #00CF53;
       }
     }
-    &--blue{
-      &:before{
-        background-color: #00CF53;
+
+    &--blue {
+      &:before {
+        background-color: #00BFDD;
+
       }
     }
   }

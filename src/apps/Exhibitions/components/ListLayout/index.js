@@ -5,22 +5,21 @@ import Aside from 'components/Layout/Aside'
 import Content from 'components/Layout/Content'
 import ExhibitionsAside from 'apps/Exhibitions/Aside'
 import './styles.scss'
-
+import ExhibitionsFilter from 'apps/Exhibitions/components/ExhibitionsFilter'
 
 function ExhibitionsListLayout({children}) {
 
     return (
-        <div className="ExhibitionsListLayout">
+        <ExhibitionsFilter className="ExhibitionsListLayout">
             <Aside>
                 <ExhibitionsAside/>
             </Aside>
             <Content>
                 <div className="exhibitions__holder">
-                    {/*<FilterDate/>*/}
                     {children}
                 </div>
             </Content>
-        </div>
+        </ExhibitionsFilter>
     )
 }
 

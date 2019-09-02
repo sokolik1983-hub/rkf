@@ -2,7 +2,6 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
     fetchExhibitionsSuccess,
-    getDetails,
     getDetailsSuccess,
     storePrices
 } from './actions'
@@ -26,6 +25,9 @@ export const connectExhibitionsList = connect(
 
 export const connectExhibitionsFilter = connect(
     selectExhibitionsFilter,
+    dispatch => bindActionCreators({
+        fetchExhibitionsSuccess
+    }, dispatch)
 );
 
 export const connectExhibitionsListItem = connect(
@@ -49,9 +51,6 @@ export const connectExhibitionDetails = connect(
 
 export const connectExhibitionCalendar = connect(
     selectCalendar,
-    dispatch => bindActionCreators({
-        getDetails,
-    }, dispatch)
 );
 
 export const connectExhibitionPrices = connect(

@@ -2,7 +2,7 @@ import React from 'react'
 import ClientClubContacts from '../Contacts'
 import Card from 'components/Card'
 import ClientClubDocuments from 'apps/ClubDocuments'
-import ClientClubAlias from '../Alias'
+
 
 export default function Side({children}) {
     return (
@@ -10,7 +10,6 @@ export default function Side({children}) {
             <Card>
                 <ClientClubContacts/>
                 <ClientClubDocuments/>
-                <ClientClubAlias/>
                 {children}
             </Card>
         </div>)

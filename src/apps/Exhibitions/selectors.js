@@ -42,6 +42,12 @@ export const selectListExhibitionsByDates = state => {
 
 export const selectCalendar = state => {
     const {dates} = getState(state);
+    const calendarModifiers = dates.map(date => new Date(date));
+    return {calendarModifiers}
+};
+
+export const selectCalendar__deprecated = state => {
+    const {dates} = getState(state);
     const calendarModifiers = dates.map(date => new Date(date.year, parseInt(date.month - 1, 10), date.day));
     return {calendarModifiers}
 };
