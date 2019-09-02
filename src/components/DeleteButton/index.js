@@ -2,23 +2,48 @@ import React, {useState} from 'react'
 import Button from 'components/Button'
 import {useConfirmDialog} from 'shared/hooks'
 import axios from 'axios'
-import {getHeaders} from "../../utils/request";
+import {getHeaders} from "utils/request";
 
-export default function DeleteButton(props) {
-    const {actionUrl, params, onDeleteSuccess, style, children} = props;
+import {usePushMessage} from 'apps/Messages/hooks'
+
+export default function DeleteButton({
+
+                                         actionUrl,
+                                         params,
+                                         onDeleteSuccess,
+                                         successMessage,
+
+                                         style,
+                                         children
+                                     }) {
     const {confirm, onConfirm, onCancel} = useConfirmDialog();
     const [state, setState] = useState({loading: false});
+    const {push} = usePushMessage();
 
     const onDelete = async () => {
         setState({...state, loading: true});
+        try {
+            await axios.delete(actionUrl, {data: params, headers: getHeaders()});
+        } catch (e) {
+            console.log('Ошибка запроса на удаление: ', e);
+            push({
+                text: 'Операция удаления не выполнена',
+            })
+        }
 
-        const response = await axios.delete(actionUrl, {data: params, headers:getHeaders()});
-
-        console.log(response);
+        if (successMessage) {
+            console.log(successMessage);
+            push({
+                text: successMessage,
+                timeOut: 3000
+            })
+        }
 
         setState({...state, loading: false});
 
         onDeleteSuccess();
+
+
     };
 
     const onConfirmDelete = () => {

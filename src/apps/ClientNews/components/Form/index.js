@@ -1,22 +1,37 @@
-import React from 'react'
-
-import {FormFormikEnhanced} from 'components/Form'
-import {newsStoryFormConfig} from 'apps/ClientNews/config'
+import React, {useContext} from 'react'
+import {Form} from 'components/Form'
+import {newsArticleFormConfig} from 'apps/ClientNews/config'
 import RenderFields from './RenderFields'
-import {connectNewsForm} from 'apps/ClientNews/connectors'
-const {fields} = newsStoryFormConfig;
+import {connectArticleForm} from 'apps/ClientNews/connectors'
+import {ClubRouteContext} from 'apps/HomePage/context'
 
-function NewsStoryCreateForm({addNewsSuccess}) {
-    const onCreateSuccess = values => addNewsSuccess(values);
+const {fields} = newsArticleFormConfig;
+
+const initialValues = {
+    title: '',
+    content: '',
+    file: ''
+};
+
+function ArticleCreateFormPublic({addArticleSuccess, hideForm}) {
+    const {clubCommon} = useContext(ClubRouteContext);
+    const onSuccess = values => {
+        addArticleSuccess(values);
+        if (hideForm !== undefined) {
+            hideForm()
+        }
+    };
+    const transformValues = values => ({...values, club_id: clubCommon.id});
     return (
-        <FormFormikEnhanced
+        <Form
             isMultipart
-            onSuccess={onCreateSuccess}
-            {...newsStoryFormConfig}
+            onSuccess={onSuccess}
+            transformValues={transformValues}
+            {...newsArticleFormConfig}
         >
             <RenderFields fields={fields}/>
-        </FormFormikEnhanced>
+        </Form>
     )
 }
 
-export default connectNewsForm(NewsStoryCreateForm)
+export default connectArticleForm(ArticleCreateFormPublic)

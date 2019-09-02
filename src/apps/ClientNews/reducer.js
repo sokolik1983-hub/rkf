@@ -3,7 +3,6 @@ import {normalizeList} from "shared/normilizers";
 import createReducer from 'utils/createReducer'
 
 const clientNewsInitialState = {
-    loadingApi: false,
     listCollection: {},
     listIds: [],
 };
@@ -26,11 +25,12 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
         }
     },
 
-    [actiontypes.ADD_NEWS_SUCCESS](state, action) {
+    [actiontypes.ADD_ARTICLE_SUCCESS](state, action) {
         const {id} = action.data;
         const listCollection = {...state.listCollection};
         const listIds = [id, ...state.listIds];
-        listCollection[id.toString()] = action.data;
+
+        listCollection[String(id)] = action.data;
 
         return {
             ...state,
@@ -39,7 +39,8 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
             loading: false,
         }
     },
-    [actiontypes.DELETE_NEWS_SUCCESS](state, action) {
+
+    [actiontypes.DELETE_ARTICLE_SUCCESS](state, action) {
         const {id} = action;
         const listCollection = {...state.listCollection};
         delete listCollection[String(id)];

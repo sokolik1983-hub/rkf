@@ -9,15 +9,17 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 
 
-
-function HomePageProxy({match, getCommonSuccess}) {
+function HomePageProxy({match, clubCommon, getCommonSuccess}) {
     const {params} = match;
     //TODO Make better
     const {route} = params;
     const url = route ? '/api/Club/public/' + route : '/api/Club/public/rkf';
     const {loading} = useResourceAndStoreToRedux(url, getCommonSuccess);
     return (
-        <ClubRouteContext.Provider value={{params}}>
+        <ClubRouteContext.Provider value={{
+            params,
+            clubCommon,
+        }}>
             {loading ? 'загрузка...' : null}
             <HomePageLayout/>
         </ClubRouteContext.Provider>
