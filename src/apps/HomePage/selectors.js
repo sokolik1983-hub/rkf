@@ -61,9 +61,15 @@ export const selectFeaturedExhibitionsList = state => {
     const {exhibitions} = getState(state);
     // const {listIds} = exhibitions;
     const {route} = selectClubRoute(state);
-    return {route, exhibitions:exhibitions.list}
+    return {route, exhibitions: exhibitions.list}
 };
 
+export const selectClubCommon = state => {
+    const {common} = getState(state).club;
+    return {
+        clubCommon: common,
+    }
+};
 export const selectClubDescription = state => {
     const {common} = getState(state).club;
     const {description} = common;
@@ -88,3 +94,4 @@ export const selectClubDocuments = state => {
     const {documents} = getState(state).club;
     return {documents}
 };
+

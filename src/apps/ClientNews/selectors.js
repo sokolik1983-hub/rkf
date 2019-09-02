@@ -1,27 +1,29 @@
 import {defaultReduxKey} from './config'
 
-const getClubId = state => {
-    const {club_id} = state.client_club;
-    return {club_id}
-};
-
 const getState = state => state[defaultReduxKey];
+const getClubId = state => state.client_common;
 
-
-export const selectNews = state => {
-    const {club_id} = getClubId(state);
-    const {listIds, listCollection} = getState(state);
+export const selectNewsList = (state) => {
+    const {listIds} = getState(state);
+    const clubId = getClubId(state);
     return {
-        club_id,
-        listIds,
-        listCollection
+        clubId,
+        listIds
     }
 };
 
-export const selectNewsStory = (state, props) => {
-    const {id} = props;
+export const selectNewsListPublic = (state, props) => {
+    const {listIds} = getState(state);
+    const {alias} = props.match.params;
+    return {
+        alias,
+        listIds
+    }
+};
+
+export const selectListArticle = (state, props) => {
     const {listCollection} = getState(state);
     return {
-        newsStory: listCollection.hasOwnProperty(String(id)) ? listCollection[String(id)] : null
+        ...listCollection[String(props.id)]
     }
 };

@@ -67,6 +67,11 @@ export const formatDateWithLocaleString = (date, locale = 'ru') => {
     return `${weekDay}, ${day} ${month}`
 };
 
+export const formatDateTime = (datetime) => {
+    const date = new Date(datetime);
+    return `${formatDateWithLocaleStringFull(date)} в ${formatLeadingZero(date.getHours())}:${formatLeadingZero(date.getMinutes())}`;
+}
+
 export const formatDateWithLocaleStringFull = (date, locale = 'ru') => {
     const day = date.getDate();
     const month = getLocalizedMonth(date)

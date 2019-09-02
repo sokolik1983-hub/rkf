@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import OutsideClickHandler from "react-outside-click-handler";
 
 
-export default function CreateNewsStory() {
+export default function CreateArticleForm() {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
     return (
         <Fragment>
@@ -21,7 +21,7 @@ export default function CreateNewsStory() {
             {
                 visibility ?
                     <OutsideClickHandler onOutsideClick={setInvisible}>
-                        <NewsStoryCreateForm/>
+                        <NewsStoryCreateForm hideForm={setInvisible}/>
                     </OutsideClickHandler>
                     : null
             }

@@ -1,11 +1,14 @@
 import {object, string} from "yup";
 
+export const defaultReduxKey = 'club_news';
+
 const NEWS_URL = '/api/ClubArticle/full';
-export const defaultReduxKey = 'client_news';
 
+export const GET_NEWS_ENDPOINT = '/api/ClubArticle/public?alias=';
 
-export const newsStoryFormConfig = {
-    formAction: NEWS_URL,
+export const newsArticleFormConfig = {
+    action: NEWS_URL,
+    format: "multipart/form-data",
     fields: {
         title: {
             name: 'title',

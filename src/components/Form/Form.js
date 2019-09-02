@@ -7,6 +7,12 @@ import {getHeaders} from "../../utils/request";
 import {HTTP} from "appConfig";
 
 
+const getFormData = data => {
+    const formData = new FormData();
+    Object.keys(data).forEach(key => formData.append(key, data[key],));
+    return formData;
+};
+
 /**
  * Functional component encapsulate Formik functionality and form submit request.
  * @param {string} method POST if create, PUT/UPDATE if Update
@@ -34,8 +40,9 @@ function Form({
     const formatData = useCallback((values) => {
         const data = transformValues(values);
         return isMultipartData ?
-            new FormData(data)
-            : JSON.stringify(data);
+            getFormData(data)
+            :
+            JSON.stringify(data);
     });
 
     const onSubmit = useCallback(

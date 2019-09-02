@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import {
     selectExhibitions,
     selectExhibition,
+    selectClubCommon,
     selectNews,
     selectNewsStory,
     selectClubHeader,
@@ -43,7 +44,7 @@ export const connectNewsStory = connect(
 );
 
 export const connectClubCommon = connect(
-    null,
+    selectClubCommon,
     dispatch => bindActionCreators(
         {
             getCommonSuccess
