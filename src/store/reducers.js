@@ -5,6 +5,7 @@ import authenticationReducer from 'apps/Auth/reducer'
 import messagesReducer from 'apps/Messages/reducer'
 import clientCommonReducer from 'apps/Client/reducer'
 import dictionariesReducer from 'apps/Dictionaries/reducer'
+import clientNewsReducer from 'apps/ClientNews/reducer'
 
 export default function createReducer(injectedReducers) {
     return combineReducers({
@@ -13,6 +14,7 @@ export default function createReducer(injectedReducers) {
         messages: messagesReducer,
         dictionaries: dictionariesReducer,
         client_common: clientCommonReducer,
+        club_news: clientNewsReducer,
         ...injectedReducers,
     });
 }
