@@ -15,6 +15,10 @@
     margin-bottom: 8px;
   }
 
+  textarea {
+    resize: none;
+  }
+
   input[type="date"],
   input[type="time"] {
     padding: 9px 11px 10px 11px;
