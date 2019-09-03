@@ -6,8 +6,8 @@ import ExhibitionRankType from './RankType'
 import ExhibitionClassTypes from './ClassTypes'
 import ExhibitionBreedTypes from './BreedTypes'
 import ExhibitionDignityTypes from './DignityTypes'
-
-import {getDictElement, useDictionary} from "apps/Dictionaries";
+import { transformDate, timeSecondsCutter } from "utils/datetime";
+import { getDictElement, useDictionary } from "apps/Dictionaries";
 
 export default function ExhibitionAsideContent(
     {
@@ -20,36 +20,47 @@ export default function ExhibitionAsideContent(
         dates,
     }
 ) {
-    const {dictionary} = useDictionary('cities');
+    const { dictionary } = useDictionary('cities');
     const city = getDictElement(dictionary, city_id);
+    const timeStart = dates && dates[0].time_start;
 
     return (
         <div className="ExhibitionAsideContent">
             <div className="ExhibitionDetails__aside_holder">
                 <div className="ExhibitionDetails__short_info">
-                    <ExhibitionDetailsDates dates={dates}/>
-                    {city ? <div
-                        className="ExhibitionDetails__place-icon">г. {city}, {address}</div> : null}
+                    <ExhibitionDetailsDates dates={dates} />
+                    {
+                        timeStart
+                            ? <div className="ExhibitionDetails__time-start">Начало в {timeSecondsCutter(timeStart)} по МСК</div>
+                            : null
+
+                    }
+                    {
+                        city
+                            ? <div
+                                className="ExhibitionDetails__place-icon">г. {city}, {address}</div>
+                            : null
+                    }
                 </div>
             </div>
             <table className="ExhibitionDetails__attrs-table">
                 <tbody>
-                <tr>
-                    <td>Класс:</td>
-                    <td><ExhibitionClassTypes classTypesIds={class_types}/></td>
-                </tr>
-                <tr>
-                    <td>Стандарт:</td>
-                    <td><ExhibitionDignityTypes type_id={type_id}/></td>
-                </tr>
-                <tr>
-                    <td>Ранг:</td>
-                    <td><ExhibitionRankType rank_types={rank_types}/></td>
-                </tr>
-                <tr>
-                    <td>Породы:</td>
-                    <td><ExhibitionBreedTypes breedTypesIds={breed_types}/></td>
-                </tr>
+                    <tr>
+                        <td>Класс:</td>
+                        <td><ExhibitionClassTypes classTypesIds={class_types} /></td>
+                    </tr>
+                    <tr>
+                        <td>Стандарт:</td>
+                        <td><ExhibitionDignityTypes type_id={type_id} /></td>
+                    </tr>
+                    <tr>
+                        <td>Ранг:</td>
+                        <td><ExhibitionRankType rank_types={rank_types} /></td>
+                    </tr>
+                    <tr>
+                        <td>Породы:</td>
+                        <td><ExhibitionBreedTypes breedTypesIds={breed_types} /></td>
+                    </tr>
                 </tbody>
             </table>
             {/*<div className="ExhibitionDetails__controls">*/}
@@ -57,7 +68,7 @@ export default function ExhibitionAsideContent(
             {/*    <Button className="btn-secondary">В избранное</Button>*/}
             {/*    <Button className="btn-secondary">Поделиться</Button>*/}
             {/*</div>*/}
-            <CountDown/>
+            <CountDown eventDate={dates && transformDate(dates[0])} />
         </div>
     )
 }

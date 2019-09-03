@@ -1,22 +1,58 @@
+#wrap,
+.container--content {
+  background: white;
+}
 .ExhibitionDetails {
   font-size: 18px;
   line-height: 24px;
   background-color: #fff;
-  padding: 0 24px 64px 24px ;
+  overflow: hidden;
 
+  &__head {
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 44px;
+      margin: 26px 0 6px;
+    }
+    .exhibition-details__signature--top {
+      font-size: 18px;
+      line-height: 24px;
+      color: #9dafbd;
+      margin-bottom: 6px;
+      a {
+        color: #9dafbd;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 
   &__attrs-table {
     width: 100%;
     margin: 20px 0;
 
     td:first-child {
-      font-weight: bold;
+      color: #72839c;
       padding-left: 0px;
     }
 
     td {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      color: #253c5e;
       padding-left: 12px;
       vertical-align: top;
+    }
+    .ExhibitionClassTypes {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #253c5e;
     }
   }
 
@@ -44,7 +80,7 @@
       margin: 8px 0;
       display: flex;
       flex-flow: row wrap;
-      color: #72839C;
+      color: #72839c;
 
       div {
         margin-right: 65px;
@@ -59,30 +95,23 @@
   &__short_info {
     div {
       margin: 22px 0;
-      font-size: 18px;
+      font-weight: normal;
+      font-size: 16px;
       line-height: 24px;
+      letter-spacing: 0.2px;
     }
   }
 
-  &__tabs {
-    margin: 32px 0 24px 0;
-
-    .tabs__tab {
-      flex: unset;
-      padding: 0;
-      margin-right: 24px;
-      font-size: 26px;
-      line-height: 30px;
-      color: #72839C;
-
-      &--active {
-        color: inherit;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
+  &Dates__datetime {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/date.svg) center left no-repeat;
+    &::first-letter {
+      text-transform: capitalize;
     }
+  }
+  &__time-start {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/time.svg) center left no-repeat;
   }
 
   &__wrap {
@@ -91,8 +120,6 @@
   }
 
   &__avatar {
-
-
     img {
       max-width: 100%;
       border-radius: 6px;
@@ -100,11 +127,97 @@
   }
 
   &__content {
-    max-width: 736px;
-    margin-right: 32px;
+    max-width: 100%;
+    margin-right: 23px;
+    flex-grow: 1;
+    .tabs {
+      justify-content: space-between;
+      margin: 24px 0;
+      &__tab {
+        flex: initial;
+        padding: 0;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 32px;
+        color: #90999e;
+        text-decoration: none;
+        border: none;
+        border-bottom: 1px dashed #90999e;
+        background: none;
+        &--active {
+          color: #253c5e;
+          border-bottom: 1px dashed transparent;
+        }
+      }
+    }
+  }
+
+  &__place-icon {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/pin.svg) center left no-repeat;
+  }
+
+  .Partners {
+    padding: 0 !important;
+  }
+
+  &__address {
+    display: flex;
+    align-items: top;
+    margin: 84px 0;
+    &--left {
+      max-width: 40%;
+      margin-right: 23px;
+      flex-grow: 1;
+    }
+    &--right {
+      div {
+        width: 674px;
+        height: 318px;
+        border: 2px dashed #eee;
+      }
+      p {
+        margin: 4px 0;
+      }
+    }
+    &-title {
+      margin: 0 0 24px 0;
+    }
+    &-subtitle {
+      margin: 32px 0 12px 0;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839c;
+    }
+    p {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
+  }
+
+  &__payment-details {
+    margin: 40px 0 64px;
+    &-title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      margin: 16px 0;
+    }
+    p {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
   }
 }
 
 .ExhibitionAsideContent {
-  flex: 1
+  min-width: 440px;
+  flex: 1;
 }

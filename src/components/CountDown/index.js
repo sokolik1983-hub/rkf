@@ -4,7 +4,7 @@ import style from './style.module.scss'
 
 const cx = classnames.bind(style);
 
-export default function CountDown({eventDate = '2019-05-05 14:00'}) {
+export default function CountDown({ eventDate = '2019-05-05 14:00' }) {
 
     const checkTimeIsOver = () => {
         return (new Date() > new Date(eventDate))
@@ -30,18 +30,20 @@ export default function CountDown({eventDate = '2019-05-05 14:00'}) {
     const countDown = calculateCountDown(eventDate);
     return (
         <div className={cx('CountDown__wrap')}>
-            <div className={cx('CountDown__title')}>
-                До конца регистрации осталось:
-            </div>
             {
-                checkTimeIsOver() ?
-                    <div>Время вышло</div> : null
+                checkTimeIsOver()
+                    ? <div className={cx('CountDown__timeIsOver')}>Регистрация окончена</div>
+                    : (
+                        <>
+                            <div className={cx('CountDown__title')}>До конца регистрации осталось:</div>
+                            <div className={cx('CountDown')}>
+                                <div className={cx('item', 'item--days')}>{countDown.days}</div>
+                                <div className={cx('item', 'item--hours')}>{countDown.hours}</div>
+                                <div className={cx('item', 'item--minutes')}>{countDown.minutes}</div>
+                            </div>
+                        </>
+                    )
             }
-            <div className={cx('CountDown')}>
-                <div className={cx('item', 'item--days')}>{countDown.days}</div>
-                <div className={cx('item', 'item--hours')}>{countDown.hours}</div>
-                <div className={cx('item', 'item--minutes')}>{countDown.minutes}</div>
-            </div>
         </div>
     )
 }
