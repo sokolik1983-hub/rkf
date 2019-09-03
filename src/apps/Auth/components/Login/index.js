@@ -9,7 +9,7 @@ export default function AuthorizationLayout() {
         <CommonLayout image={'/static/images/registration/banner.png'}>
             <div className="authorization__holder">
                 <div className="authorization__logo"/>
-                <div className="authorization__title">Добро пожаловать на РКФ</div>
+                <div className="authorization__title">Добро пожаловать</div>
                 <div className="authorization__subtitle">Собачий сервис для владельцев, клубов, заводчиков и
                     питомников
                 </div>
