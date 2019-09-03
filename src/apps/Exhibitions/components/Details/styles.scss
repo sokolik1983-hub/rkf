@@ -215,6 +215,20 @@
       letter-spacing: 0.2px;
     }
   }
+
+  .FeaturedExhibitionsList {
+    justify-content: center;
+    margin-bottom: 45px;
+    .FeaturedExhibition{
+      max-width: 362px;
+    }
+  }
+  .FeaturedExhibitions__title {
+    margin: 24px 0;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+  }
 }
 
 .ExhibitionAsideContent {

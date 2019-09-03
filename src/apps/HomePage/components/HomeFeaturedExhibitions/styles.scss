@@ -10,12 +10,12 @@
     height: 300px;
   }
 }
-@media screen and (max-width: 999px) {
+@media screen and (max-width: 1024px) {
   .HomeFeaturedExhibitionsList {
     height: 250px;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 568px) {
   .HomeFeaturedExhibitionsList {
     flex-wrap: wrap;
     height: auto;

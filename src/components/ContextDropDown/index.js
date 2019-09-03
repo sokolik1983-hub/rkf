@@ -1,9 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import OutsideClickHandler from "react-outside-click-handler";
 import classnames from 'classnames'
 import {useVisibility} from "shared/hooks";
-import {DotsHorizontal} from 'components/Svg'
-
 
 import './styles.scss'
 

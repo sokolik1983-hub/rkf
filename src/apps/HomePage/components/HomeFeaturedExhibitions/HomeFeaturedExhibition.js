@@ -7,8 +7,7 @@ function HomepageExhibition({ id, exhibition_picture_link, exhibition_name, exhi
     return (
 
         <div className="HomeFeaturedExhibition">
-            <div className="HomeFeaturedExhibition__image-wrap">
-                <img src={exhibition_picture_link} alt="" />
+            <div className="HomeFeaturedExhibition__image-wrap" style={{ 'backgroundImage': `url(${exhibition_picture_link})` }}>
             </div>
             <div className="HomeFeaturedExhibition__wrapper">
                 <div className="HomeFeaturedExhibition__title">{exhibition_name}</div>
