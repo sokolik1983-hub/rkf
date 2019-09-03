@@ -1,4 +1,4 @@
-$blue-color: #1D6EE3;
+$blue-color: #3366ff;
 .CountDown {
   display: flex;
   flex-flow: row nowrap;
@@ -7,16 +7,23 @@ $blue-color: #1D6EE3;
     color: $blue-color;
   }
 
-  &__title {
+  &__title, &__timeIsOver {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
     margin: 16px 0;
   }
 }
+
 
 .item {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
 
   position: relative;
   min-width: 53px;
@@ -36,15 +43,16 @@ $blue-color: #1D6EE3;
     position: absolute;
     content: ":";
     right: -20px;
-    color: transparentize($blue-color, .5);
+    color: transparentize($blue-color, 0.5);
   }
 
   &--days {
     &:after {
       position: absolute;
       bottom: -28px;
-      font-size: 16px;
-      font-weight: 200;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
       content: "День";
     }
   }
@@ -52,8 +60,9 @@ $blue-color: #1D6EE3;
     &:after {
       position: absolute;
       bottom: -28px;
-      font-size: 16px;
-      font-weight: 200;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
       content: "Час";
     }
   }
@@ -61,8 +70,9 @@ $blue-color: #1D6EE3;
     &:after {
       position: absolute;
       bottom: -28px;
-      font-size: 16px;
-      font-weight: 200;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
       content: "Минута";
     }
   }
