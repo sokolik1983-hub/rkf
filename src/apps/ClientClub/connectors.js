@@ -74,3 +74,7 @@ export const connectClubInfoForm = connect(
         clubInfoUpdateSuccess
     }, dispatch)
 );
+
+export const connectClubPublicLink = connect(
+    selectClubAlias,
+);
