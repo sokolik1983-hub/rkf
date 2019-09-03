@@ -50,11 +50,6 @@ function ExhibitionDetails(props) {
                             : null
                     }
                 </div>
-                {exhibitionId && <ExhibitionDetailsPrices exhibition_id={exhibitionId} />}
-                <PaymentDetails />
-                <Partners title="Наши спонсоры" items={SponsorsData} />
-                <Partners title="Наши партнеры" items={PartnersData} />
-                <Address />
             </Container>
             {/* <FooterSmall/> */}
         </>
