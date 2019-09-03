@@ -1,5 +1,6 @@
 import React from 'react'
 import ClientAvatar from 'components/ClientAvatar'
+import ContextDropDown from 'components/ContextDropDown'
 import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import {connectListArticle} from 'apps/ClientNews/connectors'
@@ -33,13 +34,17 @@ function ListArticle({
                     <div className="NewsStory__Title">{club_name}</div>
                     <div className="NewsStory__Signature">{getSignature()}</div>
                 </div>
-                <DeleteButton
-                    successMessage="Новость успешно удалена"
-                    onDeleteSuccess={onDeleteSuccess}
-                    actionUrl={'/api/ClubArticle/' + id}
-                >
-                    удалить
-                </DeleteButton>
+                <ContextDropDown buttonStyles={{marginLeft: 'auto'}}>
+                    <DeleteButton
+                        windowed
+                        confirmMessage={`Удалить новость " ${title} "?`}
+                        successMessage="Новость успешно удалена"
+                        onDeleteSuccess={onDeleteSuccess}
+                        actionUrl={'/api/ClubArticle/' + id}
+                    >
+                        удалить
+                    </DeleteButton>
+                </ContextDropDown>
             </div>
             <h3>{title}</h3>
             <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>

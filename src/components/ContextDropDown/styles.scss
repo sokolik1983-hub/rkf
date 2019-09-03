@@ -1,0 +1,25 @@
+.ContextDropDown {
+  &__button {
+    box-sizing: border-box;
+    outline: none;
+    border-color: transparent;
+    background-image: url("/static/icons/ico-dots-horizontal.svg");
+    background-size: 16px 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__content {
+    position: absolute;
+    visibility: hidden;
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    box-shadow: 0px 8px 25px rgba(51, 102, 255, 0.2);
+    z-index: 1000;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+}

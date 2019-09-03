@@ -1,0 +1,33 @@
+
+.DeleteButton__confirmDialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 24px 32px;
+  border-radius: 6px;
+}
+
+.DeleteButton__confirmBtn {
+  margin-right: 8px;
+  background-color: #3366FF;
+  color: white;
+}
+
+.DeleteButton__confirmMessage {
+  padding: 16px;
+}
+
+.DeleteButton__confirmDialogControls {
+  text-align: center;
+}
+
+.DeleteButton__confirmDialogWrapper {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
