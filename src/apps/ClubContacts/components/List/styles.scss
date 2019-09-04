@@ -1,17 +1,18 @@
-.ClientClubListItem{
+.ClientClubListItem {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 16px;
-  &__controls{
+  &__controls {
     margin-left: auto;
   }
 }
-.ClintClubContact{
+.ClintClubContact {
   display: flex;
-  &__type, &__description{
-    margin-right: 4px
+  &__type,
+  &__description {
+    margin-right: 4px;
   }
-  &__description{
+  &__description {
     font-weight: 400;
   }
 }

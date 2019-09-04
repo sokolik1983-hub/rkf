@@ -1,13 +1,14 @@
 import React from 'react'
-import {useVisibility} from "shared/hooks";
-import {Form} from 'components/Form'
-import {connectClientClubListItem} from 'apps/ClubContacts/connectors'
-import {RenderFields} from 'apps/ClubContacts/components/Form/RenderFields'
+import { useVisibility } from "shared/hooks";
+import { Form } from 'components/Form'
+import { connectClientClubListItem } from 'apps/ClubContacts/connectors'
+import { RenderFields } from 'apps/ClubContacts/components/Form/RenderFields'
 import ClubListContact from './ListContact'
-import {HTTP} from 'appConfig'
+import { HTTP } from 'appConfig'
 import DeleteButton from "../../../../components/DeleteButton";
+import Dropdown from 'components/Dropdown';
 
-function ClientClubListItem({clubContact, updateClubContactSuccess, deleteClubContactSuccess}) {
+function ClientClubListItem({ clubContact, updateClubContactSuccess, deleteClubContactSuccess }) {
     const {
         visibility,
         toggleVisibility,
@@ -18,7 +19,7 @@ function ClientClubListItem({clubContact, updateClubContactSuccess, deleteClubCo
         setInvisible()
     };
     const onDeleteSuccess = () => {
-        deleteClubContactSuccess({id:clubContact.id})
+        deleteClubContactSuccess({ id: clubContact.id })
     };
     return (
         <div className="ClientClubListItem">{
@@ -29,18 +30,20 @@ function ClientClubListItem({clubContact, updateClubContactSuccess, deleteClubCo
                     method={HTTP.update}
                     initialValues={clubContact}
                 >
-                    <RenderFields isUpdate/>
+                    <RenderFields isUpdate />
                 </Form>
                 :
-                <ClubListContact {...clubContact}/>
+                <ClubListContact {...clubContact} />
         }
             <div className="ClientClubListItem__controls">
-                <button onClick={toggleVisibility}>{visibility ? "отмена" : "изменить"}</button>
-                <DeleteButton
-                    onDeleteSuccess={onDeleteSuccess}
-                    //params={params}
-                    actionUrl={`/api/clubs/Contact/${clubContact.id}`}
-                >удалить</DeleteButton>
+                <Dropdown position="right">
+                    <button onClick={toggleVisibility}>{visibility ? "Отмена" : "Изменить"}</button>
+                    <DeleteButton
+                        onDeleteSuccess={onDeleteSuccess}
+                        //params={params}
+                        actionUrl={`/api/clubs/Contact/${clubContact.id}`}
+                    >Удалить</DeleteButton>
+                </Dropdown>
             </div>
         </div>
     )

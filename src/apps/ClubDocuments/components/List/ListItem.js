@@ -6,6 +6,7 @@ import {RenderFields} from 'apps/ClubDocuments/components/Form/RenderFields'
 import ClubListDocument from './ListDocument'
 import {HTTP} from 'appConfig'
 import DeleteButton from "../../../../components/DeleteButton";
+import Dropdown from 'components/Dropdown';
 
 function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClubDocumentSuccess}) {
     const {
@@ -35,12 +36,14 @@ function ClientClubListItem({clubDocument, updateClubDocumentSuccess, deleteClub
                 <ClubListDocument {...clubDocument}/>
         }
             <div className="ClientClubListItem__controls">
-                <button onClick={toggleVisibility}>{visibility ? "отмена" : "изменить"}</button>
+            <Dropdown position="right">
+                <button onClick={toggleVisibility}>{visibility ? "Отмена" : "Изменить"}</button>
                 <DeleteButton
                     onDeleteSuccess={onDeleteSuccess}
                     //params={params}
                     actionUrl={`/api/clubs/ClubDocument/${clubDocument.id}`}
-                >удалить</DeleteButton>
+                >Удалить</DeleteButton>
+            </Dropdown>
             </div>
         </div>
     )

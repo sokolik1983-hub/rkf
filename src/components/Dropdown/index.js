@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 import classnames from 'classnames'
 import './styles.scss'
 
-export default function Dropdown({ innerComponent, position, children, className }) {
+export default function Dropdown({ innerComponent, position, children, className, forceClose }) {
     const [isOpened, setOpened] = useState(false);
     const closeDropdown = () => setOpened(false);
     const toggleDropdown = () => setOpened(!isOpened);
+    useEffect(() => {
+        if (forceClose) closeDropdown();
+    })
 
     return (
         <OutsideClickHandler onOutsideClick={closeDropdown}>

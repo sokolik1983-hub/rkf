@@ -1,13 +1,15 @@
 import React from 'react'
-import {useVisibility} from "shared/hooks";
-import {Form} from 'components/Form'
-import {connectClientClubListItem} from 'apps/ClubSocial/connectors'
-import {RenderFields} from 'apps/ClubSocial/components/Form/RenderFields'
+import { useVisibility } from "shared/hooks";
+import { Form } from 'components/Form'
+import { connectClientClubListItem } from 'apps/ClubSocial/connectors'
+import { RenderFields } from 'apps/ClubSocial/components/Form/RenderFields'
 import ClubListSocial from './ListSocial'
-import {HTTP} from 'appConfig'
+import { HTTP } from 'appConfig'
 import DeleteButton from "components/DeleteButton";
-import {clubClubSocialConfig, endpointUrl} from 'apps/ClubSocial/config'
-function ClientClubListItem({clubSocial, updateClubSocialSuccess, deleteClubSocialSuccess}) {
+import { clubClubSocialConfig, endpointUrl } from 'apps/ClubSocial/config'
+import Dropdown from 'components/Dropdown';
+
+function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSocialSuccess }) {
     const {
         visibility,
         toggleVisibility,
@@ -18,7 +20,7 @@ function ClientClubListItem({clubSocial, updateClubSocialSuccess, deleteClubSoci
         setInvisible()
     };
     const onDeleteSuccess = () => {
-        deleteClubSocialSuccess({id:clubSocial.id})
+        deleteClubSocialSuccess({ id: clubSocial.id })
     };
     return (
         <div className="ClientClubListItem">{
@@ -29,18 +31,20 @@ function ClientClubListItem({clubSocial, updateClubSocialSuccess, deleteClubSoci
                     method={HTTP.update}
                     initialValues={clubSocial}
                 >
-                    <RenderFields isUpdate/>
+                    <RenderFields isUpdate />
                 </Form>
                 :
-                <ClubListSocial {...clubSocial}/>
+                <ClubListSocial {...clubSocial} />
         }
             <div className="ClientClubListItem__controls">
-                <button onClick={toggleVisibility}>{visibility ? "отмена" : "изменить"}</button>
-                <DeleteButton
-                    onDeleteSuccess={onDeleteSuccess}
-                    //params={params}
-                    actionUrl={`${endpointUrl}?id=${clubSocial.id}`}
-                >удалить</DeleteButton>
+                <Dropdown position="right">
+                    <button onClick={toggleVisibility}>{visibility ? "Отмена" : "Изменить"}</button>
+                    <DeleteButton
+                        onDeleteSuccess={onDeleteSuccess}
+                        //params={params}
+                        actionUrl={`${endpointUrl}?id=${clubSocial.id}`}
+                    >Удалить</DeleteButton>
+                </Dropdown>
             </div>
         </div>
     )
