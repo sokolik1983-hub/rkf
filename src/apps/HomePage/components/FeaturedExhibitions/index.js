@@ -9,7 +9,7 @@ import {connectClubCommonExhibitions} from 'apps/HomePage/connectors'
 
 const FeaturedExhibitionsList = ({exhibitions, storeExhibitions, route}) => {
 
-    const url = '/api/exhibitions/Exhibition/featured/' + String(route);
+    const url = '/api/exhibitions/Exhibition/?Alias=real_tyu' + String(route);
 
     const {loading} = useResourceAndStoreToRedux(url, storeExhibitions,);
     const arr = exhibitions ? exhibitions.slice(0, 3) : [];
