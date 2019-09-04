@@ -1,17 +1,17 @@
-import React, {PureComponent, Fragment} from 'react'
-import {Link} from 'react-router-dom'
-import {DropDownItem} from 'components/DropDownItem'
-import DropDown from 'components/DropDown'
-import {UserIcon} from './UserIcon'
-import {UserLogin} from './UserLogin'
-import {LOGIN_URL, REGISTER_URL} from 'appConfig'
+import React, { PureComponent, Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import { DropDownItem } from 'components/DropDownItem'
+import Dropdown from 'components/Dropdown'
+import { UserIcon } from './UserIcon'
+import { UserLogin } from './UserLogin'
+import { LOGIN_URL, REGISTER_URL } from 'appConfig'
 import './index.scss'
 
 
 const DropInner = () =>
     <Fragment>
         {/*<UserIcon/>*/}
-        <UserLogin title="Личный кабинет"/>
+        <UserLogin title="Личный кабинет" />
     </Fragment>;
 
 const Inner = () =>
@@ -21,17 +21,17 @@ const Inner = () =>
 
 export default class WidgetLogin extends PureComponent {
     render() {
-        const {isAuthenticated, logOutUser} = this.props;
+        const { isAuthenticated, logOutUser } = this.props;
         return isAuthenticated ?
-            <DropDown className="widget-login" innerComponent={<DropInner/>}>
+            <Dropdown className="widget-login" position="right" innerComponent={<DropInner />}>
                 <DropDownItem><Link to="/client">Личный кабинет</Link></DropDownItem>
                 <DropDownItem onClick={logOutUser}>Выход</DropDownItem>
-            </DropDown>
+            </Dropdown>
             :
-            <DropDown className="widget-login" innerComponent={<Inner/>}>
+            <Dropdown className="widget-login" innerComponent={<Inner />}>
                 <DropDownItem><Link to={LOGIN_URL}>Вход</Link></DropDownItem>
                 <DropDownItem><Link to={REGISTER_URL}>Регистрация</Link></DropDownItem>
-            </DropDown>
+            </Dropdown>
 
     }
 }

@@ -1,21 +1,22 @@
 import React from 'react'
 import ClientAvatar from 'components/ClientAvatar'
-import ContextDropDown from 'components/ContextDropDown'
+// import ContextDropDown from 'components/ContextDropDown'
+import Dropdown from 'components/Dropdown'
 import './styles.scss'
 import DeleteButton from "components/DeleteButton";
-import {connectListArticle} from 'apps/ClientNews/connectors'
-import {formatDateTime} from 'utils/datetime'
+import { connectListArticle } from 'apps/ClientNews/connectors'
+import { formatDateTime } from 'utils/datetime'
 
 function ListArticle({
-                         id,
-                         title,
-                         content,
-                         picture_link,
-                         create_date,
-                         logo_link,
-                         club_name,
-                         deleteArticleSuccess
-                     }) {
+    id,
+    title,
+    content,
+    picture_link,
+    create_date,
+    logo_link,
+    club_name,
+    deleteArticleSuccess
+}) {
 
     const getSignature = () => String(formatDateTime(create_date));
 
@@ -34,7 +35,7 @@ function ListArticle({
                     <div className="NewsStory__Title">{club_name}</div>
                     <div className="NewsStory__Signature">{getSignature()}</div>
                 </div>
-                <ContextDropDown buttonStyles={{marginLeft: 'auto'}}>
+                <Dropdown position="right">
                     <DeleteButton
                         windowed
                         confirmMessage={`Удалить новость " ${title} "?`}
@@ -44,13 +45,13 @@ function ListArticle({
                     >
                         удалить
                     </DeleteButton>
-                </ContextDropDown>
+                </Dropdown>
             </div>
             <h3>{title}</h3>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>
+            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: content }} />
             <div
                 className="NewsStory__ImagePreview">
-                <img src={picture_link} alt=""/>
+                <img src={picture_link} alt="" />
             </div>
 
         </div>

@@ -69,30 +69,6 @@ header.homepage {
       color: #72839c;
     }
   }
-  .drop-down {
-    font-weight: normal;
-    color: #72839c;
-    &__items {
-      top: calc(100% + 15px);
-      &:before {
-        border-radius: 4px;
-      }
-      &--visible {
-        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-      }
-    }
-    &__item:hover {
-      background-color: #ebf0ff;
-      color: #3366ff;
-    }
-    &__handler {
-      background-image: url("/static/icons/chevron-down-light.svg") !important;
-      transition: transform cubic-bezier(0.47, 0, 0.75, 0.72) 0.15s;
-      &--visible {
-        transform: rotate(180deg);
-      }
-    }
-  }
 }
 
 .Slider.homepage {
