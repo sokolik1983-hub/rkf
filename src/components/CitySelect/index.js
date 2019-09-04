@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import OutsideClickHandler from 'react-outside-click-handler';
 import Select from "react-select";
+import Dropdown from "components/Dropdown";
 import './styles.scss'
 
 
@@ -138,25 +138,6 @@ function CitySelect() {
                 onChange={setValue}
             />
         </Dropdown>
-    )
-}
-
-function Dropdown({ innerComponent, children }) {
-    const [isOpened, setOpened] = useState(false);
-    const closeDropDown = () => setOpened(false);
-    const toggleDropDown = () => setOpened(!isOpened);
-
-    return (
-        <OutsideClickHandler onOutsideClick={closeDropDown}>
-            <div class="Dropdown">
-                <div class={isOpened ? 'Dropdown__button--visible' : 'Dropdown__button'} onClick={toggleDropDown}>
-                    {innerComponent}
-                </div>
-                <div className={isOpened ? 'Dropdown__content--visible' : 'Dropdown__content'}>
-                    {children}
-                </div>
-            </div>
-        </OutsideClickHandler >
     )
 }
 

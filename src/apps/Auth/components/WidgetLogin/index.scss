@@ -7,36 +7,7 @@
   &__user-icon {
     margin: 0 8px 0 0;
   }
-
-  &__dropdown {
-    display: none;
-    position: absolute;
-    border-radius: 8px;
-    top: 100%;
-    right: 0;
-    box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
-    padding: 20px 16px;
-    background-color: white;
-
-    &--opened{
-      display: block;
-    }
-    &:before {
-      content: "";
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      background-color: white;
-      top: -8px;
-      right: 24px;
-      transform: rotate(45deg);
-    }
-
-    .drop-down__item {
-      white-space: nowrap;
-    }
-    &__auth-link{
-      padding: 0 0 0 8px;
-    }
+  .Dropdown__content--visible {
+    width: 195px;
   }
 }
