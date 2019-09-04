@@ -17,13 +17,15 @@ export const ButtonNext = ({
         onClick={onClick}
         className={classnames(
             'btn',
+            'btn-light',
             'btn-icon',
+            'btn-next',
             {[className]: className}
         )}
         disabled={disabled}
     >
         <span>{children}</span>
-        <img src={'/static/icons/arrow-right.svg'} alt=""/>
+        <img src={'/static/icons/chevron_right.svg'} alt=""/>
     </button>;
 
 

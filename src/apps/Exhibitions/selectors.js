@@ -13,11 +13,30 @@ const selectExhibitionsDetailsById = (state, id) =>
 ;
 
 export const selectExhibitions = (state) => {
-    const {listIds, listCollection} = getState(state);
+    const {
+        listIds,
+        listCollection,
+    } = getState(state);
     return {
-        listIds, listCollection
+        listIds,
+        listCollection,
     }
 };
+
+export const selectExhibitionsPaginator=state=>{
+    const {
+        page_count,
+        page_prev,
+        page_next,
+        page_current,
+    } = getState(state);
+    return {
+        page_count,
+        page_prev,
+        page_next,
+        page_current,
+    }
+}
 
 export const selectExhibitionsListItem = (state, props) => {
     const {listCollection} = getState(state);

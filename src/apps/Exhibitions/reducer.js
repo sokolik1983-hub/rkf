@@ -11,22 +11,27 @@ const exhibitionsInitialState = {
     breed_ids: [],
     city_ids: [],
     exhibitionPrices: [],
-    filter: {}
+    filter: {},
+    page_count: 0,
+    pageL_current: null,
+    page_prev: null,
+    page_next: 2,
 };
 
 
 const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
 
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {exhibitions, city_ids, breed_ids, dates} = action.data;
+        const {
+            exhibitions,
+            ...rest
+        } = action.data;
         const {entities, result: listIds} = normalizeList(exhibitions);
         return {
             ...state,
-            dates,
             listIds,
             listCollection: entities.listCollection,
-            city_ids,
-            breed_ids,
+            ...rest
         }
     },
 

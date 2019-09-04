@@ -48,6 +48,11 @@ function ExhibitionsFilter({city_ids, children, className, fetchExhibitionsSucce
         setUrl(url)
     };
 
+    const setPage = (page) => {
+        const url = `${endpointExhibitionsList}?${buildUri(filter)}&PageNumber=${page}`;
+        setUrl(url)
+    };
+
     return (
         <Provider value={{
             loading,
@@ -59,6 +64,7 @@ function ExhibitionsFilter({city_ids, children, className, fetchExhibitionsSucce
             changeCitiesFilter,
             clearFilter,
             applyFilter,
+            setPage,
         }}>
             <div className={className}>
                 {children}

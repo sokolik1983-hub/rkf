@@ -2,6 +2,7 @@ import React from 'react'
 import {connectExhibitionsList} from 'apps/Exhibitions/connectors'
 import ListItem from '../ListItem'
 import ListLayout from '../ListLayout'
+import Paginator from './Paginator'
 
 function ExhibitionsList({listIds}) {
 
@@ -14,6 +15,7 @@ function ExhibitionsList({listIds}) {
                     )
                 }
             </div>
+            <Paginator/>
         </ListLayout>
     )
 }

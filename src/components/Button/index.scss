@@ -129,4 +129,16 @@ a.btn-simple,
   padding-right: 8px
 }
 
+.btn-light{
+  color: inherit;
+  border-color: #EBF0F2;
+}
+.btn-next{
+  padding: 6px 12px;
+  span{
+    padding-right: 8px;
+    line-height: 100%;
+  }
+}
+
 

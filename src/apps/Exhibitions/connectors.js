@@ -9,6 +9,7 @@ import {
 import {
     selectExhibitionDetails,
     selectExhibitions,
+    selectExhibitionsPaginator,
     selectExhibitionsListItem,
     selectListExhibitionsByDates,
     selectCalendar,
@@ -58,4 +59,8 @@ export const connectExhibitionPrices = connect(
     dispatch => bindActionCreators({
         storePrices,
     }, dispatch)
+);
+
+export const connectExhibitionsPaginator = connect(
+    selectExhibitionsPaginator,
 );

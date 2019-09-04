@@ -1,0 +1,30 @@
+.Paginator {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.btn.Paginator__Button {
+  outline: none;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  margin-right: 8px;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: #EBF0F2;
+  color: #253C5E;
+
+  &--active {
+    background-color: #3366FF;
+    color: white;
+    border-color: #3366FF;
+    box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);;
+  }
+}
