@@ -12,8 +12,7 @@ export const scheduleContestDateForm = {
         date: {
             name: 'date',
             label: 'Выберите дату',
-            placeholder: '01.01.1970',
-            type: 'date'
+            fieldType: 'reactDayPicker'
         },
     },
     validationSchema: object().shape({

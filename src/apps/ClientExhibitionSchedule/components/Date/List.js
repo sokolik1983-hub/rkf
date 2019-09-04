@@ -25,7 +25,8 @@ class ScheduleDateList extends PureComponent {
     transformValues = (values) => {
         const {exhibitionId} = this.props;
         const {date} = values;
-        return {exhibition_id: parseInt(exhibitionId, 10), ...transformDate(date)}
+        ///return {exhibition_id: parseInt(exhibitionId, 10), ...transformDate(date)}
+        return {exhibition_id: parseInt(exhibitionId, 10), ...date}
     };
     toggleScheduleDateForm = () => this.setState(prevState => ({formVisible: !prevState.formVisible}));
 

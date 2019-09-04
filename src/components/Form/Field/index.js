@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field} from 'formik'
+import { Field } from 'formik'
 import classnames from 'classnames'
 import FormInput from 'components/Form/FormInput'
 import Error from './Error'
@@ -13,7 +13,7 @@ import ReactSelect from './ReactSelect'
 import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
-
+import ReactDayPicker from './ReactDayPicker'
 
 const FIELDS = {
     textarea: TextArea,
@@ -26,6 +26,7 @@ const FIELDS = {
     masked: MaskedField,
     DraftJs: DraftJs,
     Field: Field,
+    reactDayPicker: ReactDayPicker
 };
 
 function getField(fieldType) {
@@ -36,7 +37,7 @@ function getField(fieldType) {
     }
 }
 
-function FormField({fieldType, className, style, disabled, blockIfHasValue, ...fieldProps}) {
+function FormField({ fieldType, className, style, disabled, blockIfHasValue, ...fieldProps }) {
 
     const Input = getField(fieldType);
 
@@ -45,18 +46,18 @@ function FormField({fieldType, className, style, disabled, blockIfHasValue, ...f
             style={style}
             name={fieldProps.name}
             className={classnames(
-                {[className]: className},
-                {[`FormInput--${fieldProps.type}`]: fieldProps.type},
+                { [className]: className },
+                { [`FormInput--${fieldProps.type}`]: fieldProps.type },
             )}
         >
-            <Label htmlFor={fieldProps.name} label={fieldProps.label}/>
+            <Label htmlFor={fieldProps.name} label={fieldProps.label} />
             <Input
                 id={fieldProps.name}
                 className={'FormInput__input'}
                 disabled={disabled || (fieldProps.value && blockIfHasValue)}
                 {...fieldProps}
             />
-            <Error name={fieldProps.name}/>
+            <Error name={fieldProps.name} />
         </FormInput>
     )
 
