@@ -46,7 +46,7 @@ function Paginator({
         setPage(page_next)
     };
 
-    return (
+    return page_count > 1 ? (
         <div className="Paginator">
             {
                 pagesRange.map(index =>
@@ -59,7 +59,7 @@ function Paginator({
             }
             {page_next ? <ButtonNext onClick={onBtnNextClick}>Далее</ButtonNext> : null}
         </div>
-    )
+    ) : null
 }
 
 export default connectExhibitionsPaginator(Paginator)
