@@ -13,14 +13,18 @@ const HomeFeaturedExhibitionsList = ({ exhibitions, storeExhibitions, route }) =
     const { loading } = useResourceAndStoreToRedux(url, storeExhibitions);
     const arr = exhibitions ? exhibitions.slice(0, 3) : [];
     return (
-        <div className={classnames(
-            "HomeFeaturedExhibitionsList",
-            { "HomeFeaturedExhibitionsList--loading": loading }
-        )}>
-            {
-                arr.map(exhibition => <HomeFeaturedExhibition {...exhibition} />)
-            }
-        </div>
+        arr.length > 0
+            ? (
+                <div className={classnames(
+                    "HomeFeaturedExhibitionsList",
+                    { "HomeFeaturedExhibitionsList--loading": loading }
+                )}>
+                    {
+                        arr.map(exhibition => <HomeFeaturedExhibition {...exhibition} />)
+                    }
+                </div>
+            )
+            : null
     )
 };
 
