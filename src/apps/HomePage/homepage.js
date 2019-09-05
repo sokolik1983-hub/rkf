@@ -15,10 +15,9 @@ function HomePageProxy({match, getCommonSuccess}) {
     //TODO Make better
     const {route} = params;
     const url = route ? '/api/Club/public/' + route : '/api/Club/public/rkf';
-    const {loading} = useResourceAndStoreToRedux(url, getCommonSuccess);
+    useResourceAndStoreToRedux(url, getCommonSuccess);
     return (
         <ClubRouteContext.Provider value={{params}}>
-            {loading ? 'загрузка...' : null}
             <HomePageLayout/>
         </ClubRouteContext.Provider>
     );
