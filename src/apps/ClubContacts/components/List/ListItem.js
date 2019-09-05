@@ -36,10 +36,16 @@ function ClientClubListItem({ clubContact, updateClubContactSuccess, deleteClubC
                 <ClubListContact {...clubContact} />
         }
             <div className="ClientClubListItem__controls">
-                <Dropdown position="right">
-                    <button onClick={toggleVisibility}>{visibility ? "Отмена" : "Изменить"}</button>
+                {
+                    visibility
+                        ? <button className="btn" onClick={toggleVisibility}>Отмена</button>
+                        : null
+                }
+                <Dropdown position="right" closeOnClick={true}>
+                    <button onClick={toggleVisibility}>Изменить</button>
                     <DeleteButton
                         onDeleteSuccess={onDeleteSuccess}
+                        windowed
                         //params={params}
                         actionUrl={`/api/clubs/Contact/${clubContact.id}`}
                     >Удалить</DeleteButton>

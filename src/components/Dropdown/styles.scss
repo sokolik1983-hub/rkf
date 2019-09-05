@@ -26,7 +26,10 @@
     }
   }
   &__content {
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
     &--visible {
       position: absolute;
       padding: 20px 0;
@@ -38,7 +41,7 @@
       box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
       border-radius: 6px;
       z-index: 1;
-      display: block;
+      visibility: visible;
       &:before {
         content: "";
         position: absolute;

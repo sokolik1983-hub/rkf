@@ -35,8 +35,6 @@ function ClientProxy(props) {
                     <Messages/>
                 </ClientLayout>
             </AuthOrLogin>
-            }
-
         </ClientCommonContext.Provider>
     )
 }

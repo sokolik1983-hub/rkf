@@ -1,17 +1,23 @@
-.ClientClubListItem{
+.ClientClubListItem {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 16px;
-  &__controls{
+  &__controls {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    & > .btn {
+      margin: 0 10px -8px 10px;
+    }
   }
 }
-.ClubSocial{
+.ClubSocial {
   display: flex;
-  &__type, &__description{
-    margin-right: 4px
+  &__type,
+  &__description {
+    margin-right: 4px;
   }
-  &__description{
+  &__description {
     font-weight: 400;
   }
 }

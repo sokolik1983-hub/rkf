@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 import classnames from 'classnames'
 import './styles.scss'
 
-export default function Dropdown({ innerComponent, position, children, className, forceClose }) {
+export default function Dropdown({ innerComponent, position, children, className, closeOnClick }) {
     const [isOpened, setOpened] = useState(false);
     const closeDropdown = () => setOpened(false);
     const toggleDropdown = () => setOpened(!isOpened);
-    useEffect(() => {
-        if (forceClose) closeDropdown();
-    })
 
     return (
         <OutsideClickHandler onOutsideClick={closeDropdown}>
@@ -18,7 +15,7 @@ export default function Dropdown({ innerComponent, position, children, className
                     {innerComponent}
                 </div>
                 <div className={isOpened ? 'Dropdown__content--visible' : 'Dropdown__content'}>
-                    {children}
+                    {closeOnClick ? <div onClick={closeDropdown}>{children}</div> : children}
                 </div>
             </div>
         </OutsideClickHandler >
