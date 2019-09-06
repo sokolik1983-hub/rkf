@@ -63,11 +63,6 @@ export default function ExhibitionAsideContent(
                     </tr>
                 </tbody>
             </table>
-            {/*<div className="ExhibitionDetails__controls">*/}
-            {/*    <Button className="btn-primary">Участвовать</Button>*/}
-            {/*    <Button className="btn-secondary">В избранное</Button>*/}
-            {/*    <Button className="btn-secondary">Поделиться</Button>*/}
-            {/*</div>*/}
             <CountDown eventDate={dates && transformDate(dates[0])} />
         </div>
     )

@@ -1,11 +1,12 @@
 import React from 'react'
-import {isDevEnv} from "../../utils";
-import {SERVER} from 'appConfig'
+import classnames from 'classnames'
+import './Img.scss'
 
-const isDev = isDevEnv();
-
-export default function Img(props) {
-    const src = isDev ? SERVER + props.src : props.src;
-    const calcProps = {...props, src};
-    return <img {...calcProps}/>
+export default function Img({ className, ...restProps }) {
+    return (
+        <img
+            className={classnames('Img', { [className]: className })}
+            {...restProps}
+        />
+    )
 }

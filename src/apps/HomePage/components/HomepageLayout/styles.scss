@@ -4,42 +4,52 @@
     flex-flow: row nowrap;
     margin-top: 24px;
   }
+
   &__content {
     flex: 2;
     margin-right: 40px;
   }
+
   &__side {
     flex: 1;
   }
 }
 
 .container.home {
+  margin-top: 70px;
+
   .NewsStory__club_name {
     font-weight: normal;
   }
 }
 
 .NewsList {
-  .Card{
+  .Card {
     padding: 0;
     border-radius: 0;
     box-shadow: none;
   }
+
   .NewsStory {
     margin-bottom: 32px;
+
     &__Head {
       margin: 0;
     }
+
     &__title {
       margin: 8px 0;
     }
-    &__Text{
+
+    &__Text {
       margin-bottom: 8px;
     }
-    &__StoryInfo{
+
+    &__StoryInfo {
       padding-left: 8px;
     }
-    &__Signature{
+
+    &__Signature {
       font-weight: normal;
     }
   }
@@ -59,10 +69,12 @@
     background: #3366ff;
     box-shadow: 0px 4px 8px rgba(51, 102, 255, 0.3);
     border-radius: 4px;
+
     &:hover {
       box-shadow: 0px 3px 15px rgba(51, 102, 255, 0.5);
     }
   }
+
   &__sidebar {
     display: flex;
     flex-direction: column;
@@ -74,17 +86,21 @@
     border-radius: 6px;
     padding: 26px 32px 16px 32px;
     margin-left: 5px;
+
     h3 {
       margin: 0;
     }
+
     p {
       margin: 16px 0 40px;
       font-weight: normal;
       letter-spacing: 0.2px;
     }
   }
+
   &__contacts {
     margin-top: 12px;
+
     span {
       display: block;
       margin-bottom: 12px;
@@ -92,22 +108,28 @@
       font-weight: normal;
       padding-left: 30px;
     }
+
     a {
       color: #3366ff;
       text-decoration: none;
+
       &:hover {
         text-decoration: underline;
       }
     }
+
     &--pin {
       background: url(/static/icons/public/pin.svg) -8px 50% no-repeat;
     }
+
     &--phone {
       background: url(/static/icons/public/phone.svg) -8px 50% no-repeat;
     }
+
     &--email {
       background: url(/static/icons/public/email.svg) -8px 50% no-repeat;
     }
+
     &--web {
       background: url(/static/icons/public/web.svg) -8px 50% no-repeat;
     }
