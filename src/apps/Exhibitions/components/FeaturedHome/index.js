@@ -1,26 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './styles.scss'
 import HomeFeaturedExhibition from './HomeFeaturedExhibition'
 import { useResourceAndStoreToRedux } from "shared/hooks";
 import classnames from 'classnames'
+import {FEATURED_EXHIBITIONS_URL} from 'apps/Exhibitions/components/Featured'
 import { connectClubCommonExhibitions } from 'apps/HomePage/connectors'
 
 
-const HomeFeaturedExhibitionsList = ({ exhibitions, storeExhibitions, route }) => {
+const HomeFeaturedExhibitionsList = () => {
 
-    const url = '/api/exhibitions/Exhibition/?Alias=real_tyu' + String(route);
+     const [exhibitions, setExhibitions] = useState([]);
 
-    const { loading } = useResourceAndStoreToRedux(url, storeExhibitions);
-    const arr = exhibitions ? exhibitions.slice(0, 3) : [];
+    const { loading } = useResourceAndStoreToRedux(
+        FEATURED_EXHIBITIONS_URL,
+        setExhibitions
+    );
+
+    const featuredExhibitions = exhibitions ? exhibitions.slice(0, 3) : [];
     return (
-        arr.length > 0
+        featuredExhibitions.length > 0
             ? (
                 <div className={classnames(
                     "HomeFeaturedExhibitionsList",
                     { "HomeFeaturedExhibitionsList--loading": loading }
                 )}>
                     {
-                        arr.map(exhibition => <HomeFeaturedExhibition {...exhibition} />)
+                        featuredExhibitions.map(exhibition => <HomeFeaturedExhibition {...exhibition} />)
                     }
                 </div>
             )
