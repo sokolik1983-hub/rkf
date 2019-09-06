@@ -11,6 +11,7 @@ export default function ExhibitionDetailsContent({
     exhibition_avatar_link,
     description,
     referees_id,
+    exhibition_map_link,
 }) {
     return (
         <DetailsContent>
