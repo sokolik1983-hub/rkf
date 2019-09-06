@@ -49,7 +49,7 @@
     "react-day-picker": "^7.3.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "^16.8.6",
-    "react-dropzone": "^10.1.7",
+    "react-dropzone": "^10.1.8",
     "react-loadable": "^5.5.0",
     "react-outside-click-handler": "^1.2.3",
     "react-redux": "^7.0.2",
@@ -141,6 +141,7 @@
     ]
   },
   "devDependencies": {
+    "@storybook/react": "^5.1.11",
     "cypress": "^3.4.1",
     "node-sass": "^4.11.0",
     "prettier": "^1.18.2"
