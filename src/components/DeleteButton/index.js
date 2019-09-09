@@ -27,6 +27,7 @@ export default function DeleteButton({
         setState({...state, loading: true});
         try {
             await axios.delete(actionUrl, {data: params, headers: getHeaders()});
+             onDeleteSuccess();
         } catch (e) {
             console.log('Ошибка запроса на удаление: ', e);
             push({
@@ -44,7 +45,7 @@ export default function DeleteButton({
 
         setState({...state, loading: false});
 
-        onDeleteSuccess();
+
 
 
     };
