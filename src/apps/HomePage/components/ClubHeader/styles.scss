@@ -3,7 +3,6 @@
   border-radius: 6px;
   margin-bottom: 32px;
 
-
   &__info {
     display: flex;
     flex-flow: row nowrap;
@@ -16,6 +15,7 @@
     box-sizing: border-box;
     background-color: white;
     padding: 32px;
+    align-items: center;
+    justify-content: space-between;
   }
-
 }

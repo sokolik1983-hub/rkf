@@ -24,7 +24,7 @@ export default class WidgetLogin extends PureComponent {
         const { isAuthenticated, logOutUser } = this.props;
         return isAuthenticated ?
             <Dropdown className="widget-login" position="right" closeOnClick={true} innerComponent={<DropInner />}>
-                <DropDownItem><Link to="/client">Личный кабинет</Link></DropDownItem>
+                <DropDownItem><Link to="/:route">Личный кабинет</Link></DropDownItem>
                 <DropDownItem onClick={logOutUser}>Выход</DropDownItem>
             </Dropdown>
             :
