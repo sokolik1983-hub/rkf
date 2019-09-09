@@ -98,6 +98,15 @@ export const selectClubOwnerName = state => {
     }
 };
 
+export const selectClubWorkingHours = state => {
+    const {common} = getState(state).club;
+    const {work_time_from, work_time_to} = common;
+    return {
+        workTimeFrom: work_time_from,
+        workTimeTo: work_time_to
+    }
+};
+
 export const selectClubDocuments = state => {
     const {documents} = getState(state).club;
     return {documents}

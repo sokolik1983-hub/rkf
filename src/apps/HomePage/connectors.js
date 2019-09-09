@@ -12,6 +12,7 @@ import {
     selectClubContacts,
     selectClubOwnerName,
     selectClubDocuments,
+    selectClubWorkingHours,
 
 } from './selectors'
 
@@ -89,6 +90,10 @@ export const connectClubContacts = connect(
 
 export const connectClubOwnerName = connect(
     selectClubOwnerName,
+);
+
+export const connectClubWorkingHours = connect(
+    selectClubWorkingHours,
 );
 
 

@@ -13,6 +13,7 @@ import { SponsorsData, PartnersData } from '../Partners/data'
 import ClubDescription from '../Description'
 import ClubContacts from '../ClubContacts'
 import ClubDocuments from '../ClubDocuments'
+import ClubWorkingHours from '../ClubWorkingHours';
 import ArticleCreateFormPublic from 'apps/ClientNews/components/Create'
 import './styles.scss'
 
@@ -47,6 +48,7 @@ function HomePageLayout() {
                                 <ClubAddress />
                                 <ClubOwnerName />
                                 <ClubContacts />
+                                <ClubWorkingHours />
                                 <h4 className="text-upper">Документы</h4>
                                 <ClubDocuments />
                             </Card>
