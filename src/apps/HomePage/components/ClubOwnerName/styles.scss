@@ -1,6 +1,18 @@
 .ClubOwnerName {
+  position: relative;
   margin: 12px;
   margin-left: 32px;
+  &:after {
+    top: -4px;
+    left: -32px;
+    position: absolute;
+    content: "";
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/static/icons/owner.svg");
+  }
   span {
     color: #61797c;
   }
