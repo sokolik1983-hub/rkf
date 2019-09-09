@@ -90,6 +90,14 @@ export const selectClubContacts = state => {
     return {contacts}
 };
 
+export const selectClubOwnerName = state => {
+    const {common} = getState(state).club;
+    const {owner_name} = common;
+    return {
+        clubOwner: owner_name
+    }
+};
+
 export const selectClubDocuments = state => {
     const {documents} = getState(state).club;
     return {documents}

@@ -1,4 +1,4 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import {
     selectExhibitions,
     selectExhibition,
@@ -10,6 +10,7 @@ import {
     selectClubDescription,
     selectClubAddress,
     selectClubContacts,
+    selectClubOwnerName,
     selectClubDocuments,
 
 } from './selectors'
@@ -20,7 +21,7 @@ import {
     getExhibitionsSuccess,
     storeExhibitions
 } from './actions'
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 
 
 export const connectNewsList = connect(
@@ -84,6 +85,10 @@ export const connectClubAddress = connect(
 
 export const connectClubContacts = connect(
     selectClubContacts,
+);
+
+export const connectClubOwnerName = connect(
+    selectClubOwnerName,
 );
 
 

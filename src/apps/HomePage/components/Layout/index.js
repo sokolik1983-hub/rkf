@@ -8,6 +8,7 @@ import FeaturedExhibitions from 'apps/Exhibitions/components/Featured'
 import NewsListPublic from 'apps/ClientNews/components/ListPublic'
 import ClubAddress from '../ClubAddress'
 import Partners from '../Partners'
+import ClubOwnerName from '../ClubOwnerName'
 import { SponsorsData, PartnersData } from '../Partners/data'
 import ClubDescription from '../Description'
 import ClubContacts from '../ClubContacts'
@@ -44,6 +45,7 @@ function HomePageLayout() {
                             <Card>
                                 <h4 className="text-upper">Контакты</h4>
                                 <ClubAddress />
+                                <ClubOwnerName />
                                 <ClubContacts />
                                 <h4 className="text-upper">Документы</h4>
                                 <ClubDocuments />
