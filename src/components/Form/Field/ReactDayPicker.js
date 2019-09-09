@@ -27,14 +27,12 @@ function ReactDayPicker({ name, formik }) {
 
     return (
         <DayPickerInput
-            value={value ? value : new Date()}
+            value={value ? new Date(value) : new Date()}
             inputProps={{
                 className: 'FormInput__input',
                 name: 'date',
                 style: {
                     width: '100%',
-                    padding: '9px 11px 10px 11px',
-                    borderWidth: '2px'
                 }
             }}
             dayPickerProps={{
