@@ -1,5 +1,5 @@
 export const dictionariesInitialState = {
-    rank_type:{
+    rank_type: {
         url: '/api/exhibitions/Rank',
         dictionary: {},
         dictIndex: [],
@@ -13,7 +13,7 @@ export const dictionariesInitialState = {
         loaded: false,
         loading: false,
     },
-    dignity_types:{
+    dignity_types: {
         url: '/api/exhibitions/dignity',
         dictionary: {},
         dictIndex: [],
@@ -42,4 +42,13 @@ export const dictionariesInitialState = {
         loaded: false,
         loading: false,
     },
+};
+
+export const DICTIONARIES = {
+    rank_type: 'rank_type',
+    class_types: 'class_types',
+    dignity_types: 'dignity_types',
+    breed_types: 'breed_types',
+    referees: 'referees',
+    cities: 'cities',
 };
