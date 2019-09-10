@@ -1,6 +1,18 @@
-import {connect} from 'react-redux'
-import {selectIsAuthenticated} from './selectors'
+import { connect } from 'react-redux';
 
-export const connectAuthVisible = connect(
-    selectIsAuthenticated,
+import { bindActionCreators } from 'redux';
+import { selectIsAuthenticated, selectWidgetLogin } from './selectors';
+import { logOutUser } from './actions';
+
+export const connectAuthVisible = connect(selectIsAuthenticated);
+
+export const connectWidgetLogin = connect(
+    selectWidgetLogin,
+    dispatch =>
+        bindActionCreators(
+            {
+                logOutUser
+            },
+            dispatch
+        )
 );

@@ -1,16 +1,16 @@
-import React from 'react'
-import HeaderLogo from './HeaderLogo'
-import Container from 'components/Layout/Container'
-import Nav from 'components/Nav'
-import CitySelect from 'components/CitySelect'
+import React from 'react';
+import HeaderLogo from './HeaderLogo';
+import Container from 'components/Layout/Container';
+import Nav from 'components/Nav';
+import CitySelect from 'components/CitySelect';
 
-import WidgetLang from 'components/WidgetLang'
-import WidgetNotifications from 'components/WidgetNotifications'
-import HeaderLogin from 'apps/Auth/containers/HeaderLogin'
-import './index.scss'
+//import WidgetLang from 'components/WidgetLang'
+//import WidgetNotifications from 'components/WidgetNotifications'
+import WidgetLogin from 'apps/Auth/components/WidgetLogin';
+import './index.scss';
 
-const Header = ({ children, className }) =>
-    <header className={className} >
+const Header = ({ children, className }) => (
+    <header className={className}>
         <Container pad>
             <HeaderLogo />
             <CitySelect />
@@ -18,10 +18,9 @@ const Header = ({ children, className }) =>
 
             {/*<WidgetLang/>*/}
             {/*<WidgetNotifications/>*/}
-            <HeaderLogin />
-
+            <WidgetLogin />
         </Container>
     </header>
-
+);
 
 export default Header;
