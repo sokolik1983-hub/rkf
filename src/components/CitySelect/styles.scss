@@ -1,5 +1,7 @@
 .CitySelect {
   padding-left: 48px;
+  min-width: 115px;
+  justify-content: flex-end;
   &__heading {
     margin: 0;
     margin-left: 24px;

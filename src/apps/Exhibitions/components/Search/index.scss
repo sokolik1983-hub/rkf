@@ -1,36 +1,40 @@
 .ExhibitionsSearch {
-  padding-top: 20px;
-  padding-bottom: 24px;
-  &__input {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  min-width: 100%;
+  background-color: rgba(186, 191, 199, 0.05);
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 28px;
+
+  img {
+    position: absolute;
+    left: 6px;
+    top: 11px;
+  }
+
+  input {
     display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    min-width: 100%;
-    background-color: rgba(186, 191, 199, .05);
-    border-radius: 4px;
-    padding: 0 9px;
-    position: relative;
+    flex: 1;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border-width: 0;
+    font-size: 16px;
+    line-height: 20px;
+    outline: none;
+    padding-left: 29px;
 
-    img {
-      position: absolute;
-      left: 9px;
-      top: 11px;
+    &::placeholder {
+      color: #babfc7;
     }
-
-    input {
-      display: flex;
-      flex: 1;
-      height: 40px;
-      box-sizing: border-box;
-      background-color: transparent;
-      border-width: 0;
-      font-size: 16px;
-      line-height: 20px;
-      padding-left: 39px;
-
-      &::placeholder {
-        color: #BABFC7;
-      }
-    }
+  }
+  &__cancel {
+    background: url(/static/icons/cross.svg) center no-repeat;
+    outline: none;
+    border: none;
+    margin-right: 5px;
+    cursor: pointer;
   }
 }

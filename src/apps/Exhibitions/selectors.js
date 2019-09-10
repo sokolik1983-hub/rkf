@@ -74,6 +74,14 @@ export const selectExhibitionsFilter = state => {
     };
 };
 
+export const selectExhibitionsSearch = state => {
+    const {city_ids} = getState(state);
+
+    return {
+        city_ids
+    };
+};
+
 export const selectExhibitionPrices = state => {
     const {exhibitionPrices} = getState(state);
     return {
