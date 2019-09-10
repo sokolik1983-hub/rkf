@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import {useResourceAndStoreToRedux} from 'shared/hooks';
-import Card from 'components/Card'
+import React, { useState } from 'react';
+import { useResourceAndStoreToRedux } from 'shared/hooks';
+import Card from 'components/Card';
 import Container from 'components/Layout/Container';
 import FooterSmall from 'components/Layout/FooterSmall';
 import FeaturedExhibitions from '../Featured';
 import Head from './Head';
 import Content from './Content';
+import ExhibitionDocuments from 'apps/ExhibitionDocuments';
 import PaymentDetails from './PaymentDetails';
 import Address from './Address';
 import ExhibitionDetailsPrices from '../DetailsPrices';
 import ExhibitionAsideContent from './AsideContent';
-import {connectExhibitionDetails} from 'apps/Exhibitions/connectors';
+import { connectExhibitionDetails } from 'apps/Exhibitions/connectors';
 import Partners from 'apps/HomePage/components/Partners';
 import {
     SponsorsData,
@@ -20,22 +21,15 @@ import {
 import './styles.scss';
 
 function ExhibitionDetails(props) {
-    const {getDetailsSuccess, exhibitionId, details} = props;
-    const {loading} = useResourceAndStoreToRedux(
+    const { getDetailsSuccess, exhibitionId, details } = props;
+    const { loading } = useResourceAndStoreToRedux(
         '/api/exhibitions/exhibition/' + String(exhibitionId),
         getDetailsSuccess
     );
 
-    // TODO: replace with dynamic data
-    const [featuredExh, setFeaturedExh] = useState(false);
-    if (!featuredExh) {
-        fetch('/api/exhibitions/Exhibition/featured?Alias=real_tyu')
-            .then(response => response.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => setFeaturedExh(response.result));
-    }
-
-    return (
+    return loading ? (
+        <div className="centered-block">Загрузка</div>
+    ) : (
         <>
             <Container className="ExhibitionDetails">
                 <Head loading={loading} {...details} />
@@ -43,19 +37,22 @@ function ExhibitionDetails(props) {
                     <Content {...details} />
                     <ExhibitionAsideContent {...details} />
                 </div>
+                {details ? (
+                    <ExhibitionDocuments exhibitionId={details.id} />
+                ) : null}
                 {exhibitionId && (
-                    <ExhibitionDetailsPrices exhibition_id={exhibitionId}/>
+                    <ExhibitionDetailsPrices exhibition_id={exhibitionId} />
                 )}
-                <PaymentDetails/>
-                <Partners title="Наши спонсоры" items={SponsorsData}/>
-                <Partners title="Наши партнеры" items={PartnersData}/>
+                <PaymentDetails />
+                <Partners title="Наши спонсоры" items={SponsorsData} />
+                <Partners title="Наши партнеры" items={PartnersData} />
                 <Address {...details} />
                 <h3 className="FeaturedExhibitions__title">Другие выставки</h3>
                 <Card>
-                    <FeaturedExhibitions/>
+                    <FeaturedExhibitions />
                 </Card>
             </Container>
-            <FooterSmall/>
+            <FooterSmall />
         </>
     );
 }

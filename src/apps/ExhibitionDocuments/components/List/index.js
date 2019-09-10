@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import ListDocument from './ListItem';
-import { ExhibitionIdContext } from 'apps/ClientExhibitionDocuments/context';
-import { connectExhibitionDocumentsList } from 'apps/ClientExhibitionDocuments/connectors';
+import ListDocument from './ListDocument';
+import { ExhibitionIdContext } from 'apps/ExhibitionDocuments/context';
+import { connectExhibitionDocumentsList } from 'apps/ExhibitionDocuments/connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
-import { API_ENDPOINT } from 'apps/ClientExhibitionDocuments/config';
+import { API_ENDPOINT } from 'apps/ExhibitionDocuments/config';
 
 import './styles.scss';
 
 function ExhibitionDocumentList({
     listIds,
-    getExhibitionDocumentsListSuccess,
-    editable
+    getExhibitionDocumentsListSuccess
 }) {
     const { exhibitionId } = useContext(ExhibitionIdContext);
     const url = `${API_ENDPOINT}/${String(exhibitionId)}`;
@@ -20,12 +19,9 @@ function ExhibitionDocumentList({
     );
     return (
         <div className="ExhibitionDocumentList">
-            <h3 className="text-upper">Ссылки на документы</h3>
             {loading
                 ? 'Загрузка...'
-                : listIds.map(id => (
-                      <ListDocument editable={editable} key={id} id={id} />
-                  ))}
+                : listIds.map(id => <ListDocument key={id} id={id} />)}
         </div>
     );
 }

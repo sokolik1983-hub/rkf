@@ -1,33 +1,24 @@
-import React from 'react'
-import {BtnPus} from 'components/Svg'
+import React, { Fragment } from 'react';
 import {
-    SubmitButton,
-    FormControls,
-    FormGroup,
     FormField,
-} from 'components/Form'
+    FormGroup,
+    SubmitButton,
+    FormControls
+} from 'components/Form';
+import { exhibitionDocumentFormConfig } from 'apps/ClientExhibitionDocuments/config';
 
+const { fields } = exhibitionDocumentFormConfig;
 
-const FormButton = ({isUpdate}) => isUpdate ?
-    <SubmitButton type="submit"
-                  className="btn-simple btn-lg">Обновить</SubmitButton> :
-    <SubmitButton leftIcon={<BtnPus/>} type="submit"
-                  className="btn-simple btn-lg">Добавить</SubmitButton>;
-
-const RenderFields = ({fields, isUpdate}) =>
-    <>
+export const RenderFields = ({ isUpdate }) => (
+    <Fragment>
         <FormGroup inline>
-            <FormField
-                {...fields.title}
-            />
-            <FormField
-                {...fields.link}
-            />
+            <FormField {...fields.name} />
+            <FormField {...fields.url} />
+            <FormControls>
+                <SubmitButton>
+                    {isUpdate ? 'Обновить' : 'Добавить'}
+                </SubmitButton>
+            </FormControls>
         </FormGroup>
-        <FormControls>
-            <FormButton isUpdate={isUpdate}/>
-        </FormControls>
-    </>;
-
-
-export default RenderFields
+    </Fragment>
+);

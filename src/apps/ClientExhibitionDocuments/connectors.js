@@ -1,30 +1,45 @@
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
-import {
-    selectListItem,
-    selectExhibitionDocumentsList,
-} from './selectors'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { selectListDocument, selectExhibitionDocument } from './selectors';
 
 import {
-    getExhibitionDocuments,
-    addExhibitionDocumentsSuccess
-} from './actions'
-
-
-export const connectListItem = connect(selectListItem);
-
-export const connectExhibitionDocumentsForm = connect(
-    selectExhibitionDocumentsList,
-    dispatch => bindActionCreators(
-        {
-            addExhibitionDocumentsSuccess,
-        }, dispatch)
-);
+    getExhibitionDocumentsListSuccess,
+    addExhibitionDocumentSuccess,
+    updateExhibitionDocumentSuccess,
+    deleteExhibitionDocumentSuccess
+} from './actions';
 
 export const connectExhibitionDocumentsList = connect(
-    selectExhibitionDocumentsList,
-    dispatch => bindActionCreators(
-        {
-            getExhibitionDocuments,
-        }, dispatch)
+    //Here
+    selectListDocument,
+    dispatch =>
+        bindActionCreators(
+            {
+                getExhibitionDocumentsListSuccess
+            },
+            dispatch
+        )
+);
+
+export const connectDocumentFrom = connect(
+    null,
+    dispatch =>
+        bindActionCreators(
+            {
+                addExhibitionDocumentSuccess
+            },
+            dispatch
+        )
+);
+
+export const connectExhibitionDocumentListItem = connect(
+    selectExhibitionDocument,
+    dispatch =>
+        bindActionCreators(
+            {
+                updateExhibitionDocumentSuccess,
+                deleteExhibitionDocumentSuccess
+            },
+            dispatch
+        )
 );

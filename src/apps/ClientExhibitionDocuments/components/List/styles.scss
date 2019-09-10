@@ -1,0 +1,17 @@
+.ExhibitionListItem{
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 16px;
+  &__controls{
+    margin-left: auto;
+  }
+}
+.ClintExhibitionDocument{
+  display: flex;
+  &__type, &__description{
+    margin-right: 4px
+  }
+  &__description{
+    font-weight: 400;
+  }
+}

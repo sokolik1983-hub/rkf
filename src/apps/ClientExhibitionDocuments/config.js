@@ -1,27 +1,23 @@
-import {object, string} from "yup";
+import {object} from "yup";
 
-const DOCUMENTS_URL = '/api/exhibitions/documents/full';
-export const defaultReduxKey = 'exhibition_documents';
+export const defaultReduxKey = 'client_exhibition_documents';
+export const API_ENDPOINT = '/api/exhibitions/ExhibitionDocument';
 
 
-export const documentsFormConfig = {
-    formAction: DOCUMENTS_URL,
+export const exhibitionDocumentFormConfig = {
+    action: API_ENDPOINT,
     fields: {
-        title: {
-            name: 'title',
-            label: 'Название',
-            placeholder: 'Текст ссылки на документ...',
+        name: {
+            name: 'name',
+            label: 'Описание'
+
         },
-        link: {
-            name: 'link',
+        url: {
+            name: 'url',
             label: 'Ссылка',
-            placeholder: 'Ссылка на документ...',
         },
     },
     validationSchema: object().shape({
-        title: string()
-            .required('Поле не может быть пустым'),
-        link: string()
-            .required('Поле не может быть пустым'),
+        //
     })
 };

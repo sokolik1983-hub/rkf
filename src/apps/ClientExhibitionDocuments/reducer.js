@@ -1,79 +1,56 @@
 import * as actiontypes from './actiontypes';
-import {normalizeList} from 'shared/normilizers'
 import createReducer from 'utils/createReducer'
+import {normalizeList} from "shared/normilizers";
 
-
-const fakeData=[
-    {
-        id:1,
-        title: 'Справка такая-то 1',
-        link: 'http://yandex.disk/bla-bla-bla.jpg'
-    },
-    {
-        id:2,
-        title: 'Справка такая-то 2',
-        link: 'http://yandex.disk/bla-bla-bla.jpg'
-    },
-    {
-        id:3,
-        title: 'Справка такая-то 3',
-        link: 'http://yandex.disk/bla-bla-bla.jpg'
-    },
-    {
-        id:4,
-        title: 'Справка такая-то 4',
-        link: 'http://yandex.disk/bla-bla-bla.jpg'
-    },
-];
-
-const clientExhibitionDocumentsInitialState = {
-    loadingApi: false,
+const clubExhibitionDocumentsInitialState = {
     listCollection: {},
-    listIds: [],
+    listIds: []
 };
 
-const clientExhibitionScheduleReducer = createReducer(clientExhibitionDocumentsInitialState, {
-    [actiontypes.GET_LIST](state, action) {
-        return {
-            ...state,
-            loading: true,
-        };
-    },
-    [actiontypes.GET_LIST_SUCCESS](state, action) {
-        if (action.data.length) {
-            const {entities, result: listIds} = normalizeList(fakeData);
-            return {
-                ...state,
-                loading: false,
-                listCollection: entities.listCollection,
-                listIds
-            };
-        }
-        return {
-            ...state,
-            loading: false,
-        }
-    },
+const clubExhibitionDocumentsReducer = createReducer(clubExhibitionDocumentsInitialState, {
 
-    [actiontypes.GET_LIST_FAILED](state, action) {
+    [actiontypes.GET_LIST_SUCCESS](state, action) {
+
+        const {entities, result: listIds} = normalizeList(action.data);
         return {
             ...state,
-            loading: false,
+            listCollection: entities.listCollection,
+            listIds
         }
     },
     [actiontypes.ADD_DOCUMENT_SUCCESS](state, action) {
-        const {id} = action.data;
-        const documentsListCollection = {...state.documentsListCollection};
-        const documentsListIds = [id, ...state.documentsListIds];
-        documentsListCollection[id.toString()]=action.data;
-
+        const {data} = action;
+        const listIds = [...state.listIds, data.id];
+        const listCollection = {...state.listCollection};
+        listCollection[String(data.id)] = data;
         return {
             ...state,
-            documentsListCollection,
-            documentsListIds,
-            loading: false,
+            listCollection,
+            listIds
         }
     },
+    [actiontypes.UPDATE_DOCUMENT_SUCCESS](state, action) {
+        const {data} = action;
+        const listCollection = {...state.listCollection};
+        listCollection[String(data.id)] = data;
+        return {
+            ...state,
+            listCollection,
+        }
+    },
+
+    [actiontypes.DELETE_DOCUMENT_SUCCESS](state, action) {
+        const {id} = action.data;
+        const listIds = state.listIds.filter(listId => String(listId) !== String(id));
+        const listCollection = {...state.listCollection};
+        delete listCollection[String(id)];
+        return {
+            ...state,
+            listCollection,
+            listIds
+        }
+    },
+
 });
 
-export default clientExhibitionScheduleReducer;
+export default clubExhibitionDocumentsReducer;

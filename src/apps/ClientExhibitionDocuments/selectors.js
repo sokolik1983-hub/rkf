@@ -1,14 +1,16 @@
-import {defaultReduxKey} from './config'
+import { defaultReduxKey } from './config';
 
-
-export const selectListItem = (state, props) => {
-    const {id} = props;
+export const selectListDocument = state => {
+    const { listIds, listCollection } = state[defaultReduxKey];
     return {
-        ...state[defaultReduxKey].listCollection[String(id)]
-    }
+        listIds,
+        listCollection
+    };
 };
 
-export const selectExhibitionDocumentsList = state => ({
-    listIds: state[defaultReduxKey].listIds,
-    listCollection: state[defaultReduxKey].listCollection
-});
+export const selectExhibitionDocument = (state, props) => {
+    const { listCollection } = selectListDocument(state);
+    return {
+        clubDocument: listCollection[String(props.id)]
+    };
+};

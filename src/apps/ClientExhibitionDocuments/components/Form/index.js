@@ -1,21 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { Form } from 'components/Form';
+import { exhibitionDocumentFormConfig } from 'apps/ClientExhibitionDocuments/config';
+import { connectDocumentFrom } from 'apps/ClientExhibitionDocuments/connectors';
+import { ExhibitionIdContext } from 'apps/ClientExhibitionDocuments/context';
+import { RenderFields } from './RenderFields';
 
-import {FormFormikEnhanced} from 'components/Form'
-import {documentsFormConfig} from 'apps/ClientExhibitionDocuments/config'
-import RenderFields from './RenderFields'
-import {connectExhibitionDocumentsForm} from 'apps/ClientExhibitionDocuments/connectors'
-const {fields} = documentsFormConfig;
+function ExhibitionDocumentForm({
+    addExhibitionDocumentSuccess,
+    initialValues,
+    hideForm
+}) {
+    const { exhibitionId } = useContext(ExhibitionIdContext);
+    const transformValues = values => ({
+        ...values,
+        exhibition_id: exhibitionId
+    });
 
-function ExhibitionDocumentsCreateForm({addExhibitionDocumentsSuccess}) {
-    const onCreateSuccess = values => addExhibitionDocumentsSuccess(values);
+    const onSuccess = data => {
+        addExhibitionDocumentSuccess(data);
+        hideForm();
+    };
+
     return (
-        <FormFormikEnhanced
-            onSuccess={onCreateSuccess}
-            {...documentsFormConfig}
+        <Form
+            onSuccess={onSuccess}
+            transformValues={transformValues}
+            initialValues={initialValues}
+            {...exhibitionDocumentFormConfig}
         >
-            <RenderFields fields={fields}/>
-        </FormFormikEnhanced>
-    )
+            <RenderFields />
+        </Form>
+    );
 }
 
-export default connectExhibitionDocumentsForm(ExhibitionDocumentsCreateForm)
+export default connectDocumentFrom(ExhibitionDocumentForm);
