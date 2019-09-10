@@ -43,7 +43,7 @@ export const clubLegalInfoFormConfig = {
         registration_date: {
             name: 'registration_date',
             label: 'Дата регистрации',
-            type: 'date',
+            fieldType: 'reactDayPicker'
         },
         is_public: {
             name: 'is_public',

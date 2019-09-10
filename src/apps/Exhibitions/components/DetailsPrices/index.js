@@ -3,11 +3,10 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectExhibitionPrices} from 'apps/Exhibitions/connectors'
 import './styles.scss'
 
-function PriceTableRow({description, sum, discont}) {
+function PriceTableRow({description, sum}) {
     return (
         <tr>
             <td className="ExhibitionDetailsPrices__description">{description}</td>
-            <td className="ExhibitionDetailsPrices__discont">{discont}</td>
             <td className="ExhibitionDetailsPrices__sum">{sum}</td>
         </tr>
     )
@@ -25,7 +24,6 @@ function ExhibitionDetailsPrices({exhibition_id, exhibitionPrices, storePrices})
                 <thead>
                 <tr>
                     <th>Тип</th>
-                    <th>Скидка</th>
                     <th>Цена</th>
                 </tr>
                 </thead>
