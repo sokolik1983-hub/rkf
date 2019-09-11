@@ -1,23 +1,49 @@
-import React from 'react'
-import ListContact from './ListItem'
-import {connectListContact} from 'apps/ClubContacts/connectors'
-import {useResourceAndStoreToRedux} from "shared/hooks";
-import {getlistUrl} from 'apps/ClubContacts/config'
+import React from 'react';
+import {useVisibility} from 'shared/hooks';
+import Button from 'components/Button';
+import ListContact from './ListItem';
+import {connectContactsList} from 'apps/ClubContacts/connectors';
+import ClubContactsForm from '../Form';
+import {ContactTypeContext} from 'apps/ClubContacts/context';
 
-import './styles.scss'
+import './styles.scss';
+
+const { Provider } = ContactTypeContext;
+
+const btnStyle = {
+    display: 'flex',
+    padding: '6px 0',
+    color: '#3366FF',
+    flex: '1 0'
+};
 
 function ClientContactList(props) {
-    const {listIds, getClubContactsListSuccess, club_id} = props;
-    const url = getlistUrl + String(club_id);
-    const {loading} = useResourceAndStoreToRedux(url, getClubContactsListSuccess);
+    const { contactType } = props;
+    const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
+    const listIds = props[contactType.storeListIds];
     return (
-        <div className="ClientContactList">
-            {loading ?
-                "Загрузка..."
-                : listIds.map(id => <ListContact key={id} id={id}/>)}
-        </div>
-    )
+        <Provider value={{ contactType }}>
+            <div className="ClientContactList">
+                {listIds.map(id => (
+                    <ListContact key={id} id={id} />
+                ))}
 
+                {visibility ? (
+                    <ClubContactsForm hideForm={setInvisible} />
+                ) : null}
+
+                {!visibility ? (
+                    <Button
+                        style={btnStyle}
+                        className="btn-transparent"
+                        onClick={toggleVisibility}
+                    >
+                        {`+ Добавить ${contactType.label}`}
+                    </Button>
+                ) : null}
+            </div>
+        </Provider>
+    );
 }
 
-export default connectListContact(ClientContactList)
+export default connectContactsList(ClientContactList);

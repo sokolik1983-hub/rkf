@@ -1,12 +1,17 @@
-import React from 'react'
-import classnames from 'classnames'
-import './Img.scss'
+import React from 'react';
+import classnames from 'classnames';
+import './Img.scss';
 
-export default function Img({ className, ...restProps }) {
+function Img({ className, alt, ...restProps }) {
     return (
         <img
             className={classnames('Img', { [className]: className })}
+            alt={alt}
             {...restProps}
         />
-    )
+    );
 }
+Img.defaultProps = {
+    alt: ''
+};
+export default Img;

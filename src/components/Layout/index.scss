@@ -2,47 +2,55 @@
 @import './fonts';
 @import '../__shared-sass-vars/typography';
 
-html{
-  height: 100%;
+html {
+    height: 100%;
 }
 
-body{
-  font-family: 'Source Sans Pro', Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 300;
-  font-style: normal;
-  color: #253C5E;
-  height: 100%;
-  background-color: #F5F8FF;
+body {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 300;
+    font-style: normal;
+    color: #253c5e;
+    height: 100%;
+    background-color: #f5f8ff;
 }
 
-#wrap{
-  top:0;
-  min-height: 100%;
-  //overflow: hidden;
-  &.client_layout{
-    background-color: #F5F8FF//#f5f6f6;
-  }
+#wrap {
+    top: 0;
+    min-height: 100%;
+    //overflow: hidden;
+    &.client_layout {
+        background-color: #F5F8FF//#f5f6f6;
+    }
 }
 
-.text-upper{
-  text-transform: uppercase;
+.text-upper {
+    text-transform: uppercase;
 }
-.text-center{
-  text-align: center;
-}
-
-.flex-row{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-.centered-block{
-  position: fixed;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%, -50%);
+.text-center {
+    text-align: center;
 }
 
+.flex-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
 
+.flex-col {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1;
+}
+.centered-block {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-underline{
+    text-decoration: none;
+}

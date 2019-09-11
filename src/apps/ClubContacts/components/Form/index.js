@@ -1,25 +1,46 @@
-import React from 'react'
-import {connectContactFrom} from 'apps/ClubContacts/connectors'
-import {RenderFields} from './RenderFields'
-import {clubClubContactsConfig} from 'apps/ClubContacts/config'
-import {FormFormikEnhanced} from "components/Form";
+import React, { useContext } from 'react';
+import Button from 'components/Button';
+import { Form, SubmitButton } from 'components/Form';
+import { connectContactFrom } from 'apps/ClubContacts/connectors';
+import { RenderFields } from './RenderFields';
+import { clubClubContactsConfig } from 'apps/ClubContacts/config';
+import { HTTP } from 'appConfig';
+import { ContactTypeContext } from 'apps/ClubContacts/context';
 
-function ClubContactForm({club_id, addClubContactSuccess, initialValues, hideForm}) {
-    const transformValues = values => ({...values, club_id});
+function ClubContactForm({
+    club_id,
+    addClubContactSuccess,
+    initialValues,
+    hideForm
+}) {
+    const { contactType } = useContext(ContactTypeContext);
+
+    const transformValues = values => ({ ...values, club_id });
     const onSuccess = data => {
         addClubContactSuccess(data);
-        hideForm()
-    }
+        hideForm();
+    };
     return (
-        <FormFormikEnhanced
+        <Form
+            action={clubClubContactsConfig.action}
+            method={HTTP.post}
             onSuccess={onSuccess}
             transformValues={transformValues}
-            initialValues={initialValues}
-            {...clubClubContactsConfig}
+            initialValues={{
+                ...clubClubContactsConfig.formInitials,
+                contact_type_id: parseInt(contactType.value, 10)
+            }}
+            validationSchema={contactType.validationSchema}
         >
-            <RenderFields/>
-        </FormFormikEnhanced>
-    )
+            <RenderFields />
+            <div>
+                <SubmitButton className="btn-green">Сохранить</SubmitButton>
+                <Button className="btn-transparent" onClick={hideForm}>
+                    Отменить
+                </Button>
+            </div>
+        </Form>
+    );
 }
 
-export default connectContactFrom(ClubContactForm)
+export default connectContactFrom(ClubContactForm);

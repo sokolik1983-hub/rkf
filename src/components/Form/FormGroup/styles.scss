@@ -1,7 +1,7 @@
 .FormGroup {
 
   &--inline {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     display: flex;
     flex-flow: row;
     align-items: flex-end;
@@ -11,6 +11,14 @@
       margin-right: 16px;
       margin-bottom: 0;
       flex: 1;
+      &--hidden{
+        margin: 0;
+        padding: 0;
+        height: 0;
+        width: 0;
+        max-height: 0;
+        max-width: 0;
+      }
 
       &:last-child {
         margin-right: 0;

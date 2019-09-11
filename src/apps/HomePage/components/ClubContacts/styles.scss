@@ -1,4 +1,15 @@
 .ClubContacts{
-  margin: 12px;
-  margin-left: 32px;
+  margin: 12px 0;
+  padding-left: 32px;
+  background-repeat: no-repeat;
+  background-position: 8px 5px;
+  &--emails {
+      background-image: url("/static/icons/ico-contact-email.svg");
+  }
+
+  &--phones {
+
+      background-image: url("/static/icons/ico-contact-phone.svg");
+
+  }
 }

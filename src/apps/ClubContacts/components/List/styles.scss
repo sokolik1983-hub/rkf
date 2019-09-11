@@ -1,21 +1,37 @@
-.ClientClubListItem {
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: 16px;
+.ClientClubContactListItem {
+  position: relative;
+
   &__controls {
-    margin-left: auto;
+    .btn{
+      margin-right: 4px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__edit {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    border: 0;
+    padding: 0;
   }
 }
+
 .ClintClubContact {
   display: flex;
+
   &__type,
   &__description {
     margin-right: 4px;
   }
+
   &__description {
     font-weight: 400;
   }
 }
+
 #contact_type_id {
   padding: 0;
   border: none;

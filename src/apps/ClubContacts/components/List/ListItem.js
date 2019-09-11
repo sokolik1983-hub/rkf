@@ -1,58 +1,65 @@
-import React from 'react'
-import { useVisibility } from "shared/hooks";
-import { Form } from 'components/Form'
-import { connectClientClubListItem } from 'apps/ClubContacts/connectors'
-import { RenderFields } from 'apps/ClubContacts/components/Form/RenderFields'
-import ClubListContact from './ListContact'
-import { HTTP } from 'appConfig'
-import DeleteButton from "../../../../components/DeleteButton";
-import Dropdown from 'components/Dropdown';
+import React from 'react';
+import { useVisibility } from 'shared/hooks';
+import Button from 'components/Button';
+import { Form, SubmitButton } from 'components/Form';
+import DeleteButton from 'components/DeleteButton';
+import { RenderFields } from 'apps/ClubContacts/components/Form/RenderFields';
+import { connectClientClubContactListItem } from 'apps/ClubContacts/connectors';
+import { ENDPOINT_URL } from 'apps/ClubContacts/config';
 
-function ClientClubListItem({ clubContact, updateClubContactSuccess, deleteClubContactSuccess }) {
-    const {
-        visibility,
-        toggleVisibility,
-        setInvisible,
-    } = useVisibility(false);
-    const onUpdateSuccess = (values) => {
+import { HTTP } from 'appConfig';
+
+const clsNames = 'btn-transparent btn-condensed';
+
+function ClientClubContactListItem({
+    clubContact,
+    updateClubContactSuccess,
+    deleteClubContactSuccess
+}) {
+    const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
+    const onUpdateSuccess = values => {
         updateClubContactSuccess(values);
-        setInvisible()
+        setInvisible();
     };
     const onDeleteSuccess = () => {
-        deleteClubContactSuccess({ id: clubContact.id })
+        deleteClubContactSuccess({ ...clubContact });
     };
     return (
-        <div className="ClientClubListItem">{
-            visibility ?
-                <Form
-                    action={"/api/clubs/Contact"}
-                    onSuccess={onUpdateSuccess}
-                    method={HTTP.update}
-                    initialValues={clubContact}
+        <Form
+            className="ClientClubContactListItem"
+            action={'/api/clubs/Contact'}
+            onSuccess={onUpdateSuccess}
+            method={HTTP.update}
+            initialValues={clubContact}
+        >
+            <RenderFields disabled={!visibility} isUpdate />
+            {!visibility ? (
+                <Button
+                    className="ClientClubContactListItem__edit"
+                    onClick={toggleVisibility}
                 >
-                    <RenderFields isUpdate />
-                </Form>
-                :
-                <ClubListContact {...clubContact} />
-        }
-            <div className="ClientClubListItem__controls">
-                {
-                    visibility
-                        ? <button className="btn" onClick={toggleVisibility}>Отмена</button>
-                        : null
-                }
-                <Dropdown position="right" closeOnClick={true}>
-                    <button onClick={toggleVisibility}>Изменить</button>
+                    Изменить
+                </Button>
+            ) : null}
+            {visibility ? (
+                <div className="ClientClubContactListItem__controls">
+                    <SubmitButton className="btn-green">Сохранить</SubmitButton>
+                    <Button className={clsNames} onClick={setInvisible}>
+                        Отменить
+                    </Button>
+
                     <DeleteButton
+                        className={clsNames}
                         onDeleteSuccess={onDeleteSuccess}
                         windowed
-                        //params={params}
-                        actionUrl={`/api/clubs/Contact/${clubContact.id}`}
-                    >Удалить</DeleteButton>
-                </Dropdown>
-            </div>
-        </div>
-    )
+                        actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
+                    >
+                        Удалить
+                    </DeleteButton>
+                </div>
+            ) : null}
+        </Form>
+    );
 }
 
-export default connectClientClubListItem(ClientClubListItem)
+export default connectClientClubContactListItem(ClientClubContactListItem);

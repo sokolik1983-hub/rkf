@@ -1,23 +1,26 @@
-import React, {Fragment} from "react";
-import {FormField, FormGroup, SubmitButton, FormControls} from "components/Form";
-import {clubClubContactsConfig} from 'apps/ClubContacts/config'
-
-const {fields} = clubClubContactsConfig;
-export const RenderFields = ({isUpdate}) =>
-    <Fragment>
-        <FormGroup inline>
-            <FormField
-                {...fields.description}
-            />
-            <FormField
-                {...fields.contact_type_id}
-            />
-            <FormField
-                {...fields.value}
-            />
-            <FormControls>
-                <SubmitButton>{isUpdate ? 'Обновить' : 'Добавить'}</SubmitButton>
-            </FormControls>
-        </FormGroup>
-
-    </Fragment>;
+import React, { Fragment, useContext } from 'react';
+import { FormField, FormGroup } from 'components/Form';
+import { clubClubContactsConfig } from 'apps/ClubContacts/config';
+import { ContactTypeContext } from 'apps/ClubContacts/context';
+const { fields } = clubClubContactsConfig;
+export function RenderFields({ disabled, contact_type_id }) {
+    const { contactType } = useContext(ContactTypeContext);
+    return (
+        <Fragment>
+            <FormGroup inline>
+                <FormField
+                    disabled
+                    name="contact_type_id"
+                    type={'hidden'}
+                    value={contact_type_id}
+                />
+                <FormField
+                    disabled={disabled}
+                    {...fields.value}
+                    label={contactType.label}
+                />
+                <FormField disabled={disabled} {...fields.description} />
+            </FormGroup>
+        </Fragment>
+    );
+}

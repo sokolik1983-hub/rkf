@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {
-    selectListContact,
+    selectContactsList,
     selectClubId,
     selectClubContact,
 
@@ -14,9 +14,17 @@ import {
     deleteClubContactSuccess,
 } from './actions'
 
-export const connectListContact = connect(
+export const connectContactsProxy = connect(
     //Here
-    selectListContact,
+    selectClubId,
+    dispatch => bindActionCreators({
+        getClubContactsListSuccess
+    }, dispatch)
+);
+
+export const connectContactsList = connect(
+    //Here
+    selectContactsList,
     dispatch => bindActionCreators({
         getClubContactsListSuccess
     }, dispatch)
@@ -29,10 +37,11 @@ export const connectContactFrom = connect(
     }, dispatch)
 );
 
-export const connectClientClubListItem = connect(
+export const connectClientClubContactListItem = connect(
     selectClubContact,
     dispatch => bindActionCreators({
         updateClubContactSuccess,
         deleteClubContactSuccess
     }, dispatch)
-)
+);
+

@@ -10,29 +10,17 @@
     color: #61797c;
   }
 
-  &--1,
-  &--2 {
-    &:after {
-      top: -4px;
-      left: -32px;
-      position: absolute;
-      content: "";
-      width: 32px;
-      height: 32px;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-  }
 
-  &--1 {
-    &:after {
-      background-image: url("/static/icons/ico-contact-email.svg");
-    }
-  }
 
-  &--2 {
-    &:after {
-      background-image: url("/static/icons/ico-contact-phone.svg");
-    }
-  }
+  //&--1 {
+  //  &:after {
+  //    background-image: url("/static/icons/ico-contact-email.svg");
+  //  }
+  //}
+  //
+  //&--2 {
+  //  &:after {
+  //    background-image: url("/static/icons/ico-contact-phone.svg");
+  //  }
+  //}
 }

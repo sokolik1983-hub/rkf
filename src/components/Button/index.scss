@@ -1,144 +1,162 @@
-$primary-color: #3366FF; //#253C5E;
-$primary-color--disabled: transparentize($primary-color, .3);
+$primary-color: #3366ff; //#253C5E;
+$primary-color--disabled: transparentize($primary-color, 0.3);
 
 button {
-  font-family: Helvetica, sans-serif;
-  letter-spacing: 1px;
-  background-color: transparent;
-  padding: 10px;
-  color: $primary-color;
-  border-color: $primary-color;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 20px;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 1px;
+    background-color: transparent;
+    padding: 10px;
+    color: $primary-color;
+    border-color: $primary-color;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .btn,
 a.btn,
 a.btn:visited {
-  color: #3366FF;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  padding: 10px 34px;
-  border: solid 1px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border-color: #3366FF;
-  text-decoration: none;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px auto;
-  cursor: pointer;
+    color: #3366ff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 10px 34px;
+    border: solid 1px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border-color: #3366ff;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px auto;
+    cursor: pointer;
 
-  &--loading {
-    color: transparent !important;
-    background-image: url('/static/icons/loader_spinning-circles.svg');
-  }
+    &--loading {
+        color: transparent !important;
+        background-image: url('/static/icons/loader_spinning-circles.svg');
+    }
 }
 
 a.btn-lg,
 .btn-lg {
-  padding: 12px 58px;
+    padding: 12px 58px;
 }
 
 .btn-icon,
 a.btn-icon {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  flex: 0 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    flex: 0 0 auto;
 
-  svg {
-    fill: currentColor
-  }
-
-  &--left {
-    img, svg {
-      margin-right: 8px;
+    svg {
+        fill: currentColor;
     }
-  }
 
-  &--right {
-    img, svg {
-      margin-left: 8px;
+    &--left {
+        img,
+        svg {
+            margin-right: 8px;
+        }
     }
-  }
+
+    &--right {
+        img,
+        svg {
+            margin-left: 8px;
+        }
+    }
 }
 
 .btn-primary,
 a.btn-primary,
 a.btn-primary:visited {
-  color: white;
-  border-color: $primary-color;
-  background-color: $primary-color;
+    color: white;
+    border-color: $primary-color;
+    background-color: $primary-color;
 
-  &:hover, &:active {
-    box-shadow: 0px 4px 8px rgba(37, 60, 94, 0.24);
-  }
+    &:hover,
+    &:active {
+        box-shadow: 0px 4px 8px rgba(37, 60, 94, 0.24);
+    }
 
-  &:disabled {
-    color: #BABFC7;
-    background-color: $primary-color--disabled;
-    border-color: transparent;
-    box-shadow: unset;
-  }
+    &:disabled {
+        color: #babfc7;
+        background-color: $primary-color--disabled;
+        border-color: transparent;
+        box-shadow: unset;
+    }
 }
 
-
 .btn-secondary {
-  color: $primary-color;
-  border-color: transparentize(#253C5E, .62);
+    color: $primary-color;
+    border-color: transparentize(#253c5e, 0.62);
 
-  &:disabled {
-    color: #BABFC7;
-    border-color: #EBF0F2;
-  }
+    &:disabled {
+        color: #babfc7;
+        border-color: #ebf0f2;
+    }
 }
 
 a.btn-text,
 .btn-text {
-  color: rgba(37, 60, 94, 0.7);
+    color: rgba(37, 60, 94, 0.7);
 }
 
 a.btn-simple,
 .btn-simple {
-  background-color: transparent;
+    background-color: transparent;
 
-  &:hover {
-    background-color: #EBF0FE;
-  }
+    &:hover {
+        background-color: #ebf0fe;
+    }
 }
 
 .btn-i {
-  fill: currentColor;
-  //transform: translateY(3px);
+    fill: currentColor;
+    //transform: translateY(3px);
 }
 
 .btn-z {
-  padding: 0;
-  margin: 8px 16px 8px 0;
+    padding: 0;
+    margin: 8px 16px 8px 0;
 
-  &:last-child {
-    margin-right: 0;
-  }
+    &:last-child {
+        margin-right: 0;
+    }
 }
 
-.btn-condensed{
-  padding-left: 8px;
-  padding-right: 8px
-}
-
-.btn-light{
-  color: inherit;
-  border-color: #EBF0F2;
-}
-.btn-next{
-  padding: 6px 12px;
-  span{
+.btn-condensed {
+    padding-left: 8px;
     padding-right: 8px;
-    line-height: 100%;
-  }
 }
 
+.btn-light {
+    color: inherit;
+    border-color: #ebf0f2;
+}
+.btn-next {
+    padding: 6px 12px;
+    span {
+        padding-right: 8px;
+        line-height: 100%;
+    }
+}
 
+.btn-green {
+    color: white;
+    background-color: #00c48c;
+    border-color: #00c48c;
+}
+
+.btn-transparent {
+  outline: none;
+    background-color: transparent;
+    border-color: transparent;
+    color: #90999e;
+    &:hover {
+        color: #90999e;
+        background-color: transparent;
+        border-color: transparent;
+    }
+}
