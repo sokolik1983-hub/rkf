@@ -51,6 +51,7 @@ function Paginator({
             {
                 pagesRange.map(index =>
                     <PageButton
+                        key={index}
                         onClick={onPageClick}
                         currentPage={page_current}
                         page={index}
