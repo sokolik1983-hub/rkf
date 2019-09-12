@@ -15,8 +15,7 @@ function ListArticle({
     create_date,
     logo_link,
     club_name,
-    deleteArticleSuccess,
-    onArticleClick
+    deleteArticleSuccess
 }) {
 
     const getSignature = () => String(formatDateTime(create_date));
@@ -24,10 +23,6 @@ function ListArticle({
     const onDeleteSuccess = () => {
         deleteArticleSuccess(id);
     };
-
-    const handleClick = () => {
-        if (onArticleClick) onArticleClick(id);
-    }
 
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
@@ -52,8 +47,8 @@ function ListArticle({
                     </DeleteButton>
                 </Dropdown>
             </div>
-            <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: content.substring(0, 300) + '...'}} />
+            <h3 className="NewsStory__Heading" >{title}</h3>
+            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: content }} />
             <div
                 className="NewsStory__ImagePreview">
                 <img src={picture_link} alt="" />

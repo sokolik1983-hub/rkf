@@ -5,14 +5,10 @@ import './styles.scss'
 import Card from 'components/Card'
 import {getDateTime} from 'utils/datetime'
 
-function NewsStory({id, logo_link, club_name, create_date, title, content, picture_link, onArticleClick}) {
+function NewsStory({id, logo_link, club_name, create_date, title, content, picture_link}) {
 
 
     const getSignature = () => getDateTime(create_date);
-
-    const handleClick = () => {
-        if (onArticleClick) onArticleClick(id);
-    }
 
     return (
         <Card id={`NewsStory_${id}`} className="NewsStory">
@@ -23,8 +19,8 @@ function NewsStory({id, logo_link, club_name, create_date, title, content, pictu
                     <div className="NewsStory__Signature">{getSignature()}</div>
                 </div>
             </div>
-            <h3 className="NewsStory__title" onClick={handleClick} dangerouslySetInnerHTML={{__html: title}}/>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content.substring(0, 300) + '...'}}/>
+            <h3 className="NewsStory__title" dangerouslySetInnerHTML={{__html: title}}/>
+            <div className="NewsStory__Text" dangerouslySetInnerHTML={{__html: content}}/>
             {
                 picture_link ?
                     <div className="NewsStory__ImagePreview">
