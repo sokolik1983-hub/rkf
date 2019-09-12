@@ -1,10 +1,15 @@
 .Footer {
-  height: 64px;
   background: #253c5e;
-  padding: 0 79px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  &__inner {
+    box-sizing: border-box;
+    max-width: 1280px;
+    margin: auto;
+    height: 64px;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
   span {
     margin-right: auto;
     color: white;
