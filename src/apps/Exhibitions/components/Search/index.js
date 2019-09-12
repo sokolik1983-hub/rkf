@@ -10,10 +10,10 @@ function ExhibitionsSearch({ placeholder = searchDefaultPlaceholder, fetchSearch
     const onChange = (e) => setValue(e.target.value);
     const [url, setUrl] = useState(endpointExhibitionsList);
     const action = value ? fetchSearchSuccess : fetchExhibitionsSuccess
-    useResourceAndStoreToRedux(
-        url,
-        action
-    );
+    // useResourceAndStoreToRedux(
+    //     url,
+    //     action
+    // );
 
     const onCancel = () => {
         setUrl(endpointExhibitionsList);
