@@ -1,19 +1,44 @@
 const LS_KEY = 'GLOBAL_CITY';
 
-export const mapParams = (array, apiParamName) => {
-    let str = '';
-    array.forEach(el => {
-        str = str + apiParamName + '=' + el + '&';
-    });
-    return str;
+const FILTER_KEYS = {
+    cities: 'CityIds',
+    breeds: 'BreedIds',
+    ranks: 'RankIds',
+    castes: 'CasteIds',
+    types: 'TypeIds',
+    clubs: 'ClubIds',
+    page: 'PageNumber',
+    dateFrom: 'DateFrom',
+    dateTo: 'DateTo'
 };
-export const buildUri = filter => {
+
+export const mapParams = (array, apiParamName) => {
+    //
+    if (array.length > 0) {
+        let str = '';
+        array.forEach(el => {
+            str = str + `${apiParamName}=${el}&`;
+        });
+        return str;
+    }
+    return null;
+};
+
+export const checkLastAmpersand = str => str.charAt(str.length - 1) === '&';
+
+export const buildUrlParams = filter => {
     let str = '';
-
+    // Для каждого ключа (массива) фильтра создать часть строки
     Object.keys(filter).forEach(key => {
-        str = str + mapParams(filter[key], 'CityIds');
+        const params = mapParams(filter[key], FILTER_KEYS[key]);
+        if (params !== null) {
+            str = str + params;
+        }
     });
-
+    // отрезать последний & у строки параметров
+    if (checkLastAmpersand(str)) {
+        return str.substring(0, str.length - 1);
+    }
     return str;
 };
 
