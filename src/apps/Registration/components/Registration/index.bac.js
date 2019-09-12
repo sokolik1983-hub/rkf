@@ -25,7 +25,7 @@ export default class Registration extends PureComponent {
             <CommonLayout image={'/static/images/registration/banner.png'}>
 
                 <div className="registration__logo"/>
-                <div className="registration__title">Регистрацая</div>
+                <div className="registration__title">Регистрация</div>
                 <Tabs className="registration__tabs">
                     <TabContent label="Я - владелец">
                         <RegistrationForm
