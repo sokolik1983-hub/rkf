@@ -4,7 +4,7 @@ import {connectClubPublicLink} from 'apps/ClientClub/connectors'
 
 function ClubPublicLink({club_alias}) {
     return (
-        <Link style={{marginLeft: 'auto'}} className="btn btn-primary" to={`/${club_alias}`}>Вернуться на мою
+        <Link style={{marginLeft: 'auto'}} className="btn btn-primary" to={`/${club_alias}`}>На мою
             страницу</Link>
 
     )
