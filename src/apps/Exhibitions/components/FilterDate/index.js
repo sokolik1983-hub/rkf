@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import classnames from 'classnames';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
-import { formatDateToString } from 'utils/datetime';
+import {
+    formatDateToString,
+    getEndOfWeek,
+    getEndOfMonth,
+    getEndOfYear
+} from 'utils/datetime';
 import FilterButton from './FilterButton';
 import './index.scss';
 
@@ -12,18 +17,30 @@ const FILTERS = {
     today: 'today'
 };
 
+const getDatesState = () => {
+    const today = new Date();
+    const endOfWeek = getEndOfWeek(today);
+    const endOfMonth = getEndOfMonth(today);
+    const endOfYear = getEndOfYear(today);
+    return {
+        today: formatDateToString(today),
+        endOfWeek: formatDateToString(endOfWeek),
+        endOfMonth: formatDateToString(endOfMonth),
+        endOfYear: formatDateToString(endOfYear)
+    };
+};
+
 function FilterDateRange() {
-    const [currentDate] = useState(
-        formatDateToString(new Date())
-    );
+    const [currentDates] = useState(getDatesState());
     const [filter, setFilter] = useState(null);
     const [archive, setArchive] = useState(false);
-    const { setDatesRange, clearDatesRange } = useContext(ExhibitionsFilterContext);
+    const { setDatesRange, clearDatesRange } = useContext(
+        ExhibitionsFilterContext
+    );
     const onClick = newFilter => {
-        if(newFilter!==filter){
+        if (newFilter !== filter) {
             setFilter(newFilter);
-        }
-        else{
+        } else {
             setFilter('');
         }
     };
@@ -34,10 +51,31 @@ function FilterDateRange() {
 
     useEffect(() => {
         if (filter === FILTERS.today) {
-            setDatesRange({ dateFrom: currentDate, dateTo: currentDate });
+            setDatesRange({
+                dateFrom: currentDates.today,
+                dateTo: currentDates.today
+            });
         }
-        if(filter===''){
-            clearDatesRange()
+        if (filter === FILTERS.week) {
+            setDatesRange({
+                dateFrom: currentDates.today,
+                dateTo: currentDates.endOfWeek
+            });
+        }
+        if (filter === FILTERS.month) {
+            setDatesRange({
+                dateFrom: currentDates.today,
+                dateTo: currentDates.endOfMonth
+            });
+        }
+        if (filter === FILTERS.year) {
+            setDatesRange({
+                dateFrom: currentDates.today,
+                dateTo: currentDates.endOfYear
+            });
+        }
+        if (filter === '') {
+            clearDatesRange();
         }
     }, [filter, archive]);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import Card from 'components/Card';
 import Container from 'components/Layout/Container';
@@ -17,6 +17,7 @@ import {
     SponsorsData,
     PartnersData
 } from 'apps/HomePage/components/Partners/data';
+import Loading from 'components/Loading';
 
 import './styles.scss';
 
@@ -26,11 +27,11 @@ function ExhibitionDetails(props) {
         '/api/exhibitions/exhibition/' + String(exhibitionId),
         getDetailsSuccess
     );
+    if(!loading) window.scrollTo(0, 0);
 
-    return loading ? (
-        <div className="centered-block">Загрузка</div>
-    ) : (
-        <>
+    return loading
+        ? <Loading />
+        : (<>
             <Container className="ExhibitionDetails">
                 <Head loading={loading} {...details} />
                 <div className="ExhibitionDetails__wrap">
@@ -53,8 +54,7 @@ function ExhibitionDetails(props) {
                 </Card>
             </Container>
             <FooterSmall />
-        </>
-    );
+        </>);
 }
 
 export default connectExhibitionDetails(ExhibitionDetails);

@@ -30,18 +30,20 @@ function WidgetLogin({ isAuthenticated, logOutUser, club_alias, club_name }) {
             <DropDownItem>
                 <Link to={`/${club_alias}`}>Личный кабинет</Link>
             </DropDownItem>
-            <DropDownItem onClick={logOutUser}>Выход</DropDownItem>
+            <DropDownItem>
+                <a href="/" alt="" onClick={logOutUser}>Выход</a>
+            </DropDownItem>
         </Dropdown>
     ) : (
-        <Dropdown className="widget-login" innerComponent={<Inner />}>
-            <DropDownItem>
-                <Link to={LOGIN_URL}>Вход</Link>
-            </DropDownItem>
-            {/* <DropDownItem>
+            <Dropdown className="widget-login" innerComponent={<Inner />}>
+                <DropDownItem>
+                    <Link to={LOGIN_URL}>Вход</Link>
+                </DropDownItem>
+                {/* <DropDownItem>
                 <Link to={REGISTER_URL}>Регистрация</Link>
             </DropDownItem> */}
-        </Dropdown>
-    );
+            </Dropdown>
+        );
 }
 
 export default connectWidgetLogin(WidgetLogin);
