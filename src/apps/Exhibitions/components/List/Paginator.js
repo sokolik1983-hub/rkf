@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, {useContext, useState} from 'react'
 import classnames from 'classnames'
-import Button, { ButtonNext, ButtonPrev } from "components/Button";
-import { range } from "utils/range";
-import { connectExhibitionsPaginator } from 'apps/Exhibitions/connectors'
-import { ExhibitionsFilterContext } from 'apps/Exhibitions/context'
+import Button, {ButtonNext, ButtonPrev} from "components/Button";
+import {connectExhibitionsPaginator} from 'apps/Exhibitions/connectors'
+import {ExhibitionsFilterContext} from 'apps/Exhibitions/context'
 import "components/Form/FormInput/styles.scss";
 import './Paginator.scss'
-import { useStartTyping } from 'react-use';
 
 
 function PageButton({ page, currentPage, onClick }) {
