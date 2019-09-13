@@ -148,3 +148,17 @@ export const formatDateToString = date => {
         date.getMonth() + 1
     )}-${formatLeadingZero(date.getDate())}`;
 };
+
+export const getEndOfWeek = date => {
+    const dateClone = new Date(date.getTime());
+    const lastDay = dateClone.getDate() - (dateClone.getDay() - 1) + 7;
+    return new Date(dateClone.setDate(lastDay));
+};
+
+export const getEndOfMonth = date => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return new Date(year, month + 1, 0);
+};
+
+export const getEndOfYear = date => new Date(date.getFullYear(), 11, 31);
