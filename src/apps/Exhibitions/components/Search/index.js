@@ -18,11 +18,11 @@ function ExhibitionsSearch({ placeholder = searchDefaultPlaceholder, fetchSearch
     const onCancel = () => {
         setUrl(endpointExhibitionsList);
         setValue('');
-    }
+    };
 
     const handleKeyDown = (e) => {
         if (value && e.key === 'Enter') setUrl(`/api/exhibitions/Exhibition/search?ExhibitionName=${value}`);
-    }
+    };
 
     return (
         <div className="ExhibitionsSearch" >
