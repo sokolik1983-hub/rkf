@@ -61,7 +61,6 @@ function Paginator({
     page_next,
     page_current,
 }) {
-    page_count = 50;
     const { setPage } = useContext(ExhibitionsFilterContext);
 
     const pagesRange = [page_prev, page_current, page_next];
