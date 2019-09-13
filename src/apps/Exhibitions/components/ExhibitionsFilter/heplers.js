@@ -1,3 +1,5 @@
+import { endpointExhibitionsList } from '../../config';
+
 const LS_KEY = 'GLOBAL_CITY';
 
 const FILTER_KEYS = {
@@ -40,6 +42,13 @@ export const buildUrlParams = filter => {
         return str.substring(0, str.length - 1);
     }
     return str;
+};
+
+export const buildUrl = filter => {
+    const params = buildUrlParams(filter);
+    return params
+        ? `${endpointExhibitionsList}?${buildUrlParams(filter)}`
+        : endpointExhibitionsList;
 };
 
 export const loadGlobalCity = () => {
