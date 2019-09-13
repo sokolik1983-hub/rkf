@@ -61,14 +61,10 @@ function Paginator({
     page_next,
     page_current,
 }) {
-
+    page_count = 50;
     const { setPage } = useContext(ExhibitionsFilterContext);
 
-    const rangeStart = page_current > 1 && page_current < page_count
-        ? page_current - 1
-        : 1;
-
-    const pagesRange = range(page_count, rangeStart);
+    const pagesRange = [page_prev, page_current, page_next];
 
     const onPageClick = (page) => {
         setPage(page)
@@ -91,11 +87,13 @@ function Paginator({
             }
             {
                 pagesRange.map(index =>
-                    <PageButton
-                        onClick={onPageClick}
-                        currentPage={page_current}
-                        page={index}
-                    />
+                    index
+                        ? <PageButton
+                            onClick={onPageClick}
+                            currentPage={page_current}
+                            page={index}
+                        />
+                        : null
                 )
             }
             <PageSelector onSubmit={onPageClick} pageCount={page_count} />
