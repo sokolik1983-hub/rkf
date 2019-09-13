@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { buildUrlParams, loadGlobalCity } from './heplers';
+import { usePushMessage } from 'apps/Messages/hooks';
+import { buildUrl, loadGlobalCity } from './heplers';
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 import { getHeaders } from 'utils/request';
 
+const NO_EXHIBITIONS_FOUND = 'Выставок не найдено';
+const NO_EXHIBITIONS_FOUND_IN_CITY = 'Для вашего города выставок не найдено';
 const filterInitialState = {
     cities: [],
     breeds: [],
@@ -17,6 +20,7 @@ const filterInitialState = {
     //dates: {}
 };
 export const useExhibitionsFilter = ({ successAction }) => {
+    const { push } = usePushMessage();
     // берём выбранныей выбором город
     const globalCity = loadGlobalCity();
     // filterState used for constructing filter, and url params based on filter
@@ -31,10 +35,10 @@ export const useExhibitionsFilter = ({ successAction }) => {
     const [canCommonRequestRun, setCanCommonRequestRun] = useState(
         globalCity === null
     );
-    console.log('canCommonRequestRun', canCommonRequestRun, url);
+
     //
     const applyFilter = () => {
-        const url = `${endpointExhibitionsList}?${buildUrlParams(filter)}`;
+        const url = `${buildUrl(filter)}`;
         setUrl(url);
     };
     // filter modifiers for different filter sub filters
@@ -44,12 +48,37 @@ export const useExhibitionsFilter = ({ successAction }) => {
     const changeCastesFilter = castes => setFilter({ ...filter, castes });
     const changeTypesFilter = types => setFilter({ ...filter, types });
     const changeClubsFilter = clubs => setFilter({ ...filter, clubs });
-    const setDate = date =>
-        setFilter({ ...filter, dateFrom: [date], dateTo: [date] });
-    const setDatesRange = ({ dateFrom, dateTo }) =>
-        setFilter({ ...filter, dateFrom: [dateFrom], dateTo: [dateTo] });
+    const setDate = date => {
+        const newFilter = { ...filter, dateFrom: [date], dateTo: [date] };
+        setFilter(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
+    const clearDate = () => {
+        const newFilter = { ...filter, dateFrom: [], dateTo: [] };
+        setFilter(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
+
+    const setDatesRange = ({ dateFrom, dateTo }) => {
+        const newFilter = { ...filter, dateFrom: [dateFrom], dateTo: [dateTo] };
+        setFilter(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
+    const clearDatesRange = () => {
+        const newFilter = { ...filter, dateFrom: [], dateTo: [] };
+        setFilter(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
+
     const setPage = page => {
-        const url = `${endpointExhibitionsList}?${buildUrlParams({ ...filter, page: [page] })}`;
+        const url = `${buildUrl({
+            ...filter,
+            page: [page]
+        })}`;
         setUrl(url);
     };
 
@@ -80,6 +109,9 @@ export const useExhibitionsFilter = ({ successAction }) => {
                 const { exhibitions } = response.data.result;
 
                 if (exhibitions.length === 0) {
+                    push({
+                        text: NO_EXHIBITIONS_FOUND_IN_CITY
+                    });
                     setLoading(false);
                     setCanCommonRequestRun(true);
                     clearFilter();
@@ -114,6 +146,12 @@ export const useExhibitionsFilter = ({ successAction }) => {
             try {
                 setLoading(true);
                 const response = await axios(axiosConfig);
+                const { exhibitions } = response.data.result;
+                if (exhibitions.length === 0) {
+                    push({
+                        text: NO_EXHIBITIONS_FOUND
+                    });
+                }
                 successAction(response.data.result);
                 setLoading(false);
             } catch (error) {
@@ -142,7 +180,9 @@ export const useExhibitionsFilter = ({ successAction }) => {
         changeTypesFilter,
         changeClubsFilter,
         setDate,
+        clearDate,
         setDatesRange,
+        clearDatesRange,
         clearFilter,
         setPage
     };
