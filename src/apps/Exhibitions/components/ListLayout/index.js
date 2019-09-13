@@ -1,27 +1,26 @@
-import React from "react";
-//import FilterDate from 'apps/Exhibitions/components/FilterDate'
+import React from 'react';
+import FilterDate from 'apps/Exhibitions/components/FilterDate';
 //import Paginator from 'components/Paginator'
-import Aside from 'components/Layout/Aside'
-import Content from 'components/Layout/Content'
-import ExhibitionsAside from 'apps/Exhibitions/Aside'
-import './styles.scss'
-import ExhibitionsFilter from 'apps/Exhibitions/components/ExhibitionsFilter'
+import Messages from 'apps/Messages';
+import Aside from 'components/Layout/Aside';
+import Content from 'components/Layout/Content';
+import ExhibitionsAside from 'apps/Exhibitions/Aside';
+import './styles.scss';
+import ExhibitionsFilter from 'apps/Exhibitions/components/ExhibitionsFilter';
 
-function ExhibitionsListLayout({children}) {
-
+function ExhibitionsListLayout({ children }) {
     return (
         <ExhibitionsFilter className="ExhibitionsListLayout">
+            <Messages />
             <Aside>
-                <ExhibitionsAside/>
+                <ExhibitionsAside />
             </Aside>
             <Content>
-                <div className="exhibitions__holder">
-                    {children}
-                </div>
+                <FilterDate />
+                <div className="exhibitions__holder">{children}</div>
             </Content>
         </ExhibitionsFilter>
-    )
+    );
 }
 
-
-export default ExhibitionsListLayout
+export default ExhibitionsListLayout;
