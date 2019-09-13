@@ -1,6 +1,25 @@
 .Paginator {
   display: flex;
   flex-flow: row wrap;
+  .FormInput {
+    margin: 0;
+    &__input {
+      width: 103px;
+      padding: 7px 14px;
+      margin-right: 8px;
+      background: url(/static/icons/chevron_right.svg) 83px center no-repeat;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      &:active,
+      &:focus {
+        padding: 6px 13px;
+        background: url(/static/icons/chevron_right.svg) 82px center no-repeat;
+      }
+    }
+  }
 }
 
 .btn.Paginator__Button {
@@ -18,13 +37,13 @@
   margin-right: 8px;
   padding: 0;
   box-sizing: border-box;
-  border-color: #EBF0F2;
-  color: #253C5E;
+  border-color: #ebf0f2;
+  color: #253c5e;
 
   &--active {
-    background-color: #3366FF;
+    background-color: #3366ff;
     color: white;
-    border-color: #3366FF;
-    box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);;
+    border-color: #3366ff;
+    box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);
   }
 }
