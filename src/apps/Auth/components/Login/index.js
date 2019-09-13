@@ -16,7 +16,7 @@ export default function AuthorizationLayout() {
                 <LoginForm/>
 
                 <div className="authorization__switch-to-login">
-                    Впервые на РКФ? <Link to="/auth/registration">Зарегистрироваться</Link>
+                    {/* Впервые на РКФ? <Link to="/auth/registration">Зарегистрироваться</Link> */}
                 </div>
             </div>
         </CommonLayout>

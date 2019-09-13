@@ -37,9 +37,9 @@ function WidgetLogin({ isAuthenticated, logOutUser, club_alias, club_name }) {
             <DropDownItem>
                 <Link to={LOGIN_URL}>Вход</Link>
             </DropDownItem>
-            <DropDownItem>
+            {/* <DropDownItem>
                 <Link to={REGISTER_URL}>Регистрация</Link>
-            </DropDownItem>
+            </DropDownItem> */}
         </Dropdown>
     );
 }
