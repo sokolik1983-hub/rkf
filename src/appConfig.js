@@ -246,7 +246,25 @@ const HTTP = {
     delete: "DELETE",
 };
 
+const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+const MONTHS = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+];
+
 export {
+    WEEKDAYS_SHORT,
+    MONTHS,
     HTTP,
     SERVER,
     appRoutes,
