@@ -1,5 +1,5 @@
 import React from 'react'
-import WidgetCalendar from 'components/WidgetCalendar'
+import WidgetCalendar from './WidgetCalendar'
 import CalendarLegend, {CalendarLegendItem} from 'apps/Exhibitions/components/Calendar/Legend'
 import {connectExhibitionCalendar} from 'apps/Exhibitions/connectors'
 import './index.scss'
