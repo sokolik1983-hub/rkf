@@ -63,11 +63,12 @@ function Paginator({
 }) {
 
     const { setPage } = useContext(ExhibitionsFilterContext);
-    const pagesRange = range(page_count,
-        page_current > 1
-            ? page_current - 1
-            : page_current)
-        .slice(0, 3);
+
+    const rangeStart = page_current > 1 && page_current < page_count
+        ? page_current - 1
+        : 1;
+
+    const pagesRange = range(page_count, rangeStart);
 
     const onPageClick = (page) => {
         setPage(page)
