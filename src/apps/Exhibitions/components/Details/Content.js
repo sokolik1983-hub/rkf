@@ -13,13 +13,16 @@ export default function ExhibitionDetailsContent({
     referees_id,
     exhibition_map_link,
 }) {
+    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : '/static/images/exhibitions/default.png';
+
     return (
         <DetailsContent>
 
-            {exhibition_avatar_link ?
-                <div className="ExhibitionDetails__avatar">
-                    <Img src={exhibition_avatar_link} />
-                </div> : null}
+            <div className="ExhibitionDetails__avatar">
+                <Img src={avatarLink} />
+            </div>
+
+
 
             <Tabs className="exhibition-details__tabs">
 
