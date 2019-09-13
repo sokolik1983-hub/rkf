@@ -1,17 +1,17 @@
 import React from 'react'
-import {string, bool, func, object} from 'prop-types'
-import {withRouter} from 'react-router'
+import { string, bool, func, object } from 'prop-types'
+import { withRouter } from 'react-router'
 import classnames from 'classnames'
 import './index.scss'
 
 
 export const ButtonNext = ({
-                               children,
-                               type = 'button',
-                               onClick,
-                               className,
-                               disabled
-                           }) =>
+    children,
+    type = 'button',
+    onClick,
+    className,
+    disabled
+}) =>
     <button
         type={type}
         onClick={onClick}
@@ -20,29 +20,52 @@ export const ButtonNext = ({
             'btn-light',
             'btn-icon',
             'btn-next',
-            {[className]: className}
+            { [className]: className }
         )}
         disabled={disabled}
     >
         <span>{children}</span>
-        <img src={'/static/icons/chevron_right.svg'} alt=""/>
+        <img src={'/static/icons/chevron_right.svg'} alt="" />
+    </button>;
+
+export const ButtonPrev = ({
+    children,
+    type = 'button',
+    onClick,
+    className,
+    disabled
+}) =>
+    <button
+        type={type}
+        onClick={onClick}
+        className={classnames(
+            'btn',
+            'btn-light',
+            'btn-icon',
+            'btn-prev',
+            { [className]: className }
+        )}
+        disabled={disabled}
+    >
+        <img src={'/static/icons/chevron_left.svg'} alt="" />
+        <span>{children}</span>
     </button>;
 
 
 const ActionButton = ({
-                          action,
-                          style,
-                          onClick,
-                          className,
-                          disabled,
-                          type = 'button',
-                          loading,
-                          children,
-                          leftIcon,
-                          rightIcon,
-                          history,
-                          ...other,
-                      }) => {
+    action,
+    style,
+    onClick,
+    className,
+    disabled,
+    type = 'button',
+    loading,
+    children,
+    leftIcon,
+    rightIcon,
+    history,
+    ...other,
+}) => {
 
     const handleClick = action ? () => history.push(action) : onClick;
 
@@ -51,11 +74,11 @@ const ActionButton = ({
             style={style}
             className={classnames(
                 'btn',
-                {'btn--loading': loading},
-                {'btn-icon': leftIcon || rightIcon},
-                {'btn-icon--left': leftIcon},
-                {'btn-icon--right': rightIcon},
-                {[className]: className}
+                { 'btn--loading': loading },
+                { 'btn-icon': leftIcon || rightIcon },
+                { 'btn-icon--left': leftIcon },
+                { 'btn-icon--right': rightIcon },
+                { [className]: className }
             )}
             type={type}
             onClick={handleClick}
@@ -77,32 +100,32 @@ export const ActButton = withRouter(ActionButton);
 
 
 function Button({
-                    style,
-                    onClick,
-                    className,
-                    disabled,
-                    type = 'button',
-                    loading,
-                    children,
-                    leftIcon,
-                    rightIcon,
-                    primary,
-                    secondary,
-                    condensed
-                }) {
+    style,
+    onClick,
+    className,
+    disabled,
+    type = 'button',
+    loading,
+    children,
+    leftIcon,
+    rightIcon,
+    primary,
+    secondary,
+    condensed
+}) {
     return (
         <button
             style={style}
             className={classnames(
                 'btn',
-                {'btn--loading': loading},
-                {'btn-icon': leftIcon || rightIcon},
-                {'btn-icon--left': leftIcon},
-                {'btn-icon--right': rightIcon},
-                {'btn-primary': primary && !secondary},
-                {'btn-secondary': secondary && !primary},
-                {'btn-condensed': condensed},
-                {[className]: className}
+                { 'btn--loading': loading },
+                { 'btn-icon': leftIcon || rightIcon },
+                { 'btn-icon--left': leftIcon },
+                { 'btn-icon--right': rightIcon },
+                { 'btn-primary': primary && !secondary },
+                { 'btn-secondary': secondary && !primary },
+                { 'btn-condensed': condensed },
+                { [className]: className }
             )}
             type={type}
             onClick={onClick}

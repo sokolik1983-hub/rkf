@@ -56,7 +56,6 @@ function HomePageLayout() {
                     </Wrap>
                     <Partners title="Наши спонсоры" items={SponsorsData} />
                     <Partners title="Наши партнеры" items={PartnersData} />
-                    <FooterSmall />
                     {/*<BigSlider slides={demoSlides}/>*/}
                     {/*<WeekExhibitions/>*/}
                     {/*<About/>*/}
@@ -67,6 +66,7 @@ function HomePageLayout() {
                     {/*<SpecialOffersSubscription/>*/}
                 </div>
             </Container>
+                    <FooterSmall />
         </PublicLayout>
     )
 }

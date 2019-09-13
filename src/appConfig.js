@@ -7,7 +7,7 @@ const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/,
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
 
 const LOGIN_URL = '/auth/login';
-const REGISTER_URL = '/auth/registration';
+//const REGISTER_URL = '/auth/registration';
 
 
 const appRoutes = [
@@ -37,11 +37,11 @@ const appRoutes = [
         path: LOGIN_URL,
         component: LoadableModules.LoadableAuthorization
     },
-    {
-        exact: false,
-        path: REGISTER_URL,
-        component: LoadableModules.LoadableRegistration
-    },
+    // {
+    //     exact: false,
+    //     path: REGISTER_URL,
+    //     component: LoadableModules.LoadableRegistration
+    // },
     {
         exact: false,
         path: '/client',
@@ -272,6 +272,6 @@ export {
     DEFAULT_PHONE_INPUT_MASK,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
     LOGIN_URL,
-    REGISTER_URL,
+    //REGISTER_URL,
     defaultReactSelectStyles
 }
