@@ -1,0 +1,39 @@
+.HP_Exhibition {
+  margin-bottom: 24px;
+  &__Head {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 24px;
+  }
+
+  &__StoryInfo {
+    padding-left: 12px;
+  }
+
+  &__title {
+    display: block;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    cursor: pointer;
+    color: #253C5E !important;
+    text-decoration: none;
+    margin: 12px 0;
+  }
+
+  &__Signature {
+    color: #72839c;
+  }
+  &__Text {
+    margin-bottom: 24px;
+    max-height: 72px;
+    overflow: hidden;
+  }
+  &__ImagePreview {
+    width: 100%;
+    text-align: center;
+    background-size: cover;
+    border-radius: 6px;
+  }
+}
+

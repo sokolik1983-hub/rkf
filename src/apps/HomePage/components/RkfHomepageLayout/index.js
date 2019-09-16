@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import FooterSmall from 'components/Layout/FooterSmall';
 import Container from 'components/Layout/Container';
 import HomepageLayout from 'components/Layout/Homepage';
 import HomepageFeaturedExhibitionsList from 'apps/Exhibitions/components/FeaturedHome';
-import News from '../News';
+import RkfFeaturedExhibitions from '../RkfFeaturedExhibitions';
 import Partners from '../Partners';
 import { SponsorsData, PartnersData } from '../Partners/data';
 import './styles.scss';
@@ -37,7 +38,7 @@ const Contacts = [
     }
 ];
 
-function HomePageLayout() {
+function RkfHomepageLayout() {
     return (
         <HomepageLayout>
             <Container className="home">
@@ -46,10 +47,10 @@ function HomePageLayout() {
                     <Wrap>
                         <Content>
                             <h2>Предстоящие выставки</h2>
-                            <News />
-                            <a className="NewsList__button" href="/exhibitions">
+                            <RkfFeaturedExhibitions />
+                            <Link className="NewsList__button" to="/exhibitions">
                                 Смотреть все выставки
-                            </a>
+                            </Link>
                         </Content>
                         <Side>
                             <div className="NewsList__sidebar">
@@ -90,18 +91,10 @@ function HomePageLayout() {
                     </Wrap>
                     <Partners title="Наши спонсоры" items={SponsorsData} />
                     <Partners title="Наши партнеры" items={PartnersData} />
-                    {/*<BigSlider slides={demoSlides}/>*/}
-                    {/*<WeekExhibitions/>*/}
-                    {/*<About/>*/}
-                    {/*<News/>*/}
-                    {/* <Partners/> */}
-                    {/*<RegisterBlock/>*/}
-                    {/*<SocialGallery/>*/}
-                    {/*<SpecialOffersSubscription/>*/}
                 </div>
             </Container>
-                    <FooterSmall />
+            <FooterSmall />
         </HomepageLayout>
     );
 }
-export default React.memo(HomePageLayout);
+export default React.memo(RkfHomepageLayout);
