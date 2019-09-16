@@ -4,8 +4,8 @@ import './styles.scss'
 
 function ClubAddress({ address, city }) {
     return (
-        address
-            ? <div className="ClubAddress">Адрес: <span>{city && city.name}, {address}</span></div>
+        city && city.name
+            ? <div className="ClubAddress">Адрес: <span>{city && city.name}{address ? `, ${address}` : null}</span></div>
             : null
     )
 }
