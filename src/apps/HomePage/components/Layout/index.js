@@ -54,8 +54,8 @@ function HomePageLayout() {
                             </Card>
                         </Side>
                     </Wrap>
-                    <Partners title="Наши спонсоры" items={SponsorsData} />
-                    <Partners title="Наши партнеры" items={PartnersData} />
+                    {/* <Partners title="Наши спонсоры" items={SponsorsData} /> */}
+                    {/* <Partners title="Наши партнеры" items={PartnersData} /> */}
                     {/*<BigSlider slides={demoSlides}/>*/}
                     {/*<WeekExhibitions/>*/}
                     {/*<About/>*/}
