@@ -139,8 +139,15 @@ export const transformDate = date => {
 };
 
 export const timeSecondsCutter = time => {
-    const timeSplit = time.indexOf(':') > 0 ? time.split(':') : time;
-    return timeSplit.length > 2 ? timeSplit[0] + ':' + timeSplit[1] : time;
+    if (time !== null) {
+        if (time.indexOf(':') !== -1) {
+            const timeSplit = time.split(':');
+            return timeSplit.length > 2
+                ? timeSplit[0] + ':' + timeSplit[1]
+                : time;
+        }
+    }
+    return time;
 };
 
 export const formatDateToString = date => {
