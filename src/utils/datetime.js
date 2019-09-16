@@ -139,7 +139,7 @@ export const transformDate = date => {
 };
 
 export const timeSecondsCutter = time => {
-    const timeSplit = time.split(':');
+    const timeSplit = time.indexOf(':') > 0 ? time.split(':') : time;
     return timeSplit.length > 2 ? timeSplit[0] + ':' + timeSplit[1] : time;
 };
 
