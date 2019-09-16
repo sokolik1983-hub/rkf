@@ -2,6 +2,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
     fetchExhibitionsSuccess,
+    fetchFiltersSuccess,
     fetchSearchSuccess,
     getDetailsSuccess,
     storePrices
@@ -28,7 +29,8 @@ export const connectExhibitionsList = connect(
 export const connectExhibitionsFilter = connect(
     selectExhibitionsFilter,
     dispatch => bindActionCreators({
-        fetchExhibitionsSuccess
+        fetchExhibitionsSuccess,
+        fetchFiltersSuccess
     }, dispatch)
 );
 

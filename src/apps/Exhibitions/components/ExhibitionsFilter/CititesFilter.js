@@ -16,23 +16,21 @@ const Option = props => {
 };
 
 function CitiesFilter() {
-    const { city_ids, cities, changeCitiesFilter, filter } = useContext(
+    const { filterOptionsCities, changeCitiesFilter, filter } = useContext(
         ExhibitionsFilterContext
     );
-
     const { cities: filteredCities } = filter;
-    const mapOptions = cityId => ({
-        label: cities.dictionary[String(cityId)],
-        value: cityId
-    });
+
     // убираем из всех значений фильтра выбранные
-    const optionsNotInValues = city_ids.filter(
-        cityId => filteredCities.indexOf(cityId) === -1
+    const optionsNotInValues = filterOptionsCities.filter(
+        option => filteredCities.indexOf(option.value) === -1
+    );
+    // выбираем выбранные :)
+    const values = filterOptionsCities.filter(
+        option => filteredCities.indexOf(option.value) !== -1
     );
     // добавялем выбранные в начало и объединяем с тем что получили выше
-    const options = [...filteredCities, ...optionsNotInValues].map(mapOptions);
-
-    const values = filteredCities.map(mapOptions);
+    const options = [...values, ...optionsNotInValues];
 
     const handleChange = options => changeCitiesFilter(getValues(options));
 

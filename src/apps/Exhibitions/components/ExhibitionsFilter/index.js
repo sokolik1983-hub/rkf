@@ -1,29 +1,46 @@
 import React from 'react';
-import {connectExhibitionsFilter} from 'apps/Exhibitions/connectors';
-import {ExhibitionsFilterContext} from 'apps/Exhibitions/context';
-import {useDictionary} from 'apps/Dictionaries';
-import {useExhibitionsFilter} from './hooks';
+import { endpointExhibitionsFilters } from 'apps/Exhibitions/config';
+import { connectExhibitionsFilter } from 'apps/Exhibitions/connectors';
+import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
+import { useDictionary } from 'apps/Dictionaries';
+import { useResourceAndStoreToRedux } from 'shared/hooks';
+import { useExhibitionsFilter } from './hooks';
 
 const { Provider } = ExhibitionsFilterContext;
 
 function ExhibitionsFilter({
-    city_ids,
+    // filters options
+    filterOptionsBreeds,
+    filterOptionsCastes,
+    filterOptionsCities,
+    filterOptionsDates,
+    filterOptionsRanks,
+    filterOptionsTypes,
+    // end of filters options
     children,
     className,
-    fetchExhibitionsSuccess
+    fetchExhibitionsSuccess,
+    fetchFiltersSuccess
 }) {
     const { ...hookExports } = useExhibitionsFilter({
         successAction: fetchExhibitionsSuccess
     });
 
-    const { dictionary: cities } = useDictionary('cities');
-
+    const { loading: filtersLoading } = useResourceAndStoreToRedux(
+        endpointExhibitionsFilters,
+        fetchFiltersSuccess
+    );
 
     return (
         <Provider
             value={{
-                city_ids,
-                cities,
+                filterOptionsBreeds,
+                filterOptionsCastes,
+                filterOptionsCities,
+                filterOptionsDates,
+                filterOptionsRanks,
+                filterOptionsTypes,
+                filtersLoading,
                 ...hookExports
                 //
             }}
