@@ -31,7 +31,7 @@ function WidgetLogin({ isAuthenticated, logOutUser, club_alias, club_name }) {
                 <Link to={`/${club_alias}`}>Личный кабинет</Link>
             </DropDownItem>
             <DropDownItem>
-                <a href="/" alt="" onClick={logOutUser}>Выход</a>
+                <Link to={'/'} onClick={logOutUser}>Выход</Link>
             </DropDownItem>
         </Dropdown>
     ) : (
