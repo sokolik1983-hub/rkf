@@ -6,6 +6,7 @@ import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
+import { DEFAULT_CONTENT_LENGTH } from 'appConfig'
 
 function ListArticle({
     id,
@@ -27,6 +28,12 @@ function ListArticle({
 
     const handleClick = () => {
         if (onArticleClick) onArticleClick(id);
+    }
+
+    const cutContent = content => {
+        return content.length > DEFAULT_CONTENT_LENGTH
+            ? content.substring(0, 300) + '...'
+            : content
     }
 
     return (
@@ -53,7 +60,7 @@ function ListArticle({
                 </Dropdown>
             </div>
             <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: content.substring(0, 300) + '...'}} />
+            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: cutContent(content) }} />
             <div
                 className="NewsStory__ImagePreview">
                 <img src={picture_link} alt="" />
