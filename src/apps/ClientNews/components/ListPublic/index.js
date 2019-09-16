@@ -3,6 +3,7 @@ import NewsAreEmpty from 'components/Club/NewsAreEmpty'
 import Modal from 'components/Modal'
 import ListArticle from '../ListArticle'
 import ListArticleDetails from '../ListArticle/ListArticleDetails'
+import NewsListSearch from '../NewsListSearch'
 import { connectNewsList } from 'apps/ClientNews/connectors'
 import { GET_NEWS_ENDPOINT } from 'apps/ClientNews/config'
 import { useResourceAndStoreToRedux } from "shared/hooks";
@@ -33,6 +34,7 @@ function ClientNewsList({ getNewsSuccess, listIds }) {
 
     return (
         <>
+            <NewsListSearch />
             {listIds.map(id => <ListArticle key={id} id={id} onArticleClick={onArticleClick} />)}
             <Modal showModal={showModal} handleClose={onModalClose}>
                 {activeArticleId ? <ListArticleDetails id={activeArticleId} /> : null}
