@@ -23,7 +23,7 @@ export default function FeaturedExhibition({
             : content;
     };
     return (
-        <Card id={`HP_Exhibition_${id}`} className="HP_Exhibition">
+        <div id={`HP_Exhibition_${id}`} className="HP_Exhibition">
             <div className="HP_Exhibition__Head">
                 <ClientAvatar avatar={club_logo} size={46} />
                 <div className="HP_Exhibition__StoryInfo">
@@ -47,6 +47,6 @@ export default function FeaturedExhibition({
                     <Img src={exhibition_picture_link} alt="" />
                 </div>
             ) : null}
-        </Card>
+        </div>
     );
 }
