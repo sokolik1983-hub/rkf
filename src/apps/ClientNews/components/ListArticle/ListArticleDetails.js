@@ -6,6 +6,7 @@ import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
+import { DEFAULT_CONTENT_LENGTH } from 'appConfig'
 
 function ListArticle({
     id,
@@ -23,6 +24,12 @@ function ListArticle({
     const onDeleteSuccess = () => {
         deleteArticleSuccess(id);
     };
+
+    const cutContent = content => {
+        return content.length > DEFAULT_CONTENT_LENGTH
+            ? content.substring(0, 300) + '...'
+            : content
+    }
 
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
@@ -48,7 +55,7 @@ function ListArticle({
                 </Dropdown>
             </div>
             <h3 className="NewsStory__Heading" >{title}</h3>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: content }} />
+            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: cutContent(content) }} />
             <div
                 className="NewsStory__ImagePreview">
                 <img src={picture_link} alt="" />
