@@ -1,14 +1,16 @@
 .exhibitions-calendar {
-
   &__legend {
-    color: #BABFC7;
-    padding-top: 8px;
+    color: #253c5e;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
   }
 
   &__legend-item {
     display: flex;
     flex-flow: row nowrap;
-    padding-left: 32px;
+    padding-left: 23px;
     margin: 8px 0;
     position: relative;
 
@@ -19,7 +21,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 16px;
+      left: 0;
       border: solid 1px;
       border-color: white;
       border-radius: 50%;
@@ -27,14 +29,13 @@
 
     &--green {
       &:before {
-        background-color: #00C48C;
+        background-color: #00c48c;
       }
     }
 
     &--blue {
       &:before {
-        background-color: #00BFDD;
-
+        background-color: #00bfdd;
       }
     }
   }
