@@ -48,6 +48,10 @@ export const EXHIBITIONS_FILTER_STYLE = {
         ...styles,
         display: 'none'
     }),
+    input: styles => ({
+        ...styles,
+        marginLeft: 0
+    }),
 
     indicatorSeparator: styles => ({
         ...styles,
