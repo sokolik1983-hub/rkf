@@ -156,7 +156,8 @@ export const CITY_SELECTOR_STYLE = {
     }),
     input: styles => ({
         ...styles,
-        color: '#72839C'
+        color: '#72839C',
+        marginLeft: 0
     }),
     dropdownIndicator: styles => ({
         ...styles,
