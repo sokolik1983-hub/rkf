@@ -1,45 +1,51 @@
-import React, { useState } from 'react'
-import searchIcon from './Icon.svg'
-import { searchDefaultPlaceholder, endpointExhibitionsList } from 'apps/Exhibitions/config'
+import React, { useContext, useState } from 'react';
+import searchIcon from './Icon.svg';
 import { connectExhibitionsSearch } from 'apps/Exhibitions/connectors';
-import { useResourceAndStoreToRedux } from 'shared/hooks';
-import './index.scss'
+import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
+import {
+    endpointExhibitionsList,
+    searchDefaultPlaceholder
+} from 'apps/Exhibitions/config';
+import './index.scss';
 
-function ExhibitionsSearch({ placeholder = searchDefaultPlaceholder, fetchSearchSuccess, fetchExhibitionsSuccess }) {
-    const [value, setValue] = useState('');
-    const onChange = (e) => setValue(e.target.value);
-    const [url, setUrl] = useState(endpointExhibitionsList);
-    const action = value ? fetchSearchSuccess : fetchExhibitionsSuccess
-    // useResourceAndStoreToRedux(
-    //     url,
-    //     action
-    // );
+function ExhibitionsSearch({ placeholder = searchDefaultPlaceholder }) {
+    const [searchValue, setSearchValue] = useState('');
+    const { setUrl, url } = useContext(ExhibitionsFilterContext);
+    const [urlBeforeSearch, setUrlBeforeSearch] = useState(url);
+    const onChange = e => setSearchValue(e.target.value);
 
     const onCancel = () => {
-        setUrl(endpointExhibitionsList);
-        setValue('');
+        setSearchValue('');
+        setUrl(urlBeforeSearch);
     };
 
-    const handleKeyDown = (e) => {
-        if (value && e.key === 'Enter') setUrl(`/api/exhibitions/Exhibition/search?ExhibitionName=${value}`);
+    const handleKeyDown = e => {
+        if (searchValue && e.key === 'Enter') {
+            setUrlBeforeSearch(url);
+            setUrl(
+                `/api/exhibitions/Exhibition/search?ExhibitionName=${searchValue}`
+            );
+        }
     };
 
     return (
-        <div className="ExhibitionsSearch" >
+        <div className="ExhibitionsSearch">
             <img src={searchIcon} alt="" />
-            <input placeholder={placeholder}
+            <input
+                placeholder={placeholder}
                 name="search"
                 onChange={onChange}
                 onKeyDown={handleKeyDown}
-                value={value}
+                value={searchValue}
             />
-            {
-                url !== endpointExhibitionsList
-                    ? <button onClick={onCancel} className="ExhibitionsSearch__cancel"></button>
-                    : null
-            }
+            {searchValue !== endpointExhibitionsList ? (
+                <button
+                    onClick={onCancel}
+                    className="ExhibitionsSearch__cancel"
+                />
+            ) : null}
         </div>
-    )
+    );
 }
 
 export default connectExhibitionsSearch(ExhibitionsSearch);

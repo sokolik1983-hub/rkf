@@ -169,6 +169,8 @@ export const useExhibitionsFilter = ({ successAction }) => {
         };
     }, [url]);
     return {
+        url,
+        setUrl,
         filter,
         setFilter,
         loading,
