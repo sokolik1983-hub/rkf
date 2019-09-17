@@ -1,22 +1,28 @@
 .ExhibitionsListLayout {
   background-color: #fff;
   padding: 48px;
+  .exhibition-list__header {
+    padding: 0;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-  .ExhibitionsAside {
-    position: fixed;
-    width: 266px;
-    top: 80px;
-    height: calc(100% - 80px);
-    overflow-y: auto;
-  }
-  .exhibition-list{
-    &__header {
+  .ExhibitionsListLayout {
+    .exhibitions__holder {
+      padding-top: 65px;
+    }
+    .exhibition-list__header {
       position: fixed;
-      padding: 10px 0 0;
+      padding: 20px 0 0;
       top: 70px;
       background: white;
     }
+  }
+  .ExhibitionsAside {
+    position: fixed;
+    width: 266px;
+    top: 90px;
+    height: calc(100% - 90px);
+    overflow-y: auto;
   }
 }
