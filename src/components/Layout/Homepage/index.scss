@@ -49,8 +49,8 @@ header.homepage {
   background: #ebf0f2;
   border-bottom: 1px solid #e6ecf0;
   box-shadow: none;
-  transition: background-color ease-in-out .2s;
-  &.white-bg{
+  transition: background-color ease-in-out 0.2s;
+  &.white-bg {
     background-color: white;
   }
   .header__logo {

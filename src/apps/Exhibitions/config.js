@@ -95,7 +95,8 @@ export const EXHIBITIONS_FILTER_STYLE = {
         backgroundColor: 'white',
         color: 'whitesmoke',
         borderColor: '#333',
-        borderRadius: 0
+        borderRadius: 0,
+        height: '200px'
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {

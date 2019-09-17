@@ -15,6 +15,10 @@
   &__content {
     flex: 2;
     margin-right: 40px;
+    .btn {
+      font-weight: normal;
+      letter-spacing: 0.2px;
+    }
   }
 
   &__side {

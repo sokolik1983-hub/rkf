@@ -38,7 +38,7 @@ function ExhibitionsSearch({ placeholder = searchDefaultPlaceholder }) {
                 onKeyDown={handleKeyDown}
                 value={searchValue}
             />
-            {searchValue !== endpointExhibitionsList ? (
+            {searchValue ? (
                 <button
                     onClick={onCancel}
                     className="ExhibitionsSearch__cancel"

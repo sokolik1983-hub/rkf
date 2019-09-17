@@ -2,14 +2,13 @@
   margin: 12px 0;
   padding-left: 32px;
   background-repeat: no-repeat;
-  background-position: 8px 5px;
   &--emails {
       background-image: url("/static/icons/ico-contact-email.svg");
+      background-position: 0 5px;
   }
 
   &--phones {
-
       background-image: url("/static/icons/ico-contact-phone.svg");
-
+      background-position: 2px 3px;
   }
 }

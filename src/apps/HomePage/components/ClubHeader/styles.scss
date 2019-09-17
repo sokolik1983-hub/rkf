@@ -14,8 +14,13 @@
     flex-flow: row nowrap;
     box-sizing: border-box;
     background-color: white;
-    padding: 32px;
+    padding: 15px 32px;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .btn {
+    font-weight: normal;
+    letter-spacing: 0.2px;
   }
 }
