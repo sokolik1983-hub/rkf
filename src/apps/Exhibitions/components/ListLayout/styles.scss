@@ -1,4 +1,22 @@
-.ExhibitionsListLayout{
+.ExhibitionsListLayout {
   background-color: #fff;
   padding: 48px;
+}
+
+@media screen and (min-width: 1024px) {
+  .ExhibitionsAside {
+    position: fixed;
+    width: 266px;
+    top: 80px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+  }
+  .exhibition-list{
+    &__header {
+      position: fixed;
+      padding: 10px 0 0;
+      top: 70px;
+      background: white;
+    }
+  }
 }
