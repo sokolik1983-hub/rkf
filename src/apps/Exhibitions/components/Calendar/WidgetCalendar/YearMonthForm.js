@@ -17,7 +17,7 @@ export default function YearMonthForm({ date, localeUtils, onChange }) {
   };
 
   return (
-    <form className="DayPicker-Caption">
+    <form className="DayPicker-Caption DayPickerForm">
       <select name="month" onChange={handleChange} value={date.getMonth()}>
         {months.map((month, i) => (
           <option key={month} value={i}>

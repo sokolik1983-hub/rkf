@@ -3,7 +3,7 @@ import DayPicker from 'react-day-picker';
 import { formatDateToString } from 'utils/datetime';
 import { WEEKDAYS_SHORT, MONTHS } from 'appConfig';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
-import YearMonthForm from './YaerMonthForm';
+import YearMonthForm from './YearMonthForm';
 import './index.scss';
 
 function CalendarWidget({ modifiers = {} }) {
