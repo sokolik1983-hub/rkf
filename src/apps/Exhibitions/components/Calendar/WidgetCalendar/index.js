@@ -32,6 +32,7 @@ function CalendarWidget({ modifiers = {} }) {
     };
     const handleYearMonthChange = e => {
         setMonth(e)
+        handleCalendarMonthChange(e);
     };
     return (
         <DayPicker
