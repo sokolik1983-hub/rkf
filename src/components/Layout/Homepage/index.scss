@@ -46,12 +46,13 @@ body {
 }
 
 header.homepage {
-  background: #ebf0f2;
+  background-color: #ebf0f2;
   border-bottom: 1px solid #e6ecf0;
-  box-shadow: none;
-  transition: background-color ease-in-out 0.2s;
+  box-shadow: 0px 2px 4px rgba(51, 102, 255, 0);
+  transition: background-color .4s linear, box-shadow .4s linear;
   &.white-bg {
     background-color: white;
+    box-shadow: 0px 2px 4px rgba(51, 102, 255, 0.05);
   }
   .header__logo {
     transform: none;
