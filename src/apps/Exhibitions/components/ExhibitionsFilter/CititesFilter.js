@@ -38,28 +38,28 @@ function CitiesFilter() {
     // проверяем вдруг глобального города нет в фитрах
     // грёбаный город
     const check = () => {
-        // выбран в фильтре
-        if (filteredCities.indexOf(globalCity.value) !== -1) {
-            if (
-                // но нет в фильтрах
-                // мы не можем об этом узнать
-                filterOptionsCities.filter(
-                    option => option.value === globalCity.value
-                ).length === 0
-            ) {
-                return true;
+        if (globalCity) {
+            // выбран в фильтре
+            if (filteredCities.indexOf(globalCity.value) !== -1) {
+                if (
+                    // но нет в фильтрах
+                    // мы не можем об этом узнать
+                    filterOptionsCities.filter(
+                        option => option.value === globalCity.value
+                    ).length === 0
+                ) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     };
     // если есть проблема с глобальным городом, то добавляем его вначало
-    if(check()){
-        values.unshift(globalCity)
+    if (check()) {
+        values.unshift(globalCity);
     }
 
-
     const options = [...values, ...optionsNotInValues];
-
 
     return (
         <Select
