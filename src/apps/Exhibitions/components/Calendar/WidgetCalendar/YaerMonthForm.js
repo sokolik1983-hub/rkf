@@ -1,10 +1,12 @@
 import React from 'react'
+import { MONTHS } from 'appConfig';
+
 const currentYear = new Date().getFullYear();
 const fromMonth = new Date(currentYear - 5, 0);
 const toMonth = new Date(currentYear + 5, 11);
 
 export default function YearMonthForm({ date, localeUtils, onChange }) {
-  const months = localeUtils.getMonths();
+  const months = MONTHS;
 
   const years = [];
   for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
