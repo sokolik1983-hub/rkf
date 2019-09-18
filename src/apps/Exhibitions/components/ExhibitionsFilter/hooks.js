@@ -4,6 +4,7 @@ import { usePushMessage } from 'apps/Messages/hooks';
 import { buildUrl, loadGlobalCity } from './heplers';
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 import { getHeaders } from 'utils/request';
+import { formatDateToString, getEndOfMonth } from 'utils/datetime';
 
 const NO_EXHIBITIONS_FOUND = 'Выставок не найдено';
 const NO_EXHIBITIONS_FOUND_IN_CITY = 'Для вашего города выставок не найдено';
@@ -15,9 +16,9 @@ const filterInitialState = {
     types: [],
     clubs: [],
     page: [],
-    dateFrom: [],
+    // запиливаем выставки с текущего дня до бесконечности
+    dateFrom: [formatDateToString(new Date())],
     dateTo: []
-    //dates: {}
 };
 export const useExhibitionsFilter = ({ successAction }) => {
     const { push } = usePushMessage();
@@ -32,6 +33,8 @@ export const useExhibitionsFilter = ({ successAction }) => {
 
     const [loading, setLoading] = useState(false);
 
+    // переключатель не даёт запускаться общим запросам,
+    // если не был выполнен запрос по глобально выранному городу
     const [canCommonRequestRun, setCanCommonRequestRun] = useState(
         globalCity === null
     );
@@ -86,6 +89,17 @@ export const useExhibitionsFilter = ({ successAction }) => {
         setFilter({ ...filterInitialState });
         setUrl(endpointExhibitionsList);
     };
+
+    const handleCalendarMonthChange = date => {
+        const newFilter = {
+            ...filter,
+            dateFrom: [formatDateToString(date)],
+            dateTo: [formatDateToString(getEndOfMonth(date))]
+        };
+        setFilter(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
     // first request if for global city, need to check
     // if there is no exhibitions
     // it run the normal request for all exhibitions
@@ -94,13 +108,13 @@ export const useExhibitionsFilter = ({ successAction }) => {
         let cancelRequest = false;
 
         if (!!globalCity) {
-            changeCitiesFilter([globalCity]);
+            changeCitiesFilter([globalCity.value]);
         }
 
         const fetchData = async () => {
             try {
                 const axiosConfig = {
-                    url: `${url}?CityIds=${globalCity}`,
+                    url: `${url}?CityIds=${globalCity.value}`,
                     headers: getHeaders()
                 };
                 setLoading(true);
@@ -174,6 +188,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
         filter,
         setFilter,
         loading,
+        globalCity,
         applyFilter,
         changeCitiesFilter,
         changeBreedsFilter,
@@ -185,6 +200,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
         clearDate,
         setDatesRange,
         clearDatesRange,
+        handleCalendarMonthChange,
         clearFilter,
         setPage
     };

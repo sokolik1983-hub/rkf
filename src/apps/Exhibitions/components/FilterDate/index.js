@@ -45,9 +45,7 @@ function FilterDateRange() {
         }
     };
 
-    const onArchiveClick = () => {
-        setArchive(!archive);
-    };
+
 
     useEffect(() => {
         if (filter === FILTERS.today) {
@@ -77,19 +75,11 @@ function FilterDateRange() {
         if (filter === '') {
             clearDatesRange();
         }
-    }, [filter, archive]);
+    }, [filter]);
 
     return (
         <div className="exhibition-list__header">
             <div className="exhibition-list__date-range-filter">
-                <button
-                    onClick={onArchiveClick}
-                    className={classnames('exhibition-list__btn', {
-                        'exhibition-list__btn--archive': archive
-                    })}
-                >
-                    Архив
-                </button>
                 <FilterButton
                     type={FILTERS.year}
                     filter={filter}

@@ -3,6 +3,7 @@ export const searchDefaultPlaceholder = 'Поиск по выставкам';
 export const defaultReduxKey = 'exhibitions';
 export const endpointExhibitionsList = '/api/Exhibitions/exhibition/public';
 export const endpointExhibitionsFilters = '/api/exhibitions/Exhibition/filter';
+export const endpointExhibitionsDates = '/api/exhibitions/Exhibition/dates';
 export const dogBreedFilterOptions = [
     {
         value: 1,

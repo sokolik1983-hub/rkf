@@ -28,6 +28,12 @@ const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
             ...action.data
         };
     },
+    [actiontypes.GET_EXHIBITIONS_DATES](state, action) {
+        return {
+            ...state,
+            dates: action.data
+        };
+    },
 
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
         const { exhibitions, ...rest } = action.data;

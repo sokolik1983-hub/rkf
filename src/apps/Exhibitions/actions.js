@@ -6,6 +6,11 @@ export const fetchExhibitionsSuccess = makeActionCreator(
     'data'
 );
 
+export const fetchDatesSuccess = makeActionCreator(
+    actionTypes.GET_EXHIBITIONS_DATES,
+    'data'
+);
+
 export const fetchFiltersSuccess = makeActionCreator(
     actionTypes.GET_FILTERS_SUCCESS,
     'data'

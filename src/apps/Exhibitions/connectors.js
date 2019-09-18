@@ -1,12 +1,13 @@
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {
     fetchExhibitionsSuccess,
     fetchFiltersSuccess,
     fetchSearchSuccess,
+    fetchDatesSuccess,
     getDetailsSuccess,
     storePrices
-} from './actions'
+} from './actions';
 
 import {
     selectExhibitionDetails,
@@ -17,61 +18,81 @@ import {
     selectCalendar,
     selectExhibitionsFilter,
     selectExhibitionPrices
-} from './selectors'
+} from './selectors';
 
 export const connectExhibitionsList = connect(
     selectExhibitions,
-    dispatch => bindActionCreators({
-        fetchExhibitionsSuccess,
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                fetchExhibitionsSuccess
+            },
+            dispatch
+        )
 );
 
 export const connectExhibitionsFilter = connect(
     selectExhibitionsFilter,
-    dispatch => bindActionCreators({
-        fetchExhibitionsSuccess,
-        fetchFiltersSuccess
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                fetchExhibitionsSuccess,
+                fetchFiltersSuccess
+            },
+            dispatch
+        )
 );
 
-export const connectExhibitionsListItem = connect(
-    selectExhibitionsListItem,
-);
+export const connectExhibitionsListItem = connect(selectExhibitionsListItem);
 
 export const connectExhibitionsSearch = connect(
     selectExhibitions,
-    dispatch => bindActionCreators({
-        fetchSearchSuccess,
-        fetchExhibitionsSuccess,
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                fetchSearchSuccess,
+                fetchExhibitionsSuccess
+            },
+            dispatch
+        )
 );
 
 export const connectListExhibitionsByDates = connect(
     selectListExhibitionsByDates,
-    dispatch => bindActionCreators({
-        fetchExhibitionsSuccess,
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                fetchExhibitionsSuccess
+            },
+            dispatch
+        )
 );
 
 export const connectExhibitionDetails = connect(
     selectExhibitionDetails,
-    dispatch => bindActionCreators({
-        getDetailsSuccess,
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                getDetailsSuccess
+            },
+            dispatch
+        )
 );
-
 
 export const connectExhibitionCalendar = connect(
     selectCalendar,
+    dispatch => bindActionCreators({ fetchDatesSuccess }, dispatch)
 );
 
 export const connectExhibitionPrices = connect(
     selectExhibitionPrices,
-    dispatch => bindActionCreators({
-        storePrices,
-    }, dispatch)
+    dispatch =>
+        bindActionCreators(
+            {
+                storePrices
+            },
+            dispatch
+        )
 );
 
-export const connectExhibitionsPaginator = connect(
-    selectExhibitionsPaginator,
-);
+export const connectExhibitionsPaginator = connect(selectExhibitionsPaginator);

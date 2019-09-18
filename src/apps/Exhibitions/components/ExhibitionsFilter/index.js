@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { endpointExhibitionsFilters } from 'apps/Exhibitions/config';
 import { connectExhibitionsFilter } from 'apps/Exhibitions/connectors';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
-import { useDictionary } from 'apps/Dictionaries';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
+import { buildUrlParams } from './heplers';
 import { useExhibitionsFilter } from './hooks';
 
 const { Provider } = ExhibitionsFilterContext;
@@ -25,9 +25,18 @@ function ExhibitionsFilter({
     const { ...hookExports } = useExhibitionsFilter({
         successAction: fetchExhibitionsSuccess
     });
+    const [filtersUrl, setFiltersUrl] = useState(endpointExhibitionsFilters);
+    const { filter } = hookExports;
+    const { dateFrom, dateTo } = filter;
+    useEffect(() => {
+        const newUrl = `${endpointExhibitionsFilters}?${buildUrlParams({
+            dateFrom,
+        })}`;
+        setFiltersUrl(newUrl);
+    }, [dateFrom, dateTo]);
 
     const { loading: filtersLoading } = useResourceAndStoreToRedux(
-        endpointExhibitionsFilters,
+        filtersUrl,
         fetchFiltersSuccess
     );
 
