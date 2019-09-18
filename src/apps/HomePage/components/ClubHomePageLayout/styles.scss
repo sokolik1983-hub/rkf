@@ -1,14 +1,24 @@
 .HomePage {
-
   &__wrap {
     display: flex;
     flex-flow: row nowrap;
     margin-top: 24px;
+    .text-upper {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      margin: 0 0 16px;
+    }
   }
 
   &__content {
     flex: 2;
     margin-right: 40px;
+    .btn {
+      font-weight: normal;
+      letter-spacing: 0.2px;
+    }
   }
 
   &__side {
@@ -16,8 +26,8 @@
   }
 }
 
-.container.home{
-  margin-top: 70px
+.container.home {
+  margin-top: 70px;
 }
 
 .NewsFeed {

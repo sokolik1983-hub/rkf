@@ -5,6 +5,8 @@ const SERVER = 'http://dev.uep24.ru';
 
 const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
+const DEFAULT_CONTENT_LENGTH = 300;
+
 
 const LOGIN_URL = '/auth/login';
 //const REGISTER_URL = '/auth/registration';
@@ -154,7 +156,8 @@ export const CITY_SELECTOR_STYLE = {
     }),
     input: styles => ({
         ...styles,
-        color: '#72839C'
+        color: '#72839C',
+        marginLeft: 0
     }),
     dropdownIndicator: styles => ({
         ...styles,
@@ -166,11 +169,12 @@ export const CITY_SELECTOR_STYLE = {
     }),
     placeholder: styles => ({
         ...styles,
-        color: '#253C5E',
+        color: '#90999E',
         lineHeight: '24px',
+        fontWeight: 'normal',
         fontSize: '16px',
         marginLeft: 0,
-        opacity: 0.38
+        letterSpacing: '0.2px'
     }),
     control: (styles, {isFocused}) => ({
         ...styles,
@@ -225,7 +229,7 @@ export const CITY_SELECTOR_STYLE = {
             position: 'relative',
             cursor: 'pointer',
             userSelect: 'none',
-            color: '#72839C',
+            color: '#253C5E',
             fontWeight: 'normal',
             background: 'none!important',
             fontSize: '16px',
@@ -271,6 +275,7 @@ export {
     mainNav,
     DEFAULT_PHONE_INPUT_MASK,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
+    DEFAULT_CONTENT_LENGTH,
     LOGIN_URL,
     //REGISTER_URL,
     defaultReactSelectStyles

@@ -1,19 +1,20 @@
 export const searchDefaultPlaceholder = 'Поиск по выставкам';
 
-
 export const defaultReduxKey = 'exhibitions';
 export const endpointExhibitionsList = '/api/Exhibitions/exhibition/public';
+export const endpointExhibitionsFilters = '/api/exhibitions/Exhibition/filter';
+export const endpointExhibitionsDates = '/api/exhibitions/Exhibition/dates';
 export const dogBreedFilterOptions = [
     {
         value: 1,
-        label: "Монопородные",
-        count: 11,
+        label: 'Монопородные',
+        count: 11
     },
     {
         value: 2,
-        label: "Всепородные",
-        count: 1001,
-    },
+        label: 'Всепородные',
+        count: 1001
+    }
 ];
 
 export const cityFilterOptions = [
@@ -36,17 +37,21 @@ export const cityFilterOptions = [
     {
         value: 5,
         label: 'Екатеринбург'
-    },
+    }
 ];
 
 export const EXHIBITIONS_FILTER_STYLE = {
-    container: (styles, {isFocused}) => ({
+    container: (styles, { isFocused }) => ({
         ...styles,
         outline: isFocused ? 'none' : 'none'
     }),
-    dropdownIndicator:styles => ({
+    dropdownIndicator: styles => ({
         ...styles,
         display: 'none'
+    }),
+    input: styles => ({
+        ...styles,
+        marginLeft: 0
     }),
 
     indicatorSeparator: styles => ({
@@ -55,8 +60,7 @@ export const EXHIBITIONS_FILTER_STYLE = {
     }),
     singleValue: styles => ({
         ...styles,
-        color: "#333",
-
+        color: '#333'
     }),
     placeholder: styles => ({
         ...styles,
@@ -66,7 +70,7 @@ export const EXHIBITIONS_FILTER_STYLE = {
         marginLeft: 0,
         opacity: 0.38
     }),
-    control: (styles, {isFocused}) => ({
+    control: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: 'white',
         fontSize: 16,
@@ -85,16 +89,17 @@ export const EXHIBITIONS_FILTER_STYLE = {
         ...styles,
         boxShadow: 'none',
         borderRadius: 0,
-        position: 'relative',
+        position: 'relative'
     }),
     menuList: styles => ({
         ...styles,
         backgroundColor: 'white',
         color: 'whitesmoke',
         borderColor: '#333',
-        borderRadius: 0
+        borderRadius: 0,
+        height: '200px'
     }),
-    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {
             ...styles,
             display: 'flex',
@@ -102,13 +107,9 @@ export const EXHIBITIONS_FILTER_STYLE = {
             position: 'relative',
             cursor: 'pointer',
             userSelect: 'none',
-            color: isSelected
-                ? '#00C48C'
-                : '#253C5E',
+            color: isSelected ? '#00C48C' : '#253C5E',
             background: 'none!important',
-            fontWeight: isSelected
-                ? 600
-                : 'normal',
+            fontWeight: isSelected ? 600 : 'normal',
             fontSize: '16px',
             lineHeight: '24px',
             letterSpacing: '0.2px',
@@ -117,12 +118,8 @@ export const EXHIBITIONS_FILTER_STYLE = {
                 width: '18px',
                 height: '18px',
                 borderRadius: '4px',
-                background: isSelected
-                    ? '#00C48C'
-                    : 'none',
-                border: isSelected
-                    ? '2px solid #00C48C'
-                    : '2px solid #DADADA',
+                background: isSelected ? '#00C48C' : 'none',
+                border: isSelected ? '2px solid #00C48C' : '2px solid #DADADA',
                 marginRight: '11px'
             },
             '& span:after': {
@@ -137,6 +134,6 @@ export const EXHIBITIONS_FILTER_STYLE = {
                 borderWidth: '0 2px 2px 0',
                 transform: 'rotate(45deg)'
             }
-        }
+        };
     }
 };

@@ -1,6 +1,6 @@
 import * as actiontypes from './actiontypes';
-import createReducer from "utils/createReducer";
-import { normalizeList } from "shared/normilizers";
+import createReducer from 'utils/createReducer';
+import { normalizeList } from 'shared/normilizers';
 
 const exhibitionsInitialState = {
     listCollection: {},
@@ -8,37 +8,46 @@ const exhibitionsInitialState = {
     //
     dates: [],
     exhibitionsDetails: {},
-    breed_ids: [],
-    city_ids: [],
+    breeds: [],
+    cities: [],
+    types: [],
+    ranks: [],
+    castes: [],
     exhibitionPrices: [],
     filter: {},
     page_count: 0,
     pageL_current: null,
     page_prev: null,
-    page_next: 2,
+    page_next: 2
 };
 
-
 const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
+    [actiontypes.GET_FILTERS_SUCCESS](state, action) {
+        return {
+            ...state,
+            ...action.data
+        };
+    },
+    [actiontypes.GET_EXHIBITIONS_DATES](state, action) {
+        return {
+            ...state,
+            dates: action.data
+        };
+    },
 
     [actiontypes.GET_EXHIBITIONS_SUCCESS](state, action) {
-        const {
-            exhibitions,
-            ...rest
-        } = action.data;
+        const { exhibitions, ...rest } = action.data;
         const { entities, result: listIds } = normalizeList(exhibitions);
         return {
             ...state,
             listIds,
             listCollection: entities.listCollection,
             ...rest
-        }
+        };
     },
 
     [actiontypes.GET_SEARCH_SUCCESS](state, action) {
-        const {
-            exhibitions
-        } = action.data;
+        const { exhibitions } = action.data;
         const { entities, result: listIds } = normalizeList(exhibitions);
         return {
             ...state,
@@ -48,9 +57,8 @@ const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
             pageL_current: null,
             page_prev: null,
             page_next: null
-        }
+        };
     },
-
 
     [actiontypes.GET_EXHIBITION_DETAILS_SUCCESS](state, action) {
         const { data } = action;
@@ -60,15 +68,15 @@ const clientExhibitionsReducer = createReducer(exhibitionsInitialState, {
             ...state,
             loading: false,
             exhibitionsDetails
-        }
+        };
     },
     [actiontypes.STORE_PRICES](state, action) {
         return {
             ...state,
             loading: false,
             exhibitionPrices: action.data
-        }
-    },
+        };
+    }
 });
 
 export default clientExhibitionsReducer;

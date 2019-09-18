@@ -11,7 +11,8 @@ const FILTER_KEYS = {
     clubs: 'ClubIds',
     page: 'PageNumber',
     dateFrom: 'DateFrom',
-    dateTo: 'DateTo'
+    dateTo: 'DateTo',
+    archive: 'Archive'
 };
 
 export const mapParams = (array, apiParamName) => {
@@ -54,5 +55,5 @@ export const buildUrl = filter => {
 export const loadGlobalCity = () => {
     const globalCity = localStorage.getItem(LS_KEY);
     const city = globalCity ? JSON.parse(globalCity) : null;
-    return city ? city.value : null;
+    return city ? city : null;
 };

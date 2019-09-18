@@ -13,6 +13,10 @@ export const selectIsAuthenticated = state => {
 
 export const selectWidgetLogin = state => {
     const { isAuthenticated, user_info } = getAuthenticationState(state);
-    const { club_alias, club_name } = user_info;
-    return { isAuthenticated, club_alias, club_name };
+    if (isAuthenticated) {
+        const { club_alias, club_name } = user_info;
+        return { isAuthenticated, club_alias, club_name };
+    }
+
+    return { isAuthenticated };
 };

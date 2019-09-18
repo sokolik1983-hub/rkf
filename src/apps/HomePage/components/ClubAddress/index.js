@@ -1,10 +1,12 @@
 import React from 'react'
-import {connectClubAddress} from 'apps/HomePage/connectors'
+import { connectClubAddress } from 'apps/HomePage/connectors'
 import './styles.scss'
 
-function ClubAddress({address, city}) {
+function ClubAddress({ address, city }) {
     return (
-        <div className="ClubAddress">Адрес: <span>{city && city.name}, {address}</span></div>
+        city && city.name
+            ? <div className="ClubAddress">Адрес: <span>{city && city.name}{address ? `, ${address}` : null}</span></div>
+            : null
     )
 }
 

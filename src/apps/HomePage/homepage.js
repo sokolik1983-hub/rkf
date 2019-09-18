@@ -1,6 +1,6 @@
 import React from "react";
 import {compose} from "redux";
-import HomePageLayout from 'apps/HomePage/components/HomepageLayout'
+import RkfHomepageLayout from 'apps/HomePage/components/RkfHomepageLayout'
 import injectReducer from 'utils/injectReducer'
 import {defaultReduxKey} from './config'
 import reducer from './reducer'
@@ -10,7 +10,7 @@ import {connectClubCommon} from './connectors'
 
 
 
-function HomePageProxy({match, getCommonSuccess}) {
+function RkfHomePageProxy({match, getCommonSuccess}) {
     const {params} = match;
     //TODO Make better
     const {route} = params;
@@ -18,7 +18,7 @@ function HomePageProxy({match, getCommonSuccess}) {
     useResourceAndStoreToRedux(url, getCommonSuccess);
     return (
         <ClubRouteContext.Provider value={{params}}>
-            <HomePageLayout/>
+            <RkfHomepageLayout/>
         </ClubRouteContext.Provider>
     );
 }
@@ -30,4 +30,4 @@ const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 export default compose(
     withReducer,
     connectClubCommon
-)(HomePageProxy)
+)(RkfHomePageProxy)

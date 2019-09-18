@@ -14,7 +14,6 @@ import Tabs from "components/Tabs";
 import {TabContent} from "components/Tabs";
 import ExhibitionDetailsPrices from '../DetailsPrices'
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
-import FooterSmall from 'components/Layout/FooterSmall'
 import './index.scss'
 
 const DetailsLayout = ({exhibitionDetails}) =>

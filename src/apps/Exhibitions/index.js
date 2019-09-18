@@ -20,14 +20,13 @@ function ExhibitionsProxy(props) {
     return (
         <ExhibitionsPathContext.Provider value={{path}}>
             <PublicLayout>
-                <Container pad content>
+                
 
                     <Switch>
                         <Route path={`${path}/:id/details`} component={Details}/>
                         <Route exact path={path} component={ExhibitionsList}/>
                     </Switch>
 
-                </Container>
             </PublicLayout>
         </ExhibitionsPathContext.Provider>
     );

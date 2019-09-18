@@ -32,7 +32,7 @@ function ExhibitionDetails(props) {
     return loading
         ? <Loading />
         : (<>
-            <Container className="ExhibitionDetails">
+            <Container pad content className="ExhibitionDetails">
                 <Head loading={loading} {...details} />
                 <div className="ExhibitionDetails__wrap">
                     <Content {...details} />

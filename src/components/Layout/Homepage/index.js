@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import Header from 'components/Layout/Header'
 
 
@@ -7,17 +7,12 @@ import './index.scss'
 const Slider = () => <div className="homepage Slider"></div>
 
 const PublicLayout = ({ children }) => {
-    const [scrollY, setScrollY] = useState(window.scrollY);
-    useEffect(
-        () => {
-            const handleScroll = () => setScrollY(window.scrollY);
-            window.addEventListener("scroll", handleScroll);
-            return () => window.removeEventListener("scroll", handleScroll);
-        }
-    );
+    const [whiteBg, setWhiteBg] = useState(false);
+    window.onscroll = () => setWhiteBg(window.pageYOffset > 677 ? true : false);
+
     return (
         <Fragment>
-            <Header className={`homepage ${scrollY > 677 ? 'white-bg' : ''}`} />
+            <Header className={`homepage ${whiteBg ? 'white-bg' : ''}`} />
             <Slider />
             {children}
         </Fragment>

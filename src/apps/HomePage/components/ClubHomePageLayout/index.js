@@ -49,13 +49,13 @@ function HomePageLayout() {
                                 <ClubOwnerName />
                                 <ClubContacts />
                                 <ClubWorkingHours />
-                                <h4 className="text-upper">Документы</h4>
+                                <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4>
                                 <ClubDocuments />
                             </Card>
                         </Side>
                     </Wrap>
-                    <Partners title="Наши спонсоры" items={SponsorsData} />
-                    <Partners title="Наши партнеры" items={PartnersData} />
+                    {/* <Partners title="Наши спонсоры" items={SponsorsData} /> */}
+                    {/* <Partners title="Наши партнеры" items={PartnersData} /> */}
                     {/*<BigSlider slides={demoSlides}/>*/}
                     {/*<WeekExhibitions/>*/}
                     {/*<About/>*/}
@@ -66,7 +66,7 @@ function HomePageLayout() {
                     {/*<SpecialOffersSubscription/>*/}
                 </div>
             </Container>
-                    <FooterSmall />
+            <FooterSmall />
         </PublicLayout>
     )
 }

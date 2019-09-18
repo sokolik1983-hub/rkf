@@ -3,6 +3,7 @@ import Header from 'components/Layout/Header'
 import Container from 'components/Layout/Container'
 import SideBar from './SideBar'
 import {MenuSeparator} from './SideBar/MenuItem'
+import EditPageButtons from '../EditPageButtons'
 import './styles.scss'
 
 import {menuFakeData1, menuFakeData2, menuFakeData3} from './SideBar/data'
@@ -23,6 +24,7 @@ export default function ClientLayout ({children}){
                     {/*</div>*/}
                     <div className="client-layout__content">{children}</div>
                 </Container>
+                <EditPageButtons />
             </Fragment>
         )
 

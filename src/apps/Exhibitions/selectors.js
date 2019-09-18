@@ -1,6 +1,6 @@
-import {getIdFromRouterParams} from 'utils/index';
+import { getIdFromRouterParams } from 'utils/index';
 
-import {defaultReduxKey} from './config';
+import { defaultReduxKey } from './config';
 
 const getClubId = state => ({
     clubId: state.authentication.profile_id
@@ -12,7 +12,7 @@ const selectExhibitionsDetailsById = (state, id) =>
         ? state[defaultReduxKey].exhibitionsDetails[String(id)]
         : null;
 export const selectExhibitions = state => {
-    const {listIds, listCollection} = getState(state);
+    const { listIds, listCollection } = getState(state);
     return {
         listIds,
         listCollection
@@ -20,7 +20,7 @@ export const selectExhibitions = state => {
 };
 
 export const selectExhibitionsPaginator = state => {
-    const {page_count, page_prev, page_next, page_current} = getState(state);
+    const { page_count, page_prev, page_next, page_current } = getState(state);
     return {
         page_count,
         page_prev,
@@ -30,8 +30,8 @@ export const selectExhibitionsPaginator = state => {
 };
 
 export const selectExhibitionsListItem = (state, props) => {
-    const {listCollection} = getState(state);
-    const {clubId} = getClubId(state);
+    const { listCollection } = getState(state);
+    const { clubId } = getClubId(state);
     return {
         clubId,
         ...listCollection[String(props.id)]
@@ -47,35 +47,39 @@ export const selectExhibitionDetails = (state, props) => {
 };
 
 export const selectListExhibitionsByDates = state => {
-    const {dates} = getState(state);
-    return {dates};
+    const { dates } = getState(state);
+    return { dates };
 };
 
 export const selectCalendar = state => {
-    const {dates} = getState(state);
+    const { dates } = getState(state);
     const calendarModifiers = dates.map(date => new Date(date));
-    return {calendarModifiers};
+    return { calendarModifiers };
 };
 
 export const selectCalendar__deprecated = state => {
-    const {dates} = getState(state);
+    const { dates } = getState(state);
     const calendarModifiers = dates.map(
         date => new Date(date.year, parseInt(date.month - 1, 10), date.day)
     );
-    return {calendarModifiers};
+    return { calendarModifiers };
 };
 
 export const selectExhibitionsFilter = state => {
-    const {breed_ids, city_ids} = getState(state);
+    const { breeds, castes, cities, dates, ranks, types } = getState(state);
 
     return {
-        breed_ids,
-        city_ids
+        filterOptionsBreeds: breeds,
+        filterOptionsCastes: castes,
+        filterOptionsCities: cities,
+        filterOptionsDates: dates,
+        filterOptionsRanks: ranks,
+        filterOptionsTypes: types
     };
 };
 
 export const selectExhibitionsSearch = state => {
-    const {city_ids} = getState(state);
+    const { city_ids } = getState(state);
 
     return {
         city_ids
@@ -83,7 +87,7 @@ export const selectExhibitionsSearch = state => {
 };
 
 export const selectExhibitionPrices = state => {
-    const {exhibitionPrices} = getState(state);
+    const { exhibitionPrices } = getState(state);
     return {
         exhibitionPrices
     };
