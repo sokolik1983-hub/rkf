@@ -8,9 +8,9 @@ import injectReducer from "../../utils/injectReducer";
 import reducer from "./reducer";
 import Container from "components/Layout/Container";
 
-function PublicClubProxy({id, route = 'rkf', getClubSuccess}) {
+function PublicClubProxy({route = 'rkf', getClubSuccess}) {
     const url = `${endpointUrl}?route=${route}`;
-    const {loading} = useResourceAndStoreToRedux(url, getClubSuccess);
+    useResourceAndStoreToRedux(url, getClubSuccess);
 
     return (
         <Container>

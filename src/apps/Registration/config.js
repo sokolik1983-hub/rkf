@@ -1,5 +1,5 @@
 import {object, string} from 'yup'
-import {VALIDATE_EMAIL, VALIDATE_PHONE, validationTestAsync} from 'utils/validationRequest'
+//import {VALIDATE_EMAIL, VALIDATE_PHONE, validationTestAsync} from 'utils/validationRequest'
 import {DEFAULT_PHONE_INPUT_PLACEHOLDER, DEFAULT_PHONE_INPUT_MASK} from 'appConfig'
 // vars
 export const defaultReduxKey = 'registration';
@@ -9,14 +9,14 @@ export const registrationSuccessPath = '/auth/registration/success';
 const testPasswordLength = [
     'Длина пароля', 'Ваш пароль короче 8 символов',
     value => value && value.length > 7];
-const testEmailAsync = [
-    'Email тест', 'Данная почта уже существует',
-    value => value ? validationTestAsync({url: VALIDATE_EMAIL, name: 'email', value}) : void 0
-];
-const testPhoneAsync = [
-    '', 'Данный номер телефона уже существует',
-    value => value ? validationTestAsync({url: VALIDATE_PHONE, name: 'phone_number', value}) : void 0
-];
+// const testEmailAsync = [
+//     'Email тест', 'Данная почта уже существует',
+//     value => value ? validationTestAsync({url: VALIDATE_EMAIL, name: 'email', value}) : void 0
+// ];
+// const testPhoneAsync = [
+//     '', 'Данный номер телефона уже существует',
+//     value => value ? validationTestAsync({url: VALIDATE_PHONE, name: 'phone_number', value}) : void 0
+// ];
 
 
 const commonValidations = {

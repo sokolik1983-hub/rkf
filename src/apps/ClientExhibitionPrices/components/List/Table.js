@@ -7,7 +7,7 @@ import ExhibitionPriceTableRow from './TableRow'
 
 function ExhibitionPriceTable({listIds, getPriceListSuccess, exhibitionId}) {
     const url = listPricesByExhibitionIdUrl + exhibitionId;
-    const {loading} = useResourceAndStoreToRedux(url, getPriceListSuccess);
+    useResourceAndStoreToRedux(url, getPriceListSuccess);
     return (
         <table>
             <thead>

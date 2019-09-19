@@ -7,12 +7,6 @@ import {ClubRouteContext} from 'apps/HomePage/context'
 
 const {fields} = newsArticleFormConfig;
 
-const initialValues = {
-    title: '',
-    content: '',
-    file: ''
-};
-
 function ArticleCreateFormPublic({addArticleSuccess, hideForm}) {
     const {clubCommon} = useContext(ClubRouteContext);
     const onSuccess = values => {

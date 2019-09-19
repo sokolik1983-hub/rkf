@@ -8,10 +8,15 @@ const Partners = ({ title, items = [] }) =>
         <div className="Partners__row">
             <h3>{title}</h3>
             {
-                items.map((i) => {
-                    return (i.link
-                        ? <a class="Partners__row-item" href={i.link} alt={i.title}><img src={i.image} alt={i.title} /></a>
-                        : <div class="Partners__row-item"><img src={i.image} alt={i.title} /></div>
+                items.map((item, index) => {
+                    return (
+                        item.link
+                            ? <a className="Partners__row-item" href={item.link} alt={item.title} key={index}>
+                                <img src={item.image} alt={item.title} />
+                            </a>
+                            : <div className="Partners__row-item" key={index}>
+                                <img src={item.image} alt={item.title} />
+                            </div>
                     );
                 })
             }

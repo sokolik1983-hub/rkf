@@ -15,7 +15,7 @@ function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
             <div>Не задан идентификатор</div>
         )
     }
-    const {loading} = useResourceAndStoreToRedux(url, getLegalInfoSuccess);
+    useResourceAndStoreToRedux(url, getLegalInfoSuccess);
 
     return (
         <div>

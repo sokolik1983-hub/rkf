@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Card from 'components/Card';
 import Img from 'components/Img'
 import ClientAvatar from 'components/ClientAvatar';
 import { formatDateWithLocaleStringFull } from 'utils/datetime';

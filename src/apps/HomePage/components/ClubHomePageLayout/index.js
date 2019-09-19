@@ -7,9 +7,7 @@ import ClubHeader from '../ClubHeader'
 import FeaturedExhibitions from 'apps/Exhibitions/components/Featured'
 import NewsListPublic from 'apps/ClientNews/components/ListPublic'
 import ClubAddress from '../ClubAddress'
-import Partners from '../Partners'
 import ClubOwnerName from '../ClubOwnerName'
-import { SponsorsData, PartnersData } from '../Partners/data'
 import ClubDescription from '../Description'
 import ClubContacts from '../ClubContacts'
 import ClubDocuments from '../ClubDocuments'
@@ -55,16 +53,6 @@ function HomePageLayout() {
                             </Card>
                         </Side>
                     </Wrap>
-                    {/* <Partners title="Наши спонсоры" items={SponsorsData} /> */}
-                    {/* <Partners title="Наши партнеры" items={PartnersData} /> */}
-                    {/*<BigSlider slides={demoSlides}/>*/}
-                    {/*<WeekExhibitions/>*/}
-                    {/*<About/>*/}
-                    {/*<News/>*/}
-                    {/* <Partners/> */}
-                    {/*<RegisterBlock/>*/}
-                    {/*<SocialGallery/>*/}
-                    {/*<SpecialOffersSubscription/>*/}
                 </div>
             </Container>
             <FooterSmall />

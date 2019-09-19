@@ -15,7 +15,7 @@ function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
             <div>Не задан идентификатор</div>
         )
     }
-    const {loading} = useResourceAndStoreToRedux(url, getBankInfoSuccess);
+    useResourceAndStoreToRedux(url, getBankInfoSuccess);
 
     return (
         <div>

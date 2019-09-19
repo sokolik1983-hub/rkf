@@ -22,8 +22,8 @@ const FeaturedExhibitionsList = () => {
             })}
         >
             {featuredExhibitions ? (
-                featuredExhibitions.map(exhibition => (
-                    <FeaturedExhibition {...exhibition} />
+                featuredExhibitions.map((exhibition, index) => (
+                    <FeaturedExhibition {...exhibition} key={index} />
                 ))
             ) : (
                 <h2>Не найдено анонсов выставок</h2>

@@ -28,7 +28,7 @@ function PageButton({ page, currentPage, onClick }) {
 }
 
 function PageSelector({ onSubmit, pageCount }) {
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState(undefined);
     const onPageSelect = (e) => {
         e.preventDefault();
         setValue(e.target.value);
@@ -89,6 +89,7 @@ function Paginator({
                             onClick={onPageClick}
                             currentPage={page_current}
                             page={index}
+                            key={index}
                         />
                         : null
                 )

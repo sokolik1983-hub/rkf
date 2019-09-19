@@ -112,8 +112,7 @@ class ReactSelectAsync extends Component {
             clearable,
             defaultValue,
             isMulti,
-            closeMenuOnSelect,
-            components
+            closeMenuOnSelect
         } = this.props;
         const value = this.getValue();
         return (
