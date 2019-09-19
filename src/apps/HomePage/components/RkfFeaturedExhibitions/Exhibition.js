@@ -5,14 +5,14 @@ import Img from 'components/Img'
 import ClientAvatar from 'components/ClientAvatar';
 import { formatDateWithLocaleStringFull } from 'utils/datetime';
 import { DEFAULT_CONTENT_LENGTH } from 'appConfig';
-import'./Exhibition.scss'
+import './Exhibition.scss'
 
 export default function FeaturedExhibition({
     club_name,
     club_logo,
     id,
     exhibition_name,
-    exhibition_picture_link='/static/images/exhibitions/default.png',
+    exhibition_picture_link = '/static/images/exhibitions/default.png',
     exhibition_description,
     date
 }) {
@@ -22,6 +22,7 @@ export default function FeaturedExhibition({
             ? content.substring(0, DEFAULT_CONTENT_LENGTH) + '...'
             : content;
     };
+    const pictureLink = exhibition_picture_link ? exhibition_picture_link : '/static/images/exhibitions/default.png';
     return (
         <div id={`HP_Exhibition_${id}`} className="HP_Exhibition">
             <div className="HP_Exhibition__Head">
@@ -42,11 +43,9 @@ export default function FeaturedExhibition({
                     __html: cutContent(exhibition_description)
                 }}
             />
-            {exhibition_picture_link ? (
-                <div className="HP_Exhibition__ImagePreview">
-                    <Img src={exhibition_picture_link} alt="" />
-                </div>
-            ) : null}
+            <div className="HP_Exhibition__ImagePreview">
+                <Img src={pictureLink} alt="" />
+            </div>
         </div>
     );
 }
