@@ -34,9 +34,7 @@ function HomePageLayout() {
                     <Wrap>
                         <Content>
                             <ClubDescription />
-                            <Card style={{ margin: '24px 0' }}>
-                                <ArticleCreateFormPublic />
-                            </Card>
+                            <ArticleCreateFormPublic />
                             <Card style={{ margin: '24px 0' }}>
                                 <NewsListPublic />
                             </Card>
