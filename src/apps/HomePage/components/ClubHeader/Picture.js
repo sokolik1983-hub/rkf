@@ -1,7 +1,7 @@
 import React from 'react'
 import './Picture.scss'
 
-function ClubHeaderPicture({picture}){
+function ClubHeaderPicture({picture = '/static/images/header/clientDefaultBanner.jpeg'}){
     return(
         <div style={
             {backgroundImage:`url(${picture})`}
