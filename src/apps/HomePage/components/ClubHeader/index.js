@@ -15,7 +15,7 @@ function ClubHeader(props) {
     } = props;
     return (
         <div className="ClubHeader">
-            <ClubPicture picture={clubHeaderImg} />
+            {clubHeaderImg && <ClubPicture picture={clubHeaderImg} />}
             <div className="ClubHeader__footer">
                 <div className="ClubHeader__info">
                     <ClubLogo logo={clubLogo} />
