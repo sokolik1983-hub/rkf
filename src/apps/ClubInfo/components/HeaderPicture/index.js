@@ -1,10 +1,10 @@
-import React, {useRef} from 'react'
-import {connectClientClubHeaderPicture} from 'apps/ClientClub/connectors'
+import React, { useRef } from 'react'
+import { connectClientClubHeaderPicture } from 'apps/ClientClub/connectors'
 import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
-function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
-    console.log({backgroundImage, clubPictureUpdateSuccess})
+function ClubHeaderPicture({ backgroundImage, clubPictureUpdateSuccess }) {
+    console.log({ backgroundImage, clubPictureUpdateSuccess })
     const ref = useRef(null);
     return (
         <div>
@@ -15,19 +15,18 @@ function ClubHeaderPicture({backgroundImage, clubPictureUpdateSuccess}) {
             >
                 <div ref={ref} style={{
                     backgroundImage: `url(${
-                        backgroundImage ?
-                            backgroundImage
-                            :
-                            "/static/images/header/clientDefaultBanner.jpeg"
-                    })`
-                }} className="ClubHeaderPicture"/>
+                        backgroundImage
+                            ? backgroundImage
+                            : "/static/images/header/default.png"
+                        })`
+                }} className="ClubHeaderPicture" />
             </ActiveImageWrapper>
         </div>
     )
 }
 
 ClubHeaderPicture.defaultProps = {
-    backgroundImage: "/static/images/header/clientDefaultBanner.jpeg"
+    backgroundImage: "/static/images/header/default.png"
 };
 
 export default connectClientClubHeaderPicture(ClubHeaderPicture)
