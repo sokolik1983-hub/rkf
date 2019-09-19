@@ -7,16 +7,14 @@ function ClubHeaderPicture(props) {
     const { backgroundImage, clubPictureUpdateSuccess } = props;
     const ref = useRef(null);
     return (
-        backgroundImage
-            ? <ActiveImageWrapper
-                requestUrl={'/api/HeaderPicture/full'}
-                onSubmitSuccess={clubPictureUpdateSuccess}
-            >
-                <div ref={ref} style={{
-                    backgroundImage: `url(${backgroundImage})`
-                }} className="ClubHeaderPicture" />
-            </ActiveImageWrapper>
-            : null
+        <ActiveImageWrapper
+            requestUrl={'/api/HeaderPicture/full'}
+            onSubmitSuccess={clubPictureUpdateSuccess}
+        >
+            <div ref={ref} style={{
+                backgroundImage: `url(${backgroundImage})`
+            }} className="ClubHeaderPicture" />
+        </ActiveImageWrapper>
     )
 }
 
