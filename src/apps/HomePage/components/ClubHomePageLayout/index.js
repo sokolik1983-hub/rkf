@@ -30,6 +30,7 @@ function HomePageLayout() {
                 <div style={{ padding: `0px 48px` }}>
                     <ClubHeader />
                     <Card>
+                        <h4 className="text-upper">Выставки</h4>
                         <FeaturedExhibitions />
                     </Card>
                     <Wrap>
