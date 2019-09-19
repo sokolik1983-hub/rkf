@@ -22,7 +22,6 @@ export default function FeaturedExhibition({
             ? content.substring(0, DEFAULT_CONTENT_LENGTH) + '...'
             : content;
     };
-    const pictureLink = exhibition_picture_link ? exhibition_picture_link : '/static/images/exhibitions/default.png';
     return (
         <div id={`HP_Exhibition_${id}`} className="HP_Exhibition">
             <div className="HP_Exhibition__Head">
@@ -43,9 +42,11 @@ export default function FeaturedExhibition({
                     __html: cutContent(exhibition_description)
                 }}
             />
-            <div className="HP_Exhibition__ImagePreview">
-                <Img src={pictureLink} alt="" />
-            </div>
+            {exhibition_picture_link ? (
+                <div className="HP_Exhibition__ImagePreview">
+                    <Img src={exhibition_picture_link} alt="" />
+                </div>
+            ) : null}
         </div>
     );
 }
