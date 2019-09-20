@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Img from 'components/Img'
 import ClientAvatar from 'components/ClientAvatar';
 import { formatDateWithLocaleStringFull } from 'utils/datetime';
-import { DEFAULT_CONTENT_LENGTH } from 'appConfig';
+import { DEFAULT_CONTENT_LENGTH, DEFAULT_IMG } from 'appConfig';
 import './Exhibition.scss'
 
 export default function FeaturedExhibition({
@@ -24,7 +24,7 @@ export default function FeaturedExhibition({
     return (
         <div id={`HP_Exhibition_${id}`} className="HP_Exhibition">
             <div className="HP_Exhibition__Head">
-                <ClientAvatar avatar={club_logo} size={46} />
+                <ClientAvatar avatar={club_logo ? club_logo : DEFAULT_IMG.clubAvatar} size={46} />
                 <div className="HP_Exhibition__StoryInfo">
                     <div className="HP_Exhibition__club_name">{club_name}</div>
                     <div className="HP_Exhibition__Signature">{getSignature()}</div>
