@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import Button from 'components/Button'
 import {connectMessage} from 'apps/Messages/connectors'

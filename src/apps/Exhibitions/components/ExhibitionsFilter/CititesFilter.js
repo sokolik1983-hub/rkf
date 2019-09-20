@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 import Select, { components } from 'react-select';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
 import { getValues } from 'shared/reactSelect';

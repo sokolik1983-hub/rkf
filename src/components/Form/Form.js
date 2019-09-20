@@ -92,7 +92,7 @@ Form.propTypes = {
     action: string.isRequired,
     format: string,
     transformValues: func,
-    validationSchema: func,
+    validationSchema: object,
     initialValues: object.isRequired,
     onSuccess: func.isRequired,
     className: string,
@@ -101,6 +101,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
     method: HTTP.post,
+    initialValues: {},
     transformValues: values => (values)
 };
 

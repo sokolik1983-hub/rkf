@@ -6,7 +6,7 @@ import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
-import { DEFAULT_CONTENT_LENGTH } from 'appConfig'
+import { DEFAULT_CONTENT_LENGTH, DEFAULT_IMG } from 'appConfig'
 
 function ListArticle({
     id,
@@ -40,7 +40,7 @@ function ListArticle({
         <div id={`NewsStory_${id}`} className="NewsStory">
             <div className="NewsStory__Head">
                 <ClientAvatar
-                    avatar={logo_link}
+                    avatar={logo_link ? logo_link : DEFAULT_IMG.clubAvatar}
                     size={46}
                 />
                 <div className="NewsStory__StoryInfo">
