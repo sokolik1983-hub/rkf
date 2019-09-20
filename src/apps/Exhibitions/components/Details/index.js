@@ -49,9 +49,7 @@ function ExhibitionDetails(props) {
                 <Partners title="Наши партнеры" items={PartnersData} />
                 <Address {...details} />
                 <h3 className="FeaturedExhibitions__title">Другие выставки</h3>
-                <Card>
-                    <FeaturedExhibitions />
-                </Card>
+                <FeaturedExhibitions />
             </Container>
             <FooterSmall />
         </>);

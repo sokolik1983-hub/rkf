@@ -4,7 +4,7 @@
 }
 
 .ExhibitionDetails {
-    color: rgba(37, 60, 94, 0.7);
+    color: #253c5e; //rgba(37, 60, 94, 0.7);
     font-size: 16px;
     font-weight: normal;
     line-height: 24px;
@@ -21,11 +21,11 @@
         }
 
         .exhibition-details__signature--top {
-            font-size: 18px;
+            font-size: 16px;
             line-height: 24px;
             color: #9dafbd;
-            margin-bottom: 6px;
-
+            margin-bottom: 4px;
+            letter-spacing: 0.2px;
             a {
                 color: #9dafbd;
                 text-decoration: none;
@@ -39,7 +39,7 @@
 
     &__attrs-table {
         width: 100%;
-        margin: 20px 0;
+        margin: 32px 0;
 
         td:first-child {
             color: #72839c;
@@ -50,6 +50,7 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 24px;
+            letter-spacing: 0.2px;
             color: #253c5e;
             padding-left: 12px;
             vertical-align: top;
@@ -102,8 +103,7 @@
 
     &__short_info {
         div {
-            margin: 22px 0;
-            font-weight: normal;
+            margin-bottom: 16px;
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.2px;
@@ -133,7 +133,7 @@
 
     &__avatar {
         img {
-            max-width: 100%;
+            display: block;
             border-radius: 6px;
         }
     }
@@ -205,16 +205,15 @@
         }
 
         &-title {
-            margin: 0 0 24px 0;
+            margin-bottom: 24px;
         }
 
         &-subtitle {
-            margin: 32px 0 12px 0;
-            font-weight: normal;
+            margin: 32px 0 8px 0;
+            font-weight: 600;
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.2px;
-            color: #72839c;
         }
 
         p {
@@ -222,6 +221,7 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.2px;
+            margin: 0 0 8px;
         }
     }
 
@@ -248,13 +248,13 @@
         }
     }
 
+    .FeaturedExhibitions {
+        margin-bottom: 80px;
+    }
+
     .FeaturedExhibitionsList {
         justify-content: center;
         margin-bottom: 45px;
-
-        .FeaturedExhibition {
-            max-width: 362px;
-        }
     }
 
     .FeaturedExhibitions__title {
