@@ -1,0 +1,65 @@
+.ArticleCreateForm {
+  position: relative;
+  &__wrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    #content {
+      border: 1px solid #ebf0f2;
+      border-radius: 6px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      padding: 11px 40px 11px 16px;
+    }
+    .FormInput--text {
+      flex-grow: 1;
+      margin: 0 0 0 16px;
+    }
+    .FormInput--error .FormInput__error {
+      display: none;
+    }
+  }
+  &__attach {
+    display: flex;
+    margin-left: 65px;
+    &-image,
+    &-file {
+      cursor: pointer;
+      margin-right: 16px;
+    }
+  }
+  &__add-emoji {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+  }
+  .FormControls {
+    display: flex;
+    justify-content: space-between;
+  }
+  .FormInput--file {
+    margin-bottom: 6px;
+  }
+  .ClientAvatar {
+    align-self: flex-start;
+  }
+  &__button {
+    color: white;
+    background: #3366ff;
+    opacity: 0.7;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    cursor: default;
+    &.active {
+      background: #3366ff;
+      box-shadow: 0px 4px 8px rgba(51, 102, 255, 0.3);
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+}

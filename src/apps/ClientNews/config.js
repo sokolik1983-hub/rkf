@@ -10,30 +10,21 @@ export const newsArticleFormConfig = {
     action: NEWS_URL,
     format: "multipart/form-data",
     fields: {
-        title: {
-            name: 'title',
-            label: 'Заголовок',
-            placeholder: 'Добавьте заголвок...',
-        },
         content: {
             name: 'content',
             fieldType: 'textarea',
-            label: 'Содержание',
-            placeholder: 'Текст новости...',
+            placeholder: 'Напишите что-нибудь...',
         },
         file: {
             name: 'file',
-            label: 'Фото',
             fieldType: 'image',
             type: 'file',
             placeholder: 'Загрузить фото...',
         },
     },
     validationSchema: object().shape({
-        title: string()
-            .required('Укажите заголовок'),
         content: string()
-            .required('Добавьте сожержание'),
+            .required('Поле не может быть пустым'),
     })
 };
 
