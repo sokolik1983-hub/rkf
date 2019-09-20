@@ -1,6 +1,5 @@
 import React from 'react';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
-import Card from 'components/Card';
 import Container from 'components/Layout/Container';
 import FooterSmall from 'components/Layout/FooterSmall';
 import FeaturedExhibitions from '../Featured';

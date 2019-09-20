@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import Breadcrumbs from "components/Breadcrumbs";
 import { Link } from "react-router-dom";
-import { ExhibitionsPathContext } from "apps/Exhibitions/context"
+import { ExhibitionsPathContext } from "apps/Exhibitions/context";
 export default function ExhibitionDetails__head({ name, owner }) {
-    const { path } = useContext(ExhibitionsPathContext)
+    const { path } = useContext(ExhibitionsPathContext);
     return (
         <div className="ExhibitionDetails__head">
             {/* <Breadcrumbs>
