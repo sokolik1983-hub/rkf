@@ -37,13 +37,13 @@ function ExhibitionDetails(props) {
                     <Content {...details} />
                     <ExhibitionAsideContent {...details} />
                 </div>
-                {details ? (
+                {details &&
                     <ExhibitionDocuments exhibitionId={details.id} />
-                ) : null}
-                {exhibitionId && (
+                }
+                {exhibitionId &&
                     <ExhibitionDetailsPrices exhibition_id={exhibitionId} />
-                )}
-                <PaymentDetails />
+                }
+                {details && details.club_information && <PaymentDetails {...details.club_information} />}
                 <Partners title="Наши спонсоры" items={SponsorsData} />
                 <Partners title="Наши партнеры" items={PartnersData} />
                 <Address {...details} />
