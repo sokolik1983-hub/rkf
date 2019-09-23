@@ -32,17 +32,13 @@ function ExhibitionDetails(props) {
         ? <Loading />
         : (<>
             <Container pad content className="ExhibitionDetails">
-                <Head loading={loading} {...details} />
+                {details && details.club_information && <Head {...details} />}
                 <div className="ExhibitionDetails__wrap">
                     <Content {...details} />
                     <ExhibitionAsideContent {...details} />
                 </div>
-                {details &&
-                    <ExhibitionDocuments exhibitionId={details.id} />
-                }
-                {exhibitionId &&
-                    <ExhibitionDetailsPrices exhibition_id={exhibitionId} />
-                }
+                {details && <ExhibitionDocuments exhibitionId={details.id} />}
+                {exhibitionId && <ExhibitionDetailsPrices exhibition_id={exhibitionId} />}
                 {details && details.club_information && <PaymentDetails {...details.club_information} />}
                 <Partners title="Наши спонсоры" items={SponsorsData} />
                 <Partners title="Наши партнеры" items={PartnersData} />
