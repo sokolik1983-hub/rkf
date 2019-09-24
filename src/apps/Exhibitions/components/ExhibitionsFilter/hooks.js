@@ -175,7 +175,6 @@ export const useExhibitionsFilter = ({ successAction }) => {
         filter,
         setFilter,
         loading,
-        // globalCity,
         applyFilter,
         changeCitiesFilter,
         changeBreedsFilter,
