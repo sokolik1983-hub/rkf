@@ -21,7 +21,6 @@ function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
         <div>
             <h3>Юридическая информация</h3>
             <UpdateLegalInfoForm/>
-
         </div>
     )
 }

@@ -21,7 +21,6 @@ function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
         <div>
             <h3>Банковская информация</h3>
             <UpdateBankInfoForm/>
-
         </div>
     )
 }

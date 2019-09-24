@@ -71,6 +71,11 @@ function Form({
             }
         }
     );
+
+    for(let key in initialValues) {
+        if(!initialValues[key]) initialValues[key] = '';
+    }
+
     return (
         <Formik
             enableReinitialize
