@@ -1,9 +1,9 @@
 import React from 'react'
 import './styles.scss'
 
-function Footer({ text = '© 2019 Портал Российской кинологической федерации ®', links = [] }) {
+function Footer({ text = '© 2019 Портал Российской кинологической федерации ®', links = [], className }) {
     return (
-        <div className="Footer">
+        <div className={`Footer${className ? ' ' + className : ''}`}>
             <div className="Footer__inner">
                 <span>{text}</span>
                 <nav>

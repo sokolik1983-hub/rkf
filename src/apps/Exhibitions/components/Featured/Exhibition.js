@@ -8,10 +8,12 @@ function FeaturedExhibition({ id, exhibition_picture_link, exhibition_name, exhi
 
     return (
 
-        <Link to={link} style={{ backgroundImage: `url(${pictureLink})` }} className="FeaturedExhibition">
-            <div className="FeaturedExhibition__shadow" />
-            <div className="FeaturedExhibition__title">{exhibition_name}</div>
-            <div className="FeaturedExhibition__description">{exhibition_description}</div>
+        <Link to={link}  className="FeaturedExhibition">
+            <div className="FeaturedExhibition__img"  style={{ backgroundImage: `url(${pictureLink})` }}/>
+            <div className="FeaturedExhibition__content">
+                <h3 className="FeaturedExhibition__title">{exhibition_name}</h3>
+                <p className="FeaturedExhibition__description">{exhibition_description}</p>
+            </div>
         </Link>
 
     )

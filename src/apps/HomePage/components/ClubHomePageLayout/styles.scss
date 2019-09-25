@@ -3,13 +3,6 @@
     display: flex;
     flex-flow: row nowrap;
     margin-top: 24px;
-    .text-upper {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      margin: 0 0 16px;
-    }
   }
 
   &__content {
@@ -72,5 +65,15 @@
     &--web {
       background: url(/static/icons/public/web.svg) -8px 50% no-repeat;
     }
+  }
+}
+
+.Card {
+  .text-upper {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    margin: 0 0 16px;
   }
 }

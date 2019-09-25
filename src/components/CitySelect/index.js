@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from 'appConfig';
 import { useDictionary } from 'apps/Dictionaries';
@@ -13,8 +13,16 @@ const noOptionsMessage = () => 'Город не найден';
 
 const selectorInitialState = { label: 'Выбор города', value: null };
 
+const storeFilters = city => {
+    let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
+    filters.cities = city ? [city.value] : [];
+    localStorage.setItem('FiltersValues', JSON.stringify(filters));
+};
+
 const storeCity = city => {
     localStorage.setItem(LS_KEY, JSON.stringify(city));
+    //записываем город в фильтры в LocalStorage
+    storeFilters(city);
 };
 
 const loadCity = () => {
@@ -41,6 +49,7 @@ function CitySelect() {
         if (value.value === 'reset') {
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
+            storeFilters();
             closeSelector();
             return;
         }

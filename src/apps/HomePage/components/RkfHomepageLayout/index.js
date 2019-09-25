@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import FooterSmall from 'components/Layout/FooterSmall';
 import Container from 'components/Layout/Container';
 import HomepageLayout from 'components/Layout/Homepage';
@@ -67,22 +67,16 @@ function RkfHomepageLayout() {
                                 </p>
                                 <h3>Контакты</h3>
                                 <div className="NewsList__contacts">
-                                    {Contacts.map(c => {
-                                        return c.link ? (
-                                            <span
-                                                className={`NewsList__contacts--${c.class}`}
-                                            >
-                                                {c.text}{' '}
-                                                <a href={c.link}>
-                                                    {c.linkTitle}
-                                                </a>
-                                            </span>
-                                        ) : (
-                                            <span
-                                                className={`NewsList__contacts--${c.class}`}
-                                            >
-                                                {c.text}
-                                            </span>
+                                    {Contacts.map((item, index) => {
+                                        return (
+                                            item.link
+                                                ? <span className={`NewsList__contacts--${item.class}`} key={index}>
+                                                    {item.text}{' '}
+                                                    <a href={item.link}>{item.linkTitle}</a>
+                                                </span>
+                                                : <span className={`NewsList__contacts--${item.class}`} key={index}>
+                                                    {item.text}
+                                                </span>
                                         );
                                     })}
                                 </div>

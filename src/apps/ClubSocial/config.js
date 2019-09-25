@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import {object, /*string*/} from "yup";
 
 export const defaultReduxKey = 'club_social';
 export const endpointUrl = '/api/clubs/SocialNetwork';

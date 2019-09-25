@@ -1,6 +1,5 @@
 import React from 'react';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
-import Card from 'components/Card';
 import Container from 'components/Layout/Container';
 import FooterSmall from 'components/Layout/FooterSmall';
 import FeaturedExhibitions from '../Featured';
@@ -31,30 +30,24 @@ function ExhibitionDetails(props) {
 
     return loading
         ? <Loading />
-        : (<>
+        : <>
             <Container pad content className="ExhibitionDetails">
-                <Head loading={loading} {...details} />
+                {details && details.club_information && <Head {...details} />}
                 <div className="ExhibitionDetails__wrap">
                     <Content {...details} />
                     <ExhibitionAsideContent {...details} />
                 </div>
-                {details ? (
-                    <ExhibitionDocuments exhibitionId={details.id} />
-                ) : null}
-                {exhibitionId && (
-                    <ExhibitionDetailsPrices exhibition_id={exhibitionId} />
-                )}
-                <PaymentDetails />
+                {details && details.id && <ExhibitionDocuments exhibitionId={details.id} />}
+                {exhibitionId && <ExhibitionDetailsPrices exhibition_id={exhibitionId} />}
+                {details && details.club_information && <PaymentDetails {...details.club_information} />}
                 <Partners title="Наши спонсоры" items={SponsorsData} />
                 <Partners title="Наши партнеры" items={PartnersData} />
                 <Address {...details} />
                 <h3 className="FeaturedExhibitions__title">Другие выставки</h3>
-                <Card>
-                    <FeaturedExhibitions />
-                </Card>
+                <FeaturedExhibitions />
             </Container>
             <FooterSmall />
-        </>);
+        </>;
 }
 
 export default connectExhibitionDetails(ExhibitionDetails);

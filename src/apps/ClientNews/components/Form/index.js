@@ -1,35 +1,28 @@
-import React, {useContext} from 'react'
-import {Form} from 'components/Form'
-import {newsArticleFormConfig} from 'apps/ClientNews/config'
+import React, { useContext } from 'react'
+import { Form } from 'components/Form'
+import { newsArticleFormConfig } from 'apps/ClientNews/config'
 import RenderFields from './RenderFields'
-import {connectArticleForm} from 'apps/ClientNews/connectors'
-import {ClubRouteContext} from 'apps/HomePage/context'
+import { connectArticleForm } from 'apps/ClientNews/connectors'
+import { ClubRouteContext } from 'apps/HomePage/context'
+import './styles.scss';
 
-const {fields} = newsArticleFormConfig;
+const { fields } = newsArticleFormConfig;
 
-const initialValues = {
-    title: '',
-    content: '',
-    file: ''
-};
-
-function ArticleCreateFormPublic({addArticleSuccess, hideForm}) {
-    const {clubCommon} = useContext(ClubRouteContext);
+function ArticleCreateFormPublic({ addArticleSuccess }) {
+    const { clubCommon } = useContext(ClubRouteContext);
     const onSuccess = values => {
         addArticleSuccess(values);
-        if (hideForm !== undefined) {
-            hideForm()
-        }
     };
-    const transformValues = values => ({...values, club_id: clubCommon.id});
+    const transformValues = values => ({ ...values, club_id: clubCommon.id });
     return (
         <Form
             isMultipart
             onSuccess={onSuccess}
             transformValues={transformValues}
             {...newsArticleFormConfig}
+            className="ArticleCreateForm"
         >
-            <RenderFields fields={fields}/>
+            <RenderFields fields={fields} />
         </Form>
     )
 }

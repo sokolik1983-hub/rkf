@@ -33,10 +33,10 @@ export const useConfirmDialog = (initialConfirmState = false) => {
 
 export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onErrorAction) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [requestError, setError] = useState(null);
 
     useEffect(() => {
-
         let didCancel = false;
 
         const axiosConfig = {
@@ -46,7 +46,6 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
 
         const fetchData = async () => {
             try {
-
                 setLoading(true);
 
                 const response = await axios(axiosConfig);
@@ -55,17 +54,15 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
                     dispatch(onSuccessAction(response.data.result));
                     setLoading(false);
                 }
-
             } catch (error) {
+                setError(error.response);
 
                 if (!didCancel) {
-
                     if (onErrorAction) {
                         dispatch(onErrorAction(error.response.data.errros));
                     }
 
                     setLoading(false);
-
                 }
             }
         };
@@ -73,14 +70,13 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
         fetchData();
 
         return () => {
-
             didCancel = true;
-
         };
     }, [resourceUrl]);
 
     return {
-        loading
+        loading,
+        requestError
     }
 };
 

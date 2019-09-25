@@ -15,9 +15,9 @@ export function UpdateLegalInfoForm(props) {
         updateLegalInfoSuccess(data);
         push(defaultSuccessMessage);
     };
-    return (
-        <Form
 
+    return (
+        clubLegalInfo && <Form
             onSuccess={onSuccess}
             {...clubLegalInfoFormConfig}
             initialValues={clubLegalInfo}

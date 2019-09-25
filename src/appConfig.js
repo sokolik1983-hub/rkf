@@ -266,6 +266,10 @@ const MONTHS = [
     'Декабрь',
 ];
 
+const DEFAULT_IMG = {
+    clubAvatar: '/static/icons/default/club-avatar.svg',
+};
+
 export {
     WEEKDAYS_SHORT,
     MONTHS,
@@ -278,5 +282,6 @@ export {
     DEFAULT_CONTENT_LENGTH,
     LOGIN_URL,
     //REGISTER_URL,
-    defaultReactSelectStyles
+    defaultReactSelectStyles,
+    DEFAULT_IMG
 }

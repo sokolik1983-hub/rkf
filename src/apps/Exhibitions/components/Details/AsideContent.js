@@ -45,10 +45,10 @@ export default function ExhibitionAsideContent(
             </div>
             <table className="ExhibitionDetails__attrs-table">
                 <tbody>
-                    <tr>
+                    {/*<tr>
                         <td>Класс:</td>
                         <td><ExhibitionClassTypes classTypesIds={class_types} /></td>
-                    </tr>
+                    </tr>*/}
                     <tr>
                         <td>Стандарт:</td>
                         <td><ExhibitionDignityTypes type_id={type_id} /></td>

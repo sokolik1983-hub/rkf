@@ -7,9 +7,7 @@ import ClubHeader from '../ClubHeader'
 import FeaturedExhibitions from 'apps/Exhibitions/components/Featured'
 import NewsListPublic from 'apps/ClientNews/components/ListPublic'
 import ClubAddress from '../ClubAddress'
-import Partners from '../Partners'
 import ClubOwnerName from '../ClubOwnerName'
-import { SponsorsData, PartnersData } from '../Partners/data'
 import ClubDescription from '../Description'
 import ClubContacts from '../ClubContacts'
 import ClubDocuments from '../ClubDocuments'
@@ -30,14 +28,13 @@ function HomePageLayout() {
                 <div style={{ padding: `0px 48px` }}>
                     <ClubHeader />
                     <Card>
+                        <h4 className="text-upper">Выставки</h4>
                         <FeaturedExhibitions />
                     </Card>
                     <Wrap>
                         <Content>
                             <ClubDescription />
-                            <Card style={{ margin: '24px 0' }}>
-                                <ArticleCreateFormPublic />
-                            </Card>
+                            <ArticleCreateFormPublic />
                             <Card style={{ margin: '24px 0' }}>
                                 <NewsListPublic />
                             </Card>
@@ -54,16 +51,6 @@ function HomePageLayout() {
                             </Card>
                         </Side>
                     </Wrap>
-                    {/* <Partners title="Наши спонсоры" items={SponsorsData} /> */}
-                    {/* <Partners title="Наши партнеры" items={PartnersData} /> */}
-                    {/*<BigSlider slides={demoSlides}/>*/}
-                    {/*<WeekExhibitions/>*/}
-                    {/*<About/>*/}
-                    {/*<News/>*/}
-                    {/* <Partners/> */}
-                    {/*<RegisterBlock/>*/}
-                    {/*<SocialGallery/>*/}
-                    {/*<SpecialOffersSubscription/>*/}
                 </div>
             </Container>
             <FooterSmall />

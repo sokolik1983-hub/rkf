@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 import Select, { components } from 'react-select';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
 import { getValues } from 'shared/reactSelect';
@@ -19,8 +19,7 @@ function CitiesFilter() {
     const {
         filterOptionsCities,
         changeCitiesFilter,
-        filter,
-        globalCity
+        filter
     } = useContext(ExhibitionsFilterContext);
     const { cities: filteredCities } = filter;
 
@@ -34,30 +33,6 @@ function CitiesFilter() {
     );
     const handleChange = options => changeCitiesFilter(getValues(options));
     // добавялем выбранные в начало и объединяем с тем что получили выше
-
-    // проверяем вдруг глобального города нет в фитрах
-    // грёбаный город
-    const check = () => {
-        if (globalCity) {
-            // выбран в фильтре
-            if (filteredCities.indexOf(globalCity.value) !== -1) {
-                if (
-                    // но нет в фильтрах
-                    // мы не можем об этом узнать
-                    filterOptionsCities.filter(
-                        option => option.value === globalCity.value
-                    ).length === 0
-                ) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    };
-    // если есть проблема с глобальным городом, то добавляем его вначало
-    if (check()) {
-        values.unshift(globalCity);
-    }
 
     const options = [...values, ...optionsNotInValues];
 

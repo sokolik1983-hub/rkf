@@ -1,21 +1,14 @@
-import React, { useContext } from 'react'
-import Breadcrumbs from "components/Breadcrumbs";
+import React from 'react';
 import { Link } from "react-router-dom";
-import { ExhibitionsPathContext } from "apps/Exhibitions/context"
-export default function ExhibitionDetails__head({ name, owner }) {
-    const { path } = useContext(ExhibitionsPathContext)
+
+export default function ExhibitionDetails__head({ name, club_information }) {
+    const {club_fact_name, club_alias} = club_information;
+
     return (
         <div className="ExhibitionDetails__head">
-            {/* <Breadcrumbs>
-                <Link className="breadcrumbs__link" to={path}>Выставки</Link>
-                <div className="breadcrumbs__link">{name}</div>
-            </Breadcrumbs> */}
             <h1>{name}</h1>
             <div className="exhibition-details__signature--top">
-                Организатор: <a href="//www.rkf.org.ru">РКФ</a>
-                {/*<div>Организатор: {owner.name}</div>*/}
-                {/*{owner.site ?*/}
-                {/*    <div><a href="//www.rkf.org.ru">{owner.site}</a></div> : null}*/}
+                Организатор: <Link to={`/${club_alias}`} >{club_fact_name}</Link>
             </div>
         </div>
     )

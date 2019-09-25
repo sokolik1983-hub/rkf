@@ -1,5 +1,5 @@
 import React from 'react'
-import {useResourceAndStoreToRedux} from 'shared/hooks'
+// import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectExhibitionPrices} from 'apps/Exhibitions/connectors'
 import './styles.scss'
 
@@ -14,8 +14,8 @@ function PriceTableRow({description, sum}) {
 }
 
 function ExhibitionDetailsPrices({exhibition_id, exhibitionPrices, storePrices}) {
-    const url = '/api/exhibitions/Price/byexhibition/' + exhibition_id;
-    const {loading} = useResourceAndStoreToRedux(url, storePrices);
+    // const url = '/api/exhibitions/Price/byexhibition/' + exhibition_id;
+    // const {loading} = useResourceAndStoreToRedux(url, storePrices);
 
     return (
         <div className="ExhibitionDetailsPrices">

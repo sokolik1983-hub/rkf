@@ -1,19 +1,19 @@
-import React, {useEffect} from "react"
-import {CompanyContactsForm, CompanySocialForm} from '../Form'
+import React from "react"
+import {CompanySocialForm} from '../Form'
 import {connectProfile} from 'apps/ClientProfile/connectors'
 import Card from 'components/Card'
 import ClubInfo from 'apps/ClubInfo'
-import ClientProfileAvatar from '../Avatar'
+// import ClientProfileAvatar from '../Avatar'
 import ClientClubContacts from 'apps/ClubContacts'
 import ClientClubDocuments from 'apps/ClubDocuments'
 import LegalInfo from 'apps/ClubLegalInfo'
 import BankInfo from 'apps/ClubBankInfo'
 
 function ClientProfile(props) {
-    const {
-        legal_information_id,
-        bank_data_id,
-    } = props;
+    // const {
+    //     legal_information_id,
+    //     bank_data_id,
+    // } = props;
     return (
         <>
             <h2>Профиль</h2>

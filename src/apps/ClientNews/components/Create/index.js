@@ -1,30 +1,18 @@
-import React, {Fragment} from 'react'
-import {useVisibility} from 'shared/hooks'
+import React from 'react'
 import NewsStoryCreateForm from 'apps/ClientNews/components/Form'
-import Button from 'components/Button'
-import OutsideClickHandler from "react-outside-click-handler";
+import Card from 'components/Card'
+import { connectAuthVisible } from 'apps/Auth/connectors'
 
 
-export default function CreateArticleForm() {
-    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
+function CreateArticleForm({ isAuthenticated }) {
+
+    if(!isAuthenticated) return null;
+
     return (
-        <Fragment>
-            <div style={{textAlign: 'right'}}>
-                {!visibility ?
-                    <Button className="btn btn-primary"
-                            onClick={toggleVisibility}>
-                        Добавить новость
-                    </Button>
-                    : null
-                }
-            </div>
-            {
-                visibility ?
-                    <OutsideClickHandler onOutsideClick={setInvisible}>
-                        <NewsStoryCreateForm hideForm={setInvisible}/>
-                    </OutsideClickHandler>
-                    : null
-            }
-        </Fragment>
+         <Card style={{ margin: '24px 0' }}>
+            <NewsStoryCreateForm />
+        </Card>
     )
 }
+
+export default connectAuthVisible(CreateArticleForm);

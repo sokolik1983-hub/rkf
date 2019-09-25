@@ -71,6 +71,11 @@ function Form({
             }
         }
     );
+
+    for(let key in initialValues) {
+        if(!initialValues[key]) initialValues[key] = '';
+    }
+
     return (
         <Formik
             enableReinitialize
@@ -92,7 +97,7 @@ Form.propTypes = {
     action: string.isRequired,
     format: string,
     transformValues: func,
-    validationSchema: func,
+    validationSchema: object,
     initialValues: object.isRequired,
     onSuccess: func.isRequired,
     className: string,
@@ -101,6 +106,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
     method: HTTP.post,
+    initialValues: {},
     transformValues: values => (values)
 };
 

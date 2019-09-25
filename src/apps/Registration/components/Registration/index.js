@@ -1,17 +1,18 @@
 import React, {PureComponent} from 'react'
-import {Link, Redirect} from 'react-router-dom'
-import Tabs, {TabContent} from "components/Tabs";
+import {Link, /*Redirect*/} from 'react-router-dom'
+// import Tabs, {TabContent} from "components/Tabs";
 import CommonLayout from 'components/Layout/CommonRegistrationLogin'
-import RegistrationForm from 'apps/Registration/containers/Register'
+// import RegistrationForm from 'apps/Registration/containers/Register'
 import Form from '../Form/Form'
 import {
-    PhysicalPerson,
+    // PhysicalPerson,
     LegalEntity,
 } from '../Form/FormFields'
 
 import {
-    registrationFormPhysicalPerson,
-    registrationFormLegalEntity, registrationSuccessPath,
+    // registrationFormPhysicalPerson,
+    registrationFormLegalEntity,
+    // registrationSuccessPath,
 } from 'apps/Registration/config'
 
 import './style.scss'

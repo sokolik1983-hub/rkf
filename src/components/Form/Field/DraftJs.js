@@ -15,7 +15,7 @@ function DraftJs({
                      disabled,
 
                  }) {
-    const value = getIn(name, formik.values);
+    // const value = getIn(name, formik.values);
     const [editorState, setEditorState] = React.useState(
         EditorState.createEmpty()
     );

@@ -1,12 +1,12 @@
-import React, {Fragment, PureComponent} from 'react'
+import React, {Fragment} from 'react'
 import Header from 'components/Layout/Header'
 import Container from 'components/Layout/Container'
-import SideBar from './SideBar'
-import {MenuSeparator} from './SideBar/MenuItem'
+// import SideBar from './SideBar'
+// import {MenuSeparator} from './SideBar/MenuItem'
 import EditPageButtons from '../EditPageButtons'
 import './styles.scss'
 
-import {menuFakeData1, menuFakeData2, menuFakeData3} from './SideBar/data'
+// import {menuFakeData1, menuFakeData2, menuFakeData3} from './SideBar/data'
 
 export default function ClientLayout ({children}){
 

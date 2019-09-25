@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import Card from "components/Card";
-import ClubLegalInfo from 'apps/ClubLegalInfo'
-import ClubBankInfo from 'apps/ClubBankInfo'
+import ClubLegalInfo from 'apps/ClubLegalInfo';
+import ClubBankInfo from 'apps/ClubBankInfo';
 import ClubInfo from 'apps/ClubInfo';
-import ClubContacts from 'apps/ClubContacts'
-import ClubDocuments from 'apps/ClubDocuments'
-import ClubSocial from 'apps/ClubSocial'
+import ClubContacts from 'apps/ClubContacts';
+import ClubDocuments from 'apps/ClubDocuments';
+import ClubSocial from 'apps/ClubSocial';
 import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
-import './styles.scss'
+import './styles.scss';
 
 function ClubEditPage() {
     return (
@@ -39,6 +39,6 @@ function ClubEditPage() {
             </Card>
         </div>
     )
-};
+}
 
 export default ClubEditPage

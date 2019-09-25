@@ -7,7 +7,7 @@ import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
 
 function PublicClubNewsList({club_route='rkf', listIds, getNewsSuccess}) {
     const url = endpointUrl + String(club_route);
-    const {loading} = useResourceAndStoreToRedux(url, getNewsSuccess);
+    useResourceAndStoreToRedux(url, getNewsSuccess);
     return listIds.map(id => <NewsStory key={id} id={id}/>)
 }
 

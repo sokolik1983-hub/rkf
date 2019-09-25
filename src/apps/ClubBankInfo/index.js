@@ -15,13 +15,12 @@ function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
             <div>Не задан идентификатор</div>
         )
     }
-    const {loading} = useResourceAndStoreToRedux(url, getBankInfoSuccess);
+    useResourceAndStoreToRedux(url, getBankInfoSuccess);
 
     return (
         <div>
             <h3>Банковская информация</h3>
             <UpdateBankInfoForm/>
-
         </div>
     )
 }

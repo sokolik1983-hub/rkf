@@ -7,7 +7,7 @@ import './index.scss'
 import {useResourceAndStoreToRedux} from "shared/hooks";
 
 function Calendar({calendarModifiers, fetchDatesSuccess}) {
-     const { loading } = useResourceAndStoreToRedux(
+     useResourceAndStoreToRedux(
         endpointExhibitionsDates,
         fetchDatesSuccess
     );

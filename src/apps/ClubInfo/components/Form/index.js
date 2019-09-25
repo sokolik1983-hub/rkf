@@ -3,7 +3,6 @@ import {Form} from "components/Form";
 import {connectClubInfoForm} from 'apps/ClientClub/connectors'
 import RenderFields from './RenderFields'
 import {usePushMessage} from 'apps/Messages/hooks'
-
 import {defaultSuccessMessage} from 'shared/messages'
 
 function ClubInfoForm({clubInfo, clubInfoUpdateSuccess}) {
@@ -13,6 +12,7 @@ function ClubInfoForm({clubInfo, clubInfoUpdateSuccess}) {
         clubInfoUpdateSuccess(values);
         push(defaultSuccessMessage)
     };
+
     return (
         <div style={{flex:2}}>
             <h3>Общая информация</h3>

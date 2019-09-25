@@ -4,7 +4,6 @@ import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
 function ClubHeaderPicture({ backgroundImage, clubPictureUpdateSuccess }) {
-    console.log({ backgroundImage, clubPictureUpdateSuccess })
     const ref = useRef(null);
     return (
         <div>

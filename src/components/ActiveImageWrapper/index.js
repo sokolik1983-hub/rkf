@@ -69,7 +69,7 @@ function ActiveImageWrapper({
 
 
     const getChildElSize = () => {
-        console.log('onSubmitSuccess', onSubmitSuccess)
+        // console.log('onSubmitSuccess', onSubmitSuccess)
         //console.dir(children);
     };
     useEffect(() => getChildElSize(), []);

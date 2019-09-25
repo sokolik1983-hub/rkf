@@ -2,7 +2,6 @@ import React from "react"
 import {compose} from "redux"
 import {Route, Switch} from 'react-router-dom'
 import {getPathFromRouterParams} from 'utils/index'
-import Container from 'components/Layout/Container'
 import reducer from './reducer'
 import PublicLayout from 'components/Layout'
 import Details from './components/Details'
@@ -20,13 +19,10 @@ function ExhibitionsProxy(props) {
     return (
         <ExhibitionsPathContext.Provider value={{path}}>
             <PublicLayout>
-                
-
-                    <Switch>
-                        <Route path={`${path}/:id/details`} component={Details}/>
-                        <Route exact path={path} component={ExhibitionsList}/>
-                    </Switch>
-
+                <Switch>
+                    <Route path={`${path}/:id/details`} component={Details}/>
+                    <Route exact path={path} component={ExhibitionsList}/>
+                </Switch>
             </PublicLayout>
         </ExhibitionsPathContext.Provider>
     );

@@ -14,9 +14,9 @@ export function UpdateBankInfoForm(props) {
         updateBankInfoSuccess(data);
         push(defaultSuccessMessage)
     };
-    return (
-        <Form
 
+    return (
+        clubBankInfo && <Form
             onSuccess={onSuccess}
             {...clubBankInfoFormConfig}
             initialValues={clubBankInfo}

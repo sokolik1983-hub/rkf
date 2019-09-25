@@ -1,49 +1,45 @@
 .FeaturedExhibition {
-  display: flex;
-  flex-flow: nowrap column;
-  min-height: 285px;
-  min-width: 362px;
+  width: 33.33%;
+  max-width: 384px;
   border-radius: 6px;
-  position: relative;
   margin-right: 16px;
-  color: white !important;
-  padding: 16px;
   box-sizing: border-box;
   text-decoration: none;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  a {
-    color: white;
-  }
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(51, 102, 255, 0.08);
 
   &:last-child {
     margin-right: 0;
   }
 
-  &__shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(0deg, #253c5e 0%, rgba(37, 60, 94, 0) 54.74%);
-    z-index: 1;
-    border-radius: 6px;
+  &__img {
+    height: 220px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
-  &__title {
-    margin-top: auto;
-    font-weight: 600;
-    z-index: 2;
+  &__content {
+    background-color: #fff;
+    padding: 16px;
   }
 
-  &__description {
-    z-index: 2;
-    font-size: 14px;
-    line-height: 20px;
+  &__title, &__description {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin: 0;
+  }
+  &__title {
+    color: #253C5E;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  &__description {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #72839c;
   }
 }

@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { usePushMessage } from 'apps/Messages/hooks';
-import { buildUrl, loadGlobalCity } from './heplers';
+import { buildUrl } from './heplers';
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 import { getHeaders } from 'utils/request';
 import { formatDateToString, getEndOfMonth } from 'utils/datetime';
 
 const NO_EXHIBITIONS_FOUND = 'Выставок не найдено';
 const NO_EXHIBITIONS_FOUND_IN_CITY = 'Для вашего города выставок не найдено';
-const filterInitialState = {
+const getFiltersFromLS = () => {
+    return JSON.parse(localStorage.getItem('FiltersValues'));
+};
+const setFiltersToLS = (filters) => {
+    localStorage.setItem('FiltersValues', JSON.stringify(filters));
+};
+const filtersFromLS = getFiltersFromLS();
+const emptyFilters = {
     cities: [],
     breeds: [],
     ranks: [],
@@ -20,27 +27,47 @@ const filterInitialState = {
     dateFrom: [formatDateToString(new Date())],
     dateTo: []
 };
+let filterInitialState = filtersFromLS ? filtersFromLS : emptyFilters;
+if(filtersFromLS) {
+    if(Object.keys(filtersFromLS).length === 1) {
+        const {cities} = filtersFromLS;
+        filterInitialState = {...emptyFilters, cities};
+    } else {
+        const dateToday = +new Date(emptyFilters.dateFrom[0]);
+        const dateFrom = filtersFromLS.dateFrom.length ?
+            +new Date(filtersFromLS.dateFrom[0]) > dateToday ?
+                filtersFromLS.dateFrom[0] :
+                emptyFilters.dateFrom[0] :
+            emptyFilters.dateFrom[0];
+        const dateTo = filtersFromLS.dateTo.length ?
+            +new Date(filtersFromLS.dateTo[0]) >= +new Date(dateFrom) ?
+                filtersFromLS.dateTo[0] :
+                '' :
+            '';
+
+        filterInitialState.dateFrom = [dateFrom];
+        filterInitialState.dateTo = dateTo ? [dateTo] : [];
+    }
+}
+
 export const useExhibitionsFilter = ({ successAction }) => {
     const { push } = usePushMessage();
-    // берём выбранныей выбором город
-    const globalCity = loadGlobalCity();
+
     // filterState used for constructing filter, and url params based on filter
     const [filter, setFilter] = useState(filterInitialState);
+    const setFilters = (filters) => {
+        setFilter(filters);
+        setFiltersToLS(filters);
+    };
 
     // url of request, if it changed effect run again, applyFilter do this
-    const [url, setUrl] = useState(endpointExhibitionsList);
+    const [url, setUrl] = useState(filter.cities.length ? `${buildUrl(filter)}` : endpointExhibitionsList);
     // for requests
 
     const [loading, setLoading] = useState(false);
 
-    // переключатель не даёт запускаться общим запросам,
-    // если не был выполнен запрос по глобально выранному городу
-    const [canCommonRequestRun, setCanCommonRequestRun] = useState(
-        globalCity === null
-    );
-
-    //
     const applyFilter = () => {
+        setFiltersToLS(filter);
         const url = `${buildUrl(filter)}`;
         setUrl(url);
     };
@@ -49,30 +76,35 @@ export const useExhibitionsFilter = ({ successAction }) => {
     const changeBreedsFilter = breeds => setFilter({ ...filter, breeds });
     const changeRanksFilter = ranks => setFilter({ ...filter, ranks });
     const changeCastesFilter = castes => setFilter({ ...filter, castes });
-    const changeTypesFilter = types => setFilter({ ...filter, types });
+    const changeTypesFilter = types => setFilter({...filter, types });
     const changeClubsFilter = clubs => setFilter({ ...filter, clubs });
     const setDate = date => {
         const newFilter = { ...filter, dateFrom: [date], dateTo: [date] };
-        setFilter(newFilter);
+        setFilters(newFilter);
+
         const url = `${buildUrl(newFilter)}`;
         setUrl(url);
     };
     const clearDate = () => {
         const newFilter = { ...filter, dateFrom: [], dateTo: [] };
-        setFilter(newFilter);
+        setFilters(newFilter);
+
         const url = `${buildUrl(newFilter)}`;
         setUrl(url);
     };
 
     const setDatesRange = ({ dateFrom, dateTo }) => {
         const newFilter = { ...filter, dateFrom: [dateFrom], dateTo: [dateTo] };
-        setFilter(newFilter);
+        setFilters(newFilter);
+
         const url = `${buildUrl(newFilter)}`;
         setUrl(url);
     };
+
     const clearDatesRange = () => {
         const newFilter = { ...filter, dateFrom: [], dateTo: [] };
-        setFilter(newFilter);
+        setFilters(newFilter);
+
         const url = `${buildUrl(newFilter)}`;
         setUrl(url);
     };
@@ -86,7 +118,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
     };
 
     const clearFilter = () => {
-        setFilter({ ...filterInitialState });
+        setFilters({ ...emptyFilters });
         setUrl(endpointExhibitionsList);
     };
 
@@ -96,56 +128,10 @@ export const useExhibitionsFilter = ({ successAction }) => {
             dateFrom: [formatDateToString(date)],
             dateTo: [formatDateToString(getEndOfMonth(date))]
         };
-        setFilter(newFilter);
+        setFilters(newFilter);
         const url = `${buildUrl(newFilter)}`;
         setUrl(url);
     };
-    // first request if for global city, need to check
-    // if there is no exhibitions
-    // it run the normal request for all exhibitions
-
-    useEffect(() => {
-        let cancelRequest = false;
-
-        if (!!globalCity) {
-            changeCitiesFilter([globalCity.value]);
-        }
-
-        const fetchData = async () => {
-            try {
-                const axiosConfig = {
-                    url: `${url}?CityIds=${globalCity.value}`,
-                    headers: getHeaders()
-                };
-                setLoading(true);
-                setUrl(axiosConfig.url);
-                const response = await axios(axiosConfig);
-                const { exhibitions } = response.data.result;
-
-                if (exhibitions.length === 0) {
-                    push({
-                        text: NO_EXHIBITIONS_FOUND_IN_CITY
-                    });
-                    setLoading(false);
-                    setCanCommonRequestRun(true);
-                    clearFilter();
-                } else {
-                    successAction(response.data.result);
-                    setCanCommonRequestRun(true);
-                }
-            } catch (error) {
-                console.error('useExhibitionsFilter Error');
-                console.log(error);
-            }
-        };
-        if (!cancelRequest && !!globalCity) {
-            fetchData();
-        }
-
-        return () => {
-            cancelRequest = true;
-        };
-    }, []);
 
     // common request
     useEffect(() => {
@@ -163,7 +149,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
                 const { exhibitions } = response.data.result;
                 if (exhibitions.length === 0) {
                     push({
-                        text: NO_EXHIBITIONS_FOUND
+                        text: filter.cities.length === 1 ? NO_EXHIBITIONS_FOUND_IN_CITY : NO_EXHIBITIONS_FOUND
                     });
                 }
                 successAction(response.data.result);
@@ -174,7 +160,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
                 setLoading(false);
             }
         };
-        if (!cancelRequest && canCommonRequestRun) {
+        if (!cancelRequest) {
             fetchData();
         }
 
@@ -182,13 +168,13 @@ export const useExhibitionsFilter = ({ successAction }) => {
             cancelRequest = true;
         };
     }, [url]);
+
     return {
         url,
         setUrl,
         filter,
         setFilter,
         loading,
-        globalCity,
         applyFilter,
         changeCitiesFilter,
         changeBreedsFilter,
