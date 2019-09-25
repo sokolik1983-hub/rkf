@@ -6,7 +6,9 @@ import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
+import { connectAuthVisible } from 'apps/Auth/connectors'
 import { DEFAULT_CONTENT_LENGTH, DEFAULT_IMG } from 'appConfig'
+
 
 function ListArticle({
     id,
@@ -35,6 +37,23 @@ function ListArticle({
             ? content.substring(0, 300) + '...'
             : content
     }
+    const Controls = ({ isAuthenticated }) => {
+        if (!isAuthenticated) return null;
+        return (
+            <Dropdown position="right">
+                <DeleteButton
+                    windowed
+                    confirmMessage={`Удалить новость " ${title} "?`}
+                    successMessage="Новость успешно удалена"
+                    onDeleteSuccess={onDeleteSuccess}
+                    actionUrl={'/api/ClubArticle/' + id}
+                >
+                    удалить
+            </DeleteButton>
+            </Dropdown>
+        )
+    };
+    const ListArticleControls = connectAuthVisible(Controls);
 
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
@@ -47,17 +66,8 @@ function ListArticle({
                     <div className="NewsStory__Title">{club_name}</div>
                     <div className="NewsStory__Signature">{getSignature()}</div>
                 </div>
-                <Dropdown position="right">
-                    <DeleteButton
-                        windowed
-                        confirmMessage={`Удалить новость " ${title} "?`}
-                        successMessage="Новость успешно удалена"
-                        onDeleteSuccess={onDeleteSuccess}
-                        actionUrl={'/api/ClubArticle/' + id}
-                    >
-                        удалить
-                    </DeleteButton>
-                </Dropdown>
+                <ListArticleControls />
+
             </div>
             <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
             <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: cutContent(content) }} />
