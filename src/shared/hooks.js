@@ -1,7 +1,7 @@
-import {useState, useMemo, useEffect} from "react";
+import { useState, useMemo, useEffect } from "react";
 import axios from 'axios'
-import {useDispatch} from "react-redux";
-import {getHeaders} from "../utils/request";
+import { useDispatch } from "react-redux";
+import { getHeaders } from "../utils/request";
 
 export const useVisibility = (initialVisibility = false) => {
     const [visibility, setVisibility] = useState(initialVisibility);
@@ -14,6 +14,19 @@ export const useVisibility = (initialVisibility = false) => {
             toggleVisibility, setVisible, setInvisible,
         }),
         [toggleVisibility, setVisible, setInvisible, visibility],
+    );
+};
+
+export const useFocus = (initialFocus = false) => {
+    const [focus, setFocus] = useState(initialFocus);
+    const setFocused = () => setFocus(true);
+    const setBlured = () => setFocus(false);
+    return useMemo(
+        () => ({
+            focus,
+            setFocused, setBlured
+        }),
+        [setFocused, setBlured, focus],
     );
 };
 
@@ -82,14 +95,14 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
 
 
 export const usePictureWithUpdate = (endpoint, successAction) => {
-    const [state, setState] = useState({fileInputValue: "", filePreview: null});
+    const [state, setState] = useState({ fileInputValue: "", filePreview: null });
     const handleFileInputChange = e => {
         if (e.target.files) {
             const fileInputValue = e.target.files[0];
-            setState({filePreview: URL.createObjectURL(fileInputValue), fileInputValue})
+            setState({ filePreview: URL.createObjectURL(fileInputValue), fileInputValue })
         }
     };
-    const clear = () => setState({...state, fileInputValue: null});
+    const clear = () => setState({ ...state, fileInputValue: null });
     const sendFile = () => {
         let didCancel = false;
         const send = async () => {
