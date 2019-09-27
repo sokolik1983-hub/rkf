@@ -49,10 +49,10 @@ export default function ExhibitionAsideContent(
                         <td>Класс:</td>
                         <td><ExhibitionClassTypes classTypesIds={class_types} /></td>
                     </tr>*/}
-                    <tr>
+                    {/* <tr>
                         <td>Стандарт:</td>
                         <td><ExhibitionDignityTypes type_id={type_id} /></td>
-                    </tr>
+                    </tr> */}
                     <tr>
                         <td>Ранг:</td>
                         <td><ExhibitionRankType rank_types={rank_types} /></td>
