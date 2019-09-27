@@ -138,6 +138,21 @@ export const transformDate = date => {
     };
 };
 
+export const transformDateSafariFriendly = date => {
+    if (varIsObject(date)) {
+        if (date.day === 0 || date.month === 0 || date.year === 0) {
+            return new Date('1970/01/01');
+        }
+        return new Date(`${date.year}/${date.month}/${date.day}`);
+    }
+    const dateObj = new Date(date);
+    return {
+        day: dateObj.getDate(),
+        month: dateObj.getMonth() + 1,
+        year: dateObj.getFullYear()
+    };
+};
+
 export const timeSecondsCutter = time => {
     if (time !== null) {
         if (time.indexOf(':') !== -1) {
