@@ -45,7 +45,9 @@ const RenderFields = ({ fields, isUpdate, formik }) => {
         var offset = textarea.offsetHeight - textarea.clientHeight;
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + offset + 'px';
-        formik.setFieldValue('content', textarea.value);
+        textarea.value.length > 3000
+            ? alert('Превышено максимальное кол-во символов')
+            : formik.setFieldValue('content', textarea.value);
     }
     return (
         <React.Fragment>
@@ -58,6 +60,7 @@ const RenderFields = ({ fields, isUpdate, formik }) => {
                     {...fields.content}
                     onChange={handleKeyDown}
                     onFocus={setFocused}
+                    maxlength="3001"
                     ref={textarea}
                     rows="1"
                 />

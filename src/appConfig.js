@@ -5,7 +5,7 @@ const SERVER = 'http://dev.uep24.ru';
 
 const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
-const DEFAULT_CONTENT_LENGTH = 300;
+const DEFAULT_CONTENT_LENGTH = 180;
 
 
 const LOGIN_URL = '/auth/login';
