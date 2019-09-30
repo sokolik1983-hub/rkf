@@ -17,7 +17,8 @@ import {
     selectListExhibitionsByDates,
     selectCalendar,
     selectExhibitionsFilter,
-    selectExhibitionPrices
+    selectExhibitionPrices,
+    selectClubId
 } from './selectors';
 
 export const connectExhibitionsList = connect(
@@ -93,6 +94,10 @@ export const connectExhibitionPrices = connect(
             },
             dispatch
         )
+);
+
+export const connectClubId = connect(
+    selectClubId,
 );
 
 export const connectExhibitionsPaginator = connect(selectExhibitionsPaginator);
