@@ -12,9 +12,9 @@ export const RenderFields = ({isUpdate}) =>
             <FormField
                 {...fields.description}
             />
-            <FormField
+            {/*<FormField
                 {...fields.social_network_type_id}
-            />
+            />*/}
             <FormControls>
                 <SubmitButton>{isUpdate ? 'Обновить' : 'Добавить'}</SubmitButton>
             </FormControls>

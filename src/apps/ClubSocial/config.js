@@ -16,12 +16,12 @@ export const clubClubSocialConfig = {
         },
         description: {
             name: 'description',
-            label: 'description',
+            label: 'Название',
         },
-        social_network_type_id: {
-            name: 'social_network_type_id',
-            label: 'social_network_type_id',
-        },
+        // social_network_type_id: {
+        //     name: 'social_network_type_id',
+        //     label: 'social_network_type_id',
+        // },
     },
     validationSchema: object().shape({
         //
