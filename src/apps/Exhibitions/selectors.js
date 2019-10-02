@@ -1,6 +1,7 @@
 import { getIdFromRouterParams } from 'utils/index';
 
 import { defaultReduxKey } from './config';
+import {selectProfileId} from 'apps/Auth/selectors'
 
 const getClubId = state => ({
     clubId: state.authentication.profile_id
@@ -91,4 +92,11 @@ export const selectExhibitionPrices = state => {
     return {
         exhibitionPrices
     };
+};
+
+export const selectClubId = state => {
+    const {profile_id: club_id} = selectProfileId(state);
+    return {
+        club_id
+    }
 };

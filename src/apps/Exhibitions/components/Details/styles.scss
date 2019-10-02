@@ -1,271 +1,280 @@
 #wrap,
 .container--content {
-    background: white;
+  background: white;
 }
 
 .ExhibitionDetails {
-    color: #253c5e; //rgba(37, 60, 94, 0.7);
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 24px;
-    background-color: #fff;
-    overflow: hidden;
-    padding-bottom: 48px;
-    letter-spacing: 0.2px;
-    &__head {
-        h1 {
-            font-weight: bold;
-            font-size: 36px;
-            line-height: 44px;
-            margin: 26px 0 6px;
-        }
-
-        .exhibition-details__signature--top {
-            font-size: 16px;
-            line-height: 24px;
-            color: #9dafbd;
-            margin-bottom: 4px;
-            letter-spacing: 0.2px;
-            a {
-                color: #9dafbd;
-                text-decoration: none;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
+  color: #253c5e; //rgba(37, 60, 94, 0.7);
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  background-color: #fff;
+  overflow: hidden;
+  padding-bottom: 48px;
+  letter-spacing: 0.2px;
+  &__head {
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 44px;
+      margin: 26px 0 6px;
     }
 
-    &__attrs-table {
-        width: 100%;
-        margin: 32px 0;
+    .exhibition-details__signature--top {
+      font-size: 16px;
+      line-height: 24px;
+      color: #9dafbd;
+      margin-bottom: 4px;
+      letter-spacing: 0.2px;
+      a {
+        color: #9dafbd;
+        text-decoration: none;
 
-        td:first-child {
-            color: #72839c;
-            padding-left: 0px;
+        &:hover {
+          text-decoration: underline;
         }
+      }
+    }
+  }
 
-        td {
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-            color: #253c5e;
-            padding-left: 12px;
-            vertical-align: top;
-        }
+  &__attrs-table {
+    width: 100%;
+    margin: 32px 0;
 
-        .ExhibitionClassTypes {
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-            color: #253c5e;
-        }
+    td:first-child {
+      color: #72839c;
+      padding-left: 0px;
     }
 
-    &__controls {
-        display: flex;
-        flex-flow: row nowrap;
-        margin: 32px 0;
+    td {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #253c5e;
+      padding-left: 12px;
+      vertical-align: top;
+    }
 
-        .btn {
-            margin-right: 8px;
+    .ExhibitionClassTypes {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #253c5e;
+    }
+  }
 
-            &:first-child {
-                flex: 1;
-            }
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 32px 0;
 
-            &:last-child {
-                margin-right: 0;
-            }
+    .btn {
+      margin-right: 8px;
+
+      &:first-child {
+        flex: 1;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__signature {
+    &--top {
+      font-size: 18px;
+      margin: 8px 0;
+      display: flex;
+      flex-flow: row wrap;
+      color: #72839c;
+
+      div {
+        margin-right: 65px;
+
+        &:last-child {
+          margin-right: 0;
         }
+      }
     }
+  }
 
-    &__signature {
-        &--top {
-            font-size: 18px;
-            margin: 8px 0;
-            display: flex;
-            flex-flow: row wrap;
-            color: #72839c;
-
-            div {
-                margin-right: 65px;
-
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-        }
+  &__short_info {
+    div {
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
     }
+  }
 
-    &__short_info {
-        div {
-            margin-bottom: 16px;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-        }
+  &Dates__datetime {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/date.svg) center left no-repeat;
+
+    &::first-letter {
+      text-transform: capitalize;
     }
+  }
 
-    &Dates__datetime {
-        padding-left: 30px;
-        background: url(/static/icons/exhibitions/date.svg) center left
-            no-repeat;
+  &__time-start {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/time.svg) center left no-repeat;
+  }
 
-        &::first-letter {
-            text-transform: capitalize;
-        }
+  &__wrap {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  &__avatar {
+    img {
+      display: block;
+      border-radius: 6px;
     }
+  }
 
-    &__time-start {
-        padding-left: 30px;
-        background: url(/static/icons/exhibitions/time.svg) center left
-            no-repeat;
-    }
+  &__content {
+    max-width: 100%;
+    margin-right: 23px;
+    flex-grow: 1;
 
-    &__wrap {
-        display: flex;
-        flex-flow: row nowrap;
-    }
+    .tabs {
+      justify-content: space-between;
+      margin: 24px 0;
 
-    &__avatar {
-        img {
-            display: block;
-            border-radius: 6px;
-        }
-    }
-
-    &__content {
-        max-width: 100%;
-        margin-right: 23px;
-        flex-grow: 1;
-
-        .tabs {
-            justify-content: space-between;
-            margin: 24px 0;
-
-            &__tab {
-                font-family: 'Source Sans Pro';
-                outline: none;
-                border-radius: 0;
-                flex: initial;
-                padding: 0;
-                font-weight: 600;
-                font-size: 26px;
-                line-height: 32px;
-                color: #90999e;
-                text-decoration: none;
-                border: none;
-                border-bottom: 1px dashed #90999e;
-                background: none;
-                &:hover{
-                    cursor: pointer;
-                }
-                &--active {
-                    color: #253c5e;
-                    border-bottom: 1px dashed transparent;
-                }
-            }
-        }
-    }
-
-    &__place-icon {
-        padding-left: 30px;
-        background: url(/static/icons/exhibitions/pin.svg) center left no-repeat;
-    }
-
-    .Partners {
-        padding: 0 !important;
-    }
-
-    &__address {
-        display: flex;
-        align-items: top;
-        margin: 84px 0;
-
-        &--left {
-            max-width: 40%;
-            margin-right: 23px;
-            flex-grow: 1;
-        }
-
-        &--right {
-            div {
-                width: 674px;
-                height: 318px;
-                border: 2px dashed #eee;
-            }
-
-            p {
-                margin: 4px 0;
-            }
-        }
-
-        &-title {
-            margin-bottom: 24px;
-        }
-
-        &-subtitle {
-            margin: 32px 0 8px 0;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-        }
-
-        p {
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-            margin: 0 0 8px;
-        }
-    }
-
-    &__map {
-        text-align: center;
-    }
-
-    &__payment-details {
-        margin: 40px 0 64px;
-
-        &-title {
-            font-style: normal;
-            font-weight: 600;
-            font-size: 18px;
-            line-height: 24px;
-            margin: 16px 0;
-        }
-
-        p {
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-        }
-    }
-
-    .FeaturedExhibitions {
-        margin-bottom: 80px;
-    }
-
-    .FeaturedExhibitionsList {
-        justify-content: center;
-        margin-bottom: 45px;
-    }
-
-    .FeaturedExhibitions__title {
-        margin: 24px 0;
+      &__tab {
+        font-family: "Source Sans Pro";
+        outline: none;
+        border-radius: 0;
+        flex: initial;
+        padding: 0;
         font-weight: 600;
         font-size: 26px;
         line-height: 32px;
+        color: #90999e;
+        text-decoration: none;
+        border: none;
+        border-bottom: 1px dashed #90999e;
+        background: none;
+        &:hover {
+          cursor: pointer;
+        }
+        &--active {
+          color: #253c5e;
+          border-bottom: 1px dashed transparent;
+        }
+      }
     }
+  }
+
+  &__place-icon {
+    padding-left: 30px;
+    background: url(/static/icons/exhibitions/pin.svg) center left no-repeat;
+  }
+
+  .Partners {
+    padding: 0 !important;
+  }
+
+  &__address {
+    display: flex;
+    align-items: top;
+    margin: 84px 0;
+
+    &--left {
+      max-width: 40%;
+      margin-right: 23px;
+      flex-grow: 1;
+    }
+
+    &--right {
+      div {
+        width: 674px;
+        height: 318px;
+        border: 2px dashed #eee;
+      }
+
+      p {
+        margin: 4px 0;
+      }
+    }
+
+    &-title {
+      margin-bottom: 24px;
+    }
+
+    &-subtitle {
+      margin: 32px 0 8px 0;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
+
+    p {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      margin: 0 0 8px;
+    }
+
+    a {
+      display: inline-block;
+      border-bottom: 1px solid rgba(51, 102, 255, 0.5);
+      text-decoration: none !important;
+      line-height: 22px;
+      margin: 1px 0;
+      &:hover {
+        border-bottom: 1px solid rgb(51, 102, 255);
+      }
+    }
+  }
+
+  &__map {
+    text-align: center;
+  }
+
+  &__payment-details {
+    margin: 40px 0 64px;
+
+    &-title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      margin: 16px 0;
+    }
+
+    p {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+    }
+  }
+
+  .FeaturedExhibitions {
+    margin-bottom: 80px;
+  }
+
+  .FeaturedExhibitionsList {
+    justify-content: center;
+    margin-bottom: 45px;
+  }
+
+  .FeaturedExhibitions__title {
+    margin: 24px 0;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+  }
 }
 
 .ExhibitionAsideContent {
-    min-width: 440px;
-    flex: 1;
+  min-width: 440px;
+  flex: 1;
 }

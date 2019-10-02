@@ -38,13 +38,13 @@ header {
 
   &__logo {
     display: block;
-    height: 73px;
-    width: 73px;
-    transform: translateY(7px);
+    height: 56px;
+    width: 56px;
 
     img {
-      height: 73px;
-      width: 73px;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -1,15 +1,14 @@
 import React from 'react'
-import { transformDate, getLocalizedWeekDay } from "utils/datetime";
+import { transformDateSafariFriendly, getLocalizedWeekDay } from "utils/datetime";
 
 
 function Date({ day, month, year, time_start, time_end }) {
-    const date = transformDate({ day, month, year });
-    const twoDigitMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+    const date = transformDateSafariFriendly({ day, month, year });
 
     return (
         <div
             className={`ExhibitionDetailsDates__datetime`}>
-            {`${getLocalizedWeekDay(date)}, ${day}.${twoDigitMonth}.${year}`}
+            {`${getLocalizedWeekDay(date)}, ${day}.${month}.${year}`}
         </div>
     )
 }

@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ClientAvatar from 'components/ClientAvatar';
 import { connect } from 'formik';
-import { useVisibility } from 'shared/hooks';
+import { useFocus } from 'shared/hooks';
 import {
     SubmitButton,
     FormControls,
     FormGroup,
     FormField,
 } from 'components/Form'
-
+import ImagePreview from 'components/ImagePreview';
 
 const FormButton = ({ isUpdate, isValid }) => {
     return (
@@ -18,50 +18,90 @@ const FormButton = ({ isUpdate, isValid }) => {
     );
 }
 
-
-
 const RenderFields = ({ fields, isUpdate, formik }) => {
     const textarea = useRef();
-    const { visibility, toggleVisibility } = useVisibility(false);
-    const attachImg = visibility
-        ? '/static/icons/client/attach-image-active.svg'
-        : '/static/icons/client/attach-image.svg';
+
+    const [src, setSrc] = useState('');
+    const handleChange = e => {
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            formik.setFieldValue('file', file);
+            setSrc(URL.createObjectURL(file));
+            e.target.value = '';
+        } else {
+            formik.setFieldValue('file', '');
+            setSrc('');
+        }
+        setFocused();
+    };
+    const handleClose = () => {
+        formik.setFieldValue('file', '');
+        setSrc('');
+    }
+
+    const { focus, setFocused } = useFocus(false);
     const handleKeyDown = (e) => {
         const textarea = e.target;
         var offset = textarea.offsetHeight - textarea.clientHeight;
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + offset + 'px';
-        formik.setFieldValue('content', textarea.value);
+        textarea.value.length > 3000
+            ? alert('Превышено максимальное кол-во символов')
+            : formik.setFieldValue('content', textarea.value);
     }
     return (
-        <>
-            <FormGroup className="ArticleCreateForm__wrap">
+        <React.Fragment>
+            <input type="file" name="file" id="file" className="ArticleCreateForm__inputfile" onChange={handleChange} />
+
+
+            <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
                 <ClientAvatar size={46} />
                 <FormField
                     {...fields.content}
                     onChange={handleKeyDown}
+                    onFocus={setFocused}
+                    maxlength="3001"
                     ref={textarea}
                     rows="1"
                 />
-                <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" />
+                {
+                    !focus
+                        ? (
+                            <>
+                                <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
+                                <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" />
+                                <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
+                            </>
+                        )
+                        : null
+                }
             </FormGroup>
             {
-                visibility
-                    ? <FormField {...fields.file} />
+                focus
+                    ? (<React.Fragment>
+                        <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" />
+
+                        <div className="ImagePreview__wrap">
+                            {
+                                src ? (<> <ImagePreview src={src} /> <img src="/static/icons/file-cross.svg" className="ImagePreview__close" alt="" onClick={handleClose} /> </>) : null
+                            }
+                        </div>
+                        <FormControls>
+                            <div className="ArticleCreateForm__attach">
+
+                                <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
+                                <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" />
+                                {/* <img className="ArticleCreateForm__attach-file" src={'/static/icons/client/attach-file.svg'} alt="" /> */}
+                            </div>
+                            <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
+                        </FormControls>
+                    </React.Fragment>)
                     : null
             }
-            <FormControls>
-                <div className="ArticleCreateForm__attach">
-                    <img className="ArticleCreateForm__attach-image" src={attachImg} alt="" onClick={toggleVisibility} />
-                    <img className="ArticleCreateForm__attach-file" src={'/static/icons/client/attach-file.svg'} alt="" />
-                </div>
-                <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
-            </FormControls>
-        </>
+
+        </React.Fragment>
+
     );
 }
-
-
-
 
 export default connect(RenderFields)

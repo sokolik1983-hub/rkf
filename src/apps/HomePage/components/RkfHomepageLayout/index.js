@@ -72,7 +72,7 @@ function RkfHomepageLayout() {
                                             item.link
                                                 ? <span className={`NewsList__contacts--${item.class}`} key={index}>
                                                     {item.text}{' '}
-                                                    <a href={item.link}>{item.linkTitle}</a>
+                                                    <a className="link" href={item.link}>{item.linkTitle}</a>
                                                 </span>
                                                 : <span className={`NewsList__contacts--${item.class}`} key={index}>
                                                     {item.text}

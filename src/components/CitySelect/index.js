@@ -41,12 +41,14 @@ function CitySelect() {
     }, []);
 
     const { dictionary } = useDictionary(DICTIONARIES.cities);
+
     const closeSelector = () => {
         // TODO сделано "быстро", надо сделать хорошо
         ddRef.current.props.onOutsideClick();
     };
+
     const onChange = value => {
-        if (value.value === 'reset') {
+        if (!value.value || value.value === 'reset') {
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
             storeFilters();
@@ -58,6 +60,7 @@ function CitySelect() {
         setCity(value);
         closeSelector();
     };
+
     const selectOptions = [
         { value: 'reset', label: 'Все города' },
         ...dictionary.options
@@ -68,6 +71,8 @@ function CitySelect() {
             ref={ddRef}
             innerComponent={city.label}
             className="CitySelect"
+            withClear={!!city.value}
+            clearLabel={() => onChange(selectorInitialState)}
         >
             <h3 className="CitySelect__heading">Выберите ваш город:</h3>
             <Select

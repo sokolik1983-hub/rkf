@@ -64,19 +64,19 @@ export const clubLegalInfoFormConfig = {
             .min(20, 'коротко от 20'),
         inn: string()
             .nullable()
-            .required('Поле не может быть пустым')
+            // .required('Поле не может быть пустым')
             .min(10, 'коротко'),
         kpp: string()
             .nullable()
-            .required('Поле не может быть пустым')
+            // .required('Поле не может быть пустым')
             .min(9, 'коротко'),
         ogrn: string()
             .nullable()
-            .required('Поле не может быть пустым')
+            // .required('Поле не может быть пустым')
             .min(13, 'коротко'),
         okpo: string()
             .nullable()
-            .required('Поле не может быть пустым')
+            // .required('Поле не может быть пустым')
             .min(8, 'коротко'),
         registration_number: string()
             .required('Поле не может быть пустым')

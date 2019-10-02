@@ -5,8 +5,7 @@ import ExhibitionDetailsDates from './Dates'
 import ExhibitionRankType from './RankType'
 import ExhibitionClassTypes from './ClassTypes'
 import ExhibitionBreedTypes from './BreedTypes'
-import ExhibitionDignityTypes from './DignityTypes'
-import { transformDate, timeSecondsCutter } from "utils/datetime";
+import { transformDateSafariFriendly, timeSecondsCutter } from "utils/datetime";
 import { getDictElement, useDictionary } from "apps/Dictionaries";
 
 export default function ExhibitionAsideContent(
@@ -50,10 +49,6 @@ export default function ExhibitionAsideContent(
                         <td><ExhibitionClassTypes classTypesIds={class_types} /></td>
                     </tr>*/}
                     <tr>
-                        <td>Стандарт:</td>
-                        <td><ExhibitionDignityTypes type_id={type_id} /></td>
-                    </tr>
-                    <tr>
                         <td>Ранг:</td>
                         <td><ExhibitionRankType rank_types={rank_types} /></td>
                     </tr>
@@ -63,7 +58,7 @@ export default function ExhibitionAsideContent(
                     </tr>
                 </tbody>
             </table>
-            <CountDown eventDate={dates && transformDate(dates[0])} />
+            <CountDown eventDate={dates && transformDateSafariFriendly(dates[0])} />
         </div>
     )
 }

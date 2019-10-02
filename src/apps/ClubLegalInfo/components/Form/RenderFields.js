@@ -17,18 +17,18 @@ export default function RenderFields() {
             </FormGroup>
 
             <FormGroup inline>
-                <FormField
+                <FormField disabled
                     {...fields.inn}
                 />
-                <FormField
+                <FormField disabled
                     {...fields.kpp}
                 />
             </FormGroup>
             <FormGroup inline>
-                <FormField
+                <FormField disabled
                     {...fields.ogrn}
                 />
-                <FormField
+                <FormField disabled
                     {...fields.okpo}
                 />
             </FormGroup>

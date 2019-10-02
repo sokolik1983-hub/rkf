@@ -2,11 +2,11 @@ import React from 'react';
 import {
     formatDateWithLocaleStringFull,
     timeSecondsCutter,
-    transformDate
+    transformDateSafariFriendly
 } from 'utils/datetime';
 
 export default function Date({ day, month, year, time_start, time_end }) {
-    const date = transformDate({ day, month, year });
+    const date = transformDateSafariFriendly({ day, month, year });
     return (
         <div className="ExhibitionListItem__datetime">
             {formatDateWithLocaleStringFull(date)}&nbsp;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ClientAvatar from 'components/ClientAvatar'
 // import ContextDropDown from 'components/ContextDropDown'
 import Dropdown from 'components/Dropdown'
@@ -34,8 +34,13 @@ function ListArticle({
 
     const cutContent = content => {
         return content.length > DEFAULT_CONTENT_LENGTH
-            ? content.substring(0, 300) + '...'
+            ? content.substring(0, DEFAULT_CONTENT_LENGTH) + '...'
             : content
+    }
+    const [collapsed, setCollapsed] = useState(content.length > DEFAULT_CONTENT_LENGTH ? true : false);
+    const handleShowMore = (e) => {
+        e.preventDefault();
+        setCollapsed(false);
     }
     const Controls = ({ isAuthenticated }) => {
         if (!isAuthenticated) return null;
@@ -70,13 +75,16 @@ function ListArticle({
 
             </div>
             <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
-            <div className="NewsStory__Text" dangerouslySetInnerHTML={{ __html: cutContent(content) }} />
+            <div className="NewsStory__Text">
+                <p dangerouslySetInnerHTML={{ __html: collapsed ? cutContent(content) : content }} />
+                {collapsed ? <a className="NewsStory__Show-more" href="/" onClick={handleShowMore}>Подробнее</a> : null}
+            </div>
             <div
                 className="NewsStory__ImagePreview">
                 <img src={picture_link} alt="" />
             </div>
 
-        </div>
+        </div >
     )
 }
 

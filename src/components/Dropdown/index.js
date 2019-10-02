@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import './styles.scss';
 
 const Dropdown = forwardRef(
-    ({ innerComponent, position, children, className, closeOnClick }, ref) => {
+    ({ innerComponent, position, children, className, closeOnClick, withClear, clearLabel }, ref) => {
         const [isOpened, setOpened] = useState(false);
         const closeDropdown = () => setOpened(false);
         const toggleDropdown = () => setOpened(!isOpened);
@@ -18,16 +18,19 @@ const Dropdown = forwardRef(
                         position
                     )}
                 >
-                    <div
-                        className={
-                            isOpened
-                                ? 'Dropdown__button--visible'
-                                : 'Dropdown__button'
-                        }
-                        onClick={toggleDropdown}
-                    >
-                        {innerComponent}
-                    </div>
+                    {withClear ?
+                        <div className="Dropdown__wrap-button">
+                            <div className="Dropdown__button __short" onClick={toggleDropdown}>
+                                {innerComponent}
+                            </div>
+                            <button className="Dropdown__clear" onClick={clearLabel}/>
+                        </div> :
+                        <div className={isOpened ? 'Dropdown__button--visible' : 'Dropdown__button'}
+                             onClick={toggleDropdown}
+                        >
+                            {innerComponent}
+                        </div>
+                    }
                     <div
                         className={
                             isOpened
