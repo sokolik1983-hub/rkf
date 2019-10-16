@@ -16,10 +16,10 @@ export default function RenderFields() {
                 />
             </FormGroup>
 
-            <FormControls>
+            {/*<FormControls>
                 <SubmitButton type="submit"
                               className="btn-simple btn-lg">Обновить</SubmitButton>
-            </FormControls>
+            </FormControls>*/}
         </React.Fragment>
     )
 }

@@ -17,6 +17,8 @@ function ExhibitionDetailsPrices({exhibition_id, exhibitionPrices, storePrices})
     // const url = '/api/exhibitions/Price/byexhibition/' + exhibition_id;
     // const {loading} = useResourceAndStoreToRedux(url, storePrices);
 
+    if(!exhibitionPrices || !exhibitionPrices.length) return null;
+
     return (
         <div className="ExhibitionDetailsPrices">
             <h3>Цены</h3>

@@ -7,7 +7,15 @@ export const getExhibitionId = (state, props) => props.exhibitionId;
 
 export const getExhibitionDetailsFor = (state, props) => {
     const exhibitionId = props.match.params.id;
-    return {exhibitionDetails: state[defaultReduxKey].exhibitionsDetails[exhibitionId]}
+    const details = {...state[defaultReduxKey].exhibitionsDetails[exhibitionId]};
+
+    if(Object.keys(details).length) {
+        const {id, name, description, rank_types, class_types, breed_types, city_id, address} = details;
+
+        return {exhibitionDetails: {id, name, description, rank_types, class_types, breed_types, city_id, address}}
+    }
+
+    return {exhibitionDetails: {}}
 };
 
 export const getExhibitionById = createSelector(

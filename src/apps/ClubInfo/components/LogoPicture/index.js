@@ -4,7 +4,7 @@ import ActiveImageWrapper from 'components/ActiveImageWrapper';
 import { DEFAULT_IMG } from 'appConfig';
 import './styles.scss';
 
-function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
+function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess, bindSubmitForm}) {
     const ref = useRef(null);
 
     return (
@@ -13,6 +13,7 @@ function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
             <ActiveImageWrapper
                 requestUrl={'/api/Avatar/full'}
                 onSubmitSuccess={clubLogoUpdateSuccess}
+                bindSubmitForm={bindSubmitForm}
             >
                 <div ref={ref} style={{
                     backgroundImage: `url(${backgroundImage ? backgroundImage : DEFAULT_IMG.clubAvatar })`
@@ -21,9 +22,5 @@ function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess}) {
         </div>
     )
 }
-
-ClubLogoPicture.defaultProps = {
-    backgroundImage: "/static/images/noimg/no-avatar.png"
-};
 
 export default connectClientClubLogoPicture(ClubLogoPicture)

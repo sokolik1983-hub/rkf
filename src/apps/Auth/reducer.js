@@ -33,19 +33,33 @@ const clearUserInfo = () => {
     localStorage.removeItem('user_info');
 };
 
-const loadRolesWithActions = () => {
-    const rolesWithActions = localStorage.getItem('rolesWithActions');
-    return rolesWithActions === null ? false : JSON.parse(rolesWithActions);
+const loadIsActiveProfile = () => {
+    const is_active_profile = localStorage.getItem('is_active_profile');
+    return is_active_profile === null ? false : JSON.parse(is_active_profile);
 };
 
-const saveRolesWithActions = rolesWithActions => {
-    localStorage.setItem('rolesWithActions', JSON.stringify(rolesWithActions));
+const clearIsActiveProfile = () => {
+    localStorage.removeItem('is_active_profile');
 };
 
-const clearRolesWithActions = () => {
-    localStorage.removeItem('rolesWithActions_info');
+const saveIsActiveProfile = is_active_profile => {
+    localStorage.setItem('is_active_profile', JSON.stringify(is_active_profile));
 };
 
+//
+// const loadRolesWithActions = () => {
+//     const rolesWithActions = localStorage.getItem('rolesWithActions');
+//     return rolesWithActions === null ? false : JSON.parse(rolesWithActions);
+// };
+//
+// const saveRolesWithActions = rolesWithActions => {
+//     localStorage.setItem('rolesWithActions', JSON.stringify(rolesWithActions));
+// };
+//
+// const clearRolesWithActions = () => {
+//     localStorage.removeItem('rolesWithActions_info');
+// };
+//
 const saveProfile = profile_id => {
     localStorage.setItem('profile_id', JSON.stringify(profile_id));
 };
@@ -62,23 +76,26 @@ const clearProfile = profile => {
 const authInitialState = {
     loading: false,
     isAuthenticated: isUserAuthenticated(),
+    is_active_profile: loadIsActiveProfile(),
     user_info: loadUserInfo(),
     requestErrors: {},
     profile_id: loadProfile(),
-    roles_with_actions: loadRolesWithActions()
+    // roles_with_actions: loadRolesWithActions()
 };
 
 const authReducer = createReducer(authInitialState, {
     [actiontypes.LOGIN_SUCCESS](state, action) {
         const {
             access_token,
+            is_active_profile,
             user_info,
-            roles_with_actions,
+            // roles_with_actions,
             profile_id
         } = action.data;
         saveApiKey(access_token);
         saveUserInfo(user_info);
-        saveRolesWithActions(roles_with_actions);
+        saveIsActiveProfile(is_active_profile);
+        // saveRolesWithActions(roles_with_actions);
         saveProfile(profile_id);
         const { club_alias, club_name } = user_info;
         return {
@@ -88,40 +105,40 @@ const authReducer = createReducer(authInitialState, {
             loading: false,
             isAuthenticated: true,
             user_info,
-            roles_with_actions,
-            profile_id
+            // roles_with_actions,
+            profile_id,
+            is_active_profile
         };
     },
 
     [actiontypes.LOGOUT](state, action) {
-        //TODO Убрать clearApiKey();
         clearApiKey();
         clearUserInfo();
-        clearRolesWithActions();
+        clearIsActiveProfile();
+        // clearRolesWithActions();
         clearProfile();
         return {
             ...state,
-            //TODO Убрать isAuthenticated: false,
             isAuthenticated: false,
             user_info: null
         };
     },
-    [actiontypes.LOGOUT_SUCCESS](state, action) {
-        clearApiKey();
-        return {
-            ...state,
-            loading: false,
-            isAuthenticated: false,
-            user: null
-        };
-    },
-    [actiontypes.LOGOUT_FAILED](state, action) {
-        return {
-            ...state,
-            loading: false,
-            requestErrors: action.errors
-        };
-    }
+    // [actiontypes.LOGOUT_SUCCESS](state, action) {
+    //     clearApiKey();
+    //     return {
+    //         ...state,
+    //         loading: false,
+    //         isAuthenticated: false,
+    //         user: null
+    //     };
+    // },
+    // [actiontypes.LOGOUT_FAILED](state, action) {
+    //     return {
+    //         ...state,
+    //         loading: false,
+    //         requestErrors: action.errors
+    //     };
+    // }
 });
 
 export default authReducer;

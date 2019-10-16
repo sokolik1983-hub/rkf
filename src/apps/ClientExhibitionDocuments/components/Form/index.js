@@ -21,6 +21,10 @@ function ExhibitionDocumentForm({
         hideForm();
     };
 
+    if(!initialValues) {
+        initialValues = {name: '', url: ''}
+    }
+
     return (
         <Form
             onSuccess={onSuccess}

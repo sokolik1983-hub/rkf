@@ -1,19 +1,21 @@
 .day {
   border-bottom: solid 1px;
   border-color: #EBF0F2;
-  margin: 0 0 32px 0;
-  padding: 16px 0;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
   &__date{
-    font-weight: 400;
-    margin-bottom: 32px;
+    font-weight: normal;
+    margin-bottom: 16px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   &__span{
     font-size: 20px;
     line-height: 120%;
   }
-
   &__items {
     margin: 32px 0;
   }
-
 }

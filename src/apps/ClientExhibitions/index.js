@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    import React, {PureComponent} from "react"
 import {compose} from "redux";
 import {Route, Switch} from 'react-router-dom'
 
@@ -13,6 +13,7 @@ import saga from "./saga";
 
 import {ClientExhibitionsPathContext} from './context'
 import {defaultReduxKey} from "./config";
+import EditPageButtons from 'apps/Client/components/EditPageButtons';
 
 
 
@@ -24,8 +25,9 @@ class ClientExhibitionsProxy extends PureComponent {
                 <Switch>
                     <Route exact path={`${path}`} component={ExhibitionList}/>
                     <Route path={`${path}/add`} component={ExhibitionCreate}/>
-                    <Route path={`${path}/:id/details`} component={ExhibitionDetails}/>
+                    <Route path={`${path}/:id/details`} component={ExhibitionDetails}/> {/*/:id/details/common*/}
                 </Switch>
+                {/*<EditPageButtons />*/}
             </ClientExhibitionsPathContext.Provider>
         );
     }

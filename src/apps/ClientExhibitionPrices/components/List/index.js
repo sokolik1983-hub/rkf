@@ -1,9 +1,7 @@
 import React from 'react'
-
 import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectExhibitionPriceList} from 'apps/ClientExhibitionPrices/connectors'
 import {listPricesByExhibitionIdUrl} from 'apps/ClientExhibitionPrices/config'
-
 import ExhibitionPrice from './ListItem'
 import './styles.scss'
 

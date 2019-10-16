@@ -9,11 +9,11 @@ import {usePushMessage} from 'apps/Messages/hooks'
 import {defaultSuccessMessage} from 'shared/messages'
 
 export function UpdateLegalInfoForm(props) {
-    const {clubLegalInfo, updateLegalInfoSuccess} = props;
+    const {clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm} = props;
     const {push} = usePushMessage();
     const onSuccess = data => {
         updateLegalInfoSuccess(data);
-        push(defaultSuccessMessage);
+        // push(defaultSuccessMessage);
     };
 
     return (
@@ -21,6 +21,7 @@ export function UpdateLegalInfoForm(props) {
             onSuccess={onSuccess}
             {...clubLegalInfoFormConfig}
             initialValues={clubLegalInfo}
+            bindSubmitForm={bindSubmitForm}
         >
             <RenderFields/>
         </Form>

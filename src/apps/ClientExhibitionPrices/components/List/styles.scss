@@ -1,0 +1,17 @@
+.exhibition-price-table {
+  min-width: 50%;
+  margin-bottom: 28px;
+  border-collapse: collapse;
+  thead {
+    border-bottom: 1px solid #ccc;
+    td {
+      font-weight: normal;
+      font-size: 18px;
+    }
+  }
+  tbody {
+    td {
+      padding: 8px 0;
+    }
+  }
+}

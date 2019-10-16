@@ -21,7 +21,7 @@ const MONTHS = [
 function ReactDayPicker({ name, formik }) {
     const value = getIn(formik.values, name)
     const onChange = date => {
-        console.log(date)
+        // console.log(date)
         formik.setFieldValue(name, date)
     }
 

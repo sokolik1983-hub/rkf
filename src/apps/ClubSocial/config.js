@@ -1,4 +1,4 @@
-import {object, /*string*/} from "yup";
+import {object, string} from "yup";
 
 export const defaultReduxKey = 'club_social';
 export const endpointUrl = '/api/clubs/SocialNetwork';
@@ -24,6 +24,9 @@ export const clubClubSocialConfig = {
         // },
     },
     validationSchema: object().shape({
-        //
+        site: string()
+            .required('Поле не может быть пустым'),
+        description: string()
+            .required('Поле не может быть пустым'),
     })
 };

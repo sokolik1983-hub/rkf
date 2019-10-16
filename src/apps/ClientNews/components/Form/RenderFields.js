@@ -60,7 +60,7 @@ const RenderFields = ({ fields, isUpdate, formik }) => {
                     {...fields.content}
                     onChange={handleKeyDown}
                     onFocus={setFocused}
-                    maxlength="3001"
+                    maxLength="3001"
                     ref={textarea}
                     rows="1"
                 />

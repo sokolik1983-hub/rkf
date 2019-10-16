@@ -11,7 +11,8 @@ function ClubContactForm({
     club_id,
     addClubContactSuccess,
     initialValues,
-    hideForm
+    hideForm,
+    bindSubmitForm
 }) {
     const { contactType } = useContext(ContactTypeContext);
 
@@ -31,6 +32,7 @@ function ClubContactForm({
                 contact_type_id: parseInt(contactType.value, 10)
             }}
             validationSchema={contactType.validationSchema}
+            bindSubmitForm={bindSubmitForm}
         >
             <RenderFields />
             <div>

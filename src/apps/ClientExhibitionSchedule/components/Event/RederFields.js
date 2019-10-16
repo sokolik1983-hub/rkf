@@ -13,23 +13,22 @@ const FormButton = ({isUpdate}) => isUpdate ?
                   className="btn-simple btn-lg">Добавить</SubmitButton>;
 
 const RenderFields = ({fields, isUpdate}) =>
-    <>
-        <FormGroup inline>
-            <FormField
-                className={'start'}
-                {...fields.time_start}
-            />
-            <FormField
-                {...fields.time_end}
-            />
-            <FormField
-                style={{flex: 2}}
-                {...fields.name}
-            />
-            <div className="form-controls">
-                <FormButton isUpdate={isUpdate}/>
-            </div>
-        </FormGroup>
-    </>;
+    <FormGroup inline>
+        <FormField
+            className={'start'}
+            {...fields.time_start}
+        />
+        <FormField
+            {...fields.time_end}
+        />
+        <FormField
+            style={{flex: 2}}
+            {...fields.name}
+        />
+        <div className="form-controls">
+            <FormButton isUpdate={isUpdate}/>
+        </div>
+    </FormGroup>
+;
 
 export default RenderFields

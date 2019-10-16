@@ -6,11 +6,11 @@ import {usePushMessage} from 'apps/Messages/hooks'
 import {defaultSuccessMessage} from 'shared/messages'
 
 
-function ClientClubAlias({club_alias, club_id, clubAliasUpdateSuccess}) {
+function ClientClubAlias({club_alias, club_id, clubAliasUpdateSuccess, bindSubmitForm}) {
     const {push} = usePushMessage();
     const onSuccess = (values) => {
         clubAliasUpdateSuccess(values)
-        push(defaultSuccessMessage)
+        // push(defaultSuccessMessage)
     };
     const transformValues = values => ({...values, club_id})
     return (
@@ -21,13 +21,14 @@ function ClientClubAlias({club_alias, club_id, clubAliasUpdateSuccess}) {
                 initialValues={{alias_name: club_alias ? club_alias : ''}}
                 onSuccess={onSuccess}
                 transformValues={transformValues}
+                bindSubmitForm={bindSubmitForm}
             >
                 <FormGroup inline>
                     <FormField
                         name="alias_name"
                         label={'Алиас клуба, используется для адресации'}
                     />
-                    <SubmitButton>Обновить</SubmitButton>
+                    {/*<SubmitButton>Обновить</SubmitButton>*/}
                 </FormGroup>
 
             </Form>

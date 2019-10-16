@@ -18,7 +18,7 @@ class LoginForm extends PureComponent {
             >
                 <FormGroup>
                     <FormField
-                        {...fields.phone_number}
+                        {...fields.email}
                     />
                     <FormField
                         {...fields.password}

@@ -2,13 +2,12 @@ import React from "react"
 import {compose} from "redux";
 import {useResourceAndStoreToRedux} from 'shared/hooks'
 import UpdateBankInfoForm from './components/Form'
-
 import {connectBankInfo} from './connectors'
 import {endpointUrl, defaultReduxKey} from "./config";
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
-function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
+function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess, bindSubmitForm}) {
     const url = `${endpointUrl}/${bank_data_id}`;
     if(!bank_data_id){
         return (
@@ -20,7 +19,7 @@ function ClientBankInfoProxy({bank_data_id, getBankInfoSuccess}) {
     return (
         <div>
             <h3>Банковская информация</h3>
-            <UpdateBankInfoForm/>
+            <UpdateBankInfoForm bindSubmitForm={bindSubmitForm}/>
         </div>
     )
 }

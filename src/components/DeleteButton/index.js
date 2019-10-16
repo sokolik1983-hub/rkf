@@ -40,7 +40,6 @@ export default function DeleteButton({
         }
 
         if (successMessage) {
-            console.log(successMessage);
             push({
                 text: successMessage,
                 timeOut: 3000

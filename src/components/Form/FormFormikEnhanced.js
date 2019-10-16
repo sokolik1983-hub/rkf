@@ -15,19 +15,19 @@ class FormikFormEnhanced extends PureComponent {
     static defaultProps = {
         className: "form",
         buttonText: "Отправить",
-        storeValues: true,
-        storageVariableName: 'FormStoredValues',
+        // storeValues: true,
+        // storageVariableName: 'FormStoredValues',
         reset: true,
         isUpdate: false
     };
 
-    componentWillUnmount() {
-        // Save input before success submit
-        const {storeValues, values, storageVariableName} = this.props;
-        if (storeValues) {
-            localStorage.setItem(storageVariableName, JSON.stringify(values))
-        }
-    };
+    // componentWillUnmount() {
+    //     // Save input before success submit
+    //     const {storeValues, values, storageVariableName} = this.props;
+    //     if (storeValues) {
+    //         localStorage.setItem(storageVariableName, JSON.stringify(values))
+    //     }
+    // };
 
 
     render() {
@@ -35,7 +35,12 @@ class FormikFormEnhanced extends PureComponent {
             className,
             formTitle,
             children,
+            bindSubmitForm,
+            submitForm,
+            errors
         } = this.props;
+
+        if(bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
 
         return (
             <Form className={className}>

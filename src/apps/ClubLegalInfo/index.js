@@ -8,7 +8,7 @@ import {endpointUrl, defaultReduxKey} from "./config";
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
-function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
+function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess, bindSubmitForm}) {
     const url = `${endpointUrl}/${legal_information_id}`;
     if(!legal_information_id){
         return (
@@ -20,7 +20,7 @@ function ClientLegalInfoProxy({legal_information_id, getLegalInfoSuccess}) {
     return (
         <div>
             <h3>Юридическая информация</h3>
-            <UpdateLegalInfoForm/>
+            <UpdateLegalInfoForm bindSubmitForm={bindSubmitForm}/>
         </div>
     )
 }

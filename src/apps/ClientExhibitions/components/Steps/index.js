@@ -16,4 +16,4 @@ export const StepTabContent3 = () =>
     <>
         Цены<br/>
         <span className="step__number">шаг 3</span>
-    </>
+    </>;

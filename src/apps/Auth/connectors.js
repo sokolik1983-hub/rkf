@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { bindActionCreators } from 'redux';
 import { selectIsAuthenticated, selectWidgetLogin } from './selectors';
 import { logOutUser } from './actions';

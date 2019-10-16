@@ -8,7 +8,16 @@
     text-decoration: underline;
   }
   span {
+    display: inline-block;
+    vertical-align: middle;
     letter-spacing: 0.2px;
-    padding-right: 6px;
+    line-height: 24px;
+    margin-right: 6px;
+  }
+  &__ico {
+    display: inline-block;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
   }
 }

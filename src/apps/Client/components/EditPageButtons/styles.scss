@@ -2,12 +2,16 @@
   display: flex;
   justify-content: center;
   height: 60px;
-  background: white;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   &__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 48px;
+    padding: 0;
     max-width: 1182px;
     width: 100%;
   }
@@ -21,22 +25,25 @@
     line-height: 20px;
     padding: 10px 36px;
     text-decoration: none;
+    transition: background-color .2s linear;
     &:hover {
-      background: rgba(37, 60, 94, 0.1);
+      background-color: rgba(37, 60, 94, 0.1);
     }
   }
   &__save {
-    color: white !important;
+    color: #fff;
     background: #00c48c;
     box-sizing: border-box;
+    border: none;
     border-radius: 4px;
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
     padding: 11px 36px;
-    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .2s linear;
     &:hover {
-      background: #1ba889;
+      background-color: #1ba889;
     }
   }
 }

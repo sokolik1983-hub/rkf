@@ -4,7 +4,6 @@ import { ExhibitionIdContext } from 'apps/ClientExhibitionDocuments/context';
 import { connectExhibitionDocumentsList } from 'apps/ClientExhibitionDocuments/connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import { API_ENDPOINT } from 'apps/ClientExhibitionDocuments/config';
-
 import './styles.scss';
 
 function ExhibitionDocumentList({
@@ -19,14 +18,15 @@ function ExhibitionDocumentList({
         getExhibitionDocumentsListSuccess
     );
     return (
-        <div className="ExhibitionDocumentList">
+        <>
             <h3 className="text-upper">Ссылки на документы</h3>
             {loading
                 ? 'Загрузка...'
                 : listIds.map(id => (
                       <ListDocument editable={editable} key={id} id={id} />
-                  ))}
-        </div>
+                  ))
+            }
+        </>
     );
 }
 

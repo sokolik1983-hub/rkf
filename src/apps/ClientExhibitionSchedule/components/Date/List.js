@@ -12,50 +12,39 @@ class ScheduleDateList extends PureComponent {
     state = {
         formVisible: false
     };
-    onScheduleDateSubmit = (values) => {
-        const {exhibitionId, addScheduleDate} = this.props;
-        const {date} = values;
-        addScheduleDate({
-            exhibition_id: parseInt(exhibitionId, 10),
-            ...transformDate(date),
-        })
-    };
-    onAddSuccess = (data) => this.props.addDateSuccess(data);
 
-    transformValues = (values) => {
-        const {exhibitionId} = this.props;
-        const {date} = values;
-        ///return {exhibition_id: parseInt(exhibitionId, 10), ...transformDate(date)}
-        return {exhibition_id: parseInt(exhibitionId, 10), ...date}
-    };
     toggleScheduleDateForm = () => this.setState(prevState => ({formVisible: !prevState.formVisible}));
+
+    transformValues = ({date}) => {
+        const {exhibitionId} = this.props;
+        return {exhibition_id: parseInt(exhibitionId, 10), ...transformDate(date)};
+    };
+
+    onAddSuccess = (data) => this.props.addDateSuccess(data);
 
     render() {
         const {dateIds} = this.props;
+
         return (
             <div className="schedule-days">
-                {
-                    dateIds.map((id, index) =>
-                        <ScheduleDate index={index} key={id} dayId={id}/>
-                    )
-                }
-                {
-                    this.state.formVisible ?
-                        <FormFormikEnhanced
-                            onSuccess={this.onAddSuccess}
-                            transformValues={this.transformValues}
-                            {...scheduleScheduleDateForm}
-                        >
-                            <RenderFields
-                                fields={scheduleScheduleDateForm.fields}
-                            />
-                        </FormFormikEnhanced>
-                        : null
+                {!!dateIds.length && dateIds.map((id, index) =>
+                    <ScheduleDate index={index} key={id} dayId={id}/>
+                )}
+                {this.state.formVisible &&
+                    <FormFormikEnhanced
+                        onSuccess={this.onAddSuccess}
+                        transformValues={this.transformValues}
+                        {...scheduleScheduleDateForm}
+                    >
+                        <RenderFields
+                            fields={scheduleScheduleDateForm.fields}
+                        />
+                    </FormFormikEnhanced>
                 }
                 <div className="schedule-day__controls">
                     <Button
                         onClick={this.toggleScheduleDateForm}
-                        className="btn btn-icon btn-secondary"
+                        className="btn btn-icon btn-simple"
                         leftIcon={<BtnPus/>}
                     >
                         {this.state.formVisible ? 'Cкрыть форму' : 'Добавить день'}

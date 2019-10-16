@@ -35,17 +35,15 @@ const RenderFields = ({disabled, isUpdate}) =>
             disabled={disabled}
             {...fields.description}
         />
-
         <FormGroup inline>
             <FormField
-                disabled={disabled}
+                disabled={true}
                 {...fields.rank_types}
             />
-
-            <FormField
+            {/*<FormField
                 disabled={disabled}
                 {...fields.type_id}
-            />
+            />*/}
         </FormGroup>
         <FormGroup inline>
             <FormField
@@ -53,18 +51,18 @@ const RenderFields = ({disabled, isUpdate}) =>
                 {...fields.class_types}
             />
             <FormField
-                disabled={disabled}
+                disabled={true}
                 {...fields.breed_types}
             />
         </FormGroup>
-        <FormGroup inline>
+        {/*<FormGroup inline>
             <FormField
                 disabled={disabled}
                 {...fields.referees_id}
             />
-        </FormGroup>
+        </FormGroup>*/}
         <FormField
-            disabled={disabled}
+            disabled={true}
             {...fields.city_id}
         />
         <FormField

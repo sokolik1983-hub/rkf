@@ -5,12 +5,17 @@ import RenderFields from './RenderFields'
 import {usePushMessage} from 'apps/Messages/hooks'
 import {defaultSuccessMessage} from 'shared/messages'
 
-function ClubInfoForm({clubInfo, clubInfoUpdateSuccess}) {
+function ClubInfoForm({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) {
     const {push} = usePushMessage();
-    const transformValues = values => ({...values});
+    const transformValues = values => {
+        let newValues = {...values};
+        if(!newValues.city_id) delete newValues.city_id;
+
+        return {...newValues}
+    };
     const onSuccess = values => {
         clubInfoUpdateSuccess(values);
-        push(defaultSuccessMessage)
+        // push(defaultSuccessMessage)
     };
 
     return (
@@ -22,6 +27,7 @@ function ClubInfoForm({clubInfo, clubInfoUpdateSuccess}) {
                 onSuccess={onSuccess}
                 initialValues={clubInfo}
                 transformValues={transformValues}
+                bindSubmitForm={bindSubmitForm}
             >
                 <RenderFields/>
             </Form>

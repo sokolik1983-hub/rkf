@@ -1,21 +1,13 @@
 .ContestEvent{
   display: flex;
   flex-flow: row nowrap;
-  font-size: 18px;
-  line-height: 22px;
-  margin: 16px;
-  &__start{
-    margin-right: 16px;
-    position: relative;
-    &:after{
-      content: "-";
-      position: absolute;
-      right: -12px;
-      top: -1px
-    }
-  }
-  &__end{
-    margin-right: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0 8px 0 0;
+  &__time {
+    margin-right: 8px;
+    min-width: 90px;
+    font-weight: normal;
   }
 }
 

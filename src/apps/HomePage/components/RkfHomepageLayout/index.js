@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import FooterSmall from 'components/Layout/FooterSmall';
 import Container from 'components/Layout/Container';
 import HomepageLayout from 'components/Layout/Homepage';
@@ -48,9 +47,6 @@ function RkfHomepageLayout() {
                         <Content>
                             <h2>Предстоящие выставки</h2>
                             <RkfFeaturedExhibitions />
-                            <Link className="NewsList__button" to="/exhibitions">
-                                Смотреть все выставки
-                            </Link>
                         </Content>
                         <Side>
                             <div className="NewsList__sidebar">

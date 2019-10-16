@@ -8,6 +8,7 @@ import ClientClubContacts from 'apps/ClubContacts'
 import ClientClubDocuments from 'apps/ClubDocuments'
 import LegalInfo from 'apps/ClubLegalInfo'
 import BankInfo from 'apps/ClubBankInfo'
+import EditPageButtons from 'apps/Client/components/EditPageButtons';
 
 function ClientProfile(props) {
     // const {
@@ -39,6 +40,7 @@ function ClientProfile(props) {
                 <h3>Социальные сети</h3>
                 <CompanySocialForm/>
             </Card>
+            <EditPageButtons />
         </>
     );
 

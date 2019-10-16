@@ -20,7 +20,7 @@ const selectItems = state => {
 
 export const getScheduleEvents = createSelector(
     [selectItems],
-    (scheduleEvents) => (scheduleEvents)
+    (scheduleEvents) => (scheduleEvents || {})
 );
 
 export const getItemId = (state, props) => props.itemId;

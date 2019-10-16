@@ -1,37 +1,25 @@
-import React, { useState } from 'react';
-import Loading from 'components/Loading';
+import React from 'react';
+import {Link} from "react-router-dom";
 import FeaturedExhibition from './Exhibition';
-import { useResourceAndStoreToRedux } from 'shared/hooks';
+import {connectFeaturedExhibitionsList} from '../../connectors.js';
 
-import {
-    DEFAULT_ELEMENTS_COUNT,
-    DEFAULT_ELEMENTS_COUNT_OFFSET,
-    FEATURED_EXHIBITIONS_ENDPOINT
-} from 'apps/HomePage/config';
 
-function RkfFeaturedExhibitions() {
-    const [exhibitions, setExhibitions] = useState([]);
-    // TODO надо как-то красивее это
-    const url = `${FEATURED_EXHIBITIONS_ENDPOINT}?ElementsCount=${DEFAULT_ELEMENTS_COUNT +
-        DEFAULT_ELEMENTS_COUNT_OFFSET}`;
-    const { loading } = useResourceAndStoreToRedux(url, setExhibitions);
-
+function RkfFeaturedExhibitions({exhibitions}) {
     return (
-        <div>
-            {loading ? (
-                <Loading />
-            ) : (
-                exhibitions
-                    .slice(DEFAULT_ELEMENTS_COUNT_OFFSET)
-                    .map(exhibition => (
-                        <FeaturedExhibition
-                            key={exhibition.id}
-                            {...exhibition}
-                        />
-                    ))
-            )}
-        </div>
+        exhibitions && !!exhibitions.length ?
+            <>
+                {exhibitions.map(exhibition =>
+                    <FeaturedExhibition
+                        key={exhibition.id}
+                        {...exhibition}
+                    />
+                )}
+                <Link className="NewsList__button" to="/exhibitions">
+                    Смотреть все выставки
+                </Link>
+            </> :
+            <h3>Не найдено анонсов выставок</h3>
     );
 }
 
-export default RkfFeaturedExhibitions;
+export default connectFeaturedExhibitionsList(RkfFeaturedExhibitions);

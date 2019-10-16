@@ -42,7 +42,6 @@ export const selectClubContacts = state => {
 
 export const selectClubDocuments = state => {
     const { documents } = getState(state);
-    console.log(getState(state))
     return {
         documents,
     }
@@ -50,7 +49,6 @@ export const selectClubDocuments = state => {
 
 export const selectPublicClubAddress = state => {
     const { documents } = getState(state);
-    console.log(getState(state))
     return {
         documents,
     }

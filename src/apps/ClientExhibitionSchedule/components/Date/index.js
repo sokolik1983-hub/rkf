@@ -5,6 +5,7 @@ import {connectScheduleDate} from 'apps/ClientExhibitionSchedule/connectors'
 import {scheduleScheduleDateForm} from "../../config";
 import RenderFields from "./RenderFields";
 import {FormFormikEnhanced} from "components/Form";
+import './styles.scss';
 
 
 function ScheduleDate({dayId, day, index, updateDateSuccess}) {
@@ -21,15 +22,10 @@ function ScheduleDate({dayId, day, index, updateDateSuccess}) {
 
     return (
         <div id={'day' + dayId} className="day">
-            <div className="day__date">
-                <div className="day__date">
-                    <span onClick={() => setFormVisibility(!formVisible)} className="day__span">{index + 1} день</span>
-                    <br/>
-                    {formatDateWithLocaleString(date)}
-                </div>
-            </div>
-            {
-                formVisible ?
+            <h4 className="day__date" onClick={() => setFormVisibility(!formVisible)}>
+                {`${index + 1} день (${formatDateWithLocaleString(date)})`}
+            </h4>
+            {formVisible &&
                     <FormFormikEnhanced
                         onSuccess={onUpdate}
                         {...scheduleScheduleDateForm}
@@ -41,7 +37,6 @@ function ScheduleDate({dayId, day, index, updateDateSuccess}) {
                             fields={scheduleScheduleDateForm.fields}
                         />
                     </FormFormikEnhanced>
-                    : null
             }
             <DateEvents day={dayId} items={day.items}/>
         </div>

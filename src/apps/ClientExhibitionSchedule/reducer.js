@@ -24,7 +24,7 @@ const clientExhibitionScheduleReducer = createReducer(clientExhibitionScheduleSt
                 ...state,
                 loading: false,
                 days,
-                items,
+                items: items || {},
                 dateIds: result,
             };
         }

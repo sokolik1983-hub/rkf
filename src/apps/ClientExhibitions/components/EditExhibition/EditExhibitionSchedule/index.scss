@@ -1,0 +1,19 @@
+.exhibition-schedule {
+  margin-top: 40px;
+  &__imgs {
+    display: flex;
+    justify-content: space-between;
+    .Card {
+      width: 48%;
+    }
+  }
+  &__img {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 24px;
+  }
+  .ActiveImageWrapper__controls button:not(:last-child) {
+    margin-right: 12px;
+  }
+}

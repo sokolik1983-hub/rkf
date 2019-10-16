@@ -14,7 +14,7 @@ const Row = ({ children }) => (
     </div>
 );
 
-function ClientClubContactsProxy({ getClubContactsListSuccess, club_id }) {
+function ClientClubContactsProxy({ getClubContactsListSuccess, club_id, bindSubmitClubEmail, bindSubmitClubPhone }) {
     const url = getlistUrl + String(club_id);
     const { loading } = useResourceAndStoreToRedux(
         url,
@@ -25,10 +25,14 @@ function ClientClubContactsProxy({ getClubContactsListSuccess, club_id }) {
     ) : (
         <Row>
             <div style={{ marginRight: 8 }} className="flex-col">
-                <ClientContactList contactType={CONTACT_TYPES.email} />
+                <ClientContactList contactType={CONTACT_TYPES.email}
+                                   bindSubmitForm={bindSubmitClubEmail}
+                />
             </div>
             <div className="flex-col">
-                <ClientContactList contactType={CONTACT_TYPES.phone} />
+                <ClientContactList contactType={CONTACT_TYPES.phone}
+                                   bindSubmitForm={bindSubmitClubPhone}
+                />
             </div>
         </Row>
     );

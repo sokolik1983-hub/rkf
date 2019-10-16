@@ -78,8 +78,9 @@ const defaultWithFormikEnhancedObject = {
             data: props.transformValues ? props.transformValues(values) : values, // Form data
             successAction: props.onSuccess, // called with response JSON
             formik,
-            storageVariableName: props.storageVariableName
-        }),
+            storageVariableName: props.storageVariableName,
+            bindSubmitForm: props.bindSubmitForm // для костыля в CommonEditPage
+        })
 };
 
 export const defaultWithFormikEnhanced = withFormik(

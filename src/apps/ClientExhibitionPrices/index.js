@@ -12,10 +12,6 @@ import saga from "./saga";
 
 class ClientExhibitionScheduleProxy extends Component {
 
-    componentDidMount() {
-
-    }
-
     render() {
         const {match} = this.props;
         const exhibitionId = parseInt(match.params.id, 10)

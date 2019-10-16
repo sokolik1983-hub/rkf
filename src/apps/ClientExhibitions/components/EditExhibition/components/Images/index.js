@@ -1,5 +1,4 @@
 import ExhibitionAvatar from "./Avatar";
-
 import ExhibitionMap from './Map'
 
 export  {

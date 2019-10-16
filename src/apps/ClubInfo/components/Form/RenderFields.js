@@ -33,10 +33,10 @@ const RenderFields = () =>
         <FormField
             {...fields.site}
         />
-        <FormControls>
+        {/*<FormControls>
             <SubmitButton type="submit"
                           className="btn-simple btn-lg">Обновить</SubmitButton>
-        </FormControls>
+        </FormControls>*/}
     </React.Fragment>;
 
 export default RenderFields

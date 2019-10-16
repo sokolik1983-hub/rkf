@@ -5,24 +5,10 @@ import {objectNotEmpty} from "utils/index";
 import NavTab, {NavTabs} from '../NavTab'
 import {StepTabContent1, StepTabContent2, StepTabContent3} from "../Steps";
 import ClientExhibitionPrices from 'apps/ClientExhibitionPrices'
-import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule'
-import ClientExhibitionContests from 'apps/ClientExhibitionContest'
-
 import {connectExhibitionDetails} from "apps/ClientExhibitions/connectors"
 import UpdateExhibitionForm from 'apps/ClientExhibitions/components/Forms/UpdateForm'
-import {ExhibitionAvatar, ExhibitionMap} from 'apps/ClientExhibitions/components/Images'
-import ClientExhibitionDocument from 'apps/ClientExhibitionDocuments'
+import EditExhibitionSchedule from "../EditExhibition/EditExhibitionSchedule";
 
-const Step2 = (props) =>
-    <>
-        <h3>Avatar</h3>
-        <ExhibitionAvatar {...props}/>
-        <h3>Map</h3>
-        <ExhibitionMap {...props}/>
-        <ClientExhibitionSchedule {...props}/>
-        <ClientExhibitionContests {...props}/>
-        <ClientExhibitionDocument {...props}/>
-    </>;
 
 class ExhibitionDetails extends PureComponent {
     componentDidMount() {
@@ -53,7 +39,7 @@ class ExhibitionDetails extends PureComponent {
                 </NavTabs>
                 <Switch>
                     <Route path={`${path}/common`} component={UpdateExhibitionForm}/>
-                    <Route path={`${path}/schedule`} component={Step2}/>
+                    <Route path={`${path}/schedule`} component={EditExhibitionSchedule}/>
                     <Route path={`${path}/prices`} component={ClientExhibitionPrices}/>
                 </Switch>
             </Card>

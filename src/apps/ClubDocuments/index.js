@@ -8,15 +8,19 @@ import Button from 'components/Button'
 import injectReducer from "../../utils/injectReducer";
 import reducer from "./reducer";
 
-function ClientClubDocumentsProxy() {
+function ClientClubDocumentsProxy({bindSubmitForm}) {
     const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
+
+    if(!visibility && bindSubmitForm) {
+        bindSubmitForm.submit(null, {});
+    }
 
     return (
         <div>
             <ClientDocumentList/>
             {
                 visibility ?
-                    <ClubDocumentsForm hideForm={setInvisible}/>
+                    <ClubDocumentsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm}/>
                     : null
             }
             <Button onClick={toggleVisibility}>

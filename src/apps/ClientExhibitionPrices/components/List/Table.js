@@ -1,15 +1,15 @@
 import React from 'react'
 import {connectExhibitionPriceList} from 'apps/ClientExhibitionPrices/connectors'
 import {useResourceAndStoreToRedux} from 'shared/hooks'
-
 import {listPricesByExhibitionIdUrl} from 'apps/ClientExhibitionPrices/config'
 import ExhibitionPriceTableRow from './TableRow'
+import './styles.scss'
 
 function ExhibitionPriceTable({listIds, getPriceListSuccess, exhibitionId}) {
     const url = listPricesByExhibitionIdUrl + exhibitionId;
     useResourceAndStoreToRedux(url, getPriceListSuccess);
     return (
-        <table>
+        listIds && !!listIds.length && <table className="exhibition-price-table">
             <thead>
             <tr>
                 <td>Тип цены</td>
@@ -19,8 +19,7 @@ function ExhibitionPriceTable({listIds, getPriceListSuccess, exhibitionId}) {
             </thead>
             <tbody>
             {
-
-                    listIds.map(id => <ExhibitionPriceTableRow key={id} id={id}/>)
+                listIds.map(id => <ExhibitionPriceTableRow key={id} id={id}/>)
             }
             </tbody>
         </table>

@@ -8,6 +8,7 @@ import {
     selectClubHeaderPicture,
     selectClubLogoPicture,
     selectClubAlias,
+    selectEditPage
 } from './selectors'
 
 import {

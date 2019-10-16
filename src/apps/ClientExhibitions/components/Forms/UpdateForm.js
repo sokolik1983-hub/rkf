@@ -8,12 +8,11 @@ import {objectNotEmpty} from "utils";
 
 
 function UpdateExhibitionForm({updateExhibitionSuccess, exhibitionDetails}) {
-
     const onUpdateExhibitionSuccess = useCallback(data => {
         updateExhibitionSuccess(data);
     }, []);
 
-    const detailsLoaded = objectNotEmpty(exhibitionDetails)
+    const detailsLoaded = objectNotEmpty(exhibitionDetails);
 
     return detailsLoaded ? (
             <Card style={{marginTop: 40}}>

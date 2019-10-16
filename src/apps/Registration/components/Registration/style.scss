@@ -1,62 +1,79 @@
-.registration {
-  &__logo {
-    width: 80px;
-    height: 80px;
-    background-image: url('/static/images/header/rkf-logo.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 40px auto 8px auto;
+.Registration {
+  display: flex;
+  background: white;
+  &__image {
+    height: 100vh;
+    width: 416px;
+    background: url("/static/images/registration/banner.png") center center/cover no-repeat;
   }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    padding: 10px;
+    .registration__logo {
+      width: 80px;
+      height: 80px;
+      background-image: url("/static/images/header/rkf-logo.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 40px auto 8px auto;
+    }
+    li:hover {
+      cursor: pointer;
+      background: #eee;
+    }
+    .registration__holder {
+      box-sizing: border-box;
+      max-width: 572px;
+      min-width: 572px;
+      width: 572px;
+      padding: 40px;
+      margin: 40px auto;
+      overflow-y: scroll;
+    }
 
-
-  &__holder {
-    box-sizing: border-box;
-    max-width: 572px;
-    min-width: 572px;
-    width: 572px;
-    padding: 40px;
-    margin: 40px auto;
-    overflow-y: scroll;
-  }
-
-  &__title {
-    text-align: center;
-    font-size: 38px;
-    line-height: 42px;
-    font-weight: 400;
-    margin: 0 0 24px 0;
-  }
-
-  &__tabs {
-    flex-flow: row nowrap;
-    margin: 0 0 16px 0;
-
-    .tabs__tab {
-      font-family: 'Futura New', Helvetica, sans-serif;
-      text-decoration: none;
-      color: #CCCCCC;
-      white-space: nowrap;
-      text-transform: uppercase;
-      padding: 16px;
-      box-shadow: 0 1px 0 0 #CCCCCC;
+    .registration__title {
+      text-align: center;
+      font-size: 38px;
+      line-height: 42px;
       font-weight: 400;
-      outline: none;
+      margin: 0 0 24px 0;
+    }
 
-      &--active {
-        color: #253C5E;
-        box-shadow: 0 2px 0 0 #253C5E;
-      }
+    .registration__select {
+      align-self: center;
+      margin-bottom: 24px;
     }
   }
-
-  &__signature {
-    color: #72839C;
-    margin: 12px 0;
+}
+.ActivateClub {
+  text-align: center;
+  form {
+    margin-bottom: 10px;
+    button {
+      margin-left: 10px;
+      padding: 2px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  }
+  table,
+  td,
+  th {
+    border: 1px solid #ddd;
+    text-align: left;
   }
 
-  &__switch-to-login {
-    text-align: center;
-    margin: 32px 0;
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
+  th,
+  td {
+    padding: 5px;
+  }
 }

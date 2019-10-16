@@ -23,7 +23,8 @@ export async function formikHandleSubmit({
                                              data, // Form data
                                              successAction, // called with response JSON
                                              formik,
-                                             storageVariableName
+                                             storageVariableName,
+                                             bindSubmitForm //для костыля в CommonEditPage
                                          }) {
     // Configure request
     const config = {
@@ -46,6 +47,7 @@ export async function formikHandleSubmit({
         // clear stored formData (request success we don't need it anymore)
         localStorage.removeItem(storageVariableName);
         formik.setSubmitting(false);
+        if(bindSubmitForm) bindSubmitForm.getErrors({});
         return {response}
 
     } catch (error) {
@@ -54,6 +56,7 @@ export async function formikHandleSubmit({
             const {data} = error.response;
             const touched = {};
             Object.keys(data.errors).forEach(key => touched[key] = true);
+            if(bindSubmitForm) bindSubmitForm.getErrors(data.errors);
             //TODO Handle this in future
             //formik.setTouched(touched);
             formik.setErrors(data.errors);
@@ -77,7 +80,6 @@ export async function formikHandleSubmit2({
     // Block Form
     //formik.setSubmitting(true);
     try {
-        console.log('moving on');
         const requestUrl = isDevEnv() ? `${SERVER}${url}` : url;
         const response = await fetch(requestUrl, {
             ...options,

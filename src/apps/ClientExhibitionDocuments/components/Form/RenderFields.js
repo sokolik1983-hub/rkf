@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
     FormField,
     FormGroup,
@@ -10,15 +10,13 @@ import { exhibitionDocumentFormConfig } from 'apps/ClientExhibitionDocuments/con
 const { fields } = exhibitionDocumentFormConfig;
 
 export const RenderFields = ({ isUpdate }) => (
-    <Fragment>
-        <FormGroup inline>
-            <FormField {...fields.name} />
-            <FormField {...fields.url} />
-            <FormControls>
-                <SubmitButton>
-                    {isUpdate ? 'Обновить' : 'Добавить'}
-                </SubmitButton>
-            </FormControls>
-        </FormGroup>
-    </Fragment>
+    <FormGroup inline>
+        <FormField {...fields.name} />
+        <FormField {...fields.url} />
+        <FormControls>
+            <SubmitButton type="submit" className="btn-simple">
+                {isUpdate ? 'Обновить' : 'Добавить'}
+            </SubmitButton>
+        </FormControls>
+    </FormGroup>
 );

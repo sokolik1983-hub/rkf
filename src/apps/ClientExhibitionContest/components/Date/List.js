@@ -26,28 +26,24 @@ class ContestDateList extends PureComponent {
         const {dateIds} = this.props;
         return (
             <div className="schedule-days">
-                {
-                    dateIds.map((id, index) =>
-                        <ContestDate index={index} key={id} dayId={id}/>
-                    )
-                }
-                {
-                    this.state.formVisible ?
-                        <FormFormikEnhanced
-                            onSuccess={this.onAddSuccess}
-                            transformValues={this.transformValues}
-                            {...scheduleContestDateForm}
-                        >
-                            <RenderFields
-                                fields={scheduleContestDateForm.fields}
-                            />
-                        </FormFormikEnhanced>
-                        : null
+                {dateIds.map((id, index) =>
+                    <ContestDate index={index} key={id} dayId={id}/>
+                )}
+                {this.state.formVisible &&
+                    <FormFormikEnhanced
+                        onSuccess={this.onAddSuccess}
+                        transformValues={this.transformValues}
+                        {...scheduleContestDateForm}
+                    >
+                        <RenderFields
+                            fields={scheduleContestDateForm.fields}
+                        />
+                    </FormFormikEnhanced>
                 }
                 <div className="schedule-day__controls">
                     <Button
                         onClick={this.toggleContestDateForm}
-                        className="btn btn-icon btn-secondary"
+                        className="btn btn-icon btn-simple"
                         leftIcon={<BtnPus/>}
                     >
                         {this.state.formVisible ? 'Cкрыть форму' : 'Добавить день'}

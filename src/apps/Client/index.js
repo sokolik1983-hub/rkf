@@ -8,7 +8,6 @@ import ClientExhibitions from 'apps/ClientExhibitions'
 import ClientProfile from 'apps/ClientProfile'
 import Messages from 'apps/Messages'
 import ClientLayout from './components/Layout'
-
 import {ClientCommonContext} from "./config";
 import {connectClientProxy} from './connectors'
 
@@ -23,11 +22,7 @@ function ClientProxy(props) {
         <ClientCommonContext.Provider value={{path, profile_id}}>
             <AuthOrLogin>
                 <ClientLayout>
-
-
-
                     <Switch>
-
                         <Route path={`${path}/profile`} component={ClientProfile}/>
                         <Route path={`${path}/exhibitions`} component={ClientExhibitions}/>
                         <Route path={`${path}`} component={ClientClub}/>

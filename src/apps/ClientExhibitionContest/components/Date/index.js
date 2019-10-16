@@ -21,27 +21,21 @@ function ContestDate({dayId, day, index, updateDateSuccess}) {
 
     return (
         <div id={'day' + dayId} className="day">
-            <div className="day__date">
-                <div className="day__date">
-                    <span onClick={() => setFormVisibility(!formVisible)} className="day__span">{index + 1} день</span>
-                    <br/>
-                    {formatDateWithLocaleString(date)}
-                </div>
-            </div>
-            {
-                formVisible ?
-                    <FormFormikEnhanced
-                        onSuccess={onUpdate}
-                        {...scheduleContestDateForm}
-                        formInitials={date}
-                        transformValues={transformValues}
-                        isUpdate
-                    >
-                        <RenderFields
-                            fields={scheduleContestDateForm.fields}
-                        />
-                    </FormFormikEnhanced>
-                    : null
+            <h4 className="day__date" onClick={() => setFormVisibility(!formVisible)}>
+                {`${index + 1} день (${formatDateWithLocaleString(date)})`}
+            </h4>
+            {formVisible &&
+                <FormFormikEnhanced
+                    onSuccess={onUpdate}
+                    {...scheduleContestDateForm}
+                    formInitials={date}
+                    transformValues={transformValues}
+                    isUpdate
+                >
+                    <RenderFields
+                        fields={scheduleContestDateForm.fields}
+                    />
+                </FormFormikEnhanced>
             }
             <DateEvents day={dayId} items={day.items}/>
         </div>

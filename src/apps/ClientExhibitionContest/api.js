@@ -30,7 +30,7 @@ const Api = {
     deleteContestEvent: async (action) => {
         return request(
             {
-                url: `${EVENT_URL}?id=${action.id}`,
+                url: `${EVENT_URL}/${action.id}`,
                 options: {
                     method: "DELETE",
                     headers: getHeaders(),

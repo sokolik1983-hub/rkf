@@ -45,10 +45,8 @@ import {connectContestEditableEvent} from 'apps/ClientExhibitionContest/connecto
             )
             :
             (
-                <div className="flex-row">
-
+                <div className="day__item flex-row">
                     <ContestEvent {...item}/>
-
                     <Button
                         style={{marginLeft: 'auto'}}
                         className="btn-z"

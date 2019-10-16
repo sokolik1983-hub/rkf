@@ -11,7 +11,9 @@ function ActiveImageWrapper({
                                 requestUrl,
                                 requestParams,
                                 onSubmitSuccess,
-                                children
+                                children,
+                                additionalParams,
+                                bindSubmitForm
                             }) {
 
     const inputEl = useRef(null);
@@ -52,6 +54,9 @@ function ActiveImageWrapper({
             if (objectNotEmpty(requestParams)) {
                 Object.keys(requestParams).forEach(key => data.append(key, requestParams[key]))
             }
+            if(additionalParams) {
+                Object.keys(additionalParams).forEach(key => data.append(key, additionalParams[key]))
+            }
             const config = {
                 url: requestUrl,
                 method: "POST",
@@ -67,6 +72,7 @@ function ActiveImageWrapper({
         }
     };
 
+    if(bindSubmitForm) bindSubmitForm(onSubmit);
 
     const getChildElSize = () => {
         // console.log('onSubmitSuccess', onSubmitSuccess)
@@ -101,14 +107,11 @@ function ActiveImageWrapper({
             />
             {state.imagePreview ? renderPreview() : children}
             <div className="ActiveImageWrapper__controls">
-                <Button condensed disabled={state.loading} onClick={onEdit}>
+                <Button className="btn-simple" condensed disabled={state.loading} onClick={onEdit}>
                     Изменить
                 </Button>
-                {
-                    state.imagePreview ?
-                        <Button disabled={state.loading} onClick={onSubmit}>Заменить</Button>
-                        :
-                        null
+                {state.imagePreview &&
+                    <Button className="btn-simple" disabled={state.loading} onClick={onSubmit}>Заменить</Button>
                 }
             </div>
         </>

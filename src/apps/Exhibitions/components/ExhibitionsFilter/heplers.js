@@ -15,15 +15,15 @@ const FILTER_KEYS = {
     archive: 'Archive'
 };
 
-export const mapParams = (array, apiParamName) => {
-    //
-    if (array.length > 0) {
+export const mapParams = (value, apiParamName) => {
+    if (value.length > 0) {
         let str = '';
-        array.forEach(el => {
+        value.forEach(el => {
             str = str + `${apiParamName}=${el}&`;
         });
         return str;
     }
+
     return null;
 };
 

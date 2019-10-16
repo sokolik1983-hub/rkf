@@ -61,7 +61,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
     };
 
     // url of request, if it changed effect run again, applyFilter do this
-    const [url, setUrl] = useState(filter.cities.length ? `${buildUrl(filter)}` : endpointExhibitionsList);
+    const [url, setUrl] = useState(`${buildUrl(filter)}`);
     // for requests
 
     const [loading, setLoading] = useState(false);
@@ -77,7 +77,12 @@ export const useExhibitionsFilter = ({ successAction }) => {
     const changeRanksFilter = ranks => setFilter({ ...filter, ranks });
     const changeCastesFilter = castes => setFilter({ ...filter, castes });
     const changeTypesFilter = types => setFilter({...filter, types });
-    const changeClubsFilter = clubs => setFilter({ ...filter, clubs });
+    const changeClubsFilter = clubs => {
+        const newFilter = { ...filter, clubs };
+        setFilters(newFilter);
+        const url = `${buildUrl(newFilter)}`;
+        setUrl(url);
+    };
     const setDate = date => {
         const newFilter = { ...filter, dateFrom: [date], dateTo: [date] };
         setFilters(newFilter);
@@ -119,7 +124,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
 
     const clearFilter = () => {
         setFilters({ ...emptyFilters });
-        setUrl(endpointExhibitionsList);
+        setUrl(`${buildUrl(emptyFilters)}`);
     };
 
     const handleCalendarMonthChange = date => {
@@ -174,6 +179,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
         setUrl,
         filter,
         setFilter,
+        setFilters,
         loading,
         applyFilter,
         changeCitiesFilter,

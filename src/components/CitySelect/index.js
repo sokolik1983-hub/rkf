@@ -1,30 +1,30 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from 'appConfig';
 import { useDictionary } from 'apps/Dictionaries';
 import { DICTIONARIES } from 'apps/Dictionaries/config';
 import Dropdown from 'components/Dropdown';
-
+import {storeExhibitions} from 'apps/HomePage/actions';
+import {useResourceAndStoreToRedux} from 'shared/hooks';
+import {
+    DEFAULT_ELEMENTS_COUNT_OFFSET,
+    FEATURED_EXHIBITIONS_ENDPOINT
+} from 'apps/HomePage/config';
 import './styles.scss';
 
 const LS_KEY = 'GLOBAL_CITY';
-
 const noOptionsMessage = () => 'Город не найден';
-
 const selectorInitialState = { label: 'Выбор города', value: null };
-
 const storeFilters = city => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     filters.cities = city ? [city.value] : [];
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
-
 const storeCity = city => {
     localStorage.setItem(LS_KEY, JSON.stringify(city));
     //записываем город в фильтры в LocalStorage
     storeFilters(city);
 };
-
 const loadCity = () => {
     const city = localStorage.getItem(LS_KEY);
 
@@ -33,12 +33,7 @@ const loadCity = () => {
 
 function CitySelect() {
     const ddRef = useRef();
-    const [city, setCity] = useState(selectorInitialState);
-
-    useEffect(() => {
-        const city = loadCity();
-        setCity(city);
-    }, []);
+    const [city, setCity] = useState(loadCity());
 
     const { dictionary } = useDictionary(DICTIONARIES.cities);
 
@@ -57,14 +52,18 @@ function CitySelect() {
         }
 
         storeCity(value);
-        setCity(value);
         closeSelector();
+        setCity(value);
     };
 
     const selectOptions = [
         { value: 'reset', label: 'Все города' },
         ...dictionary.options
     ];
+
+    //отправляем запрос и пишим в Redux предстоящие выставки в зависимости от города
+    const url = `${FEATURED_EXHIBITIONS_ENDPOINT}?ElementsCount=${DEFAULT_ELEMENTS_COUNT_OFFSET}${city && city.value ? '&CityId=' + city.value : ''}`;
+    useResourceAndStoreToRedux(url, storeExhibitions);
 
     return (
         <Dropdown

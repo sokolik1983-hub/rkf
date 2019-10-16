@@ -95,24 +95,35 @@ export const selectBankInfoId=state=>{
 export const selectClubInfo = state => {
     const {
         address,
-        city_id,
+        fact_city_id,
         club_id,
         correspondence_address,
         description,
         name,
         site,
         status_id,
+
     } = getState(state);
+    let {
+        work_time_from,
+        work_time_to
+    } = getState(state);
+
+    work_time_from = work_time_from ? work_time_from.slice(0, 5) : '';
+    work_time_to = work_time_to ? work_time_to.slice(0, 5) : '';
+
     return {
         clubInfo: {
             club_id,
             address,
             description,
-            city_id,
+            city_id: fact_city_id,
             site,
             name,
             correspondence_address,
             status_id,
+            work_time_from,
+            work_time_to
         }
     }
 };

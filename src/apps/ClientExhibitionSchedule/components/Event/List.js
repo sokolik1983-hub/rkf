@@ -27,22 +27,15 @@ class ScheduleDateEvents extends PureComponent {
 
     render() {
         const {items, day} = this.props;
+
         return (
             <div className="day-items">
-                {
-                    items.length > 0 ?
-                        items.map(item =>
-                            <ItemRow
-                                day={day}
-                                itemId={item}
-                                key={item}
-                            />
-                        )
-                        : null
+                {!!items.length &&
+                    items.map(item =>
+                        <ItemRow day={day} itemId={item} key={item}/>
+                    )
                 }
-                {
-                    this.state.formVisible ?
-                        // Form for creating item
+                {this.state.formVisible &&
                         <FormFormikEnhanced
                             className="ScheduleEvent__form"
                             onSuccess={this.createItem}
@@ -53,7 +46,6 @@ class ScheduleDateEvents extends PureComponent {
                                 fields={scheduleScheduleEventForm.fields}
                             />
                         </FormFormikEnhanced>
-                        : null
                 }
                 <div className="day-items__controls">
                     <Button

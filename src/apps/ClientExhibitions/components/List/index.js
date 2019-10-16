@@ -19,9 +19,9 @@ class ClientExhibitionsList extends PureComponent {
                     {
                         ({path}) =>
                             <div className="client-exhibitions">
-                                <div style={{textAlign: 'right'}}>
+                                {/*<div style={{textAlign: 'right'}}>
                                     <Link className="btn btn-primary" to={`${path}/add`}>Создать выставку</Link>
-                                </div>
+                                </div>*/}
                                 {
                                     this.props.exhibitionIdList.map(id => <ClientExhibitionListItem key={id} exhibitionId={id}/>)
                                 }

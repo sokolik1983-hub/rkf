@@ -18,9 +18,14 @@ const btnStyle = {
 };
 
 function ClientContactList(props) {
-    const { contactType } = props;
+    const { contactType, bindSubmitForm } = props;
     const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
     const listIds = props[contactType.storeListIds];
+
+    if(!visibility && bindSubmitForm) {
+        bindSubmitForm.submit(null, {});
+    }
+
     return (
         <Provider value={{ contactType }}>
             <div className="ClientContactList">
@@ -29,7 +34,7 @@ function ClientContactList(props) {
                 ))}
 
                 {visibility ? (
-                    <ClubContactsForm hideForm={setInvisible} />
+                    <ClubContactsForm hideForm={setInvisible} bindSubmitForm={bindSubmitForm} />
                 ) : null}
 
                 {!visibility ? (

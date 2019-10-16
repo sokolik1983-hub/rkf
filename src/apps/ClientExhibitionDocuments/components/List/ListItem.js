@@ -6,9 +6,7 @@ import DeleteButton from "components/DeleteButton";
 import { connectExhibitionDocumentListItem } from 'apps/ClientExhibitionDocuments/connectors'
 import { RenderFields } from 'apps/ClientExhibitionDocuments/components/Form/RenderFields'
 import { exhibitionDocumentFormConfig, API_ENDPOINT } from 'apps/ClientExhibitionDocuments/config';
-import ExhibitionListDocument from './ListDocument'
 import { HTTP } from 'appConfig'
-
 
 
 function ExhibitionDocumentListItem({ clubDocument, updateExhibitionDocumentSuccess, deleteExhibitionDocumentSuccess }) {
@@ -27,25 +25,22 @@ function ExhibitionDocumentListItem({ clubDocument, updateExhibitionDocumentSucc
         deleteExhibitionDocumentSuccess({ id: clubDocument.id })
     };
     return (
-        <div className="ExhibitionListItem">{
-            visibility ?
+        <div className="ExhibitionListItem">
+            {visibility ?
                 <Form
+                    className="ExhibitionListItem__form"
                     onSuccess={onUpdateSuccess}
                     method={HTTP.update}
                     initialValues={clubDocument}
                     {...exhibitionDocumentFormConfig}
                 >
                     <RenderFields isUpdate />
+                    <button className="btn btn-simple" onClick={toggleVisibility}>Отмена</button>
                 </Form>
                 :
-                <ExhibitionListDocument {...clubDocument} />
-        }
+                <a href={clubDocument.url} target="__blank">{clubDocument.name}</a>
+            }
             <div className="ExhibitionListItem__controls">
-                {
-                    visibility
-                        ? <button className="btn" onClick={toggleVisibility}>Отмена</button>
-                        : null
-                }
                 <Dropdown position="right" closeOnClick={true}>
                     <button onClick={toggleVisibility}>Изменить</button>
                     <DeleteButton

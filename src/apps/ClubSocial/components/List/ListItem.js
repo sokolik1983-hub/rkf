@@ -22,6 +22,7 @@ function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSoc
     const onDeleteSuccess = () => {
         deleteClubSocialSuccess({ id: clubSocial.id })
     };
+
     return (
         <div className="ClientClubListItem">{
             visibility ?
@@ -48,7 +49,7 @@ function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSoc
                         onDeleteSuccess={onDeleteSuccess}
                         windowed
                         //params={params}
-                        actionUrl={`${endpointUrl}?id=${clubSocial.id}`}
+                        actionUrl={`${endpointUrl}/${clubSocial.id}`}
                     >Удалить</DeleteButton>
                 </Dropdown>
             </div>

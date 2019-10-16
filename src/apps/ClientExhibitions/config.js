@@ -20,18 +20,18 @@ export const firstStepForm = {
             placeholder: 'Расскажите участникам и гостям, что их ожидает на выставке. Также укажите ссылки на необходимые \n' +
                 'документы: ветеринарные правила и другие... '
         },
-        type_id: {
-            name: 'type_id',
-            label: 'type',
-            placeholder: 'CACIB',
-            //components: {Option: CheckBoxOption},
-            fieldType: 'reactSelectAsync',
-            type: 'select',
-            optionsEndpoint: '/api/exhibitions/type'
-        },
+        // type_id: {
+        //     name: 'type_id',
+        //     label: 'Титул',
+        //     placeholder: 'CACIB',
+        //     //components: {Option: CheckBoxOption},
+        //     fieldType: 'reactSelectAsync',
+        //     type: 'select',
+        //     optionsEndpoint: '/api/exhibitions/type'
+        // },
         rank_types: {
             name: 'rank_types',
-            label: 'rank',
+            label: 'Ранг',
             placeholder: 'ЧРКФ',
             fieldType: 'reactSelectAsync',
             type: 'select',
@@ -49,16 +49,16 @@ export const firstStepForm = {
             closeMenuOnSelect: false,
             optionsEndpoint: '/api/exhibitions/Caste'
         },
-        referees_id: {
-            name: 'referees_id',
-            label: 'Судьи',
-            placeholder: 'Выбрать',
-            fieldType: 'reactSelectAsync',
-            type: 'select',
-            isMulti: true,
-            closeMenuOnSelect: false,
-            optionsEndpoint: '/api/Referee'
-        },
+        // referees_id: {
+        //     name: 'referees_id',
+        //     label: 'Судьи',
+        //     placeholder: 'Выбрать',
+        //     fieldType: 'reactSelectAsync',
+        //     type: 'select',
+        //     isMulti: true,
+        //     closeMenuOnSelect: false,
+        //     optionsEndpoint: '/api/Referee'
+        // },
         breed_types: {
             name: 'breed_types',
             label: 'Порода',
@@ -100,8 +100,8 @@ export const firstStepForm = {
             .required('Укажите адрес'),
         rank_types: array()
             .required('Укажите Ранг выставки'),
-        type_id: string()
-            .required('Укажите титулы'),
+        // type_id: string()
+        //     .required('Укажите титулы'),
         class_types: array()
             .required('Укажите Класс выставки'),
         breed_types: array()

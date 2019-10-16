@@ -35,6 +35,7 @@ function Form({
                   onSuccess,
                   className,
                   children,
+                  bindSubmitForm
               }) {
     const isMultipartData = format === "multipart/form-data";
     const formatData = useCallback((values) => {
@@ -57,14 +58,15 @@ function Form({
                 });
 
                 onSuccess(data.result);
-
+                if(bindSubmitForm) bindSubmitForm.getErrors({});
                 actions.setSubmitting(false);
-
             } catch (error) {
                 actions.setSubmitting(false);
+
                 if (error.isAxiosError) {
                     const {data} = error.response;
                     actions.setErrors(data.errors);
+                    if(bindSubmitForm) bindSubmitForm.getErrors(data.errors);
                 } else {
                     throw error
                 }
@@ -72,9 +74,9 @@ function Form({
         }
     );
 
-    for(let key in initialValues) {
-        if(!initialValues[key]) initialValues[key] = '';
-    }
+    Object.keys(initialValues).forEach(key => {
+        if(initialValues[key] === null) initialValues[key] = '';
+    });
 
     return (
         <Formik
@@ -82,12 +84,14 @@ function Form({
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
-            render={({handleSubmit}) => (
-                <form className={classnames('Form', {[className]: className})} onSubmit={handleSubmit}>
-                    {children}
-                </form>
-            )
-            }
+            render={({handleSubmit, submitForm, errors}) => {
+                if(bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
+                return (
+                    <form className={classnames('Form', {[className]: className})} onSubmit={handleSubmit}>
+                        {children}
+                    </form>
+                )
+            }}
         />
     )
 }

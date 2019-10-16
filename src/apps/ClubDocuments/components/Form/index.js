@@ -4,13 +4,18 @@ import {RenderFields} from './RenderFields'
 import {clubClubDocumentsConfig} from 'apps/ClubDocuments/config'
 import {Form} from "components/Form";
 
-function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideForm}) {
+function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideForm, bindSubmitForm}) {
 
     const transformValues = values => ({...values, club_id});
     const onSuccess = data => {
         addClubDocumentSuccess(data);
         hideForm()
     }
+
+    if(!initialValues) {
+        initialValues = {name: '', url: ''}
+    }
+
     return (
         <Form
             action={clubClubDocumentsConfig.formAction}
@@ -18,6 +23,7 @@ function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideF
             transformValues={transformValues}
             initialValues={initialValues}
             {...clubClubDocumentsConfig}
+            bindSubmitForm={bindSubmitForm}
         >
             <RenderFields/>
         </Form>

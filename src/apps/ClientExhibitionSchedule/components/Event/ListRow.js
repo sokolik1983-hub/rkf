@@ -5,8 +5,9 @@ import {BtnDelete, BtnEdit} from "components/Svg";
 import ScheduleEvent from './index'
 import RenderFields from "./RederFields";
 import {scheduleScheduleEventForm} from "apps/ClientExhibitionSchedule/config";
-
 import {connectScheduleEditableEvent} from 'apps/ClientExhibitionSchedule/connectors'
+
+
  class ScheduleEventEditable extends PureComponent {
     state = {
         formVisible: false,
@@ -24,8 +25,7 @@ import {connectScheduleEditableEvent} from 'apps/ClientExhibitionSchedule/connec
 
     deleteEvent = () => {
         const {deleteScheduleEvent, item, day} = this.props;
-        console.log('day', day)
-        deleteScheduleEvent(item.id, day)
+        deleteScheduleEvent(item.id, day);
     };
 
     render() {
@@ -46,10 +46,8 @@ import {connectScheduleEditableEvent} from 'apps/ClientExhibitionSchedule/connec
             )
             :
             (
-                <div className="flex-row">
-
+                <div className="day__item flex-row">
                     <ScheduleEvent {...item}/>
-
                     <Button
                         style={{marginLeft: 'auto'}}
                         className="btn-z"
