@@ -6,6 +6,7 @@ import HomepageFeaturedExhibitionsList from 'apps/Exhibitions/components/Feature
 import RkfFeaturedExhibitions from '../RkfFeaturedExhibitions';
 import Partners from '../Partners';
 import { SponsorsData, PartnersData } from '../Partners/data';
+import { RKFInfo } from './config';
 import './styles.scss';
 
 const Wrap = ({ children }) => <div className="HomePage__wrap">{children}</div>;
@@ -13,29 +14,6 @@ const Content = ({ children }) => (
     <div className="HomePage__content">{children}</div>
 );
 const Side = ({ children }) => <div className="HomePage__side">{children}</div>;
-
-const Contacts = [
-    {
-        class: 'pin',
-        text: 'Адрес: Москва, Гостиничная, 9'
-    },
-    {
-        class: 'phone',
-        text: 'Телефон: +7 (499) 753-22-33'
-    },
-    {
-        class: 'email',
-        text: 'E-mail: ',
-        link: 'mailto:rkf@rkf.org.ru',
-        linkTitle: 'rkf@rkf.org.ru'
-    },
-    {
-        class: 'web',
-        text: 'Сайт: ',
-        link: 'https://rkf.com.ru',
-        linkTitle: 'rkf.com.ru'
-    }
-];
 
 function RkfHomepageLayout() {
     return (
@@ -50,20 +28,11 @@ function RkfHomepageLayout() {
                         </Content>
                         <Side>
                             <div className="NewsList__sidebar">
-                                <h3>Об РКФ</h3>
-                                <p>
-                                    Российская кинологическая федерация (РКФ)
-                                    является некоммерческим, добровольным,
-                                    самоуправляемым, основанным на членстве
-                                    союзом общественных объединений, созданным
-                                    по инициативе общественных объединений,
-                                    объединившихся на основе общности их
-                                    интересов для достижения целей, определенных
-                                    Уставом РКФ.
-                                </p>
+                                <h3>{RKFInfo.aboutTitle}</h3>
+                                <p>{RKFInfo.about}</p>
                                 <h3>Контакты</h3>
                                 <div className="NewsList__contacts">
-                                    {Contacts.map((item, index) => {
+                                    {RKFInfo.contacts.map((item, index) => {
                                         return (
                                             item.link
                                                 ? <span className={`NewsList__contacts--${item.class}`} key={index}>

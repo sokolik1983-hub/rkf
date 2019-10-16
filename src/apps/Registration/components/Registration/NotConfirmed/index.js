@@ -34,7 +34,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         }
         catch (e) {
             console.log(fields);
-            alert(`Ошибка: ${e.response.status} (${e.response.statusText})`);
+            alert(`Ошибка: ${e.response.status} (${e.response.errors ? e.response.errors.ActivationRequest : e.response.statusText})`);
         }
     }
 
@@ -46,9 +46,29 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         };
         axios(options)
             .then(({ data }) => {
-                setFields(data.result);
-                setLoaded(true);
+                if (data.result) {
+                    setFields(data.result);
+                    setLoaded(true);
+                }
+                else {
+                    setDefaultFields();
+                }
             });
+    };
+
+    const setDefaultFields = () => {
+        if (!fields) {
+            let options = {
+                url: '/api/Club/base_request_information',
+                method: "GET",
+                headers: getHeaders()
+            };
+            axios(options)
+                .then(({ data }) => {
+                    setFields(data.result);
+                    setLoaded(true);
+                });
+        };
     };
 
     const onInputChange = ({ target }) => {
@@ -82,7 +102,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         )
     };
 
-    const { name,
+    const {
+        name,
         legal_name,
         ogrn,
         inn,

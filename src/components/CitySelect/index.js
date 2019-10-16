@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Select from 'react-select';
-import { CITY_SELECTOR_STYLE } from 'appConfig';
+import { CITY_SELECTOR_STYLE } from './config';
 import { useDictionary } from 'apps/Dictionaries';
 import { DICTIONARIES } from 'apps/Dictionaries/config';
 import Dropdown from 'components/Dropdown';

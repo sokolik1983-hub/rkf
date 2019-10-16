@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import {connect, getIn} from "formik";
-import {defaultReactSelectStyles} from 'appConfig'
+import {defaultReactSelectStyles} from '../config'
 
 export const NoOptionsMessage = () => {
     return ('Нет опций для выбора');

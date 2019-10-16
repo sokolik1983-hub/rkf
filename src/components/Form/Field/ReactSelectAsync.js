@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {string} from 'prop-types'
 import Select from 'react-select';
 import {connect, getIn} from "formik";
-import {defaultReactSelectStyles} from 'appConfig'
+import {defaultReactSelectStyles} from '../config'
 import {getHeaders} from "utils/request";
 import {isDevEnv} from "utils/index";
 
