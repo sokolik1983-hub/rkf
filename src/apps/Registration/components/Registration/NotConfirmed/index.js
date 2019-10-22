@@ -144,10 +144,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <FormField type="text" label="Город регистрации" name="legal_city" value={legal_city} />
                                     <FormField type="text" label="Юридический адрес" name="legal_address" value={legal_address} />
                                     <FormField type="text" label="Квартира/офис" name="apartment_office" value={apartment_office} />
-                                    <FormField type="text" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern=".(\d{10}|\d{12})" />
-                                    <FormField type="text" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern=".\d{9,9}" />
-                                    <FormField type="text" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern=".\d{13,13}" />
-                                    <FormField type="text" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern=".(\d{8}|\d{10})" />
+                                    <FormField type="text" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern="[0-9]{10}|[0-9]{12}" />
+                                    <FormField type="text" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern="[0-9]{9}" />
+                                    <FormField type="text" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern="[0-9]{13}" />
+                                    <FormField type="text" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern="[0-9]{8}|[0-9]{10}" />
                                 </fieldset>
                                 <fieldset className="ClubDetails__file">
                                     <legend>Документы</legend>
