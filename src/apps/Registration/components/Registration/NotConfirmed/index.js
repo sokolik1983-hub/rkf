@@ -104,7 +104,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 required
                                 title={title ? title : ''}
                                 defaultValue={value || ''}
-                                pattern={pattern ? pattern : '*'}
+                                pattern={pattern ? pattern : undefined}
                             />
                             <div className="FormField__comment">{fields[fieldComment]}</div>
                         </React.Fragment>
