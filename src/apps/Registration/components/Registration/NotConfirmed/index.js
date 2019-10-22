@@ -35,7 +35,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         catch ({ response }) {
             alert(
                 `Ошибка: ${response.data.errors
-                    ? response.data.errors.ActivationRequest
+                    ? response.data.errors.activationRequest
                     : `${response.status} ${response.statusText}`}`
             );
         }
