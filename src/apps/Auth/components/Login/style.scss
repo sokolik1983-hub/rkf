@@ -2,7 +2,7 @@
   &__logo {
     width: 80px;
     height: 80px;
-    background-image: url('/static/images/header/rkf-logo.svg');
+    background-image: url("/static/images/header/rkf-logo.svg");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 40px auto 8px auto;
@@ -24,7 +24,6 @@
     img {
       min-height: 100%;
     }
-
   }
 
   &__holder {
@@ -48,7 +47,7 @@
 
   &__subtitle {
     text-align: center;
-    color: #72839C;
+    color: #72839c;
     font-size: 22px;
     line-height: 30px;
     margin: 24px 0;
@@ -59,25 +58,25 @@
     margin: 0 0 16px 0;
 
     .tabs__tab {
-      font-family: 'Futura New', Helvetica, sans-serif;
+      font-family: "Futura New", Helvetica, sans-serif;
       text-decoration: none;
-      color: #CCCCCC;
+      color: #cccccc;
       white-space: nowrap;
       text-transform: uppercase;
       padding: 16px;
-      box-shadow: 0 1px 0 0 #CCCCCC;
+      box-shadow: 0 1px 0 0 #cccccc;
       font-weight: 400;
       outline: none;
 
       &--active {
-        color: #253C5E;
-        box-shadow: 0 2px 0 0 #253C5E;
+        color: #253c5e;
+        box-shadow: 0 2px 0 0 #253c5e;
       }
     }
   }
 
   &__signature {
-    color: #72839C;
+    color: #72839c;
     margin: 12px 0;
   }
 
@@ -93,14 +92,21 @@
   }
 }
 
+.FormInput__custom-error {
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #fa5d50;
+}
+
 @media screen and(max-width: 1024px) {
   .authorization {
-    &__image{
+    &__image {
       display: none;
     }
     &__holder {
       padding: 16px;
-
     }
   }
 }

@@ -9,7 +9,9 @@ function ClubInfoForm({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) {
     const {push} = usePushMessage();
     const transformValues = values => {
         let newValues = {...values};
+
         if(!newValues.city_id) delete newValues.city_id;
+        if(newValues.status_id) delete newValues.status_id;
 
         return {...newValues}
     };

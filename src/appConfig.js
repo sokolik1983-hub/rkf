@@ -1,4 +1,3 @@
-import TestView from 'apps/TestView'
 import * as LoadableModules from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
@@ -18,17 +17,6 @@ const appRoutes = [
         exact: true,
         path: '/',
         component: LoadableModules.LoadableHomePage
-    },
-
-    {
-        exact: false,
-        path: '/demo',
-        component: LoadableModules.LoadableDemo
-    },
-    {
-        exact: false,
-        path: '/public/club',
-        component: LoadableModules.PublicClub
     },
     {
         exact: false,
@@ -54,11 +42,6 @@ const appRoutes = [
         exact: false,
         path: '/dog_owner',
         component: LoadableModules.LoadableClientDogOwner
-    },
-    {
-        exact: false,
-        path: '/testView',
-        component: TestView
     },
     {
         exact: true,

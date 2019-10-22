@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { Route, Switch } from 'react-router-dom';
 import { appRoutes } from 'appConfig'
 import { LoadableNotFound } from "../../appModules"
+import './index.scss'
 import 'components/Layout/index.scss'
 import NotConfirmed from 'apps/Registration/components/Registration/NotConfirmed'
 

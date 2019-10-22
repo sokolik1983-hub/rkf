@@ -9,13 +9,12 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 
 
-
 function RkfHomePageProxy({match, getCommonSuccess}) {
     const {params} = match;
-    //TODO Make better
-    const {route} = params;
-    const url = route ? '/api/Club/public/' + route : '/api/Club/public/rkf';
-    useResourceAndStoreToRedux(url, getCommonSuccess);
+    // const {route} = params;
+    // const url = route ? '/api/Club/public/' + route : '/api/Club/public/rkf';
+    // useResourceAndStoreToRedux(url, getCommonSuccess);
+
     return (
         <ClubRouteContext.Provider value={{params}}>
             <RkfHomepageLayout/>
@@ -23,9 +22,7 @@ function RkfHomePageProxy({match, getCommonSuccess}) {
     );
 }
 
-
 const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
-
 
 export default compose(
     withReducer,

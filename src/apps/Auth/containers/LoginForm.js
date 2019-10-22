@@ -1,21 +1,22 @@
-import React, {PureComponent} from 'react'
-import {Link} from 'react-router-dom'
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import React, { PureComponent } from 'react'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import Error from 'components/Form/Field/Error'
 import {
     FormFormikEnhanced,
     SubmitButton,
     FormGroup,
-    FormField,
+    FormFieldNoError,
     FormInput,
 } from 'components/Form'
 
 
-import {loginFormConfig} from 'apps/Auth/config'
+import { loginFormConfig } from 'apps/Auth/config'
 
-import {loginUserSuccess} from 'apps/Auth/actions'
+import { loginUserSuccess } from 'apps/Auth/actions'
 
-const {fields} = loginFormConfig;
+const { fields } = loginFormConfig;
 
 class LoginForm extends PureComponent {
     render() {
@@ -26,19 +27,20 @@ class LoginForm extends PureComponent {
                 {...loginFormConfig}
             >
                 <FormGroup>
-                    <FormField
+                    <FormFieldNoError
                         {...fields.email}
                     />
-                    <FormField
+                    <FormFieldNoError
                         {...fields.password}
                     />
+                    <Error name="authentication" noTouch={true} />
                 </FormGroup>
                 <FormGroup className="login-form__holder" inline>
                     <FormInput checkbox>
                         <label>Запомнить меня</label>
-                        <input type="checkbox" className="FormInput__input"/>
+                        <input type="checkbox" className="FormInput__input" />
                     </FormInput>
-                    <div style={{marginLeft: 'auto'}}><Link className="no-ul" to="/auth/login/restore">Забыли
+                    <div style={{ marginLeft: 'auto' }}><Link className="no-ul" to="/auth/login/restore">Забыли
                         пароль</Link></div>
                 </FormGroup>
                 <div className="form-controls">

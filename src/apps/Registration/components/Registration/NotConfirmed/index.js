@@ -32,9 +32,12 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             logOutUser();
             history.push('/');
         }
-        catch (e) {
-            console.log(fields);
-            alert(`Ошибка: ${e.response.status} (${e.response.errors ? e.response.errors.ActivationRequest : e.response.statusText})`);
+        catch ({ response }) {
+            alert(
+                `Ошибка: ${response.data.errors
+                    ? response.data.errors.ActivationRequest
+                    : `${response.status} ${response.statusText}`}`
+            );
         }
     }
 
@@ -84,7 +87,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         }
     };
 
-    const FormField = ({ type, label, name, value }) => {
+    const FormField = ({ type, label, name, value, title, pattern }) => {
         const fieldComment = name + '_comment';
         const isValidField = name + '_valid';
         return (
@@ -94,7 +97,15 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     fields[isValidField]
                         ? <span>{value}</span>
                         : <React.Fragment>
-                            <input type={type} name={name} onBlur={onInputChange} required defaultValue={value || ''} />
+                            <input
+                                type={type}
+                                name={name}
+                                onBlur={onInputChange}
+                                required
+                                title={title ? title : ''}
+                                defaultValue={value || ''}
+                                pattern={pattern ? pattern : '*'}
+                            />
                             <div className="FormField__comment">{fields[fieldComment]}</div>
                         </React.Fragment>
                 }
@@ -133,10 +144,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <FormField type="text" label="Город регистрации" name="legal_city" value={legal_city} />
                                     <FormField type="text" label="Юридический адрес" name="legal_address" value={legal_address} />
                                     <FormField type="text" label="Квартира/офис" name="apartment_office" value={apartment_office} />
-                                    <FormField type="text" label="ИНН" name="inn" value={inn} />
-                                    <FormField type="text" label="КПП" name="kpp" value={kpp} />
-                                    <FormField type="text" label="ОГРН" name="ogrn" value={ogrn} />
-                                    <FormField type="text" label="ОКПО" name="okpo" value={okpo} />
+                                    <FormField type="text" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern=".(\d{10}|\d{12})" />
+                                    <FormField type="text" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern=".\d{9,9}" />
+                                    <FormField type="text" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern=".\d{13,13}" />
+                                    <FormField type="text" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern=".(\d{8}|\d{10})" />
                                 </fieldset>
                                 <fieldset className="ClubDetails__file">
                                     <legend>Документы</legend>
@@ -144,7 +155,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         <h4>certificate_of_registration_legal_entity</h4>
                                         {
                                             !fields.certificate_of_registration_legal_entity_valid
-                                                ? <input type="file" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                ? (<React.Fragment>
+                                                    <input type="file" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
+                                                </React.Fragment>)
                                                 : null
                                         }
                                     </div>
@@ -152,7 +166,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         <h4>extract_from_the_egrul</h4>
                                         {
                                             !fields.extract_from_the_egrul_valid
-                                                ? <input type="file" name="extract_from_the_egrul" required onChange={onFileChange} />
+                                                ? (<React.Fragment>
+                                                    <input type="file" name="extract_from_the_egrul" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['extract_from_the_egrul_comment']}</div>
+                                                </React.Fragment>)
                                                 : null
                                         }
                                     </div>
@@ -160,7 +177,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         <h4>stamp_code_registration_certificate</h4>
                                         {
                                             !fields.stamp_code_registration_certificate_valid
-                                                ? <input type="file" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                ? (<React.Fragment>
+                                                    <input type="file" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
+                                                </React.Fragment>)
                                                 : null
                                         }
                                     </div>

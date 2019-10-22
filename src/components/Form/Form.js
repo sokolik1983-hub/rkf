@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import {Formik} from 'formik';
 import {getHeaders} from "../../utils/request";
 import {HTTP} from "appConfig";
-
+import {Request} from '../../utils/request';
 
 const getFormData = data => {
     const formData = new FormData();
@@ -46,33 +46,59 @@ function Form({
             JSON.stringify(data);
     });
 
-    const onSubmit = useCallback(
-        async (values, actions) => {
-            try {
-                // Perform request
-                const {data} = await axios({
-                    url: action,
-                    method: method,
-                    data: formatData(values),
-                    headers: getHeaders(isMultipartData),
-                });
-
-                onSuccess(data.result);
-                if(bindSubmitForm) bindSubmitForm.getErrors({});
-                actions.setSubmitting(false);
-            } catch (error) {
-                actions.setSubmitting(false);
-
-                if (error.isAxiosError) {
-                    const {data} = error.response;
-                    actions.setErrors(data.errors);
-                    if(bindSubmitForm) bindSubmitForm.getErrors(data.errors);
-                } else {
-                    throw error
-                }
+    const onSubmit = (values, actions) => {
+        const onRequestSuccess = (data) => {
+            onSuccess(data);
+            if (bindSubmitForm) bindSubmitForm.getErrors({});
+            actions.setSubmitting(false);
+        };
+        const onRequestError = (error) => {
+            actions.setSubmitting(false);
+            if (error.isAxiosError) {
+                const {data} = error.response;
+                actions.setErrors(data.errors);
+                if (bindSubmitForm) bindSubmitForm.getErrors(data.errors);
+            } else {
+                throw error
             }
-        }
-    );
+        };
+        const options = {
+            url: action,
+            method,
+            data: formatData(values),
+            isMultipart: isMultipartData
+        };
+
+        Request(options, onRequestSuccess, onRequestError);
+    };
+
+    // const onSubmit = useCallback(
+    //     async (values, actions) => {
+    //         try {
+    //             // Perform request
+    //             const {data} = await axios({
+    //                 url: action,
+    //                 method: method,
+    //                 data: formatData(values),
+    //                 headers: getHeaders(isMultipartData),
+    //             });
+    //
+    //             onSuccess(data.result);
+    //             if(bindSubmitForm) bindSubmitForm.getErrors({});
+    //             actions.setSubmitting(false);
+    //         } catch (error) {
+    //             actions.setSubmitting(false);
+    //
+    //             if (error.isAxiosError) {
+    //                 const {data} = error.response;
+    //                 actions.setErrors(data.errors);
+    //                 if(bindSubmitForm) bindSubmitForm.getErrors(data.errors);
+    //             } else {
+    //                 throw error
+    //             }
+    //         }
+    //     }
+    // );
 
     Object.keys(initialValues).forEach(key => {
         if(initialValues[key] === null) initialValues[key] = '';

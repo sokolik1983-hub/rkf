@@ -43,7 +43,6 @@ export const useConfirmDialog = (initialConfirmState = false) => {
     );
 };
 
-
 export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onErrorAction) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
@@ -93,7 +92,6 @@ export const useResourceAndStoreToRedux = (resourceUrl, onSuccessAction, onError
     }
 };
 
-
 export const usePictureWithUpdate = (endpoint, successAction) => {
     const [state, setState] = useState({ fileInputValue: "", filePreview: null });
     const handleFileInputChange = e => {
@@ -134,7 +132,6 @@ export const usePictureWithUpdate = (endpoint, successAction) => {
     })
 };
 
-
 export const useWrapClassName = (className) => {
     useEffect(() => {
         // Add class on mount
@@ -148,7 +145,6 @@ export const useWrapClassName = (className) => {
 
     }, [className]);
 };
-
 
 export const useTimeOut = (callback, time) => {
     useEffect(() => {

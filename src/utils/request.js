@@ -1,33 +1,41 @@
-//import 'whatwg-fetch';
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON from the request
- */
+import axios from "axios";
 
 export const getHeaders = (isMultipart = false) => {
+    const apiKey = localStorage.getItem('apikey');
     const headers = {};
+
     headers["Accept"] = "application/json";
-
-    // Trying receive response body with that
     headers["Cache-Control"] = "no-cache";
-
     headers["Content-Type"] = isMultipart ?
         "multipart/form-data"
         :
         "application/json, text/plain, */*";
 
+    if(apiKey) headers["Authorization"] = "Bearer " + apiKey;
 
-    const apiKey = localStorage.getItem('apikey');
-    if (apiKey) {
-        headers["Authorization"] = "Bearer " + apiKey;
-    }
-    return headers
+    return headers;
 };
 
+export const Request = (options, onSuccess, onError) => {
+    const axiosConfig = {
+        ...options,
+        headers: getHeaders(options.isMultipart),
+    };
 
+    return (async() => {
+        try {
+            const response = await axios(axiosConfig);
+
+            onSuccess(response.data.result);
+        } catch (error) {
+            if (onError) {
+                onError(error);
+            }
+        }
+    })();
+};
+
+//Когда перепишем всё на "Request" удалить всё, что ниже
 const getErrors = (error) => {
     try {
         return JSON.parse(error);

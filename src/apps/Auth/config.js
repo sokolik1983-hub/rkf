@@ -32,7 +32,6 @@ export const loginFormConfig = {
     },
     validationSchema: object().shape({
         email: string()
-            .email('Неверный Email')
             .required('Поле не может быть пустым'),
         password: string()
             .required('Поле не может быть пустым')
