@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
-import {formatDateWithLocaleString, transformDate} from "utils/datetime";
+import React, { useState } from 'react'
+import { formatDateWithLocaleString, transformDate } from "utils/datetime";
 import DateEvents from "../Event/List";
-import {connectContestDate} from 'apps/ClientExhibitionContest/connectors'
-import {scheduleContestDateForm} from "../../config";
+import { connectContestDate } from 'apps/ClientExhibitionContest/connectors'
+import { scheduleContestDateForm } from "../../config";
 import RenderFields from "./RenderFields";
-import {FormFormikEnhanced} from "components/Form";
+import { FormFormikEnhanced } from "components/Form";
 
 
-function ContestDate({dayId, day, index, updateDateSuccess}) {
+function ContestDate({ dayId, day, index, updateDateSuccess, deleteContestDate }) {
     const [formVisible, setFormVisibility] = useState(false);
     const date = transformDate(day);
     const transformValues = (values) => {
-        const {date} = values;
-        return {id: day.id, ...transformDate(date)}
+        const { date } = values;
+        return { id: day.id, ...transformDate(date) }
     };
 
     const onUpdate = values => {
@@ -37,7 +37,8 @@ function ContestDate({dayId, day, index, updateDateSuccess}) {
                     />
                 </FormFormikEnhanced>
             }
-            <DateEvents day={dayId} items={day.items}/>
+            <DateEvents day={dayId} items={day.items} />
+            <button onClick={() => deleteContestDate(dayId)}>Удалить</button>
         </div>
     )
 }

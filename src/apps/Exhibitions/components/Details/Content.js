@@ -4,7 +4,8 @@ import ExhibitionContests from 'apps/ExhibitionContest'
 import Tabs, { TabContent } from "components/Tabs";
 import Img from 'components/Img'
 import DetailsContent from "../DetailsContent";
-import ExhibitionReferees from './Referees'
+import ExhibitionReferees from './Referees';
+import ExhibitionDocuments from 'apps/ExhibitionDocuments';
 
 export default function ExhibitionDetailsContent({
     id,
@@ -40,6 +41,9 @@ export default function ExhibitionDetailsContent({
                 </TabContent>
                 <TabContent label="Расписание">
                     {id && <ExhibitionSchedule exhibitionId={id} />}
+                </TabContent>
+                <TabContent label="Документы">
+                    {id && <ExhibitionDocuments exhibitionId={id} />}
                 </TabContent>
 
                 {/*<TabContent label="Участники">Участники</TabContent>*/}

@@ -6,9 +6,12 @@
     flex: 1;
     font-size: 16px;
     border-color: transparent;
-    &--active{
+    &--active {
       font-weight: bold;
       text-decoration: underline;
     }
+  }
+  &__content {
+    white-space: pre-wrap;
   }
 }

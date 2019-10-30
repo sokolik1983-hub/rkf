@@ -1,10 +1,11 @@
 import React from 'react'
 import classnames from 'classnames/bind'
+import declension from 'utils/declension';
 import style from './style.module.scss'
 
 const cx = classnames.bind(style);
 
-export default function CountDown({ eventDate = '2019-05-05 14:00' }) {
+export default function CountDown({ eventDate = '2019-05-05 17:00' }) {
 
     const checkTimeIsOver = () => {
         return (new Date() > new Date(eventDate))
@@ -37,9 +38,9 @@ export default function CountDown({ eventDate = '2019-05-05 14:00' }) {
                         <>
                             <div className={cx('CountDown__title')}>До конца регистрации осталось:</div>
                             <div className={cx('CountDown')}>
-                                <div className={cx('item', 'item--days')}>{countDown.days}</div>
-                                <div className={cx('item', 'item--hours')}>{countDown.hours}</div>
-                                <div className={cx('item', 'item--minutes')}>{countDown.minutes}</div>
+                                <div className={cx('item', `${declension(countDown.days, ['item--days', 'item--days2', 'item--days3'])}`)}>{countDown.days}</div>
+                                <div className={cx('item', `${declension(countDown.hours, ['item--hours', 'item--hours2', 'item--hours3'])}`)}>{countDown.hours}</div>
+                                <div className={cx('item', `${declension(countDown.minutes, ['item--minutes', 'item--minutes2', 'item--minutes3'])}`)}>{countDown.minutes}</div>
                             </div>
                         </>
                     )

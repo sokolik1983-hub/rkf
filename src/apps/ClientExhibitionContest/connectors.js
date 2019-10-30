@@ -1,5 +1,5 @@
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
     getDatesIds,
     getContestEvents,
@@ -14,18 +14,22 @@ import {
     deleteContestEvent,
     updateContestEventSuccess,
     getContest,
+    deleteContestDate,
     updateDateSuccess
 } from './actions'
 
 
 export const connectContestDate = connect(selectContestDateProps,
-    dispatch => bindActionCreators({updateDateSuccess}, dispatch));
+    dispatch => bindActionCreators({
+        updateDateSuccess
+    }, dispatch));
 
 
 export const connectContestDateList = connect(
     getDatesIds,
     dispatch => bindActionCreators({
-        addDateSuccess
+        addDateSuccess,
+        deleteContestDate
     }, dispatch)
 );
 
@@ -52,6 +56,6 @@ export const connectContestEventsList = connect(
 export const connectClientExhibitionContestProxy = connect(
     getExhibitionId,
     dispatch => bindActionCreators({
-        getContest,
+        getContest
     }, dispatch),
 )

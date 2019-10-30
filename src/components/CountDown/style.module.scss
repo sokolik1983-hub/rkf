@@ -7,7 +7,8 @@ $blue-color: #3366ff;
     color: $blue-color;
   }
 
-  &__title, &__timeIsOver {
+  &__title,
+  &__timeIsOver {
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
@@ -15,7 +16,6 @@ $blue-color: #3366ff;
     margin: 16px 0;
   }
 }
-
 
 .item {
   display: flex;
@@ -46,7 +46,9 @@ $blue-color: #3366ff;
     color: transparentize($blue-color, 0.5);
   }
 
-  &--days {
+  &--days,
+  &--days2,
+  &--days3 {
     &:after {
       position: absolute;
       bottom: -28px;
@@ -56,7 +58,20 @@ $blue-color: #3366ff;
       content: "День";
     }
   }
-  &--hours {
+  &--days2 {
+    &:after {
+      content: "Дня";
+    }
+  }
+
+  &--days3 {
+    &:after {
+      content: "Дней";
+    }
+  }
+  &--hours,
+  &--hours2,
+  &--hours3 {
     &:after {
       position: absolute;
       bottom: -28px;
@@ -66,7 +81,19 @@ $blue-color: #3366ff;
       content: "Час";
     }
   }
-  &--minutes {
+  &--hours2 {
+    &:after {
+      content: "Часа";
+    }
+  }
+  &--hours3 {
+    &:after {
+      content: "Часов";
+    }
+  }
+  &--minutes,
+  &--minutes2,
+  &--minutes3 {
     &:after {
       position: absolute;
       bottom: -28px;
@@ -74,6 +101,17 @@ $blue-color: #3366ff;
       font-size: 14px;
       line-height: 20px;
       content: "Минута";
+    }
+  }
+  &--minutes2 {
+    &:after {
+      content: "Минуты";
+    }
+  }
+
+  &--minutes3 {
+    &:after {
+      content: "Минут";
     }
   }
 }

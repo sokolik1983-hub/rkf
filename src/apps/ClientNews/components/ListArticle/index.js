@@ -48,7 +48,7 @@ function ListArticle({
             <Dropdown position="right">
                 <DeleteButton
                     windowed
-                    confirmMessage={`Удалить новость " ${title} "?`}
+                    confirmMessage={'Вы действительно хотите удалить новость?'}
                     successMessage="Новость успешно удалена"
                     onDeleteSuccess={onDeleteSuccess}
                     actionUrl={'/api/ClubArticle/' + id}

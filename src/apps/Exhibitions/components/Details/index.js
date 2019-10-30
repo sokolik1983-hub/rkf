@@ -5,7 +5,7 @@ import FooterSmall from 'components/Layout/FooterSmall';
 import FeaturedExhibitions from '../Featured';
 import Head from './Head';
 import Content from './Content';
-import ExhibitionDocuments from 'apps/ExhibitionDocuments';
+// import ExhibitionDocuments from 'apps/ExhibitionDocuments';
 import PaymentDetails from './PaymentDetails';
 import Address from './Address';
 import ExhibitionDetailsPrices from '../DetailsPrices';
@@ -37,7 +37,7 @@ function ExhibitionDetails(props) {
                     <Content {...details} />
                     <ExhibitionAsideContent {...details} />
                 </div>
-                {details && details.id && <ExhibitionDocuments exhibitionId={details.id} />}
+                {/* {details && details.id && <ExhibitionDocuments exhibitionId={details.id} />} */}
                 {exhibitionId && <ExhibitionDetailsPrices exhibition_id={exhibitionId} />}
                 {details && details.club_information && <PaymentDetails {...details.club_information} />}
                 <Partners title="Наши спонсоры" items={SponsorsData} />

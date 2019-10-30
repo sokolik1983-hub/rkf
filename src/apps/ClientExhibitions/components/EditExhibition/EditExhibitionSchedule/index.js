@@ -21,7 +21,7 @@ const EditExhibitionSchedule = ({match}) => {
                 </Card>
             </div>
             <ClientExhibitionSchedule match={match}/>
-            <ClientExhibitionContests match={match}/>
+            {/* <ClientExhibitionContests match={match}/> */}
             <ClientExhibitionDocument match={match}/>
         </div>
     )

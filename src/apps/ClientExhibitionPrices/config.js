@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import { object, string } from "yup";
 
 export const defaultReduxKey = 'exhibition_prices';
 
@@ -26,9 +26,8 @@ export const exhibitionPricesForm = {
         sum: string()
             .required('Укажите цену'),
         discont: string()
-            .required('Укажите цену')
             .test('', 'Укажите скидку менее 100%',
-                value => value && value < 100
+                value => value === undefined || (value && value < 100)
             ),
     })
 };
