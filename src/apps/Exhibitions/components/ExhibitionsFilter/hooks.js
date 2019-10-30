@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { usePushMessage } from 'apps/Messages/hooks';
+import { usePushMessage, useClearMessages } from 'apps/Messages/hooks';
 import { buildUrl } from './heplers';
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 import { getHeaders } from 'utils/request';
@@ -28,10 +28,10 @@ const emptyFilters = {
     dateTo: []
 };
 let filterInitialState = filtersFromLS ? filtersFromLS : emptyFilters;
-if(filtersFromLS) {
-    if(Object.keys(filtersFromLS).length === 1) {
-        const {cities} = filtersFromLS;
-        filterInitialState = {...emptyFilters, cities};
+if (filtersFromLS) {
+    if (Object.keys(filtersFromLS).length === 1) {
+        const { cities } = filtersFromLS;
+        filterInitialState = { ...emptyFilters, cities };
     } else {
         const dateToday = +new Date(emptyFilters.dateFrom[0]);
         const dateFrom = filtersFromLS.dateFrom.length ?
@@ -52,6 +52,7 @@ if(filtersFromLS) {
 
 export const useExhibitionsFilter = ({ successAction }) => {
     const { push } = usePushMessage();
+    const { clear } = useClearMessages();
 
     // filterState used for constructing filter, and url params based on filter
     const [filter, setFilter] = useState(filterInitialState);
@@ -76,7 +77,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
     const changeBreedsFilter = breeds => setFilter({ ...filter, breeds });
     const changeRanksFilter = ranks => setFilter({ ...filter, ranks });
     const changeCastesFilter = castes => setFilter({ ...filter, castes });
-    const changeTypesFilter = types => setFilter({...filter, types });
+    const changeTypesFilter = types => setFilter({ ...filter, types });
     const changeClubsFilter = clubs => {
         const newFilter = { ...filter, clubs };
         setFilters(newFilter);
@@ -152,7 +153,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
                 setLoading(true);
                 const response = await axios(axiosConfig);
                 const { exhibitions } = response.data.result;
-                if (exhibitions.length === 0) {
+                if (exhibitions && exhibitions.length === 0) {
                     push({
                         text: filter.cities.length === 1 ? NO_EXHIBITIONS_FOUND_IN_CITY : NO_EXHIBITIONS_FOUND
                     });
@@ -171,6 +172,7 @@ export const useExhibitionsFilter = ({ successAction }) => {
 
         return () => {
             cancelRequest = true;
+            clear();
         };
     }, [url]);
 

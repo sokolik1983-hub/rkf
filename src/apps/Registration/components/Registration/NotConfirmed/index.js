@@ -87,7 +87,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         }
     };
 
-    const FormField = ({ type, label, name, value, title, pattern }) => {
+    const FormField = ({ type, label, name, value, title, pattern, required }) => {
         const fieldComment = name + '_comment';
         const isValidField = name + '_valid';
         return (
@@ -101,7 +101,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 type={type}
                                 name={name}
                                 onBlur={onInputChange}
-                                required
+                                required={required ? true : false}
                                 title={title ? title : ''}
                                 defaultValue={value || ''}
                                 pattern={pattern ? pattern : undefined}
@@ -138,16 +138,16 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             <form className="ClubDetails" onSubmit={handleSubmit}>
                                 <fieldset className="ClubDetails__text">
                                     <legend>Информация о клубе</legend>
-                                    <FormField type="text" label="Руководитель клуба" name="owner_name" value={owner_name} />
-                                    <FormField type="text" label="Наименование юридического лица" name="legal_name" value={legal_name} />
-                                    <FormField type="date" label="Дата регистрации юридического лица" name="registration_date" value={new Date(registration_date).toISOString().substr(0, 10) || new Date().toISOString().substr(0, 10)} />
-                                    <FormField type="text" label="Город регистрации" name="legal_city" value={legal_city} />
-                                    <FormField type="text" label="Юридический адрес" name="legal_address" value={legal_address} />
+                                    <FormField type="text" required="true" label="Руководитель клуба" name="owner_name" value={owner_name} />
+                                    <FormField type="text" required="true" label="Наименование юридического лица" name="legal_name" value={legal_name} />
+                                    <FormField type="date" required="true" label="Дата регистрации юридического лица" name="registration_date" value={new Date(registration_date).toISOString().substr(0, 10) || new Date().toISOString().substr(0, 10)} />
+                                    <FormField type="text" required="true" label="Город регистрации" name="legal_city" value={legal_city} />
+                                    <FormField type="text" required="true" label="Юридический адрес" name="legal_address" value={legal_address} />
                                     <FormField type="text" label="Квартира/офис" name="apartment_office" value={apartment_office} />
-                                    <FormField type="text" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern="[0-9]{10}|[0-9]{12}" />
-                                    <FormField type="text" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern="[0-9]{9}" />
-                                    <FormField type="text" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern="[0-9]{13}" />
-                                    <FormField type="text" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern="[0-9]{8}|[0-9]{10}" />
+                                    <FormField type="text" required="true" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern="[0-9]{10}|[0-9]{12}" />
+                                    <FormField type="text" required="true" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern="[0-9]{9}" />
+                                    <FormField type="text" required="true" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern="[0-9]{13}" />
+                                    <FormField type="text" required="true" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern="[0-9]{8}|[0-9]{10}" />
                                 </fieldset>
                                 <fieldset className="ClubDetails__file">
                                     <legend>Документы</legend>

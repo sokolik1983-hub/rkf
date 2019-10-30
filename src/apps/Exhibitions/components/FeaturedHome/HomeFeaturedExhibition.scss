@@ -23,7 +23,8 @@
     text-align: center;
     overflow: hidden;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   &__title {
     overflow: hidden;

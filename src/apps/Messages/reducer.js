@@ -10,7 +10,7 @@ const messagesInitialState = {
 const messagesReducer = createReducer(messagesInitialState, {
     [actiontypes.PUSH_MESSAGE](state, action) {
         const id = genID();
-        const messages = [...state.messages, {id, ...action.data}];
+        const messages = [...state.messages, { id, ...action.data }];
         return {
             ...state,
             messages
@@ -18,6 +18,13 @@ const messagesReducer = createReducer(messagesInitialState, {
     },
     [actiontypes.REMOVE_MESSAGE](state, action) {
         const messages = state.messages.filter(message => message.id !== action.id);
+        return {
+            ...state,
+            messages
+        };
+    },
+    [actiontypes.CLEAR_MESSAGES](state) {
+        const messages = [];
         return {
             ...state,
             messages
