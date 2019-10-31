@@ -1,8 +1,9 @@
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
     selectNewsList,
-    selectListArticle
+    selectListArticle,
+    selectArticleCreateForm
 } from './selectors'
 import {
     getNewsSuccess,
@@ -15,6 +16,11 @@ export const connectNewsList = connect(
     dispatch => bindActionCreators({
         getNewsSuccess
     }, dispatch)
+);
+
+export const connectArticleCreateForm = connect(
+    selectArticleCreateForm,
+    dispatch => bindActionCreators({}, dispatch)
 );
 
 export const connectListArticle = connect(

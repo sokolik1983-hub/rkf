@@ -3,6 +3,7 @@ import ClientAvatar from 'components/ClientAvatar';
 import { connect } from 'formik';
 import { useFocus } from 'shared/hooks';
 import OutsideClickHandler from "react-outside-click-handler";
+import { connectArticleCreateForm } from '../../connectors';
 import {
     SubmitButton,
     FormControls,
@@ -20,7 +21,7 @@ const FormButton = ({ isUpdate, isValid }) => {
 }
 
 
-const RenderFields = ({ fields, isUpdate, formik }) => {
+const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
     const textarea = useRef();
     const [src, setSrc] = useState('');
     const handleChange = e => {
@@ -56,65 +57,62 @@ const RenderFields = ({ fields, isUpdate, formik }) => {
     const { content, file } = formik.values;
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-            <div>
-                <input
-                    type="file"
-                    name="file"
-                    id="file"
-                    className="ArticleCreateForm__inputfile"
-                    onChange={handleChange}
+            <input
+                type="file"
+                name="file"
+                id="file"
+                className="ArticleCreateForm__inputfile"
+                onChange={handleChange}
+            />
+
+
+            <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
+                <ClientAvatar size={46} avatar={clubLogo} />
+                <FormField
+                    {...fields.content}
+                    onChange={handleKeyDown}
+                    onFocus={setFocused}
+                    maxLength="3001"
+                    value={content ? content : ''}
+                    ref={textarea}
+                    rows="1"
                 />
-
-
-                <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
-                    <ClientAvatar size={46} />
-                    <FormField
-                        {...fields.content}
-                        onChange={handleKeyDown}
-                        onFocus={setFocused}
-                        maxLength="3001"
-                        value={content ? content : ''}
-                        ref={textarea}
-                        rows="1"
-                    />
-                    {
-                        !focus
-                            ? (
-                                <>
-                                    <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
-                                    {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
-                                    <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
-                                </>
-                            )
-                            : null
-                    }
-                </FormGroup>
                 {
-                    focus
-                        ? (<React.Fragment>
-                            {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
-
-                            <div className="ImagePreview__wrap">
-                                {
-                                    file ? (<> <ImagePreview src={src} /> <img src="/static/icons/file-cross.svg" className="ImagePreview__close" alt="" onClick={handleClose} /> </>) : null
-                                }
-                            </div>
-                            <FormControls>
-                                <div className="ArticleCreateForm__attach">
-
-                                    <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
-                                    {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
-                                    {/* <img className="ArticleCreateForm__attach-file" src={'/static/icons/client/attach-file.svg'} alt="" /> */}
-                                </div>
+                    !focus
+                        ? (
+                            <>
+                                <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
+                                {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
                                 <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
-                            </FormControls>
-                        </React.Fragment>)
+                            </>
+                        )
                         : null
                 }
+            </FormGroup>
+            {
+                focus
+                    ? (<React.Fragment>
+                        {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
 
-            </div>
+                        <div className="ImagePreview__wrap">
+                            {
+                                file ? (<> <ImagePreview src={src} /> <img src="/static/icons/file-cross.svg" className="ImagePreview__close" alt="" onClick={handleClose} /> </>) : null
+                            }
+                        </div>
+                        <FormControls>
+                            <div className="ArticleCreateForm__attach">
+
+                                <label htmlFor="file" className="ArticleCreateForm__labelfile"></label>
+                                {/* <img className="ArticleCreateForm__add-emoji" src={'/static/icons/client/add-emoji.svg'} alt="" /> */}
+                                {/* <img className="ArticleCreateForm__attach-file" src={'/static/icons/client/attach-file.svg'} alt="" /> */}
+                            </div>
+                            <FormButton isUpdate={isUpdate} isValid={formik.isValid} />
+                        </FormControls>
+                    </React.Fragment>)
+                    : null
+            }
         </OutsideClickHandler>
     );
 }
 
-export default connect(RenderFields)
+export default connectArticleCreateForm(connect(RenderFields))

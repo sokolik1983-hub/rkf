@@ -31,14 +31,14 @@ export default function ExhibitionDetailsContent({
 
                     <div dangerouslySetInnerHTML={{ __html: description }} />
                 </TabContent>
-                <TabContent label="Конкурсы">
+                {/* <TabContent label="Конкурсы">
                     <ExhibitionContests exhibitionId={id} />
                 </TabContent>
                 <TabContent label="Судьи">
                     <ExhibitionReferees
                         refereesIds={referees_id}
                     />
-                </TabContent>
+                </TabContent> */}
                 <TabContent label="Расписание">
                     {id && <ExhibitionSchedule exhibitionId={id} />}
                 </TabContent>
