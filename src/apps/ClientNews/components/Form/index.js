@@ -19,6 +19,7 @@ function ArticleCreateFormPublic({ addArticleSuccess }) {
             isMultipart
             onSuccess={onSuccess}
             transformValues={transformValues}
+            resetForm="true"
             {...newsArticleFormConfig}
             className="ArticleCreateForm"
         >

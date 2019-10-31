@@ -1,15 +1,15 @@
-import React, {useCallback} from 'react';
-import {array, element, func, object, oneOf, oneOfType, string} from 'prop-types';
+import React, { useCallback } from 'react';
+import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
 import axios from "axios";
 import classnames from 'classnames'
-import {Formik} from 'formik';
-import {getHeaders} from "../../utils/request";
-import {HTTP} from "appConfig";
-import {Request} from '../../utils/request';
+import { Formik } from 'formik';
+import { getHeaders } from "../../utils/request";
+import { HTTP } from "appConfig";
+import { Request } from '../../utils/request';
 
 const getFormData = data => {
     const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key],));
+    Object.keys(data).forEach(key => formData.append(key, data[key]));
     return formData;
 };
 
@@ -26,17 +26,18 @@ const getFormData = data => {
  * @param {any} children
  */
 function Form({
-                  method,
-                  action,
-                  format,
-                  transformValues,
-                  validationSchema,
-                  initialValues,
-                  onSuccess,
-                  className,
-                  children,
-                  bindSubmitForm
-              }) {
+    method,
+    action,
+    format,
+    transformValues,
+    validationSchema,
+    initialValues,
+    onSuccess,
+    className,
+    children,
+    bindSubmitForm,
+    resetForm = false
+}) {
     const isMultipartData = format === "multipart/form-data";
     const formatData = useCallback((values) => {
         const data = transformValues(values);
@@ -51,11 +52,12 @@ function Form({
             onSuccess(data);
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
+            if (resetForm) actions.resetForm(initialValues);
         };
         const onRequestError = (error) => {
             actions.setSubmitting(false);
             if (error.isAxiosError) {
-                const {data} = error.response;
+                const { data } = error.response;
                 actions.setErrors(data.errors);
                 if (bindSubmitForm) bindSubmitForm.getErrors(data.errors);
             } else {
@@ -101,7 +103,7 @@ function Form({
     // );
 
     Object.keys(initialValues).forEach(key => {
-        if(initialValues[key] === null) initialValues[key] = '';
+        if (initialValues[key] === null) initialValues[key] = '';
     });
 
     return (
@@ -110,10 +112,10 @@ function Form({
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
-            render={({handleSubmit, submitForm, errors}) => {
-                if(bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
+            render={({ handleSubmit, submitForm, errors }) => {
+                if (bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
                 return (
-                    <form className={classnames('Form', {[className]: className})} onSubmit={handleSubmit}>
+                    <form className={classnames('Form', { [className]: className })} onSubmit={handleSubmit}>
                         {children}
                     </form>
                 )

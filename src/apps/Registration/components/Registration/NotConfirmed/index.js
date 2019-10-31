@@ -152,7 +152,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 <fieldset className="ClubDetails__file">
                                     <legend>Документы</legend>
                                     <div className="FormField">
-                                        <h4>certificate_of_registration_legal_entity</h4>
+                                        <h4>Свидетельство о регистрации организации</h4>
                                         {
                                             !fields.certificate_of_registration_legal_entity_valid
                                                 ? (<React.Fragment>
@@ -163,7 +163,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         }
                                     </div>
                                     <div className="FormField">
-                                        <h4>extract_from_the_egrul</h4>
+                                        <h4>Выписка из ЕГРЮЛ</h4>
                                         {
                                             !fields.extract_from_the_egrul_valid
                                                 ? (<React.Fragment>
@@ -174,7 +174,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         }
                                     </div>
                                     <div className="FormField">
-                                        <h4>stamp_code_registration_certificate</h4>
+                                        <h4>Документ о регистрации кода клейма</h4>
                                         {
                                             !fields.stamp_code_registration_certificate_valid
                                                 ? (<React.Fragment>
