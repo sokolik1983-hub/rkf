@@ -20,9 +20,9 @@ const Inner = () => (
     <div className="widget-login__auth-link">Личный кабинет</div>
 );
 
-function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_name, name }) {
+function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name }) {
     // const clubName = name && name !== club_name ? name : club_name;
-
+    const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed : club_alias;
     return isAuthenticated ? (
         <Dropdown
             className="widget-login"
@@ -31,7 +31,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
             innerComponent={<DropInner title={club_name} />}
         >
             <DropDownItem>
-                <Link to={isActiveProfile ? `/${club_alias}` : "/not-confirmed"}>Личный кабинет</Link>
+                <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
             <DropDownItem>
                 <Link to={'/'} onClick={logOutUser}>Выход</Link>
@@ -51,7 +51,10 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
 
 const mapStateToProps = state => ({
     name: state.client_club ? state.client_club.name : null,
-    isActiveProfile: state.authentication ? state.authentication.is_active_profile : null
+    isActiveProfile: state.authentication ? state.authentication.is_active_profile : null,
+    club_alias_refreshed: state.client_club ? state.client_club.club_alias : state.authentication.club_alias,
+    authId: state.authentication ? state.authentication.profile_id : null,
+    commonId: state.home_page ? state.home_page.club.common.id : null
 });
 
 export default connect(mapStateToProps)(connectWidgetLogin(WidgetLogin));

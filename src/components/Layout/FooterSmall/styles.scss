@@ -65,5 +65,20 @@
         font-weight: 400;
       }
     }
+    &-social{
+      text-align: center;
+      padding-bottom: 10px;
+      a {
+        margin-right: 10px;
+        &:hover{
+          opacity: 0.8;
+        }
+        img {
+          height: 20px;
+          width: 20px;
+        }
+      }
+      
+    }
   }
 }
