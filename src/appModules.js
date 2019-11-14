@@ -7,6 +7,11 @@ export const LoadableExhibitions = Loadable({
     loading: Loading,
 });
 
+export const LoadableReports = Loadable({
+    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Reports/index'),
+    loading: Loading,
+});
+
 export const LoadableHomePage = Loadable({
     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/homepage'),
     loading: Loading,

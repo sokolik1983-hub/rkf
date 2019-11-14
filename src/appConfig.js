@@ -25,6 +25,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/reports',
+        component: LoadableModules.LoadableReports
+    },
+    {
+        exact: false,
         path: LOGIN_URL,
         component: LoadableModules.LoadableAuthorization
     },

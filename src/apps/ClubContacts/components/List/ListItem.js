@@ -32,7 +32,7 @@ function ClientClubContactListItem({
             method={HTTP.update}
             initialValues={clubContact}
         >
-            <RenderFields disabled={!visibility} isUpdate />
+            <RenderFields disabled={!visibility} isUpdate isMaskedTel="true" />
             {!visibility ? (
                 <Button
                     className="ClientClubContactListItem__edit"

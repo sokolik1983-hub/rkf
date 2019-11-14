@@ -1,0 +1,49 @@
+.report-documents {
+  margin-bottom: 24px;
+  display: flex;
+  &__document {
+    margin-right: 30px;
+    &-label {
+      display: block;
+    }
+  }
+}
+
+.MainRingStatement {
+  margin: auto;
+  th,
+  td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #cbcbcb;
+  }
+  .table-holder {
+    padding: 0;
+    border-top: none;
+    table {
+      border: none;
+      margin: 0;
+      width: 100%;
+      th {
+        display: none;
+      }
+      td {
+        text-align: center;
+        border-left: none;
+        border-top: none;
+        height: 34px;
+        width: 200px;
+      }
+      td:first-child {
+        width: 100px;
+      }
+    }
+  }
+  .add-button {
+    text-align: left;
+    padding: 5px;
+    button {
+      width: 90px;
+    }
+  }
+}

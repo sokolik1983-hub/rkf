@@ -34,7 +34,7 @@ function ClubContactForm({
             validationSchema={contactType.validationSchema}
             bindSubmitForm={bindSubmitForm}
         >
-            <RenderFields />
+            <RenderFields isMaskedTel="true" />
             <div>
                 <SubmitButton className="btn-green">Сохранить</SubmitButton>
                 <Button className="btn-transparent" onClick={hideForm}>

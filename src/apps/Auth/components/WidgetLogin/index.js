@@ -33,6 +33,11 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
+            {
+                isActiveProfile
+                    ? <DropDownItem><Link to="/reports">Отчёты</Link></DropDownItem>
+                    : null
+            }
             <DropDownItem>
                 <Link to={'/'} onClick={logOutUser}>Выход</Link>
             </DropDownItem>

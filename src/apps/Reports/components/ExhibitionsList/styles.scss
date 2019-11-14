@@ -1,0 +1,30 @@
+.ExhibitionsList {
+  list-style: none;
+  padding: 0;
+  &__item {
+    display: block;
+    text-decoration: none;
+    margin: 0 0 5px;
+    padding: 10px;
+    color: #856404 !important;
+    background-color: #ffeeba;
+    transition: background-color .2s linear;
+    &:hover {
+      background-color: #ffe8a1;
+    }
+    &._red {
+      color: #721c24 !important;
+      background-color: #f5c6cb;
+      &:hover {
+        background-color: #f1b0b7;
+      }
+    }
+    &._green {
+      color: #0c5460 !important;
+      background-color: #bee5eb;
+      &:hover {
+        background-color: #abdde5;
+      }
+    }
+  }
+}
