@@ -9,7 +9,7 @@ const PrimaryControls = ({perPage, columns, rows, column, query, onPerPage, onSe
             <button className="add-row__button" onClick={onAdd}>Добавить</button>
         </div>
         <div className="primary-controls__per-page per-page-control">
-            <span className="per-page-control__label">На страницу:</span>
+            <span className="per-page-control__label">Строк на страницу:</span>
             <input
                 className="per-page-control__control"
                 type="text"

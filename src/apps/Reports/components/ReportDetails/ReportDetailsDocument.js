@@ -19,7 +19,12 @@ const ReportDetailsTable = ({reportHeader}) => {
             method: 'PUT',
             data: catalogData,
             isMultipart: true
-        }, () => setShowButton(false));
+        }, data => {
+            setShowButton(false);
+            alert('Каталог выставки успешно отправлен.');
+        }, error => {
+            alert('Каталог выставки не был отправлен.')
+        });
 
         if(invoice) {
             const invoiceData = new FormData();
@@ -31,7 +36,12 @@ const ReportDetailsTable = ({reportHeader}) => {
                 method: 'PUT',
                 data: invoiceData,
                 isMultipart: true
-            }, () => setShowButton(false));
+            }, data => {
+                setShowButton(false);
+                alert('Квитанция об оплате успешно отправлена.');
+            }, error => {
+                alert('Квитанция об оплате не была отправлена.');
+            });
         }
     };
 

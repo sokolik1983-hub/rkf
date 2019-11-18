@@ -55,7 +55,7 @@ class ReportDetailsTable extends React.Component {
         const sortable = sort.sort({
             getSortingColumns: () => this.state.sortingColumns || [],
             onSort: selectedColumn => this.setState({
-                sortingColumns: sort.byColumns({
+                sortingColumns: sort.byColumn({
                     sortingColumns: this.state.sortingColumns,
                     selectedColumn
                 })
@@ -101,12 +101,14 @@ class ReportDetailsTable extends React.Component {
     };
 
     onRemove = (rowId) => {
-        const rows = clone(this.state.rows);
-        const idx = findIndex(rows, {id: rowId});
+        if(window.confirm('Вы уверены, что хотите удалить эту строку?')) {
+            const rows = clone(this.state.rows);
+            const idx = findIndex(rows, {id: rowId});
 
-        rows.splice(idx, 1);
+            rows.splice(idx, 1);
 
-        this.setState({rows});
+            this.setState({rows});
+        }
     };
 
     onAdd = () => {
@@ -122,6 +124,7 @@ class ReportDetailsTable extends React.Component {
             newRow.breed = '';
             newRow.class = '';
             newRow.score = '';
+            newRow.date = this.props.date;
         }
 
         rows.push(newRow);
@@ -158,6 +161,11 @@ class ReportDetailsTable extends React.Component {
 
         const resolvedCols = resolve.columnChildren({ columns: cols });
 
+        let colsForSearch = resolvedCols;
+        if(this.props.content === 'final-report') {
+            colsForSearch = colsForSearch.filter(col => !+col.property && col.property !== 'date');
+        }
+
         const sortedRows = sort.sorter({
             columns: resolvedCols,
             sortingColumns,
@@ -184,7 +192,7 @@ class ReportDetailsTable extends React.Component {
                     perPage={pagination.perPage}
                     column={searchColumn}
                     query={query}
-                    columns={resolvedCols}
+                    columns={colsForSearch}
                     rows={paginated.rows}
                     onPerPage={this.onPerPage}
                     onColumnChange={this.onColumnChange}

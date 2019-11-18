@@ -16,6 +16,9 @@
     margin-bottom: 10px;
   }
   &__table {
+    tfoot {
+      border-top: 1px solid #cbcbcb;
+    }
     .sort-container {
       display: flex;
       justify-content: space-between;

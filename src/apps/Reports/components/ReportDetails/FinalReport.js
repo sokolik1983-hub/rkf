@@ -27,15 +27,9 @@ const FinalReport = ({reportHeader}) => {
     const [rows, setRows] = useState(defaultRows);
 
     useEffect(() => {
-        (() => {
-            Request({url: endpointBreedsList}, data => setBreeds(data));
-        })();
-        (() => {
-            Request({url: endpointCastesList}, data => setCastes(data));
-        })();
-        (() => {
-            Request({url: endpointGradesList}, data => setGrades(data));
-        })();
+        (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
+        (() => Request({url: endpointCastesList}, data => setCastes(data)))();
+        (() => Request({url: endpointGradesList}, data => setGrades(data)))();
     }, []);
 
     useEffect(() => {
@@ -91,14 +85,14 @@ const FinalReport = ({reportHeader}) => {
                     "breed_id": breedId,
                     "dog_name": row['dog-name'] || null,
                     "dog_birth_date": row.birthday || null,
-                    "pedigree_number": +row['pedigree-number'] || null
+                    "pedigree_number": row['pedigree-number'] || null
                 },
                 "judge": {
                     "judge_first_name": row['judge-name'] || null,
                     "judge_second_name": row['judge-patronymic'] || null,
                     "judge_last_name": row['judge-surname'] || null
                 },
-                "catalog_number": +row['catalog-number'] || null,
+                "catalog_number": row['catalog-number'] || null,
                 "caste_id": castId,
                 "grade_id": gradeId,
                 "certificates": certificates
@@ -110,13 +104,17 @@ const FinalReport = ({reportHeader}) => {
             "report_rows": reportRows
         };
 
-        (() => {
-            Request({
+        (() => Request({
                 url: endpointPutFinalReport,
                 method: 'PUT',
                 data: JSON.stringify(dataToSend)
-            }, () => setShowButton(false))
-        })();
+            }, data => {
+                setShowButton(false);
+                alert('Ваш отчёт был отправлен.');
+            }, error => {
+                alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
+            })
+        )();
     };
 
     return loading ?
@@ -128,6 +126,7 @@ const FinalReport = ({reportHeader}) => {
                 breeds={breeds}
                 castes={castes}
                 grades={grades}
+                date={exhibitionDate}
                 rankType={reportHeader.rank_id}
                 onSubmit={onSubmit}
                 showButton={showButton}

@@ -21,15 +21,9 @@ const JudgeLoadReport = ({reportHeader}) => {
     const [rows, setRows] = useState(defaultRows);
 
     useEffect(() => {
-        (() => {
-            Request({url: endpointBreedsList}, data => setBreeds(data));
-        })();
-        (() => {
-            Request({url: endpointGroupsList}, data => setGroups(data));
-        })();
-        (() => {
-            Request({url: endpointCountriesList}, data => setCountries(data));
-        })();
+        (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
+        (() => Request({url: endpointGroupsList}, data => setGroups(data)))();
+        (() => Request({url: endpointCountriesList}, data => setCountries(data)))();
     }, []);
 
     useEffect(() => {
@@ -101,13 +95,17 @@ const JudgeLoadReport = ({reportHeader}) => {
             "judges_load_report_rows": reportRows
         };
 
-        (() => {
-            Request({
+        (() => Request({
                 url: endpointPutJudgesLoadReport,
                 method: 'PUT',
                 data: JSON.stringify(dataToSend)
-            }, () => setShowButton(false))
-        })();
+            }, data => {
+                setShowButton(false);
+                alert('Ваш отчёт был отправлен.');
+            }, error => {
+                alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
+            })
+        )();
     };
 
     return loading ?

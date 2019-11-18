@@ -3,13 +3,13 @@ import { MONTHS } from 'appConfig';
 
 const currentYear = new Date().getFullYear();
 const fromMonth = new Date(currentYear - 30, 0);
-const toMonth = new Date(currentYear + 1, 11);
+const toMonth = new Date();
 
 const YearMonthForm = ({ date, onChange }) => {
     const months = MONTHS;
 
     const years = [];
-    for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
+    for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i ++) {
         years.push(i);
     }
 

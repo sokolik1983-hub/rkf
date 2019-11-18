@@ -22,7 +22,8 @@ const Inner = () => (
 
 function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name }) {
     // const clubName = name && name !== club_name ? name : club_name;
-    const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed : club_alias;
+    const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
+
     return isAuthenticated ? (
         <Dropdown
             className="widget-login"

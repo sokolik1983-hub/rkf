@@ -4,6 +4,7 @@ import * as edit from "react-edit";
 import * as sort from 'sortabular';
 import calendar from "./Calendar";
 import multiSelect from "./MultiSelect";
+import boolButtons from "./BoolButtons";
 import {endpointCertificatesList} from '../../../config';
 import {Request} from "../../../../../utils/request";
 
@@ -97,6 +98,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                             strategy: sort.strategies.byProperty
                         })
                     ];
+
                     child.cell = {
                         formatters: [search.highlightCell],
                         transforms: [
@@ -159,20 +161,20 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
             property: col.id,
             header: {
                 label: col.name,
-                formatters: [
-                    sort.header({
-                        sortable,
-                        getSortingColumns: () => sortingColumns,
-                        strategy: sort.strategies.byProperty
-                    })
-                ]
+                // formatters: [
+                //     sort.header({
+                //         sortable,
+                //         getSortingColumns: () => sortingColumns,
+                //         strategy: sort.strategies.byProperty
+                //     })
+                // ]
             },
             cell: {
                 formatters: [
                     active => active && <span>&#10003;</span>
                 ],
                 transforms: [
-                    (value, extra) => editable(edit.boolean())(value, extra, {
+                    (value, extra) => editable(boolButtons())(value, extra, {
                         className: extra.rowData.edited && 'edited',
                         style: {
                             textAlign: 'center'
@@ -353,7 +355,8 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     formatters: [search.highlightCell],
                     transforms: [
                         (value, extra) => editable(multiSelect({
-                            options: col.property === 'breed' ? breeds : groups
+                            options: col.property === 'breed' ? breeds : groups,
+                            property: col.property
                         }))(value, extra, {
                             className: extra.rowData.edited && 'edited'
                         })
@@ -362,7 +365,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                 };
                 col.props = {
                     style: {
-                        minWidth: '200px'
+                        minWidth: '210px'
                     }
                 };
             } else {
@@ -420,7 +423,7 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
                     )
                 ]
             }
-        } else {
+        } else if(col.property !== 'position') {
             col.cell = {
                 transforms: [
                     (value, extra) => editable(edit.input())(value, extra, {
@@ -433,25 +436,25 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
         return col;
     });
 
-    cols.push({
-        props: {
-            style: {
-                width: 50
-            }
-        },
-        cell: {
-            formatters: [
-                (value, { rowData }) => (
-                    <span
-                        className="remove"
-                        onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
-                    >
-                        &#10007;
-                    </span>
-                )
-            ]
-        }
-    });
+    // cols.push({
+    //     props: {
+    //         style: {
+    //             width: 50
+    //         }
+    //     },
+    //     cell: {
+    //         formatters: [
+    //             (value, { rowData }) => (
+    //                 <span
+    //                     className="remove"
+    //                     onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
+    //                 >
+    //                 &#10007;
+    //             </span>
+    //             )
+    //         ]
+    //     }
+    // });
 
     return cols;
 };

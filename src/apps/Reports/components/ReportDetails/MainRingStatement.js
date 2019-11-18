@@ -46,22 +46,27 @@ class MainRingTable extends React.Component {
     };
 
     onAdd = () => {
-        const rows = cloneDeep(this.state.rows);
-        let newRow = {};
-        newRow.arrangement_id = this.props.arrangementId;
-        newRow.id = rows.length ? rows[rows.length - 1].id + 1 : 1;
-        newRow.breed = '';
-        rows.push(newRow);
-        this.setState({ rows });
+        if(this.state.rows.length < 4) {
+            const rows = cloneDeep(this.state.rows);
+            let newRow = {};
+            newRow.arrangement_id = this.props.arrangementId;
+            newRow.id = rows.length ? rows[rows.length - 1].id + 1 : 1;
+            newRow.position = 4;
+            newRow.breed = '';
+            rows.push(newRow);
+            this.setState({ rows });
+        }
     };
 
     onRemove = (rowId) => {
-        const rows = cloneDeep(this.state.rows);
-        const idx = findIndex(rows, {id: rowId});
+        if(window.confirm('Вы уверены, что хотите удалить эту строку?')) {
+            const rows = cloneDeep(this.state.rows);
+            const idx = findIndex(rows, {id: rowId});
 
-        rows.splice(idx, 1);
+            rows.splice(idx, 1);
 
-        this.setState({rows});
+            this.setState({rows});
+        }
     };
 
     render() {
@@ -77,9 +82,11 @@ class MainRingTable extends React.Component {
                         <Table.Header />
                         <Table.Body rows={rows} rowKey="id" />
                     </Table.Provider>
-                    <div className="add-button">
-                        <button onClick={() => this.onAdd(this.props.arrangementId)}> + </button>
-                    </div>
+                    {rows.length < 4 &&
+                        <div className="add-button">
+                            <button onClick={() => this.onAdd(this.props.arrangementId)}> + </button>
+                        </div>
+                    }
                 </>
                 : null
         )
@@ -94,7 +101,7 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
     return (
         <tr>
             <td>{arrangementName}</td>
-            <td colSpan="6" className="table-holder">
+            <td colSpan="5" className="table-holder">
                 <MainRingTable arrangementId={arrangementId} rows={getFilteredRows(arrangementId)} updateRows={updateRows} breeds={breeds} />
             </td>
         </tr>
@@ -107,9 +114,7 @@ const MainRingStatement = ({ reportHeader }) => {
     const [showButton, setShowButton] = useState(true);
 
     useEffect(() => {
-        (() => {
-            Request({url: endpointBreedsList}, data => setBreeds(data));
-        })();
+        (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
     }, []);
 
     useEffect(() => {
@@ -170,13 +175,16 @@ const MainRingStatement = ({ reportHeader }) => {
             "report_rows": reportRows
         };
 
-        (() => {
-            Request({
+        (() => Request({
                 url: endpointPutMainRingStatement,
                 method: 'PUT',
                 data: JSON.stringify(dataToSend)
-            }, () => setShowButton(false))
-        })();
+            }, data => {
+                setShowButton(false);
+                alert('Ваш отчёт был отправлен.');
+            }, error => {
+                alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
+        }))();
     };
 
     return !reportHeader.statement_main_ring_accept ?
@@ -189,7 +197,6 @@ const MainRingStatement = ({ reportHeader }) => {
                     <col style={{ width: '200px' }} />
                     <col style={{ width: '200px' }} />
                     <col style={{ width: '200px' }} />
-                    <col style={{ width: '50px' }} />
                 </colgroup>
                 <thead>
                     <tr>
@@ -199,7 +206,6 @@ const MainRingStatement = ({ reportHeader }) => {
                         <th>НОМЕР ПО КАТАЛОГУ</th>
                         <th>КЛИЧКА СОБАКИ</th>
                         <th>НОМЕР РОДОСЛОВНОЙ</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
