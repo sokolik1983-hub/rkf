@@ -239,7 +239,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                 </tbody>
             </table>
             <div style={{width: '1100px', margin: '24px auto 0'}}>
-                <button onClick={onSubmit}>Отправить</button>
+                <button onClick={onSubmit}>Отправить отчёт</button>
             </div>
         </> :
         <div className="report-details__default">

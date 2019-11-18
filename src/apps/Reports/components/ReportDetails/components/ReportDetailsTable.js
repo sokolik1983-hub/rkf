@@ -217,7 +217,7 @@ class ReportDetailsTable extends React.Component {
                     onSelect={this.onSelect}
                 />
 
-                <button onClick={this.onSubmit}>Отправить</button>
+                <button onClick={this.onSubmit}>Отправить отчёт</button>
             </>
         )
     }
