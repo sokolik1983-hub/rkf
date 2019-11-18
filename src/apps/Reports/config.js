@@ -14,4 +14,4 @@ export const endpointGetMainRingStatement = '/api/exhibitions/report/exhibition_
 export const endpointPutJudgesLoadReport = '/api/exhibitions/report/exhibition_result/JudgesLoad';
 export const endpointGetJudgesLoadReport = '/api/exhibitions/report/exhibition_result/JudgesLoad';
 export const endpointCatalogue = '/api/exhibitions/report/exhibition_result/Catalogue';
-export const endpointPutPaymentReceipt = '/api/exhibitions/report/exhibition_result/PaymentReceipt';
+export const endpointPaymentReceipt = '/api/exhibitions/report/exhibition_result/PaymentReceipt';

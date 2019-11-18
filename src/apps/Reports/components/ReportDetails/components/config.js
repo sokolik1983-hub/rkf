@@ -125,6 +125,11 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
+                        props: {
+                            style: {
+                                textAlign: 'center'
+                            }
+                        },
                         resolve: date => date && date.toLocaleDateString()
                     }
                 } else if(col.property === 'breed' || col.property === 'class' || col.property === 'score') {
@@ -141,6 +146,20 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                         formatters: [
                             search.highlightCell
                         ],
+                    }
+                } else if(col.property === 'catalog-number' || col.property === 'pedigree-number') {
+                    col.cell = {
+                        formatters: [search.highlightCell],
+                        transforms: [
+                            (value, extra) => editable(edit.input())(value, extra, {
+                                className: extra.rowData.edited && 'edited'
+                            })
+                        ],
+                        props: {
+                            style: {
+                                textAlign: 'center'
+                            }
+                        }
                     }
                 } else {
                     col.cell = {
@@ -188,6 +207,13 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
             property: 'date',
             header: {
                 label: 'Дата проведения выставки',
+            },
+            cell: {
+                props: {
+                    style: {
+                        textAlign: 'center'
+                    }
+                }
             }
         });
 
@@ -265,6 +291,11 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     property: 'dogs-distributed',
                     header: {
                         label: 'Распределено'
+                    },
+                    props: {
+                        style: {
+                            textAlign: 'center'
+                        }
                     }
                 },
                 {
@@ -272,7 +303,12 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     header: {
                         label: 'Отсужено'
                     },
-                    footer: rows => <b>{rows.reduce((a, b) => a + (b['dogs-judged'] ? +b['dogs-judged'] : 0), 0)}</b>
+                    props: {
+                        style: {
+                            textAlign: 'center'
+                        }
+                    },
+                    footer: rows => <b style={{display: 'block', textAlign: 'center'}}>{rows.reduce((a, b) => a + (b['dogs-judged'] ? +b['dogs-judged'] : 0), 0)}</b>
                 }
             ],
             props: {
@@ -396,19 +432,35 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
 export const mainRingStatementColumns = (onRemove, editable, breeds) => {
     let cols = [
         {
-            property: 'position'
+            property: 'position',
+            props: {
+                style: {
+                    textAlign: 'center'
+                }
+            }
         },
         {
             property: 'breed'
         },
         {
-            property: 'catalog_number'
+            property: 'catalog_number',
+            props: {
+                style: {
+                    textAlign: 'center'
+                }
+            }
         },
         {
             property: 'dog_name'
         },
         {
-            property: 'pedigree_number'
+            property: 'pedigree_number',
+            props: {
+                style: {
+                    textAlign: 'center',
+                    borderRight: 'none'
+                }
+            }
         }
     ];
 

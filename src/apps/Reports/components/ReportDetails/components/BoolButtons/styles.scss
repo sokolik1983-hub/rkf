@@ -1,6 +1,10 @@
 .bool-buttons {
+  display: flex;
   button {
     display: block;
+    box-sizing: border-box;
     width: 100%;
+    margin: -1px;
+    padding: 0;
   }
 }

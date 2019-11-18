@@ -108,36 +108,37 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
     )
 };
 
-const MainRingStatement = ({ reportHeader }) => {
+const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [rows, setRows] = useState([]);
-    const [showButton, setShowButton] = useState(true);
 
     useEffect(() => {
         (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
     }, []);
 
     useEffect(() => {
-        if(reportHeader.statement_main_ring_is_sent && !reportHeader.statement_main_ring_accept && breeds) {
+        if(!reportHeader.statement_main_ring_accept && breeds) {
             (() => {
                 Request({url: `${endpointGetMainRingStatement}?id=${reportHeader.id}`}, data => {
-                    const rows = data.map(row => {
-                        const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
+                    if(data.length) {
+                        const rows = data.map(row => {
+                            const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
 
-                        const item = {
-                            'arrangement_id': row.arrangement_id,
-                            'id': row.id,
-                            'position': row.position || '',
-                            breed,
-                            'catalog_number': row.catalog_number || '',
-                            'dog_name': row.dog.dog_name || '',
-                            'pedigree_number': row.dog.pedigree_number || ''
-                        };
+                            const item = {
+                                'arrangement_id': row.arrangement_id,
+                                'id': row.id,
+                                'position': row.position || '',
+                                breed,
+                                'catalog_number': row.catalog_number || '',
+                                'dog_name': row.dog.dog_name || '',
+                                'pedigree_number': row.dog.pedigree_number || ''
+                            };
 
-                        return item;
-                    });
+                            return item;
+                        });
 
-                    setRows(rows);
+                        setRows(rows);
+                    }
                 });
             })();
         }
@@ -180,8 +181,8 @@ const MainRingStatement = ({ reportHeader }) => {
                 method: 'PUT',
                 data: JSON.stringify(dataToSend)
             }, data => {
-                setShowButton(false);
                 alert('Ваш отчёт был отправлен.');
+                getHeader();
             }, error => {
                 alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
         }))();
@@ -189,6 +190,11 @@ const MainRingStatement = ({ reportHeader }) => {
 
     return !reportHeader.statement_main_ring_accept ?
         <>
+            {reportHeader.statement_main_ring_comment &&
+                <h4 style={{maxWidth: '33%', color: 'red'}}>
+                    Этот отчёт был отклонён с комментарием: {reportHeader.statement_main_ring_comment}
+                </h4>
+            }
             <table className="MainRingStatement">
                 <colgroup>
                     <col style={{ width: '200px' }} />
@@ -221,9 +227,9 @@ const MainRingStatement = ({ reportHeader }) => {
                     <Row name="10 ГРУППА FCI / BEST IN GROUP 10 FCI" id="10" />
                 </tbody>
             </table>
-            {showButton && <div style={{width: '1150px', margin: '24px auto 0'}}>
+            <div style={{width: '1100px', margin: '24px auto 0'}}>
                 <button onClick={onSubmit}>Отправить</button>
-            </div>}
+            </div>
         </> :
         <div className="report-details__default">
             <h3>Этот отчёт уже был принят</h3>

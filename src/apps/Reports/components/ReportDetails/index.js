@@ -18,8 +18,8 @@ function ReportDetails(props) {
     const { path, url, params } = match;
     const exhibitionId = +params.id;
 
-    useEffect( () => {
-        (() => Request({
+    const getHeader = async () => {
+        await Request({
                 url: endpointGetHeader,
                 method: 'POST',
                 data: JSON.stringify(exhibitionId)
@@ -35,7 +35,11 @@ function ReportDetails(props) {
                 });
                 setLoading(false);
             }
-        ))();
+        );
+    };
+
+    useEffect( () => {
+        getHeader();
     }, []);
 
     return loading ?
@@ -51,10 +55,10 @@ function ReportDetails(props) {
                         <NavLink className="link" to={`${url}/documents`}>Документы</NavLink>
                     </div>
                     <Switch>
-                        <Route exact path={`${path}`} component={() => <FinalReport reportHeader={reportHeader} />} />
-                        <Route path={`${path}/main-ring-statement`} component={() => <MainRingStatement reportHeader={reportHeader}/>} />
-                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader}/>} />
-                        <Route path={`${path}/documents`} component={() => <ReportDetailsDocument reportHeader={reportHeader}/>} />
+                        <Route exact path={`${path}`} component={() => <FinalReport reportHeader={reportHeader} getHeader={getHeader}/>} />
+                        <Route path={`${path}/main-ring-statement`} component={() => <MainRingStatement reportHeader={reportHeader} getHeader={getHeader}/>} />
+                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader} getHeader={getHeader}/>} />
+                        <Route path={`${path}/documents`} component={() => <ReportDetailsDocument reportHeader={reportHeader} getHeader={getHeader}/>} />
                     </Switch>
                 </div> :
                 errors.status === 422 ?

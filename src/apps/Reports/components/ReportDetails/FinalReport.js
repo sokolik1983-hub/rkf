@@ -10,11 +10,10 @@ import {
 import {Request} from "../../../../utils/request";
 
 
-const FinalReport = ({reportHeader}) => {
+const FinalReport = ({reportHeader, getHeader}) => {
     const [breeds, setBreeds] = useState(null);
     const [castes, setCastes] = useState(null);
     const [grades, setGrades] = useState(null);
-    const [showButton, setShowButton] = useState(true);
     const loading = !breeds || !castes || !grades;
     const exhibitionDate = new Date(reportHeader.exhibition_date).toLocaleDateString();
     const defaultRows = [
@@ -33,9 +32,9 @@ const FinalReport = ({reportHeader}) => {
     }, []);
 
     useEffect(() => {
-        if(reportHeader.total_report_is_sent && !reportHeader.total_report_accept && breeds && castes && grades) {
-            (() => {
-                Request({url: `${endpointGetFinalReport}?id=${reportHeader.id}`}, data => {
+        if(!reportHeader.total_report_accept && breeds && castes && grades) {
+            (() => Request({url: `${endpointGetFinalReport}?id=${reportHeader.id}`}, data => {
+                if(data.length) {
                     const rows = data.map(row => {
                         const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
                         const caste = row.caste_id ? castes.find(caste => caste.id === row.caste_id).name : '';
@@ -62,8 +61,8 @@ const FinalReport = ({reportHeader}) => {
                     });
 
                     setRows(rows);
-                });
-            })();
+                }
+            }))();
         }
     }, [breeds, castes, grades]);
 
@@ -109,8 +108,8 @@ const FinalReport = ({reportHeader}) => {
                 method: 'PUT',
                 data: JSON.stringify(dataToSend)
             }, data => {
-                setShowButton(false);
                 alert('Ваш отчёт был отправлен.');
+                getHeader();
             }, error => {
                 alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
             })
@@ -120,17 +119,23 @@ const FinalReport = ({reportHeader}) => {
     return loading ?
         <Loading /> :
         !reportHeader.total_report_accept ?
-            <ReportDetailsTable
-                content="final-report"
-                rows={rows}
-                breeds={breeds}
-                castes={castes}
-                grades={grades}
-                date={exhibitionDate}
-                rankType={reportHeader.rank_id}
-                onSubmit={onSubmit}
-                showButton={showButton}
-            /> :
+            <>
+                {reportHeader.total_report_comment &&
+                    <h4 style={{maxWidth: '33%', color: 'red'}}>
+                        Этот отчёт был отклонён с комментарием: {reportHeader.total_report_comment}
+                    </h4>
+                }
+                <ReportDetailsTable
+                    content="final-report"
+                    rows={rows}
+                    breeds={breeds}
+                    castes={castes}
+                    grades={grades}
+                    date={exhibitionDate}
+                    rankType={reportHeader.rank_id}
+                    onSubmit={onSubmit}
+                />
+            </> :
             <div className="report-details__default">
                 <h3>Этот отчёт уже был принят</h3>
             </div>

@@ -11,6 +11,11 @@ const calendar = ({props} = {}) => {
 
         const onDateChange = date => setDate(date);
 
+        const handleDayClick = (day, {disabled}) => {
+            if(disabled) return;
+            onValue(day);
+        };
+
         return (
             <OutsideClickHandler onOutsideClick={() => onValue(date)}>
                 <DayPicker
@@ -21,8 +26,9 @@ const calendar = ({props} = {}) => {
                     firstDayOfWeek={1}
                     selectedDays={[date]}
                     month={date}
+                    disabledDays={{after: new Date()}}
                     onMonthChange={onDateChange}
-                    onDayClick={onValue}
+                    onDayClick={handleDayClick}
                     captionElement={({date, localeUtils}) => (
                         <YearMonthForm
                             date={date}
