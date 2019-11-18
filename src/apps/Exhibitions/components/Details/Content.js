@@ -1,10 +1,8 @@
 import React from 'react'
 import ExhibitionSchedule from 'apps/ExhibitionSchedule'
-import ExhibitionContests from 'apps/ExhibitionContest'
 import Tabs, { TabContent } from "components/Tabs";
 import Img from 'components/Img'
 import DetailsContent from "../DetailsContent";
-import ExhibitionReferees from './Referees';
 import ExhibitionDocuments from 'apps/ExhibitionDocuments';
 
 export default function ExhibitionDetailsContent({

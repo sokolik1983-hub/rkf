@@ -1,16 +1,14 @@
 import React from 'react'
-import {clubLegalInfoFormConfig} from "apps/ClubLegalInfo/config";
-import {Form} from "components/Form";
+import { clubLegalInfoFormConfig } from "apps/ClubLegalInfo/config";
+import { Form } from "components/Form";
 import RenderFields from './RenderFields'
-import {connectLegalInfoForm} from "apps/ClubLegalInfo/connectors";
+import { connectLegalInfoForm } from "apps/ClubLegalInfo/connectors";
 
-import {usePushMessage} from 'apps/Messages/hooks'
-
-import {defaultSuccessMessage} from 'shared/messages'
+import { usePushMessage } from 'apps/Messages/hooks'
 
 export function UpdateLegalInfoForm(props) {
-    const {clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm} = props;
-    const {push} = usePushMessage();
+    const { clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm } = props;
+    usePushMessage();
     const onSuccess = data => {
         updateLegalInfoSuccess(data);
         // push(defaultSuccessMessage);
@@ -23,7 +21,7 @@ export function UpdateLegalInfoForm(props) {
             initialValues={clubLegalInfo}
             bindSubmitForm={bindSubmitForm}
         >
-            <RenderFields/>
+            <RenderFields />
         </Form>
     )
 }

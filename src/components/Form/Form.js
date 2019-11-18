@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react';
 import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
-import axios from "axios";
 import classnames from 'classnames'
 import { Formik } from 'formik';
-import { getHeaders } from "../../utils/request";
 import { HTTP } from "appConfig";
 import { Request } from '../../utils/request';
 

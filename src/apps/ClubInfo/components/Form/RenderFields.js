@@ -1,8 +1,8 @@
 import React from 'react'
-import {FormControls, FormField, FormGroup, SubmitButton,} from 'components/Form'
-import {clubInfoFormConfig} from 'apps/ClubInfo/config'
+import { FormField, FormGroup } from 'components/Form'
+import { clubInfoFormConfig } from 'apps/ClubInfo/config'
 
-const {fields} = clubInfoFormConfig;
+const { fields } = clubInfoFormConfig;
 
 const RenderFields = () =>
     <React.Fragment>

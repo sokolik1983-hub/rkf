@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import classnames from 'classnames';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
 import {
     formatDateToString,
@@ -33,7 +32,6 @@ const getDatesState = () => {
 function FilterDateRange() {
     const [currentDates] = useState(getDatesState());
     const [filter, setFilter] = useState(null);
-    const [archive, setArchive] = useState(false);
     const { setDatesRange, clearDatesRange } = useContext(
         ExhibitionsFilterContext
     );

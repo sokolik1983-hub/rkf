@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react'
-import {Link} from "react-router-dom"
 import Card from 'components/Card'
 import ClientExhibitionListItem from './ListItem'
 import {connectClientExhibitionsList} from 'apps/ClientExhibitions/connectors'

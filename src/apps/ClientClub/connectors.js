@@ -7,8 +7,7 @@ import {
     selectClubContacts,
     selectClubHeaderPicture,
     selectClubLogoPicture,
-    selectClubAlias,
-    selectEditPage
+    selectClubAlias
 } from './selectors'
 
 import {

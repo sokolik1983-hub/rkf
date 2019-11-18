@@ -1,10 +1,9 @@
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
     getDatesIds,
     getScheduleEvents,
     getEventById,
-    getExhibitionId,
     selectScheduleDateProps
 } from './selectors'
 
@@ -13,8 +12,7 @@ import {
     addDateSuccess,
     deleteScheduleEvent,
     updateScheduleEventSuccess,
-    getSchedule,
-    updateDateSuccess
+    getSchedule
 } from './actions'
 
 

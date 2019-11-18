@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {endpointCatalogue, endpointPaymentReceipt} from '../../config';
-import {Request, getHeaders} from "../../../../utils/request";
+import React, { useEffect, useState } from 'react';
+import { endpointCatalogue, endpointPaymentReceipt } from '../../config';
+import { Request, getHeaders } from "../../../../utils/request";
 import './styles.scss';
 
 
-const ReportDetailsTable = ({reportHeader, getHeader}) => {
+const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     const [catalog, setCatalog] = useState(null);
     const [catalogUrl, setCatalogUrl] = useState(null);
     const [invoice, setInvoice] = useState(null);
@@ -16,7 +16,7 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
             headers: getHeaders()
         });
 
-        if(response.status === 200) {
+        if (response.status === 200) {
             const blob = await response.blob();
             const blobUrl = await URL.createObjectURL(blob);
 
@@ -24,21 +24,21 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
         } else return null;
     };
 
-    useEffect( () => {
-        if(!reportHeader.doc_catalog_accept) {
-             (async () => {
-                 const url = await getDocumentUrl(endpointCatalogue);
+    useEffect(() => {
+        if (!reportHeader.doc_catalog_accept) {
+            (async () => {
+                const url = await getDocumentUrl(endpointCatalogue);
 
-                 setCatalogUrl(url);
-             })();
+                setCatalogUrl(url);
+            })();
         }
 
-        if(!reportHeader.doc_payment_accept) {
-             (async () => {
-                 const url = await getDocumentUrl(endpointPaymentReceipt);
+        if (!reportHeader.doc_payment_accept) {
+            (async () => {
+                const url = await getDocumentUrl(endpointPaymentReceipt);
 
-                 setInvoiceUrl(url);
-             })();
+                setInvoiceUrl(url);
+            })();
         }
     }, []);
 
@@ -59,7 +59,7 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
             alert('Каталог выставки не был отправлен.')
         });
 
-        if(invoice) {
+        if (invoice) {
             const invoiceData = new FormData();
             invoiceData.append('header_id', reportHeader.id);
             invoiceData.append('file', invoice);
@@ -81,12 +81,12 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
     return (
         <>
             {reportHeader.doc_catalog_comment &&
-                <h4 style={{maxWidth: '33%', color: 'red'}}>
+                <h4 style={{ maxWidth: '33%', color: 'red' }}>
                     Каталог выставки был отклонён с комментарием: {reportHeader.doc_catalog_comment}
                 </h4>
             }
             {reportHeader.doc_payment_comment &&
-                <h4 style={{maxWidth: '33%', color: 'red'}}>
+                <h4 style={{ maxWidth: '33%', color: 'red' }}>
                     Квитанция об оплате была отклонена с комментарием: {reportHeader.doc_payment_comment}
                 </h4>
             }
@@ -96,11 +96,11 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
                     <label className="report-documents__document-label">Каталог выставки</label>
                     {!reportHeader.doc_catalog_accept ?
                         <>
-                            {catalogUrl && <a href={catalogUrl} target="_blank">Каталог выставки</a>}
-                            <input type="file" accept=".pdf" style={{display: 'block', marginTop: '8px'}} onChange={(e) => {
+                            {catalogUrl && <a href={catalogUrl} target="_blank" rel="noopener noreferrer">Каталог выставки</a>}
+                            <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
                                 setShowButton(true);
-                            }}/>
+                            }} />
                         </> :
                         <p>Этот документ уже был принят</p>
                     }
@@ -111,11 +111,11 @@ const ReportDetailsTable = ({reportHeader, getHeader}) => {
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
-                            {invoiceUrl && <a href={invoiceUrl} target="_blank">Квитанция об оплате взноса за обработку результатов выставки</a>}
-                            <input type="file" accept=".pdf" style={{display: 'block', marginTop: '8px'}} onChange={(e) => {
+                            {invoiceUrl && <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">Квитанция об оплате взноса за обработку результатов выставки</a>}
+                            <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
-                                if(catalogUrl) setShowButton(true);
-                            }}/>
+                                if (catalogUrl) setShowButton(true);
+                            }} />
                         </> :
                         <p>Этот документ уже был принят</p>
                     }

@@ -3,7 +3,6 @@ import searchIcon from './Icon.svg';
 import { connectExhibitionsSearch } from 'apps/Exhibitions/connectors';
 import { ExhibitionsFilterContext } from 'apps/Exhibitions/context';
 import {
-    endpointExhibitionsList,
     searchDefaultPlaceholder
 } from 'apps/Exhibitions/config';
 import './index.scss';

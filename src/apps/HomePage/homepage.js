@@ -5,7 +5,6 @@ import injectReducer from 'utils/injectReducer'
 import {defaultReduxKey} from './config'
 import reducer from './reducer'
 import {ClubRouteContext} from './context'
-import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 
 

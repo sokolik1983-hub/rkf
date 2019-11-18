@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import ListDocument from './ListItem'
 import {connectListDocument} from 'apps/ClubDocuments/connectors'
 import {useResourceAndStoreToRedux} from "shared/hooks";

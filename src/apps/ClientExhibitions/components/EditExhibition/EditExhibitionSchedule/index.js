@@ -2,7 +2,6 @@ import React from 'react';
 import Card from "../../../../../components/Card";
 import {ExhibitionAvatar, ExhibitionMap} from '../components/Images';
 import ClientExhibitionSchedule from 'apps/ClientExhibitionSchedule';
-import ClientExhibitionContests from 'apps/ClientExhibitionContest';
 import ClientExhibitionDocument from 'apps/ClientExhibitionDocuments';
 import './index.scss';
 

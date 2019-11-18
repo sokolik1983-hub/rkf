@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { usePushMessage, useClearMessages } from 'apps/Messages/hooks';
 import { buildUrl } from './heplers';
-import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 import { getHeaders } from 'utils/request';
 import { formatDateToString, getEndOfMonth } from 'utils/datetime';
 

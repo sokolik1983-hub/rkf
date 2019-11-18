@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect, getIn} from "formik";
+import {connect} from "formik";
 import {Editor, EditorState, convertToRaw, RichUtils} from 'draft-js';
 
 export const NoOptionsMessage = () => {

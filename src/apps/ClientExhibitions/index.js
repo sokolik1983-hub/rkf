@@ -13,7 +13,6 @@ import saga from "./saga";
 
 import {ClientExhibitionsPathContext} from './context'
 import {defaultReduxKey} from "./config";
-import EditPageButtons from 'apps/Client/components/EditPageButtons';
 
 
 

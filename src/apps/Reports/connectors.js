@@ -2,7 +2,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     fetchReportsSuccess,
-    fetchExhibitionSuccess,
     fetchReportHeaderSuccess
 } from './actions';
 

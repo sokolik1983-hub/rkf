@@ -1,7 +1,5 @@
 import { connect } from 'react-redux'
 import {
-    selectExhibitions,
-    selectExhibition,
     selectClubCommon,
     selectNews,
     selectNewsStory,
@@ -19,7 +17,6 @@ import {
 import {
     getCommonSuccess,
     getNewsSuccess,
-    getExhibitionsSuccess,
     storeExhibitions
 } from './actions'
 import { bindActionCreators } from "redux";

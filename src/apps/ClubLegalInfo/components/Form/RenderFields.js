@@ -1,8 +1,8 @@
 import React from 'react'
-import {FormControls, FormField, FormGroup, SubmitButton,} from 'components/Form'
-import {clubLegalInfoFormConfig} from 'apps/ClubLegalInfo/config'
+import { FormField, FormGroup } from 'components/Form'
+import { clubLegalInfoFormConfig } from 'apps/ClubLegalInfo/config'
 
-const {fields} = clubLegalInfoFormConfig;
+const { fields } = clubLegalInfoFormConfig;
 
 export default function RenderFields() {
     return (

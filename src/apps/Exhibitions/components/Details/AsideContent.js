@@ -3,7 +3,6 @@ import CountDown from "components/CountDown";
 
 import ExhibitionDetailsDates from './Dates'
 import ExhibitionRankType from './RankType'
-import ExhibitionClassTypes from './ClassTypes'
 import ExhibitionBreedTypes from './BreedTypes'
 import { transformDateSafariFriendly, timeSecondsCutter } from "utils/datetime";
 import { getDictElement, useDictionary } from "apps/Dictionaries";

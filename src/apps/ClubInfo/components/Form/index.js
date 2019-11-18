@@ -1,19 +1,18 @@
 import React from 'react'
-import {Form} from "components/Form";
-import {connectClubInfoForm} from 'apps/ClientClub/connectors'
+import { Form } from "components/Form";
+import { connectClubInfoForm } from 'apps/ClientClub/connectors'
 import RenderFields from './RenderFields'
-import {usePushMessage} from 'apps/Messages/hooks'
-import {defaultSuccessMessage} from 'shared/messages'
+import { usePushMessage } from 'apps/Messages/hooks'
 
-function ClubInfoForm({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) {
-    const {push} = usePushMessage();
+function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
+    usePushMessage();
     const transformValues = values => {
-        let newValues = {...values};
+        let newValues = { ...values };
 
-        if(!newValues.city_id) delete newValues.city_id;
-        if(newValues.status_id) delete newValues.status_id;
+        if (!newValues.city_id) delete newValues.city_id;
+        if (newValues.status_id) delete newValues.status_id;
 
-        return {...newValues}
+        return { ...newValues }
     };
     const onSuccess = values => {
         clubInfoUpdateSuccess(values);
@@ -21,7 +20,7 @@ function ClubInfoForm({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) {
     };
 
     return (
-        <div style={{flex:2}}>
+        <div style={{ flex: 2 }}>
             <h3>Общая информация</h3>
             <Form
                 method={"PUT"}
@@ -31,7 +30,7 @@ function ClubInfoForm({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) {
                 transformValues={transformValues}
                 bindSubmitForm={bindSubmitForm}
             >
-                <RenderFields/>
+                <RenderFields />
             </Form>
         </div>
     )

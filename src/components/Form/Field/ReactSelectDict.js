@@ -1,8 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
-import {connect, getIn} from "formik";
-import {useDictionary} from 'apps/Dictionaries/hooks'
-import {defaultReactSelectStyles} from '../config'
+import { connect, getIn } from "formik";
+import { useDictionary } from 'apps/Dictionaries/hooks'
+import { defaultReactSelectStyles } from '../config'
 
 import createFilterOptions from "react-select-fast-filter-options";
 import MenuList from './ReactSelectMenuList'
@@ -26,12 +26,11 @@ function ReactSelectDict(props) {
         clearable,
         defaultValue,
         isMulti,
-        closeMenuOnSelect,
-        components
+        closeMenuOnSelect
     } = props;
 
-    const {dictionary} = useDictionary(dictName);
-    const {options} = dictionary;
+    const { dictionary } = useDictionary(dictName);
+    const { options } = dictionary;
 
     const filterOptions = createFilterOptions({
         options
@@ -62,7 +61,7 @@ function ReactSelectDict(props) {
     return (
         <Select
             filterOptions={filterOptions}
-            components={{NoOptionsMessage, MenuList}}
+            components={{ NoOptionsMessage, MenuList }}
             id={id}
             isMulti={isMulti}
             closeMenuOnSelect={closeMenuOnSelect}
