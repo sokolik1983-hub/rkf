@@ -135,17 +135,24 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                 } else if(col.property === 'breed' || col.property === 'class' || col.property === 'score') {
                     col.cell = {
                         transforms: [
-                            editable(
-                                edit.dropdown({
-                                    options: col.property === 'breed' ? breeds :
-                                             col.property === 'class' ? castes :
-                                             grades
-                                })
-                            )
+                            (value, extra) => editable(multiSelect({
+                                options: col.property === 'breed' ? breeds :
+                                         col.property === 'class' ? castes :
+                                         grades,
+                                property: col.property,
+                            }))(value, extra, {
+                                className: extra.rowData.edited && 'edited'
+                            })
                         ],
                         formatters: [
                             search.highlightCell
                         ],
+                        props: {
+                            style: {
+                                minWidth: '190px'
+                            }
+                        },
+                        resolve: item => item && item.label
                     }
                 } else if(col.property === 'catalog-number' || col.property === 'pedigree-number') {
                     col.cell = {
@@ -364,15 +371,22 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                 if(child.property === 'judge-country') {
                     child.cell = {
                         transforms: [
-                            editable(
-                                edit.dropdown({
-                                    options: countries
-                                })
-                            )
+                            (value, extra) => editable(multiSelect({
+                                options: countries,
+                                property: child.property,
+                            }))(value, extra, {
+                                className: extra.rowData.edited && 'edited'
+                            })
                         ],
                         formatters: [
                             search.highlightCell
                         ],
+                        props: {
+                            style: {
+                                minWidth: '200px'
+                            }
+                        },
+                        resolve: item => item && item.label
                     }
                 } else {
                     child.cell = {
@@ -392,7 +406,8 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     transforms: [
                         (value, extra) => editable(multiSelect({
                             options: col.property === 'breed' ? breeds : groups,
-                            property: col.property
+                            property: col.property,
+                            isMulti: true
                         }))(value, extra, {
                             className: extra.rowData.edited && 'edited'
                         })
@@ -468,12 +483,14 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
         if(col.property === 'breed') {
             col.cell = {
                 transforms: [
-                    editable(
-                        edit.dropdown({
-                            options: breeds
-                        })
-                    )
-                ]
+                    (value, extra) => editable(multiSelect({
+                        options: breeds,
+                        property: col.property,
+                    }))(value, extra, {
+                        className: extra.rowData.edited && 'edited'
+                    })
+                ],
+                resolve: item => item && item.label
             }
         } else if(col.property !== 'position') {
             col.cell = {

@@ -66,9 +66,9 @@ class ReportDetailsTable extends React.Component {
         if(this.props.content === 'final-report') {
             let {breeds, castes, grades, rankType} = this.props;
 
-            breeds = breeds.map(item => ({value: item.name, name: item.name}));
-            castes = castes.map(item => ({value: item.name, name: item.name}));
-            grades = grades.map(item => ({value: item.name, name: item.name}));
+            breeds = breeds.map(item => ({value: item.name, label: item.name}));
+            castes = castes.map(item => ({value: item.name, label: item.name}));
+            grades = grades.map(item => ({value: item.name, label: item.name}));
 
             return await finalReportColumns(
                 this.onRemove,
@@ -86,7 +86,7 @@ class ReportDetailsTable extends React.Component {
 
             breeds = breeds.map(item => ({value: item.name, label: item.name}));
             groups = groups.map(item => ({value: item.name, label: item.name}));
-            countries = countries.map(item => ({value: item.short_name, name: item.short_name}));
+            countries = countries.map(item => ({value: item.short_name, label: item.short_name}));
 
             return judgeLoadReportColumns(
                 this.onRemove,

@@ -73,7 +73,7 @@ const JudgeLoadReport = ({reportHeader, getHeader}) => {
 
     const onSubmit = (rows) => {
         const reportRows = rows.map(row => {
-            const countryId = row['judge-country'] ? countries.find(item => item.short_name === row['judge-country']).id : null;
+            const countryId = row['judge-country'] ? countries.find(item => item.short_name === row['judge-country'].label).id : null;
             const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
             const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
 

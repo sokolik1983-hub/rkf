@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
+import {compose} from "redux";
 import {cloneDeep, findIndex} from 'lodash';
 import * as Table from 'reactabular-table';
 import * as edit from 'react-edit';
+import * as resolve from 'table-resolver';
 import {Request} from "../../../../utils/request";
 import {endpointBreedsList, endpointPutMainRingStatement, endpointGetMainRingStatement} from "../../config";
 import {mainRingStatementColumns} from './components/config';
+
 
 class MainRingTable extends React.Component {
     state = {
@@ -40,7 +43,7 @@ class MainRingTable extends React.Component {
                 this.props.updateRows(rows, this.props.arrangementId);
             }
         });
-        const breeds = this.props.breeds.map(item => ({value: item.name, name: item.name}));
+        const breeds = this.props.breeds.map(item => ({value: item.name, label: item.name}));
 
         return mainRingStatementColumns(this.onRemove, editable, breeds);
     };
@@ -72,23 +75,33 @@ class MainRingTable extends React.Component {
     render() {
         const { columns, rows } = this.state;
 
+        if(!columns) return null;
+
+        const resolvedRows = compose(
+            resolve.resolve({
+                columns: columns,
+                method: (extra) => compose(
+                    resolve.byFunction('cell.resolve')(extra),
+                    resolve.nested(extra)
+                )
+            })
+        )(rows);
+
         return (
-            columns
-                ? <>
-                    <Table.Provider
-                        className="pure-table pure-table-striped"
-                        columns={columns}
-                    >
-                        <Table.Header />
-                        <Table.Body rows={rows} rowKey="id" />
-                    </Table.Provider>
-                    {rows.length < 4 &&
-                        <div className="add-button">
-                            <button onClick={() => this.onAdd(this.props.arrangementId)}> + </button>
-                        </div>
-                    }
-                </>
-                : null
+            <>
+                <Table.Provider
+                    className="pure-table pure-table-striped"
+                    columns={columns}
+                >
+                    <Table.Header />
+                    <Table.Body rows={resolvedRows} rowKey="id" />
+                </Table.Provider>
+                {rows.length < 4 &&
+                    <div className="add-button">
+                        <button onClick={() => this.onAdd(this.props.arrangementId)}> + </button>
+                    </div>
+                }
+            </>
         )
     }
 };
@@ -118,29 +131,27 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
 
     useEffect(() => {
         if(!reportHeader.statement_main_ring_accept && breeds) {
-            (() => {
-                Request({url: `${endpointGetMainRingStatement}?id=${reportHeader.id}`}, data => {
-                    if(data.length) {
-                        const rows = data.map(row => {
-                            const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
+            (() => Request({url: `${endpointGetMainRingStatement}?id=${reportHeader.id}`}, data => {
+                if(data.length) {
+                    const rows = data.map(row => {
+                        const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
 
-                            const item = {
-                                'arrangement_id': row.arrangement_id,
-                                'id': row.id,
-                                'position': row.position || '',
-                                breed,
-                                'catalog_number': row.catalog_number || '',
-                                'dog_name': row.dog.dog_name || '',
-                                'pedigree_number': row.dog.pedigree_number || ''
-                            };
+                        const item = {
+                            'arrangement_id': row.arrangement_id,
+                            'id': row.id,
+                            'position': row.position || '',
+                            breed,
+                            'catalog_number': row.catalog_number || '',
+                            'dog_name': row.dog.dog_name || '',
+                            'pedigree_number': row.dog.pedigree_number || ''
+                        };
 
-                            return item;
-                        });
+                        return item;
+                    });
 
-                        setRows(rows);
-                    }
-                });
-            })();
+                    setRows(rows);
+                }
+            }))();
         }
     }, [breeds]);
 
@@ -157,7 +168,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
 
     const onSubmit = () => {
         const reportRows = rows.map(row => {
-            const breedId = row.breed ? breeds.find(item => item.name === row.breed).id : null;
+            const breedId = row.breed ? breeds.find(item => item.name === row.breed.label).id : null;
 
             return {
                 "dog": {

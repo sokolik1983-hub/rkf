@@ -68,9 +68,9 @@ const FinalReport = ({reportHeader, getHeader}) => {
 
     const onSubmit = (rows) => {
         const reportRows = rows.map(row => {
-            const breedId = row.breed ? breeds.find(item => item.name === row.breed).id : null;
-            const castId = row.class ? castes.find(item => item.name === row.class).id : null;
-            const gradeId = row.score ? grades.find(item => item.name === row.score).id : null;
+            const breedId = row.breed ? breeds.find(item => item.name === row.breed.label).id : null;
+            const castId = row.class ? castes.find(item => item.name === row.class.label).id : null;
+            const gradeId = row.score ? grades.find(item => item.name === row.score.label).id : null;
             const certificates = Object.keys(row).reduce((arr, key) => {
                 if(+key) {
                     return [...arr, +key];
