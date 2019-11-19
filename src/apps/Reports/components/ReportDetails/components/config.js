@@ -262,7 +262,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     header: {
                         label: 'Фамилия'
                     },
-                    footer: () => <b>ОБЩЕЕ КОЛИЧЕСТВО ОТСУЖЕННЫХ СОБАК:</b>,
+                    footer: () => <b>ОБЩЕЕ КОЛИЧЕСТВО:</b>,
                 },
                 {
                     property: 'judge-name',
@@ -303,7 +303,8 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                         style: {
                             textAlign: 'center'
                         }
-                    }
+                    },
+                    footer: rows => <b style={{display: 'block', textAlign: 'center'}}>{rows.reduce((a, b) => a + (b['dogs-distributed'] ? +b['dogs-distributed'] : 0), 0)}</b>
                 },
                 {
                     property: 'dogs-judged',
