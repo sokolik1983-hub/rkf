@@ -26,10 +26,9 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.judges_workload_accept && breeds && groups && countries) {
-            (() => {
-                Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => {
-                    if (data.lines.length) {
+        if(!reportHeader.judges_workload_accept && breeds && groups && countries) {
+            (() => Request({url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}`}, data => {
+                    if(data.lines.length) {
                         const rows = data.lines.map(row => {
                             const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
                             const breed = row.breeds.length ? row.breeds.map(breed => {
@@ -66,16 +65,19 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
 
                         setRows(rows);
                     }
-                });
-            })();
+            }))();
         }
     }, [breeds, groups, countries]);
 
     const onSubmit = (rows) => {
         const reportRows = rows.map(row => {
-            const countryId = row['judge-country'] ? countries.find(item => item.short_name === (row['judge-country'].label ? row['judge-country'].label : row['judge-country'])).id : null;
-            const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === (item.label ? item.label : item)).id) : [];
-            const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === (item.label ? item.label : item)).id) : [];
+            const countryId = row['judge-country'] ?
+                row['judge-country'].label ?
+                    countries.find(item => item.short_name === row['judge-country'].label).id :
+                    countries.find(item => item.short_name === row['judge-country']).id :
+                null;
+            const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
+            const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
 
             return {
                 "judge": {

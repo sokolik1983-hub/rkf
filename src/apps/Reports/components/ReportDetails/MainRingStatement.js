@@ -177,7 +177,11 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
 
     const onSubmit = () => {
         const reportRows = rows.map(row => {
-            const breedId = row.breed ? breeds.find(item => item.name === (row.breed.label ? row.breed.label : row.breed)).id : null;
+            const breedId = row.breed ?
+                row.breed.label ?
+                    breeds.find(item => item.name === row.breed.label).id :
+                    breeds.find(item => item.name === row.breed).id :
+                null;
 
             return {
                 "dog": {
