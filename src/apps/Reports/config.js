@@ -7,6 +7,7 @@ export const endpointGradesList = '/api/exhibitions/report/exhibition_result/Rep
 export const endpointGroupsList = '/api/dog/Breed/group';
 export const endpointCountriesList = '/api/Referee/countries';
 export const endpointCertificatesList = '/api/exhibitions/report/exhibition_result/ReportHeader/certificates_by_rank/';
+export const endpointArrangementsList = '/api/exhibitions/report/exhibition_result/ReportHeader/arrangements';
 export const endpointPutFinalReport = '/api/exhibitions/report/exhibition_result/FinalReport';
 export const endpointGetFinalReport = '/api/exhibitions/report/exhibition_result/FinalReport';
 export const endpointPutMainRingStatement = '/api/exhibitions/report/exhibition_result/StatementMainRing';

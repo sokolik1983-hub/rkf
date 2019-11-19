@@ -5,8 +5,14 @@ import * as Table from 'reactabular-table';
 import * as edit from 'react-edit';
 import * as resolve from 'table-resolver';
 import {Request} from "../../../../utils/request";
-import {endpointBreedsList, endpointPutMainRingStatement, endpointGetMainRingStatement} from "../../config";
+import {
+    endpointBreedsList,
+    endpointArrangementsList,
+    endpointPutMainRingStatement,
+    endpointGetMainRingStatement
+} from "../../config";
 import {mainRingStatementColumns} from './components/config';
+import Loading from "../../../../components/Loading";
 
 
 class MainRingTable extends React.Component {
@@ -123,10 +129,13 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
 
 const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
+    const [arrangements, setArrangements] = useState(null);
     const [rows, setRows] = useState([]);
+    const loading = !arrangements;
 
     useEffect(() => {
         (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
+        (() => Request({url: endpointArrangementsList}, data => setArrangements(data)))();
     }, []);
 
     useEffect(() => {
@@ -200,48 +209,41 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     };
 
     return !reportHeader.statement_main_ring_accept ?
-        <>
-            {reportHeader.statement_main_ring_comment &&
-                <h4 style={{maxWidth: '33%', color: 'red'}}>
-                    Этот отчёт был отклонён с комментарием: {reportHeader.statement_main_ring_comment}
-                </h4>
-            }
-            <table className="MainRingStatement">
-                <colgroup>
-                    <col style={{ width: '200px' }} />
-                    <col style={{ width: '100px' }} />
-                    <col style={{ width: '200px' }} />
-                    <col style={{ width: '200px' }} />
-                    <col style={{ width: '200px' }} />
-                    <col style={{ width: '200px' }} />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>РАССТАНОВКИ</th>
-                        <th>МЕСТА</th>
-                        <th>ПОРОДА</th>
-                        <th>НОМЕР ПО КАТАЛОГУ</th>
-                        <th>КЛИЧКА СОБАКИ</th>
-                        <th>НОМЕР РОДОСЛОВНОЙ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <Row name="1 ГРУППА FCI / BEST IN GROUP 1 FCI" id="1" />
-                    <Row name="2 ГРУППА FCI / BEST IN GROUP 2 FCI" id="2" />
-                    <Row name="3 ГРУППА FCI / BEST IN GROUP 3 FCI" id="3" />
-                    <Row name="4 ГРУППА FCI / BEST IN GROUP 4 FCI" id="4" />
-                    <Row name="5 ГРУППА FCI / BEST IN GROUP 5 FCI" id="5" />
-                    <Row name="6 ГРУППА FCI / BEST IN GROUP 6 FCI" id="6" />
-                    <Row name="7 ГРУППА FCI / BEST IN GROUP 7 FCI" id="7" />
-                    <Row name="8 ГРУППА FCI / BEST IN GROUP 8 FCI" id="8" />
-                    <Row name="9 ГРУППА FCI / BEST IN GROUP 9 FCI" id="9" />
-                    <Row name="10 ГРУППА FCI / BEST IN GROUP 10 FCI" id="10" />
-                </tbody>
-            </table>
-            <div style={{width: '1100px', margin: '24px auto 0'}}>
-                <button onClick={onSubmit}>Отправить отчёт</button>
-            </div>
-        </> :
+        loading ?
+            <Loading />:
+            <>
+                {reportHeader.statement_main_ring_comment &&
+                    <h4 style={{maxWidth: '33%', color: 'red'}}>
+                        Этот отчёт был отклонён с комментарием: {reportHeader.statement_main_ring_comment}
+                    </h4>
+                }
+                <table className="MainRingStatement">
+                    <colgroup>
+                        <col style={{ width: '200px' }} />
+                        <col style={{ width: '100px' }} />
+                        <col style={{ width: '200px' }} />
+                        <col style={{ width: '200px' }} />
+                        <col style={{ width: '200px' }} />
+                        <col style={{ width: '200px' }} />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>РАССТАНОВКИ</th>
+                            <th>МЕСТА</th>
+                            <th>ПОРОДА</th>
+                            <th>НОМЕР ПО КАТАЛОГУ</th>
+                            <th>КЛИЧКА СОБАКИ</th>
+                            <th>НОМЕР РОДОСЛОВНОЙ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {arrangements.map(item => <Row key={item.id} name={item.name} id={item.id} />)}
+                    </tbody>
+                </table>
+                <div style={{width: '1100px', margin: '24px auto 0'}}>
+                    <button onClick={onSubmit}>Отправить отчёт</button>
+                </div>
+            </> :
         <div className="report-details__default">
             <h3>Этот отчёт уже был принят</h3>
         </div>
