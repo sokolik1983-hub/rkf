@@ -101,7 +101,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                 },
                 "judge": {
                     "judge_first_name": row['judge-name'] || null,
-                    "judge_second_name": row['judge-patronymic'] || null,
+                    "judge_second_name": row['judge-patronymic'] || '',
                     "judge_last_name": row['judge-surname'] || null
                 },
                 "catalog_number": row['catalog-number'] || null,
