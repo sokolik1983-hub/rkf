@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import './styles.scss';
 
 const multiSelect = ({options, property, isMulti = false} = {}) => {
     const placeholder = property === 'breed' ? options[0].label :

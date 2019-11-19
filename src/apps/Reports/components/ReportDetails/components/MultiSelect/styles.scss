@@ -1,0 +1,11 @@
+.basic-multi-select {
+  .select {
+    &__placeholder {
+      white-space: nowrap;
+    }
+    &__menu {
+      white-space: nowrap;
+      width: auto;
+    }
+  }
+}

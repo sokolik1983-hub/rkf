@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReportDetailsTable from "./components/ReportDetailsTable";
 import Loading from "../../../../components/Loading";
 import {
@@ -8,28 +8,28 @@ import {
     endpointPutJudgesLoadReport,
     endpointGetJudgesLoadReport
 } from "../../config";
-import {Request} from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 
 
-const JudgeLoadReport = ({reportHeader, getHeader}) => {
+const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [groups, setGroups] = useState(null);
     const [countries, setCountries] = useState(null);
     const loading = !breeds || !groups || !countries;
-    const defaultRows = [{id: 1, 'judge-country': '', breed: [], group: []}];
+    const defaultRows = [{ id: 1, 'judge-country': '', breed: [], group: [] }];
     const [rows, setRows] = useState(defaultRows);
 
     useEffect(() => {
-        (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
-        (() => Request({url: endpointGroupsList}, data => setGroups(data)))();
-        (() => Request({url: endpointCountriesList}, data => setCountries(data)))();
+        (() => Request({ url: endpointBreedsList }, data => setBreeds(data.filter(breed => breed.id !== 1))))(); // Remove 'Все породы'
+        (() => Request({ url: endpointGroupsList }, data => setGroups(data)))();
+        (() => Request({ url: endpointCountriesList }, data => setCountries(data)))();
     }, []);
 
     useEffect(() => {
-        if(!reportHeader.judges_workload_accept && breeds && groups && countries) {
+        if (!reportHeader.judges_workload_accept && breeds && groups && countries) {
             (() => {
-                Request({url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}`}, data => {
-                    if(data.lines.length) {
+                Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => {
+                    if (data.lines.length) {
                         const rows = data.lines.map(row => {
                             const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
                             const breed = row.breeds.length ? row.breeds.map(breed => {
@@ -73,9 +73,9 @@ const JudgeLoadReport = ({reportHeader, getHeader}) => {
 
     const onSubmit = (rows) => {
         const reportRows = rows.map(row => {
-            const countryId = row['judge-country'] ? countries.find(item => item.short_name === row['judge-country'].label).id : null;
-            const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
-            const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
+            const countryId = row['judge-country'] ? countries.find(item => item.short_name === (row['judge-country'].label ? row['judge-country'].label : row['judge-country'])).id : null;
+            const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === (item.label ? item.label : item)).id) : [];
+            const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === (item.label ? item.label : item)).id) : [];
 
             return {
                 "judge": {
@@ -97,15 +97,15 @@ const JudgeLoadReport = ({reportHeader, getHeader}) => {
         };
 
         (() => Request({
-                url: endpointPutJudgesLoadReport,
-                method: 'PUT',
-                data: JSON.stringify(dataToSend)
-            }, data => {
-                alert('Ваш отчёт был отправлен.');
-                getHeader();
-            }, error => {
-                alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
-            })
+            url: endpointPutJudgesLoadReport,
+            method: 'PUT',
+            data: JSON.stringify(dataToSend)
+        }, data => {
+            alert('Ваш отчёт был отправлен.');
+            getHeader();
+        }, error => {
+            alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
+        })
         )();
     };
 
@@ -114,7 +114,7 @@ const JudgeLoadReport = ({reportHeader, getHeader}) => {
         !reportHeader.judges_workload_accept ?
             <>
                 {reportHeader.judges_workload_comment &&
-                    <h4 style={{maxWidth: '33%', color: 'red'}}>
+                    <h4 style={{ maxWidth: '33%', color: 'red' }}>
                         Этот отчёт был отклонён с комментарием: {reportHeader.judges_workload_comment}
                     </h4>
                 }
@@ -126,7 +126,7 @@ const JudgeLoadReport = ({reportHeader, getHeader}) => {
                     groups={groups}
                     onSubmit={onSubmit}
                 />
-            </>:
+            </> :
             <div className="report-details__default">
                 <h3>Этот отчёт уже был принят</h3>
             </div>

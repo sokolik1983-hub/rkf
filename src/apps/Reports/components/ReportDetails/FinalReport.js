@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReportDetailsTable from "./components/ReportDetailsTable";
 import Loading from "../../../../components/Loading";
 import {
@@ -6,35 +6,36 @@ import {
     endpointCastesList,
     endpointGradesList,
     endpointGetFinalReport,
-    endpointPutFinalReport} from '../../config';
-import {Request} from "../../../../utils/request";
+    endpointPutFinalReport
+} from '../../config';
+import { Request } from "../../../../utils/request";
 
 
-const FinalReport = ({reportHeader, getHeader}) => {
+const FinalReport = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [castes, setCastes] = useState(null);
     const [grades, setGrades] = useState(null);
     const loading = !breeds || !castes || !grades;
     const exhibitionDate = new Date(reportHeader.exhibition_date).toLocaleDateString();
     const defaultRows = [
-        {id: 1, breed: '', class: '', score: '', date: exhibitionDate},
-        {id: 2, breed: '', class: '', score: '', date: exhibitionDate},
-        {id: 3, breed: '', class: '', score: '', date: exhibitionDate},
-        {id: 4, breed: '', class: '', score: '', date: exhibitionDate},
-        {id: 5, breed: '', class: '', score: '', date: exhibitionDate}
+        { id: 1, breed: '', class: '', score: '', date: exhibitionDate },
+        { id: 2, breed: '', class: '', score: '', date: exhibitionDate },
+        { id: 3, breed: '', class: '', score: '', date: exhibitionDate },
+        { id: 4, breed: '', class: '', score: '', date: exhibitionDate },
+        { id: 5, breed: '', class: '', score: '', date: exhibitionDate }
     ];
     const [rows, setRows] = useState(defaultRows);
 
     useEffect(() => {
-        (() => Request({url: endpointBreedsList}, data => setBreeds(data)))();
-        (() => Request({url: endpointCastesList}, data => setCastes(data)))();
-        (() => Request({url: endpointGradesList}, data => setGrades(data)))();
+        (() => Request({ url: endpointBreedsList }, data => setBreeds(data.filter(breed => breed.id !== 1))))(); // Remove 'Все породы'
+        (() => Request({ url: endpointCastesList }, data => setCastes(data)))();
+        (() => Request({ url: endpointGradesList }, data => setGrades(data)))();
     }, []);
 
     useEffect(() => {
-        if(!reportHeader.total_report_accept && breeds && castes && grades) {
-            (() => Request({url: `${endpointGetFinalReport}?id=${reportHeader.id}`}, data => {
-                if(data.length) {
+        if (!reportHeader.total_report_accept && breeds && castes && grades) {
+            (() => Request({ url: `${endpointGetFinalReport}?id=${reportHeader.id}` }, data => {
+                if (data.length) {
                     const rows = data.map(row => {
                         const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
                         const caste = row.caste_id ? castes.find(caste => caste.id === row.caste_id).name : '';
@@ -68,11 +69,11 @@ const FinalReport = ({reportHeader, getHeader}) => {
 
     const onSubmit = (rows) => {
         const reportRows = rows.map(row => {
-            const breedId = row.breed ? breeds.find(item => item.name === row.breed.label).id : null;
-            const castId = row.class ? castes.find(item => item.name === row.class.label).id : null;
-            const gradeId = row.score ? grades.find(item => item.name === row.score.label).id : null;
+            const breedId = row.breed ? breeds.find(item => item.name === (row.breed.label ? row.breed.label : row.breed)).id : null;
+            const castId = row.class ? castes.find(item => item.name === (row.class.label ? row.class.label : row.class)).id : null;
+            const gradeId = row.score ? grades.find(item => item.name === (row.score.label ? row.score.label : row.score)).id : null;
             const certificates = Object.keys(row).reduce((arr, key) => {
-                if(+key) {
+                if (+key) {
                     return [...arr, +key];
                 }
 
@@ -104,15 +105,15 @@ const FinalReport = ({reportHeader, getHeader}) => {
         };
 
         (() => Request({
-                url: endpointPutFinalReport,
-                method: 'PUT',
-                data: JSON.stringify(dataToSend)
-            }, data => {
-                alert('Ваш отчёт был отправлен.');
-                getHeader();
-            }, error => {
-                alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
-            })
+            url: endpointPutFinalReport,
+            method: 'PUT',
+            data: JSON.stringify(dataToSend)
+        }, data => {
+            alert('Ваш отчёт был отправлен.');
+            getHeader();
+        }, error => {
+            alert('Отчёт не был отправлен. Возможно Вы заполнили не все поля.');
+        })
         )();
     };
 
@@ -121,7 +122,7 @@ const FinalReport = ({reportHeader, getHeader}) => {
         !reportHeader.total_report_accept ?
             <>
                 {reportHeader.total_report_comment &&
-                    <h4 style={{maxWidth: '33%', color: 'red'}}>
+                    <h4 style={{ maxWidth: '33%', color: 'red' }}>
                         Этот отчёт был отклонён с комментарием: {reportHeader.total_report_comment}
                     </h4>
                 }
