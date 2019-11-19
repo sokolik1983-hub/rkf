@@ -9,7 +9,8 @@ function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubm
         clubAliasUpdateSuccess(values)
         // push(defaultSuccessMessage)
     };
-    const transformValues = values => ({ ...values, club_id })
+    const transformValues = values => ({ ...values, club_id });
+
     return (
         <div className="ClientClubAlias">
             <Form
@@ -23,7 +24,11 @@ function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubm
                 <FormGroup inline>
                     <FormField
                         name="alias_name"
-                        label={'Алиас клуба, используется для адресации'}
+                        label={'Адрес страницы (номер после https://uep24.ru/)'}
+                        // fieldType="masked"
+                        // mask={['h', 't', 't', 'p', 's', ':', '/', '/', 'u', 'e', 'p', '2', '4', '.', 'r', 'u', '/', /[\w]+/]}
+                        // showMask={true}
+                        // guide={true}
                     />
                     {/*<SubmitButton>Обновить</SubmitButton>*/}
                 </FormGroup>

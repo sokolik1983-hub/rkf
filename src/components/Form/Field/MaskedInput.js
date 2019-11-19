@@ -1,5 +1,5 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask'
+import MaskedInput from 'react-text-mask';
 import {connect, getIn} from 'formik';
 
 const MaskedField = ({
@@ -9,6 +9,8 @@ const MaskedField = ({
                          placeholder,
                          type,
                          mask,
+                         showMask = false,
+                         guide =false
                      }) => {
     return (
         <MaskedInput
@@ -20,7 +22,8 @@ const MaskedField = ({
             onBlur={formik.handleBlur}
             value={getIn(formik.values, name)}
             mask={mask}
-            guide
+            guide={guide}
+            showMask={showMask}
         />
     )
 }
