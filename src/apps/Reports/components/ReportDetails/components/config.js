@@ -473,8 +473,7 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
             property: 'pedigree_number',
             props: {
                 style: {
-                    textAlign: 'center',
-                    borderRight: 'none'
+                    textAlign: 'center'
                 }
             }
         }

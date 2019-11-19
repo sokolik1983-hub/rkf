@@ -113,15 +113,13 @@ class MainRingTable extends React.Component {
 };
 
 const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows, breeds }) => {
-    const getFilteredRows = (arrangementId) => {
-        return rows.filter((row) => row.arrangement_id === +arrangementId)
-    };
+    const filteredRows = rows.filter((row) => row.arrangement_id === +arrangementId);
 
     return (
         <tr>
-            <td>{arrangementName}</td>
+            <td style={{textAlign: 'center'}}>{arrangementName}</td>
             <td colSpan="5" className="table-holder">
-                <MainRingTable arrangementId={arrangementId} rows={getFilteredRows(arrangementId)} updateRows={updateRows} breeds={breeds} />
+                <MainRingTable arrangementId={arrangementId} rows={filteredRows} updateRows={updateRows} breeds={breeds} />
             </td>
         </tr>
     )
