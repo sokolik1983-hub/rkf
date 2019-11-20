@@ -10,7 +10,7 @@ export default function AuthorizationLayout() {
             <div className="authorization__holder">
                 <div className="authorization__logo"/>
                 <div className="authorization__title">Добро пожаловать</div>
-                <div className="authorization__subtitle">Собачий сервис для владельцев, клубов, заводчиков и
+                <div className="authorization__subtitle">Профессиональный сервис для владельцев, клубов, заводчиков и
                     питомников
                 </div>
                 <LoginForm/>
