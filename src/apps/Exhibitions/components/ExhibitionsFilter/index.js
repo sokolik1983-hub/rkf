@@ -25,9 +25,12 @@ function ExhibitionsFilter({
     const { ...hookExports } = useExhibitionsFilter({
         successAction: fetchExhibitionsSuccess
     });
-    const [filtersUrl, setFiltersUrl] = useState(endpointExhibitionsFilters);
     const { filter } = hookExports;
     const { dateFrom, dateTo } = filter;
+    const [filtersUrl, setFiltersUrl] = useState(`${endpointExhibitionsFilters}?${buildUrlParams({
+        dateFrom,
+    })}`);
+
     useEffect(() => {
         const newUrl = `${endpointExhibitionsFilters}?${buildUrlParams({
             dateFrom,
