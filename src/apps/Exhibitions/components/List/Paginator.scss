@@ -8,6 +8,7 @@
       padding: 7px 14px;
       margin-right: 8px;
       background: url(/static/icons/chevron_right.svg) 83px center no-repeat;
+      -moz-appearance: textfield;
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         -webkit-appearance: none;
