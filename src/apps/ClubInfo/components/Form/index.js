@@ -12,6 +12,8 @@ function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
         if (!newValues.city_id) delete newValues.city_id;
         if (newValues.status_id) delete newValues.status_id;
 
+        newValues.site = values.site || null;
+
         return { ...newValues }
     };
     const onSuccess = values => {

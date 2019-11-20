@@ -36,10 +36,10 @@ export const clubLegalInfoFormConfig = {
             name: 'okpo',
             label: 'ОКПО',
         },
-        registration_number: {
-            name: 'registration_number',
-            label: 'Регистрационный номер',
-        },
+        // registration_number: {
+        //     name: 'registration_number',
+        //     label: 'Регистрационный номер',
+        // },
         registration_date: {
             name: 'registration_date',
             label: 'Дата регистрации',
@@ -78,8 +78,8 @@ export const clubLegalInfoFormConfig = {
             .nullable()
             // .required('Поле не может быть пустым')
             .min(8, 'коротко'),
-        registration_number: string()
-            .required('Поле не может быть пустым')
-            .min(15, 'коротко'),
+        // registration_number: string()
+        //     .required('Поле не может быть пустым')
+        //     .min(15, 'коротко'),
     })
 };

@@ -9,6 +9,9 @@ import { usePushMessage } from 'apps/Messages/hooks'
 export function UpdateLegalInfoForm(props) {
     const { clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm } = props;
     usePushMessage();
+
+    if(clubLegalInfo && clubLegalInfo.registration_number) delete clubLegalInfo.registration_number;
+
     const onSuccess = data => {
         updateLegalInfoSuccess(data);
         // push(defaultSuccessMessage);
