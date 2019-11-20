@@ -16,20 +16,32 @@ import Loading from "../../../../components/Loading";
 
 
 class MainRingTable extends React.Component {
+    initRows = [
+        { arrangement_id: this.props.arrangementId, id: 1, position: 1, breed: '' },
+        { arrangement_id: this.props.arrangementId, id: 2, position: 2, breed: '' },
+        { arrangement_id: this.props.arrangementId, id: 3, position: 3, breed: '' }
+    ];
+
     state = {
         query: {},
         searchColumn: 'all',
-        rows: this.props.rows.length ? this.props.rows : [
-            { arrangement_id: this.props.arrangementId, id: 1, position: 1, breed: '' },
-            { arrangement_id: this.props.arrangementId, id: 2, position: 2, breed: '' },
-            { arrangement_id: this.props.arrangementId, id: 3, position: 3, breed: '' }
-        ],
+        rows: this.initRows,
         columns: null
     };
-
+    
     componentDidMount() {
-        this.setState({ columns: this.getColumns() })
+        this.setState({
+            columns: this.getColumns()
+        })
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.rows.length && this.props.rows !== prevProps.rows) {
+            this.setState({
+                rows: this.props.rows
+            });
+        }
+    }
 
     getColumns = () => {
         const editable = edit.edit({
@@ -113,13 +125,11 @@ class MainRingTable extends React.Component {
 };
 
 const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows, breeds }) => {
-    const filteredRows = rows.filter((row) => row.arrangement_id === +arrangementId);
-
     return (
         <tr>
             <td style={{textAlign: 'center'}}>{arrangementName}</td>
             <td colSpan="5" className="table-holder">
-                <MainRingTable arrangementId={arrangementId} rows={filteredRows} updateRows={updateRows} breeds={breeds} />
+                <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} />
             </td>
         </tr>
     )
@@ -155,7 +165,6 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
 
                         return item;
                     });
-
                     setRows(rows);
                 }
             }))();
@@ -170,8 +179,6 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             ...reUpdatedRows
         ]);
     };
-
-    const Row = ({ name, id }) => breeds && <MainRingStatementRow arrangementName={name} arrangementId={id} updateRows={updateRows} rows={rows} breeds={breeds} />;
 
     const onSubmit = () => {
         const reportRows = rows.map(row => {
@@ -210,6 +217,10 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         }))();
     };
 
+    const getFilteredRows = (arrangementId) => {
+        return rows.filter((row) => row.arrangement_id === +arrangementId)
+    };
+
     return !reportHeader.statement_main_ring_accept ?
         loading ?
             <Loading /> :
@@ -239,7 +250,18 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {arrangements.map(item => <Row key={item.id} name={item.name} id={item.id} />)}
+                        {
+                            arrangements.map(item => {
+                                return breeds && <MainRingStatementRow
+                                    key={item.id}
+                                    arrangementId={item.id}
+                                    arrangementName={item.name}
+                                    rows={getFilteredRows(item.id)}
+                                    updateRows={updateRows}
+                                    breeds={breeds}
+                                />
+                            })
+                        }
                     </tbody>
                 </table>
                 <div style={{ width: '1100px', margin: '24px auto 0' }}>

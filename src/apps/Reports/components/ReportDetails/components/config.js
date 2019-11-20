@@ -5,12 +5,12 @@ import * as sort from 'sortabular';
 import calendar from "./Calendar";
 import multiSelect from "./MultiSelect";
 import boolButtons from "./BoolButtons";
-import {endpointCertificatesList} from '../../../config';
-import {Request} from "../../../../../utils/request";
+import { endpointCertificatesList } from '../../../config';
+import { Request } from "../../../../../utils/request";
 
 export const finalReportColumns = async (onRemove, sortingColumns, sortable, editable, breeds, castes, grades, rankType) => {
     let cols = null;
-    const options = {url: `${endpointCertificatesList}?id=${rankType}`};
+    const options = { url: `${endpointCertificatesList}?id=${rankType}` };
 
     const buildColumns = (data) => {
         cols = [
@@ -89,7 +89,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
         ];
 
         cols.map(col => {
-            if(!col.property && col.children) {
+            if (!col.property && col.children) {
                 col.children.forEach(child => {
                     child.header.formatters = [
                         sort.header({
@@ -100,7 +100,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     ];
 
                     child.cell = {
-                        formatters: [search.highlightCell],
+                        formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
                             (value, extra) => editable(edit.input())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -117,7 +117,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     })
                 ];
 
-                if(col.property === 'birthday') {
+                if (col.property === 'birthday') {
                     col.cell = {
                         formatters: [search.highlightCell],
                         transforms: [
@@ -132,13 +132,13 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                         },
                         resolve: date => date && date.toLocaleDateString()
                     }
-                } else if(col.property === 'breed' || col.property === 'class' || col.property === 'score') {
+                } else if (col.property === 'breed' || col.property === 'class' || col.property === 'score') {
                     col.cell = {
                         transforms: [
                             (value, extra) => editable(multiSelect({
                                 options: col.property === 'breed' ? breeds :
-                                         col.property === 'class' ? castes :
-                                         grades,
+                                    col.property === 'class' ? castes :
+                                        grades,
                                 property: col.property,
                             }))(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -154,11 +154,11 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                         },
                         resolve: item => item && item.label
                     }
-                } else if(col.property === 'catalog-number' || col.property === 'pedigree-number') {
+                } else if (col.property === 'catalog-number' || col.property === 'pedigree-number') {
                     col.cell = {
-                        formatters: [search.highlightCell],
+                        formatters: [value => <input value={value || 0} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())(value, extra, {
+                            (value, extra) => editable(edit.input())((value || 0), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
@@ -170,7 +170,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     }
                 } else {
                     col.cell = {
-                        formatters: [search.highlightCell],
+                        formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
                             (value, extra) => editable(edit.input())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -237,7 +237,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                             className="remove"
                             onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
                         >
-                        &#10007;
+                            &#10007;
                     </span>
                     )
                 ]
@@ -304,7 +304,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                             textAlign: 'center'
                         }
                     },
-                    footer: rows => <b style={{display: 'block', textAlign: 'center'}}>{rows.reduce((a, b) => a + (b['dogs-distributed'] ? +b['dogs-distributed'] : 0), 0)}</b>
+                    footer: rows => <b style={{ display: 'block', textAlign: 'center' }}>{rows.reduce((a, b) => a + (b['dogs-distributed'] ? +b['dogs-distributed'] : 0), 0)}</b>
                 },
                 {
                     property: 'dogs-judged',
@@ -316,7 +316,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                             textAlign: 'center'
                         }
                     },
-                    footer: rows => <b style={{display: 'block', textAlign: 'center'}}>{rows.reduce((a, b) => a + (b['dogs-judged'] ? +b['dogs-judged'] : 0), 0)}</b>
+                    footer: rows => <b style={{ display: 'block', textAlign: 'center' }}>{rows.reduce((a, b) => a + (b['dogs-judged'] ? +b['dogs-judged'] : 0), 0)}</b>
                 }
             ],
             props: {
@@ -343,9 +343,9 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     (value, { rowData }) => (
                         <span
                             className="remove"
-                            onClick={() => onRemove(rowData.id)} style={{cursor: 'pointer'}}
+                            onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
                         >
-                        &#10007;
+                            &#10007;
                     </span>
                     )
                 ]
@@ -359,7 +359,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
     ];
 
     cols.map(col => {
-        if(!col.property && col.children) {
+        if (!col.property && col.children) {
             col.children.forEach(child => {
                 child.header.formatters = [
                     sort.header({
@@ -369,7 +369,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     })
                 ];
 
-                if(child.property === 'judge-country') {
+                if (child.property === 'judge-country') {
                     child.cell = {
                         transforms: [
                             (value, extra) => editable(multiSelect({
@@ -389,9 +389,18 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                         },
                         resolve: item => item && item.label
                     }
+                } else if (child.property === 'dogs-distributed' || child.property === 'dogs-judged') {
+                    child.cell = {
+                        formatters: [value => <input value={value || 0} readOnly />],
+                        transforms: [
+                            (value, extra) => editable(edit.input())((value || 0), extra, {
+                                className: extra.rowData.edited && 'edited'
+                            })
+                        ]
+                    };
                 } else {
                     child.cell = {
-                        formatters: [search.highlightCell],
+                        formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
                             (value, extra) => editable(edit.input())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -400,8 +409,8 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     };
                 }
             });
-        } else if(col.property) {
-            if(col.property === 'breed' || col.property === 'group') {
+        } else if (col.property) {
+            if (col.property === 'breed' || col.property === 'group') {
                 col.cell = {
                     formatters: [search.highlightCell],
                     transforms: [
@@ -480,7 +489,7 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
     ];
 
     cols.map(col => {
-        if(col.property === 'breed') {
+        if (col.property === 'breed') {
             col.cell = {
                 transforms: [
                     (value, extra) => editable(multiSelect({
@@ -492,8 +501,9 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
                 ],
                 resolve: item => item && item.label
             }
-        } else if(col.property !== 'position') {
+        } else if (col.property !== 'position') {
             col.cell = {
+                formatters: [value => <input value={value || ""} readOnly />],
                 transforms: [
                     (value, extra) => editable(edit.input())(value, extra, {
                         className: extra.rowData.edited && 'edited'
