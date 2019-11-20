@@ -19,8 +19,8 @@ function Calendar({ calendarModifiers, fetchDatesSuccess }) {
                 <WidgetCalendar modifiers={{ green: calendarModifiers }} />
             </div>
             <CalendarLegend>
-                    <CalendarLegendItem color="green">Доступные выставки</CalendarLegendItem>
-                    {/*<CalendarLegendItem color="blue">Ваша выставка</CalendarLegendItem>*/}
+                <CalendarLegendItem color="green">Доступные выставки</CalendarLegendItem>
+                {/*<CalendarLegendItem color="blue">Ваша выставка</CalendarLegendItem>*/}
             </CalendarLegend>
         </div>
     )

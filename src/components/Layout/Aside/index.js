@@ -1,6 +1,6 @@
 import React from "react";
 import './index.scss'
 
-const Aside = ({children}) => <aside>{children}</aside>;
+const Aside = ({children, className}) => <aside className={className ? className : ''}>{children}</aside>;
 
 export default Aside;

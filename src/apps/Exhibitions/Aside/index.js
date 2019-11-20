@@ -10,14 +10,14 @@ import './styles.scss'
 
 const ExhibitionsAside = ({isAuthenticated}) => {
     return (
-        <div className="ExhibitionsAside">
+        <>
             <Search/>
             <Calendar/>
             <h4 className="ExhibitionsAside__filters">Фильтры</h4>
             {isAuthenticated && <MyExhibitionsFilter />}
             <CitiesFilter/>
             <ClearFilter/>
-        </div>
+        </>
     )
 };
 

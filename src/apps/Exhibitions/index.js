@@ -6,9 +6,7 @@ import reducer from './reducer'
 import PublicLayout from 'components/Layout'
 import Details from './components/Details'
 import ExhibitionsList from './components/List'
-
 import {defaultReduxKey} from "./config";
-
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
 import injectReducer from "utils/injectReducer";
 
