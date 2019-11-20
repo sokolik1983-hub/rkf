@@ -1,6 +1,6 @@
 .ExhibitionsListLayout {
   background-color: #fff;
-  padding: 45px 0;
+  padding: 35px 0 45px 0;
   .exhibition-list__header {
     padding: 0;
   }
@@ -11,8 +11,8 @@
     position: fixed;
     width: 310px;
     padding: 0;
-    top: 110px;
-    height: calc(100% - 110px);
+    top: 100px;
+    height: calc(100% - 100px);
     overflow-y: auto;
   }
   .ExhibitionsContent {
