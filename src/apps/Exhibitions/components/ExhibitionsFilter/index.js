@@ -51,7 +51,6 @@ function ExhibitionsFilter({
                 filterOptionsTypes,
                 filtersLoading,
                 ...hookExports
-                //
             }}
         >
             <div className={className}>{children}</div>
