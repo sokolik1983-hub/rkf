@@ -62,6 +62,7 @@ function CitySelect() {
     ];
 
     //отправляем запрос и пишим в Redux предстоящие выставки в зависимости от города
+    //TODO: нужно убрать это отсюда, т.к. этот запрос происходит на каждой странице, а должен на главной
     const url = `${FEATURED_EXHIBITIONS_ENDPOINT}?ElementsCount=${DEFAULT_ELEMENTS_COUNT_OFFSET}${city && city.value ? '&CityId=' + city.value : ''}`;
     useResourceAndStoreToRedux(url, storeExhibitions);
 

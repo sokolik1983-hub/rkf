@@ -33,9 +33,9 @@ export default function RenderFields() {
                 />
             </FormGroup>
             <FormGroup inline>
-                <FormField
+                {/*<FormField
                     {...fields.registration_number}
-                />
+                />*/}
                 <FormField
                     {...fields.registration_date}
                 />

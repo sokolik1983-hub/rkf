@@ -2,7 +2,6 @@ import React from "react"
 import {compose} from "redux";
 import {useResourceAndStoreToRedux} from 'shared/hooks'
 import UpdateLegalInfoForm from './components/Form'
-
 import {connectLegalInfo} from './connectors'
 import {endpointUrl, defaultReduxKey} from "./config";
 import injectReducer from "utils/injectReducer";

@@ -13,47 +13,48 @@ const getFiltersFromLS = () => {
 const setFiltersToLS = (filters) => {
     localStorage.setItem('FiltersValues', JSON.stringify(filters));
 };
-const filtersFromLS = getFiltersFromLS();
-const emptyFilters = {
-    cities: [],
-    breeds: [],
-    ranks: [],
-    castes: [],
-    types: [],
-    clubs: [],
-    page: [],
-    // запиливаем выставки с текущего дня до бесконечности
-    dateFrom: [formatDateToString(new Date())],
-    dateTo: []
-};
-let filterInitialState = filtersFromLS ? filtersFromLS : emptyFilters;
-if (filtersFromLS) {
-    if (Object.keys(filtersFromLS).length === 1) {
-        const { cities } = filtersFromLS;
-        filterInitialState = { ...emptyFilters, cities };
-    } else {
-        const dateToday = +new Date(emptyFilters.dateFrom[0]);
-        const dateFrom = filtersFromLS.dateFrom.length ?
-            +new Date(filtersFromLS.dateFrom[0]) > dateToday ?
-                filtersFromLS.dateFrom[0] :
-                emptyFilters.dateFrom[0] :
-            emptyFilters.dateFrom[0];
-        const dateTo = filtersFromLS.dateTo.length ?
-            +new Date(filtersFromLS.dateTo[0]) >= +new Date(dateFrom) ?
-                filtersFromLS.dateTo[0] :
-                '' :
-            '';
-
-        filterInitialState.dateFrom = [dateFrom];
-        filterInitialState.dateTo = dateTo ? [dateTo] : [];
-    }
-}
 
 export const useExhibitionsFilter = ({ successAction }) => {
     const { push } = usePushMessage();
     const { clear } = useClearMessages();
 
     // filterState used for constructing filter, and url params based on filter
+    const filtersFromLS = getFiltersFromLS();
+    const emptyFilters = {
+        cities: [],
+        breeds: [],
+        ranks: [],
+        castes: [],
+        types: [],
+        clubs: [],
+        page: [],
+        // запиливаем выставки с текущего дня до бесконечности
+        dateFrom: [formatDateToString(new Date())],
+        dateTo: []
+    };
+    let filterInitialState = filtersFromLS ? filtersFromLS : emptyFilters;
+    if (filtersFromLS) {
+        if (Object.keys(filtersFromLS).length === 1) {
+            const { cities } = filtersFromLS;
+            filterInitialState = { ...emptyFilters, cities };
+        } else {
+            const dateToday = +new Date(emptyFilters.dateFrom[0]);
+            const dateFrom = filtersFromLS.dateFrom.length ?
+                +new Date(filtersFromLS.dateFrom[0]) > dateToday ?
+                    filtersFromLS.dateFrom[0] :
+                    emptyFilters.dateFrom[0] :
+                emptyFilters.dateFrom[0];
+            const dateTo = filtersFromLS.dateTo.length ?
+                +new Date(filtersFromLS.dateTo[0]) >= +new Date(dateFrom) ?
+                    filtersFromLS.dateTo[0] :
+                    '' :
+                '';
+
+            filterInitialState.dateFrom = [dateFrom];
+            filterInitialState.dateTo = dateTo ? [dateTo] : [];
+        }
+    }
+
     const [filter, setFilter] = useState(filterInitialState);
     const setFilters = (filters) => {
         setFilter(filters);
