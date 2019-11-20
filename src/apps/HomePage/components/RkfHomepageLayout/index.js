@@ -2,7 +2,7 @@ import React from 'react';
 import FooterSmall from 'components/Layout/FooterSmall';
 import Container from 'components/Layout/Container';
 import HomepageLayout from 'components/Layout/Homepage';
-import HomepageFeaturedExhibitionsList from 'apps/Exhibitions/components/FeaturedHome';
+// import HomepageFeaturedExhibitionsList from 'apps/Exhibitions/components/FeaturedHome';
 import RkfFeaturedExhibitions from '../RkfFeaturedExhibitions';
 import Partners from '../Partners';
 import { SponsorsData, PartnersData } from '../Partners/data';
@@ -20,7 +20,7 @@ function RkfHomepageLayout() {
         <HomepageLayout>
             <Container className="home">
                 <div style={{ padding: `0px 48px` }}>
-                    <HomepageFeaturedExhibitionsList />
+                    {/*<HomepageFeaturedExhibitionsList />*/}
                     <Wrap>
                         <Content>
                             <h2>Предстоящие выставки</h2>
