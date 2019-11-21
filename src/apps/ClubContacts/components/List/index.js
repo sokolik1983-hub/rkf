@@ -1,10 +1,10 @@
 import React from 'react';
-import {useVisibility} from 'shared/hooks';
+import { useVisibility } from 'shared/hooks';
 import Button from 'components/Button';
 import ListContact from './ListItem';
-import {connectContactsList} from 'apps/ClubContacts/connectors';
+import { connectContactsList } from 'apps/ClubContacts/connectors';
 import ClubContactsForm from '../Form';
-import {ContactTypeContext} from 'apps/ClubContacts/context';
+import { ContactTypeContext } from 'apps/ClubContacts/context';
 
 import './styles.scss';
 
@@ -21,8 +21,8 @@ function ClientContactList(props) {
     const { contactType, bindSubmitForm } = props;
     const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
     const listIds = props[contactType.storeListIds];
-
-    if(!visibility && bindSubmitForm) {
+    
+    if (!visibility && bindSubmitForm) {
         bindSubmitForm.submit(null, {});
     }
 
@@ -30,7 +30,7 @@ function ClientContactList(props) {
         <Provider value={{ contactType }}>
             <div className="ClientContactList">
                 {listIds.map(id => (
-                    <ListContact key={id} id={id} />
+                    <ListContact key={id} id={id} type={contactType.type} />
                 ))}
 
                 {visibility ? (

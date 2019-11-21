@@ -14,7 +14,8 @@ const clsNames = 'btn-transparent btn-condensed';
 function ClientClubContactListItem({
     clubContact,
     updateClubContactSuccess,
-    deleteClubContactSuccess
+    deleteClubContactSuccess,
+    type
 }) {
     const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
     const onUpdateSuccess = values => {
@@ -32,7 +33,7 @@ function ClientClubContactListItem({
             method={HTTP.update}
             initialValues={clubContact}
         >
-            <RenderFields disabled={!visibility} isUpdate isMaskedTel="true" />
+            <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone' ? true : false} />
             {!visibility ? (
                 <Button
                     className="ClientClubContactListItem__edit"

@@ -4,7 +4,6 @@ import { clubClubContactsConfig } from 'apps/ClubContacts/config';
 import { ContactTypeContext } from 'apps/ClubContacts/context';
 const { fields } = clubClubContactsConfig;
 export function RenderFields({ disabled, contact_type_id, isMaskedTel }) {
-    console.log(isMaskedTel)
     const { contactType } = useContext(ContactTypeContext);
     return (
         <Fragment>

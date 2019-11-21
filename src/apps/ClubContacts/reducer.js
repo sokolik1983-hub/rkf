@@ -52,7 +52,7 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
                 ...state,
                 listCollection,
                 listIds,
-                contactsEmailIds: [...state.contactsPhoneIds, data.id]
+                contactsEmailIds: [...state.contactsEmailIds, data.id]
             };
         }
         return {
