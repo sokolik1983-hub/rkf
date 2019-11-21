@@ -18,7 +18,6 @@ function Footer({ className }) {
                             Адрес: Москва, Гостиничная, 9<br />
                             Телефон: +7 (499) 753-22-33<br />
                             E-mail: rkf@rkf.org.ru<br />
-                            Карта сайта
                     </p>
                     </div>
                 </div>
