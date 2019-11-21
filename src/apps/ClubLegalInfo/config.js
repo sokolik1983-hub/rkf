@@ -14,7 +14,7 @@ export const clubLegalInfoFormConfig = {
         },
         owner_name: {
             name: 'owner_name',
-            label: 'Имя владельца',
+            label: 'Руководитель',
         },
         address: {
             name: 'address',

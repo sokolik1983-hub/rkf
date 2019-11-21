@@ -138,7 +138,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             <form className="ClubDetails" onSubmit={handleSubmit}>
                                 <fieldset className="ClubDetails__text">
                                     <legend>Информация о клубе</legend>
-                                    <FormField type="text" required="true" label="Руководитель клуба" name="owner_name" value={owner_name} />
+                                    <FormField type="text" required="true" label="Руководитель" name="owner_name" value={owner_name} />
                                     <FormField type="text" required="true" label="Наименование юридического лица" name="legal_name" value={legal_name} />
                                     <FormField type="date" required="true" label="Дата регистрации юридического лица" name="registration_date" value={new Date(registration_date).toISOString().substr(0, 10) || new Date().toISOString().substr(0, 10)} />
                                     <FormField type="text" required="true" label="Город регистрации" name="legal_city" value={legal_city} />

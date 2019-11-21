@@ -7,7 +7,7 @@ function ClubOwnerName({ clubOwner }) {
         clubOwner
             ? (
                 <div className="ClubOwnerName">
-                    Руководитель клуба: <span>{clubOwner}</span>
+                    Руководитель: <span>{clubOwner}</span>
                 </div>
             )
             : null
