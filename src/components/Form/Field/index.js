@@ -37,7 +37,7 @@ function getField(fieldType) {
     }
 }
 
-function FormField({ fieldType, className, style, disabled, blockIfHasValue, ...fieldProps }) {
+function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, ...fieldProps }) {
 
     const Input = getField(fieldType);
 
@@ -51,12 +51,26 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, ...
             )}
         >
             <Label htmlFor={fieldProps.name} label={fieldProps.label} />
-            <Input
-                id={fieldProps.name}
-                className={'FormInput__input'}
-                disabled={disabled || (fieldProps.value && blockIfHasValue)}
-                {...fieldProps}
-            />
+            {
+                isUrl
+                    ? <Input
+                        id={fieldProps.name}
+                        placeholder="https://website.com"
+                        title="Формат ссылки: https://website.com"
+                        pattern="https?://.*"
+                        type="url"
+                        className={'FormInput__input'}
+                        disabled={disabled || (fieldProps.value && blockIfHasValue)}
+                        {...fieldProps}
+                    />
+                    : <Input
+                        id={fieldProps.name}
+                        className={'FormInput__input'}
+                        disabled={disabled || (fieldProps.value && blockIfHasValue)}
+                        {...fieldProps}
+                    />
+            }
+
             <Error name={fieldProps.name} />
         </FormInput>
     )

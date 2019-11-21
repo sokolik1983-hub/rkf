@@ -16,7 +16,7 @@ export const clubClubSocialConfig = {
         },
         description: {
             name: 'description',
-            label: 'Название',
+            label: 'Описание',
         },
         // social_network_type_id: {
         //     name: 'social_network_type_id',
