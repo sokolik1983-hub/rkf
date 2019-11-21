@@ -22,7 +22,14 @@ function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSoc
     const onDeleteSuccess = () => {
         deleteClubSocialSuccess({ id: clubSocial.id })
     };
-
+    const filterObj = (obj, fKey) => {
+        return Object.keys(obj)
+            .filter(key => key !== fKey)
+            .reduce((obj, key) => {
+                obj[key] = clubSocial[key];
+                return obj;
+            }, {});
+    };
     return (
         <div className="ClientClubListItem">{
             visibility ?
@@ -30,7 +37,7 @@ function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSoc
                     action={clubClubSocialConfig.formAction}
                     onSuccess={onUpdateSuccess}
                     method={HTTP.update}
-                    initialValues={clubSocial}
+                    initialValues={filterObj(clubSocial, 'social_network_type_id')}
                 >
                     <RenderFields isUpdate />
                 </Form>
