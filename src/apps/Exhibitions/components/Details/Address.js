@@ -10,7 +10,8 @@ export default function Address({ exhibition_map_link, city_id, address, contact
         <div className="ExhibitionDetails__address">
             <div className="ExhibitionDetails__address--left">
                 <h3 className="ExhibitionDetails__address-title">Адрес проведения и контакты</h3>
-                <p>{`г. ${city}${address ? ', ' + address : ''}`}</p>
+                <p>{`г. ${city}`}</p>
+                {address ? <p>{address}</p> : null}
                 {contacts &&
                     <>
                         <h4 className="ExhibitionDetails__address-subtitle">Контакты организатора</h4>
