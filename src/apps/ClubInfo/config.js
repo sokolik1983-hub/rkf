@@ -50,7 +50,7 @@ export const clubInfoFormConfig = {
         },
         work_time_to: {
             name: "work_time_to",
-            label: "Вермя работы До",
+            label: "Время работы До",
             type: 'time'
         },
     },
