@@ -1,5 +1,4 @@
 .FormGroup {
-
   &--inline {
     margin-bottom: 28px;
     display: flex;
@@ -11,7 +10,7 @@
       margin-right: 16px;
       margin-bottom: 0;
       flex: 1;
-      &--hidden{
+      &--hidden {
         margin: 0;
         padding: 0;
         height: 0;
@@ -19,7 +18,14 @@
         max-height: 0;
         max-width: 0;
       }
-
+      &.alias-name {
+        label {
+          margin: 0;
+        }
+        ul {
+          margin: 8px 0;
+        }
+      }
       &:last-child {
         margin-right: 0;
       }

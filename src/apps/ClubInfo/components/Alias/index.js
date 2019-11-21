@@ -1,6 +1,6 @@
 import React from 'react'
 import { connectClubAlias } from 'apps/ClientClub/connectors'
-import { Form, FormGroup, FormField } from 'components/Form'
+import { Form, FormGroup, FormAliasInput } from 'components/Form'
 import { usePushMessage } from 'apps/Messages/hooks';
 
 function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubmitForm }) {
@@ -22,9 +22,8 @@ function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubm
                 bindSubmitForm={bindSubmitForm}
             >
                 <FormGroup inline>
-                    <FormField
+                    <FormAliasInput
                         name="alias_name"
-                        label={'Адрес страницы (номер после https://uep24.ru/)'}
                         // fieldType="masked"
                         // mask={['h', 't', 't', 'p', 's', ':', '/', '/', 'u', 'e', 'p', '2', '4', '.', 'r', 'u', '/', /[\w]+/]}
                         // showMask={true}
