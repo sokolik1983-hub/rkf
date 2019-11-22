@@ -96,7 +96,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     <label className="report-documents__document-label">Каталог выставки</label>
                     {!reportHeader.doc_catalog_accept ?
                         <>
-                            {catalogUrl && <a href={catalogUrl} target="_blank" rel="noopener noreferrer">Каталог выставки</a>}
+                            {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
                                 setShowButton(true);
@@ -111,7 +111,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
-                            {invoiceUrl && <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">Квитанция об оплате взноса за обработку результатов выставки</a>}
+                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
                                 if (catalogUrl) setShowButton(true);
