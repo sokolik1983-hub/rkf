@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import ActivityIndicator from 'components/ActivityIndicator'
+//import ActivityIndicator from 'components/ActivityIndicator'
 import {generateSize} from 'utils/index'
 import './styles.scss'
 
@@ -25,7 +25,7 @@ export default function ClientAvatar({
             style={styles}
             {...rest}
         >
-            <ActivityIndicator size={size/5} active={activity}/>
+            {/* <ActivityIndicator size={size/5} active={activity}/> */}
         </div>
     )
 }
