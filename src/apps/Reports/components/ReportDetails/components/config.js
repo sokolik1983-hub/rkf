@@ -468,12 +468,7 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
             property: 'breed'
         },
         {
-            property: 'catalog_number',
-            props: {
-                style: {
-                    textAlign: 'center'
-                }
-            }
+            property: 'catalog_number'
         },
         {
             property: 'dog_name'
@@ -500,6 +495,15 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
                     })
                 ],
                 resolve: item => item && item.label
+            }
+        } else if (col.property === 'catalog_number') {
+            col.cell = {
+                formatters: [value => <input value={value || 0} readOnly maxLength="10" />],
+                transforms: [
+                    (value, extra) => editable(edit.input({ props: { maxLength: 10 } }))((value || 0), extra, {
+                        className: extra.rowData.edited && 'edited'
+                    })
+                ]
             }
         } else if (col.property !== 'position') {
             col.cell = {
