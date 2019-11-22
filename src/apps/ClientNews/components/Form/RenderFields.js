@@ -11,6 +11,7 @@ import {
     FormField,
 } from 'components/Form'
 import ImagePreview from 'components/ImagePreview';
+import { DEFAULT_IMG } from 'appConfig';
 
 const FormButton = ({ isUpdate, isValid }) => {
     return (
@@ -67,7 +68,7 @@ const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
 
 
             <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
-                <ClientAvatar size={46} avatar={clubLogo} />
+                <ClientAvatar size={46} avatar={clubLogo ? clubLogo : DEFAULT_IMG.clubAvatar} />
                 <FormField
                     {...fields.content}
                     onChange={handleKeyDown}
