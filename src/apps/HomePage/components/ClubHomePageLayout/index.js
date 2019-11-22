@@ -7,6 +7,7 @@ import ClubHeader from '../ClubHeader'
 import FeaturedExhibitions from 'apps/Exhibitions/components/Featured'
 import NewsListPublic from 'apps/ClientNews/components/ListPublic'
 import ClubAddress from '../ClubAddress'
+import ClubSocial from '../ClubSocial'
 import ClubOwnerName from '../ClubOwnerName'
 import ClubDescription from '../Description'
 import ClubContacts from '../ClubContacts'
@@ -45,6 +46,7 @@ function HomePageLayout() {
                                 <ClubAddress />
                                 <ClubOwnerName />
                                 <ClubContacts />
+                                <ClubSocial />
                                 <ClubWorkingHours />
                                 <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4>
                                 <ClubDocuments />
