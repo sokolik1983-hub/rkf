@@ -2,7 +2,7 @@
   width: 100%;
   padding: 60px 0;
   .FormField {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     &__comment {
       color: red;
       font-size: smaller;
@@ -21,7 +21,7 @@
       display: block;
       font-size: smaller;
     }
-    h4 {
+    h4, span {
       font-size: smaller;
       margin: 0;
     }

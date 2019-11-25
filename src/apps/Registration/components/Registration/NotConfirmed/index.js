@@ -87,7 +87,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         }
     };
 
-    const FormField = ({ type, label, name, value, title, pattern, required }) => {
+    const FormField = ({ type, label, name, value, title, pattern, required, props }) => {
         const fieldComment = name + '_comment';
         const isValidField = name + '_valid';
         return (
@@ -105,6 +105,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 title={title ? title : ''}
                                 defaultValue={value || ''}
                                 pattern={pattern ? pattern : undefined}
+                                {...props}
                             />
                             <div className="FormField__comment">{fields[fieldComment]}</div>
                         </React.Fragment>
@@ -142,8 +143,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <FormField type="text" required="true" label="Наименование юридического лица" name="legal_name" value={legal_name} />
                                     <FormField type="date" required="true" label="Дата регистрации юридического лица" name="registration_date" value={new Date(registration_date).toISOString().substr(0, 10) || new Date().toISOString().substr(0, 10)} />
                                     <FormField type="text" required="true" label="Город регистрации" name="legal_city" value={legal_city} />
-                                    <FormField type="text" required="true" label="Юридический адрес" name="legal_address" value={legal_address} />
-                                    <FormField type="text" label="Квартира/офис" name="apartment_office" value={apartment_office} />
+                                    <FormField type="text" required="true" label="Юридический адрес" name="legal_address" value={legal_address} props={{ placeholder: 'Введите юридический адрес клуба без указания офиса/квартиры', title: 'Введите юридический адрес клуба без указания офиса/квартиры' }} />
+                                    <FormField type="text" label="Квартира/офис" name="apartment_office" value={apartment_office} props={{ placeholder: 'Введите номер офиса/квартиры юридического адреса', title: 'Введите номер офиса/квартиры юридического адреса' }} />
                                     <FormField type="text" required="true" label="ИНН" name="inn" value={inn} title="Номер инн состоит из 10 или 12 цифр" pattern="[0-9]{10}|[0-9]{12}" />
                                     <FormField type="text" required="true" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern="[0-9]{9}" />
                                     <FormField type="text" required="true" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern="[0-9]{13}" />
@@ -156,7 +157,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         {
                                             !fields.certificate_of_registration_legal_entity_valid
                                                 ? (<React.Fragment>
-                                                    <input type="file" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                    <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
                                                 </React.Fragment>)
                                                 : null
@@ -167,7 +168,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         {
                                             !fields.extract_from_the_egrul_valid
                                                 ? (<React.Fragment>
-                                                    <input type="file" name="extract_from_the_egrul" required onChange={onFileChange} />
+                                                    <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="extract_from_the_egrul" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['extract_from_the_egrul_comment']}</div>
                                                 </React.Fragment>)
                                                 : null
@@ -178,7 +179,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         {
                                             !fields.stamp_code_registration_certificate_valid
                                                 ? (<React.Fragment>
-                                                    <input type="file" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                    <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                                 </React.Fragment>)
                                                 : null
