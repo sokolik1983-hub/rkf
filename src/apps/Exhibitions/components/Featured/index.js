@@ -7,10 +7,10 @@ import { connectClubId } from 'apps/Exhibitions/connectors'
 
 export const FEATURED_EXHIBITIONS_URL = '/api/exhibitions/Exhibition/featured';
 
-const FeaturedExhibitionsList = (club) => {
+const FeaturedExhibitionsList = ({ club_id, club_alias }) => {
     const [exhibitions, setExhibitions] = useState([]);
     const { loading } = useResourceAndStoreToRedux(
-        FEATURED_EXHIBITIONS_URL + '?ClubId=' + club.club_id, //TODO: Refactor this
+        FEATURED_EXHIBITIONS_URL + (club_id ? '?ClubId=' + club_id : '?Alias=' + club_alias), //TODO: Refactor this
         setExhibitions
     );
 

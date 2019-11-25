@@ -24,4 +24,4 @@ function ClubSocial({ clubCommon }) {
     )
 }
 
-export default connectClubCommon(ClubSocial)
+export default connectClubCommon(ClubSocial);
