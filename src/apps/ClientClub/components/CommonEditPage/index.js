@@ -33,7 +33,7 @@ function ClubEditPage({club_alias, history}) {
     let clientErrors = {};
 
     useEffect(() => {
-        unblock = history.block('Есть не сохраненная информация. Вы точно хотите уйти со страницы?');
+        unblock = history.block('Вы точно хотите уйти со страницы редактирования?');
         return () => unblock();
     },  []);
 
