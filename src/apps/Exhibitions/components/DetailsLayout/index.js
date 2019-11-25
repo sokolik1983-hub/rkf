@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link} from "react-router-dom";
-import CountDown from 'components/CountDown'
+import { Link } from "react-router-dom";
+// import CountDown from 'components/CountDown'
 import PaymentRequisites from 'components/PaymentRequisites'
 import Breadcrumbs from 'components/Breadcrumbs'
 import DetailsContent from '../DetailsContent'
@@ -11,14 +11,14 @@ import ContestTable from '../DetailContestTable'
 import Schedule from '../DetailSchedule'
 import Button from 'components/Button'
 import Tabs from "components/Tabs";
-import {TabContent} from "components/Tabs";
+import { TabContent } from "components/Tabs";
 import ExhibitionDetailsPrices from '../DetailsPrices'
-import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
+import { ExhibitionsPathContext } from 'apps/Exhibitions/context'
 import './index.scss'
 
-const DetailsLayout = ({exhibitionDetails}) =>
+const DetailsLayout = ({ exhibitionDetails }) =>
     <ExhibitionsPathContext.Consumer>{
-        ({path}) =>
+        ({ path }) =>
             <div className="exhibition-details">
                 <div className="exhibition-details__head">
                     <Breadcrumbs>
@@ -35,7 +35,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                 <DetailsContent>
                     {
                         exhibitionDetails.images.length > 0 ?
-                            exhibitionDetails.images.map(image => <DetailImage key={image.url} url={image.url}/>)
+                            exhibitionDetails.images.map(image => <DetailImage key={image.url} url={image.url} />)
                             : null
                     }
 
@@ -43,7 +43,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         {
                             exhibitionDetails.description ?
                                 <TabContent label="Описание">
-                                    <div dangerouslySetInnerHTML={{__html: exhibitionDetails.description}}/>
+                                    <div dangerouslySetInnerHTML={{ __html: exhibitionDetails.description }} />
                                 </TabContent>
                                 : null
                         }
@@ -51,7 +51,7 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         {
                             exhibitionDetails.schedule.length ?
                                 <TabContent label="Расписание">
-                                    <Schedule schedule={exhibitionDetails.schedule}/>
+                                    <Schedule schedule={exhibitionDetails.schedule} />
                                     <p>Расписание может изменяться. Для того, тчобы быть в курсе включите оповещения в
                                         личном кабинете или просматривайте обновления расписания.</p>
                                 </TabContent>
@@ -63,14 +63,14 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         <TabContent label="Конкурсы">Конкурсы</TabContent>
                     </Tabs>
                     <div>
-                        <ExhibitionDetailsPrices exhibition_id={exhibitionDetails.id}/>
+                        <ExhibitionDetailsPrices exhibition_id={exhibitionDetails.id} />
                     </div>
                 </DetailsContent>
                 <DetailsAside>
                     <div className="exhibition-details__aside_holder">
                         <div className="exhibition-details__short_info">
                             <div
-                                className="exhibition-details__dates-icon">{exhibitionDetails.date.start} {exhibitionDetails.date.end}<br/>
+                                className="exhibition-details__dates-icon">{exhibitionDetails.date.start} {exhibitionDetails.date.end}<br />
                                 <a href="/caledar/add">Добавить в календарь</a>
                             </div>
                             <div className="exhibition-details__time-icon">Начало {exhibitionDetails.date.start}</div>
@@ -80,18 +80,18 @@ const DetailsLayout = ({exhibitionDetails}) =>
                     </div>
                     <table className="exhibition-details__attrs-table">
                         <tbody>
-                        <tr>
-                            <td>Стандарт:</td>
-                            <td>{exhibitionDetails.standard}</td>
-                        </tr>
-                        <tr>
-                            <td>Ранг:</td>
-                            <td>{exhibitionDetails.rang}</td>
-                        </tr>
-                        <tr>
-                            <td>Породы:</td>
-                            <td>{exhibitionDetails.dog_breed}</td>
-                        </tr>
+                            <tr>
+                                <td>Стандарт:</td>
+                                <td>{exhibitionDetails.standard}</td>
+                            </tr>
+                            <tr>
+                                <td>Ранг:</td>
+                                <td>{exhibitionDetails.rang}</td>
+                            </tr>
+                            <tr>
+                                <td>Породы:</td>
+                                <td>{exhibitionDetails.dog_breed}</td>
+                            </tr>
                         </tbody>
                     </table>
                     <div className="exhibition-details__controls">
@@ -99,14 +99,14 @@ const DetailsLayout = ({exhibitionDetails}) =>
                         <Button className="btn-secondary">В избранное</Button>
                         <Button className="btn-secondary">Поделиться</Button>
                     </div>
-                    <CountDown/>
+                    {/* <CountDown/> */}
                 </DetailsAside>
                 <div className="exhibition-details__prices">
                     <h2>Цены</h2>
-                    <PriceTable categories={exhibitionDetails.prices.prices}/>
-                    <ContestTable categories={exhibitionDetails.prices.contests}/>
+                    <PriceTable categories={exhibitionDetails.prices.prices} />
+                    <ContestTable categories={exhibitionDetails.prices.contests} />
                 </div>
-                <PaymentRequisites/>
+                <PaymentRequisites />
             </div>
     }
     </ExhibitionsPathContext.Consumer>;

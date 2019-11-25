@@ -1,10 +1,11 @@
 import React from 'react'
-import CountDown from "components/CountDown";
+//import CountDown from "components/CountDown";
 
 import ExhibitionDetailsDates from './Dates'
 import ExhibitionRankType from './RankType'
 import ExhibitionBreedTypes from './BreedTypes'
-import { transformDateSafariFriendly, timeSecondsCutter } from "utils/datetime";
+//import { transformDateSafariFriendly } from "utils/datetime";
+import { timeSecondsCutter } from "utils/datetime";
 import { getDictElement, useDictionary } from "apps/Dictionaries";
 
 export default function ExhibitionAsideContent(
@@ -57,7 +58,7 @@ export default function ExhibitionAsideContent(
                     </tr>
                 </tbody>
             </table>
-            <CountDown eventDate={dates && transformDateSafariFriendly(dates[0])} />
+            {/* <CountDown eventDate={dates && transformDateSafariFriendly(dates[0])} /> */}
         </div>
     )
 }
