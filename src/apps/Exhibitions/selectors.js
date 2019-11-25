@@ -96,7 +96,7 @@ export const selectExhibitionPrices = state => {
 
 export const selectClubId = state => {
     const { profile_id: club_id } = selectProfileId(state);
-    const club_alias = state.home_page.club.route;
+    const club_alias = state.home_page ? state.home_page.club.route : null;
     return {
         club_id,
         club_alias
