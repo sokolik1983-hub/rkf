@@ -1,12 +1,38 @@
 import React from "react";
 import * as search from "searchtabular";
-import * as edit from "react-edit";
 import * as sort from 'sortabular';
 import calendar from "./Calendar";
 import multiSelect from "./MultiSelect";
 import boolButtons from "./BoolButtons";
 import { endpointCertificatesList } from '../../../config';
 import { Request } from "../../../../../utils/request";
+
+const inputFF = ({ props } = {}) => { // Firefox onBlur fix
+    const Input = ({ value, onValue }) => {
+        const onKeyUp = ({ key, target: { value } }) => {
+            if (key === 'Enter') {
+                onValue(parseValue(value));
+            }
+        };
+        const onBlur = (event) => {
+            const { target: { value } } = event;
+
+            onValue(parseValue(value));
+        };
+        const parseValue = v => (value === parseFloat(value) ? parseFloat(v) : v);
+
+        return (
+            <input
+                defaultValue={value}
+                onKeyUp={onKeyUp}
+                onBlur={onBlur}
+                autoFocus
+                {...props}
+            />
+        );
+    };
+    return Input;
+};
 
 export const finalReportColumns = async (onRemove, sortingColumns, sortable, editable, breeds, castes, grades, rankType) => {
     let cols = null;
@@ -102,7 +128,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     child.cell = {
                         formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())(value, extra, {
+                            (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ]
@@ -158,7 +184,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     col.cell = {
                         formatters: [value => <input value={value || 0} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())((value || 0), extra, {
+                            (value, extra) => editable(inputFF())((value || 0), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
@@ -172,7 +198,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     col.cell = {
                         formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())(value, extra, {
+                            (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ]
@@ -393,7 +419,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     child.cell = {
                         formatters: [value => <input value={value || 0} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())((value || 0), extra, {
+                            (value, extra) => editable(inputFF())((value || 0), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ]
@@ -402,7 +428,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     child.cell = {
                         formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
-                            (value, extra) => editable(edit.input())(value, extra, {
+                            (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ]
@@ -440,7 +466,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                 col.cell = {
                     formatters: [search.highlightCell],
                     transforms: [
-                        (value, extra) => editable(edit.input())(value, extra, {
+                        (value, extra) => editable(inputFF())(value, extra, {
                             className: extra.rowData.edited && 'edited'
                         })
                     ]
@@ -500,7 +526,7 @@ export const mainRingStatementColumns = (editable, breeds) => {
             col.cell = {
                 formatters: [value => <input value={value || 0} readOnly maxLength="10" />],
                 transforms: [
-                    (value, extra) => editable(edit.input({ props: { maxLength: 10 } }))((value || 0), extra, {
+                    (value, extra) => editable(inputFF({ props: { maxLength: 10 } }))((value || 0), extra, {
                         className: extra.rowData.edited && 'edited'
                     })
                 ]
@@ -509,7 +535,7 @@ export const mainRingStatementColumns = (editable, breeds) => {
             col.cell = {
                 formatters: [value => <input value={value || ""} readOnly />],
                 transforms: [
-                    (value, extra) => editable(edit.input())(value, extra, {
+                    (value, extra) => editable(inputFF())(value, extra, {
                         className: extra.rowData.edited && 'edited'
                     })
                 ]
