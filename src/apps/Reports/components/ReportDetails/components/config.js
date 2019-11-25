@@ -119,7 +119,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
 
                 if (col.property === 'birthday') {
                     col.cell = {
-                        formatters: [search.highlightCell],
+                        formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
                             (value, extra) => editable(calendar())(value, extra, {
                                 className: extra.rowData.edited && 'edited'

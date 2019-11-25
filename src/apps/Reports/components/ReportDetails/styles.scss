@@ -25,6 +25,17 @@
     select {
       margin: -1px;
     }
+    &:empty {
+      &::before {
+        content: "";
+        display: block;
+        border: 1px solid #e5e5e5;
+        background: white;
+        height: 22px;
+        width: 100%;
+        margin: 7px 0;
+      }
+    }
   }
   .table-holder {
     padding: 0;
@@ -60,7 +71,7 @@
     }
   }
 }
-.ReportDocumentLink{
+.ReportDocumentLink {
   background: url(/static/icons/ico-document-link.svg) center left no-repeat;
   padding-left: 20px;
 }
