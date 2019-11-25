@@ -63,31 +63,7 @@ class MainRingTable extends React.Component {
         });
         const breeds = this.props.breeds.map(item => ({ value: item.name, label: item.name }));
 
-        return mainRingStatementColumns(this.onRemove, editable, breeds);
-    };
-
-    onAdd = () => {
-        if (this.state.rows.length < 4) {
-            const rows = cloneDeep(this.state.rows);
-            let newRow = {};
-            newRow.arrangement_id = this.props.arrangementId;
-            newRow.id = rows.length ? rows[rows.length - 1].id + 1 : 1;
-            newRow.position = 4;
-            newRow.breed = '';
-            rows.push(newRow);
-            this.setState({ rows });
-        }
-    };
-
-    onRemove = (rowId) => {
-        if (window.confirm('Вы уверены, что хотите удалить эту строку?')) {
-            const rows = cloneDeep(this.state.rows);
-            const idx = findIndex(rows, { id: rowId });
-
-            rows.splice(idx, 1);
-
-            this.setState({ rows });
-        }
+        return mainRingStatementColumns(editable, breeds);
     };
 
     render() {
@@ -114,11 +90,6 @@ class MainRingTable extends React.Component {
                     <Table.Header />
                     <Table.Body rows={resolvedRows} rowKey="id" />
                 </Table.Provider>
-                {rows.length < 4 &&
-                    <div className="add-button">
-                        <button onClick={() => this.onAdd(this.props.arrangementId)}> + </button>
-                    </div>
-                }
             </>
         )
     }

@@ -454,7 +454,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
     return cols;
 };
 
-export const mainRingStatementColumns = (onRemove, editable, breeds) => {
+export const mainRingStatementColumns = (editable, breeds) => {
     let cols = [
         {
             property: 'position',
@@ -518,26 +518,6 @@ export const mainRingStatementColumns = (onRemove, editable, breeds) => {
 
         return col;
     });
-
-    // cols.push({
-    //     props: {
-    //         style: {
-    //             width: 50
-    //         }
-    //     },
-    //     cell: {
-    //         formatters: [
-    //             (value, { rowData }) => (
-    //                 <span
-    //                     className="remove"
-    //                     onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
-    //                 >
-    //                 &#10007;
-    //             </span>
-    //             )
-    //         ]
-    //     }
-    // });
 
     return cols;
 };
