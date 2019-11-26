@@ -27,7 +27,7 @@ const Registration = () => {
     ];
     const onCityChange = value => {
         if (value.value && value.value !== 'reset') {
-            fetch('/api/Club/short_all?LegalCityId=' + value.value, { method: "GET" })
+            fetch('/api/Club/short_all?LegalCityId=' + value.value + '&QueryDate=' + new Date().toISOString().split('T')[0], { method: "GET" })
                 .then(response => response.json())
                 .then(({ result }) => setClubs([...result]))
         }
