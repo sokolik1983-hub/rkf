@@ -147,7 +147,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     col.cell = {
                         formatters: [value => <input value={value || ""} readOnly />],
                         transforms: [
-                            (value, extra) => editable(calendar())(value, extra, {
+                            (value, extra) => editable(calendar())(new Date(value ? value : null), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
@@ -156,7 +156,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                                 textAlign: 'center'
                             }
                         },
-                        resolve: date => date && date.toLocaleDateString()
+                        resolve: date => date && new Date(date).toLocaleDateString()
                     }
                 } else if (col.property === 'breed' || col.property === 'class' || col.property === 'score') {
                     col.cell = {

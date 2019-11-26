@@ -9,6 +9,7 @@ import {
     endpointGetJudgesLoadReport
 } from "../../config";
 import { Request } from "../../../../utils/request";
+import ls from 'local-storage';
 
 
 const JudgeLoadReport = ({ reportHeader, getHeader }) => {
@@ -18,6 +19,14 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const loading = !breeds || !groups || !countries;
     const defaultRows = [{ id: 1, 'judge-country': '', breed: [], group: [] }];
     const [rows, setRows] = useState(defaultRows);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if (ls.get('judge_load_report') && !loaded) { // Check for local storage cache
+            setRows(ls.get('judge_load_report').rows);
+            setLoaded(true);
+        }
+    }, []);
 
     useEffect(() => {
         (() => Request({ url: endpointBreedsList }, data => setBreeds(data.filter(breed => breed.id !== 1))))(); // Remove 'Все породы'
@@ -26,45 +35,45 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if(!reportHeader.judges_workload_accept && breeds && groups && countries) {
-            (() => Request({url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}`}, data => {
-                    if(data.lines.length) {
-                        const rows = data.lines.map(row => {
-                            const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
-                            const breed = row.breeds.length ? row.breeds.map(breed => {
-                                const name = breeds.find(item => item.id === breed).name;
+        if (!reportHeader.judges_workload_accept && breeds && groups && countries && !loaded) {
+            (() => Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => {
+                if (data.lines.length) {
+                    const rows = data.lines.map(row => {
+                        const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
+                        const breed = row.breeds.length ? row.breeds.map(breed => {
+                            const name = breeds.find(item => item.id === breed).name;
 
-                                return {
-                                    value: name,
-                                    label: name
-                                }
-                            }) : [];
-                            const group = row.fci_groups.length ? row.fci_groups.map(group => {
-                                const name = groups.find(item => item.id === group).name;
+                            return {
+                                value: name,
+                                label: name
+                            }
+                        }) : [];
+                        const group = row.fci_groups.length ? row.fci_groups.map(group => {
+                            const name = groups.find(item => item.id === group).name;
 
-                                return {
-                                    value: name,
-                                    label: name
-                                }
-                            }) : [];
+                            return {
+                                value: name,
+                                label: name
+                            }
+                        }) : [];
 
-                            const item = {
-                                'id': row.id,
-                                'judge-surname': row.judge_last_name || '',
-                                'judge-name': row.judge_first_name || '',
-                                'judge-patronymic': row.judge_second_name || '',
-                                'judge-country': country,
-                                'dogs-distributed': row.dogs_distributed || '',
-                                'dogs-judged': row.dogs_condemned || '',
-                                breed,
-                                group
-                            };
+                        const item = {
+                            'id': row.id,
+                            'judge-surname': row.judge_last_name || '',
+                            'judge-name': row.judge_first_name || '',
+                            'judge-patronymic': row.judge_second_name || '',
+                            'judge-country': country,
+                            'dogs-distributed': row.dogs_distributed || '',
+                            'dogs-judged': row.dogs_condemned || '',
+                            breed,
+                            group
+                        };
 
-                            return item;
-                        });
+                        return item;
+                    });
 
-                        setRows(rows);
-                    }
+                    setRows(rows);
+                }
             }))();
         }
     }, [breeds, groups, countries]);
@@ -104,6 +113,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
+            ls.remove('judge_load_report'); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
@@ -122,6 +132,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                 }
                 <ReportDetailsTable
                     content="judge-load-report"
+                    reportName="judge_load_report"
                     rows={rows}
                     countries={countries}
                     breeds={breeds}

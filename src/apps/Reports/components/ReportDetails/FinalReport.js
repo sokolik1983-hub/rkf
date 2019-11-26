@@ -9,6 +9,7 @@ import {
     endpointPutFinalReport
 } from '../../config';
 import { Request } from "../../../../utils/request";
+import ls from 'local-storage';
 
 
 const FinalReport = ({ reportHeader, getHeader }) => {
@@ -25,6 +26,14 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         { id: 5, breed: '', class: '', score: '', date: exhibitionDate }
     ];
     const [rows, setRows] = useState(defaultRows);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if (ls.get('final_report') && !loaded) { // Check for local storage cache
+            setRows(ls.get('final_report').rows);
+            setLoaded(true);
+        }
+    }, []);
 
     useEffect(() => {
         (() => Request({ url: endpointBreedsList }, data => setBreeds(data.filter(breed => breed.id !== 1))))(); // Remove 'Все породы'
@@ -33,7 +42,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.total_report_accept && breeds && castes && grades) {
+        if (!reportHeader.total_report_accept && breeds && castes && grades && !loaded) {
             (() => Request({ url: `${endpointGetFinalReport}?id=${reportHeader.id}` }, data => {
                 if (data.length) {
                     const rows = data.map(row => {
@@ -122,6 +131,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
+            ls.remove('final_report'); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
@@ -140,6 +150,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                 }
                 <ReportDetailsTable
                     content="final-report"
+                    reportName="final_report"
                     rows={rows}
                     breeds={breeds}
                     castes={castes}

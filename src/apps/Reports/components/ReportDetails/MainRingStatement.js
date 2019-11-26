@@ -13,6 +13,7 @@ import {
 } from "../../config";
 import { mainRingStatementColumns } from './components/config';
 import Loading from "../../../../components/Loading";
+import ls from 'local-storage';
 
 
 class MainRingTable extends React.Component {
@@ -26,19 +27,21 @@ class MainRingTable extends React.Component {
         query: {},
         searchColumn: 'all',
         rows: this.initRows,
-        columns: null
+        columns: null,
+        updated: false
     };
-    
+
     componentDidMount() {
         this.setState({
             columns: this.getColumns()
         })
     };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.rows.length && this.props.rows !== prevProps.rows) {
+    componentDidUpdate() {
+        if (this.props.rows.length && !this.state.updated) {
             this.setState({
-                rows: this.props.rows
+                rows: this.props.rows,
+                updated: true
             });
         }
     }
@@ -98,7 +101,7 @@ class MainRingTable extends React.Component {
 const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows, breeds }) => {
     return (
         <tr>
-            <td style={{textAlign: 'center'}}>{arrangementName}</td>
+            <td style={{ textAlign: 'center' }}>{arrangementName}</td>
             <td colSpan="5" className="table-holder">
                 <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} />
             </td>
@@ -111,6 +114,14 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [arrangements, setArrangements] = useState(null);
     const [rows, setRows] = useState([]);
     const loading = !arrangements;
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if (ls.get('main_ring_statement') && !loaded) { // Check for local storage cache
+            setRows(ls.get('main_ring_statement').lsReadyRows);
+            setLoaded(true);
+        }
+    }, []);
 
     useEffect(() => {
         (() => Request({ url: endpointBreedsList }, data => setBreeds(data.filter(breed => breed.id !== 1))))(); // Remove 'Все породы'
@@ -118,7 +129,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.statement_main_ring_accept && breeds) {
+        if (!reportHeader.statement_main_ring_accept && breeds && !loaded) {
             (() => Request({ url: `${endpointGetMainRingStatement}?id=${reportHeader.id}` }, data => {
                 if (data.length) {
                     const rows = data.map(row => {
@@ -145,10 +156,19 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     const updateRows = (updatedRows, arrangementId) => {
         const filteredRows = rows.filter((row) => +row.arrangement_id !== +arrangementId);
         const reUpdatedRows = updatedRows.map((row) => ({ ...row, arrangement_id: +arrangementId }));
-        setRows([
+        const newRows = [
             ...filteredRows,
             ...reUpdatedRows
-        ]);
+        ];
+        setRows(newRows);
+
+        const lsReadyRows = newRows.map(row => {
+            const normalized = row;
+            normalized.breed = row.breed.label ? row.breed.label : row.breed;
+            return normalized;
+        });
+
+        ls.set('main_ring_statement', { lsReadyRows });
     };
 
     const onSubmit = () => {
@@ -182,6 +202,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
+            ls.remove('main_ring_statement'); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
