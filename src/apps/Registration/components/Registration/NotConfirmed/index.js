@@ -12,6 +12,7 @@ import './styles.scss';
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState('');
     const [loaded, setLoaded] = useState(false);
+    const [active, setActive] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,7 +28,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         };
         try {
             await axios(config);
-            console.log(fields);
             alert('Информация отправлена');
             logOutUser();
             history.push('/');
@@ -52,9 +52,14 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 if (data.result) {
                     setFields(data.result);
                     setLoaded(true);
-                }
-                else {
+                    if (data.result.activation_request_status === 3) setActive(true); // Check if the club is activated
+                } else {
                     setDefaultFields();
+                }
+            })
+            .catch(({ response }) => { // Check if the club is activated
+                if (response && response.data.errors && response.data.errors.ActivationRequest === "Клуб уже активирован") {
+                    setActive(true);
                 }
             });
     };
@@ -113,6 +118,12 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             </div>
         )
     };
+
+    if (active) {
+        alert("Ваша заявка была одобрена! \nТеперь Вы можете войти в свой личный кабинет на сайте.");
+        logOutUser();
+        history.push('/');
+    }
 
     const {
         name,
