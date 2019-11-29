@@ -19,7 +19,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         if (response.status === 200) {
             const blob = await response.blob();
             const blobUrl = await URL.createObjectURL(blob);
-
+            
             return blobUrl;
         } else return null;
     };
@@ -96,7 +96,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     <label className="report-documents__document-label">Каталог выставки</label>
                     {!reportHeader.doc_catalog_accept ?
                         <>
-                            {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} rel="noopener noreferrer">Прикрепленный документ</a>}
+                            {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
                                 setShowButton(true);
@@ -111,7 +111,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
-                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} rel="noopener noreferrer">Прикрепленный документ</a>}
+                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
                                 if (catalogUrl) setShowButton(true);
