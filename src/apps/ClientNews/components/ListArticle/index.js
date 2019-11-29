@@ -8,6 +8,7 @@ import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
 import { connectAuthVisible } from 'apps/Auth/connectors'
 import { DEFAULT_CONTENT_LENGTH, DEFAULT_IMG } from 'appConfig'
+import ArticleEditFormPublic from 'apps/ClientNews/components/Edit';
 
 
 function ListArticle({
@@ -21,12 +22,16 @@ function ListArticle({
     deleteArticleSuccess,
     onArticleClick
 }) {
-
+    const [edit, setEdit] = useState(false);
     const getSignature = () => String(formatDateTime(create_date));
 
     const onDeleteSuccess = () => {
         deleteArticleSuccess(id);
     };
+
+    const handleEditCancel = () => {
+        setEdit(false);
+    }
 
     const handleClick = () => {
         if (onArticleClick) onArticleClick(id);
@@ -46,6 +51,7 @@ function ListArticle({
         if (!isAuthenticated) return null;
         return (
             <Dropdown position="right">
+                <button className="btn EditButton" onClick={() => setEdit(true)}>Редактировать</button>
                 <DeleteButton
                     windowed
                     confirmMessage={'Вы действительно хотите удалить новость?'}
@@ -53,13 +59,12 @@ function ListArticle({
                     onDeleteSuccess={onDeleteSuccess}
                     actionUrl={'/api/ClubArticle/' + id}
                 >
-                    удалить
+                    Удалить
             </DeleteButton>
             </Dropdown>
         )
     };
     const ListArticleControls = connectAuthVisible(Controls);
-
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
             <div className="NewsStory__Head">
@@ -74,16 +79,21 @@ function ListArticle({
                 <ListArticleControls />
 
             </div>
-            <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
-            <div className="NewsStory__Text">
-                <p dangerouslySetInnerHTML={{ __html: collapsed ? cutContent(content) : content }} />
-                {collapsed ? <a className="NewsStory__Show-more" href="/" onClick={handleShowMore}>Подробнее</a> : null}
-            </div>
-            <div
-                className="NewsStory__ImagePreview">
-                <img src={picture_link} alt="" />
-            </div>
-
+            {
+                edit
+                    ? <ArticleEditFormPublic content={content} file={picture_link} id={id} onEditCancel={handleEditCancel} />
+                    : <>
+                        <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
+                        <div className="NewsStory__Text">
+                            <p dangerouslySetInnerHTML={{ __html: collapsed ? cutContent(content) : content }} />
+                            {collapsed ? <a className="NewsStory__Show-more" href="/" onClick={handleShowMore}>Подробнее</a> : null}
+                        </div>
+                        <div
+                            className="NewsStory__ImagePreview">
+                            <img src={picture_link} alt="" />
+                        </div>
+                    </>
+            }
         </div >
     )
 }

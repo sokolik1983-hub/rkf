@@ -6,4 +6,6 @@ export const getNewsSuccess = makeActionCreator(actionTypes.GET_NEWS_SUCCESS, 'd
 
 export const addArticleSuccess = makeActionCreator(actionTypes.ADD_ARTICLE_SUCCESS, 'data');
 
+export const editArticleSuccess = makeActionCreator(actionTypes.EDIT_ARTICLE_SUCCESS, 'data');
+
 export const deleteArticleSuccess = makeActionCreator(actionTypes.DELETE_ARTICLE_SUCCESS, 'id');

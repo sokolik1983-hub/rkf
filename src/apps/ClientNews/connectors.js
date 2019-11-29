@@ -8,6 +8,7 @@ import {
 import {
     getNewsSuccess,
     addArticleSuccess,
+    editArticleSuccess,
     deleteArticleSuccess,
 } from './actions'
 
@@ -33,6 +34,7 @@ export const connectListArticle = connect(
 export const connectArticleForm = connect(
     null,
     dispatch => bindActionCreators({
-        addArticleSuccess
+        addArticleSuccess,
+        editArticleSuccess
     }, dispatch)
 );

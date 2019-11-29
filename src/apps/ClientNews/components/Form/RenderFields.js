@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ClientAvatar from 'components/ClientAvatar';
 import { connect } from 'formik';
 import { useFocus } from 'shared/hooks';
@@ -23,7 +23,6 @@ const FormButton = ({ isUpdate, isValid }) => {
 
 
 const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
-    const textarea = useRef();
     const [src, setSrc] = useState('');
     const handleChange = e => {
         if (e.target.files[0]) {
@@ -75,7 +74,6 @@ const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
                     onFocus={setFocused}
                     maxLength="3001"
                     value={content ? content : ''}
-                    ref={textarea}
                     rows="1"
                 />
                 {

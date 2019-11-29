@@ -1,5 +1,5 @@
 import * as actiontypes from './actiontypes';
-import {normalizeList} from "shared/normilizers";
+import { normalizeList } from "shared/normilizers";
 import createReducer from 'utils/createReducer'
 
 const clientNewsInitialState = {
@@ -11,7 +11,7 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
 
     [actiontypes.GET_NEWS_SUCCESS](state, action) {
         if (action.data.length) {
-            const {entities, result: listIds} = normalizeList(action.data);
+            const { entities, result: listIds } = normalizeList(action.data);
             return {
                 ...state,
                 loading: false,
@@ -26,8 +26,8 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
     },
 
     [actiontypes.ADD_ARTICLE_SUCCESS](state, action) {
-        const {id} = action.data;
-        const listCollection = {...state.listCollection};
+        const { id } = action.data;
+        const listCollection = { ...state.listCollection };
         const listIds = [id, ...state.listIds];
 
         listCollection[String(id)] = action.data;
@@ -40,9 +40,21 @@ const clientExhibitionScheduleReducer = createReducer(clientNewsInitialState, {
         }
     },
 
+    [actiontypes.EDIT_ARTICLE_SUCCESS](state, action) {
+        const { id, content, file } = action.data;
+        const listCollection = { ...state.listCollection };
+        listCollection[String(id)].content = content;
+        if (file || file === '') listCollection[String(id)].picture_link = file;
+        return {
+            ...state,
+            listCollection,
+            loading: false
+        }
+    },
+
     [actiontypes.DELETE_ARTICLE_SUCCESS](state, action) {
-        const {id} = action;
-        const listCollection = {...state.listCollection};
+        const { id } = action;
+        const listCollection = { ...state.listCollection };
         delete listCollection[String(id)];
         const listIds = state.listIds.filter(item => item !== id);
 
