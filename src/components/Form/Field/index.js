@@ -37,7 +37,7 @@ function getField(fieldType) {
     }
 }
 
-function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, ...fieldProps }) {
+function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
 
     const Input = getField(fieldType);
 
@@ -71,7 +71,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                     />
             }
 
-            <Error name={fieldProps.name} />
+            <Error name={fieldProps.name} noTouch={noTouch ? noTouch : null} />
         </FormInput>
     )
 

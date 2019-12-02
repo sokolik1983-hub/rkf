@@ -35,4 +35,16 @@
       width: 80%;
     }
   }
+  &.no-backdrop {
+    .Modal__inner {
+      background: none;
+      box-shadow: none;
+    }
+    .Modal__close {
+      & + div {
+        //OutsideClickHandler
+        width: auto;
+      }
+    }
+  }
 }

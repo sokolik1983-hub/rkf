@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderLogo from './HeaderLogo';
+import Feedback from 'components/Feedback';
 import Container from 'components/Layout/Container';
 import Nav from 'components/Nav';
 //import CitySelect from 'components/CitySelect';
@@ -15,7 +16,7 @@ const Header = ({ children, className }) => (
             <HeaderLogo />
             {/* <CitySelect /> */}
             <Nav />
-
+            <Feedback />
             {/*<WidgetLang/>*/}
             {/*<WidgetNotifications/>*/}
             <WidgetLogin />
