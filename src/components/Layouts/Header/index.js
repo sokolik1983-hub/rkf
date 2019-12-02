@@ -4,6 +4,7 @@ import Container from "../Container";
 import Nav from "./components/Nav";
 import WidgetLogin from "../../../apps/Auth/components/WidgetLogin";
 import BurgerButton from "./components/BurgerButton";
+import Feedback from 'components/Feedback';
 import './index.scss';
 
 
@@ -32,6 +33,7 @@ const Header = ({className}) => {
                 </Link>
                 <div className={`Header__controls${isOpen ? ' _open' : ''}`}>
                     <Nav/>
+                    <Feedback />
                     <WidgetLogin/>
                 </div>
                 <BurgerButton
