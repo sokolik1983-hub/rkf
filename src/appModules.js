@@ -13,7 +13,7 @@ export const LoadableReports = Loadable({
 });
 
 export const LoadableHomePage = Loadable({
-    loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/homepage'),
+    loader: () => import(/* webpackChunkName: "app.homepage" */ './pages/Home'), //'./apps/HomePage/homepage'
     loading: Loading,
 });
 

@@ -1,0 +1,117 @@
+.Footer {
+  &__inner {
+    background: #363839;
+    &-wrap {
+      margin: auto;
+      display: flex;
+      padding: 15px 0;
+      @media (max-width: 1220px) {
+        padding: 15px 24px;
+      }
+      @media (max-width: 768px) {
+        display: block;
+      }
+      @media (max-width: 560px) {
+        padding: 12px;
+      }
+      & > div {
+        width: 50%;
+        &:first-child {
+          padding-right: 24px;
+          @media (max-width: 768px) {
+            padding-right: 0;
+            margin-bottom: 24px;
+          }
+        }
+        @media (max-width: 768px) {
+          width: 100%;
+          padding: 0;
+        }
+      }
+      h3 {
+        color: #ddd;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 14px 0;
+        @media (max-width: 768px) {
+          text-align: center;
+          margin: 0 0 5px;
+        }
+      }
+      p {
+        color: #8c8989;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
+        margin: 12px 0;
+        @media (max-width: 768px) {
+          text-align: center;
+          margin: 0;
+        }
+      }
+      ul,
+      li {
+        color: #bfbfbf;
+      }
+      span {
+        margin-right: auto;
+        color: #fff;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      a {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #72839c;
+        margin-left: 34px;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__bottom {
+    background: #282a2b;
+    border-top: 1px solid #4b4c4d;
+    &-wrap {
+      margin: auto;
+      padding: 10px 0 20px;
+      @media (max-width: 1220px) {
+        padding: 15px 24px;
+      }
+      @media (max-width: 560px) {
+        padding: 12px;
+      }
+      p {
+        margin: 0;
+        text-align: center;
+        color: #8c8989;
+        font-size: 10px;
+        line-height: 15px;
+        font-weight: 400;
+      }
+    }
+    &-social{
+      font-size: 20px;
+      text-align: center;
+      line-height: 1;
+      padding-bottom: 20px;
+      a {
+        display: inline-block;
+        margin-right: 10px;
+        &:hover{
+          opacity: 0.8;
+        }
+        img {
+          display: block;
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+}

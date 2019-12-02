@@ -31,8 +31,16 @@
     background-size: contain;
     cursor: pointer;
     & + div {
-      //OutsideClickHandler
       width: 80%;
+      @media (max-width: 560px) {
+        width: 92%;
+      }
+    }
+    @media (max-width: 560px) {
+      width: 12px;
+      height: 12px;
+      top: 12px;
+      right: 12px;
     }
   }
   &.no-backdrop {

@@ -1,0 +1,19 @@
+.side {
+  min-width: 266px;
+  width: auto;
+  padding: 0;
+  float: none;
+  min-height: auto;
+  .Card {
+    padding: 12px;
+  }
+  @media (max-width: 990px) {
+    width: 600px;
+    max-width: none;
+    min-width: auto;
+    margin: 24px auto;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}

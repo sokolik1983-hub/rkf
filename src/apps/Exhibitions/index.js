@@ -9,11 +9,14 @@ import ExhibitionsList from './components/List'
 import {defaultReduxKey} from "./config";
 import {ExhibitionsPathContext} from 'apps/Exhibitions/context'
 import injectReducer from "utils/injectReducer";
+import {useWrapClassName} from "../../shared/hooks";
 
 
 function ExhibitionsProxy(props) {
-
     const path = getPathFromRouterParams(props);
+
+    useWrapClassName('Exhibitions');
+
     return (
         <ExhibitionsPathContext.Provider value={{path}}>
             <PublicLayout>
