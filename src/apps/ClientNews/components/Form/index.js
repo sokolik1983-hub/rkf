@@ -11,7 +11,7 @@ const { fields } = newsArticleFormConfig;
 function ArticleCreateFormPublic({ addArticleSuccess }) {
     const { clubCommon } = useContext(ClubRouteContext);
     const onSuccess = values => {
-        addArticleSuccess(values);
+        addArticleSuccess({ ...values, logo_link: clubCommon.logo_link });
     };
     const transformValues = values => ({ ...values, club_id: clubCommon.id });
     return (
