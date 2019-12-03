@@ -40,7 +40,7 @@ const RenderFields = ({ fields, formik, content, file, id, onEditCancel }) => {
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + offset + 'px';
         textarea.value.length > 3000
-            ? alert('Превышено максимальное кол-во символов')
+            ? alert('Превышено максимальное кол-во символов (3000 симв.)')
             : formik.setFieldValue('content', textarea.value);
     }
     return (
