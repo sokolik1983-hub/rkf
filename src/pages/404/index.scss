@@ -1,0 +1,25 @@
+.not-found-page {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  padding: 84px 0 24px;
+  h1, h2 {
+    width: 100%;
+    text-align: center;
+  }
+  h1 {
+    font-size: 230px;
+    line-height: .9;
+    margin-top: -40px;
+  }
+  @media (max-width: 560px) {
+    h1 {
+      font-size: 150px;
+      margin-top: -15px;
+    }
+    h2 {
+      font-size: 24px;
+    }
+  }
+}

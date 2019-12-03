@@ -43,6 +43,6 @@ export const LoadableClientDogOwner = Loadable({
 });
 
 export const LoadableNotFound = Loadable({
-    loader: () => import(/* webpackChunkName: "app.404" */ './apps/404/index'),
+    loader: () => import(/* webpackChunkName: "app.404" */ './pages/404/index'),
     loading: Loading,
 });

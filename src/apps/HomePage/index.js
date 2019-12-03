@@ -8,7 +8,7 @@ import {ClubRouteContext} from './context'
 import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 import Loading from 'components/Loading';
-import PageNotFound from 'apps/404';
+import PageNotFound from "../../pages/404";
 
 
 function ClubHomePageProxy({match, clubCommon, getCommonSuccess}) {
