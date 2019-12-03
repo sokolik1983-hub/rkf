@@ -3,7 +3,8 @@
   margin: 0 auto;
   box-sizing: border-box;
 
-  &--content {
+  &--content,
+  &.container--content {
     margin-top: 70px;
     &:after {
       content: "";
