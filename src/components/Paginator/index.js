@@ -34,7 +34,7 @@ function PageSelector({onSubmit, pageCount}) {
     };
 
     return (
-        <form onSubmit={onPageSelectSubmit} className="FormInput">
+        <form onSubmit={onPageSelectSubmit}>
             <input
                 placeholder="Перейти"
                 type="number"

@@ -15,7 +15,11 @@
       margin-bottom: 12px;
     }
   }
+  &__wrap-head {
+    display: inline-block;
+  }
   &__item-head {
+    text-decoration: none;
     margin-bottom: 24px;
     display: flex;
     align-items: center;
@@ -46,5 +50,16 @@
     display: block;
     max-width: 100%;
     margin: 24px auto;
+  }
+  &__modal {
+    & > div:last-child {
+      width: 50%;
+      @media (max-width: 768px) {
+        width: 80%;
+      }
+      @media (max-width: 560px) {
+        width: 92%;
+      }
+    }
   }
 }

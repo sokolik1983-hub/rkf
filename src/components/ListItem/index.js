@@ -4,7 +4,7 @@ import {formatDateTime} from "../../utils/datetime";
 import './index.scss';
 
 
-const ListItem = ({date, photo, text, modalInner}) => {
+const ListItem = ({date, photo, text, modalInner, modalClass}) => {
     const [showModal, setShowModal] = useState(false);
 
     text = JSON.parse(JSON.stringify(text).replace(/\\r\\n/g, '<br>'));
@@ -23,7 +23,7 @@ const ListItem = ({date, photo, text, modalInner}) => {
                     <button className="list-item__show-all" onClick={() => setShowModal(true)}>Подробнее</button>
                 </div>
             </div>
-            <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
+            <Modal showModal={showModal} handleClose={() => setShowModal(false)} className={modalClass ? modalClass : ''}>
                 {modalInner}
             </Modal>
         </>

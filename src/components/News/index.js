@@ -12,12 +12,14 @@ const NewsList = ({news, pagesCount, currentPage, setPage}) => {
 
         return (
             <>
-                <div className="news__item-head">
-                    <Link to={`/${item.alias}`} className="news__avatar" style={{backgroundImage: `url(${item.logo_link})`}}/>
-                    <div className="news__about">
-                        <h5 className="news__name">{item.club_name}</h5>
-                        <p className="news__date">{formatDateTime(item.create_date)}</p>
-                    </div>
+                <div className="news__wrap-head">
+                    <Link to={`/${item.alias}`} className="news__item-head">
+                        <div className="news__avatar" style={{backgroundImage: `url(${item.logo_link})`}}/>
+                        <div className="news__about">
+                            <h5 className="news__name">{item.club_name}</h5>
+                            <p className="news__date">{formatDateTime(item.create_date)}</p>
+                        </div>
+                    </Link>
                 </div>
                 <div className="news__item-body">
                     <p className="news__text" dangerouslySetInnerHTML={{__html: text}} />
@@ -39,6 +41,7 @@ const NewsList = ({news, pagesCount, currentPage, setPage}) => {
                                 photo={item.picture_link}
                                 text={item.content}
                                 modalInner={modalInner(item)}
+                                modalClass="news__modal"
                             />
                         </Card>
                     </li>
