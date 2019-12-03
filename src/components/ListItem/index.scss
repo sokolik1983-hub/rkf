@@ -37,9 +37,10 @@
   &__text {
     height: 120px;
     overflow: hidden;
+    white-space: pre-wrap;
     @media (max-width: 560px) {
       height: auto;
-      max-height: 120px
+      max-height: 120px;
     }
   }
   &__show-all {
@@ -48,9 +49,9 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: #4C6BB0;
+    color: #4c6bb0;
     letter-spacing: 0;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
     &:hover {
       color: #36f;
     }
