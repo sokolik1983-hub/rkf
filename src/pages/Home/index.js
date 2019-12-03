@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import NewsList from "../../components/News";
-import {Request} from "../../utils/request";
-import {endpointGetNews, RKFInfo, partnersImg} from "./config";
+import { Request } from "../../utils/request";
+import { endpointGetNews, RKFInfo, partners } from "./config";
 import './index.scss';
 
 
 const HomePage = () => {
     const [news, setNews] = useState(null);
-    const [loading, setLoading] =  useState(true);
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [pagesCount, setPagesCount] = useState(1);
 
@@ -38,7 +38,7 @@ const HomePage = () => {
         <Layout>
             <Container className="content home-page">
                 {loading ?
-                    <Loading/> :
+                    <Loading /> :
                     <>
                         <Aside className="home-page__left">
                             <h3>{RKFInfo.aboutTitle}</h3>
@@ -66,9 +66,11 @@ const HomePage = () => {
                         <Aside className="home-page__right">
                             <h3>Наши партнёры</h3>
                             <ul className="home-page__partners">
-                                {partnersImg.map((link, i) => (
+                                {partners.map(({ url, title, img }, i) => (
                                     <li className="home-page__partners-item" key={i}>
-                                        <img src={link} alt="" />
+                                        <a href={url} target="_blank" rel="noopener noreferrer" title={title}>
+                                            <img src={img} alt="" />
+                                        </a>
                                     </li>
                                 ))}
                             </ul>

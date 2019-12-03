@@ -14,7 +14,7 @@
     margin: 24px 24px 0 0;
     flex-grow: 1;
     .Card {
-      background-color: rgba(51,102,255,.1);
+      background-color: rgba(51, 102, 255, 0.1);
     }
     @media (max-width: 1220px) {
       max-width: 400px;
@@ -39,7 +39,7 @@
   &__right {
     margin: 24px 0 0 24px;
     .Card {
-      background-color: rgba(51,102,255,.1);
+      background-color: rgba(51, 102, 255, 0.1);
       @media (max-width: 1220px) {
         min-height: 0;
       }
@@ -84,8 +84,10 @@
       @media (max-width: 480px) {
         margin: 0;
       }
-      img {
+      a {
         display: block;
+        text-align: center;
+        margin: 5px 0;
       }
     }
   }
