@@ -12,7 +12,7 @@ import { Request } from "../../../../utils/request";
 import ls from 'local-storage';
 
 
-const FinalReport = ({ reportHeader, getHeader }) => {
+const FinalReport = ({ reportHeader, getHeader, enableReport }) => {
     const [breeds, setBreeds] = useState(null);
     const [castes, setCastes] = useState(null);
     const [grades, setGrades] = useState(null);
@@ -133,6 +133,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('final_report'); // Clear local storage cache
             getHeader();
+            enableReport('mainRing');
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })
