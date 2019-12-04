@@ -48,7 +48,6 @@ function HomePageLayout() {
                                 <ClubContacts />
                                 <ClubSocial />
                                 <ClubWorkingHours />
-                                <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4>
                                 <ClubDocuments />
                             </Card>
                         </Side>

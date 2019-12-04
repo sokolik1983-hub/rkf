@@ -1,12 +1,13 @@
 import React from 'react'
 import ClubDocumentLink from './DocumentLink'
-import {connectClubDocuments} from 'apps/HomePage/connectors'
+import { connectClubDocuments } from 'apps/HomePage/connectors'
 
-function ClubDocuments({documents=[]}){
+function ClubDocuments({ documents = [] }) {
 
-    return(
+    return (
         <div className="ClubDocuments">
-            {documents.map(document=><ClubDocumentLink key={document.id} {...document}/>)}
+            {documents ? <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4> : null}
+            {documents.map(document => <ClubDocumentLink key={document.id} {...document} />)}
         </div>
     )
 }
