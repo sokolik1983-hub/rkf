@@ -22,20 +22,20 @@ export const exhibitions = {
     title: "Всероссийские выставки",
     items: [
         {
-            name: 'Link',
-            url: '#'
+            name: 'Россия',
+            url: 'http://rkf.org.ru/vystavki/russia/'
         },
         {
-            name: 'Link',
-            url: '#'
+            name: 'Евразия',
+            url: 'http://rkf.org.ru/vystavki/eurasia/'
         },
         {
-            name: 'Link',
-            url: '#'
+            name: 'Мазовер',
+            url: 'http://rkf.org.ru/vystavki/mazover/'
         },
         {
-            name: 'Link',
-            url: '#'
+            name: 'Золотой ошейник',
+            url: 'http://rkf.org.ru/vystavki/golden_collar/'
         },
 
     ]
