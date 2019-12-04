@@ -1,20 +1,20 @@
-import React, {useEffect, useRef, useState} from 'react'
-import {object, string, func} from 'prop-types'
+import React, { useEffect, useRef, useState } from 'react'
+import { object, string, func } from 'prop-types'
 import axios from "axios";
-import {getHeaders} from "utils/request";
-import {objectNotEmpty} from "utils/index";
+import { getHeaders } from "utils/request";
+import { objectNotEmpty } from "utils/index";
 
 import Button from 'components/Button'
 
 
 function ActiveImageWrapper({
-                                requestUrl,
-                                requestParams,
-                                onSubmitSuccess,
-                                children,
-                                additionalParams,
-                                bindSubmitForm
-                            }) {
+    requestUrl,
+    requestParams,
+    onSubmitSuccess,
+    children,
+    additionalParams,
+    bindSubmitForm
+}) {
 
     const inputEl = useRef(null);
     const initialState = {
@@ -25,9 +25,14 @@ function ActiveImageWrapper({
     };
 
     const [state, setState] = useState(initialState);
-
+    const btnStyle = {
+        display: 'flex',
+        padding: '6px 0',
+        color: '#3366FF',
+        flex: '1 0'
+    };
     const onEdit = () => {
-        setState({...state, isEdit: true});
+        setState({ ...state, isEdit: true });
         inputEl.current.click()
     };
 
@@ -48,13 +53,13 @@ function ActiveImageWrapper({
 
     const onSubmit = async () => {
         if (state.inputValue) {
-            setState({...state, loading: true});
+            setState({ ...state, loading: true });
             const data = new FormData(requestParams);
             data.append('file', state.inputValue);
             if (objectNotEmpty(requestParams)) {
                 Object.keys(requestParams).forEach(key => data.append(key, requestParams[key]))
             }
-            if(additionalParams) {
+            if (additionalParams) {
                 Object.keys(additionalParams).forEach(key => data.append(key, additionalParams[key]))
             }
             const config = {
@@ -65,14 +70,14 @@ function ActiveImageWrapper({
             };
             const response = await axios(config);
             onSubmitSuccess(response.data.result);
-            setState({...state, loading: false});
+            setState({ ...state, loading: false });
 
 
             clear()
         }
     };
 
-    if(bindSubmitForm) bindSubmitForm(onSubmit);
+    if (bindSubmitForm) bindSubmitForm(onSubmit);
 
     const getChildElSize = () => {
         // console.log('onSubmitSuccess', onSubmitSuccess)
@@ -83,7 +88,7 @@ function ActiveImageWrapper({
         // TODO throw error if not single child
         if (children.type === 'img') {
             // if img element replace it's src
-            return React.cloneElement(children, {src: state.imagePreview})
+            return React.cloneElement(children, { src: state.imagePreview })
         }
         if (children.props.style.backgroundImage) {
             // if not img element but have backgroundImage style prop replace it
@@ -100,14 +105,19 @@ function ActiveImageWrapper({
     return (
         <>
             <input
-                style={{display: 'none'}}
+                style={{ display: 'none' }}
                 ref={inputEl}
                 onChange={onInputChange}
                 type="file"
             />
             {state.imagePreview ? renderPreview() : children}
             <div className="ActiveImageWrapper__controls">
-                <Button className="btn-simple" condensed disabled={state.loading} onClick={onEdit}>
+                <Button
+                    style={btnStyle}
+                    className="btn-transparent"
+                    condensed
+                    disabled={state.loading}
+                    onClick={onEdit}>
                     Изменить
                 </Button>
                 {state.imagePreview &&
