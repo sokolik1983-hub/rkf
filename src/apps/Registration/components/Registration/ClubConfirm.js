@@ -4,9 +4,7 @@ import { compose } from 'redux';
 import { connectWidgetLogin } from 'apps/Auth/connectors';
 
 const ClubConfirm = ({ club, history, logOutUser }) => {
-    const [email, setEmail] = useState('');
     const [code, setCode] = useState(null);
-    const handleEmailChange = (e) => setEmail(e.target.value);
     const handleCodeChange = (e) => setCode(e.target.value);
     const getFieldValue = field => field ? field : 'Отсутствует';
     const onEmailSubmit = (e) => {
@@ -19,13 +17,13 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
             },
             body: JSON.stringify({
                 "club_id": club.club_id,
-                "mail": email
+                "mail": club.mail
             })
         })
             .then((response) => response.json())
             .then((response) => {
                 if (response.returnCode >= 200 && response.returnCode < 300) {
-                    alert('Код активации отправлен на ' + email);
+                    alert('Код активации отправлен на ' + club.mail);
                     setCode('');
                 } else {
                     alert(`Ошибка: ${Object.values(response.errors)}`);
@@ -76,7 +74,7 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
             </table>
             <h3>Активация клуба</h3>
             <form onSubmit={onEmailSubmit}>
-                <input size="30" onChange={handleEmailChange} value={email} required type="email" placeholder="Введите email" />
+                <p>Код активации будет отправлен на почту: <strong>{club.mail}</strong></p>
                 <button style={{ marginLeft: '10px' }} type="submit">Отправить</button>
             </form>
             {
