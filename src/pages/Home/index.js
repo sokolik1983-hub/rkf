@@ -71,7 +71,7 @@ const HomePage = () => {
                                 <h3>{exhibitions.title}</h3>
                                 <ul style={{ listStyle: 'none' }}>
                                     {exhibitions.items.map(({ name, url }) => <li>
-                                        <a href={url} title={name} target="_blank" rel="noopener noreferrer">{name}</a>
+                                        <a className="link" href={url} title={name} target="_blank" rel="noopener noreferrer">{name}</a>
                                     </li>)}
                                 </ul>
                             </Card>
