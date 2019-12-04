@@ -41,7 +41,7 @@ function HomePageLayout() {
                             </Card>
                         </Content>
                         <Side>
-                            <Card>
+                            <Card style={{padding: '18px'}}>
                                 <h4 className="text-upper">Контакты</h4>
                                 <ClubAddress />
                                 <ClubOwnerName />

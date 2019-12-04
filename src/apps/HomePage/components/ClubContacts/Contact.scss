@@ -3,14 +3,16 @@
   position: relative;
   margin-bottom: 4px;
   &__description {
+    max-width: 165px;
+    overflow-wrap: break-word;
     padding-right: 4px;
   }
 
   &__value {
+    display: flex;
+    align-items: center;
     color: #61797c;
   }
-
-
 
   //&--1 {
   //  &:after {
