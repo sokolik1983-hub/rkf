@@ -52,6 +52,15 @@
       max-height: 120px;
     }
   }
+  &__text-short {
+    height: 48px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    @media (max-width: 560px) {
+      height: auto;
+      max-height: 48px;
+    }
+  }
   &__show-all {
     display: inline-block;
     margin: 12px 0 0 auto;
