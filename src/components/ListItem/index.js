@@ -16,11 +16,11 @@ const ListItem = ({date, photo, text, modalInner, modalClass}) => {
                     {formatDateTime(date)}
                 </span>
             </div>
-            <div className="list-item__body">
+            <div className="list-item__body" onClick={() => setShowModal(true)}>
                 {photo && <div className="list-item__photo" style={{backgroundImage: `url(${photo})`}} />}
                 <div className="list-item__info">
                     <p className="list-item__text" dangerouslySetInnerHTML={{__html: text}} />
-                    <button className="list-item__show-all" onClick={() => setShowModal(true)}>Подробнее</button>
+                    <button className="list-item__show-all" >Подробнее</button>
                 </div>
             </div>
             <Modal showModal={showModal} handleClose={() => setShowModal(false)} className={modalClass ? modalClass : ''}>
