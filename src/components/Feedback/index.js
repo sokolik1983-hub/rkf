@@ -95,7 +95,7 @@ const Feedback = () => {
                             {...feedbackFormConfig}
                             initialValues={{
                                 type: 1,
-                                title: "Новое обращение от " + d.toLocaleDateString() + " " + d.toLocaleTimeString()
+                                title: "Ошибка на сайте " + d.toLocaleDateString() + " " + d.toLocaleTimeString()
                             }}
                         >
                             <FormGroup>
@@ -118,7 +118,10 @@ const Feedback = () => {
                     <TabContent tabContent="Предложение по работе портала">
                         <Form
                             {...feedbackFormConfig}
-                            initialValues={{ type: 2 }}
+                            initialValues={{
+                                type: 2,
+                                title: "Предложение пользователя от " + d.toLocaleDateString() + " " + d.toLocaleTimeString()
+                            }}
                         >
                             <FormGroup>
                                 <FormField
