@@ -7,6 +7,15 @@
   &__user-icon {
     margin: 0 8px 0 0;
   }
+  &__user-login {
+    max-width: 500px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @media (max-width: 1024px) {
+      max-width: 350px;
+    }
+  }
   .Dropdown__content--visible {
     width: 195px;
   }
