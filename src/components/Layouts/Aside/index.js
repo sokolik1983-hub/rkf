@@ -1,12 +1,9 @@
 import React from "react";
-import Card from "../../Card";
 import './index.scss';
 
-const Aside = ({children, className}) => (
+const Aside = ({ children, className }) => (
     <aside className={`side${className ? ' ' + className : ''}`}>
-        <Card>
-            {children}
-        </Card>
+        {children}
     </aside>
 );
 
