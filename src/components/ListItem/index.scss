@@ -1,7 +1,16 @@
 .list-item {
   &__head {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 12px;
     text-align: right;
+    white-space: nowrap;
+    h5 {
+      margin-right: 10px;
+      max-width: 65%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   &__date {
     color: #72839c;

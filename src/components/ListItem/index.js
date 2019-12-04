@@ -4,7 +4,7 @@ import {formatDateTime} from "../../utils/datetime";
 import './index.scss';
 
 
-const ListItem = ({date, photo, text, modalInner, modalClass}) => {
+const ListItem = ({date, photo, clubName, text, modalInner, modalClass}) => {
     const [showModal, setShowModal] = useState(false);
 
     text = JSON.parse(JSON.stringify(text).replace(/\\r\\n/g, '<br>'));
@@ -12,6 +12,9 @@ const ListItem = ({date, photo, text, modalInner, modalClass}) => {
     return (
         <>
             <div className="list-item__head">
+                <h5 className="list-item__date">
+                    {clubName}
+                </h5>
                 <span className="list-item__date">
                     {formatDateTime(date)}
                 </span>
