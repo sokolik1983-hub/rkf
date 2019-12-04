@@ -10,8 +10,7 @@ function ClubWorkingHours({ workTimeFrom, workTimeTo }) {
             ? (
                 <div className="ClubWorkingHours">
                     Часы работы:
-                    <div>Будние с {timeSecondsCutter(workTimeFrom)} до {timeSecondsCutter(workTimeTo)}</div>
-                    <div>Вск, сбб — выходные</div>
+                    <div>Будние дни с {timeSecondsCutter(workTimeFrom)} до {timeSecondsCutter(workTimeTo)}</div>
                 </div>
             )
             : null
