@@ -12,9 +12,9 @@ const ListItem = ({ date, photo, clubName, text, modalInner, modalClass }) => {
     return (
         <>
             <div className="list-item__head">
-                <h5 className="list-item__date">
+                <h4 className="list-item__date">
                     {clubName}
-                </h5>
+                </h4>
                 <span className="list-item__date">
                     {formatDateTime(date)}
                 </span>
