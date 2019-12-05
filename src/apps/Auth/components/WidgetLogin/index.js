@@ -5,7 +5,7 @@ import Dropdown from 'components/Dropdown';
 //import { UserIcon } from './UserIcon'
 import { connectWidgetLogin } from 'apps/Auth/connectors';
 import { UserLogin } from './UserLogin';
-import { LOGIN_URL, REGISTER_URL } from 'appConfig';
+import { LOGIN_URL } from 'appConfig';
 import './index.scss';
 import { connect } from "react-redux";
 
@@ -16,16 +16,12 @@ const DropInner = ({ title = 'Личный кабинет' }) => (
     </Fragment>
 );
 
-const Inner = () => (
-    <div className="widget-login__auth-link">Личный кабинет</div>
-);
-
 function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name }) {
     // const clubName = name && name !== club_name ? name : club_name;
     const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
 
-    return isAuthenticated ? (
-        <Dropdown
+    return isAuthenticated
+        ? <Dropdown
             className="widget-login"
             position="right"
             closeOnClick={true}
@@ -43,16 +39,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
                 <Link to={'/'} onClick={logOutUser}>Выход</Link>
             </DropDownItem>
         </Dropdown>
-    ) : (
-            <Dropdown className="widget-login" innerComponent={<Inner />}>
-                <DropDownItem>
-                    <Link to={LOGIN_URL}>Вход</Link>
-                </DropDownItem>
-                <DropDownItem>
-                    <Link to={REGISTER_URL}>Регистрация</Link>
-                </DropDownItem>
-            </Dropdown>
-        );
+        : <Link className="login-link" to={LOGIN_URL}>Вход</Link>;
 }
 
 const mapStateToProps = state => ({
