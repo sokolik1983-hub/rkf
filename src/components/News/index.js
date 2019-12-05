@@ -40,7 +40,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                         rel="noreferrer noopener">
                         <img
                             style={{ maxWidth: '100%', maxHeight: '100px' }}
-                            src="http://rkf.org.ru/wp-content/uploads/2019/11/eur20-logorgb-01.s5klu-1.png"
+                            src="/static/images/exhibitions/eur-big.png"
                             alt="" />
                     </a>
                 </div>
