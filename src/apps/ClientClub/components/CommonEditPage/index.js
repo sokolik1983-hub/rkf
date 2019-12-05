@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {withRouter} from 'react-router';
-import {compose} from 'redux';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router';
+import { compose } from 'redux';
 import Card from "components/Card";
 import ClubLegalInfo from 'apps/ClubLegalInfo';
 import ClubBankInfo from 'apps/ClubBankInfo';
@@ -10,12 +10,12 @@ import ClubDocuments from 'apps/ClubDocuments';
 import ClubSocial from 'apps/ClubSocial';
 import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
 import EditPageButtons from 'apps/Client/components/EditPageButtons';
-import {connectClientClubAlias} from 'apps/ClientClub/connectors';
+import { connectClientClubAlias } from 'apps/ClientClub/connectors';
 import './styles.scss';
 
 let unblock;
 
-function ClubEditPage({club_alias, history}) {
+function ClubEditPage({ club_alias, history }) {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -35,7 +35,7 @@ function ClubEditPage({club_alias, history}) {
     useEffect(() => {
         unblock = history.block('Вы точно хотите уйти со страницы редактирования?');
         return () => unblock();
-    },  []);
+    }, []);
 
     const bindSubmitClubAlias = {
         submit: (submitFunc, errors) => {
@@ -43,7 +43,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.alias = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, alias: errors}));
+            setErrors(prevObj => ({ ...prevObj, alias: errors }));
         }
     };
     const bindSubmitClubLogo = (submitFormFunction) => {
@@ -55,7 +55,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.info = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, info: errors}));
+            setErrors(prevObj => ({ ...prevObj, info: errors }));
         }
     };
     const bindSubmitClubLegalInfo = {
@@ -64,7 +64,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.legalInfo = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, legalInfo: errors}));
+            setErrors(prevObj => ({ ...prevObj, legalInfo: errors }));
         }
     };
     const bindSubmitClubBankInfo = {
@@ -73,7 +73,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.bankInfo = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, bankInfo: errors}));
+            setErrors(prevObj => ({ ...prevObj, bankInfo: errors }));
         }
     };
     const bindSubmitClubEmail = {
@@ -82,7 +82,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.email = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, email: errors}));
+            setErrors(prevObj => ({ ...prevObj, email: errors }));
         }
     };
     const bindSubmitClubPhone = {
@@ -91,7 +91,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.phone = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, phone: errors}));
+            setErrors(prevObj => ({ ...prevObj, phone: errors }));
         }
     };
     const bindSubmitClubDocuments = {
@@ -100,7 +100,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.documents = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, documents: errors}));
+            setErrors(prevObj => ({ ...prevObj, documents: errors }));
         }
     };
     const bindSubmitClubSocials = {
@@ -109,7 +109,7 @@ function ClubEditPage({club_alias, history}) {
             clientErrors.socials = errors;
         },
         getErrors: (errors) => {
-            setErrors(prevObj => ({...prevObj, socials: errors}));//подумать, где вызвать
+            setErrors(prevObj => ({ ...prevObj, socials: errors }));//подумать, где вызвать
         }
     };
     const bindSubmitClubHeaderPicture = (submitFormFunction) => {
@@ -135,12 +135,12 @@ function ClubEditPage({club_alias, history}) {
             let isValid = true;
 
             Object.keys(clientErrors).forEach(key => {
-                if(Object.keys(clientErrors[key]).length) {
+                if (Object.keys(clientErrors[key]).length) {
                     isValid = false;
                 }
             });
 
-            if(isValid) {
+            if (isValid) {
                 setIsSubmit(true);
                 setQuerysCount(querysCount = validSubmitFunctions.length);
             } else {
@@ -152,13 +152,16 @@ function ClubEditPage({club_alias, history}) {
     };
 
     useEffect(() => {
-        if(isSubmit && Object.keys(serverErrors).length === querysCount - 2) {// "-2" -это 2 запроса с картинками, которые не обрабатываются
+        if (isSubmit && Object.keys(serverErrors).length === querysCount - 2) {// "-2" -это 2 запроса с картинками, которые не обрабатываются
             const isValid = !Object.keys(serverErrors).filter(key => Object.keys(serverErrors[key]).length).length;
-            if(isValid && club_alias) {
+            if (isValid && club_alias) {
                 unblock();
                 history.push(`/${club_alias}`);
             } else {
-                alert('Что-то пошло не так...');
+                alert(Object.values(serverErrors)
+                    .filter(e => Object.entries(e).length)
+                    .map(e => `Ошибка: ${Object.values(e)[0]}`)
+                    .join('\n'));
                 setIsSubmit(false);
                 setErrors({});
                 setQuerysCount(0);
@@ -171,8 +174,8 @@ function ClubEditPage({club_alias, history}) {
             <h2>Личный кабинет</h2>
             <Card style={{ margin: '24px 0' }}>
                 <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                          bindSubmitClubLogo={bindSubmitClubLogo}
-                          bindSubmitClubInfo={bindSubmitClubInfo}
+                    bindSubmitClubLogo={bindSubmitClubLogo}
+                    bindSubmitClubInfo={bindSubmitClubInfo}
                 />
             </Card>
             <Card style={{ margin: '24px 0' }}>
@@ -184,21 +187,21 @@ function ClubEditPage({club_alias, history}) {
             <Card style={{ margin: '24px 0' }}>
                 <h3>Контакты</h3>
                 <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                              bindSubmitClubPhone={bindSubmitClubPhone}
+                    bindSubmitClubPhone={bindSubmitClubPhone}
                 />
             </Card>
             <Card style={{ margin: '24px 0' }}>
                 <h3>Ссылки на документы</h3>
-                <ClubDocuments bindSubmitForm={bindSubmitClubDocuments}/>
+                <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
             </Card>
             <Card style={{ margin: '24px 0' }}>
                 <h3>Социальные сети</h3>
-                <ClubSocial bindSubmitForm={bindSubmitClubSocials}/>
+                <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
             </Card>
             <Card style={{ margin: '24px 0' }}>
-                <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture}/>
+                <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} />
             </Card>
-            <EditPageButtons handleSubmitForms={handleSubmitForms}/>
+            <EditPageButtons handleSubmitForms={handleSubmitForms} />
         </div>
     )
 }
