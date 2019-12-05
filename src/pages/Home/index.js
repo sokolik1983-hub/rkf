@@ -68,10 +68,12 @@ const HomePage = () => {
                         />
                         <Aside className="home-page__right">
                             <Card style={{ marginBottom: '24px' }}>
-                                <h3>{exhibitions.title}</h3>
-                                <ul style={{ listStyle: 'none' }}>
-                                    {exhibitions.items.map(({ name, url }) => <li>
-                                        <a className="link" href={url} title={name} target="_blank" rel="noopener noreferrer">{name}</a>
+                                <h3 className="home-page__exhibitions-title">{exhibitions.title}</h3>
+                                <ul className="home-page__exhibitions" style={{ listStyle: 'none' }}>
+                                    {exhibitions.items.map(({ name, url, logo }) => <li>
+                                        <a href={url} title={name} target="_blank" rel="noopener noreferrer">
+                                            <img src={logo} alt={name} />
+                                        </a>
                                     </li>)}
                                 </ul>
                             </Card>

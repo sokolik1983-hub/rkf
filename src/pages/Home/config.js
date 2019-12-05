@@ -23,19 +23,23 @@ export const exhibitions = {
     items: [
         {
             name: 'Россия',
-            url: 'http://rkf.org.ru/vystavki/russia/'
+            url: 'http://rkf.org.ru/vystavki/russia/',
+            logo: '/static/images/exhibitions/rus.png'
         },
         {
             name: 'Евразия',
-            url: 'http://rkf.org.ru/vystavki/eurasia/'
+            url: 'http://rkf.org.ru/vystavki/eurasia/',
+            logo: '/static/images/exhibitions/eur.png'
         },
         {
             name: 'Мазовер',
-            url: 'http://rkf.org.ru/vystavki/mazover/'
+            url: 'http://rkf.org.ru/vystavki/mazover/',
+            logo: '/static/images/exhibitions/maz.png'
         },
         {
             name: 'Золотой ошейник',
-            url: 'http://rkf.org.ru/vystavki/golden_collar/'
+            url: 'http://rkf.org.ru/vystavki/golden_collar/',
+            logo: '/static/images/exhibitions/zol.png'
         },
 
     ]
