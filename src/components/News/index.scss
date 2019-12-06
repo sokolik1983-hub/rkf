@@ -55,6 +55,12 @@
   }
   &__text {
     white-space: pre-wrap;
+    margin-bottom: 24px;
+    iframe {
+      max-width: 100%;
+      display: block;
+      margin: auto;
+    }
   }
   &__img {
     display: block;
