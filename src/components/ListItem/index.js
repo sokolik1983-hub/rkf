@@ -4,7 +4,7 @@ import { formatDateTime } from "../../utils/datetime";
 import './index.scss';
 
 
-const ListItem = ({ date, photo, clubName, text, modalInner, modalClass }) => {
+const ListItem = ({ date, photo, clubName, alias, text, modalInner, modalClass }) => {
     const [showModal, setShowModal] = useState(false);
     const urlify = t => t.replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
     text = JSON.parse(JSON.stringify(text).replace(/<[^>]*>/g, '').replace(/\\r\\n/g, '<br>'));
@@ -12,8 +12,8 @@ const ListItem = ({ date, photo, clubName, text, modalInner, modalClass }) => {
     return (
         <>
             <div className="list-item__head">
-                <h4 className="list-item__date">
-                    {clubName}
+                <h4 className="list-item__author">
+                    <a href={`/${alias}`}>{clubName}</a>
                 </h4>
                 <span className="list-item__date">
                     {formatDateTime(date)}

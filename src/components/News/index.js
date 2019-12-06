@@ -62,6 +62,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                                 date={item.create_date}
                                 photo={item.picture_link}
                                 clubName={item.club_name}
+                                alias={item.alias}
                                 text={urlify(item.content)}
                                 modalInner={modalInner(item)}
                                 modalClass="news__modal"

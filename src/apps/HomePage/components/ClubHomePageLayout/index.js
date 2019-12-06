@@ -33,9 +33,7 @@ function HomePageLayout() {
                         <Content>
                             <ClubDescription />
                             <ArticleCreateFormPublic />
-                            <Card>
-                                <NewsListPublic />
-                            </Card>
+                            <NewsListPublic />
                         </Content>
                         <Side>
                             <Card style={{ padding: '18px' }}>
