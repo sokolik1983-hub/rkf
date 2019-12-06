@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Card from "../Card";
 import ListItem from "../ListItem";
 import Paginator from "../Paginator";
-import { formatDateTime } from "../../utils/datetime";
-import { DEFAULT_IMG } from 'appConfig';
+import {formatDateTime} from "../../utils/datetime";
+import {DEFAULT_IMG} from 'appConfig';
 import './index.scss';
 
 const urlify = t => t.replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
+
+
 const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
     const modalInner = (item) => {
         const text = JSON.parse(JSON.stringify(item.content).replace('/(<([^>]+)>)/ig', '').replace(/\\r\\n/g, '<br>'));
@@ -61,7 +63,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                             <ListItem
                                 date={item.create_date}
                                 photo={item.picture_link}
-                                clubName={item.club_name}
+                                title={item.club_name}
                                 alias={item.alias}
                                 text={urlify(item.content)}
                                 modalInner={modalInner(item)}

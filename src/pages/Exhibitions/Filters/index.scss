@@ -1,0 +1,85 @@
+.exhibitions-filters {
+  &__title {
+    margin-bottom: 18px;
+  }
+  &__buttons {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-around;
+  }
+  &__button {
+    padding: 12px;
+    line-height: 1;
+    letter-spacing: 0;
+    min-width: 120px;
+    transition: all .2s linear;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
+  }
+}
+.exhibitions-page__left {
+  width: 302px;
+  min-width: 302px;
+  margin: 24px 24px 24px 0;
+  .Card {
+    background-color: #e1e9ff;
+    @media (max-width: 768px) {
+      border-radius: 0;
+    }
+  }
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    background-color: #e1e9ff;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: all .2s ease-out;
+    &._open {
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+}
+.exhibitions-page__show-filters {
+  display: none;
+  background: #4C6BB0 url("/static/icons/icon-filters.svg") no-repeat left 12px center;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);
+  letter-spacing: 0;
+  font-weight: 600;
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    width: calc(100% - 48px);
+  }
+  @media (max-width: 560px) {
+    left: 12px;
+    bottom: 12px;
+    width: calc(100% - 24px);
+  }
+}
+.exhibitions-page__hide-filters {
+  display: none;
+  border: none;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 12px;
+  top: 16px;
+  background: url("/static/icons/cross.svg") center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}

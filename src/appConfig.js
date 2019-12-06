@@ -19,9 +19,14 @@ const appRoutes = [
         component: LoadableModules.LoadableHomePage
     },
     {
-        exact: false,
+        exact: true,
         path: '/exhibitions',
         component: LoadableModules.LoadableExhibitions
+    },
+    {
+        exact: false,
+        path: '/exhibitions/:id',
+        component: LoadableModules.LoadableExhibition
     },
     {
         exact: false,

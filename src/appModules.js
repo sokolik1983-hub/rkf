@@ -1,11 +1,6 @@
 import Loadable from "react-loadable";
-import Loading from 'components/Loading'
+import Loading from './components/Loading';
 
-
-export const LoadableExhibitions = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Exhibitions/index'),
-    loading: Loading,
-});
 
 export const LoadableReports = Loadable({
     loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Reports/index'),
@@ -13,8 +8,18 @@ export const LoadableReports = Loadable({
 });
 
 export const LoadableHomePage = Loadable({
-    loader: () => import(/* webpackChunkName: "app.homepage" */ './pages/Home'), //'./apps/HomePage/homepage'
-    loading: Loading,
+    loader: () => import('./pages/Home'),
+    loading: Loading
+});
+
+export const LoadableExhibitions = Loadable({
+    loader: () => import('./pages/Exhibitions'),
+    loading: Loading
+});
+
+export const LoadableExhibition = Loadable({
+    loader: () => import('./pages/Exhibition'),
+    loading: Loading
 });
 
 export const LoadableClubPage = Loadable({

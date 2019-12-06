@@ -52,8 +52,3 @@ export const buildUrl = filter => {
         : endpointExhibitionsList;
 };
 
-export const loadGlobalCity = () => {
-    const globalCity = localStorage.getItem(LS_KEY);
-    const city = globalCity ? JSON.parse(globalCity) : null;
-    return city ? city : null;
-};

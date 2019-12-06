@@ -1,0 +1,73 @@
+#CitiesFilter {
+  .ExInput {
+    &__control {
+      background-color: transparent;
+      border-color: hsl(0,0%,80%);
+      border-radius: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      box-shadow: none;
+    }
+    &__value-container {
+      padding: 0;
+    }
+    &__indicator-separator,
+    &__dropdown-indicator {
+      display: none;
+    }
+    &__menu {
+      position: static;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    &__option {
+      padding-left: 0;
+      cursor: pointer;
+      span {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #253c5e;
+        padding-left: 30px;
+        position: relative;
+        &:before {
+          content: '';
+          width: 18px;
+          height: 18px;
+          border: 2px solid #DADADA;
+          border-radius: 4px;
+          position: absolute;
+          left: 0;
+          top: 1px;
+          transition: all .2s linear;
+        }
+        &:after {
+          content: '';
+          width: 7px;
+          height: 11px;
+          border-right: 2px solid #fff;
+          border-bottom: 2px solid #fff;
+          transform: rotate(45deg);
+          position: absolute;
+          top: 3px;
+          left: 6px;
+          opacity: 0;
+          transition: opacity .2s linear;
+        }
+      }
+      &--is-selected {
+        background-color: transparent;
+        span:before {
+          background-color: #00C48C;
+          border-color: #00C48C;
+        }
+        span:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

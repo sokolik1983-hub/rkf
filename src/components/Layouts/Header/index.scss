@@ -58,6 +58,22 @@
       }
     }
   }
+  &__filters {
+    display: none;
+    margin: 0 12px 0 auto;
+    padding: 0;
+    border: 0;
+    height: 32px;
+    width: 32px;
+    background: url("/static/icons/icon-filters.svg") no-repeat center;
+    background-size: contain;
+    & ~ button {
+      margin-left: 0;
+    }
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
   &__button {
     display: none;
     @media (max-width: 768px) {
@@ -137,7 +153,16 @@
       }
     }
   }
-
+  .feedback-link {
+    @media (max-width: 768px) {
+      display: block;
+      padding: 6px 12px;
+      &:hover {
+        color: #253C5E;
+        background: #f6f7f7;
+      }
+    }
+  }
   .Dropdown {
     .css-ulftuk-option, .drop-down__item {
       color: #72839c;

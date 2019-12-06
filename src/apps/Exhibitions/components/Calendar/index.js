@@ -20,7 +20,6 @@ function Calendar({ calendarModifiers, fetchDatesSuccess }) {
             </div>
             <CalendarLegend>
                 <CalendarLegendItem color="green">Доступные выставки</CalendarLegendItem>
-                {/*<CalendarLegendItem color="blue">Ваша выставка</CalendarLegendItem>*/}
             </CalendarLegend>
         </div>
     )

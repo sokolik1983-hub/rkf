@@ -5,10 +5,11 @@ import Nav from "./components/Nav";
 import WidgetLogin from "../../../apps/Auth/components/WidgetLogin";
 import BurgerButton from "./components/BurgerButton";
 import Feedback from 'components/Feedback';
+import {connectShowFilters} from "../connectors";
 import './index.scss';
 
 
-const Header = ({className}) => {
+const Header = ({withFilters, isOpenFilters, setShowFilters}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const setOverflow = (isOpen) => {
@@ -26,7 +27,7 @@ const Header = ({className}) => {
     }, [isOpen]);
 
     return (
-        <header className={`Header${className ? ' ' + className : ''}`}>
+        <header className="Header">
             <Container className="Header__wrap">
                 <Link to="/" className="Header__logo">
                     <img src="/static/images/header/rkf-logo.svg" alt="logo"/>
@@ -36,6 +37,7 @@ const Header = ({className}) => {
                     <Feedback />
                     <WidgetLogin/>
                 </div>
+                {withFilters && <button className="Header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})} />}
                 <BurgerButton
                     className={isOpen ? '_open' : ''}
                     onClick={() => setIsOpen(!isOpen)}
@@ -45,4 +47,4 @@ const Header = ({className}) => {
     )
 };
 
-export default Header;
+export default connectShowFilters(React.memo(Header));

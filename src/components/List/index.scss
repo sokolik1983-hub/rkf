@@ -1,0 +1,11 @@
+.list {
+  &__content {
+    list-style: none;
+  }
+  &__item {
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
+    }
+  }
+}

@@ -3,12 +3,12 @@
   flex-flow: row wrap;
   align-items: stretch;
   background-color: #fff;
-  .FormInput {
+  &__input {
     margin: 0 8px 0 0;
     @media (max-width: 560px) {
       margin-right: 5px;
     }
-    &__input {
+    .FormInput__input {
       width: 103px;
       height: 40px;
       padding: 8px 14px 9px;
@@ -68,7 +68,7 @@
     &--active {
       background-color: #4C6BB0;
       color: #fff;
-      border-color: #3366ff;
+      border-color: #4C6BB0;
       box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);
       @media (max-width: 560px) {
         box-shadow: 0 2px 5px rgba(51, 102, 255, 0.3);

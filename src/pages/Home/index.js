@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import NewsList from "../../components/News";
-import { Request } from "../../utils/request";
-import Card from "components/Card";
+import {Request} from "../../utils/request";
+import Card from "../../components/Card";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
 import './index.scss';
 
