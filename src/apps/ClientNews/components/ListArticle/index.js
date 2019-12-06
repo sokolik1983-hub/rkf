@@ -6,7 +6,7 @@ import './styles.scss'
 import DeleteButton from "components/DeleteButton";
 import { connectListArticle } from 'apps/ClientNews/connectors'
 import { formatDateTime } from 'utils/datetime'
-import { connectAuthVisible } from 'apps/Auth/connectors'
+import { connectClubArticleForm } from 'apps/Auth/connectors'
 import { DEFAULT_CONTENT_LENGTH, DEFAULT_IMG } from 'appConfig'
 import ArticleEditFormPublic from 'apps/ClientNews/components/Edit';
 
@@ -41,8 +41,8 @@ function ListArticle({
         e.preventDefault();
         setCollapsed(false);
     }
-    const Controls = ({ isAuthenticated }) => {
-        if (!isAuthenticated) return null;
+    const Controls = ({ isAuthenticated, profile_id, clubId }) => {
+        if (!isAuthenticated || profile_id !== clubId) return null;
         return (
             <Dropdown position="right">
                 <button className="btn EditButton" onClick={() => setEdit(true)}>Редактировать</button>
@@ -58,7 +58,7 @@ function ListArticle({
             </Dropdown>
         )
     };
-    const ListArticleControls = connectAuthVisible(Controls);
+    const ListArticleControls = connectClubArticleForm(Controls);
     const urlify = t => t.replace(/[^"](https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">

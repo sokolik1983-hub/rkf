@@ -11,12 +11,20 @@ export const selectIsAuthenticated = state => {
     return { isAuthenticated };
 };
 
+export const selectCreateArticleForm = state => {
+    const { isAuthenticated, profile_id } = getAuthenticationState(state);
+    const clubId = state.home_page.club.common.id;
+
+    return { isAuthenticated, profile_id, clubId };
+};
+
 export const selectWidgetLogin = state => {
     const { isAuthenticated, user_info } = getAuthenticationState(state);
     if (isAuthenticated) {
-        const { club_alias, club_name } = user_info;
-        return { isAuthenticated, club_alias, club_name };
+        const { club_alias, club_name, id } = user_info;
+        return { isAuthenticated, club_alias, club_name, id };
     }
 
     return { isAuthenticated };
 };
+
