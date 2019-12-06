@@ -11,7 +11,9 @@ function ClubHeader(props) {
     const {
         clubLogo,
         clubHeaderImg,
-        clubName
+        clubName,
+        clubId,
+        profileId
     } = props;
     return (
         <div className="ClubHeader">
@@ -21,9 +23,13 @@ function ClubHeader(props) {
                     <ClubLogo logo={clubLogo} />
                     <h3>{clubName}</h3>
                 </div>
-                <AuthVisible>
-                    <Link className="btn btn-primary" to="/client">Редактировать профиль</Link>
-                </AuthVisible>
+                {
+                    clubId === profileId
+                        ? <AuthVisible>
+                            <Link className="btn btn-primary" to="/client">Редактировать профиль</Link>
+                        </AuthVisible>
+                        : null
+                }
             </div>
         </div>
     )

@@ -1,16 +1,16 @@
-import {defaultReduxKey} from "./config";
+import { defaultReduxKey } from "./config";
 
 export const getState = state => state[defaultReduxKey];
 
 
 export const selectClubRoute = state => {
-    const {club} = getState(state);
-    return {route: club.route}
+    const { club } = getState(state);
+    return { route: club.route }
 };
 
 export const selectExhibitions = state => {
-    const {exhibitions} = getState(state);
-    const {route} = selectClubRoute(state);
+    const { exhibitions } = getState(state);
+    const { route } = selectClubRoute(state);
     return {
         route,
         ...exhibitions
@@ -18,7 +18,7 @@ export const selectExhibitions = state => {
 };
 
 export const selectExhibition = (state, props) => {
-    const {listCollection} = selectExhibitions(state);
+    const { listCollection } = selectExhibitions(state);
     return {
         ...listCollection[String(props.id)]
     }
@@ -26,8 +26,8 @@ export const selectExhibition = (state, props) => {
 
 
 export const selectNews = state => {
-    const {route} = selectClubRoute(state);
-    const {listIds, listCollection} = getState(state).news;
+    const { route } = selectClubRoute(state);
+    const { listIds, listCollection } = getState(state).news;
     return {
         route,
         listIds,
@@ -36,19 +36,22 @@ export const selectNews = state => {
 };
 
 export const selectClubHeader = state => {
-    const {common} = getState(state).club;
-    const {logo_link, headliner_link, name} = common;
+    const { common } = getState(state).club;
+    const { logo_link, headliner_link, name, id } = common;
+    const { authentication } = state;
     return {
         clubLogo: logo_link,
         clubHeaderImg: headliner_link,
         clubName: name,
+        clubId: id,
+        profileId: authentication.profile_id
     }
 };
 
 export const selectNewsStory = (state, props) => {
 
     if (props.id) {
-        const {listCollection} = selectNews(state);
+        const { listCollection } = selectNews(state);
         return {
             ...listCollection[String(props.id)]
         }
@@ -58,21 +61,21 @@ export const selectNewsStory = (state, props) => {
 };
 
 export const selectFeaturedExhibitionsList = state => {
-    const {exhibitions} = getState(state);
+    const { exhibitions } = getState(state);
     // const {listIds} = exhibitions;
-    const {route} = selectClubRoute(state);
-    return {route, exhibitions: exhibitions.list}
+    const { route } = selectClubRoute(state);
+    return { route, exhibitions: exhibitions.list }
 };
 
 export const selectClubCommon = state => {
-    const {common} = getState(state).club;
+    const { common } = getState(state).club;
     return {
         clubCommon: common,
     }
 };
 export const selectClubDescription = state => {
-    const {common} = getState(state).club;
-    const {description} = common;
+    const { common } = getState(state).club;
+    const { description } = common;
     return {
         description
     }
@@ -80,27 +83,27 @@ export const selectClubDescription = state => {
 
 
 export const selectClubAddress = state => {
-    const {common} = getState(state).club;
-    const {address, city} = common;
-    return {address, city}
+    const { common } = getState(state).club;
+    const { address, city } = common;
+    return { address, city }
 };
 
 export const selectClubContacts = state => {
-    const {contacts} = getState(state).club;
-    return {contacts}
+    const { contacts } = getState(state).club;
+    return { contacts }
 };
 
 export const selectClubOwnerName = state => {
-    const {common} = getState(state).club;
-    const {owner_name} = common;
+    const { common } = getState(state).club;
+    const { owner_name } = common;
     return {
         clubOwner: owner_name
     }
 };
 
 export const selectClubWorkingHours = state => {
-    const {common} = getState(state).club;
-    const {work_time_from, work_time_to} = common;
+    const { common } = getState(state).club;
+    const { work_time_from, work_time_to } = common;
     return {
         workTimeFrom: work_time_from,
         workTimeTo: work_time_to
@@ -108,7 +111,7 @@ export const selectClubWorkingHours = state => {
 };
 
 export const selectClubDocuments = state => {
-    const {documents} = getState(state).club;
-    return {documents}
+    const { documents } = getState(state).club;
+    return { documents }
 };
 
