@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Card from 'components/Card'
 import './styles.scss'
 import FeaturedExhibition from './Exhibition'
 import { useResourceAndStoreToRedux } from 'shared/hooks'
@@ -14,21 +15,21 @@ const FeaturedExhibitionsList = ({ club_id, club_alias }) => {
         setExhibitions
     );
 
-    const featuredExhibitions = exhibitions ? exhibitions.slice(0, 3) : [];
+    const featuredExhibitions = exhibitions.length ? exhibitions.slice(0, 3) : null;
+
     return (
-        <div
-            className={classnames('FeaturedExhibitions', {
+        <Card>
+            <h4 className="text-upper">Выставки</h4>
+            <div className={classnames('FeaturedExhibitions', {
                 'FeaturedExhibitionsx--loading': loading
-            })}
-        >
-            {featuredExhibitions ? (
-                featuredExhibitions.map((exhibition, index) => (
-                    <FeaturedExhibition {...exhibition} key={index} />
-                ))
-            ) : (
-                    <h2>Не найдено анонсов выставок</h2>
-                )}
-        </div>
+            })}>
+                {
+                    featuredExhibitions
+                        ? featuredExhibitions.map((exhibition, index) => <FeaturedExhibition {...exhibition} key={index} />)
+                        : <h3>Не найдено анонсов выставок</h3>
+                }
+            </div>
+        </Card>
     )
 }
 
