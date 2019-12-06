@@ -27,14 +27,14 @@ export const exhibitions = {
             logo: '/static/images/exhibitions/rus.png'
         },
         {
-            name: 'Евразия',
-            url: 'http://rkf.org.ru/vystavki/eurasia/',
-            logo: '/static/images/exhibitions/eur.png'
-        },
-        {
             name: 'Мазовер',
             url: 'http://rkf.org.ru/vystavki/mazover/',
             logo: '/static/images/exhibitions/maz.png'
+        },
+        {
+            name: 'Евразия',
+            url: 'http://rkf.org.ru/vystavki/eurasia/',
+            logo: '/static/images/exhibitions/eur.png'
         },
         {
             name: 'Золотой ошейник',
