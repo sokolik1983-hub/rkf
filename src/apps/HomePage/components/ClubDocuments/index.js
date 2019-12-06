@@ -3,12 +3,15 @@ import ClubDocumentLink from './DocumentLink'
 import { connectClubDocuments } from 'apps/HomePage/connectors'
 
 function ClubDocuments({ documents = [] }) {
-
     return (
-        <div className="ClubDocuments">
-            {documents ? <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4> : null}
-            {documents.map(document => <ClubDocumentLink key={document.id} {...document} />)}
-        </div>
+        documents.length
+            ? <div className="ClubDocuments">
+                <h4 className="text-upper" style={{ marginTop: '30px' }}>Документы</h4>
+                <ul style={{ listStyle: 'none' }}>
+                    {documents.map(document => <ClubDocumentLink key={document.id} {...document} />)}
+                </ul>
+            </div>
+            : null
     )
 }
 
