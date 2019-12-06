@@ -8,7 +8,7 @@ function CreateArticleForm({ isAuthenticated, profile_id, clubId }) {
     if (!isAuthenticated || profile_id !== clubId) return null;
 
     return (
-        <Card style={{ margin: '24px 0' }}>
+        <Card style={{ marginBottom: '24px' }}>
             <NewsStoryCreateForm />
         </Card>
     )

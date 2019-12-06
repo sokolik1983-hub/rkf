@@ -16,20 +16,17 @@ const FeaturedExhibitionsList = ({ club_id, club_alias }) => {
     );
 
     const featuredExhibitions = exhibitions.length ? exhibitions.slice(0, 3) : null;
-
     return (
-        <Card>
-            <h4 className="text-upper">Выставки</h4>
-            <div className={classnames('FeaturedExhibitions', {
-                'FeaturedExhibitionsx--loading': loading
-            })}>
-                {
-                    featuredExhibitions
-                        ? featuredExhibitions.map((exhibition, index) => <FeaturedExhibition {...exhibition} key={index} />)
-                        : <h3>Не найдено анонсов выставок</h3>
-                }
-            </div>
-        </Card>
+        featuredExhibitions
+            ? <Card>
+                <h4 className="text-upper">Выставки</h4>
+                <div className={classnames('FeaturedExhibitions', {
+                    'FeaturedExhibitionsx--loading': loading
+                })}>
+                    {featuredExhibitions.map((exhibition, index) => <FeaturedExhibition {...exhibition} key={index} />)}
+                </div>
+            </Card>
+            : null
     )
 }
 
