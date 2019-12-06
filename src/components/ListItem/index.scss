@@ -27,7 +27,9 @@
   &__body {
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+    &._pointer {
+      cursor: pointer;
+    }
     @media (max-width: 560px) {
       display: block;
     }

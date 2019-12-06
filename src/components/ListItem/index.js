@@ -29,7 +29,7 @@ const ListItem = ({title, date, isFullDate = true, alias, photo, text, url, moda
             }
             {modalInner &&
                 <>
-                    <div className="list-item__body" onClick={() => setShowModal(true)}>
+                    <div className="list-item__body _pointer" onClick={() => setShowModal(true)}>
                         {photo && <div className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
                         <div className="list-item__info">
                             <p className={photo ? 'list-item__text' : 'list-item__text-short'} dangerouslySetInnerHTML={{__html: urlify(text)}} />
