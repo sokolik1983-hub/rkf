@@ -70,10 +70,13 @@ const HomePage = () => {
                             <Card style={{ marginBottom: '24px' }}>
                                 <h3 className="home-page__exhibitions-title">{exhibitions.title}</h3>
                                 <ul className="home-page__exhibitions" style={{ listStyle: 'none' }}>
-                                    {exhibitions.items.map(({ name, url, logo }) => <li>
+                                    {exhibitions.items.map(({ name, url, logo }, i) => <li key={i}>
                                         <a href={url} title={name} target="_blank" rel="noopener noreferrer">
                                             <img src={logo} alt={name} />
                                         </a>
+                                        <div className="home-page__exhibitions-mobile">
+                                            <a className="link" href={url} title={name} target="_blank" rel="noopener noreferrer">{name}</a>
+                                        </div>
                                     </li>)}
                                 </ul>
                             </Card>
@@ -85,6 +88,9 @@ const HomePage = () => {
                                             <a href={url} target="_blank" rel="noopener noreferrer" title={title}>
                                                 <img src={img} alt="" />
                                             </a>
+                                            <div className="home-page__partners-mobile">
+                                                <a className="link" href={url} title={title} target="_blank" rel="noopener noreferrer">{title}</a>
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>

@@ -66,10 +66,20 @@
     }
   }
   &__exhibitions {
-    a {
+    a:not(.link) {
       display: block;
       text-align: center;
       margin-bottom: 12px;
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+    &-mobile {
+      display: none;
+      @media (max-width: 480px) {
+        display: block;
+        margin-bottom: 8px;
+      }
     }
     li:last-child a {
       margin: 0;
@@ -89,6 +99,21 @@
   }
   &__partners {
     list-style: none;
+    a:not(.link) {
+      display: block;
+      text-align: center;
+      margin-bottom: 12px;
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+    &-mobile {
+      display: none;
+      @media (max-width: 480px) {
+        display: block;
+        margin-bottom: 8px;
+      }
+    }
     @media (max-width: 1220px) {
       display: flex;
     }
@@ -111,11 +136,6 @@
       }
       @media (max-width: 480px) {
         margin: 0;
-      }
-      a {
-        display: block;
-        text-align: center;
-        margin: 5px 0;
       }
     }
   }

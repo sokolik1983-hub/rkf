@@ -33,7 +33,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
     const FixedArticle = () => {
         return (
             <Card>
-                <div class="list-item__body">
+                <div className="list-item__body">
                     <a href="http://rkf.org.ru/vystavochnaja-dejatelnost/eurasia/"
                         style={{ justifyContent: 'center', display: 'flex', width: '100%' }}
                         target="_blank"
@@ -52,7 +52,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
         <h2 className="content__title">Новости не найдены</h2> :
         <div className="news">
             <ul className="news__list">
-                <li class="news__item">
+                <li className="news__item">
                     <FixedArticle />
                 </li>
                 {news.map(item => (
