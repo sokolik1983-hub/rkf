@@ -22,9 +22,9 @@ export const exhibitions = {
     title: "Всероссийские выставки",
     items: [
         {
-            name: 'Россия',
-            url: 'http://rkf.org.ru/vystavki/russia/',
-            logo: '/static/images/exhibitions/rus.png'
+            name: 'Евразия',
+            url: 'http://rkf.org.ru/vystavki/eurasia/',
+            logo: '/static/images/exhibitions/eur.png'
         },
         {
             name: 'Мазовер',
@@ -32,9 +32,9 @@ export const exhibitions = {
             logo: '/static/images/exhibitions/maz.png'
         },
         {
-            name: 'Евразия',
-            url: 'http://rkf.org.ru/vystavki/eurasia/',
-            logo: '/static/images/exhibitions/eur.png'
+            name: 'Россия',
+            url: 'http://rkf.org.ru/vystavki/russia/',
+            logo: '/static/images/exhibitions/rus.png'
         },
         {
             name: 'Золотой ошейник',
