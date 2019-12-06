@@ -59,7 +59,7 @@ function ListArticle({
         )
     };
     const ListArticleControls = connectAuthVisible(Controls);
-    const urlify = t => t.replace(/(https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
+    const urlify = t => t.replace(/[^"](https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
             <div className="NewsStory__Head">

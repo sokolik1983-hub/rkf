@@ -29,9 +29,17 @@
   &__Text {
     display: block;
     margin-bottom: 24px;
+    max-width: 632px;
     p {
       margin: 0;
       white-space: pre-wrap;
+    }
+    iframe {
+      max-width: 100%;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
     }
   }
   &__ImagePreview {
@@ -81,7 +89,8 @@
       transform: none;
     }
   }
-  .DeleteButton, .EditButton {
+  .DeleteButton,
+  .EditButton {
     border: none;
     font-weight: normal;
     font-size: 16px;

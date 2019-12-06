@@ -6,8 +6,8 @@ import './index.scss';
 
 const ListItem = ({ date, photo, clubName, text, modalInner, modalClass }) => {
     const [showModal, setShowModal] = useState(false);
-
-    text = JSON.parse(JSON.stringify(text).replace(/\\r\\n/g, '<br>'));
+    const urlify = t => t.replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
+    text = JSON.parse(JSON.stringify(text).replace(/<[^>]*>/g, '').replace(/\\r\\n/g, '<br>'));
 
     return (
         <>
@@ -22,7 +22,7 @@ const ListItem = ({ date, photo, clubName, text, modalInner, modalClass }) => {
             <div className="list-item__body" onClick={() => setShowModal(true)}>
                 {photo && <div className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
                 <div className="list-item__info">
-                    <p className={photo ? 'list-item__text' : 'list-item__text-short'} dangerouslySetInnerHTML={{ __html: text }} />
+                    <p className={photo ? 'list-item__text' : 'list-item__text-short'} dangerouslySetInnerHTML={{ __html: urlify(text) }} />
                     <button className="list-item__show-all" >Подробнее</button>
                 </div>
             </div>
