@@ -33,12 +33,12 @@ function HomePageLayout() {
                         <Content>
                             <ClubDescription />
                             <ArticleCreateFormPublic />
-                            <Card style={{ margin: '24px 0' }}>
+                            <Card>
                                 <NewsListPublic />
                             </Card>
                         </Content>
                         <Side>
-                            <Card style={{padding: '18px'}}>
+                            <Card style={{ padding: '18px' }}>
                                 <h4 className="text-upper">Контакты</h4>
                                 <ClubAddress />
                                 <ClubOwnerName />
