@@ -7,10 +7,10 @@ import { formatDateTime } from "../../utils/datetime";
 import { DEFAULT_IMG } from 'appConfig';
 import './index.scss';
 
+const urlify = t => t.replace(/(https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
 const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
     const modalInner = (item) => {
         const text = JSON.parse(JSON.stringify(item.content).replace(/\\r\\n/g, '<br>'));
-
         return (
             <>
                 <div className="news__wrap-head">
@@ -23,7 +23,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                     </Link>
                 </div>
                 <div className="news__item-body">
-                    <p className="news__text" dangerouslySetInnerHTML={{ __html: text }} />
+                    <p className="news__text" dangerouslySetInnerHTML={{ __html: urlify(text) }} />
                     {item.picture_link && <img src={item.picture_link} alt="" className="news__img" />}
                 </div>
             </>
@@ -62,7 +62,7 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                                 date={item.create_date}
                                 photo={item.picture_link}
                                 clubName={item.club_name}
-                                text={item.content}
+                                text={urlify(item.content)}
                                 modalInner={modalInner(item)}
                                 modalClass="news__modal"
                             />

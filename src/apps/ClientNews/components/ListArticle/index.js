@@ -24,24 +24,18 @@ function ListArticle({
 }) {
     const [edit, setEdit] = useState(false);
     const getSignature = () => String(formatDateTime(create_date));
-
     const onDeleteSuccess = () => {
         deleteArticleSuccess(id);
     };
-
     const handleEditCancel = () => {
         setEdit(false);
     }
-
     const handleClick = () => {
         if (onArticleClick) onArticleClick(id);
     }
-
-    const cutContent = content => {
-        return content.length > DEFAULT_CONTENT_LENGTH
-            ? content.substring(0, DEFAULT_CONTENT_LENGTH) + '...'
-            : content
-    }
+    const cutContent = content => content.length > DEFAULT_CONTENT_LENGTH
+        ? content.substring(0, DEFAULT_CONTENT_LENGTH) + '...'
+        : content;
     const [collapsed, setCollapsed] = useState(content.length > DEFAULT_CONTENT_LENGTH ? true : false);
     const handleShowMore = (e) => {
         e.preventDefault();
@@ -65,6 +59,7 @@ function ListArticle({
         )
     };
     const ListArticleControls = connectAuthVisible(Controls);
+    const urlify = t => t.replace(/(https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
     return (
         <div id={`NewsStory_${id}`} className="NewsStory">
             <div className="NewsStory__Head">
@@ -85,7 +80,7 @@ function ListArticle({
                     : <>
                         <h3 className="NewsStory__Heading" onClick={handleClick}>{title}</h3>
                         <div className="NewsStory__Text">
-                            <p dangerouslySetInnerHTML={{ __html: collapsed ? cutContent(content) : content }} />
+                            <p dangerouslySetInnerHTML={{ __html: urlify(collapsed ? cutContent(content) : content) }} />
                             {collapsed ? <a className="NewsStory__Show-more" href="/" onClick={handleShowMore}>Подробнее</a> : null}
                         </div>
                         <div
