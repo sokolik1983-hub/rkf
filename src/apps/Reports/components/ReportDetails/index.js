@@ -49,10 +49,10 @@ function ReportDetails(props) {
         }
     }, []);
 
-    const handleEnable = (name) => {
+    const handleEnable = (name, id) => {
         ls.set('enabled_links', {
             ...enabledLinks,
-            [name]: 1
+            [name + id]: 1
         });
         setEnabledLinks(ls.get('enabled_links'));
     }
@@ -66,17 +66,17 @@ function ReportDetails(props) {
                     <div className="ReportDetails__nav">
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {
-                            enabledLinks.mainRing
+                            enabledLinks['mainRing' + reportHeader.id]
                                 ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
                                 : <span className="disabled-link">Ведомость главного ринга</span>
                         }
                         {
-                            enabledLinks.judgeLoad
+                            enabledLinks['judgeLoad' + reportHeader.id]
                                 ? <NavLink className="link" to={`${url}/judge-load-report`}>Отчёт по нагрузке на судей</NavLink>
                                 : <span className="disabled-link">Отчёт по нагрузке на судей</span>
                         }
                         {
-                            enabledLinks.documents
+                            enabledLinks['documents' + reportHeader.id]
                                 ? <NavLink className="link" to={`${url}/documents`}>Документы</NavLink>
                                 : <span className="disabled-link">Документы</span>
                         }
@@ -84,8 +84,8 @@ function ReportDetails(props) {
                     <Switch>
                         <Route exact path={`${path}`} component={() => <FinalReport reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
                         <Route path={`${path}/main-ring-statement`} component={() => <MainRingStatement reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
-                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader} enableReport={handleEnable} />} />
-                        <Route path={`${path}/documents`} component={() => <ReportDetailsDocument reportHeader={reportHeader} />} />
+                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
+                        <Route path={`${path}/documents`} component={() => <ReportDetailsDocument reportHeader={reportHeader} getHeader={getHeader} />} />
                     </Switch>
                 </div> :
                 errors.status === 422 ?

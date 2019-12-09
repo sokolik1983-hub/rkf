@@ -204,7 +204,7 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('main_ring_statement'); // Clear local storage cache
             getHeader();
-            enableReport('judgeLoad');
+            enableReport('judgeLoad', reportHeader.id);
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         }))();

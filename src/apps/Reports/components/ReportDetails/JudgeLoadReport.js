@@ -115,7 +115,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader, enableReport }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('judge_load_report'); // Clear local storage cache
             getHeader();
-            enableReport('documents');
+            enableReport('documents', reportHeader.id);
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })
