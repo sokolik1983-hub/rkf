@@ -196,6 +196,11 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
             "report_rows": reportRows
         };
 
+        if (reportRows.length !== 45) { // Temp check. All fields are required.
+            alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
+            return;
+        };
+
         (() => Request({
             url: endpointPutMainRingStatement,
             method: 'PUT',
