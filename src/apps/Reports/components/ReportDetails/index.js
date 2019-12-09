@@ -67,7 +67,7 @@ function ReportDetails(props) {
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {
                             enabledLinks.mainRing
-                                ? <NavLink className="link" to={`${url} /main-ring-statement`}>Ведомость главного ринга</NavLink>
+                                ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
                                 : <span className="disabled-link">Ведомость главного ринга</span>
                         }
                         {
