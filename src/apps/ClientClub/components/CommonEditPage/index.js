@@ -15,7 +15,7 @@ import './styles.scss';
 
 let unblock;
 
-function ClubEditPage({ club_alias, history }) {
+function ClubEditPage({ club_alias, is_active_profile, history }) {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -33,7 +33,7 @@ function ClubEditPage({ club_alias, history }) {
     let clientErrors = {};
 
     useEffect(() => {
-        unblock = history.block('Вы точно хотите уйти со страницы редактирования?');
+        unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
         return () => unblock();
     }, []);
 

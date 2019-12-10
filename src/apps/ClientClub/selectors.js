@@ -72,9 +72,11 @@ export const selectClubContact = (state, props) => {
 
 export const selectClubAlias=state=>{
     const {club_id, club_alias} = getState(state);
+    const {is_active_profile} = state.authentication;
     return {
         club_id,
-        club_alias
+        club_alias,
+        is_active_profile
     }
 };
 

@@ -1,5 +1,4 @@
 import {object, string} from "yup";
-
 export const defaultReduxKey = 'club_bank';
 export const endpointUrl = '/api/clubs/Bank';
 
@@ -18,7 +17,6 @@ export const clubBankInfoFormConfig = {
         },
     },
     validationSchema: object().shape({
-        //
         rs_number: string()
             .required('Поле не может быть пустым'),
         bank_name: string()

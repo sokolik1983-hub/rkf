@@ -1,5 +1,4 @@
-import {object, /*string*/} from "yup";
-
+import {object, string} from "yup";
 export const defaultReduxKey = 'club_info';
 export const endpointUrl = '/api/club';
 
@@ -10,14 +9,9 @@ export const clubInfoFormConfig = {
             name: "name",
             label: "Название клуба"
         },
-        correspondence_address: {
-            name: "correspondence_address",
-            label: "Адрес для кореспонденции",
-            fieldType: 'textarea',
-        },
-        address: {
-            name: "address",
-            label: "Адрес клуба (улица, дом)",
+        description: {
+            name: "description",
+            label: "Краткая информация о клубе",
             fieldType: 'textarea',
         },
         city_id: {
@@ -28,19 +22,9 @@ export const clubInfoFormConfig = {
             type: 'select',
             optionsEndpoint: '/api/city'
         },
-        description: {
-            name: "description",
-            label: "Краткая информация о клубе",
-            fieldType: 'textarea',
-        },
-
-        site: {
-            name: "site",
-            label: "Адрес сайта",
-        },
-        status_id: {
-            name: "description",
-            label: "Краткая информация о клубе",
+        address: {
+            name: "address",
+            label: "Адрес клуба (улица, дом)",
             fieldType: 'textarea',
         },
         work_time_from: {
@@ -53,8 +37,24 @@ export const clubInfoFormConfig = {
             label: "Время работы До",
             type: 'time'
         },
+        site: {
+            name: "site",
+            label: "Адрес сайта",
+        }
     },
     validationSchema: object().shape({
-        //
+        name: string()
+            .required('Поле не может быть пустым')
+            .nullable(),
+        description: string()
+            .nullable()
+            .required('Поле не может быть пустым')
+            .min(20, 'коротко от 20'),
+        city_id: string()
+            .required('Поле не может быть пустым')
+            .nullable(),
+        address: string()
+            .required('Поле не может быть пустым')
+            .nullable(),
     })
 };

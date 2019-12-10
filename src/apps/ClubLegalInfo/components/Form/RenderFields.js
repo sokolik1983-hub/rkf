@@ -17,10 +17,10 @@ export default function RenderFields() {
             </FormGroup>
 
             <FormGroup inline>
-                <FormField disabled
+                <FormField /*disabled*/
                     {...fields.inn}
                 />
-                <FormField disabled
+                <FormField /*disabled*/
                     {...fields.kpp}
                 />
             </FormGroup>
@@ -28,7 +28,7 @@ export default function RenderFields() {
                 <FormField disabled
                     {...fields.ogrn}
                 />
-                <FormField disabled
+                <FormField /*disabled*/
                     {...fields.okpo}
                 />
             </FormGroup>
@@ -48,8 +48,6 @@ export default function RenderFields() {
             {/*<FormField*/}
             {/*    {...fields.is_public}*/}
             {/*/>*/}
-
-
             {/*<FormControls>
                 <SubmitButton type="submit"
                               className="btn-simple btn-lg">Обновить</SubmitButton>

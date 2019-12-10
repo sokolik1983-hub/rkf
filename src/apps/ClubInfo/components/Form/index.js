@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form } from "components/Form";
 import { connectClubInfoForm } from 'apps/ClientClub/connectors'
+import {clubInfoFormConfig} from "../../config";
 import RenderFields from './RenderFields'
 import { usePushMessage } from 'apps/Messages/hooks'
 
@@ -9,7 +10,7 @@ function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
     const transformValues = values => {
         let newValues = { ...values };
 
-        if (!newValues.city_id) delete newValues.city_id;
+        // if (!newValues.city_id) delete newValues.city_id;
         if (newValues.status_id) delete newValues.status_id;
 
         newValues.site = values.site || null;
@@ -27,6 +28,7 @@ function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
             <Form
                 method={"PUT"}
                 action={'/api/Club'}
+                validationSchema={clubInfoFormConfig.validationSchema}
                 onSuccess={onSuccess}
                 initialValues={clubInfo}
                 transformValues={transformValues}
