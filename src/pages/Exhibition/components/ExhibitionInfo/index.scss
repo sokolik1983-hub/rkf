@@ -26,6 +26,15 @@
     border-radius: 6px;
     width: 100%;
   }
+  &__dates {
+    margin-bottom: 16px;
+  }
+  &__date {
+    font-weight: 600;
+  }
+  &__time {
+    margin-bottom: 16px;
+  }
   &__address {
     margin-bottom: 16px;
     font-size: 16px;

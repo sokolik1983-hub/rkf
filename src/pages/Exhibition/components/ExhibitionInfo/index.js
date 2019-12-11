@@ -35,7 +35,7 @@ const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhi
                         <div className="exhibition-info__dates">
                             {dates.map((date, i) => (
                                 <p key={i} className="exhibition-info__date">
-                                    `${getLocalizedWeekDay(transformDateSafariFriendly(date))}, ${date.day}.${date.month}.${date.year}`
+                                    {`${getLocalizedWeekDay(transformDateSafariFriendly(date))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}
                                 </p>
                             ))}
                         </div>
