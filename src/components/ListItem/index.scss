@@ -16,12 +16,15 @@
     color: #72839c;
     font-size: 14px;
   }
-  &__author a {
-    text-decoration: none;
-    color: #72839c;
+  &__author {
     font-size: 14px;
-    &:hover {
-      text-decoration: underline;
+    color: #72839c;
+    a {
+      text-decoration: none;
+      color: #72839c;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   &__body {

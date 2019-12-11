@@ -13,7 +13,11 @@ const ListItem = ({title, date, isFullDate = true, alias, photo, text, url, moda
     return (
         <>
             <div className="list-item__head">
-                {title && <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4>}
+                {title &&
+                    alias ?
+                        <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4> :
+                        <h4 className="list-item__author">{title}</h4>
+                }
                 <span className="list-item__date">
                     {isFullDate ? formatDateTime(date) : formatDateWithLocaleStringFull(new Date(date))}
                 </span>
