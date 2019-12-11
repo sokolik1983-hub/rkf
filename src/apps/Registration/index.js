@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom'
 import {compose} from "redux";
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
+import Layout from "../../components/Layouts";
 
 import Registration from './components/Registration'
 import ConfirmRegistrationSuccess from './components/ConfirmRegistrationSuccess'
@@ -20,12 +21,14 @@ class RegistrationProxy extends PureComponent {
         const {path} = this.props.match;
         return (
             <RegistrationPathContext.Provider value={{path}}>
-                <Switch>
-                    <Route exact path={`${path}/confirm/success`} component={ConfirmRegistrationSuccess}/>
-                    <Route exact path={`${path}/confirm/failed`} component={ConfirmRegistrationFailed}/>
-                    <Route exact path={`${path}/success`} component={RegistrationSuccess}/>
-                    <Route path={path} component={Registration}/>
-                </Switch>
+                <Layout>
+                    <Switch>
+                        <Route exact path={`${path}/confirm/success`} component={ConfirmRegistrationSuccess}/>
+                        <Route exact path={`${path}/confirm/failed`} component={ConfirmRegistrationFailed}/>
+                        <Route exact path={`${path}/success`} component={RegistrationSuccess}/>
+                        <Route path={path} component={Registration}/>
+                    </Switch>
+                </Layout>
             </RegistrationPathContext.Provider>
         )
     }

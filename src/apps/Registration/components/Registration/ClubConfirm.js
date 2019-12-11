@@ -75,13 +75,14 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
             <h3>Активация клуба</h3>
             <form onSubmit={onEmailSubmit}>
                 <p>Код активации будет отправлен на почту: <strong>{club.mail}</strong></p>
-                <button style={{ marginLeft: '10px' }} type="submit">Отправить</button>
+                <p>Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
+                <button style={{ marginTop: '10px' }} type="submit">Отправить</button>
             </form>
             {
                 code !== null
                     ? <form onSubmit={onCodeSubmit}>
                         <input size="30" type="text" onChange={handleCodeChange} minLength="4" required placeholder="Введите код активации" />
-                        <button type="submit">Отправить</button>
+                        <button type="submit" style={{ marginTop: '10px' }}>Отправить</button>
                     </form>
                     : null
             }

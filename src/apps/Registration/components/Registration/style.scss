@@ -1,6 +1,7 @@
 .Registration {
   display: flex;
   background: white;
+  padding-top: 70px;
   &__image {
     height: 100vh;
     width: 416px;
@@ -46,9 +47,17 @@
       align-self: center;
       margin-bottom: 24px;
     }
+    .registration__not-found {
+      max-width: 300px;
+      text-align: center;
+      margin-top: 24px;
+    }
   }
 }
 .ActivateClub {
+  h3 {
+    margin-bottom: 10px;
+  }
   text-align: center;
   form {
     margin-bottom: 10px;
