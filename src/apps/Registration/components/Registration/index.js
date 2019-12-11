@@ -53,20 +53,20 @@ const Registration = () => {
                     })
                 }}
             />
-            {
-                clubs
-                    ? <ul>
-                        {
-                            clubs.length
-                                ? clubs.map(club =>
-                                    <li key={club.club_id} onClick={() => onClubClick(club.club_id)}>
-                                        {club.name ? club.name : club.legal_name}
-                                    </li>
-                                )
-                                : <li>Ничего не найдено</li>
-                        }
-                    </ul>
-                    : null
+            {clubs &&
+                <>
+                    {clubs.length ?
+                        <ul>
+                            {clubs.map(club =>
+                                <li key={club.club_id} onClick={() => onClubClick(club.club_id)}>
+                                    {club.name ? club.name : club.legal_name}
+                                </li>
+                            )}
+                        </ul> :
+                        <h3>Ничего не найдено</h3>
+                    }
+                    <p className="registration__not-found">Если Вы не нашли Ваш клуб в списке, воспользуйтесь формой обратной связи</p>
+                </>
             }
             <Modal showModal={showModal} handleClose={onModalClose}>
                 {
