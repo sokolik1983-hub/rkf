@@ -1,14 +1,17 @@
-.ClubContacts{
+.ClubContacts {
   margin: 12px 0;
   padding-left: 32px;
   background-repeat: no-repeat;
   &--emails {
-      background-image: url("/static/icons/ico-contact-email.svg");
-      background-position: 0 5px;
+    background-image: url("/static/icons/ico-contact-email.svg");
+    background-position: 0 5px;
   }
 
   &--phones {
-      background-image: url("/static/icons/ico-contact-phone.svg");
-      background-position: 2px 3px;
+    background-image: url("/static/icons/ico-contact-phone.svg");
+    background-position: 2px 3px;
+  }
+  & > .ClubContact:not(:last-child) {
+    padding-bottom: 4px;
   }
 }
