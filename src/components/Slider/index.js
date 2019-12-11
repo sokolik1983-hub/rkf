@@ -90,7 +90,7 @@ Tinyfade.prototype.fire = function (e, ...p) {
 
 const Slider = ({ children }) => {
     useEffect(() => {
-        new Tinyfade('.tinyfade', 3000, 1000);
+        new Tinyfade('.tinyfade', 5000, 1000);
     }, []);
     return <div className="Slider tinyfade">
         {children}
