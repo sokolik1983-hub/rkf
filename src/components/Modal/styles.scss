@@ -42,6 +42,14 @@
       top: 12px;
       right: 12px;
     }
+    &-text {
+      color: white;
+      cursor: pointer;
+      float: right;
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
   }
   &.no-backdrop {
     .Modal__inner {
