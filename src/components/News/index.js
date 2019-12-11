@@ -1,10 +1,11 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Card from "../Card";
 import ListItem from "../ListItem";
 import Paginator from "../Paginator";
-import {formatDateTime} from "../../utils/datetime";
-import {DEFAULT_IMG} from 'appConfig';
+import { formatDateTime } from "../../utils/datetime";
+import { DEFAULT_IMG } from 'appConfig';
+import FixedArticle from './FixedArticle';
 import './index.scss';
 
 const urlify = t => t.replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
@@ -29,24 +30,6 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                     {item.picture_link && <img src={item.picture_link} alt="" className="news__img" />}
                 </div>
             </>
-        )
-    };
-
-    const FixedArticle = () => {
-        return (
-            <Card>
-                <div className="list-item__body">
-                    <a href="http://rkf.org.ru/vystavochnaja-dejatelnost/eurasia/"
-                        style={{ justifyContent: 'center', display: 'flex', width: '100%' }}
-                        target="_blank"
-                        rel="noreferrer noopener">
-                        <img
-                            style={{ maxWidth: '100%', maxHeight: '100px' }}
-                            src="/static/images/exhibitions/eur-big.png"
-                            alt="" />
-                    </a>
-                </div>
-            </Card>
         )
     };
 

@@ -1,0 +1,34 @@
+.tinyfade {
+  position: relative;
+}
+.tinyfade > * {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  float: left;
+  pointer-events: none;
+}
+.tinyfade > :not(:first-child) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.tinyfade:not(.tinyfade-js) > :first-child {
+  opacity: 1;
+  pointer-events: auto;
+}
+.tinyfade-current {
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
+}
+.tinyfade-last {
+  z-index: 1;
+  opacity: 1;
+}
+
+.Slider {
+  overflow: hidden;
+  margin: auto;
+}
