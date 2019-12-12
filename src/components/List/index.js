@@ -4,7 +4,7 @@ import Card from "../Card";
 import ListItem from "../ListItem";
 import Paginator from "../Paginator";
 
-const List = ({list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, modalInner, modalClass, pagesCount, currentPage, setPage}) => {
+const List = ({ list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, modalInner, modalClass, pagesCount, currentPage, setPage }) => {
     return !list.length ?
         <h2 className="list__title">{listNotFound}</h2> :
         <div className={`list${listClass ? ' ' + listClass : ''}`}>
@@ -26,13 +26,17 @@ const List = ({list, listNotFound = 'Ничего не найдено', listClas
                     </li>
                 ))}
             </ul>
-            <Card>
-                <Paginator
-                    pagesCount={pagesCount}
-                    currentPage={currentPage}
-                    setPage={setPage}
-                />
-            </Card>
+            {
+                pagesCount > 1
+                    ? <Card>
+                        <Paginator
+                            pagesCount={pagesCount}
+                            currentPage={currentPage}
+                            setPage={setPage}
+                        />
+                    </Card>
+                    : null
+            }
         </div>
 };
 
