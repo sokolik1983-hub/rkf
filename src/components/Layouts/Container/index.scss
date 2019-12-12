@@ -18,5 +18,9 @@
   }
   &__title {
     margin-top: 30px;
+    @media (max-width: 990px) {
+      text-align: center;
+      margin-top: 24px;
+    }
   }
 }
