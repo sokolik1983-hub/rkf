@@ -1,45 +1,13 @@
-.feedback-tabs {
-  margin-bottom: 20px;
+.feedback {
   margin: auto;
   min-height: 600px;
+  min-width: 400px;
   background: white;
   box-shadow: 2px 2px 10px black;
   border-radius: 4px;
   padding: 20px;
-  .tabs {
-    margin-bottom: 20px;
-    &__tab {
-      box-sizing: border-box;
-      flex: 1;
-      color: #cccccc;
-      border: solid 1px;
-      border-color: #ebf0f2;
-      margin-right: 16px;
-      padding: 16px 32px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 18px;
-      line-height: 22px;
-      outline: none;
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &--active {
-        text-decoration: none;
-        color: #3366ff;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.06);
-        background-color: #fff;
-        .step__number {
-          color: #cccccc;
-        }
-      }
-      .step__number {
-        font-size: 14px;
-        line-height: 16px;
-      }
-    }
+  .FormInput__custom-error {
+    color: red;
   }
 }
 a.feedback-link {
@@ -48,6 +16,4 @@ a.feedback-link {
   color: #72839c;
   text-decoration: none;
 }
-.FormInput__custom-error {
-  color: red;
-}
+

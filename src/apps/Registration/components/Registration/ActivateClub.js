@@ -8,6 +8,6 @@ const ActivateClub = ({ club }) => {
             <ClubConfirm club={club} />
         </div>
     )
-}
+};
 
 export default ActivateClub;
