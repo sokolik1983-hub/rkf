@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../../../components/Loading";
 import List from "../../../components/List";
-import {buildUrl} from "../utils";
-import {Request} from "../../../utils/request";
-import {connectFilters} from "../connectors";
-import {endpointExhibitionsSearch} from "../config";
+import { buildUrl } from "../utils";
+import { Request } from "../../../utils/request";
+import { connectFilters } from "../connectors";
+import { endpointExhibitionsSearch } from "../config";
+import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 
-
-const ExhibitionsList = ({CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess}) => {
+const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess }) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [url, setUrl] = useState('');
@@ -31,32 +31,34 @@ const ExhibitionsList = ({CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, Pa
             setLoading(false);
         }, error => {
             console.log(error.response);
-            if(error.response) alert(`Ошибка: ${error.response.status}`);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         });
     };
 
     useEffect(() => {
-        setUrl(`${buildUrl({CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber})}`);
+        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber })}`);
     }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber]);
 
     useEffect(() => {
-        if(ExhibitionName) {
+        if (ExhibitionName) {
             setPrevUrl(url);
             setUrl(`${endpointExhibitionsSearch}?ExhibitionName=${ExhibitionName}`);
         } else {
-            if(prevUrl) setUrl(prevUrl);
+            if (prevUrl) {
+                setUrl(`${endpointExhibitionsList}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
+            }
         }
     }, [ExhibitionName]);
 
     useEffect(() => {
-        if(url) {
+        if (url) {
             (() => getExhibitions(url))();
         }
     }, [url]);
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         <List
             list={exhibitions}
             listNotFound="Выставок не найдено"
@@ -64,7 +66,7 @@ const ExhibitionsList = ({CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, Pa
             isFullDate={false}
             pagesCount={pagesCount}
             currentPage={PageNumber}
-            setPage={(page) => setFiltersSuccess({PageNumber: page})}
+            setPage={(page) => setFiltersSuccess({ PageNumber: page })}
         />
 };
 

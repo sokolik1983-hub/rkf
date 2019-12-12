@@ -55,7 +55,11 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 weekdaysShort={WEEKDAYS_SHORT}
                 modifiers={modifier}
                 locale="ru"
-                onDayClick={date => setFiltersSuccess({ DateFrom: formatDateToString(date), DateTo: formatDateToString(date), PageNumber: 1 })}
+                onDayClick={date => {
+                    setFiltersSuccess({ ExhibitionName: '', DateFrom: formatDateToString(date), DateTo: formatDateToString(date), PageNumber: 1 })
+                    const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
+                    if (searchCancel) searchCancel.click();
+                }}
                 onMonthChange={date => setNewDate(date)}
                 firstDayOfWeek={1}
                 captionElement={({ date }) => (
