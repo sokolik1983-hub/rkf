@@ -16,11 +16,6 @@ import ClubWorkingHours from '../ClubWorkingHours';
 import ArticleCreateFormPublic from 'apps/ClientNews/components/Create'
 import './styles.scss'
 
-const Wrap = ({ children }) => <div className="HomePage__wrap">{children}</div>
-const Content = ({ children }) => (
-    <div className="HomePage__content">{children}</div>
-)
-const Side = ({ children }) => <div className="HomePage__side">{children}</div>
 
 function HomePageLayout() {
     return (
@@ -29,13 +24,13 @@ function HomePageLayout() {
                 <div style={{ padding: `0px 48px` }}>
                     <ClubHeader />
                     <FeaturedExhibitions />
-                    <Wrap>
-                        <Content>
+                    <div className="HomePage__wrap">
+                        <div className="HomePage__content">
                             <ClubDescription />
                             <ArticleCreateFormPublic />
                             <NewsListPublic />
-                        </Content>
-                        <Side>
+                        </div>
+                        <div className="HomePage__side">
                             <Card style={{ padding: '18px' }}>
                                 <h4 className="text-upper">Контакты</h4>
                                 <ClubAddress />
@@ -45,8 +40,8 @@ function HomePageLayout() {
                                 <ClubWorkingHours />
                                 <ClubDocuments />
                             </Card>
-                        </Side>
-                    </Wrap>
+                        </div>
+                    </div>
                 </div>
             </Container>
             <FooterSmall />
