@@ -67,7 +67,7 @@ const HomePage = () => {
                             setPage={setPage}
                         />
                         <Aside className="home-page__right">
-                            <Card style={{ marginBottom: '24px' }}>
+                            <Card>
                                 <h3 className="home-page__exhibitions-title">{exhibitions.title}</h3>
                                 <ul className="home-page__exhibitions" style={{ listStyle: 'none' }}>
                                     {exhibitions.items.map(({ name, url, logo }, i) => <li key={i}>

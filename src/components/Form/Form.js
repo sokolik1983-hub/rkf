@@ -72,34 +72,6 @@ function Form({
         Request(options, onRequestSuccess, onRequestError);
     };
 
-    // const onSubmit = useCallback(
-    //     async (values, actions) => {
-    //         try {
-    //             // Perform request
-    //             const {data} = await axios({
-    //                 url: action,
-    //                 method: method,
-    //                 data: formatData(values),
-    //                 headers: getHeaders(isMultipartData),
-    //             });
-    //
-    //             onSuccess(data.result);
-    //             if(bindSubmitForm) bindSubmitForm.getErrors({});
-    //             actions.setSubmitting(false);
-    //         } catch (error) {
-    //             actions.setSubmitting(false);
-    //
-    //             if (error.isAxiosError) {
-    //                 const {data} = error.response;
-    //                 actions.setErrors(data.errors);
-    //                 if(bindSubmitForm) bindSubmitForm.getErrors(data.errors);
-    //             } else {
-    //                 throw error
-    //             }
-    //         }
-    //     }
-    // );
-
     Object.keys(initialValues).forEach(key => {
         if (initialValues[key] === null) initialValues[key] = '';
     });

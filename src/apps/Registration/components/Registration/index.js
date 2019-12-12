@@ -68,15 +68,11 @@ const Registration = () => {
                     <p className="registration__not-found">Если Вы не нашли Ваш клуб в списке, воспользуйтесь формой обратной связи</p>
                 </>
             }
-            <Modal showModal={showModal} handleClose={onModalClose}>
-                {
-                    activeClub
-                        ? <ActivateClub club={activeClub} />
-                        : null
-                }
-            </Modal>
+            {activeClub && <Modal showModal={showModal} handleClose={onModalClose}>
+                <ActivateClub club={activeClub} />
+            </Modal>}
         </Layout>
     );
-}
+};
 
 export default Registration;

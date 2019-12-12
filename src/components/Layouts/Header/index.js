@@ -4,7 +4,7 @@ import Container from "../Container";
 import Nav from "./components/Nav";
 import WidgetLogin from "../../../apps/Auth/components/WidgetLogin";
 import BurgerButton from "./components/BurgerButton";
-import Feedback from 'components/Feedback';
+import Feedback from "../../Feedback";
 import {connectShowFilters} from "../connectors";
 import './index.scss';
 

@@ -1,17 +1,26 @@
 .home-page {
   display: flex;
   justify-content: space-between;
+  padding: 94px 0 24px;
   @media (max-width: 1220px) {
     flex-wrap: wrap;
+    padding: 94px 24px 0;
   }
   @media (max-width: 990px) {
     display: block;
+    padding-top: 70px;
+  }
+  @media (max-width: 768px) {
+    padding-top: 60px;
+  }
+  @media (max-width: 560px) {
+    padding: 60px 12px 0;
   }
   h3 {
     margin-bottom: 12px;
   }
   &__left {
-    margin: 24px 24px 0 0;
+    margin-right: 24px;
     flex-grow: 1;
     .Card {
       background-color: rgba(51, 102, 255, 0.1);
@@ -23,12 +32,6 @@
     @media (max-width: 990px) {
       display: none;
     }
-    //@media (max-width: 768px) {
-    //  width: 100%;
-    //}
-    //@media (max-width: 560px) {
-    //  margin: 12px 0;
-    //}
     h3 {
       text-align: center;
     }
@@ -40,15 +43,21 @@
     }
   }
   &__right {
-    margin: 24px 0 0 24px;
+    margin-left: 24px;
     .Card {
       background-color: rgba(51, 102, 255, 0.1);
+      &:not(:last-child) {
+        margin-bottom: 24px;
+        @media (max-width: 560px) {
+          margin-bottom: 12px;
+        }
+      }
       @media (max-width: 1220px) {
         min-height: 0;
       }
     }
     @media (max-width: 1220px) {
-      margin: 0 0 24px;
+      margin: 24px 0 24px;
       width: 100%;
     }
     @media (max-width: 990px) {
@@ -143,6 +152,7 @@
     width: 600px;
     min-width: 600px;
     flex-grow: 2;
+    margin: 0;
     @media (max-width: 990px) {
       margin: 24px auto;
     }

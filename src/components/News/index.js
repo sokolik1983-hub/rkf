@@ -33,14 +33,13 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
         )
     };
 
-    return (!news ?
-        <h2 className="content__title">Новости не найдены</h2> :
+    return (
         <div className="news">
             <ul className="news__list">
                 <li className="news__item">
                     <FixedArticle />
                 </li>
-                {news.map(item => (
+                {news && news.map(item => (
                     <li className="news__item" key={item.id}>
                         <Card>
                             <ListItem
@@ -56,13 +55,16 @@ const NewsList = ({ news, pagesCount, currentPage, setPage }) => {
                     </li>
                 ))}
             </ul>
-            <Card>
-                <Paginator
-                    pagesCount={pagesCount}
-                    currentPage={currentPage}
-                    setPage={setPage}
-                />
-            </Card>
+            {!news && <h2 className="content__title">Новости не найдены</h2>}
+            {news &&
+                <Card>
+                    <Paginator
+                        pagesCount={pagesCount}
+                        currentPage={currentPage}
+                        setPage={setPage}
+                    />
+                </Card>
+            }
         </div>
     )
 };

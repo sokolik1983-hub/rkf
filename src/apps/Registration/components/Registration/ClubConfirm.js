@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router';
-import { compose } from 'redux';
-import { connectWidgetLogin } from 'apps/Auth/connectors';
+import React, {useState} from 'react';
+import {withRouter} from 'react-router';
+import {compose} from 'redux';
+import {connectWidgetLogin} from "../../../Auth/connectors";
+
 
 const ClubConfirm = ({ club, history, logOutUser }) => {
     const [code, setCode] = useState(null);
-    const handleCodeChange = (e) => setCode(e.target.value);
+
     const getFieldValue = field => field ? field : 'Отсутствует';
+
     const onEmailSubmit = (e) => {
         e.preventDefault();
         fetch('/api/Activation', {
@@ -30,6 +32,7 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
                 }
             });
     };
+
     const onCodeSubmit = (e) => {
         e.preventDefault();
         fetch('/api/Activation/confirm', {
@@ -52,10 +55,10 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
                     alert('Произошла ошибка');
                 }
             });
-    }
+    };
 
     return (
-        <React.Fragment>
+        <>
             <table>
                 <tbody>
                     <tr>
@@ -73,20 +76,24 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
                 </tbody>
             </table>
             <h3>Активация клуба</h3>
-            <form onSubmit={onEmailSubmit}>
-                <p>Код активации будет отправлен на почту: <strong>{club.mail}</strong></p>
-                <p>Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
-                <button style={{ marginTop: '10px' }} type="submit">Отправить</button>
-            </form>
-            {
-                code !== null
-                    ? <form onSubmit={onCodeSubmit}>
-                        <input size="30" type="text" onChange={handleCodeChange} minLength="4" required placeholder="Введите код активации" />
-                        <button type="submit" style={{ marginTop: '10px' }}>Отправить</button>
-                    </form>
-                    : null
+            {code === null ?
+                <form onSubmit={onEmailSubmit}>
+                    <p>Код активации будет отправлен на почту: <strong>{club.mail}</strong></p>
+                    <p style={{fontWeight: '600', color: 'firebrick'}}>Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
+                    <button style={{ marginTop: '10px' }} type="submit">Отправить</button>
+                </form> :
+                <form onSubmit={onCodeSubmit}>
+                    <input size="30"
+                           type="text"
+                           onChange={(e) => setCode(e.target.value)}
+                           minLength="4"
+                           required
+                           placeholder="Введите код активации"
+                    />
+                    <button type="submit" style={{ marginTop: '10px' }}>Отправить</button>
+                </form>
             }
-        </React.Fragment>
+        </>
     );
 };
 
