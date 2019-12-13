@@ -36,11 +36,11 @@ export const exhibitions = {
             url: 'http://rkf.org.ru/vystavki/russia/',
             logo: '/static/images/exhibitions/rus.png'
         },
-        {
-            name: 'Золотой ошейник',
-            url: 'http://rkf.org.ru/vystavki/golden_collar/',
-            logo: '/static/images/exhibitions/zol.png'
-        },
+        // {
+        //     name: 'Золотой ошейник',
+        //     url: 'http://rkf.org.ru/vystavki/golden_collar/',
+        //     logo: '/static/images/exhibitions/zol.png'
+        // },
 
     ]
 };
@@ -91,10 +91,10 @@ export const slides = [
         url: 'http://rkf.org.ru/vystavochnaja-dejatelnost/russia/',
         img: '/static/images/exhibitions/rus-big.png'
     },
-    {
-        id: 4,
-        title: 'Шоу чемпионов «Золотой ошейник»',
-        url: 'http://rkf.org.ru/vystavochnaja-dejatelnost/golden_collar/',
-        img: '/static/images/exhibitions/zol-big.png'
-    }
+    // {
+    //     id: 4,
+    //     title: 'Шоу чемпионов «Золотой ошейник»',
+    //     url: 'http://rkf.org.ru/vystavochnaja-dejatelnost/golden_collar/',
+    //     img: '/static/images/exhibitions/zol-big.png'
+    // }
 ];
