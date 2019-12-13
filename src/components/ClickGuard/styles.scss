@@ -1,8 +1,11 @@
 .click-guard {
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    background: black;
-    position: fixed;
-    opacity: 0.1;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: black;
+  position: fixed;
+  opacity: 0.1;
+  @media (min-width: 769px) {
+    display: none;
   }
+}
