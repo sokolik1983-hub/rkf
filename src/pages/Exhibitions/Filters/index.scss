@@ -12,13 +12,13 @@
     line-height: 1;
     letter-spacing: 0;
     min-width: 120px;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     &:hover {
       box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
     }
   }
 }
-.exhibitions-page__left {
+.side.exhibitions-page__left {
   width: 302px;
   min-width: 302px;
   margin: 24px 24px 24px 0;
@@ -39,7 +39,7 @@
     overflow-y: auto;
     visibility: hidden;
     transform: translateX(-100%);
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
     &._open {
       visibility: visible;
       transform: translateX(0);
@@ -48,7 +48,7 @@
 }
 .exhibitions-page__show-filters {
   display: none;
-  background: #4C6BB0 url("/static/icons/icon-filters.svg") no-repeat left 12px center;
+  background: #4c6bb0 url("/static/icons/icon-filters.svg") no-repeat left 12px center;
   color: #fff;
   border: none;
   box-shadow: 0 4px 15px rgba(51, 102, 255, 0.3);
