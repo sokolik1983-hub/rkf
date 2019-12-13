@@ -1,0 +1,36 @@
+.club-not-active {
+  padding-top: 94px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  @media (max-width: 768px) {
+    justify-content: center;
+    padding-top: 84px;
+  }
+  &__content {
+    margin: 0 24px 24px 0;
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+  &__title {
+    margin-bottom: 24px;
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+  &__subtitle {
+    font-weight: 400;
+    font-size: 26px;
+    color: #747b82;
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+  &__img{
+    display: block;
+    max-width: 100%;
+  }
+}

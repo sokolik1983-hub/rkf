@@ -9,6 +9,7 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 import Loading from 'components/Loading';
 import PageNotFound from "../../pages/404";
+import ClubNotActive from "../../pages/Club/ClubNotActive";
 
 
 function ClubHomePageProxy({match, clubCommon, getCommonSuccess}) {
@@ -20,8 +21,10 @@ function ClubHomePageProxy({match, clubCommon, getCommonSuccess}) {
     return (
         loading ?
             <Loading /> :
-            requestError && requestError.status === 404 ?
-                <PageNotFound /> :
+            requestError ?
+                requestError.status === 422 ?
+                    <ClubNotActive/> :
+                    <PageNotFound /> :
                 <ClubRouteContext.Provider value={{
                     params,
                     clubCommon,
