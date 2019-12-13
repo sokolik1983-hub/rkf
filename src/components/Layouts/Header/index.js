@@ -35,7 +35,7 @@ const Header = ({ withFilters, isOpenFilters, setShowFilters }) => {
                     <img src="/static/images/header/rkf-logo.svg" alt="logo" />
                 </Link>
                 <div className={`Header__controls${isOpen ? ' _open' : ''}`}>
-                    <Nav />
+                    <Nav closeMenu={() => setIsOpen(false)} />
                     <Feedback />
                     <WidgetLogin />
                 </div>
