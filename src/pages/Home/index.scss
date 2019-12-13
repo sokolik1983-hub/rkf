@@ -111,7 +111,7 @@
     a:not(.link) {
       display: block;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       @media (max-width: 480px) {
         display: none;
       }
@@ -125,9 +125,11 @@
     }
     @media (max-width: 1220px) {
       display: flex;
+      align-items: center;
+      justify-content: space-around;
     }
     @media (max-width: 990px) {
-      justify-content: space-between;
+      flex-direction: column;
     }
     @media (max-width: 480px) {
       display: block;
