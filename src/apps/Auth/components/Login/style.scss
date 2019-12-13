@@ -35,6 +35,9 @@
     border: solid 1px;
     border-color: transparent;
     flex: 2;
+    @media (max-width: 720px) {
+      min-width: auto;
+    }
   }
 
   &__title {
