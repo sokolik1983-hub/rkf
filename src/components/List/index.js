@@ -1,15 +1,20 @@
 import React from "react";
-import './index.scss';
 import Card from "../Card";
 import ListItem from "../ListItem";
 import Paginator from "../Paginator";
+import './index.scss';
 
-const List = ({ list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, modalInner, modalClass, pagesCount, currentPage, setPage }) => {
-    return !list.length ?
-        <h2 className="list__title">{listNotFound}</h2> :
-        <div className={`list${listClass ? ' ' + listClass : ''}`}>
+
+const List = ({ list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, children, pagesCount, currentPage, setPage }) => (
+    <div className={`list${listClass ? ' ' + listClass : ''}`}>
+        {((list && !!list.length) || children) &&
             <ul className="list__content">
-                {list.map(item => (
+                {children &&
+                    <li className="list__item">
+                        {children}
+                    </li>
+                }
+                {list && !!list.length && list.map(item => (
                     <li className="list__item" key={item.id}>
                         <Card>
                             <ListItem
@@ -19,25 +24,24 @@ const List = ({ list, listNotFound = 'Ничего не найдено', listCla
                                 photo={item.picture_link}
                                 text={item.content}
                                 url={item.url}
-                                modalInner={modalInner}
-                                modalClass={modalClass}
+                                alias={item.alias}
                             />
                         </Card>
                     </li>
                 ))}
             </ul>
-            {
-                pagesCount > 1
-                    ? <Card>
-                        <Paginator
-                            pagesCount={pagesCount}
-                            currentPage={currentPage}
-                            setPage={setPage}
-                        />
-                    </Card>
-                    : null
-            }
-        </div>
-};
+        }
+        {(!list || !list.length) && <h2 className="list__title">{listNotFound}</h2>}
+        {pagesCount > 1 &&
+            <Card>
+                <Paginator
+                    pagesCount={pagesCount}
+                    currentPage={currentPage}
+                    setPage={setPage}
+                />
+            </Card>
+        }
+    </div>
+);
 
 export default React.memo(List);

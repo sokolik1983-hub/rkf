@@ -1,5 +1,10 @@
 export const isDevEnv = () => process.env.NODE_ENV !== 'production';
 
+export const formatText = text => JSON.parse(
+    JSON.stringify(text)
+        .replace('/(<([^>]+)>)/ig', '')
+        .replace(/\\n/g, ' <br> ')
+).replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
 
 export const makeActionCreator = (type, ...argNames) => {
     return function (...args) {
@@ -23,6 +28,14 @@ export const createReducer = (initialState, handlers) => {
     }
 };
 
+export const scrollSmoothTop = () => window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
+
+export const varIsObject = (variable) => Object.prototype.toString.call(variable) === "[object Object]";
+
+export const objectNotEmpty = (obj) => varIsObject(obj) && Object.keys(obj).length > 0;
 
 export const parseCookies = () => {
     let cookies = {};
@@ -36,7 +49,6 @@ export const parseCookies = () => {
     }
     return cookies;
 };
-
 
 export const getFormData = data => {
     const formData = new FormData();
@@ -52,7 +64,6 @@ export const sortBy = (array, key) => {
     });
 };
 
-
 export const generateSize = size => ({
     minWidth: size,
     minHeight: size,
@@ -60,32 +71,22 @@ export const generateSize = size => ({
     maxHeight: size,
 });
 
-export const scrollSmoothTop = () => window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-});
-
 export const scrollSmoothBottom = () => window.scrollTo({
     top: document.body.scrollHeight,
     behavior: "smooth"
 });
 
-
 export const varIsArray = (variable) => Object.prototype.toString.call(variable) === "[object Array]";
-export const varIsObject = (variable) => Object.prototype.toString.call(variable) === "[object Object]";
-
-export const objectNotEmpty = (obj) => varIsObject(obj) && Object.keys(obj).length > 0;
 
 export const getRandomInt = (min = 1, max = 100) => {
     return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 
 export const getPropsBySchema = (obj, schema) => {
     const result = {};
     Object.keys(schema).forEach(key => result[key] = obj[key]);
     return result
 };
-
 
 export function debounce(func, wait, immediate) {
     var timeout;
@@ -100,10 +101,8 @@ export function debounce(func, wait, immediate) {
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
     };
-};
-
+}
 
 export const getIdFromMatch = match => match.params.id;
-
 export const getIdFromRouterParams = props => getIdFromMatch(props.match);
 export const getPathFromRouterParams = props => props.match.path;

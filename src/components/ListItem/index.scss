@@ -31,9 +31,8 @@
   &__body {
     display: flex;
     justify-content: space-between;
-    &._pointer {
-      cursor: pointer;
-    }
+    text-decoration: none;
+    color: #253c5e !important;
     @media (max-width: 560px) {
       display: block;
     }
@@ -66,6 +65,9 @@
       height: auto;
       max-height: 120px;
     }
+    * {
+      max-width: 100% !important;
+    }
   }
   &__text-short {
     height: 48px;
@@ -83,11 +85,11 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: #4c6bb0;
+    color: #4c6bb0 !important;
     letter-spacing: 0;
     transition: color 0.2s linear;
     &:hover {
-      color: #36f;
+      color: #36f !important;
     }
   }
 }

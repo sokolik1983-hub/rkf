@@ -22,6 +22,11 @@ export const LoadableExhibition = Loadable({
     loading: Loading
 });
 
+export const LoadableNews = Loadable({
+    loader: () => import('./pages/News'),
+    loading: Loading
+});
+
 export const LoadableClubPage = Loadable({
     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
     loading: Loading,

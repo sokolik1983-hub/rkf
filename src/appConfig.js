@@ -30,6 +30,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/news/:id',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: false,
         path: '/reports',
         component: LoadableModules.LoadableReports
     },

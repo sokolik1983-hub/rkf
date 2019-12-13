@@ -3,10 +3,11 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import NewsList from "../../components/News";
-import {Request} from "../../utils/request";
 import Card from "../../components/Card";
-import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
+import List from "../../components/List";
+import FixedArticle from "./components/FixedArticle";
+import {Request} from "../../utils/request";
+import {endpointGetNews, RKFInfo, partners, exhibitions} from "./config";
 import './index.scss';
 
 
@@ -21,7 +22,12 @@ const HomePage = () => {
         await Request({
             url: `${endpointGetNews}?page=${page}`
         }, data => {
-            setNews(data.articles);
+            const modifiedNews = data.articles.map(article => {
+                article.title = article.club_name;
+                article.url = `/news/${article.id}`;
+                return article;
+            });
+            setNews(modifiedNews);
             setPagesCount(Math.ceil(data.articles_count / 10));
             setLoading(false);
         }, error => {
@@ -60,12 +66,17 @@ const HomePage = () => {
                                 </div>
                             </Card>
                         </Aside>
-                        <NewsList
-                            news={news}
+                        <List
+                            list={news}
+                            listNotFound="Новости не найдены"
+                            listClass="news-list"
+                            isFullDate={true}
                             pagesCount={pagesCount}
                             currentPage={page}
                             setPage={setPage}
-                        />
+                        >
+                            <FixedArticle />
+                        </List>
                         <Aside className="home-page__right">
                             <Card>
                                 <h3 className="home-page__exhibitions-title">{exhibitions.title}</h3>
