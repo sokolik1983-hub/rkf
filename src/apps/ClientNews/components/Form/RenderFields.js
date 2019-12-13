@@ -19,11 +19,13 @@ const FormButton = ({ isUpdate, isValid }) => {
             ? <SubmitButton type="submit" className="btn-simple btn-lg">Обновить</SubmitButton>
             : <SubmitButton type="submit" className={`ArticleCreateForm__button ${isValid ? 'active' : ''}`}>Добавить новость</SubmitButton>
     );
-}
-
+};
 
 const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
     const [src, setSrc] = useState('');
+    const { focus, setFocused, setBlured } = useFocus(false);
+    const { content, file } = formik.values;
+
     const handleChange = e => {
         if (e.target.files[0]) {
             const file = e.target.files[0];
@@ -36,25 +38,30 @@ const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
         }
         setFocused();
     };
+
     const handleClose = () => {
         formik.setFieldValue('file', '');
         setSrc('');
-    }
+    };
 
-    const { focus, setFocused, setBlured } = useFocus(false);
     const handleKeyDown = (e) => {
         const textarea = e.target;
-        var offset = textarea.offsetHeight - textarea.clientHeight;
+        const offset = textarea.offsetHeight - textarea.clientHeight;
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + offset + 'px';
         textarea.value.length > 3000
             ? alert('Превышено максимальное кол-во символов (3000 симв.)')
             : formik.setFieldValue('content', textarea.value);
-    }
+
+        const regexp = /http:\/\/[^\s]+/g;
+        Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
+        formik.setFieldValue('content', e.target.value.replace(regexp, ''));
+    };
+
     const handleOutsideClick = () => {
         setBlured();
-    }
-    const { content, file } = formik.values;
+    };
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <input

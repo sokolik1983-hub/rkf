@@ -13,7 +13,9 @@ function ArticleCreateFormPublic({ addArticleSuccess }) {
     const onSuccess = values => {
         addArticleSuccess({ ...values, logo_link: clubCommon.logo_link });
     };
-    const transformValues = values => ({ ...values, club_id: clubCommon.id });
+    const transformValues = values => {
+        return { ...values, club_id: clubCommon.id };
+    };
     return (
         <Form
             isMultipart
