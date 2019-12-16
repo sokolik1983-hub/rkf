@@ -9,7 +9,7 @@ function ClubWorkingHours({ workTimeFrom, workTimeTo }) {
         workTimeFrom
             ? (
                 <div className="ClubWorkingHours">
-                    Часы работы:
+                    Часы работы
                     <div>Будние дни с {timeSecondsCutter(workTimeFrom)} до {timeSecondsCutter(workTimeTo)}</div>
                 </div>
             )

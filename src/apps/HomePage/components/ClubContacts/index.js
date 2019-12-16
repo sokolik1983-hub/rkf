@@ -22,15 +22,15 @@ function ClubContacts({ contacts }) {
     const { emails, phones } = prepareContacts();
     return (
         <Fragment>
-            <div className="ClubContacts ClubContacts--emails">
-                {emails &&
-                    emails.map(contact => (
-                        <ClubContact key={contact.id} {...contact} />
-                    ))}
-            </div>
             <div className="ClubContacts ClubContacts--phones">
                 {phones &&
                     phones.map(contact => (
+                        <ClubContact key={contact.id} {...contact} />
+                    ))}
+            </div>
+            <div className="ClubContacts ClubContacts--emails">
+                {emails &&
+                    emails.map(contact => (
                         <ClubContact key={contact.id} {...contact} />
                     ))}
             </div>

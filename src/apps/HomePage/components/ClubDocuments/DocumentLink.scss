@@ -1,7 +1,15 @@
-.ClubDocumentLink{
+.ClubDocumentLink {
   display: inline-block;
   position: relative;
   padding-left: 24px;
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  &:hover {
+    text-decoration: underline;
+  }
   &:before {
     top: -5px;
     left: -8px;

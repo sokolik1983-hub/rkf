@@ -1,6 +1,11 @@
 .ClubAddress {
   position: relative;
   margin-left: 32px;
+  color: #253c5e;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
   &:after {
     top: -4px;
     left: -40px;
@@ -14,6 +19,6 @@
   }
 
   span {
-    color: rgb(97, 121, 124);
+    color: #767b84;
   }
 }
