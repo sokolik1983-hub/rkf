@@ -7,7 +7,8 @@ import {redirectAfterLogin} from "./config";
 class AuthorizationProxy extends Component {
     render() {
         return this.props.isAuthenticated ?
-            <Redirect to={this.props.isActiveProfile ? redirectAfterLogin : '/client'}/>
+            // <Redirect to={this.props.isActiveProfile ? redirectAfterLogin : '/client'}/>
+            <Redirect to={redirectAfterLogin}/>
             :
             <Login/>
     }
