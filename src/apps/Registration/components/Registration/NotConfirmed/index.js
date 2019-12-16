@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from "components/Card";
 import axios from "axios";
-import { getHeaders } from "utils/request";
+import { Request, getHeaders } from "utils/request";
 import { connect } from 'react-redux';
 import Loading from 'components/Loading';
 import PublicLayout from 'components/Layout';
@@ -13,13 +13,31 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState('');
     const [loaded, setLoaded] = useState(false);
     const [active, setActive] = useState(false);
+    const [statuses, setStatuses] = useState([]);
+    const [federations, setFederations] = useState([]);
+
+    useEffect(() => {
+        Request({
+            url: '/api/clubs/Status',
+            method: 'GET'
+        }, (data) => setStatuses(data.reverse()));
+    }, []);
+
+    useEffect(() => {
+        Request({
+            url: '/api/clubs/Federation',
+            method: 'GET'
+        }, (data) => setFederations(data));
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
         //data.append('file', state.inputValue);
         Object.keys(fields).forEach(key => data.append(key, fields[key]));
-
+        for (var pair of data.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
         const config = {
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
@@ -119,6 +137,29 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         )
     };
 
+    const FormSelect = ({ name, label, title, value, required }) => {
+
+        return <div className="FormField">
+            <h4>{label}</h4>
+            <select
+                type="text"
+                required={required ? true : false}
+                name={name}
+                list={`${name}list`}
+                title={title ? title : ''}
+                onBlur={onInputChange}
+                defaultValue={value || ''}
+            >
+                {name === 'status' ? null : <option value="">{name === 'status' ? 'Выберите статус' : 'Выберите федерацию'}</option>}
+                {
+                    name === 'status'
+                        ? statuses.map(s => <option key={s.id} value={s.id} >{s.name}</option>)
+                        : federations.map(s => <option key={s.id} value={s.id}>{`${s.name} (${s.short_name})`}</option>)
+                }
+            </select>
+        </div >
+    };
+
     if (active) {
         alert("Ваша заявка была одобрена! \nТеперь Вы можете войти в свой личный кабинет на сайте.");
         logOutUser();
@@ -136,7 +177,17 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         legal_address,
         okpo,
         owner_name,
-        apartment_office
+        apartment_office,
+        phone,
+        status,
+        federation,
+        fact_city,
+        fact_address,
+        fact_name,
+        description,
+        bic,
+        bank_account,
+        bank_name
     } = fields;
 
     return (
@@ -160,6 +211,16 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <FormField type="text" required="true" label="КПП" name="kpp" value={kpp} title="Номер кпп состоит из 9 цифр" pattern="[0-9]{9}" />
                                     <FormField type="text" required="true" label="ОГРН" name="ogrn" value={ogrn} title="Номер огрн состоит из 13 цифр" pattern="[0-9]{13}" />
                                     <FormField type="text" required="true" label="ОКПО" name="okpo" value={okpo} title="Номер окпо состоит из 8 или 10 цифр" pattern="[0-9]{8}|[0-9]{10}" />
+                                    <FormField type="text" required="true" label="Номер телефона" name="phone" value={phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
+                                    <FormSelect label="Статус" name="status" value={status} />
+                                    <FormSelect required="true" label="Федерация" name="federation" value={federation} title="Укажите федерацию" />
+                                    <FormField type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fact_city} title="Введите фактический город местонахождения клуба" />
+                                    <FormField type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fact_address} title="Введите фактический полный адрес местонахождения клуба" />
+                                    <FormField type="text" required="true" label="Фактическое название организации" name="fact_name" value={fact_name} title="Введите фактическое название организации" />
+                                    <FormField type="text" required="true" label="Описание компании" name="description" value={description} title="Описание компании должно содержать минимум 10 символов" pattern=".{10,}" />
+                                    <FormField type="text" required="true" label="Название банка организации" name="bank_name" value={bank_name} title="Введите название банка организации" />
+                                    <FormField type="text" required="true" label="Номер расчетного счета" name="bank_account" value={bank_account} title="Номер расчетного счета состоит из 20 цифр" pattern="[0-9]{20}" />
+                                    <FormField type="text" required="true" label="БИК номер организации" name="bic" value={bic} title="БИК номер организации состоит из 9 цифр" pattern="[0-9]{9}" />
                                 </fieldset>
                                 <fieldset className="ClubDetails__file">
                                     <legend>Документы</legend>

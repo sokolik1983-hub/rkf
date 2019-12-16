@@ -7,6 +7,9 @@
       color: red;
       font-size: smaller;
     }
+    select {
+      width: 100%;
+    }
   }
   h2 {
     font-weight: 600;
@@ -21,7 +24,8 @@
       display: block;
       font-size: smaller;
     }
-    h4, span {
+    h4,
+    span {
       font-size: smaller;
       margin: 0;
     }
