@@ -4,7 +4,7 @@ import List from "../../../components/List";
 import { buildUrl } from "../utils";
 import { Request } from "../../../utils/request";
 import { connectFilters } from "../connectors";
-import { endpointExhibitionsSearch } from "../config";
+import { endpointGetExhibitions } from "../config";
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 
 const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess }) => {
@@ -43,7 +43,7 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     useEffect(() => {
         if (ExhibitionName) {
             setPrevUrl(url);
-            setUrl(`${endpointExhibitionsSearch}?ExhibitionName=${ExhibitionName}`);
+            setUrl(`${endpointGetExhibitions}?ExhibitionName=${ExhibitionName}`);
         } else {
             if (prevUrl) {
                 setUrl(`${endpointExhibitionsList}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
