@@ -1,18 +1,22 @@
-import {endpointGetExhibitions} from "./config";
-import {formatDateToString} from "../../utils/datetime";
+import { endpointGetExhibitions } from "./config";
+import { formatDateToString } from "../../utils/datetime";
 
 export const buildUrl = filter => {
     let params = '';
     Object.keys(filter).forEach(key => {
-        if(filter[key]) {
-            if(key === 'CityIds') {
+        if (filter.ExhibitionName) {
+            delete filter.DateFrom;
+            delete filter.DateTo;
+        };
+        if (filter[key]) {
+            if (key === 'CityIds') {
                 let str = '';
                 filter[key].forEach(el => {
                     str = str + `${key}=${el}&`;
                 });
                 params = params + str;
-            } else if(key === 'PageNumber') {
-                if(filter[key] > 1) {
+            } else if (key === 'PageNumber') {
+                if (filter[key] > 1) {
                     params = params + `${key}=${filter[key]}&`;
                 }
             } else {
@@ -21,8 +25,8 @@ export const buildUrl = filter => {
         }
     });
 
-    if(params.charAt(params.length - 1) === '&') {
-        params = params.slice(0,  -1);
+    if (params.charAt(params.length - 1) === '&') {
+        params = params.slice(0, -1);
     }
 
     return params ? `${endpointGetExhibitions}?${params}` : endpointGetExhibitions;
