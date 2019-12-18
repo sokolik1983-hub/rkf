@@ -42,6 +42,12 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
     const handleFormChange = e => {
         const { year, month } = e.target.form;
         setNewDate(new Date(year.value, month.value));
+        setFiltersSuccess({
+            ExhibitionName: '',
+            DateFrom: formatDateToString(new Date(year.value, month.value, 1)),
+            DateTo: formatDateToString(new Date(year.value, parseInt(month.value) + 1, 0)),
+            PageNumber: 1
+        })
     };
 
     return loading ?
@@ -55,6 +61,7 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 weekdaysShort={WEEKDAYS_SHORT}
                 modifiers={modifier}
                 locale="ru"
+                navbarElement={() => null}
                 onDayClick={date => {
                     setFiltersSuccess({ ExhibitionName: '', DateFrom: formatDateToString(date), DateTo: formatDateToString(date), PageNumber: 1 })
                     const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
