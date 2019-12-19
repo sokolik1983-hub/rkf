@@ -19,6 +19,10 @@ export const buildUrl = filter => {
                 if (filter[key] > 1) {
                     params = params + `${key}=${filter[key]}&`;
                 }
+            } else if (key === 'RankIds') {
+                if (filter[key].length) {
+                    params = params + filter[key].map(r => `${key}=${r}&`).join('');
+                }
             } else {
                 params = params + `${key}=${filter[key]}&`;
             }
@@ -46,7 +50,8 @@ export const getEmptyFilters = () => ({
     ExhibitionName: '',
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
-    PageNumber: 1
+    PageNumber: 1,
+    RankIds: []
 });
 
 export const getInitialFilters = () => {

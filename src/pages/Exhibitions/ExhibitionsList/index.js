@@ -7,7 +7,7 @@ import { connectFilters } from "../connectors";
 import { endpointGetExhibitions } from "../config";
 import { endpointExhibitionsList } from 'apps/Exhibitions/config';
 
-const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess }) => {
+const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds }) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [url, setUrl] = useState('');
@@ -37,8 +37,8 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     };
 
     useEffect(() => {
-        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber]);
+        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds })}`);
+    }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber, RankIds]);
 
     useEffect(() => {
         if (ExhibitionName) {

@@ -4,6 +4,7 @@ import Aside from "../../../components/Layouts/Aside";
 import Calendar from "./components/Calendar";
 // import MyExhibitionsFilter from "./components/MyExhibition";
 // import CitiesFilter from "./components/CitiesFilter/CititesFilter";
+import RanksFilter from "./components/RanksFilter";
 import { connectAuthVisible } from "../../../apps/Auth/connectors";
 import { connectShowFilters } from "../../../components/Layouts/connectors";
 import { connectFilters } from "pages/Exhibitions/connectors";
@@ -37,6 +38,7 @@ const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
         <Aside className={`exhibitions-page__left${isOpenFilters ? ' _open' : ''}`}>
             <Card>
                 <Calendar />
+                <RanksFilter />
                 {/* <h4 className="exhibitions-filters__title">Фильтры</h4>
                 {isAuthenticated && <MyExhibitionsFilter />}
                 <CitiesFilter /> */}
