@@ -1,0 +1,15 @@
+.club-page__description {
+  padding: 12px;
+  margin-bottom: 24px;
+  @media (max-width: 560px) {
+    margin-bottom: 12px;
+  }
+  &-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+}

@@ -5,17 +5,20 @@ import {formatText} from "../../utils";
 import './index.scss';
 
 
-const ListItem = ({title, date, isFullDate = true, alias, photo, text, url}) => (
+const ListItem = ({id, title, date, isFullDate = true, alias, photo, text, url, removable, onDelete}) => (
     <>
         <div className="list-item__head">
-            {title &&
-                alias ?
-                    <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4> :
-                    <h4 className="list-item__author">{title}</h4>
-            }
-            <span className="list-item__date">
-                {isFullDate ? formatDateTime(date) : formatDateWithLocaleStringFull(new Date(date))}
-            </span>
+            <div className="list-item__head-info">
+                {title &&
+                    alias ?
+                        <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4> :
+                        <h4 className="list-item__author">{title}</h4>
+                }
+                <span className="list-item__date">
+                    {isFullDate ? formatDateTime(date) : formatDateWithLocaleStringFull(new Date(date))}
+                </span>
+            </div>
+            {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить">✕</button>}
         </div>
         <Link className="list-item__body" to={url}>
             {photo && <div className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}

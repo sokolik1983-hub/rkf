@@ -1,11 +1,11 @@
 import React from 'react'
 import './styles.scss'
 
-export default function NewsAreEmpty() {
-    return (
-        <div className="NewsAreEmpty">
-            <div className="NewsAreEmpty__text">У вас нет новостей</div>
-            <img className="NewsAreEmpty__img" src="/static/images/news/empty_list.png" alt="У вас нет новостей"/>
-        </div>
-    )
-}
+const NewsAreEmpty = () => (
+    <div className="NewsAreEmpty">
+        <h4 className="NewsAreEmpty__text">Новости не найдены</h4>
+        <img className="NewsAreEmpty__img" src="/static/images/news/empty_list.png" alt="У вас нет новостей"/>
+    </div>
+);
+
+export default React.memo(NewsAreEmpty);

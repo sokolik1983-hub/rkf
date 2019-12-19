@@ -7,8 +7,8 @@ export const selectProfileId = state => ({
 });
 
 export const selectIsAuthenticated = state => {
-    const { isAuthenticated } = getAuthenticationState(state);
-    return { isAuthenticated };
+    const {isAuthenticated, profile_id} = getAuthenticationState(state);
+    return {isAuthenticated, profile_id};
 };
 
 export const selectCreateArticleForm = state => {

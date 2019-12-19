@@ -5,7 +5,7 @@ import Paginator from "../Paginator";
 import './index.scss';
 
 
-const List = ({ list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, children, pagesCount, currentPage, setPage }) => (
+const List = ({list, listNotFound = 'Ничего не найдено', listClass, isFullDate = true, children, pagesCount, currentPage, setPage, removable, onDelete}) => (
     <div className={`list${listClass ? ' ' + listClass : ''}`}>
         {((list && !!list.length) || children) &&
             <ul className="list__content">
@@ -18,6 +18,7 @@ const List = ({ list, listNotFound = 'Ничего не найдено', listCla
                     <li className="list__item" key={item.id}>
                         <Card>
                             <ListItem
+                                id={item.id}
                                 title={item.title}
                                 date={item.create_date}
                                 isFullDate={isFullDate}
@@ -25,6 +26,8 @@ const List = ({ list, listNotFound = 'Ничего не найдено', listCla
                                 text={item.content}
                                 url={item.url}
                                 alias={item.alias}
+                                removable={removable}
+                                onDelete={onDelete}
                             />
                         </Card>
                     </li>

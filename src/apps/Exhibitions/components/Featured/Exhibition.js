@@ -7,7 +7,6 @@ function FeaturedExhibition({ id, exhibition_picture_link, exhibition_name, exhi
     const pictureLink = exhibition_picture_link ? exhibition_picture_link : '/static/images/exhibitions/default.png';
 
     return (
-
         <Link to={link}  className="FeaturedExhibition">
             <div className="FeaturedExhibition__img"  style={{ backgroundImage: `url(${pictureLink})` }}/>
             <div className="FeaturedExhibition__content">

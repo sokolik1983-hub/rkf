@@ -9,7 +9,7 @@ import {useResourceAndStoreToRedux} from 'shared/hooks'
 import {connectClubCommon} from './connectors'
 import Loading from 'components/Loading';
 import PageNotFound from "../../pages/404";
-import ClubNotActive from "../../pages/Club/ClubNotActive";
+import ClubNotActive from "../../pages/Club/Components/ClubNotActive";
 
 
 function ClubHomePageProxy({match, clubCommon, getCommonSuccess}) {

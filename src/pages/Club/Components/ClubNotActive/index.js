@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../../../components/Layouts";
-import Container from "../../../components/Layouts/Container";
+import Layout from "../../../../components/Layouts";
+import Container from "../../../../components/Layouts/Container";
 import './index.scss';
 
 

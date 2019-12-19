@@ -28,9 +28,14 @@ export const LoadableNews = Loadable({
 });
 
 export const LoadableClubPage = Loadable({
-    loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
+    loader: () => import('./pages/Club'),
     loading: Loading,
 });
+
+// export const LoadableClubPage = Loadable({
+//     loader: () => import(/* webpackChunkName: "app.homepage" */ './apps/HomePage/index'),
+//     loading: Loading,
+// });
 
 export const LoadableAuthorization = Loadable({
     loader: () => import(/* webpackChunkName: "app.authorization" */ './apps/Auth/index'),
