@@ -7,8 +7,8 @@ export const selectProfileId = state => ({
 });
 
 export const selectIsAuthenticated = state => {
-    const {isAuthenticated, profile_id} = getAuthenticationState(state);
-    return {isAuthenticated, profile_id};
+    const { isAuthenticated, profile_id } = getAuthenticationState(state);
+    return { isAuthenticated, profile_id };
 };
 
 export const selectCreateArticleForm = state => {
@@ -21,8 +21,8 @@ export const selectCreateArticleForm = state => {
 export const selectWidgetLogin = state => {
     const { isAuthenticated, user_info } = getAuthenticationState(state);
     if (isAuthenticated) {
-        const { club_alias, club_name, id } = user_info;
-        return { isAuthenticated, club_alias, club_name, id };
+        const { club_alias, club_name, id, logo_link } = user_info;
+        return { isAuthenticated, club_alias, club_name, id, logo_link };
     }
 
     return { isAuthenticated };

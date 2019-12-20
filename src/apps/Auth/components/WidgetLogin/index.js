@@ -4,19 +4,18 @@ import { DropDownItem } from 'components/DropDownItem';
 import Dropdown from 'components/Dropdown';
 //import { UserIcon } from './UserIcon'
 import { connectWidgetLogin } from 'apps/Auth/connectors';
-import { UserLogin } from './UserLogin';
 import { LOGIN_URL } from 'appConfig';
 import './index.scss';
 import { connect } from "react-redux";
 
-const DropInner = ({ title = 'Личный кабинет' }) => (
-    <Fragment>
-        {/*<UserIcon/>*/}
-        <UserLogin title={title} />
+const DropInner = ({ logo_link }) => {
+    const logo = logo_link ? logo_link : '/static/icons/default/club-avatar.svg';
+    return <Fragment>
+        <div className="widget-login__user-icon" style={{ backgroundImage: `url(${logo})` }}></div>
     </Fragment>
-);
+};
 
-function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name }) {
+function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name, logo_link }) {
     // const clubName = name && name !== club_name ? name : club_name;
     const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
 
@@ -25,8 +24,9 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
             className="widget-login"
             position="right"
             closeOnClick={true}
-            innerComponent={<DropInner title={club_name} />}
+            innerComponent={<DropInner logo_link={logo_link} />}
         >
+            <span class="club-name">{club_name}</span>
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
