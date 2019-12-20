@@ -9,9 +9,16 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    letter-spacing: .4px;
+    letter-spacing: 0.4px;
     text-transform: uppercase;
     margin-bottom: 12px;
+  }
+  a {
+    border: none;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   p {
     &:not(:first-child) {
@@ -30,13 +37,14 @@
   &-owner,
   &-email,
   &-phone,
+  &-site,
   &-socials,
-  &-work-time{
+  &-work-time {
     position: relative;
     padding-left: 30px;
     margin-bottom: 12px;
     &:before {
-      content: '';
+      content: "";
       width: 22px;
       height: 22px;
       position: absolute;
@@ -52,10 +60,20 @@
   &-owner:before {
     background-image: url("/static/icons/owner.svg");
   }
-  &-email:before {
+  &-site:before {
+    background-image: url("/static/icons/ico-web.svg");
+  }
+  &-email:not(:empty):before {
     background-image: url("/static/icons/ico-contact-email.svg");
   }
-  &-phone:before {
+  &-email p,
+  &-phone p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  &-phone:not(:empty):before {
     background-image: url("/static/icons/ico-contact-phone.svg");
   }
   &-socials:before {
@@ -79,7 +97,7 @@
         margin-top: 6px;
       }
       &:before {
-        content: '';
+        content: "";
         display: inline-block;
         width: 12px;
         height: 16px;
