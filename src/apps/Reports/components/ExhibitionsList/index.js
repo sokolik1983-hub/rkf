@@ -11,6 +11,7 @@ import Container from "../../../../components/Layout/Container";
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;
     const { loading } = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
+    const ifExpire = date => (new Date() - new Date(date)) > 2592000000 ? true : false; // 30 days in millisecs
     return (loading ?
         <Loading /> :
         <Container className="container-main">
@@ -23,13 +24,16 @@ const ExhibitionsList = (props) => {
                             .reverse()
                             .map((item) =>
                                 <li key={item.exhibition_id}>
-                                    {item.report_header_status === 1 ?
-                                        <Link to={`${path}/${item.exhibition_id}`} className="ExhibitionsList__item _red">
-                                            Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
-                                        </Link> :
-                                        <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}`}>
-                                            Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
-                                        </p>
+                                    {
+                                        item.report_header_status === 1
+                                            ? <Link
+                                                to={`${path}/${item.exhibition_id}`}
+                                                className={`ExhibitionsList__item _red${ifExpire(item.date) ? ' _expire' : ''}`}>
+                                                Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                            </Link>
+                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}`}>
+                                                Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                            </p>
                                     }
                                 </li>
                             )

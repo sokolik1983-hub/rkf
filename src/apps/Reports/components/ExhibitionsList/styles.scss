@@ -8,7 +8,7 @@
     padding: 10px;
     color: #856404 !important;
     background-color: #ffeeba;
-    transition: background-color .2s linear;
+    transition: background-color 0.2s linear;
     &:hover {
       background-color: #ffe8a1;
     }
@@ -25,6 +25,16 @@
       &:hover {
         background-color: #abdde5;
       }
+    }
+    &._gray {
+      color: #383d41 !important;
+      background-color: #d6d8db;
+      &:hover {
+        background-color: #c8cbcf;
+      }
+    }
+    &._expire {
+      opacity: 0.6;
     }
   }
 }
