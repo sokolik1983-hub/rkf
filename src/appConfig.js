@@ -1,16 +1,12 @@
 import * as LoadableModules from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
-
 const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
 const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш Email';
 const DEFAULT_CONTENT_LENGTH = 180;
-
-
 const LOGIN_URL = '/auth/login';
 const REGISTER_URL = '/auth/registration';
-
 
 const appRoutes = [
     {
@@ -27,6 +23,11 @@ const appRoutes = [
         exact: false,
         path: '/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
+    },
+    {
+        exact: true,
+        path: '/clubs',
+        component: LoadableModules.LoadableClubs
     },
     {
         exact: false,
@@ -65,34 +66,17 @@ const appRoutes = [
     },
 ];
 
-
-// Результаты Расписание рингов Карточка участника Заявки
 const mainNav = [
     {
         id: 1,
         title: "Выставки",
         to: '/exhibitions'
     },
-    // {
-    //     id: 2,
-    //     title: "Результаты",
-    //     to: '/demo'
-    // },
-    // {
-    //     id: 3,
-    //     title: "Расписание рингов",
-    //     to: '/demo'
-    // },
-    // {
-    //     id: 4,
-    //     title: "Карточка участника",
-    //     to: '/demo'
-    // },
-    // {
-    //     id: 5,
-    //     title: "Заявки",
-    //     to: '/demo'
-    // },
+    {
+        id: 2,
+        title: "Клубы",
+        to: '/clubs'
+    }
 ];
 
 const HTTP = {
@@ -103,6 +87,7 @@ const HTTP = {
 };
 
 const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
 const MONTHS = [
     'Январь',
     'Февраль',

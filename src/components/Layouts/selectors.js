@@ -1,1 +1,1 @@
-export const selectIsOpenFilters = state => state.layout;
+export const selectIsOpenFilters = state => state.layout || {};
