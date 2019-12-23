@@ -31,7 +31,7 @@ const ExhibitionsList = (props) => {
                                                 className={`ExhibitionsList__item _red${ifExpire(item.date) ? ' _expire' : ''}`}>
                                                 Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                             </Link>
-                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}`}>
+                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${ifExpire(item.date) ? ' _expire' : ''}`}>
                                                 Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                             </p>
                                     }

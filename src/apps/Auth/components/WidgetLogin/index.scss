@@ -58,6 +58,8 @@
   }
   .club-name {
     padding: 8px 16px;
+    height: 62px;
+    overflow: hidden;
     text-decoration: none;
     cursor: default;
     font-style: normal;
@@ -70,6 +72,7 @@
     max-height: 64px;
     overflow: hidden;
     background: #ebf0ff;
+    letter-spacing: -0.3px;
   }
 }
 a.login-link {
