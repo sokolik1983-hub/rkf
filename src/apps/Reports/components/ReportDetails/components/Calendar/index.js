@@ -7,7 +7,8 @@ import './styles.scss';
 
 const calendar = ({ props } = {}) => {
     const Calendar = ({ value, onValue }) => {
-        const [date, setDate] = useState(new Date());
+        console.log(value);
+        const [date, setDate] = useState(value > new Date(null) ? value : new Date());
 
         const onDateChange = date => setDate(date);
 
