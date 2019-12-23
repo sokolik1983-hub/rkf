@@ -36,14 +36,13 @@
       }
     }
     &__button--visible {
-      background: #bed4f9;
+      background: #abc7f5;
     }
     &__content--visible {
       top: 70px;
       width: 195px;
       border-radius: 0 0 6px 6px;
       box-shadow: none;
-      border: 1px solid #bed4f9;
       background: #bed4f9;
       padding: 0 0 10px 0;
       &:before {
@@ -61,11 +60,11 @@
     cursor: default;
     color: #73849d;
     display: block;
-    text-align: center;
     user-select: none;
     max-height: 64px;
     overflow: hidden;
     font-weight: bold;
+    background: #abc7f5;
     border-bottom: 1px solid #d9e2ff;
     @media (max-width: 768px) {
       display: none;
