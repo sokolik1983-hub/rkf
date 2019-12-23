@@ -58,8 +58,6 @@
   }
   .club-name {
     padding: 8px 16px;
-    height: 62px;
-    overflow: hidden;
     text-decoration: none;
     cursor: default;
     font-style: normal;
@@ -69,7 +67,7 @@
     color: #253c5e;
     display: block;
     user-select: none;
-    max-height: 64px;
+    max-height: 62px;
     overflow: hidden;
     background: #ebf0ff;
     letter-spacing: -0.3px;
