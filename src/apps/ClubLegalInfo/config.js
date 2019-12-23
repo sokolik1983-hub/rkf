@@ -59,7 +59,8 @@ export const clubLegalInfoFormConfig = {
             .nullable(),
         address: string()
             .nullable()
-            .required('Поле не может быть пустым'),
+            .required('Поле не может быть пустым')
+            .min(20, 'Введите информацию длиной не менее 20 символов'),
         inn: string()
             .nullable()
             .required('Поле не может быть пустым')
