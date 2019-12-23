@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import { object, string } from "yup";
 
 export const defaultReduxKey = 'legal_info';
 export const endpointUrl = '/api/clubs/Legal';
@@ -59,8 +59,7 @@ export const clubLegalInfoFormConfig = {
             .nullable(),
         address: string()
             .nullable()
-            .required('Поле не может быть пустым')
-            .min(20, 'коротко от 20'),
+            .required('Поле не может быть пустым'),
         inn: string()
             .nullable()
             .required('Поле не может быть пустым')

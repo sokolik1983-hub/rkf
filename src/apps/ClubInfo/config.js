@@ -13,6 +13,7 @@ export const clubInfoFormConfig = {
             name: "description",
             label: "Краткая информация о клубе",
             fieldType: 'textarea',
+            maxLength: 500
         },
         city_id: {
             name: 'city_id',
@@ -48,8 +49,7 @@ export const clubInfoFormConfig = {
             .nullable(),
         description: string()
             .nullable()
-            .required('Поле не может быть пустым')
-            .min(20, 'коротко от 20'),
+            .required('Поле не может быть пустым'),
         city_id: string()
             .required('Поле не может быть пустым')
             .nullable(),
