@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { DropDownItem } from 'components/DropDownItem';
 import Dropdown from 'components/Dropdown';
-//import { UserIcon } from './UserIcon'
 import { connectWidgetLogin } from 'apps/Auth/connectors';
 import { LOGIN_URL } from 'appConfig';
 import './index.scss';
@@ -13,6 +12,7 @@ const DropInner = ({ logo_link }) => {
     return <Fragment>
         <div className="widget-login__user-icon" style={{ backgroundImage: `url(${logo})` }}></div>
     </Fragment>
+
 };
 
 function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name, logo_link }) {
@@ -26,7 +26,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
             closeOnClick={true}
             innerComponent={<DropInner logo_link={logo_link} />}
         >
-            <span className="club-name">{club_name}</span>
+            <span class="club-name">{club_name}</span>
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
