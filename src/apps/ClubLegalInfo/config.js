@@ -58,8 +58,7 @@ export const clubLegalInfoFormConfig = {
             .required('Поле не может быть пустым')
             .nullable(),
         registration_date: date()
-            .required('Необходимо указать дату')
-            .nullable(),
+            .required('Необходимо указать дату'),
         address: string()
             .nullable()
             .required('Поле не может быть пустым')
