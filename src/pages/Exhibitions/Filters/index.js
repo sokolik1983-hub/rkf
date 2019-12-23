@@ -9,18 +9,11 @@ import { connectAuthVisible } from "../../../apps/Auth/connectors";
 import { connectShowFilters } from "../../../components/Layouts/connectors";
 import { connectFilters } from "pages/Exhibitions/connectors";
 import { getEmptyFilters } from "pages/Exhibitions/utils";
-import './index.scss';
+import { setOverflow } from "../../../utils";
+import "./index.scss";
 
 
 const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
-    const setOverflow = (isOpen) => {
-        if (window.innerWidth <= 768) {
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-        } else if (window.innerWidth > 768 && isOpen) {
-            document.body.style.overflow = '';
-        }
-    };
-
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -32,7 +25,7 @@ const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
         setFiltersSuccess(getEmptyFilters());
         const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
         if (searchCancel) searchCancel.click();
-    }
+    };
 
     return (
         <Aside className={`exhibitions-page__left${isOpenFilters ? ' _open' : ''}`}>

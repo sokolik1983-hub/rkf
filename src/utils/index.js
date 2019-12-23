@@ -7,6 +7,14 @@ export const formatText = text => JSON.parse(
         .replace(/\\n/g, ' <br> ')
 ).replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
 
+export const setOverflow = (isOpen) => {
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    } else if (window.innerWidth > 768 && isOpen) {
+        document.body.style.overflow = '';
+    }
+};
+
 export const makeActionCreator = (type, ...argNames) => {
     return function (...args) {
         let action = {type};
