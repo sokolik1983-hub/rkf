@@ -166,12 +166,12 @@
   .Dropdown {
     .css-ulftuk-option, .drop-down__item {
       color: #72839c;
-      background: transparent !important;
+      background: transparent;
       transition: all .2s linear;
     }
     .css-19y6th-option, .drop-down__item:hover {
       color: #253C5E;
-      background: #f6f7f7 !important;
+      background: #f6f7f7;
     }
     @media (max-width: 768px) {
       margin: 0;

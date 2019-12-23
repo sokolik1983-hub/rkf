@@ -36,30 +36,40 @@
       }
     }
     &__button--visible {
-      background: #ccd9ff;
+      background: #bed4f9;
     }
     &__content--visible {
       top: 70px;
       width: 195px;
       border-radius: 0 0 6px 6px;
       box-shadow: none;
-      background: #ccd9ff;
+      border: 1px solid #bed4f9;
+      background: #bed4f9;
       padding: 0 0 10px 0;
       &:before {
         display: none;
       }
+      .drop-down__item:hover {
+        background: #d4e4ff !important;
+      }
     }
   }
   .club-name {
-    padding: 16px 8px 8px;
+    padding: 8px;
+    box-sizing: content-box;
     text-decoration: none;
     cursor: default;
-    color: #0067ff;
+    color: #73849d;
     display: block;
     text-align: center;
     user-select: none;
     max-height: 64px;
     overflow: hidden;
+    font-weight: bold;
+    border-bottom: 1px solid #d9e2ff;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 }
 a.login-link {
@@ -69,6 +79,5 @@ a.login-link {
   text-decoration: none;
 }
 .feedback-link + div {
-  height: 70px;
   display: flex;
 }
