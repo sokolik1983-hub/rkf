@@ -6,6 +6,7 @@ import { connectWidgetLogin } from 'apps/Auth/connectors';
 import { LOGIN_URL } from 'appConfig';
 import './index.scss';
 import { connect } from "react-redux";
+import ls from 'local-storage';
 
 const DropInner = ({ logo_link }) => {
     const logo = logo_link ? logo_link : '/static/icons/default/club-avatar.svg';
@@ -15,9 +16,10 @@ const DropInner = ({ logo_link }) => {
 
 };
 
-function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias, club_alias_refreshed, club_name, authId, commonId, name, logo_link }) {
+function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_name, logo_link }) {
     // const clubName = name && name !== club_name ? name : club_name;
-    const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
+    //const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
+    const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
 
     return isAuthenticated
         ? <Dropdown
@@ -28,7 +30,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
         >
             <span className="club-name">{club_name}</span>
             <DropDownItem>
-                <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
+                <Link to={isActiveProfile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
             {
                 isActiveProfile
@@ -43,11 +45,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
 }
 
 const mapStateToProps = state => ({
-    name: state.client_club ? state.client_club.name : null,
     isActiveProfile: state.authentication ? state.authentication.is_active_profile : null,
-    club_alias_refreshed: state.client_club ? state.client_club.club_alias : state.authentication.club_alias,
-    authId: state.authentication ? state.authentication.profile_id : null,
-    commonId: state.home_page ? state.home_page.club.common.id : null
 });
 
 export default connect(mapStateToProps)(connectWidgetLogin(WidgetLogin));
