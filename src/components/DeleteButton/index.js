@@ -20,7 +20,7 @@ export default function DeleteButton({
     confirmMessage,
     className
 }) {
-    const { confirm, onConfirm, onCancel } = useConfirmDialog();
+    const { confirm, onCancel } = useConfirmDialog();
     const [state, setState] = useState({ loading: false });
     const { push } = usePushMessage();
 

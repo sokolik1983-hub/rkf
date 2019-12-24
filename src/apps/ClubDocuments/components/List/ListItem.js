@@ -42,7 +42,6 @@ function ClientClubListItem({ clubDocument, updateClubDocumentSuccess, deleteClu
                         : null
                 }
                 <Dropdown position="right" closeOnClick={true}>
-                    <button onClick={toggleVisibility}>Изменить</button>
                     <DeleteButton
                         onDeleteSuccess={onDeleteSuccess}
                         windowed
