@@ -19,16 +19,18 @@ const ClubNews = ({isAuthenticated, profile_id, clubId, alias, page, setPage, ne
         await Request({
             url: `${endpointGetNews}?alias=${alias}${page > 1 ? '&page=' + page : ''}`
         }, data => {
+            let modifiedNews = [];
+
             if(data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
+                modifiedNews = data.articles.map(article => {
                     article.title = article.club_name;
                     article.url = `/news/${article.id}`;
                     return article;
                 });
-
-                setNews(modifiedNews);
-                setPagesCount(Math.ceil(data.articles_count / 10));
             }
+
+            setNews(modifiedNews);
+            setPagesCount(Math.ceil(data.articles_count / 10));
         }, error => {
             console.log(error.response);
         });
