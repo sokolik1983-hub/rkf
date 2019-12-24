@@ -138,25 +138,31 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     };
 
     const FormSelect = ({ name, label, title, value, required }) => {
-
+        const fieldComment = name + '_comment';
+        const isValidField = name + '_valid';
         return <div className="FormField">
             <h4>{label}</h4>
-            <select
-                type="text"
-                required={required ? true : false}
-                name={name}
-                list={`${name}list`}
-                title={title ? title : ''}
-                onBlur={onInputChange}
-                defaultValue={value || ''}
-            >
-                {name === 'status' ? null : <option value="">{name === 'status' ? 'Выберите статус' : 'Выберите федерацию'}</option>}
-                {
-                    name === 'status'
-                        ? statuses.map(s => <option key={s.id} value={s.id} >{s.name}</option>)
-                        : federations.map(s => <option key={s.id} value={s.id}>{`${s.name} (${s.short_name})`}</option>)
-                }
-            </select>
+            {fields[isValidField]
+                ? <span>{name === 'status' ? statuses.find(s => s.id === value).name : federations.find(s => s.id === value).name}</span>
+                : <React.Fragment>
+                    <select
+                        type="text"
+                        required={required ? true : false}
+                        name={name}
+                        list={`${name}list`}
+                        title={title ? title : ''}
+                        onBlur={onInputChange}
+                        defaultValue={value || ''}
+                    >
+                        {name === 'status' ? null : <option value="">{name === 'status' ? 'Выберите статус' : 'Выберите федерацию'}</option>}
+                        {
+                            name === 'status'
+                                ? statuses.map(s => <option key={s.id} value={s.id} >{s.name}</option>)
+                                : federations.map(s => <option key={s.id} value={s.id}>{`${s.name} (${s.short_name})`}</option>)
+                        }
+                    </select>
+                    <div className="FormField__comment">{fields[fieldComment]}</div>
+                </React.Fragment>}
         </div >
     };
 
