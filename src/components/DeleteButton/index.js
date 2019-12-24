@@ -82,26 +82,26 @@ export default function DeleteButton({
                 </div>
             </div>
         ) : (
-            <React.Fragment>
-                <Button
-                    style={style}
-                    disabled={state.loading}
-                    onClick={onConfirmDelete}
-                >
-                    Подвердить
+                <React.Fragment>
+                    <Button
+                        style={style}
+                        disabled={state.loading}
+                        onClick={onConfirmDelete}
+                    >
+                        Подвердить
                 </Button>
-                <Button disabled={state.loading} onClick={onCancel}>
-                    Отмена
+                    <Button disabled={state.loading} onClick={onCancel}>
+                        Отмена
                 </Button>
-            </React.Fragment>
-        )
+                </React.Fragment>
+            )
     ) : (
-        <Button
-            className={classnames('DeleteButton', { [className]: className })}
-            disabled={state.loading}
-            onClick={onConfirm}
-        >
-            {children}
-        </Button>
-    );
+            <Button
+                className={classnames('DeleteButton', { [className]: className })}
+                disabled={state.loading}
+                onClick={() => window.confirm('Вы уверены?') ? onConfirmDelete() : onCancel()}
+            >
+                {children}
+            </Button>
+        );
 }
