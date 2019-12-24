@@ -1,6 +1,7 @@
 .club-page__header {
   padding: 0;
   margin-bottom: 24px;
+  word-break: break-word;
   @media (max-width: 560px) {
     margin-bottom: 12px;
   }

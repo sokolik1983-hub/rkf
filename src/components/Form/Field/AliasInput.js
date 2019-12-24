@@ -57,6 +57,7 @@ function FormField({ formik, fieldType, className, style, disabled, blockIfHasVa
                 id={fieldProps.name}
                 className={'FormInput__input'}
                 disabled={disabled || (fieldProps.value && blockIfHasValue)}
+                maxLength="100"
                 {...fieldProps}
             />
             <Error name={fieldProps.name} />
