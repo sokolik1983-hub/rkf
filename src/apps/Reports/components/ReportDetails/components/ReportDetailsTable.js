@@ -117,13 +117,18 @@ class ReportDetailsTable extends React.Component {
         const rows = clone(this.state.rows);
         let newRow = {};
         newRow.id = rows.length ? rows[rows.length - 1].id + 1 : 1;
+        const copyRow = prop => rows.length ? rows[rows.length - 1][prop] : '';
 
         if (this.props.content === 'judge-load-report') {
             newRow['judge-country'] = '';
             newRow.breed = [];
             newRow.group = [];
+            newRow.group = [];
         } else if (this.props.content === 'final-report') {
-            newRow.breed = '';
+            newRow.breed = rows.length ? rows[rows.length - 1].breed : '';
+            newRow['judge-surname'] = copyRow('judge-surname');
+            newRow['judge-name'] = copyRow('judge-name');
+            newRow['judge-patronymic'] = copyRow('judge-patronymic');
             newRow.class = '';
             newRow.score = '';
             newRow.date = this.props.date;
@@ -199,7 +204,6 @@ class ReportDetailsTable extends React.Component {
                     onPerPage={this.onPerPage}
                     onColumnChange={this.onColumnChange}
                     onSearch={this.onSearch}
-                    onAdd={this.onAdd}
                 />
 
                 <Table.Provider
@@ -220,6 +224,7 @@ class ReportDetailsTable extends React.Component {
                 />
 
                 <button onClick={this.onSubmit}>Отправить отчёт</button>
+                <button onClick={this.onAdd} className="ReportDetails__table--add">+ Добавить строку</button>
             </>
         )
     }

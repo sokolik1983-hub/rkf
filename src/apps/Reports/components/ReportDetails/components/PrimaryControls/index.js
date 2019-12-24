@@ -4,10 +4,7 @@ import './styles.scss';
 
 const PrimaryControls = ({ perPage, columns, rows, column, query, onPerPage, onSearch, onColumnChange, onAdd }) => (
     <div className="ReportDetails__controls primary-controls">
-        <div className="primary-controls__add-row add-row">
-            <span className="add-row__label">Добавить новую запись:</span>
-            <button className="add-row__button" onClick={onAdd}>Добавить</button>
-        </div>
+        
         <div className="primary-controls__per-page per-page-control">
             <span className="per-page-control__label">Строк на страницу:</span>
             <select defaultValue={perPage} onChange={e => onPerPage(e.target.value)}>

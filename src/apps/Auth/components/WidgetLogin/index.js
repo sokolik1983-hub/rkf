@@ -26,7 +26,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_alias,
             closeOnClick={true}
             innerComponent={<DropInner logo_link={logo_link} />}
         >
-            <span class="club-name">{club_name}</span>
+            <span className="club-name">{club_name}</span>
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${calculatedClubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>

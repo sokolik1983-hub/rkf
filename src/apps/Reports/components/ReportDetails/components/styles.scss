@@ -103,6 +103,14 @@
         }
       }
     }
+    &--add {
+      margin-left: 15px;
+      color: black;
+      border: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   tr.drop-over-downward td {
