@@ -67,6 +67,7 @@
   &__info {
     width: 100%;
     display: flex;
+    word-break: break-word;
     flex-direction: column;
     justify-content: space-between;
   }
