@@ -1,10 +1,19 @@
 import React from 'react'
 import { FormField, FormGroup } from 'components/Form'
 import { clubInfoFormConfig } from 'apps/ClubInfo/config'
+import { connect } from 'formik';
 
 const { fields } = clubInfoFormConfig;
 
-const RenderFields = () =>
+const regexp = RegExp('https?://.*');
+const checkUrl = (e, formik) => {
+    if (!regexp.test(e.target.value)) {
+        alert('Адрес сайта должен начинаться с "http://" либо "https://"');
+        formik.values.site = '';
+    }
+}
+
+const RenderFields = ({ formik }) =>
     <React.Fragment>
         <FormGroup>
             <FormField
@@ -32,6 +41,7 @@ const RenderFields = () =>
         </FormGroup>
         <FormField
             {...fields.site}
+            onBlur={e => checkUrl(e, formik)}
         />
         {/*<FormControls>
             <SubmitButton type="submit"
@@ -39,4 +49,4 @@ const RenderFields = () =>
         </FormControls>*/}
     </React.Fragment>;
 
-export default RenderFields
+export default connect(RenderFields);
