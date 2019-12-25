@@ -1,19 +1,21 @@
-import React, {useState} from "react";
-import {connectFilters} from "../../../connectors";
+import React, { useState } from "react";
+import { connectFilters } from "../../../connectors";
 import './index.scss';
 
 
-const ClubsSearch = ({string_filter, setFilters}) => {
+const ClubsSearch = ({ string_filter, setFilters }) => {
     const [searchValue, setSearchValue] = useState(string_filter);
 
     const onCancel = () => {
         setSearchValue('');
-        setFilters({string_filter: '', page: 1});
+        setFilters({ string_filter: '', page: 1 });
     };
 
     const handleKeyDown = e => {
         if (searchValue && e.key === 'Enter') {
-            setFilters({string_filter: searchValue, page: 1});
+            setFilters({ string_filter: searchValue, page: 1 });
+        } else if (e.key === 'Enter') {
+            onCancel();
         }
     };
 

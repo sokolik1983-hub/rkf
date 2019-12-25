@@ -14,6 +14,8 @@ const ExhibitionsSearch = ({ ExhibitionName, setFiltersSuccess }) => {
     const handleKeyDown = e => {
         if (searchValue && e.key === 'Enter') {
             setFiltersSuccess({ ExhibitionName: searchValue, PageNumber: 1 });
+        } else if (e.key === 'Enter') {
+            onCancel();
         }
     };
 
