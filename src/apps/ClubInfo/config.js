@@ -8,14 +8,14 @@ export const clubInfoFormConfig = {
         name: {
             name: "name",
             label: "Название клуба",
-            maxlength: '100'
+            maxLength: '100'
         },
         description: {
             name: "description",
             label: "Краткая информация о клубе",
             fieldType: 'textarea',
             rows: 6,
-            maxlength: '1500'
+            maxLength: '1500'
         },
         city_id: {
             name: 'city_id',

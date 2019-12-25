@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { Form } from "components/Form";
-import { connectClubInfoForm } from 'apps/ClientClub/connectors'
-import {clubInfoFormConfig} from "../../config";
-import RenderFields from './RenderFields'
-import { usePushMessage } from 'apps/Messages/hooks'
+import { connectClubInfoForm } from 'apps/ClientClub/connectors';
+import { clubInfoFormConfig } from "../../config";
+import RenderFields from './RenderFields';
+import { usePushMessage } from 'apps/Messages/hooks';
+import ls from 'local-storage';
 
 function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
     usePushMessage();
@@ -19,6 +20,7 @@ function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
     };
     const onSuccess = values => {
         clubInfoUpdateSuccess(values);
+        ls.set('user_info', { ...ls.get('user_info'), club_name: values.name });
         // push(defaultSuccessMessage)
     };
 

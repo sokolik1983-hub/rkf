@@ -16,10 +16,11 @@ const DropInner = ({ logo_link }) => {
 
 };
 
-function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_name, logo_link }) {
+function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, logo_link }) {
     // const clubName = name && name !== club_name ? name : club_name;
     //const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
     const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
+    const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
 
     return isAuthenticated
         ? <Dropdown
@@ -28,7 +29,7 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, club_name, 
             closeOnClick={true}
             innerComponent={<DropInner logo_link={logo_link} />}
         >
-            <span className="club-name">{club_name}</span>
+            <span className="club-name">{clubName}</span>
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
