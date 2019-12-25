@@ -40,6 +40,14 @@ function getField(fieldType) {
 function FormField({ formik, fieldType, className, style, disabled, blockIfHasValue, ...fieldProps }) {
     const Input = getField(fieldType);
 
+    const checkAlias = () => {
+        const v = formik.values.alias_name;
+        if (v === 'exhibitions' || v === 'clubs' || v === 'reports' || v === 'client' || v === 'dog_owner') {
+            alert('Данный адрес страницы запрещён');
+            formik.values.alias_name = '';
+        }
+    };
+
     return (
         <FormInput
             style={style}
@@ -58,6 +66,7 @@ function FormField({ formik, fieldType, className, style, disabled, blockIfHasVa
                 className={'FormInput__input'}
                 disabled={disabled || (fieldProps.value && blockIfHasValue)}
                 maxLength="100"
+                onBlur={checkAlias}
                 {...fieldProps}
             />
             <Error name={fieldProps.name} />
