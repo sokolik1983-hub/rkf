@@ -66,17 +66,17 @@ function ReportDetails(props) {
                     <div className="ReportDetails__nav">
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {
-                            enabledLinks['mainRing' + reportHeader.id]
+                            enabledLinks['mainRing' + reportHeader.id] || reportHeader.status_id > 1
                                 ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
                                 : <span className="disabled-link">Ведомость главного ринга</span>
                         }
                         {
-                            enabledLinks['judgeLoad' + reportHeader.id]
+                            enabledLinks['judgeLoad' + reportHeader.id] || reportHeader.status_id > 1
                                 ? <NavLink className="link" to={`${url}/judge-load-report`}>Отчёт по нагрузке на судей</NavLink>
                                 : <span className="disabled-link">Отчёт по нагрузке на судей</span>
                         }
                         {
-                            enabledLinks['documents' + reportHeader.id]
+                            enabledLinks['documents' + reportHeader.id] || reportHeader.status_id > 1
                                 ? <NavLink className="link" to={`${url}/documents`}>Документы</NavLink>
                                 : <span className="disabled-link">Документы</span>
                         }
