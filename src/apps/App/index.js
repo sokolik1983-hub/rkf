@@ -4,10 +4,20 @@ import { appRoutes } from 'appConfig'
 import { LoadableNotFound } from "../../appModules"
 import './index.scss'
 import 'components/Layout/index.scss'
-import NotConfirmed from 'apps/Registration/components/Registration/NotConfirmed'
-
+import NotConfirmed from 'apps/Registration/components/Registration/NotConfirmed';
+import ls from 'local-storage';
 
 class App extends PureComponent {
+    resetFilters = () => {
+        ls.remove('ClubsFiltersValues');
+        ls.remove('FiltersValues');
+    };
+    componentDidMount() {
+        window.addEventListener('beforeunload', this.resetFilters);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.resetFilters);
+    }
     render() {
         return (
             <Switch>
