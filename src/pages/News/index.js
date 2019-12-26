@@ -4,31 +4,40 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
+import Edit from "./components/Edit";
 import {DEFAULT_IMG} from "../../appConfig";
 import {formatDateTime} from "../../utils/datetime";
 import {formatText} from "../../utils";
 import {Request} from "../../utils/request";
 import {endpointGetNews} from "./config";
-import './index.scss';
+import {connectAuthVisible} from "../../apps/Auth/connectors";
+import "./index.scss";
 
 
-const NewsPage = ({match}) => {
+const NewsPage = ({match, isAuthenticated, profile_id}) => {
     const [news, setNews] = useState(null);
+    const [isEdit, setIsEdit] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
     const id = match.params.id;
+    const canEdit = isAuthenticated && news && profile_id === news.profile_id;
 
     useEffect(() => {
-        (() => Request({url: `${endpointGetNews}/${id}`},
-        data => {
-            setNews(data);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            setIsError(true);
-            setLoading(false);
-        }))();
-    }, [id]);
+        if(needRequest) {
+            (() => Request({url: `${endpointGetNews}/${id}`},
+            data => {
+                setNews(data);
+                setNeedRequest(false);
+                setLoading(false);
+            }, error => {
+                console.log(error.response);
+                setIsError(true);
+                setNeedRequest(false);
+                setLoading(false);
+            }))();
+        }
+    }, [id, needRequest]);
 
     return loading ?
         <Loading/> :
@@ -45,14 +54,27 @@ const NewsPage = ({match}) => {
                                     <p className="news__date">{formatDateTime(news.create_date)}</p>
                                 </div>
                             </Link>
+                            {canEdit && !isEdit &&
+                                <button className="btn btn-simple" onClick={() => setIsEdit(true)}>Редактировать</button>
+                            }
                         </div>
                         <div className="news__item-body">
-                            <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
-                            {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
+                            {isEdit && canEdit ?
+                                <Edit id={news.id}
+                                      text={news.content}
+                                      img={news.picture_link || ''}
+                                      setIsEdit={setIsEdit}
+                                      setNeedRequest={setNeedRequest}
+                                /> :
+                                <>
+                                    <p className="news__text" dangerouslySetInnerHTML={{__html: formatText(news.content)}} />
+                                    {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
+                                </>
+                            }
                         </div>
                     </Card>
                 </Container>
             </Layout>
 };
 
-export default React.memo(NewsPage);
+export default connectAuthVisible(React.memo(NewsPage));

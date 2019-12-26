@@ -1,0 +1,46 @@
+.article-edit {
+  &__text {
+    @media (max-width: 560px) {
+      .FormInput {
+        margin-bottom: 24px;
+      }
+    }
+  }
+  &__img {
+    display: block;
+    background-color: #f3f4f4;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 32px;
+    @media (max-width: 560px) {
+      margin-bottom: 24px;
+    }
+    &-label {
+      cursor: pointer;
+    }
+    &-input {
+      display: none;
+    }
+    &-delete {
+      width: 36px;
+      height: 36px;
+      background: url("/static/icons/file-cross.svg") no-repeat center;
+      border: none;
+      padding: 0;
+      position: absolute;
+      top: 6px;
+      right: 0;
+    }
+  }
+  .FormControls {
+    .btn {
+      @media (max-width: 560px) {
+        padding: 8px 24px;
+      }
+      &:first-child {
+        margin-right: 12px;
+      }
+    }
+  }
+}

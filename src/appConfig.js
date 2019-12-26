@@ -105,7 +105,8 @@ const MONTHS = [
 
 const DEFAULT_IMG = {
     clubAvatar: '/static/icons/default/club-avatar.svg',
-    exhibitionPicture: '/static/images/exhibitions/default.png'
+    exhibitionPicture: '/static/images/exhibitions/default.png',
+    noImage: '/static/images/noimg/icon-no-image.svg'
 };
 
 export {

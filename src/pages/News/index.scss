@@ -7,13 +7,24 @@
     display: flex;
   }
   &__wrap-head {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      display: block;
+      .btn {
+        padding: 8px 24px;
+      }
+    }
   }
   &__item-head {
     text-decoration: none;
-    margin-bottom: 24px;
     display: flex;
     align-items: center;
+    @media (max-width: 560px) {
+      margin-bottom: 24px;
+    }
   }
   &__item-body {
     img {
@@ -28,6 +39,7 @@
   }
   &__avatar {
     width: 46px;
+    min-width: 46px;
     height: 46px;
     background-repeat: no-repeat;
     background-position: center;

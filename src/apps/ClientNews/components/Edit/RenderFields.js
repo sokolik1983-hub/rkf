@@ -43,6 +43,7 @@ const RenderFields = ({ fields, formik, content, file, id, onEditCancel }) => {
             ? alert('Превышено максимальное кол-во символов (3000 симв.)')
             : formik.setFieldValue('content', textarea.value);
     }
+
     return (
         <>
             <input

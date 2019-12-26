@@ -47,7 +47,7 @@ function Form({
 
     const onSubmit = (values, actions) => {
         const onRequestSuccess = (data) => {
-            onSuccess(data);
+            onSuccess(data, values);
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);
