@@ -1,10 +1,26 @@
 .report-documents {
-  margin-bottom: 24px;
+  margin: 24px 0 48px;
   display: flex;
   &__document {
     margin-right: 30px;
     &-label {
       display: block;
+    }
+  }
+}
+.report-extra-documents {
+  margin-bottom: 24px;
+  &__document {
+    margin-bottom: 24px;
+    &-label {
+      display: block;
+    }
+  }
+  button {
+    padding: 5px;
+    border: none;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

@@ -16,3 +16,4 @@ export const endpointPutJudgesLoadReport = '/api/exhibitions/report/exhibition_r
 export const endpointGetJudgesLoadReport = '/api/exhibitions/report/exhibition_result/JudgesLoad';
 export const endpointCatalogue = '/api/exhibitions/report/exhibition_result/Catalogue';
 export const endpointPaymentReceipt = '/api/exhibitions/report/exhibition_result/PaymentReceipt';
+export const endpointExtraDoc = '/api/exhibitions/report/exhibition_result/ExhibitionAdditionalDocument';
