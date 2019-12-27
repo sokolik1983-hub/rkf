@@ -172,7 +172,7 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
     };
 
     const onSubmit = () => {
-        const reportRows = rows.map(row => {
+        const reportRows = rows.filter(r => r.breed).map(row => {
             const breedId = row.breed ?
                 row.breed.label ?
                     breeds.find(item => item.name === row.breed.label).id :
@@ -196,8 +196,8 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
             "report_rows": reportRows
         };
 
-        if (reportRows.length !== 45) { // Temp check. All fields are required.
-            alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
+        if (reportRows.length < 1) {
+            alert('Необходимо внести данные в отчёт.');
             return;
         };
 
@@ -211,7 +211,7 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
             getHeader();
             enableReport('judgeLoad', reportHeader.id);
         }, error => {
-            alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
+            alert('Ошибка. Возможно заполнены не все поля отчёта.');
         }))();
     };
 
