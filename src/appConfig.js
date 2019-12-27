@@ -69,13 +69,27 @@ const appRoutes = [
 const mainNav = [
     {
         id: 1,
-        title: "Выставки",
-        to: '/exhibitions'
+        title: "Главная",
+        to: '/',
+        exact: true
     },
     {
         id: 2,
+        title: "Выставки",
+        children: [
+            {
+                id: 2.1,
+                title: "Календарь выставок",
+                to: '/exhibitions',
+                exact: false
+            }
+        ]
+    },
+    {
+        id: 3,
         title: "Клубы",
-        to: '/clubs'
+        to: '/clubs',
+        exact: false
     }
 ];
 

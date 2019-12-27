@@ -5,9 +5,9 @@ import {feedbackFormConfig} from "./config";
 import './styles.scss';
 
 
-const Feedback = () => {
+const Feedback = ({className}) => {
     const [showModal, setShowModal] = useState(false);
-    const { fields } = feedbackFormConfig;
+    const {fields} = feedbackFormConfig;
     const initialValues = {
         reason: null,
         full_name: '',
@@ -46,7 +46,7 @@ const Feedback = () => {
 
     return (
         <>
-            <a className="feedback-link" onClick={handleClick} href="/">Обратная связь</a>
+            <a className={`feedback-link${className ? ' ' + className : ''}`} onClick={handleClick} href="/">Обратная связь</a>
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true}>
                 <div className="feedback">
                     <Form
