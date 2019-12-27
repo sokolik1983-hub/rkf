@@ -9,6 +9,7 @@
     color: #856404 !important;
     background-color: #ffeeba;
     transition: background-color 0.2s linear;
+    overflow: hidden;
     &:hover {
       background-color: #ffe8a1;
     }
@@ -35,6 +36,9 @@
     }
     &._expire {
       opacity: 0.6;
+    }
+    &--last-date {
+      float: right;
     }
   }
 }
