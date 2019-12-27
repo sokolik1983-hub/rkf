@@ -1,24 +1,15 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { DropDownItem } from 'components/DropDownItem';
-import Dropdown from 'components/Dropdown';
-import { connectWidgetLogin } from 'apps/Auth/connectors';
-import { LOGIN_URL } from 'appConfig';
-import './index.scss';
+import React from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
+import Dropdown from 'components/Dropdown';
+import { DropDownItem } from 'components/DropDownItem';
+import { LOGIN_URL } from 'appConfig';
 import ls from 'local-storage';
+import { connectWidgetLogin } from 'apps/Auth/connectors';
+import './index.scss';
 
-const DropInner = ({ logo_link }) => {
-    const logo = logo_link ? logo_link : '/static/icons/default/club-avatar.svg';
-    return <Fragment>
-        <div className="widget-login__user-icon" style={{ backgroundImage: `url(${logo})` }}></div>
-    </Fragment>
 
-};
-
-function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, logo_link }) {
-    // const clubName = name && name !== club_name ? name : club_name;
-    //const calculatedClubAlias = commonId && commonId === authId ? club_alias_refreshed || club_alias : club_alias; //косяк с club_alias_refreshed, поэтому небольшой костыль
+const WidgetLogin = ({ isAuthenticated, isActiveProfile, logOutUser, logo_link }) => {
     const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
     const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
 
@@ -27,23 +18,23 @@ function WidgetLogin({ isAuthenticated, isActiveProfile, logOutUser, logo_link }
             className="widget-login"
             position="right"
             closeOnClick={true}
-            innerComponent={<DropInner logo_link={logo_link} />}
+            innerComponent={
+                <div className="widget-login__user-icon"
+                     style={{backgroundImage: `url(${logo_link ? logo_link : '/static/icons/default/club-avatar.svg'})`}}
+                />
+            }
         >
             <span className="club-name">{clubName}</span>
             <DropDownItem>
                 <Link to={isActiveProfile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
             </DropDownItem>
-            {
-                isActiveProfile
-                    ? <DropDownItem><Link to="/reports">Отчёты</Link></DropDownItem>
-                    : null
-            }
+            {isActiveProfile && <DropDownItem><Link to="/reports">Отчёты</Link></DropDownItem>}
             <DropDownItem>
                 <Link to={'/'} onClick={logOutUser}>Выход</Link>
             </DropDownItem>
         </Dropdown>
-        : <Link className="login-link" to={LOGIN_URL}>Вход</Link>;
-}
+        : <Link className="login-link" to={LOGIN_URL}>Вход</Link>
+};
 
 const mapStateToProps = state => ({
     isActiveProfile: state.authentication ? state.authentication.is_active_profile : null,

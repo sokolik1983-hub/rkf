@@ -1,13 +1,12 @@
 .widget-login {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
   position: relative;
-  margin-left: 16px;
+  margin-left: 64px;
+  @media (max-width: 560px) {
+    margin-left: 8px;
+  }
   &__user-icon {
     height: 100%;
     width: 100%;
-    padding: 5px;
     border-radius: 50%;
     background-size: cover;
     background-position-x: center;
@@ -25,31 +24,30 @@
   .Dropdown {
     &__button,
     &__button--visible {
-      height: 70px;
-      width: 70px;
-      align-items: center;
-      justify-content: center;
-      display: flex;
+      height: 40px;
+      width: 40px;
+      min-width: 40px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 50%;
       &:after {
         display: none;
       }
     }
-    &__button {
-      padding: 16px;
-    }
     &__button--visible {
-      padding: 15px;
-      .widget-login__user-icon {
-        border: 1px solid #4070ff;
-      }
+      border-color: #3366FF;
     }
     &__content--visible {
       width: 230px;
       top: 100%;
-      padding: 7px 0;
-      box-shadow: 0px 8px 25px rgba(176, 190, 197, 0.5);
+      right: -6px !important;
+      margin-top: 14px;
+      padding: 0;
+      box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
       &:before {
         z-index: -1;
+        right: 14px !important;
+        background-color: #253C5E;
       }
       .drop-down__item a {
         margin: 8px 0;
@@ -64,13 +62,14 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
-    color: #253c5e;
+    color: #fff;
     display: block;
     user-select: none;
     max-height: 62px;
     overflow: hidden;
-    background: #ebf0ff;
+    background-color: #253C5E;
     letter-spacing: -0.3px;
+    border-radius: 6px 6px 0 0;
   }
 }
 a.login-link {
