@@ -198,26 +198,30 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             <h4>Дополнительные документы</h4>
             <div className="report-extra-documents">
                 {
-                    extraDocs
-                        ? extraDocs.map(d => {
-                            return <div className="report-extra-documents__document" key={d.id}>
-                                <label className="report-extra-documents__document-label">Дополнительный документ</label>
-                                {!reportHeader.doc_catalog_accept
-                                    ? typeof (d.name) !== 'object'
-                                        ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
-                                        : <>
-                                            {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
-                                            <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
-                                                updateExtraDoc(d.id, e.target.files[0]);
-                                            }} />
-                                        </>
-                                    : <p>Эти документы уже были принят</p>
-                                }
-                            </div>
-                        })
-                        : null
+                    !reportHeader.doc_catalog_accept
+                        ? <>
+                            {extraDocs
+                                ? extraDocs.map(d => {
+                                    return <div className="report-extra-documents__document" key={d.id}>
+                                        <label className="report-extra-documents__document-label">Дополнительный документ</label>
+                                        {
+                                            typeof (d.name) !== 'object'
+                                                ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
+                                                : <>
+                                                    {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
+                                                    <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                                        updateExtraDoc(d.id, e.target.files[0]);
+                                                    }} />
+                                                </>
+                                        }
+                                    </div>
+                                })
+                                : null
+                            }
+                            <button onClick={addExtraDoc}>+ Добавить документ</button>
+                        </>
+                        : <p>Дополнительные документы уже были приняты</p>
                 }
-                <button onClick={addExtraDoc}>+ Добавить документ</button>
             </div>
             {showButton && <button onClick={onSubmit}>Отправить</button>}
         </>
