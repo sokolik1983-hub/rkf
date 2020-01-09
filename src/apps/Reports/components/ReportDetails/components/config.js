@@ -126,7 +126,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     ];
 
                     child.cell = {
-                        formatters: [value => <input value={value || ""} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
                             (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -145,7 +145,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
 
                 if (col.property === 'birthday') {
                     col.cell = {
-                        formatters: [value => <input value={value || ""} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
                             (value, extra) => editable(calendar())(new Date(value ? value : null), extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -182,7 +182,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     }
                 } else if (col.property === 'catalog-number' || col.property === 'pedigree-number') {
                     col.cell = {
-                        formatters: [value => <input value={value || 0} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="0" readOnly />],
                         transforms: [
                             (value, extra) => editable(inputFF())((value || 0), extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -196,7 +196,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     }
                 } else {
                     col.cell = {
-                        formatters: [value => <input value={value || ""} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
                             (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -417,7 +417,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     }
                 } else if (child.property === 'dogs-distributed' || child.property === 'dogs-judged') {
                     child.cell = {
-                        formatters: [value => <input value={value || 0} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
                             (value, extra) => editable(inputFF())((value || 0), extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -426,7 +426,7 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                     };
                 } else {
                     child.cell = {
-                        formatters: [value => <input value={value || ""} readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
                             (value, extra) => editable(inputFF())(value, extra, {
                                 className: extra.rowData.edited && 'edited'
@@ -524,7 +524,7 @@ export const mainRingStatementColumns = (editable, breeds) => {
             }
         } else if (col.property === 'catalog_number') {
             col.cell = {
-                formatters: [value => <input value={value || 0} readOnly maxLength="10" />],
+                formatters: [value => value ? <span>{value}</span> : <input value="0" readOnly maxLength="10" />],
                 transforms: [
                     (value, extra) => editable(inputFF({ props: { maxLength: 10 } }))((value || 0), extra, {
                         className: extra.rowData.edited && 'edited'
@@ -533,7 +533,7 @@ export const mainRingStatementColumns = (editable, breeds) => {
             }
         } else if (col.property !== 'position') {
             col.cell = {
-                formatters: [value => <input value={value || ""} readOnly />],
+                formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                 transforms: [
                     (value, extra) => editable(inputFF())(value, extra, {
                         className: extra.rowData.edited && 'edited'
