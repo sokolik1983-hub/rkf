@@ -86,7 +86,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     return { id: d.id, name: url }
                 })).then(data => setExtraDocs(data));
             }, error => {
-                alert('Ошибка при получении дополнительных документов')
+                console.log(error);
             });
         }
     }, []);
@@ -198,7 +198,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             <h4>Дополнительные документы</h4>
             <div className="report-extra-documents">
                 {
-                    !reportHeader.doc_catalog_accept
+                    !reportHeader.doc_additional_accept
                         ? <>
                             {extraDocs
                                 ? extraDocs.map(d => {
@@ -211,6 +211,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                     {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
                                                     <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                         updateExtraDoc(d.id, e.target.files[0]);
+                                                        if (extraDocs) setShowButton(true);
                                                     }} />
                                                 </>
                                         }
