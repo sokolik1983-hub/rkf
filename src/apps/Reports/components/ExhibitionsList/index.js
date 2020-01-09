@@ -17,6 +17,11 @@ const ExhibitionsList = (props) => {
         <Container className="container-main">
             <Card>
                 <h3>Прошедшие выставки</h3>
+                <p className="colors-memo">
+                    <span className="_red">Отчёт не был отправлен</span>
+                    <span className="_yellow">Отчёт ожидает проверку администратором</span>
+                    <span className="_green">Отчёт принят</span>
+                </p>
                 <ul className="ExhibitionsList">
                     {
                         reportsList
