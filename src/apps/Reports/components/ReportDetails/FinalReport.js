@@ -133,7 +133,10 @@ const FinalReport = ({ reportHeader, getHeader, enableReport }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('final_report'); // Clear local storage cache
             getHeader();
-            enableReport('mainRing', reportHeader.id);
+            const r = reportHeader.rank_id;
+            r !== 5 && r !== 6 && r !== 8 && r !== 9
+                ? enableReport('mainRing', reportHeader.id)
+                : enableReport('judgeLoad', reportHeader.id);
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })

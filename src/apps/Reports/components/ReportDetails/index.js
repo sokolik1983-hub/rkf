@@ -56,7 +56,7 @@ function ReportDetails(props) {
         });
         setEnabledLinks(ls.get('enabled_links'));
     }
-
+    const r = reportHeader.rank_id;
     return loading ?
         <Loading /> :
         <Card>
@@ -66,9 +66,11 @@ function ReportDetails(props) {
                     <div className="ReportDetails__nav">
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {
-                            enabledLinks['mainRing' + reportHeader.id] || reportHeader.status_id > 1
-                                ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
-                                : <span className="disabled-link">Ведомость главного ринга</span>
+                            r !== 5 && r !== 6 && r !== 8 && r !== 9
+                                ? enabledLinks['mainRing' + reportHeader.id] || reportHeader.status_id > 1
+                                    ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
+                                    : <span className="disabled-link">Ведомость главного ринга</span>
+                                : null
                         }
                         {
                             enabledLinks['judgeLoad' + reportHeader.id] || reportHeader.status_id > 1
