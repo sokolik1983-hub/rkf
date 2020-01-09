@@ -11,7 +11,7 @@ import Container from "../../../../components/Layout/Container";
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;
     const { loading } = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
-    const ifExpire = date => (new Date() - new Date(date)) > 2592000000 ? true : false; // 30 days in millisecs
+    const ifExpire = date => (new Date(new Date().setHours(0, 0, 0, 0)) - new Date(date)) > 2592000000 ? true : false; // 30 days in millisecs
     return (loading ?
         <Loading /> :
         <Container className="container-main">
