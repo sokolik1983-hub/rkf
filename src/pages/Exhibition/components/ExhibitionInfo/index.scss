@@ -25,6 +25,7 @@
     display: block;
     border-radius: 6px;
     width: 100%;
+    margin-bottom: 24px;
   }
   &__dates {
     margin-bottom: 16px;
@@ -57,35 +58,6 @@
       }
     }
   }
-  .tabs {
-    margin: 24px 0;
-    justify-content: space-between;
-    @media (max-width: 560px) {
-      margin: 24px 0 12px;
-    }
-    &__tab {
-      flex: initial;
-      padding: 0;
-      font-weight: 600;
-      font-size: 26px;
-      line-height: 32px;
-      color: #90999e;
-      text-decoration: none;
-      border-bottom: 1px dashed #90999e;
-      transition: all .2s linear;
-      &--active {
-        color: #253c5e;
-        border-color: transparent;
-      }
-      @media (max-width: 560px) {
-        font-size: 15px;
-        line-height: 1.2;
-      }
-    }
-    &__content {
-      margin-bottom: 24px;
-    }
-  }
 }
 .exhibition-schedule {
   &__date {
@@ -106,4 +78,10 @@
 }
 .exhibition-documents__doc:not(:last-child) {
   margin-bottom: 6px;
+}
+.exhibition-page {
+  &__description, &__schedule, &__catalog, &__documents {
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
 }

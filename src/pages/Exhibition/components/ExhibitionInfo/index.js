@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from "react";
-import Tabs, {TabContent} from "../../../../components/Tabs";
 import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
 import {
     getLocalizedWeekDay,
     transformDateSafariFriendly,
-    timeSecondsCutter,
-    formatDateWithLocaleString,
-    transformDate
+    timeSecondsCutter
 } from "../../../../utils/datetime";
 import {Request} from "../../../../utils/request";
 import './index.scss';
@@ -14,6 +11,7 @@ import './index.scss';
 
 const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhibition_avatar_link, description}) => {
     const [schedule, setSchedule] = useState(null);
+    const [catalog, setCatalog] = useState(null);
     const [documents, setDocuments] = useState(null);
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
@@ -23,7 +21,8 @@ const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhi
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : '/static/images/exhibitions/default.png';
 
     useEffect(() => {
-        (() => Request({url: `/api/Schedule/${id}`}, data => setSchedule(data)))();
+        (() => Request({url: `/api/exhibitions/ExhibitionScheduleLink?id=${id}`}, data => setSchedule(data)))();
+        (() => Request({url: `/api/exhibitions/ExhibitionCatalogLink?id=${id}`}, data => setCatalog(data)))();
         (() => Request({url: `/api/exhibitions/ExhibitionDocument/${id}`}, data => setDocuments(data)))();
     }, [id]);
 
@@ -60,38 +59,38 @@ const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhi
             </div>
             <div className="exhibition-info__left">
                 <img src={avatarLink} alt="" className="exhibition-info__img"/>
-                <Tabs>
-                    <TabContent label="Описание">
-                        {description && <p dangerouslySetInnerHTML={{__html: description}} />}
-                    </TabContent>
-                    <TabContent label="Расписание">
-                        {schedule && !!schedule.length && schedule.map((item, i) => (
-                            <div key={item.id} className="exhibition-schedule">
-                                <p className="exhibition-schedule__date">
-                                    <span>{i + 1} день:</span>
-                                    &nbsp;
-                                    {formatDateWithLocaleString(transformDate({
-                                        year: item.year,
-                                        month: item.month,
-                                        day: item.day
-                                    }))}
-                                </p>
-                                {!!item.items.length && item.items.map(event => (
-                                    <p key={event.id} className="exhibition-schedule__event">
-                                        {`${timeSecondsCutter(event.time_start)}-${timeSecondsCutter(event.time_end)} ${event.name}`}
-                                    </p>
-                                ))}
-                            </div>
-                        ))}
-                    </TabContent>
-                    <TabContent label="Документы">
-                        {documents && !!documents.length && documents.map(doc => (
+                {description &&
+                    <div className="exhibition-page__description">
+                        <h3 className="exhibition-page__description-title">Описание</h3>
+                        <p dangerouslySetInnerHTML={{__html: description}} />
+                    </div>
+                }
+                {schedule &&
+                    <div className="exhibition-page__schedule">
+                        <h3 className="exhibition-page__schedule-title">Расписание</h3>
+                        <p className="exhibition-documents__doc" key={schedule.id}>
+                            <a href={schedule.url} target="__blank">{schedule.name}</a>
+                        </p>
+                    </div>
+                }
+                {catalog &&
+                    <div className="exhibition-page__catalog">
+                        <h3 className="exhibition-page__catalog-title">Каталог</h3>
+                        <p className="exhibition-documents__doc" key={catalog.id}>
+                            <a href={catalog.url} target="__blank">{catalog.name}</a>
+                        </p>
+                    </div>
+                }
+                {documents && !!documents.length &&
+                    <div className="exhibition-page__documents">
+                        <h3 className="exhibition-page__documents-title">Документы</h3>
+                        {documents.map(doc => (
                             <p className="exhibition-documents__doc" key={doc.id}>
                                 <a href={doc.url} target="__blank">{doc.name}</a>
                             </p>
                         ))}
-                    </TabContent>
-                </Tabs>
+                    </div>
+                }
             </div>
         </div>
     )
