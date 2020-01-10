@@ -19,7 +19,7 @@ const inputFF = ({ props } = {}) => { // Firefox onBlur fix
 
             onValue(parseValue(value));
         };
-        const parseValue = v => (value === parseFloat(value) ? parseFloat(v) : v);
+        const parseValue = v => (v === parseFloat(v) ? parseFloat(v) : v);
 
         return (
             <input
