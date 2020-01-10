@@ -20,6 +20,7 @@ const List = ({list, listNotFound = 'Ничего не найдено', listClas
                             <ListItem
                                 id={item.id}
                                 title={item.title}
+                                city={item.legal_city_name}
                                 date={item.create_date}
                                 isFullDate={isFullDate}
                                 photo={item.picture_link}

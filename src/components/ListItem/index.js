@@ -5,13 +5,16 @@ import {formatText} from "../../utils";
 import './index.scss';
 
 
-const ListItem = ({id, title, date, isFullDate = true, alias, photo, text, url, removable, onDelete}) => (
+const ListItem = ({id, title, city, date, isFullDate = true, alias, photo, text, url, removable, onDelete}) => (
     <>
         <div className="list-item__head">
             <div className="list-item__head-info">
                 {title &&
                     alias ?
-                        <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4> :
+                        <div className="list-item__about">
+                            <h4 className="list-item__author"><a href={`/${alias}`}>{title}</a></h4>
+                            {city && <p className="list-item__city">{city}</p>}
+                        </div> :
                         <h4 className="list-item__author">{title}</h4>
                 }
                 <span className="list-item__date">

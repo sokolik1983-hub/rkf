@@ -17,11 +17,13 @@
     color: #72839c;
     font-size: 14px;
   }
+  &__about {
+    max-width: 65%;
+  }
   &__author {
     font-size: 14px;
     color: #72839c;
     margin-right: 10px;
-    max-width: 65%;
     overflow: hidden;
     text-overflow: ellipsis;
     a {
@@ -31,6 +33,12 @@
         text-decoration: underline;
       }
     }
+  }
+  &__city {
+    text-align: left;
+    color: #72839c;
+    font-size: 14px;
+    line-height: 1;
   }
   &__remove {
     height: 24px;
