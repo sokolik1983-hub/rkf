@@ -11,7 +11,6 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     const [invoiceUrl, setInvoiceUrl] = useState(null);
     const [extraDocs, setExtraDocs] = useState(null);
     const [showButton, setShowButton] = useState(!!catalog);
-
     const getDocumentUrl = async (endpoint) => {
         const response = await fetch(`${endpoint}?id=${reportHeader.id}`, {
             headers: getHeaders()
@@ -45,6 +44,12 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 id: Math.random().toString(10).substr(2, 9),
                 name: null
             }
+        ])
+    }
+
+    const deleteExtraDoc = (id) => {
+        setExtraDocs([
+            ...extraDocs.filter(d => d.id !== id)
         ])
     }
     const updateExtraDoc = (id, file) => {
@@ -173,7 +178,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                             {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
-                                setShowButton(true);
+                                if (!reportHeader.doc_catalog_is_sent) setShowButton(true);
                             }} />
                         </> :
                         <p>Этот документ уже был принят</p>
@@ -203,7 +208,13 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                             {extraDocs
                                 ? extraDocs.map(d => {
                                     return <div className="report-extra-documents__document" key={d.id}>
-                                        <label className="report-extra-documents__document-label">Дополнительный документ</label>
+                                        <label className="report-extra-documents__document-label">
+                                            Дополнительный документ {
+                                                d.name === null
+                                                    ? <span onClick={() => deleteExtraDoc(d.id)} className="report-extra-documents__document-del">- удалить</span>
+                                                    : null
+                                            }
+                                        </label>
                                         {
                                             typeof (d.name) !== 'object'
                                                 ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
@@ -211,7 +222,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                     {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
                                                     <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                         updateExtraDoc(d.id, e.target.files[0]);
-                                                        if (extraDocs) setShowButton(true);
+                                                        if (extraDocs && !reportHeader.doc_catalog_is_sent) setShowButton(true);
                                                     }} />
                                                 </>
                                         }
