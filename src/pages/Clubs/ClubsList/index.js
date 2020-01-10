@@ -64,12 +64,12 @@ const ClubsList = ({string_filter, federation_ids, club_ids, page, setFilters}) 
                                 </div>
                                 <div className="club__info">
                                     {club.legal_city_name && <p><span>Город: </span>{club.legal_city_name}</p>}
-                                    {club.mail && <p><span>Email: </span><a href={`mailto:${club.mail}`}>{club.mail}</a></p>}
-                                    {club.is_active && club.phone && <p><span>Телефон: </span>{club.phone}</p>}
-                                    {club.is_active && club.owner_name && <p><span>Владелец: </span>{club.owner_name}</p>}
+                                    {club.is_active && club.owner_name &&
+                                        <p><span>{`${club.owner_position || 'Руководитель'}: `}</span>{club.owner_name}</p>
+                                    }
                                 </div>
                                 {!club.is_active ?
-                                    <h4 className="club__description">Клуб не активирован</h4> :
+                                    <h4 className="club__description">Клуб ещё не прошёл регистрацию в электронной системе РКФ</h4> :
                                     club.content ? <p className="club__description _active" dangerouslySetInnerHTML={{__html: formatText(club.content)}} /> :
                                     null
                                 }
