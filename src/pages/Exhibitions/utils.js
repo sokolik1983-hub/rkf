@@ -79,7 +79,7 @@ export const getInitialFilters = () => {
 
 export const getYears = () => {
     const currentYear = new Date().getFullYear();
-    const fromMonth = new Date(currentYear, 0);
+    const fromMonth = new Date(currentYear - 1, 0);
     const toMonth = new Date(currentYear + 5, 11);
     const years = [];
     for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i++) {

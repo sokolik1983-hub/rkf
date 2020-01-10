@@ -30,7 +30,7 @@ const RenderFields = ({ formik }) =>
         <FormField
             {...fields.address}
         />
-        <h4>Часы работы</h4>
+        <h4>График работы</h4>
         <FormGroup inline>
             <FormField
                 {...fields.work_time_from}
