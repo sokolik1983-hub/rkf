@@ -8,7 +8,7 @@ import {
 export const reasons = [
     {
         type: 0,
-        name: 'Проблема в работе сайта'
+        name: 'Проблемы по работе RKF.ONLINE'
     },
     {
         type: 1,
@@ -24,7 +24,7 @@ export const reasons = [
     },
     {
         type: 4,
-        name: 'Предложение по работе сайта'
+        name: 'Предложения по работе RKF.ONLINE'
     }
 ];
 
