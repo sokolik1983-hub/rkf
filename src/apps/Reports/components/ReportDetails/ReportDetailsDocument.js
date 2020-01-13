@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { endpointCatalogue, endpointPaymentReceipt, endpointExtraDoc } from '../../config';
 import { Request, getHeaders } from "../../../../utils/request";
+import ls from 'local-storage';
 import './styles.scss';
 
 
@@ -97,22 +98,24 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     }, []);
 
     const onSubmit = () => {
-        const catalogData = new FormData();
-        catalogData.append('header_id', reportHeader.id);
-        catalogData.append('file', catalog);
+        if (catalog) {
+            const catalogData = new FormData();
+            catalogData.append('header_id', reportHeader.id);
+            catalogData.append('file', catalog);
 
-        Request({
-            url: endpointCatalogue,
-            method: 'PUT',
-            data: catalogData,
-            isMultipart: true
-        }, data => {
-            alert('Каталог выставки успешно отправлен.');
-            getHeader();
-        }, error => {
-            alert('Каталог выставки не был отправлен.')
-        });
-
+            Request({
+                url: endpointCatalogue,
+                method: 'PUT',
+                data: catalogData,
+                isMultipart: true
+            }, data => {
+                alert('Каталог выставки успешно отправлен.');
+                setShowButton(false);
+                getHeader();
+            }, error => {
+                alert('Каталог выставки не был отправлен.')
+            });
+        }
         if (invoice) {
             const invoiceData = new FormData();
             invoiceData.append('header_id', reportHeader.id);
@@ -125,13 +128,12 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 isMultipart: true
             }, data => {
                 alert('Квитанция об оплате успешно отправлена.');
-                getHeader();
+                setShowButton(false);
             }, error => {
                 alert('Квитанция об оплате не была отправлена.');
             });
         }
-
-        if (extraDocs.length) {
+        if (extraDocs && extraDocs.length) {
             extraDocs.forEach(d => {
                 if (typeof (d.name) === 'object') {
                     const data = new FormData();
@@ -143,13 +145,20 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                         data: data,
                         isMultipart: true
                     },
-                        data => { },
+                        data => {
+                            alert('Дополнительные документы успешно отправлены.');
+                            setShowButton(false);
+                        },
                         error => {
                             alert('Произошла ошибка при отправке дополнительного документа');
                         });
                 }
             })
         }
+        // Clear local storage
+        ls.remove('judge_load_report');
+        ls.remove('final_report');
+        ls.remove('main_ring_statement');
     };
 
     return (
@@ -193,7 +202,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                             {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
-                                if (catalogUrl) setShowButton(true);
+                                if ((catalogUrl || reportHeader.doc_catalog_is_sent) && !reportHeader.doc_payment_is_sent) setShowButton(true);
                             }} />
                         </> :
                         <p>Этот документ уже был принят</p>
@@ -222,7 +231,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                     {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
                                                     <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                         updateExtraDoc(d.id, e.target.files[0]);
-                                                        if (extraDocs && !reportHeader.doc_catalog_is_sent) setShowButton(true);
+                                                        if ((catalogUrl || reportHeader.doc_catalog_is_sent) && !reportHeader.doc_additional_is_sent) setShowButton(true);
                                                     }} />
                                                 </>
                                         }
