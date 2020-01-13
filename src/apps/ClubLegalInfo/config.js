@@ -12,6 +12,10 @@ export const clubLegalInfoFormConfig = {
             name: 'name',
             label: 'Наименование юр. лица',
         },
+        owner_position: {
+            name: 'owner_position',
+            label: 'Должность руководителя'
+        },
         owner_name: {
             name: 'owner_name',
             label: 'Руководитель',
@@ -54,6 +58,9 @@ export const clubLegalInfoFormConfig = {
         name: string()
             .required('Поле не может быть пустым')
             .nullable(),
+        // owner_position: string()
+        //     .required('Поле не может быть пустым')
+        //     .nullable(),
         owner_name: string()
             .required('Поле не может быть пустым')
             .nullable(),

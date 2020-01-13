@@ -8,19 +8,23 @@ export default function RenderFields() {
     return (
         <React.Fragment>
             <FormGroup inline>
-                <FormField
+                <FormField disabled
                     {...fields.name}
                 />
-                <FormField
+            </FormGroup>
+            <FormGroup inline>
+                <FormField disabled
+                    {...fields.owner_position}
+                />
+                <FormField disabled
                     {...fields.owner_name}
                 />
             </FormGroup>
-
             <FormGroup inline>
-                <FormField /*disabled*/
+                <FormField disabled
                     {...fields.inn}
                 />
-                <FormField /*disabled*/
+                <FormField disabled
                     {...fields.kpp}
                 />
             </FormGroup>
@@ -28,7 +32,7 @@ export default function RenderFields() {
                 <FormField disabled
                     {...fields.ogrn}
                 />
-                <FormField /*disabled*/
+                <FormField disabled
                     {...fields.okpo}
                 />
             </FormGroup>
@@ -36,12 +40,12 @@ export default function RenderFields() {
                 {/*<FormField
                     {...fields.registration_number}
                 />*/}
-                <FormField
+                <FormField disabled
                     {...fields.registration_date}
                 />
             </FormGroup>
             <FormGroup inline>
-                <FormField
+                <FormField disabled
                     {...fields.address}
                 />
             </FormGroup>

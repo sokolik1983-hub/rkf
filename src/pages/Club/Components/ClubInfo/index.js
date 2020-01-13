@@ -6,7 +6,7 @@ import { endpointGetSocials } from "../../config";
 import './index.scss';
 
 
-const ClubInfo = ({ id, city, address, owner_name, contacts, work_time_from, work_time_to, documents, site }) => {
+const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position, owner_name, contacts, work_time_from, work_time_to, documents, site}) => {
     const [socials, setSocials] = useState(null);
 
     useEffect(() => {
@@ -20,15 +20,21 @@ const ClubInfo = ({ id, city, address, owner_name, contacts, work_time_from, wor
     return (
         <Card className="club-page__info-wrap">
             <h4 className="club-page__info-title">Контакты</h4>
+            {legal_city && legal_city.name &&
+                <p className="club-page__info-address">
+                    <span>Юридический адрес</span><br />
+                    <span>{`${legal_city.name}${legal_address ? ', ' + legal_address : ''}`}</span>
+                </p>
+            }
             {city && city.name &&
                 <p className="club-page__info-address">
-                    <span>Адрес</span><br />
+                    <span>Фактический адрес</span><br />
                     <span>{`${city.name}${address ? ', ' + address : ''}`}</span>
                 </p>
             }
             {owner_name &&
                 <p className="club-page__info-owner">
-                    <span>Руководитель</span><br />
+                    <span>{owner_position || 'Руководитель'}</span><br />
                     <span>{owner_name}</span>
                 </p>
             }

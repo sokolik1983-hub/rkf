@@ -18,12 +18,12 @@ const MONTHS = [
     'Декабрь',
 ];
 
-function ReactDayPicker({ name, formik }) {
-    const value = getIn(formik.values, name)
+function ReactDayPicker({ name, formik, disabled }) {
+    const value = getIn(formik.values, name);
+
     const onChange = date => {
-        // console.log(date)
         formik.setFieldValue(name, date)
-    }
+    };
 
     return (
         <DayPickerInput
@@ -31,6 +31,7 @@ function ReactDayPicker({ name, formik }) {
             inputProps={{
                 className: 'FormInput__input',
                 name: 'date',
+                disabled: !!disabled,
                 style: {
                     width: '100%',
                 }

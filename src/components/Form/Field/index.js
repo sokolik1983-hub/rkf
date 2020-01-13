@@ -38,7 +38,6 @@ function getField(fieldType) {
 }
 
 function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
-
     const Input = getField(fieldType);
 
     return (
