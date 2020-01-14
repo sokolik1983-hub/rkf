@@ -109,7 +109,7 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
     )
 };
 
-const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
+const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [arrangements, setArrangements] = useState(null);
     const [rows, setRows] = useState([]);
@@ -209,7 +209,6 @@ const MainRingStatement = ({ reportHeader, getHeader, enableReport }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('main_ring_statement'); // Clear local storage cache
             getHeader();
-            enableReport('judgeLoad', reportHeader.id);
         }, error => {
             alert('Ошибка. Возможно заполнены не все поля отчёта.');
         }))();

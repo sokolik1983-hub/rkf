@@ -9,13 +9,11 @@ import ReportDetailsDocument from './ReportDetailsDocument';
 import { endpointGetHeader } from '../../config';
 import { connectReportHeader } from '../../connectors';
 import { Request } from "../../../../utils/request";
-import ls from 'local-storage';
 
 function ReportDetails(props) {
     const { match, fetchReportHeaderSuccess, reportHeader } = props;
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [enabledLinks, setEnabledLinks] = useState({});
     const { path, url, params } = match;
     const exhibitionId = +params.id;
 
@@ -43,20 +41,11 @@ function ReportDetails(props) {
         getHeader();
     }, []);
 
-    useEffect(() => {
-        if (ls.get('enabled_links')) {
-            setEnabledLinks(ls.get('enabled_links'));
-        }
-    }, []);
-
-    const handleEnable = (name, id) => {
-        ls.set('enabled_links', {
-            ...enabledLinks,
-            [name + id]: 1
-        });
-        setEnabledLinks(ls.get('enabled_links'));
-    }
     const r = reportHeader.rank_id;
+    const trSent = reportHeader.total_report_is_sent;
+    const mrSent = reportHeader.statement_main_ring_is_sent;
+    const jwSent = reportHeader.judges_workload_is_sent;
+
     return loading ?
         <Loading /> :
         <Card>
@@ -67,26 +56,26 @@ function ReportDetails(props) {
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {
                             r !== 5 && r !== 6 && r !== 8 && r !== 9
-                                ? enabledLinks['mainRing' + reportHeader.id] || reportHeader.status_id > 1
+                                ? trSent
                                     ? <NavLink className="link" to={`${url}/main-ring-statement`}>Ведомость главного ринга</NavLink>
                                     : <span className="disabled-link">Ведомость главного ринга</span>
                                 : null
                         }
                         {
-                            enabledLinks['judgeLoad' + reportHeader.id] || reportHeader.status_id > 1
+                            trSent && mrSent
                                 ? <NavLink className="link" to={`${url}/judge-load-report`}>Отчёт по нагрузке на судей</NavLink>
                                 : <span className="disabled-link">Отчёт по нагрузке на судей</span>
                         }
                         {
-                            enabledLinks['documents' + reportHeader.id] || reportHeader.status_id > 1
+                            jwSent
                                 ? <NavLink className="link" to={`${url}/documents`}>Документы</NavLink>
                                 : <span className="disabled-link">Документы</span>
                         }
                     </div>
                     <Switch>
-                        <Route exact path={`${path}`} component={() => <FinalReport reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
-                        <Route path={`${path}/main-ring-statement`} component={() => <MainRingStatement reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
-                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader} getHeader={getHeader} enableReport={handleEnable} />} />
+                        <Route exact path={`${path}`} component={() => <FinalReport reportHeader={reportHeader} getHeader={getHeader} />} />
+                        <Route path={`${path}/main-ring-statement`} component={() => <MainRingStatement reportHeader={reportHeader} getHeader={getHeader} />} />
+                        <Route path={`${path}/judge-load-report`} component={() => <JudgeLoadReport reportHeader={reportHeader} getHeader={getHeader} />} />
                         <Route path={`${path}/documents`} component={() => <ReportDetailsDocument reportHeader={reportHeader} getHeader={getHeader} />} />
                     </Switch>
                 </div> :

@@ -12,7 +12,7 @@ import { Request } from "../../../../utils/request";
 import ls from 'local-storage';
 
 
-const JudgeLoadReport = ({ reportHeader, getHeader, enableReport }) => {
+const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [groups, setGroups] = useState(null);
     const [countries, setCountries] = useState(null);
@@ -115,7 +115,6 @@ const JudgeLoadReport = ({ reportHeader, getHeader, enableReport }) => {
             alert('Ваш отчёт был отправлен.');
             ls.remove('judge_load_report'); // Clear local storage cache
             getHeader();
-            enableReport('documents', reportHeader.id);
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })
