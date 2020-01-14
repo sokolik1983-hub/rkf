@@ -7,7 +7,8 @@ export const buildUrl = filter => {
         if (filter.ExhibitionName) {
             delete filter.DateFrom;
             delete filter.DateTo;
-        };
+        }
+
         if (filter[key]) {
             if (key === 'CityIds') {
                 let str = '';
@@ -19,7 +20,7 @@ export const buildUrl = filter => {
                 if (filter[key] > 1) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'RankIds') {
+            } else if (key === 'RankIds' || key === 'BreedIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -47,11 +48,12 @@ export const setFiltersToLS = filters => {
 export const getEmptyFilters = () => ({
     CityIds: [],
     ClubIds: null,
+    RankIds: [],
+    BreedIds: [],
     ExhibitionName: '',
     DateFrom: formatDateToString(new Date()),
     DateTo: null,
-    PageNumber: 1,
-    RankIds: []
+    PageNumber: 1
 });
 
 export const getInitialFilters = () => {

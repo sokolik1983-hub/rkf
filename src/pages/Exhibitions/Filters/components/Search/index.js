@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { connectFilters } from "../../../connectors";
 import './index.scss';
 
@@ -18,6 +18,10 @@ const ExhibitionsSearch = ({ ExhibitionName, setFiltersSuccess }) => {
             onCancel();
         }
     };
+
+    useEffect(() => {
+        if(!ExhibitionName) setSearchValue('');
+    }, [ExhibitionName]);
 
     return (
         <div className="ExhibitionsSearch">

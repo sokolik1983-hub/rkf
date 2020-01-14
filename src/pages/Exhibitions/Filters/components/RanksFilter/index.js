@@ -24,7 +24,7 @@ const RanksFilter = ({setFiltersSuccess, RankIds}) => {
         }))();
     }, []);
 
-    const handleChange = (id) => {
+    const handleChange = id => {
         const ranksIds = RankIds.includes(id) ?
             RankIds.filter(item => item !== id) :
             [...RankIds, id];

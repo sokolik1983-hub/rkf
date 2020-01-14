@@ -1,0 +1,13 @@
+.breeds-filter {
+  margin-bottom: 24px;
+  &__title {
+    margin-bottom: 18px;
+  }
+  &__control {
+    border-color: hsl(0,0%,80%) !important;
+    box-shadow: none !important;
+  }
+  &__menu {
+    margin-top: 4px !important;
+  }
+}

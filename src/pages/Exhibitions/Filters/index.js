@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Card from "../../../components/Card";
 import Aside from "../../../components/Layouts/Aside";
 import Calendar from "./components/Calendar";
+import BreedsFilter from "./components/BreedsFilter";
 // import MyExhibitionsFilter from "./components/MyExhibition";
 // import CitiesFilter from "./components/CitiesFilter/CititesFilter";
 import RanksFilter from "./components/RanksFilter";
@@ -23,14 +24,15 @@ const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
     const clearAll = (e) => {
         e.preventDefault();
         setFiltersSuccess(getEmptyFilters());
-        const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
-        if (searchCancel) searchCancel.click();
+        const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
+        if(calendarButton) calendarButton.classList.remove('active');
     };
 
     return (
         <Aside className={`exhibitions-page__left${isOpenFilters ? ' _open' : ''}`}>
             <Card>
                 <Calendar />
+                <BreedsFilter />
                 <RanksFilter />
                 {/* <h4 className="exhibitions-filters__title">Фильтры</h4>
                 {isAuthenticated && <MyExhibitionsFilter />}

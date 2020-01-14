@@ -3,11 +3,11 @@ import Loading from "../../../components/Loading";
 import List from "../../../components/List";
 import { buildUrl } from "../utils";
 import { Request } from "../../../utils/request";
-import { connectFilters } from "../connectors";
 import { endpointGetExhibitions } from "../config";
-import { endpointExhibitionsList } from 'apps/Exhibitions/config';
+import { connectFilters } from "../connectors";
 
-const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds }) => {
+
+const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds }) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [url, setUrl] = useState('');
@@ -37,8 +37,8 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     };
 
     useEffect(() => {
-        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber, RankIds]);
+        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds })}`);
+    }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber, RankIds, BreedIds]);
 
     useEffect(() => {
         if (ExhibitionName) {
@@ -46,7 +46,8 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
             setUrl(`${endpointGetExhibitions}?ExhibitionName=${ExhibitionName}`);
         } else {
             if (prevUrl) {
-                setUrl(`${endpointExhibitionsList}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
+                setUrl(prevUrl);
+                // setUrl(`${endpointGetExhibitions}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
             }
         }
     }, [ExhibitionName]);

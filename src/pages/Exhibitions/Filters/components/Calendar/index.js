@@ -13,6 +13,7 @@ import './index.scss';
 const Calendar = ({ setFiltersSuccess, DateFrom }) => {
     const [day, setDay] = useState(new Date(DateFrom));
     const [modifier, setModifier] = useState({ selectedDate: day });
+    const [activeButton, setActiveButton] = useState(null);
     const [loading, setLoading] = useState(true);
     const years = getYears();
 
@@ -41,19 +42,66 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
 
     const handleFormChange = e => {
         const { year, month } = e.target.form;
-        setNewDate(new Date(year.value, month.value));
+
+        setActiveButton(null);
+
         setFiltersSuccess({
             ExhibitionName: '',
             DateFrom: formatDateToString(new Date(year.value, month.value, 1)),
             DateTo: formatDateToString(new Date(year.value, parseInt(month.value) + 1, 0)),
             PageNumber: 1
-        })
+        });
+    };
+
+    const handleDateClick = date => {
+        setActiveButton(null);
+
+        setFiltersSuccess({
+            ExhibitionName: '',
+            DateFrom: formatDateToString(date),
+            DateTo: formatDateToString(date),
+            PageNumber: 1
+        });
+
+        const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
+        if (searchCancel) searchCancel.click();
+    };
+
+    const handleButtonClick = period => {
+        const date = new Date();
+        if(period === 'month') {
+            setFiltersSuccess({
+                ExhibitionName: '',
+                DateFrom: formatDateToString(new Date(date.getFullYear(), date.getMonth(), 1)),
+                DateTo: formatDateToString(new Date(date.getFullYear(), date.getMonth() + 1, 0)),
+                PageNumber: 1
+            });
+        } else {
+            setFiltersSuccess({
+                ExhibitionName: '',
+                DateFrom: formatDateToString(new Date(date.getFullYear(), 0, 1)),
+                DateTo: formatDateToString(new Date(date.getFullYear() + 1, 0, 0)),
+                PageNumber: 1
+            });
+        }
+
+        setActiveButton(period);
     };
 
     return loading ?
         <Loading /> :
         <div className="exhibitions-calendar">
             <h4 className="exhibitions-calendar__title">Календарь выставок</h4>
+            <div className="exhibitions-calendar__controls">
+                <span
+                    className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('month')}
+                >За месяц</span>
+                <span
+                    className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('year')}
+                >За год</span>
+            </div>
             <DayPicker
                 showOutsideDays={true}
                 months={MONTHS}
@@ -62,12 +110,8 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 modifiers={modifier}
                 locale="ru"
                 navbarElement={() => null}
-                onDayClick={date => {
-                    setFiltersSuccess({ ExhibitionName: '', DateFrom: formatDateToString(date), DateTo: formatDateToString(date), PageNumber: 1 })
-                    const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
-                    if (searchCancel) searchCancel.click();
-                }}
-                onMonthChange={date => setNewDate(date)}
+                onDayClick={handleDateClick}
+                onMonthChange={setNewDate}
                 firstDayOfWeek={1}
                 captionElement={({ date }) => (
                     <form className="DayPicker-Caption DayPickerForm">

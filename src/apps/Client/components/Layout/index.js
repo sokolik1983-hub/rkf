@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from 'components/Layout/Header';
+import Header from "../../../../components/Layouts/Header";
 import Container from 'components/Layout/Container';
 import './styles.scss';
 

@@ -3,6 +3,24 @@
   &__title {
     margin-bottom: 18px;
   }
+  &__controls {
+    margin-bottom: 12px;
+  }
+  &__button {
+    font-weight: 400;
+    color: #00C48C;
+    cursor: pointer;
+    opacity: .8;
+    border-bottom: 1px dashed transparent;
+    transition: all .2s linear;
+    &.active, &:hover {
+      opacity: 1;
+      border-color: #00C48C;
+    }
+    &:first-child {
+      margin-right: 12px;
+    }
+  }
   &__legend {
     position: relative;
     padding-left: 18px;
