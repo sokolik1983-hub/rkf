@@ -37,7 +37,7 @@ const BreedsFilter = ({setFiltersSuccess, BreedIds}) => {
                     className="breeds-filter__select"
                     classNamePrefix="breeds-filter"
                     placeholder={breeds[0].label}
-                    defaultValue={BreedIds.length ? breeds.find(breed => breed.value === BreedIds[0]) : null}
+                    value={BreedIds.length ? breeds.find(breed => breed.value === BreedIds[0]) : null}
                     options={breeds}
                     onChange={handleChange}
                 />

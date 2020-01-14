@@ -62,25 +62,21 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
             DateTo: formatDateToString(date),
             PageNumber: 1
         });
-
-        const searchCancel = document.getElementsByClassName('ExhibitionsSearch__cancel')[0]; // TODO: make this better
-        if (searchCancel) searchCancel.click();
     };
 
     const handleButtonClick = period => {
-        const date = new Date();
         if(period === 'month') {
             setFiltersSuccess({
                 ExhibitionName: '',
-                DateFrom: formatDateToString(new Date(date.getFullYear(), date.getMonth(), 1)),
-                DateTo: formatDateToString(new Date(date.getFullYear(), date.getMonth() + 1, 0)),
+                DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
+                DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0)),
                 PageNumber: 1
             });
         } else {
             setFiltersSuccess({
                 ExhibitionName: '',
-                DateFrom: formatDateToString(new Date(date.getFullYear(), 0, 1)),
-                DateTo: formatDateToString(new Date(date.getFullYear() + 1, 0, 0)),
+                DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
+                DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0)),
                 PageNumber: 1
             });
         }
