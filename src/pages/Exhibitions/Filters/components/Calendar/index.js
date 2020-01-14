@@ -3,7 +3,6 @@ import DayPicker from "react-day-picker";
 import Loading from "../../../../../components/Loading";
 import { MONTHS, WEEKDAYS_SHORT } from "../../../../../appConfig";
 import { formatDateToString } from "../../../../../utils/datetime";
-import { getYears } from "../../../utils";
 import { Request } from "../../../../../utils/request";
 import { endpointExhibitionsDates } from "../../../config";
 import { connectFilters } from "../../../connectors";
@@ -12,10 +11,10 @@ import './index.scss';
 
 const Calendar = ({ setFiltersSuccess, DateFrom }) => {
     const [day, setDay] = useState(new Date(DateFrom));
+    const [years, setYears] = useState([]);
     const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
     const [loading, setLoading] = useState(true);
-    const years = getYears();
 
     const setNewDate = (date) => {
         setDay(date);
@@ -26,14 +25,14 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
         (() => Request({
             url: endpointExhibitionsDates
         }, data => {
-            setModifier({ ...modifier, green: data.map(day => new Date(day)) });
+            setYears(data.years);
+            setModifier({ ...modifier, green: data.dates.map(day => new Date(day)) });
             setLoading(false);
-        },
-            error => {
-                console.log(error.response);
-                if (error.response) alert(`Ошибка: ${error.response.status}`);
-                setLoading(false);
-            }))();
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setLoading(false);
+        }))();
     }, []);
 
     useEffect(() => {
