@@ -4,8 +4,8 @@ import axios from "axios";
 import { Request, getHeaders } from "utils/request";
 import { connect } from 'react-redux';
 import Loading from 'components/Loading';
-import PublicLayout from 'components/Layout';
-import Container from 'components/Layout/Container';
+import Layout from "../../../../../components/Layouts";
+import Container from "../../../../../components/Layouts/Container";
 import { connectWidgetLogin } from 'apps/Auth/connectors';
 import './styles.scss';
 
@@ -80,7 +80,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     setActive(true);
                 }
             });
-    };
+    }
 
     const setDefaultFields = () => {
         if (!fields) {
@@ -94,7 +94,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     setFields(data.result);
                     setLoaded(true);
                 });
-        };
+        }
     };
 
     const onInputChange = ({ target }) => {
@@ -183,6 +183,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         legal_address,
         okpo,
         owner_name,
+        owner_position,
         apartment_office,
         phone,
         status,
@@ -197,8 +198,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     } = fields;
 
     return (
-        <PublicLayout>
-            <Container className="NotConfirmed">
+        <Layout>
+            <Container className="content NotConfirmed">
                 {
                     loaded
                         ? <Card>
@@ -208,6 +209,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 <fieldset className="ClubDetails__text">
                                     <legend>Информация о клубе</legend>
                                     <FormField type="text" required="true" label="Руководитель" name="owner_name" value={owner_name} />
+                                    <FormField type="text" required="true" label="Должность руководителя" name="owner_position" value={owner_position} />
                                     <FormField type="text" required="true" label="Наименование юридического лица" name="legal_name" value={legal_name} />
                                     <FormField type="date" required="true" label="Дата регистрации юридического лица" name="registration_date" value={registration_date ? new Date(registration_date).toISOString().substr(0, 10) : null} />
                                     <FormField type="text" required="true" label="Город регистрации" name="legal_city" value={legal_city} />
@@ -270,7 +272,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                         : <Loading />
                 }
             </Container>
-        </PublicLayout>
+        </Layout>
     )
 }
 
