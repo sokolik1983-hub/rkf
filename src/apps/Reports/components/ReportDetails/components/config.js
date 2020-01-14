@@ -180,11 +180,25 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                         },
                         resolve: item => item && item.label
                     }
-                } else if (col.property === 'catalog-number' || col.property === 'pedigree-number') {
+                } else if (col.property === 'pedigree-number') {
                     col.cell = {
-                        formatters: [value => value ? <span>{value}</span> : <input value="0" readOnly />],
+                        formatters: [value => value ? <span>{value}</span> : <input value="" readOnly />],
                         transforms: [
-                            (value, extra) => editable(inputFF())((value || 0), extra, {
+                            (value, extra) => editable(inputFF())((value || ''), extra, {
+                                className: extra.rowData.edited && 'edited'
+                            })
+                        ],
+                        props: {
+                            style: {
+                                textAlign: 'center'
+                            }
+                        }
+                    }
+                } else if (col.property === 'catalog-number') {
+                    col.cell = {
+                        formatters: [value => value ? <span>{parseInt(value) || ''}</span> : <input value="" readOnly />],
+                        transforms: [
+                            (value, extra) => editable(inputFF())((parseInt(value) || ''), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
@@ -524,9 +538,9 @@ export const mainRingStatementColumns = (editable, breeds) => {
             }
         } else if (col.property === 'catalog_number') {
             col.cell = {
-                formatters: [value => value ? <span>{value}</span> : <input value="0" readOnly maxLength="10" />],
+                formatters: [value => value ? <span>{parseInt(value) || ''}</span> : <input value="" readOnly maxLength="10" />],
                 transforms: [
-                    (value, extra) => editable(inputFF({ props: { maxLength: 10 } }))((value || 0), extra, {
+                    (value, extra) => editable(inputFF({ props: { maxLength: 10 } }))((parseInt(value) || ''), extra, {
                         className: extra.rowData.edited && 'edited'
                     })
                 ]

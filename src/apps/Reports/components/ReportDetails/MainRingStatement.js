@@ -58,7 +58,7 @@ class MainRingTable extends React.Component {
             onValue: ({ value, rowData, property }) => {
                 const index = findIndex(this.state.rows, { id: rowData.id });
                 const rows = cloneDeep(this.state.rows);
-                rows[index][property] = value;
+                rows[index][property] = property === 'catalog_number'  ? parseInt(value) || '' : value;
                 delete rows[index].editing;
                 this.setState({ rows });
                 this.props.updateRows(rows, this.props.arrangementId);

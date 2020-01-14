@@ -47,7 +47,7 @@ class ReportDetailsTable extends React.Component {
             onValue: ({ value, rowData, property }) => {
                 const index = findIndex(this.state.rows, { id: rowData.id });
                 const rows = clone(this.state.rows);
-                rows[index][property] = value;
+                rows[index][property] = property === 'catalog-number' ? parseInt(value) || '' : value;
                 delete rows[index].editing;
                 this.setState({ rows });
                 ls.set(this.props.reportName, { rows });
