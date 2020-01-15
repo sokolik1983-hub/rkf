@@ -75,18 +75,48 @@ const mainNav = [
     },
     {
         id: 2,
-        title: "Выставки",
+        title: "Кинологические организации ",
         children: [
             {
                 id: 2.1,
-                title: "Календарь выставок",
-                to: '/exhibitions',
+                title: "Национальные клубы пород",
+                to: '/organizations/national-breed-clubs',
+                exact: false
+            },
+            {
+                id: 2.2,
+                title: "Кинологические клубы и союзы",
+                to: '/organizations/clubs-and-unions',
+                exact: false
+            },
+            {
+                id: 2.3,
+                title: "Питомники",
+                to: '/organizations/nurseries',
                 exact: false
             }
         ]
     },
     {
         id: 3,
+        title: "Выставки",
+        children: [
+            {
+                id: 3.1,
+                title: "Календарь выставок",
+                to: '/exhibitions',
+                exact: false
+            },
+            {
+                id: 3.2,
+                title: "Результаты выставок CAC",
+                to: '/results/cac',
+                exact: false
+            }
+        ]
+    },
+    {
+        id: 4,
         title: "Клубы",
         to: '/clubs',
         exact: false
