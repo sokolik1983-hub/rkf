@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { connectFilters } from "../../../connectors";
 import './index.scss';
 
@@ -20,7 +20,7 @@ const ExhibitionsSearch = ({ ExhibitionName, setFiltersSuccess }) => {
     };
 
     useEffect(() => {
-        if(!ExhibitionName) setSearchValue('');
+        setSearchValue(ExhibitionName ? ExhibitionName : '');
     }, [ExhibitionName]);
 
     return (

@@ -62,6 +62,7 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
         <Loading /> :
         <List
             list={exhibitions}
+            isExhibitions={true}
             listNotFound="Выставок не найдено"
             listClass="exhibitions-list"
             isFullDate={false}
