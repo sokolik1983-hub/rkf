@@ -5,10 +5,10 @@ import {connectClubScheduleForm} from "../ClientClub/connectors";
 import "./index.scss";
 
 
-const ClubSchedule = ({bindSubmitForm, work_time, club_id, clubScheduleUpdateSuccess}) => {
+const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
     const [days, setDays] = useState([]);
     const [selectedDays, setSelectedDays] = useState([]);
-    const [initialValues, setInitialValues] = useState({});
+    const [initialValues, setInitialValues] = useState(null);
 
     useEffect(() => {
         (() => Request({url: '/api/clubs/WorkTime/list'},
@@ -84,11 +84,6 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id, clubScheduleUpdateSuc
         return {club_id, work_time};
     };
 
-    const onSuccess = values => {
-        // console.log(values);
-        clubScheduleUpdateSuccess(values);
-    };
-
     return (
         <>
             <h3>График работы</h3>
@@ -105,13 +100,13 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id, clubScheduleUpdateSuc
                     ))}
                 </ul>
             }
-            {!!selectedDays.length &&
+            {!!selectedDays.length && !!days.length && initialValues &&
                 <Form
                     method="POST"
                     action="/api/clubs/WorkTime"
                     className="club-schedule__form"
                     initialValues={initialValues}
-                    onSuccess={onSuccess}
+                    onSuccess={() => null}
                     transformValues={transformValues}
                     bindSubmitForm={bindSubmitForm}
                 >
