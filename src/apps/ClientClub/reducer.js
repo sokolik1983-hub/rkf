@@ -17,6 +17,7 @@ const clubClubContactsInitialState = {
     name: "",
     site: "",
     social_networks: [],
+    work_time: [],
     status_id: 1,
 };
 
@@ -57,6 +58,14 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
         return {
             ...state,
             ...data
+        }
+    },
+    [actiontypes.CLUB_SCHEDULE_UPDATE_SUCCESS](state, action) {
+        const {work_time} = action.data;
+
+        return {
+            ...state,
+            work_time
         }
     },
 });

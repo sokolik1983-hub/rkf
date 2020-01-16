@@ -30,16 +30,16 @@ export const clubInfoFormConfig = {
             label: "Адрес клуба (улица, дом)",
             fieldType: 'textarea',
         },
-        work_time_from: {
-            name: "work_time_from",
-            label: "Время работы С",
-            type: 'time'
-        },
-        work_time_to: {
-            name: "work_time_to",
-            label: "Время работы До",
-            type: 'time'
-        },
+        // work_time_from: {
+        //     name: "work_time_from",
+        //     label: "Время работы С",
+        //     type: 'time'
+        // },
+        // work_time_to: {
+        //     name: "work_time_to",
+        //     label: "Время работы До",
+        //     type: 'time'
+        // },
         site: {
             name: "site",
             label: "Адрес сайта",

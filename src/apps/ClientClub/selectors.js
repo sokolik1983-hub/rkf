@@ -129,3 +129,12 @@ export const selectClubInfo = state => {
         }
     }
 };
+
+export const selectClubSchedule = state => {
+    const {work_time, club_id} = getState(state);
+
+    return {
+        work_time,
+        club_id
+    }
+};

@@ -6,3 +6,4 @@ export const clubPictureUpdateSuccess = makeActionCreator(actionTypes.CLUB_HEADE
 export const clubLogoUpdateSuccess = makeActionCreator(actionTypes.CLUB_LOGO_UPDATE_SUCCESS, 'data');
 export const clubAliasUpdateSuccess = makeActionCreator(actionTypes.CLUB_ALIAS_UPDATE_SUCCESS, 'data');
 export const clubInfoUpdateSuccess = makeActionCreator(actionTypes.CLUB_INFO_UPDATE_SUCCESS, 'data');
+export const clubScheduleUpdateSuccess = makeActionCreator(actionTypes.CLUB_SCHEDULE_UPDATE_SUCCESS, 'data');

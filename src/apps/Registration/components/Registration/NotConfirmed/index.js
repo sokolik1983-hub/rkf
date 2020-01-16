@@ -33,17 +33,16 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
-        //data.append('file', state.inputValue);
+
         Object.keys(fields).forEach(key => data.append(key, fields[key]));
-        for (var pair of data.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
+
         const config = {
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
             data: data,
             headers: getHeaders(true)
         };
+
         try {
             await axios(config);
             alert('Информация отправлена');
@@ -57,7 +56,22 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     : `${response.status} ${response.statusText}`}`
             );
         }
-    }
+    };
+
+    const setDefaultFields = () => {
+        if (!fields) {
+            let options = {
+                url: '/api/Club/base_request_information',
+                method: "GET",
+                headers: getHeaders()
+            };
+            axios(options)
+                .then(({ data }) => {
+                    setFields(data.result);
+                    setLoaded(true);
+                });
+        }
+    };
 
     if (!fields) {
         let options = {
@@ -81,21 +95,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 }
             });
     }
-
-    const setDefaultFields = () => {
-        if (!fields) {
-            let options = {
-                url: '/api/Club/base_request_information',
-                method: "GET",
-                headers: getHeaders()
-            };
-            axios(options)
-                .then(({ data }) => {
-                    setFields(data.result);
-                    setLoaded(true);
-                });
-        }
-    };
 
     const onInputChange = ({ target }) => {
         setFields({ ...fields, [target.name]: target.value })

@@ -7,7 +7,8 @@ import {
     selectClubContacts,
     selectClubHeaderPicture,
     selectClubLogoPicture,
-    selectClubAlias
+    selectClubAlias,
+    selectClubSchedule
 } from './selectors'
 
 import {
@@ -15,7 +16,8 @@ import {
     clubPictureUpdateSuccess,
     clubLogoUpdateSuccess,
     clubAliasUpdateSuccess,
-    clubInfoUpdateSuccess
+    clubInfoUpdateSuccess,
+    clubScheduleUpdateSuccess
 } from './actions'
 
 
@@ -72,6 +74,13 @@ export const connectClubInfoForm = connect(
     selectClubInfo,
     dispatch => bindActionCreators({
         clubInfoUpdateSuccess
+    }, dispatch)
+);
+
+export const connectClubScheduleForm = connect(
+    selectClubSchedule,
+    dispatch => bindActionCreators({
+        clubScheduleUpdateSuccess
     }, dispatch)
 );
 

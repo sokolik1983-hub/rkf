@@ -12,6 +12,7 @@ import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
 import EditPageButtons from 'apps/Client/components/EditPageButtons';
 import { connectClientClubAlias } from 'apps/ClientClub/connectors';
 import './styles.scss';
+import ClubSchedule from "../../../ClubSchedule";
 
 let unblock;
 
@@ -23,6 +24,7 @@ function ClubEditPage({ club_alias, is_active_profile, history }) {
     let submitClubAlias,
         submitClubLogo,
         submitClubInfo,
+        submitClubSchedule,
         submitClubLegalInfo,
         submitClubBankInfo,
         submitClubEmail,
@@ -56,6 +58,15 @@ function ClubEditPage({ club_alias, is_active_profile, history }) {
         },
         getErrors: (errors) => {
             setErrors(prevObj => ({ ...prevObj, info: errors }));
+        }
+    };
+    const bindSubmitClubSchedule = {
+        submit: (submitFunc, errors) => {
+            submitClubSchedule = submitFunc;
+            clientErrors.schedule = errors;
+        },
+        getErrors: (errors) => {
+            setErrors(prevObj => ({ ...prevObj, schedule: errors }));
         }
     };
     const bindSubmitClubLegalInfo = {
@@ -121,6 +132,7 @@ function ClubEditPage({ club_alias, is_active_profile, history }) {
             submitClubAlias,
             submitClubLogo,
             submitClubInfo,
+            submitClubSchedule,
             submitClubLegalInfo,
             submitClubBankInfo,
             submitClubEmail,
@@ -177,6 +189,9 @@ function ClubEditPage({ club_alias, is_active_profile, history }) {
                     bindSubmitClubLogo={bindSubmitClubLogo}
                     bindSubmitClubInfo={bindSubmitClubInfo}
                 />
+            </Card>
+            <Card style={{ margin: '24px 0' }}>
+                <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
             </Card>
             <Card style={{ margin: '24px 0' }}>
                 <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
