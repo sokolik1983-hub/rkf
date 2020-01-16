@@ -42,7 +42,8 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "activation_code": code
+                "activation_code": code,
+                "mail": club.mail
             })
         })
             .then((response) => response.json())

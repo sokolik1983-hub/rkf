@@ -85,7 +85,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id, clubScheduleUpdateSuc
     };
 
     const onSuccess = values => {
-        console.log(values);
+        // console.log(values);
         clubScheduleUpdateSuccess(values);
     };
 
