@@ -100,7 +100,7 @@ const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
                     ))}
                 </ul>
             }
-            {!!selectedDays.length && !!days.length && initialValues &&
+            {!!days.length && initialValues &&
                 <Form
                     method="POST"
                     action="/api/clubs/WorkTime"
