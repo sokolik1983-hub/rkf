@@ -16,7 +16,7 @@ import ClubSchedule from "../../../ClubSchedule";
 
 let unblock;
 
-function ClubEditPage({ club_alias, is_active_profile, history }) {
+function ClubEditPage({ club_alias, is_federation, is_active_profile, history }) {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -188,6 +188,7 @@ function ClubEditPage({ club_alias, is_active_profile, history }) {
                 <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
                     bindSubmitClubLogo={bindSubmitClubLogo}
                     bindSubmitClubInfo={bindSubmitClubInfo}
+                    isFederation={is_federation}
                 />
             </Card>
             <Card style={{ margin: '24px 0' }}>

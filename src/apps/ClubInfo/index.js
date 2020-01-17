@@ -4,13 +4,13 @@ import UpdateClubInfoForm from './components/Form';
 import LogoPicture from './components/LogoPicture';
 import './styles.scss';
 
-function ClientClubInfo({bindSubmitClubAlias, bindSubmitClubLogo, bindSubmitClubInfo}) {
+function ClientClubInfo({ bindSubmitClubAlias, bindSubmitClubLogo, bindSubmitClubInfo, isFederation }) {
     return (
         <div>
-            <ClubAlias bindSubmitForm={bindSubmitClubAlias}/>
-            <div style={{alignItems: 'flex-start'}} className="flex-row ClientClubInfo">
-                <LogoPicture bindSubmitForm={bindSubmitClubLogo}/>
-                <UpdateClubInfoForm bindSubmitForm={bindSubmitClubInfo}/>
+            {!isFederation && <ClubAlias bindSubmitForm={bindSubmitClubAlias} />}
+            <div style={{ alignItems: 'flex-start' }} className="flex-row ClientClubInfo">
+                <LogoPicture bindSubmitForm={bindSubmitClubLogo} />
+                <UpdateClubInfoForm bindSubmitForm={bindSubmitClubInfo} />
             </div>
         </div>
     )
