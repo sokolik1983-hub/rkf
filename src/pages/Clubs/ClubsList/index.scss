@@ -26,10 +26,12 @@
       display: inline-block;
     }
     &__head {
-      text-decoration: none;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
+      a {
+        text-decoration: none;
+      }
     }
     &__avatar {
       width: 46px;
