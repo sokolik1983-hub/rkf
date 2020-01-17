@@ -11,7 +11,7 @@ import Container from "../../../../components/Layout/Container";
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;
     const { loading } = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
-    const ifExpire = date => (new Date(new Date().setHours(0, 0, 0, 0)) - new Date(date)) > 2592000000 ? true : false; // 30 days in millisecs
+
     return (loading ?
         <Loading /> :
         <Container className="container-main">
@@ -33,11 +33,11 @@ const ExhibitionsList = (props) => {
                                         item.report_header_status === 1
                                             ? <Link
                                                 to={`${path}/${item.exhibition_id}`}
-                                                className={`ExhibitionsList__item _red${ifExpire(item.date) ? ' _expire' : ''}`}>
+                                                className={`ExhibitionsList__item _red${item.is_expaired_report ? ' _expire' : ''}`}>
                                                 Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                                 <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
                                             </Link>
-                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${ifExpire(item.date) ? ' _expire' : ''}`}>
+                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${item.is_expaired_report ? ' _expire' : ''}`}>
                                                 Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                                 <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
                                             </p>
