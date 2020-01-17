@@ -79,18 +79,48 @@ const mainNav = [
         children: [
             {
                 id: 2.1,
+                title: "Федерации",
+                children: [
+                    {
+                        id: 2.11,
+                        title: "РФОС",
+                        to: '/rfos',
+                        exact: false
+                    },
+                    {
+                        id: 2.12,
+                        title: "РФСС",
+                        to: '/rfss',
+                        exact: false
+                    },
+                    {
+                        id: 2.13,
+                        title: "РФЛС",
+                        to: '/rfls',
+                        exact: false
+                    },
+                    {
+                        id: 2.14,
+                        title: "ОАНКОО",
+                        to: '/oankoo',
+                        exact: false
+                    },
+                ]
+            },
+            {
+                id: 2.2,
                 title: "Национальные клубы пород",
                 to: '/organizations/national-breed-clubs',
                 exact: false
             },
             {
-                id: 2.2,
+                id: 2.3,
                 title: "Кинологические клубы и союзы",
                 to: '/organizations/clubs-and-unions',
                 exact: false
             },
             {
-                id: 2.3,
+                id: 2.4,
                 title: "Питомники",
                 to: '/organizations/nurseries',
                 exact: false
