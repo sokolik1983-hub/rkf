@@ -15,10 +15,15 @@ import {
 import { loginFormConfig } from 'apps/Auth/config'
 
 import { loginUserSuccess } from 'apps/Auth/actions'
+import CustomCheckbox from "../../../components/Form/CustomCheckbox";
 
 const { fields } = loginFormConfig;
 
 class LoginForm extends PureComponent {
+    state = {
+        rememberMe: false
+    };
+
     render() {
 
         return (
@@ -36,10 +41,12 @@ class LoginForm extends PureComponent {
                     <Error name="authentication" noTouch={true} />
                 </FormGroup>
                 <FormGroup className="login-form__holder" inline>
-                    <FormInput checkbox>
-                        <label>Запомнить меня</label>
-                        <input type="checkbox" className="FormInput__input" />
-                    </FormInput>
+                    <CustomCheckbox
+                        id="remember-me"
+                        label="Запомнить меня"
+                        checked={this.state.rememberMe}
+                        onChange={() => this.setState({rememberMe: !this.state.rememberMe})}
+                    />
                     <div style={{ marginLeft: 'auto' }}><Link className="no-ul" to="/auth/login/restore">Забыли
                         пароль</Link></div>
                 </FormGroup>

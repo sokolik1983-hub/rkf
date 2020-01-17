@@ -1,18 +1,12 @@
 .login-form {
-
   &__holder {
-    //margin-top: -8px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-
     .FormInput--checkbox {
       margin: 0;
     }
-
-
   }
-
   button[type="submit"] {
     min-width: 166px;
   }
