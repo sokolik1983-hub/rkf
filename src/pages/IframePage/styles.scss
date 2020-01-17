@@ -1,7 +1,9 @@
 .iframe-page {
   width: 100%;
+  overflow-x: scroll;
   iframe {
     width: 100%;
-    height: 1800px;
+    min-width: 900px;
+    height: 900px;
   }
 }
