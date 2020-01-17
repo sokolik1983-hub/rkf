@@ -112,6 +112,12 @@ const mainNav = [
                 title: "Результаты выставок CAC",
                 to: '/results/cac',
                 exact: false
+            },
+            {
+                id: 3.3,
+                title: "Результаты выставок CACIB",
+                to: '/results/cacib',
+                exact: false
             }
         ]
     },

@@ -37,6 +37,7 @@ class App extends PureComponent {
                 <Route exact={true} path='/organizations/clubs-and-unions' component={() => <IframePage src="http://tables.uep24.ru/Table/tblKinologClubSojuzy.aspx" />} />
                 <Route exact={true} path='/organizations/nurseries' component={() => <IframePage src="http://tables.uep24.ru/Table/tblPitomniki.aspx" />} />
                 <Route exact={true} path='/results/cac' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCAC.aspx" />} />
+                <Route exact={true} path='/results/cacib' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
         );
