@@ -117,6 +117,12 @@ const mainNav = [
     },
     {
         id: 4,
+        title: "Обратная связь",
+        to: '/',
+        exact: false
+    },
+    {
+        id: 5,
         title: "Клубы",
         to: '/clubs',
         exact: false

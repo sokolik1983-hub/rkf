@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import ClickGuard from "../../../ClickGuard";
 import BurgerButton from "./BurgerButton";
-import {mainNav} from "../../../../appConfig";
+import { mainNav } from "../../../../appConfig";
 import NavSublist from "./NavSublist";
+import Feedback from 'components/Feedback';
 
 
 const Nav = () => {
@@ -33,11 +34,15 @@ const Nav = () => {
             <ul className={`Header__nav-list${isOpen ? ' _open' : ''}`}>
                 {mainNav.map(navItem =>
                     <li className="Header__nav-item" key={navItem.id}>
-                        {navItem.children ?
-                            <NavSublist setIsOpen={setIsOpen} navItem={navItem}/> :
-                            <NavLink to={navItem.to} exact={navItem.exact} onClick={() => setIsOpen(false)}>{navItem.title}</NavLink>
+                        {
+                            navItem.children
+                                ? <NavSublist setIsOpen={setIsOpen} navItem={navItem} />
+                                : navItem.id === 4
+                                    ? <Feedback />
+                                    : <NavLink to={navItem.to} exact={navItem.exact} onClick={() => setIsOpen(false)}>{navItem.title}</NavLink>
                         }
                     </li>
+
                 )}
             </ul>
         </nav>
