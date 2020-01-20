@@ -1,43 +1,52 @@
 import React from "react";
-import Container from "../Container";
+import { Link } from 'react-router-dom';
+import { connectWidgetLogin } from 'apps/Auth/connectors';
 import './index.scss';
 
-const Footer = () => (
+const Footer = ({ isAuthenticated, logOutUser }) => (
     <div className="Footer">
         <div className="Footer__inner">
-            <Container className="Footer__inner-wrap">
-                <div>
-                    <h3>ОРГАНИЗАЦИЯ</h3>
-                    <p>
-                        Российская кинологическая федерация (РКФ) является некоммерческим, добровольным, самоуправляемым, основанным на членстве союзом общественных объединений, созданным по инициативе общественных объединений.
-                    </p>
+            <div className="Footer__inner-wrap">
+                <img src="/static/images/footer/rkf-logo-transparent.svg" alt="Logo" />
+                <div className="Footer__address">
+                    <h3>Адрес</h3>
+                    <p>Телефон: +7 (499) 482-1529</p>
+                    <p>Режим работы: 9:30 — 18:00</p>
+                    <p>Москва, ул. Гостиничная, д. 9, 5 этаж</p>
                 </div>
-                <div>
-                    <h3>КОНТАКТЫ</h3>
-                    <p>
-                        Адрес: Москва, Гостиничная, 9<br />
-                        Телефон: +7 (499) 753-22-33<br />
-                        E-mail: rkf@rkf.org.ru<br />
-                    </p>
+                <div className="Footer__sections">
+                    <h3>Разделы</h3>
+                    <p><Link to="/exhibitions">Календарь выставок</Link></p>
+                    <p><Link to="/clubs">Клубы</Link></p>
                 </div>
-            </Container>
-        </div>
-        <div className="Footer__bottom">
-            <Container className="Footer__bottom-wrap">
-                <p>
-                    © РКФ, 1991—<script>document.write(new Date().getFullYear());</script>2019. Союзу общественных кинологических организаций — Российская кинологическая федерация (РКФ) принадлежат исключительные права в отношении результатов интеллектуальной деятельности и приравненных к ним средств индивидуализации, опубликованных на сайте rkf.org.ru, кроме случаев, когда прямо указан другой правообладатель. Указанная интеллектуальная собственность не может использоваться без предварительного согласия со стороны РКФ, за исключением случаев, предусмотренных законом.
-                </p>
-            </Container>
-            <div className="Footer__bottom-social">
-                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                <div className="Footer__socials">
+                    <h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
+                    </h3>
+                    <p>
+                        {
+                            isAuthenticated
+                                ? <Link to={'/'} onClick={logOutUser}>Выход</Link>
+                                : <Link to="/auth/login">Вход</Link>
+                        }
+                    </p>
+                    {!isAuthenticated && <p><Link to="/auth/registration">Регистрация</Link></p>}
+                    <p className="Footer__language"><span>Рус</span>/Eng</p>
+                </div>
             </div>
+            <hr />
+            <p>
+                © РКФ, 1991—{new Date().getFullYear()}.
+                Союзу общественных кинологических организаций — Российская кинологическая федерация (РКФ) принадлежат
+                исключительные права в отношении результатов интеллектуальной деятельности и приравненных к ним средств индивидуализации,
+                опубликованных на сайте rkf.org.ru, кроме случаев, когда прямо указан другой правообладатель. Указанная интеллектуальная собственность
+                не может использоваться без предварительного согласия со стороны РКФ, за исключением случаев, предусмотренных законом.
+             </p>
         </div>
-    </div>
+    </div >
 );
 
-export default Footer;
+export default connectWidgetLogin(Footer);
