@@ -94,7 +94,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                     grades.find(item => item.name === row.score).id :
                 null;
             const certificates = Object.keys(row).reduce((arr, key) => {
-                if (+key) {
+                if (+key && row[key] === true) {
                     return [...arr, +key];
                 }
 
@@ -124,7 +124,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             "report_header_id": reportHeader.id,
             "report_rows": reportRows
         };
-
+        if (reportRows.find(i => !i.certificates.length)) return alert('Необходимо указать сертификат для каждой выставки!');
         (() => Request({
             url: endpointPutFinalReport,
             method: 'PUT',
