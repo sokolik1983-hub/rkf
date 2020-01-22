@@ -1,0 +1,94 @@
+.exhibition-edit {
+  &__info-form {
+    .btn {
+      &:first-child {
+        margin-right: 12px;
+      }
+    }
+  }
+  &__img {
+    position: relative;
+    margin-bottom: 32px;
+    @media (max-width: 560px) {
+      margin-bottom: 24px;
+    }
+    h5 {
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 300;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+    &-label {
+      display: block;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #f3f4f4;
+      img {
+        width: 100%;
+      }
+    }
+    &-input {
+      display: none;
+    }
+    &-delete {
+      width: 36px;
+      height: 36px;
+      background: url("/static/icons/file-cross.svg") no-repeat center;
+      border: none;
+      padding: 0;
+      position: absolute;
+      top: 38px;
+      right: 0;
+    }
+  }
+  &__documents {
+    margin-bottom: 24px;
+    &-list {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    &-link {
+      vertical-align: text-bottom;
+    }
+    &-delete {
+      color: #3366ff;
+      border: none;
+      padding: 0;
+      margin-left: 6px;
+      line-height: 1;
+    }
+    &-add {
+      color: #3366ff;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s linear;
+      &:hover {
+        border-color: #3366ff;
+      }
+    }
+    .FormGroup--inline {
+      margin-bottom: 24px;
+      align-items: flex-end;
+    }
+  }
+  @media (max-width: 800px) {
+    .FormGroup--inline {
+      display: block;
+      .FormInput {
+        margin: 0 0 12px;
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    .btn {
+      padding: 10px 30px;
+    }
+  }
+}

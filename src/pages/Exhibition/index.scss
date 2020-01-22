@@ -12,6 +12,22 @@
       padding: 12px;
     }
   }
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media (max-width: 560px) {
+      display: block;
+      margin-bottom: 24px;
+    }
+    .btn {
+      margin-left: 24px;
+      @media (max-width: 560px) {
+        padding: 8px 24px;
+        margin: 0;
+      }
+    }
+  }
   &__title {
     margin-bottom: 12px;
     @media (max-width: 990px) {

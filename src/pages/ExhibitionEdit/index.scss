@@ -1,0 +1,21 @@
+.exhibition-edit {
+  &__card {
+    @media (max-width: 768px) {
+      padding: 24px;
+    }
+    @media (max-width: 560px) {
+      padding: 24px 12px;
+    }
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+    h3 {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+  }
+}

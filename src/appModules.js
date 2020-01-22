@@ -22,6 +22,11 @@ export const LoadableExhibition = Loadable({
     loading: Loading
 });
 
+export const LoadableExhibitionEdit = Loadable({
+    loader: () => import('./pages/ExhibitionEdit'),
+    loading: Loading
+});
+
 export const LoadableNews = Loadable({
     loader: () => import('./pages/News'),
     loading: Loading

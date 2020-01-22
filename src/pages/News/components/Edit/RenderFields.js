@@ -76,4 +76,4 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
     )
 };
 
-export default connect(RenderFields);
+export default connect(React.memo(RenderFields));

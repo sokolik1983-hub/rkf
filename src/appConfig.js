@@ -21,6 +21,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/exhibitions/:id/edit',
+        component: LoadableModules.LoadableExhibitionEdit
+    },
+    {
+        exact: false,
         path: '/exhibitions/:id',
         component: LoadableModules.LoadableExhibition
     },

@@ -1,30 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
 import {
     getLocalizedWeekDay,
     transformDateSafariFriendly,
     timeSecondsCutter
 } from "../../../../utils/datetime";
-import {Request} from "../../../../utils/request";
 import './index.scss';
 
 
-const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhibition_avatar_link, description}) => {
-    const [schedule, setSchedule] = useState(null);
-    const [catalog, setCatalog] = useState(null);
-    const [documents, setDocuments] = useState(null);
+const ExhibitionInfo = ({city, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link}) => {
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : '/static/images/exhibitions/default.png';
-
-    useEffect(() => {
-        (() => Request({url: `/api/exhibitions/ExhibitionScheduleLink?id=${id}`}, data => setSchedule(data)))();
-        (() => Request({url: `/api/exhibitions/ExhibitionCatalogLink?id=${id}`}, data => setCatalog(data)))();
-        (() => Request({url: `/api/exhibitions/ExhibitionDocument/${id}`}, data => setDocuments(data)))();
-    }, [id]);
 
     return (
         <div className="exhibition-info">
@@ -65,26 +55,26 @@ const ExhibitionInfo = ({city, id, dates, address, rank_types, breed_types, exhi
                         <p dangerouslySetInnerHTML={{__html: description}} />
                     </div>
                 }
-                {schedule &&
+                {schedule_link &&
                     <div className="exhibition-page__schedule">
                         <h3 className="exhibition-page__schedule-title">Расписание</h3>
-                        <p className="exhibition-documents__doc" key={schedule.id}>
-                            <a href={schedule.url} target="__blank">{schedule.name}</a>
+                        <p className="exhibition-documents__doc">
+                            <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
                         </p>
                     </div>
                 }
-                {catalog &&
+                {catalog_link &&
                     <div className="exhibition-page__catalog">
                         <h3 className="exhibition-page__catalog-title">Каталог</h3>
-                        <p className="exhibition-documents__doc" key={catalog.id}>
-                            <a href={catalog.url} target="__blank">{catalog.name}</a>
+                        <p className="exhibition-documents__doc">
+                            <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
                         </p>
                     </div>
                 }
-                {documents && !!documents.length &&
+                {documents_links && !!documents_links.length &&
                     <div className="exhibition-page__documents">
                         <h3 className="exhibition-page__documents-title">Документы</h3>
-                        {documents.map(doc => (
+                        {documents_links.map(doc => (
                             <p className="exhibition-documents__doc" key={doc.id}>
                                 <a href={doc.url} target="__blank">{doc.name}</a>
                             </p>

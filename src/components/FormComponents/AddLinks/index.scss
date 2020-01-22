@@ -1,0 +1,37 @@
+.add-links {
+  &__list {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+  &__link {
+    vertical-align: text-bottom;
+  }
+  &__delete {
+    color: #3366ff;
+    border: none;
+    padding: 0;
+    margin-left: 6px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  &__form {
+    .FormGroup--inline {
+      margin-bottom: 24px;
+      align-items: flex-end;
+    }
+  }
+  &__submit {
+    padding: 12px 34px;
+  }
+  &__button {
+    color: #3366ff;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s linear;
+    &:hover {
+      border-color: #3366ff;
+    }
+  }
+}

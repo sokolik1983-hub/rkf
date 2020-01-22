@@ -32,7 +32,7 @@ const ClubFutureExhibitions = ({clubId}) => {
                 <ul className="club-page__exhibitions-list">
                     {exhibitions.map(exhibition => (
                         <li className="club-page__exhibitions-item" key={exhibition.id}>
-                            <Link to={`/exhibitions/${exhibition.id}/details`} className="future-exhibition">
+                            <Link to={`/exhibitions/${exhibition.id}`} className="future-exhibition">
                                 <div
                                     className="future-exhibition__img"
                                     style={{backgroundImage: `url(${exhibition.exhibition_picture_link ? 

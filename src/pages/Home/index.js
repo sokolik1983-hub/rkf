@@ -33,7 +33,7 @@ const HomePage = () => {
         }, error => {
             setLoading(false);
             console.log(error.response);
-            alert(`Ошибка: ${error.response.status}`);
+            if(error.response) alert(`Ошибка: ${error.response.status}`);
         });
     };
 

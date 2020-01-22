@@ -11,6 +11,7 @@ import './styles.scss';
 function ScheduleDate({dayId, day, index, updateDateSuccess}) {
     const [formVisible, setFormVisibility] = useState(false);
     const date = transformDate(day);
+
     const transformValues = (values) => {
         const {date} = values;
         return {id: day.id, ...transformDate(date)}
