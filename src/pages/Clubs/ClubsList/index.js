@@ -11,7 +11,7 @@ import { connectFilters } from "../connectors";
 import "./index.scss";
 
 
-const ClubsList = ({ string_filter, federation_ids, club_ids, page, setFilters }) => {
+const ClubsList = ({string_filter, federation_ids, club_ids, is_activated, page, setFilters}) => {
     const [clubs, setClubs] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -25,6 +25,7 @@ const ClubsList = ({ string_filter, federation_ids, club_ids, page, setFilters }
                 string_filter,
                 federation_ids,
                 club_ids,
+                is_activated,
                 page
             })
         }, data => {
@@ -39,7 +40,7 @@ const ClubsList = ({ string_filter, federation_ids, club_ids, page, setFilters }
 
     useEffect(() => {
         (() => getClubs())();
-    }, [string_filter, federation_ids, club_ids, page]);
+    }, [string_filter, federation_ids, club_ids, is_activated, page]);
 
     return loading ?
         <Loading /> :

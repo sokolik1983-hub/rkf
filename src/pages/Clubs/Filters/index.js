@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import Aside from "../../../components/Layouts/Aside";
 import Card from "../../../components/Card";
 import FederationsFilter from "./components/FederationsFilter";
+import IsActivatedFilter from "./components/IsActivatedFilter";
 import {setOverflow} from "../../../utils";
 import {getEmptyFilters} from "../utils";
 import {connectFilters} from "../connectors";
@@ -24,7 +25,8 @@ const Filters = ({isOpenFilters, setFilters}) => {
     return (
         <Aside className={`clubs-page__left${isOpenFilters ? ' _open' : ''}`}>
             <Card>
-                <FederationsFilter />
+                <FederationsFilter/>
+                <IsActivatedFilter/>
                 <a href="/" className="link" onClick={clearFilters}>Сбросить все параметры</a>
             </Card>
         </Aside>
