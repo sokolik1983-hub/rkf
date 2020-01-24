@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import Button, {ButtonNext, ButtonPrev} from "../Button";
-import {scrollSmoothTop} from "../../utils";
+import React, { useState } from 'react';
+import Button, { ButtonNext, ButtonPrev } from "../Button";
+import { scrollSmoothTop } from "../../utils";
 import './index.scss'
 
 
-function PageButton({page, currentPage, onClick}) {
+function PageButton({ page, currentPage, onClick }) {
     const onPageClick = () => {
         if (page !== currentPage) {
             onClick(page);
@@ -20,7 +20,7 @@ function PageButton({page, currentPage, onClick}) {
     )
 }
 
-function PageSelector({onSubmit, pageCount}) {
+function PageSelector({ onSubmit, pageCount }) {
     const [value, setValue] = useState('');
 
     const onPageSelect = (e) => {
@@ -48,8 +48,8 @@ function PageSelector({onSubmit, pageCount}) {
     )
 }
 
-const Paginator = ({pagesCount, currentPage, setPage}) => {
-    scrollSmoothTop();
+const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => {
+    scrollToTop && scrollSmoothTop();
 
     const pages = {
         prevPage: currentPage - 1,

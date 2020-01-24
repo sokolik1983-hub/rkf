@@ -9,7 +9,6 @@
       border: none;
       background: #90999e;
       opacity: 0.5;
-      margin-bottom: 24px;
     }
     & > p {
       font-weight: normal;
@@ -21,7 +20,7 @@
     &-wrap {
       margin: auto;
       display: flex;
-      padding: 32px 0 52px;
+      padding: 42px 0 88px;
       h3 {
         font-weight: 600;
         font-size: 18px;
@@ -38,67 +37,78 @@
     }
   }
   &__bottom {
-    background: #282a2b;
-    border-top: 1px solid #4b4c4d;
-    &-wrap {
-      margin: auto;
-      padding: 10px 0 20px;
-      @media (max-width: 1220px) {
-        padding: 15px 24px;
-      }
-      @media (max-width: 560px) {
-        padding: 12px;
-      }
-      p {
-        margin: 0;
-        text-align: center;
-        font-size: 10px;
-        line-height: 15px;
-        font-weight: 400;
-      }
-    }
-    &-social {
-      font-size: 20px;
-      text-align: center;
-      line-height: 1;
-      padding-bottom: 20px;
-      a {
-        display: inline-block;
-        margin-right: 10px;
-        &:hover {
-          opacity: 0.8;
-        }
-        img {
-          display: block;
-          height: 20px;
-          width: 20px;
-        }
-      }
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+    p {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #72839c;
     }
   }
   &__address {
-    margin-left: 162px;
+    p {
+      margin-bottom: 8px;
+      padding-left: 30px;
+    }
+    &-pin {
+      background: url(/static/icons/public/pin.svg) -8px 50% no-repeat;
+    }
+
+    &-phone {
+      background: url(/static/icons/public/phone.svg) -8px 50% no-repeat;
+    }
+
+    &-email {
+      background: url(/static/icons/public/email.svg) -8px 50% no-repeat;
+    }
+
+    &-web {
+      background: url(/static/icons/public/web.svg) -8px 50% no-repeat;
+    }
   }
   &__sections,
-  &__socials {
-    margin-left: 105px;
-    a {
+  &__company,
+  &__exhibitions {
+    margin-left: 94px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .link {
+      color: #253c5e;
+      margin-bottom: 8px;
+      border-bottom-color: rgba(37, 60, 94, 0.1);
+      font-weight: normal;
+      &:hover {
+        border-bottom-color: rgba(37, 60, 94, 1);
+      }
+    }
+    span {
+      display: block;
+      margin-bottom: 8px;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      text-decoration: underline;
-      color: #253c5e;
-      &:hover {
-        text-decoration: none;
-      }
+      color: #90999e;
     }
   }
-  &__socials h3 {
+  &__sections {
+    margin-left: 74px;
+  }
+  &__company {
+    margin-left: 257px;
+  }
+  &__socials {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 130px;
+    width: 240px;
+    a {
+      width: 20px;
+      height: 20px;
+    }
   }
   p.Footer__language {
     font-weight: 300;

@@ -13,7 +13,7 @@ body {
   font-style: normal;
   color: #253c5e;
   height: 100%;
-  background-color: #f5f8ff;
+  background-color: white;
 }
 
 #wrap {
@@ -25,4 +25,8 @@ h1 {
   font-weight: 700;
   font-size: 36px;
   line-height: 44px;
+}
+
+.Layout__wrapper {
+  min-height: 100vh;
 }

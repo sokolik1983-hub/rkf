@@ -1,0 +1,133 @@
+.ExhibitionsSlider {
+  padding: 44px 0;
+  &__wrapper {
+    width: 1184px;
+    margin: auto;
+  }
+  &__heading {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 44px;
+    color: #253c5e;
+    margin-bottom: 24px;
+  }
+  &__slide {
+    display: flex;
+    padding-bottom: 25px;
+    justify-content: space-around;
+  }
+  &__show-more {
+    height: 504px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .slick-slider {
+    margin: 0 -20px;
+  }
+  .slick-slide {
+    padding-bottom: 25px;
+  }
+  .slick-next {
+    width: 55px;
+    height: 55px;
+    right: -8px;
+    top: calc(50% - 27px);
+  }
+  .slick-prev {
+    width: 55px;
+    height: 55px;
+    left: -8px;
+    z-index: 1;
+    top: calc(50% - 55px);
+    transform: rotate(180deg);
+  }
+  .slick-disabled {
+    display: none !important;
+  }
+}
+.ExhibitionCard {
+  width: 368px;
+  box-shadow: 0px 2px 10px rgba(51, 102, 255, 0.05), 0px 4px 30px rgba(51, 102, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  float: left;
+  margin: 0 20px;
+  &__image {
+    width: 100%;
+    height: 200px;
+  }
+  &__content {
+    margin: 16px 24px;
+    &-block {
+      margin-bottom: 8px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    h5 {
+      display: block;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #90999e;
+    }
+    span {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #253c5e;
+    }
+  }
+  &__link {
+    display: block;
+    height: 48px;
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #253c5e;
+    text-decoration: none;
+    overflow: hidden;
+    &:visited {
+      color: #253c5e;
+    }
+  }
+  &__button {
+    border: 1px solid #3366ff;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    padding: 11px 0;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    color: #3366ff;
+    margin-top: 24px;
+  }
+  &__club {
+    display: flex;
+    &-logo {
+      display: flex;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin: 4px 8px 4px 0;
+    }
+    &-name a {
+      line-height: 20px !important;
+      height: 40px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #3366ff;
+    }
+  }
+}

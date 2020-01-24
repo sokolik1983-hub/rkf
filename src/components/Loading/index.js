@@ -7,4 +7,10 @@ const Loading = ({ centered = true }) => (
     </div >
 );
 
+export const InlineLoading = () => (
+    <div className="Loading" >
+        <div className="Loading__title">Загрузка...</div>
+    </div >
+);
+
 export default Loading;

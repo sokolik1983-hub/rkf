@@ -1,6 +1,4 @@
 .CitySelect {
-  padding-left: 48px;
-  min-width: 115px;
   justify-content: flex-end;
   &__heading {
     margin: 0;
@@ -10,8 +8,31 @@
     line-height: 24px;
     letter-spacing: 0.2px;
   }
-  .Dropdown__content--visible {
-    height: 310px;
-    width: 310px;
+  .Dropdown {
+    &__content--visible {
+      height: 360px;
+      width: 310px;
+    }
+    &__button,
+    &__button--visible {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #3366ff;
+      padding: 0 0 0 22px;
+      &:after {
+        display: none;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 20px;
+        left: 0;
+        top: 2px;
+        background: url("/static/icons/pin.svg") center no-repeat;
+      }
+    }
   }
 }

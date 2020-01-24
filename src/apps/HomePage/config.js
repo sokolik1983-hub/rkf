@@ -1,4 +1,4 @@
-export const defaultReduxKey = 'home_page';
+export const defaultReduxKey = 'homepage';
 
 
 export const publicExhibitionsEndpoint = '/api/exhibitions/list';

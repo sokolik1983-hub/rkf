@@ -5,17 +5,20 @@
   top: 0;
   left: 0;
   z-index: 10;
-  display: flex;
-  align-items: center;
   width: 100%;
-  height: 70px;
-  padding: 0 24px;
-  color: #9DAFBD;
   @media (max-width: 768px) {
     height: 60px;
   }
   @media (max-width: 560px) {
     padding: 0 12px;
+  }
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    color: #9dafbd;
+    width: 1184px;
+    height: 70px;
+    margin: auto;
   }
   &__logo {
     display: block;
@@ -69,8 +72,8 @@
     span {
       width: 28px;
       height: 4px;
-      background-color: #4C6BB0;
-      transition: all .2s linear;
+      background-color: #4c6bb0;
+      transition: all 0.2s linear;
     }
     &._open span {
       width: 24px;
@@ -112,7 +115,7 @@
       right: 0;
       background-color: #fff;
       box-shadow: -2px 2px 4px rgba(51, 102, 255, 0.05);
-      transition: all .2s ease-out;
+      transition: all 0.2s ease-out;
       &._open {
         visibility: visible;
         transform: translateX(0);
@@ -126,7 +129,8 @@
       padding-left: 32px;
     }
     &-item {
-      a, p {
+      a,
+      p {
         display: block;
         padding: 8px 32px;
         text-decoration: none;
@@ -134,17 +138,17 @@
         font-size: 16px;
         line-height: 24px;
         font-weight: 400;
-        color: #253C5E;
+        color: #253c5e;
         border-left: 2px solid transparent;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         &:hover {
           background-color: #f5f8ff;
-          color: #3366FF;
+          color: #3366ff;
         }
         &.active {
           background-color: #f5f8ff;
-          border-color: #3366FF;
-          color: #3366FF;
+          border-color: #3366ff;
+          color: #3366ff;
         }
       }
       p {
@@ -155,12 +159,32 @@
           height: 24px;
           font-size: 12px;
           text-align: center;
-          transition: all .2s linear;
+          transition: all 0.2s linear;
         }
         &._open i {
           transform: rotate(90deg);
         }
       }
     }
+  }
+  &__menu {
+    display: flex;
+    margin-left: 57px;
+    & > * {
+      margin-right: 24px;
+    }
+  }
+  &__single-link {
+    color: #72839c!important;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &__feedback {
+    margin-right: 25px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
   }
 }

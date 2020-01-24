@@ -4,17 +4,11 @@ import { CITY_SELECTOR_STYLE } from './config';
 import { useDictionary } from 'apps/Dictionaries';
 import { DICTIONARIES } from 'apps/Dictionaries/config';
 import Dropdown from 'components/Dropdown';
-import {storeExhibitions} from 'apps/HomePage/actions';
-import {useResourceAndStoreToRedux} from 'shared/hooks';
-import {
-    DEFAULT_ELEMENTS_COUNT_OFFSET,
-    FEATURED_EXHIBITIONS_ENDPOINT
-} from 'apps/HomePage/config';
 import './styles.scss';
 
 const LS_KEY = 'GLOBAL_CITY';
 const noOptionsMessage = () => 'Город не найден';
-const selectorInitialState = { label: 'Выбор города', value: null };
+const selectorInitialState = { label: 'Выберите город', value: null };
 const storeFilters = city => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};
     filters.cities = city ? [city.value] : [];
@@ -31,7 +25,7 @@ const loadCity = () => {
     return city ? JSON.parse(city) : selectorInitialState;
 };
 
-function CitySelect() {
+function CitySelect({ cityFilter }) {
     const ddRef = useRef();
     const [city, setCity] = useState(loadCity());
 
@@ -47,13 +41,16 @@ function CitySelect() {
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
             storeFilters();
+            cityFilter && cityFilter(null);
             closeSelector();
             return;
         }
 
         storeCity(value);
+        cityFilter && cityFilter(value);
         closeSelector();
         setCity(value);
+
     };
 
     const selectOptions = [
@@ -61,17 +58,12 @@ function CitySelect() {
         ...dictionary.options
     ];
 
-    //отправляем запрос и пишим в Redux предстоящие выставки в зависимости от города
-    //TODO: нужно убрать это отсюда, т.к. этот запрос происходит на каждой странице, а должен на главной
-    const url = `${FEATURED_EXHIBITIONS_ENDPOINT}?ElementsCount=${DEFAULT_ELEMENTS_COUNT_OFFSET}${city && city.value ? '&CityId=' + city.value : ''}`;
-    useResourceAndStoreToRedux(url, storeExhibitions);
-
     return (
         <Dropdown
             ref={ddRef}
             innerComponent={city.label}
-            className="CitySelect"
-            withClear={!!city.value}
+            className="CitySelect left"
+            withClear={false}
             clearLabel={() => onChange(selectorInitialState)}
         >
             <h3 className="CitySelect__heading">Выберите ваш город:</h3>

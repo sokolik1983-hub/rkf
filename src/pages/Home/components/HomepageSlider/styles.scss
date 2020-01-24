@@ -1,0 +1,27 @@
+.HomepageSlider {
+  max-height: 548px;
+  min-height: 548px;
+  padding-top: 70px;
+  background: #eaf0fe;
+  .slick-slider {
+    max-width: 1184px;
+    margin: auto;
+  }
+  .slick-dots {
+    bottom: 15px;
+    li {
+      margin: 0;
+      button:before {
+        color: #3366ff;
+        opacity: 0.5;
+      }
+      &.slick-active button:before {
+        color: #3366ff;
+        opacity: 1;
+      }
+    }
+  }
+}
+.img-flip {
+  transform: scaleX(-1);
+}

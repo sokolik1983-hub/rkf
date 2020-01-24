@@ -4,46 +4,54 @@ export const partners = [
     {
         url: 'http://www.fci.be/en/',
         title: 'Fédération Cynologique Internationale',
-        img: '/static/images/partners/fci.png'
-    },
-    {
-        url: 'https://www.adamant.ru/',
-        title: 'Холдинговая компания «Адамант»',
-        img: '/static/images/partners/adamant.png'
+        img: '/static/images/partners/fci-colored.png',
+        id: 1
     },
     {
         url: 'https://www.skoltech.ru/en/',
         title: 'Skoltech',
-        img: '/static/images/partners/skoltech.png'
+        img: '/static/images/partners/skoltech-colored.png',
+        id: 2
+    },
+    {
+        url: 'https://www.adamant.ru/',
+        title: 'Холдинговая компания «Адамант»',
+        img: '/static/images/partners/adamant-colored.png',
+        id: 3
+    },
+    {
+        url: 'https://www.sogaz.ru/',
+        title: 'АО «СОГАЗ»',
+        img: '/static/images/partners/sogaz-colored.png',
+        id: 4
     }
 ];
 
-export const exhibitions = {
-    title: "Всероссийские выставки",
-    items: [
-        {
-            name: 'Евразия',
-            url: 'http://rkf.org.ru/vystavki/eurasia/',
-            logo: '/static/images/exhibitions/eur.png'
-        },
-        {
-            name: 'Мазовер',
-            url: 'http://rkf.org.ru/vystavki/mazover/',
-            logo: '/static/images/exhibitions/maz.png'
-        },
-        {
-            name: 'Россия',
-            url: 'http://rkf.org.ru/vystavki/russia/',
-            logo: '/static/images/exhibitions/rus.png'
-        },
-        // {
-        //     name: 'Золотой ошейник',
-        //     url: 'http://rkf.org.ru/vystavki/golden_collar/',
-        //     logo: '/static/images/exhibitions/zol.png'
-        // },
-
-    ]
-};
+export const exhibitions = [
+    {
+        name: 'Россия',
+        url: 'http://rkf.org.ru/vystavki/russia/',
+        logo: '/static/images/exhibitions/rus.png',
+        id: 1
+    },
+    {
+        name: 'Мазовер',
+        url: 'http://rkf.org.ru/vystavki/mazover/',
+        logo: '/static/images/exhibitions/maz.png',
+        id: 2
+    },
+    {
+        name: 'Евразия',
+        url: 'http://rkf.org.ru/vystavki/eurasia/',
+        logo: '/static/images/exhibitions/eur.png',
+        id: 3
+    },
+    // {
+    //     name: 'Золотой ошейник',
+    //     url: 'http://rkf.org.ru/vystavki/golden_collar/',
+    //     logo: '/static/images/exhibitions/zol.png'
+    // },
+];
 
 export const RKFInfo = {
     aboutTitle: 'О РКФ',

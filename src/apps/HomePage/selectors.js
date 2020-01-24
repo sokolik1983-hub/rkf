@@ -25,13 +25,12 @@ export const selectExhibition = (state, props) => {
 };
 
 
-export const selectNews = state => {
-    const { route } = selectClubRoute(state);
-    const { listIds, listCollection } = getState(state).news;
+export const selectNews = (state, props) => {
+    //console.log(props)
+    // const { route } = selectClubRoute(state);
+    const news = state.news;
     return {
-        route,
-        listIds,
-        listCollection
+        news
     }
 };
 

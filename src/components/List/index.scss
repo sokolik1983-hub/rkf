@@ -12,3 +12,31 @@
     padding: 12px;
   }
 }
+.ListFilter {
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      margin-right: 8px;
+      a,
+      span {
+        padding: 4px 15px;
+        background: #ebf0f2;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #72839c;
+        text-decoration: none;
+        &.active {
+          color: white;
+          background: #3366ff;
+        }
+      }
+    }
+  }
+}

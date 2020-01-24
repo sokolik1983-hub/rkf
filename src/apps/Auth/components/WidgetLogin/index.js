@@ -33,7 +33,7 @@ const WidgetLogin = ({ isAuthenticated, isActiveProfile, logOutUser, logo_link }
                 <Link to={'/'} onClick={logOutUser}>Выход</Link>
             </DropDownItem>
         </Dropdown>
-        : <Link className="login-link" to={LOGIN_URL}>Вход</Link>
+        : <Link className="login-link" to={LOGIN_URL}>Войти</Link>
 };
 
 const mapStateToProps = state => ({
