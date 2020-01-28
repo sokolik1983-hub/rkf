@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DayPicker from "react-day-picker";
-import Loading from "../../../../../components/Loading";
-import { MONTHS, WEEKDAYS_SHORT } from "../../../../../appConfig";
-import { formatDateToString } from "../../../../../utils/datetime";
-import { Request } from "../../../../../utils/request";
-import { endpointExhibitionsDates } from "../../../config";
-import { connectFilters } from "../../../connectors";
+import Loading from "components/Loading";
+import { MONTHS, WEEKDAYS_SHORT } from "appConfig";
+import { formatDateToString } from "utils/datetime";
+import { Request } from "utils/request";
+import { endpointExhibitionsDates } from "pages/Exhibitions/config";
+import { connectFilters } from "pages/Exhibitions/connectors";
 import './index.scss';
 
 

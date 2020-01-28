@@ -74,7 +74,7 @@ export const RKFInfo = {
         {
             class: 'web',
             text: 'Сайт: ',
-            link: 'https://rkf.org.ru',
+            link: 'http://rkf.org.ru',
             linkTitle: 'rkf.org.ru'
         }
     ]

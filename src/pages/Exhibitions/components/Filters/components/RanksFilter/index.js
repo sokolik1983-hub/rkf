@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Loading from "../../../../../components/Loading";
-import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
-import {Request} from "../../../../../utils/request";
-import {endpointExhibitionsRanks} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import Loading from "components/Loading";
+import CustomCheckbox from "components/Form/CustomCheckbox";
+import {Request} from "utils/request";
+import {endpointExhibitionsRanks} from "pages/Exhibitions/config";
+import {connectFilters} from "pages/Exhibitions/connectors";
 import "./index.scss";
 
 

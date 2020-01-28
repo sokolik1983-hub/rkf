@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../../components/Loading";
-import List from "../../../components/List";
-import { buildUrl } from "../utils";
-import { Request } from "../../../utils/request";
-import { endpointGetExhibitions } from "../config";
-import { connectFilters } from "../connectors";
-
+import Placeholder from "./Placeholder";
+import Paginator from "components/Paginator";
+import { buildUrl } from "pages/Exhibitions/utils";
+import { Request } from "utils/request";
+import { endpointGetExhibitions } from "pages/Exhibitions/config";
+import { connectFilters } from "pages/Exhibitions/connectors";
+import ListItem from "./ListItem";
+import './index.scss';
 
 const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds }) => {
     const [exhibitions, setExhibitions] = useState(null);
@@ -58,18 +59,43 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
         }
     }, [url]);
 
-    return loading ?
-        <Loading /> :
-        <List
-            list={exhibitions}
-            isExhibitions={true}
-            listNotFound="Выставок не найдено"
-            listClass="exhibitions-list"
-            isFullDate={false}
-            pagesCount={pagesCount}
-            currentPage={PageNumber}
-            setPage={(page) => setFiltersSuccess({ PageNumber: page })}
-        />
+    return <div className="ExhibitionsList">
+        {
+            loading
+                ? <Placeholder />
+                : (exhibitions && !!exhibitions.length) &&
+                <ul className="ExhibitionsList__content">
+                    {exhibitions && !!exhibitions.length && exhibitions.map(item => (
+                        <li className="ExhibitionsList__item" key={item.id}>
+                            {
+                                <ListItem
+                                    id={item.id}
+                                    title={item.content}
+                                    city={item.city}
+                                    dates={item.dates}
+                                    photo={item.picture_link}
+                                    url={item.url}
+                                    club_name={item.club_name}
+                                    club_alias={item.club_alias}
+                                    club_logo={item.club_logo}
+                                    federation_name={item.federation_name}
+                                    federation_link={item.federation_link}
+                                    ranks={item.rank_ids}
+                                />
+                            }
+                        </li>
+                    ))}
+                </ul>}
+        {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
+        {
+            pagesCount > 1 &&
+            <Paginator
+                pagesCount={pagesCount}
+                currentPage={PageNumber}
+                setPage={(page) => setFiltersSuccess({ PageNumber: page })}
+            />
+        }
+    </div>
 };
 
 export default connectFilters(React.memo(ExhibitionsList));

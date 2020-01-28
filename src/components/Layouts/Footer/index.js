@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { connectWidgetLogin } from 'apps/Auth/connectors';
+import Container from "../Container";
 import { RKFInfo } from "pages/Home/config";
 import './index.scss';
 
+
 const Footer = () => (
-    <div className="Footer">
-        <div className="Footer__inner">
+    <footer className="Footer">
+        <Container className="Footer__inner">
             <div className="Footer__inner-wrap">
                 <div className="Footer__address">
                     <h3>Контакты</h3>
@@ -54,8 +55,8 @@ const Footer = () => (
                 </div>
                 <p>Политика обработки персональных данных</p>
             </div>
-        </div>
-    </div >
+        </Container>
+    </footer >
 );
 
 export default Footer;

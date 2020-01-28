@@ -1,9 +1,10 @@
 .Footer {
   background: #ebf0ff;
   &__inner {
-    width: 1184px;
-    margin: auto;
     overflow: hidden;
+    @media (max-width: 560px) {
+      padding: 0 16px;
+    }
     hr {
       height: 1px;
       border: none;
@@ -21,11 +22,37 @@
       margin: auto;
       display: flex;
       padding: 42px 0 88px;
+      @media (max-width: 990px) {
+        padding: 40px 0;
+        justify-content: space-between;
+      }
+      @media (max-width: 768px) {
+        padding: 24px 0;
+        display: block;
+        & > div {
+          margin: 0 0 24px;
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+      @media (max-width: 560px) {
+        padding: 16px 0;
+        & > div {
+          margin: 0 0 16px;
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
       h3 {
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
         margin-bottom: 16px;
+        @media (max-width: 768px) {
+          margin-bottom: 8px;
+        }
       }
       p {
         font-weight: normal;
@@ -45,6 +72,9 @@
       font-size: 14px;
       line-height: 20px;
       color: #72839c;
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
     }
   }
   &__address {
@@ -75,6 +105,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    @media (max-width: 990px) {
+      margin-left: 24px;
+    }
     .link {
       color: #253c5e;
       margin-bottom: 8px;
@@ -82,6 +115,9 @@
       font-weight: normal;
       &:hover {
         border-bottom-color: rgba(37, 60, 94, 1);
+      }
+      &:last-child {
+        margin-bottom: 0;
       }
     }
     span {
@@ -92,13 +128,22 @@
       line-height: 24px;
       letter-spacing: 0.2px;
       color: #90999e;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
   &__sections {
     margin-left: 74px;
+    @media (max-width: 990px) {
+      margin-left: 24px;
+    }
   }
   &__company {
     margin-left: 257px;
+    @media (max-width: 990px) {
+      margin-left: 24px;
+    }
   }
   &__socials {
     display: flex;
@@ -108,6 +153,10 @@
     a {
       width: 20px;
       height: 20px;
+    }
+    @media (max-width: 768px) {
+      order: -1;
+      margin-bottom: 16px;
     }
   }
   p.Footer__language {

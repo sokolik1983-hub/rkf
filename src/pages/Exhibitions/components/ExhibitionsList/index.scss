@@ -1,0 +1,265 @@
+.ExhibitionsList {
+  &__content {
+    list-style: none;
+  }
+  &__item {
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
+    }
+  }
+  .ListItem {
+    display: flex;
+    padding: 16px;
+    max-width: 878px;
+    min-width: 878px;
+    @media (max-width: 1199px) {
+      min-width: auto;
+    }
+    @media (max-width: 560px) {
+      flex-direction: column-reverse;
+      min-width: auto;
+      padding: 8px;
+    }
+    &__photo {
+      min-height: 164px;
+      max-height: 164px;
+      min-width: 164px;
+      max-width: 164px;
+      border-radius: 6px;
+      margin: 0;
+      background-size: cover;
+      background-position: center center;
+      &-wrap {
+        margin: 0 24px 0 0;
+        @media (max-width: 560px) {
+          margin: 0;
+        }
+      }
+      @media (max-width: 560px) {
+        min-height: 154px;
+        max-height: 154px;
+        min-width: 100%;
+        max-width: 100%;
+      }
+    }
+    &__content {
+      justify-content: space-between;
+      overflow: hidden;
+      flex-grow: 1;
+      @media (max-width: 560px) {
+        margin: 0 0 12px 0;
+      }
+      &-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 4px;
+      & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        overflow: hidden;
+        padding-right: 30px;
+      }
+    }
+    &__title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      color: #253c5e;
+      text-decoration: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &__subtitle {
+      display: block;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #90999e;
+    }
+    &__author {
+      font-family: "Source Sans Pro";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      text-decoration: none;
+      color: #253c5e;
+      & > a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+        color: #253c5e;
+      }
+    }
+    &__club-logo {
+      display: flex;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin: 4px 8px 4px 0;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &__info {
+      display: flex;
+      & > div {
+        max-width: 125px;
+        margin-right: 64px;
+        white-space: nowrap;
+        p,
+        a {
+          margin: 0;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.2px;
+          text-decoration: none;
+          color: #253c5e;
+        }
+      }
+    }
+    &__city {
+      font-weight: normal;
+      position: relative;
+      font-size: 16px;
+      line-height: 24px;
+      display: flex;
+      align-items: center;
+      text-align: right;
+      letter-spacing: 0.2px;
+      color: #90999e;
+      text-decoration: none;
+      padding-left: 18px;
+      &:before {
+        content: "";
+        width: 12px;
+        height: 16px;
+        background: (url("/static/icons/pin-gray.svg")) center center/contain no-repeat;
+        position: absolute;
+        left: 0;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &__show-all {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 6px;
+      padding-right: 12px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 18px;
+      letter-spacing: 0.2px;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        right: 0;
+        height: 10px;
+        width: 6px;
+        background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+      }
+      @media (max-width: 560px) {
+        display: none;
+      }
+    }
+  }
+  .Placeholder {
+    height: 200px;
+    box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    padding: 16px;
+    display: flex;
+    max-width: 878px;
+    min-width: 878px;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &__image {
+      width: 164px;
+      height: 164px;
+      flex-shrink: 0;
+      margin-right: 24px;
+      border-radius: 6px;
+      background-color: #444;
+      animation: fading 1.5s infinite;
+    }
+    &__content {
+      width: 100%;
+      .text {
+        display: inline-block;
+        background-color: #444;
+        height: 12px;
+        border-radius: 100px;
+        margin: 5px 0;
+        min-width: 100px;
+        opacity: 0.1;
+        animation: fading 1.5s infinite;
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+        &.longer {
+          min-width: 150px;
+        }
+        &.line {
+          width: 100%;
+        }
+      }
+      .heading.line.text {
+        height: 20px;
+        margin: 3px 0 24px 0;
+      }
+      .button.line.text {
+        height: 46px;
+        margin: 12px 0 0;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}

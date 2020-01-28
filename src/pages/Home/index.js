@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Swipe from 'react-easy-swipe';
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
-import List from "../../components/List";
+import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
-import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
+import {endpointGetNews, RKFInfo, partners, exhibitions} from "./config";
 import { connect } from "react-redux";
 import { connectNewsList } from 'apps/HomePage/connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
@@ -26,14 +27,24 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
 
     const { articles, articles_count } = homepage.news;
 
+    const onPartnersSwipe = (position, event) => {
+      console.log('position', position.x);
+      console.log('event', event);
+    };
+
+    const onExhibitionsSwipe = (position, event) => {
+      console.log('position', position.x);
+      console.log('event', event);
+    };
+
     return (
         <Layout>
             <HomepageSlider />
             <ExhibitionsSlider />
-            <Container>
-                <h3 className="Homepage__news-header">Новости</h3>
-                <div className="home-page">
-                    <List
+            <Container className="home-page__news">
+                <h3 className="Homepage__news-title">Новости</h3>
+                <div className="home-page__news-wrap">
+                    <NewsList
                         list={articles}
                         listNotFound="Новости не найдены"
                         listClass="news-list"
@@ -41,7 +52,6 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         pagesCount={Math.ceil(articles_count / 4)}
                         currentPage={page}
                         setPage={setPage}
-                        isHomepage={true}
                         setNewsFilter={setNewsFilter}
                         loading={loading}
                     />
@@ -54,43 +64,47 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                             <div className="home-page__projects">
                                 <h3>Наши проекты</h3>
                                 <p>
-                                    Официальный сайт РКФ<br />
+                                    <span>Официальный сайт РКФ</span>
                                     <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
                                 </p>
                                 <p>
-                                    Образовательный портал<br />
-                                    ...
+                                    <span>Образовательный портал</span>
+                                    <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
                                 </p>
                                 <p>
-                                    Запись на выставки
-                                    <br />...
+                                    <span>Запись на выставки</span>
+                                    <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
                                 </p>
                             </div>
                         </Card>
                     </Aside>
                 </div>
             </Container>
-            <Container>
+            <Container className="home-page__partners">
                 <h3 className="Homepage__partners-header">Наши партнеры</h3>
                 <div className="Homepage__partners-wrap">
-                    {
-                        partners.map((i) => {
-                            return <a href={i.url} title={i.title} key={i.id}>
-                                <img src={i.img} alt={i.title} />
-                            </a>
-                        })
-                    }
+                    <Swipe className="Homepage__partners-list" onSwipeMove={onPartnersSwipe}>
+                        {
+                            partners.map((i) => {
+                                return <a href={i.url} title={i.title} key={i.id}>
+                                    <img src={i.img} alt={i.title} />
+                                </a>
+                            })
+                        }
+                    </Swipe>
                 </div>
 
                 <h3 className="Homepage__exhibitions-header">Всероссийские выставки</h3>
                 <div className="Homepage__exhibitions-wrap">
-                    {
-                        exhibitions.map((i) => {
-                            return <a href={i.url} title={i.name} key={i.id}>
-                                <img src={i.logo} alt={i.name} />
-                            </a>
-                        })
-                    }
+                    <Swipe className="Homepage__exhibitions-list" onSwipeMove={onExhibitionsSwipe}>
+                        {
+                            exhibitions.map((i) => {
+                                return <a href={i.url} title={i.name} key={i.id}>
+                                    <img src={i.logo} alt={i.name} />
+                                </a>
+                            })
+                        }
+                    </Swipe>
                 </div>
 
                 <h3 className="Homepage__map-header">Карта клубов</h3>

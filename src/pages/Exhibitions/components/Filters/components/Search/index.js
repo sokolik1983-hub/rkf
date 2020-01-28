@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connectFilters } from "../../../connectors";
+import { connectFilters } from "pages/Exhibitions/connectors";
 import './index.scss';
 
 

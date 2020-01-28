@@ -1,20 +1,20 @@
 import React from "react";
-import {compose} from "redux";
+import { compose } from "redux";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import Filters from "./Filters";
-import ExhibitionsSearch from "./Filters/components/Search";
-import ExhibitionsList from "./ExhibitionsList";
+import Filters from "./components/Filters";
+import ExhibitionsSearch from "./components/Filters/components/Search";
+import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
 import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
-import {connectShowFilters} from "../../components/Layouts/connectors";
+import { connectShowFilters } from "../../components/Layouts/connectors";
 import './index.scss';
 
 
 const Exhibitions = ({ isOpenFilters, setShowFilters }) => (
     <Layout withFilters>
-        <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
+        <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
         <Container className="content exhibitions-page">
             <Filters />
             <div className="exhibitions-page__content">

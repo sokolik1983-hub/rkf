@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import Card from "../../../components/Card";
-import Aside from "../../../components/Layouts/Aside";
+import Card from "components/Card";
+import Aside from "components/Layouts/Aside";
 import Calendar from "./components/Calendar";
 import BreedsFilter from "./components/BreedsFilter";
 // import MyExhibitionsFilter from "./components/MyExhibition";
 // import CitiesFilter from "./components/CitiesFilter/CititesFilter";
 import RanksFilter from "./components/RanksFilter";
-import { connectAuthVisible } from "../../../apps/Auth/connectors";
-import { connectShowFilters } from "../../../components/Layouts/connectors";
+import { connectAuthVisible } from "apps/Auth/connectors";
+import { connectShowFilters } from "components/Layouts/connectors";
 import { connectFilters } from "pages/Exhibitions/connectors";
 import { getEmptyFilters } from "pages/Exhibitions/utils";
-import { setOverflow } from "../../../utils";
+import { setOverflow } from "utils";
 import "./index.scss";
 
 

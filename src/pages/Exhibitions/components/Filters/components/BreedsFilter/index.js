@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
-import Loading from "../../../../../components/Loading";
-import {Request} from "../../../../../utils/request";
-import {endpointExhibitionsBreeds} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import Loading from "components/Loading";
+import {Request} from "utils/request";
+import {endpointExhibitionsBreeds} from "pages/Exhibitions/config";
+import {connectFilters} from "pages/Exhibitions/connectors";
 import "./index.scss";
 
 
