@@ -31,8 +31,17 @@
     justify-content: space-around;
   }
   &__show-more {
+    width: 368px!important;
     text-align: center;
     height: 552px;
+    @media (max-width: 560px) {
+      height: 448px;
+      width: 355px!important;
+      img{
+        height: 200px;
+        margin: auto;
+      }
+    }
     &-wrap {
       margin: 31px 24px 60px;
     }
