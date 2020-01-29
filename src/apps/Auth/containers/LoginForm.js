@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Error from 'components/Form/Field/Error'
@@ -46,8 +46,8 @@ class LoginForm extends PureComponent {
                         checked={this.state.rememberMe}
                         onChange={() => this.setState({rememberMe: !this.state.rememberMe})}
                     />
-                    <div style={{ marginLeft: 'auto' }}><Link className="no-ul" to="/auth/login/restore">Забыли
-                        пароль</Link></div>
+                    {/* <div style={{ marginLeft: 'auto' }}><Link className="no-ul" to="/auth/login/restore">Забыли
+                        пароль</Link></div> */}
                 </FormGroup>
                 <div className="form-controls">
                     <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>

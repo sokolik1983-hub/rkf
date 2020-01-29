@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
 
 import Form from 'components/Form/Form'
 import FormGroup from "components/Form/FormGroup";
@@ -29,8 +29,8 @@ class LoginForm extends PureComponent {
                         <label>Запомнить меня</label>
                         <input type="checkbox" className="FormInput__input"/>
                     </FormInput>
-                    <div style={{marginLeft: 'auto'}}><Link className="no-ul" to="/auth/login/restore">Забыли
-                        пароль</Link></div>
+                    {/* <div style={{marginLeft: 'auto'}}><Link className="no-ul" to="/auth/login/restore">Забыли
+                        пароль</Link></div> */}
                 </FormGroup>
             </Form>
         )
