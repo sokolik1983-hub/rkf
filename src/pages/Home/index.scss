@@ -54,8 +54,10 @@
     }
   }
   &__right {
-    margin-left: 40px;
-    width: 368px;
+    &.side {
+      margin-left: 40px;
+      width: 368px;
+    }
     .Card {
       background-color: rgba(51, 102, 255, 0.1);
       padding: 26px 32px;

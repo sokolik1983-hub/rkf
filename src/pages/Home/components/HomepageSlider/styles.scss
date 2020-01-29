@@ -1,9 +1,11 @@
 .HomepageSlider {
   max-height: 548px;
+  min-height: 548px;
   padding: 70px 16px 0;
   background: #eaf0fe;
   margin-bottom: 44px;
   @media (max-width: 768px) {
+    min-height: auto;
     padding-top: 60px;
     margin-bottom: 24px;
   }
