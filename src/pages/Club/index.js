@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ClubNotActive from "./Components/ClubNotActive";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
@@ -11,12 +11,13 @@ import ClubInfo from "./Components/ClubInfo";
 import ClubDescription from "./Components/ClubDescription";
 import ClubAddArticle from "./Components/ClubAddArticle";
 import ClubNews from "./Components/ClubNews";
-import {Request} from "../../utils/request";
-import {endpointGetClubInfo} from "./config";
+import { Request } from "../../utils/request";
+import { endpointGetClubInfo } from "./config";
+import ls from 'local-storage';
 import "./index.scss";
 
 
-const ClubPage = ({match}) => {
+const ClubPage = ({ match }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
@@ -28,6 +29,7 @@ const ClubPage = ({match}) => {
             url: endpointGetClubInfo + match.params.route
         }, data => {
             setClubInfo(data);
+            ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -40,8 +42,8 @@ const ClubPage = ({match}) => {
         <Loading /> :
         error ?
             error.status === 422 ?
-                <ClubNotActive/> :
-                <PageNotFound/> :
+                <ClubNotActive /> :
+                <PageNotFound /> :
             <Layout>
                 <Container className="content club-page">
                     <ClubHeader
@@ -53,7 +55,7 @@ const ClubPage = ({match}) => {
                     <ClubFutureExhibitions clubId={clubInfo.id} />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
-                            <ClubDescription description={clubInfo.description}/>
+                            <ClubDescription description={clubInfo.description} />
                             <ClubAddArticle
                                 clubId={clubInfo.id}
                                 logo={clubInfo.logo_link}
@@ -71,7 +73,7 @@ const ClubPage = ({match}) => {
                             />
                         </div>
                         <Aside className="club-page__info">
-                            <ClubInfo {...clubInfo}/>
+                            <ClubInfo {...clubInfo} />
                         </Aside>
                     </div>
                 </Container>

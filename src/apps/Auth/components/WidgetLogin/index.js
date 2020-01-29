@@ -12,6 +12,7 @@ import './index.scss';
 const WidgetLogin = ({ isAuthenticated, isActiveProfile, logOutUser, logo_link }) => {
     const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
     const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
+    const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
 
     return isAuthenticated
         ? <Dropdown
@@ -20,7 +21,7 @@ const WidgetLogin = ({ isAuthenticated, isActiveProfile, logOutUser, logo_link }
             closeOnClick={true}
             innerComponent={
                 <div className="widget-login__user-icon"
-                     style={{backgroundImage: `url(${logo_link ? logo_link : '/static/icons/default/club-avatar.svg'})`}}
+                    style={{ backgroundImage: `url(${clubLogo ? clubLogo : '/static/icons/default/club-avatar.svg'})` }}
                 />
             }
         >
