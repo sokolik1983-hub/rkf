@@ -12,15 +12,13 @@ const ListItem = ({ id, club_name, city, date, alias, logo_link, photo, text, ur
             <div className="list-item__head">
                 <div className="list-item__head-info">
                     <div className="list-item__club">
-                        <Link to={alias}>
-                            <div className="list-item__club-logo" style={{
-                                background: `url(${logo_link
-                                    ? logo_link
-                                    : '/static/images/noimg/no-avatar.png'}) center center/cover no-repeat`
-                            }} />
-                        </Link>
+                        <div className="list-item__club-logo" style={{
+                            background: `url(${logo_link
+                                ? logo_link
+                                : '/static/images/noimg/no-avatar.png'}) center center/cover no-repeat`
+                        }} />
                         <span className="list-item__club-name">
-                            <Link to={alias}>{club_name}</Link>
+                            <h4>{club_name}</h4>
                             <span>{formattedDate}</span>
                         </span>
                     </div>
