@@ -57,6 +57,17 @@
     &.side {
       margin-left: 40px;
       width: 368px;
+      @media (max-width: 1220px) {
+        width: 100%;
+      }
+      @media (max-width: 990px) {
+        width: 650px;
+        margin-left: 0;
+      }
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 0 0 40px;
+      }
     }
     .Card {
       background-color: rgba(51, 102, 255, 0.1);
@@ -89,17 +100,6 @@
           line-height: 20px;
         }
       }
-    }
-    @media (max-width: 1220px) {
-      width: 100%;
-    }
-    @media (max-width: 990px) {
-      width: 650px;
-      margin-left: 0;
-    }
-    @media (max-width: 768px) {
-      width: 100%;
-      margin: 0 0 40px;
     }
   }
   &__partners {
