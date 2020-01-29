@@ -1,6 +1,6 @@
 export const dictionariesInitialState = {
     rank_type: {
-        url: '/api/exhibitions/Rank',
+        url: '/api/exhibitions/Rank/with_deleted',
         dictionary: {},
         dictIndex: [],
         loaded: false,
