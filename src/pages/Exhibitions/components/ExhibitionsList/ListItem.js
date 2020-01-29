@@ -66,6 +66,20 @@ const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, ph
                         <p>{getRanks()}</p>
                     </div>
                 </div>
+
+                <div className="ListItemMobile">
+                    <div className="ListItemMobile__date">
+                        <span>{getDate()}</span>
+                        <span>{federation_name && federation_link ? <Link to={federation_link}>{federation_name}</Link> : 'Отсутствует'}</span>
+                    </div>
+                    <Link className="ListItemMobile__author" to={`/${club_alias}`}>
+                        <div style={{
+                            backgroundImage: `url(${club_logo ? club_logo : '/static/images/noimg/no-avatar.png'})`
+                        }} />
+                        <span>{club_name}</span>
+                    </Link>
+                </div>
+
             </div>
             <Link className="ListItem__show-all" to={url}>Подробнее</Link>
         </div>
