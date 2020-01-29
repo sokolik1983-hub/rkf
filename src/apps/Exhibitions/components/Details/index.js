@@ -26,7 +26,6 @@ function ExhibitionDetails(props) {
         '/api/exhibitions/exhibition/' + String(exhibitionId),
         getDetailsSuccess
     );
-    if(!loading) window.scrollTo(0, 0);
 
     return loading
         ? <Loading />
