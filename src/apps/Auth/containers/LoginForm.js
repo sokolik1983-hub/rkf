@@ -7,7 +7,7 @@ import {
     FormFormikEnhanced,
     SubmitButton,
     FormGroup,
-    FormFieldNoError,
+    FormField,
 } from 'components/Form'
 
 
@@ -31,10 +31,10 @@ class LoginForm extends PureComponent {
                 {...loginFormConfig}
             >
                 <FormGroup>
-                    <FormFieldNoError
+                    <FormField
                         {...fields.email}
                     />
-                    <FormFieldNoError
+                    <FormField
                         {...fields.password}
                     />
                     <Error name="authentication" noTouch={true} />
