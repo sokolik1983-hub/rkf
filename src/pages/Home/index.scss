@@ -198,12 +198,16 @@
       padding-top: 0;
     }
     &-list {
-      justify-content: flex-start;
-      @media (max-width: 768px) {
-        align-items: flex-end;
-      }
+      justify-content: space-between;
       li:not(:last-child) a {
         margin-right: 40px;
+      }
+      @media (max-width: 768px) {
+        align-items: flex-end;
+        justify-content: flex-start;
+        li:not(:last-child) a {
+          margin-right: 32px;
+        }
       }
       a {
         @media (max-width: 768px) {
