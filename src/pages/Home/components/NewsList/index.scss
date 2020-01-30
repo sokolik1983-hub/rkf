@@ -20,24 +20,60 @@
   &__item {
     margin-bottom: 16px;
   }
+  &__filter {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    .Dropdown {
+      &.left .Dropdown__content--visible {
+        @media (max-width: 990px) {
+          left: auto;
+          right: 0;
+          &:before {
+            right: 20px;
+            left: auto;
+          }
+        }
+        @media (max-width: 700px) {
+          left: 0;
+          right: auto;
+          &:before {
+            right: auto;
+            left: 20px;
+          }
+        }
+      }
+    }
+    @media (max-width: 700px) {
+      display: block;
+      .Dropdown {
+        display: inline-block;
+        margin-top: 14px;
+      }
+    }
+    @media (max-width: 560px) {
+      margin-bottom: 16px;
+    }
+  }
   .Card {
     padding: 16px;
     @media (max-width: 560px) {
       padding: 8px;
     }
   }
+
   .Placeholder {
     height: 200px;
-    box-shadow: 0px 2px 10px rgba(51, 102, 255, 0.05), 0px 4px 30px rgba(51, 102, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
     border-radius: 6px;
     margin-bottom: 16px;
     padding: 16px;
     display: flex;
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
+    @media (max-width: 560px) {
+      padding: 8px;
+      display: block;
+      height: auto;
+      box-shadow: 0 1px 5px rgba(51, 102, 255, 0.05), 0 2px 15px rgba(51, 102, 255, 0.1);
     }
     &__image {
       width: 164px;
@@ -47,6 +83,12 @@
       border-radius: 6px;
       background-color: #444;
       animation: fading 1.5s infinite;
+      @media (max-width: 560px) {
+        width: 100%;
+        height: 47.8vw;
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
     }
     &__content {
       width: 100%;
@@ -83,25 +125,10 @@
       }
     }
   }
-  &__filter {
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: space-between;
-    @media (max-width: 700px) {
-      display: block;
-      .Dropdown {
-        display: inline-block;
-        margin-top: 14px;
-      }
-    }
-    @media (max-width: 560px) {
-      margin-bottom: 16px;
-    }
-  }
+
   .ListFilter {
     display: flex;
     list-style: none;
-    transition: all .2s ease-in;
     &__wrap {
       overflow-x: hidden;
       @media (max-width: 560px) {
@@ -109,7 +136,9 @@
       }
     }
     li {
-      margin-right: 8px;
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
       a,
       span {
         display: block;
@@ -131,6 +160,7 @@
       }
     }
   }
+
   .list-item {
     &__wrap {
       display: flex;

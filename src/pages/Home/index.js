@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Swipe from 'react-easy-swipe';
+import { connect } from "react-redux";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
@@ -7,11 +7,12 @@ import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
+import HorizontalSwipe from "../../components/HorozintalSwipe";
 import {endpointGetNews, RKFInfo, partners, exhibitions} from "./config";
-import { connect } from "react-redux";
 import { connectNewsList } from 'apps/HomePage/connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import './index.scss';
+
 
 const HomePage = ({ homepage, getNewsSuccess }) => {
     const [newsFilter, setNewsFilter] = useState(null);
@@ -24,18 +25,8 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
     const buildNewsQuery = () => newsFilter && `${endpointGetNews}?size=4&page=${page ? page : 1}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`;
 
     const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), getNewsSuccess);
-
     const { articles, articles_count } = homepage.news;
 
-    const onPartnersSwipe = (position, event) => {
-      console.log('position', position.x);
-      console.log('event', event);
-    };
-
-    const onExhibitionsSwipe = (position, event) => {
-      console.log('position', position.x);
-      console.log('event', event);
-    };
 
     return (
         <Layout>
@@ -83,28 +74,32 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
             <Container className="home-page__partners">
                 <h3 className="Homepage__partners-header">Наши партнеры</h3>
                 <div className="Homepage__partners-wrap">
-                    <Swipe className="Homepage__partners-list" onSwipeMove={onPartnersSwipe}>
-                        {
-                            partners.map((i) => {
-                                return <a href={i.url} title={i.title} key={i.id}>
-                                    <img src={i.img} alt={i.title} />
-                                </a>
-                            })
-                        }
-                    </Swipe>
+                    <HorizontalSwipe id="Homepage__partners-list">
+                        <ul className="Homepage__partners-list">
+                            {partners.map(i => (
+                                <li key={i.id}>
+                                    <a href={i.url} title={i.title}>
+                                        <img src={i.img} alt={i.title} />
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </HorizontalSwipe>
                 </div>
 
                 <h3 className="Homepage__exhibitions-header">Всероссийские выставки</h3>
                 <div className="Homepage__exhibitions-wrap">
-                    <Swipe className="Homepage__exhibitions-list" onSwipeMove={onExhibitionsSwipe}>
-                        {
-                            exhibitions.map((i) => {
-                                return <a href={i.url} title={i.name} key={i.id}>
-                                    <img src={i.logo} alt={i.name} />
-                                </a>
-                            })
-                        }
-                    </Swipe>
+                    <HorizontalSwipe id="Homepage__exhibitions-list">
+                        <ul className="Homepage__exhibitions-list">
+                            {exhibitions.map(i => (
+                                <li key={i.id}>
+                                    <a href={i.url} title={i.name}>
+                                        <img src={i.logo} alt={i.name} />
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </HorizontalSwipe>
                 </div>
 
                 <h3 className="Homepage__map-header">Карта клубов</h3>
@@ -116,6 +111,6 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
     )
 };
 
-const mapStateToProps = state => ({ homepage: state.homepage });
+const mapStateToProps = state => ({homepage: state.homepage});
 
 export default connect(mapStateToProps)(connectNewsList(HomePage));
