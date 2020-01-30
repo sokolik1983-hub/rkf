@@ -107,6 +107,9 @@
       color: #90999e;
     }
     &__author {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       font-family: "Source Sans Pro";
       font-style: normal;
       font-weight: 600;
@@ -126,6 +129,9 @@
         line-height: 20px;
         letter-spacing: 0.2px;
         color: #253c5e;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
     &__club-logo {
@@ -157,6 +163,12 @@
           letter-spacing: 0.2px;
           text-decoration: none;
           color: #253c5e;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        p {
+          color: #90999e;
         }
       }
     }
@@ -169,7 +181,7 @@
       align-items: center;
       text-align: right;
       letter-spacing: 0.2px;
-      color: #90999e;
+      color: #72839c;
       text-decoration: none;
       padding-left: 18px;
       @media (max-width: 560px) {
@@ -199,6 +211,7 @@
       line-height: 18px;
       letter-spacing: 0.2px;
       position: relative;
+      transition: none;
       &:after {
         content: "";
         position: absolute;
@@ -207,6 +220,9 @@
         height: 10px;
         width: 6px;
         background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+      }
+      &:hover {
+        border-bottom: 1px solid #3366ff;
       }
       @media (max-width: 560px) {
         display: none;
