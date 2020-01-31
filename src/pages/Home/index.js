@@ -8,11 +8,36 @@ import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
-import {endpointGetNews, RKFInfo, partners, exhibitions} from "./config";
+import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
 import { connectNewsList } from 'apps/HomePage/connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
+import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
+import { Request } from "utils/request";
 import './index.scss';
 
+const CLubsMap = () => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        Request({
+            url: 'http://192.168.6.34/GetDogClubs.ashx'
+        }, data => {
+            setData(data);
+        }, error => {
+            console.log(error.response);
+        })
+    }, []);
+
+    return <YMaps>
+        <Map defaultState={{ center: [55.76, 37.64], zoom: 10 }} width="100%" height="100%">
+            <ObjectManager
+                options={{ clusterize: true, gridSize: 32, clusterDisableClickZoom: true }}
+                objects={{ preset: 'islands#greenDotIcon' }}
+                clusters={{ preset: 'islands#greenClusterIcons' }}
+                defaultFeatures={data.features}
+            />
+        </Map>
+    </YMaps>
+};
 
 const HomePage = ({ homepage, getNewsSuccess }) => {
     const [newsFilter, setNewsFilter] = useState(null);
@@ -104,13 +129,13 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
 
                 <h3 className="Homepage__map-header">Карта клубов</h3>
                 <div className="Homepage__map-wrap">
-                    <iframe src="http://tables.uep24.ru/YMapDogClubs.html" title="Карта клубов" />
+                    <CLubsMap />
                 </div>
             </Container>
         </Layout>
     )
 };
 
-const mapStateToProps = state => ({homepage: state.homepage});
+const mapStateToProps = state => ({ homepage: state.homepage });
 
 export default connect(mapStateToProps)(connectNewsList(HomePage));
