@@ -10,9 +10,7 @@ import './index.scss';
 const Layout = ({ children, withFilters }) => (
     <>
         <Header withFilters={withFilters} />
-        <div className="Layout__wrapper">
             {children}
-        </div>
         <Footer />
     </>
 );

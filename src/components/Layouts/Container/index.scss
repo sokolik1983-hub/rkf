@@ -11,13 +11,13 @@
 }
 .content {
   padding-top: 70px;
-  min-height: calc(100% - 353px);
+  min-height: calc(100vh - 353px);
   @media (max-width: 768px) {
-    min-height: calc(100% - 775px);
+    min-height: calc(100vh - 775px);
   }
   @media (max-width: 560px) {
     padding-top: 48px;
-    min-height: calc(100% - 735px);
+    min-height: calc(100vh - 735px);
   }
   &__title {
     margin-top: 30px;
