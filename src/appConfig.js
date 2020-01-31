@@ -74,58 +74,58 @@ const appRoutes = [
 const mainNav = [
     {
         id: 1,
-        title: "Главная",
-        to: '/',
-        exact: true
+        title: "РКФ",
+        to: '/rkf',
+        exact: false
     },
     {
         id: 2,
-        title: "Кинологические организации ",
+        title: "Федерации",
         children: [
             {
                 id: 2.1,
-                title: "Федерации",
-                children: [
-                    {
-                        id: 2.11,
-                        title: "РФОС",
-                        to: '/rfos',
-                        exact: false
-                    },
-                    {
-                        id: 2.12,
-                        title: "РФСС",
-                        to: '/rfss',
-                        exact: false
-                    },
-                    {
-                        id: 2.13,
-                        title: "РФЛС",
-                        to: '/rfls',
-                        exact: false
-                    },
-                    {
-                        id: 2.14,
-                        title: "ОАНКОО",
-                        to: '/oankoo',
-                        exact: false
-                    },
-                ]
+                title: "РФЛС",
+                to: '/rfls',
+                exact: false
             },
             {
                 id: 2.2,
-                title: "Национальные клубы пород",
-                to: '/organizations/national-breed-clubs',
+                title: "РФСС",
+                to: '/rfss',
                 exact: false
             },
             {
                 id: 2.3,
-                title: "Кинологические клубы и союзы",
-                to: '/organizations/clubs-and-unions',
+                title: "РФОС",
+                to: '/rfos',
                 exact: false
             },
             {
                 id: 2.4,
+                title: "ОАНКОО",
+                to: '/oankoo',
+                exact: false
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Кинологические организации",
+        children: [
+            {
+                id: 3.1,
+                title: "Клубы",
+                to: '/clubs',
+                exact: false
+            },
+            {
+                id: 3.2,
+                title: "Национальные Клубы Пород",
+                to: '/organizations/national-breed-clubs',
+                exact: false
+            },
+            {
+                id: 3.3,
                 title: "Питомники",
                 to: '/organizations/nurseries',
                 exact: false
@@ -133,40 +133,35 @@ const mainNav = [
         ]
     },
     {
-        id: 3,
+        id: 4,
         title: "Выставки",
         children: [
             {
-                id: 3.1,
+                id: 4.1,
                 title: "Календарь выставок",
                 to: '/exhibitions',
                 exact: false
             },
             {
-                id: 3.2,
+                id: 4.2,
+                title: "Результаты выставок CACIB",
+                to: '/results/cacib',
+                exact: false
+            },
+            {
+                id: 4.3,
                 title: "Результаты выставок CAC",
                 to: '/results/cac',
                 exact: false
             },
             {
-                id: 3.3,
-                title: "Результаты выставок CACIB",
-                to: '/results/cacib',
-                exact: false
+                id: 4.4,
+                title: "Результаты монопородных выставок",
+                to: '/',
+                exact: true,
+                disabled: true
             }
         ]
-    },
-    {
-        id: 4,
-        title: "Обратная связь",
-        to: '/',
-        exact: false
-    },
-    {
-        id: 5,
-        title: "Клубы",
-        to: '/clubs',
-        exact: false
     }
 ];
 

@@ -19,10 +19,10 @@ export const selectCreateArticleForm = state => {
 };
 
 export const selectWidgetLogin = state => {
-    const { isAuthenticated, user_info } = getAuthenticationState(state);
+    const { isAuthenticated, user_info, is_active_profile } = getAuthenticationState(state);
     if (isAuthenticated) {
         const { club_alias, club_name, id, logo_link } = user_info;
-        return { isAuthenticated, club_alias, club_name, id, logo_link };
+        return { isAuthenticated, is_active_profile, club_alias, club_name, id, logo_link };
     }
 
     return { isAuthenticated };

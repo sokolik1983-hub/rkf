@@ -6,15 +6,18 @@
     padding: 0 24px;
   }
   @media (max-width: 560px) {
-    padding: 0 12px;
+    padding: 0 16px;
   }
 }
 .content {
   padding-top: 70px;
-  min-height: calc(100% - 258px);
+  min-height: calc(100% - 353px);
   @media (max-width: 768px) {
-    padding-top: 60px;
-    min-height: calc(100% - 320px);
+    min-height: calc(100% - 775px);
+  }
+  @media (max-width: 560px) {
+    padding-top: 48px;
+    min-height: calc(100% - 735px);
   }
   &__title {
     margin-top: 30px;
