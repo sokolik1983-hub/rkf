@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Paginator from "components/Paginator";
-import { formatText } from "utils";
 import { Request } from "utils/request";
 import { endpointGetClubs } from "../../config";
-import { DEFAULT_IMG } from "../../../../appConfig";
 import { connectFilters } from "../../connectors";
 import ListItem from "./ListItem";
 import Placeholder from "./Placeholder";
@@ -65,45 +62,6 @@ const ClubsList = ({ string_filter, federation_ids, club_ids, is_activated, page
                                         federation_link={item.federation_alias}
                                         is_active={item.is_active}
                                     />
-                                    
-                                    {/* <Card className="club">
-                                        <div className="club__wrap-head">
-                                            <div className="club__head">
-                                                <Link to={`/${club.alias}`}>
-                                                    <div className="club__avatar"
-                                                        style={{ backgroundImage: `url(${club.picture_link ? club.picture_link : DEFAULT_IMG.clubAvatar})` }}
-                                                    />
-                                                </Link>
-                                                <div className="club__about">
-                                                    <Link to={`/${club.alias}`}>
-                                                        <h5 className="club__name">{club.title || 'У клуба нет названия'}</h5>
-                                                    </Link>
-                                                    {
-                                                        club.federation_alias
-                                                            ? <Link to={`/${club.federation_alias}`} className="club__federation">{club.federation_name}</Link>
-                                                            : <p className="club__federation">{club.federation_name}</p>
-                                                    }
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div className="club__info">
-                                            {club.legal_city_name && <p><span>Город: </span>{club.legal_city_name}</p>}
-                                            {club.is_active && club.owner_name &&
-                                                <p><span>{`${club.owner_position || 'Руководитель'}: `}</span>{club.owner_name}</p>
-                                            }
-                                        </div>
-                                        {!club.is_active ?
-                                            <h4 className="club__description">Клуб ещё не прошёл регистрацию в электронной системе РКФ</h4> :
-                                            club.content ? <p className="club__description _active" dangerouslySetInnerHTML={{ __html: formatText(club.content) }} /> :
-                                                null
-                                        }
-                                        {club.is_active &&
-                                            <div className="club__more">
-                                                <Link to={`/${club.alias}`}>Подробнее</Link>
-                                            </div>
-                                        }
-                                    </Card> */}
                                 </li>
                             ))}
                         </ul>
