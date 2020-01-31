@@ -43,7 +43,7 @@ const RanksFilter = ({setFiltersSuccess, RankIds}) => {
                             <CustomCheckbox
                                 id={item.id}
                                 label={item.name}
-                                checked={RankIds.includes(item.id)}
+                                checked={RankIds && RankIds.includes(item.id)}
                                 onChange={() => handleChange(item.id)}
                             />
                         </li>
