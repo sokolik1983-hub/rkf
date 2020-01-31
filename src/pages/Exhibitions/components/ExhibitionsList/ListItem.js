@@ -15,8 +15,8 @@ const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, ph
         const f = dates[0]; // start date
         const l = dates[dates.length - 1]; // end date
         return dates.length === 1
-            ? formatDateCommon(new Date(`${f.month}.${f.day}.${f.year}`))
-            : formatDateCommon(new Date(`${f.month}.${f.day}.${f.year}`)) + ' - ' + formatDateCommon(new Date(`${l.month}.${l.day}.${l.year}`))
+            ? formatDateCommon(new Date(`${f.year}-${f.month}-${f.day}`))
+            : formatDateCommon(new Date(`${f.year}-${f.month}-${f.day}`)) + ' - ' + formatDateCommon(new Date(`${l.year}-${l.month}-${l.day}`))
     };
 
     const handleCityClick = (e) => {
