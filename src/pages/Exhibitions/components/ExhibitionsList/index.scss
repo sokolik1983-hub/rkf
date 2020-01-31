@@ -154,7 +154,6 @@
         max-width: 125px;
         margin-right: 64px;
         white-space: nowrap;
-        p,
         a {
           margin: 0;
           font-weight: normal;
@@ -168,6 +167,11 @@
           }
         }
         p {
+          margin: 0;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.2px;
           color: #90999e;
         }
       }
