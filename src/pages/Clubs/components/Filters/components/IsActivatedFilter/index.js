@@ -1,6 +1,6 @@
 import React from "react";
-import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
-import {connectFilters} from "../../../connectors";
+import CustomCheckbox from "components/Form/CustomCheckbox";
+import {connectFilters} from "../../../../connectors";
 import "./index.scss";
 
 

@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import Aside from "../../../components/Layouts/Aside";
-import Card from "../../../components/Card";
+import Aside from "components/Layouts/Aside";
+import Card from "components/Card";
 import FederationsFilter from "./components/FederationsFilter";
 import IsActivatedFilter from "./components/IsActivatedFilter";
-import {setOverflow} from "../../../utils";
-import {getEmptyFilters} from "../utils";
-import {connectFilters} from "../connectors";
-import {connectShowFilters} from "../../../components/Layouts/connectors";
+import {setOverflow} from "utils";
+import {getEmptyFilters} from "../../utils";
+import {connectFilters} from "../../connectors";
+import {connectShowFilters} from "components/Layouts/connectors";
 import "./index.scss";
 
 
