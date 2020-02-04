@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { formatDateCommon } from 'utils/datetime';
 import './styles.scss';
 
-const ExhibitionCard = ({ club_alias, club_name, club_logo, id, city_name, exhibition_name, picture_link, date, date_end }) => {
+const ExhibitionCard = ({ club_alias, club_name, club_logo, id, city_name, exhibition_name, exhibition_picture_link, date, date_end }) => {
     return <div className="ExhibitionCard">
-        <div className="ExhibitionCard__image" style={{ background: `url(${picture_link ? picture_link : '/static/images/exhibitions/default.png'}) center center/cover no-repeat` }} />
+        <div className="ExhibitionCard__image" style={{ background: `url(${exhibition_picture_link ? exhibition_picture_link : '/static/images/exhibitions/default.png'}) center center/cover no-repeat` }} />
         <div className="ExhibitionCard__content">
             <div>
                 <Link className="ExhibitionCard__link" to={`/exhibitions/${id}`}>{exhibition_name}</Link>
