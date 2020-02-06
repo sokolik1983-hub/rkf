@@ -29,8 +29,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (ls.get('final_report') && !loaded) { // Check for local storage cache
-            setRows(ls.get('final_report').rows);
+        if (ls.get(`final_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`final_report_${reportHeader.id}`).rows);
             setLoaded(true);
         }
     }, []);
@@ -131,7 +131,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
-            ls.remove('final_report'); // Clear local storage cache
+            ls.remove(`final_report_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
@@ -150,7 +150,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                 }
                 <ReportDetailsTable
                     content="final-report"
-                    reportName="final_report"
+                    reportName={`final_report_${reportHeader.id}`}
                     rows={rows}
                     breeds={breeds}
                     castes={castes}

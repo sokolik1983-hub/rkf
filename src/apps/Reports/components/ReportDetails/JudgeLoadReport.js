@@ -22,8 +22,8 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (ls.get('judge_load_report') && !loaded) { // Check for local storage cache
-            setRows(ls.get('judge_load_report').rows);
+        if (ls.get(`judge_load_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`judge_load_report_${reportHeader.id}`).rows);
             setLoaded(true);
         }
     }, []);
@@ -113,7 +113,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
-            ls.remove('judge_load_report'); // Clear local storage cache
+            ls.remove(`judge_load_report_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
@@ -132,7 +132,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                 }
                 <ReportDetailsTable
                     content="judge-load-report"
-                    reportName="judge_load_report"
+                    reportName={`judge_load_report_${reportHeader.id}`}
                     rows={rows}
                     countries={countries}
                     breeds={breeds}

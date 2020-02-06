@@ -117,8 +117,8 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (ls.get('main_ring_statement') && !loaded) { // Check for local storage cache
-            setRows(ls.get('main_ring_statement').lsReadyRows);
+        if (ls.get(`main_ring_statement_${reportHeader.id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`main_ring_statement_${reportHeader.id}`).lsReadyRows);
             setLoaded(true);
         }
     }, []);
@@ -168,7 +168,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             return normalized;
         });
 
-        ls.set('main_ring_statement', { lsReadyRows });
+        ls.set(`main_ring_statement_${reportHeader.id}`, { lsReadyRows });
     };
 
     const onSubmit = () => {
@@ -207,7 +207,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             data: JSON.stringify(dataToSend)
         }, data => {
             alert('Ваш отчёт был отправлен.');
-            ls.remove('main_ring_statement'); // Clear local storage cache
+            ls.remove(`main_ring_statement_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
             alert('Ошибка. Возможно заполнены не все поля отчёта.');

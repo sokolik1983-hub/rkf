@@ -156,9 +156,9 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             })
         }
         // Clear local storage
-        ls.remove('judge_load_report');
-        ls.remove('final_report');
-        ls.remove('main_ring_statement');
+        ls.remove(`judge_load_report_${reportHeader.id}`);
+        ls.remove(`final_report_${reportHeader.id}`);
+        ls.remove(`main_ring_statement_${reportHeader.id}`);
     };
 
     return (
