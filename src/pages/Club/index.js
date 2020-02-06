@@ -13,7 +13,6 @@ import ClubAddArticle from "./Components/ClubAddArticle";
 import ClubNews from "./Components/ClubNews";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
-import ls from 'local-storage';
 import "./index.scss";
 
 
@@ -29,7 +28,6 @@ const ClubPage = ({ match }) => {
             url: endpointGetClubInfo + match.params.route
         }, data => {
             setClubInfo(data);
-            ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             setLoading(false);
         }, error => {
             console.log(error.response);

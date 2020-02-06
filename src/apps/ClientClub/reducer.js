@@ -1,5 +1,6 @@
 import * as actiontypes from './actiontypes';
-import createReducer from 'utils/createReducer'
+import ls from 'local-storage';
+import createReducer from 'utils/createReducer';
 
 const clubClubContactsInitialState = {
     address: "",
@@ -40,6 +41,9 @@ const clubClubContactsReducer = createReducer(clubClubContactsInitialState, {
     [actiontypes.CLUB_LOGO_UPDATE_SUCCESS](state, action) {
         const {data} = action;
         const logo_link = data.avatar_link;
+
+        ls.set('user_info', { ...ls.get('user_info'), logo_link });
+
         return {
             ...state,
             logo_link
