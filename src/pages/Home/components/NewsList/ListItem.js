@@ -5,7 +5,7 @@ import { formatText } from "utils";
 import './index.scss';
 
 const ListItem = ({ club_name, city, date, alias, logo_link, photo, text, url }) => {
-    const formattedDate = `${new Date(date).getDay()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
+    const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
 
     return <div className="list-item__wrap">
         {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
