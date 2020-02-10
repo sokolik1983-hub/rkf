@@ -70,4 +70,9 @@
     max-width: 100%;
     margin: 24px auto;
   }
+  &__buttons {
+    button + button {
+      margin-left: 10px;
+    }
+  }
 }
