@@ -80,16 +80,13 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                             <div className="home-page__projects">
                                 <h3>Наши проекты</h3>
                                 <p>
-                                    <span>Официальный сайт РКФ</span>
-                                    <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
+                                    <a href="http://rkf.org.ru/">Официальный сайт РКФ</a>
                                 </p>
                                 <p>
                                     <span>Образовательный портал</span>
-                                    <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
                                 </p>
                                 <p>
-                                    <span>Запись на выставки</span>
-                                    <a className="link" href="http://rkf.org.ru/">rkf.org.ru</a>
+                                    <a href="http://rkfshow.ru/">Запись на выставки</a>
                                 </p>
                             </div>
                         </Card>
