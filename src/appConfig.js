@@ -89,33 +89,33 @@ const mainNav = [
             },
             {
                 id: 1.2,
+                title: "Федерации",
+                to: '/organizations/federations',
+                exact: false
+            },
+            {
+                id: 1.3,
                 title: "Клубы",
                 to: '/clubs',
                 exact: false
             },
             {
-                id: 1.3,
+                id: 1.4,
                 title: "Национальные Клубы Пород",
                 to: '/organizations/national-breed-clubs',
                 exact: false
             },
             {
-                id: 1.4,
+                id: 1.5,
                 title: "Питомники",
                 to: '/organizations/nurseries',
-                exact: false
-            },
-            {
-                id: 1.5,
-                title: "Федерации",
-                to: '/organizations/federations',
                 exact: false
             }
         ]
     },
     {
         id: 2,
-        title: "Выставки",
+        title: "Мероприятия",
         children: [
             {
                 id: 2.1,
@@ -138,6 +138,20 @@ const mainNav = [
             {
                 id: 2.4,
                 title: "Результаты монопородных выставок",
+                to: '/',
+                exact: true,
+                disabled: true
+            },
+            {
+                id: 2.5,
+                title: "Племенные мероприятия",
+                to: '/',
+                exact: true,
+                disabled: true
+            },
+            {
+                id: 2.6,
+                title: "Состязания и испытания рабочих качеств",
                 to: '/',
                 exact: true,
                 disabled: true
