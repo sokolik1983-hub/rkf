@@ -1,10 +1,10 @@
 .iframe-page {
-  width: 100%;
   overflow-x: scroll;
+  display: flex;
   iframe {
-    width: 100%;
-    min-width: 900px;
+    min-width: 1184px;
     height: 900px;
+    margin: auto;
   }
 }
 .federations {
