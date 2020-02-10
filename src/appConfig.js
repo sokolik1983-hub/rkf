@@ -82,25 +82,31 @@ const mainNav = [
         title: "Кинологические организации",
         children: [
             {
-                id: 3.1,
+                id: 1.1,
+                title: "РКФ",
+                to: '/rkf',
+                exact: true
+            },
+            {
+                id: 1.2,
                 title: "Клубы",
                 to: '/clubs',
                 exact: false
             },
             {
-                id: 3.2,
+                id: 1.3,
                 title: "Национальные Клубы Пород",
                 to: '/organizations/national-breed-clubs',
                 exact: false
             },
             {
-                id: 3.3,
+                id: 1.4,
                 title: "Питомники",
                 to: '/organizations/nurseries',
                 exact: false
             },
             {
-                id: 3.4,
+                id: 1.5,
                 title: "Федерации",
                 to: '/organizations/federations',
                 exact: false
@@ -112,25 +118,25 @@ const mainNav = [
         title: "Выставки",
         children: [
             {
-                id: 4.1,
+                id: 2.1,
                 title: "Календарь выставок",
                 to: '/exhibitions',
                 exact: false
             },
             {
-                id: 4.2,
+                id: 2.2,
                 title: "Результаты выставок CACIB",
                 to: '/results/cacib',
                 exact: false
             },
             {
-                id: 4.3,
+                id: 2.3,
                 title: "Результаты выставок CAC",
                 to: '/results/cac',
                 exact: false
             },
             {
-                id: 4.4,
+                id: 2.4,
                 title: "Результаты монопородных выставок",
                 to: '/',
                 exact: true,
