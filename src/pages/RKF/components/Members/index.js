@@ -1,32 +1,34 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Card from "../../../../components/Card";
+import {DEFAULT_IMG} from "../../../../appConfig";
 import "./index.scss";
+
 
 const members = [
     {
         id: 1,
         name: 'РФЛС',
-        url: '/',
-        avatar_link: '/static/images/rkf/avatar-rfls.jpg'
+        url: '/rfls',
+        avatar_link: DEFAULT_IMG.clubAvatar
     },
     {
         id: 2,
         name: 'РФСС',
-        url: '/',
-        avatar_link: '/static/images/rkf/avatar-rfss.jpg'
+        url: '/rfss',
+        avatar_link: DEFAULT_IMG.clubAvatar
     },
     {
         id: 3,
         name: 'ОАНКОО',
-        url: '/',
-        avatar_link: '/static/images/rkf/avatar-oankoo.jpg'
+        url: '/oankoo',
+        avatar_link: DEFAULT_IMG.clubAvatar
     },
     {
         id: 4,
         name: 'РФОС',
-        url: '/',
-        avatar_link: '/static/images/rkf/avatar-rfos.jpg'
+        url: '/rfos',
+        avatar_link: DEFAULT_IMG.clubAvatar
     }
 ];
 

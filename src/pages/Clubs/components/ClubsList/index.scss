@@ -83,8 +83,8 @@
   .ListItem {
     display: flex;
     padding: 10px 24px 18px;
-    max-width: 878px;
-    min-width: 878px;
+    //max-width: 878px;
+    //min-width: 878px;
     max-height: 196px;
     min-height: 196px;
     @media (max-width: 1199px) {
@@ -92,7 +92,6 @@
     }
     @media (max-width: 560px) {
       flex-direction: column-reverse;
-      min-width: auto;
       padding: 10px 12px;
       max-height: none;
       min-height: auto;
