@@ -1,0 +1,26 @@
+.news-component {
+  &__list {
+    list-style: none;
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      margin-bottom: 16px;
+    }
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+      @media (max-width: 560px) {
+        margin-bottom: 16px;
+      }
+    }
+  }
+  .Paginator {
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      padding: 8px;
+      margin-bottom: 16px;
+    }
+  }
+}

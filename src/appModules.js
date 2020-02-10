@@ -12,6 +12,11 @@ export const LoadableHomePage = Loadable({
     loading: Loading
 });
 
+export const LoadableRKFPage = Loadable({
+    loader: () => import('./pages/RKF'),
+    loading: Loading
+});
+
 export const LoadableExhibitions = Loadable({
     loader: () => import('./pages/Exhibitions'),
     loading: Loading

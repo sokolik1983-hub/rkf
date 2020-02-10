@@ -35,7 +35,7 @@ const RanksFilter = ({setFiltersSuccess, RankIds}) => {
     return loading ?
         <Loading /> :
         <div className="ranks-filter">
-            <h4 className="ranks-filter__title">Ранг выставки</h4>
+            <h5 className="ranks-filter__title">Ранг выставки</h5>
             {ranks && !!ranks.length &&
                 <ul className="ranks-filter__list">
                     {ranks.map(item => (

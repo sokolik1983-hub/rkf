@@ -1,0 +1,39 @@
+.menu-component {
+  padding: 14px 16px 16px;
+  margin-bottom: 24px;
+  &__list {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+  &__link {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #72839C;
+    transition: color .2s linear;
+    &:visited, &:active {
+      color: #72839C;
+    }
+    &:hover {
+      color: #3366FF;
+    }
+  }
+  &__button {
+    text-decoration: none;
+    display: block;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.2px;
+    padding: 12px;
+    box-shadow: 0 3px 8px rgba(51, 102, 255, 0.15);
+    border-radius: 4px;
+  }
+}

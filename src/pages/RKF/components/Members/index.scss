@@ -1,0 +1,38 @@
+.members-component {
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  &__title {
+    margin-bottom: 16px !important;
+    &-count {
+      color: #3366FF;
+    }
+  }
+  &__list {
+    list-style: none;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    &-avatar {
+      width: 32px;
+      height: 32px;
+      background-size: cover;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 8px;
+    }
+    &-name {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #253C5E;
+    }
+  }
+}

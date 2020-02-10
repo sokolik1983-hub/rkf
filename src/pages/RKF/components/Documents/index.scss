@@ -1,0 +1,40 @@
+.documents-component {
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  &__title {
+    margin-bottom: 12px !important;
+  }
+  &__list {
+    list-style: none;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #253C5E;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s linear;
+    &:visited, &:active {
+      color: #253C5E;
+    }
+    &:hover {
+      border-color: #253C5E;
+    }
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 15px;
+      background: url("/static/icons/icon-doc.svg") no-repeat center;
+      vertical-align: middle;
+      margin: -4px 10px 0 0;
+    }
+  }
+}

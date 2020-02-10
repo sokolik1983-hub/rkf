@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import DayPicker from "react-day-picker";
-import Loading from "components/Loading";
-import { MONTHS, WEEKDAYS_SHORT } from "appConfig";
-import { formatDateToString } from "utils/datetime";
-import { Request } from "utils/request";
-import { endpointExhibitionsDates } from "pages/Exhibitions/config";
-import { connectFilters } from "pages/Exhibitions/connectors";
-import './index.scss';
+import Loading from "../../../../../../components/Loading";
+import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
+import {formatDateToString} from "../../../../../../utils/datetime";
+import {Request} from "../../../../../../utils/request";
+import {endpointExhibitionsDates} from "../../../../config";
+import {connectFilters} from "../../../../connectors";
+import "./index.scss";
 
 
 const Calendar = ({ setFiltersSuccess, DateFrom }) => {
@@ -86,17 +86,6 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
     return loading ?
         <Loading /> :
         <div className="exhibitions-calendar">
-            <h4 className="exhibitions-calendar__title">Календарь выставок</h4>
-            <div className="exhibitions-calendar__controls">
-                <span
-                    className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('month')}
-                >За месяц</span>
-                <span
-                    className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('year')}
-                >За год</span>
-            </div>
             <DayPicker
                 showOutsideDays={true}
                 months={MONTHS}
@@ -127,6 +116,16 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                     </form>
                 )}
             />
+            <div className="exhibitions-calendar__controls">
+                <button
+                    className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('year')}
+                >Год</button>
+                <button
+                    className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('month')}
+                >Месяц</button>
+            </div>
             <p className="exhibitions-calendar__legend">Доступные выставки</p>
         </div>
 };

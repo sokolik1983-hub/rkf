@@ -30,7 +30,7 @@ const BreedsFilter = ({ setFiltersSuccess, BreedIds }) => {
     return loading ?
         <Loading /> :
         <div className="breeds-filter">
-            <h4 className="breeds-filter__title">Порода выставки</h4>
+            <h5 className="breeds-filter__title">Породы</h5>
             {!!breeds.length &&
                 <Select
                     name="breeds"

@@ -1,0 +1,34 @@
+.contacts-component {
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  &__title {
+    margin-bottom: 12px !important;
+  }
+  &__block {
+    padding-left: 25px;
+    margin-bottom: 8px;
+    position: relative;
+    &:before {
+      content: '';
+      display: block;
+      width: 17px;
+      height: 18px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &._address:before {background: url("/static/icons/ico-pointer.svg") no-repeat center;}
+    &._person:before {background: url("/static/icons/owner.svg") no-repeat center;}
+    &._phone:before {background: url("/static/icons/ico-contact-phone.svg") no-repeat center;}
+    &._email:before {background: url("/static/icons/ico-contact-email.svg") no-repeat center;}
+    &._work:before {background: url("/static/icons/time.svg") no-repeat center;}
+    &-title, &-info {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    &-info {
+      color: #72839C;
+    }
+  }
+}
