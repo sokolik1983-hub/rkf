@@ -135,12 +135,6 @@ const mainNav = [
     },
     {
         id: 3,
-        title: "Новости",
-        to: '/',
-        exact: false
-    },
-    {
-        id: 4,
         title: "О RKF.Online",
         to: '/',
         exact: false
