@@ -8,9 +8,9 @@ export const formatText = text => JSON.parse(
 ).replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
 
 export const setOverflow = (isOpen) => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 990) {
         document.body.style.overflow = isOpen ? 'hidden' : '';
-    } else if (window.innerWidth > 768 && isOpen) {
+    } else if (window.innerWidth > 990 && isOpen) {
         document.body.style.overflow = '';
     }
 };
