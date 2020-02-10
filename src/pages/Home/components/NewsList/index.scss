@@ -322,6 +322,7 @@
       line-height: 24px;
       letter-spacing: 0.2px;
       position: relative;
+      align-self: flex-end;
       &:after {
         content: "";
         position: absolute;

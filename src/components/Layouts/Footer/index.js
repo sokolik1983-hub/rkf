@@ -9,18 +9,10 @@ const Footer = () => (
     <footer className="Footer">
         <Container className="Footer__inner">
             <div className="Footer__inner-wrap">
-                <div className="Footer__address">
-                    <h3>Контакты</h3>
-                    {RKFInfo.contacts.map((item, index) => (
-                        item.link ?
-                            <p className={`Footer__address-${item.class}`} key={index}>
-                                {item.text}&nbsp;
-                                            <a className="link" href={item.link}>{item.linkTitle}</a>
-                            </p> :
-                            <p className={`Footer__address-${item.class}`} key={index}>
-                                {item.text}
-                            </p>
-                    ))}
+                <div className="Footer__company">
+                    <h3>Компания</h3>
+                    <span>О RKF.Online</span>
+                    <span>Новости</span>
                 </div>
                 <div className="Footer__exhibitions">
                     <h3>Выставки</h3>
@@ -36,10 +28,18 @@ const Footer = () => (
                     <span>Владельцы</span>
                     <span>Судьи</span>
                 </div>
-                <div className="Footer__company">
-                    <h3>Компания</h3>
-                    <span>О RKF.Online</span>
-                    <span>Новости</span>
+                <div className="Footer__address">
+                    <h3>Контакты</h3>
+                    {RKFInfo.contacts.map((item, index) => (
+                        item.link ?
+                            <p className={`Footer__address-${item.class}`} key={index}>
+                                {item.text}&nbsp;
+                                            <a className="link" href={item.link}>{item.linkTitle}</a>
+                            </p> :
+                            <p className={`Footer__address-${item.class}`} key={index}>
+                                {item.text}
+                            </p>
+                    ))}
                 </div>
             </div>
             <hr />
