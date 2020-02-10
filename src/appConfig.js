@@ -74,42 +74,6 @@ const appRoutes = [
 const mainNav = [
     {
         id: 1,
-        title: "РКФ",
-        to: '/rkf',
-        exact: false
-    },
-    {
-        id: 2,
-        title: "Федерации",
-        children: [
-            {
-                id: 2.1,
-                title: "РФЛС",
-                to: '/rfls',
-                exact: false
-            },
-            {
-                id: 2.2,
-                title: "РФСС",
-                to: '/rfss',
-                exact: false
-            },
-            {
-                id: 2.3,
-                title: "РФОС",
-                to: '/rfos',
-                exact: false
-            },
-            {
-                id: 2.4,
-                title: "ОАНКОО",
-                to: '/oankoo',
-                exact: false
-            }
-        ]
-    },
-    {
-        id: 3,
         title: "Кинологические организации",
         children: [
             {
@@ -129,11 +93,17 @@ const mainNav = [
                 title: "Питомники",
                 to: '/organizations/nurseries',
                 exact: false
+            },
+            {
+                id: 3.4,
+                title: "Федерации",
+                to: '/organizations/federations',
+                exact: false
             }
         ]
     },
     {
-        id: 4,
+        id: 2,
         title: "Выставки",
         children: [
             {
@@ -162,6 +132,18 @@ const mainNav = [
                 disabled: true
             }
         ]
+    },
+    {
+        id: 3,
+        title: "Новости",
+        to: '/',
+        exact: false
+    },
+    {
+        id: 4,
+        title: "О RKF.Online",
+        to: '/',
+        exact: false
     }
 ];
 

@@ -6,7 +6,8 @@ import './index.scss'
 import 'components/Layout/index.scss'
 import NotConfirmed from 'apps/Registration/components/Registration/NotConfirmed';
 import ls from 'local-storage';
-import IframePage from "../../pages/IframePage";
+import IframePage from "../../pages/Static/IframePage";
+import Federations from "../../pages/Static/Federations";
 
 class App extends PureComponent {
     resetFilters = () => {
@@ -36,6 +37,7 @@ class App extends PureComponent {
                 <Route exact={true} path='/organizations/national-breed-clubs' component={() => <IframePage src="http://tables.uep24.ru/Table/tblReestrNKP.aspx" />} />
                 <Route exact={true} path='/organizations/clubs-and-unions' component={() => <IframePage src="http://tables.uep24.ru/Table/tblKinologClubSojuzy.aspx" />} />
                 <Route exact={true} path='/organizations/nurseries' component={() => <IframePage src="http://tables.uep24.ru/Table/tblPitomniki.aspx" />} />
+                <Route exact={true} path='/organizations/federations' component={() => <Federations />} />
                 <Route exact={true} path='/results/cac' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCAC.aspx" />} />
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
