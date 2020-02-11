@@ -126,8 +126,9 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
         !reportHeader.judges_workload_accept ?
             <>
                 {reportHeader.judges_workload_comment &&
-                    <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                        Этот отчёт был отклонён с комментарием: {reportHeader.judges_workload_comment}
+                    <h4 style={{ paddingBottom: '20px' }}>
+                        Этот отчёт был отклонён с комментарием: <br />
+                        <span style={{ color: 'red' }}>{reportHeader.judges_workload_comment}</span>
                     </h4>
                 }
                 <ReportDetailsTable
@@ -138,6 +139,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                     breeds={breeds}
                     groups={groups}
                     onSubmit={onSubmit}
+                    isSent={reportHeader.judges_workload_is_sent}
                 />
             </> :
             <div className="report-details__default">

@@ -222,9 +222,13 @@ class ReportDetailsTable extends React.Component {
                     pages={paginated.amount}
                     onSelect={this.onSelect}
                 />
+                {!this.props.isSent &&
+                    <>
+                        <button onClick={this.onSubmit}>Отправить отчёт</button>
+                        <button onClick={this.onAdd} className="ReportDetails__table--add">+ Добавить строку</button>
+                    </>
+                }
 
-                <button onClick={this.onSubmit}>Отправить отчёт</button>
-                <button onClick={this.onAdd} className="ReportDetails__table--add">+ Добавить строку</button>
             </>
         )
     }

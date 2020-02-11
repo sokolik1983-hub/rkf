@@ -164,18 +164,21 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     return (
         <>
             {reportHeader.doc_catalog_comment &&
-                <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                    Каталог выставки был отклонён с комментарием: {reportHeader.doc_catalog_comment}
+                <h4 style={{ paddingBottom: '20px' }}>
+                    Каталог выставки был отклонён с комментарием: <br />
+                    <span style={{ color: 'red' }}>{reportHeader.doc_catalog_comment}</span>
                 </h4>
             }
             {reportHeader.doc_payment_comment &&
-                <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                    Квитанция об оплате была отклонена с комментарием: {reportHeader.doc_payment_comment}
+                <h4 style={{ paddingBottom: '20px' }}>
+                    Квитанция об оплате была отклонена с комментарием: <br />
+                    <span style={{ color: 'red' }}>{reportHeader.doc_payment_comment}</span>
                 </h4>
             }
             {reportHeader.doc_additional_comment &&
-                <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                    Дополнительные документы были отклонены с комментарием: {reportHeader.doc_additional_comment}
+                <h4 style={{ paddingBottom: '20px' }}>
+                    Дополнительные документы были отклонены с комментарием: <br />
+                    <span style={{ color: 'red' }}>{reportHeader.doc_additional_comment}</span>
                 </h4>
             }
             <h4>Прикрепление документов</h4>

@@ -58,7 +58,7 @@ class MainRingTable extends React.Component {
             onValue: ({ value, rowData, property }) => {
                 const index = findIndex(this.state.rows, { id: rowData.id });
                 const rows = cloneDeep(this.state.rows);
-                rows[index][property] = property === 'catalog_number'  ? parseInt(value) || '' : value;
+                rows[index][property] = property === 'catalog_number' ? parseInt(value) || '' : value;
                 delete rows[index].editing;
                 this.setState({ rows });
                 this.props.updateRows(rows, this.props.arrangementId);
@@ -223,8 +223,9 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             <Loading /> :
             <>
                 {reportHeader.statement_main_ring_comment &&
-                    <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                        Этот отчёт был отклонён с комментарием: {reportHeader.statement_main_ring_comment}
+                    <h4 style={{ paddingBottom: '20px' }}>
+                        Этот отчёт был отклонён с комментарием: <br />
+                        <span style={{ color: 'red' }}>{reportHeader.statement_main_ring_comment}</span>
                     </h4>
                 }
                 <table className="MainRingStatement">
@@ -261,9 +262,11 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                         }
                     </tbody>
                 </table>
-                <div style={{ width: '1100px', margin: '24px auto 0' }}>
-                    <button onClick={onSubmit}>Отправить отчёт</button>
-                </div>
+                {!reportHeader.statement_main_ring_is_sent &&
+                    <div style={{ width: '1100px', margin: '24px auto 0' }}>
+                        <button onClick={onSubmit}>Отправить отчёт</button>
+                    </div>
+                }
             </> :
         <div className="report-details__default">
             <h3>Этот отчёт уже был принят</h3>

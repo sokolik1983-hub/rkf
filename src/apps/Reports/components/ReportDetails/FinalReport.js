@@ -144,8 +144,9 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         !reportHeader.total_report_accept ?
             <>
                 {reportHeader.total_report_comment &&
-                    <h4 style={{ maxWidth: '33%', color: 'red' }}>
-                        Этот отчёт был отклонён с комментарием: {reportHeader.total_report_comment}
+                    <h4 style={{ paddingBottom: '20px' }}>
+                        Этот отчёт был отклонён с комментарием: <br />
+                        <span style={{ color: 'red' }}>{reportHeader.total_report_comment}</span>
                     </h4>
                 }
                 <ReportDetailsTable
@@ -158,6 +159,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                     date={exhibitionDate}
                     rankType={reportHeader.rank_id}
                     onSubmit={onSubmit}
+                    isSent={reportHeader.total_report_is_sent}
                 />
             </> :
             <div className="report-details__default">
