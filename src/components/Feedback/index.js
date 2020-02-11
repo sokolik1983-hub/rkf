@@ -75,7 +75,10 @@ const Feedback = ({ className }) => {
                                     {...fields.description}
                                 />
                             </FormGroup>
-                            <SubmitButton className="btn-primary feedback__button">Отправить</SubmitButton>
+                            <div className="feedback__buttons">
+                                <button className="btn btn-simple" onClick={onModalClose}>Отмена</button>
+                                <SubmitButton className="btn-primary feedback__button">Отправить</SubmitButton>
+                            </div>
                         </Form>
                     </div>
                 </div>
