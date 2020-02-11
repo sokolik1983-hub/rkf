@@ -4,7 +4,6 @@ import OutsideClickHandler from "react-outside-click-handler";
 import './styles.scss';
 
 const Modal = ({ showModal, handleClose, children, noBackdrop = false, className }) => {
-    document.body.style.overflow = showModal ? 'hidden' : 'auto';
 
     return (
         ReactDOM.createPortal(

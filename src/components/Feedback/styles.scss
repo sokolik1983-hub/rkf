@@ -1,25 +1,99 @@
 .feedback {
   margin: auto;
-  min-height: 600px;
-  min-width: 700px;
+  width: calc(100vw - 10px);
+  max-width: 600px;
+  min-width: 310px;
   background: white;
   box-shadow: 2px 2px 10px black;
-  border-radius: 4px;
-  padding: 24px;
-  @media (max-width: 768px) {
-    min-width: 400px;
+  border-radius: 6px;
+  position: relative;
+  h1 {
+    font-size: 20px;
+    padding: 5px 15px;
+    border-bottom: 1px solid #dcd3de;
+    @media (max-width: 560px) {
+      padding: 5px 10px;
+    }
+    @media (max-width: 320px) {
+      padding: 5px;
+    }
   }
-  @media (max-width: 560px) {
-    min-width: auto;
-    min-height: auto;
-    padding: 12px;
+  &__inner {
+    padding: 15px;
+    @media (max-width: 560px) {
+      padding: 10px;
+    }
+    @media (max-width: 320px) {
+      padding: 5px;
+    }
   }
   .FormInput {
-    @media (max-width: 560px) {
-      margin-bottom: 24px;
+    margin-bottom: 8px;
+    label {
+      font-weight: normal;
+    }
+    input,
+    textarea {
+      padding: 5px 10px;
+      border: 1px solid #dcd3de;
+      &:focus,
+      &:active {
+        padding: 5px 10px;
+        border: 1px solid #bcc3ce;
+      }
     }
     &__custom-error {
       color: red;
+      position: absolute;
+      right: 10px;
+      font-size: 14px;
+      line-height: 14px;
+      font-weight: normal;
+      top: 25px;
+      background: white;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    &--select {
+      .FormInput__error {
+        color: red;
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        bottom: auto;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: normal;
+        white-space: nowrap;
+      }
+      & > div > div {
+        border: 1px solid #dcd3de;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  }
+  &__close {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: url(/static/icons/cross-gray.svg) center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 10;
+  }
+  &__button {
+    display: block;
+    margin-left: auto;
+  }
+  &__modal {
+    .Modal__close {
+      display: none;
+    }
+    .Modal__inner {
+      max-height: none;
     }
   }
 }
@@ -28,4 +102,3 @@ a.feedback-link {
   color: #253c5e;
   text-decoration: none;
 }
-
