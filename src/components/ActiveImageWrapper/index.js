@@ -13,7 +13,9 @@ function ActiveImageWrapper({
     onSubmitSuccess,
     children,
     additionalParams,
-    bindSubmitForm
+    bindSubmitForm,
+    club_id,
+    backgroundImage
 }) {
 
     const inputEl = useRef(null);
@@ -31,9 +33,36 @@ function ActiveImageWrapper({
         color: '#3366FF',
         flex: '1 0'
     };
+    const delBtnStyle = {
+        display: 'flex',
+        fontSize: 'smaller',
+        padding: '6px 0',
+        color: 'red'
+    };
     const onEdit = () => {
         setState({ ...state, isEdit: true });
         inputEl.current.click()
+    };
+    const onDelete = async () => {
+        try {
+            setState({ ...state, loading: true });
+            await axios({
+                url: `/api/HeaderPicture/${club_id}`,
+                method: "DELETE",
+                headers: getHeaders(true)
+            });
+            setState({
+                ...state,
+                inputValue: null,
+                imagePreview: null
+            });
+            onSubmitSuccess({ image_link: null });
+            setState({ ...state, loading: false });
+
+        } catch (error) {
+            alert('Произошла ошибка');
+            console.log(error);
+        }
     };
 
     const clear = () => {
@@ -120,9 +149,19 @@ function ActiveImageWrapper({
                     onClick={onEdit}>
                     Изменить
                 </Button>
-                {state.imagePreview &&
-                    <Button className="btn-simple" disabled={state.loading} onClick={onSubmit}>Заменить</Button>
+                {club_id && backgroundImage &&
+                    <Button
+                        style={delBtnStyle}
+                        className="btn-transparent"
+                        condensed
+                        disabled={state.loading}
+                        onClick={onDelete}>
+                        Удалить
+                    </Button>
                 }
+                {/* {state.imagePreview &&
+                    <Button className="btn-simple" disabled={state.loading} onClick={onSubmit}>Заменить</Button>
+                } */}
             </div>
         </>
     )

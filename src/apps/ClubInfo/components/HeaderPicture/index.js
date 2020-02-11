@@ -3,7 +3,7 @@ import { connectClientClubHeaderPicture } from 'apps/ClientClub/connectors'
 import ActiveImageWrapper from 'components/ActiveImageWrapper'
 import './styles.scss'
 
-function ClubHeaderPicture({ backgroundImage, clubPictureUpdateSuccess, bindSubmitForm }) {
+function ClubHeaderPicture({ backgroundImage, club_id, clubPictureUpdateSuccess, bindSubmitForm }) {
     const ref = useRef(null);
     return (
         <div>
@@ -11,7 +11,9 @@ function ClubHeaderPicture({ backgroundImage, clubPictureUpdateSuccess, bindSubm
             <ActiveImageWrapper
                 requestUrl={'/api/HeaderPicture/full'}
                 onSubmitSuccess={clubPictureUpdateSuccess}
+                backgroundImage={backgroundImage}
                 bindSubmitForm={bindSubmitForm}
+                club_id={club_id}
             >
                 <div ref={ref} style={{
                     backgroundImage: `url(${
