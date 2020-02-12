@@ -34,24 +34,21 @@ const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, ph
         </Link>}
         <div className="ListItem__content">
             <div className="ListItem__content-inner">
-
                 <div className="ListItem__header">
                     <div>
-                        <Link className="ListItem__title" to={url}>{formatText(title)}</Link>
+                        <Link className="ListItem__title" to={url} title={title}>{formatText(title)}</Link>
                     </div>
-                    <a className="ListItem__city" href="/" onClick={handleCityClick} >{city}</a>
+                    <a className="ListItem__city" href="/" onClick={handleCityClick} title={city}>{city}</a>
                 </div>
-
                 <div className="ListItem__author">
                     <span className="ListItem__subtitle">Организатор</span>
                     <Link to={`/${club_alias}`}>
                         <div className="ListItem__club-logo" style={{
                             backgroundImage: `url(${club_logo ? club_logo : '/static/images/noimg/no-avatar.png'})`
                         }} />
-                        {club_name}
+                        <p className="ListItem__club-name">{club_name}</p>
                     </Link>
                 </div>
-
                 <div className="ListItem__info">
                     <div>
                         <span className="ListItem__subtitle">Дата проведения</span>
@@ -79,7 +76,6 @@ const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, ph
                         <span>{club_name}</span>
                     </Link>
                 </div>
-
             </div>
             <Link className="ListItem__show-all" to={url}>Подробнее</Link>
         </div>
