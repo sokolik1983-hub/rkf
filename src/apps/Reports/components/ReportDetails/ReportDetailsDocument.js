@@ -12,6 +12,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     const [invoiceUrl, setInvoiceUrl] = useState(null);
     const [extraDocs, setExtraDocs] = useState(null);
     const [showButton, setShowButton] = useState(!!catalog);
+
     const getDocumentUrl = async (endpoint) => {
         const response = await fetch(`${endpoint}?id=${reportHeader.id}`, {
             headers: getHeaders()
@@ -39,7 +40,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     };
 
     const addExtraDoc = () => {
-        setExtraDocs([
+        extraDocs && setExtraDocs([
             ...extraDocs,
             {
                 id: Math.random().toString(10).substr(2, 9),
@@ -97,64 +98,85 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         }
     }, []);
 
+    const submitCatalog = () => {
+        const catalogData = new FormData();
+        catalogData.append('header_id', reportHeader.id);
+        catalogData.append('file', catalog);
+        Request({
+            url: endpointCatalogue,
+            method: 'PUT',
+            data: catalogData,
+            isMultipart: true
+        }, data => {
+            setShowButton(false);
+            submitInvoice();
+        }, error => {
+            console.log(error);
+            alert('Каталог выставки не был отправлен.')
+        });
+    };
+
+    const submitInvoice = () => {
+        const invoiceData = new FormData();
+        invoiceData.append('header_id', reportHeader.id);
+        invoiceData.append('file', invoice);
+        Request({
+            url: endpointPaymentReceipt,
+            method: 'PUT',
+            data: invoiceData,
+            isMultipart: true
+        }, data => {
+            if (extraDocs.length && extraDocs[0].name) {
+                submitExtraDocs();
+            } else {
+                alert('Документы отправлены успешно!');
+            }
+            setShowButton(false);
+            getHeader();
+        }, error => {
+            console.log(error);
+            alert('Квитанция об оплате не была отправлена.');
+        });
+    };
+
+    const submitExtraDocs = () => {
+        let count = 0;
+        extraDocs.forEach(d => {
+            ++count;
+            if (typeof (d.name) === 'object') {
+                const data = new FormData();
+                data.append('header_id', reportHeader.id);
+                data.append('file', d.name);
+                Request({
+                    url: endpointExtraDoc,
+                    method: 'POST',
+                    data: data,
+                    isMultipart: true
+                },
+                    data => {
+                        if (count === extraDocs.length) {
+                            alert('Документы отправлены успешно!');
+                            setShowButton(false);
+                            if (!catalog && !invoice) getHeader();
+                        }
+                    },
+                    error => {
+                        console.log(error);
+                        alert('Произошла ошибка при отправке дополнительного документа');
+                    });
+            }
+        });
+    };
+
     const onSubmit = () => {
         if (catalog) {
-            const catalogData = new FormData();
-            catalogData.append('header_id', reportHeader.id);
-            catalogData.append('file', catalog);
+            submitCatalog();
+        } else {
+            invoice
+                ? submitInvoice()
+                : extraDocs.length && extraDocs[0].name && submitExtraDocs();
+        }
 
-            Request({
-                url: endpointCatalogue,
-                method: 'PUT',
-                data: catalogData,
-                isMultipart: true
-            }, data => {
-                alert('Каталог выставки успешно отправлен.');
-                setShowButton(false);
-                getHeader();
-            }, error => {
-                alert('Каталог выставки не был отправлен.')
-            });
-        }
-        if (invoice) {
-            const invoiceData = new FormData();
-            invoiceData.append('header_id', reportHeader.id);
-            invoiceData.append('file', invoice);
-
-            Request({
-                url: endpointPaymentReceipt,
-                method: 'PUT',
-                data: invoiceData,
-                isMultipart: true
-            }, data => {
-                alert('Квитанция об оплате успешно отправлена.');
-                setShowButton(false);
-            }, error => {
-                alert('Квитанция об оплате не была отправлена.');
-            });
-        }
-        if (extraDocs && extraDocs.length) {
-            extraDocs.forEach(d => {
-                if (typeof (d.name) === 'object') {
-                    const data = new FormData();
-                    data.append('header_id', reportHeader.id);
-                    data.append('file', d.name);
-                    Request({
-                        url: endpointExtraDoc,
-                        method: 'POST',
-                        data: data,
-                        isMultipart: true
-                    },
-                        data => {
-                            alert('Дополнительные документы успешно отправлены.');
-                            setShowButton(false);
-                        },
-                        error => {
-                            alert('Произошла ошибка при отправке дополнительного документа');
-                        });
-                }
-            })
-        }
         // Clear local storage
         ls.remove(`judge_load_report_${reportHeader.id}`);
         ls.remove(`final_report_${reportHeader.id}`);
@@ -190,7 +212,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                             {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
-                                if (!reportHeader.doc_catalog_is_sent) setShowButton(true);
+                                if (!reportHeader.doc_catalog_is_sent && (invoice || reportHeader.doc_payment_is_sent)) setShowButton(true);
                             }} />
                         </> :
                         <p>Этот документ уже был принят</p>
@@ -205,7 +227,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                             {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
-                                if ((catalogUrl || reportHeader.doc_catalog_is_sent) && !reportHeader.doc_payment_is_sent) setShowButton(true);
+                                if (!reportHeader.doc_payment_is_sent && (catalog || reportHeader.doc_catalog_is_sent)) setShowButton(true);
                             }} />
                         </> :
                         <p>Этот документ уже был принят</p>
@@ -234,7 +256,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                     {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
                                                     <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                         updateExtraDoc(d.id, e.target.files[0]);
-                                                        if ((catalogUrl || reportHeader.doc_catalog_is_sent) && !reportHeader.doc_additional_is_sent) setShowButton(true);
+                                                        if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
                                                     }} />
                                                 </>
                                         }
