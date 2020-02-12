@@ -47,11 +47,27 @@
     border: 1px solid #ebf0f2;
     border-radius: 4px;
     margin-bottom: 8px;
+    &-Weekdays {
+      margin-top: 16px;
+    }
+    &-Weekday {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
     &-NavBar {
       padding: 0 12px;
     }
+    &-Week {
+      &:last-child .DayPicker-Day {
+        margin-bottom: 0;
+      }
+    }
     &-Day {
       transition: background-color .2s linear;
+      &:first-child {
+        margin-left: 0;
+      }
       &--today {
         color: inherit;
         background-color: transparent;
@@ -59,6 +75,45 @@
       &--selectedDate {
         color: #00C48C;
         background-color: #E5F9F3;
+      }
+    }
+  }
+  .DayPickerForm {
+    display: flex;
+    &__select {
+      &:first-child {
+        margin-right: 4px;
+        .DayPickerForm__select__control {
+          min-width: 115px;
+        }
+      }
+      &__value-container {
+        padding: 4px 0 4px 12px;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #253C5E;
+      }
+      &__single-value {
+        position: static;
+        transform: none;
+        margin: 0;
+        & + div {
+          display: none;
+        }
+      }
+      &__control {
+        border: 1px solid #EBF0F2 !important;
+        box-shadow: none !important;
+        min-width: 80px;
+        min-height: auto;
+      }
+      &__indicator {
+        padding: 0 2px 0 0;
+        &-separator {
+          display: none;
+        }
       }
     }
   }

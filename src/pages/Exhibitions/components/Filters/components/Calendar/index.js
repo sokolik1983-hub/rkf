@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DayPicker from "react-day-picker";
+import Select from 'react-select';
 import Loading from "../../../../../../components/Loading";
 import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
 import {formatDateToString} from "../../../../../../utils/datetime";
@@ -39,15 +40,16 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
         setNewDate(new Date(DateFrom));
     }, [DateFrom]);
 
-    const handleFormChange = e => {
-        const { year, month } = e.target.form;
+    const handleFormChange = (data, date, period) => {
+        const month = period === 'month' ? data.value : date.getMonth();
+        const year = period === 'year' ? data.value : date.getFullYear();
 
         setActiveButton(null);
 
         setFiltersSuccess({
             ExhibitionName: '',
-            DateFrom: formatDateToString(new Date(year.value, month.value, 1)),
-            DateTo: formatDateToString(new Date(year.value, parseInt(month.value) + 1, 0)),
+            DateFrom: formatDateToString(new Date(year, month, 1)),
+            DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0)),
             PageNumber: 1
         });
     };
@@ -97,24 +99,33 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 onDayClick={handleDateClick}
                 onMonthChange={setNewDate}
                 firstDayOfWeek={1}
-                captionElement={({ date }) => (
-                    <form className="DayPicker-Caption DayPickerForm">
-                        <select name="month" onChange={handleFormChange} value={date.getMonth()}>
-                            {MONTHS.map((month, i) => (
-                                <option key={month} value={i}>
-                                    {month}
-                                </option>
-                            ))}
-                        </select>
-                        <select name="year" onChange={handleFormChange} value={date.getFullYear()}>
-                            {years.map(year => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
-                    </form>
-                )}
+                captionElement={({ date }) => {
+                    const monthsArr = MONTHS.map((month, i) => ({value: i, label: month}));
+                    const yearsArr = years.map(year => ({value: year, label: year}));
+
+                    return (
+                        <form className="DayPickerForm" onChange={handleFormChange}>
+                            <Select
+                                className="DayPickerForm__select"
+                                classNamePrefix="DayPickerForm__select"
+                                name="month"
+                                isClearable={false}
+                                value={monthsArr.filter(item => item.value === date.getMonth())[0]}
+                                options={monthsArr}
+                                onChange={data => handleFormChange(data, date, 'month')}
+                            />
+                            <Select
+                                className="DayPickerForm__select"
+                                classNamePrefix="DayPickerForm__select"
+                                name="year"
+                                isClearable={false}
+                                value={yearsArr.filter(item => item.value === date.getFullYear())}
+                                options={yearsArr}
+                                onChange={data => handleFormChange(data, date, 'year')}
+                            />
+                        </form>
+                    )
+                }}
             />
             <div className="exhibitions-calendar__controls">
                 <button
