@@ -12,14 +12,14 @@
 }
 
 .image {
+  margin-top: 70px;
   display: flex;
   flex-flow: column nowrap;
   min-height: 100%;
   max-width: 30%;
   background-repeat: no-repeat;
-  background-color: #333333;
-  background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-attachment: fixed;
   flex: 1;
   @media (max-width: 920px) {
     display: none;

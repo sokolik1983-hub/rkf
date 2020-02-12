@@ -14,26 +14,27 @@ const Registration = () => {
                 <div className={`registration__tab${activeTab === 'club' ? ' _active' : ''}`}
                     onClick={() => setActiveTab('club')}
                 >
-                    Клуб
-                </div>
-                <div className={`registration__tab${activeTab === 'owner' ? ' _active' : ''}`}
-                     onClick={() => null} //setActiveTab('owner')
-                >
-                    Владелец
-                </div>
-                <div className={`registration__tab${activeTab === 'kennel' ? ' _active' : ''}`}
-                     onClick={() => null} //setActiveTab('kennel')
-                >
-                    Питомник
+                    Клубы
                 </div>
                 <div className={`registration__tab${activeTab === 'nkp' ? ' _active' : ''}`}
-                     onClick={() => null} //setActiveTab('nkp')
+                    onClick={() => null} //setActiveTab('nkp')
                 >
                     НКП
                 </div>
+                <div className={`registration__tab${activeTab === 'kennel' ? ' _active' : ''}`}
+                    onClick={() => null} //setActiveTab('kennel')
+                >
+                    Питомники
+                </div>
+                <div className={`registration__tab${activeTab === 'owner' ? ' _active' : ''}`}
+                    onClick={() => null} //setActiveTab('owner')
+                >
+                    Владельцы
+                </div>
+
             </div>
             {activeTab === 'club' &&
-                <ClubRegistration/>
+                <ClubRegistration />
             }
         </CommonLayout>
     );
