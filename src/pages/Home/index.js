@@ -86,6 +86,9 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                                     <span>Образовательный портал</span>
                                 </p>
                                 <p>
+                                    <a href="http://wiki.rkf.online/">База знаний</a>
+                                </p>
+                                <p>
                                     <a href="http://rkfshow.ru/">Запись на выставки</a>
                                 </p>
                             </div>
