@@ -83,6 +83,7 @@
     line-height: 24px;
     color: #253c5e;
     text-decoration: none;
+    max-height: 72px;
     overflow: hidden;
     &:visited {
       color: #253c5e;
@@ -90,7 +91,7 @@
     @media (max-width: 560px) {
       font-size: 14px;
       line-height: 18px;
-      height: 36px;
+      max-height: 36px;
     }
   }
   &__button {

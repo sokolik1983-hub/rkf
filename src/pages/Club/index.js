@@ -6,7 +6,7 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import ClubHeader from "./Components/ClubHeader";
-import ClubFutureExhibitions from "./Components/ClubFutureExhibitions";
+import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubInfo from "./Components/ClubInfo";
 import ClubDescription from "./Components/ClubDescription";
 import ClubAddArticle from "./Components/ClubAddArticle";
@@ -16,7 +16,7 @@ import { endpointGetClubInfo } from "./config";
 import "./index.scss";
 
 
-const ClubPage = ({ match }) => {
+const ClubPage = ({match}) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
@@ -50,7 +50,7 @@ const ClubPage = ({ match }) => {
                         clubName={clubInfo.name}
                         clubId={clubInfo.id}
                     />
-                    <ClubFutureExhibitions clubId={clubInfo.id} />
+                    <ExhibitionsComponent alias={clubInfo.club_alias}/>
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
                             <ClubDescription description={clubInfo.description} />

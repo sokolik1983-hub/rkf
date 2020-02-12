@@ -1,3 +1,6 @@
+import {WEEKDAYS} from "../appConfig";
+
+
 export const isDevEnv = () => process.env.NODE_ENV !== 'production';
 
 export const formatText = text => JSON.parse(
@@ -5,7 +8,29 @@ export const formatText = text => JSON.parse(
         .replace('/(<([^>]+)>)/ig', '')
         .replace(/\\r/g, '')
         .replace(/\\n/g, ' <br> ')
-).replace(/([^"]https?:\/\/[^\s]+)/g, l => `<a class="link" target="_blank" href="${l}">${l}</a>`);
+).replace(/([^"]https?:\/\/[^\s]+)/g, l => ` <a class="link" target="_blank" href="${l}">${l}</a>`);
+
+export const formatWorkTime = workTime => {
+    let newWorkTime = [];
+    workTime.forEach(day => {
+        const period = newWorkTime.find(item => item.time_from === day.time_from && item.time_to === day.time_to);
+
+        if(!period) {
+            newWorkTime = [
+                ...newWorkTime,
+                {
+                    days: [WEEKDAYS.find(item => item.id === day.week_day_id).short_name],
+                    time_from: day.time_from,
+                    time_to: day.time_to
+                }
+            ];
+        } else {
+            period.days.push(WEEKDAYS.find(item => item.id === day.week_day_id).short_name);
+        }
+    });
+
+    return newWorkTime;
+};
 
 export const setOverflow = (isOpen) => {
     if (window.innerWidth <= 990) {

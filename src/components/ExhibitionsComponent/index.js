@@ -1,29 +1,33 @@
 import React, {useState, useEffect} from "react";
-import ExhibitionCard from "../../../../components/ExhibitionCard";
-import Placeholder from "../../../../components/ExhibitionCard/Placeholder";
-import {Request} from "../../../../utils/request";
-import {endpointGetExhibitions} from "../../config";
+import HorizontalSwipe from "../HorozintalSwipe";
+import ExhibitionCard from "../ExhibitionCard";
+import Placeholder from "../ExhibitionCard/Placeholder";
+import {Request} from "../../utils/request";
 import "./index.scss";
-import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 
 
-const ExhibitionsComponent = () => {
+const ExhibitionsComponent = ({alias}) => {
     const [exhibitions, setExhibitions] = useState(null);
+    const [isRequestEnd, setIsRequestEnd] = useState(false);
     const placeholders = [0, 1, 2];
 
     useEffect(() => {
         (() => Request({
-            url: `${endpointGetExhibitions}?Alias=rkf&ElementsCount=3`
-        }, data => setExhibitions(data),
+            url: `/api/exhibitions/Exhibition/featured?Alias=${alias}&ElementsCount=3`
+        }, data => {
+            setExhibitions(data);
+            setIsRequestEnd(true);
+        },
         error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         }))();
     }, []);
 
-    return (
+    if(isRequestEnd && !exhibitions.length) return null;
 
-        <div className="rkf-page__exhibitions">
+    return (
+        <div className="exhibitions-component">
             <HorizontalSwipe id="exhibitions-component">
                 {exhibitions && !!exhibitions.length ?
                     exhibitions.slice(0, 3).map(item => (

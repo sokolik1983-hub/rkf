@@ -1,29 +1,29 @@
 import React from "react";
-import Card from "../../../../components/Card";
+import Card from "../Card";
+import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const TopComponent = () => {
-
+const TopComponent = ({alias, logo, name, status}) => {
     const share = () => {
-        console.log('share click');
+        console.log('share click', alias);
     };
 
     const write = () => {
-        console.log('write click');
+        console.log('write click', alias);
     };
 
     const download = () => {
-        console.log('download click');
+        console.log('download click', alias);
     };
 
     return (
-        <Card className="rkf-page__top top-component">
+        <Card className="top-component">
             <div className="top-component__info">
-                <img src="/static/images/header/rkf-logo-transparent.svg" alt="logo" className="top-component__logo"/>
+                <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo" className="top-component__logo"/>
                 <div className="top-component__title">
-                    <h2>Российская Кинологическая Федерация</h2>
-                    <p>текущий статус</p>
+                    <h2>{name}</h2>
+                    <p>{status}</p>
                 </div>
             </div>
             <div className="top-component__controls">
