@@ -1,35 +1,13 @@
 import React from "react";
-import Card from "../../../../components/Card";
+import Card from "../Card";
 import "./index.scss";
 
-const docs = [
-    {
-        id: 1,
-        name: 'Свидетельсство №123 Of Documents.pdf',
-        url: 'https://yandex.ru/'
-    },
-    {
-        id: 2,
-        name: 'Свидетельсство №123 Of Documents.pdf',
-        url: 'https://yandex.ru/'
-    },
-    {
-        id: 3,
-        name: 'Свидетельсство №123 Of Documents.pdf',
-        url: 'https://yandex.ru/'
-    },
-    {
-        id: 4,
-        name: 'Свидетельсство №123 Of Documents.pdf',
-        url: 'https://yandex.ru/'
-    },
-];
 
-const DocumentsComponent = () => (
+const DocumentsComponent = ({documents}) => (
     <Card className="documents-component">
         <h4 className="documents-component__title">Документы</h4>
         <ul className="documents-component__list">
-            {docs.map(doc =>
+            {documents.map(doc =>
                 <li className="documents-component__item" key={doc.id}>
                     <a href={doc.url}
                        target="_blank"

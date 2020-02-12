@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Card from "../../../../components/Card";
+import {formatWorkTime} from "../../../../utils";
 import { timeSecondsCutter } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
 import { endpointGetSocials } from "../../config";
@@ -8,8 +9,6 @@ import './index.scss';
 
 const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position, owner_name, contacts, work_time, documents, site}) => {
     const [socials, setSocials] = useState(null);
-    const [days, setDays] = useState(null);
-    const [workTime, setWorkTime] = useState(null);
 
     useEffect(() => {
         (() => Request({
@@ -17,35 +16,7 @@ const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position,
         }, data => setSocials(data),
             error => console.log(error.response)
         ))();
-
-        (() => Request({url: '/api/clubs/WorkTime/list'},
-            data => setDays(data)
-        ))();
     }, [id]);
-
-    useEffect(() => {
-        if(work_time.length && days) {
-            let newWorkTime = [];
-            work_time.forEach(day => {
-                const period = newWorkTime.find(item => item.time_from === day.time_from && item.time_to === day.time_to);
-
-                if(!period) {
-                    newWorkTime = [
-                        ...newWorkTime,
-                        {
-                            days: [days.find(item => item.id === day.week_day_id).short_name],
-                            time_from: day.time_from,
-                            time_to: day.time_to
-                        }
-                    ];
-                } else {
-                    period.days.push(days.find(item => item.id === day.week_day_id).short_name);
-                }
-            });
-
-            setWorkTime(newWorkTime);
-        }
-    }, [work_time, days]);
 
     return (
         <Card className="club-page__info-wrap">
@@ -114,10 +85,10 @@ const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position,
                     ))}
                 </div>
             }
-            {workTime && !!workTime.length &&
+            {work_time && !!work_time.length &&
                 <div className="club-page__info-work-time">
                     <span>График работы</span>
-                    {workTime.map((period, i) => (
+                    {formatWorkTime(work_time).map((period, i) => (
                         <p key={`work-${i}`}>
                             <span>{period.days.join(', ')}</span>
                             <br/>

@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from "react";
-import NewsCard from "../../../../components/NewsCard";
-import Placeholder from "../../../../components/NewsCard/Placeholder";
-import Paginator from "../../../../components/Paginator";
-import {Request} from "../../../../utils/request";
-import {endpointGetNews} from "../../config";
+import NewsCard from "../NewsCard";
+import Placeholder from "../NewsCard/Placeholder";
+import Paginator from "../Paginator";
+import {Request} from "../../utils/request";
 import "./index.scss";
 
 
-const NewsComponent = () => {
+const NewsComponent = ({alias}) => {
     const [news, setNews] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [page, setPage] = useState(1);
@@ -15,7 +14,7 @@ const NewsComponent = () => {
 
     useEffect(() => {
         (() => Request({
-            url: `${endpointGetNews}?alias=rkf&page=${page}&size=5`
+            url: `/api/ClubArticle/public?alias=${alias}&page=${page}&size=5`
         }, data => {
             setNews(data.articles);
             setPagesCount(Math.ceil(data.articles_count / 5));

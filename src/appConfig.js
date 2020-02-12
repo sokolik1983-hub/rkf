@@ -21,6 +21,26 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/rfls',
+        component: LoadableModules.LoadableFederationPage
+    },
+    {
+        exact: true,
+        path: '/rfss',
+        component: LoadableModules.LoadableFederationPage
+    },
+    {
+        exact: true,
+        path: '/oankoo',
+        component: LoadableModules.LoadableFederationPage
+    },
+    {
+        exact: true,
+        path: '/rfos',
+        component: LoadableModules.LoadableFederationPage
+    },
+    {
+        exact: true,
         path: '/exhibitions',
         component: LoadableModules.LoadableExhibitions
     },
@@ -173,6 +193,65 @@ const HTTP = {
     delete: "DELETE",
 };
 
+const WEEKDAYS = [
+    {
+        "id": 1,
+        "name": "Понедельник",
+        "short_name": "Пн",
+        "name_eng": "Monday",
+        "short_name_eng": "Mo",
+        "week_day_number": 1
+    },
+    {
+        "id": 2,
+        "name": "Вторник",
+        "short_name": "Вт",
+        "name_eng": "Tuesday",
+        "short_name_eng": "Tu",
+        "week_day_number": 2
+    },
+    {
+        "id": 3,
+        "name": "Среда",
+        "short_name": "Ср",
+        "name_eng": "Wednesday",
+        "short_name_eng": "We",
+        "week_day_number": 3
+    },
+    {
+        "id": 4,
+        "name": "Четверг",
+        "short_name": "Чт",
+        "name_eng": "Thursday",
+        "short_name_eng": "Th",
+        "week_day_number": 4
+    },
+    {
+        "id": 5,
+        "name": "Пятница",
+        "short_name": "Пт",
+        "name_eng": "Friday",
+        "short_name_eng": "Fr",
+        "week_day_number": 5
+    },
+    {
+        "id": 6,
+        "name": "Суббота",
+        "short_name": "Сб",
+        "name_eng": "Saturday",
+        "short_name_eng": "Sa",
+        "week_day_number": 6
+    },
+    {
+        "id": 7,
+        "name": "Воскресенье",
+        "short_name": "Вс",
+        "name_eng": "Sunday",
+        "short_name_eng": "Su",
+        "week_day_number": 7
+    }
+];
+
 const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
 const MONTHS = [
@@ -197,6 +276,7 @@ const DEFAULT_IMG = {
 };
 
 export {
+    WEEKDAYS,
     WEEKDAYS_SHORT,
     MONTHS,
     HTTP,
