@@ -5,10 +5,10 @@ import { formatText } from "utils";
 import Card from "components/Card";
 import { connectFilters } from "pages/Exhibitions/connectors";
 import { getEmptyFilters } from "pages/Exhibitions/utils";
-import { getDictElement, useDictionary } from "apps/Dictionaries";
+import { getDictElement } from "apps/Dictionaries";
 
-const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, setFiltersSuccess }) => {
-    const { dictionary } = useDictionary('rank_type');
+const ListItem = ({ id, title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, setFiltersSuccess, dictionary }) => {
+
     const getRanks = () => ranks.map(r => getDictElement(dictionary, r)).join(', ');
 
     const getDate = () => {

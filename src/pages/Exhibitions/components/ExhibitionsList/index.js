@@ -5,6 +5,7 @@ import { buildUrl } from "pages/Exhibitions/utils";
 import { Request } from "utils/request";
 import { endpointGetExhibitions } from "pages/Exhibitions/config";
 import { connectFilters } from "pages/Exhibitions/connectors";
+import { useDictionary } from "apps/Dictionaries";
 import ListItem from "./ListItem";
 import './index.scss';
 
@@ -14,6 +15,8 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     const [url, setUrl] = useState('');
     const [prevUrl, setPrevUrl] = useState('');
     const [loading, setLoading] = useState(true);
+
+    const { dictionary } = useDictionary('rank_type');
 
     const getExhibitions = async (url) => {
         setLoading(true);
@@ -81,6 +84,7 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
                                     federation_name={item.federation_name}
                                     federation_link={item.federation_link}
                                     ranks={item.rank_ids}
+                                    dictionary={dictionary}
                                 />
                             }
                         </li>
