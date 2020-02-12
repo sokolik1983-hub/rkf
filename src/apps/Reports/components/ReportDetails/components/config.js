@@ -198,7 +198,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                     col.cell = {
                         formatters: [value => value ? <span>{parseInt(value) || ''}</span> : <input value="" readOnly />],
                         transforms: [
-                            (value, extra) => editable(inputFF())((parseInt(value) || ''), extra, {
+                            (value, extra) => editable(inputFF({ props: { maxLength: 10 } }))((parseInt(value) || ''), extra, {
                                 className: extra.rowData.edited && 'edited'
                             })
                         ],
