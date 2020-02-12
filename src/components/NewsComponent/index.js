@@ -10,6 +10,7 @@ const NewsComponent = ({alias}) => {
     const [news, setNews] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [page, setPage] = useState(1);
+    const [isRequestEnd, setIsRequestEnd] = useState(false);
     const newsPlaceholder = [0,1,2,3,4];
 
     useEffect(() => {
@@ -18,11 +19,15 @@ const NewsComponent = ({alias}) => {
         }, data => {
             setNews(data.articles);
             setPagesCount(Math.ceil(data.articles_count / 5));
+            setIsRequestEnd(true);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setIsRequestEnd(true);
         }))();
     }, [page]);
+
+    if(isRequestEnd && !news.length) return null;
 
     return (
         <div className="news-component">

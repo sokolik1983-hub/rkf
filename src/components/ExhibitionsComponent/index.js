@@ -21,6 +21,7 @@ const ExhibitionsComponent = ({alias}) => {
         error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setIsRequestEnd(true);
         }))();
     }, []);
 

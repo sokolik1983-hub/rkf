@@ -26,7 +26,7 @@ const ListItem = ({ id, club_name, city, date, alias, logo_link, photo, text, ur
                         {city}
                     </span>
                 </div>
-                {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить">✕</button>}
+                {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить" />}
             </div>
             <div className="list-item__body">
                 <div className="list-item__info">
