@@ -13,6 +13,7 @@ const Footer = () => (
                     <h3>Компания</h3>
                     <span>О RKF.Online</span>
                     <span>Новости</span>
+                    <span>Карта клубов</span>
                 </div>
                 <div className="Footer__exhibitions">
                     <h3>Выставки</h3>
@@ -29,7 +30,7 @@ const Footer = () => (
                     <span>Судьи</span>
                 </div>
                 <div className="Footer__address">
-                    <h3>Контакты</h3>
+                    <h3>Контакты РКФ</h3>
                     {RKFInfo.contacts.map((item, index) => (
                         item.link ?
                             <p className={`Footer__address-${item.class}`} key={index}>
