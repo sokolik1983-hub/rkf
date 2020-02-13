@@ -188,9 +188,6 @@
       text-decoration: none;
       padding-left: 18px;
       white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      min-width: 45px;
       @media (max-width: 560px) {
         font-size: 14px;
         line-height: 18px;
