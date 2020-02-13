@@ -55,7 +55,9 @@ const AboutPage = () => {
                 <Advantages/>
                 <h2>Последние обновления</h2>
                 <div className="about-page__content-wrap">
-                    <NewsComponent alias="rkf"/>
+                    <div className="about-page__news">
+                        <NewsComponent alias="justanotherclub"/>
+                    </div>
                     <aside className="about-page__info">
                         {info &&
                             <Contacts

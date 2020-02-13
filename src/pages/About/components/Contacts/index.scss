@@ -1,6 +1,12 @@
 .about-page__contacts {
   padding: 26px 32px 32px;
   margin-bottom: 16px;
+  @media (max-width: 990px) {
+    padding: 16px;
+  }
+  @media (max-width: 560px) {
+    padding: 10px 12px 12px;
+  }
   .contacts {
     &__title {
       font-weight: 600;
@@ -9,12 +15,20 @@
       letter-spacing: 0.4px;
       text-transform: uppercase;
       margin-bottom: 20px;
+      @media (max-width: 560px) {
+        line-height: 18px;
+        letter-spacing: 0.3px;
+        margin-bottom: 14px;
+      }
     }
     &__block {
       padding-left: 25px;
       position: relative;
       &:not(:last-child) {
         margin-bottom: 12px;
+        @media (max-width: 560px) {
+          margin-bottom: 16px;
+        }
       }
       &:before {
         content: '';
@@ -33,6 +47,10 @@
         font-size: 16px;
         line-height: 24px;
         letter-spacing: 0.2px;
+        @media (max-width: 560px) {
+          font-size: 15px;
+          line-height: 20px;
+        }
       }
       &-title {
         margin-right: 4px;
