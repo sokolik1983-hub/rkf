@@ -124,7 +124,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             "report_header_id": reportHeader.id,
             "report_rows": reportRows
         };
-        if (reportRows.find(i => !i.certificates.length)) return alert('Необходимо указать сертификат для каждой выставки!');
+        if (reportRows.find(i => !i.certificates.length)) return alert('Не для всех выставок указан сертификат.\nУкажите хотя бы один сертификат для каждой строки!');
         (() => Request({
             url: endpointPutFinalReport,
             method: 'PUT',
