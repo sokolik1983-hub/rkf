@@ -143,7 +143,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         let count = 0;
         extraDocs.forEach(d => {
             ++count;
-            if (typeof (d.name) === 'object') {
+            if (d.name && typeof (d.name) === 'object') {
                 const data = new FormData();
                 data.append('header_id', reportHeader.id);
                 data.append('file', d.name);
@@ -164,6 +164,10 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                         console.log(error);
                         alert('Произошла ошибка при отправке дополнительного документа');
                     });
+            } else {
+                if (count === extraDocs.length) {
+                    alert('Документы отправлены успешно!'); // No extraDocs were attached
+                }
             }
         });
     };
