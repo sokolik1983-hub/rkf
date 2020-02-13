@@ -15,7 +15,7 @@ const DocumentsComponent = ({documents}) => (
                        className="documents-component__link"
                        title={doc.name}
                     >
-                        {doc.name.slice(0, 22) + '...pdf'}
+                        {doc.name}
                     </a>
                 </li>
             )}

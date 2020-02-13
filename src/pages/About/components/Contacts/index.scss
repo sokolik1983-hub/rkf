@@ -1,0 +1,45 @@
+.about-page__contacts {
+  padding: 26px 32px 32px;
+  margin-bottom: 16px;
+  .contacts {
+    &__title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    &__block {
+      padding-left: 25px;
+      position: relative;
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+      &:before {
+        content: '';
+        display: block;
+        width: 17px;
+        height: 18px;
+        position: absolute;
+        left: 0;
+        top: 3px;
+      }
+      &._phone:before {background: url("/static/icons/ico-contact-phone.svg") no-repeat center;}
+      &._email:before {background: url("/static/icons/ico-contact-email.svg") no-repeat center;}
+      &._work:before {background: url("/static/icons/time.svg") no-repeat center;}
+      &-title, &-info {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+      }
+      &-title {
+        margin-right: 4px;
+      }
+      &-info {
+        color: #72839C;
+      }
+    }
+  }
+}

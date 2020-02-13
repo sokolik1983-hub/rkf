@@ -8,14 +8,18 @@ import "./index.scss";
 const ContactsComponent = ({address, owner_name, contacts, work_time}) => (
     <Card className="contacts-component">
         <h4 className="contacts-component__title">Контакты</h4>
-        <div className="contacts-component__block _address">
-            <h5 className="contacts-component__block-title">Адрес</h5>
-            <p className="contacts-component__block-info">{address}</p>
-        </div>
-        <div className="contacts-component__block _person">
-            <h5 className="contacts-component__block-title">Руководитель клуба</h5>
-            <p className="contacts-component__block-info">{owner_name}</p>
-        </div>
+        {address &&
+            <div className="contacts-component__block _address">
+                <h5 className="contacts-component__block-title">Адрес</h5>
+                <p className="contacts-component__block-info">{address}</p>
+            </div>
+        }
+        {owner_name &&
+            <div className="contacts-component__block _person">
+                <h5 className="contacts-component__block-title">Руководитель клуба</h5>
+                <p className="contacts-component__block-info">{owner_name}</p>
+            </div>
+        }
         {contacts && !!contacts.length && !!contacts.filter(item => item.contact_type_id === 1).length &&
             <div className="contacts-component__block _phone">
                 {contacts.filter(item => item.contact_type_id === 1).map(item =>

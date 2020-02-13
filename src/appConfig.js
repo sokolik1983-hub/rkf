@@ -16,6 +16,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/about',
+        component: LoadableModules.LoadableAboutPage
+    },
+    {
+        exact: true,
         path: '/rkf',
         component: LoadableModules.LoadableRKFPage
     },

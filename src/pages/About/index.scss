@@ -1,0 +1,25 @@
+.about-page {
+  &__content {
+    h2 {
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 44px;
+      margin-bottom: 24px;
+    }
+    &-wrap {
+      display: flex;
+      margin-bottom: 100px;
+      .news-component {
+        width: 100%;
+      }
+    }
+  }
+  &__info {
+    width: 416px;
+    min-width: 416px;
+    margin-left: 24px;
+    .documents-component {
+      padding: 26px 32px 32px;
+    }
+  }
+}
