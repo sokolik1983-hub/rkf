@@ -5,7 +5,7 @@ import { feedbackFormConfig } from "./config";
 import './styles.scss';
 
 
-const Feedback = ({ className }) => {
+const Feedback = ({ className, title }) => {
     const [showModal, setShowModal] = useState(false);
     const { fields } = feedbackFormConfig;
     const initialValues = {
@@ -46,7 +46,12 @@ const Feedback = ({ className }) => {
 
     return (
         <>
-            <a className={`feedback-link${className ? ' ' + className : ''}`} onClick={handleClick} href="/">Обратная связь</a>
+            <a className={`feedback-link${className ? ' ' + className : ''}`}
+               onClick={handleClick}
+               href="/"
+            >
+                {title || 'Обратная связь'}
+            </a>
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
                     <h1>Форма обратной связи</h1>

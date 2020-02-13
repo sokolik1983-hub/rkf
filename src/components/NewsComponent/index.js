@@ -27,7 +27,7 @@ const NewsComponent = ({alias}) => {
         }))();
     }, [page]);
 
-    if(isRequestEnd && !news.length) return null;
+    if(isRequestEnd && (!news || !news.length)) return null;
 
     return (
         <div className="news-component">
