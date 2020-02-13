@@ -16,7 +16,7 @@ const Footer = () => (
                     <span>Карта клубов</span>
                 </div>
                 <div className="Footer__exhibitions">
-                    <h3>Выставки</h3>
+                    <h3>Мероприятия</h3>
                     <Link className="link" to="/exhibitions">Календарь выставок</Link>
                     <Link className="link" to="/results/cacib">Результаты CACIB</Link>
                     <Link className="link" to="/results/cac">Результаты CAC</Link>
