@@ -79,34 +79,36 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     }, [breeds, groups, countries]);
 
     const onSubmit = (rows) => {
-        const reportRows = rows.map(row => {
-            const countryId = row['judge-country'] ?
-                row['judge-country'].label ?
-                    countries.find(item => item.short_name === row['judge-country'].label).id :
-                    countries.find(item => item.short_name === row['judge-country']).id :
-                null;
-            const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
-            const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
+        const reportRows = rows
+            .filter(f => Object.keys(f).length >= 5) // Filter blank lines
+            .map(row => {
+                const countryId = row['judge-country'] ?
+                    row['judge-country'].label ?
+                        countries.find(item => item.short_name === row['judge-country'].label).id :
+                        countries.find(item => item.short_name === row['judge-country']).id :
+                    null;
+                const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
+                const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
 
-            return {
-                "judge": {
-                    "judge_first_name": row['judge-name'] || null,
-                    "judge_second_name": row['judge-patronymic'] || '',
-                    "judge_last_name": row['judge-surname'] || null
-                },
-                "judge_country_id": countryId,
-                "dogs_distributed": +row['dogs-distributed'] || null,
-                "dogs_condemned": +row['dogs-judged'] || null,
-                "breed_ids": breedIds,
-                "fci_group_ids": groupIds
-            }
-        });
+                return {
+                    "judge": {
+                        "judge_first_name": row['judge-name'] || null,
+                        "judge_second_name": row['judge-patronymic'] || '',
+                        "judge_last_name": row['judge-surname'] || null
+                    },
+                    "judge_country_id": countryId,
+                    "dogs_distributed": +row['dogs-distributed'] || null,
+                    "dogs_condemned": +row['dogs-judged'] || null,
+                    "breed_ids": breedIds,
+                    "fci_group_ids": groupIds
+                }
+            });
 
         const dataToSend = {
             "header_id": reportHeader.id,
             "judges_load_report_rows": reportRows
         };
-
+        if (!reportRows.length) return alert('Необходимо заполнить хотя бы одну строку отчёта!');
         (() => Request({
             url: endpointPutJudgesLoadReport,
             method: 'PUT',

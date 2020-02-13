@@ -77,54 +77,57 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     }, [breeds, castes, grades]);
 
     const onSubmit = (rows) => {
-        const reportRows = rows.map(row => {
-            const breedId = row.breed ?
-                row.breed.label ?
-                    breeds.find(item => item.name === row.breed.label).id :
-                    breeds.find(item => item.name === row.breed).id :
-                null;
-            const castId = row.class ?
-                row.class.label ?
-                    castes.find(item => item.name === row.class.label).id :
-                    castes.find(item => item.name === row.class).id :
-                null;
-            const gradeId = row.score ?
-                row.score.label ?
-                    grades.find(item => item.name === row.score.label).id :
-                    grades.find(item => item.name === row.score).id :
-                null;
-            const certificates = Object.keys(row).reduce((arr, key) => {
-                if (+key && row[key] === true) {
-                    return [...arr, +key];
+        const reportRows = rows
+            .filter(f => Object.keys(f).length >= 8) // Filter blank lines
+            .map(row => {
+                const breedId = row.breed ?
+                    row.breed.label ?
+                        breeds.find(item => item.name === row.breed.label).id :
+                        breeds.find(item => item.name === row.breed).id :
+                    null;
+                const castId = row.class ?
+                    row.class.label ?
+                        castes.find(item => item.name === row.class.label).id :
+                        castes.find(item => item.name === row.class).id :
+                    null;
+                const gradeId = row.score ?
+                    row.score.label ?
+                        grades.find(item => item.name === row.score.label).id :
+                        grades.find(item => item.name === row.score).id :
+                    null;
+                const certificates = Object.keys(row).reduce((arr, key) => {
+                    if (+key && row[key] === true) {
+                        return [...arr, +key];
+                    }
+
+                    return arr;
+                }, []);
+
+                return {
+                    "dog": {
+                        "breed_id": breedId,
+                        "dog_name": row['dog-name'] || null,
+                        "dog_birth_date": row.birthday || null,
+                        "pedigree_number": row['pedigree-number'] || null
+                    },
+                    "judge": {
+                        "judge_first_name": row['judge-name'] || null,
+                        "judge_second_name": row['judge-patronymic'] || '',
+                        "judge_last_name": row['judge-surname'] || null
+                    },
+                    "catalog_number": row['catalog-number'] || null,
+                    "caste_id": castId,
+                    "grade_id": gradeId,
+                    "certificates": certificates
                 }
-
-                return arr;
-            }, []);
-
-            return {
-                "dog": {
-                    "breed_id": breedId,
-                    "dog_name": row['dog-name'] || null,
-                    "dog_birth_date": row.birthday || null,
-                    "pedigree_number": row['pedigree-number'] || null
-                },
-                "judge": {
-                    "judge_first_name": row['judge-name'] || null,
-                    "judge_second_name": row['judge-patronymic'] || '',
-                    "judge_last_name": row['judge-surname'] || null
-                },
-                "catalog_number": row['catalog-number'] || null,
-                "caste_id": castId,
-                "grade_id": gradeId,
-                "certificates": certificates
-            }
-        });
+            });
 
         const dataToSend = {
             "report_header_id": reportHeader.id,
             "report_rows": reportRows
         };
         if (reportRows.find(i => !i.certificates.length)) return alert('Не для всех выставок указан сертификат.\nУкажите хотя бы один сертификат для каждой строки!');
+        if (!reportRows.length) return alert('Необходимо заполнить хотя бы одну строку отчёта!');
         (() => Request({
             url: endpointPutFinalReport,
             method: 'PUT',
