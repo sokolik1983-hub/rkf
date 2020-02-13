@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import { object, string, boolean } from "yup";
 import {
     DEFAULT_EMAIL_INPUT_PLACEHOLDER,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
@@ -37,14 +37,13 @@ export const feedbackFormConfig = {
             placeholder: 'Выберите причину',
             fieldType: 'reactSelect',
             type: 'select',
-            options: reasons.map(reason => ({label: reason.name, value: reason.type}))
+            options: reasons.map(reason => ({ label: reason.name, value: reason.type }))
         },
         full_name: {
             name: 'full_name',
             label: 'ФИО',
             type: 'text',
-            placeholder: "Введите ваше имя",
-            noTouch: true
+            placeholder: "Введите ваше имя"
         },
         phone_number: {
             name: 'phone_number',
@@ -52,23 +51,25 @@ export const feedbackFormConfig = {
             fieldType: 'masked',
             type: 'text',
             placeholder: DEFAULT_PHONE_INPUT_PLACEHOLDER,
-            mask: DEFAULT_PHONE_INPUT_MASK,
-            noTouch: true
+            mask: DEFAULT_PHONE_INPUT_MASK
         },
         mail: {
             name: 'mail',
             label: 'Email',
             type: 'text',
-            placeholder: DEFAULT_EMAIL_INPUT_PLACEHOLDER,
-            noTouch: true
+            placeholder: DEFAULT_EMAIL_INPUT_PLACEHOLDER
         },
         description: {
             name: 'description',
             label: 'Сообщение',
             type: 'text',
             fieldType: 'textarea',
-            placeholder: "Введите ваше сообщение",
-            noTouch: true
+            placeholder: "Введите ваше сообщение"
+        },
+        terms: {
+            name: 'terms',
+            label: 'Я принимаю условия использования сервиса',
+            type: 'checkbox'
         }
     },
     validationSchema: object().shape({
@@ -84,5 +85,8 @@ export const feedbackFormConfig = {
             .email('Неверный формат электронного адреса'),
         description: string()
             .required('Поле не может быть пустым'),
+        terms: boolean()
+            .test('terms', ' ', value => value === true)
+            .required()
     }),
 };

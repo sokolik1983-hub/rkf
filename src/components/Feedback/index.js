@@ -13,7 +13,8 @@ const Feedback = ({ className, title }) => {
         full_name: '',
         phone_number: '',
         mail: '',
-        description: ''
+        description: '',
+        terms: false
     };
 
     const handleClick = (e) => {
@@ -47,8 +48,8 @@ const Feedback = ({ className, title }) => {
     return (
         <>
             <a className={`feedback-link${className ? ' ' + className : ''}`}
-               onClick={handleClick}
-               href="/"
+                onClick={handleClick}
+                href="/"
             >
                 {title || 'Обратная связь'}
             </a>
@@ -64,21 +65,12 @@ const Feedback = ({ className, title }) => {
                             initialValues={initialValues}
                         >
                             <FormGroup>
-                                <FormField
-                                    {...fields.reason}
-                                />
-                                <FormField
-                                    {...fields.full_name}
-                                />
-                                <FormField
-                                    {...fields.phone_number}
-                                />
-                                <FormField
-                                    {...fields.mail}
-                                />
-                                <FormField
-                                    {...fields.description}
-                                />
+                                <FormField {...fields.reason} />
+                                <FormField {...fields.full_name} />
+                                <FormField {...fields.phone_number} />
+                                <FormField {...fields.mail} />
+                                <FormField {...fields.description} />
+                                <FormField checkbox {...fields.terms} />
                             </FormGroup>
                             <div className="feedback__buttons">
                                 <button className="btn btn-simple" onClick={onModalClose}>Отмена</button>

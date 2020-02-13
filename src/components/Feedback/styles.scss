@@ -54,6 +54,21 @@
       padding: 0 4px;
       white-space: nowrap;
     }
+    &--error {
+      .FormInput__error {
+        color: red;
+        position: absolute;
+        right: 10px;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: normal;
+        top: 25px;
+        bottom: auto;
+        background: white;
+        padding: 0 4px;
+        white-space: nowrap;
+      }
+    }
     &--select {
       .FormInput__error {
         color: red;
@@ -70,6 +85,20 @@
         border: 1px solid #dcd3de;
         box-shadow: none;
         padding: 0;
+      }
+    }
+    &--checkbox {
+      padding: 20px 0;
+      align-items: center;
+      @media (max-width: 560px) {
+        padding: 10px 0;
+      }
+      label {
+        margin: 0;
+        @media (max-width: 560px) {
+          font-size: 16px;
+          line-height: 18px;
+        }
       }
     }
   }
