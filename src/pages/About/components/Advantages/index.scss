@@ -1,0 +1,35 @@
+.advantages-component {
+  margin: 140px 0;
+  &__title {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+  }
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__item {
+    border: 1.2px solid #EBF0F2;
+    box-sizing: border-box;
+    border-radius: 10px;
+    max-width: 367px;
+    padding: 32px 24px 35px;
+    &-title {
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 32px;
+      color: #3366FF;
+      margin-bottom: 16px;
+    }
+    &-subtitle {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.2px;
+      opacity: 0.8;
+    }
+  }
+}

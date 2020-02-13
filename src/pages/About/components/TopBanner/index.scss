@@ -1,0 +1,30 @@
+.about-page__top-banner {
+  background: #EBF0FF;
+  margin: 70px 0 50px;
+}
+
+.top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0;
+  &__title {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 44px;
+    color: #3366FF;
+    margin-bottom: 16px;
+  }
+  &__subtitle {
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.2px;
+    color: #3366FF;
+    opacity: 0.8;
+    max-width: 660px;
+  }
+  &__img {
+    margin-left: 40px;
+  }
+}

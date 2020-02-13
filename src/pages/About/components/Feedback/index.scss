@@ -1,0 +1,24 @@
+.feedback-component {
+  padding: 32px;
+  margin-bottom: 16px;
+  &__description {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.2px;
+    margin-bottom: 24px;
+  }
+}
+.btn__transparent {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #3366FF;
+  border-radius: 4px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.2px;
+  color: #3366FF;
+}

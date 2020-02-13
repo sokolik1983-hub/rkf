@@ -11,7 +11,7 @@ const Footer = () => (
             <div className="Footer__inner-wrap">
                 <div className="Footer__company">
                     <h3>Компания</h3>
-                    <span>О RKF.Online</span>
+                    <Link className="link" to="/about">О RKF.Online</Link>
                     <span>Новости</span>
                     <span>Карта клубов</span>
                 </div>
