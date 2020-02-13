@@ -18,8 +18,8 @@ const ExhibitionsList = (props) => {
             <Card>
                 <h3>Прошедшие выставки</h3>
                 <p className="colors-memo">
-                    <span className="_red">Отчёт не был отправлен, либо требует доработку</span>
-                    <span className="_yellow">Отчёт ожидает проверку администратором</span>
+                    <span className="_red">Отчёт не был отправлен, либо требует доработки</span>
+                    <span className="_yellow">Отчёт ожидает проверки администратором</span>
                     <span className="_green">Отчёт принят</span>
                 </p>
                 <ul className="ExhibitionsList">
