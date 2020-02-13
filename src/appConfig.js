@@ -186,7 +186,7 @@ const mainNav = [
     {
         id: 3,
         title: "О RKF.Online",
-        to: '/',
+        to: '/about',
         exact: false
     }
 ];

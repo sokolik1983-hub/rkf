@@ -25,7 +25,7 @@ const ExhibitionsComponent = ({alias}) => {
         }))();
     }, []);
 
-    if(isRequestEnd && !exhibitions.length) return null;
+    if(isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 
     return (
         <div className="exhibitions-component">
