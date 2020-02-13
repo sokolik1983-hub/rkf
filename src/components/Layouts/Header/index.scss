@@ -10,6 +10,9 @@
     display: flex;
     align-items: center;
     height: 70px;
+    & *::selection {
+      background: none;
+    }
     @media (max-width: 560px) {
       height: 48px;
     }
@@ -57,7 +60,7 @@
     span {
       width: 28px;
       height: 4px;
-      background-color: #253C5E;
+      background-color: #253c5e;
       transition: all 0.2s linear;
       @media (max-width: 560px) {
         width: 24px;
@@ -157,7 +160,7 @@
       @media (max-width: 990px) {
         margin: 0 !important;
         &:last-child {
-          border-top: 1px solid #72839C;
+          border-top: 1px solid #72839c;
           margin-bottom: 24px !important;
         }
       }
@@ -166,12 +169,13 @@
           margin-bottom: 16px !important;
         }
       }
-      a, p {
+      a,
+      p {
         text-decoration: none;
         font-weight: normal;
         font-size: 16px;
         line-height: 22px;
-        color: #72839C;
+        color: #72839c;
         cursor: pointer;
         @media (max-width: 990px) {
           display: block;
@@ -200,7 +204,7 @@
           margin-left: 4px;
           vertical-align: middle;
           transform: rotate(90deg);
-          transition: all .2s linear;
+          transition: all 0.2s linear;
         }
         &._open {
           i {
@@ -210,7 +214,7 @@
       }
     }
     .slide-down {
-      transition-duration: .2s;
+      transition-duration: 0.2s;
     }
     &-sublist-wrap {
       min-width: 100%;
@@ -253,7 +257,7 @@
         white-space: nowrap;
         display: block;
         padding: 8px 16px;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         &:hover {
           background-color: whitesmoke;
           color: #3366ff;
@@ -263,22 +267,22 @@
         }
       }
       &.disabled {
-        opacity: .5;
+        opacity: 0.5;
         a {
           cursor: default;
           &:hover {
             background-color: transparent;
-            color: #72839C;
+            color: #72839c;
           }
           @media (max-width: 990px) {
             &:hover {
               background-color: transparent;
-              color: #72839C;
+              color: #72839c;
             }
             &.active {
               background-color: transparent;
               border-color: transparent;
-              color: #72839C;
+              color: #72839c;
             }
           }
         }
@@ -288,10 +292,32 @@
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
-      color: #3366FF;
-      border-bottom: 1px dashed #3366FF;
+      color: #3366ff;
+      border-bottom: 1px dashed #3366ff;
       @media (max-width: 990px) {
         border-bottom: none;
+      }
+    }
+    &-sublist-transition {
+      &-enter,
+      &-appear {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      &-enter-active,
+      &-appear-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.2s, transform 0.2s;
+      }
+      &-exit {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      &-exit-active {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.2s, transform 0.2s;
       }
     }
   }
@@ -311,7 +337,7 @@
     border-radius: 50%;
     border: 1px solid #fff;
     cursor: pointer;
-    transition: border-color .2s linear;
+    transition: border-color 0.2s linear;
     &._active {
       border-color: #3366ff;
     }
@@ -339,7 +365,7 @@
     }
   }
   .slide-down {
-    transition-duration: .2s;
+    transition-duration: 0.2s;
   }
   &__list {
     list-style: none;
@@ -372,7 +398,7 @@
       line-height: 22px;
       display: block;
       padding: 8px 16px;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
       &:hover {
         background-color: whitesmoke;
         color: #3366ff;
@@ -396,7 +422,7 @@
       background: none;
       font-size: 16px;
       &:before {
-        content: '';
+        content: "";
         display: inline-block;
         width: 20px;
         height: 20px;
@@ -415,6 +441,28 @@
         width: 16px;
         height: 16px;
       }
+    }
+  }
+  &-transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
     }
   }
 }
