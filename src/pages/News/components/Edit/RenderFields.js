@@ -51,7 +51,7 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
                     value={formik.values.content || ''}
                     onChange={handleChangeText}
                     maxLength="3001"
-                    rows="3"
+                    rows="15"
                 />
             </div>
             <div className="article-edit__img">

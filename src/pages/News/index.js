@@ -55,10 +55,10 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 </div>
                             </Link>
                             <div className="news__buttons">
+                                {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
                                 {canEdit && !isEdit &&
-                                    <button className="btn btn-simple" onClick={() => setIsEdit(true)}>Редактировать</button>
+                                    <button className="edit-button" onClick={() => setIsEdit(true)}>Редактировать</button>
                                 }
-                                <button className="btn btn-simple" onClick={() => history.goBack()}>Назад</button>
                             </div>
                         </div>
                         <div className="news__item-body">
@@ -73,6 +73,12 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
                                     {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
                                 </>
+                            }
+                        </div>
+                        <div className="news__buttons">
+                            {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
+                            {canEdit && !isEdit &&
+                                <button className="edit-button" onClick={() => setIsEdit(true)}>Редактировать</button>
                             }
                         </div>
                     </Card>

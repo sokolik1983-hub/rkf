@@ -5,6 +5,9 @@
         margin-bottom: 24px;
       }
     }
+    textarea {
+      resize: vertical;
+    }
   }
   &__img {
     display: block;

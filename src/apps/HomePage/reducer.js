@@ -8,7 +8,9 @@ import createReducer from 'utils/createReducer'
 
 const homePageNewsInitialState = {
     articles_count: null,
-    articles: []
+    articles: [],
+    current_page: 1,
+    current_active_typ: null
 };
 
 // const homePageClubInitialState = {
