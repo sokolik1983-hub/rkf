@@ -1,0 +1,1 @@
+export const GET_NEWS_SUCCESS = 'HomePage/News/Get/Success';

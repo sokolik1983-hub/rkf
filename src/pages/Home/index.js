@@ -9,7 +9,7 @@ import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
-import { connectNewsList } from 'apps/HomePage/connectors';
+import { connectNewsList } from './connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
 import { Request } from "utils/request";

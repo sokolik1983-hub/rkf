@@ -5,7 +5,7 @@ import authenticationReducer from 'apps/Auth/reducer'
 // import messagesReducer from 'apps/Messages/reducer'
 // import clientCommonReducer from 'apps/Client/reducer'
 import dictionariesReducer from 'apps/Dictionaries/reducer'
-import homePageReducer from 'apps/HomePage/reducer';
+import homePageReducer from 'pages/Home/reducer';
 
 export default function createReducer(injectedReducers) {
     return combineReducers({
