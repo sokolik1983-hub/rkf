@@ -70,7 +70,7 @@ const Feedback = ({ className, title }) => {
                                 <FormField {...fields.phone_number} />
                                 <FormField {...fields.mail} />
                                 <FormField {...fields.description} />
-                                <FormField checkbox {...fields.terms} />
+                                <FormField {...fields.terms} />
                             </FormGroup>
                             <div className="feedback__buttons">
                                 <button className="btn btn-simple" onClick={onModalClose}>Отмена</button>
