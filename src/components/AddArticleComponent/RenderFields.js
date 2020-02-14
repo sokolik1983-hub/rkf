@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from "react-outside-click-handler";
 import {connect} from 'formik';
-import {SubmitButton, FormControls, FormGroup, FormField} from '../../../../components/Form';
-import ClientAvatar from "../../../../components/ClientAvatar";
-import ImagePreview from "../../../../components/ImagePreview";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import {useFocus} from "../../../../shared/hooks";
+import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
+import ClientAvatar from "../ClientAvatar";
+import ImagePreview from "../ImagePreview";
+import {DEFAULT_IMG} from "../../appConfig";
+import {useFocus} from "../../shared/hooks";
 
 
 const RenderFields = ({fields, clubLogo, formik}) => {

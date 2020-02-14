@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import ClubNotActive from "./Components/ClubNotActive";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
@@ -9,16 +9,18 @@ import ClubHeader from "./Components/ClubHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubInfo from "./Components/ClubInfo";
 import ClubDescription from "./Components/ClubDescription";
-import ClubAddArticle from "./Components/ClubAddArticle";
+import AddArticle from "../../components/AddArticleComponent";
 import ClubNews from "./Components/ClubNews";
-import { Request } from "../../utils/request";
-import { endpointGetClubInfo } from "./config";
+import {Request} from "../../utils/request";
+import {endpointGetClubInfo} from "./config";
+import {connectAuthVisible} from "../../apps/Auth/connectors";
 import "./index.scss";
 
 
-const ClubPage = ({match}) => {
+const ClubPage = ({match, profile_id, isAuthenticated}) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
     const [page, setPage] = useState(1);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
@@ -28,6 +30,7 @@ const ClubPage = ({match}) => {
             url: endpointGetClubInfo + match.params.route
         }, data => {
             setClubInfo(data);
+            setCanEdit(isAuthenticated && profile_id === data.id);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -48,19 +51,20 @@ const ClubPage = ({match}) => {
                         clubLogo={clubInfo.logo_link}
                         clubImg={clubInfo.headliner_link}
                         clubName={clubInfo.name}
-                        clubId={clubInfo.id}
+                        canEdit={canEdit}
                     />
                     <ExhibitionsComponent alias={clubInfo.club_alias}/>
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
                             <ClubDescription description={clubInfo.description} />
-                            <ClubAddArticle
-                                clubId={clubInfo.id}
-                                logo={clubInfo.logo_link}
-                                alias={match.params.route}
-                                setPage={setPage}
-                                setNeedRequest={setNeedRequest}
-                            />
+                            {canEdit &&
+                                <AddArticle
+                                    clubId={clubInfo.id}
+                                    logo={clubInfo.logo_link}
+                                    setPage={setPage}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            }
                             <ClubNews
                                 clubId={clubInfo.id}
                                 alias={match.params.route}
@@ -78,4 +82,4 @@ const ClubPage = ({match}) => {
             </Layout>
 };
 
-export default React.memo(ClubPage);
+export default React.memo(connectAuthVisible(ClubPage));

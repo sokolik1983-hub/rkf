@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Loading from "../../components/Loading";
+import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layout/Container";
 import TopComponent from "../../components/TopComponent";
@@ -12,11 +13,15 @@ import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
+import {connectAuthVisible} from "../../apps/Auth/connectors";
 import "./index.scss";
 
 
-const RKF = () => {
+const RKF = ({isAuthenticated, profile_id}) => {
     const [info, setInfo] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
+    const [page, setPage] = useState(1);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -24,12 +29,15 @@ const RKF = () => {
             url: '/api/Club/rkf_base_info'
         }, data => {
             setInfo(data);
+            setCanEdit(isAuthenticated && profile_id === data.id);
             setLoading(false);
         }, error => {
             console.log(error.response);
             setLoading(false);
         }))();
     }, []);
+
+    if(!loading && !info) return <PageNotFound/>;
 
     return loading ?
         <Loading/> :
@@ -41,6 +49,7 @@ const RKF = () => {
                         logo={info.logo || "/static/images/header/rkf-logo-transparent.svg"}
                         name={info.name || "Российская Кинологическая Федерация"}
                         status={info.status || "текущий статус"}
+                        canEdit={canEdit}
                     />
                     <div className="rkf-page__banner">
                         <img src="/static/images/rkf/banner-rkf.svg" alt="banner"/>
@@ -49,7 +58,14 @@ const RKF = () => {
                     <div className="rkf-page__info">
                         <div className="rkf-page__right">
                             {info.description && <AboutComponent description={info.description}/>}
-                            <NewsComponent alias="rkf"/>
+                            <NewsComponent
+                                alias="rkf"
+                                page={page}
+                                setPage={setPage}
+                                needRequest={needRequest}
+                                setNeedRequest={setNeedRequest}
+                                canEdit={canEdit}
+                            />
                         </div>
                         <aside className="rkf-page__left">
                             <PhotoComponent
@@ -73,4 +89,4 @@ const RKF = () => {
         </Layout>
 };
 
-export default React.memo(RKF);
+export default React.memo(connectAuthVisible(RKF));

@@ -7,7 +7,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const NewsCard = ({id, club_name, fact_city_name, create_date, alias, logo_link, picture_link, content}) => (
+const NewsCard = ({id, club_name, fact_city_name, create_date, alias, logo_link, picture_link, content, canEdit, onDelete}) => (
     <Card className="news-card">
         {picture_link && <Link to={`/news/${id}`} className="news-card__photo" style={{backgroundImage: `url(${picture_link})`}} />}
         <div className="news-card__content">
@@ -30,6 +30,7 @@ const NewsCard = ({id, club_name, fact_city_name, create_date, alias, logo_link,
                         {fact_city_name}
                     </p>
                 }
+                {canEdit && <button className="news-card__delete" onClick={() => onDelete(id)} title="Удалить"/>}
             </div>
             <div className="news-card__body">
                 <p className="news-card__text" dangerouslySetInnerHTML={{__html: formatText(content)}} />
