@@ -1,13 +1,12 @@
 import React from "react";
-import Card from "../../../../components/Card";
-import {Form} from "../../../../components/Form";
+import Card from "../Card";
+import {Form} from "../Form";
 import RenderFields from "./RenderFields";
-import {newsArticleFormConfig} from "../../config";
-import {connectAuthVisible} from "../../../../apps/Auth/connectors";
+import {newsArticleFormConfig} from "./config";
 import './index.scss';
 
 
-const ClubAddArticle = ({isAuthenticated, profile_id, clubId, logo, setPage, setNeedRequest}) => {
+const AddArticle = ({clubId, logo, setPage, setNeedRequest}) => {
     const onSuccess = () => {
         setPage(1);
         setNeedRequest(true);
@@ -17,9 +16,8 @@ const ClubAddArticle = ({isAuthenticated, profile_id, clubId, logo, setPage, set
         return {...values, club_id: clubId};
     };
 
-    return !isAuthenticated || profile_id !== clubId ?
-        null :
-        <Card className="club-page__add-article">
+    return (
+        <Card className="add-article">
             <Form
                 isMultipart
                 onSuccess={onSuccess}
@@ -31,6 +29,7 @@ const ClubAddArticle = ({isAuthenticated, profile_id, clubId, logo, setPage, set
                 <RenderFields fields={newsArticleFormConfig.fields} clubLogo={logo} />
             </Form>
         </Card>
+    )
 };
 
-export default React.memo(connectAuthVisible(ClubAddArticle));
+export default React.memo(AddArticle);

@@ -22,6 +22,41 @@
     @media (max-width: 1220px) {
       margin-right: 24px;
     }
+    @media (max-width: 990px) {
+      margin-right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-bottom: 24px;
+      & > div {
+        width: calc(50% - 12px);
+        &:nth-child(odd) {
+          margin-right: 12px;
+        }
+        &:nth-child(even) {
+          margin-left: 12px;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      display: block;
+      padding-bottom: 16px;
+      & > div {
+        width: 100%;
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+        &:nth-child(odd) {
+          margin-right: 0;
+        }
+        &:nth-child(even) {
+          margin-left: 0;
+        }
+      }
+    }
   }
   &__right {
     width: 100%;

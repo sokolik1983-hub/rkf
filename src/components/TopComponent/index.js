@@ -2,9 +2,10 @@ import React from "react";
 import Card from "../Card";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+import {Link} from "react-router-dom";
 
 
-const TopComponent = ({alias, logo, name, status}) => {
+const TopComponent = ({alias, logo, name, status, canEdit}) => {
     const share = () => {
         console.log('share click', alias);
     };
@@ -27,9 +28,14 @@ const TopComponent = ({alias, logo, name, status}) => {
                 </div>
             </div>
             <div className="top-component__controls">
-                <button type="button" className="btn__blue not-active" onClick={share}>Поделиться</button>
-                <button type="button" className="btn__blue not-active" onClick={write}>Написать сообщение</button>
-                <button type="button" className="btn__download not-active" onClick={download}/>
+                {canEdit ?
+                    <Link className="btn__blue" to="/client">Редактировать профиль</Link> :
+                    <>
+                        <button type="button" className="btn__blue not-active" onClick={share}>Поделиться</button>
+                        <button type="button" className="btn__blue not-active" onClick={write}>Написать сообщение</button>
+                        <button type="button" className="btn__download not-active" onClick={download}/>
+                    </>
+                }
             </div>
         </Card>
     )

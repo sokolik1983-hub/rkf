@@ -6,15 +6,14 @@ import {Request} from "../../utils/request";
 import "./index.scss";
 
 
-const NewsComponent = ({alias}) => {
+const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEdit}) => {
     const [news, setNews] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
-    const [page, setPage] = useState(1);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
     const newsPlaceholder = [0,1,2,3,4];
 
-    useEffect(() => {
-        (() => Request({
+    const getNews = async page => {
+        await Request({
             url: `/api/ClubArticle/public?alias=${alias}&page=${page}&size=5`
         }, data => {
             setNews(data.articles);
@@ -24,8 +23,32 @@ const NewsComponent = ({alias}) => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setIsRequestEnd(true);
-        }))();
-    }, [page]);
+        });
+
+        setNeedRequest(false);
+    };
+
+    const deleteArticle = async id => {
+        if(window.confirm('Вы действительно хотите удалить эту новость?')) {
+            await Request({
+                    url: '/api/ClubArticle/' + id,
+                    method: 'DELETE'
+                }, () => setNeedRequest(true),
+                error => {
+                    console.log(error);
+                    alert('Новость не удалена');
+                });
+        }
+    };
+
+    const setNewsPage = page => {
+        setPage(page);
+        setNeedRequest(true);
+    };
+
+    useEffect(() => {
+        if(needRequest) (() => getNews(page))();
+    }, [needRequest, page]);
 
     if(isRequestEnd && (!news || !news.length)) return null;
 
@@ -35,7 +58,7 @@ const NewsComponent = ({alias}) => {
                 {news && news.length ?
                     news.map(item =>
                         <li className="news-component__item" key={item.id}>
-                            <NewsCard {...item}/>
+                            <NewsCard {...item} canEdit={canEdit} onDelete={deleteArticle}/>
                         </li>
                     ) :
                     newsPlaceholder.map(item =>
@@ -49,7 +72,7 @@ const NewsComponent = ({alias}) => {
                 <Paginator
                     pagesCount={pagesCount}
                     currentPage={page}
-                    setPage={setPage}
+                    setPage={setNewsPage}
                     scrollToTop={false}
                 />
             }
