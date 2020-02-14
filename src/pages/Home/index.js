@@ -9,7 +9,7 @@ import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
-import { connectNewsList } from 'apps/HomePage/connectors';
+import { connectNewsList } from './connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
 import { Request } from "utils/request";
@@ -39,18 +39,29 @@ const CLubsMap = () => {
     </YMaps>
 };
 
-const HomePage = ({ homepage, getNewsSuccess }) => {
-    const [newsFilter, setNewsFilter] = useState(null);
-    const [page, setPage] = useState(1);
+function getCity() {
+    const l = localStorage.getItem('GLOBAL_CITY');
+    return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
+}
 
-    useEffect(() => {
-        newsFilter && buildNewsQuery()
-    }, [page]);
+const HomePage = ({ homepage, getNewsSuccess }) => {
+    const { articles, articles_count, current_page, current_active_type } = homepage.news;
+    const [newsFilter, setNewsFilter] = useState({
+        city: getCity(),
+        activeType: current_active_type
+    });
+    const [page, setPage] = useState(current_page);
 
     const buildNewsQuery = () => newsFilter && `${endpointGetNews}?size=4&page=${page ? page : 1}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`;
 
-    const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), getNewsSuccess);
-    const { articles, articles_count } = homepage.news;
+    const onSuccess = (data) => {
+        getNewsSuccess({
+            ...data,
+            current_page: page,
+            current_active_type: newsFilter.activeType
+        });
+    }
+    const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), onSuccess);
 
 
     return (
@@ -69,6 +80,8 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         currentPage={page}
                         setPage={setPage}
                         setNewsFilter={setNewsFilter}
+                        currentActiveType={current_active_type}
+                        currentCity={newsFilter.city}
                         loading={loading}
                     />
                     <Aside className="home-page__right">

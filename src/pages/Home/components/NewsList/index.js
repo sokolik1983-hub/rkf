@@ -14,10 +14,12 @@ const NewsList = ({
     currentPage,
     setPage,
     setNewsFilter,
+    currentActiveType,
+    currentCity,
     loading
 }) => (
         <div className="NewsList">
-            <ListFilter setNewsFilter={setNewsFilter} />
+            <ListFilter setNewsFilter={setNewsFilter} setPage={setPage} currentActiveType={currentActiveType} currentCity={currentCity} />
             {loading
                 ? <Placeholder />
                 : (list && !!list.length) &&

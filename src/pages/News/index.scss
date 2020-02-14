@@ -1,5 +1,7 @@
 .news {
   width: 100%;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 560px) {
     padding: 12px;
   }
@@ -27,6 +29,7 @@
     }
   }
   &__item-body {
+    flex-grow: 1;
     img {
       display: block;
       margin: auto;
@@ -71,8 +74,37 @@
     margin: 24px auto;
   }
   &__buttons {
+    text-align: right;
     button + button {
-      margin-left: 10px;
+      margin-left: 20px;
+    }
+    .edit-button,
+    .back-button {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 12px;
+      padding: 0;
+      border: none;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      position: relative;
+      align-self: flex-end;
+    }
+    .back-button {
+      padding-left: 12px;
+      color: #3366ff;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 0;
+        height: 10px;
+        width: 6px;
+        background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+        transform: scaleX(-1);
+      }
     }
   }
 }
