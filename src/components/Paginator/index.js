@@ -62,7 +62,7 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
     return pagesCount > 1 &&
         <div className="Paginator">
             {!!pages.prevPage && <ButtonPrev onClick={() => setPage(pages.prevPage)}>Назад</ButtonPrev>}
-            {currentPage===1 ? '' :
+            {currentPage!==1 &&
                 <PageButton
                     onClick={(page) => setPage(page)}
                     currentPage={currentPage}
@@ -70,11 +70,11 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
                     key={1}
                 />
             }
-            {(currentPage > 3) ? 
+            {(currentPage > 3) &&
                 <div className="Paginator__btn-interval">
                     <p>...</p> 
                 </div>
-            : null}
+            }
             {Object.keys(pages).map(key => (
                 !!pages[key] &&
                 <PageButton
@@ -84,12 +84,12 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
                     key={key}
                 />
             ))}
-            {(currentPage < pagesCount - 2) ? 
+            {(currentPage < pagesCount - 2) &&
                 <div className="Paginator__btn-interval">
                     <p>...</p> 
                 </div>
-            : null}
-            {currentPage===pagesCount ? '' :
+            }
+            {currentPage!==pagesCount &&
                 <PageButton
                     onClick={(page) => setPage(page)}
                     currentPage={currentPage}
