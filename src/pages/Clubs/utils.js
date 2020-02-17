@@ -9,7 +9,7 @@ export const setFiltersToLS = filters => {
 export const getEmptyFilters = () => ({
     "string_filter": "",
     "federation_ids": [],
-    "club_ids": [],
+    "city_ids": [],
     "is_activated": null,
     "page": 1
 });

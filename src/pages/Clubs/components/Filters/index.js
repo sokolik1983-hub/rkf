@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
-import Aside from "components/Layouts/Aside";
-import Card from "components/Card";
+import Aside from "../../../../components/Layouts/Aside";
+import Card from "../../../../components/Card";
 import FederationsFilter from "./components/FederationsFilter";
 import IsActivatedFilter from "./components/IsActivatedFilter";
-import {setOverflow} from "utils";
+import CitiesFilter from "./components/CitiesFilter";
+import {setOverflow} from "../../../../utils";
 import {getEmptyFilters} from "../../utils";
 import {connectFilters} from "../../connectors";
-import {connectShowFilters} from "components/Layouts/connectors";
+import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import "./index.scss";
 
 
@@ -27,6 +28,7 @@ const Filters = ({isOpenFilters, setFilters}) => {
             <Card>
                 <FederationsFilter/>
                 <IsActivatedFilter/>
+                <CitiesFilter/>
                 <a href="/" className="link" onClick={clearFilters}>Сбросить все параметры</a>
             </Card>
         </Aside>
