@@ -59,13 +59,13 @@ const ListItem = ({is_active, setFilters, city, cityId, federation_name, club_al
                         </div>
                         {is_active ?
                             <Link className="ListItemMobile__author" to={`/${club_alias}`}>
-                                <div style={{
+                                <div className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
                             </Link> :
                             <p className="ListItemMobile__author">
-                                <span style={{
+                                <span className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
