@@ -34,6 +34,15 @@
       }
     }
   }
+  .Paginator__btn-interval{
+    height: 40px;
+    font-size: 23px;
+    padding-right: 4px;
+    position: relative;
+  }
+  .Paginator__btn-interval p{
+    padding-top: 13px;
+  }
   .btn-prev,
   .btn-next {
     @media (max-width: 560px) {

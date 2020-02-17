@@ -25,12 +25,14 @@ function PageSelector({ onSubmit, pageCount }) {
 
     const onPageSelect = (e) => {
         e.preventDefault();
-        setValue(+e.target.value);
+        setValue(e.target.value);
     };
 
     const onPageSelectSubmit = (e) => {
         e.preventDefault();
-        onSubmit(value);
+        if(value){
+            onSubmit(Number(value));
+        }
     };
 
     return (
@@ -52,14 +54,27 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
     scrollToTop && scrollSmoothTop();
 
     const pages = {
-        prevPage: currentPage - 1,
+        prevPage: currentPage - 2 === 0 ? null : currentPage - 1,
         currentPage,
-        nextPage: currentPage + 1 > pagesCount ? null : currentPage + 1
+        nextPage: currentPage + 2 > pagesCount ? null : currentPage + 1
     };
 
     return pagesCount > 1 &&
         <div className="Paginator">
             {!!pages.prevPage && <ButtonPrev onClick={() => setPage(pages.prevPage)}>Назад</ButtonPrev>}
+            {currentPage===1 ? '' :
+                <PageButton
+                    onClick={(page) => setPage(page)}
+                    currentPage={currentPage}
+                    page={1}
+                    key={1}
+                />
+            }
+            {(currentPage > 3) ? 
+                <div className="Paginator__btn-interval">
+                    <p>...</p> 
+                </div>
+            : null}
             {Object.keys(pages).map(key => (
                 !!pages[key] &&
                 <PageButton
@@ -69,6 +84,19 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
                     key={key}
                 />
             ))}
+            {(currentPage < pagesCount - 2) ? 
+                <div className="Paginator__btn-interval">
+                    <p>...</p> 
+                </div>
+            : null}
+            {currentPage===pagesCount ? '' :
+                <PageButton
+                    onClick={(page) => setPage(page)}
+                    currentPage={currentPage}
+                    page={pagesCount}
+                    key={pagesCount}
+                />
+            }
             <PageSelector onSubmit={(page) => setPage(page)} pageCount={pagesCount} />
             {pages.nextPage && <ButtonNext onClick={() => setPage(pages.nextPage)}>Далее</ButtonNext>}
         </div>
