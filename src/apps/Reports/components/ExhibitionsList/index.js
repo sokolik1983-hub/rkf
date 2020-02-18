@@ -6,7 +6,7 @@ import { useResourceAndStoreToRedux } from "shared/hooks";
 import { endpointReportsList } from '../../config';
 import { connectReportsList } from 'apps/Reports/connectors';
 import './styles.scss';
-import Container from "../../../../components/Layout/Container";
+import Container from "../../../../components/Layouts/Container";
 
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;

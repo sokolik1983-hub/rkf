@@ -185,37 +185,37 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
     return (
         <div className="ClubEditPage">
             <h2>Личный кабинет</h2>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__about">
                 <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
                     bindSubmitClubLogo={bindSubmitClubLogo}
                     bindSubmitClubInfo={bindSubmitClubInfo}
                     isFederation={is_federation}
                 />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__schedule">
                 <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__legal">
                 <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__bank">
                 <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__contacts">
                 <h3>Контакты</h3>
                 <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
                     bindSubmitClubPhone={bindSubmitClubPhone}
                 />
             </Card>
-            <Card style={{ margin: '24px 0' }} className="ClubEditPage__documents">
+            <Card className="ClubEditPage__documents">
                 <h3>Ссылки на документы</h3>
                 <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
             </Card>
-            <Card style={{ margin: '24px 0' }} className="ClubEditPage__socials">
+            <Card className="ClubEditPage__socials">
                 <h3>Социальные сети</h3>
                 <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card className="ClubEditPage__head-picture">
                 <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
             </Card>
             <EditPageButtons handleSubmitForms={handleSubmitForms} />

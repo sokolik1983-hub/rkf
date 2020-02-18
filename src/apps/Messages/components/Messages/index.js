@@ -1,7 +1,7 @@
 import React from "react";
 import Message from "../Message";
 import './styles.scss'
-import Container from 'components/Layout/Container'
+import Container from 'components/Layouts/Container'
 
 export default function Messages({ messages }) {
     return (
