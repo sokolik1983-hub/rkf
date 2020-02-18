@@ -8,8 +8,6 @@ import {setOverflow} from "../../../../utils";
 import {getEmptyFilters} from "../../utils";
 import {connectFilters} from "../../connectors";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import MenuComponent from "../../../../components/MenuComponent"
-import {mainClub} from "../../../../appConfig";
 import "./index.scss";
 
 
@@ -27,13 +25,6 @@ const Filters = ({isOpenFilters, setFilters}) => {
 
     return (
         <Aside className={`clubs-page__left${isOpenFilters ? ' _open' : ''}`}>
-            <MenuComponent 
-                alias="clubs" 
-                name={mainClub.name}
-                btnName={mainClub.btnName}
-                btnHref={mainClub.btnHref}
-                items={mainClub.children}>
-            </MenuComponent>
             <Card className="card__filter">
                 <FederationsFilter/>
                 <IsActivatedFilter/>
