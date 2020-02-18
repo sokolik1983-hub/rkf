@@ -9,13 +9,24 @@ import ClickGuard from "../../components/ClickGuard";
 import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
 import {connectShowFilters} from "../../components/Layouts/connectors";
+import {mainClub} from "../../appConfig";
 import './index.scss';
+import MenuComponent from "../../components/MenuComponent";
 
 
 const Clubs = ({isOpenFilters, setShowFilters}) => (
     <Layout withFilters>
         <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
         <Container className="content clubs-page">
+            {/* <aside className="federation-page__left">
+                <MenuComponent 
+                    alias="clubs" 
+                    name={mainClub.name}
+                    btnName={mainClub.btnName}
+                    btnHref={mainClub.btnHref}
+                    items={mainClub.children}>
+                </MenuComponent>
+            </aside> */}
             <Filters />
             <div className="clubs-page__content">
                 <ClubsSearch />

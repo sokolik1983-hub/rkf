@@ -3,22 +3,18 @@ import Card from "../Card";
 import "./index.scss";
 
 
-const MenuComponent = ({alias}) => (
+const MenuComponent = ({alias, name, btnName, btnHref, items}) => (
+
     <Card className="menu-component">
-        <h4 className="menu-component__title">Меню</h4>
+        <h4 className="menu-component__title">{name}</h4>
         <ul className="menu-component__list">
-            <li className="menu-component__item">
-                <a href="/" className="menu-component__link">Мероприятия</a>
+            {items.map(item => (
+                <li className="menu-component__item">
+                <a href={item.href} className="menu-component__link">{item.title}</a>
             </li>
-            <li className="menu-component__item">
-                <a href="/" className="menu-component__link">Президиум</a>
-            </li>
-            <li className="menu-component__item">
-                <a href="/" className="menu-component__link">Новости</a>
-            </li>
+            ))}
         </ul>
-        <a href="/" className="menu-component__button">Страница</a>
+        <a href={btnHref} className="menu-component__button">{btnName}</a>
     </Card>
 );
-
 export default React.memo(MenuComponent);

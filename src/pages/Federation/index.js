@@ -14,6 +14,7 @@ import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {mainRKF} from "../../appConfig";
 import "./index.scss";
 
 
@@ -79,7 +80,12 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                                 name={federation.owner_name}
                                 position={federation.owner_position}
                             />
-                            <MenuComponent alias={alias}/>
+                            <MenuComponent 
+                                alias={alias} 
+                                name={mainRKF.name}
+                                btnName={mainRKF.btnName}
+                                btnHref={mainRKF.btnHref}
+                                items={mainRKF.children}/>
                             <ContactsComponent
                                 address={federation.address}
                                 owner_name={federation.owner_name}
