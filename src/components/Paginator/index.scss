@@ -1,5 +1,6 @@
 .Paginator {
   display: flex;
+  justify-content: center;
   flex-flow: row wrap;
   align-items: stretch;
   background-color: #fff;
@@ -30,36 +31,29 @@
         padding: 6px;
         font-size: 14px;
         line-height: 1;
-        height: auto;
+        height: 35px;
       }
     }
   }
-  .Paginator__btn-interval{
+  &__btn-interval{
     height: 40px;
     font-size: 23px;
     padding-right: 4px;
     position: relative;
+    @media (max-width: 560px) {
+      font-size: 18px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 23px;
+    }
   }
-  .Paginator__btn-interval p{
+  &__btn-interval p{
     padding-top: 13px;
   }
   .btn-prev,
   .btn-next {
     @media (max-width: 560px) {
-      padding: 6px;
-      margin-right: 5px;
-      font-size: 14px;
-      line-height: 1;
-      letter-spacing: 0;
-      &.btn-next {
-        margin-right: 0;
-      }
-      img {
-        display: none;
-      }
-      span {
-        padding: 0;
-      }
+      display: none;
     }
   }
   .btn.Paginator__Button {
@@ -76,7 +70,7 @@
     transition: all 0.2s linear;
     @media (max-width: 560px) {
       width: 26px;
-      height: auto;
+      height: 35px;
       margin-right: 5px;
     }
     &--active {
