@@ -11,8 +11,9 @@ import ClubSocial from 'apps/ClubSocial';
 import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
 import EditPageButtons from 'apps/Client/components/EditPageButtons';
 import { connectClientClubAlias } from 'apps/ClientClub/connectors';
-import './styles.scss';
 import ClubSchedule from "../../../ClubSchedule";
+import './styles.scss';
+
 
 let unblock;
 
@@ -206,11 +207,11 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
                     bindSubmitClubPhone={bindSubmitClubPhone}
                 />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card style={{ margin: '24px 0' }} className="ClubEditPage__documents">
                 <h3>Ссылки на документы</h3>
                 <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
             </Card>
-            <Card style={{ margin: '24px 0' }}>
+            <Card style={{ margin: '24px 0' }} className="ClubEditPage__socials">
                 <h3>Социальные сети</h3>
                 <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
             </Card>
