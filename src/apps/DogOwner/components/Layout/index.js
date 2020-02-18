@@ -1,6 +1,6 @@
 import React, {Fragment, PureComponent} from 'react'
 import Header from 'components/Layouts/Header'
-import Container from 'components/Layout/Container'
+import Container from 'components/Layouts/Container'
 import Footer from 'components/Layout/ClientFooter'
 import SideBar from './SideBar'
 import {MenuSeparator} from './SideBar/MenuItem'

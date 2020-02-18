@@ -1,8 +1,4 @@
 .client-layout {
-  width: 100%;
-  min-height: 100%;
-
-  //background-color: #1a63df;
   &__sidebar {
     padding: 115px 0 72px 0;
     box-sizing: border-box;
@@ -16,25 +12,4 @@
     box-shadow: 3px 0 20px rgba(0, 0, 0, 0.03);
     background-color: white;
   }
-  // Old values do not remove till 01.10.2019
-  //&__content{
-  //  max-width: 960px;
-  //  margin: 0 auto;
-  //}
-  &__content {
-    box-sizing: border-box;
-    max-width: 1280px;
-    padding: 0 48px;
-
-  }
-}
-
-@media screen and(max-width: 1440px) {
-  .client-layout {
-    &__content {
-      min-width: 640px;
-      margin: 0 64px 0 240px;
-    }
-  }
-
 }

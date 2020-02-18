@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Loading from "../../components/Loading";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
-import Container from "../../components/Layout/Container";
+import Container from "../../components/Layouts/Container";
 import TopComponent from "../../components/TopComponent";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import AboutComponent from "../../components/AboutComponent";
