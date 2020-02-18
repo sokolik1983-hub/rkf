@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import DayPicker from "react-day-picker";
 import Select from 'react-select';
 import Loading from "../../../../../../components/Loading";
@@ -17,8 +17,9 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
     const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [listIsOpenOfMonth, setListIsOpenOfMonth] = useState(false);
-    const [listIsOpenOfYear, setListIsOpenOfYear] = useState(false);
+
+    const selectOfYear = useRef(null);
+    const selectOfMonth = useRef(null);
 
     const setNewDate = (date) => {
         setDay(date);
@@ -76,7 +77,6 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0)),
                 PageNumber: 1
             });
-            setListIsOpenOfMonth();
         } else {
             setFiltersSuccess({
                 ExhibitionName: '',
@@ -84,21 +84,21 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                 DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0)),
                 PageNumber: 1
             });
-            setListIsOpenOfYear();
         }
-
         setActiveButton(period);
     };
 
-    const handleOutsideClick = () => {
-        setListIsOpenOfMonth(false);
-        setListIsOpenOfYear(false);
-    };
+    const closeListOfYear = () => {
+        selectOfYear.current.setState({menuIsOpen: false});
+    }
+
+    const closeListOfMonth = () => {
+        selectOfMonth.current.setState({menuIsOpen: false});
+    }
 
     return loading ?
         <Loading /> :
         <div className="exhibitions-calendar">
-            <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                 <DayPicker
                     showOutsideDays={true}
                     months={MONTHS}
@@ -116,28 +116,30 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
 
                         return (
                             <form className="DayPickerForm" onChange={handleFormChange}>
-                                <Select
-                                    menuIsOpen={listIsOpenOfMonth}
-                                    className="DayPickerForm__select"
-                                    classNamePrefix="DayPickerForm__select"
-                                    name="month"
-                                    isClearable={false}
-                                    value={monthsArr.filter(item => item.value === date.getMonth())[0]}
-                                    options={monthsArr}
-                                    onChange={data => handleFormChange(data, date, 'month')}
-                                    onClick={setListIsOpenOfMonth()}
-                                />
-                                <Select
-                                    menuIsOpen={listIsOpenOfYear}
-                                    className="DayPickerForm__select"
-                                    classNamePrefix="DayPickerForm__select"
-                                    name="year"
-                                    isClearable={false}
-                                    value={yearsArr.filter(item => item.value === date.getFullYear())}
-                                    options={yearsArr}
-                                    onChange={data => handleFormChange(data, date, 'year')}
-                                    onClick={setListIsOpenOfYear()}
-                                />
+                                <OutsideClickHandler onOutsideClick={closeListOfMonth}>
+                                    <Select
+                                        ref={selectOfMonth}
+                                        className="DayPickerForm__select"
+                                        classNamePrefix="DayPickerForm__select"
+                                        name="month"
+                                        isClearable={false}
+                                        value={monthsArr.filter(item => item.value === date.getMonth())[0]}
+                                        options={monthsArr}
+                                        onChange={data => handleFormChange(data, date, 'month')}
+                                    />
+                                </OutsideClickHandler> 
+                                <OutsideClickHandler onOutsideClick={closeListOfYear}>
+                                    <Select
+                                        ref={selectOfYear}
+                                        className="DayPickerForm__select"
+                                        classNamePrefix="DayPickerForm__select"
+                                        name="year"
+                                        isClearable={false}
+                                        value={yearsArr.filter(item => item.value === date.getFullYear())}
+                                        options={yearsArr}
+                                        onChange={data => handleFormChange(data, date, 'year')}
+                                    />
+                                    </OutsideClickHandler>
                             </form>
                         )
                     }}
@@ -153,7 +155,6 @@ const Calendar = ({ setFiltersSuccess, DateFrom }) => {
                     >Месяц</button>
                 </div>
                 <p className="exhibitions-calendar__legend">Доступные выставки</p>
-            </OutsideClickHandler>
         </div>
 };
 
