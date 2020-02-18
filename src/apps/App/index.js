@@ -20,6 +20,7 @@ class App extends PureComponent {
 
     componentDidMount() {
         window.addEventListener('beforeunload', this.resetFilters);
+        this.checkAlias();
     };
 
     componentWillUnmount() {
