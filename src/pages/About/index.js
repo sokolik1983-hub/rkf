@@ -9,6 +9,7 @@ import Contacts from "./components/Contacts";
 import FeedbackComponent from "./components/Feedback";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import {Request} from "../../utils/request";
+import {connectAuthVisible} from "../../apps/Auth/connectors";
 import "./index.scss";
 
 
@@ -31,8 +32,11 @@ const docs = [
 ];
 
 
-const AboutPage = () => {
+const AboutPage = ({isAuthenticated, profile_id}) => {
     const [info, setInfo] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
+    const [page, setPage] = useState(1);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -40,6 +44,7 @@ const AboutPage = () => {
             url: '/api/Club/rkf_base_info'
         }, data => {
             setInfo(data);
+            setCanEdit(isAuthenticated && profile_id === data.id);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -56,7 +61,14 @@ const AboutPage = () => {
                 <h2>Последние обновления</h2>
                 <div className="about-page__content-wrap">
                     <div className="about-page__news">
-                        <NewsComponent alias="rkf"/>
+                        <NewsComponent
+                            alias="rkf"
+                            page={page}
+                            setPage={setPage}
+                            needRequest={needRequest}
+                            setNeedRequest={setNeedRequest}
+                            canEdit={canEdit}
+                        />
                     </div>
                     <aside className="about-page__info">
                         {info &&
@@ -75,4 +87,4 @@ const AboutPage = () => {
         </Layout>
 };
 
-export default React.memo(AboutPage);
+export default React.memo(connectAuthVisible(AboutPage));

@@ -1,5 +1,10 @@
 .ClubEditPage {
   padding-bottom: 60px;
+  &__documents, &__socials {
+    .FormControls {
+      align-self: flex-end;
+    }
+  }
   &__tabs {
     .tabs__tab {
       background-color: white;
