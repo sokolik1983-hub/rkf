@@ -12,19 +12,15 @@ import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
 import { connectNewsList } from './connectors';
 import { useResourceAndStoreToRedux } from 'shared/hooks';
 import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
-import { Request } from "utils/request";
 import './index.scss';
 
-const CLubsMap = () => {
+const ClubsMap = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        Request({
-            url: 'http://192.168.6.34/GetDogClubs.ashx'
-        }, data => {
-            setData(data);
-        }, error => {
-            console.log(error.response);
-        })
+        fetch('http://tables.rkf.org.ru/GetDogClubs.ashx')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(err => { console.error(err) });
     }, []);
 
     return <YMaps>
@@ -142,7 +138,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
 
                 <h3 className="Homepage__map-header">Карта клубов</h3>
                 <div className="Homepage__map-wrap">
-                    <CLubsMap />
+                    <ClubsMap />
                 </div>
             </Container>
         </Layout>
