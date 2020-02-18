@@ -5,7 +5,7 @@ import style from './style.module.scss'
 
 const cx = classnames.bind(style);
 
-export default function CountDown({ eventDate = '2019-05-05 17:00' }) {
+export default function CountDown({ eventDate = '2020-05-05 17:00' }) {
 
     const checkTimeIsOver = () => {
         return (new Date() > new Date(eventDate))
