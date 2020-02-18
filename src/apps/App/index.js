@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { Request } from "utils/request";
 import { appRoutes } from 'appConfig'
 import { LoadableNotFound } from "../../appModules"
 import './index.scss'
@@ -10,16 +11,38 @@ import IframePage from "../../pages/Static/IframePage";
 import Federations from "../../pages/Static/Federations";
 
 class App extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.props.history.listen(() => {
+            this.checkAlias();
+        });
+    };
+
+    componentDidMount() {
+        window.addEventListener('beforeunload', this.resetFilters);
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.resetFilters);
+    };
+
     resetFilters = () => {
         ls.remove('ClubsFiltersValues');
         ls.remove('FiltersValues');
     };
-    componentDidMount() {
-        window.addEventListener('beforeunload', this.resetFilters);
-    }
-    componentWillUnmount() {
-        window.removeEventListener('beforeunload', this.resetFilters);
-    }
+
+    checkAlias = () => {
+        ls.get('profile_id') &&
+            Request({
+                url: `/api/Alias/profile/${ls.get('profile_id')}`,
+                method: "GET"
+            }, (result) => {
+                if (result.alias_name !== ls.get('user_info').club_alias) { // Updating club alias if it changed
+                    ls.set('user_info', { ...ls.get('user_info'), club_alias: result.alias_name });
+                }
+            });
+    };
+
     render() {
         return (
             <Switch>
@@ -46,4 +69,4 @@ class App extends PureComponent {
     }
 }
 
-export default App;
+export default withRouter(App);
