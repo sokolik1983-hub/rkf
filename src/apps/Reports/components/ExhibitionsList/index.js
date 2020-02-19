@@ -25,8 +25,6 @@ const ExhibitionsList = (props) => {
                 <ul className="ExhibitionsList">
                     {
                         reportsList
-                            .sort((a, b) => new Date(b.date) - new Date(a.date))
-                            .reverse()
                             .map((item) =>
                                 <li key={item.exhibition_id}>
                                     {
