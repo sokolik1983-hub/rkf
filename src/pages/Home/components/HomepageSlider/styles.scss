@@ -10,8 +10,12 @@
     margin-bottom: 24px;
   }
   @media (max-width: 560px) {
+    height: 200px;
     margin-bottom: 16px;
     background: none;
+  }
+  @media(min-width: 1200px){
+    height: 548px;
   }
   .slick-slider {
     max-width: 1184px;
