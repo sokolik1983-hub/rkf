@@ -110,6 +110,7 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
 };
 
 const MainRingStatement = ({ reportHeader, getHeader }) => {
+    const [sendDisabled, setSendDisable] = useState(false);
     const [breeds, setBreeds] = useState(null);
     const [arrangements, setArrangements] = useState(null);
     const [rows, setRows] = useState([]);
@@ -172,6 +173,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     };
 
     const onSubmit = () => {
+        setSendDisable(true);
         const reportRows = rows.filter(r => r.breed).map(row => {
             const breedId = row.breed ?
                 row.breed.label ?
@@ -197,6 +199,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         };
 
         if (reportRows.length < 1) {
+            setSendDisable(false);
             alert('Необходимо внести данные в отчёт.');
             return;
         };
@@ -206,10 +209,12 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             method: 'PUT',
             data: JSON.stringify(dataToSend)
         }, data => {
+            setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
             ls.remove(`main_ring_statement_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
+            setSendDisable(false);
             alert('Ошибка. Возможно заполнены не все поля отчёта.');
         }))();
     };
@@ -264,7 +269,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                 </table>
                 {!reportHeader.statement_main_ring_is_sent &&
                     <div style={{ width: '1100px', margin: '24px auto 0' }}>
-                        <button onClick={onSubmit}>Отправить отчёт</button>
+                        <button onClick={onSubmit} disabled={sendDisabled}>Отправить отчёт</button>
                     </div>
                 }
             </> :
