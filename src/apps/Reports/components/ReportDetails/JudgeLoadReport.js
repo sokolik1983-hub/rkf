@@ -20,6 +20,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const defaultRows = [{ id: 1, 'judge-country': '', breed: [], group: [] }];
     const [rows, setRows] = useState(defaultRows);
     const [loaded, setLoaded] = useState(false);
+    const [sendDisabled, setSendDisable] = useState(false);
 
     useEffect(() => {
         if (ls.get(`judge_load_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
@@ -50,10 +51,11 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                         }) : [];
                         const group = row.fci_groups.length ? row.fci_groups.map(group => {
                             const name = groups.find(item => item.id === group).name;
+                            const label = `Группа ${groups.find(item => item.id === group).number} - ${name}`
 
                             return {
                                 value: name,
-                                label: name
+                                label: label
                             }
                         }) : [];
 
@@ -88,7 +90,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                         countries.find(item => item.short_name === row['judge-country']).id :
                     null;
                 const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
-                const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
+                const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.value).id) : [];
 
                 return {
                     "judge": {
@@ -108,16 +110,21 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
             "header_id": reportHeader.id,
             "judges_load_report_rows": reportRows
         };
-        if (!reportRows.length) return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+        if (!reportRows.length) {
+            setSendDisable(false);
+            return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+        }
         (() => Request({
             url: endpointPutJudgesLoadReport,
             method: 'PUT',
             data: JSON.stringify(dataToSend)
         }, data => {
+            setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
             ls.remove(`judge_load_report_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
+            setSendDisable(false);
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })
         )();
@@ -142,6 +149,8 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                     groups={groups}
                     onSubmit={onSubmit}
                     isSent={reportHeader.judges_workload_is_sent}
+                    btnSendIsDisabled = {sendDisabled}
+                    btnSendChangeIsDisable = {setSendDisable}
                 />
             </> :
             <div className="report-details__default">

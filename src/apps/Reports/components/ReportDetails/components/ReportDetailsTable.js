@@ -87,7 +87,7 @@ class ReportDetailsTable extends React.Component {
             let { breeds, groups, countries } = this.props;
 
             breeds = breeds.map(item => ({ value: item.name, label: item.name }));
-            groups = groups.map(item => ({ value: item.name, label: item.name }));
+            groups = groups.map(item => ({ value: item.name, label: `Группа ${item.number} - ${item.name}` }));
             countries = countries.map(item => ({ value: item.short_name, label: item.short_name }));
 
             return judgeLoadReportColumns(
@@ -153,7 +153,7 @@ class ReportDetailsTable extends React.Component {
 
     onSubmit = () => {
         const { rows } = this.state;
-
+        this.props.btnSendChangeIsDisable(true);
         rows.forEach(row => {
             if (row.editing) delete row.editing;
         });
@@ -224,7 +224,7 @@ class ReportDetailsTable extends React.Component {
                 />
                 {!this.props.isSent &&
                     <>
-                        <button onClick={this.onSubmit}>Отправить отчёт</button>
+                        <button onClick={this.onSubmit} disabled={this.props.btnSendIsDisabled}>Отправить отчёт</button>
                         <button onClick={this.onAdd} className="ReportDetails__table--add">+ Добавить строку</button>
                     </>
                 }

@@ -25,7 +25,7 @@ const Filters = ({isOpenFilters, setFilters}) => {
 
     return (
         <Aside className={`clubs-page__left${isOpenFilters ? ' _open' : ''}`}>
-            <Card>
+            <Card className="card__filter">
                 <FederationsFilter/>
                 <IsActivatedFilter/>
                 <CitiesFilter/>

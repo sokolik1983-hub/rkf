@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
-import Container from "../../components/Layout/Container";
+import Container from "../../components/Layouts/Container";
 import TopBanner from "./components/TopBanner";
 import Advantages from "./components/Advantages";
 import NewsComponent from "../../components/NewsComponent";

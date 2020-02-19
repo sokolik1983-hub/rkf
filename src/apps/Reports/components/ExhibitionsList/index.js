@@ -6,7 +6,7 @@ import { useResourceAndStoreToRedux } from "shared/hooks";
 import { endpointReportsList } from '../../config';
 import { connectReportsList } from 'apps/Reports/connectors';
 import './styles.scss';
-import Container from "../../../../components/Layout/Container";
+import Container from "../../../../components/Layouts/Container";
 
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;
@@ -25,8 +25,6 @@ const ExhibitionsList = (props) => {
                 <ul className="ExhibitionsList">
                     {
                         reportsList
-                            .sort((a, b) => new Date(b.date) - new Date(a.date))
-                            .reverse()
                             .map((item) =>
                                 <li key={item.exhibition_id}>
                                     {

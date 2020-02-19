@@ -11,7 +11,6 @@ import injectReducer from "../../utils/injectReducer";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import './index.scss';
 
-
 const Clubs = ({isOpenFilters, setShowFilters}) => (
     <Layout withFilters>
         <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
