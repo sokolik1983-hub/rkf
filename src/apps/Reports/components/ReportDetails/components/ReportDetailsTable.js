@@ -153,7 +153,7 @@ class ReportDetailsTable extends React.Component {
 
     onSubmit = () => {
         const { rows } = this.state;
-
+        this.props.btnSendChangeIsDisable(true);
         rows.forEach(row => {
             if (row.editing) delete row.editing;
         });
@@ -224,7 +224,7 @@ class ReportDetailsTable extends React.Component {
                 />
                 {!this.props.isSent &&
                     <>
-                        <button onClick={this.onSubmit}>Отправить отчёт</button>
+                        <button onClick={this.onSubmit} disabled={this.props.btnSendIsDisabled}>Отправить отчёт</button>
                         <button onClick={this.onAdd} className="ReportDetails__table--add">+ Добавить строку</button>
                     </>
                 }
