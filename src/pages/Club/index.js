@@ -15,6 +15,8 @@ import {Request} from "../../utils/request";
 import {endpointGetClubInfo} from "./config";
 import {connectAuthVisible} from "../../apps/Auth/connectors";
 import "./index.scss";
+import MenuComponent from "../../components/MenuComponent";
+import {mainClub} from "../../appConfig";
 
 
 const ClubPage = ({match, profile_id, isAuthenticated}) => {
@@ -75,6 +77,12 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                             />
                         </div>
                         <Aside className="club-page__info">
+                            <MenuComponent alias="club" 
+                                name={mainClub.name}
+                                btnName={mainClub.btnName}
+                                btnHref={mainClub.btnHref}
+                                items={mainClub.children}>
+                            </MenuComponent>
                             <ClubInfo {...clubInfo} />
                         </Aside>
                     </div>

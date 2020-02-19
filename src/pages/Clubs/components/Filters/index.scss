@@ -2,7 +2,10 @@
   width: 302px;
   min-width: 302px;
   margin: 24px 24px 24px 0;
-  .Card {
+  .menu-component {
+    background-color: white;
+  }
+  .card__filter {
     background-color: #e1e9ff;
     @media (max-width: 990px) {
       border-radius: 0;
