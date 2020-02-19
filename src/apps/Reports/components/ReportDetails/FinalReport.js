@@ -126,7 +126,6 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             "report_header_id": reportHeader.id,
             "report_rows": reportRows
         };
-        if (reportRows.find(i => !i.certificates.length)) return alert('Не для всех выставок указан сертификат.\nУкажите хотя бы один сертификат для каждой строки!');
         if (!reportRows.length) return alert('Необходимо заполнить хотя бы одну строку отчёта!');
         (() => Request({
             url: endpointPutFinalReport,
