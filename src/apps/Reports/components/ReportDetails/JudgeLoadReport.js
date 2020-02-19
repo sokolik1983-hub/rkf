@@ -50,10 +50,11 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                         }) : [];
                         const group = row.fci_groups.length ? row.fci_groups.map(group => {
                             const name = groups.find(item => item.id === group).name;
+                            const label = `Группа ${groups.find(item => item.id === group).number} - ${name}`
 
                             return {
                                 value: name,
-                                label: name
+                                label: label
                             }
                         }) : [];
 
@@ -88,7 +89,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                         countries.find(item => item.short_name === row['judge-country']).id :
                     null;
                 const breedIds = row.breed.length ? row.breed.map(item => breeds.find(breed => breed.name === item.label).id) : [];
-                const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.label).id) : [];
+                const groupIds = row.group.length ? row.group.map(item => groups.find(group => group.name === item.value).id) : [];
 
                 return {
                     "judge": {

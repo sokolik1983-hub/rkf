@@ -87,7 +87,7 @@ class ReportDetailsTable extends React.Component {
             let { breeds, groups, countries } = this.props;
 
             breeds = breeds.map(item => ({ value: item.name, label: item.name }));
-            groups = groups.map(item => ({ value: item.name, label: item.name }));
+            groups = groups.map(item => ({ value: item.name, label: `Группа ${item.number} - ${item.name}` }));
             countries = countries.map(item => ({ value: item.short_name, label: item.short_name }));
 
             return judgeLoadReportColumns(
