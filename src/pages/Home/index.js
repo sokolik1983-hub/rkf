@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import {Link} from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -8,37 +9,12 @@ import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
+import ClubsMap from "../../components/ClubsMap";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
-import { connectNewsList } from './connectors';
-import { useResourceAndStoreToRedux } from 'shared/hooks';
-import { YMaps, Map, ObjectManager } from 'react-yandex-maps';
-import './index.scss';
+import { connectNewsList } from "./connectors";
+import {useResourceAndStoreToRedux} from "../../shared/hooks";
+import "./index.scss";
 
-const ClubsMap = () => {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        fetch('http://tables.rkf.org.ru/GetDogClubs.ashx')
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(err => { console.error(err) });
-    }, []);
-
-    return <YMaps>
-        <Map defaultState={{ center: [55.76, 37.64], zoom: 10 }} width="100%" height="100%">
-            <ObjectManager
-                options={{ clusterize: true, gridSize: 32, clusterDisableClickZoom: true, geoObjectOpenBalloonOnClick: true }}
-                objects={{ preset: 'islands#greenDotIcon'}}
-                clusters={{ preset: 'islands#greenClusterIcons' }}
-                defaultFeatures={data.features}
-                modules={[
-                    'objectManager.addon.objectsBalloon',
-                    'objectManager.addon.clustersBalloon',
-                    'objectManager.addon.objectsHint',
-                ]}
-            />
-        </Map>
-    </YMaps>
-};
 
 function getCity() {
     const l = localStorage.getItem('GLOBAL_CITY');
@@ -61,9 +37,9 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
             current_page: page,
             current_active_type: newsFilter.activeType
         });
-    }
-    const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), onSuccess);
+    };
 
+    const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), onSuccess);
 
     return (
         <Layout>
@@ -140,8 +116,9 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         </ul>
                     </HorizontalSwipe>
                 </div>
-
-                <h3 className="Homepage__map-header">Карта клубов</h3>
+                <Link className="Homepage__map-title" to="/clubs-map" target="_blank">
+                    <h3 className="Homepage__map-header">Карта клубов</h3>
+                </Link>
                 <div className="Homepage__map-wrap">
                     <ClubsMap />
                 </div>

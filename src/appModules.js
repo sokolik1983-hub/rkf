@@ -12,6 +12,11 @@ export const LoadableHomePage = Loadable({
     loading: Loading
 });
 
+export const LoadableMapPage = Loadable({
+    loader: () => import('./pages/Map'),
+    loading: Loading
+});
+
 export const LoadableAboutPage = Loadable({
     loader: () => import('./pages/About'),
     loading: Loading

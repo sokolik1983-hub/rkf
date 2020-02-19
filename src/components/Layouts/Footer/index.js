@@ -13,7 +13,7 @@ const Footer = () => (
                     <h3>Компания</h3>
                     <Link className="link" to="/about">О RKF.Online</Link>
                     <span>Новости</span>
-                    <span>Карта клубов</span>
+                    <Link className="link" to="/clubs-map" target="_blank">Карта клубов</Link>
                 </div>
                 <div className="Footer__exhibitions">
                     <h3>Мероприятия</h3>

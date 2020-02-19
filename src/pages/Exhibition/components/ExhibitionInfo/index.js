@@ -47,9 +47,6 @@ const ExhibitionInfo = ({city, dates, address, rank_types, breed_types, exhibiti
                 </table>
                 <ul className="exhibition-info__block-list">
                     <li className="exhibition-info__block-item">
-                        <a href="/" onClick={e => e.preventDefault()}>Расписание</a>
-                    </li>
-                    <li className="exhibition-info__block-item">
                         <a href="/" onClick={e => e.preventDefault()}>Судьи</a>
                     </li>
                     <li className="exhibition-info__block-item">
