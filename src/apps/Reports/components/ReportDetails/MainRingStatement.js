@@ -14,6 +14,7 @@ import {
 import { mainRingStatementColumns } from './components/config';
 import Loading from "../../../../components/Loading";
 import ls from 'local-storage';
+import { sortBy } from "../../../../utils";
 
 
 class MainRingTable extends React.Component {
@@ -39,6 +40,14 @@ class MainRingTable extends React.Component {
 
     componentDidUpdate() {
         if (this.props.rows.length && !this.state.updated) {
+            if(this.props.rows.length < 3){
+                for (let position = 1; position < 4; position++) {
+                    if(!this.props.rows.find(item => item.position === position)){
+                        this.props.rows.push({ arrangement_id: this.props.rows[0].arrangement_id, id: position, position: position, breed: '' });
+                    }
+                }
+                sortBy(this.props.rows, "position");
+            }
             this.setState({
                 rows: this.props.rows,
                 updated: true
