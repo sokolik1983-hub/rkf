@@ -8,8 +8,8 @@ const MenuComponent = ({alias, name, btnName, btnHref, items}) => (
     <Card className="menu-component">
         <h4 className="menu-component__title">{name}</h4>
         <ul className="menu-component__list">
-            {items.map(item => (
-                <li className="menu-component__item">
+            {items.map((item, index) => (
+                <li key={index} className="menu-component__item">
                 <a href={item.href} className="menu-component__link">{item.title}</a>
             </li>
             ))}
