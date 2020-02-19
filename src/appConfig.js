@@ -101,6 +101,52 @@ const appRoutes = [
     },
 ];
 
+const mainRKF = {
+    name: "МЕНЮ",
+    btnName: "Страница",
+    btnHref: "/",
+    children: [
+        {
+            id: 1,
+            title: "Мероприятия",
+            href: "/"
+        },
+        {
+            id: 2,
+            title: "Президиум",
+            href: "/" 
+        },
+        {
+            id: 3,
+            title: "Новости",
+            href: "/" 
+        }
+    ]
+}
+
+const mainClub = {
+    name: "МЕНЮ",
+    btnName: "Страница",
+    btnHref: "/",
+    children: [
+        {
+            id: 1,
+            title: "Мероприятия",
+            href: "/"
+        },
+        {
+            id: 2,
+            title: "Новости",
+            href: "/"
+        },
+        {
+            id: 3,
+            title: "Клейма",
+            href: "/"
+        }
+    ]
+}
+
 const mainNav = [
     {
         id: 1,
@@ -288,6 +334,8 @@ export {
     SERVER,
     appRoutes,
     mainNav,
+    mainRKF,
+    mainClub,
     DEFAULT_PHONE_INPUT_MASK,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
     DEFAULT_EMAIL_INPUT_PLACEHOLDER,

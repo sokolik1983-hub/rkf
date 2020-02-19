@@ -27,6 +27,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     ];
     const [rows, setRows] = useState(defaultRows);
     const [loaded, setLoaded] = useState(false);
+    const [sendDisabled, setSendDisable] = useState(false);
 
     useEffect(() => {
         if (ls.get(`final_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
@@ -126,16 +127,25 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             "report_header_id": reportHeader.id,
             "report_rows": reportRows
         };
-        if (!reportRows.length) return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+        if (reportRows.find(i => !i.certificates.length)) {
+            setSendDisable(false);
+            return alert('Не для всех выставок указан сертификат.\nУкажите хотя бы один сертификат для каждой строки!');
+        }
+        if (!reportRows.length) {
+            setSendDisable(false);
+            return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+        }
         (() => Request({
             url: endpointPutFinalReport,
             method: 'PUT',
             data: JSON.stringify(dataToSend)
         }, data => {
+            setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
             ls.remove(`final_report_${reportHeader.id}`); // Clear local storage cache
             getHeader();
         }, error => {
+            setSendDisable(false);
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
         })
         )();
@@ -162,6 +172,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                     rankType={reportHeader.rank_id}
                     onSubmit={onSubmit}
                     isSent={reportHeader.total_report_is_sent}
+                    btnSendIsDisabled = {sendDisabled}
+                    btnSendChangeIsDisable = {setSendDisable}
                 />
             </> :
             <div className="report-details__default">
