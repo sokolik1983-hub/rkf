@@ -1,26 +1,23 @@
 import React from "react";
-import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
-import {
-    getLocalizedWeekDay,
-    transformDateSafariFriendly,
-    timeSecondsCutter
-} from "../../../../utils/datetime";
-import CountDown from 'components/CountDown';
-import Card from 'components/Card';
-import './index.scss';
+import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
+import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
+import CountDown from "../../../../components/CountDown";
+import {DEFAULT_IMG} from "../../../../appConfig";
+import "./index.scss";
 
 
-const ExhibitionInfo = ({ city, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link }) => {
-    const { dictionary: rankDictionary } = useDictionary('rank_type');
-    const { dictionary: breedDictionary } = useDictionary('breed_types');
+const ExhibitionInfo = ({city, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link}) => {
+    const {dictionary: rankDictionary} = useDictionary('rank_type');
+    const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
-    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : '/static/images/exhibitions/default.png';
+    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
 
     return (
         <div className="exhibition-info">
             <div className="exhibition-info__right">
+                <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                 {dates &&
                     <>
                         <div className="exhibition-info__dates">
@@ -46,26 +43,59 @@ const ExhibitionInfo = ({ city, dates, address, rank_types, breed_types, exhibit
                             <td>Породы:</td>
                             <td>{breedTypes.join(', ')}</td>
                         </tr>}
-
-                        <tr>
-                            <td colspan="2">
-                                <Card className="exhibition-info__block">
-                                    <h4>Информация о мероприятии</h4>
-                                    <a href="/">Расписание</a> <br />
-                                    <a href="/">Судьи</a> <br />
-                                    <a href="/">Другие мероприятия организатора</a> <br />
-                                    <a href="/">Платные услуги</a> <br />
-                                    <div className="exhibition-info__block-countdown">
-                                        <CountDown />
-                                        <div className="exhibition-info__block-button">
-                                            <button className="btn btn-simple">Принять участие</button>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
+                <ul className="exhibition-info__block-list">
+                    <li className="exhibition-info__block-item">
+                        <a href="/" onClick={e => e.preventDefault()}>Расписание</a>
+                    </li>
+                    <li className="exhibition-info__block-item">
+                        <a href="/" onClick={e => e.preventDefault()}>Судьи</a>
+                    </li>
+                    <li className="exhibition-info__block-item">
+                        <a href="/" onClick={e => e.preventDefault()}>Другие мероприятия организатора</a>
+                    </li>
+                    <li className="exhibition-info__block-item">
+                        <a href="/" onClick={e => e.preventDefault()}>Платные услуги</a>
+                    </li>
+                </ul>
+                {dates && !!dates.length &&
+                    <CountDown
+                        startDate={
+                            new Date(
+                                dates[0].year,
+                                dates[0].month - 1,
+                                dates[0].day,
+                                timeStart ? timeStart.slice(0, 2) : 0,
+                                timeStart ? timeStart.slice(3, 5) : 0
+                            ).toISOString()
+                        }
+                        endDate={dates.length > 1 ?
+                            new Date(
+                                dates[dates.length - 1].year,
+                                dates[dates.length - 1].month - 1,
+                                dates[dates.length - 1].day,
+                                dates[dates.length - 1].time_end ? dates[dates.length - 1].time_end.slice(0, 2) : 24,
+                                dates[dates.length - 1].time_end ? dates[dates.length - 1].time_end.slice(3, 5) : 0
+                            ).toISOString() :
+                            dates[0].time_end ?
+                                new Date(
+                                    dates[0].year,
+                                    dates[0].month - 1,
+                                    dates[0].day,
+                                    dates[0].time_end.slice(0, 2),
+                                    dates[0].time_end.slice(3, 5)
+                                ).toISOString() :
+                                new Date(
+                                    dates[0].year,
+                                    dates[0].month - 1,
+                                    dates[0].day,
+                                    24,
+                                    0
+                                ).toISOString()
+                        }
+                    />
+                }
             </div>
             <div className="exhibition-info__left">
                 <img src={avatarLink} alt="" className="exhibition-info__img" />

@@ -40,6 +40,23 @@ export const setOverflow = (isOpen) => {
     }
 };
 
+export const calculateCountDown = date => {
+    const now = new Date();
+    const countDownDate = new Date(date);
+    const totalSeconds = (countDownDate - now) / 1000;
+    const secondsInDay = 60 * 60 * 24;
+    const secondsInHour = 60 * 60;
+    const secondsInMinute = 60;
+    const daysLeft = parseInt(totalSeconds / secondsInDay, 10);
+    const hoursLeft = parseInt((totalSeconds - (daysLeft * secondsInDay)) / secondsInHour, 10);
+    const minutesLeft = parseInt((totalSeconds - (daysLeft * secondsInDay) - (hoursLeft * secondsInHour)) / secondsInMinute, 10) + 1;
+    return {
+        days: daysLeft > 0 ? daysLeft : 0,
+        hours: hoursLeft > 0 ? hoursLeft : 0,
+        minutes: minutesLeft > 0 ? minutesLeft : 0,
+    }
+};
+
 export const makeActionCreator = (type, ...argNames) => {
     return function (...args) {
         let action = {type};

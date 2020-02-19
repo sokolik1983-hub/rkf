@@ -52,7 +52,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     </Link>
                                 </p>
                             </div>
-                            {canEdit && <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>}
+                            {canEdit ?
+                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link> :
+                                <button className="btn btn-simple">Принять участие</button>
+                            }
                         </div>
                         <ExhibitionInfo city={city} {...exhibition} />
                         <div className="exhibition-page__payment">

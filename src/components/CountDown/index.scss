@@ -1,0 +1,56 @@
+.countdown {
+  margin-bottom: 24px;
+  &__title,
+  &__over {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 16px;
+  }
+  &__timer {
+    display: flex;
+    padding-bottom: 28px;
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3366ff;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      position: relative;
+      min-width: 53px;
+      min-height: 53px;
+      box-shadow: 0 8px 15px rgba(29, 110, 227, 0.2);
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+        &:before {
+          display: none;
+        }
+      }
+      &:before {
+        position: absolute;
+        content: ":";
+        right: -20px;
+      }
+      &:after {
+        position: absolute;
+        bottom: -28px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        content: "Минута";
+      }
+      &._days:after {content: "День"}
+      &._days2:after {content: "Дня"}
+      &._days3:after {content: "Дней"}
+      &._hours:after {content: "Час"}
+      &._hours2:after {content: "Часа"}
+      &._hours3:after {content: "Часов"}
+      &._minutes:after {content: "Минута"}
+      &._minutes2:after {content: "Минуты"}
+      &._minutes3:after {content: "Минут"}
+    }
+  }
+}
