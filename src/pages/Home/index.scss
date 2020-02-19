@@ -130,6 +130,9 @@
   &__exhibitions,
   &__map {
     list-style: none;
+    &-title {
+      text-decoration: none;
+    }
     &-header {
       padding: 40px 0 32px 0;
       font-weight: bold;

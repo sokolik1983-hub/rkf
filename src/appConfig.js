@@ -16,6 +16,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/clubs-map',
+        component: LoadableModules.LoadableMapPage
+    },
+    {
+        exact: true,
         path: '/about',
         component: LoadableModules.LoadableAboutPage
     },
@@ -122,7 +127,7 @@ const mainRKF = {
             href: "/" 
         }
     ]
-}
+};
 
 const mainClub = {
     name: "МЕНЮ",
@@ -145,7 +150,7 @@ const mainClub = {
             href: "/"
         }
     ]
-}
+};
 
 const mainNav = [
     {
