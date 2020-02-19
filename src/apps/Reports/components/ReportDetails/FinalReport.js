@@ -71,7 +71,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                         return item;
                     });
 
-                    setRows(rows);
+                    setRows(rows.sort((a, b) => a['catalog-number'] - b['catalog-number']));
                 }
             }))();
         }
@@ -168,8 +168,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                     rankType={reportHeader.rank_id}
                     onSubmit={onSubmit}
                     isSent={reportHeader.total_report_is_sent}
-                    btnSendIsDisabled = {sendDisabled}
-                    btnSendChangeIsDisable = {setSendDisable}
+                    btnSendIsDisabled={sendDisabled}
+                    btnSendChangeIsDisable={setSendDisable}
                 />
             </> :
             <div className="report-details__default">
