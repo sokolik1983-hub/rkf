@@ -12,6 +12,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     const [invoiceUrl, setInvoiceUrl] = useState(null);
     const [extraDocs, setExtraDocs] = useState(null);
     const [showButton, setShowButton] = useState(!!catalog);
+    const [sendDisabled, setSendDisable] = useState(false);
 
     const getDocumentUrl = async (endpoint) => {
         const response = await fetch(`${endpoint}?id=${reportHeader.id}`, {
@@ -108,9 +109,9 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             data: catalogData,
             isMultipart: true
         }, data => {
-            setShowButton(false);
             submitInvoice();
         }, error => {
+            setSendDisable(false);
             console.log(error);
             alert('Каталог выставки не был отправлен.')
         });
@@ -129,11 +130,13 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             if (extraDocs.length && extraDocs[0].name) {
                 submitExtraDocs();
             } else {
+                setSendDisable(false);
                 alert('Документы отправлены успешно!');
             }
             setShowButton(false);
             getHeader();
         }, error => {
+            setSendDisable(false);
             console.log(error);
             alert('Квитанция об оплате не была отправлена.');
         });
@@ -155,17 +158,20 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 },
                     data => {
                         if (count === extraDocs.length) {
+                            setSendDisable(false);
                             alert('Документы отправлены успешно!');
                             setShowButton(false);
                             if (!catalog && !invoice) getHeader();
                         }
                     },
                     error => {
+                        setSendDisable(false);
                         console.log(error);
                         alert('Произошла ошибка при отправке дополнительного документа');
                     });
             } else {
                 if (count === extraDocs.length) {
+                    setSendDisable(false);
                     alert('Документы отправлены успешно!'); // No extraDocs were attached
                 }
             }
@@ -173,6 +179,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     };
 
     const onSubmit = () => {
+        setSendDisable(true);
         if (catalog) {
             submitCatalog();
         } else {
@@ -180,7 +187,6 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 ? submitInvoice()
                 : extraDocs.length && extraDocs[0].name && submitExtraDocs();
         }
-
         // Clear local storage
         ls.remove(`judge_load_report_${reportHeader.id}`);
         ls.remove(`final_report_${reportHeader.id}`);
@@ -273,7 +279,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                         : <p>Дополнительные документы уже были приняты</p>
                 }
             </div>
-            {showButton && <button onClick={onSubmit}>Отправить</button>}
+            {showButton && <button onClick={onSubmit} disabled={sendDisabled}>Отправить</button>}
         </>
     );
 };
