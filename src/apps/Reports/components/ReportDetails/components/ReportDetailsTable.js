@@ -37,7 +37,7 @@ class ReportDetailsTable extends React.Component {
 
     getColumns = async () => {
         const editable = edit.edit({
-            isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+            isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing && !this.props.isSent,
             onActivate: ({ columnIndex, rowData }) => {
                 const index = findIndex(this.state.rows, { id: rowData.id });
                 const rows = clone(this.state.rows);
@@ -116,7 +116,7 @@ class ReportDetailsTable extends React.Component {
     onAdd = () => {
         const rows = clone(this.state.rows);
         let newRow = {};
-        newRow.id = rows.length ? rows.concat().sort((a, b) => a['id'] - b['id'])[rows.length - 1].id + 1 : 1;
+        newRow.id = rows.length ? rows[rows.length - 1].id + 1 : 1;
         const copyRow = prop => rows.length ? rows[rows.length - 1][prop] : '';
 
         if (this.props.content === 'judge-load-report') {

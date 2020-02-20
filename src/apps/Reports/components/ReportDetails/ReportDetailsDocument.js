@@ -220,7 +220,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     {!reportHeader.doc_catalog_accept ?
                         <>
                             {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
-                            <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                            <input type="file" accept=".pdf" disabled={reportHeader.doc_catalog_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
                                 if (!reportHeader.doc_catalog_is_sent && (invoice || reportHeader.doc_payment_is_sent)) setShowButton(true);
                             }} />
@@ -235,7 +235,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     {!reportHeader.doc_payment_accept ?
                         <>
                             {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
-                            <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                            <input type="file" accept=".pdf" disabled={reportHeader.doc_payment_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
                                 if (!reportHeader.doc_payment_is_sent && (catalog || reportHeader.doc_catalog_is_sent)) setShowButton(true);
                             }} />
@@ -264,7 +264,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                 ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
                                                 : <>
                                                     {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
-                                                    <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                                    <input type="file" disabled={reportHeader.doc_additional_is_sent} accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                         updateExtraDoc(d.id, e.target.files[0]);
                                                         if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
                                                     }} />
