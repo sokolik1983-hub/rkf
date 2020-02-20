@@ -15,6 +15,23 @@
   &__button {
     margin-bottom: 10px;
   }
+  &__twrap {
+    position: relative;
+  }
+  &__twrap>div {
+    overflow-x: auto;
+    position: relative;
+  }
+  &__twrap::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1rem;
+    height: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    content: ' ';
+  }
   &__table {
     tfoot {
       border-top: 1px solid #cbcbcb;
@@ -121,6 +138,8 @@
   }
   .pure-table {
     margin: 10px 0;
+    margin-right: 1rem;
+    display: inline-block;
   }
   .disabled-link {
     margin: 0 5px;

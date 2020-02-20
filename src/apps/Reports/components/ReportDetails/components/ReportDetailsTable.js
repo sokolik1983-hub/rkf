@@ -205,17 +205,21 @@ class ReportDetailsTable extends React.Component {
                     onColumnChange={this.onColumnChange}
                     onSearch={this.onSearch}
                 />
+                
+                <div className="ReportDetails__twrap">
+                    <div>
+                        <Table.Provider
+                            className="ReportDetails__table pure-table pure-table-striped"
+                            columns={resolvedCols}
+                        >
+                            <Table.Header headerRows={resolve.headerRows({ columns: cols })} />
 
-                <Table.Provider
-                    className="ReportDetails__table pure-table pure-table-striped"
-                    columns={resolvedCols}
-                >
-                    <Table.Header headerRows={resolve.headerRows({ columns: cols })} />
+                            <Table.Body rows={paginated.rows} rowKey="id" />
 
-                    <Table.Body rows={paginated.rows} rowKey="id" />
-
-                    <CustomFooter columns={resolvedCols} rows={rows} />
-                </Table.Provider>
+                            <CustomFooter columns={resolvedCols} rows={rows} />
+                        </Table.Provider>
+                    </div>
+                </div>
 
                 <Paginator
                     pagination={pagination}
