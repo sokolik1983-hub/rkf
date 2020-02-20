@@ -132,9 +132,9 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             } else {
                 setSendDisable(false);
                 alert('Документы отправлены успешно!');
+                getHeader();
             }
             setShowButton(false);
-            getHeader();
         }, error => {
             setSendDisable(false);
             console.log(error);
@@ -142,40 +142,40 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         });
     };
 
-    const submitExtraDocs = () => {
+    const submitExtraDocs = async () => {
         let count = 0;
-        extraDocs.forEach(d => {
+        const handleSubmit = async (document) => {
             ++count;
-            if (d.name && typeof (d.name) === 'object') {
+            if (document.name && typeof (document.name) === 'object') {
                 const data = new FormData();
                 data.append('header_id', reportHeader.id);
-                data.append('file', d.name);
-                Request({
+                data.append('file', document.name);
+                await Request({
                     url: endpointExtraDoc,
                     method: 'POST',
                     data: data,
                     isMultipart: true
-                },
-                    data => {
-                        if (count === extraDocs.length) {
-                            setSendDisable(false);
-                            alert('Документы отправлены успешно!');
-                            setShowButton(false);
-                            if (!catalog && !invoice) getHeader();
-                        }
-                    },
-                    error => {
+                }, () => {
+                    if (count === extraDocs.length) {
                         setSendDisable(false);
-                        console.log(error);
-                        alert('Произошла ошибка при отправке дополнительного документа');
-                    });
+                        alert('Документы отправлены успешно!');
+                        setShowButton(false);
+                        getHeader();
+                    }
+                }, error => {
+                    setSendDisable(false);
+                    console.log(error);
+                    alert('Произошла ошибка при отправке дополнительного документа');
+                });
             } else {
                 if (count === extraDocs.length) {
                     setSendDisable(false);
                     alert('Документы отправлены успешно!'); // No extraDocs were attached
+                    getHeader();
                 }
             }
-        });
+        };
+        for (let document of extraDocs) await handleSubmit(document);
     };
 
     const onSubmit = () => {
