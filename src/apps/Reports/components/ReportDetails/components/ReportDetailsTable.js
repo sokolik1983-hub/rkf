@@ -80,7 +80,8 @@ class ReportDetailsTable extends React.Component {
                 breeds,
                 castes,
                 grades,
-                rankType
+                rankType,
+                this.props.isSent
             );
         }
         if (this.props.content === 'judge-load-report') {
@@ -97,7 +98,8 @@ class ReportDetailsTable extends React.Component {
                 editable,
                 breeds,
                 groups,
-                countries
+                countries,
+                this.props.isSent
             );
         }
     };

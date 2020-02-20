@@ -34,7 +34,7 @@ const inputFF = ({ props } = {}) => { // Firefox onBlur fix
     return Input;
 };
 
-export const finalReportColumns = async (onRemove, sortingColumns, sortable, editable, breeds, castes, grades, rankType) => {
+export const finalReportColumns = async (onRemove, sortingColumns, sortable, editable, breeds, castes, grades, rankType, isSend) => {
     let cols = null;
     const options = { url: `${endpointCertificatesList}?id=${rankType}` };
 
@@ -263,26 +263,27 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
                 }
             }
         });
-
-        cols.push({
-            props: {
-                style: {
-                    width: 50
+        if(!isSend){
+            cols.push({
+                props: {
+                    style: {
+                        width: 50
+                    }
+                },
+                cell: {
+                    formatters: [
+                        (value, { rowData }) => (
+                            <span
+                                className="remove"
+                                onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
+                            >
+                                &#10007;
+                        </span>
+                        )
+                    ]
                 }
-            },
-            cell: {
-                formatters: [
-                    (value, { rowData }) => (
-                        <span
-                            className="remove"
-                            onClick={() => onRemove(rowData.id)} style={{ cursor: 'pointer' }}
-                        >
-                            &#10007;
-                    </span>
-                    )
-                ]
-            }
-        });
+            });
+        }
     };
 
     await Request(options, buildColumns);
@@ -290,7 +291,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
     return cols;
 };
 
-export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, editable, breeds, groups, countries) => {
+export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, editable, breeds, groups, countries, isSend) => {
     let cols = [
         {
             header: {
@@ -376,8 +377,9 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
             header: {
                 label: 'Группа FCI'
             }
-        },
-        {
+        }];
+    if(!isSend){
+        cols.push({
             cell: {
                 formatters: [
                     (value, { rowData }) => (
@@ -391,13 +393,12 @@ export const judgeLoadReportColumns = (onRemove, sortingColumns, sortable, edita
                 ]
             },
             props: {
-                style: {
+                    style: {
                     width: 50
                 }
             }
-        }
-    ];
-
+        })
+    };
     cols.map(col => {
         if (!col.property && col.children) {
             col.children.forEach(child => {
