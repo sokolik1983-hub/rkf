@@ -1,5 +1,4 @@
 .ReportDetails {
-  overflow-x: auto;
   &__nav {
     margin-bottom: 24px;
     a {
@@ -17,10 +16,10 @@
   }
   &__twrap {
     position: relative;
+    overflow-y: visible;
   }
   &__twrap>div {
     overflow-x: auto;
-    position: relative;
   }
   &__twrap::after {
     position: absolute;
