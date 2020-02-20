@@ -57,7 +57,7 @@ class MainRingTable extends React.Component {
 
     getColumns = () => {
         const editable = edit.edit({
-            isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+            isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing && this.props.isEditing,
             onActivate: ({ columnIndex, rowData }) => {
                 const index = findIndex(this.state.rows, { id: rowData.id });
                 const rows = cloneDeep(this.state.rows);
@@ -107,12 +107,12 @@ class MainRingTable extends React.Component {
     }
 };
 
-const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows, breeds }) => {
+const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows, breeds, isEditing }) => {
     return (
         <tr>
             <td style={{ textAlign: 'center' }}>{arrangementName}</td>
             <td colSpan="5" className="table-holder">
-                <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} />
+                <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} isEditing={isEditing}/>
             </td>
         </tr>
     )
@@ -271,6 +271,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                                     rows={getFilteredRows(item.id)}
                                     updateRows={updateRows}
                                     breeds={breeds}
+                                    isEditing={!reportHeader.statement_main_ring_is_sent}
                                 />
                             })
                         }
