@@ -45,7 +45,8 @@ const calendar = ({ props } = {}) => {
         React.useEffect(() => {
             const rect = ref.current && ref.current.getBoundingClientRect();
             if (rect && wref.current) {
-                wref.current.dayPicker.setAttribute('style', `display: block; top: ${rect.top}px; left: ${rect.left}px`);
+                let el = wref.current.dayPicker;
+                el.setAttribute('style', `display: block; top: ${rect.top}px; left: ${rect.left}px`);
             }
         })
         return (<div ref={ref} className="Calendar__dom-anchor">{createPortal(widget, document.querySelector('body'))}</div>)

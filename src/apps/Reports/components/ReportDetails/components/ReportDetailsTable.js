@@ -163,6 +163,14 @@ class ReportDetailsTable extends React.Component {
         this.props.onSubmit(rows);
     };
 
+    scrollEl = null;
+
+    scrollRef = el => {
+        this.scrollEl = el;
+    }
+
+    onScroll = () => this.scrollEl && this.scrollEl.focus()
+
     render() {
         const { cols, rows, sortingColumns, pagination, query, searchColumn } = this.state;
 
@@ -209,7 +217,7 @@ class ReportDetailsTable extends React.Component {
                 />
                 
                 <div className="ReportDetails__twrap">
-                    <div>
+                    <div ref={this.scrollRef} onScroll={this.onScroll} tabIndex="0">
                         <Table.Provider
                             className="ReportDetails__table pure-table pure-table-striped"
                             columns={resolvedCols}
