@@ -18,6 +18,7 @@ const multiSelect = ({options, property, isMulti = false} = {}) => {
                 onChange={onValue}
                 className="basic-multi-select"
                 classNamePrefix="select"
+                menuPortalTarget={document.querySelector('body')}
             />
     );
 

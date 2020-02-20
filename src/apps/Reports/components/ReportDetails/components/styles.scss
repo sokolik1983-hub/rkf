@@ -1,5 +1,4 @@
 .ReportDetails {
-  overflow-x: auto;
   &__nav {
     margin-bottom: 24px;
     a {
@@ -14,6 +13,24 @@
   }
   &__button {
     margin-bottom: 10px;
+  }
+  &__twrap {
+    position: relative;
+    overflow-y: visible;
+  }
+  &__twrap>div {
+    overflow-x: auto;
+  }
+  &__twrap::after {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    right: 0;
+    width: 1rem;
+    height: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    content: ' ';
   }
   &__table {
     tfoot {
@@ -66,17 +83,6 @@
         select {
           margin: -1px;
         }
-        .DayPicker {
-          position: absolute;
-          top: 0.4em;
-          left: 0.4em;
-          padding: 5px;
-          background: white;
-          z-index: 1;
-          box-shadow: 0 0 10px gray;
-          border-radius: 5px;
-          margin-bottom: 20px;
-        }
         &:empty {
           &::before {
             content: "";
@@ -121,6 +127,8 @@
   }
   .pure-table {
     margin: 10px 0;
+    margin-right: 1rem;
+    display: inline-block;
   }
   .disabled-link {
     margin: 0 5px;

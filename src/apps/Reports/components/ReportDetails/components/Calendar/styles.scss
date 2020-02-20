@@ -5,6 +5,19 @@
     outline: none;
   }
 }
+.DayPicker {
+    display: none;
+    position: absolute;
+    top: 0.4em;
+    left: 0.4em;
+    padding: 5px;
+    background: white;
+    z-index: 1;
+    box-shadow: 0 0 10px gray;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 .DayPicker-wrapper {
   position: relative;
   user-select: none;
