@@ -127,7 +127,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             data: invoiceData,
             isMultipart: true
         }, data => {
-            if (extraDocs.length && extraDocs[0].name) {
+            if (extraDocs && extraDocs.length && extraDocs[0].name) {
                 submitExtraDocs();
             } else {
                 setSendDisable(false);

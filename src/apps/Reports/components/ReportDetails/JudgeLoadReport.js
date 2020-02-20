@@ -16,7 +16,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [groups, setGroups] = useState(null);
     const [countries, setCountries] = useState(null);
-    const loading = !breeds || !groups || !countries;
+    const [loading, setLoading] = useState(true);
     const defaultRows = [{ id: 1, 'judge-country': '', breed: [], group: [] }];
     const [rows, setRows] = useState(defaultRows);
     const [loaded, setLoaded] = useState(false);
@@ -78,9 +78,11 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                 }
             }))();
         }
+        if (breeds && groups && countries) setLoading(false);
     }, [breeds, groups, countries]);
 
     const onSubmit = (rows) => {
+        setLoading(true);
         const reportRows = rows
             .filter(f => Object.keys(f).length >= 5) // Filter blank lines
             .map(row => {
@@ -149,8 +151,8 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
                     groups={groups}
                     onSubmit={onSubmit}
                     isSent={reportHeader.judges_workload_is_sent}
-                    btnSendIsDisabled = {sendDisabled}
-                    btnSendChangeIsDisable = {setSendDisable}
+                    btnSendIsDisabled={sendDisabled}
+                    btnSendChangeIsDisable={setSendDisable}
                 />
             </> :
             <div className="report-details__default">

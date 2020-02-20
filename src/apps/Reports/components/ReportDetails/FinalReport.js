@@ -16,7 +16,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     const [breeds, setBreeds] = useState(null);
     const [castes, setCastes] = useState(null);
     const [grades, setGrades] = useState(null);
-    const loading = !breeds || !castes || !grades;
+    const [loading, setLoading] = useState(true);
     const exhibitionDate = new Date(reportHeader.exhibition_date).toLocaleDateString();
     const defaultRows = [
         { id: 1, breed: '', class: '', score: '', date: exhibitionDate },
@@ -75,9 +75,11 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                 }
             }))();
         }
+        if (breeds && castes && grades) setLoading(false);
     }, [breeds, castes, grades]);
 
     const onSubmit = (rows) => {
+        setLoading(true);
         const reportRows = rows
             .filter(f => Object.keys(f).length >= 8) // Filter blank lines
             .map(row => {
