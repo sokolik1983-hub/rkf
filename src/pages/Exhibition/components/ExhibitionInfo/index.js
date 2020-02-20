@@ -6,7 +6,7 @@ import {DEFAULT_IMG} from "../../../../appConfig";
 import "./index.scss";
 
 
-const ExhibitionInfo = ({city, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link}) => {
+const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link}) => {
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
@@ -57,41 +57,7 @@ const ExhibitionInfo = ({city, dates, address, rank_types, breed_types, exhibiti
                     </li>
                 </ul>
                 {dates && !!dates.length &&
-                    <CountDown
-                        startDate={
-                            new Date(
-                                dates[0].year,
-                                dates[0].month - 1,
-                                dates[0].day,
-                                timeStart ? timeStart.slice(0, 2) : 0,
-                                timeStart ? timeStart.slice(3, 5) : 0
-                            ).toISOString()
-                        }
-                        endDate={dates.length > 1 ?
-                            new Date(
-                                dates[dates.length - 1].year,
-                                dates[dates.length - 1].month - 1,
-                                dates[dates.length - 1].day,
-                                dates[dates.length - 1].time_end ? dates[dates.length - 1].time_end.slice(0, 2) : 24,
-                                dates[dates.length - 1].time_end ? dates[dates.length - 1].time_end.slice(3, 5) : 0
-                            ).toISOString() :
-                            dates[0].time_end ?
-                                new Date(
-                                    dates[0].year,
-                                    dates[0].month - 1,
-                                    dates[0].day,
-                                    dates[0].time_end.slice(0, 2),
-                                    dates[0].time_end.slice(3, 5)
-                                ).toISOString() :
-                                new Date(
-                                    dates[0].year,
-                                    dates[0].month - 1,
-                                    dates[0].day,
-                                    24,
-                                    0
-                                ).toISOString()
-                        }
-                    />
+                    <CountDown startDate={dateStart} endDate={dateEnd}/>
                 }
             </div>
             <div className="exhibition-info__left">

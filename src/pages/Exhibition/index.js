@@ -21,6 +21,38 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const { dictionary } = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
+    const dateStart = exhibition && exhibition.dates && exhibition.dates.length ?
+        new Date(
+            exhibition.dates[0].year,
+            exhibition.dates[0].month - 1,
+            exhibition.dates[0].day,
+            exhibition.dates[0].time_start ? exhibition.dates[0].time_start.slice(0, 2) : 0,
+            exhibition.dates[0].time_start ? exhibition.dates[0].time_start.slice(3, 5) : 0
+        ).toISOString() : null;
+    const dateEnd = exhibition && exhibition.dates && exhibition.dates.length ?
+        exhibition.dates.length > 1 ?
+            new Date(
+                exhibition.dates[exhibition.dates.length - 1].year,
+                exhibition.dates[exhibition.dates.length - 1].month - 1,
+                exhibition.dates[exhibition.dates.length - 1].day,
+                exhibition.dates[exhibition.dates.length - 1].time_end ? exhibition.dates[exhibition.dates.length - 1].time_end.slice(0, 2) : 24,
+                exhibition.dates[exhibition.dates.length - 1].time_end ? exhibition.dates[exhibition.dates.length - 1].time_end.slice(3, 5) : 0
+            ).toISOString() :
+            exhibition.dates[0].time_end ?
+                new Date(
+                    exhibition.dates[0].year,
+                    exhibition.dates[0].month - 1,
+                    exhibition.dates[0].day,
+                    exhibition.dates[0].time_end.slice(0, 2),
+                    exhibition.dates[0].time_end.slice(3, 5)
+                ).toISOString() :
+                new Date(
+                    exhibition.dates[0].year,
+                    exhibition.dates[0].month - 1,
+                    exhibition.dates[0].day,
+                    24,
+                    0
+                ).toISOString() : null;
 
     useEffect(() => {
         (() => Request({
@@ -54,10 +86,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </div>
                             {canEdit ?
                                 <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link> :
-                                <button className="btn btn-simple">Принять участие</button>
+                                Date.now() < +new Date(dateStart) && <button className="btn btn-simple">Принять участие</button>
                             }
                         </div>
-                        <ExhibitionInfo city={city} {...exhibition} />
+                        <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
                         <div className="exhibition-page__payment">
                             <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
                             <p>
