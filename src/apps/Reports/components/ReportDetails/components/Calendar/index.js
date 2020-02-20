@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from 'react-dom';
 import DayPicker from 'react-day-picker';
 import OutsideClickHandler from "react-outside-click-handler";
 import YearMonthForm from './YearMonthForm';
@@ -16,7 +17,7 @@ const calendar = ({ props } = {}) => {
             onValue(day);
         };
 
-        return (
+        const widget = (
             <OutsideClickHandler onOutsideClick={() => onValue(date)}>
                 <DayPicker
                     locale="ru"
@@ -39,6 +40,7 @@ const calendar = ({ props } = {}) => {
                 />
             </OutsideClickHandler>
         )
+        return createPortal(widget, document.querySelector('body'))
     };
 
     return Calendar;
