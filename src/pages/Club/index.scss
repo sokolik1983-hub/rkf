@@ -1,4 +1,19 @@
 .club-page {
+  .menu-component{
+    padding: 14px 16px 16px;
+    h4{
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    
+    &__title{
+      margin-bottom: 8px;
+    }
+  }
   word-break: break-word;
   &__content-wrap {
     display: flex;

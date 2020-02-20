@@ -14,23 +14,25 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
-  a {
-    border: none;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  p {
-    &:not(:first-child) {
-      margin-top: 6px;
-    }
-    span {
-      &:first-child {
-        font-weight: 400;
+  .club-page__info-wrap{
+    a {
+      border: none;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
       }
-      &:last-child {
-        color: #61797c;
+    }
+    p {
+      &:not(:first-child) {
+        margin-top: 6px;
+      }
+      span {
+        &:first-child {
+          font-weight: 400;
+        }
+        &:last-child {
+          color: #61797c;
+        }
       }
     }
   }

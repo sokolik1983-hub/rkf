@@ -1,5 +1,4 @@
 .HomepageSlider {
-  height: 548px;
   max-height: 548px;
   padding: 70px 16px 0;
   background: #eaf0fe;
@@ -10,11 +9,10 @@
     margin-bottom: 24px;
   }
   @media (max-width: 560px) {
-    height: 200px;
     margin-bottom: 16px;
     background: none;
   }
-  @media(min-width: 1200px){
+  @media (min-width: 1200px){
     height: 548px;
   }
   .slick-slider {
@@ -27,7 +25,6 @@
     line-height: 1;
     @media (max-width: 560px) {
       bottom: 12px;
-      text-align: left;
       padding-left: 20px;
       button {
         padding: 0;
