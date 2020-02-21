@@ -34,7 +34,7 @@ const ExhibitionsSlider = () => {
 
     return (
         <Container className="ExhibitionsSlider content">
-            <h3 className="ExhibitionsSlider__title">Выставки</h3>
+            <h3 className="ExhibitionsSlider__title"><Link className="link" to="/exhibitions">Выставки</Link></h3>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
