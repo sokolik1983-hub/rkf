@@ -3,7 +3,7 @@ import Loading from './components/Loading';
 
 
 export const LoadableReports = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './pages/Reports'),
+    loader: () => import('./pages/Reports'),
     loading: Loading,
 });
 
@@ -39,7 +39,7 @@ export const LoadableFederationsPage = Loadable({
 
 export const LoadableExhibitions = Loadable({
     loader: () => import('./pages/Exhibitions'),
-    loading: Loading
+    loading: () => null
 });
 
 export const LoadableExhibition = Loadable({
