@@ -54,15 +54,15 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
     scrollToTop && scrollSmoothTop();
 
     const pages = {
-        prevPage: currentPage - 2 === 0 ? null : currentPage - 1,
+        prevPage: currentPage - 1 === 0 ? null : currentPage - 1,
         currentPage,
-        nextPage: currentPage + 2 > pagesCount ? null : currentPage + 1
+        nextPage: currentPage + 1 > pagesCount ? null : currentPage + 1
     };
 
     return pagesCount > 1 &&
         <div className="Paginator">
             {!!pages.prevPage && <ButtonPrev onClick={() => setPage(pages.prevPage)}>Назад</ButtonPrev>}
-            {currentPage!==1 &&
+            {currentPage >= 3 &&
                 <PageButton
                     onClick={(page) => setPage(page)}
                     currentPage={currentPage}
@@ -89,7 +89,7 @@ const Paginator = ({ pagesCount, currentPage, setPage, scrollToTop = true }) => 
                     <p>...</p> 
                 </div>
             }
-            {currentPage!==pagesCount &&
+            {(pagesCount!==currentPage && pagesCount-currentPage>1) &&
                 <PageButton
                     onClick={(page) => setPage(page)}
                     currentPage={currentPage}
