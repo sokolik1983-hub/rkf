@@ -4,8 +4,7 @@ import { Request } from "utils/request";
 import { appRoutes } from 'appConfig'
 import { LoadableNotFound } from "../../appModules"
 import './index.scss'
-import 'components/Layout/index.scss'
-import NotConfirmed from 'apps/Registration/components/Registration/NotConfirmed';
+// import 'components/Layout/index.scss'
 import ls from 'local-storage';
 import IframePage from "../../pages/Static/IframePage";
 
@@ -47,8 +46,7 @@ class App extends PureComponent {
     render() {
         return (
             <Switch>
-                <Route path="/not-confirmed" component={NotConfirmed} />
-                {appRoutes.length > 0 &&
+                {!!appRoutes.length &&
                     appRoutes.map(route =>
                         <Route
                             key={route.path}

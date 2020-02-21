@@ -3,7 +3,7 @@ import Loading from './components/Loading';
 
 
 export const LoadableReports = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './pages/Reports'),
+    loader: () => import('./pages/Reports'),
     loading: Loading,
 });
 
@@ -74,6 +74,11 @@ export const LoadableAuthorization = Loadable({
 
 export const LoadableRegistration = Loadable({
     loader: () => import('./pages/Registration'),
+    loading: Loading,
+});
+
+export const LoadableNotConfirmed = Loadable({
+    loader: () => import('./pages/NotConfirmed'),
     loading: Loading,
 });
 

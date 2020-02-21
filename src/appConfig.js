@@ -95,6 +95,11 @@ const appRoutes = [
         component: LoadableModules.LoadableRegistration
     },
     {
+        exact: true,
+        path: '/not-confirmed',
+        component: LoadableModules.LoadableNotConfirmed
+    },
+    {
         exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
