@@ -73,7 +73,7 @@ export const LoadableAuthorization = Loadable({
 });
 
 export const LoadableRegistration = Loadable({
-    loader: () => import(/* webpackChunkName: "app.registration" */ './apps/Registration/index'),
+    loader: () => import('./pages/Registration'),
     loading: Loading,
 });
 

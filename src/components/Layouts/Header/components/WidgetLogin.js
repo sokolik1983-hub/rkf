@@ -1,10 +1,10 @@
 import React, { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
 import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../apps/Auth/connectors";
-import { CSSTransition } from 'react-transition-group';
 
 
 const WidgetLogin = forwardRef(

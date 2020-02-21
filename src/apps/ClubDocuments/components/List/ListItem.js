@@ -4,7 +4,6 @@ import { Form } from 'components/Form'
 import { connectClientClubListItem } from 'apps/ClubDocuments/connectors'
 import { RenderFields } from 'apps/ClubDocuments/components/Form/RenderFields'
 import ClubListDocument from './ListDocument'
-import { HTTP } from 'appConfig'
 import DeleteButton from "../../../../components/DeleteButton";
 import Dropdown from 'components/Dropdown';
 
@@ -27,7 +26,7 @@ function ClientClubListItem({ clubDocument, updateClubDocumentSuccess, deleteClu
                 <Form
                     action={'/api/clubs/ClubDocument'}
                     onSuccess={onUpdateSuccess}
-                    method={HTTP.update}
+                    method="PUT"
                     initialValues={clubDocument}
                 >
                     <RenderFields isUpdate />

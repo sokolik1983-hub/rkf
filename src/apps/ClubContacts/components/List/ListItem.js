@@ -7,8 +7,6 @@ import { RenderFields } from 'apps/ClubContacts/components/Form/RenderFields';
 import { connectClientClubContactListItem } from 'apps/ClubContacts/connectors';
 import { ENDPOINT_URL } from 'apps/ClubContacts/config';
 
-import { HTTP } from 'appConfig';
-
 const clsNames = 'btn-transparent btn-condensed';
 
 function ClientClubContactListItem({
@@ -30,7 +28,7 @@ function ClientClubContactListItem({
             className="ClientClubContactListItem"
             action={'/api/clubs/Contact'}
             onSuccess={onUpdateSuccess}
-            method={HTTP.update}
+            method="PUT"
             initialValues={clubContact}
         >
             <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone' ? true : false} />
