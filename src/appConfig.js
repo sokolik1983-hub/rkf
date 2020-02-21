@@ -90,8 +90,8 @@ const appRoutes = [
         component: LoadableModules.LoadableAuthorization
     },
     {
-        exact: false,
-        path: REGISTER_URL,
+        exact: true,
+        path: '/auth/registration',
         component: LoadableModules.LoadableRegistration
     },
     {
@@ -247,13 +247,6 @@ const mainNav = [
     }
 ];
 
-const HTTP = {
-    post: "POST",
-    get: "GET",
-    update: "PUT",
-    delete: "DELETE",
-};
-
 const WEEKDAYS = [
     {
         "id": 1,
@@ -333,6 +326,7 @@ const MONTHS = [
 const DEFAULT_IMG = {
     clubAvatar: '/static/icons/default/club-avatar.svg',
     exhibitionPicture: '/static/images/exhibitions/default.png',
+    authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg'
 };
 
@@ -340,7 +334,6 @@ export {
     WEEKDAYS,
     WEEKDAYS_SHORT,
     MONTHS,
-    HTTP,
     SERVER,
     appRoutes,
     mainNav,
