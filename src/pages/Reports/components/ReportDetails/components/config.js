@@ -5,7 +5,7 @@ import calendar from "./Calendar";
 import multiSelect from "./MultiSelect";
 import boolButtons from "./BoolButtons";
 import { endpointCertificatesList } from '../../../config';
-import { Request } from "../../../../../utils/request";
+import { Request } from "utils/request";
 
 const inputFF = ({ props } = {}) => { // Firefox onBlur fix
     const Input = ({ value, onValue }) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReportDetailsTable from "./components/ReportDetailsTable";
-import Loading from "../../../../components/Loading";
+import Loading from "components/Loading";
 import {
     endpointBreedsList,
     endpointCastesList,
@@ -8,7 +8,7 @@ import {
     endpointGetFinalReport,
     endpointPutFinalReport
 } from '../../config';
-import { Request } from "../../../../utils/request";
+import { Request } from "utils/request";
 import ls from 'local-storage';
 
 
