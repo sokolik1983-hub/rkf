@@ -38,7 +38,7 @@
         text-decoration: none;
         border: none;
       }
-      a.disabled {
+      span.disabled, a.disabled {
         color: #90999e;
         pointer-events: none;
       }
