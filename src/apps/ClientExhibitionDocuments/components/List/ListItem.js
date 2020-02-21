@@ -6,7 +6,6 @@ import DeleteButton from "components/DeleteButton";
 import { connectExhibitionDocumentListItem } from 'apps/ClientExhibitionDocuments/connectors'
 import { RenderFields } from 'apps/ClientExhibitionDocuments/components/Form/RenderFields'
 import { exhibitionDocumentFormConfig, API_ENDPOINT } from 'apps/ClientExhibitionDocuments/config';
-import { HTTP } from 'appConfig'
 
 
 function ExhibitionDocumentListItem({ clubDocument, updateExhibitionDocumentSuccess, deleteExhibitionDocumentSuccess }) {
@@ -30,7 +29,7 @@ function ExhibitionDocumentListItem({ clubDocument, updateExhibitionDocumentSucc
                 <Form
                     className="ExhibitionListItem__form"
                     onSuccess={onUpdateSuccess}
-                    method={HTTP.update}
+                    method="PUT"
                     initialValues={clubDocument}
                     {...exhibitionDocumentFormConfig}
                 >

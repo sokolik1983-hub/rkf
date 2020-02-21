@@ -4,7 +4,6 @@ import { Form } from 'components/Form'
 import { connectClientClubListItem } from 'apps/ClubSocial/connectors'
 import { RenderFields } from 'apps/ClubSocial/components/Form/RenderFields'
 import ClubListSocial from './ListSocial'
-import { HTTP } from 'appConfig'
 import DeleteButton from "components/DeleteButton";
 import { clubClubSocialConfig, endpointUrl } from 'apps/ClubSocial/config'
 import Dropdown from 'components/Dropdown';
@@ -36,7 +35,7 @@ function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSoc
                 <Form
                     action={clubClubSocialConfig.formAction}
                     onSuccess={onUpdateSuccess}
-                    method={HTTP.update}
+                    method="PUT"
                     initialValues={filterObj(clubSocial, 'social_network_type_id')}
                 >
                     <RenderFields isUpdate />

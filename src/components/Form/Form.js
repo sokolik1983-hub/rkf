@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
 import classnames from 'classnames'
 import { Formik } from 'formik';
-import { HTTP } from "appConfig";
 import { Request } from '../../utils/request';
 
 const getFormData = data => {
@@ -95,7 +94,7 @@ function Form({
 }
 
 Form.propTypes = {
-    method: oneOf([HTTP.post, HTTP.update]).isRequired,
+    method: oneOf(["POST", "PUT"]).isRequired,
     action: string.isRequired,
     format: string,
     transformValues: func,
@@ -107,7 +106,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-    method: HTTP.post,
+    method: "POST",
     initialValues: {},
     transformValues: values => (values)
 };

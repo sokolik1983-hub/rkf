@@ -1,0 +1,38 @@
+.auth-layout {
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  padding-top: 70px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: stretch;
+  @media (max-width: 560px) {
+    padding-top: 48px;
+  }
+  &__img {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100%;
+    max-width: 25%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-attachment: fixed;
+    flex: 1;
+    @media (max-width: 920px) {
+      display: none;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    box-sizing: border-box;
+    padding: 0 40px;
+    max-width: 668px;
+    width: 100%;
+    margin: 0 auto;
+    @media (max-width: 560px) {
+      padding: 0;
+    }
+  }
+}
