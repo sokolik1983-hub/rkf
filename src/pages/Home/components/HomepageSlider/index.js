@@ -11,7 +11,7 @@ const HomepageSlider = () => (
             arrows={false}
             dots={true}
             infinite={true}
-            autoplay={false}
+            autoplay={true}
             fade={true}
             autoplaySpeed={5000}
             speed={500}

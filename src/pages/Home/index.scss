@@ -38,6 +38,10 @@
         text-decoration: none;
         border: none;
       }
+      a.disabled {
+        color: #90999e;
+        pointer-events: none;
+      }
       &:not(:last-child) {
         margin-bottom: 16px;
       }
