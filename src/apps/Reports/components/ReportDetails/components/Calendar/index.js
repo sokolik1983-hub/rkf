@@ -17,11 +17,11 @@ const calendar = ({ props } = {}) => {
             onValue(day);
         };
         const ref = useRef(null);
-        const wref = useRef(null);
+        const widgetRef = useRef(null);
         const widget = (
             <OutsideClickHandler onOutsideClick={() => onValue(date)}>
                 <DayPicker
-                    ref={wref}
+                    ref={widgetRef}
                     locale="ru"
                     showOutsideDays={true}
                     months={MONTHS}
@@ -44,8 +44,8 @@ const calendar = ({ props } = {}) => {
         )
         React.useEffect(() => {
             const rect = ref.current && ref.current.getBoundingClientRect();
-            if (rect && wref.current) {
-                let el = wref.current.dayPicker;
+            if (rect && widgetRef.current) {
+                let el = widgetRef.current.dayPicker;
                 el.setAttribute('style', `display: block; top: ${rect.top}px; left: ${rect.left}px`);
             }
         })
