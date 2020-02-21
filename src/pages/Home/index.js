@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -12,7 +12,7 @@ import HorizontalSwipe from "../../components/HorozintalSwipe";
 import ClubsMap from "../../components/ClubsMap";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
 import { connectNewsList } from "./connectors";
-import {useResourceAndStoreToRedux} from "../../shared/hooks";
+import { useResourceAndStoreToRedux } from "../../shared/hooks";
 import "./index.scss";
 
 
@@ -116,9 +116,9 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         </ul>
                     </HorizontalSwipe>
                 </div>
-                <Link className="Homepage__map-title" to="/clubs-map" target="_blank">
-                    <h3 className="Homepage__map-header">Карта клубов</h3>
-                </Link>
+                <h3 className="Homepage__map-header">
+                    <Link className="Homepage__map-title" to="/clubs-map" target="_blank">Карта клубов</Link>
+                </h3>
                 <div className="Homepage__map-wrap">
                     <ClubsMap />
                 </div>
