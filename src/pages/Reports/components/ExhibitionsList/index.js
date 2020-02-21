@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'components/Card';
 import Loading from 'components/Loading';
+import Container from "components/Layouts/Container";
 import { useResourceAndStoreToRedux } from "shared/hooks";
 import { endpointReportsList } from '../../config';
-import { connectReportsList } from 'apps/Reports/connectors';
+import { connectReportsList } from '../../connectors';
 import './styles.scss';
-import Container from "../../../../components/Layouts/Container";
 
 const ExhibitionsList = (props) => {
     const { reportsList, path, fetchReportsSuccess } = props;

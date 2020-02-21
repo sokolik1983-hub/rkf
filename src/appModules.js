@@ -3,7 +3,7 @@ import Loading from './components/Loading';
 
 
 export const LoadableReports = Loadable({
-    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './apps/Reports/index'),
+    loader: () => import(/* webpackChunkName: "app.exhibitions" */ './pages/Reports'),
     loading: Loading,
 });
 

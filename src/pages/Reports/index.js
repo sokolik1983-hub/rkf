@@ -8,8 +8,8 @@ import ReportDetails from './components/ReportDetails/';
 import { defaultReduxKey } from "./config";
 import { ReportsPathContext } from './context'
 import injectReducer from "utils/injectReducer";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
+import Layout from "components/Layouts";
+import Container from "components/Layouts/Container";
 
 function ExhibitionsProxy(props) {
     const path = getPathFromRouterParams(props);

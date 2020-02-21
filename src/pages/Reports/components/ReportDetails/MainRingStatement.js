@@ -4,7 +4,7 @@ import { cloneDeep, findIndex } from 'lodash';
 import * as Table from 'reactabular-table';
 import * as edit from 'react-edit';
 import * as resolve from 'table-resolver';
-import { Request } from "../../../../utils/request";
+import { Request } from "utils/request";
 import {
     endpointBreedsList,
     endpointArrangementsList,
@@ -12,9 +12,9 @@ import {
     endpointGetMainRingStatement
 } from "../../config";
 import { mainRingStatementColumns } from './components/config';
-import Loading from "../../../../components/Loading";
+import Loading from "components/Loading";
 import ls from 'local-storage';
-import { sortBy } from "../../../../utils";
+import { sortBy } from "utils";
 
 
 class MainRingTable extends React.Component {

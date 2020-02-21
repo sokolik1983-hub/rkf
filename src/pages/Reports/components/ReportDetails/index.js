@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import Card from 'components/Card';
-import Loading from "../../../../components/Loading";
+import Loading from "components/Loading";
 import FinalReport from "./FinalReport";
 import MainRingStatement from "./MainRingStatement";
 import JudgeLoadReport from "./JudgeLoadReport";
 import ReportDetailsDocument from './ReportDetailsDocument';
 import { endpointGetHeader } from '../../config';
 import { connectReportHeader } from '../../connectors';
-import { Request } from "../../../../utils/request";
+import { Request } from "utils/request";
 
 function ReportDetails(props) {
     const { match, fetchReportHeaderSuccess, reportHeader } = props;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { endpointCatalogue, endpointPaymentReceipt, endpointExtraDoc } from '../../config';
-import { Request, getHeaders } from "../../../../utils/request";
+import { Request, getHeaders } from "utils/request";
 import ls from 'local-storage';
 import './styles.scss';
 
