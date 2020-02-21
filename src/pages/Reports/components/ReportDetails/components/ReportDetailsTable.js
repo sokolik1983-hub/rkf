@@ -169,7 +169,7 @@ class ReportDetailsTable extends React.Component {
         this.scrollEl = el;
     }
 
-    onScroll = () => this.scrollEl && this.scrollEl.focus()
+    onScroll = ({nativeEvent:e}) => e.target == this.scrollEl && this.scrollEl.focus()
 
     render() {
         const { cols, rows, sortingColumns, pagination, query, searchColumn } = this.state;
