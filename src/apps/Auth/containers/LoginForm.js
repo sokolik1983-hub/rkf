@@ -47,7 +47,7 @@ class LoginForm extends PureComponent {
                         пароль</Link></div> */}
                 </FormGroup>
                 <div className="form-controls">
-                    <SubmitButton className="btn-primary btn-lg" onClick={() => console.log('work')}>Войти</SubmitButton>
+                    <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>
                 </div>
             </FormFormikEnhanced>
         )
