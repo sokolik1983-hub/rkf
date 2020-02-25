@@ -34,12 +34,15 @@ const RenderFields = ({fields, clubLogo, formik}) => {
     const handleKeyDown = (e) => {
         const textarea = e.target;
         const offset = textarea.offsetHeight - textarea.clientHeight;
-        textarea.style.height = 'auto';
+        /*textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + offset + 'px';
-        textarea.value.length > 3000
-            ? alert('Превышено максимальное кол-во символов (3000 симв.)')
+        textarea.value.length > 4096
+            ? alert('Превышено максимальное кол-во символов (4096 симв.)')
             : formik.setFieldValue('content', textarea.value);
-
+        */
+        textarea.style.resize = 'vertical';
+        textarea.scrollHeight > textarea.clientHeight && textarea.style.minHeight != "150px" && (textarea.style.minHeight = "150px");
+        content || (textarea.style.minHeight = "30px");
         const regexp = /http:\/\/[^\s]+/g;
         Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
         formik.setFieldValue('content', e.target.value.replace(regexp, ''));
@@ -64,7 +67,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                     {...fields.content}
                     onChange={handleKeyDown}
                     onFocus={setFocused}
-                    maxLength="3001"
+                    maxLength="4096"
                     value={content ? content : ''}
                     rows="1"
                 />
@@ -97,11 +100,14 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                         <div className="ArticleCreateForm__attach">
                             <label htmlFor="file" className="ArticleCreateForm__labelfile"/>
                         </div>
-                        <SubmitButton type="submit"
-                                      className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                        >
-                            Добавить новость
-                        </SubmitButton>
+                        <div style={{textAlign:"right"}}>
+                        <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>
+                            <SubmitButton type="submit"
+                                          className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                            >
+                                Добавить новость
+                            </SubmitButton>
+                        </div>
                     </FormControls>
                 </>
             }
