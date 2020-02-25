@@ -1,13 +1,21 @@
-.ClientClubInfo .FormInput textarea {
-  resize: vertical;
+.ClientClubInfo {
+  display: flex;
+  .FormInput textarea {
+    resize: vertical;
+  }
+  .FormGroup > span {
+    align-self: center;
+    margin-top: 32px;
+    margin-right: 16px;
+    font-weight: 400;
+  }
+  .alias-name {
+    max-width: 100%;
+    overflow: hidden;
+  }
 }
-.alias-name {
-  max-width: 100%;
-  overflow: hidden;
-}
-.ClientClubInfo .FormGroup > span {
-  align-self: center;
-  margin-top: 32px;
-  margin-right: 16px;
-  font-weight: 400;
+.ClientClubAlias {
+  ul {
+    list-style: none;
+  }
 }
