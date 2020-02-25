@@ -7,9 +7,15 @@ import {Link} from "react-router-dom";
 
 
 const TopComponent = ({alias, logo, name, status, canEdit}) => {
+    const [shareAlert, setShareAlert] = React.useState(false);
+
     const share = () => {
         console.log('share click', alias);
+        navigator.clipboard.writeText(window.location.href);
+        setShareAlert(true);
     };
+
+    const shareOk = () => setShareAlert(false);
 
     const write = () => {
         console.log('write click', alias);
@@ -21,7 +27,12 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
 
     return (
         <Card className="top-component">
-            <Alert/>
+            {shareAlert && (<Alert
+                title="Поделиться"
+                text="Ссылка скопирована в буфер обмена"
+                autoclose={1.5}
+                onOk={shareOk}
+            />)}
             <div className="top-component__info">
                 <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo" className="top-component__logo"/>
                 <div className="top-component__title">
@@ -34,7 +45,7 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
                     <Link className="btn__blue" to="/client">Редактировать профиль</Link> :
                     <>
                         <button type="button" className="btn__blue not-active" onClick={share}>Поделиться</button>
-                        <button type="button" className="btn__blue not-active" onClick={write}>Написать сообщение</button>
+                        {/*<button type="button" className="btn__blue not-active" onClick={write}>Написать сообщение</button>*/}
                         <button type="button" className="btn__download not-active" onClick={download}/>
                     </>
                 }
