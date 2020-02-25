@@ -11,6 +11,7 @@ import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
 import { connectAuthVisible } from "../../apps/Auth/connectors";
 import './index.scss';
+import {formatPhone} from "../../utils";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
@@ -109,7 +110,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 {exhibition.contacts &&
                                     <>
                                         <h4 className="exhibition-page__address-subtitle">Контакты организатора</h4>
-                                        {exhibition.contacts.map(contact => <p key={contact.id}>{contact.value}</p>)}
+                                        {exhibition.contacts.map(contact =>
+                                            <p key={contact.id}>
+                                                {contact.contact_type_id === 1 ? formatPhone(contact.value) : contact.value}
+                                            </p>
+                                        )}
                                     </>
                                 }
                             </div>
