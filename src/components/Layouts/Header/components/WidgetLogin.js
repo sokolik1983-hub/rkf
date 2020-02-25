@@ -33,15 +33,15 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item" title={clubName}>
                                         {clubName}
                                     </li>
-                                    <li className="widget-login__item">
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={is_active_profile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
                                     </li>
                                     {is_active_profile &&
-                                        <li className="widget-login__item">
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
                                             <Link to="/reports">Отчёты</Link>
                                         </li>
                                     }
-                                    <li className="widget-login__item">
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={'/'} onClick={logOutUser}>Выход</Link>
                                     </li>
                                 </ul>
