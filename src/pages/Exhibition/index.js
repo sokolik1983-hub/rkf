@@ -7,11 +7,11 @@ import Card from "../../components/Card";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import { Request } from "../../utils/request";
+import {formatPhone} from "../../utils";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
 import { connectAuthVisible } from "../../apps/Auth/connectors";
-import './index.scss';
-import {formatPhone} from "../../utils";
+import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
