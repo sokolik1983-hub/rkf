@@ -42,7 +42,7 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
 
     useEffect(() => {
         setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, PageNumber, RankIds, BreedIds]);
+    }, [CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds]);
 
     useEffect(() => {
         if (ExhibitionName) {

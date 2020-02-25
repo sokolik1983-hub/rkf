@@ -33,7 +33,7 @@ export const buildUrl = filter => {
     if (params.charAt(params.length - 1) === '&') {
         params = params.slice(0, -1);
     }
-
+    console.log(params);
     params ? window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}?${params}`)
            : window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}`);
 
@@ -83,20 +83,13 @@ export const getInitialFilters = () => {
 
     let filters = filtersFromLS ? filtersFromLS : emptyFilters;
     Object.keys(filters).forEach(k => {
-        // look here after fixing array params elsewhere
-        let x = urlParams.get(k);
-        if (x) {
-            if (!isNaN(x)) {
-                x = Number(x);
-            }
-            console.log('if',k);
-            if (filters[k] && filters[k].push) {
-                filters[k].push(x);
-            } else {
-                filters[k] = x;
-            }
+        let x = urlParams.getAll(k);
+        if (x.length) {
+            x = x.map(y => isNaN(y) ? y : Number(y));
+            filters[k] = x;
         };
     });
+    console.log(filters);
     return filters;
 };
 
