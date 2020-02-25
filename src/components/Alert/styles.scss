@@ -9,6 +9,11 @@
     box-shadow: 0px 10px 50px rgba(51, 102, 255, 0.2);
     padding: 20px 24px 24px;
     color: #253C5E;
+
+    @keyframes slide-in-top{0%{transform:translateY(-1000px);opacity:0}100%{transform:translateY(0);opacity:1}}
+    @keyframes slide-out-top{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-1000px);opacity:0}}
+    animation:slide-in-top .5s cubic-bezier(.25,.46,.45,.94) both;
+    &.exit{animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both}
     
     @media (min-width: 768px) {
         width: 500px;
