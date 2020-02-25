@@ -84,7 +84,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
             }
         });
 
-         return {
+         const data = {
             exhibition: {
                 id,
                 name: values.name,
@@ -95,16 +95,24 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 city_id: values.city_id,
                 address: values.address,
             },
-            schedule_link: {
-                name: values.schedule_name,
-                url: values.schedule_url
-            },
-            catalog_link: {
-                name: values.catalog_name,
-                url: values.catalog_url
-            },
              documents_links: docLinks
         };
+
+         if(values.schedule_url) {
+             data.schedule_link = {
+                 name: values.schedule_name,
+                 url: values.schedule_url
+             }
+         }
+
+         if(values.catalog_url) {
+             data.catalog_link = {
+                 name: values.catalog_name,
+                 url: values.catalog_url
+             }
+         }
+
+         return data;
     };
 
     const onSuccess = async (data, values) => {

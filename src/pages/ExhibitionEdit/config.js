@@ -1,4 +1,4 @@
-import {array, object, string} from "yup";
+import {object, string} from "yup";
 
 export const endpointExhibition = '/api/exhibitions/Exhibition/with_document_links';
 export const endpointEditExhibitionPicture = '/api/exhibitions/Picture/';
