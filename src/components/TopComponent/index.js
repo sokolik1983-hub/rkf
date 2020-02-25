@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../Card";
+import Alert from "../Alert";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 import {Link} from "react-router-dom";
@@ -20,6 +21,7 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
 
     return (
         <Card className="top-component">
+            <Alert/>
             <div className="top-component__info">
                 <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo" className="top-component__logo"/>
                 <div className="top-component__title">
