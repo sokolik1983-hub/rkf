@@ -132,6 +132,7 @@ const RenderFields = ({formik, avatar, map, documents, onCancel, setInitialValue
                     {...fields.rank_types}
                 />
                 <FormField
+                    disabled={true}
                     {...fields.class_types}
                 />
                 <FormField
