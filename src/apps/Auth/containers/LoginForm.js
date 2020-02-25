@@ -9,10 +9,7 @@ import {
     FormGroup,
     FormField,
 } from 'components/Form'
-
-
 import { loginFormConfig } from 'apps/Auth/config'
-
 import { loginUserSuccess } from 'apps/Auth/actions'
 import CustomCheckbox from "../../../components/Form/CustomCheckbox";
 
@@ -50,7 +47,7 @@ class LoginForm extends PureComponent {
                         пароль</Link></div> */}
                 </FormGroup>
                 <div className="form-controls">
-                    <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>
+                    <SubmitButton className="btn-primary btn-lg" onClick={() => console.log('work')}>Войти</SubmitButton>
                 </div>
             </FormFormikEnhanced>
         )
