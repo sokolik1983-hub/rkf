@@ -189,7 +189,7 @@ const NotConfirmed = ({clubId, history, logOutUser}) => {
                                     <h4>Свидетельство о регистрации организации</h4>
                                     {!fields.certificate_of_registration_legal_entity_valid &&
                                         <>
-                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
                                             <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
                                         </>
                                     }
@@ -198,7 +198,7 @@ const NotConfirmed = ({clubId, history, logOutUser}) => {
                                     <h4>Выписка из ЕГРЮЛ</h4>
                                     {!fields.extract_from_the_egrul_valid &&
                                         <>
-                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="extract_from_the_egrul" required onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="extract_from_the_egrul" required onChange={onFileChange} />
                                             <div className="FormField__comment">{fields['extract_from_the_egrul_comment']}</div>
                                         </>
                                     }
@@ -207,7 +207,7 @@ const NotConfirmed = ({clubId, history, logOutUser}) => {
                                     <h4>Документ о регистрации кода клейма</h4>
                                     {!fields.stamp_code_registration_certificate_valid &&
                                         <>
-                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept="application/pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
                                             <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                         </>
                                     }
