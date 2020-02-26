@@ -100,7 +100,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                         <div className="ArticleCreateForm__attach">
                             <label htmlFor="file" className="ArticleCreateForm__labelfile"/>
                         </div>
-                        <div style={{textAlign:"right"}}>
+                        <div className="ArticleCreateForm__length-hint">
                         <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>
                             <SubmitButton type="submit"
                                           className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
