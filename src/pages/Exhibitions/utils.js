@@ -34,6 +34,9 @@ export const buildUrl = filter => {
         params = params.slice(0, -1);
     }
 
+    params ? window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}?${params}`)
+           : window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}`);
+
     return params ? `${endpointGetExhibitions}?${params}` : endpointGetExhibitions;
 };
 
@@ -76,7 +79,18 @@ export const getInitialFilters = () => {
         filtersFromLS.DateTo = dateTo ? dateTo : null;
     }
 
-    return filtersFromLS ? filtersFromLS : emptyFilters;
+    const urlParams = new URLSearchParams(window.location.search);
+
+    let filters = filtersFromLS ? filtersFromLS : emptyFilters;
+    Object.keys(filters).forEach(k => {
+        let x = urlParams.getAll(k);
+        if (x.length) {
+            x = x.map(y => isNaN(y) ? y : Number(y));
+            filters[k] = x;
+        };
+    });
+
+    return filters;
 };
 
 export const getClubId = () => {
