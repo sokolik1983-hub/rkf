@@ -39,7 +39,7 @@ export const LoadableFederationsPage = Loadable({
 
 export const LoadableExhibitions = Loadable({
     loader: () => import('./pages/Exhibitions'),
-    loading: Loading
+    loading: () => null
 });
 
 export const LoadableExhibition = Loadable({
