@@ -13,7 +13,7 @@ import MenuComponent from "../../components/MenuComponent";
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import {mainRKF} from "../../appConfig";
 import "./index.scss";
 

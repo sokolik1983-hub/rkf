@@ -4,8 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
 import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
-import { connectWidgetLogin } from "../../../../apps/Auth/connectors";
-
+import {connectWidgetLogin} from "../../../../pages/Login/connectors";
 
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {

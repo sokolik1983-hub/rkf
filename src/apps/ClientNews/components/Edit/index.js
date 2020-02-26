@@ -1,7 +1,6 @@
 import React from 'react'
 import ArticleEditFormPublic from './ArticleEditFormPublic';
-import { connectAuthVisible } from 'apps/Auth/connectors'
-
+import {connectAuthVisible} from "../../../../pages/Login/connectors";
 
 function EditArticleForm({ isAuthenticated, content, file, id, onEditCancel }) {
 

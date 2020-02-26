@@ -5,7 +5,7 @@ import Container from "../../components/Layouts/Container";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import {Request} from "../../utils/request";
-import {connectWidgetLogin} from "../../apps/Auth/connectors";
+import {connectWidgetLogin} from "../Login/connectors";
 import "./index.scss";
 
 

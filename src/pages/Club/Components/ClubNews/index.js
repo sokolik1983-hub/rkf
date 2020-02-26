@@ -5,7 +5,7 @@ import NewsAreEmpty from "../../../../components/Club/NewsAreEmpty";
 import List from "../../../../components/List";
 import {Request} from "../../../../utils/request";
 import {endpointGetNews, endpointDeleteArticle} from "../../config";
-import {connectAuthVisible} from "../../../../apps/Auth/connectors";
+import {connectAuthVisible} from "../../../Login/connectors";
 import "./index.scss";
 
 
