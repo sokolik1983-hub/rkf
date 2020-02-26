@@ -8,7 +8,7 @@ const Alert = ({
     title,
     text,
     autoclose,
-    okbt,
+    okButton,
     onOk
 }) => {
     const ref = React.useRef(null);
@@ -29,7 +29,7 @@ const Alert = ({
     <div className="Alert" ref={ref}>
         <div className="Alert__title">{title}</div>
         <div className="Alert__text">{text}</div>
-        {okbt && (<div className="Alert__bt">
+        {okButton && (<div className="Alert__bt">
             <Button primary onClick={okClick}>OK</Button>
         </div>)}
         <div className="Alert__cross" onClick={okClick}>
