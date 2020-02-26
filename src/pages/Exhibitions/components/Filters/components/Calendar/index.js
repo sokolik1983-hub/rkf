@@ -19,12 +19,14 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
 
     const setNewDate = (date) => {
         setDay(date);
-        setModifier({ ...modifier, selectedDate: date });
+        setModifier(modifier.green
+            ? { ...modifier, selectedDate: date }
+            : { ...modifier, green: calendarData.dates.map(day => new Date(day)) }
+        );
     };
 
     useEffect(() => {
         setYears(calendarData.years);
-        setModifier({ ...modifier, green: calendarData.dates.map(day => new Date(day)) });
     }, []);
 
     useEffect(() => {
