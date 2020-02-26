@@ -33,7 +33,7 @@ export const buildUrl = filter => {
     if (params.charAt(params.length - 1) === '&') {
         params = params.slice(0, -1);
     }
-    console.log(params);
+
     params ? window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}?${params}`)
            : window.history.pushState(null, '', `//${window.location.host}${window.location.pathname}`);
 
@@ -89,7 +89,7 @@ export const getInitialFilters = () => {
             filters[k] = x;
         };
     });
-    console.log(filters);
+
     return filters;
 };
 

@@ -18,7 +18,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const [shareAlert, setShareAlert] = React.useState(false);
 
     const share = () => {
-        console.log('share click');
         navigator.clipboard.writeText(window.location.href);
         setShareAlert(true);
     };

@@ -10,16 +10,11 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
     const [shareAlert, setShareAlert] = React.useState(false);
 
     const share = () => {
-        console.log('share click', alias);
         navigator.clipboard.writeText(window.location.href);
         setShareAlert(true);
     };
 
     const shareOk = () => setShareAlert(false);
-
-    const write = () => {
-        console.log('write click', alias);
-    };
 
     const download = () => {
         console.log('download click', alias);
@@ -45,7 +40,7 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
                     <Link className="btn__blue" to="/client">Редактировать профиль</Link> :
                     <>
                         <button type="button" className="btn__blue not-active" onClick={share}>Поделиться</button>
-                        {/*<button type="button" className="btn__blue not-active" onClick={write}>Написать сообщение</button>*/}
+                        {/*<button type="button" className="btn__blue not-active">Написать сообщение</button>*/}
                         <button type="button" className="btn__download not-active" onClick={download}/>
                     </>
                 }
