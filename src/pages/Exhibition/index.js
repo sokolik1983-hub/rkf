@@ -4,6 +4,7 @@ import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
+import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import { Request } from "../../utils/request";
@@ -15,6 +16,15 @@ import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+    const [shareAlert, setShareAlert] = React.useState(false);
+
+    const share = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setShareAlert(true);
+    };
+
+    const shareOk = () => setShareAlert(false);
+
     const [exhibition, setExhibition] = useState(null);
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -87,9 +97,15 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </div>
                             {canEdit ?
                                 <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link> :
-                                Date.now() < +new Date(dateStart) && <button className="btn btn-simple">Принять участие</button>
+                                Date.now() < +new Date(dateStart) && <button className="btn btn-simple" onClick={share}>Поделиться</button>
                             }
                         </div>
+                        {shareAlert && (<Alert
+                            title="Поделиться"
+                            text="Ссылка скопирована в буфер обмена"
+                            autoclose={1.5}
+                            onOk={shareOk}
+                        />)}
                         <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
                         <div className="exhibition-page__payment">
                             <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>

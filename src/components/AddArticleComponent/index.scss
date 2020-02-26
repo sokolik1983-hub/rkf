@@ -135,6 +135,13 @@
       background: url(/static/icons/client/attach-image-active.svg);
     }
   }
+  &__length-hint {
+    text-align: right;
+  }
+  &__content-length {
+    margin-right: 1rem;
+    opacity: 0.8;
+  }
   .ImagePreview {
     text-align: center;
     margin: 16px 0 12px;
