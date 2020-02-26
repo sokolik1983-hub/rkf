@@ -68,7 +68,7 @@ export const LoadableClubPage = Loadable({
 });
 
 export const LoadableAuthorization = Loadable({
-    loader: () => import(/* webpackChunkName: "app.authorization" */ './apps/Auth/index'),
+    loader: () => import('./pages/Login'),
     loading: Loading,
 });
 

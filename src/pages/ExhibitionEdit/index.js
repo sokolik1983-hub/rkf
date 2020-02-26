@@ -7,7 +7,7 @@ import Card from "../../components/Card";
 import ExhibitionEditInfo from "./ExhibitionEditInfo";
 import {Request} from "../../utils/request";
 import {endpointExhibition} from "./config";
-import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 

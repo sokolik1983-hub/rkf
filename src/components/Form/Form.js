@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, {useCallback, useState} from 'react';
 import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
 import classnames from 'classnames'
 import { Formik } from 'formik';
 import { Request } from '../../utils/request';
+import Loading from "../Loading";
 
 const getFormData = data => {
     const formData = new FormData();
@@ -30,12 +31,15 @@ function Form({
     validationSchema,
     initialValues,
     onSuccess,
+    withLoading,
     className,
     children,
     bindSubmitForm,
     resetForm = false
 }) {
+    const [loading, setLoading] = useState(false);
     const isMultipartData = format === "multipart/form-data";
+
     const formatData = useCallback((values) => {
         const data = transformValues(values);
         return isMultipartData ?
@@ -44,14 +48,18 @@ function Form({
             JSON.stringify(data);
     });
 
-    const onSubmit = (values, actions) => {
+    const onSubmit = async (values, actions) => {
+        setLoading(true);
+
         const onRequestSuccess = (data) => {
+            setLoading(false);
             onSuccess(data, values);
             if (bindSubmitForm) bindSubmitForm.getErrors({});
             actions.setSubmitting(false);
             if (resetForm) actions.resetForm(initialValues);
         };
         const onRequestError = (error) => {
+            setLoading(false);
             actions.setSubmitting(false);
             if (error.isAxiosError) {
                 const { data } = error.response;
@@ -68,7 +76,7 @@ function Form({
             isMultipart: isMultipartData
         };
 
-        Request(options, onRequestSuccess, onRequestError);
+        await Request(options, onRequestSuccess, onRequestError);
     };
 
     Object.keys(initialValues).forEach(key => {
@@ -83,11 +91,12 @@ function Form({
             validationSchema={validationSchema}
             render={({ handleSubmit, submitForm, errors }) => {
                 if (bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
-                return (
+
+                return withLoading && loading ?
+                    <Loading/> :
                     <form className={classnames('Form', { [className]: className })} onSubmit={handleSubmit}>
                         {children}
                     </form>
-                )
             }}
         />
     )

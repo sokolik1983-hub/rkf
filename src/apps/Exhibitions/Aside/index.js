@@ -1,5 +1,5 @@
 import React from 'react'
-import {connectAuthVisible} from 'apps/Auth/connectors.js';
+import {connectAuthVisible} from "../../../pages/Login/connectors";
 import Search from 'apps/Exhibitions/components/Search'
 import Calendar from 'apps/Exhibitions/components/Calendar'
 import CitiesFilter from 'apps/Exhibitions/components/ExhibitionsFilter/CititesFilter'

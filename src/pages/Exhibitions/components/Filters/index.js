@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
+import Loading from "../../../../components/Loading";
 import Calendar from "./components/Calendar";
 import BreedsFilter from "./components/BreedsFilter";
 import RanksFilter from "./components/RanksFilter";
-import { connectAuthVisible } from "../../../../apps/Auth/connectors";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { connectFilters } from "../../connectors";
 import { getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
-import { Request } from "utils/request";
-import Loading from "components/Loading";
+import {Request} from "../../../../utils/request";
+import {endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitionsDates} from "../../config";
 import "./index.scss";
 
-import {
-    endpointExhibitionsRanks,
-    endpointExhibitionsBreeds,
-    endpointExhibitionsDates
-} from "pages/Exhibitions/config";
 
-
-const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
+const Filters = ({ isOpenFilters, setFiltersSuccess }) => {
     const [ranks, setRanks] = useState(null);
     const [breeds, setBreeds] = useState(null);
     const [calendarData, setCalendarData] = useState(null);
@@ -93,4 +87,4 @@ const Filters = ({ isAuthenticated, isOpenFilters, setFiltersSuccess }) => {
     )
 };
 
-export default connectShowFilters(connectAuthVisible(connectFilters(React.memo(Filters))));
+export default connectShowFilters(connectFilters(React.memo(Filters)));

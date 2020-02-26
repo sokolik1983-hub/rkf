@@ -10,7 +10,7 @@ import { formatDateTime } from "../../utils/datetime";
 import { formatText } from "../../utils";
 import { Request } from "../../utils/request";
 import { endpointGetNews } from "./config";
-import { connectAuthVisible } from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 

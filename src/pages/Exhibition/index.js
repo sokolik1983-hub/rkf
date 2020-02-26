@@ -10,7 +10,7 @@ import { Request } from "../../utils/request";
 import {formatPhone} from "../../utils";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
-import { connectAuthVisible } from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 

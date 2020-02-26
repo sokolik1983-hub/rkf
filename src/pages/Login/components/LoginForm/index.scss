@@ -1,0 +1,17 @@
+.login-page__form {
+  margin-bottom: 40px;
+  @media (max-width: 560px) {
+    padding: 0 16px;
+  }
+  &-controls {
+    margin: 32px 0 32px;
+    text-align: center;
+  }
+  .custom-checkbox {
+    margin-bottom: 0;
+  }
+  .FormInput__custom-error {
+    color: #fa5d50;
+    margin: -16px 0 16px;
+  }
+}

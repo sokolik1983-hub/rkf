@@ -1,5 +1,5 @@
 // import React from 'react'
-import {connectAuthVisible} from 'apps/Auth/connectors'
+import {connectAuthVisible} from "../../../pages/Login/connectors";
 
 function AuthVisible({children, isAuthenticated}) {
     return isAuthenticated ?
