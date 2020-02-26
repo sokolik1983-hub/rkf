@@ -68,8 +68,7 @@ export const clubLegalInfoFormConfig = {
             .required('Необходимо указать дату'),
         address: string()
             .nullable()
-            .required('Поле не может быть пустым')
-            .min(20, 'Введите информацию длиной не менее 20 символов'),
+            .required('Поле не может быть пустым'),
         inn: string()
             .nullable()
             .required('Поле не может быть пустым')
@@ -79,13 +78,11 @@ export const clubLegalInfoFormConfig = {
             .required('Поле не может быть пустым')
             .min(9, 'коротко'),
         ogrn: string()
-            .nullable()
-            // .required('Поле не может быть пустым')
-            .min(13, 'коротко'),
+            .nullable(),
+            // .required('Поле не может быть пустым'),
         okpo: string()
             .nullable()
             .required('Поле не может быть пустым')
-            .min(8, 'коротко'),
         // registration_number: string()
         //     .required('Поле не может быть пустым')
         //     .min(15, 'коротко'),

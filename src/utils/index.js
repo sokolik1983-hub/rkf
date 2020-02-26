@@ -10,6 +10,11 @@ export const formatText = text => JSON.parse(
         .replace(/\\n/g, ' <br> ')
 ).replace(/([^"]https?:\/\/[^\s]+)/g, l => ` <a class="link" target="_blank" href="${l}">${l}</a>`);
 
+export const formatPhone = phone => {
+    phone = phone.length === 10 ? '7' + phone : phone;
+    return `+${phone.slice(0,1)}(${phone.slice(1,4)}) ${phone.slice(4,7)}-${phone.slice(7,9)}-${phone.slice(9)}`;
+};
+
 export const formatWorkTime = workTime => {
     let newWorkTime = [];
     workTime.forEach(day => {

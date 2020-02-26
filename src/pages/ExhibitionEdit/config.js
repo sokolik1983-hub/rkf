@@ -1,4 +1,4 @@
-import {array, object, string} from "yup";
+import {object, string} from "yup";
 
 export const endpointExhibition = '/api/exhibitions/Exhibition/with_document_links';
 export const endpointEditExhibitionPicture = '/api/exhibitions/Picture/';
@@ -87,22 +87,20 @@ export const exhibitionInfoForm = {
     validationSchema: object().shape({
         name: string()
             .required('Введите название'),
-        description: string()
-            .required('Добавьте описание'),
         city_id: string()
             .required('Укажите город'),
         address: string()
             .required('Укажите адрес'),
-        rank_types: array()
-            .required('Укажите Ранг выставки'),
-        class_types: array()
-            .required('Укажите Класс выставки'),
-        breed_types: array()
-            .required('Укажите породы'),
-        schedule_url: string()
-            .required('Укажите ссылку на расписание'),
-        catalog_url: string()
-            .required('Укажите ссылку на каталог'),
+        // rank_types: array()
+        //     .required('Укажите Ранг выставки'),
+        // class_types: array()
+        //     .required('Укажите Класс выставки'),
+        // breed_types: array()
+        //     .required('Укажите породы'),
+        // schedule_url: string()
+        //     .required('Укажите ссылку на расписание'),
+        // catalog_url: string()
+        //     .required('Укажите ссылку на каталог'),
     })
 };
 

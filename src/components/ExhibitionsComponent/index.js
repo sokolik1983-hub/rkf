@@ -23,7 +23,7 @@ const ExhibitionsComponent = ({alias}) => {
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setIsRequestEnd(true);
         }))();
-    }, []);
+    }, [alias]);
 
     if(isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 

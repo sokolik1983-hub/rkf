@@ -73,7 +73,12 @@ export const LoadableAuthorization = Loadable({
 });
 
 export const LoadableRegistration = Loadable({
-    loader: () => import(/* webpackChunkName: "app.registration" */ './apps/Registration/index'),
+    loader: () => import('./pages/Registration'),
+    loading: Loading,
+});
+
+export const LoadableNotConfirmed = Loadable({
+    loader: () => import('./pages/NotConfirmed'),
     loading: Loading,
 });
 
@@ -82,12 +87,7 @@ export const LoadableClient = Loadable({
     loading: Loading,
 });
 
-export const LoadableClientDogOwner = Loadable({
-    loader: () => import(/* webpackChunkName: "app.dog.owner.root" */ './apps/DogOwner/index'),
-    loading: Loading,
-});
-
 export const LoadableNotFound = Loadable({
-    loader: () => import(/* webpackChunkName: "app.404" */ './pages/404/index'),
+    loader: () => import('./pages/404/index'),
     loading: Loading,
 });

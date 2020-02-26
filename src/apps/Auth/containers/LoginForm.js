@@ -9,10 +9,7 @@ import {
     FormGroup,
     FormField,
 } from 'components/Form'
-
-
 import { loginFormConfig } from 'apps/Auth/config'
-
 import { loginUserSuccess } from 'apps/Auth/actions'
 import CustomCheckbox from "../../../components/Form/CustomCheckbox";
 

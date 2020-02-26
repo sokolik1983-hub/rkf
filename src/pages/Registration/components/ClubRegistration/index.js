@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import Select from 'react-select';
+import React, {useState} from "react";
+import Select from "react-select";
 import Modal from "../../../../components/Modal";
 import ActivateClub from "./ActivateClub";
-import {useDictionary} from "../../../Dictionaries";
-import {DICTIONARIES} from "../../../Dictionaries/config";
-import './style.scss';
+import {useDictionary} from "../../../../apps/Dictionaries";
+import {DICTIONARIES} from "../../../../apps/Dictionaries/config";
+import {Request} from "../../../../utils/request";
+import "./index.scss";
 
 
 const ClubRegistration = () => {
-    const [clubs, setClubs] = useState(undefined);
+    const [clubs, setClubs] = useState(null);
     const [activeClub, setActiveClub] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const {dictionary} = useDictionary(DICTIONARIES.cities);
@@ -19,29 +20,32 @@ const ClubRegistration = () => {
 
     const onClubClick = (id) => {
         setShowModal(true);
-        setActiveClub(...clubs.filter((club) => club.club_id === id));
+        setActiveClub(...clubs.filter(club => club.club_id === id));
     };
 
     const onModalClose = () => {
         if (showModal && window.confirm("Закрыть?")) {
             setShowModal(false);
-            setActiveClub(false);
+            setActiveClub(null);
         }
     };
 
-    const onCityChange = value => {
+    const onCityChange = async value => {
         if (value.value && value.value !== 'reset') {
-            fetch('/api/Club/short_all?LegalCityId=' + value.value + '&QueryDate=' + new Date().toISOString().split('T')[0], { method: "GET" })
-                .then(response => response.json())
-                .then(({ result }) => setClubs([...result]))
+            await Request({
+                url: `/api/Club/short_all?LegalCityId=${value.value}&QueryDate=${new Date().toISOString().split('T')[0]}`
+            }, data => setClubs(data),
+            error => {
+                console.log(error.response);
+            });
         }
-        if (value.value === 'reset') setClubs(undefined);
+        if (value.value === 'reset') setClubs(null);
     };
 
     return (
-        <div className="registration__holder club-registration">
+        <div className="registration-page__holder club-registration">
             <Select
-                className="registration__select"
+                className="club-registration__select"
                 placeholder={'Введите название города'}
                 noOptionsMessage={() => 'Город не найден'}
                 options={selectOptions}
@@ -60,7 +64,7 @@ const ClubRegistration = () => {
             {clubs &&
                 <>
                     {clubs.length ?
-                        <ul className="registration__list">
+                        <ul className="club-registration__list">
                             {clubs.map(club =>
                                 <li key={club.club_id} onClick={() => onClubClick(club.club_id)}>
                                     {club.name ? club.name : club.legal_name}
@@ -69,11 +73,11 @@ const ClubRegistration = () => {
                         </ul> :
                         <h3>Ничего не найдено</h3>
                     }
-                    <p className="registration__not-found">Если Вы не нашли Ваш клуб в списке, воспользуйтесь формой обратной связи</p>
+                    <p className="club-registration__not-found">Если Вы не нашли Ваш клуб в списке, воспользуйтесь формой обратной связи</p>
                 </>
             }
             {activeClub && <Modal showModal={showModal} handleClose={onModalClose}>
-                <ActivateClub club={activeClub} />
+                <ActivateClub club={activeClub}/>
             </Modal>}
         </div>
     )

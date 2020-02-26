@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import Card from "../Card";
-import {formatWorkTime} from "../../utils";
+import {formatPhone, formatWorkTime} from "../../utils";
 import {timeSecondsCutter} from "../../utils/datetime";
 import "./index.scss";
 
@@ -25,7 +25,7 @@ const ContactsComponent = ({address, owner_name, contacts, work_time}) => (
                 {contacts.filter(item => item.contact_type_id === 1).map(item =>
                     <Fragment key={item.id}>
                         <h5 className="contacts-component__block-title">{item.description || "Телефон"}</h5>
-                        <p className="contacts-component__block-info">{item.value}</p>
+                        <p className="contacts-component__block-info">{formatPhone(item.value)}</p>
                     </Fragment>
                 )}
             </div>

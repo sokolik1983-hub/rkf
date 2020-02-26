@@ -4,7 +4,6 @@ import { Form, SubmitButton } from 'components/Form';
 import { connectContactFrom } from 'apps/ClubContacts/connectors';
 import { RenderFields } from './RenderFields';
 import { clubClubContactsConfig } from 'apps/ClubContacts/config';
-import { HTTP } from 'appConfig';
 import { ContactTypeContext } from 'apps/ClubContacts/context';
 
 function ClubContactForm({
@@ -24,7 +23,7 @@ function ClubContactForm({
     return (
         <Form
             action={clubClubContactsConfig.action}
-            method={HTTP.post}
+            method="POST"
             onSuccess={onSuccess}
             transformValues={transformValues}
             initialValues={{

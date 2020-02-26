@@ -1,10 +1,10 @@
 import React, { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
 import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../apps/Auth/connectors";
-import { CSSTransition } from 'react-transition-group';
 
 
 const WidgetLogin = forwardRef(
@@ -33,15 +33,15 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item" title={clubName}>
                                         {clubName}
                                     </li>
-                                    <li className="widget-login__item">
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={is_active_profile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
                                     </li>
                                     {is_active_profile &&
-                                        <li className="widget-login__item">
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
                                             <Link to="/reports">Отчёты</Link>
                                         </li>
                                     }
-                                    <li className="widget-login__item">
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={'/'} onClick={logOutUser}>Выход</Link>
                                     </li>
                                 </ul>

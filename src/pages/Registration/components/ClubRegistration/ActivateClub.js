@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
-import {withRouter} from 'react-router';
-import {compose} from 'redux';
-import {connectWidgetLogin} from "../../../Auth/connectors";
+import React, {useState} from "react";
+import {withRouter} from "react-router";
+import {compose} from "redux";
+import Loading from "../../../../components/Loading";
+import {connectWidgetLogin} from "../../../../apps/Auth/connectors";
 
 
-const ClubConfirm = ({ club, history, logOutUser }) => {
+const ActivateClub = ({club, history, logOutUser}) => {
     const [code, setCode] = useState(null);
-
-    const getFieldValue = field => field ? field : 'Отсутствует';
+    const [loading, setLoading] = useState(false);
 
     const onEmailSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
+
         fetch('/api/Activation', {
             method: 'POST',
             headers: {
@@ -24,6 +26,7 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
         })
             .then((response) => response.json())
             .then((response) => {
+                setLoading(false);
                 if (response.returnCode >= 200 && response.returnCode < 300) {
                     alert('Код активации отправлен на ' + club.mail);
                     setCode('');
@@ -35,6 +38,8 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
 
     const onCodeSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
+
         fetch('/api/Activation/confirm', {
             method: 'POST',
             headers: {
@@ -48,6 +53,7 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
         })
             .then((response) => response.json())
             .then((response) => {
+                setLoading(false);
                 if (response.returnCode >= 200 && response.returnCode < 300) {
                     alert('Клуб активирован');
                     logOutUser();
@@ -58,9 +64,11 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
             });
     };
 
-    return (
-        <>
-            <table>
+    return loading ?
+        <Loading/> :
+        <div className="club-registration__activate">
+            <h3>{club.name || club.legal_name}</h3>
+            <table className="club-registration__activate-table">
                 <tbody>
                     <tr>
                         <th>ОГРН</th>
@@ -69,33 +77,32 @@ const ClubConfirm = ({ club, history, logOutUser }) => {
                         <th>ФИО</th>
                     </tr>
                     <tr>
-                        <td>{getFieldValue(club.ogrn)}</td>
-                        <td>{getFieldValue(club.inn)}</td>
-                        <td>{getFieldValue(club.address ? club.address : club.legal_address)}</td>
-                        <td>{getFieldValue(club.owner_name)}</td>
+                        <td>{club.ogrn || 'Отсутствует'}</td>
+                        <td>{club.inn || 'Отсутствует'}</td>
+                        <td>{club.address || club.legal_address || 'Отсутствует'}</td>
+                        <td>{club.owner_name || 'Отсутствует'}</td>
                     </tr>
                 </tbody>
             </table>
             <h3>Активация клуба</h3>
             {code === null ?
-                <form onSubmit={onEmailSubmit}>
-                    <p>Код активации будет отправлен на почту: <strong>{club.mail}</strong></p>
-                    <p style={{fontWeight: '600', color: 'firebrick'}}>Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
-                    <button style={{ marginTop: '10px' }} type="submit">Отправить</button>
+                <form onSubmit={onEmailSubmit} className="club-registration__activate-form">
+                    <p>Код активации будет отправлен на почту: <b>{club.mail}</b></p>
+                    <p className="club-registration__activate-warn">Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
+                    <button type="submit">Отправить</button>
                 </form> :
-                <form onSubmit={onCodeSubmit}>
+                <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
                     <input size="30"
                            type="text"
-                           onChange={(e) => setCode(e.target.value)}
+                           onChange={e => setCode(e.target.value)}
                            minLength="4"
                            required
                            placeholder="Введите код активации"
                     />
-                    <button type="submit" style={{ marginTop: '10px' }}>Отправить</button>
+                    <button type="submit">Отправить</button>
                 </form>
             }
-        </>
-    );
+        </div>
 };
 
-export default compose(withRouter, connectWidgetLogin)(ClubConfirm);
+export default compose(withRouter, connectWidgetLogin)(React.memo(ActivateClub));

@@ -175,7 +175,7 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 22px;
-        color: #72839c;
+        color: #72839c !important;
         cursor: pointer;
         @media (max-width: 990px) {
           display: block;
@@ -185,12 +185,12 @@
           transition: all 0.2s linear;
           &:hover {
             background-color: #f5f8ff;
-            color: #3366ff;
+            color: #3366ff !important;
           }
           &.active {
             background-color: #f5f8ff;
             border-color: #3366ff;
-            color: #3366ff;
+            color: #3366ff !important;
           }
         }
         @media (max-width: 560px) {
@@ -292,7 +292,7 @@
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
-      color: #3366ff;
+      color: #3366ff !important;
       border-bottom: 1px dashed #3366ff;
       @media (max-width: 990px) {
         border-bottom: none;
