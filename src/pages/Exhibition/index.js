@@ -128,7 +128,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h4 className="exhibition-page__address-subtitle">Контакты организатора</h4>
                                         {exhibition.contacts.map(contact =>
                                             <p key={contact.id}>
-                                                {contact.contact_type_id === 1 ? formatPhone(contact.value) : contact.value}
+                                                {contact.contact_type_id === 1 ? 'Тел.: ' + formatPhone(contact.value) : 'E-mail: ' + contact.value}
                                             </p>
                                         )}
                                     </>
