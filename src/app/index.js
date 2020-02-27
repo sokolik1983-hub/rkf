@@ -45,11 +45,11 @@ const App = ({history}) => {
                     component={route.component}
                 />
             )}
-            <Route exact={true} path='/organizations/national-breed-clubs' component={() => <IframePage src="http://tables.uep24.ru/Table/tblReestrNKP.aspx" />} />
-            <Route exact={true} path='/organizations/clubs-and-unions' component={() => <IframePage src="http://tables.uep24.ru/Table/tblKinologClubSojuzy.aspx" />} />
-            <Route exact={true} path='/organizations/nurseries' component={() => <IframePage src="http://tables.uep24.ru/Table/tblPitomniki.aspx" />} />
-            <Route exact={true} path='/results/cac' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCAC.aspx" />} />
-            <Route exact={true} path='/results/cacib' component={() => <IframePage src="http://tables.uep24.ru/Table/tblResExhibitionCACIB.aspx" />} />
+            <Route exact={true} path='/organizations/national-breed-clubs' component={() => <IframePage src="https://tables.uep24.ru/Table/tblReestrNKP.aspx" />} />
+            <Route exact={true} path='/organizations/clubs-and-unions' component={() => <IframePage src="https://tables.uep24.ru/Table/tblKinologClubSojuzy.aspx" />} />
+            <Route exact={true} path='/organizations/nurseries' component={() => <IframePage src="https://tables.uep24.ru/Table/tblPitomniki.aspx" />} />
+            <Route exact={true} path='/results/cac' component={() => <IframePage src="https://tables.uep24.ru/Table/tblResExhibitionCAC.aspx" />} />
+            <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.uep24.ru/Table/tblResExhibitionCACIB.aspx" />} />
             <Route component={LoadableNotFound} />
         </Switch>
     )
