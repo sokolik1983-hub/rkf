@@ -5,18 +5,18 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
+import MenuComponent from "../../components/MenuComponent";
 import ClubHeader from "./Components/ClubHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubInfo from "./Components/ClubInfo";
 import ClubDescription from "./Components/ClubDescription";
 import AddArticle from "../../components/AddArticleComponent";
 import ClubNews from "./Components/ClubNews";
+import {mainClub} from "../../appConfig";
 import {Request} from "../../utils/request";
 import {endpointGetClubInfo} from "./config";
-import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
-import MenuComponent from "../../components/MenuComponent";
-import {mainClub} from "../../appConfig";
 
 
 const ClubPage = ({match, profile_id, isAuthenticated}) => {

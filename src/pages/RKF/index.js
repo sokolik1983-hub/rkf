@@ -13,7 +13,7 @@ import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import {mainRKF} from "../../appConfig";
 import "./index.scss";
 
@@ -46,10 +46,8 @@ const RKF = ({isAuthenticated, profile_id}) => {
             <div className="rkf-page">
                 <Container className="content rkf-page__content">
                     <TopComponent
-                        alias="rfk"
                         logo={info.logo || "/static/images/header/rkf-logo-transparent.svg"}
                         name={info.name || "Российская Кинологическая Федерация"}
-                        status={info.status || "текущий статус"}
                         canEdit={canEdit}
                     />
                     <div className="rkf-page__banner">

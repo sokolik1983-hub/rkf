@@ -9,27 +9,8 @@ import Contacts from "./components/Contacts";
 import FeedbackComponent from "./components/Feedback";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../../apps/Auth/connectors";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
-
-
-const docs = [
-    {
-        id: 1,
-        url: 'https://yandex.ru/',
-        name: 'Правила подачи документов на регистрацию в Российской кинологической федерации',
-    },
-    {
-        id: 2,
-        url: 'https://yandex.ru/',
-        name: 'Правила подачи документов на регистрацию в Российской кинологической федерации',
-    },
-    {
-        id: 3,
-        url: 'https://yandex.ru/',
-        name: 'Правила подачи документов на регистрацию в Российской кинологической федерации',
-    }
-];
 
 
 const AboutPage = ({isAuthenticated, profile_id}) => {
@@ -78,9 +59,9 @@ const AboutPage = ({isAuthenticated, profile_id}) => {
                             />
                         }
                         <FeedbackComponent/>
-                        {/*{info.documents && !!info.documents.length &&*/}
-                            <DocumentsComponent documents={docs || info.documents}/>
-                        {/*}*/}
+                        {info.documents && !!info.documents.length &&
+                            <DocumentsComponent documents={info.documents}/>
+                        }
                     </aside>
                 </div>
             </Container>
