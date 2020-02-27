@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import Card from "../Card";
 import Alert from "../Alert";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
-import {Link} from "react-router-dom";
 
 
-const TopComponent = ({alias, logo, name, status, canEdit}) => {
-    const [shareAlert, setShareAlert] = React.useState(false);
+const TopComponent = ({logo, name, canEdit}) => {
+    const [shareAlert, setShareAlert] = useState(false);
 
     const share = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -15,10 +15,6 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
     };
 
     const shareOk = () => setShareAlert(false);
-
-    const download = () => {
-        console.log('download click', alias);
-    };
 
     return (
         <Card className="top-component">
@@ -32,17 +28,12 @@ const TopComponent = ({alias, logo, name, status, canEdit}) => {
                 <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo" className="top-component__logo"/>
                 <div className="top-component__title">
                     <h2>{name}</h2>
-                    <p>{status}</p>
                 </div>
             </div>
             <div className="top-component__controls">
                 {canEdit ?
                     <Link className="btn__blue" to="/client">Редактировать профиль</Link> :
-                    <>
-                        <button type="button" className="btn__blue not-active" onClick={share}>Поделиться</button>
-                        {/*<button type="button" className="btn__blue not-active">Написать сообщение</button>*/}
-                        <button type="button" className="btn__download not-active" onClick={download}/>
-                    </>
+                    <button type="button" className="btn__blue" onClick={share}>Поделиться</button>
                 }
             </div>
         </Card>

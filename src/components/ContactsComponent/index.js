@@ -16,7 +16,7 @@ const ContactsComponent = ({address, owner_name, contacts, work_time}) => (
         }
         {owner_name &&
             <div className="contacts-component__block _person">
-                <h5 className="contacts-component__block-title">Руководитель клуба</h5>
+                <h5 className="contacts-component__block-title">Руководитель</h5>
                 <p className="contacts-component__block-info">{owner_name}</p>
             </div>
         }

@@ -46,10 +46,8 @@ const RKF = ({isAuthenticated, profile_id}) => {
             <div className="rkf-page">
                 <Container className="content rkf-page__content">
                     <TopComponent
-                        alias="rfk"
                         logo={info.logo || "/static/images/header/rkf-logo-transparent.svg"}
                         name={info.name || "Российская Кинологическая Федерация"}
-                        status={info.status || "текущий статус"}
                         canEdit={canEdit}
                     />
                     <div className="rkf-page__banner">
