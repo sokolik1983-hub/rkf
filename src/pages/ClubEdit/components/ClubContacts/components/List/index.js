@@ -2,9 +2,9 @@ import React from 'react';
 import { useVisibility } from 'shared/hooks';
 import Button from 'components/Button';
 import ListContact from './ListItem';
-import { connectContactsList } from 'apps/ClubContacts/connectors';
+import { connectContactsList } from '../../connectors';
 import ClubContactsForm from '../Form';
-import { ContactTypeContext } from 'apps/ClubContacts/context';
+import { ContactTypeContext } from '../../context';
 
 import './styles.scss';
 

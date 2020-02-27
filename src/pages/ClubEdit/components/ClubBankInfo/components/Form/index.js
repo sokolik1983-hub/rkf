@@ -1,8 +1,8 @@
 import React from 'react'
-import { clubBankInfoFormConfig } from "apps/ClubBankInfo/config";
+import { clubBankInfoFormConfig } from "../../config";
 import { Form } from "components/Form";
 import RenderFields from './RenderFields'
-import { connectBankInfoForm } from "apps/ClubBankInfo/connectors";
+import { connectBankInfoForm } from "../../connectors";
 import { usePushMessage } from 'apps/Messages/hooks'
 
 

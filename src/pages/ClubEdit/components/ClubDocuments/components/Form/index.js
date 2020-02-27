@@ -1,7 +1,7 @@
 import React from 'react'
-import {connectDocumentFrom} from 'apps/ClubDocuments/connectors'
+import {connectDocumentFrom} from '../../connectors'
 import {RenderFields} from './RenderFields'
-import {clubClubDocumentsConfig} from 'apps/ClubDocuments/config'
+import {clubClubDocumentsConfig} from '../../config'
 import {Form} from "components/Form";
 
 function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideForm, bindSubmitForm}) {

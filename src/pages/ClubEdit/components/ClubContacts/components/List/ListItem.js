@@ -3,9 +3,9 @@ import { useVisibility } from 'shared/hooks';
 import Button from 'components/Button';
 import { Form, SubmitButton } from 'components/Form';
 import DeleteButton from 'components/DeleteButton';
-import { RenderFields } from 'apps/ClubContacts/components/Form/RenderFields';
-import { connectClientClubContactListItem } from 'apps/ClubContacts/connectors';
-import { ENDPOINT_URL } from 'apps/ClubContacts/config';
+import { RenderFields } from '../../components/Form/RenderFields';
+import { connectClientClubContactListItem } from '../../connectors';
+import { ENDPOINT_URL } from '../../config';
 
 const clsNames = 'btn-transparent btn-condensed';
 

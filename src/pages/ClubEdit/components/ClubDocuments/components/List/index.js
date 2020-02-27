@@ -1,8 +1,8 @@
 import React from 'react'
 import ListDocument from './ListItem'
-import {connectListDocument} from 'apps/ClubDocuments/connectors'
+import {connectListDocument} from '../../connectors'
 import {useResourceAndStoreToRedux} from "shared/hooks";
-import {getlistUrl} from 'apps/ClubDocuments/config'
+import {getlistUrl} from '../../config'
 // import {Request} from 'utils/request'
 import './styles.scss'
 

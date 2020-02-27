@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Button from 'components/Button';
 import { Form, SubmitButton } from 'components/Form';
-import { connectContactFrom } from 'apps/ClubContacts/connectors';
+import { connectContactFrom } from '../../connectors';
 import { RenderFields } from './RenderFields';
-import { clubClubContactsConfig } from 'apps/ClubContacts/config';
-import { ContactTypeContext } from 'apps/ClubContacts/context';
+import { clubClubContactsConfig } from '../../config';
+import { ContactTypeContext } from '../../context';
 
 function ClubContactForm({
     club_id,

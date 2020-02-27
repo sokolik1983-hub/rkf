@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { FormField, FormGroup, SubmitButton, FormControls } from "components/Form";
-import { clubClubDocumentsConfig } from 'apps/ClubDocuments/config'
+import { clubClubDocumentsConfig } from '../../config'
 
 const { fields } = clubClubDocumentsConfig;
 export const RenderFields = ({ isUpdate, disabled }) =>

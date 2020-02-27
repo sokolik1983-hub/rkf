@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { FormField, FormGroup } from 'components/Form';
-import { clubClubContactsConfig } from 'apps/ClubContacts/config';
-import { ContactTypeContext } from 'apps/ClubContacts/context';
+import { clubClubContactsConfig } from '../../config';
+import { ContactTypeContext } from '../../context';
 const { fields } = clubClubContactsConfig;
 export function RenderFields({ disabled, contact_type_id, isMaskedTel }) {
     const { contactType } = useContext(ContactTypeContext);

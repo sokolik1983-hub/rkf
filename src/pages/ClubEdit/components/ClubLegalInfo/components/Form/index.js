@@ -1,8 +1,8 @@
 import React from 'react'
-import { clubLegalInfoFormConfig } from "apps/ClubLegalInfo/config";
+import { clubLegalInfoFormConfig } from "../../config";
 import { Form } from "components/Form";
 import RenderFields from './RenderFields'
-import { connectLegalInfoForm } from "apps/ClubLegalInfo/connectors";
+import { connectLegalInfoForm } from "../../connectors";
 
 import { usePushMessage } from 'apps/Messages/hooks'
 
