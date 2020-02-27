@@ -62,9 +62,15 @@ export const getEmptyFilters = () => ({
 });
 
 export const getFiltersFromUrl = () => {
-    // console.log(history.location.search ?
-    //
-    // );
+    let filters = {};
+
+    if(history.location.search) {
+        history.location.search.replace('?', '').split('&').forEach(param => {
+            filters[param.split('=')[0]] = param.split('=')[1];
+        });
+    } else filters = null;
+
+    return filters;
 };
 
 export const getInitialFilters = () => {
@@ -88,17 +94,15 @@ export const getInitialFilters = () => {
         filtersFromLS.DateTo = dateTo ? dateTo : null;
     }
 
-    const urlParams = new URLSearchParams(window.location.search);
+    let filters = {};
 
-    let filters = filtersFromLS ? filtersFromLS : emptyFilters;
-
-    Object.keys(filters).forEach(k => {
-        let x = urlParams.getAll(k);
-        if (x.length) {
-            x = x.map(y => isNaN(y) ? y : Number(y));
-            filters[k] = x;
-        }
-    });
+    if(filtersFromUrl) {
+        Object.keys(emptyFilters).forEach(key => {
+            filters[key] = filtersFromUrl[key] || emptyFilters[key];
+        });
+    } else {
+        filters = filtersFromLS ? filtersFromLS : emptyFilters;
+    }
 
     return filters;
 };

@@ -43,6 +43,10 @@ const ExhibitionsList = ({ history, CityIds, ClubIds, DateFrom, DateTo, Exhibiti
     };
 
     useEffect(() => {
+        window.addEventListener('popstate', () => {
+            console.log(window.history);
+        });
+
         const unlisten = history.listen(location => {
             console.log('location', location);
         });
