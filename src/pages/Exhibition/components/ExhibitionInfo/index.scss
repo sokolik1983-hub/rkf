@@ -74,6 +74,9 @@
       &:not(:last-child) {
         margin-bottom: 4px;
       }
+      &.not-active a {
+        color: #72839c !important;
+      }
     }
   }
 }

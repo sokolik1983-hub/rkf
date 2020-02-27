@@ -15,13 +15,22 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.2px;
-    color: #72839C;
-    transition: color .2s linear;
-    &:visited, &:active {
-      color: #72839C;
+    color: #72839c;
+    transition: color 0.2s linear;
+    &:visited,
+    &:active {
+      color: #72839c;
     }
     &:hover {
-      color: #3366FF;
+      color: #3366ff;
+    }
+    &.disabled {
+      color: #babfc7;
+      &:visited,
+      &:active,
+      :hover {
+        color: #babfc7;
+      }
     }
   }
   &__button {
