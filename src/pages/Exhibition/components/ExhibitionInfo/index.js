@@ -46,13 +46,13 @@ const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, b
                     </tbody>
                 </table>
                 <ul className="exhibition-info__block-list">
-                    <li className="exhibition-info__block-item">
+                    <li className="exhibition-info__block-item not-active">
                         <a href="/" onClick={e => e.preventDefault()}>Судьи</a>
                     </li>
-                    <li className="exhibition-info__block-item">
+                    <li className="exhibition-info__block-item not-active">
                         <a href="/" onClick={e => e.preventDefault()}>Другие мероприятия организатора</a>
                     </li>
-                    <li className="exhibition-info__block-item">
+                    <li className="exhibition-info__block-item not-active">
                         <a href="/" onClick={e => e.preventDefault()}>Платные услуги</a>
                     </li>
                 </ul>
