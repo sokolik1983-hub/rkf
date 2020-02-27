@@ -1,3 +1,4 @@
+import history from "../../utils/history";
 import { endpointGetExhibitions } from "./config";
 import { formatDateToString } from "../../utils/datetime";
 
@@ -49,6 +50,7 @@ export const setFiltersToLS = filters => {
 };
 
 export const getEmptyFilters = () => ({
+    Alias: null,
     CityIds: [],
     ClubIds: null,
     RankIds: [],
@@ -59,9 +61,16 @@ export const getEmptyFilters = () => ({
     PageNumber: 1
 });
 
+export const getFiltersFromUrl = () => {
+    // console.log(history.location.search ?
+    //
+    // );
+};
+
 export const getInitialFilters = () => {
     const emptyFilters = getEmptyFilters();
     const filtersFromLS = getFiltersFromLS();
+    const filtersFromUrl = getFiltersFromUrl();
 
     if (filtersFromLS) {
         const dateToday = +new Date(emptyFilters.DateFrom);
@@ -82,12 +91,13 @@ export const getInitialFilters = () => {
     const urlParams = new URLSearchParams(window.location.search);
 
     let filters = filtersFromLS ? filtersFromLS : emptyFilters;
+
     Object.keys(filters).forEach(k => {
         let x = urlParams.getAll(k);
         if (x.length) {
             x = x.map(y => isNaN(y) ? y : Number(y));
             filters[k] = x;
-        };
+        }
     });
 
     return filters;

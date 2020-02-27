@@ -1,20 +1,29 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import Card from "../Card";
 import "./index.scss";
 
 
-const MenuComponent = ({alias, name, btnName, btnHref, items}) => (
-
+const MenuComponent = ({alias, btnName}) => (
     <Card className="menu-component">
-        <h4 className="menu-component__title">{name}</h4>
+        <h4 className="menu-component__title">Меню</h4>
         <ul className="menu-component__list">
-            {items.map((item, index) => (
-                <li key={index} className="menu-component__item">
-                <a href={item.href} className="menu-component__link">{item.title}</a>
+            <li className="menu-component__item">
+                <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link">Мероприятия</Link>
             </li>
-            ))}
+            <li className="menu-component__item">
+                <Link to="/" className="menu-component__link">Президиум</Link>
+            </li>
+            <li className="menu-component__item">
+                <Link to="/" onClick={e => e.preventDefault()} className="menu-component__link not-active">Новости</Link>
+            </li>
+            {alias !== 'rkf' &&
+                <li className="menu-component__item">
+                    <Link to="/" onClick={e => e.preventDefault()} className="menu-component__link not-active">Клейма</Link>
+                </li>
+            }
         </ul>
-        <a href={btnHref} className="menu-component__button">{btnName}</a>
+        <Link to={`/${alias}`} className="menu-component__button">{btnName}</Link>
     </Card>
 );
 export default React.memo(MenuComponent);

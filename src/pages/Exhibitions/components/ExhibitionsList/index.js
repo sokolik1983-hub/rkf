@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
+import {withRouter} from "react-router";
 import Placeholder from "./Placeholder";
-import Paginator from "components/Paginator";
-import { buildUrl } from "pages/Exhibitions/utils";
-import { Request } from "utils/request";
-import { endpointGetExhibitions } from "pages/Exhibitions/config";
-import { connectFilters } from "pages/Exhibitions/connectors";
-import { useDictionary } from "apps/Dictionaries";
+import Paginator from "../../../../components/Paginator";
+import {buildUrl, getInitialFilters} from "../../utils";
+import {Request} from "../../../../utils/request";
+import {endpointGetExhibitions} from "../../config";
+import {connectFilters} from "../../connectors";
+import {useDictionary} from "../../../../apps/Dictionaries";
 import ListItem from "./ListItem";
-import './index.scss';
+import "./index.scss";
 
-const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds }) => {
+
+const ExhibitionsList = ({ history, CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds, Alias }) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [url, setUrl] = useState('');
@@ -41,8 +43,16 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     };
 
     useEffect(() => {
-        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds]);
+        const unlisten = history.listen(location => {
+            console.log('location', location);
+        });
+
+        return () => unlisten();
+    }, []);
+
+    useEffect(() => {
+        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds, Alias })}`);
+    }, [CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds, Alias]);
 
     useEffect(() => {
         if (ExhibitionName) {
@@ -51,7 +61,6 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
         } else {
             if (prevUrl) {
                 setUrl(prevUrl);
-                // setUrl(`${endpointGetExhibitions}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
             }
         }
     }, [ExhibitionName]);
@@ -66,7 +75,7 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
         {
             loading
                 ? <Placeholder />
-                : (exhibitions && !!exhibitions.length) &&
+                : exhibitions && !!exhibitions.length &&
                 <ul className="ExhibitionsList__content">
                     {exhibitions && !!exhibitions.length && exhibitions.map(item => (
                         <li className="ExhibitionsList__item" key={item.id}>
@@ -102,4 +111,4 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     </div>
 };
 
-export default connectFilters(React.memo(ExhibitionsList));
+export default withRouter(connectFilters(React.memo(ExhibitionsList)));
