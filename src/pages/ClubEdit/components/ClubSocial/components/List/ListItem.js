@@ -1,11 +1,11 @@
 import React from 'react'
 import { useVisibility } from "shared/hooks";
 import { Form } from 'components/Form'
-import { connectClientClubListItem } from 'apps/ClubSocial/connectors'
-import { RenderFields } from 'apps/ClubSocial/components/Form/RenderFields'
+import { connectClientClubListItem } from '../../connectors'
+import { RenderFields } from '../Form/RenderFields'
 import ClubListSocial from './ListSocial'
 import DeleteButton from "components/DeleteButton";
-import { clubClubSocialConfig, endpointUrl } from 'apps/ClubSocial/config'
+import { clubClubSocialConfig, endpointUrl } from '../../config'
 import Dropdown from 'components/Dropdown';
 
 function ClientClubListItem({ clubSocial, updateClubSocialSuccess, deleteClubSocialSuccess }) {

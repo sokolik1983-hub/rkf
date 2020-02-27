@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Container from "../../../../components/Layouts/Container";
-import {connectClubPublicLink} from "apps/ClientClub/connectors";
+import {connectClubPublicLink} from "pages/ClubEdit/connectors";
 import './styles.scss';
 
 

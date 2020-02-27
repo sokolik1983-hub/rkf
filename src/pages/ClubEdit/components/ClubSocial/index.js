@@ -5,7 +5,7 @@ import { useVisibility } from 'shared/hooks'
 import { defaultReduxKey } from "./config";
 import ClubSocialForm from './components/Form'
 import Button from 'components/Button'
-import injectReducer from "../../utils/injectReducer";
+import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
 
 function ClientClubSocialProxy({ bindSubmitForm }) {

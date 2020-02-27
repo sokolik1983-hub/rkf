@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import Card from "components/Card";
+
+import EditPageButtons from 'apps/Client/components/EditPageButtons';
 import ClubLegalInfo from 'apps/ClubLegalInfo';
 import ClubBankInfo from 'apps/ClubBankInfo';
-import ClubInfo from 'apps/ClubInfo';
 import ClubContacts from 'apps/ClubContacts';
 import ClubDocuments from 'apps/ClubDocuments';
-import ClubSocial from 'apps/ClubSocial';
-import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
-import EditPageButtons from 'apps/Client/components/EditPageButtons';
-import { connectClientClubAlias } from 'apps/ClientClub/connectors';
-import ClubSchedule from "../../../ClubSchedule";
-import './styles.scss';
-import { defaultReduxKey, endpointUrl } from "apps/ClientClub/config";
+
+import ClubInfo from 'pages/Club/Components/ClubInfo';
+import ClubHeaderPicture from './components/ClubHeaderPicture';
+import ClubSchedule from './components/ClubSchedule';
+import ClubSocial from './components/ClubSocial';
+
+import { defaultReduxKey, endpointUrl } from "./config";
+import { connectClientClubAlias } from './connectors';
+import reducer from "./reducer";
 import { useResourceAndStoreToRedux } from 'shared/hooks'
-import reducer from "apps/ClientClub/reducer";
 import injectReducer from "utils/injectReducer";
+import './styles.scss';
 
 
 let unblock;
