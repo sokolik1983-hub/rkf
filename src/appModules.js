@@ -83,7 +83,7 @@ export const LoadableNotConfirmed = Loadable({
 });
 
 export const LoadableClient = Loadable({
-    loader: () => import(/* webpackChunkName: "app.client.root" */ './apps/Client/index'),
+    loader: () => import(/* webpackChunkName: "app.client.root" */ './pages/ClubEdit'),
     loading: Loading,
 });
 

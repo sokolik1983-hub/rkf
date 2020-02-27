@@ -15,6 +15,7 @@ function ClientProfile(props) {
     //     legal_information_id,
     //     bank_data_id,
     // } = props;
+    console.log('ClientProfile');
     return (
         <>
             <h2>Профиль</h2>

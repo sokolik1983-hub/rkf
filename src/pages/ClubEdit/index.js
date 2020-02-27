@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import Card from "components/Card";
-
-import EditPageButtons from 'apps/Client/components/EditPageButtons';
-import ClubLegalInfo from 'apps/ClubLegalInfo';
-import ClubBankInfo from 'apps/ClubBankInfo';
-import ClubContacts from 'apps/ClubContacts';
-import ClubDocuments from 'apps/ClubDocuments';
-
-import ClubInfo from 'pages/Club/Components/ClubInfo';
+import ClubInfo from './components/ClubInfo';
+import EditPageButtons from './components/EditPageButtons';
 import ClubHeaderPicture from './components/ClubHeaderPicture';
 import ClubSchedule from './components/ClubSchedule';
 import ClubSocial from './components/ClubSocial';
+import ClubLegalInfo from './components/ClubLegalInfo';
+import ClubBankInfo from './components/ClubBankInfo';
+import ClubContacts from './components/ClubContacts';
+import ClubDocuments from './components/ClubDocuments';
 
+import AuthOrLogin from 'apps/Auth/containers/AuthOrLogin';
+import Card from "components/Card";
+import Layout from 'components/Layouts';
+import Container from "components/Layouts/Container";
 import { defaultReduxKey, endpointUrl } from "./config";
 import { connectClientClubAlias } from './connectors';
 import reducer from "./reducer";
@@ -192,43 +193,49 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
     }, [serverErrors]);
 
     return (
-        <div className="ClubEditPage">
-            <h2>Личный кабинет</h2>
-            <Card className="ClubEditPage__about">
-                <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                    bindSubmitClubLogo={bindSubmitClubLogo}
-                    bindSubmitClubInfo={bindSubmitClubInfo}
-                    isFederation={is_federation}
-                />
-            </Card>
-            <Card className="ClubEditPage__schedule">
-                <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
-            </Card>
-            <Card className="ClubEditPage__legal">
-                <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
-            </Card>
-            <Card className="ClubEditPage__bank">
-                <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
-            </Card>
-            <Card className="ClubEditPage__contacts">
-                <h3>Контакты</h3>
-                <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                    bindSubmitClubPhone={bindSubmitClubPhone}
-                />
-            </Card>
-            <Card className="ClubEditPage__documents">
-                <h3>Ссылки на документы</h3>
-                <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
-            </Card>
-            <Card className="ClubEditPage__socials">
-                <h3>Социальные сети</h3>
-                <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
-            </Card>
-            <Card className="ClubEditPage__head-picture">
-                <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
-            </Card>
-            <EditPageButtons handleSubmitForms={handleSubmitForms} />
-        </div>
+        <AuthOrLogin>
+            <Layout>
+                <Container className="content">
+                    <div className="ClubEditPage">
+                        <h2>Личный кабинет</h2>
+                        <Card className="ClubEditPage__about">
+                            <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
+                                bindSubmitClubLogo={bindSubmitClubLogo}
+                                bindSubmitClubInfo={bindSubmitClubInfo}
+                                isFederation={is_federation}
+                            />
+                        </Card>
+                        <Card className="ClubEditPage__schedule">
+                            <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
+                        </Card>
+                        <Card className="ClubEditPage__legal">
+                            <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
+                        </Card>
+                        <Card className="ClubEditPage__bank">
+                            <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
+                        </Card>
+                        <Card className="ClubEditPage__contacts">
+                            <h3>Контакты</h3>
+                            <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
+                                bindSubmitClubPhone={bindSubmitClubPhone}
+                            />
+                        </Card>
+                        <Card className="ClubEditPage__documents">
+                            <h3>Ссылки на документы</h3>
+                            <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
+                        </Card>
+                        <Card className="ClubEditPage__socials">
+                            <h3>Социальные сети</h3>
+                            <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
+                        </Card>
+                        <Card className="ClubEditPage__head-picture">
+                            <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
+                        </Card>
+                        <EditPageButtons handleSubmitForms={handleSubmitForms} />
+                    </div>
+                </Container>
+            </Layout>
+        </AuthOrLogin>
     )
 }
 
