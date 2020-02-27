@@ -47,10 +47,8 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
             <div className="federation-page">
                 <Container className="content federation-page__content">
                     <TopComponent
-                        alias={alias}
                         logo={federation.logo}
                         name={federation.name}
-                        status={federation.status || "текущий статус"}
                         canEdit={canEdit}
                     />
                     <ExhibitionsComponent alias={alias}/>
