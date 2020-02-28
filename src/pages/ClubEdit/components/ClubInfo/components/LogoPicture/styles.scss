@@ -1,0 +1,21 @@
+$size: 110px;
+.ClubLogoPicture {
+  width: $size;
+  min-width: $size;
+  max-width: $size;
+  height: $size;
+  min-height: $size;
+  max-height: $size;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-radius: 50%;
+  margin: 24px;
+  &__holder {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
