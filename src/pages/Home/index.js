@@ -70,16 +70,16 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                             <div className="home-page__projects">
                                 <h3>Наши проекты</h3>
                                 <p>
-                                    <a href="http://rkf.org.ru/">Официальный сайт РКФ</a>
+                                    <a href="http://rkf.org.ru/" target="_blank" rel="noreferrer noopener">Официальный сайт РКФ</a>
                                 </p>
                                 <p>
                                     <span className="disabled">Образовательный портал</span>
                                 </p>
                                 <p>
-                                    <a href="http://wiki.rkf.online/">База знаний</a>
+                                    <a href="http://wiki.rkf.online/" target="_blank" rel="noreferrer noopener">База знаний</a>
                                 </p>
                                 <p>
-                                    <a href="http://rkfshow.ru/">Запись на выставки</a>
+                                    <a href="http://rkfshow.ru/" target="_blank" rel="noreferrer noopener">Запись на выставки</a>
                                 </p>
                             </div>
                         </Card>
@@ -93,7 +93,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         <ul className="Homepage__partners-list">
                             {partners.map(i => (
                                 <li key={i.id}>
-                                    <a href={i.url} title={i.title}>
+                                    <a href={i.url} title={i.title} target="_blank" rel="noreferrer noopener">
                                         <img src={i.img} alt={i.title} />
                                     </a>
                                 </li>
@@ -108,7 +108,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         <ul className="Homepage__exhibitions-list">
                             {exhibitions.map(i => (
                                 <li key={i.id}>
-                                    <a href={i.url} title={i.name}>
+                                    <a href={i.url} title={i.name} target="_blank" rel="noreferrer noopener">
                                         <img src={i.logo} alt={i.name} />
                                     </a>
                                 </li>

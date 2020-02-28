@@ -1,26 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import Card from "components/Card";
-import ClubLegalInfo from 'apps/ClubLegalInfo';
-import ClubBankInfo from 'apps/ClubBankInfo';
-import ClubInfo from 'apps/ClubInfo';
-import ClubContacts from 'apps/ClubContacts';
-import ClubDocuments from 'apps/ClubDocuments';
-import ClubSocial from 'apps/ClubSocial';
-import ClubHeaderPicture from 'apps/ClubInfo/components/HeaderPicture';
-import EditPageButtons from 'apps/Client/components/EditPageButtons';
-import { connectClientClubAlias } from 'apps/ClientClub/connectors';
-import ClubSchedule from "../../../ClubSchedule";
-import './styles.scss';
-import { defaultReduxKey, endpointUrl } from "apps/ClientClub/config";
-import { useResourceAndStoreToRedux } from 'shared/hooks'
-import reducer from "apps/ClientClub/reducer";
-import injectReducer from "utils/injectReducer";
+import ClubInfo from './components/ClubInfo';
+import EditPageButtons from './components/EditPageButtons';
+import ClubHeaderPicture from './components/ClubHeaderPicture';
+import ClubSchedule from './components/ClubSchedule';
+import ClubSocial from './components/ClubSocial';
+import ClubLegalInfo from './components/ClubLegalInfo';
+import ClubBankInfo from './components/ClubBankInfo';
+import ClubContacts from './components/ClubContacts';
+import ClubDocuments from './components/ClubDocuments';
 
+import AuthOrLogin from 'apps/Auth/containers/AuthOrLogin';
+import Card from "components/Card";
+import Header from 'components/Layouts/Header';
+import Container from "components/Layouts/Container";
+import { defaultReduxKey, endpointUrl } from "./config";
+import { connectClientClubAlias } from './connectors';
+import reducer from "./reducer";
+import { useResourceAndStoreToRedux } from 'shared/hooks'
+import injectReducer from "utils/injectReducer";
+import './styles.scss';
+
+const ClubEdit = props => (
+    <AuthOrLogin>
+        <Header />
+        <ClubEditPage {...props} />
+    </AuthOrLogin>);
+
+const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
+export default compose(
+    withRouter,
+    withReducer,
+    connectClientClubAlias
+)(ClubEdit);
 
 let unblock;
-
 function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, history, getClubSuccess }) {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
@@ -38,8 +53,6 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
         submitClubSocials,
         submitClubHeaderPicture;
     let clientErrors = {};
-
-    useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
@@ -188,7 +201,9 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
         }
     }, [serverErrors]);
 
-    return (
+    useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
+    
+    return <Container className="content">
         <div className="ClubEditPage">
             <h2>Личный кабинет</h2>
             <Card className="ClubEditPage__about">
@@ -226,8 +241,5 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
             </Card>
             <EditPageButtons handleSubmitForms={handleSubmitForms} />
         </div>
-    )
+    </Container>
 }
-
-const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
-export default compose(withRouter, withReducer, connectClientClubAlias)(ClubEditPage)
