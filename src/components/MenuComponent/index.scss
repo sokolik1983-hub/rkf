@@ -49,4 +49,22 @@
     box-shadow: 0 3px 8px rgba(51, 102, 255, 0.15);
     border-radius: 4px;
   }
+  &__presidium {
+    background-color: #fff;
+    width: calc(100vw - 32px);
+    max-width: 600px;
+    padding: 24px 32px;
+    @media (max-width: 560px) {
+      padding: 16px 24px;
+    }
+    &-title {
+      margin-bottom: 16px;
+    }
+    &-list {
+      list-style-position: inside;
+    }
+    &-item:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
 }
