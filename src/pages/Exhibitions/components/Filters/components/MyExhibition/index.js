@@ -1,16 +1,16 @@
-import React from 'react';
-import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
-import {getClubId} from "../../../utils";
-import {connectFilters} from "../../../connectors";
+import React from "react";
+import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
+import {getClubId, setFiltersToUrl} from "../../../../utils";
 
-const MyExhibitionsFilter = ({ClubIds, setFiltersSuccess}) => {
+
+const MyExhibitionsFilter = ({ClubIds}) => {
     const clubId = getClubId(); //берёт profile_id из localStorage
 
     const handleChange = (e) => {
         if(e.target.checked) {
-            setFiltersSuccess({ClubIds: clubId, PageNumber: 1});
+            setFiltersToUrl({ClubIds: clubId, PageNumber: 1});
         } else {
-            setFiltersSuccess({ClubIds: null, PageNumber: 1});
+            setFiltersToUrl({ClubIds: null, PageNumber: 1});
         }
     };
 
@@ -24,4 +24,4 @@ const MyExhibitionsFilter = ({ClubIds, setFiltersSuccess}) => {
     )
 };
 
-export default connectFilters(React.memo(MyExhibitionsFilter));
+export default React.memo(MyExhibitionsFilter);

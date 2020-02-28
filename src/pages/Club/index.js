@@ -12,7 +12,6 @@ import ClubInfo from "./Components/ClubInfo";
 import ClubDescription from "./Components/ClubDescription";
 import AddArticle from "../../components/AddArticleComponent";
 import ClubNews from "./Components/ClubNews";
-import {mainClub} from "../../appConfig";
 import {Request} from "../../utils/request";
 import {endpointGetClubInfo} from "./config";
 import {connectAuthVisible} from "../Login/connectors";
@@ -77,11 +76,7 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                             />
                         </div>
                         <Aside className="club-page__info">
-                            <MenuComponent alias="club" 
-                                name={mainClub.name}
-                                btnName={mainClub.btnName}
-                                btnHref={mainClub.btnHref}
-                                items={mainClub.children}>
+                            <MenuComponent alias={clubInfo.club_alias} name={clubInfo.name} btnName="Страница Клуба">
                             </MenuComponent>
                             <ClubInfo {...clubInfo} />
                         </Aside>

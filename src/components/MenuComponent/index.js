@@ -1,35 +1,50 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import Card from "../Card";
-import Alert from 'components/Alert'
+import Alert from "../Alert";
 import "./index.scss";
 
 
-const MenuComponent = ({ alias, name, btnName, btnHref, items }) => {
+const MenuComponent = ({alias, name, btnName}) => {
     const [showAlert, setShowAlert] = useState(false);
 
     const handleClick = e => {
         e.preventDefault();
         setShowAlert(true);
-    }
+    };
 
-    const handleClose = e => setShowAlert(false);
+    const handleClose = () => setShowAlert(false);
 
-    return <Card className="menu-component">
-        {showAlert && <Alert
-            title="Внимание!"
-            text="Раздел находится в разработке."
-            autoclose={1.5}
-            onOk={handleClose}
-        />}
-        <h4 className="menu-component__title">{name}</h4>
-        <ul className="menu-component__list">
-            {items.map((item, index) => (
-                <li key={index} className="menu-component__item">
-                    <a href={item.href} className="menu-component__link disabled" onClick={handleClick}>{item.title}</a>
+    return (
+        <Card className="menu-component">
+            {showAlert &&
+                <Alert
+                    title="Внимание!"
+                    text="Раздел находится в разработке."
+                    autoclose={1.5}
+                    onOk={handleClose}
+                />
+            }
+            <h4 className="menu-component__title" title={`Меню ${name}`}>{`Меню ${name}`}</h4>
+            <ul className="menu-component__list">
+                <li className="menu-component__item">
+                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link">Мероприятия</Link>
                 </li>
-            ))}
-        </ul>
-        <a href={btnHref} className="menu-component__button">{btnName}</a>
-    </Card>
+                <li className="menu-component__item">
+                    <Link to="/" onClick={handleClick} className="menu-component__link">Президиум</Link>
+                </li>
+                <li className="menu-component__item">
+                    <Link to="/" onClick={handleClick} className="menu-component__link not-active">Новости</Link>
+                </li>
+                {alias !== 'rkf' &&
+                    <li className="menu-component__item">
+                        <Link to="/" onClick={handleClick} className="menu-component__link not-active">Клейма</Link>
+                    </li>
+                }
+            </ul>
+            <Link to={`/${alias}`} className="menu-component__button">{btnName}</Link>
+        </Card>
+    )
 };
+
 export default React.memo(MenuComponent);

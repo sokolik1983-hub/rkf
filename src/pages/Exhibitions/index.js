@@ -1,30 +1,41 @@
-import React from "react";
-import { compose } from "redux";
+import React, {useEffect, useState} from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
-import reducer from "./reducer";
-import injectReducer from "../../utils/injectReducer";
-import { connectShowFilters } from "../../components/Layouts/connectors";
+import {connectShowFilters} from "../../components/Layouts/connectors";
+import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
 import './index.scss';
 
 
-const Exhibitions = ({ isOpenFilters, setShowFilters }) => (
-    <Layout withFilters>
-        <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
-        <Container className="content exhibitions-page">
-            <Filters />
-            <div className="exhibitions-page__content">
-                <ExhibitionsSearch />
-                <ExhibitionsList />
-            </div>
-        </Container>
-    </Layout>
-);
+const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
+    const [filters, setFilters] = useState({...getInitialFilters()});
+    const [url, setUrl] = useState(buildUrl({...filters}));
 
-const withReducer = injectReducer({ key: 'filters', reducer: reducer });
+    useEffect(() => {
+        const unListen = history.listen(() => {
+            const filters = getFiltersFromUrl();
+            setFilters({...filters});
+            setUrl(buildUrl({...filters}));
+        });
 
-export default compose(withReducer)(connectShowFilters(React.memo(Exhibitions)));
+        return () => unListen();
+    }, []);
+
+    return (
+        <Layout withFilters>
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
+            <Container className="content exhibitions-page">
+                <Filters filters={filters}/>
+                <div className="exhibitions-page__content">
+                    <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
+                    <ExhibitionsList url={url} PageNumber={filters.PageNumber}/>
+                </div>
+            </Container>
+        </Layout>
+    )
+};
+
+export default connectShowFilters(React.memo(Exhibitions));

@@ -14,7 +14,6 @@ import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
-import {mainRKF} from "../../appConfig";
 import "./index.scss";
 
 
@@ -72,12 +71,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            <MenuComponent 
-                                alias="rkf" 
-                                name={mainRKF.name}
-                                btnName={mainRKF.btnName}
-                                btnHref={mainRKF.btnHref}
-                                items={mainRKF.children}/>
+                            <MenuComponent alias="rkf" name={info.name} btnName="Страница РКФ"/>
                             <ContactsComponent
                                 address={info.address}
                                 owner_name={info.owner_name || "Голубев Владимир Семенович"}

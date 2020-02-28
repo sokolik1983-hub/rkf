@@ -1,6 +1,10 @@
 .menu-component {
   padding: 14px 16px 16px;
   margin-bottom: 24px;
+  &__title {
+    max-height: 40px;
+    overflow: hidden;
+  }
   &__list {
     list-style: none;
     margin-bottom: 32px;

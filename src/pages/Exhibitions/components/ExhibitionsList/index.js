@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Placeholder from "./Placeholder";
-import Paginator from "components/Paginator";
-import { buildUrl } from "pages/Exhibitions/utils";
-import { Request } from "utils/request";
-import { endpointGetExhibitions } from "pages/Exhibitions/config";
-import { connectFilters } from "pages/Exhibitions/connectors";
-import { useDictionary } from "apps/Dictionaries";
 import ListItem from "./ListItem";
-import './index.scss';
+import Paginator from "../../../../components/Paginator";
+import {setFiltersToUrl} from "../../utils";
+import {Request} from "../../../../utils/request";
+import {useDictionary} from "../../../../apps/Dictionaries";
+import "./index.scss";
 
-const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds }) => {
+
+const ExhibitionsList = ({url, PageNumber}) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
-    const [url, setUrl] = useState('');
-    const [prevUrl, setPrevUrl] = useState('');
     const [loading, setLoading] = useState(true);
 
-    const { dictionary } = useDictionary('rank_type');
+    const {dictionary} = useDictionary('rank_type');
 
     const getExhibitions = async (url) => {
         setLoading(true);
@@ -41,65 +38,47 @@ const ExhibitionsList = ({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, P
     };
 
     useEffect(() => {
-        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds]);
-
-    useEffect(() => {
-        if (ExhibitionName) {
-            setPrevUrl(url);
-            setUrl(`${endpointGetExhibitions}?ExhibitionName=${ExhibitionName}`);
-        } else {
-            if (prevUrl) {
-                setUrl(prevUrl);
-                // setUrl(`${endpointGetExhibitions}?DateFrom=${DateFrom}${DateTo ? '&DateTo=' + DateTo : ''}`);
-            }
-        }
-    }, [ExhibitionName]);
-
-    useEffect(() => {
-        if (url) {
-            (() => getExhibitions(url))();
-        }
+        if (url) (() => getExhibitions(url))();
     }, [url]);
 
-    return <div className="ExhibitionsList">
-        {
-            loading
-                ? <Placeholder />
-                : (exhibitions && !!exhibitions.length) &&
-                <ul className="ExhibitionsList__content">
-                    {exhibitions && !!exhibitions.length && exhibitions.map(item => (
-                        <li className="ExhibitionsList__item" key={item.id}>
-                            {
-                                <ListItem
-                                    id={item.id}
-                                    title={item.content}
-                                    city={item.city}
-                                    dates={item.dates}
-                                    photo={item.picture_link}
-                                    url={item.url}
-                                    club_name={item.club_name}
-                                    club_alias={item.club_alias}
-                                    club_logo={item.club_logo}
-                                    federation_name={item.federation_name}
-                                    federation_link={item.federation_link}
-                                    ranks={item.rank_ids}
-                                    dictionary={dictionary}
-                                />
-                            }
-                        </li>
-                    ))}
-                </ul>}
-        {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
-        {
-            pagesCount > 1 &&
-            <Paginator
-                pagesCount={pagesCount}
-                currentPage={PageNumber}
-                setPage={(page) => setFiltersSuccess({ PageNumber: page })}
-            />
-        }
-    </div>
+    return (
+        <div className="ExhibitionsList">
+            {loading ?
+                <Placeholder/> :
+                exhibitions && !!exhibitions.length &&
+                    <ul className="ExhibitionsList__content">
+                        {exhibitions.map(item => (
+                            <li className="ExhibitionsList__item" key={item.id}>
+                                {
+                                    <ListItem
+                                        id={item.id}
+                                        title={item.content}
+                                        city={item.city}
+                                        dates={item.dates}
+                                        photo={item.picture_link}
+                                        url={item.url}
+                                        club_name={item.club_name}
+                                        club_alias={item.club_alias}
+                                        club_logo={item.club_logo}
+                                        federation_name={item.federation_name}
+                                        federation_link={item.federation_link}
+                                        ranks={item.rank_ids}
+                                        dictionary={dictionary}
+                                    />
+                                }
+                            </li>
+                        ))}
+                    </ul>}
+                {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
+                {pagesCount > 1 &&
+                    <Paginator
+                        pagesCount={pagesCount}
+                        currentPage={PageNumber}
+                        setPage={page => setFiltersToUrl({PageNumber: page})}
+                    />
+                }
+        </div>
+    )
 };
 
-export default connectFilters(React.memo(ExhibitionsList));
+export default React.memo(ExhibitionsList);
