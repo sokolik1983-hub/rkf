@@ -41,7 +41,7 @@ const AboutPage = ({isAuthenticated, profile_id}) => {
                 <div className="about-page__content-wrap">
                     <div className="about-page__news">
                         <NewsComponent
-                            alias="rkf"
+                            alias="rkf-online"
                             page={page}
                             setPage={setPage}
                             needRequest={needRequest}
