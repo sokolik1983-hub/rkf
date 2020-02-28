@@ -17,6 +17,25 @@ import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 
+const presidium = {
+    title: 'Состав Президиума РКФ:',
+    members: [
+        'В.С. Голубев (ОАНКОО)',
+        'В.А. Александров (РФСС)',
+        'Л.В. Галиаскарова (РФСС)',
+        'Т.В. Григоренко (РФСС)',
+        'Н.А. Деменёв (ОАНКОО)',
+        'Е.Г. Домогацкая (РФОС)',
+        'Е.С. Купляускас (РФЛС)',
+        'А.В. Никитин (РФЛС)',
+        'Н.Б. Седых (РФЛС)',
+        'А.А. Солдатов (РФОС)',
+        'Н.Г. Харатишвили (ОАНКОО)',
+        'Р.Р. Хомасуридзе (РФОС)'
+    ]
+};
+
+
 const RKF = ({isAuthenticated, profile_id}) => {
     const [info, setInfo] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -71,7 +90,12 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            <MenuComponent alias="rkf" name={info.name} btnName="Страница РКФ"/>
+                            <MenuComponent
+                                alias="rkf"
+                                name={info.name}
+                                btnName="Страница РКФ"
+                                presidium={presidium}
+                            />
                             <ContactsComponent
                                 address={info.address}
                                 owner_name={info.owner_name || "Голубев Владимир Семенович"}
