@@ -71,7 +71,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 name={info.owner_name || "Голубев Владимир Семенович"}
                                 position={info.owner_position || "Президент Российской Кинологической Федерации"}
                             />
-                            <MenuComponent alias="rkf" btnName="Страница РКФ"/>
+                            <MenuComponent alias="rkf" name={info.name} btnName="Страница РКФ"/>
                             <ContactsComponent
                                 address={info.address}
                                 owner_name={info.owner_name || "Голубев Владимир Семенович"}

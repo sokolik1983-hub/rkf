@@ -77,7 +77,7 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                                 name={federation.owner_name}
                                 position={federation.owner_position}
                             />
-                            <MenuComponent alias={alias} btnName="Страница Федерации"/>
+                            <MenuComponent alias={alias} name={federation.name} btnName="Страница Федерации"/>
                             <ContactsComponent
                                 address={federation.address}
                                 owner_name={federation.owner_name}

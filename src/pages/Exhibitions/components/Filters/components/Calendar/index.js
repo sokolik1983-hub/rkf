@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef} from "react";
 import DayPicker from "react-day-picker";
 import Select from 'react-select';
-import { MONTHS, WEEKDAYS_SHORT } from "../../../../../../appConfig";
-import { formatDateToString } from "../../../../../../utils/datetime";
-import { connectFilters } from "../../../../connectors";
 import OutsideClickHandler from "react-outside-click-handler";
+import {setFiltersToUrl} from "../../../../utils";
+import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
+import {formatDateToString} from "../../../../../../utils/datetime";
 import "./index.scss";
 
 
-const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
+const Calendar = ({calendarData, DateFrom}) => {
     const [day, setDay] = useState(new Date(DateFrom));
     const [years, setYears] = useState([]);
     const [modifier, setModifier] = useState({ selectedDate: day });
@@ -17,7 +17,7 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
     const selectOfYear = useRef(null);
     const selectOfMonth = useRef(null);
 
-    const setNewDate = (date) => {
+    const setNewDate = date => {
         setDay(date);
         setModifier(modifier.green
             ? { ...modifier, selectedDate: date }
@@ -39,7 +39,7 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
 
         setActiveButton(null);
 
-        setFiltersSuccess({
+        setFiltersToUrl({
             ExhibitionName: '',
             DateFrom: formatDateToString(new Date(year, month, 1)),
             DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0)),
@@ -50,7 +50,7 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
     const handleDateClick = date => {
         setActiveButton(null);
 
-        setFiltersSuccess({
+        setFiltersToUrl({
             ExhibitionName: '',
             DateFrom: formatDateToString(date),
             DateTo: formatDateToString(date),
@@ -60,14 +60,14 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
 
     const handleButtonClick = period => {
         if (period === 'month') {
-            setFiltersSuccess({
+            setFiltersToUrl({
                 ExhibitionName: '',
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0)),
                 PageNumber: 1
             });
         } else {
-            setFiltersSuccess({
+            setFiltersToUrl({
                 ExhibitionName: '',
                 DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0)),
@@ -78,71 +78,73 @@ const Calendar = ({ setFiltersSuccess, DateFrom, calendarData }) => {
     };
 
     const closeListOfYear = () => {
-        selectOfYear.current.setState({ menuIsOpen: false });
-    }
+        selectOfYear.current.setState({menuIsOpen: false});
+    };
 
     const closeListOfMonth = () => {
-        selectOfMonth.current.setState({ menuIsOpen: false });
-    }
+        selectOfMonth.current.setState({menuIsOpen: false});
+    };
 
-    return <div className="exhibitions-calendar">
-        <DayPicker
-            showOutsideDays={true}
-            months={MONTHS}
-            month={day}
-            weekdaysShort={WEEKDAYS_SHORT}
-            modifiers={modifier}
-            locale="ru"
-            navbarElement={() => null}
-            onDayClick={handleDateClick}
-            onMonthChange={setNewDate}
-            firstDayOfWeek={1}
-            captionElement={({ date }) => {
-                const monthsArr = MONTHS.map((month, i) => ({ value: i, label: month }));
-                const yearsArr = years.map(year => ({ value: year, label: year }));
+    return (
+        <div className="exhibitions-calendar">
+            <DayPicker
+                showOutsideDays={true}
+                months={MONTHS}
+                month={day}
+                weekdaysShort={WEEKDAYS_SHORT}
+                modifiers={modifier}
+                locale="ru"
+                navbarElement={() => null}
+                onDayClick={handleDateClick}
+                onMonthChange={setNewDate}
+                firstDayOfWeek={1}
+                captionElement={({ date }) => {
+                    const monthsArr = MONTHS.map((month, i) => ({ value: i, label: month }));
+                    const yearsArr = years.map(year => ({ value: year, label: year }));
 
-                return (
-                    <form className="DayPickerForm" onChange={handleFormChange}>
-                        <OutsideClickHandler onOutsideClick={closeListOfMonth}>
-                            <Select
-                                ref={selectOfMonth}
-                                className="DayPickerForm__select"
-                                classNamePrefix="DayPickerForm__select"
-                                name="month"
-                                isClearable={false}
-                                value={monthsArr.filter(item => item.value === date.getMonth())[0]}
-                                options={monthsArr}
-                                onChange={data => handleFormChange(data, date, 'month')}
-                            />
-                        </OutsideClickHandler>
-                        <OutsideClickHandler onOutsideClick={closeListOfYear}>
-                            <Select
-                                ref={selectOfYear}
-                                className="DayPickerForm__select"
-                                classNamePrefix="DayPickerForm__select"
-                                name="year"
-                                isClearable={false}
-                                value={yearsArr.filter(item => item.value === date.getFullYear())}
-                                options={yearsArr}
-                                onChange={data => handleFormChange(data, date, 'year')}
-                            />
-                        </OutsideClickHandler>
-                    </form>
-                )
-            }}
-        />
-        <div className="exhibitions-calendar__controls">
-            <button
-                className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
-                onClick={() => handleButtonClick('year')}
-            >Год</button>
-            <button
-                className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
-                onClick={() => handleButtonClick('month')}
-            >Месяц</button>
+                    return (
+                        <form className="DayPickerForm" onChange={handleFormChange}>
+                            <OutsideClickHandler onOutsideClick={closeListOfMonth}>
+                                <Select
+                                    ref={selectOfMonth}
+                                    className="DayPickerForm__select"
+                                    classNamePrefix="DayPickerForm__select"
+                                    name="month"
+                                    isClearable={false}
+                                    value={monthsArr.filter(item => item.value === date.getMonth())[0]}
+                                    options={monthsArr}
+                                    onChange={data => handleFormChange(data, date, 'month')}
+                                />
+                            </OutsideClickHandler>
+                            <OutsideClickHandler onOutsideClick={closeListOfYear}>
+                                <Select
+                                    ref={selectOfYear}
+                                    className="DayPickerForm__select"
+                                    classNamePrefix="DayPickerForm__select"
+                                    name="year"
+                                    isClearable={false}
+                                    value={yearsArr.filter(item => item.value === date.getFullYear())}
+                                    options={yearsArr}
+                                    onChange={data => handleFormChange(data, date, 'year')}
+                                />
+                            </OutsideClickHandler>
+                        </form>
+                    )
+                }}
+            />
+            <div className="exhibitions-calendar__controls">
+                <button
+                    className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('year')}
+                >Год</button>
+                <button
+                    className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('month')}
+                >Месяц</button>
+            </div>
+            <p className="exhibitions-calendar__legend">Доступные выставки</p>
         </div>
-        <p className="exhibitions-calendar__legend">Доступные выставки</p>
-    </div>
+    )
 };
 
-export default connectFilters(React.memo(Calendar));
+export default React.memo(Calendar);

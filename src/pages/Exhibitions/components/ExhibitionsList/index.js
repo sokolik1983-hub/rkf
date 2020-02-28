@@ -1,24 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {withRouter} from "react-router";
 import Placeholder from "./Placeholder";
-import Paginator from "../../../../components/Paginator";
-import {buildUrl, getInitialFilters} from "../../utils";
-import {Request} from "../../../../utils/request";
-import {endpointGetExhibitions} from "../../config";
-import {connectFilters} from "../../connectors";
-import {useDictionary} from "../../../../apps/Dictionaries";
 import ListItem from "./ListItem";
+import Paginator from "../../../../components/Paginator";
+import {setFiltersToUrl} from "../../utils";
+import {Request} from "../../../../utils/request";
+import {useDictionary} from "../../../../apps/Dictionaries";
 import "./index.scss";
 
 
-const ExhibitionsList = ({ history, CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, setFiltersSuccess, RankIds, BreedIds, Alias }) => {
+const ExhibitionsList = ({url, PageNumber}) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
-    const [url, setUrl] = useState('');
-    const [prevUrl, setPrevUrl] = useState('');
     const [loading, setLoading] = useState(true);
 
-    const { dictionary } = useDictionary('rank_type');
+    const {dictionary} = useDictionary('rank_type');
 
     const getExhibitions = async (url) => {
         setLoading(true);
@@ -43,76 +38,47 @@ const ExhibitionsList = ({ history, CityIds, ClubIds, DateFrom, DateTo, Exhibiti
     };
 
     useEffect(() => {
-        window.addEventListener('popstate', () => {
-            console.log(window.history);
-        });
-
-        const unlisten = history.listen(location => {
-            console.log('location', location);
-        });
-
-        return () => unlisten();
-    }, []);
-
-    useEffect(() => {
-        setUrl(`${buildUrl({ CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds, Alias })}`);
-    }, [CityIds, ClubIds, DateFrom, DateTo, ExhibitionName, PageNumber, RankIds, BreedIds, Alias]);
-
-    useEffect(() => {
-        if (ExhibitionName) {
-            setPrevUrl(url);
-            setUrl(`${endpointGetExhibitions}?ExhibitionName=${ExhibitionName}`);
-        } else {
-            if (prevUrl) {
-                setUrl(prevUrl);
-            }
-        }
-    }, [ExhibitionName]);
-
-    useEffect(() => {
-        if (url) {
-            (() => getExhibitions(url))();
-        }
+        if (url) (() => getExhibitions(url))();
     }, [url]);
 
-    return <div className="ExhibitionsList">
-        {
-            loading
-                ? <Placeholder />
-                : exhibitions && !!exhibitions.length &&
-                <ul className="ExhibitionsList__content">
-                    {exhibitions && !!exhibitions.length && exhibitions.map(item => (
-                        <li className="ExhibitionsList__item" key={item.id}>
-                            {
-                                <ListItem
-                                    id={item.id}
-                                    title={item.content}
-                                    city={item.city}
-                                    dates={item.dates}
-                                    photo={item.picture_link}
-                                    url={item.url}
-                                    club_name={item.club_name}
-                                    club_alias={item.club_alias}
-                                    club_logo={item.club_logo}
-                                    federation_name={item.federation_name}
-                                    federation_link={item.federation_link}
-                                    ranks={item.rank_ids}
-                                    dictionary={dictionary}
-                                />
-                            }
-                        </li>
-                    ))}
-                </ul>}
-        {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
-        {
-            pagesCount > 1 &&
-            <Paginator
-                pagesCount={pagesCount}
-                currentPage={PageNumber}
-                setPage={(page) => setFiltersSuccess({ PageNumber: page })}
-            />
-        }
-    </div>
+    return (
+        <div className="ExhibitionsList">
+            {loading ?
+                <Placeholder/> :
+                exhibitions && !!exhibitions.length &&
+                    <ul className="ExhibitionsList__content">
+                        {exhibitions.map(item => (
+                            <li className="ExhibitionsList__item" key={item.id}>
+                                {
+                                    <ListItem
+                                        id={item.id}
+                                        title={item.content}
+                                        city={item.city}
+                                        dates={item.dates}
+                                        photo={item.picture_link}
+                                        url={item.url}
+                                        club_name={item.club_name}
+                                        club_alias={item.club_alias}
+                                        club_logo={item.club_logo}
+                                        federation_name={item.federation_name}
+                                        federation_link={item.federation_link}
+                                        ranks={item.rank_ids}
+                                        dictionary={dictionary}
+                                    />
+                                }
+                            </li>
+                        ))}
+                    </ul>}
+                {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
+                {pagesCount > 1 &&
+                    <Paginator
+                        pagesCount={pagesCount}
+                        currentPage={PageNumber}
+                        setPage={page => setFiltersToUrl({PageNumber: page})}
+                    />
+                }
+        </div>
+    )
 };
 
-export default withRouter(connectFilters(React.memo(ExhibitionsList)));
+export default React.memo(ExhibitionsList);

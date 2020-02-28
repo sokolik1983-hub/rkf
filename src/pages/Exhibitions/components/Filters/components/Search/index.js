@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { connectFilters } from "pages/Exhibitions/connectors";
-import './index.scss';
+import React, {useEffect, useState} from "react";
+import {getEmptyFilters, setFiltersToUrl} from "../../../../utils";
+import "./index.scss";
 
 
-const ExhibitionsSearch = ({ ExhibitionName, setFiltersSuccess }) => {
+const ExhibitionsSearch = ({ExhibitionName}) => {
     const [searchValue, setSearchValue] = useState(ExhibitionName);
-
-    const onCancel = () => {
-        setSearchValue('');
-        setFiltersSuccess({ ExhibitionName: '', PageNumber: 1 });
-    };
-
-    const handleKeyDown = e => {
-        if (searchValue && e.key === 'Enter') {
-            setFiltersSuccess({ ExhibitionName: searchValue, PageNumber: 1 });
-        } else if (e.key === 'Enter') {
-            onCancel();
-        }
-    };
 
     useEffect(() => {
         setSearchValue(ExhibitionName ? ExhibitionName : '');
     }, [ExhibitionName]);
+
+    const onCancel = () => {
+        setSearchValue('');
+        setFiltersToUrl({ExhibitionName: '', PageNumber: 1});
+    };
+
+    const handleKeyDown = e => {
+        if (searchValue && e.key === 'Enter') {
+            setFiltersToUrl({...getEmptyFilters(), ExhibitionName: searchValue});
+        } else if (e.key === 'Enter') {
+            onCancel();
+        }
+    };
 
     return (
         <div className="ExhibitionsSearch">
@@ -40,4 +40,4 @@ const ExhibitionsSearch = ({ ExhibitionName, setFiltersSuccess }) => {
     )
 };
 
-export default connectFilters(React.memo(ExhibitionsSearch));
+export default React.memo(ExhibitionsSearch);

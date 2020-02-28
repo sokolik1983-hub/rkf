@@ -4,7 +4,7 @@ import {Map, ObjectManager, YMaps} from "react-yandex-maps";
 const ClubsMap = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch('http://tables.rkf.org.ru/GetDogClubs.ashx')
+        fetch('https://tables.rkf.org.ru/GetDogClubs.ashx')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(err => { console.error(err) });
