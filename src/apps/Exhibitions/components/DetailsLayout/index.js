@@ -29,7 +29,7 @@ const DetailsLayout = ({ exhibitionDetails }) =>
                     <div className="exhibition-details__signature--top">
                         <div>Организатор: {exhibitionDetails.owner.name}</div>
                         {exhibitionDetails.owner.site ?
-                            <div><a href="//www.rkf.org.ru">{exhibitionDetails.owner.site}</a></div> : null}
+                            <div><a href="//www.rkf.org.ru" target="_blank" rel="noreferrer noopener">{exhibitionDetails.owner.site}</a></div> : null}
                     </div>
                 </div>
                 <DetailsContent>
