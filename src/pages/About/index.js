@@ -3,9 +3,8 @@ import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import TopBanner from "./components/TopBanner";
-import Advantages from "./components/Advantages";
 import NewsComponent from "../../components/NewsComponent";
-import Contacts from "./components/Contacts";
+import Support from "./components/Support";
 import FeedbackComponent from "./components/Feedback";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import {Request} from "../../utils/request";
@@ -38,8 +37,7 @@ const AboutPage = ({isAuthenticated, profile_id}) => {
         <Layout>
             <TopBanner/>
             <Container className="about-page__content">
-                <Advantages/>
-                <h2>Последние обновления</h2>
+                <h2>Обновления платформы</h2>
                 <div className="about-page__content-wrap">
                     <div className="about-page__news">
                         <NewsComponent
@@ -52,12 +50,7 @@ const AboutPage = ({isAuthenticated, profile_id}) => {
                         />
                     </div>
                     <aside className="about-page__info">
-                        {info &&
-                            <Contacts
-                                contacts={info.contacts}
-                                work_time={info.work_time}
-                            />
-                        }
+                        <Support />
                         <FeedbackComponent/>
                         {info.documents && !!info.documents.length &&
                             <DocumentsComponent documents={info.documents}/>

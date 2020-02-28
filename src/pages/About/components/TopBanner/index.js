@@ -7,12 +7,11 @@ const TopBanner = () => (
     <div className="about-page__top-banner">
         <Container className="top-banner">
             <div className="top-banner__info">
-                <h2 className="top-banner__title">Сердце кинологических сообществ</h2>
+                <h2 className="top-banner__title">RKF.Online</h2>
                 <p className="top-banner__subtitle">
-                    Наша миссия — создать лучшее в мире сообщество для людей, которые связаны с собаками, чтобы они могли расти и развиваться.
+                    Цифровая платформа российского кинологического сообщества
                 </p>
             </div>
-            <img src="/static/images/about/banner-img.svg" alt="" className="top-banner__img"/>
         </Container>
     </div>
 );
