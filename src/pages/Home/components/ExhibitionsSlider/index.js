@@ -33,7 +33,7 @@ const ExhibitionsSlider = () => {
     }, []);
 
     return (
-        <Container className="ExhibitionsSlider content">
+        <Container className="ExhibitionsSlider">
             <h3 className="ExhibitionsSlider__title"><Link to="/exhibitions">Выставки</Link></h3>
             <Slider
                 arrows={!!exhibitions}
