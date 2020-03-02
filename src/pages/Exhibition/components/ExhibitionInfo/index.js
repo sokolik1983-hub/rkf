@@ -19,6 +19,41 @@ const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, 
 
     return (
         <div className="exhibition-info">
+            <div className="exhibition-info__left">
+                <img src={avatarLink} alt="" className="exhibition-info__img" />
+                {description &&
+                    <div className="exhibition-page__description">
+                        <h3 className="exhibition-page__description-title">Описание</h3>
+                        <p dangerouslySetInnerHTML={{ __html: description }} />
+                    </div>
+                }
+                {schedule_link &&
+                    <div className="exhibition-page__schedule">
+                        <h3 className="exhibition-page__schedule-title">Расписание</h3>
+                        <p className="exhibition-documents__doc">
+                            <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
+                        </p>
+                    </div>
+                }
+                {catalog_link &&
+                    <div className="exhibition-page__catalog">
+                        <h3 className="exhibition-page__catalog-title">Каталог</h3>
+                        <p className="exhibition-documents__doc">
+                            <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
+                        </p>
+                    </div>
+                }
+                {documents_links && !!documents_links.length &&
+                    <div className="exhibition-page__documents">
+                        <h3 className="exhibition-page__documents-title">Документы</h3>
+                        {documents_links.map(doc => (
+                            <p className="exhibition-documents__doc" key={doc.id}>
+                                <a href={doc.url} target="__blank">{doc.name}</a>
+                            </p>
+                        ))}
+                    </div>
+                }
+            </div>
             <div className="exhibition-info__right">
                 <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                 {dates &&
@@ -62,41 +97,6 @@ const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, 
                 </ul>
                 {dates && !!dates.length &&
                     <CountDown startDate={dateStart} endDate={dateEnd} />
-                }
-            </div>
-            <div className="exhibition-info__left">
-                <img src={avatarLink} alt="" className="exhibition-info__img" />
-                {description &&
-                    <div className="exhibition-page__description">
-                        <h3 className="exhibition-page__description-title">Описание</h3>
-                        <p dangerouslySetInnerHTML={{ __html: description }} />
-                    </div>
-                }
-                {schedule_link &&
-                    <div className="exhibition-page__schedule">
-                        <h3 className="exhibition-page__schedule-title">Расписание</h3>
-                        <p className="exhibition-documents__doc">
-                            <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
-                        </p>
-                    </div>
-                }
-                {catalog_link &&
-                    <div className="exhibition-page__catalog">
-                        <h3 className="exhibition-page__catalog-title">Каталог</h3>
-                        <p className="exhibition-documents__doc">
-                            <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
-                        </p>
-                    </div>
-                }
-                {documents_links && !!documents_links.length &&
-                    <div className="exhibition-page__documents">
-                        <h3 className="exhibition-page__documents-title">Документы</h3>
-                        {documents_links.map(doc => (
-                            <p className="exhibition-documents__doc" key={doc.id}>
-                                <a href={doc.url} target="__blank">{doc.name}</a>
-                            </p>
-                        ))}
-                    </div>
                 }
             </div>
         </div>

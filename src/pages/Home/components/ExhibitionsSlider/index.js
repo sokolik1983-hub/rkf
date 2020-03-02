@@ -33,7 +33,7 @@ const ExhibitionsSlider = () => {
     }, []);
 
     return (
-        <Container className="ExhibitionsSlider content">
+        <Container className="ExhibitionsSlider">
             <h3 className="ExhibitionsSlider__title"><Link to="/exhibitions">Выставки</Link></h3>
             <Slider
                 arrows={!!exhibitions}
@@ -43,12 +43,14 @@ const ExhibitionsSlider = () => {
                 slidesToScroll={3}
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
+                touchThreshold={20}
                 responsive={[
                     {
                         breakpoint: 1181,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToScroll: 2,
+                            touchThreshold: 5
                         }
                     },
                     {

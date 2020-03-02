@@ -114,25 +114,6 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                     />
                     <ExhibitionsComponent alias={alias}/>
                     <div className="federation-page__info">
-                        <div className="federation-page__right">
-                            <AboutComponent description={federation.description}/>
-                            {canEdit &&
-                                <AddArticle
-                                    clubId={federation.id}
-                                    logo={federation.logo}
-                                    setPage={setPage}
-                                    setNeedRequest={setNeedRequest}
-                                />
-                            }
-                            <NewsComponent
-                                alias={alias}
-                                page={page}
-                                setPage={setPage}
-                                needRequest={needRequest}
-                                setNeedRequest={setNeedRequest}
-                                canEdit={canEdit}
-                            />
-                        </div>
                         <aside className="federation-page__left">
                             <PhotoComponent
                                 photo={federation.owner_photo}
@@ -155,6 +136,26 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                                 <DocumentsComponent documents={federation.documents}/>
                             }
                         </aside>
+                        <div className="federation-page__right">
+                            <AboutComponent description={federation.description}/>
+                            {canEdit &&
+                                <AddArticle
+                                    clubId={federation.id}
+                                    logo={federation.logo}
+                                    setPage={setPage}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            }
+                            <NewsComponent
+                                alias={alias}
+                                page={page}
+                                setPage={setPage}
+                                needRequest={needRequest}
+                                setNeedRequest={setNeedRequest}
+                                canEdit={canEdit}
+                            />
+                        </div>
+
                     </div>
                 </Container>
             </div>
