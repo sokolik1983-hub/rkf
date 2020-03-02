@@ -52,12 +52,18 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                         clubLogo={clubInfo.logo_link}
                         clubImg={clubInfo.headliner_link}
                         clubName={clubInfo.name}
+                        federationName={clubInfo.federation_name}
+                        federationAlias={clubInfo.federation_alias}
                         canEdit={canEdit}
                     />
                     <ExhibitionsComponent alias={clubInfo.club_alias}/>
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
-                            <ClubDescription description={clubInfo.description} />
+                            <ClubDescription
+                                description={clubInfo.description}
+                                clubName={clubInfo.name}
+                                federationName={clubInfo.federation_name}
+                            />
                             {canEdit &&
                                 <AddArticle
                                     clubId={clubInfo.id}
@@ -76,7 +82,11 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                             />
                         </div>
                         <Aside className="club-page__info">
-                            <MenuComponent alias={clubInfo.club_alias} name={clubInfo.name} btnName="Страница Клуба"/>
+                            <MenuComponent
+                                alias={clubInfo.club_alias}
+                                name={clubInfo.name || 'Название клуба отсутствует'}
+                                btnName="Страница Клуба"
+                            />
                             <ClubInfo {...clubInfo} />
                         </Aside>
                     </div>

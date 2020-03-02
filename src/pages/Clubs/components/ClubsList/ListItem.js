@@ -78,7 +78,7 @@ const ListItem = ({is_active, setFilters, city, cityId, federation_name, club_al
                         {!is_active && <div className="ListItemMobile__text">Клуб не прошёл регистрацию<br /> в электронной системе РКФ</div>}
                     </div>
                 </div>
-                {is_active && <Link className="ListItem__show-all" to={club_alias}>Подробнее</Link>}
+                <Link className="ListItem__show-all" to={club_alias}>Подробнее</Link>
             </div>
         </Card>
     )
