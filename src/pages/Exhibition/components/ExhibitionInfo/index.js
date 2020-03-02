@@ -1,18 +1,21 @@
 import React from "react";
-import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
-import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
+import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
+import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
-import {DEFAULT_IMG} from "../../../../appConfig";
+import { DEFAULT_IMG } from "../../../../appConfig";
+import declension from "utils/declension";
 import "./index.scss";
 
 
-const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link}) => {
-    const {dictionary: rankDictionary} = useDictionary('rank_type');
-    const {dictionary: breedDictionary} = useDictionary('breed_types');
+const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link }) => {
+    const { dictionary: rankDictionary } = useDictionary('rank_type');
+    const { dictionary: breedDictionary } = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
+
+    const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
     return (
         <div className="exhibition-info">
@@ -20,10 +23,11 @@ const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, b
                 <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                 {dates &&
                     <>
+                        <h5 className="exhibition-info__subtitle">{`${declension(dates.length, ['Дата', 'Даты', 'Даты'])} проведения:`}</h5>
                         <div className="exhibition-info__dates">
                             {dates.map((date, i) => (
                                 <p key={i} className="exhibition-info__date">
-                                    {`${getLocalizedWeekDay(transformDateSafariFriendly(date))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}
+                                    {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}
                                 </p>
                             ))}
                         </div>
@@ -57,7 +61,7 @@ const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, b
                     </li>
                 </ul>
                 {dates && !!dates.length &&
-                    <CountDown startDate={dateStart} endDate={dateEnd}/>
+                    <CountDown startDate={dateStart} endDate={dateEnd} />
                 }
             </div>
             <div className="exhibition-info__left">
