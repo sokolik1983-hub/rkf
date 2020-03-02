@@ -43,6 +43,7 @@ const ExhibitionsSlider = () => {
                 slidesToScroll={3}
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
+                touchThreshold={20}
                 responsive={[
                     {
                         breakpoint: 1181,
@@ -58,7 +59,8 @@ const ExhibitionsSlider = () => {
                             slidesToScroll: 1,
                             centerMode: true,
                             arrows: false,
-                            centerPadding: '100px'
+                            centerPadding: '100px',
+                            touchThreshold: 5
                         }
                     },
                     {
