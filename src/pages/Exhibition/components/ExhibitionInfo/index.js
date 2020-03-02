@@ -1,13 +1,16 @@
-import React from "react";
-import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
-import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
+import React, {useState} from "react";
+import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
+import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
+import Alert from "../../../../components/Alert";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import declension from "utils/declension";
+import declension from "../../../../utils/declension";
 import "./index.scss";
+import {Link} from "react-router-dom";
 
 
-const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link }) => {
+const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link, club_information}) => {
+    const [showAlert, setShowAlert] = useState(false);
     const { dictionary: rankDictionary } = useDictionary('rank_type');
     const { dictionary: breedDictionary } = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
@@ -15,7 +18,12 @@ const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, 
     const timeStart = dates && dates[0].time_start;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
 
-    const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+    const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+
+    const clickOnLink = e => {
+        e.preventDefault();
+        setShowAlert(true);
+    };
 
     return (
         <div className="exhibition-info">
@@ -86,17 +94,25 @@ const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, 
                 </table>
                 <ul className="exhibition-info__block-list">
                     <li className="exhibition-info__block-item not-active">
-                        <a href="/" onClick={e => e.preventDefault()}>Судьи</a>
+                        <a href="/" onClick={clickOnLink}>Судьи</a>
+                    </li>
+                    <li className="exhibition-info__block-item">
+                        <Link to={`/exhibitions?Alias=${club_information.club_alias}`}>Другие мероприятия организатора</Link>
                     </li>
                     <li className="exhibition-info__block-item not-active">
-                        <a href="/" onClick={e => e.preventDefault()}>Другие мероприятия организатора</a>
-                    </li>
-                    <li className="exhibition-info__block-item not-active">
-                        <a href="/" onClick={e => e.preventDefault()}>Платные услуги</a>
+                        <a href="/" onClick={clickOnLink}>Платные услуги</a>
                     </li>
                 </ul>
                 {dates && !!dates.length &&
                     <CountDown startDate={dateStart} endDate={dateEnd} />
+                }
+                {showAlert &&
+                    <Alert
+                        title="Внимание!"
+                        text="Раздел находится в разработке."
+                        autoclose={1.5}
+                        onOk={() => setShowAlert(false)}
+                    />
                 }
             </div>
         </div>
