@@ -96,10 +96,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     </Link>
                                 </p>
                             </div>
-                            {canEdit ?
-                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link> :
-                                Date.now() < +new Date(dateStart) && <button className="btn btn-simple" onClick={share}>Поделиться</button>
+                            {canEdit &&
+                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
                             }
+                            <button className="btn btn-simple" onClick={share}>Поделиться</button>
                         </div>
                         {shareAlert && (<Alert
                             title="Поделиться"
