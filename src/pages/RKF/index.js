@@ -73,17 +73,6 @@ const RKF = ({isAuthenticated, profile_id}) => {
                     </div>
                     <ExhibitionsComponent alias="rkf"/>
                     <div className="rkf-page__info">
-                        <div className="rkf-page__right">
-                            {info.description && <AboutComponent description={info.description}/>}
-                            <NewsComponent
-                                alias="rkf"
-                                page={page}
-                                setPage={setPage}
-                                needRequest={needRequest}
-                                setNeedRequest={setNeedRequest}
-                                canEdit={canEdit}
-                            />
-                        </div>
                         <aside className="rkf-page__left">
                             <PhotoComponent
                                 photo={info.owner_photo || "/static/images/rkf/photo.png"}
@@ -105,6 +94,17 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}
                         </aside>
+                        <div className="rkf-page__right">
+                            {info.description && <AboutComponent description={info.description}/>}
+                            <NewsComponent
+                                alias="rkf"
+                                page={page}
+                                setPage={setPage}
+                                needRequest={needRequest}
+                                setNeedRequest={setNeedRequest}
+                                canEdit={canEdit}
+                            />
+                        </div>
                     </div>
                 </Container>
             </div>
