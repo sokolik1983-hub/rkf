@@ -49,7 +49,8 @@ const ExhibitionsSlider = () => {
                         breakpoint: 1181,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToScroll: 2,
+                            touchThreshold: 5
                         }
                     },
                     {
@@ -59,8 +60,7 @@ const ExhibitionsSlider = () => {
                             slidesToScroll: 1,
                             centerMode: true,
                             arrows: false,
-                            centerPadding: '100px',
-                            touchThreshold: 5
+                            centerPadding: '100px'
                         }
                     },
                     {
