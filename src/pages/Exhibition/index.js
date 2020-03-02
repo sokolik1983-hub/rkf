@@ -137,13 +137,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             {exhibition.exhibition_map_link
                                 ? <div className="exhibition-page__address-right">
                                     <div className="exhibition-page__map">
-                                        <h4 className="exhibition-page__map-subtitle">Схема проезда</h4>
+                                        <h3 className="exhibition-page__address-title">Схема проезда</h3>
                                         <img src={exhibition.exhibition_map_link} alt="Схема проезда" />
                                     </div>
                                 </div>
                                 : <div className="exhibition-page__address-right">
                                     <div className="exhibition-page__map">
-                                        <h4 className="exhibition-page__map-subtitle">Схема проезда</h4>
+                                        <h3 className="exhibition-page__address-title">Схема проезда</h3>
                                         <img src="/static/images/noimg/icon-no-image.svg" alt="Схема проезда" />
                                     </div>
                                 </div>
