@@ -33,6 +33,7 @@
     }
   }
   &__title {
+    flex: 1;
     h2 {
       font-weight: 600;
       font-size: 26px;
@@ -82,8 +83,24 @@
         opacity: .7;
       }
     }
-  }
+      }
 }
+.share-desktop {
+      display: none;
+    }
+    .share-mobile {
+      display: inline-block;
+      cursor: pointer;
+    }
+    @media (min-width: 990px) {
+      .share-desktop {
+        display: inline-block;
+      }
+      .share-mobile {
+        display: none;
+      }
+    }
+
 .btn__blue {
   text-decoration: none;
   min-width: 165px;
