@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Card from "../../../../components/Card";
-import {formatWorkTime} from "../../../../utils";
+import { formatWorkTime } from "../../../../utils";
 import { timeSecondsCutter } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
 import { endpointGetSocials } from "../../config";
@@ -8,24 +8,24 @@ import './index.scss';
 
 
 const ClubInfo = ({
-                      id,
-                      legal_city,
-                      city,
-                      legal_address,
-                      address,
-                      owner_position,
-                      owner_name,
-                      contacts,
-                      work_time,
-                      documents,
-                      site,
-                      inn,
-                      kpp,
-                      ogrn,
-                      bank_name,
-                      rs_number,
-                      bic,
-                      is_active
+    id,
+    legal_city,
+    city,
+    legal_address,
+    address,
+    owner_position,
+    owner_name,
+    contacts,
+    work_time,
+    documents,
+    site,
+    inn,
+    kpp,
+    ogrn,
+    bank_name,
+    rs_number,
+    bic,
+    is_active
 }) => {
     const [socials, setSocials] = useState(null);
 
@@ -46,10 +46,10 @@ const ClubInfo = ({
                     <span>{`${legal_city.name}${legal_address ? ', ' + legal_address : ''}`}</span>
                 </p>
             }
-            {(city || legal_city) && (city.name || legal_city.name) &&
+            {((city && city.name) || (legal_city && legal_city.name)) &&
                 <p className="club-page__info-address">
                     <span>Фактический адрес</span><br />
-                    <span>{`${city.name || legal_city.name}${(address || legal_address) ? ', ' + (address || legal_address) : ''}`}</span>
+                    <span>{`${(city && city.name) ? city.name : legal_city.name}${(address || legal_address) ? ', ' + (address || legal_address) : ''}`}</span>
                 </p>
             }
             {owner_name &&
@@ -110,7 +110,7 @@ const ClubInfo = ({
                     {formatWorkTime(work_time).map((period, i) => (
                         <p key={`work-${i}`}>
                             <span>{period.days.join(', ')}</span>
-                            <br/>
+                            <br />
                             c {timeSecondsCutter(period.time_from)} до {timeSecondsCutter(period.time_to)}
                         </p>
                     ))}
