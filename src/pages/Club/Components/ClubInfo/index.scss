@@ -109,4 +109,15 @@
       }
     }
   }
+  &-bank {
+    margin-top: 36px;
+    .club-page__info-details {
+      color: #61797c;
+      font-weight: 300;
+      span {
+        color: #253c5e !important;
+        font-weight: 400 !important;
+      }
+    }
+  }
 }

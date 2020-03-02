@@ -7,7 +7,26 @@ import { endpointGetSocials } from "../../config";
 import './index.scss';
 
 
-const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position, owner_name, contacts, work_time, documents, site}) => {
+const ClubInfo = ({
+                      id,
+                      legal_city,
+                      city,
+                      legal_address,
+                      address,
+                      owner_position,
+                      owner_name,
+                      contacts,
+                      work_time,
+                      documents,
+                      site,
+                      inn,
+                      kpp,
+                      ogrn,
+                      bank_name,
+                      rs_number,
+                      bic,
+                      is_active
+}) => {
     const [socials, setSocials] = useState(null);
 
     useEffect(() => {
@@ -27,10 +46,10 @@ const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position,
                     <span>{`${legal_city.name}${legal_address ? ', ' + legal_address : ''}`}</span>
                 </p>
             }
-            {city && city.name &&
+            {(city || legal_city) && (city.name || legal_city.name) &&
                 <p className="club-page__info-address">
                     <span>Фактический адрес</span><br />
-                    <span>{`${city.name}${address ? ', ' + address : ''}`}</span>
+                    <span>{`${city.name || legal_city.name}${(address || legal_address) ? ', ' + (address || legal_address) : ''}`}</span>
                 </p>
             }
             {owner_name &&
@@ -111,6 +130,29 @@ const ClubInfo = ({id, legal_city, city, legal_address, address, owner_position,
                             <br />
                         </Fragment>
                     ))}
+                </div>
+            }
+            {!is_active &&
+                <div className="club-page__info-bank">
+                    <h4 className="club-page__info-title">Реквизиты</h4>
+                    <p className="club-page__info-details">
+                        <span>ИНН: </span> {inn}
+                    </p>
+                    <p className="club-page__info-details">
+                        <span>КПП: </span> {kpp}
+                    </p>
+                    <p className="club-page__info-details">
+                        <span>ОГРН: </span> {ogrn}
+                    </p>
+                    <p className="club-page__info-details">
+                        <span>Банк: </span> {bank_name}
+                    </p>
+                    <p className="club-page__info-details">
+                        <span>БИК: </span> {bic}
+                    </p>
+                    <p className="club-page__info-details">
+                        <span>Расчетный счет: </span> {rs_number}
+                    </p>
                 </div>
             }
         </Card>
