@@ -57,6 +57,7 @@
   &__address {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 24px;
     @media (max-width: 990px) {
       display: block;
     }
@@ -64,8 +65,8 @@
       margin: 24px 0 12px;
     }
     &-left {
-      width: 40%;
-      min-width: 40%;
+      width: 45%;
+      min-width: 45%;
       margin-right: 24px;
       @media (max-width: 990px) {
         margin-right: 0;

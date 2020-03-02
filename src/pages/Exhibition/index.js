@@ -13,6 +13,7 @@ import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import { DEFAULT_IMG } from "../../appConfig";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
@@ -107,17 +108,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             onOk={shareOk}
                         />)}
                         <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
-                        <div className="exhibition-page__payment">
-                            <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
-                            <p>
-                                Получатель платежа: {exhibition.club_information.club_legal_name} <br />
-                                ИНН: {exhibition.club_information.inn} <br />
-                                КПП: {exhibition.club_information.kpp} <br />
-                                Банк: {exhibition.club_information.bank_name} <br />
-                                БИК: {exhibition.club_information.bic} <br />
-                                Расчетный счет: {exhibition.club_information.account_number} <br />
-                            </p>
-                        </div>
                         <div className="exhibition-page__address">
                             <div className="exhibition-page__address-left">
                                 <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
@@ -134,20 +124,23 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     </>
                                 }
                             </div>
-                            {exhibition.exhibition_map_link
-                                ? <div className="exhibition-page__address-right">
-                                    <div className="exhibition-page__map">
-                                        <h3 className="exhibition-page__address-title">Схема проезда</h3>
-                                        <img src={exhibition.exhibition_map_link} alt="Схема проезда" />
-                                    </div>
+                            <div className="exhibition-page__address-right">
+                                <div className="exhibition-page__map">
+                                    <h3 className="exhibition-page__address-title">Схема проезда</h3>
+                                    <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
                                 </div>
-                                : <div className="exhibition-page__address-right">
-                                    <div className="exhibition-page__map">
-                                        <h3 className="exhibition-page__address-title">Схема проезда</h3>
-                                        <img src="/static/images/noimg/icon-no-image.svg" alt="Схема проезда" />
-                                    </div>
-                                </div>
-                            }
+                            </div>
+                        </div>
+                        <div className="exhibition-page__payment">
+                            <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
+                            <p>
+                                Получатель платежа: {exhibition.club_information.club_legal_name} <br />
+                                ИНН: {exhibition.club_information.inn} <br />
+                                КПП: {exhibition.club_information.kpp} <br />
+                                Банк: {exhibition.club_information.bank_name} <br />
+                                БИК: {exhibition.club_information.bic} <br />
+                                Расчетный счет: {exhibition.club_information.account_number} <br />
+                            </p>
                         </div>
                     </Card>
                 </Container>
