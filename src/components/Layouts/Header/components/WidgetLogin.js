@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
 import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
-import {connectWidgetLogin} from "../../../../pages/Login/connectors";
+import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
@@ -29,8 +29,9 @@ const WidgetLogin = forwardRef(
                         >
                             <div className="widget-login__content">
                                 <ul className="widget-login__list">
-                                    <li className="widget-login__item" title={clubName}>
+                                    <li className="widget-login__item">
                                         {clubName}
+                                        <Link className="widget-login__edit" to="/client" />
                                     </li>
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={is_active_profile ? `/${clubAlias}` : "/not-confirmed"}>Личный кабинет</Link>
