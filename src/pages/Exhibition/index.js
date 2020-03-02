@@ -8,10 +8,10 @@ import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import { Request } from "../../utils/request";
-import {formatPhone} from "../../utils";
+import { formatPhone } from "../../utils";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
-import {connectAuthVisible} from "../Login/connectors";
+import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
@@ -134,12 +134,18 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     </>
                                 }
                             </div>
-                            {exhibition.exhibition_map_link &&
-                                <div className="exhibition-page__address-right">
+                            {exhibition.exhibition_map_link
+                                ? <div className="exhibition-page__address-right">
                                     <div className="exhibition-page__map">
                                         <img src={exhibition.exhibition_map_link} alt="Схема проезда" />
                                     </div>
                                     <p>Схема проезда</p>
+                                </div>
+                                : <div className="exhibition-page__address-right">
+                                    <div className="exhibition-page__map">
+                                        <h4 className="exhibition-page__map-subtitle">Схема проезда</h4>
+                                        <img src="/static/images/noimg/icon-no-image.svg" alt="Схема проезда" />
+                                    </div>
                                 </div>
                             }
                         </div>
