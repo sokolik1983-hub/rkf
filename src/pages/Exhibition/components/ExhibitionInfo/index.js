@@ -32,7 +32,6 @@ const ExhibitionInfo = ({
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
-    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
     const { owner_name, owner_position, registration_date, ogrn, organization_status_name, liquidate_date, geo_lat, geo_lon } = club_information;
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
@@ -43,7 +42,6 @@ const ExhibitionInfo = ({
     };
 
     return (<>
-        <img src={avatarLink} alt="" className="exhibition-info__img" />
         {description &&
                 <Card className="exhibition-info">
                     <div className="exhibition-page__description">

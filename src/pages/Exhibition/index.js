@@ -25,6 +25,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const { dictionary } = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
+    const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
+    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
     const dateStart = exhibition && exhibition.dates && exhibition.dates.length ?
         new Date(
             exhibition.dates[0].year,
@@ -83,6 +85,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
             <Loading /> :
             <Layout>
                 <div className="exhibition-page">
+                    <FloatingMenu
+                        alias={exhibition.club_information.alias}
+                        name={exhibition.club_information.club_fact_name}
+                        btnName={"Cтраница " + exhibition.club_information.club_fact_name}
+                    />
                     <Container className="content exhibition-page__content">
                             {/*<div className="exhibition-page__head">
                                 <div className="exhibition-page__head-info">
@@ -106,8 +113,12 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 canEdit={canEdit}
                             />
                             <div className="exhibition-page__info">
+                                <div className="mobile-only">
+                                    <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                    <img src={avatarLink} alt="" className="exhibition-page__img" />
+                                </div>
                                 <aside className="exhibition-page__left">
-                                    <FloatingMenu
+                                    <MenuComponent
                                         alias={exhibition.club_information.alias}
                                         name={exhibition.club_information.club_fact_name}
                                         btnName={"Cтраница " + exhibition.club_information.club_fact_name}
@@ -121,7 +132,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     />
                                 </aside>
                                 <div className="exhibition-page__right">
-                                    <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                    <div className="desktop-only">
+                                        <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                        <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
+                                    </div>
                                     <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
                                     <Card className="exhibition-page__address">
                                         <div className="exhibition-page__address-left">
