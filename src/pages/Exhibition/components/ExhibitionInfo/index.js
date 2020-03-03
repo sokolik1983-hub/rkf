@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
-import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
+import React, { useState } from "react";
+import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
+import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
 import Alert from "../../../../components/Alert";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import declension from "../../../../utils/declension";
 import "./index.scss";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
-const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link, club_information}) => {
+const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link, club_information }) => {
     const [showAlert, setShowAlert] = useState(false);
     const { dictionary: rankDictionary } = useDictionary('rank_type');
     const { dictionary: breedDictionary } = useDictionary('breed_types');
@@ -17,6 +17,7 @@ const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, b
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
+    const { owner_name, owner_position, registration_date, ogrn, organization_status_name, liquidate_date, geo_lat, geo_lon } = club_information;
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -59,6 +60,20 @@ const ExhibitionInfo = ({city, dateStart, dateEnd, dates, address, rank_types, b
                                 <a href={doc.url} target="__blank">{doc.name}</a>
                             </p>
                         ))}
+                    </div>
+                }
+                {(owner_name || owner_position || registration_date || ogrn || organization_status_name || (geo_lat && geo_lon) || liquidate_date) &&
+                    <div className="exhibition-page__description">
+                        <h3 className="exhibition-page__description-title">Информация об организаторе</h3>
+                        <p>
+                            {owner_name && `Имя владельца: ${owner_name}`} <br />
+                            {owner_position && `Должность владельца: ${owner_position}`} <br />
+                            {registration_date && `Дата регистрации: ${registration_date}`} <br />
+                            {organization_status_name && `Статус организации: ${organization_status_name}`} <br />
+                            {liquidate_date && `Дата ликвидации: ${liquidate_date}`} <br />
+                            {ogrn && `ОГРН: ${ogrn}`} <br />
+                            {geo_lat && geo_lon && `Координаты: ${geo_lat}, ${geo_lon}`}
+                        </p>
                     </div>
                 }
             </div>
