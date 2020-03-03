@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
-import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
+import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
+import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
 import Alert from "../../../../components/Alert";
-import { DEFAULT_IMG } from "../../../../appConfig";
+import {DEFAULT_IMG} from "../../../../appConfig";
 import declension from "../../../../utils/declension";
 import "./index.scss";
-import { Link } from "react-router-dom";
 
 
-const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, breed_types, exhibition_avatar_link, description, documents_links, schedule_link, catalog_link, club_information }) => {
+const ExhibitionInfo = ({
+                            city,
+                            dateStart,
+                            dateEnd,
+                            reportsDateEnd,
+                            dates,
+                            address,
+                            rank_types,
+                            breed_types,
+                            exhibition_avatar_link,
+                            description,
+                            documents_links,
+                            schedule_link,
+                            catalog_link,
+                            club_information
+}) => {
     const [showAlert, setShowAlert] = useState(false);
     const { dictionary: rankDictionary } = useDictionary('rank_type');
     const { dictionary: breedDictionary } = useDictionary('breed_types');
@@ -119,7 +134,7 @@ const ExhibitionInfo = ({ city, dateStart, dateEnd, dates, address, rank_types, 
                     </li>
                 </ul>
                 {dates && !!dates.length &&
-                    <CountDown startDate={dateStart} endDate={dateEnd} />
+                    <CountDown startDate={dateStart} endDate={dateEnd} reportsDateEnd={reportsDateEnd}/>
                 }
                 {showAlert &&
                     <Alert
