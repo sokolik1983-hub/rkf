@@ -1,6 +1,9 @@
 .club-page {
   .menu-component{
     padding: 14px 16px 16px;
+    @media (max-width: 560px) {
+      display: none;
+    }
     h4{
       font-weight: 600;
       font-size: 14px;

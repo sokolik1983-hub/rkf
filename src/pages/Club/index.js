@@ -1,24 +1,25 @@
-import React, {useEffect, useState} from "react";
-import ClubNotActive from "./Components/ClubNotActive";
+import React, { useEffect, useState } from "react";
+import ClubNotActive from "./components/ClubNotActive";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
-import ClubHeader from "./Components/ClubHeader";
+import ClubHeader from "./components/ClubHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import ClubInfo from "./Components/ClubInfo";
-import ClubDescription from "./Components/ClubDescription";
+import ClubInfo from "./components/ClubInfo";
+import ClubDescription from "./components/ClubDescription";
 import AddArticle from "../../components/AddArticleComponent";
-import ClubNews from "./Components/ClubNews";
-import {Request} from "../../utils/request";
-import {endpointGetClubInfo} from "./config";
-import {connectAuthVisible} from "../Login/connectors";
+import ClubNews from "./components/ClubNews";
+import FloatingMenu from './components/FloatingMenu';
+import { Request } from "../../utils/request";
+import { endpointGetClubInfo } from "./config";
+import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
-const ClubPage = ({match, profile_id, isAuthenticated}) => {
+const ClubPage = ({ match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -56,7 +57,7 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                         federationAlias={clubInfo.federation_alias}
                         canEdit={canEdit}
                     />
-                    <ExhibitionsComponent alias={clubInfo.club_alias}/>
+                    <ExhibitionsComponent alias={clubInfo.club_alias} />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
                             <ClubDescription
@@ -85,11 +86,14 @@ const ClubPage = ({match, profile_id, isAuthenticated}) => {
                             <MenuComponent
                                 alias={clubInfo.club_alias}
                                 name={clubInfo.name || 'Название клуба отсутствует'}
-                                btnName="Страница Клуба"
                             />
                             <ClubInfo {...clubInfo} />
                         </Aside>
                     </div>
+                    <FloatingMenu
+                        alias={clubInfo.club_alias}
+                        name={"Страница клуба"}
+                    />
                 </Container>
             </Layout>
 };
