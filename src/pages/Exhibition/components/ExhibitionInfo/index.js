@@ -43,44 +43,44 @@ const ExhibitionInfo = ({
 
     return (<>
         {description &&
-                <Card className="exhibition-info">
-                    <div className="exhibition-page__description">
-                        <h3 className="exhibition-page__description-title">Описание</h3>
-                        <p dangerouslySetInnerHTML={{ __html: description }} />
-                    </div>
-                </Card>
+            <Card className="exhibition-info">
+                <div className="exhibition-page__description">
+                    <h3 className="exhibition-page__description-title">Описание</h3>
+                    <p dangerouslySetInnerHTML={{ __html: description }} />
+                </div>
+            </Card>
         }
         {schedule_link &&
-                <Card className="exhibition-info">
-                    <div className="exhibition-page__schedule">
-                        <h3 className="exhibition-page__schedule-title">Расписание</h3>
-                        <p className="exhibition-documents__doc">
-                            <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
-                        </p>
-                    </div>
-                </Card>
+            <Card className="exhibition-info">
+                <div className="exhibition-page__schedule">
+                    <h3 className="exhibition-page__schedule-title">Расписание</h3>
+                    <p className="exhibition-documents__doc">
+                        <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
+                    </p>
+                </div>
+            </Card>
         }
         {catalog_link &&
-                <Card className="exhibition-info">
-                    <div className="exhibition-page__catalog">
-                        <h3 className="exhibition-page__catalog-title">Каталог</h3>
-                        <p className="exhibition-documents__doc">
-                            <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
-                        </p>
-                    </div>
-                </Card>
+            <Card className="exhibition-info">
+                <div className="exhibition-page__catalog">
+                    <h3 className="exhibition-page__catalog-title">Каталог</h3>
+                    <p className="exhibition-documents__doc">
+                        <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
+                    </p>
+                </div>
+            </Card>
         }
         {documents_links && !!documents_links.length &&
-                <Card className="exhibition-info">
-                    <div className="exhibition-page__documents">
-                        <h3 className="exhibition-page__documents-title">Документы</h3>
-                        {documents_links.map(doc => (
-                            <p className="exhibition-documents__doc" key={doc.id}>
-                                <a href={doc.url} target="__blank">{doc.name}</a>
-                            </p>
-                        ))}
-                    </div>
-                </Card>
+            <Card className="exhibition-info">
+                <div className="exhibition-page__documents">
+                    <h3 className="exhibition-page__documents-title">Документы</h3>
+                    {documents_links.map(doc => (
+                        <p className="exhibition-documents__doc" key={doc.id}>
+                            <a href={doc.url} target="__blank">{doc.name}</a>
+                        </p>
+                    ))}
+                </div>
+            </Card>
         }
         <Card className="exhibition-info">
             <div className="exhibition-info__left">
@@ -116,7 +116,7 @@ const ExhibitionInfo = ({
             </div>
             <div className="exhibition-info__right">
                 {dates && !!dates.length &&
-                    <CountDown startDate={dateStart} endDate={dateEnd} />
+                    <CountDown startDate={dateStart} endDate={dateEnd} reportsDateEnd={reportsDateEnd}/>
                 }
                 <ul className="exhibition-info__block-list">
                     <li className="exhibition-info__block-item not-active">
