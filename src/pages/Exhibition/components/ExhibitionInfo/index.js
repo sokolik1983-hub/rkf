@@ -4,7 +4,8 @@ import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries
 import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
 import Alert from "../../../../components/Alert";
-import {DEFAULT_IMG} from "../../../../appConfig";
+import Card from "../../../../components/Card";
+import { DEFAULT_IMG } from "../../../../appConfig";
 import declension from "../../../../utils/declension";
 import "./index.scss";
 
@@ -31,7 +32,6 @@ const ExhibitionInfo = ({
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
-    const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
     const { owner_name, owner_position, registration_date, ogrn, organization_status_name, liquidate_date, geo_lat, geo_lon } = club_information;
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
@@ -41,33 +41,37 @@ const ExhibitionInfo = ({
         setShowAlert(true);
     };
 
-    return (
-        <div className="exhibition-info">
-            <div className="exhibition-info__left">
-                <img src={avatarLink} alt="" className="exhibition-info__img" />
-                {description &&
+    return (<>
+        {description &&
+                <Card className="exhibition-info">
                     <div className="exhibition-page__description">
                         <h3 className="exhibition-page__description-title">Описание</h3>
                         <p dangerouslySetInnerHTML={{ __html: description }} />
                     </div>
-                }
-                {schedule_link &&
+                </Card>
+        }
+        {schedule_link &&
+                <Card className="exhibition-info">
                     <div className="exhibition-page__schedule">
                         <h3 className="exhibition-page__schedule-title">Расписание</h3>
                         <p className="exhibition-documents__doc">
                             <a href={schedule_link.url} target="__blank">{schedule_link.name}</a>
                         </p>
                     </div>
-                }
-                {catalog_link &&
+                </Card>
+        }
+        {catalog_link &&
+                <Card className="exhibition-info">
                     <div className="exhibition-page__catalog">
                         <h3 className="exhibition-page__catalog-title">Каталог</h3>
                         <p className="exhibition-documents__doc">
                             <a href={catalog_link.url} target="__blank">{catalog_link.name}</a>
                         </p>
                     </div>
-                }
-                {documents_links && !!documents_links.length &&
+                </Card>
+        }
+        {documents_links && !!documents_links.length &&
+                <Card className="exhibition-info">
                     <div className="exhibition-page__documents">
                         <h3 className="exhibition-page__documents-title">Документы</h3>
                         {documents_links.map(doc => (
@@ -76,23 +80,10 @@ const ExhibitionInfo = ({
                             </p>
                         ))}
                     </div>
-                }
-                {(owner_name || owner_position || registration_date || ogrn || organization_status_name || (geo_lat && geo_lon) || liquidate_date) &&
-                    <div className="exhibition-page__description">
-                        <h3 className="exhibition-page__description-title">Информация об организаторе</h3>
-                        <p>
-                            {owner_name && `Имя владельца: ${owner_name}`} <br />
-                            {owner_position && `Должность владельца: ${owner_position}`} <br />
-                            {registration_date && `Дата регистрации: ${registration_date}`} <br />
-                            {organization_status_name && `Статус организации: ${organization_status_name}`} <br />
-                            {liquidate_date && `Дата ликвидации: ${liquidate_date}`} <br />
-                            {ogrn && `ОГРН: ${ogrn}`} <br />
-                            {geo_lat && geo_lon && `Координаты: ${geo_lat}, ${geo_lon}`}
-                        </p>
-                    </div>
-                }
-            </div>
-            <div className="exhibition-info__right">
+                </Card>
+        }
+        <Card className="exhibition-info">
+            <div className="exhibition-info__left">
                 <h4 className="exhibition-info__title">Информация о мероприятии</h4>
                 {dates &&
                     <>
@@ -122,6 +113,11 @@ const ExhibitionInfo = ({
                         </tr>}
                     </tbody>
                 </table>
+            </div>
+            <div className="exhibition-info__right">
+                {dates && !!dates.length &&
+                    <CountDown startDate={dateStart} endDate={dateEnd} />
+                }
                 <ul className="exhibition-info__block-list">
                     <li className="exhibition-info__block-item not-active">
                         <a href="/" onClick={clickOnLink}>Судьи</a>
@@ -133,9 +129,6 @@ const ExhibitionInfo = ({
                         <a href="/" onClick={clickOnLink}>Платные услуги</a>
                     </li>
                 </ul>
-                {dates && !!dates.length &&
-                    <CountDown startDate={dateStart} endDate={dateEnd} reportsDateEnd={reportsDateEnd}/>
-                }
                 {showAlert &&
                     <Alert
                         title="Внимание!"
@@ -145,8 +138,8 @@ const ExhibitionInfo = ({
                     />
                 }
             </div>
-        </div>
-    )
+        </Card>
+    </>)
 };
 
 export default React.memo(ExhibitionInfo);

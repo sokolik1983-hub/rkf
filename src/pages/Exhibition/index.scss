@@ -1,4 +1,24 @@
 .exhibition-page {
+  .mobile-only {
+    @media (min-width: 990px) {
+      display: none!important;
+    }
+  }
+  .desktop-only {
+    @media (max-width: 990px) {
+      display: none!important;
+    }
+  }
+  background-color: #F5F8FF;
+  .menu-component {
+    margin-bottom: 0px;
+    @media (min-width: 990px) {
+      margin-bottom: 24px;
+    }
+    @media (max-width: 560px) {
+      display: none;
+    }
+  }
   h3 {
     font-size: 24px;
     margin-bottom: 12px;
@@ -15,6 +35,13 @@
       padding: 12px;
     }
   }
+  &__img {
+    display: block;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
   &__head {
     display: flex;
     align-items: center;
@@ -75,9 +102,10 @@
     margin-bottom: 24px;
   }
   &__address {
+    margin-top: 12px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     @media (max-width: 990px) {
       display: block;
     }
@@ -97,6 +125,61 @@
       width: 100%;
     }
   }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 990px) {
+      display: block;
+    }
+  }
+  &__left {
+    width: 266px;
+    min-width: 266px;
+    margin-right: 40px;
+    @media (max-width: 1220px) {
+      margin-right: 24px;
+    }
+    @media (max-width: 990px) {
+      margin-right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-bottom: 24px;
+      & > div {
+        width: calc(50% - 12px);
+        &:nth-child(odd) {
+          margin-right: 12px;
+        }
+        &:nth-child(even) {
+          margin-left: 12px;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      display: block;
+      padding-bottom: 16px;
+      & > div {
+        width: 100%;
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+        &:nth-child(odd) {
+          margin-right: 0;
+        }
+        &:nth-child(even) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  &__right {
+    width: 100%;
+    order: 1;
+  }
+
   &__map {
     img {
       background: #f3f4f4;

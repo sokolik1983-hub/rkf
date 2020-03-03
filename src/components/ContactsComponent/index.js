@@ -5,7 +5,7 @@ import {timeSecondsCutter} from "../../utils/datetime";
 import "./index.scss";
 
 
-const ContactsComponent = ({address, owner_name, contacts, work_time}) => (
+const ContactsComponent = ({address, owner_name, contacts, work_time, ogrn, regdate}) => (
     <Card className="contacts-component">
         <h4 className="contacts-component__title">Контакты</h4>
         {address &&
@@ -50,6 +50,18 @@ const ContactsComponent = ({address, owner_name, contacts, work_time}) => (
                         c {timeSecondsCutter(period.time_from)} до {timeSecondsCutter(period.time_to)}
                     </p>
                 )}
+            </div>
+        }
+        {ogrn && !!ogrn.length && 
+            <div className="contacts-component__block _ogrn">
+                <h5 className="contacts-component__block-title">ОГРН</h5>
+                <p className="contacts-component__block-info">{ogrn}</p>
+            </div>
+        }
+        {regdate && !!regdate.length && 
+            <div className="contacts-component__block _regdate">
+                <h5 className="contacts-component__block-title">Дата регистрации</h5>
+                <p className="contacts-component__block-info">{(new Date(regdate)).toLocaleDateString("ru-RU")}</p>
             </div>
         }
     </Card>
