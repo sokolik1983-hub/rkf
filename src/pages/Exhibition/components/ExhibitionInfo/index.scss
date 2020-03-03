@@ -1,5 +1,7 @@
 .exhibition-info {
-  margin-top: 12px;
+  &:not(:first-child) {
+    margin-top: 12px;
+  }
   display: flex;
   justify-content: space-between;
   font-weight: 400;
