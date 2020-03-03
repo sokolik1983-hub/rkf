@@ -7,6 +7,7 @@ import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
+import TopComponent from "../../components/TopComponent";
 import { Request } from "../../utils/request";
 import { formatPhone } from "../../utils";
 import { endpointGetExhibition } from "./config";
@@ -27,6 +28,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const shareOk = () => setShareAlert(false);
 
     const [exhibition, setExhibition] = useState(null);
+    console.log(exhibition);
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
@@ -90,72 +92,74 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         loading ?
             <Loading /> :
             <Layout>
-                <Container className="content exhibition-page">
-                    <Card>
-                        <div className="exhibition-page__head">
-                            <div className="exhibition-page__head-info">
-                                <h1 className="exhibition-page__title">{exhibition.name}</h1>
-                                <p className="exhibition-page__subtitle">
-                                    Организатор:&nbsp;
-                                    <Link to={`/${exhibition.club_information.club_alias}`}>
-                                        {exhibition.club_information.club_fact_name}
-                                    </Link>
-                                </p>
-                            </div>
-                            {canEdit &&
-                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
-                            }
-                            <button className="btn btn-simple" onClick={share}>Поделиться</button>
-                        </div>
-                        {shareAlert && (<Alert
-                            title="Поделиться"
-                            text="Ссылка скопирована в буфер обмена"
-                            autoclose={1.5}
-                            onOk={shareOk}
-                        />)}
-                        <ExhibitionInfo
-                            city={city}
-                            dateStart={dateStart}
-                            dateEnd={dateEnd}
-                            reportsDateEnd={reportsDateEnd}
-                            {...exhibition}
-                        />
-                        <div className="exhibition-page__address">
-                            <div className="exhibition-page__address-left">
-                                <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
-                                {city && <p>{`г. ${city}`}</p>}
-                                {exhibition.address && <p>{exhibition.address}</p>}
-                                {exhibition.contacts &&
-                                    <>
-                                        <h4 className="exhibition-page__address-subtitle">Контакты организатора</h4>
-                                        {exhibition.contacts.map(contact =>
-                                            <p key={contact.id}>
-                                                {contact.contact_type_id === 1 ? 'Тел.: ' + formatPhone(contact.value) : 'E-mail: ' + contact.value}
-                                            </p>
-                                        )}
-                                    </>
+                <div className="exhibition-page">
+                    <Container className="content exhibition-page__content">
+                        <Card>
+                            {/*<div className="exhibition-page__head">
+                                <div className="exhibition-page__head-info">
+                                    <h1 className="exhibition-page__title">{exhibition.name}</h1>
+                                    <p className="exhibition-page__subtitle">
+                                        Организатор:&nbsp;
+                                        <Link to={`/${exhibition.club_information.club_alias}`}>
+                                            {exhibition.club_information.club_fact_name}
+                                        </Link>
+                                    </p>
+                                </div>
+                                {canEdit &&
+                                    <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
                                 }
+                                <button className="btn btn-simple" onClick={share}>Поделиться</button>
                             </div>
-                            <div className="exhibition-page__address-right">
-                                <div className="exhibition-page__map">
-                                    <h3 className="exhibition-page__address-title">Схема проезда</h3>
-                                    <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
+                            */}
+                            <TopComponent
+                                logo={exhibition.club_information.logo}
+                                name={exhibition.club_information.club_fact_name}
+                                canEdit={canEdit}
+                            />
+                            {shareAlert && (<Alert
+                                title="Поделиться"
+                                text="Ссылка скопирована в буфер обмена"
+                                autoclose={1.5}
+                                onOk={shareOk}
+                            />)}
+                            <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
+                            <div className="exhibition-page__address">
+                                <div className="exhibition-page__address-left">
+                                    <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
+                                    {city && <p>{`г. ${city}`}</p>}
+                                    {exhibition.address && <p>{exhibition.address}</p>}
+                                    {exhibition.contacts &&
+                                        <>
+                                            <h4 className="exhibition-page__address-subtitle">Контакты организатора</h4>
+                                            {exhibition.contacts.map(contact =>
+                                                <p key={contact.id}>
+                                                    {contact.contact_type_id === 1 ? 'Тел.: ' + formatPhone(contact.value) : 'E-mail: ' + contact.value}
+                                                </p>
+                                            )}
+                                        </>
+                                    }
+                                </div>
+                                <div className="exhibition-page__address-right">
+                                    <div className="exhibition-page__map">
+                                        <h3 className="exhibition-page__address-title">Схема проезда</h3>
+                                        <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="exhibition-page__payment">
-                            <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
-                            <p>
-                                Получатель платежа: {exhibition.club_information.club_legal_name} <br />
-                                ИНН: {exhibition.club_information.inn} <br />
-                                КПП: {exhibition.club_information.kpp} <br />
-                                Банк: {exhibition.club_information.bank_name} <br />
-                                БИК: {exhibition.club_information.bic} <br />
-                                Расчетный счет: {exhibition.club_information.account_number} <br />
-                            </p>
-                        </div>
-                    </Card>
-                </Container>
+                            <div className="exhibition-page__payment">
+                                <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
+                                <p>
+                                    Получатель платежа: {exhibition.club_information.club_legal_name} <br />
+                                    ИНН: {exhibition.club_information.inn} <br />
+                                    КПП: {exhibition.club_information.kpp} <br />
+                                    Банк: {exhibition.club_information.bank_name} <br />
+                                    БИК: {exhibition.club_information.bic} <br />
+                                    Расчетный счет: {exhibition.club_information.account_number} <br />
+                                </p>
+                            </div>
+                        </Card>
+                    </Container>
+                </div>
             </Layout>
 };
 
