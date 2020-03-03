@@ -136,7 +136,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                     </div>
-                                    <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
+                                    <ExhibitionInfo
+                                        city={city}
+                                        dateStart={dateStart}
+                                        dateEnd={dateEnd}
+                                        reportsDateEnd={reportsDateEnd}
+                                        {...exhibition}
+                                    />
                                     <Card className="exhibition-page__address">
                                         <div className="exhibition-page__address-left">
                                             <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
