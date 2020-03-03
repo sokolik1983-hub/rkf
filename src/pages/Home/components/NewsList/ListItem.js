@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getLocalizedMonth } from "utils/datetime";
 import { formatText } from "utils";
 import './index.scss';
+import {DEFAULT_IMG} from "../../../../appConfig";
 
 const ListItem = ({ club_name, city, date, alias, logo_link, photo, text, url }) => {
     const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
@@ -17,7 +18,7 @@ const ListItem = ({ club_name, city, date, alias, logo_link, photo, text, url })
                             <div className="list-item__club-logo" style={{
                                 background: `url(${logo_link
                                     ? logo_link
-                                    : '/static/images/noimg/no-avatar.png'}) center center/cover no-repeat`
+                                    : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                             }} />
                         </Link>
                         <span className="list-item__club-name">

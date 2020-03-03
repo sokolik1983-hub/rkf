@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
 import {connectExhibitionImages} from 'apps/ClientExhibitions/connectors';
 import {pictureTypes} from 'apps/ClientExhibitions/config';
+import {DEFAULT_IMG} from "../../../../../../appConfig";
 
 
 const ExhibitionMap = ({exhibition_map_link, exhibitionId, addMapSuccess}) => {
@@ -18,13 +19,10 @@ const ExhibitionMap = ({exhibition_map_link, exhibitionId, addMapSuccess}) => {
             additionalParams={params}
             onSubmitSuccess={onSuccess}
         >
-            <div ref={ref} style={{
-                backgroundImage: `url(${
-                    exhibition_map_link
-                        ? exhibition_map_link
-                        : "/static/images/noimg/icon-no-image.svg"
-                })`
-            }} className="exhibition-schedule__img" />
+            <div ref={ref}
+                 style={{backgroundImage: `url(${exhibition_map_link || DEFAULT_IMG.clubAvatar})`}}
+                 className="exhibition-schedule__img"
+            />
         </ActiveImageWrapper>
     )
 };

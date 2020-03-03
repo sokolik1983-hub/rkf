@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { formatDateCommon } from 'utils/datetime';
 import './styles.scss';
+import {DEFAULT_IMG} from "../../../../appConfig";
 
 const ExhibitionCard = ({ club_alias, club_name, club_logo, id, city_name, exhibition_name, exhibition_picture_link, date, date_end }) => {
     return <div className="ExhibitionCard">
@@ -15,7 +16,7 @@ const ExhibitionCard = ({ club_alias, club_name, club_logo, id, city_name, exhib
                         <div className="ExhibitionCard__club-logo" style={{
                             background: `url(${club_logo
                                 ? club_logo
-                                : '/static/images/noimg/no-avatar.png'}) center center/cover no-repeat`
+                                : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                         }} />
                         <p className="ExhibitionCard__club-name">{club_name}</p>
                     </Link>

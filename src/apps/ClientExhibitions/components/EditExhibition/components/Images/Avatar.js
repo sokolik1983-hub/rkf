@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
 import {connectExhibitionImages} from 'apps/ClientExhibitions/connectors';
 import {pictureTypes} from 'apps/ClientExhibitions/config';
+import {DEFAULT_IMG} from "../../../../../../appConfig";
 
 
 const ExhibitionAvatar = ({exhibition_avatar_link, exhibitionId, addAvatarSuccess}) => {
@@ -18,13 +19,11 @@ const ExhibitionAvatar = ({exhibition_avatar_link, exhibitionId, addAvatarSucces
             additionalParams={params}
             onSubmitSuccess={onSuccess}
         >
-            <div ref={ref} style={{
-                backgroundImage: `url(${
-                    exhibition_avatar_link
-                        ? exhibition_avatar_link
-                        : "/static/images/noimg/icon-no-image.svg"
-                })`
-            }} className="exhibition-schedule__img" />
+            <div
+                ref={ref}
+                style={{backgroundImage: `url(${exhibition_avatar_link || DEFAULT_IMG.clubAvatar})`}}
+                className="exhibition-schedule__img"
+            />
         </ActiveImageWrapper>
     )
 };
