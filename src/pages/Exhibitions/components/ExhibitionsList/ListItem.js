@@ -5,6 +5,7 @@ import {formatDateCommon} from "../../../../utils/datetime";
 import {formatText} from "../../../../utils";
 import {setFiltersToUrl, getEmptyFilters} from "../../utils";
 import {getDictElement} from "../../../../apps/Dictionaries";
+import {DEFAULT_IMG} from "../../../../appConfig";
 
 const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, dictionary}) => {
     const getRanks = () => ranks.map(r => getDictElement(dictionary, r)).join(', ');
@@ -42,7 +43,7 @@ const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, 
                         <span className="ListItem__subtitle">Организатор</span>
                         <Link to={`/${club_alias}`}>
                             <div className="ListItem__club-logo" style={{
-                                backgroundImage: `url(${club_logo ? club_logo : '/static/images/noimg/no-avatar.png'})`
+                                backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
                             <p className="ListItem__club-name">{club_name}</p>
                         </Link>
@@ -69,7 +70,7 @@ const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, 
                         </div>
                         <Link className="ListItemMobile__author" to={`/${club_alias}`}>
                             <div style={{
-                                backgroundImage: `url(${club_logo ? club_logo : '/static/images/noimg/no-avatar.png'})`
+                                backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
                             <span>{club_name}</span>
                         </Link>

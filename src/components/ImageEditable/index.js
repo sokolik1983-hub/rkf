@@ -5,6 +5,7 @@ import Img from 'components/Img'
 import DeleteButton from 'components/DeleteButton'
 import classnames from 'classnames'
 import './styles.scss'
+import {DEFAULT_IMG} from "../../appConfig";
 
 const fields = {
     file: {
@@ -46,7 +47,7 @@ export default function ImageEditable({
                     {[className]: className})}
                  onClick={onEdit}
                  style={style}>
-                <Img src={imageUrl ? imageUrl : '/static/images/noimg/icon-no-image.svg'} alt=""/>
+                <Img src={imageUrl || DEFAULT_IMG.clubAvatar} alt=""/>
             </div>
             {
                 visibility ?

@@ -3,10 +3,11 @@ import classnames from 'classnames'
 //import ActivityIndicator from 'components/ActivityIndicator'
 import {generateSize} from 'utils/index'
 import './styles.scss'
+import {DEFAULT_IMG} from "../../appConfig";
 
 export default function ClientAvatar({
                                          size = 110,
-                                         avatar = '/static/images/noimg/no-avatar.png',
+                                         avatar = DEFAULT_IMG.clubAvatar,
                                          activity,
                                          className,
                                          ...rest
