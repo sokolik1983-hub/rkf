@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 import Alert from "../Alert";
 import "./index.scss";
 import Modal from "../Modal";
 
 
-const MenuComponent = ({alias, name, btnName, presidium}) => {
+const MenuComponent = ({ alias, name, presidium }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -22,26 +22,28 @@ const MenuComponent = ({alias, name, btnName, presidium}) => {
 
     return (
         <Card className="menu-component">
-            <h4 className="menu-component__title" title={`Меню ${name}`}>{`Меню ${name}`}</h4>
+            <h4 className="menu-component__title" title="Меню">Меню</h4>
             <ul className="menu-component__list">
                 <li className="menu-component__item">
-                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link">Мероприятия</Link>
+                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
                 </li>
                 {presidium &&
                     <li className="menu-component__item">
-                        <Link to="/" onClick={onPresidiumClick} className="menu-component__link">Президиум</Link>
+                        <Link to="/" onClick={onPresidiumClick} className="menu-component__link" title="Президиум">Президиум</Link>
                     </li>
                 }
                 <li className="menu-component__item">
-                    <Link to="/" onClick={handleClick} className="menu-component__link not-active">Новости</Link>
+                    <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Новости">Новости</Link>
                 </li>
                 {alias !== 'rkf' &&
                     <li className="menu-component__item">
-                        <Link to="/" onClick={handleClick} className="menu-component__link not-active">Клейма</Link>
+                        <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
                     </li>
                 }
+                <li className="menu-component__item">
+                    <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
+                </li>
             </ul>
-            <Link to={`/${alias}`} className="menu-component__button">{btnName}</Link>
             {showAlert &&
                 <Alert
                     title="Внимание!"
