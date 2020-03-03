@@ -65,6 +65,12 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                     24,
                     0
                 ).toISOString() : null;
+    const reportsDateEnd = dateEnd ?
+        new Date(
+            new Date(dateEnd).getFullYear(),
+            new Date(dateEnd).getMonth(),
+            new Date(dateEnd).getDate() + 14
+        ).toISOString() : null;
 
     useEffect(() => {
         (() => Request({
@@ -107,7 +113,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             autoclose={1.5}
                             onOk={shareOk}
                         />)}
-                        <ExhibitionInfo city={city} dateStart={dateStart} dateEnd={dateEnd} {...exhibition} />
+                        <ExhibitionInfo
+                            city={city}
+                            dateStart={dateStart}
+                            dateEnd={dateEnd}
+                            reportsDateEnd={reportsDateEnd}
+                            {...exhibition}
+                        />
                         <div className="exhibition-page__address">
                             <div className="exhibition-page__address-left">
                                 <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
