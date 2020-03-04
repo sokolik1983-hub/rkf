@@ -39,6 +39,7 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
             setError(error.response);
             setLoading(false);
         }))();
+        return () => setNeedRequest(true);
     }, [match]);
 
     return loading ?
