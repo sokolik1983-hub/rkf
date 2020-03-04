@@ -5,7 +5,6 @@ import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} fro
 import CountDown from "../../../../components/CountDown";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
-import { DEFAULT_IMG } from "../../../../appConfig";
 import declension from "../../../../utils/declension";
 import "./index.scss";
 
@@ -19,7 +18,6 @@ const ExhibitionInfo = ({
                             address,
                             rank_types,
                             breed_types,
-                            exhibition_avatar_link,
                             description,
                             documents_links,
                             schedule_link,
@@ -32,7 +30,6 @@ const ExhibitionInfo = ({
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
     const timeStart = dates && dates[0].time_start;
-    const { owner_name, owner_position, registration_date, ogrn, organization_status_name, liquidate_date, geo_lat, geo_lon } = club_information;
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
