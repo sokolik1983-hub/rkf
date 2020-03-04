@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Placeholder from "./Placeholder";
 import ListItem from "./ListItem";
 import Paginator from "../../../../components/Paginator";
-import {Request} from "../../../../utils/request";
-import {endpointGetClubs} from "../../config";
-import {connectFilters} from "../../connectors";
+import { Request } from "../../../../utils/request";
+import { endpointGetClubs } from "../../config";
+import { connectFilters } from "../../connectors";
 import "./index.scss";
 
 
-const ClubsList = ({string_filter, federation_ids, city_ids, is_activated, page, setFilters}) => {
+const ClubsList = ({ string_filter, federation_ids, city_ids, is_activated, page, setFilters }) => {
     const [clubs, setClubs] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ const ClubsList = ({string_filter, federation_ids, city_ids, is_activated, page,
     }, [string_filter, federation_ids, city_ids, is_activated, page]);
 
     return loading ?
-        <Placeholder/> :
+        <Placeholder /> :
         <div className="clubs-page__list list">
             {!clubs || !clubs.length ?
                 <h2 className="list__title">Клубы не найдены</h2> :
@@ -53,7 +53,7 @@ const ClubsList = ({string_filter, federation_ids, city_ids, is_activated, page,
                                     city={item.legal_city_name}
                                     cityId={item.legal_city_id}
                                     url={item.url}
-                                    club_name={item.title}
+                                    club_name={item.short_name ? item.short_name : item.title}
                                     club_alias={item.alias}
                                     club_logo={item.picture_link}
                                     club_owner={item.owner_name}
