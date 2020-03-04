@@ -282,6 +282,11 @@ const DEFAULT_IMG = {
     noImage: '/static/images/noimg/icon-no-image.svg'
 };
 
+const BAD_SITES = [
+    'zooportal.pro',
+    'kinolog.org'
+]
+
 export {
     WEEKDAYS,
     WEEKDAYS_SHORT,
@@ -293,5 +298,6 @@ export {
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
     DEFAULT_EMAIL_INPUT_PLACEHOLDER,
     LOGIN_URL,
-    DEFAULT_IMG
+    DEFAULT_IMG,
+    BAD_SITES
 }

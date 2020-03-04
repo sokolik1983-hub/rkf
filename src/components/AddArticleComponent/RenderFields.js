@@ -4,7 +4,7 @@ import {connect} from 'formik';
 import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import {DEFAULT_IMG} from "../../appConfig";
+import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 
 
@@ -32,11 +32,20 @@ const RenderFields = ({fields, clubLogo, formik}) => {
     };
 
     const handleKeyDown = (e) => {
-        const textarea = e.target;
+        let text = e.target.value;
         
         const regexp = /http:\/\/[^\s]+/g;
-        Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
-        formik.setFieldValue('content', e.target.value.replace(regexp, ''));
+        Array.from(text.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
+        text = text.replace(regexp, '');
+
+        BAD_SITES
+        .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
+        .forEach(x => {
+            Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
+            text = text.replace(x, '');
+        });
+
+        formik.setFieldValue('content', text);
     };
 
     const handleOutsideClick = () => {
