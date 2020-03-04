@@ -33,7 +33,7 @@ const MenuComponent = ({ alias, name, presidium }) => {
                     </li>
                 }
                 <li className="menu-component__item">
-                    <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Новости">Новости</Link>
+                    <Link to={`/${alias}/news`} className="menu-component__link not-active" title="Новости">Новости</Link>
                 </li>
                 {alias !== 'rkf' &&
                     <li className="menu-component__item">
