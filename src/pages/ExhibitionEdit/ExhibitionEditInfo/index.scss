@@ -78,6 +78,13 @@
       align-items: flex-end;
     }
   }
+  &__dates {
+    span {
+      align-self: center;
+      font-weight: 400;
+      margin: 32px 16px 0 0;
+    }
+  }
   @media (max-width: 800px) {
     .FormGroup--inline {
       display: block;
@@ -88,7 +95,7 @@
   }
   @media (max-width: 560px) {
     .btn {
-      padding: 10px 30px;
+      padding: 8px 27px;
     }
   }
 }
