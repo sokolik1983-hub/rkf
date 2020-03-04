@@ -37,7 +37,7 @@ const TopComponent = ({logo, name, canEdit}) => {
             </div>
             <div className="top-component__controls">
                 {canEdit ?
-                    <Link className="btn__blue" to="/client">Редактировать профиль</Link> :
+                    <Link className="btn__blue" to={typeof(canEdit) === "string" ? canEdit : "/client"}>Редактировать</Link> :
                     <button type="button" className="btn__blue share-desktop" onClick={share}>Поделиться</button>
                 }
             </div>
