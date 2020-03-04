@@ -5,6 +5,30 @@
   @media (max-width: 560px) {
     margin-bottom: 12px;
   }
+  &-wrap {
+    flex: 1;
+  }
+  &-info {
+    width: 100%;
+  }
+  .share-desktop {
+      display: none!important;
+    }
+    .share-mobile {
+      display: inline-block!important;
+      cursor: pointer;
+      height: 20px;
+    }
+    @media (min-width: 990px) {
+      .share-desktop {
+        display: inline-block!important;
+      }
+      .share-mobile {
+        display: none!important;
+      }
+    }
+
+
   &-img {
     height: 250px;
     background-repeat: no-repeat;

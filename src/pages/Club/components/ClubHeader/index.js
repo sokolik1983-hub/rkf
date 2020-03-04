@@ -1,12 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import Card from "../../../../components/Card";
+import Alert from "../../../../components/Alert";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import './index.scss';
 
 
-const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlias, canEdit}) => (
+const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlias, canEdit}) => {
+    const [shareAlert, setShareAlert] = useState(false);
+
+    const share = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setShareAlert(true);
+    };
+
+    const shareOk = () => setShareAlert(false);
+
+    return (
     <Card className="club-page__header">
+        {shareAlert && (<Alert
+            title="Поделиться"
+            text="Ссылка скопирована в буфер обмена"
+            autoclose={1.5}
+            onOk={shareOk}
+        />)}
         {clubImg && <div className="club-page__header-img" style={{backgroundImage: `url(${clubImg})`}} />}
         <div className="club-page__header-content">
             <div className="club-page__header-info">
@@ -17,12 +34,19 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
                         <Link to={`/${federationAlias}`} className="club-page__header-federation">{federationName}</Link>
                     }
                 </div>
+                {canEdit || 
+                    <div onClick={share} className="share-mobile">
+                        <img width="20" src="/static/icons/icon-share-2.svg" alt=""/>
+                    </div>
+                }
             </div>
-            {canEdit &&
-                <Link className="btn btn-primary" to="/client">Редактировать профиль</Link>
+            {canEdit ?
+                <Link className="btn btn-primary" to="/client">Редактировать профиль</Link> :
+                <button type="button" className="btn btn-primary share-desktop" onClick={share}>Поделиться</button>
             }
         </div>
     </Card>
 );
+}
 
 export default React.memo(ClubHeader);

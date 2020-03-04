@@ -29,9 +29,9 @@ const TopComponent = ({logo, name, canEdit}) => {
                 <div className="top-component__title">
                     <h2>{name}</h2>
                 </div>
-                    <div onClick={share} className="share-mobile">
-                        <img width="20" src="/static/icons/icon-share-2.svg"/>
-                    </div>
+                <div onClick={share} className="share-mobile">
+                    <img width="20" src="/static/icons/icon-share-2.svg" alt=""/>
+                </div>
             </div>
             <div className="top-component__controls">
                 {canEdit ?
