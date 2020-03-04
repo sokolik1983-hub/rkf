@@ -33,16 +33,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
 
     const handleKeyDown = (e) => {
         const textarea = e.target;
-        //const offset = textarea.offsetHeight - textarea.clientHeight;
-        /*textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + offset + 'px';
-        textarea.value.length > 4096
-            ? alert('Превышено максимальное кол-во символов (4096 симв.)')
-            : formik.setFieldValue('content', textarea.value);
-        */
-        textarea.style.resize = 'vertical';
-        textarea.scrollHeight > textarea.clientHeight && textarea.style.minHeight !== "150px" && (textarea.style.minHeight = "150px");
-        content || (textarea.style.minHeight = "30px");
+        
         const regexp = /http:\/\/[^\s]+/g;
         Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
         formik.setFieldValue('content', e.target.value.replace(regexp, ''));
@@ -69,7 +60,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                     onFocus={setFocused}
                     maxLength="4096"
                     value={content ? content : ''}
-                    rows="1"
+                    rows={content ? "3" : "1"}
                 />
                 {!focus &&
                     <>
