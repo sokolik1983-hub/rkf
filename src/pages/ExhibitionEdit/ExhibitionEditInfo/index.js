@@ -19,6 +19,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
         address,
         exhibition_map_link,
         exhibition_avatar_link,
+        dates
     } = exhibition;
 
     useEffect(() => {
@@ -40,6 +41,13 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
             documents_links.forEach(item => {
                 values[`docs_url_${item.id}`] = item.url;
                 values[`docs_name_${item.id}`] = item.name;
+            });
+        }
+
+        if(dates && dates.length) {
+            dates.forEach(date => {
+                values[`time_start_${date.id}`] = date.time_start || '';
+                values[`time_end_${date.id}`] = date.time_end || '';
             });
         }
 
@@ -73,6 +81,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
 
     const transformValues = values => {
         let docLinks = [];
+        let newDates = [...dates];
         Object.keys(values).forEach(key => {
             if(/docs_url/.test(key)) {
                 const id = key.split('_')[2];
@@ -81,6 +90,17 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                     name: values[`docs_name_${id}`],
                     url: values[key]
                 });
+            }
+
+            if(/time_start/.test(key)) {
+                const id = +key.split('_')[2];
+
+                newDates.find(date => date.id === id).time_start = values[key] || null;
+            }
+            if(/time_end/.test(key)) {
+                const id = +key.split('_')[2];
+
+                newDates.find(date => date.id === id).time_end = values[key] || null;
             }
         });
 
@@ -94,6 +114,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 breed_types: values.breed_types,
                 city_id: values.city_id,
                 address: values.address,
+                dates: newDates
             },
              documents_links: docLinks
         };
@@ -145,6 +166,7 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 avatar={exhibition_avatar_link}
                 map={exhibition_map_link}
                 documents={documents_links}
+                dates={dates}
                 onCancel={() => history.push(`/exhibitions/${id}`)}
                 setInitialValues={setInitialValues}
             />

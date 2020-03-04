@@ -5,7 +5,7 @@ import {exhibitionInfoForm} from "../config";
 import {DEFAULT_IMG} from "../../../appConfig";
 
 
-const RenderFields = ({formik, avatar, map, documents, onCancel, setInitialValues}) => {
+const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues}) => {
     const [avatarSrc, setAvatarSrc] = useState(avatar);
     const [mapSrc, setMapSrc] = useState(map);
     const [docs, setDocs] = useState(documents);
@@ -126,6 +126,25 @@ const RenderFields = ({formik, avatar, map, documents, onCancel, setInitialValue
             <FormField
                 {...fields.description}
             />
+            {dates && !!dates.length &&
+                dates.map(date =>
+                    <FormGroup inline key={date.id} className="exhibition-edit__dates">
+                        <span>{`${date.day < 10 ? '0'+date.day : date.day}.${date.month < 10 ? '0'+date.month : date.month}.${date.year}`}</span>
+                        <FormField
+                            name={`time_start_${date.id}`}
+                            label="Начало"
+                            type="time"
+                            validate={handleValidate}
+                        />
+                        <FormField
+                            name={`time_end_${date.id}`}
+                            label="Окончание"
+                            type="time"
+                            validate={handleValidate}
+                        />
+                    </FormGroup>
+                )
+            }
             <FormGroup inline>
                 <FormField
                     disabled={true}

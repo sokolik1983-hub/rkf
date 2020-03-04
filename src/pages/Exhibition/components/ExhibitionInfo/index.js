@@ -25,11 +25,10 @@ const ExhibitionInfo = ({
                             club_information
 }) => {
     const [showAlert, setShowAlert] = useState(false);
-    const { dictionary: rankDictionary } = useDictionary('rank_type');
-    const { dictionary: breedDictionary } = useDictionary('breed_types');
+    const {dictionary: rankDictionary} = useDictionary('rank_type');
+    const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
-    const timeStart = dates && dates[0].time_start;
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -48,13 +47,10 @@ const ExhibitionInfo = ({
                         <div className="exhibition-info__dates">
                             {dates.map((date, i) => (
                                 <p key={i} className="exhibition-info__date">
-                                    {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}`}
+                                    {`${capitalizeFirstLetter(getLocalizedWeekDay(transformDateSafariFriendly(date)))}, ${date.day < 10 ? '0' + date.day : date.day}.${date.month < 10 ? '0' + date.month : date.month}.${date.year}${date.time_start ? ' c ' + timeSecondsCutter(date.time_start) : ''}${date.time_end ? ' до ' + timeSecondsCutter(date.time_end) + ' по МСК' : ''}`}
                                 </p>
                             ))}
                         </div>
-                        {timeStart &&
-                            <p className="exhibition-info__time">Начало в {timeSecondsCutter(timeStart)} по МСК</p>
-                        }
                     </>
                 }
                 {city && <p className="exhibition-info__address">{`г. ${city}${address ? ', ' + address : ''}`}</p>}
