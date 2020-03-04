@@ -37,7 +37,7 @@ const FloatingMenu = ({ alias, name, presidium }) => {
                 </DropDownItem>
             }
             <DropDownItem>
-                <Link to="/" onClick={handleClick} className="FloatingMenu__link" title="Новости">Новости</Link>
+                <Link to={`/${alias}/news`} className="FloatingMenu__link" title="Новости">Новости</Link>
             </DropDownItem>
             {alias !== 'rkf' &&
                 <DropDownItem>

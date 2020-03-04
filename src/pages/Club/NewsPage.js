@@ -7,49 +7,75 @@ import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import ClubHeader from "./components/ClubHeader";
-import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubInfo from "./components/ClubInfo";
-import ClubDescription from "./components/ClubDescription";
-import AddArticle from "../../components/AddArticleComponent";
-import ClubNews from "./components/ClubNews";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
+import { endpointGetNews } from "./config";
+import List from "components/List";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import "./index.scss";
 
 
-const ClubPage = ({ match, profile_id, isAuthenticated }) => {
+const NewsPage = ({ match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [page, setPage] = useState(1);
-    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [news, setNews] = useState([]);
+    const [newsLoading, setNewsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
+    const alias = match.params.route;
 
     useEffect(() => {
         (() => Request({
-            url: endpointGetClubInfo + match.params.route
+            url: endpointGetClubInfo + alias
         }, data => {
             setClubInfo(data);
             setCanEdit(isAuthenticated && profile_id === data.id);
+            !news.length && getNews();
             setLoading(false);
         }, error => {
             console.log(error.response);
             setError(error.response);
             setLoading(false);
         }))();
-        return () => setNeedRequest(true);
     }, [match]);
 
-    return loading ?
-        <Loading /> :
-        error ?
-            error.status === 422 ?
-                <ClubNotActive /> :
-                <PageNotFound /> :
-            <Layout>
-                <Container className="content club-page">
+    const getNews = async () => {
+        setNewsLoading(true);
+        await Request({
+            url: `${endpointGetNews}?alias=${alias}${page > 1 ? '&page=' + page : ''}`
+        }, data => {
+            let modifiedNews = [];
+
+            if (data.articles.length) {
+                modifiedNews = news.concat(
+                    data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    })
+                );
+            }
+            setNews(modifiedNews);
+            setPage(page + 1);
+            modifiedNews.length === data.articles_count && setHasMore(false);
+            setNewsLoading(false);
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    return loading
+        ? <Loading />
+        : error ?
+            error.status === 422 ? <ClubNotActive /> : <PageNotFound />
+            : <Layout>
+                <Container className="content club-page NewsPage">
                     <ClubHeader
                         clubLogo={clubInfo.logo_link}
                         clubImg={clubInfo.headliner_link}
@@ -58,30 +84,22 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
                         federationAlias={clubInfo.federation_alias}
                         canEdit={canEdit}
                     />
-                    <ExhibitionsComponent alias={clubInfo.club_alias} />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
-                            <ClubDescription
-                                description={clubInfo.description}
-                                clubName={clubInfo.name}
-                                federationName={clubInfo.federation_name}
-                            />
-                            {canEdit &&
-                                <AddArticle
-                                    clubId={clubInfo.id}
-                                    logo={clubInfo.logo_link}
-                                    setPage={setPage}
-                                    setNeedRequest={setNeedRequest}
+                            <InfiniteScroll
+                                dataLength={news.length}
+                                next={getNews}
+                                hasMore={hasMore}
+                                loader={newsLoading && <Loading centered={false} />}
+                                endMessage={<div className="NewsPage__endMessage">Новостей больше нет</div>}
+                            >
+                                <List
+                                    list={news}
+                                    listNotFound={false}
+                                    listClass="club-page__news"
+                                    isFullDate={true}
                                 />
-                            }
-                            <ClubNews
-                                clubId={clubInfo.id}
-                                alias={match.params.route}
-                                page={page}
-                                setPage={setPage}
-                                needRequest={needRequest}
-                                setNeedRequest={setNeedRequest}
-                            />
+                            </InfiniteScroll>
                         </div>
                         <Aside className="club-page__info">
                             <MenuComponent
@@ -99,4 +117,4 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
             </Layout>
 };
 
-export default React.memo(connectAuthVisible(ClubPage));
+export default React.memo(connectAuthVisible(NewsPage));

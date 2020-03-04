@@ -106,6 +106,11 @@ const appRoutes = [
         exact: true,
         path: '/:route',
         component: LoadableModules.LoadableClubPage
+    },
+    {
+        exact: true,
+        path: '/:route/news',
+        component: LoadableModules.LoadableClubNews
     }
 ];
 

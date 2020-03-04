@@ -1,10 +1,10 @@
 .club-page {
-  .menu-component{
+  .menu-component {
     padding: 14px 16px 16px;
     @media (max-width: 560px) {
       display: none;
     }
-    h4{
+    h4 {
       font-weight: 600;
       font-size: 14px;
       line-height: 20px;
@@ -12,8 +12,8 @@
       text-transform: uppercase;
       margin-bottom: 8px;
     }
-    
-    &__title{
+
+    &__title {
       margin-bottom: 8px;
     }
   }
@@ -40,5 +40,16 @@
       width: 100%;
       min-width: unset;
     }
+  }
+}
+.NewsPage {
+  &__endMessage {
+    margin: 20px 0;
+    text-align: center;
+    font-weight: normal;
+  }
+  .infinite-scroll-component,
+  .infinite-scroll-component__outerdiv {
+    overflow: visible !important;
   }
 }
