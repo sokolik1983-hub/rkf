@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CitySelect from 'components/CitySelect';
+import './ListFilter.scss';
 
 const ListFilter = ({ setNewsFilter }) => {
     const [city, setCity] = useState(getCity());
@@ -32,10 +33,10 @@ const ListFilter = ({ setNewsFilter }) => {
             <li>
                 <a href="/" name="clubs" onClick={handleClick} className={activeType === 'clubs' ? 'active' : undefined}>Клубы</a>
             </li>
-            <li style={{opacity: 0.5}}>
+            <li style={{ opacity: 0.5 }}>
                 <span>НКП</span>
             </li>
-            <li style={{opacity: 0.5}}>
+            <li style={{ opacity: 0.5 }}>
                 <span>Питомники</span>
             </li>
         </ul>
