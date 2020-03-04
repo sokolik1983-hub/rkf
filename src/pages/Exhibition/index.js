@@ -86,7 +86,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
             <Layout>
                 <div className="exhibition-page">
                     <FloatingMenu
-                        alias={exhibition.club_information.alias}
+                        alias={exhibition.club_information.club_alias}
                         name={exhibition.club_information.club_fact_name}
                         btnName={"Cтраница " + exhibition.club_information.club_fact_name}
                     />
@@ -108,9 +108,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </div>
                             */}
                             <TopComponent
-                                logo={exhibition.club_information.logo}
+                                logo={exhibition.club_information.club_logo}
                                 name={exhibition.club_information.club_fact_name}
-                                canEdit={canEdit}
+                                canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
                             />
                             <div className="exhibition-page__info">
                                 <div className="mobile-only">
@@ -119,7 +119,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 </div>
                                 <aside className="exhibition-page__left">
                                     <MenuComponent
-                                        alias={exhibition.club_information.alias}
+                                        alias={exhibition.club_information.club_alias}
                                         name={exhibition.club_information.club_fact_name}
                                         btnName={"Cтраница " + exhibition.club_information.club_fact_name}
                                     />
