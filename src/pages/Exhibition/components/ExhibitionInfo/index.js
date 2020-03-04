@@ -37,6 +37,20 @@ const ExhibitionInfo = ({
         setShowAlert(true);
     };
 
+    // костыль, а че делать?
+    const resolveBreeds = (ranks, breeds) => {
+        if (breeds && !!breeds.length && ranks && !!ranks.length && 'Все породы' === breeds.join(', ')) {
+            let a = [];
+            ranks.forEach(r => {
+                let match = /САС (\d+) /g.exec(r);
+                match && !isNaN(match[1]) && a.push(match[1]);
+            });
+            if (!!a.length) {
+                 return `Породы ${a.join(', ')} гр.`;
+            } else return breeds.join(', ');
+        } else return breeds.join(', ');
+    }
+
     return (<>
         <Card className="exhibition-info">
             <div className="exhibition-info__left">
@@ -62,7 +76,7 @@ const ExhibitionInfo = ({
                         </tr>}
                         {breedTypes && !!breedTypes.length && <tr>
                             <td>Породы:</td>
-                            <td>{breedTypes.join(', ')}</td>
+                            <td>{resolveBreeds(rankTypes, breedTypes)}</td>
                         </tr>}
                     </tbody>
                 </table>
