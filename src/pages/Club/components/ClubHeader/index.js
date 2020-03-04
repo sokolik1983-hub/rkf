@@ -34,7 +34,7 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
                         <Link to={`/${federationAlias}`} className="club-page__header-federation">{federationName}</Link>
                     }
                 </div>
-                {canEdit || 
+                {!canEdit &&
                     <div onClick={share} className="share-mobile">
                         <img width="20" src="/static/icons/icon-share-2.svg" alt=""/>
                     </div>
