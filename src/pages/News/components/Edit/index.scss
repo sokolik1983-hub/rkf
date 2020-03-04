@@ -5,9 +5,14 @@
         margin-bottom: 24px;
       }
     }
-    textarea {
-      resize: vertical;
-    }
+  }
+  textarea {
+    resize: vertical;
+  }
+  &__content-length {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    display: block;
   }
   &__img {
     display: block;

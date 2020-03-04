@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'formik';
 import {FormControls, FormField} from '../../../../components/Form';
-import {DEFAULT_IMG} from "../../../../appConfig";
+import {DEFAULT_IMG, BAD_SITES} from "../../../../appConfig";
 
 
 const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
     const [src, setSrc] = useState(imgSrc);
+    const {content} = formik.values;
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -13,17 +14,20 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
     }, []);
 
     const handleChangeText = (e) => {
-        const textarea = e.target;
-        const offset = textarea.offsetHeight - textarea.clientHeight;
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + offset + 'px';
-        textarea.value.length > 3000
-            ? alert('Превышено максимальное кол-во символов (3000 симв.)')
-            : formik.setFieldValue('content', textarea.value);
-
+        let text = e.target.value;
+        
         const regexp = /http:\/\/[^\s]+/g;
-        Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
-        formik.setFieldValue('content', e.target.value.replace(regexp, ''));
+        Array.from(text.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
+        text = text.replace(regexp, '');
+
+        BAD_SITES
+        .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
+        .forEach(x => {
+            Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
+            text = text.replace(x, '');
+        });
+
+        formik.setFieldValue('content', text);
     };
 
     const handleChangeImg = e => {
@@ -50,10 +54,11 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
                     {...fields.content}
                     value={formik.values.content || ''}
                     onChange={handleChangeText}
-                    maxLength="3001"
+                    maxLength="4096"
                     rows="15"
                 />
             </div>
+            <span className="article-edit__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>
             <div className="article-edit__img">
                 <label className="article-edit__img-label">
                     <input

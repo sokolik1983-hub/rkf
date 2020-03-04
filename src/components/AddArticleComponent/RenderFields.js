@@ -4,7 +4,7 @@ import {connect} from 'formik';
 import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import {DEFAULT_IMG} from "../../appConfig";
+import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 
 
@@ -32,20 +32,20 @@ const RenderFields = ({fields, clubLogo, formik}) => {
     };
 
     const handleKeyDown = (e) => {
-        const textarea = e.target;
-        //const offset = textarea.offsetHeight - textarea.clientHeight;
-        /*textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + offset + 'px';
-        textarea.value.length > 4096
-            ? alert('Превышено максимальное кол-во символов (4096 симв.)')
-            : formik.setFieldValue('content', textarea.value);
-        */
-        textarea.style.resize = 'vertical';
-        textarea.scrollHeight > textarea.clientHeight && textarea.style.minHeight !== "150px" && (textarea.style.minHeight = "150px");
-        content || (textarea.style.minHeight = "30px");
+        let text = e.target.value;
+        
         const regexp = /http:\/\/[^\s]+/g;
-        Array.from(e.target.value.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
-        formik.setFieldValue('content', e.target.value.replace(regexp, ''));
+        Array.from(text.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
+        text = text.replace(regexp, '');
+
+        BAD_SITES
+        .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
+        .forEach(x => {
+            Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
+            text = text.replace(x, '');
+        });
+
+        formik.setFieldValue('content', text);
     };
 
     const handleOutsideClick = () => {
@@ -69,7 +69,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                     onFocus={setFocused}
                     maxLength="4096"
                     value={content ? content : ''}
-                    rows="1"
+                    rows={content ? "3" : "1"}
                 />
                 {!focus &&
                     <>

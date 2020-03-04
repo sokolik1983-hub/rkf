@@ -8,6 +8,9 @@
 
 .ArticleCreateForm {
   position: relative;
+  textarea {
+    resize: vertical;
+  }
   &__wrap {
     display: flex;
     align-items: center;
