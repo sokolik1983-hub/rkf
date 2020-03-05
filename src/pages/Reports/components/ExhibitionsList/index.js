@@ -1,52 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Card from 'components/Card';
-import Loading from 'components/Loading';
-import Container from "components/Layouts/Container";
-import { useResourceAndStoreToRedux } from "shared/hooks";
-import { endpointReportsList } from '../../config';
-import { connectReportsList } from '../../connectors';
-import './styles.scss';
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import Loading from "../../../../components/Loading";
+import Card from "../../../../components/Card";
+import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
+import {endpointReportsList} from "../../config";
+import {connectReportsList} from "../../connectors";
+import "./styles.scss";
 
-const ExhibitionsList = (props) => {
-    const { reportsList, path, fetchReportsSuccess } = props;
-    const { loading } = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
 
-    return (loading ?
+const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
+    const [reports, setReports] = useState(reportsList);
+    const {loading} = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
+
+    useEffect(() => {
+        setReports(reportsList);
+    }, [reportsList]);
+
+    return loading ?
         <Loading /> :
-        <Container className="container-main">
-            <Card>
-                <h3>Прошедшие выставки</h3>
-                <p className="colors-memo">
-                    <span className="_red">Отчёт не был отправлен, либо требует доработки</span>
-                    <span className="_yellow">Отчёт ожидает проверки администратором</span>
-                    <span className="_green">Отчёт принят</span>
-                </p>
+        <Card className="reports-page__list">
+            <h2 className="reports-page__list-title">Прошедшие выставки</h2>
+            <div className="reports-page__list-controls">
+                <button
+                    className="reports-page__list-button"
+                    type="button"
+                    onClick={() => setReports(reportsList)}
+                >Все</button>
+                <button
+                    className="reports-page__list-button _red"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 1))}
+                >Отчёт не был отправлен, либо требует доработки</button>
+                <button
+                    className="reports-page__list-button _yellow"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 2))}
+                >Отчёт ожидает проверки администратором</button>
+                <button
+                    className="reports-page__list-button _green"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 3))}
+                >Отчёт принят</button>
+            </div>
+            {reports && !!reports.length ?
                 <ul className="ExhibitionsList">
-                    {
-                        reportsList
-                            .map((item) =>
-                                <li key={item.exhibition_id}>
-                                    {
-                                        item.report_header_status === 1
-                                            ? <Link
-                                                to={`${path}/${item.exhibition_id}`}
-                                                className={`ExhibitionsList__item _red${item.is_expaired_report ? ' _expire' : ''}`}>
-                                                Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
-                                                <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
-                                            </Link>
-                                            : <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${item.is_expaired_report ? ' _expire' : ''}`}>
-                                                Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
-                                                <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
-                                            </p>
-                                    }
-                                </li>
-                            )
-                    }
-                </ul>
-            </Card>
-        </Container>
-    );
+                    {reports.map(item =>
+                        <li key={item.exhibition_id}>
+                            {item.report_header_status === 1 ?
+                                <Link
+                                    to={`${path}/${item.exhibition_id}`}
+                                    className={`ExhibitionsList__item _red${item.is_expaired_report ? ' _expire' : ''}`}>
+                                    Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                    <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
+                                </Link> :
+                                <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${item.is_expaired_report ? ' _expire' : ''}`}>
+                                    Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                    <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
+                                </p>
+                            }
+                        </li>
+                    )}
+                </ul> :
+                <h3>Выставок не найдено</h3>
+            }
+        </Card>
 };
 
-export default connectReportsList(ExhibitionsList);
+export default connectReportsList(React.memo(ExhibitionsList));
