@@ -10,6 +10,7 @@ import ClubHeader from "./components/ClubHeader";
 import ClubInfo from "./components/ClubInfo";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
+import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetNews } from "./config";
@@ -104,7 +105,7 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
                         <Aside className="club-page__info">
                             <MenuComponent
                                 alias={clubInfo.club_alias}
-                                name={clubInfo.name || 'Название клуба отсутствует'}
+                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                             />
                             <ClubInfo {...clubInfo} />
                         </Aside>

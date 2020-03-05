@@ -10,6 +10,7 @@ import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
 import ContactsComponent from "../../components/ContactsComponent";
 import { Request } from "../../utils/request";
+import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
@@ -87,8 +88,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                 <div className="exhibition-page">
                     <FloatingMenu
                         alias={exhibition.club_information.club_alias}
-                        name={exhibition.club_information.club_fact_name}
-                        btnName={"Cтраница " + exhibition.club_information.club_fact_name}
+                        name={shorten(exhibition.club_information.club_fact_name, 16)}
+                        btnName={shorten("Cтраница " + exhibition.club_information.club_fact_name)}
                     />
                     <Container className="content exhibition-page__content">
                             {/*<div className="exhibition-page__head">
@@ -120,8 +121,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <aside className="exhibition-page__left">
                                     <MenuComponent
                                         alias={exhibition.club_information.club_alias}
-                                        name={exhibition.club_information.club_fact_name}
-                                        btnName={"Cтраница " + exhibition.club_information.club_fact_name}
+                                        name={shorten(exhibition.club_information.club_fact_name)}
+                                        btnName={shorten("Cтраница " + exhibition.club_information.club_fact_name)}
                                     />
                                     <ContactsComponent
                                         address={exhibition.address}
