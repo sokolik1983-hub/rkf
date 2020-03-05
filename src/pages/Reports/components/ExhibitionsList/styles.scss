@@ -1,4 +1,55 @@
 .reports-page {
+  &__list {
+    @media (max-width: 560px) {
+      padding: 16px 8px 8px;
+    }
+    &-title {
+      margin-bottom: 24px;
+      @media (max-width: 560px) {
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 16px;
+      }
+    }
+    &-controls {
+      text-align: right;
+      margin-bottom: 24px;
+      @media (max-width: 560px) {
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &-button {
+      border: none;
+      border-radius: 2px;
+      padding: 0 5px;
+      font-size: 14px;
+      line-height: 20px;
+      background-color: #ebf0ff;
+      &:not(:last-child) {
+        margin-right: 5px;
+        @media (max-width: 560px) {
+          margin: 0 0 5px;
+        }
+      }
+      @media (max-width: 560px) {
+        letter-spacing: normal;
+      }
+      &._red {
+        color: #721c24;
+        background-color: #f5c6cb;
+      }
+      &._yellow {
+        color: #856404;
+        background-color: #ffeeba;
+      }
+      &._green {
+        color: #0c5460;
+        background-color: #bee5eb;
+      }
+    }
+  }
   .ExhibitionsList {
     list-style: none;
     margin-top: 5px;
@@ -42,40 +93,6 @@
       &--last-date {
         float: right;
       }
-    }
-  }
-  .colors-memo {
-    margin: 0;
-    text-align: right;
-    &--header {
-      display: block;
-      background-color: #ad141408;
-    }
-    span {
-      margin-left: 5px;
-      padding: 0 5px;
-      font-size: 14px;
-      line-height: 20px;
-      @media screen and (max-width: 855px) {
-        margin: 0;
-        padding-right: 5px;
-        display: block;
-      }
-    }
-    ._red {
-      color: #721c24 !important;
-      background-color: #f5c6cb;
-    }
-    ._green {
-      color: #0c5460 !important;
-      background-color: #bee5eb;
-    }
-    ._yellow {
-      color: #856404 !important;
-      background-color: #ffeeba;
-    }
-    ._expire {
-      opacity: 0.6;
     }
   }
 }

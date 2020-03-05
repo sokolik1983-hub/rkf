@@ -1,20 +1,21 @@
 import React from "react";
-import { compose } from "redux";
-import { Route, Switch } from 'react-router-dom';
-import { getPathFromRouterParams } from 'utils/index';
-import reducer from './reducer';
-import ExhibitionsList from './components/ExhibitionsList/';
-import ReportDetails from './components/ReportDetails/';
-import { defaultReduxKey } from "./config";
-import { ReportsPathContext } from './context'
-import injectReducer from "utils/injectReducer";
-import Layout from "components/Layouts";
-import Container from "components/Layouts/Container";
+import {compose} from "redux";
+import {Route, Switch} from "react-router-dom";
+import Layout from "../../components/Layouts";
+import Container from "../../components/Layouts/Container";
+import ExhibitionsList from "./components/ExhibitionsList";
+import ReportDetails from "./components/ReportDetails";
+import {getPathFromRouterParams} from "../../utils";
+import {defaultReduxKey} from "./config";
+import {ReportsPathContext} from "./context";
+import reducer from "./reducer";
+import injectReducer from "../../utils/injectReducer";
 
-function ExhibitionsProxy(props) {
+
+const ExhibitionsProxy = (props) => {
     const path = getPathFromRouterParams(props);
     return (
-        <ReportsPathContext.Provider value={{ path }}>
+        <ReportsPathContext.Provider value={{path}}>
             <Layout>
                 <Container className="content reports-page">
                     <Switch>
@@ -25,11 +26,8 @@ function ExhibitionsProxy(props) {
             </Layout>
         </ReportsPathContext.Provider>
     );
+};
 
-}
+const withReducer = injectReducer({key: defaultReduxKey, reducer: reducer});
 
-const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
-
-export default compose(
-    withReducer,
-)(ExhibitionsProxy)
+export default compose(withReducer)(ExhibitionsProxy);
