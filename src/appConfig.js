@@ -290,7 +290,38 @@ const DEFAULT_IMG = {
 const BAD_SITES = [
     'zooportal.pro',
     'kinolog.org'
-]
+];
+
+const responsiveSliderConfig = [
+    {
+        breakpoint: 1181,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            touchThreshold: 5
+        }
+    },
+    {
+        breakpoint: 769,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            centerPadding: '100px'
+        }
+    },
+    {
+        breakpoint: 561,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            centerPadding: '25px'
+        }
+    }
+];
 
 export {
     WEEKDAYS,
@@ -299,6 +330,7 @@ export {
     SERVER,
     appRoutes,
     mainNav,
+    responsiveSliderConfig,
     DEFAULT_PHONE_INPUT_MASK,
     DEFAULT_PHONE_INPUT_PLACEHOLDER,
     DEFAULT_EMAIL_INPUT_PLACEHOLDER,

@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import Container from "../../../../components/Layouts/Container";
+import CustomArrow from "../../../../components/CustomArrow";
+import Placeholder from './Placeholder';
 import ExhibitionCard from "./ExhibitionCard";
 import {Request} from "../../../../utils/request";
-import Placeholder from './Placeholder';
+import {responsiveSliderConfig} from "appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles.scss";
 
-
-const CustomArrow = ({ className, alt, onClick }) => (
-    <img className={className} onClick={onClick} src="/static/images/slider/slider-button.svg" alt={alt} />
-);
 
 const Placeholders = [0, 1, 2];
 
@@ -44,36 +42,7 @@ const ExhibitionsSlider = () => {
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
                 touchThreshold={20}
-                responsive={[
-                    {
-                        breakpoint: 1181,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2,
-                            touchThreshold: 5
-                        }
-                    },
-                    {
-                        breakpoint: 769,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            centerMode: true,
-                            arrows: false,
-                            centerPadding: '100px'
-                        }
-                    },
-                    {
-                        breakpoint: 561,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            centerMode: true,
-                            arrows: false,
-                            centerPadding: '25px'
-                        }
-                    },
-                ]}
+                responsive={responsiveSliderConfig}
             >
                 {exhibitions ?
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
