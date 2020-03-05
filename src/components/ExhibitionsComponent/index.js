@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from "react";
-import HorizontalSwipe from "../HorozintalSwipe";
 import ExhibitionCard from "../ExhibitionCard";
+import Slider from "react-slick";
+import CustomArrow from "../../components/CustomArrow";
 import Placeholder from "../ExhibitionCard/Placeholder";
 import {Request} from "../../utils/request";
+import {responsiveSliderConfig} from "appConfig";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
 
+const Placeholders = [0, 1, 2];
 
 const ExhibitionsComponent = ({alias}) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
-    const placeholders = [0, 1, 2];
 
     useEffect(() => {
         (() => Request({
@@ -29,16 +33,22 @@ const ExhibitionsComponent = ({alias}) => {
 
     return (
         <div className="exhibitions-component">
-            <HorizontalSwipe id="exhibitions-component">
-                {exhibitions && !!exhibitions.length ?
-                    exhibitions.slice(0, 3).map(item => (
-                        <ExhibitionCard {...item} key={item.id}/>
-                    )) :
-                    placeholders.map(i => (
-                        <Placeholder key={i}/>
-                    ))
+            <Slider
+                arrows={!!exhibitions}
+                infinite={false}
+                speed={500}
+                slidesToShow={3}
+                slidesToScroll={3}
+                nextArrow={<CustomArrow className="slick-next" alt="next" />}
+                prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
+                touchThreshold={20}
+                responsive={responsiveSliderConfig}
+            >
+                {exhibitions ?
+                    exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
+                    Placeholders.map(item => <Placeholder key={item} />)
                 }
-            </HorizontalSwipe>
+            </Slider>
         </div>
     )
 };
