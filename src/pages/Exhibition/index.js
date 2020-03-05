@@ -109,7 +109,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </div>
                             */}
                             <TopComponent
-                                logo={exhibition.club_information.club_logo}
+                                logo={exhibition.club_information.club_avatar}
                                 name={exhibition.club_information.club_fact_name}
                                 canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
                             />
