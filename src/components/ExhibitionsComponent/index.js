@@ -34,7 +34,7 @@ const ExhibitionsComponent = ({alias}) => {
     return (
         <div className="exhibitions-component">
             <Slider
-                arrows={!!exhibitions}
+                arrows={false}
                 infinite={false}
                 speed={500}
                 slidesToShow={3}
