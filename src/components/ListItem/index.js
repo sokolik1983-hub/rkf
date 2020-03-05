@@ -6,7 +6,8 @@ import './index.scss';
 import {DEFAULT_IMG} from "../../appConfig";
 
 const ListItem = ({ id, club_name, city, date, alias, logo_link, photo, text, url, removable, onDelete }) => {
-    const formattedDate = `${new Date(date).getDay()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
+    const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
+
     return <div className="list-item__wrap">
         {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
         <div className="list-item__content">
