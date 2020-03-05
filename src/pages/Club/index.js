@@ -86,7 +86,7 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
                         <Aside className="club-page__info">
                             <MenuComponent
                                 alias={clubInfo.club_alias}
-                                name={clubInfo.name || 'Название клуба отсутствует'}
+                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                             />
                             <ClubInfo {...clubInfo} />
                         </Aside>
