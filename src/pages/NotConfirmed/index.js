@@ -7,6 +7,7 @@ import Card from "../../components/Card";
 import Select from "react-select";
 import { Request } from "../../utils/request";
 import { connectWidgetLogin } from "../Login/connectors";
+import Feedback from "components/Feedback";
 import "./index.scss";
 
 
@@ -328,6 +329,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             </Card>
                             <button type="submit" className="btn btn-simple">Отправить</button>
                         </form>
+                        <p className="NotConfirmed__feedback-reminder">В случае обнаружения ошибок или несоответствий - воспользуйтесь формой <Feedback className="feedback-link" title="обратной связи" /></p>
                     </>
                 }
             </Container>

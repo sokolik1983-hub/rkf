@@ -71,4 +71,13 @@
       }
     }
   }
+  &__feedback-reminder {
+    text-align: center;
+    font-weight: normal;
+    margin: 10px 0 20px;
+    a {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
 }
