@@ -142,7 +142,7 @@ const Calendar = ({calendarData, DateFrom}) => {
                     onClick={() => handleButtonClick('month')}
                 >Месяц</button>
             </div>
-            <p className="exhibitions-calendar__legend">Доступные выставки</p>
+            <p className="exhibitions-calendar__legend">Доступные мероприятия</p>
         </div>
     )
 };

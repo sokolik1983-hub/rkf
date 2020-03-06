@@ -253,7 +253,7 @@ export const finalReportColumns = async (onRemove, sortingColumns, sortable, edi
         cols.push({
             property: 'date',
             header: {
-                label: 'Дата проведения выставки',
+                label: 'Дата проведения мероприятия',
             },
             cell: {
                 props: {

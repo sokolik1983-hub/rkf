@@ -17,7 +17,7 @@ const MyExhibitionsFilter = ({ClubIds}) => {
     return (
         <CustomCheckbox
             id="my-exhibitions-filter"
-            label="Мои выставки"
+            label="Мои мероприятия"
             checked={!!ClubIds}
             onChange={handleChange}
         />

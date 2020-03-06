@@ -15,7 +15,7 @@ const RanksFilter = ({ranks, RankIds}) => {
 
     return (
         <div className="ranks-filter">
-            <h5 className="ranks-filter__title">Ранг выставки</h5>
+            <h5 className="ranks-filter__title">Ранг мероприятия</h5>
             {ranks && !!ranks.length &&
                 <ul className="ranks-filter__list">
                     {ranks.map(item => (
