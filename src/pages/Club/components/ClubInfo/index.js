@@ -25,7 +25,8 @@ const ClubInfo = ({
     bank_name,
     rs_number,
     bic,
-    is_active
+    is_active,
+    name
 }) => {
     const [socials, setSocials] = useState(null);
 
@@ -40,6 +41,12 @@ const ClubInfo = ({
     return (
         <Card className="club-page__info-wrap">
             <h4 className="club-page__info-title">Контакты</h4>
+            {name &&
+                <p className="club-page__info-name">
+                    <span>Полное наименование</span><br />
+                    <span>{name}</span>
+                </p>
+            }
             {legal_city && legal_city.name &&
                 <p className="club-page__info-address">
                     <span>Юридический адрес</span><br />

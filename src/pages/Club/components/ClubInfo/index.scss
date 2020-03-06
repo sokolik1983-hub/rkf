@@ -39,6 +39,7 @@
   &-address,
   &-owner,
   &-email,
+  &-name,
   &-phone,
   &-site,
   &-socials,
@@ -62,6 +63,9 @@
   }
   &-owner:before {
     background-image: url("/static/icons/owner.svg");
+  }
+  &-name:before {
+    background-image: url("/static/icons/icon-name.svg");
   }
   &-site:before {
     background-image: url("/static/icons/ico-web.svg");
