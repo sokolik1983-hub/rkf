@@ -54,7 +54,7 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
                     <ClubHeader
                         clubLogo={clubInfo.logo_link}
                         clubImg={clubInfo.headliner_link}
-                        clubName={clubInfo.name}
+                        clubName={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                         federationName={clubInfo.federation_name}
                         federationAlias={clubInfo.federation_alias}
                         canEdit={canEdit}
