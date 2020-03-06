@@ -5,6 +5,7 @@ import Filters from "./components/Filters";
 import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
+import TopComponent from "../../components/TopComponent";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
 import './index.scss';
@@ -26,6 +27,12 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
 
     return (
         <Layout withFilters>
+            {filters.Alias && 
+                <TopComponent
+                    logo={"/static/images/header/rkf-logo-transparent.svg"}
+                    name={filters.Alias}
+                />
+            }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
                 <Filters filters={filters}/>
