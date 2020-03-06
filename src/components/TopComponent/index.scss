@@ -25,10 +25,15 @@
   &__logo {
     display: block;
     width: 80px;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
     margin-right: 24px;
+    border-radius: 50%;
     @media (max-width: 560px) {
       margin-right: 8px;
       width: 60px;
+      height: 60px;
       min-width: 60px;
     }
   }
