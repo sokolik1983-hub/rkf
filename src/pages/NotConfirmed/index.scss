@@ -38,6 +38,15 @@
     select {
       width: 100%;
     }
+    .regions-multi-select {
+      div {
+        width: auto;
+      }
+      .select__control,
+      .select__input {
+        padding: 0;
+      }
+    }
   }
   .ClubDetails {
     overflow: hidden;
@@ -54,6 +63,12 @@
     button {
       margin: 10px 0;
       float: right;
+    }
+    .activities {
+      label {
+        display: inline;
+        font-size: initial;
+      }
     }
   }
 }
