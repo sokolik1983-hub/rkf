@@ -40,7 +40,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
             setExhibitions(modifiedExhibitions);
             let club = data.searching_club;
             if (club) {
-                setDisplayName(shorten(club.display_name || "Название клуба отсутствует"));
+                setDisplayName(club.display_name || "Название клуба отсутствует");
                 setClubAvatar(club.club_avatar);
             }
             setPagesCount(data.page_count);
@@ -71,7 +71,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
             {filters.Alias && display_name && <>
                 <FloatingMenu
                     alias={filters.Alias}
-                    name={display_name}
+                    name={shorten(display_name,16)}
                 />
                 <div className="exhibitions-page__top-wrap">
                     <TopComponent
@@ -82,7 +82,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
             </>}
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
-                <Filters filters={filters} clubName={display_name}/>
+                <Filters filters={filters} clubName={shorten(display_name)}/>
                 <div className="exhibitions-page__content">
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList 
