@@ -14,8 +14,8 @@ import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../apps/Dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
-import "./index.scss";
 import { DEFAULT_IMG } from "../../appConfig";
+import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
@@ -92,84 +92,84 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                     />
                     <Container className="content exhibition-page__content">
-                            {/*<div className="exhibition-page__head">
-                                <div className="exhibition-page__head-info">
-                                    <h1 className="exhibition-page__title">{exhibition.name}</h1>
-                                    <p className="exhibition-page__subtitle">
-                                        Организатор:&nbsp;
-                                        <Link to={`/${exhibition.club_information.club_alias}`}>
-                                            {exhibition.club_information.display_name}
-                                        </Link>
-                                    </p>
-                                </div>
-                                {canEdit &&
-                                    <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
-                                }
-                                <button className="btn btn-simple" onClick={share}>Поделиться</button>
+                        {/*<div className="exhibition-page__head">
+                            <div className="exhibition-page__head-info">
+                                <h1 className="exhibition-page__title">{exhibition.name}</h1>
+                                <p className="exhibition-page__subtitle">
+                                    Организатор:&nbsp;
+                                    <Link to={`/${exhibition.club_information.club_alias}`}>
+                                        {exhibition.club_information.club_fact_name}
+                                    </Link>
+                                </p>
                             </div>
-                            */}
-                            <TopComponent
-                                logo={exhibition.club_avatar}
-                                name={exhibition.club_information.display_name}
-                                canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
-                            />
-                            <div className="exhibition-page__info">
-                                <div className="mobile-only">
+                            {canEdit &&
+                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
+                            }
+                            <button className="btn btn-simple" onClick={share}>Поделиться</button>
+                        </div>
+                        */}
+                        <TopComponent
+                            logo={exhibition.club_avatar}
+                            name={exhibition.club_information.display_name}
+                            canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
+                        />
+                        <div className="exhibition-page__info">
+                            <div className="mobile-only">
+                                <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                <img src={avatarLink} alt="" className="exhibition-page__img" />
+                            </div>
+                            <aside className="exhibition-page__left">
+                                <MenuComponent
+                                    alias={exhibition.club_information.club_alias}
+                                    name={shorten(exhibition.club_information.display_name)}
+                                    btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
+                                />
+                                <ContactsComponent
+                                    address={exhibition.address}
+                                    owner_name={exhibition.club_information.owner_name}
+                                    contacts={exhibition.contacts}
+                                    ogrn={exhibition.club_information.ogrn}
+                                    regdate={exhibition.club_information.registration_date}
+                                />
+                            </aside>
+                            <div className="exhibition-page__right">
+                                <div className="desktop-only">
                                     <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                    <img src={avatarLink} alt="" className="exhibition-page__img" />
+                                    <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                 </div>
-                                <aside className="exhibition-page__left">
-                                    <MenuComponent
-                                        alias={exhibition.club_information.club_alias}
-                                        name={shorten(exhibition.club_information.display_name)}
-                                        btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
-                                    />
-                                    <ContactsComponent
-                                        address={exhibition.address}
-                                        owner_name={exhibition.club_information.owner_name}
-                                        contacts={exhibition.contacts}
-                                        ogrn={exhibition.club_information.ogrn}
-                                        regdate={exhibition.club_information.registration_date}
-                                    />
-                                </aside>
-                                <div className="exhibition-page__right">
-                                    <div className="desktop-only">
-                                        <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                        <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
+                                <ExhibitionInfo
+                                    city={city}
+                                    dateStart={dateStart}
+                                    dateEnd={dateEnd}
+                                    reportsDateEnd={reportsDateEnd}
+                                    {...exhibition}
+                                />
+                                <Card className="exhibition-page__address">
+                                    <div className="exhibition-page__address-left">
+                                        <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
+                                        {city && <p>{`г. ${city}`}</p>}
+                                        {exhibition.address && <p>{exhibition.address}</p>}
                                     </div>
-                                    <ExhibitionInfo
-                                        city={city}
-                                        dateStart={dateStart}
-                                        dateEnd={dateEnd}
-                                        reportsDateEnd={reportsDateEnd}
-                                        {...exhibition}
-                                    />
-                                    <Card className="exhibition-page__address">
-                                        <div className="exhibition-page__address-left">
-                                            <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
-                                            {city && <p>{`г. ${city}`}</p>}
-                                            {exhibition.address && <p>{exhibition.address}</p>}
+                                    <div className="exhibition-page__address-right">
+                                        <div className="exhibition-page__map">
+                                            <h3 className="exhibition-page__address-title">Схема проезда</h3>
+                                            <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
                                         </div>
-                                        <div className="exhibition-page__address-right">
-                                            <div className="exhibition-page__map">
-                                                <h3 className="exhibition-page__address-title">Схема проезда</h3>
-                                                <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
-                                            </div>
-                                        </div>
-                                    </Card>
-                                    <Card className="exhibition-page__payment">
-                                        <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
-                                        <p>
-                                            Получатель платежа: {exhibition.club_information.club_legal_name} <br />
-                                            ИНН: {exhibition.club_information.inn} <br />
-                                            КПП: {exhibition.club_information.kpp} <br />
-                                            Банк: {exhibition.club_information.bank_name} <br />
-                                            БИК: {exhibition.club_information.bic} <br />
-                                            Расчетный счет: {exhibition.club_information.account_number} <br />
-                                        </p>
-                                    </Card>
-                                </div>
+                                    </div>
+                                </Card>
+                                <Card className="exhibition-page__payment">
+                                    <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
+                                    <p>
+                                        Получатель платежа: {exhibition.club_information.club_legal_name} <br />
+                                        ИНН: {exhibition.club_information.inn} <br />
+                                        КПП: {exhibition.club_information.kpp} <br />
+                                        Банк: {exhibition.club_information.bank_name} <br />
+                                        БИК: {exhibition.club_information.bic} <br />
+                                        Расчетный счет: {exhibition.club_information.account_number} <br />
+                                    </p>
+                                </Card>
                             </div>
+                        </div>
                     </Container>
                 </div>
             </Layout>
