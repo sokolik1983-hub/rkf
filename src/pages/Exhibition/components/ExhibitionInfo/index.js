@@ -1,9 +1,9 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, {/*useState*/} from "react";
+// import {Link} from "react-router-dom";
 import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
 import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import CountDown from "../../../../components/CountDown";
-import Alert from "../../../../components/Alert";
+// import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import declension from "../../../../utils/declension";
 import "./index.scss";
@@ -24,7 +24,7 @@ const ExhibitionInfo = ({
                             catalog_link,
                             club_information
 }) => {
-    const [showAlert, setShowAlert] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
@@ -32,10 +32,10 @@ const ExhibitionInfo = ({
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
-    const clickOnLink = e => {
-        e.preventDefault();
-        setShowAlert(true);
-    };
+    // const clickOnLink = e => {
+    //     e.preventDefault();
+    //     setShowAlert(true);
+    // };
 
     // костыль, а че делать?
     const resolveBreeds = (ranks, breeds) => {
