@@ -76,7 +76,7 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
                     {clubName && filters.Alias &&
                         <MenuComponent
                             alias={filters.Alias}
-                            name={clubName} 
+                            name={clubName}
                         />
                     }
                     <div className="exhibitions-filters__head">

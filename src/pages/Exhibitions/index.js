@@ -15,6 +15,8 @@ import './index.scss';
 
 const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
     const [exhibitions, setExhibitions] = useState(null);
+    const [display_name, setDisplayName] = useState(null);
+    const [club_avatar, setClubAvatar] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [loading, setLoading] = useState(true);
 
@@ -34,6 +36,8 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 return exhibition;
             });
             setExhibitions(modifiedExhibitions);
+            setDisplayName(shorten(data.display_name || "Название клуба отсутствует"));
+            setClubAvatar(data.club_avatar);
             setPagesCount(data.page_count);
             setLoading(false);
         }, error => {
@@ -59,17 +63,17 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
 
     return (
         <Layout withFilters>
-            {filters.Alias && 
+            {filters.Alias && display_name &&
                 <div className="exhibitions-page__top-wrap">
                     <TopComponent
-                        logo={"/static/images/header/rkf-logo-transparent.svg"}
-                        name={filters.Alias}
+                        logo={club_avatar || "/static/icons/default/club-avatar.svg"}
+                        name={display_name}
                     />
                 </div>
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
-                <Filters filters={filters} clubName={shorten("имя клуба бэк пока не прислал")}/>
+                <Filters filters={filters} clubName={display_name}/>
                 <div className="exhibitions-page__content">
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList 
