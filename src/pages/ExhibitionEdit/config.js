@@ -9,15 +9,15 @@ export const exhibitionInfoForm = {
     fields: {
         name: {
             name: 'name',
-            label: 'Название выставки',
-            placeholder: 'Название выставки'
+            label: 'Название мероприятия',
+            placeholder: 'Название мероприятия'
         },
         description: {
             name: 'description',
-            label: 'Описание выставки',
+            label: 'Описание мероприятия',
             fieldType: 'textarea',
             rows: 6,
-            placeholder: 'Расскажите участникам и гостям, что их ожидает на выставке. Также укажите ссылки на необходимые \n' +
+            placeholder: 'Расскажите участникам и гостям, что их ожидает на мероприятии. Также укажите ссылки на необходимые \n' +
                 'документы: ветеринарные правила и другие... '
         },
         rank_types: {
@@ -61,7 +61,7 @@ export const exhibitionInfoForm = {
         address: {
             name: 'address',
             label: 'Адрес',
-            placeholder: 'Адрес проведения выставки'
+            placeholder: 'Адрес проведения мероприятия'
         },
         schedule_name: {
             name: 'schedule_name',

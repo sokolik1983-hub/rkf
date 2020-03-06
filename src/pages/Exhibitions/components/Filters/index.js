@@ -73,7 +73,7 @@ const Filters = ({isOpenFilters, filters}) => {
                 <Loading centered={false} /> :
                 <>
                     <div className="exhibitions-filters__head">
-                        <h4>Календарь выставок</h4>
+                        <h4>Календарь мероприятий</h4>
                         <button type="button" className="exhibitions-filters__clear" onClick={clearAll}>Сбросить</button>
                     </div>
                     <Calendar calendarData={calendarData} DateFrom={filters.DateFrom} />

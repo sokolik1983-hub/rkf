@@ -19,7 +19,7 @@ const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
     return loading ?
         <Loading /> :
         <Card className="reports-page__list">
-            <h2 className="reports-page__list-title">Прошедшие выставки</h2>
+            <h2 className="reports-page__list-title">Прошедшие мероприятия</h2>
 
             {reports && !!reports.length ?
                 <>
@@ -52,11 +52,11 @@ const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
                                     <Link
                                         to={`${path}/${item.exhibition_id}`}
                                         className={`ExhibitionsList__item _red${item.is_expaired_report ? ' _expire' : ''}`}>
-                                        Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                        Мероприятие: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                         <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
                                     </Link> :
                                     <p className={`ExhibitionsList__item${item.report_header_status === 3 ? ' _green' : ''}${item.is_expaired_report ? ' _expire' : ''}`}>
-                                        Выставка: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
+                                        Мероприятие: {`${item.exhibition_name} (${new Date(item.date).toLocaleDateString()})`}
                                         <span className="ExhibitionsList__item--last-date">{item.report_status_description}</span>
                                     </p>
                                 }
@@ -64,7 +64,7 @@ const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
                         )}
                     </ul>
                 </> :
-                <h3>Выставок не найдено</h3>
+                <h3>Мероприятий не найдено</h3>
             }
         </Card>
 };

@@ -79,7 +79,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                                     <a href="http://wiki.rkf.online/" target="_blank" rel="noreferrer noopener">База знаний</a>
                                 </p>
                                 <p>
-                                    <a href="http://rkfshow.ru/" target="_blank" rel="noreferrer noopener">Запись на выставки</a>
+                                    <a href="http://rkfshow.ru/" target="_blank" rel="noreferrer noopener">Запись на мероприятия</a>
                                 </p>
                             </div>
                         </Card>
@@ -102,7 +102,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                     </HorizontalSwipe>
                 </div>
 
-                <h3 className="Homepage__exhibitions-header">Всероссийские выставки</h3>
+                <h3 className="Homepage__exhibitions-header">Всероссийские мероприятия</h3>
                 <div className="Homepage__exhibitions-wrap">
                     <HorizontalSwipe id="Homepage__exhibitions-list">
                         <ul className="Homepage__exhibitions-list">

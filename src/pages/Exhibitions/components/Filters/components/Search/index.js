@@ -26,7 +26,7 @@ const ExhibitionsSearch = ({ExhibitionName}) => {
     return (
         <div className="ExhibitionsSearch">
             <input
-                placeholder="Поиск выставок по названию или городу"
+                placeholder="Поиск мероприятий по названию или городу"
                 name="search"
                 className="ExhibitionsSearch__control"
                 onChange={e => setSearchValue(e.target.value)}

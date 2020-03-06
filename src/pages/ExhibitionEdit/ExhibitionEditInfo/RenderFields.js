@@ -109,7 +109,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 {...fields.name}
             />
             <div className="exhibition-edit__img">
-                <h5>Фото для выставки</h5>
+                <h5>Фото для мероприятия</h5>
                 <label className="exhibition-edit__img-label">
                     <input
                         type="file"

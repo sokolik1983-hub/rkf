@@ -32,7 +32,7 @@ const ExhibitionsSlider = () => {
 
     return (
         <Container className="ExhibitionsSlider">
-            <h3 className="ExhibitionsSlider__title"><Link to="/exhibitions">Выставки</Link></h3>
+            <h3 className="ExhibitionsSlider__title"><Link to="/exhibitions">Мероприятия</Link></h3>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -51,9 +51,9 @@ const ExhibitionsSlider = () => {
                 {exhibitions && <div className="ExhibitionCard ExhibitionsSlider__show-more">
                     <img src="static/images/homepage/show-more.png" alt="" />
                     <div className="ExhibitionsSlider__show-more-wrap">
-                        <h4>У нас много других выставок</h4>
-                        <p>Найдите подходящие для себя выставки</p>
-                        <Link to={'/exhibitions'}>Смотреть другие выставки</Link>
+                        <h4>У нас много других мероприятий</h4>
+                        <p>Найдите подходящие для себя мероприятия</p>
+                        <Link to={'/exhibitions'}>Смотреть другие мероприятия</Link>
                     </div>
                 </div>}
             </Slider>

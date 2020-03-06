@@ -38,9 +38,9 @@ const CountDown = ({startDate, endDate, reportsDateEnd}) => {
     return (
         <div className="countdown">
             {Date.now() < +new Date(startDate) ?
-                <h4 className="countdown__title">До начала выставки осталось:</h4> :
+                <h4 className="countdown__title">До начала мероприятия осталось:</h4> :
                 Date.now() < +new Date(endDate) ?
-                    <h4 className="countdown__title">До окончания выставки осталось:</h4> :
+                    <h4 className="countdown__title">До окончания мероприятия осталось:</h4> :
                         Date.now() < +new Date(reportsDateEnd) ?
                             <h4 className="countdown__title">До окончания срока подачи отчёта осталось:</h4> :
                             <h4 className="countdown__title">Отчёты:</h4>

@@ -51,7 +51,7 @@ function ReportDetails(props) {
         <Card>
             {!errors ?
                 <div className="ReportDetails">
-                    <h3 className="ReportDetails__title">{`Отчётность по выставке "${reportHeader.exhibition_name}"`}</h3>
+                    <h3 className="ReportDetails__title">{`Отчётность по мероприятию "${reportHeader.exhibition_name}"`}</h3>
                     <div className="ReportDetails__nav">
                         <NavLink className="link" to={`${url}`} exact >Итоговый отчёт</NavLink>
                         {

@@ -69,7 +69,7 @@ const ExhibitionsList = ({url, PageNumber}) => {
                             </li>
                         ))}
                     </ul>}
-                {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Выставок не найдено</h2>}
+                {(!exhibitions || !exhibitions.length) && !loading && <h2 className="ExhibitionsList__title">Мероприятий не найдено</h2>}
                 {pagesCount > 1 &&
                     <Paginator
                         pagesCount={pagesCount}

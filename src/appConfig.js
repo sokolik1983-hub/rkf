@@ -157,25 +157,25 @@ const mainNav = [
         children: [
             {
                 id: 2.1,
-                title: "Календарь выставок",
+                title: "Календарь мероприятий",
                 to: '/exhibitions',
                 exact: false
             },
             {
                 id: 2.2,
-                title: "Результаты выставок CACIB",
+                title: "Результаты мероприятий CACIB",
                 to: '/results/cacib',
                 exact: false
             },
             {
                 id: 2.3,
-                title: "Результаты выставок CAC",
+                title: "Результаты мероприятий CAC",
                 to: '/results/cac',
                 exact: false
             },
             {
                 id: 2.4,
-                title: "Результаты монопородных выставок",
+                title: "Результаты монопородных мероприятий",
                 to: '/',
                 exact: true,
                 disabled: true

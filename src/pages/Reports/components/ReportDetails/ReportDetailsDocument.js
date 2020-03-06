@@ -113,7 +113,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         }, error => {
             setSendDisable(false);
             console.log(error);
-            alert('Каталог выставки не был отправлен.')
+            alert('Каталог мероприятия не был отправлен.')
         });
     };
 
@@ -197,7 +197,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
         <>
             {reportHeader.doc_catalog_comment &&
                 <h4 style={{ paddingBottom: '20px' }}>
-                    Каталог выставки был отклонён с комментарием: <br />
+                    Каталог мероприятия был отклонён с комментарием: <br />
                     <span style={{ color: 'red' }}>{reportHeader.doc_catalog_comment}</span>
                 </h4>
             }
@@ -216,10 +216,10 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             <h4>Прикрепление документов</h4>
             <div className="report-documents">
                 <div className="report-documents__document">
-                    <label className="report-documents__document-label">Каталог выставки</label>
+                    <label className="report-documents__document-label">Каталог мероприятия</label>
                     {!reportHeader.doc_catalog_accept ?
                         <>
-                            {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
+                            {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" disabled={reportHeader.doc_catalog_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setCatalog(e.target.files[0]);
                                 if (!reportHeader.doc_catalog_is_sent && (invoice || reportHeader.doc_payment_is_sent)) setShowButton(true);
@@ -230,11 +230,11 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 </div>
                 <div className="report-documents__document">
                     <label className="report-documents__document-label">
-                        Квитанция об оплате взноса за обработку результатов выставки
+                        Квитанция об оплате взноса за обработку результатов мероприятия
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
-                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов выставки" rel="noopener noreferrer">Прикрепленный документ</a>}
+                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>}
                             <input type="file" accept=".pdf" disabled={reportHeader.doc_payment_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                 setInvoice(e.target.files[0]);
                                 if (!reportHeader.doc_payment_is_sent && (catalog || reportHeader.doc_catalog_is_sent)) setShowButton(true);
