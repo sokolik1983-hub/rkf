@@ -10,6 +10,7 @@ import FloatingMenu from "../Club/components/FloatingMenu";
 import {Request} from "utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
+import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "utils/shorten";
 import './index.scss';
 
@@ -74,7 +75,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 />
                 <div className="exhibitions-page__top-wrap">
                     <TopComponent
-                        logo={club_avatar || "/static/icons/default/club-avatar.svg"}
+                        logo={club_avatar || DEFAULT_IMG.clubAvatar}
                         name={display_name}
                     />
                 </div>
