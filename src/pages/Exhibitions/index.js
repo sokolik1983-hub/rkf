@@ -6,6 +6,7 @@ import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
 import TopComponent from "../../components/TopComponent";
+import FloatingMenu from "../Club/components/FloatingMenu";
 import {Request} from "utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
@@ -66,14 +67,18 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
 
     return (
         <Layout withFilters>
-            {filters.Alias && display_name &&
+            {filters.Alias && display_name && <>
+                <FloatingMenu
+                    alias={filters.Alias}
+                    name={display_name}
+                />
                 <div className="exhibitions-page__top-wrap">
                     <TopComponent
                         logo={club_avatar || "/static/icons/default/club-avatar.svg"}
                         name={display_name}
                     />
                 </div>
-            }
+            </>}
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
                 <Filters filters={filters} clubName={display_name}/>

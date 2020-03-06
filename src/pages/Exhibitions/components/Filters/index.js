@@ -77,6 +77,7 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
                         <MenuComponent
                             alias={filters.Alias}
                             name={clubName}
+                            className="phone-hide"
                         />
                     }
                     <div className="exhibitions-filters__head">
