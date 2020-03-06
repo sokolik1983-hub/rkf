@@ -19,11 +19,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [statuses, setStatuses] = useState([]);
     const [regions, setRegions] = useState([]);
     const [federations, setFederations] = useState([]);
-    const [activities, setActivities] = useState([ // Temp Hardcode
-        { name: 'Выставочная деятельность', value: 1 },
-        { name: 'Племенная деятельность', value: 2 },
-        { name: 'Испытания рабочих качеств', value: 3 }
-    ]);
+    const [activities, setActivities] = useState([]);
 
     useEffect(() => {
         (() => Request({
@@ -38,9 +34,9 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             url: '/api/Club/regions'
         }, data => setRegions(data.map(r => ({ 'value': r.id, 'label': r.name })))))();
 
-        // (() => Request({
-        //     url: '/api/Club/activities'
-        // }, data => setActivities(data.map(a => ({ 'value': a.id, 'label': a.name })))))();
+        (() => Request({
+            url: '/api/Club/activities'
+        }, data => setActivities(data.map(a => ({ 'value': a.id, 'label': a.name })))))();
 
         (() => Request({
             url: '/api/clubs/ClubActivationRequest?id=' + clubId
@@ -61,10 +57,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         }))();
     }, []);
 
-    useEffect(() => { // Temp Fix
-        setFields({ ...fields, 'activities': activities })
-    }, [loaded]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -82,7 +74,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     return data.append(key, fields[key])
                 }
                 if (fields[key] && fields[key].length && (key === 'regions' || key === 'activities')) {
-                    data.append(key, fields[key].map(r => r.value));
+                    fields[key].map(r => data.append(key, r.value));
                 }
             }
         );
@@ -109,7 +101,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             await Request({
                 url: '/api/Club/base_request_information'
             }, data => {
-                setFields(data);
+                setFields({ ...data, activities: [] });
                 setLoaded(true);
             });
         }
@@ -234,20 +226,27 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         return <div className="FormField activities">
             <h4>Виды деятельности</h4>
             {
-                activities.map(({ value, name }) => <div key={value} >
+                activities.map(({ value, label }) => <div key={value} >
                     <input
                         id={`activity-${value}`}
                         onChange={handleChange}
                         value={value}
-                        name={name}
+                        name={label}
                         checked={fields.activities && fields.activities.length && fields.activities.find(a => a.value === value)}
                         type="checkbox" />&nbsp;
-                    <label htmlFor={`activity-${value}`}>{name}</label>
+                    <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
             }
             <div className="FormField__comment">{fields['federation_comment']}</div>
         </div>
     };
+
+    const RegistrationDate = () => fields.registration_date
+        ? <FormField type="date" label="Дата регистрации юридического лица" name="registration_date" value={new Date(fields.registration_date).toISOString().substr(0, 10)} disabled />
+        : <div className="FormField">
+            <h4>Дата регистрации юридического лица</h4>
+            <input type="text" placeholder="Не указано" disabled />
+        </div>;
 
     if (active) {
         alert("Ваша заявка была одобрена! \nТеперь Вы можете войти в свой личный кабинет на сайте.");
@@ -269,7 +268,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 <FormField type="text" label="Руководитель" name="owner_name" value={fields.owner_name} props={{ placeholder: 'Не указано' }} disabled />
                                 <FormField type="text" label="Должность руководителя" name="owner_position" value={fields.owner_position} props={{ placeholder: 'Не указано' }} disabled />
                                 <FormField type="text" label="Наименование юридического лица" name="legal_name" value={fields.legal_name} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="date" label="Дата регистрации юридического лица" name="registration_date" value={fields.registration_date ? new Date(fields.registration_date).toISOString().substr(0, 10) : null} disabled />
+                                <RegistrationDate />
                                 <FormField type="text" label="Город регистрации" name="legal_city" value={fields.legal_city} props={{ placeholder: 'Не указано' }} disabled />
                                 <FormField type="text" label="Юридический адрес" name="legal_address" value={fields.legal_address} props={{ placeholder: 'Не указано' }} disabled />
                                 <FormField type="text" label="Квартира/офис" name="apartment_office" value={fields.apartment_office} props={{ placeholder: 'Не указано' }} disabled />
