@@ -9,6 +9,7 @@ import TopComponent from "../../components/TopComponent";
 import {Request} from "utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
+import shorten from "utils/shorten";
 import './index.scss';
 
 
@@ -68,7 +69,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
-                <Filters filters={filters}/>
+                <Filters filters={filters} clubName={shorten("имя клуба бэк пока не прислал")}/>
                 <div className="exhibitions-page__content">
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList 
