@@ -36,8 +36,9 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 return exhibition;
             });
             setExhibitions(modifiedExhibitions);
-            setDisplayName(shorten(data.display_name || "Название клуба отсутствует"));
-            setClubAvatar(data.club_avatar);
+            let {dn, ca} = data.searching_club;
+            setDisplayName(shorten(dn || "Название клуба отсутствует"));
+            setClubAvatar(ca);
             setPagesCount(data.page_count);
             setLoading(false);
         }, error => {
