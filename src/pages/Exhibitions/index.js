@@ -36,9 +36,11 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 return exhibition;
             });
             setExhibitions(modifiedExhibitions);
-            let {dn, ca} = data.searching_club;
-            setDisplayName(shorten(dn || "Название клуба отсутствует"));
-            setClubAvatar(ca);
+            let club = data.searching_club;
+            if (club) {
+                setDisplayName(shorten(club.display_name || "Название клуба отсутствует"));
+                setClubAvatar(club.club_avatar);
+            }
             setPagesCount(data.page_count);
             setLoading(false);
         }, error => {
