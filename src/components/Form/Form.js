@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { array, element, func, object, oneOf, oneOfType, string } from 'prop-types';
 import classnames from 'classnames'
 import { Formik } from 'formik';
@@ -93,7 +93,7 @@ function Form({
                 if (bindSubmitForm) bindSubmitForm.submit(submitForm, errors);
 
                 return withLoading && loading ?
-                    <Loading/> :
+                    <Loading centered={false} /> :
                     <form className={classnames('Form', { [className]: className })} onSubmit={handleSubmit}>
                         {children}
                     </form>
