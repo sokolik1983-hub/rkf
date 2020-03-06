@@ -137,21 +137,19 @@ const ExhibitionInfo = ({
                 </p>
             </div>
         </Card>
-        {documents_links && !!documents_links.length &&
-            <Card className="exhibition-info">
-                <div className="exhibition-page__documents">
-                    <h3 className="exhibition-page__documents-title">Документы</h3>
-                    {documents_links && !!documents_links.length ?
-                        documents_links.map(doc => (
-                            <p className="exhibition-documents__doc" key={doc.id}>
-                                <a href={doc.url} target="__blank">{doc.name}</a>
-                            </p>
-                        )) :
-                        <p className="exhibition-documents__doc">Документы отсутствуют</p>
-                    }
-                </div>
-            </Card>
-        }
+        <Card className="exhibition-info">
+            <div className="exhibition-page__documents">
+                <h3 className="exhibition-page__documents-title">Документы</h3>
+                {documents_links && !!documents_links.length ?
+                    documents_links.map(doc => (
+                        <p className="exhibition-documents__doc" key={doc.id}>
+                            <a href={doc.url} target="__blank">{doc.name}</a>
+                        </p>
+                    )) :
+                    <p className="exhibition-documents__doc">Документы отсутствуют</p>
+                }
+            </div>
+        </Card>
     </>)
 };
 
