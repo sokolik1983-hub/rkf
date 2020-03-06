@@ -88,8 +88,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                 <div className="exhibition-page">
                     <FloatingMenu
                         alias={exhibition.club_information.club_alias}
-                        name={shorten(exhibition.club_information.club_fact_name, 16)}
-                        btnName={shorten("Cтраница " + exhibition.club_information.club_fact_name)}
+                        name={shorten(exhibition.club_information.display_name, 16)}
+                        btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                     />
                     <Container className="content exhibition-page__content">
                             {/*<div className="exhibition-page__head">
@@ -98,7 +98,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     <p className="exhibition-page__subtitle">
                                         Организатор:&nbsp;
                                         <Link to={`/${exhibition.club_information.club_alias}`}>
-                                            {exhibition.club_information.club_fact_name}
+                                            {exhibition.club_information.display_name}
                                         </Link>
                                     </p>
                                 </div>
@@ -109,8 +109,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </div>
                             */}
                             <TopComponent
-                                logo={exhibition.club_information.club_avatar}
-                                name={exhibition.club_information.club_fact_name}
+                                logo={exhibition.club_avatar}
+                                name={exhibition.club_information.display_name}
                                 canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
                             />
                             <div className="exhibition-page__info">
@@ -121,8 +121,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <aside className="exhibition-page__left">
                                     <MenuComponent
                                         alias={exhibition.club_information.club_alias}
-                                        name={shorten(exhibition.club_information.club_fact_name)}
-                                        btnName={shorten("Cтраница " + exhibition.club_information.club_fact_name)}
+                                        name={shorten(exhibition.club_information.display_name)}
+                                        btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                                     />
                                     <ContactsComponent
                                         address={exhibition.address}
