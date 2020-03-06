@@ -25,7 +25,7 @@ const TopComponent = ({logo, name, canEdit}) => {
                 onOk={shareOk}
             />)}
             <div className="top-component__info">
-                <img src={logo || DEFAULT_IMG.clubAvatar} alt="logo" className="top-component__logo"/>
+                <div style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} alt="logo" className="top-component__logo"/>
                 <div className="top-component__title">
                     <h2>{name}</h2>
                 </div>
