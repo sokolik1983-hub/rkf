@@ -9,6 +9,7 @@ import TopComponent from "../../components/TopComponent";
 import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
 import ContactsComponent from "../../components/ContactsComponent";
+import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
@@ -22,8 +23,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const [exhibition, setExhibition] = useState(null);
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [shareAlert, setShareAlert] = useState(false);
     const exhibitionId = match.params.id;
-    const { dictionary } = useDictionary('cities');
+    const {dictionary} = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
@@ -80,6 +82,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         }))();
     }, []);
 
+    const share = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setShareAlert(true);
+    };
+
     return isError ?
         <PageNotFound /> :
         loading ?
@@ -92,30 +99,18 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                     />
                     <Container className="content exhibition-page__content">
-                        {/*<div className="exhibition-page__head">
-                            <div className="exhibition-page__head-info">
-                                <h1 className="exhibition-page__title">{exhibition.name}</h1>
-                                <p className="exhibition-page__subtitle">
-                                    Организатор:&nbsp;
-                                    <Link to={`/${exhibition.club_information.club_alias}`}>
-                                        {exhibition.club_information.club_fact_name}
-                                    </Link>
-                                </p>
-                            </div>
-                            {canEdit &&
-                                <Link className="btn btn-simple" to={`/exhibitions/${exhibitionId}/edit`}>Редактировать</Link>
-                            }
-                            <button className="btn btn-simple" onClick={share}>Поделиться</button>
-                        </div>
-                        */}
                         <TopComponent
                             logo={exhibition.club_avatar}
                             name={exhibition.club_information.display_name}
                             canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
+                            withShare={false}
                         />
                         <div className="exhibition-page__info">
                             <div className="mobile-only">
-                                <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                <div className="exhibition-page__title-wrap">
+                                    <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                    <button type="button" className="exhibition-page__share" onClick={share} title="Поделиться" />
+                                </div>
                                 <img src={avatarLink} alt="" className="exhibition-page__img" />
                             </div>
                             <aside className="exhibition-page__left">
@@ -134,7 +129,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
-                                    <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                    <div className="exhibition-page__title-wrap">
+                                        <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                        <button type="button" className="btn btn-simple" onClick={share}>Поделиться</button>
+                                    </div>
                                     <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                 </div>
                                 <ExhibitionInfo
@@ -172,6 +170,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         </div>
                     </Container>
                 </div>
+                {shareAlert &&
+                    <Alert
+                        title="Поделиться"
+                        text="Ссылка скопирована в буфер обмена"
+                        autoclose={1.5}
+                        onOk={() => setShareAlert(false)}
+                    />
+                }
             </Layout>
 };
 

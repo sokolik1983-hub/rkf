@@ -24,9 +24,8 @@
     margin-bottom: 6px;
   }
   &__right {
-    order: 1;
-    width: 400px;
-    min-width: 400px;
+    width: 300px;
+    min-width: 300px;
     @media (max-width: 560px) {
       width: 100%;
       min-width: 100%;
