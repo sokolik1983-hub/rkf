@@ -88,27 +88,28 @@
         opacity: .7;
       }
     }
-      }
+  }
 }
 .share-desktop {
-      display: none;
+    display: none;
+  }
+  .share-mobile {
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+  }
+  @media (min-width: 990px) {
+    .share-desktop {
+      display: inline-block;
     }
     .share-mobile {
-      display: inline-block;
-      cursor: pointer;
-      height: 20px;
+      display: none;
     }
-    @media (min-width: 990px) {
-      .share-desktop {
-        display: inline-block;
-      }
-      .share-mobile {
-        display: none;
-      }
-    }
+  }
 
 .btn__blue {
   text-decoration: none;
+  border: none;
   min-width: 165px;
   padding: 11px 14px;
   margin-right: 8px;
