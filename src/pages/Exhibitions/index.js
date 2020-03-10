@@ -73,7 +73,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                     alias={filters.Alias}
                     name={shorten(display_name,16)}
                 />
-                <div className="exhibitions-page__top-wrap">
+                <div className="exhibitions-page__top-wrap container">
                     <TopComponent
                         logo={club_avatar || DEFAULT_IMG.clubAvatar}
                         name={display_name}
