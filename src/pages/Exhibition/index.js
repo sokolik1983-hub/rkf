@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -9,7 +10,6 @@ import TopComponent from "../../components/TopComponent";
 import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
 import ContactsComponent from "../../components/ContactsComponent";
-import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
@@ -23,7 +23,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const [exhibition, setExhibition] = useState(null);
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [shareAlert, setShareAlert] = useState(false);
     const exhibitionId = match.params.id;
     const {dictionary} = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
@@ -82,11 +81,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         }))();
     }, []);
 
-    const share = () => {
-        navigator.clipboard.writeText(window.location.href);
-        setShareAlert(true);
-    };
-
     return isError ?
         <PageNotFound /> :
         loading ?
@@ -102,14 +96,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         <TopComponent
                             logo={exhibition.club_avatar}
                             name={exhibition.club_information.display_name}
-                            canEdit={canEdit && `/exhibitions/${exhibitionId}/edit`}
-                            withShare={false}
+                            canEdit={false}
                         />
                         <div className="exhibition-page__info">
                             <div className="mobile-only">
                                 <div className="exhibition-page__title-wrap">
                                     <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                    <button type="button" className="exhibition-page__share" onClick={share} title="Поделиться" />
+                                    {canEdit && <Link className="btn__blue" to="/client">Редактировать</Link>}
                                 </div>
                                 <img src={avatarLink} alt="" className="exhibition-page__img" />
                             </div>
@@ -131,7 +124,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <div className="desktop-only">
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                        <button type="button" className="btn btn-simple" onClick={share}>Поделиться</button>
+                                        {canEdit && <Link className="btn__blue" to="/client">Редактировать</Link>}
                                     </div>
                                     <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                 </div>
@@ -170,14 +163,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         </div>
                     </Container>
                 </div>
-                {shareAlert &&
-                    <Alert
-                        title="Поделиться"
-                        text="Ссылка скопирована в буфер обмена"
-                        autoclose={1.5}
-                        onOk={() => setShareAlert(false)}
-                    />
-                }
             </Layout>
 };
 
