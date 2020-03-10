@@ -10,8 +10,10 @@
   }
   &__title {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
     margin-bottom: 12px;
   }
   &__subtitle {
@@ -110,5 +112,13 @@
   &__documents {
     margin-bottom: 24px;
     font-weight: 300;
+    &-title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
   }
 }
