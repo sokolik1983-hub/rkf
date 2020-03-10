@@ -16,10 +16,7 @@
     align-items: center;
     margin-right: 24px;
     @media (max-width: 990px) {
-      margin: 0 0 24px;
-    }
-    @media (max-width: 560px) {
-      margin: 0 0 16px;
+      margin: 0 0 0;
     }
   }
   &__logo {
@@ -91,19 +88,19 @@
   }
 }
 .share-desktop {
-    display: none;
+    display: none !important;
   }
   .share-mobile {
-    display: inline-block;
+    display: inline-block !important;
     cursor: pointer;
     height: 20px;
   }
-  @media (min-width: 990px) {
+  @media (min-width: 991px) {
     .share-desktop {
-      display: inline-block;
+      display: inline-block !important;
     }
     .share-mobile {
-      display: none;
+      display: none !important;
     }
   }
 
