@@ -10,52 +10,97 @@ import { connectWidgetLogin } from "../Login/connectors";
 import Feedback from "components/Feedback";
 import "./index.scss";
 
-
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [active, setActive] = useState(false);
     const [interregional, setInterregional] = useState(false);
-    const [statuses, setStatuses] = useState([]);
-    const [regions, setRegions] = useState([]);
-    const [federations, setFederations] = useState([]);
-    const [activities, setActivities] = useState([]);
+    const [statusesList, setStatusesList] = useState([]);
+    const [regionsList, setRegionsList] = useState([]);
+    const [federationsList, setFederationsList] = useState([]);
+    const [activitiesList, setActivitiesList] = useState([]);
 
     useEffect(() => {
-        (() => Request({
+        Promise.all([getStatus(), getFederation(), getRegions(), getActivities(), getFields()])
+            .then(() => setLoaded(true));
+    }, []);
+
+    useEffect(() => {
+        if (loaded) {
+            fields
+                ? setFields({ ...fields, 'regions': getRegionObjects(fields.regions) })
+                : getDefaultFields();
+        }
+    }, [loaded]);
+
+    const getStatus = () => {
+        return Request({
             url: '/api/clubs/Status',
-        }, data => setStatuses(data.reverse())))();
+        }, data => {
+            setStatusesList(data.reverse())
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        })
+    };
 
-        (() => Request({
+    const getFederation = () => {
+        return Request({
             url: '/api/clubs/Federation'
-        }, data => setFederations(data)))();
+        }, data => {
+            setFederationsList(data)
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        })
+    };
 
-        (() => Request({
+    const getRegions = () => {
+        return Request({
             url: '/api/Club/regions'
-        }, data => setRegions(data.map(r => ({ 'value': r.id, 'label': r.name })))))();
+        }, data => {
+            setRegionsList(data.map(r => ({ 'value': r.id, 'label': r.name })))
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        })
+    };
 
-        (() => Request({
+    const getRegionObjects = ids => ids ? ids.map(id => regionsList.filter(r => r.value === id)[0]) : [];
+
+    const getActivities = () => {
+        return Request({
             url: '/api/Club/activities'
-        }, data => setActivities(data.map(a => ({ 'value': a.id, 'label': a.name })))))();
+        }, data => {
+            setActivitiesList(data.map(a => ({ 'value': a.id, 'label': a.name })))
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        })
+    };
 
-        (() => Request({
+    const getFields = () => {
+        return Request({
             url: '/api/clubs/ClubActivationRequest?id=' + clubId
         }, data => {
             if (data) {
                 setFields(data);
-                setLoaded(true);
                 if (data.activation_request_status === 3) setActive(true); // Check if the club is activated
+                if (data.status === 3) setInterregional(true);
             } else {
-                setDefaultFields();
+                getDefaultFields();
             }
         }, ({ response }) => {
             if (response && response.data.errors && response.data.errors.ActivationRequest === "Клуб уже активирован") {
                 setActive(true);
             } else {
-                setDefaultFields();
+                getDefaultFields();
             }
-        }))();
-    }, []);
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        })
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,12 +118,13 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 ) {
                     return data.append(key, fields[key])
                 }
-                if (fields[key] && fields[key].length && (key === 'regions' || key === 'activities')) {
-                    fields[key].map(r => data.append(key, r.value));
+                if (fields[key] && fields[key].length) {
+                    key === 'regions' && fields[key].map(r => data.append(key, r.value));
+                    key === 'activities' && fields[key].map(a => data.append(key, a));
+
                 }
             }
         );
-
         await Request({
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
@@ -96,13 +142,12 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         });
     };
 
-    const setDefaultFields = async () => {
-        if (!fields) {
+    const getDefaultFields = async () => {
+        if (loaded && !fields) {
             await Request({
                 url: '/api/Club/base_request_information'
             }, data => {
                 setFields({ ...data, activities: [] });
-                setLoaded(true);
             });
         }
     };
@@ -154,7 +199,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             <div className="FormField">
                 <h4>{label}</h4>
                 {fields[isValidField]
-                    ? <span>{statuses.find(s => s.id === value).name}</span>
+                    ? <span>{statusesList.find(s => s.id === value).name}</span>
                     : <>
                         <select
                             required={!!required}
@@ -163,7 +208,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             onChange={onInputChange}
                             defaultValue={value || ''}
                         >
-                            {statuses.map(s => <option key={s.id} value={s.id} >{s.name}</option>)}
+                            {statusesList.map(s => <option key={s.id} value={s.id} >{s.name}</option>)}
                         </select>
                         <div className="FormField__comment">{fields[fieldComment]}</div>
                     </>}
@@ -171,30 +216,31 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         )
     };
 
-    const RegionsSelect = () => {
+    const RegionsSelect = ({ isDisabled }) => {
         const fieldComment = 'regions_comment';
         const isValidField = 'regions_valid';
-        const value = fields.regions;
+        const { regions } = fields;
         const handleChange = (val) => setFields({ ...fields, 'regions': val });
 
         return (
             <div className="FormField">
                 <h4>Регионы осуществления деятельности</h4>
                 {fields[isValidField]
-                    ? <span>{regions.find(r => r.id === value).name}</span>
+                    ? <span>{regions.find(r => r.id === regions).name}</span>
                     : <>
                         <Select
-                            defaultValue={value && value.length ? value : []}
-                            value={value}
+                            defaultValue={regions && regions.length ? regions : []}
+                            value={regions}
                             isMulti={true}
                             name="regions"
                             placeholder={"Выберите регионы"}
-                            options={regions}
+                            options={regionsList}
                             onChange={handleChange}
                             className="regions-multi-select"
                             classNamePrefix="select"
                             menuPortalTarget={document.querySelector('body')}
                             required={true}
+                            isDisabled={isDisabled}
                         />
                         <div className="FormField__comment">{fields[fieldComment]}</div>
                     </>}
@@ -202,37 +248,37 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         )
     };
 
-    const Federations = () => (
-        <div className="FormField">
+    const Federations = () => {
+        return <div className="FormField">
             <h4>Федерация</h4>
             {
-                federations.map((f) => <div key={f.id} >
+                federationsList.map((f) => <div key={f.id} >
                     <input id={f.id} checked={fields.federation && f.id === fields.federation.id} type="checkbox" disabled /> {f.name}
                 </div>)
             }
             <div className="FormField__comment">{fields['federation_comment']}</div>
         </div>
-    );
+    };
 
     const Activities = () => {
         const handleChange = ({ target }) => {
             setFields({
                 ...fields, 'activities': target.checked
-                    ? [].concat(...fields.activities, { name: target.name, value: parseInt(target.value) })
-                    : [...fields.activities].filter(val => val.value !== parseInt(target.value))
+                    ? [].concat(...fields.activities, parseInt(target.value))
+                    : [...fields.activities].filter(val => val !== parseInt(target.value))
             });
         };
 
         return <div className="FormField activities">
             <h4>Виды деятельности</h4>
             {
-                activities.map(({ value, label }) => <div key={value} >
+                activitiesList.map(({ value, label }) => <div key={value} >
                     <input
                         id={`activity-${value}`}
                         onChange={handleChange}
                         value={value}
                         name={label}
-                        checked={fields.activities && fields.activities.length && fields.activities.find(a => a.value === value)}
+                        checked={fields.activities && fields.activities.length && fields.activities.find(a => a === value)}
                         type="checkbox" />&nbsp;
                     <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
@@ -257,82 +303,75 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     return (
         <Layout>
             <Container className="content NotConfirmed">
-                {!loaded
+                {!fields
                     ? <Loading />
                     : <>
-                        <h2 style={{ textAlign: 'center' }}>Заполнение информации о клубе</h2>
+                        {
+                            fields.activation_request_status === 1
+                                ? <h2 style={{ textAlign: 'center', color: 'red' }}>Заявка находится на рассмотрении</h2>
+                                : <h2 style={{ textAlign: 'center' }}>Заполнение информации о клубе</h2>
+                        }
                         <h3>{fields.name}</h3>
                         <form className="ClubDetails" onSubmit={handleSubmit}>
-                            <Card>
-                                <h3>Юридическая информация</h3>
-                                <FormField type="text" label="Руководитель" name="owner_name" value={fields.owner_name} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="text" label="Должность руководителя" name="owner_position" value={fields.owner_position} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="text" label="Наименование юридического лица" name="legal_name" value={fields.legal_name} props={{ placeholder: 'Не указано' }} disabled />
-                                <RegistrationDate />
-                                <FormField type="text" label="Город регистрации" name="legal_city" value={fields.legal_city} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="text" label="Юридический адрес" name="legal_address" value={fields.legal_address} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="text" label="Квартира/офис" name="apartment_office" value={fields.apartment_office} props={{ placeholder: 'Не указано' }} disabled />
-                                <FormField type="text" label="ИНН" name="inn" value={fields.inn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{10}|[0-9]{12}" disabled />
-                                <FormField type="text" label="КПП" name="kpp" value={fields.kpp} props={{ placeholder: 'Не указано' }} pattern="[0-9]{9}" disabled />
-                                <FormField type="text" label="ОГРН" name="ogrn" value={fields.ogrn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{13}" disabled />
-                                <FormField type="text" label="ОКПО" name="okpo" value={fields.okpo} props={{ placeholder: 'Не указано' }} pattern="[0-9]{8}|[0-9]{10}" disabled />
-                            </Card>
-                            <Card>
-                                <h3>Дополнительная информация</h3>
-                                <FormField type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
-                                <Federations />
-                                <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
-                                {interregional && <RegionsSelect />}
-                                <Activities />
-                                <FormField type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
-                                <FormField type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
-                                <FormField type="text" required="true" label="Сокращенное наименование организации" name="fact_name" value={fields.fact_name} title="Введите фактическое название организации" />
-                                {/* <FormField type="text" required="true" label="Описание компании" name="description" value={fields.description} title="Описание компании должно содержать минимум 10 символов" pattern=".{10,}" />
-                                <FormField type="text" required="true" label="Название банка организации" name="bank_name" value={fields.bank_name} title="Введите название банка организации" />
-                                <FormField type="text" required="true" label="Номер расчетного счета" name="bank_account" value={fields.bank_account} title="Номер расчетного счета состоит из 20 цифр" pattern="[0-9]{20}" />
-                                <FormField type="text" required="true" label="БИК номер организации" name="bic" value={fields.bic} title="БИК номер организации состоит из 9 цифр" pattern="[0-9]{9}" /> */}
-                            </Card>
+                            <fieldset disabled={fields.activation_request_status === 1 ? true : false}>
+                                <Card>
+                                    <h3>Юридическая информация</h3>
+                                    <FormField type="text" label="Руководитель" name="owner_name" value={fields.owner_name} props={{ placeholder: 'Не указано' }} disabled />
+                                    <FormField type="text" label="Должность руководителя" name="owner_position" value={fields.owner_position} props={{ placeholder: 'Не указано' }} disabled />
+                                    <FormField type="text" label="Наименование юридического лица" name="legal_name" value={fields.legal_name} props={{ placeholder: 'Не указано' }} disabled />
+                                    <RegistrationDate />
+                                    <FormField type="text" label="Город регистрации" name="legal_city" value={fields.legal_city} props={{ placeholder: 'Не указано' }} disabled />
+                                    <FormField type="text" label="Юридический адрес" name="legal_address" value={fields.legal_address} props={{ placeholder: 'Не указано' }} disabled />
+                                    <FormField type="text" label="Квартира/офис" name="apartment_office" value={fields.apartment_office} props={{ placeholder: 'Не указано' }} disabled />
+                                    <FormField type="text" label="ИНН" name="inn" value={fields.inn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{10}|[0-9]{12}" disabled />
+                                    <FormField type="text" label="КПП" name="kpp" value={fields.kpp} props={{ placeholder: 'Не указано' }} pattern="[0-9]{9}" disabled />
+                                    <FormField type="text" label="ОГРН" name="ogrn" value={fields.ogrn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{13}" disabled />
+                                    <FormField type="text" label="ОКПО" name="okpo" value={fields.okpo} props={{ placeholder: 'Не указано' }} pattern="[0-9]{8}|[0-9]{10}" disabled />
+                                </Card>
+                                <Card>
+                                    <h3>Дополнительная информация</h3>
+                                    <FormField type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
+                                    <Federations />
+                                    <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
+                                    {interregional && <RegionsSelect isDisabled={fields.activation_request_status === 1} />}
+                                    <Activities />
+                                    <FormField type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
+                                    <FormField type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
+                                    <FormField type="text" required="true" label="Сокращенное наименование организации" name="fact_name" value={fields.fact_name} title="Введите фактическое название организации" />
+                                </Card>
 
-                            <Card>
-                                <h3>Документы</h3>
-                                {/* <div className="FormField">
-                                    <h4>Выписка из ЕГРЮЛ</h4>
-                                    {!fields.extract_from_the_egrul_valid &&
-                                        <>
-                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="extract_from_the_egrul" required onChange={onFileChange} />
-                                            <div className="FormField__comment">{fields['extract_from_the_egrul_comment']}</div>
-                                        </>
-                                    }
-                                </div> */}
-                                <div className="FormField">
-                                    <h4>Документ о регистрации кода клейма</h4>
-                                    {!fields.stamp_code_registration_certificate_valid &&
-                                        <>
-                                            <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
-                                            <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
-                                        </>
-                                    }
-                                </div>
-                                {
-                                    interregional && <div className="FormField">
-                                        <h4>Свидетельство о регистрации организации</h4>
-                                        {!fields.certificate_of_registration_legal_entity_valid &&
+                                <Card>
+                                    <h3>Документы</h3>
+                                    <div className="FormField">
+                                        <h4>Документ о регистрации кода клейма</h4>
+                                        {!fields.stamp_code_registration_certificate_valid &&
                                             <>
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
-                                                <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
+                                                <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                             </>
                                         }
                                     </div>
-                                }
-                            </Card>
-                            <button type="submit" className="btn btn-simple">Отправить</button>
+                                    {
+                                        interregional && <div className="FormField">
+                                            <h4>Свидетельство о регистрации организации</h4>
+                                            {!fields.certificate_of_registration_legal_entity_valid &&
+                                                <>
+                                                    <span>Прикрепите файл формата PDF: </span>
+                                                    <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
+                                                </>
+                                            }
+                                        </div>
+                                    }
+                                </Card>
+                                <button type="submit" className="btn btn-simple">Отправить</button>
+                            </fieldset>
                         </form>
                         <p className="NotConfirmed__feedback-reminder">В случае обнаружения ошибок или несоответствий - воспользуйтесь формой <Feedback className="feedback-link" title="обратной связи" /></p>
                     </>
                 }
             </Container>
-        </Layout>
+        </Layout >
     )
 };
 
