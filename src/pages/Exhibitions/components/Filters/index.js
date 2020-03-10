@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Loading from "../../../../components/Loading";
+import MenuComponent from "components/MenuComponent";
 import Calendar from "./components/Calendar";
 import BreedsFilter from "./components/BreedsFilter";
 import RanksFilter from "./components/RanksFilter";
@@ -11,7 +12,7 @@ import {endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitions
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filters}) => {
+const Filters = ({isOpenFilters, filters, clubName}) => {
     const [ranks, setRanks] = useState(null);
     const [breeds, setBreeds] = useState(null);
     const [calendarData, setCalendarData] = useState(null);
@@ -72,6 +73,13 @@ const Filters = ({isOpenFilters, filters}) => {
             {loading ?
                 <Loading centered={false} /> :
                 <>
+                    {clubName && filters.Alias &&
+                        <MenuComponent
+                            alias={filters.Alias}
+                            name={clubName}
+                            className="phone-hide"
+                        />
+                    }
                     <div className="exhibitions-filters__head">
                         <h4>Календарь мероприятий</h4>
                         <button type="button" className="exhibitions-filters__clear" onClick={clearAll}>Сбросить</button>

@@ -1,4 +1,9 @@
 .exhibitions-filters {
+  .phone-hide {
+    @media (max-width: 560px) {
+      display: none!important;
+    }
+  }
   background-color: #fff;
   width: 274px;
   min-width: 274px;

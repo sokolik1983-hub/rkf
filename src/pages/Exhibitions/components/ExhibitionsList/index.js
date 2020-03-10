@@ -1,45 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Placeholder from "./Placeholder";
 import ListItem from "./ListItem";
 import Paginator from "../../../../components/Paginator";
 import {setFiltersToUrl} from "../../utils";
-import {Request} from "../../../../utils/request";
 import {useDictionary} from "../../../../apps/Dictionaries";
 import "./index.scss";
 
-
-const ExhibitionsList = ({url, PageNumber}) => {
-    const [exhibitions, setExhibitions] = useState(null);
-    const [pagesCount, setPagesCount] = useState(1);
-    const [loading, setLoading] = useState(true);
-
+const ExhibitionsList = ({exhibitions, loading, pagesCount, PageNumber}) => {
     const {dictionary} = useDictionary('rank_type');
-
-    const getExhibitions = async (url) => {
-        setLoading(true);
-        await Request({
-            url: url
-        }, data => {
-            const modifiedExhibitions = data.exhibitions.map(exhibition => {
-                exhibition.title = exhibition.city;
-                exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
-                exhibition.content = exhibition.exhibition_name;
-                exhibition.url = `/exhibitions/${exhibition.id}`;
-                return exhibition;
-            });
-            setExhibitions(modifiedExhibitions);
-            setPagesCount(data.page_count);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-        });
-    };
-
-    useEffect(() => {
-        if (url) (() => getExhibitions(url))();
-    }, [url]);
 
     return (
         <div className="ExhibitionsList">
