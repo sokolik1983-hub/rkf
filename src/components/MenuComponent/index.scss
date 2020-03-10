@@ -4,13 +4,19 @@
   &__title {
     max-height: 40px;
     overflow: hidden;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-bottom: 12px
   }
   &__list {
     list-style: none;
   }
   &__item {
     &:not(:last-child) {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
   }
   &__link {

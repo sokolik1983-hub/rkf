@@ -22,7 +22,7 @@ const MenuComponent = ({ alias, name, presidium }) => {
 
     return (
         <Card className="menu-component">
-            <h4 className="menu-component__title" title="Меню">Меню</h4>
+            <h4 className="menu-component__title">Меню</h4>
             <ul className="menu-component__list">
                 <li className="menu-component__item">
                     <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>

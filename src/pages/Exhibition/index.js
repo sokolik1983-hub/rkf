@@ -146,19 +146,19 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 />
                                 <Card className="exhibition-page__address">
                                     <div className="exhibition-page__address-left">
-                                        <h3 className="exhibition-page__address-title">Адрес проведения и контакты</h3>
+                                        <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
                                         {city && <p>{`г. ${city}`}</p>}
                                         {exhibition.address && <p>{exhibition.address}</p>}
                                     </div>
                                     <div className="exhibition-page__address-right">
                                         <div className="exhibition-page__map">
-                                            <h3 className="exhibition-page__address-title">Схема проезда</h3>
+                                            <h4 className="exhibition-page__address-title">Схема проезда</h4>
                                             <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
                                         </div>
                                     </div>
                                 </Card>
                                 <Card className="exhibition-page__payment">
-                                    <h3 className="exhibition-page__payment-title">Реквизиты для оплаты:</h3>
+                                    <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
                                     <p>
                                         Получатель платежа: {exhibition.club_information.club_legal_name} <br />
                                         ИНН: {exhibition.club_information.inn} <br />

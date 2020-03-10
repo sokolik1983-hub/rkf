@@ -3,8 +3,10 @@
   &__title,
   &__over {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
     margin-bottom: 16px;
   }
   &__timer {
