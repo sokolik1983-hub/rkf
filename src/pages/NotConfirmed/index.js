@@ -115,6 +115,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'status'
                     || key === 'stamp_code_registration_certificate'
                     || key === 'certificate_of_registration_legal_entity'
+                    || key === 'membership_payment_document_first'
+                    || key === 'membership_payment_document_second'
+                    || key === 'membership_payment_document_third'
+                    || key === 'membership_payment_document_fourth'
                 ) {
                     return data.append(key, fields[key])
                 }
@@ -125,6 +129,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 }
             }
         );
+
         await Request({
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
@@ -362,6 +367,21 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                 </>
                                             }
                                         </div>
+                                    }
+                                    <br />
+                                    <h4>Квитанции об оплате членского взноса в Федерацию</h4>
+                                    {!fields.membership_payment_document_valid &&
+                                        <>
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_first" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_second" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_third" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_fourth" onChange={onFileChange} />
+                                            <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
+                                        </>
                                     }
                                 </Card>
                                 <button type="submit" className="btn btn-simple">Отправить</button>
