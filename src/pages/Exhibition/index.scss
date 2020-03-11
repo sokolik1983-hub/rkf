@@ -118,10 +118,26 @@
     }
   }
   &__payment {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     @media (max-width: 990px) {
-      margin-bottom: 0;
+      margin-bottom: 24px;
     }
+    &-info {
+      margin-bottom: 24px;
+      @media (max-width: 990px) {
+        margin-bottom: 0;
+      }
+    }
+    &-title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+  }
+  &__additional {
     &-title {
       font-weight: 600;
       font-size: 14px;

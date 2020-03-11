@@ -251,6 +251,9 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 </label>
                 {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')} />}
             </div>
+            <FormField
+                {...fields.additional_info}
+            />
             <FormControls>
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
                 <button type="submit" className="btn btn-simple">Обновить</button>

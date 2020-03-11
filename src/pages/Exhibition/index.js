@@ -148,16 +148,25 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         </div>
                                     </div>
                                 </Card>
-                                <Card className="exhibition-page__payment">
-                                    <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
-                                    <p>
-                                        Получатель платежа: {exhibition.club_information.club_legal_name} <br />
-                                        ИНН: {exhibition.club_information.inn} <br />
-                                        КПП: {exhibition.club_information.kpp} <br />
-                                        Банк: {exhibition.club_information.bank_name} <br />
-                                        БИК: {exhibition.club_information.bic} <br />
-                                        Расчетный счет: {exhibition.club_information.account_number} <br />
-                                    </p>
+                                <Card className="exhibition-page__payment-info">
+                                    <div className="exhibition-page__payment">
+                                        <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
+                                        <p>
+                                            Получатель платежа: {exhibition.club_information.club_legal_name} <br />
+                                            ИНН: {exhibition.club_information.inn} <br />
+                                            КПП: {exhibition.club_information.kpp} <br />
+                                            Банк: {exhibition.club_information.bank_name} <br />
+                                            БИК: {exhibition.club_information.bic} <br />
+                                            Расчетный счет: {exhibition.club_information.account_number} <br />
+                                        </p>
+                                    </div>
+                                    <div className="exhibition-page__additional">
+                                        <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
+                                        {exhibition.additional_info ?
+                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{__html: exhibition.additional_info}} /> :
+                                            <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
+                                        }
+                                    </div>
                                 </Card>
                             </div>
                         </div>

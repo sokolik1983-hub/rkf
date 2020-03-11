@@ -17,8 +17,7 @@ export const exhibitionInfoForm = {
             label: 'Описание мероприятия',
             fieldType: 'textarea',
             rows: 6,
-            placeholder: 'Расскажите участникам и гостям, что их ожидает на мероприятии. Также укажите ссылки на необходимые \n' +
-                'документы: ветеринарные правила и другие... '
+            placeholder: 'Расскажите участникам и гостям, что их ожидает на мероприятии'
         },
         rank_types: {
             name: 'rank_types',
@@ -82,6 +81,13 @@ export const exhibitionInfoForm = {
             name: 'catalog_url',
             label: 'Ссылка на каталог',
             placeholder: 'https://'
+        },
+        additional_info: {
+            name: 'additional_info',
+            label: 'Дополнительная информация',
+            fieldType: 'textarea',
+            rows: 6,
+            placeholder: 'Укажите дополнительную информацию о мероприятии'
         }
     },
     validationSchema: object().shape({

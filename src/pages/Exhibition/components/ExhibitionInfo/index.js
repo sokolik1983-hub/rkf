@@ -22,20 +22,14 @@ const ExhibitionInfo = ({
                             documents_links,
                             schedule_link,
                             catalog_link,
-                            club_information
+                            reports_link
 }) => {
-    // const [showAlert, setShowAlert] = useState(false);
     const {dictionary: rankDictionary} = useDictionary('rank_type');
     const {dictionary: breedDictionary} = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
 
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
-
-    // const clickOnLink = e => {
-    //     e.preventDefault();
-    //     setShowAlert(true);
-    // };
 
     // костыль, а че делать?
     const resolveBreeds = (ranks, breeds) => {
@@ -84,27 +78,13 @@ const ExhibitionInfo = ({
                 </div>
                 <div className="exhibition-info__right">
                     {dates && !!dates.length &&
-                        <CountDown startDate={dateStart} endDate={dateEnd} reportsDateEnd={reportsDateEnd}/>
-                    }
-                    {/*<ul className="exhibition-info__block-list">*/}
-                    {/*    <li className="exhibition-info__block-item not-active">*/}
-                    {/*        <a href="/" onClick={clickOnLink}>Судьи</a>*/}
-                    {/*    </li>*/}
-                    {/*    <li className="exhibition-info__block-item">*/}
-                    {/*        <Link to={`/exhibitions?Alias=${club_information.club_alias}`}>Другие мероприятия организатора</Link>*/}
-                    {/*    </li>*/}
-                    {/*    <li className="exhibition-info__block-item not-active">*/}
-                    {/*        <a href="/" onClick={clickOnLink}>Платные услуги</a>*/}
-                    {/*    </li>*/}
-                    {/*</ul>*/}
-                    {/*showAlert &&
-                        <Alert
-                            title="Внимание!"
-                            text="Раздел находится в разработке."
-                            autoclose={1.5}
-                            onOk={() => setShowAlert(false)}
+                        <CountDown
+                            startDate={dateStart}
+                            endDate={dateEnd}
+                            reportsDateEnd={reportsDateEnd}
+                            reportsLinks={reports_link}
                         />
-                    */}
+                    }
                 </div>
             </Card>
             <Card className="exhibition-info">
