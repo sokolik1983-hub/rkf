@@ -1,13 +1,12 @@
 .countdown {
   margin-bottom: 24px;
-  &__title,
-  &__over {
+  &__title {
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   &__timer {
     display: flex;
@@ -53,6 +52,14 @@
       &._minutes:after {content: "Минута"}
       &._minutes2:after {content: "Минуты"}
       &._minutes3:after {content: "Минут"}
+    }
+  }
+  &__reports {
+    list-style: none;
+    &-link {
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
     }
   }
 }

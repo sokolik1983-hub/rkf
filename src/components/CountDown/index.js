@@ -4,7 +4,7 @@ import declension from "../../utils/declension";
 import "./index.scss";
 
 
-const CountDown = ({startDate, endDate, reportsDateEnd}) => {
+const CountDown = ({startDate, endDate, reportsDateEnd, reportsLinks}) => {
     const getEndDate = () => calculateCountDown(
         Date.now() < +new Date(startDate) ?
             startDate :
@@ -13,7 +13,7 @@ const CountDown = ({startDate, endDate, reportsDateEnd}) => {
                 reportsDateEnd
     );
 
-    const [isCount, setIsCount] = useState(Date.now() < +new Date(reportsDateEnd));
+    const [isCount, setIsCount] = useState(reportsLinks && reportsLinks.length ? false : Date.now() < +new Date(reportsDateEnd));
     const [countDown, setCountDown] = useState(getEndDate());
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const CountDown = ({startDate, endDate, reportsDateEnd}) => {
                 <h4 className="countdown__title">До начала мероприятия осталось</h4> :
                 Date.now() < +new Date(endDate) ?
                     <h4 className="countdown__title">До окончания мероприятия осталось</h4> :
-                        Date.now() < +new Date(reportsDateEnd) ?
+                        isCount ?
                             <h4 className="countdown__title">До окончания срока подачи отчёта осталось</h4> :
                             <h4 className="countdown__title">Отчёты</h4>
             }
@@ -58,9 +58,20 @@ const CountDown = ({startDate, endDate, reportsDateEnd}) => {
                     </div>
                 </div>
             }
-            {/*!isCount &&
-                //отчёты
-            */}
+            {!isCount &&
+                <ul className="countdown__reports">
+                    {reportsLinks && !!reportsLinks.length ?
+                        reportsLinks.map(link =>
+                            <li className="countdown__reports-link" key={link.id}>
+                                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                            </li>
+                        ) :
+                        <li className="countdown__reports-link">
+                            Отчёты не найдены
+                        </li>
+                    }
+                </ul>
+            }
         </div>
     )
 };
