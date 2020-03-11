@@ -102,7 +102,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             <div className="mobile-only">
                                 <div className="exhibition-page__title-wrap">
                                     <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                    {canEdit && <Link className="btn__blue" to="/client">Редактировать</Link>}
+                                    {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
                                 </div>
                                 <img src={avatarLink} alt="" className="exhibition-page__img" />
                             </div>
