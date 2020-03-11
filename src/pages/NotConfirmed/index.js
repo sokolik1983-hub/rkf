@@ -9,6 +9,7 @@ import { Request } from "../../utils/request";
 import { connectWidgetLogin } from "../Login/connectors";
 import Feedback from "components/Feedback";
 import "./index.scss";
+import { getHeaders } from "utils/request";
 
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
@@ -19,6 +20,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [regionsList, setRegionsList] = useState([]);
     const [federationsList, setFederationsList] = useState([]);
     const [activitiesList, setActivitiesList] = useState([]);
+    const [documents, setDocuments] = useState({});
+    const [membership, setMembership] = useState(null);
 
     useEffect(() => {
         Promise.all([getStatus(), getFederation(), getRegions(), getActivities(), getFields()])
@@ -27,11 +30,38 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
 
     useEffect(() => {
         if (loaded) {
-            fields
-                ? setFields({ ...fields, 'regions': getRegionObjects(fields.regions) })
-                : getDefaultFields();
+            if (fields) {
+                const membership = fields.membership_payment_document_ids;
+                setFields({ ...fields, 'regions': getRegionObjects(fields.regions) }); // Update regions
+                Promise.all([1, 2].map(async type => await checkForDocuments('/api/clubs/ClubActivationRequest/file', fields.id, type))) // Get documents
+                    .then((arr) => setDocuments(arr));
+                membership && Promise.all(membership // Get membership payments if they were attached
+                    .map(async id => await checkForDocuments('/api/clubs/ClubActivationRequest/membership_payment', id)))
+                    .then((arr) => setMembership(arr));
+            } else {
+                getDefaultFields();
+            }
         }
     }, [loaded]);
+
+    const checkForDocuments = async (url, id, type) => {
+        let document;
+        await fetch(url, {
+            method: "POST",
+            headers: getHeaders(),
+            body: type // Check if document or membership
+                ? JSON.stringify({
+                    "request_id": id,
+                    "document_type": type,
+                })
+                : id
+        })
+            .then(response => response.blob())
+            .then(blob => document = type ? { type: type, url: URL.createObjectURL(blob) } : { url: URL.createObjectURL(blob) });
+        return document;
+    };
+
+    const getDocUrl = type => documents.length && documents.find(d => d.type === type).url;
 
     const getStatus = () => {
         return Request({
@@ -115,6 +145,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'status'
                     || key === 'stamp_code_registration_certificate'
                     || key === 'certificate_of_registration_legal_entity'
+                    || key === 'membership_payment_document_first'
+                    || key === 'membership_payment_document_second'
+                    || key === 'membership_payment_document_third'
+                    || key === 'membership_payment_document_fourth'
                 ) {
                     return data.append(key, fields[key])
                 }
@@ -125,6 +159,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 }
             }
         );
+
         await Request({
             url: '/api/clubs/ClubActivationRequest',
             method: "POST",
@@ -343,25 +378,46 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 <Card>
                                     <h3>Документы</h3>
                                     <div className="FormField">
-                                        <h4>Документ о регистрации кода клейма</h4>
-                                        {!fields.stamp_code_registration_certificate_valid &&
-                                            <>
-                                                <span>Прикрепите файл формата PDF: </span><input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                        {fields.activation_request_status === 1 && getDocUrl(2)
+                                            ? <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
+                                            : <>
+                                                <h4>Документ о регистрации кода клейма</h4>
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
                                                 <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                             </>
                                         }
                                     </div>
                                     {
                                         interregional && <div className="FormField">
-                                            <h4>Свидетельство о регистрации организации</h4>
-                                            {!fields.certificate_of_registration_legal_entity_valid &&
-                                                <>
+                                            {fields.activation_request_status === 1 && getDocUrl(1)
+                                                ? <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
+                                                : <>
+                                                    <h4>Свидетельство о регистрации организации</h4>
                                                     <span>Прикрепите файл формата PDF: </span>
                                                     <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
                                                 </>
                                             }
                                         </div>
+                                    }
+                                    <br />
+                                    <h3 className="documents-subheading">Квитанции об оплате членского взноса в Федерацию</h3>
+                                    {fields.activation_request_status === 1 && membership
+                                        ? membership.map((m, key) => <div className="FormField" key={key}>
+                                            <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
+                                        </div>)
+                                        : <>
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_first" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_second" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_third" onChange={onFileChange} />
+                                            <span>Прикрепите файл формата PDF: </span>
+                                            <input type="file" accept=".pdf" name="membership_payment_document_fourth" onChange={onFileChange} />
+                                            <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
+                                        </>
                                     }
                                 </Card>
                                 <button type="submit" className="btn btn-simple">Отправить</button>

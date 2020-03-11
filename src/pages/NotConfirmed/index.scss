@@ -10,6 +10,9 @@
     font-size: 22px;
     line-height: 36px;
     margin-bottom: 10px;
+    &.documents-subheading {
+      font-size: 18px;
+    }
   }
   input[type="file"] {
     @media (max-width: 560px) {
