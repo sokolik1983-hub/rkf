@@ -30,7 +30,7 @@ const Contacts = ({contacts, work_time}) => (
         }
         {work_time && !!work_time.length &&
             <div className="contacts__block _work">
-                <h5 className="contacts__block-title">Часы работы </h5>
+                <h5 className="contacts__block-title">Часы работы</h5>
                 {formatWorkTime(work_time).map((period, i) =>
                     <p key={`work-${i}`} className="contacts__block-info">
                         <span>{period.days.join(', ')}</span>
