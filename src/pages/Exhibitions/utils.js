@@ -77,10 +77,10 @@ export const getFiltersFromUrl = () => {
     return filters;
 };
 
-export const setFiltersToUrl = filters => {
+export const setFiltersToUrl = (filters, initial = false) => {
     const newFilters = getFiltersFromUrl() ? {...getFiltersFromUrl(), ...filters} : filters;
-
-    history.replace(`/exhibitions${buildUrlParams(newFilters)}`);
+    const targetUrl = (`/exhibitions${buildUrlParams(newFilters)}`);
+    initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
 export const getEmptyFilters = () => ({
@@ -101,7 +101,7 @@ export const getInitialFilters = () => {
 
     const filters = filtersFromUrl || emptyFilters;
 
-    if(!filtersFromUrl) setFiltersToUrl(filters);
+    if(!filtersFromUrl) setFiltersToUrl(filters, true);
 
     return filters;
 };
