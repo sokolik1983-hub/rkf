@@ -80,7 +80,7 @@ export const getFiltersFromUrl = () => {
 export const setFiltersToUrl = filters => {
     const newFilters = getFiltersFromUrl() ? {...getFiltersFromUrl(), ...filters} : filters;
 
-    history.push(`/exhibitions${buildUrlParams(newFilters)}`);
+    history.replace(`/exhibitions${buildUrlParams(newFilters)}`);
 };
 
 export const getEmptyFilters = () => ({
