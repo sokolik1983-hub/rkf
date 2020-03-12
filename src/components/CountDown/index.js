@@ -64,6 +64,9 @@ const CountDown = ({startDate, endDate, reportsDateEnd, reportsLinks}) => {
                         reportsLinks.map(link =>
                             <li className="countdown__reports-link" key={link.id}>
                                 <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                                {link.date_send &&
+                                    <p>Дата подачи отчёта: <span>{link.date_send}</span></p>
+                                }
                             </li>
                         ) :
                         <li className="countdown__reports-link">
