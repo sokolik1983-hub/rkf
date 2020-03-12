@@ -13,7 +13,6 @@ import { getHeaders } from "utils/request";
 
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
-    const [loaded, setLoaded] = useState(false);
     const [active, setActive] = useState(false);
     const [interregional, setInterregional] = useState(false);
     const [statusesList, setStatusesList] = useState([]);
@@ -22,27 +21,31 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [activitiesList, setActivitiesList] = useState([]);
     const [documents, setDocuments] = useState({});
     const [membership, setMembership] = useState(null);
+    const [preloaded, setPreloaded] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         Promise.all([getStatus(), getFederation(), getRegions(), getActivities(), getFields()])
-            .then(() => setLoaded(true));
+            .then(() => setPreloaded(true));
     }, []);
 
     useEffect(() => {
-        if (loaded) {
+        if (preloaded) {
             if (fields) {
                 const membership = fields.membership_payment_document_ids;
                 setFields({ ...fields, 'regions': getRegionObjects(fields.regions) }); // Update regions
                 Promise.all([1, 2].map(async type => await checkForDocuments('/api/clubs/ClubActivationRequest/file', fields.id, type))) // Get documents
                     .then((arr) => setDocuments(arr));
-                membership && Promise.all(membership // Get membership payments if they were attached
+                membership.length && Promise.all(membership // Get membership payments if they were attached
                     .map(async id => await checkForDocuments('/api/clubs/ClubActivationRequest/membership_payment', id)))
                     .then((arr) => setMembership(arr));
+                setLoaded(true);
             } else {
                 getDefaultFields();
+                setLoaded(true);
             }
         }
-    }, [loaded]);
+    }, [preloaded]);
 
     const checkForDocuments = async (url, id, type) => {
         let document;
@@ -178,7 +181,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     };
 
     const getDefaultFields = async () => {
-        if (loaded && !fields) {
+        if (preloaded && !fields) {
             await Request({
                 url: '/api/Club/base_request_information'
             }, data => {
@@ -335,20 +338,23 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         history.push('/');
     }
 
+    const isSubmitted = fields && fields.activation_request_status === 1;
+    const isEditable = fieldName => (fields[`${fieldName}_valid`] === false) && !isSubmitted;
+
     return (
         <Layout>
             <Container className="content NotConfirmed">
-                {!fields
+                {!loaded
                     ? <Loading />
                     : <>
                         {
-                            fields.activation_request_status === 1
+                            isSubmitted
                                 ? <h2 style={{ textAlign: 'center', color: 'red' }}>Заявка находится на рассмотрении</h2>
                                 : <h2 style={{ textAlign: 'center' }}>Заполнение информации о клубе</h2>
                         }
                         <h3>{fields.name}</h3>
                         <form className="ClubDetails" onSubmit={handleSubmit}>
-                            <fieldset disabled={fields.activation_request_status === 1 ? true : false}>
+                            <fieldset disabled={isSubmitted}>
                                 <Card>
                                     <h3>Юридическая информация</h3>
                                     <FormField type="text" label="Руководитель" name="owner_name" value={fields.owner_name} props={{ placeholder: 'Не указано' }} disabled />
@@ -368,7 +374,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <FormField type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
                                     <Federations />
                                     <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
-                                    {interregional && <RegionsSelect isDisabled={fields.activation_request_status === 1} />}
+                                    {interregional && <RegionsSelect isDisabled={!isEditable('status')} />}
                                     <Activities />
                                     <FormField type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
                                     <FormField type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
@@ -378,49 +384,71 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                 <Card>
                                     <h3>Документы</h3>
                                     <div className="FormField">
-                                        {fields.activation_request_status === 1 && getDocUrl(2)
-                                            ? <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
-                                            : <>
-                                                <h4>Документ о регистрации кода клейма</h4>
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
-                                                <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
-                                            </>
+                                        {
+                                            isEditable('stamp_code_registration_certificate')
+                                                ? <>
+                                                    <h4>
+                                                        {
+                                                            getDocUrl(2)
+                                                                ? <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
+                                                                : 'Документ о регистрации кода клейма'
+                                                        }
+                                                    </h4>
+                                                    <span>Прикрепите файл формата PDF: </span>
+                                                    <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
+                                                </>
+                                                : <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
                                         }
                                     </div>
                                     {
                                         interregional && <div className="FormField">
-                                            {fields.activation_request_status === 1 && getDocUrl(1)
-                                                ? <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
-                                                : <>
-                                                    <h4>Свидетельство о регистрации организации</h4>
-                                                    <span>Прикрепите файл формата PDF: </span>
-                                                    <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
-                                                    <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
-                                                </>
+                                            {
+                                                isEditable('certificate_of_registration_legal_entity')
+                                                    ? <>
+                                                        <h4>
+                                                            {
+                                                                getDocUrl(1)
+                                                                    ? <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
+                                                                    : 'Свидетельство о регистрации организации'
+                                                            }
+                                                        </h4>
+                                                        <span>Прикрепите файл формата PDF: </span>
+                                                        <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                        <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
+                                                    </>
+                                                    : <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
                                             }
                                         </div>
                                     }
                                     <br />
                                     <h3 className="documents-subheading">Квитанции об оплате членского взноса в Федерацию</h3>
-                                    {fields.activation_request_status === 1 && membership
-                                        ? membership.map((m, key) => <div className="FormField" key={key}>
-                                            <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
-                                        </div>)
-                                        : <>
-                                            <span>Прикрепите файл формата PDF: </span>
-                                            <input type="file" accept=".pdf" name="membership_payment_document_first" onChange={onFileChange} />
-                                            <span>Прикрепите файл формата PDF: </span>
-                                            <input type="file" accept=".pdf" name="membership_payment_document_second" onChange={onFileChange} />
-                                            <span>Прикрепите файл формата PDF: </span>
-                                            <input type="file" accept=".pdf" name="membership_payment_document_third" onChange={onFileChange} />
-                                            <span>Прикрепите файл формата PDF: </span>
-                                            <input type="file" accept=".pdf" name="membership_payment_document_fourth" onChange={onFileChange} />
-                                            <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
-                                        </>
+                                    {
+                                        isEditable('membership_payment_document')
+                                            ? <>
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="membership_payment_document_first" onChange={onFileChange} />
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="membership_payment_document_second" onChange={onFileChange} />
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="membership_payment_document_third" onChange={onFileChange} />
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="membership_payment_document_fourth" onChange={onFileChange} />
+                                                {
+                                                    membership && membership.map((m, key) => <div className="FormField" key={key}>
+                                                        <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
+                                                    </div>)
+                                                }
+                                                <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
+                                            </>
+                                            : membership
+                                                ? membership.map((m, key) => <div className="FormField" key={key}>
+                                                    <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
+                                                </div>)
+                                                : <p>Нет прикреплённых квитанций</p>
                                     }
                                 </Card>
-                                <button type="submit" className="btn btn-simple">Отправить</button>
+                                {!isSubmitted && <button type="submit" className="btn btn-simple">Отправить</button>}
                             </fieldset>
                         </form>
                         <p className="NotConfirmed__feedback-reminder">В случае обнаружения ошибок или несоответствий - воспользуйтесь формой <Feedback className="feedback-link" title="обратной связи" /></p>
