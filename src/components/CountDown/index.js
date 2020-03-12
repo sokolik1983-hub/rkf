@@ -65,7 +65,7 @@ const CountDown = ({startDate, endDate, reportsDateEnd, reportsLinks}) => {
                             <li className="countdown__reports-link" key={link.id}>
                                 <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
                                 {link.date_send &&
-                                    <p>Дата подачи отчёта: <span>{link.date_send}</span></p>
+                                    <p>Дата подачи отчёта: <span>{new Date(link.date_send).toLocaleDateString()}</span></p>
                                 }
                             </li>
                         ) :
