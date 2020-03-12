@@ -339,7 +339,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     }
 
     const isSubmitted = fields && fields.activation_request_status === 1;
-    const isEditable = fieldName => (fields[`${fieldName}_valid`] === false) && !isSubmitted;
+    const isEditable = fieldName => !fields[`${fieldName}_valid`] && !isSubmitted;
 
     return (
         <Layout>
