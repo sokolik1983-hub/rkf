@@ -67,7 +67,7 @@ const CountDown = ({startDate, endDate, reportsDateEnd, reportsLinks}) => {
                                 {link.date_send &&
                                     <p>Дата подачи отчёта:
                                         <span>
-                                            {`${new Date(link.date_send).getDate() < 10 ? '0' + new Date(link.date_send).getDate() : new Date(link.date_send).getDate()}.${new Date(link.date_send).getMonth() + 1 < 10 ? '0' + new Date(link.date_send).getMonth() + 1 : new Date(link.date_send).getMonth() + 1}.${new Date(link.date_send).getFullYear()}`}
+                                            {`${new Date(link.date_send).getDate() < 10 ? '0' + new Date(link.date_send).getDate() : new Date(link.date_send).getDate()}.${new Date(link.date_send).getMonth() + 1 < 10 ? '0' + (new Date(link.date_send).getMonth() + 1) : new Date(link.date_send).getMonth() + 1}.${new Date(link.date_send).getFullYear()}`}
                                         </span>
                                     </p>
                                 }
