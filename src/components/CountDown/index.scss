@@ -59,6 +59,14 @@
       &:not(:last-child) {
         margin-bottom: 6px;
       }
+      p {
+        font-weight: 400;
+        line-height: 18px;
+        color: #72839c;
+        span {
+          color: #253c5e;
+        }
+      }
     }
   }
 }
