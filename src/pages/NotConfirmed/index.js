@@ -42,7 +42,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 setLoaded(true);
             } else {
                 getDefaultFields();
-                setLoaded(true);
             }
         }
     }, [preloaded]);
@@ -186,6 +185,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 url: '/api/Club/base_request_information'
             }, data => {
                 setFields({ ...data, activities: [] });
+                setLoaded(true);
             });
         }
     };
