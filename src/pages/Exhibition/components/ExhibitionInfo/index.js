@@ -1,21 +1,17 @@
-import React, {/*useState*/} from "react";
-// import {Link} from "react-router-dom";
+import React from "react";
+import Card from "../../../../components/Card";
+import CountDown from "../../../../components/CountDown";
 import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
 import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
-import CountDown from "../../../../components/CountDown";
-// import Alert from "../../../../components/Alert";
-import Card from "../../../../components/Card";
 import declension from "../../../../utils/declension";
 import "./index.scss";
 
 
 const ExhibitionInfo = ({
-                            city,
                             dateStart,
                             dateEnd,
                             reportsDateEnd,
                             dates,
-                            address,
                             rank_types,
                             breed_types,
                             description,
@@ -62,7 +58,6 @@ const ExhibitionInfo = ({
                             </div>
                         </>
                     }
-                    {city && <p className="exhibition-info__address">{`г. ${city}${address ? ', ' + address : ''}`}</p>}
                     <table className="exhibition-info__table">
                         <tbody>
                             {rankTypes && !!rankTypes.length && <tr>
