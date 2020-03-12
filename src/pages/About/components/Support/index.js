@@ -24,7 +24,7 @@ const Support = () => {
         <div className="contacts__block _wiki">
             <p>
                 <span className="contacts__block-title">
-                    <a href="http://wiki.rkf.online/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                    <a href="http://support.rkf.online/" target="_blank" rel="noopener noreferrer">База знаний</a>
                 </span>
             </p>
         </div>
