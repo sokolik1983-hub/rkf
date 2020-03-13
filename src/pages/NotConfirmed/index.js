@@ -296,7 +296,9 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                         value={value}
                         name={label}
                         checked={fields.activities && fields.activities.length && fields.activities.find(a => a === value)}
-                        type="checkbox" />&nbsp;
+                        type="checkbox"
+                        disabled={!isEditable('activities')}
+                    />&nbsp;
                     <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
             }
