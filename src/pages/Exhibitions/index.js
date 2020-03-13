@@ -19,21 +19,20 @@ import './index.scss';
 
 
 const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
-    const [state, setState] = useState({
-        loading: true,
-        exhibitionsLoading: true,
-        filters: {...getInitialFilters()},
-        url: buildUrl({...getInitialFilters()}),
-        exhibitions: null,
-        pagesCount: 1,
-        display_name: '',
-        club_avatar: ''
-    });
+    const [loading, setLoading] = useState(true);
+    const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
+    const [filters, setFilters] = useState({...getInitialFilters()});
+    const [url, setUrl] = useState(buildUrl({...filters}));
+    const [exhibitions, setExhibitions] = useState(null);
+    const [pagesCount, setPagesCount] = useState(1);
+    const [displayName, setDisplayName] = useState('');
+    const [clubAvatar, setClubAvatar] = useState('');
 
     useEffect(() => {
         const unListen = history.listen(() => {
             const filters = getFiltersFromUrl();
-            setState({...state, filters: {...filters}, url: buildUrl({...filters}), loading: false});
+            setFilters({...filters});
+            setUrl( buildUrl({...filters}));
         });
 
         return () => unListen();
@@ -41,7 +40,8 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
 
     
     const getExhibitions = async (url) => {
-        setState({...state, exhibitionsLoading: true});
+        setExhibitionsLoading(true);
+
         await Request({
             url: url
         }, data => {
@@ -52,52 +52,50 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 exhibition.url = `/exhibitions/${exhibition.id}`;
                 return exhibition;
             });
+
             const club = data.searching_club;
+
             if (club) {
-                setState({
-                    ...state,
-                    display_name: club.display_name || "Название клуба отсутствует",
-                    club_avatar: club.club_avatar
-                });
+                setDisplayName(club.display_name || "Название клуба отсутствует");
+                setClubAvatar(club.club_avatar);
             }
-            setState({
-                ...state,
-                exhibitions: modifiedExhibitions,
-                pagesCount: data.page_count,
-                exhibitionsLoading: false,
-                loading: false
-            });
+
+            setExhibitions(modifiedExhibitions);
+            setPagesCount(data.page_count);
+            setExhibitionsLoading(false);
+            setLoading(false);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setState({...state, exhibitionsLoading: false});
+            setExhibitionsLoading(false);
+            setLoading(false);
         });
     };
 
     useEffect(() => {
-        if (state.url) (() => getExhibitions(state.url))();
-    }, [state.url]);
+        if (url) (() => getExhibitions(url))();
+    }, [url]);
 
-    return state.loading ?
+    return loading ?
         <Loading /> :
         <Layout withFilters>
-            {state.filters.Alias && state.display_name &&
+            {filters.Alias && displayName &&
                 <>
                     <FloatingMenu
-                        alias={state.filters.Alias}
-                        name={shorten(state.display_name,16)}
+                        alias={filters.Alias}
+                        name={shorten(displayName,16)}
                     />
                     <div className="exhibitions-page__top-wrap container">
                         <TopComponent
-                            logo={state.club_avatar || DEFAULT_IMG.clubAvatar}
-                            name={state.display_name}
+                            logo={clubAvatar || DEFAULT_IMG.clubAvatar}
+                            name={displayName}
                         />
                     </div>
                 </>
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
-                <Filters filters={state.filters} clubName={shorten(state.display_name)}/>
+                <Filters filters={filters} clubName={shorten(displayName)}/>
                 <div className="exhibitions-page__content">
                     <Card className="exhibitions-page__disclaimer">
                         <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
@@ -105,12 +103,12 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                             сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">ркф</a></p>
                     </Card>
                     <ListFilter/>
-                    <ExhibitionsSearch ExhibitionName={state.filters.ExhibitionName} />
+                    <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList 
-                        exhibitions={state.exhibitions}
-                        loading={state.loading}
-                        pagesCount={state.pagesCount}
-                        PageNumber={state.filters.PageNumber}
+                        exhibitions={exhibitions}
+                        loading={exhibitionsLoading}
+                        pagesCount={pagesCount}
+                        PageNumber={filters.PageNumber}
                     />
                 </div>
             </Container>
