@@ -15,7 +15,7 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
     const handleCityChange = city => {
         setNewsFilter({ city: city, activeType });
         setPage(1);
-    }
+    };
 
     return (
         <div className="NewsList__filter">

@@ -8,7 +8,7 @@ import "./index.scss";
 const Option = props => (
     <components.Option {...props}>
         <CustomCheckbox
-            id={`breeds-${props.value}`}
+            id={`cities-${props.value}`}
             label={props.label}
             checked={props.isSelected}
             onChange={() => null}
@@ -16,26 +16,26 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breeds, BreedIds}) => {
+const CitiesFilter = ({cities, CityIds}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
     useEffect(() => {
-        if(breeds.length) {
-            setValues(breeds.filter(option => BreedIds.indexOf(option.value) !== -1));
-            setOptionsNotInValues(breeds.filter(option => BreedIds.indexOf(option.value) === -1));
+        if(cities.length) {
+            setOptionsNotInValues(cities.filter(option => CityIds.indexOf(option.value) === -1));
+            setValues(cities.filter(option => CityIds.indexOf(option.value) !== -1));
         }
-    }, [breeds, BreedIds]);
+    }, [cities, CityIds]);
 
     const handleChange = options => {
-        setFiltersToUrl({ExhibitionName: '', BreedIds: options.map(option => option.value), PageNumber: 1});
+        setFiltersToUrl({CityIds: options.map(option => option.value), ExhibitionName: '', PageNumber: 1});
     };
 
     return (
-        <div className="breeds-filter">
-            <h5 className="breeds-filter__title">Породы</h5>
+        <div className="cities-filter">
+            <h5 className="cities-filter__title">Города</h5>
             <Select
-                id="breeds-filter"
+                id="cities-filter"
                 isMulti={true}
                 closeMenuOnSelect={false}
                 options={[...values, ...optionsNotInValues]}
@@ -46,9 +46,9 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 onChange={handleChange}
                 clearable={true}
                 isSearchable
-                classNamePrefix="breeds-filter"
-                placeholder="Начните вводить породу"
-                noOptionsMessage={() => 'Порода не найдена'}
+                classNamePrefix="cities-filter"
+                placeholder="Начните вводить город"
+                noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
             />
@@ -56,4 +56,4 @@ const BreedsFilter = ({breeds, BreedIds}) => {
     )
 };
 
-export default React.memo(BreedsFilter);
+export default React.memo(CitiesFilter);

@@ -12,17 +12,11 @@ const buildUrlParams = filter => {
         }
 
         if (filter[key]) {
-            if (key === 'CityIds') {
-                let str = '';
-                filter[key].forEach(el => {
-                    str = str + `${key}=${el}&`;
-                });
-                params = params + str;
-            } else if (key === 'PageNumber') {
+            if (key === 'PageNumber') {
                 if (filter[key] > 1) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'RankIds' || key === 'BreedIds') {
+            } else if (key === 'RankIds' || key === 'BreedIds' || key === 'CityIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
