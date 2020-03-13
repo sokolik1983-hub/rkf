@@ -57,12 +57,15 @@
   }
   &.no-backdrop {
     .Modal__inner {
-      //background: none;
+      background: none;
       box-shadow: none;
     }
     &>div {
       //OutsideClickHandler
       width: auto;
+    }
+    & .Modal__close {
+        right: 44px;
     }
   }
 }
