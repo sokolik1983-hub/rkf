@@ -21,7 +21,9 @@
   }
   .Card {
     margin: 0 10px 10px;
-    div,
+    div {
+      font-weight: normal;
+    }
     input:not([type="checkbox"]) {
       font-weight: normal;
       width: 100%;
@@ -88,5 +90,17 @@
     padding: 0;
     margin: 0;
     border: none;
+  }
+  .invoice {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px inset;
+    & > div {
+      margin-right: 10px;
+      max-width: 250px;
+    }
   }
 }

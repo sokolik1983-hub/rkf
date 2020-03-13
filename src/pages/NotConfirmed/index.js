@@ -8,8 +8,11 @@ import Select from "react-select";
 import { Request } from "../../utils/request";
 import { connectWidgetLogin } from "../Login/connectors";
 import Feedback from "components/Feedback";
-import "./index.scss";
+import FormField from './components/FormField';
 import { getHeaders } from "utils/request";
+import { invoices, legalFields } from './config';
+import "./index.scss";
+
 
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
@@ -151,6 +154,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'membership_payment_document_second'
                     || key === 'membership_payment_document_third'
                     || key === 'membership_payment_document_fourth'
+                    || key === 'membership_payment_document_first_date'
+                    || key === 'membership_payment_document_second_date'
+                    || key === 'membership_payment_document_third_date'
+                    || key === 'membership_payment_document_fourth_date'
                 ) {
                     return data.append(key, fields[key])
                 }
@@ -199,34 +206,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         if (e.target.files) {
             setFields({ ...fields, [e.target.name]: e.target.files[0] });
         }
-    };
-
-    const FormField = ({ type, label, name, value, title, pattern, required, props, disabled }) => {
-        const fieldComment = name + '_comment';
-        const isValidField = name + '_valid';
-        return (
-            <div className="FormField">
-                <h4>{label}</h4>
-                {
-                    fields[isValidField]
-                        ? <span>{value}</span>
-                        : <>
-                            <input
-                                type={type}
-                                name={name}
-                                onBlur={onInputChange}
-                                required={!!required}
-                                title={title || ''}
-                                defaultValue={value || ''}
-                                pattern={pattern ? pattern : undefined}
-                                disabled={disabled}
-                                {...props}
-                            />
-                            <div className="FormField__comment">{fields[fieldComment]}</div>
-                        </>
-                }
-            </div>
-        )
     };
 
     const StatusSelect = ({ name, label, title, value, required }) => {
@@ -317,20 +296,15 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                         value={value}
                         name={label}
                         checked={fields.activities && fields.activities.length && fields.activities.find(a => a === value)}
-                        type="checkbox" />&nbsp;
+                        type="checkbox"
+                        disabled={!isEditable('activities')}
+                    />&nbsp;
                     <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
             }
             <div className="FormField__comment">{fields['federation_comment']}</div>
         </div>
     };
-
-    const RegistrationDate = () => fields.registration_date
-        ? <FormField type="date" label="Дата регистрации юридического лица" name="registration_date" value={new Date(fields.registration_date).toISOString().substr(0, 10)} disabled />
-        : <div className="FormField">
-            <h4>Дата регистрации юридического лица</h4>
-            <input type="text" placeholder="Не указано" disabled />
-        </div>;
 
     if (active) {
         alert("Ваша заявка была одобрена! \nТеперь Вы можете войти в свой личный кабинет на сайте.");
@@ -357,28 +331,32 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             <fieldset disabled={isSubmitted}>
                                 <Card>
                                     <h3>Юридическая информация</h3>
-                                    <FormField type="text" label="Руководитель" name="owner_name" value={fields.owner_name} props={{ placeholder: 'Не указано' }} disabled />
-                                    <FormField type="text" label="Должность руководителя" name="owner_position" value={fields.owner_position} props={{ placeholder: 'Не указано' }} disabled />
-                                    <FormField type="text" label="Наименование юридического лица" name="legal_name" value={fields.legal_name} props={{ placeholder: 'Не указано' }} disabled />
-                                    <RegistrationDate />
-                                    <FormField type="text" label="Город регистрации" name="legal_city" value={fields.legal_city} props={{ placeholder: 'Не указано' }} disabled />
-                                    <FormField type="text" label="Юридический адрес" name="legal_address" value={fields.legal_address} props={{ placeholder: 'Не указано' }} disabled />
-                                    <FormField type="text" label="Квартира/офис" name="apartment_office" value={fields.apartment_office} props={{ placeholder: 'Не указано' }} disabled />
-                                    <FormField type="text" label="ИНН" name="inn" value={fields.inn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{10}|[0-9]{12}" disabled />
-                                    <FormField type="text" label="КПП" name="kpp" value={fields.kpp} props={{ placeholder: 'Не указано' }} pattern="[0-9]{9}" disabled />
-                                    <FormField type="text" label="ОГРН" name="ogrn" value={fields.ogrn} props={{ placeholder: 'Не указано' }} pattern="[0-9]{13}" disabled />
-                                    <FormField type="text" label="ОКПО" name="okpo" value={fields.okpo} props={{ placeholder: 'Не указано' }} pattern="[0-9]{8}|[0-9]{10}" disabled />
+                                    {
+                                        legalFields.map(({ label, name, type }) => <FormField
+                                            label={label}
+                                            name={name}
+                                            value={type === 'date' ? new Date(fields.registration_date).toISOString().substr(0, 10) : fields[name]}
+                                            props={{ placeholder: 'Не указано' }}
+                                            fields={fields}
+                                            onInputChange={onInputChange}
+                                            disabled
+                                        />)
+                                    }
                                 </Card>
                                 <Card>
                                     <h3>Дополнительная информация</h3>
-                                    <FormField type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
+                                    <FormField fields={fields}
+                                        onInputChange={onInputChange} type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
                                     <Federations />
                                     <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
                                     {interregional && <RegionsSelect isDisabled={!isEditable('status')} />}
                                     <Activities />
-                                    <FormField type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
-                                    <FormField type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
-                                    <FormField type="text" required="true" label="Сокращенное наименование организации" name="fact_name" value={fields.fact_name} title="Введите фактическое название организации" />
+                                    <FormField fields={fields}
+                                        onInputChange={onInputChange} type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
+                                    <FormField fields={fields}
+                                        onInputChange={onInputChange} type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
+                                    <FormField fields={fields}
+                                        onInputChange={onInputChange} type="text" required="true" label="Сокращенное наименование организации" name="fact_name" value={fields.fact_name} title="Введите фактическое название организации" />
                                 </Card>
 
                                 <Card>
@@ -426,14 +404,21 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     {
                                         isEditable('membership_payment_document')
                                             ? <>
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="membership_payment_document_first" onChange={onFileChange} />
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="membership_payment_document_second" onChange={onFileChange} />
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="membership_payment_document_third" onChange={onFileChange} />
-                                                <span>Прикрепите файл формата PDF: </span>
-                                                <input type="file" accept=".pdf" name="membership_payment_document_fourth" onChange={onFileChange} />
+                                                {
+                                                    invoices.map(name => <div className="invoice">
+                                                        <div>
+                                                            <span>Прикрепите файл формата PDF: </span>
+                                                            <input type="file" accept=".pdf" name={name} onChange={onFileChange} />
+                                                        </div>
+                                                        {
+                                                            fields[name] && <div>
+                                                                <span>Дата оплаты взноса: </span>
+                                                                <input type="date" name={`${name}_date`} onChange={onInputChange} required />
+                                                            </div>
+                                                        }
+
+                                                    </div>)
+                                                }
                                                 {
                                                     membership && membership.map((m, key) => <div className="FormField" key={key}>
                                                         <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
