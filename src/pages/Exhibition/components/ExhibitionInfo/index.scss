@@ -26,6 +26,13 @@
   &__right {
     width: 300px;
     min-width: 300px;
+    &.reports {
+      width: 100%;
+      max-width: 60%;
+      @media (max-width: 990px) {
+        max-width: none;
+      }
+    }
     @media (max-width: 560px) {
       width: 100%;
       min-width: 100%;
