@@ -1,0 +1,13 @@
+.PropertyP {
+    &__name {
+        color: #72839c;
+    }
+    &__name::after {
+        content: " ";
+        width: .5em;
+        display: inline-block;
+    }
+    &__value {
+
+    }
+}

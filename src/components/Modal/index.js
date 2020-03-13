@@ -8,9 +8,9 @@ const Modal = ({ showModal, handleClose, children, noBackdrop = false, className
     return (
         ReactDOM.createPortal(
             <div className={(showModal ? 'Modal' : 'Modal--hidden') + (noBackdrop ? ' no-backdrop' : '') + (className ? ' ' + className : '')}>
-                <div className="Modal__close" onClick={handleClose} />
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <div className="Modal__inner">
+                        <div className="Modal__close" onClick={handleClose} />
                         {children}
                     </div>
                     {/*<div className="Modal__close-text" onClick={handleClose}>Закрыть</div>*/}

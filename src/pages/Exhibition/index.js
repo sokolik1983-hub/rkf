@@ -4,6 +4,7 @@ import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
+import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import TopComponent from "../../components/TopComponent";
@@ -158,14 +159,12 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <Card className="exhibition-page__payment-info">
                                     <div className="exhibition-page__payment">
                                         <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
-                                        <p>
-                                            Получатель платежа: {exhibition.club_information.club_legal_name} <br />
-                                            ИНН: {exhibition.club_information.inn} <br />
-                                            КПП: {exhibition.club_information.kpp} <br />
-                                            Банк: {exhibition.club_information.bank_name} <br />
-                                            БИК: {exhibition.club_information.bic} <br />
-                                            Расчетный счет: {exhibition.club_information.account_number} <br />
-                                        </p>
+                                        <PropertyP name="Получатель платежа" value={exhibition.club_information.club_legal_name} />
+                                        <PropertyP name="ИНН" value={exhibition.club_information.inn} />
+                                        <PropertyP name="КПП" value={exhibition.club_information.kpp} />
+                                        <PropertyP name="Банк" value={exhibition.club_information.bank_name} />
+                                        <PropertyP name="БИК" value={exhibition.club_information.bic} />
+                                        <PropertyP name="Расчетный счет" value={exhibition.club_information.account_number} />
                                     </div>
                                     <div className="exhibition-page__additional">
                                         <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
