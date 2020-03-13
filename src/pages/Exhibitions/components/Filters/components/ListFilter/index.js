@@ -1,7 +1,7 @@
 import React, {useState} from "react";
+import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
 import "./index.scss";
-import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
 
 
 const ListFilter = () => {

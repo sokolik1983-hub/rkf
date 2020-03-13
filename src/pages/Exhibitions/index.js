@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
+import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
+import Card from "../../components/Card";
 import Filters from "./components/Filters";
+import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
@@ -13,22 +16,32 @@ import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
 import {DEFAULT_IMG} from "../../appConfig";
 import shorten from "../../utils/shorten";
 import './index.scss';
-import ListFilter from "./components/Filters/components/ListFilter";
-import Card from "../../components/Card";
 
 
 const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
-    const [exhibitions, setExhibitions] = useState(null);
-    const [display_name, setDisplayName] = useState(null);
-    const [club_avatar, setClubAvatar] = useState(null);
-    const [pagesCount, setPagesCount] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [state, setState] = useState({
+        loading: true,
+        exhibitionsLoading: true,
+        filters: {...getInitialFilters()},
+        url: buildUrl({...getInitialFilters()}),
+        exhibitions: null,
+        pagesCount: 1,
+        display_name: '',
+        club_avatar: ''
+    });
 
-    const [filters, setFilters] = useState({...getInitialFilters()});
-    const [url, setUrl] = useState(buildUrl({...filters}));
+    useEffect(() => {
+        const unListen = history.listen(() => {
+            const filters = getFiltersFromUrl();
+            setState({...state, filters: {...filters}, url: buildUrl({...filters}), loading: false});
+        });
+
+        return () => unListen();
+    }, []);
+
     
     const getExhibitions = async (url) => {
-        setLoading(true);
+        setState({...state, exhibitionsLoading: true});
         await Request({
             url: url
         }, data => {
@@ -39,54 +52,52 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 exhibition.url = `/exhibitions/${exhibition.id}`;
                 return exhibition;
             });
-            setExhibitions(modifiedExhibitions);
-            let club = data.searching_club;
+            const club = data.searching_club;
             if (club) {
-                setDisplayName(club.display_name || "Название клуба отсутствует");
-                setClubAvatar(club.club_avatar);
+                setState({
+                    ...state,
+                    display_name: club.display_name || "Название клуба отсутствует",
+                    club_avatar: club.club_avatar
+                });
             }
-            setPagesCount(data.page_count);
-            setLoading(false);
+            setState({
+                ...state,
+                exhibitions: modifiedExhibitions,
+                pagesCount: data.page_count,
+                exhibitionsLoading: false,
+                loading: false
+            });
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
+            setState({...state, exhibitionsLoading: false});
         });
     };
 
     useEffect(() => {
-        if (url) (() => getExhibitions(url))();
-    }, [url]);
+        if (state.url) (() => getExhibitions(state.url))();
+    }, [state.url]);
 
-    useEffect(() => {
-        const unListen = history.listen(() => {
-            const filters = getFiltersFromUrl();
-            setFilters({...filters});
-            setUrl(buildUrl({...filters}));
-        });
-
-        return () => unListen();
-    }, []);
-
-    return (
+    return state.loading ?
+        <Loading /> :
         <Layout withFilters>
-            {filters.Alias && display_name &&
+            {state.filters.Alias && state.display_name &&
                 <>
                     <FloatingMenu
-                        alias={filters.Alias}
-                        name={shorten(display_name,16)}
+                        alias={state.filters.Alias}
+                        name={shorten(state.display_name,16)}
                     />
                     <div className="exhibitions-page__top-wrap container">
                         <TopComponent
-                            logo={club_avatar || DEFAULT_IMG.clubAvatar}
-                            name={display_name}
+                            logo={state.club_avatar || DEFAULT_IMG.clubAvatar}
+                            name={state.display_name}
                         />
                     </div>
                 </>
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
-                <Filters filters={filters} clubName={shorten(display_name)}/>
+                <Filters filters={state.filters} clubName={shorten(state.display_name)}/>
                 <div className="exhibitions-page__content">
                     <Card className="exhibitions-page__disclaimer">
                         <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
@@ -94,17 +105,16 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                             сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">ркф</a></p>
                     </Card>
                     <ListFilter/>
-                    <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
+                    <ExhibitionsSearch ExhibitionName={state.filters.ExhibitionName} />
                     <ExhibitionsList 
-                        exhibitions={exhibitions}
-                        loading={loading}
-                        pagesCount={pagesCount}
-                        PageNumber={filters.PageNumber}
+                        exhibitions={state.exhibitions}
+                        loading={state.loading}
+                        pagesCount={state.pagesCount}
+                        PageNumber={state.filters.PageNumber}
                     />
                 </div>
             </Container>
         </Layout>
-    )
 };
 
 export default connectShowFilters(React.memo(Exhibitions));

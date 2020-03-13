@@ -61,7 +61,6 @@ export const getFiltersFromUrl = () => {
         });
 
         Object.keys(emptyFilters).forEach(key => {
-
             filters[key] = filtersFromUrl[key] || emptyFilters[key];
         });
     } else {
