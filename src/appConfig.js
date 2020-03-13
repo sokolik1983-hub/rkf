@@ -153,48 +153,50 @@ const mainNav = [
     },
     {
         id: 2,
-        title: "Мероприятия",
-        children: [
-            {
-                id: 2.1,
-                title: "Календарь мероприятий",
-                to: '/exhibitions',
-                exact: false
-            },
-            {
-                id: 2.2,
-                title: "Результаты мероприятий CACIB",
-                to: '/results/cacib',
-                exact: false
-            },
-            {
-                id: 2.3,
-                title: "Результаты мероприятий CAC",
-                to: '/results/cac',
-                exact: false
-            },
-            {
-                id: 2.4,
-                title: "Результаты монопородных мероприятий",
-                to: '/',
-                exact: true,
-                disabled: true
-            },
-            {
-                id: 2.5,
-                title: "Племенные мероприятия",
-                to: '/',
-                exact: true,
-                disabled: true
-            },
-            {
-                id: 2.6,
-                title: "Состязания и испытания рабочих качеств",
-                to: '/',
-                exact: true,
-                disabled: true
-            }
-        ]
+        title: "Календарь мероприятий",
+        to: '/exhibitions',
+        exact: false
+        // children: [
+        //     {
+        //         id: 2.1,
+        //         title: "Календарь мероприятий",
+        //         to: '/exhibitions',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 2.2,
+        //         title: "Результаты мероприятий CACIB",
+        //         to: '/results/cacib',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 2.3,
+        //         title: "Результаты мероприятий CAC",
+        //         to: '/results/cac',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 2.4,
+        //         title: "Результаты монопородных мероприятий",
+        //         to: '/',
+        //         exact: true,
+        //         disabled: true
+        //     },
+        //     {
+        //         id: 2.5,
+        //         title: "Племенные мероприятия",
+        //         to: '/',
+        //         exact: true,
+        //         disabled: true
+        //     },
+        //     {
+        //         id: 2.6,
+        //         title: "Состязания и испытания рабочих качеств",
+        //         to: '/',
+        //         exact: true,
+        //         disabled: true
+        //     }
+        // ]
     },
     {
         id: 3,

@@ -7,12 +7,14 @@ import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
 import TopComponent from "../../components/TopComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
-import {Request} from "utils/request";
+import {Request} from "../../utils/request";
 import {connectShowFilters} from "../../components/Layouts/connectors";
 import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
-import { DEFAULT_IMG } from "../../appConfig";
-import shorten from "utils/shorten";
+import {DEFAULT_IMG} from "../../appConfig";
+import shorten from "../../utils/shorten";
 import './index.scss';
+import ListFilter from "./components/Filters/components/ListFilter";
+import Card from "../../components/Card";
 
 
 const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
@@ -68,22 +70,30 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
 
     return (
         <Layout withFilters>
-            {filters.Alias && display_name && <>
-                <FloatingMenu
-                    alias={filters.Alias}
-                    name={shorten(display_name,16)}
-                />
-                <div className="exhibitions-page__top-wrap container">
-                    <TopComponent
-                        logo={club_avatar || DEFAULT_IMG.clubAvatar}
-                        name={display_name}
+            {filters.Alias && display_name &&
+                <>
+                    <FloatingMenu
+                        alias={filters.Alias}
+                        name={shorten(display_name,16)}
                     />
-                </div>
-            </>}
+                    <div className="exhibitions-page__top-wrap container">
+                        <TopComponent
+                            logo={club_avatar || DEFAULT_IMG.clubAvatar}
+                            name={display_name}
+                        />
+                    </div>
+                </>
+            }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <Container className="content exhibitions-page">
                 <Filters filters={filters} clubName={shorten(display_name)}/>
                 <div className="exhibitions-page__content">
+                    <Card className="exhibitions-page__disclaimer">
+                        <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
+                            Для ознакомления с другими мероприятиями - просьба перейти на
+                            сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">ркф</a></p>
+                    </Card>
+                    <ListFilter/>
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList 
                         exhibitions={exhibitions}

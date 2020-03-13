@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
@@ -9,8 +9,7 @@ const RanksFilter = ({ranks, RankIds}) => {
         const ranksIds = RankIds.includes(id) ?
             RankIds.filter(item => item !== id) :
             [...RankIds, id];
-
-        setFiltersToUrl({ ExhibitionName: '', CityIds: [], RankIds: ranksIds, PageNumber: 1 });
+        setFiltersToUrl({ ExhibitionName: '', RankIds: ranksIds, PageNumber: 1 });
     };
 
     return (
@@ -21,7 +20,7 @@ const RanksFilter = ({ranks, RankIds}) => {
                     {ranks.map(item => (
                         <li className="ranks-filter__item" key={item.id}>
                             <CustomCheckbox
-                                id={item.id}
+                                id={`ranks-${item.id}`}
                                 label={item.name}
                                 checked={RankIds && RankIds.includes(item.id)}
                                 onChange={() => handleChange(item.id)}
