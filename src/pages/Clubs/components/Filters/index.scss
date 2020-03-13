@@ -6,7 +6,8 @@
     background-color: white;
   }
   .card__filter {
-    background-color: #e1e9ff;
+    //background-color: #e1e9ff;
+    box-shadow: none;
     @media (max-width: 990px) {
       border-radius: 0;
       min-height: 100%;
