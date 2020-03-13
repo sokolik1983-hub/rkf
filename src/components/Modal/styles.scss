@@ -13,6 +13,7 @@
     display: none;
   }
   &__inner {
+    position: relative;
     max-width: 100%;
     background: white;
     border-radius: 4px;
@@ -24,21 +25,21 @@
       padding: 0 12px;
     }
   }
+  &>div {
+    width: 80%;
+    @media (max-width: 560px) {
+      width: 92%;
+    }
+  }
   &__close {
     width: 20px;
     height: 20px;
     position: absolute;
     right: 20px;
     top: 20px;
-    background: url(/static/icons/ico-cross.svg) center no-repeat;
+    background: url(/static/icons/cross-gray.svg) center no-repeat;
     background-size: contain;
     cursor: pointer;
-    & + div {
-      width: 80%;
-      @media (max-width: 560px) {
-        width: 92%;
-      }
-    }
     @media (max-width: 560px) {
       width: 12px;
       height: 12px;
@@ -59,11 +60,9 @@
       background: none;
       box-shadow: none;
     }
-    .Modal__close {
-      & + div {
-        //OutsideClickHandler
-        width: auto;
-      }
+    &>div {
+      //OutsideClickHandler
+      width: auto;
     }
   }
 }
