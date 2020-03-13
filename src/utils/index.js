@@ -1,4 +1,4 @@
-import {WEEKDAYS} from "../appConfig";
+import { WEEKDAYS } from "../appConfig";
 
 
 export const isDevEnv = () => process.env.NODE_ENV !== 'production';
@@ -7,12 +7,12 @@ export const formatText = text => JSON.parse(
     JSON.stringify(text)
         .replace('/(<([^>]+)>)/ig', '')
         .replace(/\\r/g, '')
-        .replace(/\\n/g, ' <br> ')
-).replace(/([^"]https?:\/\/[^\s]+)/g, l => ` <a class="link" target="_blank" href="${l}">${l}</a>`);
+        .replace(/\\n/g, ' <br> '));
+//.replace(/(https?:\/\/[^\s"]+)/g, l => ` <a class="link" target="_blank" href="${l}">${l}</a>`);
 
 export const formatPhone = phone => {
     phone = phone.length === 10 ? '7' + phone : phone;
-    return `+${phone.slice(0,1)}(${phone.slice(1,4)}) ${phone.slice(4,7)}-${phone.slice(7,9)}-${phone.slice(9)}`;
+    return `+${phone.slice(0, 1)}(${phone.slice(1, 4)}) ${phone.slice(4, 7)}-${phone.slice(7, 9)}-${phone.slice(9)}`;
 };
 
 export const formatWorkTime = workTime => {
@@ -20,7 +20,7 @@ export const formatWorkTime = workTime => {
     workTime.forEach(day => {
         const period = newWorkTime.find(item => item.time_from === day.time_from && item.time_to === day.time_to);
 
-        if(!period) {
+        if (!period) {
             newWorkTime = [
                 ...newWorkTime,
                 {
@@ -64,7 +64,7 @@ export const calculateCountDown = date => {
 
 export const makeActionCreator = (type, ...argNames) => {
     return function (...args) {
-        let action = {type};
+        let action = { type };
 
         argNames.forEach((arg, index) => {
             action[argNames[index]] = args[index];
