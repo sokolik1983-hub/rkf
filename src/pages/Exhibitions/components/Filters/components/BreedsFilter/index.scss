@@ -40,8 +40,10 @@
       padding: 0 12px 0 0;
       color: #253c5e;;
       cursor: pointer;
-      &--is-selected {
-        background-color: transparent;
+      background-color: transparent !important;
+      transition: background-color .2s linear;
+      &:hover {
+        background-color: #DEEBFF !important;
       }
     }
   }
