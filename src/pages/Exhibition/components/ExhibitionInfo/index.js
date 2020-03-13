@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../../../../components/Card";
 import CountDown from "../../../../components/CountDown";
+import PropertyP from "../../../../components/PropertyP";
 import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
 import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
 import declension from "../../../../utils/declension";
@@ -58,18 +59,16 @@ const ExhibitionInfo = ({
                             </div>
                         </>
                     }
-                    <table className="exhibition-info__table">
-                        <tbody>
-                            {rankTypes && !!rankTypes.length && <tr>
-                                <td>Ранг:</td>
-                                <td>{rankTypes.join(', ')}</td>
-                            </tr>}
-                            {breedTypes && !!breedTypes.length && <tr>
-                                <td>Породы:</td>
-                                <td>{resolveBreeds(rankTypes, breedTypes)}</td>
-                            </tr>}
-                        </tbody>
-                    </table>
+                    <div className="exhibition-info__table">
+                        {rankTypes && !!rankTypes.length && <PropertyP
+                            name="Ранг"
+                            value={rankTypes.join(', ')}
+                        />}
+                        {breedTypes && !!breedTypes.length && <PropertyP
+                            name="Породы"
+                            value={resolveBreeds(rankTypes, breedTypes)}
+                        />}
+                    </div>
                 </div>
                 <div className={reports_link.length ? 'exhibition-info__right reports' : 'exhibition-info__right'}>
                     {dates && !!dates.length &&
