@@ -1,27 +1,27 @@
 import React from "react";
 import Card from "../../../../components/Card";
 import CountDown from "../../../../components/CountDown";
-import {useDictionary, getDictElementsArray} from "../../../../apps/Dictionaries";
-import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
+import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
+import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
 import declension from "../../../../utils/declension";
 import "./index.scss";
 
 
 const ExhibitionInfo = ({
-                            dateStart,
-                            dateEnd,
-                            reportsDateEnd,
-                            dates,
-                            rank_types,
-                            breed_types,
-                            description,
-                            documents_links,
-                            schedule_link,
-                            catalog_link,
-                            reports_link
+    dateStart,
+    dateEnd,
+    reportsDateEnd,
+    dates,
+    rank_types,
+    breed_types,
+    description,
+    documents_links,
+    schedule_link,
+    catalog_link,
+    reports_link
 }) => {
-    const {dictionary: rankDictionary} = useDictionary('rank_type');
-    const {dictionary: breedDictionary} = useDictionary('breed_types');
+    const { dictionary: rankDictionary } = useDictionary('rank_type');
+    const { dictionary: breedDictionary } = useDictionary('breed_types');
     const rankTypes = getDictElementsArray(rankDictionary, rank_types);
     const breedTypes = getDictElementsArray(breedDictionary, breed_types);
 
@@ -36,7 +36,7 @@ const ExhibitionInfo = ({
                 match && !isNaN(match[1]) && a.push(match[1]);
             });
             if (!!a.length) {
-                 return `Породы ${a.join(', ')} гр.`;
+                return `Породы ${a.join(', ')} гр.`;
             } else return breeds.join(', ');
         } else return breeds.join(', ');
     };
@@ -71,7 +71,7 @@ const ExhibitionInfo = ({
                         </tbody>
                     </table>
                 </div>
-                <div className="exhibition-info__right">
+                <div className={reports_link.length ? 'exhibition-info__right reports' : 'exhibition-info__right'}>
                     {dates && !!dates.length &&
                         <CountDown
                             startDate={dateStart}

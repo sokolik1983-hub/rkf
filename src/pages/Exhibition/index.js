@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -24,7 +24,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
-    const {dictionary} = useDictionary('cities');
+    const { dictionary } = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
@@ -140,6 +140,13 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
                                         {city && <p>{`г. ${city}`}</p>}
                                         {exhibition.address && <p>{exhibition.address}</p>}
+                                        {
+                                            exhibition.address_additional_info && <>
+                                                <br />
+                                                <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
+                                                <p>{exhibition.address_additional_info}</p>
+                                            </>
+                                        }
                                     </div>
                                     <div className="exhibition-page__address-right">
                                         <div className="exhibition-page__map">
@@ -163,7 +170,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     <div className="exhibition-page__additional">
                                         <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
                                         {exhibition.additional_info ?
-                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{__html: exhibition.additional_info}} /> :
+                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: exhibition.additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
                                     </div>

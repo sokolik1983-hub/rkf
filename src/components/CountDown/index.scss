@@ -42,30 +42,53 @@
         line-height: 20px;
         content: "Минута";
       }
-      &._days:after {content: "День"}
-      &._days2:after {content: "Дня"}
-      &._days3:after {content: "Дней"}
-      &._hours:after {content: "Час"}
-      &._hours2:after {content: "Часа"}
-      &._hours3:after {content: "Часов"}
-      &._minutes:after {content: "Минута"}
-      &._minutes2:after {content: "Минуты"}
-      &._minutes3:after {content: "Минут"}
+      &._days:after {
+        content: "День";
+      }
+      &._days2:after {
+        content: "Дня";
+      }
+      &._days3:after {
+        content: "Дней";
+      }
+      &._hours:after {
+        content: "Час";
+      }
+      &._hours2:after {
+        content: "Часа";
+      }
+      &._hours3:after {
+        content: "Часов";
+      }
+      &._minutes:after {
+        content: "Минута";
+      }
+      &._minutes2:after {
+        content: "Минуты";
+      }
+      &._minutes3:after {
+        content: "Минут";
+      }
     }
   }
   &__reports {
-    list-style: none;
-    &-link {
-      &:not(:last-child) {
-        margin-bottom: 12px;
-      }
-      p {
-        font-weight: 400;
-        line-height: 18px;
-        color: #72839c;
-        span {
-          color: #253c5e;
-        }
+    width: 100%;
+    tr:first-child {
+      text-align: center;
+    }
+    td {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid lightgray;
+      padding: 3px;
+    }
+    p {
+      font-weight: 400;
+      line-height: 18px;
+      color: #72839c;
+      span {
+        color: #253c5e;
       }
     }
   }
