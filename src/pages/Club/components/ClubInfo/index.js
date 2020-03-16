@@ -70,7 +70,7 @@ const ClubInfo = ({
                     <div className="club-page__info-phone">
                         {contacts.filter(item => item.contact_type_id === 1).map(contact => (
                             <p key={contact.id}>
-                                <span>{contact.description}</span>
+                                <span>{contact.description || 'Телефон'}</span>
                                 <br />
                                 <span>{contact.value}</span>
                             </p>
@@ -79,7 +79,7 @@ const ClubInfo = ({
                     <div className="club-page__info-email">
                         {contacts.filter(item => item.contact_type_id === 2).map(contact => (
                             <p key={contact.id}>
-                                <span>{contact.description}</span>
+                                <span>{contact.description || 'E-mail'}</span>
                                 <br />
                                 <a href={`mailto:${contact.value}`}>{contact.value}</a>
                             </p>
