@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
 import Placeholder from "../ExhibitionCard/Placeholder";
 import {Request} from "../../utils/request";
-import {responsiveSliderConfig} from "appConfig";
+import {responsiveSliderConfig} from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
