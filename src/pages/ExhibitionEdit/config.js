@@ -88,6 +88,13 @@ export const exhibitionInfoForm = {
             fieldType: 'textarea',
             rows: 6,
             placeholder: 'Укажите дополнительную информацию о мероприятии'
+        },
+        address_additional_info: {
+            name: 'address_additional_info',
+            label: 'Дополнительная информация для адреса',
+            fieldType: 'textarea',
+            rows: 6,
+            placeholder: 'Укажите дополнительную информацию по адресу'
         }
     },
     validationSchema: object().shape({

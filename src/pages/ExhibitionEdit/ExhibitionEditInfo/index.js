@@ -20,7 +20,8 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
         exhibition_map_link,
         exhibition_avatar_link,
         dates,
-        additional_info
+        additional_info,
+        address_additional_info
     } = exhibition;
 
     useEffect(() => {
@@ -36,7 +37,8 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
             schedule_name: schedule_link ? schedule_link.name : '',
             catalog_url: catalog_link ? catalog_link.url : '',
             catalog_name: catalog_link ? catalog_link.name : '',
-            additional_info: additional_info || ''
+            additional_info: additional_info || '',
+            address_additional_info: address_additional_info || ''
         };
 
         if(documents_links && documents_links.length) {
@@ -117,7 +119,8 @@ const ExhibitionEditInfo = ({history, exhibition, documents_links, schedule_link
                 city_id: values.city_id,
                 address: values.address,
                 dates: newDates,
-                additional_info: values.additional_info
+                additional_info: values.additional_info,
+                address_additional_info: values.address_additional_info
             },
              documents_links: docLinks
         };

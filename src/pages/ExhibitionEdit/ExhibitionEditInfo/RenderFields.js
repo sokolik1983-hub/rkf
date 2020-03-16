@@ -236,6 +236,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                     {...fields.address}
                 />
             </FormGroup>
+            <FormField {...fields.address_additional_info} />
             <div className="exhibition-edit__img">
                 <h5>Схема проезда</h5>
                 <label className="exhibition-edit__img-label">
@@ -251,9 +252,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                 </label>
                 {mapSrc && <button className="exhibition-edit__img-delete" onClick={() => handleDeleteImg('map')} />}
             </div>
-            <FormField
-                {...fields.additional_info}
-            />
+            <FormField {...fields.additional_info} />
             <FormControls>
                 <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
                 <button type="submit" className="btn btn-simple">Обновить</button>
