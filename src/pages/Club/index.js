@@ -62,11 +62,7 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
                     <ExhibitionsComponent alias={clubInfo.club_alias} />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
-                            <ClubDescription
-                                description={clubInfo.description}
-                                clubName={clubInfo.name}
-                                federationName={clubInfo.federation_name}
-                            />
+                            <ClubDescription description={clubInfo.description} />
                             {canEdit &&
                                 <AddArticle
                                     clubId={clubInfo.id}
