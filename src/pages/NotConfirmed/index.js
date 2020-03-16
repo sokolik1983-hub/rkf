@@ -189,6 +189,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             logOutUser();
             history.push('/');
         }, error => {
+            if (error.response.status === 413) { return alert('Ошибка: слишком большой файл') };
             alert(
                 `Ошибка: ${error.response.data.errors
                     ? Object.values(error.response.data.errors)
