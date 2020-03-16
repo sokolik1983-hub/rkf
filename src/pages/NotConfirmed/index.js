@@ -144,6 +144,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         Object.keys(fields).forEach(
             function (key) {
                 if (key === 'phone'
+                    || key === 'phone_valid'
                     || key === 'fact_name'
                     || key === 'fact_name_valid'
                     || key === 'fact_city'
