@@ -313,7 +313,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
             }
-            <div className="FormField__comment">{fields['activities_comment']}</div>
+            {!fields['activities_valid'] && <div className="FormField__comment">{fields['activities_comment']}</div>}
         </div>
     };
 
