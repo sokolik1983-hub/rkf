@@ -9,7 +9,7 @@ import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import {setFiltersToUrl, getEmptyFilters} from "../../utils";
 import {setOverflow} from "../../../../utils";
 import {Request} from "../../../../utils/request";
-import {endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitionsDates, endpointExhibitionsCities} from "../../config";
+import {endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitionsDates, endpointExhibitionsFilters} from "../../config";
 import "./index.scss";
 
 
@@ -60,9 +60,9 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
     });
 
     const getCities = () => Request({
-        url: endpointExhibitionsCities
+        url: endpointExhibitionsFilters
     }, data =>
-        setCities(data.map(item => ({value: item.id, label: item.name})))
+        setCities(data.cities)
     , error => {
         console.log(error.response);
         if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -72,7 +72,7 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl(getEmptyFilters());
+        setFiltersToUrl(getEmptyFilters(filters.Alias));
     };
 
     return (

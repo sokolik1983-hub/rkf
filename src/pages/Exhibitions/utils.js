@@ -76,8 +76,8 @@ export const setFiltersToUrl = (filters, initial = false) => {
     initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
 
-export const getEmptyFilters = () => ({
-    Alias: null,
+export const getEmptyFilters = (alias = null) => ({
+    Alias: alias,
     CityIds: [],
     ClubIds: null,
     RankIds: [],
