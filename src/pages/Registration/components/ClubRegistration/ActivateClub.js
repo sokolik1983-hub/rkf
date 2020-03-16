@@ -89,7 +89,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
                 <form onSubmit={onEmailSubmit} className="club-registration__activate-form">
                     <p>Код активации будет отправлен на почту: <b>{club.mail}</b></p>
                     <p className="club-registration__activate-warn">Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
-                    <button type="submit">Отправить</button>
+                    <button type="submit" className="btn btn-simple">Отправить</button>
                 </form> :
                 <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
                     <input size="30"
@@ -99,7 +99,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
                            required
                            placeholder="Введите код активации"
                     />
-                    <button type="submit">Отправить</button>
+                    <button type="submit" className="btn btn-simple">Отправить</button>
                 </form>
             }
         </div>
