@@ -35,12 +35,12 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     useEffect(() => {
         if (preloaded) {
             if (fields) {
-                const membership = fields.membership_payment_document_ids;
+                const m = fields.membership_payment_documents;
                 setFields({ ...fields, 'regions': getRegionObjects(fields.regions) }); // Update regions
                 Promise.all([1, 2].map(async type => await checkForDocuments('/api/clubs/ClubActivationRequest/file', fields.id, type))) // Get documents
                     .then((arr) => setDocuments(arr));
-                membership.length && Promise.all(membership // Get membership payments if they were attached
-                    .map(async id => await checkForDocuments('/api/clubs/ClubActivationRequest/membership_payment', id)))
+                m.length && Promise.all(m // Get membership payments if they were attached
+                    .map(async item => await checkForDocuments('/api/clubs/ClubActivationRequest/membership_payment', item.document_id)))
                     .then((arr) => setMembership(arr));
                 setLoaded(true);
             } else {
@@ -145,11 +145,17 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             function (key) {
                 if (key === 'phone'
                     || key === 'fact_name'
+                    || key === 'fact_name_valid'
                     || key === 'fact_city'
+                    || key === 'fact_city_valid'
                     || key === 'fact_address'
+                    || key === 'fact_address_valid'
                     || key === 'status'
+                    || key === 'status_valid'
                     || key === 'stamp_code_registration_certificate'
+                    || key === 'stamp_code_registration_certificate_valid'
                     || key === 'certificate_of_registration_legal_entity'
+                    || key === 'certificate_of_registration_legal_entity_valid'
                     || key === 'membership_payment_document_first'
                     || key === 'membership_payment_document_second'
                     || key === 'membership_payment_document_third'
@@ -158,6 +164,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'membership_payment_document_second_date'
                     || key === 'membership_payment_document_third_date'
                     || key === 'membership_payment_document_fourth_date'
+                    || key === 'membership_payment_document_valid'
                 ) {
                     return data.append(key, fields[key])
                 }
@@ -168,6 +175,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 }
             }
         );
+
+        // for (var pair of data.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1]);
+        // }
 
         await Request({
             url: '/api/clubs/ClubActivationRequest',
@@ -302,7 +313,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     <label htmlFor={`activity-${value}`}>{label}</label>
                 </div>)
             }
-            <div className="FormField__comment">{fields['federation_comment']}</div>
+            <div className="FormField__comment">{fields['activities_comment']}</div>
         </div>
     };
 
