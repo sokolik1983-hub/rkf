@@ -1,4 +1,4 @@
-import { object, string, date } from "yup";
+import { object, /*string, date*/ } from "yup";
 
 export const defaultReduxKey = 'legal_info';
 export const endpointUrl = '/api/clubs/Legal';
@@ -55,34 +55,34 @@ export const clubLegalInfoFormConfig = {
         },
     },
     validationSchema: object().shape({
-        name: string()
-            .required('Поле не может быть пустым')
-            .nullable(),
+        // name: string()
+        //     .required('Поле не может быть пустым')
+        //     .nullable(),
         // owner_position: string()
         //     .required('Поле не может быть пустым')
         //     .nullable(),
-        owner_name: string()
-            .required('Поле не может быть пустым')
-            .nullable(),
-        registration_date: date()
-            .required('Необходимо указать дату'),
-        address: string()
-            .nullable()
-            .required('Поле не может быть пустым'),
-        inn: string()
-            .nullable()
-            .required('Поле не может быть пустым')
-            .min(10, 'коротко'),
-        kpp: string()
-            .nullable()
-            .required('Поле не может быть пустым')
-            .min(9, 'коротко'),
-        ogrn: string()
-            .nullable(),
-            // .required('Поле не может быть пустым'),
-        okpo: string()
-            .nullable()
-            .required('Поле не может быть пустым')
+        // owner_name: string()
+        //     .required('Поле не может быть пустым')
+        //     .nullable(),
+        // registration_date: date()
+        //     .required('Необходимо указать дату'),
+        // address: string()
+        //     .nullable()
+        //     .required('Поле не может быть пустым'),
+        // inn: string()
+        //     .nullable()
+        //     .required('Поле не может быть пустым')
+        //     .min(10, 'коротко'),
+        // kpp: string()
+        //     .nullable()
+        //     .required('Поле не может быть пустым')
+        //     .min(9, 'коротко'),
+        // ogrn: string()
+        //     .nullable(),
+        //     // .required('Поле не может быть пустым'),
+        // okpo: string()
+        //     .nullable()
+        //     .required('Поле не может быть пустым')
         // registration_number: string()
         //     .required('Поле не может быть пустым')
         //     .min(15, 'коротко'),
