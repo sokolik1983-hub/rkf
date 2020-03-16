@@ -169,11 +169,20 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 ) {
                     return data.append(key, fields[key])
                 }
-                if (fields[key] && fields[key].length) {
-                    key === 'regions' && fields[key].map(r => data.append(key, r.value));
-                    key === 'activities' && fields[key].map(a => data.append(key, a));
-
+                if (key === 'regions') {
+                    !!fields[key].length ? fields[key].map(r => data.append(key, r.value)) : data.append(key, 0);
                 }
+                if (key === 'activities') {
+                    !!fields[key].length ? fields[key].map(a => data.append(key, a)) : data.append(key, 0);
+                }
+                if (key === 'membership_payment_document_ids') {
+                    if (!fields['membership_payment_document_first']
+                        && !fields['membership_payment_document_second']
+                        && !fields['membership_payment_document_third']
+                        && !fields['membership_payment_document_fourth']) {
+                        data.append(key, 0);
+                    }
+                };
             }
         );
 
