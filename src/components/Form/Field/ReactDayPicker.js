@@ -27,7 +27,7 @@ function ReactDayPicker({ name, formik, disabled }) {
 
     return (
         <DayPickerInput
-            value={value ? new Date(value) : new Date()}
+            value={value ? new Date(value).toLocaleDateString() : new Date()}
             inputProps={{
                 className: 'FormInput__input',
                 name: 'date',
