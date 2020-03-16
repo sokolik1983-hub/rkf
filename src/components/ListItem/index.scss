@@ -1,6 +1,9 @@
 .list-item {
   &__wrap {
     display: flex;
+    @media (max-width: 560px) {
+      display: block;
+    }
   }
   &__content {
     flex-grow: 1;
@@ -93,6 +96,7 @@
     }
   }
   &__photo {
+    display: block;
     min-height: 164px;
     min-width: 164px;
     max-height: 164px;
@@ -104,8 +108,9 @@
     background-position: center;
     @media (max-width: 560px) {
       width: 100%;
+      max-width: none;
       height: 250px;
-      margin-bottom: 12px;
+      margin: 0 0 12px;
     }
   }
   &__info {

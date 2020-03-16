@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getLocalizedMonth } from "../../utils/datetime";
 import { formatText } from "../../utils";
-import './index.scss';
 import {DEFAULT_IMG} from "../../appConfig";
+import "./index.scss";
+
 
 const ListItem = ({ id, club_name, city, date, alias, logo_link, photo, text, url, removable, onDelete }) => {
     const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
