@@ -73,14 +73,10 @@
   }
   &__reports {
     width: 100%;
-    tr:first-child {
-      text-align: center;
-    }
     td {
       width: 50%;
       overflow: hidden;
       text-overflow: ellipsis;
-      border: 1px solid lightgray;
       padding: 3px;
     }
     p {

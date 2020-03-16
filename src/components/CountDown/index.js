@@ -60,38 +60,35 @@ const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks }) => {
             }
             {!isCount &&
                 <table className="countdown__reports">
-                    <tr>
-                        <td>Отчёт</td>
-                        <td>Дата</td>
-                    </tr>
-                    {reportsLinks && !!reportsLinks.length
-                        ? reportsLinks.map(({ id, name, url, date, date_send }) => {
-                            const isFCI = date_send ? true : false;
-                            const reportDate = isFCI ? date_send : date;
+                    <tbody>
+                        {reportsLinks && !!reportsLinks.length
+                            ? reportsLinks.map(({ id, name, url, date, date_send }) => {
+                                const isFCI = date_send ? true : false;
+                                const reportDate = isFCI ? date_send : date;
 
-                            return <tr key={id}>
-                                <td>
-                                    <a href={url} target="_blank" rel="noopener noreferrer">{name}</a>
-                                </td>
-                                <td>
-                                    {reportDate &&
-                                        <span>
-                                            {
-                                                ` ${new Date(reportDate).getDate() < 10
+                                return <tr key={id}>
+                                    <td>
+                                        <a href={url} target="_blank" rel="noopener noreferrer">{name}</a>
+                                    </td>
+                                    <td>
+                                        {reportDate &&
+                                            <span>
+                                                {` ${new Date(reportDate).getDate() < 10
                                                     ? '0' + new Date(reportDate).getDate()
                                                     : new Date(reportDate).getDate()}.${new Date(reportDate).getMonth() + 1 < 10
-                                                        ? '0' + (new Date(reportDate).getMonth() + 1)
-                                                        : new Date(reportDate).getMonth() + 1}.${new Date(reportDate).getFullYear()} ${isFCI ? '(Поступление в РКФ)' : '(Передача в FCI)'}`
-                                            }
-                                        </span>
-                                    }
-                                </td>
+                                                    ? '0' + (new Date(reportDate).getMonth() + 1)
+                                                    : new Date(reportDate).getMonth() + 1}.${new Date(reportDate).getFullYear()} ${isFCI ? '(Поступление в РКФ)' : '(Передача в FCI)'}`
+                                                }
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                            })
+                            : <tr>
+                                <td colSpan="2">Отчёты не найдены</td>
                             </tr>
-                        })
-                        : <tr>
-                            <td colSpan="2">Отчёты не найдены</td>
-                        </tr>
-                    }
+                        }
+                    </tbody>
                 </table>
             }
         </div>
