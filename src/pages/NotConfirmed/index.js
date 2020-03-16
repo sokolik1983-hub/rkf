@@ -282,7 +282,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             <h4>Федерация</h4>
             {
                 federationsList.map((f) => <div key={f.id} >
-                    <input id={f.id} checked={fields.federation && f.id === fields.federation.id} type="checkbox" disabled /> {f.name}
+                    <input id={f.id} checked={!!fields.federation && !!fields.federation.find(id => id === f.id)} type="checkbox" disabled /> {f.name}
                 </div>)
             }
             <div className="FormField__comment">{fields['federation_comment']}</div>
