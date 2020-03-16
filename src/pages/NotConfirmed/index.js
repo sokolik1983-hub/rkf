@@ -20,7 +20,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [interregional, setInterregional] = useState(false);
     const [statusesList, setStatusesList] = useState([]);
     const [regionsList, setRegionsList] = useState([]);
-    const [federationsList, setFederationsList] = useState([]);
     const [activitiesList, setActivitiesList] = useState([]);
     const [documents, setDocuments] = useState({});
     const [membership, setMembership] = useState(null);
@@ -28,7 +27,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        Promise.all([getStatus(), getFederation(), getRegions(), getActivities(), getFields()])
+        Promise.all([getStatus(), getRegions(), getActivities(), getFields()])
             .then(() => setPreloaded(true));
     }, []);
 
@@ -73,17 +72,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             url: '/api/clubs/Status',
         }, data => {
             setStatusesList(data.reverse())
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        })
-    };
-
-    const getFederation = () => {
-        return Request({
-            url: '/api/clubs/Federation'
-        }, data => {
-            setFederationsList(data)
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -287,18 +275,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
         )
     };
 
-    const Federations = () => {
-        return <div className="FormField">
-            <h4>Федерация</h4>
-            {
-                federationsList.map((f) => <div key={f.id} >
-                    <input id={f.id} checked={!!fields.federation && !!fields.federation.find(id => id === f.id)} type="checkbox" disabled /> {f.name}
-                </div>)
-            }
-            <div className="FormField__comment">{fields['federation_comment']}</div>
-        </div>
-    };
-
     const Activities = () => {
         const handleChange = ({ target }) => {
             setFields({
@@ -369,7 +345,10 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <h3>Дополнительная информация</h3>
                                     <FormField fields={fields}
                                         onInputChange={onInputChange} type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
-                                    <Federations />
+                                    <div className="FormField">
+                                        <h4>Федерация</h4>
+                                        <span>{fields.federation && fields.federation.lenght ? fields.federation.join(', ') : 'Не указана'}</span>
+                                    </div>
                                     <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
                                     {interregional && <RegionsSelect isDisabled={!isEditable('status')} />}
                                     <Activities />
