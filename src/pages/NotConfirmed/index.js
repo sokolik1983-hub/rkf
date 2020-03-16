@@ -347,7 +347,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         onInputChange={onInputChange} type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
                                     <div className="FormField">
                                         <h4>Федерация</h4>
-                                        <span>{fields.federation && fields.federation.lenght ? fields.federation.join(', ') : 'Не указана'}</span>
+                                        <span>{fields.federation ? fields.federation : 'Не указана'}</span>
                                     </div>
                                     <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
                                     {interregional && <RegionsSelect isDisabled={!isEditable('status')} />}
