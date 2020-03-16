@@ -55,7 +55,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
             .then((response) => {
                 setLoading(false);
                 if (response.returnCode >= 200 && response.returnCode < 300) {
-                    alert('Клуб активирован');
+                    alert('Регистрация завершена.\nДанные для входа отправлены на указанную почту.');
                     logOutUser();
                     history.push('/');
                 } else {
