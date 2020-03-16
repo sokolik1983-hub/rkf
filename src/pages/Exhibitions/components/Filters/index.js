@@ -72,7 +72,7 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl(getEmptyFilters());
+        setFiltersToUrl(getEmptyFilters(filters.Alias));
     };
 
     return (

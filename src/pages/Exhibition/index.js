@@ -141,12 +141,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
                                         {city && <p>{`г. ${city}`}</p>}
                                         {exhibition.address && <p>{exhibition.address}</p>}
-                                        {
-                                            exhibition.address_additional_info && <>
-                                                <br />
-                                                <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
-                                                <p>{exhibition.address_additional_info}</p>
-                                            </>
+                                        <br />
+                                        <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
+                                        {exhibition.address_additional_info ?
+                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: exhibition.address_additional_info }} /> :
+                                            <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
                                     </div>
                                     <div className="exhibition-page__address-right">

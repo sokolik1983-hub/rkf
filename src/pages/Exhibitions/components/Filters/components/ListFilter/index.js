@@ -4,12 +4,16 @@ import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
 import "./index.scss";
 
 
-const ListFilter = () => {
+const ListFilter = ({alias}) => {
     const [activeType, setActiveType] = useState(1);
 
     const handleClick = type => {
+        const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
+        if (calendarButton) calendarButton.classList.remove('active');
+
         setActiveType(type);
-        setFiltersToUrl(getEmptyFilters());
+
+        setFiltersToUrl(getEmptyFilters(alias));
     };
 
     return (
