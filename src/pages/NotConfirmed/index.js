@@ -201,7 +201,20 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             await Request({
                 url: '/api/Club/base_request_information'
             }, data => {
-                setFields({ ...data, activities: [] });
+                setFields({
+                    ...data,
+                    activities: [],
+                    regions: [],
+                    membership_payment_document_ids: [],
+                    phone_valid: false,
+                    fact_name_valid: false,
+                    fact_city_valid: false,
+                    fact_address_valid: false,
+                    status_valid: false,
+                    stamp_code_registration_certificate_valid: false,
+                    certificate_of_registration_legal_entity_valid: false,
+                    membership_payment_document_valid: false
+                });
                 setLoaded(true);
             });
         }
