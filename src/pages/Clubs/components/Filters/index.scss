@@ -3,10 +3,9 @@
   min-width: 302px;
   margin: 24px 24px 24px 0;
   .menu-component {
-    background-color: white;
+    background-color: #fff;
   }
   .card__filter {
-    //background-color: #e1e9ff;
     box-shadow: none;
     @media (max-width: 990px) {
       border-radius: 0;
@@ -15,23 +14,23 @@
   }
   @media (max-width: 990px) {
     position: fixed;
-    top: 70px;
+    top: 90px;
     left: 0;
     z-index: 3;
     margin: 0;
     background-color: #e1e9ff;
-    height: calc(100% - 70px);
+    height: calc(100% - 90px);
     overflow-y: auto;
     visibility: hidden;
     transform: translateX(-100%);
-    transition: all 0.2s ease-out;
+    transition: all .2s ease-out;
     &._open {
       visibility: visible;
       transform: translateX(0);
     }
   }
   @media (max-width: 560px) {
-    top: 48px;
-    height: calc(100% - 48px);
+    top: 68px;
+    height: calc(100% - 68px);
   }
 }
