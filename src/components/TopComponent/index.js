@@ -21,7 +21,7 @@ const TopComponent = ({logo, name, canEdit, banner_link}) => {
             }
             <div className="top-component__content">
                 <div className="top-component__info">
-                    <div style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} alt="logo" className="top-component__logo"/>
+                    <div style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} className="top-component__logo"/>
                     <div className="top-component__title">
                         <h2>{name}</h2>
                     </div>
@@ -32,7 +32,7 @@ const TopComponent = ({logo, name, canEdit, banner_link}) => {
                 <div className="top-component__controls">
                     <button type="button" className="btn__blue share-desktop" onClick={share}>Поделиться</button>
                     {canEdit &&
-                    <Link className="btn__blue" to={typeof(canEdit) === "string" ? canEdit : "/client"}>Редактировать</Link>
+                        <Link className="btn__blue" to={typeof(canEdit) === "string" ? canEdit : "/client"}>Редактировать</Link>
                     }
                 </div>
             </div>
