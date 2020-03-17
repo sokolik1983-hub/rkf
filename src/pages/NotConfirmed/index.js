@@ -141,6 +141,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'fact_address_valid'
                     || key === 'status'
                     || key === 'status_valid'
+                    || key === 'activities_valid'
                     || key === 'stamp_code_registration_certificate'
                     || key === 'stamp_code_registration_certificate_valid'
                     || key === 'certificate_of_registration_legal_entity'
@@ -157,20 +158,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 ) {
                     return data.append(key, fields[key])
                 }
-                if (key === 'regions') {
-                    !!fields[key].length ? fields[key].map(r => data.append(key, r.value)) : data.append(key, 0);
-                }
-                if (key === 'activities') {
-                    !!fields[key].length ? fields[key].map(a => data.append(key, a)) : data.append(key, 0);
-                }
-                if (key === 'membership_payment_document_ids') {
-                    if (!fields['membership_payment_document_first']
-                        && !fields['membership_payment_document_second']
-                        && !fields['membership_payment_document_third']
-                        && !fields['membership_payment_document_fourth']) {
-                        data.append(key, 0);
-                    }
-                };
+                if (key === 'regions') !!fields[key].length && fields[key].map(r => data.append(key, r.value));
+                if (key === 'activities') !!fields[key].length && fields[key].map(a => data.append(key, a));
             }
         );
 
@@ -204,16 +193,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                 setFields({
                     ...data,
                     activities: [],
-                    regions: [],
-                    membership_payment_document_ids: [],
-                    phone_valid: false,
-                    fact_name_valid: false,
-                    fact_city_valid: false,
-                    fact_address_valid: false,
-                    status_valid: false,
-                    stamp_code_registration_certificate_valid: false,
-                    certificate_of_registration_legal_entity_valid: false,
-                    membership_payment_document_valid: false
+                    regions: []
                 });
                 setLoaded(true);
             });
@@ -221,8 +201,14 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     };
 
     const onInputChange = ({ target }) => {
-        if (target.name === 'status') setInterregional(parseInt(target.value) === 3 ? true : false);
-        setFields({ ...fields, [target.name]: target.value });
+        if (target.name === 'status') {
+            setInterregional(parseInt(target.value) === 3 ? true : false);
+        }
+        setFields({
+            ...fields,
+            certificate_of_registration_legal_entity_valid: (fields.status !== 3 && target.value !== 3) ? false : true,
+            [target.name]: target.value
+        });
     };
 
     const onFileChange = e => {
@@ -400,7 +386,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                     ? <>
                                                         <h4>
                                                             {
-                                                                getDocUrl(1)
+                                                                getDocUrl(1) && fields.certificate_of_registration_legal_entity_valid
                                                                     ? <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
                                                                     : 'Свидетельство о регистрации организации'
                                                             }
