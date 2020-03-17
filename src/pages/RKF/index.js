@@ -64,12 +64,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                                 alias="rkf"
                                 name={info.name}
                             />
-                            <ContactsComponent
-                                address={info.address}
-                                owner_name={info.owner_name || "Голубев Владимир Семенович"}
-                                contacts={info.contacts}
-                                work_time={info.work_time}
-                            />
+                            <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}
                         </aside>

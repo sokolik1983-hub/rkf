@@ -62,12 +62,7 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                                 alias={alias}
                                 name={federation.name}
                             />
-                            <ContactsComponent
-                                address={federation.address}
-                                owner_name={federation.owner_name}
-                                contacts={federation.contacts}
-                                work_time={federation.work_time}
-                            />
+                            <ContactsComponent {...federation}/>
                             {federation.documents && !!federation.documents.length &&
                                 <DocumentsComponent documents={federation.documents}/>
                             }

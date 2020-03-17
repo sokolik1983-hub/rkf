@@ -87,15 +87,17 @@ const ClubInfo = ({
                     </div>
                 </>
             }
-            {site && !!contacts.length &&
-                <div className="club-page__info-site">
-                    <p>
-                        <span>Сайт</span>
-                        <br />
-                        <a href={site} target="_blank" rel="noopener noreferrer">{site}</a>
-                    </p>
-                </div>
-            }
+            <div className="club-page__info-site">
+                <p>
+                    <span>Сайт</span>
+                    <br />
+                    {site ?
+                        <a href={site} target="_blank" rel="noopener noreferrer">{site}</a> :
+                        <span>-</span>
+                    }
+
+                </p>
+            </div>
             {socials && !!socials.length &&
                 <div className="club-page__info-socials">
                     {socials.map(item => (

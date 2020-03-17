@@ -21,12 +21,17 @@
       position: absolute;
       left: 0;
       top: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
-    &._address:before {background: url("/static/icons/ico-pointer.svg") no-repeat center;}
-    &._person:before {background: url("/static/icons/owner.svg") no-repeat center;}
-    &._phone:before {background: url("/static/icons/ico-contact-phone.svg") no-repeat center;}
-    &._email:before {background: url("/static/icons/ico-contact-email.svg") no-repeat center;}
-    &._work:before {background: url("/static/icons/time.svg") no-repeat center;}
+    &._name:before {background-image: url("/static/icons/icon-name.svg");}
+    &._site:before {background-image: url("/static/icons/ico-web.svg");}
+    &._address:before {background-image: url("/static/icons/ico-pointer.svg");}
+    &._person:before {background-image: url("/static/icons/owner.svg");}
+    &._phone:before {background-image: url("/static/icons/ico-contact-phone.svg");}
+    &._email:before {background-image: url("/static/icons/ico-contact-email.svg");}
+    &._work:before {background-image: url("/static/icons/time.svg");}
     &-title, &-info {
       font-weight: normal;
       font-size: 14px;
