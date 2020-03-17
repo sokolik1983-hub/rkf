@@ -42,7 +42,12 @@
     }
   }
   &__top-wrap {
-    position: relative;
-    top: 70px;
+    margin: 70px auto -70px;
+    @media (max-width: 560px) {
+      margin: 45px auto -45px;
+    }
+    .top-component {
+      margin-bottom: 0;
+    }
   }
 }

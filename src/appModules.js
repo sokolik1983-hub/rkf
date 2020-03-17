@@ -4,7 +4,7 @@ import Loading from './components/Loading';
 
 export const LoadableReports = Loadable({
     loader: () => import('./pages/Reports'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableHomePage = Loadable({
@@ -39,7 +39,7 @@ export const LoadableFederationsPage = Loadable({
 
 export const LoadableExhibitions = Loadable({
     loader: () => import('./pages/Exhibitions'),
-    loading: () => null
+    loading: Loading
 });
 
 export const LoadableExhibition = Loadable({
@@ -64,35 +64,35 @@ export const LoadableClubs = Loadable({
 
 export const LoadableClubPage = Loadable({
     loader: () => import('./pages/Club'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableClubNews = Loadable({
     loader: () => import('./pages/Club/NewsPage'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableAuthorization = Loadable({
     loader: () => import('./pages/Login'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableRegistration = Loadable({
     loader: () => import('./pages/Registration'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableClient = Loadable({
     loader: () => import(/* webpackChunkName: "app.client.root" */ './pages/ClubEdit'),
-    loading: Loading,
+    loading: Loading
 });
 
 export const LoadableNotFound = Loadable({
     loader: () => import('./pages/404/index'),
-    loading: Loading,
+    loading: Loading
 });
