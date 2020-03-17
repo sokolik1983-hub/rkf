@@ -18,9 +18,6 @@ const Footer = () => (
                 <div className="Footer__exhibitions">
                     <h3>Мероприятия</h3>
                     <Link className="link" to="/exhibitions">Календарь мероприятий</Link>
-                    <Link className="link" to="/results/cacib">Результаты CACIB</Link>
-                    <Link className="link" to="/results/cac">Результаты CAC</Link>
-                    <Link className="link" to="/">Результаты монопородных мероприятий</Link>
                 </div>
                 <div className="Footer__sections">
                     <h3>Разделы</h3>
