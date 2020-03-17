@@ -94,7 +94,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 </>
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-            <Container className="content exhibitions-page">
+            <Container className="exhibitions-page content">
                 <Filters filters={filters} clubName={shorten(displayName)}/>
                 <div className="exhibitions-page__content">
                     <Card className="exhibitions-page__disclaimer">

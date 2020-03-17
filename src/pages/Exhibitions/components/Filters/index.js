@@ -22,7 +22,11 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
 
     useEffect(() => {
         Promise.all([getRanks(), getBreeds(), getCalendarData(), getCities()])
-            .then(() => setLoading(false));
+            .then(() => {
+                setLoading(false);
+                console.log('work', loading);
+                window.scrollTo(0, 0);
+            });
     }, []);
 
     useEffect(() => {

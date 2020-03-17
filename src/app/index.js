@@ -28,11 +28,14 @@ const App = ({history}) => {
     useEffect(() => {
         checkAlias();
 
-        history.listen(() => checkAlias());
+        const unlisten = history.listen(() => checkAlias());
 
         window.addEventListener('beforeunload', resetFilters);
 
-        return () => window.removeEventListener('beforeunload', resetFilters);
+        return () => {
+            window.removeEventListener('beforeunload', resetFilters);
+            unlisten();
+        }
     }, []);
 
     return (

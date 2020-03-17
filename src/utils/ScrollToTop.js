@@ -6,6 +6,7 @@ function ScrollToTop({ history, children }) {
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
+
     return () => {
       unlisten();
     }
