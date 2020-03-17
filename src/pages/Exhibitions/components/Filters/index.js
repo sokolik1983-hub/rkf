@@ -24,7 +24,6 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
         Promise.all([getRanks(), getBreeds(), getCalendarData(), getCities()])
             .then(() => {
                 setLoading(false);
-                console.log('work', loading);
                 window.scrollTo(0, 0);
             });
     }, []);
