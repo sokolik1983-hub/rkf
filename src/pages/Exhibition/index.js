@@ -114,9 +114,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                                 />
                                 <ContactsComponent
-                                    address={exhibition.address}
+                                    full_name={exhibition.club_information.club_legal_name}
+                                    legal_address={exhibition.club_information.legal_address}
+                                    address={exhibition.club_information.address}
+                                    owner_position={exhibition.club_information.owner_position}
                                     owner_name={exhibition.club_information.owner_name}
                                     contacts={exhibition.contacts}
+                                    site={exhibition.club_information.site}
+                                    work_time={exhibition.club_information.work_time}
                                     ogrn={exhibition.club_information.ogrn}
                                     regdate={exhibition.club_information.registration_date}
                                 />

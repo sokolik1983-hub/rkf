@@ -22,7 +22,7 @@ const Footer = () => (
                 <div className="Footer__sections">
                     <h3>Разделы</h3>
                     <Link className="link" to="/clubs">Клубы</Link>
-                    <span>Питомники</span>
+                    <Link className="link" to="/organizations/nurseries">Питомники</Link>
                     <span>Владельцы</span>
                     <span>Судьи</span>
                 </div>
