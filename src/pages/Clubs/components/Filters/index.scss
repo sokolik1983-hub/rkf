@@ -14,12 +14,12 @@
   }
   @media (max-width: 990px) {
     position: fixed;
-    top: 90px;
+    top: 70px;
     left: 0;
     z-index: 3;
     margin: 0;
     background-color: #e1e9ff;
-    height: calc(100% - 90px);
+    height: calc(100% - 70px);
     overflow-y: auto;
     visibility: hidden;
     transform: translateX(-100%);
@@ -30,7 +30,7 @@
     }
   }
   @media (max-width: 560px) {
-    top: 68px;
-    height: calc(100% - 68px);
+    top: 48px;
+    height: calc(100% - 48px);
   }
 }
