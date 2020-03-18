@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
@@ -10,14 +10,15 @@ import AddArticle from "../../components/AddArticleComponent";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponent from "../../components/MenuComponent";
+import FloatingMenu from './components/FloatingMenu';
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
-import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../Login/connectors";
+import { Request } from "../../utils/request";
+import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
-const Federation = ({match, isAuthenticated, profile_id}) => {
+const Federation = ({ match, isAuthenticated, profile_id }) => {
     const alias = match.path.replace('/', '');
     const [federation, setFederation] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -38,10 +39,10 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
         }))();
     }, []);
 
-    if(!loading && !federation) return <PageNotFound/>;
+    if (!loading && !federation) return <PageNotFound />;
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         <Layout>
             <div className="federation-page">
                 <Container className="content federation-page__content">
@@ -51,7 +52,7 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                         canEdit={canEdit}
                         banner_link={federation.header_picture_link}
                     />
-                    <ExhibitionsComponent alias={alias}/>
+                    <ExhibitionsComponent alias={alias} />
                     <div className="federation-page__info">
                         <aside className="federation-page__left">
                             <PhotoComponent
@@ -63,13 +64,13 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                                 alias={alias}
                                 name={federation.name}
                             />
-                            <ContactsComponent {...federation}/>
+                            <ContactsComponent {...federation} />
                             {federation.documents && !!federation.documents.length &&
-                                <DocumentsComponent documents={federation.documents}/>
+                                <DocumentsComponent documents={federation.documents} />
                             }
                         </aside>
                         <div className="federation-page__right">
-                            <AboutComponent description={federation.description}/>
+                            <AboutComponent description={federation.description} />
                             {canEdit &&
                                 <AddArticle
                                     clubId={federation.id}
@@ -89,6 +90,10 @@ const Federation = ({match, isAuthenticated, profile_id}) => {
                         </div>
 
                     </div>
+                    <FloatingMenu
+                        alias={alias}
+                        name={federation.name}
+                    />
                 </Container>
             </div>
         </Layout>
