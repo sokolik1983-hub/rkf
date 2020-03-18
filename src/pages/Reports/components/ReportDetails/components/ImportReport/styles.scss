@@ -1,0 +1,14 @@
+.import-report {
+  font-weight: normal;
+  margin-bottom: 20px;
+  h4 {
+    font-weight: normal;
+    text-align: justify;
+  }
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+  }
+}
