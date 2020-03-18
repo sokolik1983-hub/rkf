@@ -90,7 +90,7 @@ const ClubPage = ({ match, profile_id, isAuthenticated }) => {
                     </div>
                     <FloatingMenu
                         alias={clubInfo.club_alias}
-                        name={"Страница клуба"}
+                        name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                     />
                 </Container>
             </Layout>

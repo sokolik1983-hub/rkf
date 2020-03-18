@@ -1,5 +1,5 @@
 .federation-page {
-  background-color: #F5F8FF;
+  background-color: #f5f8ff;
   h4 {
     font-weight: 600;
     font-size: 14px;
@@ -61,5 +61,10 @@
   &__right {
     width: 100%;
     order: 1;
+  }
+  .menu-component {
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 }

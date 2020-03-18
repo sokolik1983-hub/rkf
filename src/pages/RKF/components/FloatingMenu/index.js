@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
-import Card from "../Card";
-import Alert from "../Alert";
-import Modal from "../Modal";
-import "./index.scss";
+import { Link } from 'react-router-dom';
+import Dropdown from 'components/Dropdown';
+import { DropDownItem } from 'components/DropDownItem';
+import Modal from "components/Modal";
+import Alert from "components/Alert";
+import './index.scss';
 
 const presidium = {
     rkf: {
@@ -83,66 +84,75 @@ const presidium = {
     }
 };
 
-const MenuComponent = ({alias, name}) => {
-    const [showAlert, setShowAlert] = useState(false);
+const FloatingMenu = ({ alias, name }) => {
     const [showModal, setShowModal] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
-    const handleClick = e => {
-        e.preventDefault();
-        setShowAlert(true);
-    };
-
-    const onPresidiumClick = e => {
+    const handlePresidiumClick = e => {
         e.preventDefault();
         setShowModal(true);
     };
 
-    return (
-        <Card className="menu-component">
-            <h4 className="menu-component__title">Меню</h4>
-            <ul className="menu-component__list">
-                <li className="menu-component__item">
-                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-                </li>
-                {presidium[alias] &&
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={onPresidiumClick} className="menu-component__link" title="Президиум">Президиум</Link>
-                    </li>
-                }
-                <li className="menu-component__item">
-                    <Link to={`/${alias}/news`} className="menu-component__link not-active" title="Новости">Новости</Link>
-                </li>
-                {alias !== 'rkf' &&
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
-                    </li>
-                }
-                <li className="menu-component__item">
-                    <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
-                </li>
-            </ul>
-            {showAlert &&
-                <Alert
-                    title="Внимание!"
-                    text="Раздел находится в разработке."
-                    autoclose={1.5}
-                    onOk={() => setShowAlert(false)}
-                />
+    const handleStampClick = e => {
+        e.preventDefault();
+        setShowAlert(true);
+    };
+
+    return <div className="FloatingMenu__wrap">
+        <Dropdown
+            className="FloatingMenu"
+            position="dropup"
+            closeOnClick={true}
+            innerComponent={
+                <div className="FloatingMenu__icon">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                </div>
             }
-            {showModal &&
-                <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
-                    <div className="menu-component__presidium">
-                        <h4 className="menu-component__presidium-title">{presidium[alias].title}</h4>
-                        <ol className="menu-component__presidium-list">
-                            {presidium[alias].members.map((member, i) =>
-                                <li className="menu-component__presidium-item" key={i}>{member}</li>
-                            )}
-                        </ol>
-                    </div>
-                </Modal>
+        >
+            <DropDownItem>
+                <Link to={`/exhibitions?Alias=${alias}`} className="FloatingMenu__link" title="Мероприятия">Мероприятия</Link>
+            </DropDownItem>
+            {presidium[alias] &&
+                <DropDownItem>
+                    <Link to="/" onClick={handlePresidiumClick} className="FloatingMenu__link" title="Президиум">Президиум</Link>
+                </DropDownItem>
             }
-        </Card>
-    )
+            <DropDownItem>
+                <Link to={`/${alias}/news`} className="FloatingMenu__link" title="Новости">Новости</Link>
+            </DropDownItem>
+            {alias !== 'rkf' &&
+                <DropDownItem>
+                    <Link to="/" onClick={handleStampClick} className="FloatingMenu__link" title="Клейма">Клейма</Link>
+                </DropDownItem>
+            }
+            <DropDownItem>
+                <Link to={`/${alias}`} className="FloatingMenu__link" title={name}>{name}</Link>
+            </DropDownItem>
+        </Dropdown>
+        {showModal &&
+            <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
+                <div className="menu-component__presidium">
+                    <h4 className="menu-component__presidium-title">{presidium[alias].title}</h4>
+                    <ol className="menu-component__presidium-list">
+                        {presidium[alias].members.map((member, i) =>
+                            <li className="menu-component__presidium-item" key={i}>{member}</li>
+                        )}
+                    </ol>
+                </div>
+            </Modal>
+        }
+        {showAlert &&
+            <Alert
+                title="Внимание!"
+                text="Раздел находится в разработке."
+                autoclose={1.5}
+                onOk={() => setShowAlert(false)}
+            />
+        }
+    </div>
 };
 
-export default React.memo(MenuComponent);
+export default FloatingMenu;
