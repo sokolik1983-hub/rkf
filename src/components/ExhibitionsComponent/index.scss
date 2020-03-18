@@ -1,9 +1,8 @@
 .exhibitions-component {
-  margin: 0 0 24px;
+  margin: 0;
   width: 100%;
   @media (max-width: 560px) {
     overflow: hidden;
-    margin: 0 0 16px;
   }
   #exhibitions-component {
      display: flex;
@@ -29,6 +28,7 @@
   .slick-track {
     display: flex;
     align-items: stretch;
+    margin: 0;
   }
   .slick-slide {
     display: flex;

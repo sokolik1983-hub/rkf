@@ -53,6 +53,17 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         banner_link={federation.header_picture_link}
                     />
                     <ExhibitionsComponent alias={alias} />
+                    <div className="federation-page__photo _mobile">
+                        <PhotoComponent
+                            photo={federation.owner_photo}
+                            name={federation.owner_name}
+                            position={federation.owner_position}
+                        />
+                        <MenuComponent
+                            alias={alias}
+                            name={federation.name}
+                        />
+                    </div>
                     <div className="federation-page__info">
                         <aside className="federation-page__left">
                             <PhotoComponent
