@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
 import DayPicker from "react-day-picker";
-import Select from 'react-select';
+import Select from "react-select";
 import OutsideClickHandler from "react-outside-click-handler";
 import {setFiltersToUrl} from "../../../../utils";
 import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
