@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Loading from "../../../../components/Loading";
 import MenuComponent from "../../../../components/MenuComponent";
 import Calendar from "./components/Calendar";
@@ -19,6 +19,8 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
     const [calendarData, setCalendarData] = useState(null);
     const [cities, setCities] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const filtersElement = useRef(null);
 
     useEffect(() => {
         Promise.all([getRanks(), getBreeds(), getCalendarData(), getCities()])
@@ -78,8 +80,10 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
         setFiltersToUrl(getEmptyFilters(filters.Alias));
     };
 
+    if(filtersElement.current) filtersElement.current.scrollTop = 0;
+
     return (
-        <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
+        <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`} ref={filtersElement}>
             {loading ?
                 <Loading centered={false} /> :
                 <>
