@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Container from "../Container";
 import { RKFInfo } from "pages/Home/config";
+import { beautify } from 'utils/phone';
 import './index.scss';
 
 
@@ -31,7 +32,7 @@ const Footer = () => (
                     {RKFInfo.contacts.map((item, index) => (
                         item.link ?
                             <p className={`Footer__address-${item.class}`} key={index}>
-                                {item.text}&nbsp;
+                                {item.class === 'phone' ? beautify(item.text) : item.text}&nbsp;
                                             <a className="link" href={item.link}>{item.linkTitle}</a>
                             </p> :
                             <p className={`Footer__address-${item.class}`} key={index}>
