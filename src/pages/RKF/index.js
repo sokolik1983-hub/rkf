@@ -55,6 +55,17 @@ const RKF = ({isAuthenticated, profile_id}) => {
                         <img src="/static/images/rkf/banner-rkf.svg" alt="banner"/>
                     </div>
                     <ExhibitionsComponent alias="rkf"/>
+                    <div className="rkf-page__photo _mobile">
+                        <PhotoComponent
+                            photo={info.owner_photo || "/static/images/rkf/photo.png"}
+                            name={info.owner_name || "Голубев Владимир Семенович"}
+                            position={info.owner_position || "Президент Российской Кинологической Федерации"}
+                        />
+                        <MenuComponent
+                            alias="rkf"
+                            name={info.name}
+                        />
+                    </div>
                     <div className="rkf-page__info">
                         <aside className="rkf-page__left">
                             <PhotoComponent
