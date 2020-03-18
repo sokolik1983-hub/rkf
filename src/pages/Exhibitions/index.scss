@@ -50,4 +50,9 @@
       margin-bottom: 0;
     }
   }
+  .menu-component {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
 }
