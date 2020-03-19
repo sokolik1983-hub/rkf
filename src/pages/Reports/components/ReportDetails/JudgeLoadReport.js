@@ -9,6 +9,7 @@ import {
     endpointGetJudgesLoadReport
 } from "../../config";
 import { Request } from "utils/request";
+import ImportReport from './components/ImportReport';
 import ls from 'local-storage';
 
 
@@ -37,49 +38,51 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
 
     useEffect(() => {
         if (!reportHeader.judges_workload_accept && breeds && groups && countries && !loaded) {
-            (() => Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => {
-                if (data.lines.length) {
-                    const rows = data.lines.map(row => {
-                        const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
-                        const breed = row.breeds.length ? row.breeds.map(breed => {
-                            const name = breeds.find(item => item.id === breed).name;
-
-                            return {
-                                value: name,
-                                label: name
-                            }
-                        }) : [];
-                        const group = row.fci_groups.length ? row.fci_groups.map(group => {
-                            const name = groups.find(item => item.id === group).name;
-                            const label = `Группа ${groups.find(item => item.id === group).number} - ${name}`
-
-                            return {
-                                value: name,
-                                label: label
-                            }
-                        }) : [];
-
-                        const item = {
-                            'id': row.id,
-                            'judge-surname': row.judge_last_name || '',
-                            'judge-name': row.judge_first_name || '',
-                            'judge-patronymic': row.judge_second_name || '',
-                            'judge-country': country,
-                            'dogs-distributed': row.dogs_distributed || '',
-                            'dogs-judged': row.dogs_condemned || '',
-                            breed,
-                            group
-                        };
-
-                        return item;
-                    });
-
-                    setRows(rows);
-                }
-            }))();
+            (() => Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => { fillRows(data); }))();
         }
         if (breeds && groups && countries) setLoading(false);
     }, [breeds, groups, countries]);
+
+    const fillRows = (data) => {
+        if (data.lines.length) {
+            const rows = data.lines.map((row, key) => {
+                const country = row.judge_country_id ? countries.find(country => country.id === row.judge_country_id).short_name : '';
+                const breed = row.breeds.length ? row.breeds.map(breed => {
+                    const name = breeds.find(item => item.id === breed).name;
+
+                    return {
+                        value: name,
+                        label: name
+                    }
+                }) : [];
+                const group = row.fci_groups.length ? row.fci_groups.map(group => {
+                    const name = groups.find(item => item.id === group).name;
+                    const label = `Группа ${groups.find(item => item.id === group).number} - ${name}`
+
+                    return {
+                        value: name,
+                        label: label
+                    }
+                }) : [];
+
+                const item = {
+                    'id': row.id || key,
+                    'judge-surname': row.judge_last_name || '',
+                    'judge-name': row.judge_first_name || '',
+                    'judge-patronymic': row.judge_second_name || '',
+                    'judge-country': country,
+                    'dogs-distributed': row.dogs_distributed || '',
+                    'dogs-judged': row.dogs_condemned || '',
+                    breed,
+                    group
+                };
+
+                return item;
+            });
+
+            setRows(rows);
+        }
+    };
 
     const onSubmit = (rows) => {
         setLoading(true);
@@ -136,6 +139,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
         <Loading /> :
         !reportHeader.judges_workload_accept ?
             <>
+                <ImportReport type="judgeLoadReport" rankId={reportHeader.rank_id} handleImport={fillRows} />
                 {reportHeader.judges_workload_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />
