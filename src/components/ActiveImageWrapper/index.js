@@ -139,7 +139,7 @@ function ActiveImageWrapper({
                 onChange={onInputChange}
                 type="file"
             />
-            {state.imagePreview ? renderPreview() : children}
+            <div onClick={onEdit}>{state.imagePreview ? renderPreview() : children}</div>
             <div className="ActiveImageWrapper__controls">
                 <Button
                     style={btnStyle}
