@@ -13,7 +13,7 @@ export const CONTACT_TYPES = {
         storeListIds: 'contactsPhoneIds',
         validationSchema: object().shape({
             description: string().required('Укажите описание контакта'),
-            value: string().required('Поле не может быть пустым')
+            value: string().matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Некорректный формат номера').required('Поле не может быть пустым')
         })
     },
     email: {
