@@ -135,7 +135,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         };
         if (!reportRows.length) {
             setSendDisable(false);
-            return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            return getHeader();
         }
         (() => Request({
             url: endpointPutFinalReport,

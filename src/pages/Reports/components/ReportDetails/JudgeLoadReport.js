@@ -117,7 +117,8 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
         };
         if (!reportRows.length) {
             setSendDisable(false);
-            return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            return getHeader();
         }
         (() => Request({
             url: endpointPutJudgesLoadReport,
@@ -131,6 +132,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
         }, error => {
             setSendDisable(false);
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
+            getHeader();
         })
         )();
     };
