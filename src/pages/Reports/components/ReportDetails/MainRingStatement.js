@@ -13,6 +13,7 @@ import {
 } from "../../config";
 import { mainRingStatementColumns } from './components/config';
 import Loading from "components/Loading";
+import ImportReport from './components/ImportReport';
 import ls from 'local-storage';
 import { sortBy } from "utils";
 
@@ -40,9 +41,9 @@ class MainRingTable extends React.Component {
 
     componentDidUpdate() {
         if (this.props.rows.length && !this.state.updated) {
-            if(this.props.rows.length < 3){
+            if (this.props.rows.length < 3) {
                 for (let position = 1; position < 4; position++) {
-                    if(!this.props.rows.find(item => item.position === position)){
+                    if (!this.props.rows.find(item => item.position === position)) {
                         this.props.rows.push({ arrangement_id: this.props.rows[0].arrangement_id, id: position, position: position, breed: '' });
                     }
                 }
@@ -112,7 +113,7 @@ const MainRingStatementRow = ({ arrangementName, arrangementId, rows, updateRows
         <tr>
             <td style={{ textAlign: 'center' }}>{arrangementName}</td>
             <td colSpan="5" className="table-holder">
-                <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} isEditing={isEditing}/>
+                <MainRingTable arrangementId={arrangementId} rows={rows} updateRows={updateRows} breeds={breeds} isEditing={isEditing} />
             </td>
         </tr>
     )
@@ -141,27 +142,39 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     useEffect(() => {
         if (!reportHeader.statement_main_ring_accept && breeds && !loaded) {
             (() => Request({ url: `${endpointGetMainRingStatement}?id=${reportHeader.id}` }, data => {
-                if (data.length) {
-                    const rows = data.map(row => {
-                        const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
-
-                        const item = {
-                            'arrangement_id': row.arrangement_id,
-                            'id': row.id,
-                            'position': row.position || '',
-                            breed,
-                            'catalog_number': row.catalog_number || '',
-                            'dog_name': row.dog.dog_name || '',
-                            'pedigree_number': row.dog.pedigree_number || ''
-                        };
-
-                        return item;
-                    });
-                    setRows(rows);
-                }
+                fillRows(data);
             }))();
         }
     }, [breeds]);
+
+    const fillRows = (data, withLS) => {
+        if (data.length) {
+            const rows = data.map((row, key) => {
+                const breed = row.dog.breed_id && breeds.find(breed => breed.id === row.dog.breed_id) ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
+
+                const item = {
+                    'arrangement_id': row.arrangement_id,
+                    'id': row.id || key,
+                    'position': row.position || '',
+                    breed,
+                    'catalog_number': row.catalog_number || '',
+                    'dog_name': row.dog.dog_name || '',
+                    'pedigree_number': row.dog.pedigree_number || ''
+                };
+
+                return item;
+            });
+
+            const lsReadyRows = rows.map(row => {
+                const normalized = row;
+                normalized.breed = row.breed.label ? row.breed.label : row.breed;
+                return normalized;
+            });
+
+            withLS && ls.set(`main_ring_statement_${reportHeader.id}`, { lsReadyRows });
+            setRows(rows);
+        }
+    }
 
     const updateRows = (updatedRows, arrangementId) => {
         const filteredRows = rows.filter((row) => +row.arrangement_id !== +arrangementId);
@@ -236,6 +249,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         loading ?
             <Loading /> :
             <>
+                <ImportReport type="mainRingStatement" rankId={reportHeader.rank_id} handleImport={fillRows} />
                 {reportHeader.statement_main_ring_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />

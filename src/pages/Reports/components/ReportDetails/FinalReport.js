@@ -9,6 +9,7 @@ import {
     endpointPutFinalReport
 } from '../../config';
 import { Request } from "utils/request";
+import ImportReport from './components/ImportReport';
 import ls from 'local-storage';
 
 
@@ -44,39 +45,42 @@ const FinalReport = ({ reportHeader, getHeader }) => {
 
     useEffect(() => {
         if (!reportHeader.total_report_accept && breeds && castes && grades && !loaded) {
-            (() => Request({ url: `${endpointGetFinalReport}?id=${reportHeader.id}` }, data => {
-                if (data.length) {
-                    const rows = data.map(row => {
-                        const breed = row.dog.breed_id ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
-                        const caste = row.caste_id ? castes.find(caste => caste.id === row.caste_id).name : '';
-                        const score = row.grade_id ? grades.find(grade => grade.id === row.grade_id).name : '';
-
-                        const item = {
-                            id: row.id,
-                            breed,
-                            'judge-surname': row.judge.judge_last_name || '',
-                            'judge-name': row.judge.judge_first_name || '',
-                            'judge-patronymic': row.judge.judge_second_name || '',
-                            'catalog-number': row.catalog_number || '',
-                            'dog-name': row.dog.dog_name || '',
-                            'birthday': row.dog.dog_birth_date ? new Date(row.dog.dog_birth_date) : '',
-                            'pedigree-number': row.dog.pedigree_number || '',
-                            'class': caste,
-                            score,
-                            date: exhibitionDate
-                        };
-
-                        row.certificates.forEach(certificate => item[certificate] = true);
-
-                        return item;
-                    });
-
-                    setRows(rows.sort((a, b) => a['catalog-number'] - b['catalog-number']));
-                }
-            }))();
+            (() => Request({ url: `${endpointGetFinalReport}?id=${reportHeader.id}` }, data => { fillRows(data); }))();
         }
         if (breeds && castes && grades) setLoading(false);
     }, [breeds, castes, grades]);
+
+    const fillRows = (data, withLS) => {
+        if (data.length) {
+            const rows = data.map((row, key) => {
+                const breed = row.dog.breed_id && breeds.find(breed => breed.id === row.dog.breed_id) ? breeds.find(breed => breed.id === row.dog.breed_id).name : '';
+                const caste = row.caste_id && castes.find(caste => caste.id === row.caste_id) ? castes.find(caste => caste.id === row.caste_id).name : '';
+                const score = row.grade_id && grades.find(grade => grade.id === row.grade_id) ? grades.find(grade => grade.id === row.grade_id).name : '';
+
+                const item = {
+                    id: row.id || key,
+                    breed,
+                    'judge-surname': row.judge.judge_last_name || '',
+                    'judge-name': row.judge.judge_first_name || '',
+                    'judge-patronymic': row.judge.judge_second_name || '',
+                    'catalog-number': row.catalog_number || '',
+                    'dog-name': row.dog.dog_name || '',
+                    'birthday': row.dog.dog_birth_date ? new Date(row.dog.dog_birth_date) : '',
+                    'pedigree-number': row.dog.pedigree_number || '',
+                    'class': caste,
+                    score,
+                    date: exhibitionDate
+                };
+
+                row.certificates.forEach(certificate => item[certificate] = true);
+
+                return item;
+            });
+            const sortedRows = rows.sort((a, b) => a['catalog-number'] - b['catalog-number']);
+            withLS && ls.set(`final_report_${reportHeader.id}`, { rows: sortedRows });
+            setRows(sortedRows);
+        };
+    };
 
     const onSubmit = (rows) => {
         setLoading(true);
@@ -131,7 +135,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         };
         if (!reportRows.length) {
             setSendDisable(false);
-            return alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            alert('Необходимо заполнить хотя бы одну строку отчёта!');
+            return getHeader();
         }
         (() => Request({
             url: endpointPutFinalReport,
@@ -145,6 +150,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         }, error => {
             setSendDisable(false);
             alert('Отчёт не был отправлен. Возможно Вы заполнили не всю таблицу.');
+            getHeader();
         })
         )();
     };
@@ -153,6 +159,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         <Loading /> :
         !reportHeader.total_report_accept ?
             <>
+                <ImportReport type="finalReport" rankId={reportHeader.rank_id} handleImport={fillRows} />
                 {reportHeader.total_report_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />
