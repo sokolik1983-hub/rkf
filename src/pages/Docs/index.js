@@ -3,6 +3,7 @@ import TopComponent from "../../components/TopComponent";
 import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
+import PlusButton from "../../components/PlusButton";
 import { Form, FormGroup, FormField } from "components/Form";
 import DocEntry from "./components/DocEntry";
 import DocItem from "./components/DocItem";
@@ -16,6 +17,8 @@ import data from "./dummy.json";
 const Docs = () => {
     const loading = false;
     const isError = false;
+    const [docItems, setDocItems] = useState([{}]);
+    const plusClick = e => setDocItems(docItems.concat({}))
     return isError ?
         <PageNotFound /> :
         loading ?
@@ -44,11 +47,18 @@ const Docs = () => {
                                     <Card className="DocItem">
                                         <h3>Оформление документа</h3>
                                             <FormGroup>
-                                                <FormField name='club_email' label='Email клуба' />
+                                                <FormField name='club_email' label='Email клуба' value={data.club.email}/>
                                                 <FormField name='club_bill' label='Квитанция' type="file" />
+                                                <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
                                             </FormGroup>
                                     </Card>
-                                    <DocItem/>
+                                    {docItems.map((m,i) => <DocItem key={i}/>)}
+                                    <div className="flex-row">
+                                        <PlusButton large onClick={plusClick}/>
+                                        <div className="caption">
+                                            Добавить еще заявителя
+                                        </div>
+                                    </div>
                                 </Form>
                             </div>
                         </div>
