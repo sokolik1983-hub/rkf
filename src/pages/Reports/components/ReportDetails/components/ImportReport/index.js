@@ -46,7 +46,7 @@ const ImportReport = ({ type, rankId, handleImport }) => {
     };
 
     return <Card className="import-report">
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4>
+        <h4>Дорогие друзья! <br />Во избежание возникновения ошибок при загрузке отчетов из файла excel просим Вас пользоваться формой RKF.Online.</h4>
         <form onSubmit={handleSubmit}>
             <div>
                 <input type="file" accept=".xlsx" onChange={e => setImportFile(e.target.files[0])} />
