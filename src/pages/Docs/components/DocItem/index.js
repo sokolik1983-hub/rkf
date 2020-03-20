@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import Card from "components/Card";
-import PlusButton from "components/PlusButton";
-import { Form, FormGroup, FormField } from "components/Form";
+import Card from "../../../../components/Card";
+import PlusButton from "../../../../components/PlusButton";
+import {FormGroup, FormField} from "../../../../components/Form";
 import "./index.scss";
 
-export default ({ name, email }) => {
+
+const DocItem = ({ name, email }) => {
     const [moreDocs, setMoreDocs] = useState(0);
-    const plusClick = e => setMoreDocs(moreDocs + 1)
+    const plusClick = () => setMoreDocs(moreDocs + 1);
 
     return <Card className="DocItem">
         <FormGroup>
@@ -18,4 +19,6 @@ export default ({ name, email }) => {
             <PlusButton onClick={plusClick}/>
         </FormGroup>
     </Card>
-}
+};
+
+export default React.memo(DocItem);

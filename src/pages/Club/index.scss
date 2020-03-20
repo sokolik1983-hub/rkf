@@ -1,4 +1,5 @@
 .club-page {
+  word-break: break-word;
   .menu-component {
     padding: 14px 16px 16px;
     @media (max-width: 768px) {
@@ -12,12 +13,10 @@
       text-transform: uppercase;
       margin-bottom: 8px;
     }
-
     &__title {
       margin-bottom: 8px;
     }
   }
-  word-break: break-word;
   &__content-wrap {
     display: flex;
     justify-content: space-between;
