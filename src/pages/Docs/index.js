@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import TopComponent from "../../components/TopComponent";
 import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
-import PlusButton from "../../components/PlusButton";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
-import DocEntry from "./components/DocEntry";
 import DocItem from "./components/DocItem";
 import Layout from "../../components/Layouts";
 import { Link } from "react-router-dom";
@@ -74,4 +72,4 @@ const Docs = () => {
             </Layout>
 };
 
-export default Docs
+export default React.memo(Docs);

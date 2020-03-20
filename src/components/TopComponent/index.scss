@@ -105,29 +105,29 @@
     }
   }
 }
+
 .share-desktop {
-    display: none !important;
+  display: none !important;
+}
+.share-mobile {
+  display: inline-block !important;
+  cursor: pointer;
+  height: 20px;
+}
+@media (min-width: 991px) {
+  .share-desktop {
+    display: inline-block !important;
   }
   .share-mobile {
-    display: inline-block !important;
-    cursor: pointer;
-    height: 20px;
+    display: none !important;
   }
-  @media (min-width: 991px) {
-    .share-desktop {
-      display: inline-block !important;
-    }
-    .share-mobile {
-      display: none !important;
-    }
-  }
+}
 
 .btn__blue {
   text-decoration: none;
   border: none;
   min-width: 165px;
   padding: 11px 14px;
-  margin-right: 8px;
   background: #3366FF;
   box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);
   border-radius: 4px;
@@ -141,5 +141,8 @@
     font-size: 14px;
     line-height: 20px;
     padding: 7px 0;
+  }
+  &:not(:last-child) {
+    margin-right: 8px !important;
   }
 }
