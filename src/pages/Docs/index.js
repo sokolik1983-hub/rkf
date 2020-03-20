@@ -4,6 +4,7 @@ import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import PlusButton from "../../components/PlusButton";
+import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
 import DocEntry from "./components/DocEntry";
 import DocItem from "./components/DocItem";
@@ -12,13 +13,15 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import CustomMenu from "../../components/CustomMenu";
 import "../Exhibition/index.scss";
+import "./index.scss";
 import data from "./dummy.json";
 
 const Docs = () => {
     const loading = false;
     const isError = false;
     const [docItems, setDocItems] = useState([{}]);
-    const plusClick = e => setDocItems(docItems.concat({}))
+    const plusClick = e => setDocItems(docItems.concat({}));
+    const clearClick = e => setDocItems([{}]);
     return isError ?
         <PageNotFound /> :
         loading ?
@@ -40,24 +43,28 @@ const Docs = () => {
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="exhibition-page__title-wrap">
-                                    <h2 className="exhibition-page__title">Оформление документов</h2>
+                                    <h2 className="exhibition-page__title">Отправка документов</h2>
                                 </div>
-                                {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
+                                {/*
+                                    Это материал для страницы со списком документов
+                                    {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
+                                */}
                                 <Form onSuccess={x=>x} action='POST'>
-                                    <Card className="DocItem">
-                                        <h3>Оформление документа</h3>
-                                            <FormGroup>
-                                                <FormField name='club_email' label='Email клуба' value={data.club.email}/>
-                                                <FormField name='club_bill' label='Квитанция' type="file" />
-                                                <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
-                                            </FormGroup>
+                                    <Card>
+                                        <FormGroup>
+                                            <FormField name='club_email' label='Email клуба' value={data.club.email}/>
+                                            <FormField name='club_bill' label='Квитанция' type="file" />
+                                            <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
+                                        </FormGroup>
                                     </Card>
-                                    {docItems.map((m,i) => <DocItem key={i}/>)}
+                                    <div className="exhibition-page__title-wrap">
+                                        <h3 className="exhibition-page__title">Заявители</h3>
+                                    </div>
+                                    {docItems.map((m,i) => <DocItem key={i} {...m}/>)}
                                     <div className="flex-row">
-                                        <PlusButton large onClick={plusClick}/>
-                                        <div className="caption">
-                                            Добавить еще заявителя
-                                        </div>
+                                        <Button className="btn-primary" onClick={plusClick}>+ Добавить еще заявителя</Button>
+                                        <Button className="btn-transparent" onClick={clearClick}>Очистить форму</Button>
+                                        <Button className="btn-green" onClick={x=>console.log('click')}>Отправить</Button>
                                     </div>
                                 </Form>
                             </div>
