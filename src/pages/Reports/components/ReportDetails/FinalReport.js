@@ -18,7 +18,13 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     const [castes, setCastes] = useState(null);
     const [grades, setGrades] = useState(null);
     const [loading, setLoading] = useState(true);
-    const exhibitionDate = new Date(reportHeader.exhibition_date).toLocaleDateString();
+    const { total_report_is_sent,
+        total_report_accept,
+        total_report_comment,
+        exhibition_date,
+        rank_id,
+        id } = reportHeader;
+    const exhibitionDate = new Date(exhibition_date).toLocaleDateString();
     const defaultRows = [
         { id: 1, breed: '', class: '', score: '', date: exhibitionDate },
         { id: 2, breed: '', class: '', score: '', date: exhibitionDate },
@@ -31,8 +37,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     const [sendDisabled, setSendDisable] = useState(false);
 
     useEffect(() => {
-        if (ls.get(`final_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
-            setRows(ls.get(`final_report_${reportHeader.id}`).rows);
+        if (ls.get(`final_report_${id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`final_report_${id}`).rows);
             setLoaded(true);
         }
     }, []);
@@ -44,8 +50,8 @@ const FinalReport = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.total_report_accept && breeds && castes && grades && !loaded) {
-            (() => Request({ url: `${endpointGetFinalReport}?id=${reportHeader.id}` }, data => { fillRows(data); }))();
+        if (!total_report_accept && breeds && castes && grades && !loaded) {
+            (() => Request({ url: `${endpointGetFinalReport}?id=${id}` }, data => { fillRows(data); }))();
         }
         if (breeds && castes && grades) setLoading(false);
     }, [breeds, castes, grades]);
@@ -77,7 +83,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
                 return item;
             });
             const sortedRows = rows.sort((a, b) => a['catalog-number'] - b['catalog-number']);
-            withLS && ls.set(`final_report_${reportHeader.id}`, { rows: sortedRows });
+            withLS && ls.set(`final_report_${id}`, { rows: sortedRows });
             setRows(sortedRows);
         };
     };
@@ -130,7 +136,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
             });
 
         const dataToSend = {
-            "report_header_id": reportHeader.id,
+            "report_header_id": id,
             "report_rows": reportRows
         };
         if (!reportRows.length) {
@@ -145,7 +151,7 @@ const FinalReport = ({ reportHeader, getHeader }) => {
         }, data => {
             setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
-            ls.remove(`final_report_${reportHeader.id}`); // Clear local storage cache
+            ls.remove(`final_report_${id}`); // Clear local storage cache
             getHeader();
         }, error => {
             setSendDisable(false);
@@ -157,26 +163,26 @@ const FinalReport = ({ reportHeader, getHeader }) => {
 
     return loading ?
         <Loading /> :
-        !reportHeader.total_report_accept ?
+        !total_report_accept ?
             <>
-                <ImportReport type="finalReport" rankId={reportHeader.rank_id} handleImport={fillRows} />
-                {reportHeader.total_report_comment &&
+                {!total_report_is_sent && <ImportReport type="finalReport" rankId={rank_id} handleImport={fillRows} />}
+                {total_report_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />
-                        <span style={{ color: 'red' }}>{reportHeader.total_report_comment}</span>
+                        <span style={{ color: 'red' }}>{total_report_comment}</span>
                     </h4>
                 }
                 <ReportDetailsTable
                     content="final-report"
-                    reportName={`final_report_${reportHeader.id}`}
+                    reportName={`final_report_${id}`}
                     rows={rows}
                     breeds={breeds}
                     castes={castes}
                     grades={grades}
                     date={exhibitionDate}
-                    rankType={reportHeader.rank_id}
+                    rankType={rank_id}
                     onSubmit={onSubmit}
-                    isSent={reportHeader.total_report_is_sent}
+                    isSent={total_report_is_sent}
                     btnSendIsDisabled={sendDisabled}
                     btnSendChangeIsDisable={setSendDisable}
                 />

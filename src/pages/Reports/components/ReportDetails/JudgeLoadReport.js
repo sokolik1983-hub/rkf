@@ -22,10 +22,16 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     const [rows, setRows] = useState(defaultRows);
     const [loaded, setLoaded] = useState(false);
     const [sendDisabled, setSendDisable] = useState(false);
+    const { id,
+        judges_workload_accept,
+        rank_id,
+        judges_workload_comment,
+        judges_workload_is_sent
+    } = reportHeader;
 
     useEffect(() => {
-        if (ls.get(`judge_load_report_${reportHeader.id}`) && !loaded) { // Check for local storage cache
-            setRows(ls.get(`judge_load_report_${reportHeader.id}`).rows);
+        if (ls.get(`judge_load_report_${id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`judge_load_report_${id}`).rows);
             setLoaded(true);
         }
     }, []);
@@ -37,8 +43,8 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.judges_workload_accept && breeds && groups && countries && !loaded) {
-            (() => Request({ url: `${endpointGetJudgesLoadReport}?id=${reportHeader.id}` }, data => { fillRows(data); }))();
+        if (!judges_workload_accept && breeds && groups && countries && !loaded) {
+            (() => Request({ url: `${endpointGetJudgesLoadReport}?id=${id}` }, data => { fillRows(data); }))();
         }
         if (breeds && groups && countries) setLoading(false);
     }, [breeds, groups, countries]);
@@ -112,7 +118,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
             });
 
         const dataToSend = {
-            "header_id": reportHeader.id,
+            "header_id": id,
             "judges_load_report_rows": reportRows
         };
         if (!reportRows.length) {
@@ -127,7 +133,7 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
         }, data => {
             setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
-            ls.remove(`judge_load_report_${reportHeader.id}`); // Clear local storage cache
+            ls.remove(`judge_load_report_${id}`); // Clear local storage cache
             getHeader();
         }, error => {
             setSendDisable(false);
@@ -139,24 +145,24 @@ const JudgeLoadReport = ({ reportHeader, getHeader }) => {
 
     return loading ?
         <Loading /> :
-        !reportHeader.judges_workload_accept ?
+        !judges_workload_accept ?
             <>
-                <ImportReport type="judgeLoadReport" rankId={reportHeader.rank_id} handleImport={fillRows} />
-                {reportHeader.judges_workload_comment &&
+                {!judges_workload_is_sent && <ImportReport type="judgeLoadReport" rankId={rank_id} handleImport={fillRows} />}
+                {judges_workload_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />
-                        <span style={{ color: 'red' }}>{reportHeader.judges_workload_comment}</span>
+                        <span style={{ color: 'red' }}>{judges_workload_comment}</span>
                     </h4>
                 }
                 <ReportDetailsTable
                     content="judge-load-report"
-                    reportName={`judge_load_report_${reportHeader.id}`}
+                    reportName={`judge_load_report_${id}`}
                     rows={rows}
                     countries={countries}
                     breeds={breeds}
                     groups={groups}
                     onSubmit={onSubmit}
-                    isSent={reportHeader.judges_workload_is_sent}
+                    isSent={judges_workload_is_sent}
                     btnSendIsDisabled={sendDisabled}
                     btnSendChangeIsDisable={setSendDisable}
                 />
