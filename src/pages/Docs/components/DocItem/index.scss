@@ -1,3 +1,12 @@
 .DocItem {
     margin-bottom: 1em;
+    position: relative;
+    &__cross {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        width: 1em;
+        height: 1em;
+        cursor: pointer;
+    }
 }
