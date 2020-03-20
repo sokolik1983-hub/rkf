@@ -126,10 +126,16 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     const [rows, setRows] = useState([]);
     const loading = !arrangements;
     const [loaded, setLoaded] = useState(false);
+    const { id,
+        statement_main_ring_accept,
+        rank_id,
+        statement_main_ring_comment,
+        statement_main_ring_is_sent
+    } = reportHeader;
 
     useEffect(() => {
-        if (ls.get(`main_ring_statement_${reportHeader.id}`) && !loaded) { // Check for local storage cache
-            setRows(ls.get(`main_ring_statement_${reportHeader.id}`).lsReadyRows);
+        if (ls.get(`main_ring_statement_${id}`) && !loaded) { // Check for local storage cache
+            setRows(ls.get(`main_ring_statement_${id}`).lsReadyRows);
             setLoaded(true);
         }
     }, []);
@@ -140,8 +146,8 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
     }, []);
 
     useEffect(() => {
-        if (!reportHeader.statement_main_ring_accept && breeds && !loaded) {
-            (() => Request({ url: `${endpointGetMainRingStatement}?id=${reportHeader.id}` }, data => {
+        if (!statement_main_ring_accept && breeds && !loaded) {
+            (() => Request({ url: `${endpointGetMainRingStatement}?id=${id}` }, data => {
                 fillRows(data);
             }))();
         }
@@ -171,7 +177,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                 return normalized;
             });
 
-            withLS && ls.set(`main_ring_statement_${reportHeader.id}`, { lsReadyRows });
+            withLS && ls.set(`main_ring_statement_${id}`, { lsReadyRows });
             setRows(rows);
         }
     }
@@ -191,7 +197,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
             return normalized;
         });
 
-        ls.set(`main_ring_statement_${reportHeader.id}`, { lsReadyRows });
+        ls.set(`main_ring_statement_${id}`, { lsReadyRows });
     };
 
     const onSubmit = () => {
@@ -216,7 +222,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         });
 
         const dataToSend = {
-            "report_header_id": reportHeader.id,
+            "report_header_id": id,
             "report_rows": reportRows
         };
 
@@ -233,7 +239,7 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         }, data => {
             setSendDisable(false);
             alert('Ваш отчёт был отправлен.');
-            ls.remove(`main_ring_statement_${reportHeader.id}`); // Clear local storage cache
+            ls.remove(`main_ring_statement_${id}`); // Clear local storage cache
             getHeader();
         }, error => {
             setSendDisable(false);
@@ -245,15 +251,15 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
         return rows.filter((row) => row.arrangement_id === +arrangementId)
     };
 
-    return !reportHeader.statement_main_ring_accept ?
+    return !statement_main_ring_accept ?
         loading ?
             <Loading /> :
             <>
-                <ImportReport type="mainRingStatement" rankId={reportHeader.rank_id} handleImport={fillRows} />
-                {reportHeader.statement_main_ring_comment &&
+                {!statement_main_ring_is_sent && <ImportReport type="mainRingStatement" rankId={rank_id} handleImport={fillRows} />}
+                {statement_main_ring_comment &&
                     <h4 style={{ paddingBottom: '20px' }}>
                         Этот отчёт был отклонён с комментарием: <br />
-                        <span style={{ color: 'red' }}>{reportHeader.statement_main_ring_comment}</span>
+                        <span style={{ color: 'red' }}>{statement_main_ring_comment}</span>
                     </h4>
                 }
                 <table className="MainRingStatement">
@@ -285,13 +291,13 @@ const MainRingStatement = ({ reportHeader, getHeader }) => {
                                     rows={getFilteredRows(item.id)}
                                     updateRows={updateRows}
                                     breeds={breeds}
-                                    isEditing={!reportHeader.statement_main_ring_is_sent}
+                                    isEditing={!statement_main_ring_is_sent}
                                 />
                             })
                         }
                     </tbody>
                 </table>
-                {!reportHeader.statement_main_ring_is_sent &&
+                {!statement_main_ring_is_sent &&
                     <div style={{ width: '1100px', margin: '24px auto 0' }}>
                         <button onClick={onSubmit} disabled={sendDisabled}>Отправить отчёт</button>
                     </div>
