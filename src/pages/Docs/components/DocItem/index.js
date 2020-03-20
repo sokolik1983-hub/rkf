@@ -11,15 +11,15 @@ const DocItem = ({ values, setValues, closeClick }) => {
         let patch = {[target.name]: target.value};
         setValues({...values, ...patch});
     }
-
     return <Card className="DocItem">
         <img className="DocItem__cross" src="/static/icons/cross-gray.svg" onClick={closeClick}/>
         <FormGroup>
-            <FormField name='name' label='ФИО' value={values.name || ''} onChange={update} />
-            <FormField name='email' label='Email' value={values.email || ''} onChange={update} />
-            <FormField name='card' label='Пометная карта' type="file" onChange={update} />
-            <FormField name='metrics' label='Метрика щенка' type="file" onChange={update} />
-            {new Array(moreDocs).fill(0).map((d,i) => <FormField key={i} label={`Документ №${i + 3}`} type="file" name={`doc${i}`} onChange={update}/>)}
+            <FormField name='declarants[][last_name]' validate={required} label='Фамилия' />
+            <FormField name='declarants[][first_name]' label='Имя' validate={required} />
+            <FormField name='declarants[][second_name]' label='Отчество' validate={required} />
+            <FormField name='declarants[][email]' label='Email' validate={email} />
+            <FormField name='declarants[][biometric_card_document]' label='Метрика щенка' type="file" validate={required} />
+            {new Array(moreDocs).fill(0).map((d,i) => <FormField key={i} label={`Документ №${i + 3}`} type="file" name={`declarants[][documents]`} onChange={update}/>)}
             <PlusButton onClick={plusClick}/>
         </FormGroup>
     </Card>
