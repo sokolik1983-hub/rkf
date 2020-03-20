@@ -7,6 +7,11 @@ export const LoadableReports = Loadable({
     loading: Loading
 });
 
+export const LoadableDocs = Loadable({
+    loader: () => import('./pages/Docs'),
+    loading: Loading
+});
+
 export const LoadableHomePage = Loadable({
     loader: () => import('./pages/Home'),
     loading: Loading

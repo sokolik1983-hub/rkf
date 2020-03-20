@@ -3,6 +3,7 @@ import Card from "../../../../components/Card";
 import { formatWorkTime } from "../../../../utils";
 import { timeSecondsCutter } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
+import { beautify } from "../../../../utils/phone";
 import { endpointGetSocials } from "../../config";
 import './index.scss';
 
@@ -72,7 +73,7 @@ const ClubInfo = ({
                             <p key={contact.id}>
                                 <span>{contact.description || 'Телефон'}</span>
                                 <br />
-                                <span>{contact.value}</span>
+                                <span>{beautify(contact.value)}</span>
                             </p>
                         ))}
                     </div>

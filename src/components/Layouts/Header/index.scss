@@ -389,8 +389,12 @@
       text-overflow: ellipsis;
       overflow: hidden;
       cursor: default;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     }
-    a:not(.widget-login__edit) {
+    &:not(:first-child) a {
       text-decoration: none;
       white-space: nowrap;
       color: #72839c;

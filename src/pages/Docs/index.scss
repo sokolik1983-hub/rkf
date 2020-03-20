@@ -1,0 +1,18 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1em;
+    .caption {
+        margin-left: 1em;
+        font-size: 1.2em;
+    }
+    & > * {
+        margin-left: 1em;
+    }
+}
+
+.Card {
+    margin-bottom: 1em;
+}

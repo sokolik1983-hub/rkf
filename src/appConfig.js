@@ -84,6 +84,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/docs',
+        component: LoadableModules.LoadableDocs
+    },
+    {
+        exact: false,
         path: '/auth/login',
         component: LoadableModules.LoadableAuthorization
     },
