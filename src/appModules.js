@@ -72,6 +72,11 @@ export const LoadableClubPage = Loadable({
     loading: Loading
 });
 
+export const LoadableClubDocumentsStatus = Loadable({
+    loader: () => import('./pages/ClubDocumentsStatus'),
+    loading: Loading
+});
+
 export const LoadableClubNews = Loadable({
     loader: () => import('./pages/Club/NewsPage'),
     loading: Loading

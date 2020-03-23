@@ -109,13 +109,18 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route',
-        component: LoadableModules.LoadableClubPage
+        path: '/:route/news',
+        component: LoadableModules.LoadableClubNews
     },
     {
         exact: true,
-        path: '/:route/news',
-        component: LoadableModules.LoadableClubNews
+        path: '/:id/documents_status',
+        component: LoadableModules.LoadableClubDocumentsStatus
+    },
+    {
+        exact: true,
+        path: '/:route',
+        component: LoadableModules.LoadableClubPage
     }
 ];
 
