@@ -84,7 +84,7 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/docs',
+        path: '/:route/documents',
         component: LoadableModules.LoadableDocs
     },
     {
