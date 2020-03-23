@@ -4,7 +4,7 @@ import PlusButton from "../../../../components/PlusButton";
 import {FormGroup, FormField} from "../../../../components/Form";
 import "./index.scss";
 
-const DocItem = ({ values, setValues, closeClick }) => {
+const DocItem = ({ closeClick, i }) => {
     const [moreDocs, setMoreDocs] = useState(0);
     const plusClick = e => setMoreDocs(moreDocs + 1)
     return <Card className="DocItem">

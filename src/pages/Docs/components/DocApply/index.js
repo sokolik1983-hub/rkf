@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { object, array, string } from "yup";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
@@ -6,6 +7,8 @@ import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import data from "../../dummy.json";
+
+const apiEndpoint = '/api/clubs/ClubFederationDocumentsRequest';
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([{}]);
@@ -39,7 +42,7 @@ const DocApply = ({ clubAlias }) => {
                 <div className="documents-page__title-wrap">
                     <h3 className="documents-page__title">Заявители</h3>
                 </div>
-                {docItems.map((m, i) => <DocItem key={i} {...m} />)}
+                {docItems.map((m, i) => <DocItem key={i} {...m} i={i} />)}
                 <div className="flex-row">
                     <Button className="btn-primary" onClick={plusClick}>+ Добавить еще заявителя</Button>
                     <Button className="btn-transparent" onClick={clearClick}>Очистить форму</Button>
