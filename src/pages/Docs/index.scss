@@ -1,25 +1,8 @@
-.docs-page {
+.documents-page {
   background-color: #f5f8ff;
   min-height: 100%;
   &__content {
-    padding: 20px 10px;
-  }
-  &__card {
-    p {
-      margin-bottom: 10px;
-    }
-    &-links {
-      display: flex;
-      flex-wrap: wrap;
-      font-weight: normal;
-      padding: 5px 0 0;
-      a {
-        padding: 5px 0 0;
-        &:first-child {
-          margin-right: 20px;
-        }
-      }
-    }
+    padding-top: 70px;
   }
   .mobile-only {
     @media (min-width: 991px) {
@@ -38,14 +21,6 @@
     }
     @media (max-width: 768px) {
       display: none;
-    }
-  }
-  h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
-    @media (max-width: 560px) {
-      font-size: 18px;
-      margin-bottom: 6px;
     }
   }
   p {
@@ -100,19 +75,11 @@
     }
   }
   &__title {
-    margin-right: 12px;
+    text-align: center;
+    margin: 12px 0;
     @media (max-width: 990px) {
       font-size: 24px;
       line-height: 1.2;
-    }
-    &-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      @media (max-width: 560px) {
-        display: block;
-      }
     }
   }
   .btn__blue {
@@ -284,5 +251,28 @@
 
   .Card {
     margin-bottom: 1em;
+    h3 {
+      font-size: 18px;
+      line-height: 24px;
+      @media (max-width: 560px) {
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+    }
+    p {
+      margin-bottom: 10px;
+    }
+    &__links {
+      display: flex;
+      flex-wrap: wrap;
+      font-weight: normal;
+      padding: 5px 0 0;
+      a {
+        padding: 5px 0 0;
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
   }
 }

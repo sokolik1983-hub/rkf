@@ -7,22 +7,21 @@ import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import data from "../../dummy.json";
 
-const DocApply = () => {
+const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([{}]);
     const plusClick = e => setDocItems(docItems.concat({}));
     const clearClick = e => setDocItems([{}]);
 
-    return <div className="docs-page__info">
-        <aside className="docs-page__left">
+    return <div className="documents-page__info">
+        <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <img src={data.club.avatar} alt="" />
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to="/docs" title="Оформление документов">Оформление документов</Link>
+                <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
             </CustomMenu>
         </aside>
-        <div className="docs-page__right">
-            <div className="docs-page__title-wrap">
-                <h2 className="docs-page__title">Отправка документов</h2>
+        <div className="documents-page__right">
+            <div className="documents-page__title-wrap">
+                <h2 className="documents-page__title">Отправка документов</h2>
             </div>
             {/*
                 Это материал для страницы со списком документов
@@ -36,8 +35,8 @@ const DocApply = () => {
                         <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
                     </FormGroup>
                 </Card>
-                <div className="docs-page__title-wrap">
-                    <h3 className="docs-page__title">Заявители</h3>
+                <div className="documents-page__title-wrap">
+                    <h3 className="documents-page__title">Заявители</h3>
                 </div>
                 {docItems.map((m, i) => <DocItem key={i} {...m} />)}
                 <div className="flex-row">
