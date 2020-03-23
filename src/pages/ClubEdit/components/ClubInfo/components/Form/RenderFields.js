@@ -1,11 +1,13 @@
-import React from 'react';
-import { FormField, FormGroup } from 'components/Form';
-import { clubInfoFormConfig } from 'apps/ClubInfo/config';
-import { connect } from 'formik';
+import React from "react";
+import {connect} from "formik";
+import {FormField, FormGroup} from "../../../../../../components/Form";
+import {clubInfoFormConfig} from "../../config";
 
-const { fields } = clubInfoFormConfig;
+
+const {fields} = clubInfoFormConfig;
 
 const regexp = RegExp('https?://.*');
+
 const checkUrl = (e, formik) => {
     if (!regexp.test(e.target.value)) {
         alert('Адрес сайта должен начинаться с "http://" либо "https://"');
@@ -13,39 +15,17 @@ const checkUrl = (e, formik) => {
     }
 };
 
-const RenderFields = ({ formik }) =>
+const RenderFields = ({formik}) => (
     <>
         <FormGroup>
-            <FormField
-                {...fields.name}
-            />
-            <FormField
-                {...fields.description}
-            />
+            <FormField {...fields.name}/>
+            <FormField {...fields.description}/>
         </FormGroup>
         <h4>Фактический адрес клуба</h4>
-        <FormField
-            {...fields.city_id}
-        />
-        <FormField
-            {...fields.address}
-        />
-        {/*<FormGroup inline>*/}
-        {/*    <FormField*/}
-        {/*        {...fields.work_time_from}*/}
-        {/*    />*/}
-        {/*    <FormField*/}
-        {/*        {...fields.work_time_to}*/}
-        {/*    />*/}
-        {/*</FormGroup>*/}
-        <FormField
-            {...fields.site}
-            onBlur={e => checkUrl(e, formik)}
-        />
-        {/*<FormControls>
-            <SubmitButton type="submit" className="btn-simple btn-lg">Обновить</SubmitButton>
-        </FormControls>*/}
-    </>;
+        <FormField {...fields.city_id}/>
+        <FormField {...fields.address}/>
+        <FormField {...fields.site} onBlur={e => checkUrl(e, formik)}/>
+    </>
+);
 
-
-export default connect(RenderFields);
+export default connect(React.memo(RenderFields));

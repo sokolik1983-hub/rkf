@@ -1,31 +1,29 @@
-import React from 'react';
-import { Form } from "components/Form";
-import { connectClubInfoForm } from 'apps/ClientClub/connectors';
-import { clubInfoFormConfig } from "../../config";
-import RenderFields from './RenderFields';
-import { usePushMessage } from 'apps/Messages/hooks';
-import ls from 'local-storage';
+import React from "react";
+import ls from "local-storage";
+import {Form} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {connectClubInfoForm} from "../../../../connectors";
+import {clubInfoFormConfig} from "../../config";
 
-function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
-    usePushMessage();
+
+const ClubInfoForm = ({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) => {
     const transformValues = values => {
-        let newValues = { ...values };
+        let newValues = {...values};
 
-        // if (!newValues.city_id) delete newValues.city_id;
         if (newValues.status_id) delete newValues.status_id;
 
         newValues.site = values.site || null;
 
-        return { ...newValues }
+        return {...newValues}
     };
+
     const onSuccess = values => {
         clubInfoUpdateSuccess(values);
         ls.set('user_info', { ...ls.get('user_info'), club_name: values.name });
-        // push(defaultSuccessMessage)
     };
 
     return (
-        <div style={{ flex: 2 }}>
+        <div style={{flex: 2}}>
             <h3>Общая информация</h3>
             <Form
                 method={"PUT"}
@@ -40,6 +38,6 @@ function ClubInfoForm({ clubInfo, clubInfoUpdateSuccess, bindSubmitForm }) {
             </Form>
         </div>
     )
-}
+};
 
-export default connectClubInfoForm(ClubInfoForm)
+export default connectClubInfoForm(React.memo(ClubInfoForm));

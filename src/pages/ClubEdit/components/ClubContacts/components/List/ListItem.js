@@ -1,28 +1,25 @@
-import React from 'react';
-import { useVisibility } from 'shared/hooks';
-import Button from 'components/Button';
-import { Form, SubmitButton } from 'components/Form';
-import DeleteButton from 'components/DeleteButton';
-import { RenderFields } from '../../components/Form/RenderFields';
-import { connectClientClubContactListItem } from '../../connectors';
-import { ENDPOINT_URL } from '../../config';
+import React from "react";
+import Button from "../../../../../../components/Button";
+import DeleteButton from "../../../../../../components/DeleteButton";
+import {Form, SubmitButton} from "../../../../../../components/Form";
+import RenderFields from "../../components/Form/RenderFields";
+import {useVisibility} from "../../../../../../shared/hooks";
+import {connectClientClubContactListItem} from "../../connectors";
+import {ENDPOINT_URL} from "../../config";
 
-const clsNames = 'btn-transparent btn-condensed';
 
-function ClientClubContactListItem({
-    clubContact,
-    updateClubContactSuccess,
-    deleteClubContactSuccess,
-    type
-}) {
-    const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
+const ClientClubContactListItem = ({clubContact, updateClubContactSuccess, deleteClubContactSuccess, type}) => {
+    const {visibility, toggleVisibility, setInvisible} = useVisibility(false);
+
     const onUpdateSuccess = values => {
         updateClubContactSuccess(values);
         setInvisible();
     };
+
     const onDeleteSuccess = () => {
-        deleteClubContactSuccess({ ...clubContact });
+        deleteClubContactSuccess({...clubContact});
     };
+
     return (
         <Form
             className="ClientClubContactListItem"
@@ -31,24 +28,21 @@ function ClientClubContactListItem({
             method="PUT"
             initialValues={clubContact}
         >
-            <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone' ? true : false} />
-            {!visibility ? (
+            <RenderFields disabled={!visibility} isUpdate isMaskedTel={type === 'phone'} />
+            {!visibility &&
                 <Button
                     className="ClientClubContactListItem__edit"
                     onClick={toggleVisibility}
                 >
                     Изменить
                 </Button>
-            ) : null}
-            {visibility ? (
+            }
+            {visibility &&
                 <div className="ClientClubContactListItem__controls">
                     <SubmitButton className="btn-green">Сохранить</SubmitButton>
-                    <Button className={clsNames} onClick={setInvisible}>
-                        Отменить
-                    </Button>
-
+                    <Button className="btn-transparent btn-condensed" onClick={setInvisible}>Отменить</Button>
                     <DeleteButton
-                        className={clsNames}
+                        className="btn-transparent btn-condensed"
                         onDeleteSuccess={onDeleteSuccess}
                         windowed
                         actionUrl={`${ENDPOINT_URL}/${clubContact.id}`}
@@ -56,9 +50,9 @@ function ClientClubContactListItem({
                         Удалить
                     </DeleteButton>
                 </div>
-            ) : null}
+            }
         </Form>
-    );
-}
+    )
+};
 
-export default connectClientClubContactListItem(ClientClubContactListItem);
+export default connectClientClubContactListItem(React.memo(ClientClubContactListItem));

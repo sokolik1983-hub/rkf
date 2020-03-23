@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import Dropdown from 'components/Dropdown';
-import { DropDownItem } from 'components/DropDownItem';
-import Modal from "components/Modal";
-import Alert from "components/Alert";
-import './index.scss';
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
+import Dropdown from "../../../../components/Dropdown";
+import {DropDownItem} from "../../../../components/DropDownItem";
+import Modal from "../../../../components/Modal";
+import Alert from "../../../../components/Alert";
+import "./index.scss";
 
 
 const presidium = {
@@ -156,4 +156,4 @@ const FloatingMenu = ({ alias, name }) => {
     </div>
 };
 
-export default FloatingMenu;
+export default React.memo(FloatingMenu);

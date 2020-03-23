@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Form, FormField, FormGroup } from "components/Form";
-import { Request } from "utils/request";
-import { connectClubScheduleForm } from "pages/ClubEdit/connectors";
+import React, {useEffect, useState} from "react";
+import {Form, FormField, FormGroup} from "../../../../components/Form";
+import {Request} from "../../../../utils/request";
+import {connectClubScheduleForm} from "../../connectors";
 import "./index.scss";
 
 
-const ClubSchedule = ({ bindSubmitForm, work_time, club_id }) => {
+const ClubSchedule = ({bindSubmitForm, work_time, club_id}) => {
     const [days, setDays] = useState([]);
     const [selectedDays, setSelectedDays] = useState([]);
     const [initialValues, setInitialValues] = useState(null);
@@ -81,7 +81,7 @@ const ClubSchedule = ({ bindSubmitForm, work_time, club_id }) => {
             }
         });
 
-        return { club_id, work_time };
+        return {club_id, work_time};
     };
 
     return (

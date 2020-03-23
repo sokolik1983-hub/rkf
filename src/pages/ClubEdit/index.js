@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
-import { compose } from 'redux';
-import ClubInfo from './components/ClubInfo';
-import EditPageButtons from './components/EditPageButtons';
-import ClubHeaderPicture from './components/ClubHeaderPicture';
-import ClubSchedule from './components/ClubSchedule';
-import ClubSocial from './components/ClubSocial';
-import ClubLegalInfo from './components/ClubLegalInfo';
-import ClubBankInfo from './components/ClubBankInfo';
-import ClubContacts from './components/ClubContacts';
-import ClubDocuments from './components/ClubDocuments';
-
-import AuthOrLogin from 'apps/Auth/containers/AuthOrLogin';
-import Card from "components/Card";
-import Header from 'components/Layouts/Header';
-import Container from "components/Layouts/Container";
-import { defaultReduxKey, endpointUrl } from "./config";
-import { connectClientClubAlias } from './connectors';
+import React, {useEffect, useState} from "react";
+import {withRouter} from "react-router";
+import {compose} from "redux";
+import ClubInfo from "./components/ClubInfo";
+import EditPageButtons from "./components/EditPageButtons";
+import ClubHeaderPicture from "./components/ClubHeaderPicture";
+import ClubSchedule from "./components/ClubSchedule";
+import ClubSocial from "./components/ClubSocial";
+import ClubLegalInfo from "./components/ClubLegalInfo";
+import ClubBankInfo from "./components/ClubBankInfo";
+import ClubContacts from "./components/ClubContacts";
+import ClubDocuments from "./components/ClubDocuments";
+import AuthOrLogin from "../../apps/Auth/containers/AuthOrLogin";
+import Card from "../../components/Card";
+import Header from "../../components/Layouts/Header";
+import Container from "../../components/Layouts/Container";
+import {defaultReduxKey, endpointUrl} from "./config";
+import {connectClientClubAlias} from "./connectors";
 import reducer from "./reducer";
-import { useResourceAndStoreToRedux } from 'shared/hooks'
-import injectReducer from "utils/injectReducer";
-import './styles.scss';
+import {useResourceAndStoreToRedux} from "../../shared/hooks";
+import injectReducer from "../../utils/injectReducer";
+import "./styles.scss";
 
-const ClubEdit = props => (
-    <AuthOrLogin>
-        <Header />
-        <ClubEditPage {...props} />
-    </AuthOrLogin>);
-
-const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
-export default compose(
-    withRouter,
-    withReducer,
-    connectClientClubAlias
-)(ClubEdit);
 
 let unblock;
-function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, history, getClubSuccess }) {
+
+const ClubEditPage = ({club_alias, club_id, is_federation, is_active_profile, history, getClubSuccess}) => {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -53,6 +41,8 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
         submitClubSocials,
         submitClubHeaderPicture;
     let clientErrors = {};
+
+    useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
 
     useEffect(() => {
         unblock = is_active_profile ? history.block('Вы точно хотите уйти со страницы редактирования?') : history.block();
@@ -201,45 +191,56 @@ function ClubEditPage({ club_alias, club_id, is_federation, is_active_profile, h
         }
     }, [serverErrors]);
 
-    useResourceAndStoreToRedux(endpointUrl, getClubSuccess);
-    
-    return <Container className="content">
-        <div className="ClubEditPage">
-            <h2>Личный кабинет</h2>
-            <Card className="ClubEditPage__about">
-                <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                    bindSubmitClubLogo={bindSubmitClubLogo}
-                    bindSubmitClubInfo={bindSubmitClubInfo}
-                    isFederation={is_federation}
-                />
-            </Card>
-            <Card className="ClubEditPage__schedule">
-                <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
-            </Card>
-            <Card className="ClubEditPage__legal">
-                <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
-            </Card>
-            <Card className="ClubEditPage__bank">
-                <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
-            </Card>
-            <Card className="ClubEditPage__contacts">
-                <h3>Контакты</h3>
-                <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                    bindSubmitClubPhone={bindSubmitClubPhone}
-                />
-            </Card>
-            <Card className="ClubEditPage__documents">
-                <h3>Ссылки на документы</h3>
-                <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
-            </Card>
-            <Card className="ClubEditPage__socials">
-                <h3>Социальные сети</h3>
-                <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
-            </Card>
-            <Card className="ClubEditPage__head-picture">
-                <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
-            </Card>
-            <EditPageButtons handleSubmitForms={handleSubmitForms} />
-        </div>
-    </Container>
-}
+    return (
+        <Container className="content">
+            <div className="ClubEditPage">
+                <h2>Личный кабинет</h2>
+                <Card className="ClubEditPage__about">
+                    <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
+                              bindSubmitClubLogo={bindSubmitClubLogo}
+                              bindSubmitClubInfo={bindSubmitClubInfo}
+                              isFederation={is_federation}
+                    />
+                </Card>
+                <Card className="ClubEditPage__schedule">
+                    <ClubSchedule bindSubmitForm={bindSubmitClubSchedule} />
+                </Card>
+                <Card className="ClubEditPage__legal">
+                    <ClubLegalInfo bindSubmitForm={bindSubmitClubLegalInfo} />
+                </Card>
+                <Card className="ClubEditPage__bank">
+                    <ClubBankInfo bindSubmitForm={bindSubmitClubBankInfo} />
+                </Card>
+                <Card className="ClubEditPage__contacts">
+                    <h3>Контакты</h3>
+                    <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
+                                  bindSubmitClubPhone={bindSubmitClubPhone}
+                    />
+                </Card>
+                <Card className="ClubEditPage__documents">
+                    <h3>Ссылки на документы</h3>
+                    <ClubDocuments bindSubmitForm={bindSubmitClubDocuments} />
+                </Card>
+                <Card className="ClubEditPage__socials">
+                    <h3>Социальные сети</h3>
+                    <ClubSocial bindSubmitForm={bindSubmitClubSocials} />
+                </Card>
+                <Card className="ClubEditPage__head-picture">
+                    <ClubHeaderPicture bindSubmitForm={bindSubmitClubHeaderPicture} club_id={club_id} />
+                </Card>
+                <EditPageButtons handleSubmitForms={handleSubmitForms} />
+            </div>
+        </Container>
+    )
+};
+
+const ClubEdit = props => (
+    <AuthOrLogin>
+        <Header />
+        <ClubEditPage {...props} />
+    </AuthOrLogin>
+);
+
+const withReducer = injectReducer({ key: defaultReduxKey, reducer: reducer });
+
+export default compose(withRouter, withReducer, connectClientClubAlias)(React.memo(ClubEdit));

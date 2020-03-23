@@ -1,10 +1,11 @@
-import React, {useRef} from 'react';
-import {connectClientClubLogoPicture} from 'apps/ClientClub/connectors';
-import ActiveImageWrapper from 'components/ActiveImageWrapper';
-import { DEFAULT_IMG } from 'appConfig';
-import './styles.scss';
+import React, {useRef} from "react";
+import ActiveImageWrapper from "../../../../../../components/ActiveImageWrapper";
+import {DEFAULT_IMG} from "../../../../../../appConfig";
+import {connectClientClubLogoPicture} from "../../../../connectors";
+import "./styles.scss";
 
-function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess, bindSubmitForm}) {
+
+const ClubLogoPicture = ({backgroundImage, clubLogoUpdateSuccess, bindSubmitForm}) => {
     const ref = useRef(null);
 
     return (
@@ -21,6 +22,6 @@ function ClubLogoPicture({backgroundImage, clubLogoUpdateSuccess, bindSubmitForm
             </ActiveImageWrapper>
         </div>
     )
-}
+};
 
-export default connectClientClubLogoPicture(ClubLogoPicture)
+export default connectClientClubLogoPicture(React.memo(ClubLogoPicture));

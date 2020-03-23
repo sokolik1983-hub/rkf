@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../../../../components/Card";
-import "./index.scss";
 import Feedback from "../../../../components/Feedback";
+import "./index.scss";
 
 
 const FeedbackComponent = () => (

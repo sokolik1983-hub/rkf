@@ -1,23 +1,20 @@
-import React, { Fragment } from "react";
-import { FormField, FormGroup, SubmitButton, FormControls } from "components/Form";
-import { clubClubSocialConfig } from '../../config'
+import React from "react";
+import {FormField, FormGroup, SubmitButton, FormControls} from "../../../../../../components/Form";
+import { clubClubSocialConfig } from "../../config";
 
-const { fields } = clubClubSocialConfig;
-export const RenderFields = ({ isUpdate }) =>
-    <Fragment>
+
+const {fields} = clubClubSocialConfig;
+
+const RenderFields = ({isUpdate}) => (
+    <>
         <FormGroup inline>
-            <FormField
-                {...fields.site}
-                isUrl={true}
-            />
-            <FormField
-                {...fields.description}
-            />
-            {/*<FormField
-                {...fields.social_network_type_id}
-            />*/}
+            <FormField {...fields.site} isUrl={true}/>
+            <FormField {...fields.description}/>
             <FormControls>
                 <SubmitButton>{isUpdate ? 'Обновить' : 'Добавить'}</SubmitButton>
             </FormControls>
         </FormGroup>
-    </Fragment>;
+    </>
+);
+
+export default React.memo(RenderFields);
