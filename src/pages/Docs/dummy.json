@@ -12,6 +12,7 @@
         }
     ],
     "club": {
+        "id": 4547,
         "display_name": "Тестовый клуб",
         "avatar": "/static/icons/default/club-avatar.svg",
         "email": "test@example.com"

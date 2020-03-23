@@ -7,19 +7,15 @@ import "./index.scss";
 const DocItem = ({ values, setValues, closeClick }) => {
     const [moreDocs, setMoreDocs] = useState(0);
     const plusClick = e => setMoreDocs(moreDocs + 1)
-    const update = ({target}) => {
-        let patch = {[target.name]: target.value};
-        setValues({...values, ...patch});
-    }
     return <Card className="DocItem">
         <img className="DocItem__cross" src="/static/icons/cross-gray.svg" onClick={closeClick}/>
         <FormGroup>
-            <FormField name='declarants[][last_name]' validate={required} label='Фамилия' />
-            <FormField name='declarants[][first_name]' label='Имя' validate={required} />
-            <FormField name='declarants[][second_name]' label='Отчество' validate={required} />
-            <FormField name='declarants[][email]' label='Email' validate={email} />
-            <FormField name='declarants[][biometric_card_document]' label='Метрика щенка' type="file" validate={required} />
-            {new Array(moreDocs).fill(0).map((d,i) => <FormField key={i} label={`Документ №${i + 3}`} type="file" name={`declarants[][documents]`} onChange={update}/>)}
+            <FormField name={`declarants[${i}].last_name`} label='Фамилия' />
+            <FormField name={`declarants[${i}].first_name`} label='Имя' />
+            <FormField name={`declarants[${i}].second_name`} label='Отчество' />
+            <FormField name={`declarants[${i}].email`} label='Email' />
+            <FormField name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' type="file" />
+            {new Array(moreDocs).fill(0).map((d,j) => <FormField key={j} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents`} />)}
             <PlusButton onClick={plusClick}/>
         </FormGroup>
     </Card>
