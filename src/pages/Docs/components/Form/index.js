@@ -16,7 +16,7 @@ const Form = forwardRef(({children, className, inline, style}, ref) =>
     </form>);
 
 const FormField = props => {
-    const { error, touch, className, style, checkbox, name, label } = props;
+    const { error, touch, className, style, checkbox, name, label, blur } = props;
     const classNames = classnames(
         'FormInput',
         {[className]: className},
@@ -25,7 +25,7 @@ const FormField = props => {
     );
     return <div style={style} className={classNames}>
         <label htmlFor={name}>{label}</label>
-        <input {...props} className="FormInput__input" id={name} />
+        <input {...props} onBlur={blur} className="FormInput__input" id={name} />
         {!!error &&
             <div class="FormInput__error">{error}</div>
         }

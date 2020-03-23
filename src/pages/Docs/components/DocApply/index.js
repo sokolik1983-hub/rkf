@@ -48,10 +48,10 @@ const DocApply = ({ clubAlias }) => {
                 Это материал для страницы со списком документов
                 {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
                                 */}
-            <Form onSuccess={x => x} action={apiEndpoint} initialValues={{email: data.club.email}} validationSchema={validationSchema}>
+            <Form>
                 <Card>
                     <FormGroup>
-                        <FormField name='email' label='Email клуба' />
+                        <FormField name='email' label='Email клуба' defaultValue={data.club.email} />
                         <FormField name='payment_document' label='Квитанция' type="file" />
                         <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
                     </FormGroup>
