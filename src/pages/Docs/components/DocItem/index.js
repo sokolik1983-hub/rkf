@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Card from "../../../../components/Card";
 import PlusButton from "../../../../components/PlusButton";
-import {FormGroup, FormField} from "../../../../components/Form";
+import {FormGroup, FormField} from "../../components/Form";
 import "./index.scss";
 
 const DocItem = ({ closeClick, i }) => {

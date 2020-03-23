@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { object, array, string } from "yup";
 import Card from "components/Card";
 import Button from "components/Button";
-import { Form, FormGroup, FormField } from "components/Form";
+import { Form, FormGroup, FormField } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
@@ -26,7 +26,6 @@ const DocApply = ({ clubAlias }) => {
         let fd = new FormData(document.getElementsByTagName('form')[0]);
         fetch(apiEndpoint, {method: 'POST', body: fd});
     }
-    console.log(docItems);
     const deleteItem = i => {
         docItems.splice(i,1);
         setDocItems(docItems.concat([]));
