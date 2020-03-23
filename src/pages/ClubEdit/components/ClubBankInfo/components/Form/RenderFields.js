@@ -1,25 +1,14 @@
-import React from 'react'
-import { FormField, FormGroup } from 'components/Form';
-import { clubBankInfoFormConfig } from '../../config';
+import React from "react";
+import {FormField, FormGroup} from "../../../../../../components/Form";
+import {clubBankInfoFormConfig} from "../../config";
 
-const { fields } = clubBankInfoFormConfig;
+const {fields} = clubBankInfoFormConfig;
 
-export default function RenderFields() {
-    return (
-        <React.Fragment>
-            <FormGroup>
-                <FormField
-                    {...fields.rs_number}
-                />
-                <FormField
-                    {...fields.bank_name}
-                />
-            </FormGroup>
+const RenderFields = () => (
+    <FormGroup>
+        <FormField {...fields.rs_number}/>
+        <FormField {...fields.bank_name}/>
+    </FormGroup>
+);
 
-            {/*<FormControls>
-                <SubmitButton type="submit"
-                              className="btn-simple btn-lg">Обновить</SubmitButton>
-            </FormControls>*/}
-        </React.Fragment>
-    )
-}
+export default React.memo(RenderFields);

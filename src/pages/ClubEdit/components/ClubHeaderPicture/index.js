@@ -1,10 +1,12 @@
-import React, { useRef } from 'react'
-import { connectClientClubHeaderPicture } from 'apps/ClientClub/connectors'
-import ActiveImageWrapper from 'components/ActiveImageWrapper'
-import './styles.scss'
+import React, {useRef} from "react";
+import {connectClientClubHeaderPicture} from "../../connectors";
+import ActiveImageWrapper from "../../../../components/ActiveImageWrapper";
+import "./styles.scss";
 
-function ClubHeaderPicture({ backgroundImage, club_id, clubPictureUpdateSuccess, bindSubmitForm }) {
+
+const ClubHeaderPicture = ({backgroundImage, club_id, clubPictureUpdateSuccess, bindSubmitForm}) => {
     const ref = useRef(null);
+
     return (
         <div>
             <h3>Картинка в шапке</h3>
@@ -25,10 +27,10 @@ function ClubHeaderPicture({ backgroundImage, club_id, clubPictureUpdateSuccess,
             </ActiveImageWrapper>
         </div>
     )
-}
+};
 
 ClubHeaderPicture.defaultProps = {
     backgroundImage: "/static/images/header/default.png"
 };
 
-export default connectClientClubHeaderPicture(ClubHeaderPicture)
+export default connectClientClubHeaderPicture(React.memo(ClubHeaderPicture));

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import Card from "../../../../components/Card";
 import Alert from "../../../../components/Alert";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import './index.scss';
+import "./index.scss";
 
 
 const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlias, canEdit}) => {
@@ -18,12 +18,6 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
 
     return (
         <Card className="club-page__header">
-            {shareAlert && (<Alert
-                title="Поделиться"
-                text="Ссылка скопирована в буфер обмена"
-                autoclose={1.5}
-                onOk={shareOk}
-            />)}
             {clubImg && <div className="club-page__header-img" style={{backgroundImage: `url(${clubImg})`}} />}
             <div className="club-page__header-content">
                 <div className="club-page__header-info">
@@ -43,6 +37,14 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
                     <Link className="btn btn-primary" to="/client">Редактировать профиль</Link>
                 }
             </div>
+            {shareAlert &&
+                <Alert
+                    title="Поделиться"
+                    text="Ссылка скопирована в буфер обмена"
+                    autoclose={1.5}
+                    onOk={shareOk}
+                />
+            }
         </Card>
     )
 };

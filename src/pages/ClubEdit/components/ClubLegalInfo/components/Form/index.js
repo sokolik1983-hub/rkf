@@ -1,24 +1,17 @@
-import React from 'react'
-import { clubLegalInfoFormConfig } from "../../config";
-import { Form } from "components/Form";
-import RenderFields from './RenderFields'
-import { connectLegalInfoForm } from "../../connectors";
+import React from "react";
+import {Form} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {connectLegalInfoForm} from "../../connectors";
+import {clubLegalInfoFormConfig} from "../../config";
 
-import { usePushMessage } from 'apps/Messages/hooks'
 
-export function UpdateLegalInfoForm(props) {
-    const { clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm } = props;
-    usePushMessage();
-
+const UpdateLegalInfoForm = ({clubLegalInfo, updateLegalInfoSuccess, bindSubmitForm}) => {
     if(clubLegalInfo && clubLegalInfo.registration_number) delete clubLegalInfo.registration_number;
 
-    const onSuccess = data => {
-        updateLegalInfoSuccess(data);
-        // push(defaultSuccessMessage);
-    };
+    const onSuccess = data => updateLegalInfoSuccess(data);
 
-    return (
-        clubLegalInfo && <Form
+    return clubLegalInfo &&
+        <Form
             onSuccess={onSuccess}
             {...clubLegalInfoFormConfig}
             initialValues={clubLegalInfo}
@@ -26,7 +19,6 @@ export function UpdateLegalInfoForm(props) {
         >
             <RenderFields />
         </Form>
-    )
-}
+};
 
-export default connectLegalInfoForm(UpdateLegalInfoForm)
+export default connectLegalInfoForm(React.memo(UpdateLegalInfoForm));

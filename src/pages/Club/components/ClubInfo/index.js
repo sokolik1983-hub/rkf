@@ -5,7 +5,7 @@ import { timeSecondsCutter } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
 import { beautify } from "../../../../utils/phone";
 import { endpointGetSocials } from "../../config";
-import './index.scss';
+import "./index.scss";
 
 
 const ClubInfo = ({

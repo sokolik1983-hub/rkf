@@ -1,23 +1,23 @@
-import React from 'react'
-import ListSocial from './ListItem'
-import { connectListSocial } from '../../connectors';
-import { useResourceAndStoreToRedux } from "shared/hooks";
-import { getlistUrl } from '../../config';
+import React from "react";
+import Loading from "../../../../../../components/Loading";
+import ListSocial from "./ListItem";
+import {useResourceAndStoreToRedux} from "../../../../../../shared/hooks";
+import {getlistUrl} from "../../config";
+import {connectListSocial} from "../../connectors";
+import "./styles.scss";
 
-import './styles.scss'
 
-function ClientSocialList(props) {
-    const { listIds, getClubSocialListSuccess, club_id, editable } = props;
+const ClientSocialList = ({listIds, getClubSocialListSuccess, club_id, editable}) => {
     const url = getlistUrl + String(club_id);
-    const { loading } = useResourceAndStoreToRedux(url, getClubSocialListSuccess);
+    const {loading} = useResourceAndStoreToRedux(url, getClubSocialListSuccess);
+    
     return (
         <div className="ClientSocialList">
             {loading ?
-                "Загрузка..."
-                : listIds.map(id => <ListSocial editable={editable} key={id} id={id} />)}
+                <Loading/> :
+                listIds.map(id => <ListSocial editable={editable} key={id} id={id} />)}
         </div>
     )
-
-}
+};
 
 export default connectListSocial(ClientSocialList)

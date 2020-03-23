@@ -1,12 +1,10 @@
-import React from 'react'
+import React from "react";
 
 
-function ClintClubDocument({name, url}) {
-    return (
-        <div className="ClintClubDocument">
-            <a href={url} target="__blank">{name}</a>
-        </div>
-    )
-}
+const ClintClubDocument = ({name, url}) => (
+    <div className="ClintClubDocument">
+        <a href={url} target="__blank">{name}</a>
+    </div>
+);
 
-export default ClintClubDocument
+export default React.memo(ClintClubDocument);

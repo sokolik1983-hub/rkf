@@ -1,15 +1,17 @@
-import React from 'react'
-import { connectSocialFrom } from '../../connectors'
-import { RenderFields } from './RenderFields'
-import { clubClubSocialConfig } from '../../config'
-import { FormFormikEnhanced } from "components/Form";
+import React from "react";
+import {FormFormikEnhanced} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {connectSocialFrom} from "../../connectors";
+import {clubClubSocialConfig} from "../../config";
 
-function ClubSocialForm({ club_id, addClubSocialSuccess, initialValues, hideForm, bindSubmitForm }) {
-    const transformValues = values => ({ ...values, club_id, social_network_type_id: 1 });
+
+const ClubSocialForm = ({club_id, addClubSocialSuccess, initialValues, hideForm, bindSubmitForm}) => {
+    const transformValues = values => ({...values, club_id, social_network_type_id: 1});
+    
     const onSuccess = data => {
         addClubSocialSuccess(data);
-        hideForm()
-    }
+        hideForm();
+    };
 
     return (
         <FormFormikEnhanced
@@ -22,6 +24,6 @@ function ClubSocialForm({ club_id, addClubSocialSuccess, initialValues, hideForm
             <RenderFields />
         </FormFormikEnhanced>
     )
-}
+};
 
-export default connectSocialFrom(ClubSocialForm)
+export default connectSocialFrom(React.memo(ClubSocialForm));

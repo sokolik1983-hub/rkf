@@ -1,16 +1,17 @@
-import React from 'react'
-import {connectDocumentFrom} from '../../connectors'
-import {RenderFields} from './RenderFields'
-import {clubClubDocumentsConfig} from '../../config'
-import {Form} from "components/Form";
+import React from "react";
+import {Form} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {connectDocumentFrom} from "../../connectors";
+import {clubClubDocumentsConfig} from "../../config";
 
-function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideForm, bindSubmitForm}) {
 
+const ClubDocumentForm = ({club_id, addClubDocumentSuccess, initialValues, hideForm, bindSubmitForm}) => {
     const transformValues = values => ({...values, club_id});
+
     const onSuccess = data => {
         addClubDocumentSuccess(data);
-        hideForm()
-    }
+        hideForm();
+    };
 
     if(!initialValues) {
         initialValues = {name: '', url: ''}
@@ -28,6 +29,6 @@ function ClubDocumentForm({club_id, addClubDocumentSuccess, initialValues, hideF
             <RenderFields/>
         </Form>
     )
-}
+};
 
-export default connectDocumentFrom(ClubDocumentForm)
+export default connectDocumentFrom(React.memo(ClubDocumentForm));

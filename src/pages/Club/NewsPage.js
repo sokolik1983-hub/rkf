@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import ClubNotActive from "./components/ClubNotActive";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
@@ -8,14 +9,13 @@ import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import ClubHeader from "./components/ClubHeader";
 import ClubInfo from "./components/ClubInfo";
+import List from "../../components/List";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetNews } from "./config";
-import List from "components/List";
-import InfiniteScroll from 'react-infinite-scroll-component';
 import "./index.scss";
 
 

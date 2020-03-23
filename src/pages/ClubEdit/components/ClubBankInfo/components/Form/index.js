@@ -1,30 +1,20 @@
-import React from 'react'
-import { clubBankInfoFormConfig } from "../../config";
-import { Form } from "components/Form";
-import RenderFields from './RenderFields'
-import { connectBankInfoForm } from "../../connectors";
-import { usePushMessage } from 'apps/Messages/hooks'
+import React from "react";
+import {Form} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {clubBankInfoFormConfig} from "../../config";
+import {connectBankInfoForm} from "../../connectors";
 
 
-export function UpdateBankInfoForm(props) {
-    const { clubBankInfo, updateBankInfoSuccess, bindSubmitForm } = props;
-    usePushMessage();
-    const onSuccess = data => {
-        updateBankInfoSuccess(data);
-        // push(defaultSuccessMessage)
-    };
-
-    return (
-        clubBankInfo &&
+const UpdateBankInfoForm = ({clubBankInfo, updateBankInfoSuccess, bindSubmitForm}) => (
+    clubBankInfo &&
         <Form
-            onSuccess={onSuccess}
+            onSuccess={data => updateBankInfoSuccess(data)}
             {...clubBankInfoFormConfig}
             initialValues={clubBankInfo}
             bindSubmitForm={bindSubmitForm}
         >
             <RenderFields />
         </Form>
-    )
-}
+);
 
-export default connectBankInfoForm(UpdateBankInfoForm)
+export default connectBankInfoForm(React.memo(UpdateBankInfoForm));

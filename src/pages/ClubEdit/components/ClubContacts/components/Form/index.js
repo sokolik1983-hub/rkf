@@ -1,25 +1,22 @@
-import React, { useContext } from 'react';
-import Button from 'components/Button';
-import { Form, SubmitButton } from 'components/Form';
-import { connectContactFrom } from '../../connectors';
-import { RenderFields } from './RenderFields';
-import { clubClubContactsConfig } from '../../config';
-import { ContactTypeContext } from '../../context';
+import React, {useContext} from "react";
+import Button from "../../../../../../components/Button";
+import {Form, SubmitButton} from "../../../../../../components/Form";
+import RenderFields from "./RenderFields";
+import {connectContactFrom} from "../../connectors";
+import {clubClubContactsConfig} from "../../config";
+import {ContactTypeContext} from "../../context";
 
-function ClubContactForm({
-    club_id,
-    addClubContactSuccess,
-    initialValues,
-    hideForm,
-    bindSubmitForm
-}) {
+
+const ClubContactForm = ({club_id, addClubContactSuccess, hideForm, bindSubmitForm}) => {
     const { contactType } = useContext(ContactTypeContext);
 
-    const transformValues = values => ({ ...values, club_id });
+    const transformValues = values => ({...values, club_id});
+
     const onSuccess = data => {
         addClubContactSuccess(data);
         hideForm();
     };
+
     return (
         <Form
             action={clubClubContactsConfig.action}
@@ -41,7 +38,7 @@ function ClubContactForm({
                 </Button>
             </div>
         </Form>
-    );
-}
+    )
+};
 
 export default connectContactFrom(ClubContactForm);

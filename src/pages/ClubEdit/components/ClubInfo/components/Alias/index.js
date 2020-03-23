@@ -1,16 +1,15 @@
-import React from 'react'
-import { connectClubAlias } from 'apps/ClientClub/connectors'
-import { Form, FormGroup, FormAliasInput } from 'components/Form'
-import { usePushMessage } from 'apps/Messages/hooks';
-import ls from 'local-storage';
+import React from "react";
+import ls from "local-storage";
+import {Form, FormGroup, FormAliasInput} from "../../../../../../components/Form";
+import {connectClubAlias} from "../../../../connectors";
 
-function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubmitForm }) {
-    usePushMessage();
-    const onSuccess = (values) => {
+
+const ClientClubAlias = ({club_alias, club_id, clubAliasUpdateSuccess, bindSubmitForm}) => {
+    const onSuccess = values => {
         clubAliasUpdateSuccess(values);
         ls.set('user_info', { ...ls.get('user_info'), club_alias: values.alias_name });
-        // push(defaultSuccessMessage)
     };
+
     const transformValues = values => ({ ...values, club_id });
 
     return (
@@ -24,19 +23,11 @@ function ClientClubAlias({ club_alias, club_id, clubAliasUpdateSuccess, bindSubm
                 bindSubmitForm={bindSubmitForm}
             >
                 <FormGroup inline>
-                    <FormAliasInput
-                        name="alias_name"
-                    // fieldType="masked"
-                    // mask={['h', 't', 't', 'p', 's', ':', '/', '/', 'u', 'e', 'p', '2', '4', '.', 'r', 'u', '/', /[\w]+/]}
-                    // showMask={true}
-                    // guide={true}
-                    />
-                    {/*<SubmitButton>Обновить</SubmitButton>*/}
+                    <FormAliasInput name="alias_name"/>
                 </FormGroup>
-
             </Form>
         </div>
     )
-}
+};
 
-export default connectClubAlias(ClientClubAlias)
+export default connectClubAlias(React.memo(ClientClubAlias));

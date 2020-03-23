@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-import Card from 'components/Card';
-import Alert from 'components/Alert';
+import React, { useState } from "react";
+import Card from "../../../../components/Card";
+import Alert from "../../../../components/Alert";
 import "./index.scss";
 
 
 const Support = () => {
     const [showAlert, setShowAlert] = useState(false);
+
     const handleClick = e => {
         e.preventDefault();
         setShowAlert(true);
-    }
+    };
 
-    const handleClose = e => setShowAlert(false);
+    const handleClose = () => setShowAlert(false);
 
     return <Card className="about-page__contacts contacts">
-        {showAlert && <Alert
-            title="Внимание!"
-            text="Ресурс находится в разработке."
-            autoclose={1.5}
-            onOk={handleClose}
-        />}
         <h4 className="contacts__title">Поддержка</h4>
         <div className="contacts__block _wiki">
             <p>
@@ -43,6 +38,12 @@ const Support = () => {
                 </span>
             </p>
         </div>
+        {showAlert && <Alert
+            title="Внимание!"
+            text="Ресурс находится в разработке."
+            autoclose={1.5}
+            onOk={handleClose}
+        />}
     </Card>
 };
 

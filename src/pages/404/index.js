@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import './index.scss';
+import "./index.scss";
 
 const PageNotFound = () => (
     <Layout>
@@ -12,4 +12,4 @@ const PageNotFound = () => (
     </Layout>
 );
 
-export default PageNotFound;
+export default React.memo(PageNotFound);
