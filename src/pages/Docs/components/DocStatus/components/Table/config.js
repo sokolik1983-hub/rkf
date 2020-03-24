@@ -83,8 +83,6 @@ export const getTableColumns = (sortingColumns, sortable) => {
         cell: {
             formatters: [
                 (value, {rowData}) => {
-                    console.log('value', value);
-                    console.log('rowData', rowData);
                     return (
                         <RowControl>
                             <ul className="row-control__list">
