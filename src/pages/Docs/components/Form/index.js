@@ -25,7 +25,7 @@ const Form = forwardRef(({children, className, inline, style, validationSchema},
 );
 
 const FormField = props => {
-    const { validate, className, style, checkbox, name, label, force} = props;
+    const { validate, className, style, checkbox, name, label, force, defaultValue} = props;
     const [error, setError] = useState('');
     const [touch, setTouch] = useState(false);
     const [init, setInit] = useState(false);
@@ -39,7 +39,7 @@ const FormField = props => {
     const ref = useRef();
     const {current:target} = ref;
     force && !touch && target && blur({target});
-    !init && validate && validate(name, '') && setInit(true);
+    !init && validate && validate(name, defaultValue || '') && setInit(true);
 
     const classNames = classnames(
         'FormInput',
