@@ -1,4 +1,4 @@
-import React, { forwardRef, cloneElement, formData } from "react";
+import React, { forwardRef, Children, cloneElement, useState } from "react";
 import FormGroup from "components/Form/FormGroup";
 import classnames from 'classnames'
 import "components/Form/FormInput/styles.scss";
@@ -7,6 +7,7 @@ const Form = forwardRef(({children, className, inline, style, validationSchema},
     const [formData, setFormData] = useState({});
     const update = ({target}) => {
         let {name, value} = target;
+        console.log(name, value);
     }
     const validate = x=>x;
     return <form ref={ref}
@@ -17,12 +18,12 @@ const Form = forwardRef(({children, className, inline, style, validationSchema},
             {[className]: className},
         )}
     >
-        {cloneElement(children, {onChange: update, onBlur: valudate})}
+        {children}
     </form>;
 });
 
 const FormField = props => {
-    const { error, touch, className, style, checkbox, name, label, blur } = props;
+    const { error, touch, className, style, checkbox, name, label, onBlur } = props;
     const classNames = classnames(
         'FormInput',
         {[className]: className},
@@ -31,7 +32,7 @@ const FormField = props => {
     );
     return <div style={style} className={classNames}>
         <label htmlFor={name}>{label}</label>
-        <input {...props} onBlur={blur} className="FormInput__input" id={name} />
+        <input {...props} onBlur={onBlur} className="FormInput__input" id={name} />
         {!!error &&
             <div class="FormInput__error">{error}</div>
         }
