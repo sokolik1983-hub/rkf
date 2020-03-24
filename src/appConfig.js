@@ -84,11 +84,6 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/:route/documents',
-        component: LoadableModules.LoadableDocs
-    },
-    {
-        exact: false,
         path: '/auth/login',
         component: LoadableModules.LoadableAuthorization
     },
@@ -109,13 +104,18 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route',
-        component: LoadableModules.LoadableClubPage
+        path: '/:route/news',
+        component: LoadableModules.LoadableClubNews
+    },
+    {
+        exact: false,
+        path: '/:route/documents',
+        component: LoadableModules.LoadableDocs
     },
     {
         exact: true,
-        path: '/:route/news',
-        component: LoadableModules.LoadableClubNews
+        path: '/:route',
+        component: LoadableModules.LoadableClubPage
     }
 ];
 

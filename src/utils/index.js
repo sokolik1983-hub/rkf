@@ -15,6 +15,18 @@ export const formatPhone = phone => {
     return `+${phone.slice(0, 1)}(${phone.slice(1, 4)}) ${phone.slice(4, 7)}-${phone.slice(7, 9)}-${phone.slice(9)}`;
 };
 
+export const formatPrice = price => Number.prototype.toFixed.call(parseFloat(price) || 0, 2)
+    .replace(/(\D)/g, ",")
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ") + ' руб.';
+
+export const formatDateWithTime = date => {
+    const newDate = new Date(date);
+
+    return `${newDate.toLocaleDateString('ru-RU')} ${newDate.getHours() < 10 ? 
+        '0' + newDate.getHours() : newDate.getHours()}:${newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes()}`
+};
+
+
 export const formatWorkTime = workTime => {
     let newWorkTime = [];
     workTime.forEach(day => {
