@@ -66,7 +66,7 @@ const DocApply = ({ clubAlias }) => {
             <Alert
                 title="Ошибка отправки"
                 text={`Сервер вернул ошибку: ${res.status} - ${res.statusText}`}
-                autoclose={1.5}
+                okButton="true"
                 onOk={() => setErrAlert(false)}
             />
         }
@@ -90,7 +90,7 @@ const DocApply = ({ clubAlias }) => {
                     <FormGroup>
                         <FormField name='email' type="email" label='Email клуба' defaultValue={data.club.email} validate={validate} force={force}/>
                         <FormField name='phone' type="tel" label='Телефон клуба' defaultValue={data.club.phone} validate={validate} force={force}/>
-                        <FormField name='payment_document' label='Квитанция' type="file" validate={validate} force={force} />
+                        <FormField name='payment_document' label='Квитанция' type="file" accept="application/pdf" validate={validate} force={force} />
                         <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
                         <FormField name='payment_date' label='Дата платежа' type="date" validate={validate} force={force}/>
                         <FormField name='payment_number' label='Номер платежа' validate={validate} force={force}/>
