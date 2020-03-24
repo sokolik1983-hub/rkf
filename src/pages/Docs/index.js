@@ -7,11 +7,12 @@ import Layout from 'components/Layouts';
 import TopComponent from 'components/TopComponent';
 import DocApply from './components/DocApply';
 import DocHome from './components/DocHome';
+import ClubDocumentsStatus from "./components/DocStatus";
 import { LoadableNotFound } from "appModules";
 import ls from "local-storage";
 import "./index.scss";
 
-const Docs = () => {
+const Docs = ({history}) => {
     const loading = false;
     const isError = false;
     const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
@@ -35,6 +36,7 @@ const Docs = () => {
                             <Route exact={true} path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                             <Route exact={true} path='/:route/documents/apply-litter' component={() => <DocApply clubAlias={clubAlias} />} />
                             <Route exact={true} path='/:route/documents/apply-pedigree' component={() => <DocApply clubAlias={clubAlias} />} />
+                            <Route exact={true} path='/:route/documents/status' component={() => <ClubDocumentsStatus clubAlias={clubAlias} history={history} />} />
                             <Route component={LoadableNotFound} />
                         </Switch>
                     </Container>

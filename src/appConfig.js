@@ -84,11 +84,6 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/:route/documents',
-        component: LoadableModules.LoadableDocs
-    },
-    {
-        exact: false,
         path: '/auth/login',
         component: LoadableModules.LoadableAuthorization
     },
@@ -113,9 +108,9 @@ const appRoutes = [
         component: LoadableModules.LoadableClubNews
     },
     {
-        exact: true,
-        path: '/:id/documents_status',
-        component: LoadableModules.LoadableClubDocumentsStatus
+        exact: false,
+        path: '/:route/documents',
+        component: LoadableModules.LoadableDocs
     },
     {
         exact: true,

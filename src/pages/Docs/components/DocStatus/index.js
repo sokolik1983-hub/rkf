@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
-import Card from "../../components/Card";
+import Loading from "../../../../components/Loading";
+import Card from "../../../../components/Card";
 import StatusTable from "./components/Table";
 import "./index.scss";
 
@@ -12,7 +10,7 @@ const defaultResult = {
     documents: [
         {
             id: 1,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-01T15:32:41.723041',
             federation: 'РФЛС',
             status: 'Выдано',
             status_id: 1,
@@ -23,7 +21,7 @@ const defaultResult = {
         },
         {
             id: 2,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-01T14:02:41.723041',
             federation: 'РФЛС',
             status: 'Изготавливается',
             status_id: 2,
@@ -34,7 +32,7 @@ const defaultResult = {
         },
         {
             id: 3,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-21T15:32:41.723041',
             federation: 'РФЛС',
             status: 'Отклонено',
             status_id: 3,
@@ -45,7 +43,7 @@ const defaultResult = {
         },
         {
             id: 4,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-02T15:32:41.723041',
             federation: 'РФЛС',
             status: 'Зарегистрирован',
             status_id: 4,
@@ -55,7 +53,7 @@ const defaultResult = {
             cost: 3000
         },{
             id: 5,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-22T15:32:41.723041',
             federation: 'РФЛС',
             status: 'Выдано',
             status_id: 1,
@@ -66,7 +64,7 @@ const defaultResult = {
         },
         {
             id: 6,
-            registration_date: '2020-03-23T15:32:41.723041',
+            registration_date: '2020-03-12T15:32:41.723041',
             federation: 'РФЛС',
             status: 'Выдано',
             status_id: 1,
@@ -90,8 +88,7 @@ const defaultResult = {
     documents_count: 7
 };
 
-const ClubDocumentsStatus = ({history, match}) => {
-    const ClubId = match.params.id;
+const ClubDocumentsStatus = ({history, clubAlias}) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
 
@@ -102,23 +99,23 @@ const ClubDocumentsStatus = ({history, match}) => {
 
     return loading ?
         <Loading/> :
-        <Layout>
-            <Container className="content club-documents-status">
-                <Card>
-                    <div className="club-documents-status__head"></div>
-                    <div className="club-documents-status__table">
-                        <StatusTable documents={documents}/>
-                    </div>
-                    <div className="club-documents-status__bottom">
-                        <p>В соответствии с требованиями РКФ, с заявлением на регистрацию помета, так же при наличии
-                            принимаются акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
-                            копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
-                            оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.</p>
-                        <Link to="/" className="btn-add">+</Link>
-                    </div>
-                </Card>
-            </Container>
-        </Layout>
+        <Card className="club-documents-status">
+            <div className="club-documents-status__head">
+                <button className="btn-backward" onClick={() => history.goBack()}>
+                    Заявление на регистрацию помета
+                </button>
+            </div>
+            <div className="club-documents-status__table">
+                <StatusTable documents={documents}/>
+            </div>
+            <div className="club-documents-status__bottom">
+                <p>В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются:
+                    акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
+                    копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
+                    оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.</p>
+                <Link to={`/${clubAlias}/documents/apply-litter`} className="btn-add">+</Link>
+            </div>
+        </Card>
 };
 
 export default React.memo(ClubDocumentsStatus);
