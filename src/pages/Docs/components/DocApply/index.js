@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField, required, email } from "../../components/Form";
@@ -12,7 +13,10 @@ const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [force, setForce] = useState(false);
+    const [okAlert, setOkAlert] = useState(false);
+    const [errAlert, setErrAlert] = useState(false);
     const [formValid, setFormValid] = useState({});
+    const [res, setResponse] = useState({});
     const [n, setN] = useState(1);
     const plusClick = e => {
         setDocItems(docItems.concat(n));
@@ -35,7 +39,13 @@ const DocApply = ({ clubAlias }) => {
         setForce(true);
         let valid = Object.values(formValid).every(x=>x);
         valid && fetch(apiEndpoint, {method: 'POST', body: fd})
-        .then(response => console.log(response))
+        .then(response => {
+            if (!response.ok) {
+                throw response;
+            }
+        })
+        .then(() => setOkAlert(true))
+        .catch(response => {setResponse(response); setErrAlert(true);})
     }
     const deleteItem = i => {
         docItems.splice(i,1);
@@ -44,13 +54,22 @@ const DocApply = ({ clubAlias }) => {
 
     return <div className="documents-page__info">
         <aside className="documents-page__left">
-        {/*showAlert &&
+        {okAlert &&
             <Alert
-                title="Внимание!"
-                text="Раздел находится в разработке."
-                onOk={() => setShowAlert(false)}
+                title="Документы отправлены"
+                text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
+                autoclose={1.5}
+                onOk={() => setOkAlert(false)}
             />
-        */}
+        }
+        {errAlert &&
+            <Alert
+                title="Ошибка отправки"
+                text={`Сервер вернул ошибку: ${res.status} - ${res.statusText}`}
+                autoclose={1.5}
+                onOk={() => setErrAlert(false)}
+            />
+        }
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
