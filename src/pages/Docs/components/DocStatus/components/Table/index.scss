@@ -3,6 +3,7 @@
   border-spacing: 0;
   empty-cells: show;
   border: 1px solid #cbcbcb;
+  width: 100%;
   thead {
     background-color: #e0e0e0;
     color: #000;
@@ -13,7 +14,7 @@
   td, th {
     border-left: 1px solid #cbcbcb;
     padding: 8px 16px;
-    &:last-child {
+    &:nth-child(7) {
       min-width: 165px;
     }
   }

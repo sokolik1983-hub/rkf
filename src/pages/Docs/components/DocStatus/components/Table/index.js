@@ -51,9 +51,9 @@ class StatusTable extends PureComponent {
         this.setState({ pagination: { ...this.state.pagination, page: Math.min(Math.max(page, 1), pages) } });
     };
 
-    onPerPage = value => this.setState({ pagination: { ...this.state.pagination, perPage: parseInt(value, 10) || 10 } });
+    onPerPage = value => this.setState({pagination: {...this.state.pagination, perPage: parseInt(value, 10) || 5}});
 
-    onColumnChange = searchColumn => this.setState({ searchColumn });
+    onColumnChange = searchColumn => this.setState({searchColumn});
 
     onSearch = query => this.setState({searchQuery: query});
 

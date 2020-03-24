@@ -1,6 +1,9 @@
+import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
+import RowControl from "../RowControl";
 import {formatDateWithTime, formatPrice} from "../../../../../../utils";
+import {Link} from "react-router-dom";
 
 
 export const getTableColumns = (sortingColumns, sortable) => {
@@ -74,6 +77,35 @@ export const getTableColumns = (sortingColumns, sortable) => {
         }
 
         return col;
+    });
+
+    cols.push({
+        cell: {
+            formatters: [
+                (value, {rowData}) => {
+                    console.log('value', value);
+                    console.log('rowData', rowData);
+                    return (
+                        <RowControl>
+                            <ul className="row-control__list">
+                                <li className="row-control__item">
+                                    <Link to="/" className="row-control__link" onClick={e => e.preventDefault()}>
+                                        Подробнее
+                                    </Link>
+                                </li>
+                                {rowData.status_id === 3 &&
+                                    <li className="row-control__item">
+                                        <Link to="/" className="row-control__link" onClick={e => e.preventDefault()}>
+                                            Редактировать
+                                        </Link>
+                                    </li>
+                                }
+                            </ul>
+                        </RowControl>
+                    )
+                }
+            ]
+        }
     });
 
     return cols;
