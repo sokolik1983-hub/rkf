@@ -14,13 +14,7 @@
     }
   }
   .menu-component {
-    margin-bottom: 0;
-    @media (min-width: 990px) {
-      margin-bottom: 24px;
-    }
-    @media (max-width: 768px) {
-      display: none;
-    }
+    margin-bottom: 24px;
   }
   p {
     font-weight: normal;
@@ -182,19 +176,7 @@
     }
     @media (max-width: 990px) {
       margin-right: 0;
-      display: flex;
-      flex-wrap: wrap;
       width: 100%;
-      padding-bottom: 12px;
-      & > div {
-        width: calc(50% - 12px);
-        &:nth-child(odd) {
-          margin: 0 12px 0 0;
-        }
-        &:nth-child(even) {
-          margin: 0 0 0 12px;
-        }
-      }
     }
     @media (max-width: 768px) {
       display: block;
@@ -251,15 +233,20 @@
   .Card {
     margin-bottom: 1em;
     h3 {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 24px;
+      letter-spacing: 0.2px;
+      margin-bottom: 6px;
       @media (max-width: 560px) {
-        font-size: 18px;
-        margin-bottom: 6px;
       }
     }
     p {
       margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+    hr {
+      border: none;
+      border-bottom: 1px solid #f6f7f7;
     }
     &__links {
       display: flex;
@@ -268,8 +255,12 @@
       padding: 5px 0 0;
       a {
         padding: 5px 0 0;
+        text-decoration: none;
         &:first-child {
           margin-right: 20px;
+        }
+        &:hover {
+          text-decoration: underline;
         }
       }
     }
