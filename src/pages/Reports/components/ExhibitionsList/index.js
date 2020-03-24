@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
-import {useResourceAndStoreToRedux} from "../../../../shared/hooks";
-import {endpointReportsList} from "../../config";
-import {connectReportsList} from "../../connectors";
+import { useResourceAndStoreToRedux } from "../../../../shared/hooks";
+import { endpointReportsList } from "../../config";
+import { connectReportsList } from "../../connectors";
 import "./styles.scss";
 
 
-const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
+const ExhibitionsList = ({ reportsList, path, fetchReportsSuccess }) => {
     const [reports, setReports] = useState(reportsList);
-    const {loading} = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
+    const { loading } = useResourceAndStoreToRedux(endpointReportsList, fetchReportsSuccess);
 
     useEffect(() => {
         setReports(reportsList);
@@ -20,32 +20,31 @@ const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
         <Loading /> :
         <Card className="reports-page__list">
             <h2 className="reports-page__list-title">Прошедшие мероприятия</h2>
-
-            {reports && !!reports.length ?
-                <>
-                    <div className="reports-page__list-controls">
-                        <button
-                            className="reports-page__list-button"
-                            type="button"
-                            onClick={() => setReports(reportsList)}
-                        >Все</button>
-                        <button
-                            className="reports-page__list-button _red"
-                            type="button"
-                            onClick={() => setReports(reportsList.filter(item => item.report_header_status === 1))}
-                        >Отчёт не был отправлен, либо требует доработки</button>
-                        <button
-                            className="reports-page__list-button _yellow"
-                            type="button"
-                            onClick={() => setReports(reportsList.filter(item => item.report_header_status === 2))}
-                        >Отчёт ожидает проверки администратором</button>
-                        <button
-                            className="reports-page__list-button _green"
-                            type="button"
-                            onClick={() => setReports(reportsList.filter(item => item.report_header_status === 3))}
-                        >Отчёт принят</button>
-                    </div>
-                    <ul className="ExhibitionsList">
+            <div className="reports-page__list-controls">
+                <button
+                    className="reports-page__list-button"
+                    type="button"
+                    onClick={() => setReports(reportsList)}
+                >Все</button>
+                <button
+                    className="reports-page__list-button _red"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 1))}
+                >Отчёт не был отправлен, либо требует доработки</button>
+                <button
+                    className="reports-page__list-button _yellow"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 2))}
+                >Отчёт ожидает проверки администратором</button>
+                <button
+                    className="reports-page__list-button _green"
+                    type="button"
+                    onClick={() => setReports(reportsList.filter(item => item.report_header_status === 3))}
+                >Отчёт принят</button>
+            </div>
+            {
+                reports && !!reports.length
+                    ? <ul className="ExhibitionsList">
                         {reports.map(item =>
                             <li key={item.exhibition_id}>
                                 {item.report_header_status === 1 ?
@@ -63,8 +62,7 @@ const ExhibitionsList = ({reportsList, path, fetchReportsSuccess}) => {
                             </li>
                         )}
                     </ul>
-                </> :
-                <h3>Мероприятий не найдено</h3>
+                    : <h3>Мероприятий не найдено</h3>
             }
         </Card>
 };
