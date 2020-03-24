@@ -41,10 +41,16 @@ const DocApply = ({ clubAlias }) => {
         docItems.splice(i,1);
         setDocItems(docItems.concat([]));
     }
->>>>>>> bc6039e... [+] reenable item delition
 
     return <div className="documents-page__info">
         <aside className="documents-page__left">
+        {/*showAlert &&
+            <Alert
+                title="Внимание!"
+                text="Раздел находится в разработке."
+                onOk={() => setShowAlert(false)}
+            />
+        */}
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
@@ -60,11 +66,15 @@ const DocApply = ({ clubAlias }) => {
                 {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
                                 */}
             <Form>
+                <input type="hidden" name="federation_id" value="1"/>
                 <Card>
                     <FormGroup>
-                        <FormField name='email' label='Email клуба' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField name='email' type="email" label='Email клуба' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField name='phone' type="tel" label='Телефон клуба' defaultValue={data.club.phone} validate={validate} force={force}/>
                         <FormField name='payment_document' label='Квитанция' type="file" validate={validate} force={force} />
                         <i>квитанция об оплате суммарного взноса за оформление пакета документов</i>
+                        <FormField name='payment_date' label='Дата платежа' type="date" validate={validate} force={force}/>
+                        <FormField name='payment_number' label='Номер платежа' validate={validate} force={force}/>
                     </FormGroup>
                 </Card>
                 <div className="documents-page__title-wrap">

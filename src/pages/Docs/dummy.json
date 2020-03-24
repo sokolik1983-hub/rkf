@@ -15,6 +15,7 @@
         "id": 4547,
         "display_name": "Тестовый клуб",
         "avatar": "/static/icons/default/club-avatar.svg",
-        "email": "test@example.com"
+        "email": "test@example.com",
+        "phone": "+7(495)223-32-22"
     }
 }
