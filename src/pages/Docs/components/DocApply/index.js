@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import data from "../../dummy.json";
 
-const apiEndpoint = '/api/clubs/ClubFederationDocumentsRequest';
+const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
