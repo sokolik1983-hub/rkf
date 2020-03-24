@@ -101,9 +101,7 @@ const ClubDocumentsStatus = ({history, clubAlias}) => {
         <Loading/> :
         <Card className="club-documents-status">
             <div className="club-documents-status__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>
-                    Заявление на регистрацию помета
-                </button>
+                <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
             </div>
             <div className="club-documents-status__table">
                 <StatusTable documents={documents}/>
