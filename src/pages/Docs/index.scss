@@ -233,9 +233,9 @@
   .Card {
     margin-bottom: 1em;
     h3 {
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.2px;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
       margin-bottom: 6px;
       @media (max-width: 560px) {
       }
@@ -246,7 +246,7 @@
     }
     hr {
       border: none;
-      border-bottom: 1px solid #f6f7f7;
+      border-bottom: 1px solid #e8e8e8;
     }
     &__links {
       display: flex;
