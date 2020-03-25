@@ -300,8 +300,8 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
 
         return <div className="FormField activities">
             <h4>Виды деятельности</h4>
-            {
-                activitiesList.map(({ value, label }) => <div key={value} >
+            {activitiesList.map(({ value, label }) =>
+                <div key={value}>
                     <input
                         id={`activity-${value}`}
                         onChange={handleChange}
@@ -343,8 +343,9 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                             <fieldset disabled={isSubmitted}>
                                 <Card>
                                     <h3>Юридическая информация</h3>
-                                    {
-                                        legalFields.map(({ label, name, type }) => <FormField
+                                    {legalFields.map(({ label, name, type }) =>
+                                        <FormField
+                                            key={name}
                                             label={label}
                                             name={name}
                                             value={type === 'date' ? formatDate(fields.registration_date) : fields[name]}
@@ -352,13 +353,22 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                             fields={fields}
                                             onInputChange={onInputChange}
                                             disabled
-                                        />)
-                                    }
+                                        />
+                                    )}
                                 </Card>
                                 <Card>
                                     <h3>Дополнительная информация</h3>
-                                    <FormField fields={fields}
-                                        onInputChange={onInputChange} type="text" required="true" label="Номер телефона" name="phone" value={fields.phone} title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890" pattern="7[0-9]{10}" />
+                                    <FormField
+                                        fields={fields}
+                                        onInputChange={onInputChange}
+                                        type="text"
+                                        required="true"
+                                        label="Номер телефона"
+                                        name="phone"
+                                        value={fields.phone}
+                                        title="Цифра 7 и далее 10 цифр номера телефона. Пример: 71234567890"
+                                        pattern="7[0-9]{10}"
+                                    />
                                     <div className="FormField">
                                         <h4>Федерация</h4>
                                         <span>{fields.federation ? fields.federation : 'Не указана'}</span>
@@ -366,86 +376,105 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                     <StatusSelect label="Территориальный статус" name="status" value={fields.status} />
                                     {interregional && <RegionsSelect isDisabled={!isEditable('status')} />}
                                     <Activities />
-                                    <FormField fields={fields}
-                                        onInputChange={onInputChange} type="text" required="true" label="Фактический город местонахождения клуба" name="fact_city" value={fields.fact_city} title="Введите фактический город местонахождения клуба" />
-                                    <FormField fields={fields}
-                                        onInputChange={onInputChange} type="text" required="true" label="Фактический полный адрес местонахождения клуба" name="fact_address" value={fields.fact_address} title="Введите фактический полный адрес местонахождения клуба" />
-                                    <FormField fields={fields}
-                                        onInputChange={onInputChange} type="text" required="true" label="Сокращенное наименование организации" name="fact_name" value={fields.fact_name} title="Введите фактическое название организации" />
+                                    <FormField
+                                        fields={fields}
+                                        onInputChange={onInputChange}
+                                        type="text"
+                                        required="true"
+                                        label="Фактический город местонахождения клуба"
+                                        name="fact_city"
+                                        value={fields.fact_city}
+                                        title="Введите фактический город местонахождения клуба"
+                                    />
+                                    <FormField
+                                        fields={fields}
+                                        onInputChange={onInputChange}
+                                        type="text"
+                                        required="true"
+                                        label="Фактический полный адрес местонахождения клуба"
+                                        name="fact_address"
+                                        value={fields.fact_address}
+                                        title="Введите фактический полный адрес местонахождения клуба"
+                                    />
+                                    <FormField
+                                        fields={fields}
+                                        onInputChange={onInputChange}
+                                        type="text"
+                                        required="true"
+                                        label="Сокращенное наименование организации"
+                                        name="fact_name"
+                                        value={fields.fact_name}
+                                        title="Введите фактическое название организации"
+                                    />
                                 </Card>
-
                                 <Card>
                                     <h3>Документы</h3>
                                     <div className="FormField">
-                                        {
-                                            isEditable('stamp_code_registration_certificate')
-                                                ? <>
+                                        {isEditable('stamp_code_registration_certificate') ?
+                                            <>
+                                                <h4>
+                                                    {getDocUrl(2) ?
+                                                        <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a> :
+                                                        'Документ о регистрации кода клейма'
+                                                    }
+                                                </h4>
+                                                <span>Прикрепите файл формата PDF: </span>
+                                                <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
+                                                <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
+                                            </> :
+                                            <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
+                                        }
+                                    </div>
+                                    {interregional &&
+                                        <div className="FormField">
+                                            {isEditable('certificate_of_registration_legal_entity') ?
+                                                <>
                                                     <h4>
-                                                        {
-                                                            getDocUrl(2)
-                                                                ? <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
-                                                                : 'Документ о регистрации кода клейма'
+                                                        {getDocUrl(1) && fields.certificate_of_registration_legal_entity_valid ?
+                                                            <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a> :
+                                                            'Свидетельство о регистрации организации'
                                                         }
                                                     </h4>
                                                     <span>Прикрепите файл формата PDF: </span>
-                                                    <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
-                                                    <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
-                                                </>
-                                                : <a href={getDocUrl(2)} download="stamp_code_registration_certificate.pdf">Документ о регистрации кода клейма</a>
-                                        }
-                                    </div>
-                                    {
-                                        interregional && <div className="FormField">
-                                            {
-                                                isEditable('certificate_of_registration_legal_entity')
-                                                    ? <>
-                                                        <h4>
-                                                            {
-                                                                getDocUrl(1) && fields.certificate_of_registration_legal_entity_valid
-                                                                    ? <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
-                                                                    : 'Свидетельство о регистрации организации'
-                                                            }
-                                                        </h4>
-                                                        <span>Прикрепите файл формата PDF: </span>
-                                                        <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
-                                                        <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
-                                                    </>
-                                                    : <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
+                                                    <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
+                                                    <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
+                                                </> :
+                                                <a href={getDocUrl(1)} download="certificate_of_registration_legal_entity.pdf">Свидетельство о регистрации организации</a>
                                             }
                                         </div>
                                     }
                                     <br />
                                     <h3 className="documents-subheading">Квитанции об оплате членского взноса в Федерацию</h3>
-                                    {
-                                        isEditable('membership_payment_document')
-                                            ? <>
-                                                {
-                                                    invoices.map(name => <div className="invoice">
+                                    {isEditable('membership_payment_document') ?
+                                        <>
+                                            {invoices.map(name =>
+                                                <div className="invoice" key={name}>
+                                                    <div>
+                                                        <span>Прикрепите файл формата PDF: </span>
+                                                        <input type="file" accept=".pdf" name={name} onChange={onFileChange} />
+                                                    </div>
+                                                    {fields[name] &&
                                                         <div>
-                                                            <span>Прикрепите файл формата PDF: </span>
-                                                            <input type="file" accept=".pdf" name={name} onChange={onFileChange} />
+                                                            <span>Дата оплаты взноса: </span>
+                                                            <input type="date" name={`${name}_date`} onChange={onInputChange} required />
                                                         </div>
-                                                        {
-                                                            fields[name] && <div>
-                                                                <span>Дата оплаты взноса: </span>
-                                                                <input type="date" name={`${name}_date`} onChange={onInputChange} required />
-                                                            </div>
-                                                        }
-
-                                                    </div>)
-                                                }
-                                                {
-                                                    membership && membership.map((m, key) => <div className="FormField" key={key}>
-                                                        <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
-                                                    </div>)
-                                                }
-                                                <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
-                                            </>
-                                            : membership
-                                                ? membership.map((m, key) => <div className="FormField" key={key}>
+                                                    }
+                                                </div>
+                                            )}
+                                            {membership && membership.map((m, key) =>
+                                                <div className="FormField" key={key}>
                                                     <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
                                                 </div>)
-                                                : <p>Нет прикреплённых квитанций</p>
+                                            }
+                                            <div className="FormField__comment">{fields['membership_payment_document_comment']}</div>
+                                        </> :
+                                        membership ?
+                                            membership.map((m, key) =>
+                                                <div className="FormField" key={key}>
+                                                    <a href={m.url} download={`membership_payment_document_${++key}.pdf`}>{`Квитанции об оплате членского взноса №${key}`}</a>
+                                                </div>
+                                            ) :
+                                            <p>Нет прикреплённых квитанций</p>
                                     }
                                 </Card>
                                 {!isSubmitted && <button type="submit" className="btn btn-simple">Отправить</button>}
@@ -455,7 +484,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     </>
                 }
             </Container>
-        </Layout >
+        </Layout>
     )
 };
 

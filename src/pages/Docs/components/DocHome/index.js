@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import CustomMenu from "components/CustomMenu";
-import Card from 'components/Card';
+import {Link} from "react-router-dom";
+import Card from "../../../../components/Card";
+import CustomMenu from "../../../../components/CustomMenu";
 
-const DocHome = ({ clubAlias }) => {
 
-    return <div className="documents-page__info">
+const DocHome = ({clubAlias}) => (
+    <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
@@ -34,6 +34,6 @@ const DocHome = ({ clubAlias }) => {
             </Card>
         </div>
     </div>
-};
+);
 
-export default DocHome;
+export default React.memo(DocHome);
