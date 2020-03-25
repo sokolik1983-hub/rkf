@@ -260,16 +260,14 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                             }
                                         </label>
                                         {
-                                            typeof (d.name) !== 'object'
-                                                ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
-                                                : <>
-                                                    {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
-                                                    <input type="file" disabled={reportHeader.doc_additional_is_sent} accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
-                                                        updateExtraDoc(d.id, e.target.files[0]);
-                                                        if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
-                                                    }} />
-                                                </>
+                                            d.name
+                                            && typeof (d.name) !== 'object'
+                                            && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
                                         }
+                                        <input type="file" disabled={reportHeader.doc_additional_is_sent} accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                            updateExtraDoc(d.id, e.target.files[0]);
+                                            if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
+                                        }} />
                                     </div>
                                 })
                                 : null
