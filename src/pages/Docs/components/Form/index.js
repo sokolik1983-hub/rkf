@@ -34,7 +34,7 @@ const FormField = props => {
             let e = validate(target.name, target.value);
             e !== error && setError(e);
         }
-        onChange(target.value);
+        onChange && onChange(target.value);
     }
     const blur = ({target}) => {setTouch(true); change({target});}
     const ref = useRef();

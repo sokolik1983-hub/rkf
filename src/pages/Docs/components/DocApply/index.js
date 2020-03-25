@@ -20,11 +20,11 @@ const DocApply = ({ clubAlias }) => {
     const [errAlert, setErrAlert] = useState(false);
     const [formValid, setFormValid] = useState({});
     const [res, setResponse] = useState({});
-    const [n, setN] = useState(1);
+    const [moreItems, setMoreItems] = useState(1);
     const plusClick = e => {
-        setDocItems(docItems.concat(n));
+        setDocItems(docItems.concat(moreItems));
         setActive(docItems.length);
-        setN(n + 1);
+        setMoreItems(moreItems + 1);
     }
     const clearClick = e => {
         setDocItems([]);
