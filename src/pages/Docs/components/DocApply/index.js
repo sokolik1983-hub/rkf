@@ -18,6 +18,7 @@ const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
+    const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
     const [force, setForce] = useState(false);
@@ -31,6 +32,7 @@ const DocApply = ({ clubAlias }) => {
         setActive(docItems.length);
         setMoreItems(moreItems + 1);
     }
+    const fedChange = e => setFedName(e.label);
     const clearClick = e => {
         setDocItems([]);
     }
@@ -111,7 +113,7 @@ const DocApply = ({ clubAlias }) => {
             <Form>
                 <Card>
                     <FormGroup>
-                        <FormField options={federations} name="federation_id" label='Федерация'/>
+                        <FormField options={federations} name="federation_id" label='Федерация' onChange={fedChange} />
                         <FormField name='name' label='ФИО заявителя' validate={validate} force={force}/>
                         <FormField name='phone' type="tel" label='Телефон заявителя' defaultValue={data.club.phone} validate={validate} force={force}/>
                         <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
@@ -151,7 +153,7 @@ const DocApply = ({ clubAlias }) => {
                 </Card>
                 <Card>
                     <FormGroup>
-                        <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу %наименование федерации% и заполните информацию о платеже.</b></p>
+                        <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                         <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" validate={validate} force={force} />
                         <FormField name='payment_date' label='Дата оплаты' type="date" validate={validate} force={force}/>
                         <FormField name='payment_number' label='Номер платежного документа' validate={validate} force={force}/>

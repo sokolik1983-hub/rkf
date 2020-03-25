@@ -33,7 +33,12 @@ const FormField = props => {
     const [error, setError] = useState('');
     const [touch, setTouch] = useState(false);
     const [init, setInit] = useState(false);
-    const change = ({target}) => {
+    const change = event => {
+        const {target} = event;
+        if (!target) {
+            onChange && onChange(event);
+            return;
+        }
         if (validate) {
             let e = validate(target.name, target.value);
             e !== error && setError(e);
@@ -56,7 +61,7 @@ const FormField = props => {
     );
     return <div style={style} className={classNames}>
         <label htmlFor={name}>{label}</label>
-        <I {...props} validate="" force="" onBlur={blur} onChange={change} className="FormInput__input" id={name} ref={ref} />
+        <I {...props} validate="" force="" onBlur={blur} onChange={change} className={!options&&"FormInput__input"} id={name} ref={ref} />
         {!!error && touch &&
             <div className="FormInput__error">{error}</div>
         }
