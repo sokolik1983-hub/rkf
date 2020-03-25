@@ -17,5 +17,12 @@
         "avatar": "/static/icons/default/club-avatar.svg",
         "email": "test@example.com",
         "phone": "+7(495)223-32-22"
-    }
+    },
+    "options": [
+        { "value": "0", "label": "сертификат"},
+        { "value": "1", "label": "заключение по дисплазии"},
+        { "value": "2", "label": "диплом с сертификатной выставки РКФ"},
+        { "value": "3", "label": "свидетельство о регистрации заводской приставки FCI"},
+        { "value": "4", "label": "договор аренды"}
+    ]
 }

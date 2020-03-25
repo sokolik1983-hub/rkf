@@ -1,7 +1,8 @@
 import React, { forwardRef, useRef, useState } from "react";
 import { string } from "yup";
 import FormGroup from "components/Form/FormGroup";
-import classnames from 'classnames'
+import classnames from 'classnames';
+import ReactSelect from 'react-select';
 import "components/Form/FormInput/styles.scss";
 
 const test = (x, f) => {
@@ -24,8 +25,11 @@ const Form = forwardRef(({children, className, inline, style, validationSchema},
     </form>
 );
 
+const Input = forwardRef((props,ref) => <input ref={ref} {...props} />);
+const Select = forwardRef((props,ref) => <ReactSelect ref={ref} {...props} />);
+
 const FormField = props => {
-    const { validate, className, style, checkbox, name, label, force, defaultValue, onChange } = props;
+    const { validate, className, style, checkbox, name, label, force, defaultValue, onChange, options } = props;
     const [error, setError] = useState('');
     const [touch, setTouch] = useState(false);
     const [init, setInit] = useState(false);
@@ -42,6 +46,8 @@ const FormField = props => {
     force && !touch && target && blur({target});
     !init && validate && validate(name, defaultValue || '') && setInit(true);
 
+    const I = options ? Select : Input;
+
     const classNames = classnames(
         'FormInput',
         {[className]: className},
@@ -50,7 +56,7 @@ const FormField = props => {
     );
     return <div style={style} className={classNames}>
         <label htmlFor={name}>{label}</label>
-        <input {...props} validate="" force="" onBlur={blur} onChange={change} className="FormInput__input" id={name} ref={ref} />
+        <I {...props} validate="" force="" onBlur={blur} onChange={change} className="FormInput__input" id={name} ref={ref} />
         {!!error && touch &&
             <div className="FormInput__error">{error}</div>
         }

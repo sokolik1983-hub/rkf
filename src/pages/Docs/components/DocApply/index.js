@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Request } from "utils/request";
 import PlusButton from "components/PlusButton";
+import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
@@ -7,6 +9,7 @@ import { Form, FormGroup, FormField, required, email } from "../../components/Fo
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
+import { endpointGetFederations } from "pages/Clubs/config";
 import './index.scss';
 import data from "../../dummy.json";
 
@@ -14,6 +17,8 @@ const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
+    const [federations, setFederations] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
     const [force, setForce] = useState(false);
     const [okAlert, setOkAlert] = useState(false);
@@ -58,7 +63,20 @@ const DocApply = ({ clubAlias }) => {
         setDocItems(docItems.concat([]));
     }
 
-    return <div className="documents-page__info DocApply">
+    useEffect(() => {
+        (() => Request({
+            url: endpointGetFederations
+        }, data => {
+            setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})));
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setLoading(false);
+        }))();
+    }, []);
+
+    return loading ? <Loading/> : <div className="documents-page__info DocApply">
         <aside className="documents-page__left">
         {okAlert &&
             <Alert
@@ -93,8 +111,8 @@ const DocApply = ({ clubAlias }) => {
             <Form>
                 <Card>
                     <FormGroup>
-                        <FormField type="hidden" name="federation_id" value="1" label='Федерация'/>
-                        <FormField name='name' label='ФИО заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField options={federations} name="federation_id" label='Федерация'/>
+                        <FormField name='name' label='ФИО заявителя' validate={validate} force={force}/>
                         <FormField name='phone' type="tel" label='Телефон заявителя' defaultValue={data.club.phone} validate={validate} force={force}/>
                         <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
                     </FormGroup>
@@ -127,7 +145,6 @@ const DocApply = ({ clubAlias }) => {
                             />)}
                         </tbody>
                     </table>
-                    <hr/>
                     <div className="flex-row">
                         <PlusButton title="Добавить еще заводчика" onClick={plusClick} />
                     </div>
@@ -138,7 +155,7 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" validate={validate} force={force} />
                         <FormField name='payment_date' label='Дата оплаты' type="date" validate={validate} force={force}/>
                         <FormField name='payment_number' label='Номер платежного документа' validate={validate} force={force}/>
-                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' validate={validate} force={force}/>
                     </FormGroup>
                 </Card>
                 <div className="flex-row">
