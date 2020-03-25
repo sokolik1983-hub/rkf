@@ -26,6 +26,21 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [preloaded, setPreloaded] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
+    const formatDate = dateArg => {
+        let d = new Date(dateArg),
+            dd = d.getDate(),
+            mm = d.getMonth() + 1,
+            yyyy = d.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        return dd + '.' + mm + '.' + yyyy;
+    }
+
     useEffect(() => {
         Promise.all([getStatus(), getRegions(), getActivities(), getFields()])
             .then(() => setPreloaded(true));
@@ -332,7 +347,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                         legalFields.map(({ label, name, type }) => <FormField
                                             label={label}
                                             name={name}
-                                            value={type === 'date' ? new Date(fields.registration_date).toISOString().substr(0, 10) : fields[name]}
+                                            value={type === 'date' ? formatDate(fields.registration_date) : fields[name]}
                                             props={{ placeholder: 'Не указано' }}
                                             fields={fields}
                                             onInputChange={onInputChange}
