@@ -1,3 +1,33 @@
 .DocItem {
-    margin-bottom: 1em;
+    //margin-bottom: 1em;
+    //position: relative;
+    &__chevron {
+        //position: absolute;
+        //top: 1em;
+        //right: 1em;
+        display: inline-block;
+        vertical-align: middle;
+        width: 1em;
+        height: 1em;
+        cursor: pointer;
+        transform: rotate(0deg);
+        transition: .2s transform;
+        &.active {
+            transform: rotate(-90deg);
+        }
+    }
+    &.collapse {
+        display: none;
+    }
+    &.active {
+        display: table-row;
+    }
+    &.active .card {
+        margin-bottom: 1em;
+        margin-top: .5em;
+    }
+    .plus-button {
+        position: relative;
+        left: 7.5px;
+    }
 }
