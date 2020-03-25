@@ -152,7 +152,7 @@
         color: #72839c;
         text-decoration: none;
         white-space: nowrap;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         &.active {
           color: white;
           background: #3366ff;
@@ -183,6 +183,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        align-items: flex-start;
         @media (max-width: 560px) {
           display: block;
         }
@@ -194,6 +195,9 @@
       line-height: 24px;
       letter-spacing: 0.2px;
       color: #72839c;
+      &:hover {
+        cursor: pointer;
+      }
       @media (max-width: 560px) {
         display: block;
         text-align: left;

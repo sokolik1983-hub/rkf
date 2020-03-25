@@ -21,7 +21,7 @@ function getCity() {
     return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
 }
 
-const HomePage = ({ homepage, getNewsSuccess }) => {
+const HomePage = ({ homepage, getNewsSuccess, cities }) => {
     const { articles, articles_count, current_page, current_active_type } = homepage.news;
     const [newsFilter, setNewsFilter] = useState({
         city: getCity(),
@@ -59,6 +59,7 @@ const HomePage = ({ homepage, getNewsSuccess }) => {
                         setNewsFilter={setNewsFilter}
                         currentActiveType={current_active_type}
                         currentCity={newsFilter.city}
+                        citiesDict={cities}
                         loading={loading}
                     />
                     <Aside className="home-page__right">
