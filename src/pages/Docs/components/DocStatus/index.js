@@ -93,20 +93,20 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
     const [documents, setDocuments] = useState(null);
 
     useEffect(() => {
-        setDocuments(defaultResult.documents);
-        setLoading(false);
-
-        // if(distinction === 'pedigree') {
-        //     (() => Request({url: '/api/clubs/requests/PedigreeRequest/headers_base_info'},
-        //     data => {
-        //         setDocuments(data);
-        //         setLoading(false);
-        //     },
-        //     error => {
-        //         console.log(error.response);
-        //         setLoading(false);
-        //     }))();
-        // }
+        if(distinction === 'pedigree') {
+            (() => Request({url: '/api/clubs/requests/PedigreeRequest/headers_base_info'},
+            data => {
+                setDocuments(data);
+                setLoading(false);
+            },
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
+        } else {
+            setDocuments(defaultResult.documents);
+            setLoading(false);
+        }
     }, []);
 
     return loading ?

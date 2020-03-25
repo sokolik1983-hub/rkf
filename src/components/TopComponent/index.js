@@ -65,8 +65,8 @@ const TopComponent = ({ logo, name, canEdit, withShare = true, banner_link }) =>
                     </div>
                 </div>
                 <div className="top-component__controls">
-                    {
-                        withShare && <button type="button" className="btn__blue share-desktop" onClick={share}>Поделиться</button>
+                    {withShare &&
+                        <button type="button" className="btn__blue share-desktop" onClick={share}>Поделиться</button>
                     }
                     {canEdit &&
                         <Link className="btn__blue" to={typeof (canEdit) === "string" ? canEdit : "/client"}>Редактировать</Link>
