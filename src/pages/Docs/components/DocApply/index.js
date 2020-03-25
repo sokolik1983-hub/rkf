@@ -101,15 +101,13 @@ const DocApply = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            <div className="documents-page__title-wrap">
-                <h2 className="documents-page__title">Регистрация заявления на регистрацию помета</h2>
-            </div>
             {/*
                 Это материал для страницы со списком документов
                 {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
                                 */}
             <Form>
                 <Card>
+                    <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
                         <FormField options={federations} name="federation_id" label='Федерация' onChange={fedChange} />
                         <FormField name='name' label='ФИО заявителя' validate={validate} force={force}/>
@@ -117,10 +115,8 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
                     </FormGroup>
                 </Card>
-                <div className="documents-page__title-wrap">
-                    <h3 className="documents-page__title">Заводчики</h3>
-                </div>
                 <Card>
+                    <h3>Заводчики</h3>
                     <table>
                         <thead>
                             <tr>
