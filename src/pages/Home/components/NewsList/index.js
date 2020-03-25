@@ -16,6 +16,7 @@ const NewsList = ({
     setNewsFilter,
     currentActiveType,
     currentCity,
+    citiesDict,
     loading
 }) => (
         <div className="NewsList">
@@ -39,6 +40,10 @@ const NewsList = ({
                                         url={`/news/${item.id}`}
                                         alias={item.alias}
                                         logo_link={item.logo_link}
+                                        setNewsFilter={setNewsFilter}
+                                        setPage={setPage}
+                                        citiesDict={citiesDict}
+                                        currentActiveType={currentActiveType}
                                     />
                                 </Card>
                             }

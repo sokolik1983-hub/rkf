@@ -40,7 +40,7 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
                     </ul>
                 </HorizontalSwipe>
             </div>
-            <CitySelect cityFilter={city => handleCityChange(city)} />
+            <CitySelect cityFilter={city => handleCityChange(city)} currentCity={currentCity} />
         </div>
     )
 };

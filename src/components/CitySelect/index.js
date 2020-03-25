@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from './config';
 import { useDictionary } from 'apps/Dictionaries';
@@ -25,7 +25,7 @@ const loadCity = () => {
     return city ? JSON.parse(city) : selectorInitialState;
 };
 
-function CitySelect({ cityFilter }) {
+function CitySelect({ cityFilter, currentCity }) {
     const ddRef = useRef();
     const [city, setCity] = useState(loadCity());
 
@@ -35,6 +35,10 @@ function CitySelect({ cityFilter }) {
         // TODO сделано "быстро", надо сделать хорошо
         ddRef.current.props.onOutsideClick();
     };
+
+    useEffect(() => {
+        currentCity && onChange(currentCity)
+    }, [currentCity]);
 
     const onChange = value => {
         if (!value.value || value.value === 'reset') {

@@ -3,10 +3,19 @@ import { Link } from "react-router-dom";
 import { getLocalizedMonth } from "utils/datetime";
 import { formatText } from "utils";
 import './index.scss';
-import {DEFAULT_IMG} from "../../../../appConfig";
+import { DEFAULT_IMG } from "../../../../appConfig";
 
-const ListItem = ({ club_name, city, date, alias, logo_link, photo, text, url }) => {
+const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, club_name, city, date, alias, logo_link, photo, text, url }) => {
     const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
+
+    const handleCityChange = e => {
+        const cityObj = {
+            label: city,
+            value: citiesDict.filter(c => c.label === city)[0].value
+        }
+        setNewsFilter({ city: cityObj, activeType: currentActiveType });
+        setPage(1);
+    };
 
     return <div className="list-item__wrap">
         {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
@@ -26,7 +35,7 @@ const ListItem = ({ club_name, city, date, alias, logo_link, photo, text, url })
                             <span>{formattedDate}</span>
                         </span>
                     </div>
-                    <span className="list-item__city">
+                    <span className="list-item__city" onClick={handleCityChange}>
                         {city}
                     </span>
                 </div>
