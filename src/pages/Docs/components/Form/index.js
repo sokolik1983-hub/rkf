@@ -25,7 +25,7 @@ const Form = forwardRef(({children, className, inline, style, validationSchema},
 );
 
 const FormField = props => {
-    const { validate, className, style, checkbox, name, label, force, defaultValue} = props;
+    const { validate, className, style, checkbox, name, label, force, defaultValue, onChange } = props;
     const [error, setError] = useState('');
     const [touch, setTouch] = useState(false);
     const [init, setInit] = useState(false);
@@ -34,6 +34,7 @@ const FormField = props => {
             let e = validate(target.name, target.value);
             e !== error && setError(e);
         }
+        onChange(target.value);
     }
     const blur = ({target}) => {setTouch(true); change({target});}
     const ref = useRef();
