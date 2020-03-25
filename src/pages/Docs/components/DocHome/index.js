@@ -20,7 +20,7 @@ const DocHome = ({ clubAlias }) => {
                 <hr />
                 <div className="Card__links">
                     <Link to={`/${clubAlias}/documents/apply-litter`}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/status`}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
                 </div>
             </Card>
             <Card>
@@ -29,7 +29,7 @@ const DocHome = ({ clubAlias }) => {
                 <hr />
                 <div className="Card__links">
                     <Link to={`/${clubAlias}/documents/apply-pedigree`}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/status`}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
                 </div>
             </Card>
         </div>
