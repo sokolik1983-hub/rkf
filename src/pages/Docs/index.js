@@ -30,7 +30,12 @@ const Docs = ({history}) => {
                         <Route exact={true} path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route exact={true} path='/:route/documents/apply-litter' component={() => <DocApply clubAlias={clubAlias} />} />
                         <Route exact={true} path='/:route/documents/apply-pedigree' component={() => <DocApply clubAlias={clubAlias} />} />
-                        <Route exact={true} path='/:route/documents/status' component={() => <ClubDocumentsStatus clubAlias={clubAlias} history={history} />} />
+                        <Route exact={true} path='/:route/documents/litter/status' component={() =>
+                            <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="litter" />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/status' component={() =>
+                            <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="pedigree" />}
+                        />
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </Container>
