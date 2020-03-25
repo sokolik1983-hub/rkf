@@ -82,15 +82,9 @@ const DocApply = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
-<<<<<<< HEAD
         <div className="documents-page__right">
             <div className="documents-page__title-wrap">
-                <h2 className="documents-page__title">Отправка документов</h2>
-=======
-        <div className="docs-page__right">
-            <div className="docs-page__title-wrap">
-                <h2 className="docs-page__title">Регистрация заявления на регистрацию помета</h2>
->>>>>>> e0901a5... [+] update form
+                <h2 className="documents-page__title">Регистрация заявления на регистрацию помета</h2>
             </div>
             {/*
                 Это материал для страницы со списком документов
@@ -105,13 +99,8 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
                     </FormGroup>
                 </Card>
-<<<<<<< HEAD
                 <div className="documents-page__title-wrap">
-                    <h3 className="documents-page__title">Заявители</h3>
-=======
-                <div className="docs-page__title-wrap">
-                    <h3 className="docs-page__title">Заводчики</h3>
->>>>>>> e0901a5... [+] update form
+                    <h3 className="documents-page__title">Заводчики</h3>
                 </div>
                 <Card>
                     <table>
