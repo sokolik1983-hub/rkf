@@ -220,10 +220,12 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     {!reportHeader.doc_catalog_accept ?
                         <>
                             {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>}
-                            <input type="file" accept=".pdf" disabled={reportHeader.doc_catalog_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
-                                setCatalog(e.target.files[0]);
-                                if (!reportHeader.doc_catalog_is_sent && (invoice || reportHeader.doc_payment_is_sent)) setShowButton(true);
-                            }} />
+                            {
+                                !reportHeader.doc_catalog_is_sent && <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                    setCatalog(e.target.files[0]);
+                                    if (!reportHeader.doc_catalog_is_sent && (invoice || reportHeader.doc_payment_is_sent)) setShowButton(true);
+                                }} />
+                            }
                         </> :
                         <p>Этот документ уже был принят</p>
                     }
@@ -234,11 +236,15 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
-                            {invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>}
-                            <input type="file" accept=".pdf" disabled={reportHeader.doc_payment_is_sent} style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
-                                setInvoice(e.target.files[0]);
-                                if (!reportHeader.doc_payment_is_sent && (catalog || reportHeader.doc_catalog_is_sent)) setShowButton(true);
-                            }} />
+                            {
+                                invoiceUrl && <a className="ReportDocumentLink" href={invoiceUrl} download="Квитанция об оплате взноса за обработку результатов мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>
+                            }
+                            {
+                                !reportHeader.doc_payment_is_sent && <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                    setInvoice(e.target.files[0]);
+                                    if (!reportHeader.doc_payment_is_sent && (catalog || reportHeader.doc_catalog_is_sent)) setShowButton(true);
+                                }} />
+                            }
                         </> :
                         <p>Этот документ уже был принят</p>
                     }
@@ -249,32 +255,33 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 {
                     !reportHeader.doc_additional_accept
                         ? <>
-                            {extraDocs
-                                ? extraDocs.map(d => {
-                                    return <div className="report-extra-documents__document" key={d.id}>
-                                        <label className="report-extra-documents__document-label">
-                                            Дополнительный документ {
-                                                d.name === null
-                                                    ? <span onClick={() => deleteExtraDoc(d.id)} className="report-extra-documents__document-del">- удалить</span>
-                                                    : null
+                            {
+                                extraDocs
+                                    ? extraDocs.map(d => {
+                                        return <div className="report-extra-documents__document" key={d.id}>
+                                            <label className="report-extra-documents__document-label">
+                                                Дополнительный документ {
+                                                    d.name === null
+                                                        ? <span onClick={() => deleteExtraDoc(d.id)} className="report-extra-documents__document-del">- удалить</span>
+                                                        : null
+                                                }
+                                            </label>
+                                            {
+                                                d.name
+                                                && typeof (d.name) !== 'object'
+                                                && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
                                             }
-                                        </label>
-                                        {
-                                            typeof (d.name) !== 'object'
-                                                ? <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
-                                                : <>
-                                                    {d.name && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>}
-                                                    <input type="file" disabled={reportHeader.doc_additional_is_sent} accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
-                                                        updateExtraDoc(d.id, e.target.files[0]);
-                                                        if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
-                                                    }} />
-                                                </>
-                                        }
-                                    </div>
-                                })
-                                : null
+                                            {
+                                                !reportHeader.doc_additional_is_sent && <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                                    updateExtraDoc(d.id, e.target.files[0]);
+                                                    if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
+                                                }} />
+                                            }
+                                        </div>
+                                    })
+                                    : null
                             }
-                            <button onClick={addExtraDoc}>+ Добавить документ</button>
+                            {!reportHeader.doc_additional_is_sent && <button onClick={addExtraDoc}>+ Добавить документ</button>}
                         </>
                         : <p>Дополнительные документы уже были приняты</p>
                 }
