@@ -1,0 +1,10 @@
+.delete-button {
+    cursor: pointer;
+    width: 14px;
+    height: 18px;
+    background: url('/static/icons/delete-red.svg');
+    background-size: cover;
+    align-self: flex-end;
+    position: relative;
+    bottom: 1em;
+}
