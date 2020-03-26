@@ -5,7 +5,8 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
-import { Form, FormGroup, FormField, required, email } from "../../components/Form";
+import { Form, FormGroup, FormField } from "components/Form";
+import { email, required } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
@@ -15,7 +16,7 @@ import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 
-const DocApply = ({ clubAlias }) => {
+const DocApply= ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
     const [fedName, setFedName] = useState('федерации');
@@ -105,14 +106,14 @@ const DocApply = ({ clubAlias }) => {
                 Это материал для страницы со списком документов
                 {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
                                 */}
-            <Form>
+            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations}>
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
                         <FormField options={federations} name="federation_id" label='Федерация' onChange={fedChange} />
-                        <FormField name='name' label='ФИО заявителя' validate={validate} force={force}/>
-                        <FormField name='phone' type="tel" label='Телефон заявителя' defaultValue={data.club.phone} validate={validate} force={force}/>
-                        <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField name='name' label='ФИО заявителя' />
+                        <FormField name='phone' type="tel" label='Телефон заявителя' />
+                        <FormField name='email' type="email" label='Эл. адрес заявителя' />
                     </FormGroup>
                 </Card>
                 <Card>
@@ -148,10 +149,10 @@ const DocApply = ({ clubAlias }) => {
                 <Card>
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" validate={validate} force={force} />
-                        <FormField name='payment_date' label='Дата оплаты' type="date" validate={validate} force={force}/>
-                        <FormField name='payment_number' label='Номер платежного документа' validate={validate} force={force}/>
-                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' validate={validate} force={force}/>
+                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" />
+                        <FormField name='payment_date' label='Дата оплаты' type="date" />
+                        <FormField name='payment_number' label='Номер платежного документа' />
+                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' />
                     </FormGroup>
                 </Card>
                 <div className="flex-row">
