@@ -24,6 +24,7 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
+    const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [page, setPage] = useState(1);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
             url: endpointGetClubInfo + match.params.route
         }, data => {
             setClubInfo(data);
+            setNotActiveProfile(isAuthenticated && !is_active_profile);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
             setLoading(false);
         }, error => {
@@ -47,7 +49,7 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
         <Loading /> :
         error ?
             <PageNotFound /> :
-                !canEdit ?
+                notActiveProfile ?
                     <NotConfirmed/> :
                     <Layout>
                         <Container className="content club-page">

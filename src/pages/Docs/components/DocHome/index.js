@@ -16,7 +16,10 @@ const DocHome = ({clubAlias}) => (
         <div className="documents-page__right">
             <Card>
                 <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются:
+                    акт вязки, акт обследования помета, копии свидетельств о происхождении производителей,
+                    копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно -
+                    оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.</p>
                 <hr />
                 <div className="Card__links">
                     <Link to={`/${clubAlias}/documents/apply-litter`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
@@ -25,7 +28,8 @@ const DocHome = ({clubAlias}) => (
             </Card>
             <Card>
                 <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
+                    свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.</p>
                 <hr />
                 <div className="Card__links">
                     <Link to={`/${clubAlias}/documents/apply-pedigree`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
