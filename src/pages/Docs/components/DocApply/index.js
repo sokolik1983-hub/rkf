@@ -33,9 +33,7 @@ const DocApply = ({ clubAlias }) => {
         setMoreItems(moreItems + 1);
     }
     const fedChange = e => setFedName(e.label);
-    const clearClick = e => {
-        setDocItems([]);
-    }
+
     const validate = (name, value) => {
         let n = name.split('.')[1] || name;
         let result = n === 'email' ? email(value) : required(value);
