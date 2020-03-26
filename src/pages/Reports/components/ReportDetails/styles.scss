@@ -13,9 +13,19 @@
   &__document {
     margin-bottom: 24px;
     &-label {
-      display: block;
+      display: flex;
+      align-items: center;
     }
     &-del {
+      width: 12px;
+      height: 12px;
+      margin-left: 10px;
+      background: url("/static/icons/cross.svg") center center/contain no-repeat;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &-replace {
       color: red;
       &:hover {
         cursor: pointer;
