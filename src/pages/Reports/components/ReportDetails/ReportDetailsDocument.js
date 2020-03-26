@@ -41,20 +41,42 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     };
 
     const addExtraDoc = () => {
-        extraDocs && setExtraDocs([
+        const e = extraDocs;
+        e && setExtraDocs([
             ...extraDocs,
             {
-                id: Math.random().toString(10).substr(2, 9),
+                id: (e.length ? e[e.length - 1].id : 0) + 1,
                 name: null
             }
         ])
     }
 
-    const deleteExtraDoc = (id) => {
+    const deleteEmptyExtraDoc = (id) => {
         setExtraDocs([
             ...extraDocs.filter(d => d.id !== id)
         ])
+    };
+
+    const deleteExtraDoc = (id) => {
+        if (window.confirm('Вы уверены? Предыдущий документ будет удалён.')) {
+            const filteredDocs = extraDocs.filter(d => d.id !== id);
+            Request({
+                url: `${endpointExtraDoc}/${id}`,
+                method: 'DELETE'
+            }, () => {
+                setExtraDocs([
+                    ...filteredDocs,
+                    {
+                        id: id,
+                        name: null
+                    }
+                ].sort((a, b) => a.id - b.id));
+            }, error => {
+                console.log(error);
+            });
+        }
     }
+
     const updateExtraDoc = (id, file) => {
         const filteredDocs = extraDocs.filter(d => d.id !== id);
         setExtraDocs([
@@ -63,8 +85,8 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 id: id,
                 name: file
             }
-        ])
-    }
+        ].sort((a, b) => a.id - b.id));
+    };
 
     useEffect(() => {
         if (!reportHeader.doc_catalog_accept) {
@@ -92,7 +114,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 Promise.all(data.map(async d => {
                     const url = await getExtraDocumentUrl(d.id);
                     return { id: d.id, name: url }
-                })).then(data => setExtraDocs(data));
+                })).then(data => setExtraDocs(data.sort((a, b) => a.id - b.id)));
             }, error => {
                 console.log(error);
             });
@@ -118,28 +140,32 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
     };
 
     const submitInvoice = () => {
-        const invoiceData = new FormData();
-        invoiceData.append('header_id', reportHeader.id);
-        invoiceData.append('file', invoice);
-        Request({
-            url: endpointPaymentReceipt,
-            method: 'PUT',
-            data: invoiceData,
-            isMultipart: true
-        }, data => {
-            if (extraDocs && extraDocs.length && extraDocs[0].name) {
-                submitExtraDocs();
-            } else {
+        if (invoice) {
+            const invoiceData = new FormData();
+            invoiceData.append('header_id', reportHeader.id);
+            invoiceData.append('file', invoice);
+            Request({
+                url: endpointPaymentReceipt,
+                method: 'PUT',
+                data: invoiceData,
+                isMultipart: true
+            }, data => {
+                if (extraDocs && extraDocs.length && extraDocs[0].name) {
+                    submitExtraDocs();
+                } else {
+                    setSendDisable(false);
+                    alert('Документы отправлены успешно!');
+                    getHeader();
+                }
+                setShowButton(false);
+            }, error => {
                 setSendDisable(false);
-                alert('Документы отправлены успешно!');
-                getHeader();
-            }
-            setShowButton(false);
-        }, error => {
-            setSendDisable(false);
-            console.log(error);
-            alert('Квитанция об оплате не была отправлена.');
-        });
+                console.log(error);
+                alert('Квитанция об оплате не была отправлена.');
+            });
+        } else {
+            submitExtraDocs();
+        }
     };
 
     const submitExtraDocs = async () => {
@@ -262,8 +288,10 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                             <label className="report-extra-documents__document-label">
                                                 Дополнительный документ {
                                                     d.name === null
-                                                        ? <span onClick={() => deleteExtraDoc(d.id)} className="report-extra-documents__document-del">- удалить</span>
-                                                        : null
+                                                        ? <span onClick={() => deleteEmptyExtraDoc(d.id)} className="report-extra-documents__document-del"></span>
+                                                        : typeof (d.name) !== 'object'
+                                                        && !reportHeader.doc_additional_is_sent
+                                                        && <span onClick={() => deleteExtraDoc(d.id)} className="report-extra-documents__document-replace">- заменить</span>
                                                 }
                                             </label>
                                             {
@@ -272,7 +300,9 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                                 && <a className="ReportDocumentLink" href={d.name} download="Дополнительный документ" rel="noopener noreferrer">Прикрепленный документ</a>
                                             }
                                             {
-                                                !reportHeader.doc_additional_is_sent && <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
+                                                !reportHeader.doc_additional_is_sent
+                                                && (d.name === null || typeof (d.name) === 'object')
+                                                && <input type="file" accept=".pdf" style={{ display: 'block', marginTop: '8px' }} onChange={(e) => {
                                                     updateExtraDoc(d.id, e.target.files[0]);
                                                     if (reportHeader.doc_catalog_is_sent && reportHeader.doc_payment_is_sent) setShowButton(true);
                                                 }} />
