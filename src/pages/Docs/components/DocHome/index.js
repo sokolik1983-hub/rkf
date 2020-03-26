@@ -19,8 +19,8 @@ const DocHome = ({clubAlias}) => (
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <hr />
                 <div className="Card__links">
-                    <Link to={`/${clubAlias}/documents/apply-litter`}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/apply-litter`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
+                    <Link to={`/${clubAlias}/documents/litter/status`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}> Проверить статус документа</Link>
                 </div>
             </Card>
             <Card>
@@ -28,8 +28,8 @@ const DocHome = ({clubAlias}) => (
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <hr />
                 <div className="Card__links">
-                    <Link to={`/${clubAlias}/documents/apply-pedigree`}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/apply-pedigree`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
+                    <Link to={`/${clubAlias}/documents/pedigree/status`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}> Проверить статус документа</Link>
                 </div>
             </Card>
         </div>
