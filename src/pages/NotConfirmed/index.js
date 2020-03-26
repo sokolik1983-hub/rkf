@@ -10,6 +10,7 @@ import { connectWidgetLogin } from "../Login/connectors";
 import Feedback from "components/Feedback";
 import FormField from './components/FormField';
 import { getHeaders } from "utils/request";
+import formatDate from 'utils/formatDate';
 import { invoices, legalFields } from './config';
 import "./index.scss";
 
@@ -25,21 +26,6 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [membership, setMembership] = useState(null);
     const [preloaded, setPreloaded] = useState(false);
     const [loaded, setLoaded] = useState(false);
-
-    const formatDate = dateArg => {
-        let d = new Date(dateArg),
-            dd = d.getDate(),
-            mm = d.getMonth() + 1,
-            yyyy = d.getFullYear();
-
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-        return dd + '.' + mm + '.' + yyyy;
-    }
 
     useEffect(() => {
         Promise.all([getStatus(), getRegions(), getActivities(), getFields()])

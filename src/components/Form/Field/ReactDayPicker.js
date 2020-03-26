@@ -2,6 +2,7 @@ import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'components/WidgetCalendar/index.scss';
 import { connect, getIn } from "formik";
+import formatDate from 'utils/formatDate';
 const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 const MONTHS = [
     'Январь',
@@ -20,14 +21,14 @@ const MONTHS = [
 
 function ReactDayPicker({ name, formik, disabled }) {
     const value = getIn(formik.values, name);
-
+    
     const onChange = date => {
         formik.setFieldValue(name, date)
     };
 
     return (
         <DayPickerInput
-            value={value ? new Date(value).toLocaleDateString() : new Date()}
+            value={value ? formatDate(value) : ''}
             inputProps={{
                 className: 'FormInput__input',
                 name: 'date',
@@ -45,6 +46,7 @@ function ReactDayPicker({ name, formik, disabled }) {
             }}
             onDayChange={onChange}
             onBlur={formik.handleBlur}
+            placeholder="DD.MM.YYYY"
         />
     )
 }
