@@ -160,7 +160,7 @@ const DocApply = ({ clubAlias }) => {
                 </Card>
                 <div className="flex-row">
                     <Button className="btn-green" onClick={submit}>Сохранить</Button>
-                    <Link to="/docs"><Button className="btn-transparent">Закрыть</Button></Link>
+                    <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                 </div>
             </Form>
         </div>
