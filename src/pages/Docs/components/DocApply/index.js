@@ -110,7 +110,7 @@ const DocApply= ({ clubAlias }) => {
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
-                        <FormField options={federations} name="federation_id" label='Федерация' onChange={fedChange} />
+                        <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} />
                         <FormField name='name' label='ФИО заявителя' />
                         <FormField name='phone' type="tel" label='Телефон заявителя' />
                         <FormField name='email' type="email" label='Эл. адрес заявителя' />

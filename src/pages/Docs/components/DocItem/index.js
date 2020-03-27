@@ -34,11 +34,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick }) => {
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
-            <FormField name={`declarants[${i}].name`} label='ФИО заводчика' onChange={setName}/>
-            <FormField name={`declarants[${i}].email`} label='Эл. адрес заводчика' onChange={setEmail}/>
+            <FormField name={`declarants[${i}].name`} label='ФИО заводчика' onChange={e => setName(e.target.value)}/>
+            <FormField name={`declarants[${i}].email`} label='Эл. адрес заводчика' onChange={e => setEmail(e.target.value)}/>
             <FormField name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
+            <FormField name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
             {docItems.map((m,j) => <FormGroup inline key={m}>
-                <FormField options={data.options} label={`Документ №${j + 2} - описание`} type="select" name={`declarants[${i}].documents[${j}].name`} />
+                <FormField options={data.options} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                 <FormField label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
                 <DeleteButton onClick={() => deleteItem(j)} title="Удалить"/>
             </FormGroup>)}
