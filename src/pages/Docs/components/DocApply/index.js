@@ -29,8 +29,8 @@ const validationSchema = object().shape({
         name: string().required(reqText),
         email: string().required(reqText).email(reqEmail),
         biometric_card_document: string().required(reqText),
-        personal_data_document: string().required(reqText),
-    }),
+        personal_data_document: string().required(reqText)
+    })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),
