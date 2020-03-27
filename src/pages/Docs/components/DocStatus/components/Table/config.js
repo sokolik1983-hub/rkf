@@ -6,7 +6,7 @@ import {formatDateWithTime} from "../../../../../../utils";
 import {Link} from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, distinction) => {
+export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias) => {
     let cols = [
         {
             property: 'date_create',
@@ -71,13 +71,19 @@ export const getTableColumns = (sortingColumns, sortable, distinction) => {
                         <RowControl>
                             <ul className="row-control__list">
                                 <li className="row-control__item">
-                                    <Link to="/" className="row-control__link" onClick={e => e.preventDefault()}>
+                                    <Link
+                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}`}
+                                        className="row-control__link"
+                                    >
                                         Подробнее
                                     </Link>
                                 </li>
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
-                                        <Link to="/" className="row-control__link" onClick={e => e.preventDefault()}>
+                                        <Link
+                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}`}
+                                            className="row-control__link"
+                                        >
                                             Редактировать
                                         </Link>
                                     </li>
