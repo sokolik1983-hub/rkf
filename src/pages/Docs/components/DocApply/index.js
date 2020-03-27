@@ -6,6 +6,7 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
+import { object, string, array, number } from "yup";
 import { email, required } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
@@ -16,6 +17,25 @@ import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
+
+const reqText = 'Обязательное поле';
+const reqEmail = 'Необходимо ввести email';
+const validationSchema = object().shape({
+    federation_id: number().required(reqText),
+    name: string().required(reqText),
+    phone: string().required(reqText),
+    email: string().required(reqText).email(reqEmail),
+    declarants: array().of(object.shape({
+        name: string().required(reqText),
+        email: string().required(reqText).email(reqEmail),
+        biometric_card_document: string().required(reqText),
+        personal_data_document: string().required(reqText),
+    }),
+    payment_document: string().required(reqText),
+    payment_date: string().required(reqText),
+    payment_number: string().required(reqText),
+    payment_name: string().required(reqText),
+})
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
@@ -56,8 +76,8 @@ const DocApply = ({ clubAlias }) => {
             data => {
                 setOkAlert(true);
             }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setResponse(error.response);
+            setErrAlert(true);
         });
     }
     const deleteItem = i => {
