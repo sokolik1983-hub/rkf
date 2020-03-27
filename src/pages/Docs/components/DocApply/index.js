@@ -15,10 +15,12 @@ import './index.scss';
 import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
+const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
 
-const DocApply= ({ clubAlias }) => {
+const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
+    const [doctypes, setDoctypes] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
@@ -34,7 +36,9 @@ const DocApply= ({ clubAlias }) => {
         setMoreItems(moreItems + 1);
     }
     const fedChange = e => setFedName(e.label);
-
+    const clearClick = e => {
+        setDocItems([]);
+    }
     const validate = (name, value) => {
         let n = name.split('.')[1] || name;
         let result = n === 'email' ? email(value) : required(value);
@@ -48,14 +52,13 @@ const DocApply= ({ clubAlias }) => {
         let fd = new FormData(document.getElementsByTagName('form')[0]);
         setForce(true);
         let valid = Object.values(formValid).every(x=>x);
-        valid && fetch(apiEndpoint, {method: 'POST', body: fd})
-        .then(response => {
-            if (!response.ok) {
-                throw response;
-            }
-        })
-        .then(() => setOkAlert(true))
-        .catch(response => {setResponse(response); setErrAlert(true);})
+        valid && Request({url: apiEndpoint, method: 'POST', data: fd},
+            data => {
+                setOkAlert(true);
+            }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+        });
     }
     const deleteItem = i => {
         docItems.splice(i,1);
@@ -63,14 +66,16 @@ const DocApply= ({ clubAlias }) => {
             setActive(docItems.length - 1);
         setDocItems(docItems.concat([]));
     }
-
+    
+    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
-        (() => Request({
-            url: endpointGetFederations
-        }, data => {
-            setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})));
-            setLoading(false);
-        }, error => {
+        (() => Promise.all([
+            PromiseRequest(endpointGetFederations)
+            .then(data => setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})))),
+            PromiseRequest(apiDoctypeEndpoint)
+            .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus}))))
+        ]).then(() => setLoading(false))
+        .catch(error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
@@ -106,7 +111,7 @@ const DocApply= ({ clubAlias }) => {
                 Это материал для страницы со списком документов
                 {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
                                 */}
-            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations}>
+            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)}>
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
@@ -139,6 +144,7 @@ const DocApply= ({ clubAlias }) => {
                                 force={force}
                                 active={i === active}
                                 activateClick={() => setActive(i)}
+                                doctypes={doctypes}
                             />)}
                         </tbody>
                     </table>

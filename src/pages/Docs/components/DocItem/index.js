@@ -3,10 +3,9 @@ import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import PlusButton from "../../../../components/PlusButton";
 import {FormGroup, FormField} from "components/Form";
-import data from "../../dummy.json";
 import "./index.scss";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes }) => {
     const [moreDocs, setMoreDocs] = useState(0);
     const [docItems, setDocItems] = useState([]);
     const [email, setEmail] = useState('');
@@ -39,7 +38,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick }) => {
             <FormField name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
             <FormField name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
             {docItems.map((m,j) => <FormGroup inline key={m}>
-                <FormField options={data.options} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                <FormField options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                 <FormField label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
                 <DeleteButton onClick={() => deleteItem(j)} title="Удалить"/>
             </FormGroup>)}
