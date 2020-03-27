@@ -22,8 +22,8 @@ const DocHome = ({clubAlias}) => (
                     оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.</p>
                 <hr />
                 <div className="Card__links">
-                    <Link to={`/${clubAlias}/documents/apply-litter`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/litter/status`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/apply-litter`}>Подать заявление</Link>
+                    <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
                 </div>
             </Card>
             <Card>
@@ -32,8 +32,8 @@ const DocHome = ({clubAlias}) => (
                     свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.</p>
                 <hr />
                 <div className="Card__links">
-                    <Link to={`/${clubAlias}/documents/apply-pedigree`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}>Подать заявление</Link>
-                    <Link to={`/${clubAlias}/documents/pedigree/status`} onClick={e => e.preventDefault()} style={{opacity: .5, textDecoration: 'none'}}> Проверить статус документа</Link>
+                    <Link to={`/${clubAlias}/documents/apply-pedigree`}>Подать заявление</Link>
+                    <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
                 </div>
             </Card>
         </div>
