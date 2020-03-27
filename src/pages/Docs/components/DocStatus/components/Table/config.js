@@ -2,56 +2,42 @@ import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
-import {formatDateWithTime, formatPrice} from "../../../../../../utils";
+import {formatDateWithTime} from "../../../../../../utils";
 import {Link} from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable) => {
+export const getTableColumns = (sortingColumns, sortable, distinction) => {
     let cols = [
         {
-            property: 'registration_date',
+            property: 'date_create',
             header: {
                 label: 'Дата регистрации'
             },
             footer: () => 'Итого:'
         },
         {
-            property: 'federation',
+            property: 'federation_name',
             header: {
                 label: 'Федерация'
             }
         },
         {
-            property: 'status',
+            property: 'status_name',
             header: {
                 label: 'Статус'
             }
         },
         {
-            property: 'document_number',
+            property: 'id',
             header: {
                 label: 'Номер документа'
             }
         },
         {
-            property: 'declarant_name',
+            property: 'name',
             header: {
                 label: 'ФИО заявителя'
             }
-        },
-        {
-            property: 'documents_count',
-            header: {
-                label: 'Количество документов'
-            },
-            footer: rows => rows.reduce((a,b) => a + b.documents_count, 0)
-        },
-        {
-            property: 'cost',
-            header: {
-                label: 'Стоимость'
-            },
-            footer: rows => formatPrice(rows.reduce((a,b) => a + b.cost, 0))
         }
     ];
 
@@ -70,10 +56,8 @@ export const getTableColumns = (sortingColumns, sortable) => {
             ]
         };
 
-        if (col.property === 'registration_date') {
+        if (col.property === 'date_create') {
             col.cell.resolve = date => date && formatDateWithTime(date);
-        } else if (col.property === 'cost') {
-            col.cell.resolve = cost => formatPrice(cost)
         }
 
         return col;
@@ -91,7 +75,7 @@ export const getTableColumns = (sortingColumns, sortable) => {
                                         Подробнее
                                     </Link>
                                 </li>
-                                {rowData.status_id === 3 &&
+                                {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link to="/" className="row-control__link" onClick={e => e.preventDefault()}>
                                             Редактировать

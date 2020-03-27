@@ -6,7 +6,7 @@ import * as sort from "sortabular";
 import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
-import CustomFooter from "../CustomFooter";
+// import CustomFooter from "../CustomFooter";
 import {paginate, Paginator} from "../Pagination";
 import {getTableColumns} from "./config";
 import "./index.scss";
@@ -18,6 +18,7 @@ class StatusTable extends PureComponent {
         searchColumn: 'all',
         sortingColumns: null,
         pagination: {page: 1, perPage: 5},
+        distinction: this.props.distinction,
         rows: this.props.documents,
         columns: null
     };
@@ -42,7 +43,7 @@ class StatusTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable);
+        return getTableColumns(this.state.sortingColumns, sortable, this.state.distinction);
     };
 
     onSelect = page => {
@@ -99,7 +100,7 @@ class StatusTable extends PureComponent {
                 <Table.Provider className="status-table__table" columns={columns}>
                     <Table.Header headerRows={resolve.headerRows({columns: columns})} />
                     <Table.Body rows={paginated.rows} rowKey="id" />
-                    <CustomFooter columns={columns} rows={paginated.rows} />
+                    {/*<CustomFooter columns={columns} rows={paginated.rows} />*/}
                 </Table.Provider>
 
                 <Paginator
