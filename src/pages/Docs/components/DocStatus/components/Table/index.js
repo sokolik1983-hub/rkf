@@ -19,6 +19,7 @@ class StatusTable extends PureComponent {
         sortingColumns: null,
         pagination: {page: 1, perPage: 5},
         distinction: this.props.distinction,
+        clubAlias: this.props.clubAlias,
         rows: this.props.documents,
         columns: null
     };
@@ -43,7 +44,7 @@ class StatusTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.distinction);
+        return getTableColumns(this.state.sortingColumns, sortable, this.state.distinction, this.state.clubAlias);
     };
 
     onSelect = page => {

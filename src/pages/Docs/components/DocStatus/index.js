@@ -34,8 +34,8 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
             </div>
             <div className="club-documents-status__table">
-                {documents.length ?
-                    <StatusTable documents={documents} distinction={distinction}/> :
+                {documents && documents.length ?
+                    <StatusTable documents={documents} distinction={distinction} clubAlias={clubAlias}/> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
