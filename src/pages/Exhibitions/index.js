@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -10,19 +10,19 @@ import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
 import TopComponent from "../../components/TopComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
-import {Request} from "../../utils/request";
-import {connectShowFilters} from "../../components/Layouts/connectors";
-import {buildUrl, getFiltersFromUrl, getInitialFilters} from "./utils";
-import {DEFAULT_IMG} from "../../appConfig";
+import { Request } from "../../utils/request";
+import { connectShowFilters } from "../../components/Layouts/connectors";
+import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
+import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
 import './index.scss';
 
 
-const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
+const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
-    const [filters, setFilters] = useState({...getInitialFilters()});
-    const [url, setUrl] = useState(buildUrl({...filters}));
+    const [filters, setFilters] = useState({ ...getInitialFilters() });
+    const [url, setUrl] = useState(buildUrl({ ...filters }));
     const [exhibitions, setExhibitions] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [displayName, setDisplayName] = useState('');
@@ -31,14 +31,15 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
     useEffect(() => {
         const unListen = history.listen(() => {
             const filters = getFiltersFromUrl();
-            setFilters({...filters});
-            setUrl( buildUrl({...filters}));
+            setFilters({ ...filters });
+            setUrl(buildUrl({ ...filters }));
+            !filters && setShowFilters({ isOpenFilters: false });
         });
 
         return () => unListen();
     }, []);
 
-    
+
     const getExhibitions = async (url) => {
         setExhibitionsLoading(true);
 
@@ -83,7 +84,7 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                 <>
                     <FloatingMenu
                         alias={filters.Alias}
-                        name={shorten(displayName,16)}
+                        name={shorten(displayName, 16)}
                     />
                     <div className="exhibitions-page__top-wrap container">
                         <TopComponent
@@ -93,18 +94,18 @@ const Exhibitions = ({history, isOpenFilters, setShowFilters}) => {
                     </div>
                 </>
             }
-            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <Container className="exhibitions-page content">
-                <Filters filters={filters} clubName={shorten(displayName)}/>
+                <Filters filters={filters} clubName={shorten(displayName)} />
                 <div className="exhibitions-page__content">
                     <Card className="exhibitions-page__disclaimer">
                         <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
-                            Для ознакомления с другими мероприятиями - просьба перейти на
+                        Для ознакомления с другими мероприятиями - просьба перейти на
                             сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">РКФ</a></p>
                     </Card>
-                    <ListFilter alias={filters.Alias}/>
+                    <ListFilter alias={filters.Alias} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
-                    <ExhibitionsList 
+                    <ExhibitionsList
                         exhibitions={exhibitions}
                         loading={exhibitionsLoading}
                         pagesCount={pagesCount}
