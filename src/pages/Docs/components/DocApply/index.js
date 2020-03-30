@@ -17,6 +17,7 @@ import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
+const apiBreedsEndpoint = '/api/dog/Breed';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -43,6 +44,7 @@ const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
+    const [breeds, setBreeds] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
@@ -95,7 +97,9 @@ const DocApply = ({ clubAlias }) => {
             PromiseRequest(endpointGetFederations)
             .then(data => setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})))),
             PromiseRequest(apiDoctypeEndpoint)
-            .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus}))))
+            .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})))),
+            PromiseRequest(apiBreedsEndpoint)
+            .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
@@ -138,9 +142,12 @@ const DocApply = ({ clubAlias }) => {
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
                         <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} />
-                        <FormField name='name' label='ФИО заявителя' />
+                        <FormField name='first_name' label='Имя заявителя' />
+                        <FormField name='last_name' label='Фамилия заявителя' />
+                        <FormField name='second_name' label='Отчество заявителя' />
                         <FormField name='phone' type="tel" label='Телефон заявителя' />
-                        <FormField name='email' type="email" label='Эл. адрес заявителя' />
+                        <FormField name='address' label='Адрес заявителя' />
+                        <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
                 <Card>
@@ -167,6 +174,7 @@ const DocApply = ({ clubAlias }) => {
                                 active={i === active}
                                 activateClick={() => setActive(i)}
                                 doctypes={doctypes}
+                                breeds={breeds}
                             />)}
                         </tbody>
                     </table>
