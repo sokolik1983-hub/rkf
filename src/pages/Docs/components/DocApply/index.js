@@ -20,6 +20,7 @@ const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_documen
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
+/*
 const validationSchema = object().shape({
     federation_id: number().required(reqText),
     name: string().required(reqText),
@@ -35,7 +36,8 @@ const validationSchema = object().shape({
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),
     payment_name: string().required(reqText),
-})
+});
+*/
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
