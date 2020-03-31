@@ -35,6 +35,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
+            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => setFirstName(e.target.value)}/>
+            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => setLastName(e.target.value)}/>
+            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца' onChange={e => setSecondName(e.target.value)}/>
+            <FormField name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
+            <FormField name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
+            <FormField name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
+            <FormField name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
+
             <FormField name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect"/>
             <FormField name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormField name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
@@ -53,14 +61,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика'/>
             <FormField name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
             <FormField name={`declarants[${i}].email`} label='Email заводчика' onChange={e => setEmail(e.target.value)}/>
-
-            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => setFirstName(e.target.value)}/>
-            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => setLastName(e.target.value)}/>
-            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца' onChange={e => setSecondName(e.target.value)}/>
-            <FormField name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
-            <FormField name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
-            <FormField name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
-            <FormField name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
 
             <FormField name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField name={`declarants[${i}].was_reviewed`} type="checkbox" label='Щенок был на пересмотре, соответствует племенным требованиям'/>
