@@ -5,12 +5,14 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
-import { Form, FormGroup, FormField, FieldArray } from "components/Form";
+import { Form, FormGroup, FormField } from "components/Form";
+import { FieldArray } from "formik";
 import { object, string, array, number, boolean } from "yup";
-import DocItem from "../DocItem";
+import DocItemList from "../DocItemList";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
+import { emptyDeclarant } from "../../config.js"
 import './index.scss';
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
@@ -69,6 +71,21 @@ const validationSchema = object().shape({
     payment_name: string().required(reqText)
 });
 
+const initial = {
+    federation_id: 0,
+    last_name: '',
+    first_name: '',
+    second_name: '',
+    phone: '',
+    address: '',
+    email: '',
+    declarants: [emptyDeclarant],
+
+    payment_document: '',
+    payment_date: '',
+    payment_number: '',
+    payment_name: ''
+};
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
@@ -78,18 +95,12 @@ const DocApply = ({ clubAlias }) => {
     const [sexTypes, setSexTypes] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
-    const [active, setActive] = useState(0);
     const [force, setForce] = useState(false);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [formValid, setFormValid] = useState({});
     const [res, setResponse] = useState({});
     const [moreItems, setMoreItems] = useState(1);
-    const plusClick = e => {
-        setDocItems(docItems.concat(moreItems));
-        setActive(docItems.length);
-        setMoreItems(moreItems + 1);
-    }
     const fedChange = e => setFedName(e.label);
     const clearClick = e => {
         setDocItems([]);
@@ -105,12 +116,6 @@ const DocApply = ({ clubAlias }) => {
             setResponse(error.response);
             setErrAlert(true);
         });
-    }
-    const deleteItem = i => {
-        docItems.splice(i,1);
-        if (docItems.length <= active)
-            setActive(docItems.length - 1);
-        setDocItems(docItems.concat([]));
     }
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
@@ -157,7 +162,13 @@ const DocApply = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)} validationSchema={validationSchema}>
+            <Form
+                onSuccess={() => setErrAlert(true)}
+                action={endpointGetFederations}
+                onSubmit={values => console.log(values)}
+                validationSchema={validationSchema}
+                initialValues={initial}
+            >
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
@@ -170,38 +181,7 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <Card>
-                    <h3>Заводчики</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Дата регистрации</th>
-                                <th>Статус</th>
-                                <th>Номер док-та</th>
-                                <th>ФИО владельца</th>
-                                <th>Эл. почта</th>
-                                <th>Кол-во док.</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {docItems.map((m, i) => <DocItem
-                                key={m}
-                                closeClick={() => deleteItem(i)}
-                                i={i}
-                                force={force}
-                                active={i === active}
-                                activateClick={() => setActive(i)}
-                                doctypes={doctypes}
-                                breeds={breeds}
-                                sexTypes={sexTypes}
-                            />)}
-                        </tbody>
-                    </table>
-                    <div className="flex-row">
-                        <PlusButton title="Добавить еще заводчика" onClick={plusClick} />
-                    </div>
-                </Card>
+                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} />
                 <Card>
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
