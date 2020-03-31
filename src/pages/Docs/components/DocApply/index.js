@@ -6,6 +6,7 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
+import FormFile from "../../components/FormFile";
 import { FieldArray } from "formik";
 import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
@@ -24,7 +25,7 @@ const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
 
 const validationSchema = object().shape({
-    federation_id: number().required(reqText),
+    federation_id: number().required(reqText).typeError(reqText),
     last_name: string().required(reqText),
     first_name: string().required(reqText),
     second_name: string().required(reqText),
@@ -40,11 +41,11 @@ const validationSchema = object().shape({
         owner_first_name_lat: string().required(reqText),
         owner_last_name_lat: string().required(reqText),
 
-        breed_id: number().required(reqText),
+        breed_id: number().required(reqText).typeError(reqText),
         dog_name: string().required(reqText),
         dog_name_lat: string().required(reqText),
         dog_birth_date: string().required(reqText),
-        dog_sex_type: string().required(reqText),
+        dog_sex_type: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
         color: string().required(reqText),
 
@@ -164,10 +165,11 @@ const DocApply = ({ clubAlias }) => {
         <div className="documents-page__right">
             <Form
                 onSuccess={() => setErrAlert(true)}
-                action={endpointGetFederations}
-                onSubmit={values => console.log(values)}
+                action={apiEndpoint}
                 validationSchema={validationSchema}
+                transformValues={v => console.log(v)||v}
                 initialValues={initial}
+                format="multipart/form-data"
             >
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
@@ -185,14 +187,14 @@ const DocApply = ({ clubAlias }) => {
                 <Card>
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" />
+                        <FormFile name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
                         <FormField name='payment_date' label='Дата оплаты' type="date" />
                         <FormField name='payment_number' label='Номер платежного документа' />
                         <FormField name='payment_name' label='ФИО плательщика / юр. лица' />
                     </FormGroup>
                 </Card>
                 <div className="flex-row">
-                    <Button className="btn-green" onClick={submit}>Сохранить</Button>
+                    <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                 </div>
             </Form>
