@@ -43,11 +43,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
             <FormField name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
 
-            <FormField name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect"/>
+            <FormField name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
             <FormField name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormField name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             <FormField name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки'/>
-            <FormField name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={[{label:"Кобель", value:0}, {label:"Сука", value:1}]} label='Пол собаки'/>
+            <FormField name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={[{label:"Кобель", value:0}, {label:"Сука", value:1}]} placeholder="Выберите..." label='Пол собаки'/>
             <FormField name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
             <FormField name={`declarants[${i}].color`} label='Цвет'/>
 
