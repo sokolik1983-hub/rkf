@@ -9,7 +9,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [moreDocs, setMoreDocs] = useState(0);
     const [docItems, setDocItems] = useState([]);
     const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [secondName, setSecondName] = useState('');
     const plusClick = e => {
         setDocItems(docItems.concat(moreDocs));
         setMoreDocs(moreDocs + 1);
@@ -23,7 +25,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{new Date().toLocaleDateString("ru")}</td>
         <td><i>Не обработан</i></td>
         <td>322-223-322</td>
-        <td>{name}</td>
+        <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
         <td>{docItems.length + 1}</td>
         <td>
@@ -46,15 +48,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField name={`declarants[${i}].mother_name`} label='Кличка матери собаки'/>
             <FormField name={`declarants[${i}].mother_pedigree_number`} label='Родословная матери собаки'/>
 
-            <FormField name={`declarants[${i}].breeder_first_name`} label='Имя заводчика' onChange={e => setEmail(e.target.value)}/>
+            <FormField name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
             <FormField name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика'/>
             <FormField name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
             <FormField name={`declarants[${i}].email`} label='Email заводчика' onChange={e => setEmail(e.target.value)}/>
 
-            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца'/>
-            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца'/>
-            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца'/>
+            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => setFirstName(e.target.value)}/>
+            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => setLastName(e.target.value)}/>
+            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца' onChange={e => setSecondName(e.target.value)}/>
             <FormField name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormField name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
             <FormField name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
