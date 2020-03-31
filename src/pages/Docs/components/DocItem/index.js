@@ -4,6 +4,7 @@ import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import PlusButton from "../../../../components/PlusButton";
 import { FormGroup, FormField } from "components/Form";
+import FormFile from "../../components/FormFile";
 import "./index.scss";
 
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik }) => {
@@ -68,12 +69,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField name={`declarants[${i}].was_reviewed`} type="checkbox" label='Щенок был на пересмотре, соответствует племенным требованиям'/>
             <FormField name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
-            <FormField name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
-            <FormField name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
+            <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
+            <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {formik.values.declarants[i].documents && formik.values.declarants[i].documents.map((m,j) => <FormGroup inline key={m}>
                     <FormField options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
-                    <FormField label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                    <FormFile label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
                     <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                 </FormGroup>)}
                 <div className="flex-row">
