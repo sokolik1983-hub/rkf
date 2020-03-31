@@ -15,7 +15,7 @@ const flatten = ob => {
     let toReturn = {};
     for (let i in ob) {
         if (!ob.hasOwnProperty(i)) continue;
-        if ((typeof ob[i]) == 'object' && ob[i] !== null) {
+        if ((typeof ob[i]) == 'object' && ob[i] !== null && !(ob[i] instanceof File)) {
             let flatObject = flatten(ob[i]);
             for (let x in flatObject) {
                 if (!flatObject.hasOwnProperty(x)) continue;
