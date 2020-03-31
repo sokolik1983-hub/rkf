@@ -5,7 +5,7 @@ import PlusButton from "../../../../components/PlusButton";
 import {FormGroup, FormField} from "components/Form";
 import "./index.scss";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes }) => {
     const [moreDocs, setMoreDocs] = useState(0);
     const [docItems, setDocItems] = useState([]);
     const [email, setEmail] = useState('');
@@ -46,8 +46,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
             <FormField name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormField name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
-            <FormField name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки'/>
-            <FormField name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={[{label:"Кобель", value:0}, {label:"Сука", value:1}]} placeholder="Выберите..." label='Пол собаки'/>
+            <FormField name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' type="date"/>
+            <FormField name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
             <FormField name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
             <FormField name={`declarants[${i}].color`} label='Цвет'/>
 

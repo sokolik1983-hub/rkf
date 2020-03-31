@@ -6,7 +6,7 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
-import { object, string, array, number } from "yup";
+import { object, string, array, number, boolean } from "yup";
 import { email, required } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
@@ -18,33 +18,65 @@ import data from "../../dummy.json";
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
+const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
-/*
+
 const validationSchema = object().shape({
     federation_id: number().required(reqText),
-    name: string().required(reqText),
+    last_name: string().required(reqText),
+    first_name: string().required(reqText),
+    second_name: string().required(reqText),
     phone: string().required(reqText),
+    address: string().required(reqText).email(reqEmail),
     email: string().required(reqText).email(reqEmail),
-    declarants: array().of(object.shape({
-        name: string().required(reqText),
+    declarants: array().of(object().shape({
+        owner_first_name: string().required(reqText),
+        owner_last_name: string().required(reqText),
+        owner_second_name: string().required(reqText),
+        owner_address: string().required(reqText),
+        owner_address_lat: string().required(reqText),
+        owner_first_name_lat: string().required(reqText),
+        owner_last_name_lat: string().required(reqText),
+
+        breed_id: number().required(reqText),
+        dog_name: string().required(reqText),
+        dog_name_lat: string().required(reqText),
+        dog_birth_date: string().required(reqText),
+        dog_sex_type: string().required(reqText),
+        stamp_number: string().required(reqText),
+        color: string().required(reqText),
+
+        father_name: string().required(reqText),
+        father_pedigree_number: string().required(reqText),
+        mother_name: string().required(reqText),
+        mother_pedigree_number: string().required(reqText),
+
+        breeder_first_name: string().required(reqText),
+        breeder_last_name: string().required(reqText),
+        breeder_second_name: string().required(reqText),
+        breeder_address: string().required(reqText),
+
         email: string().required(reqText).email(reqEmail),
+        folder_number: string().required(reqText),
+        was_reviewed: boolean().required(reqText),
+        litter_or_request_number: string().required(reqText),
         biometric_card_document: string().required(reqText),
         personal_data_document: string().required(reqText)
     })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),
-    payment_name: string().required(reqText),
+    payment_name: string().required(reqText)
 });
-*/
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
     const [breeds, setBreeds] = useState([]);
+    const [sexTypes, setSexTypes] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
@@ -99,7 +131,9 @@ const DocApply = ({ clubAlias }) => {
             PromiseRequest(apiDoctypeEndpoint)
             .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})))),
             PromiseRequest(apiBreedsEndpoint)
-            .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
+            .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            PromiseRequest(apiSexTypesEndpoint)
+            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
@@ -133,11 +167,7 @@ const DocApply = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            {/*
-                Это материал для страницы со списком документов
-                {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
-                                */}
-            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)}>
+            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)} validationSchema={validationSchema}>
                 <Card>
                     <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
@@ -145,7 +175,7 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='first_name' label='Имя заявителя' />
                         <FormField name='last_name' label='Фамилия заявителя' />
                         <FormField name='second_name' label='Отчество заявителя' />
-                        <FormField name='phone' type="tel" label='Телефон заявителя' />
+                        <FormField name='phone' fieldType="customPhone" label='Телефон заявителя' />
                         <FormField name='address' label='Адрес заявителя' />
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
@@ -175,6 +205,7 @@ const DocApply = ({ clubAlias }) => {
                                 activateClick={() => setActive(i)}
                                 doctypes={doctypes}
                                 breeds={breeds}
+                                sexTypes={sexTypes}
                             />)}
                         </tbody>
                     </table>
