@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {connect} from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import PlusButton from "../../../../components/PlusButton";
 import {FormGroup, FormField} from "components/Form";
 import "./index.scss";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik }) => {
     const [moreDocs, setMoreDocs] = useState(0);
     const [docItems, setDocItems] = useState([]);
     const [email, setEmail] = useState('');
@@ -20,6 +21,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         docItems.splice(i,1);
         setDocItems(docItems.concat([]));
     }
+    
+    const init = useRef(false);
+    useEffect(() => {
+        if (init.current) return;
+        init.current = true;
+
+        //formik.setFieldValue(`declarants[${i}].owner_first_name`,'');
+    });
+    //!init.current && formik.setFieldValue(`declarants[${i}].owner_first_name`,'');
+    //console.log(!init.current, formik);
 
     return <><tr className="DocItem">
         <td>{new Date().toLocaleDateString("ru")}</td>
@@ -35,9 +46,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
-            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => setFirstName(e.target.value)}/>
-            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => setLastName(e.target.value)}/>
-            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца' onChange={e => setSecondName(e.target.value)}/>
+            
+            <FormField name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+            <FormField name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+            <FormField name={`declarants[${i}].owner_second_name`} label='Отчество владельца' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+            
             <FormField name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormField name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
             <FormField name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
@@ -82,4 +95,4 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     </>
 };
 
-export default React.memo(DocItem);
+export default connect(React.memo(DocItem));

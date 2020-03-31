@@ -5,15 +5,13 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
-import { Form, FormGroup, FormField } from "components/Form";
+import { Form, FormGroup, FormField, FieldArray } from "components/Form";
 import { object, string, array, number, boolean } from "yup";
-import { email, required } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
 import './index.scss';
-import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
@@ -29,7 +27,7 @@ const validationSchema = object().shape({
     first_name: string().required(reqText),
     second_name: string().required(reqText),
     phone: string().required(reqText),
-    address: string().required(reqText).email(reqEmail),
+    address: string().required(reqText),
     email: string().required(reqText).email(reqEmail),
     declarants: array().of(object().shape({
         owner_first_name: string().required(reqText),
@@ -71,6 +69,7 @@ const validationSchema = object().shape({
     payment_name: string().required(reqText)
 });
 
+
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
@@ -94,15 +93,6 @@ const DocApply = ({ clubAlias }) => {
     const fedChange = e => setFedName(e.label);
     const clearClick = e => {
         setDocItems([]);
-    }
-    const validate = (name, value) => {
-        let n = name.split('.')[1] || name;
-        let result = n === 'email' ? email(value) : required(value);
-         if (formValid[name] !== !result) {
-             formValid[name] = !result;
-             setFormValid({...formValid});
-         }
-         return result;
     }
     const submit = () => {
         let fd = new FormData(document.getElementsByTagName('form')[0]);
@@ -175,7 +165,7 @@ const DocApply = ({ clubAlias }) => {
                         <FormField name='first_name' label='Имя заявителя' />
                         <FormField name='last_name' label='Фамилия заявителя' />
                         <FormField name='second_name' label='Отчество заявителя' />
-                        <FormField name='phone' fieldType="customPhone" label='Телефон заявителя' />
+                        <FormField name='phone' type="tel" label='Телефон заявителя' />
                         <FormField name='address' label='Адрес заявителя' />
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
@@ -197,7 +187,6 @@ const DocApply = ({ clubAlias }) => {
                         <tbody>
                             {docItems.map((m, i) => <DocItem
                                 key={m}
-                                validate={validate}
                                 closeClick={() => deleteItem(i)}
                                 i={i}
                                 force={force}
