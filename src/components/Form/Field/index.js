@@ -64,7 +64,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                     />
                     : <Input
                         id={fieldProps.name}
-                        className={'FormInput__input'}
+                        className={fieldType !== "reactSelect" && 'FormInput__input'}
                         disabled={disabled || (fieldProps.value && blockIfHasValue)}
                         {...fieldProps}
                     />

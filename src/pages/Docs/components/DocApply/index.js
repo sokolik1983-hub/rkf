@@ -5,7 +5,9 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
-import { Form, FormGroup, FormField, required, email } from "../../components/Form";
+import { Form, FormGroup, FormField } from "components/Form";
+import { object, string, array, number, boolean } from "yup";
+import { email, required } from "../../components/Form";
 import DocItem from "../DocItem";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
@@ -14,10 +16,67 @@ import './index.scss';
 import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
+const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
+const apiBreedsEndpoint = '/api/dog/Breed';
+const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
+
+const reqText = 'Обязательное поле';
+const reqEmail = 'Необходимо ввести email';
+
+const validationSchema = object().shape({
+    federation_id: number().required(reqText),
+    last_name: string().required(reqText),
+    first_name: string().required(reqText),
+    second_name: string().required(reqText),
+    phone: string().required(reqText),
+    address: string().required(reqText).email(reqEmail),
+    email: string().required(reqText).email(reqEmail),
+    declarants: array().of(object().shape({
+        owner_first_name: string().required(reqText),
+        owner_last_name: string().required(reqText),
+        owner_second_name: string().required(reqText),
+        owner_address: string().required(reqText),
+        owner_address_lat: string().required(reqText),
+        owner_first_name_lat: string().required(reqText),
+        owner_last_name_lat: string().required(reqText),
+
+        breed_id: number().required(reqText),
+        dog_name: string().required(reqText),
+        dog_name_lat: string().required(reqText),
+        dog_birth_date: string().required(reqText),
+        dog_sex_type: string().required(reqText),
+        stamp_number: string().required(reqText),
+        color: string().required(reqText),
+
+        father_name: string().required(reqText),
+        father_pedigree_number: string().required(reqText),
+        mother_name: string().required(reqText),
+        mother_pedigree_number: string().required(reqText),
+
+        breeder_first_name: string().required(reqText),
+        breeder_last_name: string().required(reqText),
+        breeder_second_name: string().required(reqText),
+        breeder_address: string().required(reqText),
+
+        email: string().required(reqText).email(reqEmail),
+        folder_number: string().required(reqText),
+        was_reviewed: boolean().required(reqText),
+        litter_or_request_number: string().required(reqText),
+        biometric_card_document: string().required(reqText),
+        personal_data_document: string().required(reqText)
+    })),
+    payment_document: string().required(reqText),
+    payment_date: string().required(reqText),
+    payment_number: string().required(reqText),
+    payment_name: string().required(reqText)
+});
 
 const DocApply = ({ clubAlias }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
+    const [doctypes, setDoctypes] = useState([]);
+    const [breeds, setBreeds] = useState([]);
+    const [sexTypes, setSexTypes] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(0);
@@ -33,7 +92,9 @@ const DocApply = ({ clubAlias }) => {
         setMoreItems(moreItems + 1);
     }
     const fedChange = e => setFedName(e.label);
-
+    const clearClick = e => {
+        setDocItems([]);
+    }
     const validate = (name, value) => {
         let n = name.split('.')[1] || name;
         let result = n === 'email' ? email(value) : required(value);
@@ -47,14 +108,13 @@ const DocApply = ({ clubAlias }) => {
         let fd = new FormData(document.getElementsByTagName('form')[0]);
         setForce(true);
         let valid = Object.values(formValid).every(x=>x);
-        valid && fetch(apiEndpoint, {method: 'POST', body: fd})
-        .then(response => {
-            if (!response.ok) {
-                throw response;
-            }
-        })
-        .then(() => setOkAlert(true))
-        .catch(response => {setResponse(response); setErrAlert(true);})
+        valid && Request({url: apiEndpoint, method: 'POST', data: fd},
+            data => {
+                setOkAlert(true);
+            }, error => {
+            setResponse(error.response);
+            setErrAlert(true);
+        });
     }
     const deleteItem = i => {
         docItems.splice(i,1);
@@ -62,14 +122,20 @@ const DocApply = ({ clubAlias }) => {
             setActive(docItems.length - 1);
         setDocItems(docItems.concat([]));
     }
-
+    
+    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
-        (() => Request({
-            url: endpointGetFederations
-        }, data => {
-            setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})));
-            setLoading(false);
-        }, error => {
+        (() => Promise.all([
+            PromiseRequest(endpointGetFederations)
+            .then(data => setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})))),
+            PromiseRequest(apiDoctypeEndpoint)
+            .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})))),
+            PromiseRequest(apiBreedsEndpoint)
+            .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            PromiseRequest(apiSexTypesEndpoint)
+            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
+        ]).then(() => setLoading(false))
+        .catch(error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
@@ -101,33 +167,28 @@ const DocApply = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            <div className="documents-page__title-wrap">
-                <h2 className="documents-page__title">Регистрация заявления на регистрацию помета</h2>
-            </div>
-            {/*
-                Это материал для страницы со списком документов
-                {data.docs.map((d,i) => <DocEntry key={i} {...d}/>)}
-                                */}
-            <Form>
+            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)} validationSchema={validationSchema}>
                 <Card>
+                    <h3>Регистрация заявления на регистрацию помета</h3>
                     <FormGroup>
-                        <FormField options={federations} name="federation_id" label='Федерация' onChange={fedChange} />
-                        <FormField name='name' label='ФИО заявителя' validate={validate} force={force}/>
-                        <FormField name='phone' type="tel" label='Телефон заявителя' defaultValue={data.club.phone} validate={validate} force={force}/>
-                        <FormField name='email' type="email" label='Эл. адрес заявителя' defaultValue={data.club.email} validate={validate} force={force}/>
+                        <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
+                        <FormField name='first_name' label='Имя заявителя' />
+                        <FormField name='last_name' label='Фамилия заявителя' />
+                        <FormField name='second_name' label='Отчество заявителя' />
+                        <FormField name='phone' fieldType="customPhone" label='Телефон заявителя' />
+                        <FormField name='address' label='Адрес заявителя' />
+                        <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <div className="documents-page__title-wrap">
-                    <h3 className="documents-page__title">Заводчики</h3>
-                </div>
                 <Card>
+                    <h3>Заводчики</h3>
                     <table>
                         <thead>
                             <tr>
                                 <th>Дата регистрации</th>
                                 <th>Статус</th>
                                 <th>Номер док-та</th>
-                                <th>ФИО заводчика</th>
+                                <th>ФИО владельца</th>
                                 <th>Эл. почта</th>
                                 <th>Кол-во док.</th>
                                 <th></th>
@@ -142,6 +203,9 @@ const DocApply = ({ clubAlias }) => {
                                 force={force}
                                 active={i === active}
                                 activateClick={() => setActive(i)}
+                                doctypes={doctypes}
+                                breeds={breeds}
+                                sexTypes={sexTypes}
                             />)}
                         </tbody>
                     </table>
@@ -152,10 +216,10 @@ const DocApply = ({ clubAlias }) => {
                 <Card>
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" validate={validate} force={force} />
-                        <FormField name='payment_date' label='Дата оплаты' type="date" validate={validate} force={force}/>
-                        <FormField name='payment_number' label='Номер платежного документа' validate={validate} force={force}/>
-                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' validate={validate} force={force}/>
+                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" />
+                        <FormField name='payment_date' label='Дата оплаты' type="date" />
+                        <FormField name='payment_number' label='Номер платежного документа' />
+                        <FormField name='payment_name' label='ФИО плательщика / юр. лица' />
                     </FormGroup>
                 </Card>
                 <div className="flex-row">
