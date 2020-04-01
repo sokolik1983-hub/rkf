@@ -116,10 +116,15 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
 
-    const update = !!history;
-    const id = update && history.location.pathname.split('/').pop();
+    let update = false, id, view = false;
+    if (history) {
+        let path = history.location.pathname.split('/');
+        let x = path.pop();
+        id = isNaN(x) ? path.pop() : x;
+        update = true;
+        view = x !== 'edit';
+    }
     let initial = {...initialValues, ...values};
-    console.log(updateSchema);
     const filterBySchema = (values, fields) => {
         let r = {};
         Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
@@ -134,7 +139,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const transformValues = values => {
         if (update) {
             let r = filterBySchema(values, updateSchema.fields);
-            console.log(r);
             return r;
         } else {
             return values;
@@ -161,7 +165,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }))();
     }, []);
 
-    return loading ? <Loading/> : <div className="documents-page__info DocApply">
+    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${view && 'view'}`}>
         <aside className="documents-page__left">
         {okAlert &&
             <Alert
