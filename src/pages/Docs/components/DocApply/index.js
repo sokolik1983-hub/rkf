@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { emptyDeclarant } from "../../config.js"
+import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
@@ -206,7 +207,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField name='first_name' label='Имя заявителя' />
                         <FormField name='last_name' label='Фамилия заявителя' />
                         <FormField name='second_name' label='Отчество заявителя (если есть)' />
-                        <FormField name='phone' type="tel" label='Телефон заявителя' />
+                        <FormField name='phone' type="tel" fieldType="masked" mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
                         <FormField name='address' label='Адрес заявителя' />
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
