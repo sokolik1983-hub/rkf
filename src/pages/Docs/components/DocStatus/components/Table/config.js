@@ -81,7 +81,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}`}
+                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
                                             className="row-control__link"
                                         >
                                             Редактировать

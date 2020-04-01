@@ -50,6 +50,12 @@ const Docs = ({history, match, is_active_profile, isAuthenticated}) => {
                         <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
+                        <Route exact={true} path='/:route/documents/litter/:id/edit' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} distinction="litter" />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} distinction="pedigree" />}
+                        />
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </Container>
