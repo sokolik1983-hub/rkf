@@ -72,7 +72,7 @@ const validationSchema = object().shape({
     payment_name: string().required(reqText)
 });
 
-let initial = {
+const initialValues = {
     federation_id: 0,
     last_name: '',
     first_name: '',
@@ -122,7 +122,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
 
     const update = !!history;
     const id = update && history.location.pathname.split('/').pop();
-    initial = {...initial, ...values};
+    let initial = {...initialValues, ...values};
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
