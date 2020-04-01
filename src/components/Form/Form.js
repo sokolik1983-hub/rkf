@@ -24,7 +24,11 @@ const flatten = ob => {
                 toReturn[`${si}${sx}`] = flatObject[x];
             }
         } else {
-            toReturn[i] = ob[i];
+            if (ob[i] instanceof Date) {
+                toReturn[i] = ob[i].toLocaleDateString("us");
+            } else {
+                toReturn[i] = ob[i];
+            }
         }
     }
     return toReturn;

@@ -1,6 +1,9 @@
 .DocApply {
     .FormInput {
         margin-bottom: 20px;
+        &.hidden {
+            display: none;
+        }
     }
     table {
         width: 100%;
