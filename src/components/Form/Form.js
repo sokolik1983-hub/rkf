@@ -11,6 +11,25 @@ const getFormData = data => {
     return formData;
 };
 
+const flatten = ob => {
+    let toReturn = {};
+    for (let i in ob) {
+        if (!ob.hasOwnProperty(i)) continue;
+        if ((typeof ob[i]) == 'object' && ob[i] !== null && !(ob[i] instanceof File) && !(ob[i] instanceof Date)) {
+            let flatObject = flatten(ob[i]);
+            for (let x in flatObject) {
+                if (!flatObject.hasOwnProperty(x)) continue;
+                let si = isNaN(i) ? i : `[${i}]`;
+                let sx = x[0] !== '[' ? `.${x}` : x;
+                toReturn[`${si}${sx}`] = flatObject[x];
+            }
+        } else {
+            toReturn[i] = ob[i];
+        }
+    }
+    return toReturn;
+}
+
 /**
  * Functional component encapsulate Formik functionality and form submit request.
  * @param {string} method POST if create, PUT/UPDATE if Update
@@ -43,7 +62,7 @@ function Form({
     const formatData = useCallback((values) => {
         const data = transformValues(values);
         return isMultipartData ?
-            getFormData(data)
+            getFormData(flatten(data))
             :
             JSON.stringify(data);
     });

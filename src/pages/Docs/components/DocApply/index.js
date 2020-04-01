@@ -6,14 +6,15 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
 import { Form, FormGroup, FormField } from "components/Form";
+import FormFile from "../../components/FormFile";
+import { FieldArray } from "formik";
 import { object, string, array, number, boolean } from "yup";
-import { email, required } from "../../components/Form";
-import DocItem from "../DocItem";
+import DocItemList from "../DocItemList";
 import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
+import { emptyDeclarant } from "../../config.js"
 import './index.scss';
-import data from "../../dummy.json";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
@@ -24,12 +25,12 @@ const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
 
 const validationSchema = object().shape({
-    federation_id: number().required(reqText),
+    federation_id: number().required(reqText).typeError(reqText),
     last_name: string().required(reqText),
     first_name: string().required(reqText),
     second_name: string().required(reqText),
     phone: string().required(reqText),
-    address: string().required(reqText).email(reqEmail),
+    address: string().required(reqText),
     email: string().required(reqText).email(reqEmail),
     declarants: array().of(object().shape({
         owner_first_name: string().required(reqText),
@@ -40,11 +41,11 @@ const validationSchema = object().shape({
         owner_first_name_lat: string().required(reqText),
         owner_last_name_lat: string().required(reqText),
 
-        breed_id: number().required(reqText),
+        breed_id: number().required(reqText).typeError(reqText),
         dog_name: string().required(reqText),
         dog_name_lat: string().required(reqText),
         dog_birth_date: string().required(reqText),
-        dog_sex_type: string().required(reqText),
+        dog_sex_type: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
         color: string().required(reqText),
 
@@ -71,7 +72,23 @@ const validationSchema = object().shape({
     payment_name: string().required(reqText)
 });
 
-const DocApply = ({ clubAlias }) => {
+let initial = {
+    federation_id: 0,
+    last_name: '',
+    first_name: '',
+    second_name: '',
+    phone: '',
+    address: '',
+    email: '',
+    declarants: [emptyDeclarant],
+
+    payment_document: '',
+    payment_date: '',
+    payment_number: '',
+    payment_name: ''
+};
+
+const DocApply = ({ clubAlias, history, distinction }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
@@ -79,30 +96,16 @@ const DocApply = ({ clubAlias }) => {
     const [sexTypes, setSexTypes] = useState([]);
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
-    const [active, setActive] = useState(0);
     const [force, setForce] = useState(false);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [formValid, setFormValid] = useState({});
     const [res, setResponse] = useState({});
     const [moreItems, setMoreItems] = useState(1);
-    const plusClick = e => {
-        setDocItems(docItems.concat(moreItems));
-        setActive(docItems.length);
-        setMoreItems(moreItems + 1);
-    }
+    const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
     const clearClick = e => {
         setDocItems([]);
-    }
-    const validate = (name, value) => {
-        let n = name.split('.')[1] || name;
-        let result = n === 'email' ? email(value) : required(value);
-         if (formValid[name] !== !result) {
-             formValid[name] = !result;
-             setFormValid({...formValid});
-         }
-         return result;
     }
     const submit = () => {
         let fd = new FormData(document.getElementsByTagName('form')[0]);
@@ -116,12 +119,10 @@ const DocApply = ({ clubAlias }) => {
             setErrAlert(true);
         });
     }
-    const deleteItem = i => {
-        docItems.splice(i,1);
-        if (docItems.length <= active)
-            setActive(docItems.length - 1);
-        setDocItems(docItems.concat([]));
-    }
+
+    const update = !!history;
+    const id = update && history.location.pathname.split('/').pop();
+    initial = {...initial, ...values};
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
@@ -133,7 +134,8 @@ const DocApply = ({ clubAlias }) => {
             PromiseRequest(apiBreedsEndpoint)
             .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiSexTypesEndpoint)
-            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
+            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(setValues) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
@@ -167,63 +169,39 @@ const DocApply = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            <Form onSuccess={() => setErrAlert(true)} action={endpointGetFederations} onSubmit={values => console.log(values)} validationSchema={validationSchema}>
+            <Form
+                onSuccess={() => setErrAlert(true)}
+                action={apiEndpoint}
+                method={update ? "PUT" : "POST"}
+                validationSchema={validationSchema}
+                transformValues={v => console.log(v)||v}
+                initialValues={initial}
+                format="multipart/form-data"
+            >
                 <Card>
-                    <h3>Регистрация заявления на регистрацию помета</h3>
+                    <h3>Регистрация заявления на регистрацию родословной</h3>
                     <FormGroup>
                         <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
                         <FormField name='first_name' label='Имя заявителя' />
                         <FormField name='last_name' label='Фамилия заявителя' />
                         <FormField name='second_name' label='Отчество заявителя' />
-                        <FormField name='phone' fieldType="customPhone" label='Телефон заявителя' />
+                        <FormField name='phone' type="tel" label='Телефон заявителя' />
                         <FormField name='address' label='Адрес заявителя' />
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <Card>
-                    <h3>Заводчики</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Дата регистрации</th>
-                                <th>Статус</th>
-                                <th>Номер док-та</th>
-                                <th>ФИО владельца</th>
-                                <th>Эл. почта</th>
-                                <th>Кол-во док.</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {docItems.map((m, i) => <DocItem
-                                key={m}
-                                validate={validate}
-                                closeClick={() => deleteItem(i)}
-                                i={i}
-                                force={force}
-                                active={i === active}
-                                activateClick={() => setActive(i)}
-                                doctypes={doctypes}
-                                breeds={breeds}
-                                sexTypes={sexTypes}
-                            />)}
-                        </tbody>
-                    </table>
-                    <div className="flex-row">
-                        <PlusButton title="Добавить еще заводчика" onClick={plusClick} />
-                    </div>
-                </Card>
+                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} />
                 <Card>
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                        <FormField name='payment_document' label='Квитанция об оплате' type="file" accept="application/pdf" />
-                        <FormField name='payment_date' label='Дата оплаты' type="date" />
+                        <FormFile name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
+                        <FormField name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
                         <FormField name='payment_number' label='Номер платежного документа' />
                         <FormField name='payment_name' label='ФИО плательщика / юр. лица' />
                     </FormGroup>
                 </Card>
                 <div className="flex-row">
-                    <Button className="btn-green" onClick={submit}>Сохранить</Button>
+                    <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                 </div>
             </Form>

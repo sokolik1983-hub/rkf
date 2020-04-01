@@ -23,7 +23,7 @@ function ReactDayPicker({ name, formik, disabled }) {
     const value = getIn(formik.values, name);
     
     const onChange = date => {
-        formik.setFieldValue(name, date)
+        formik.setFieldValue(name, new Date(date).toLocaleDateString("ru"));
     };
 
     return (
@@ -31,7 +31,7 @@ function ReactDayPicker({ name, formik, disabled }) {
             value={value ? formatDate(value) : ''}
             inputProps={{
                 className: 'FormInput__input',
-                name: 'date',
+                name: name || 'date',
                 disabled: !!disabled,
                 style: {
                     width: '100%',

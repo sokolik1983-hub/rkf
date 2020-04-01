@@ -18,10 +18,14 @@ function ReactSelect({
                 clearable,
                 defaultValue,
                 isMulti,
+                onChange,
                 closeMenuOnSelect,
                 components
             }) {
-    const handleChange = (value) => formik.setFieldValue(name, value.value);
+    const handleChange = (value) => {
+        formik.setFieldValue(name, value.value);
+        onChange && onChange(value);
+    }
     const onBlur = () => formik.setFieldTouched(name)
     const getValue = () => {
         const value = getIn(formik.values, name);
