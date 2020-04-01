@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { Formik } from 'formik';
 import { Request } from '../../utils/request';
 import Loading from "../Loading";
+import moment from "moment";
 
 const getFormData = data => {
     const formData = new FormData();
@@ -25,7 +26,7 @@ const flatten = ob => {
             }
         } else {
             if (ob[i] instanceof Date) {
-                toReturn[i] = ob[i].toLocaleDateString("us");
+                toReturn[i] = moment(ob[i]).format("YYYY-MM-DD");
             } else {
                 toReturn[i] = ob[i];
             }

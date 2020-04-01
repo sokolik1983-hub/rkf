@@ -13,7 +13,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     name={name}
                     render={helpers => <>
                     <Card>
-                        <h3>Заводчики</h3>
+                        <h3>Владельцы</h3>
                         <table>
                             <thead>
                                 <tr>
