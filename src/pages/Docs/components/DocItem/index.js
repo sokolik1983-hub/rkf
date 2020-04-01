@@ -48,9 +48,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].color`} label='Цвет'/>
 
             <FormField disabled={update} name={`declarants[${i}].father_name`} label='Кличка отца собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Родословная отца собаки'/>
+            <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной отца собаки'/>
             <FormField disabled={update} name={`declarants[${i}].mother_name`} label='Кличка матери собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Родословная матери собаки'/>
+            <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной матери собаки'/>
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
