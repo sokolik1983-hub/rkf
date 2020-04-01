@@ -2,7 +2,7 @@ import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'components/WidgetCalendar/index.scss';
 import { connect, getIn } from "formik";
-import formatDate from 'utils/formatDate';
+//import formatDate from 'utils/formatDate';
 const WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 const MONTHS = [
     'Январь',

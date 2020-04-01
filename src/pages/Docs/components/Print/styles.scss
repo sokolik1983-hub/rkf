@@ -61,6 +61,9 @@
         margin-bottom: 10px;
         font-size: 14px;
     }
+    @media print {
+        visibility: visible;
+    }
 }
 #wrap {
     .header,
@@ -69,6 +72,11 @@
     .club-documents-status__head {
         @media print {
             display: none;
+        }
+    }
+    .Card {
+        @media print {
+            visibility: hidden;
         }
     }
 }
