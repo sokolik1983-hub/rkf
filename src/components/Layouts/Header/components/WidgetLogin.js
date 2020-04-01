@@ -38,9 +38,6 @@ const WidgetLogin = forwardRef(
                                             <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                 <Link to={`/${clubAlias}/documents/`}>Личный кабинет</Link>
                                             </li>
-                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                <Link to="/reports">Отчёты</Link>
-                                            </li>
                                         </>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
