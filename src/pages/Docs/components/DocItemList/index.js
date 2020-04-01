@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { FormGroup, FormField } from "components/Form";
+import FormFile from "../../components/FormFile";
 import { connect, FieldArray } from "formik";
 import Card from "components/Card";
 import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
 import { emptyDeclarant } from "../../config.js";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName}) => {
     const [active, setActive] = useState(0);
     return <FieldArray
                     name={name}
-                    render={helpers => <Card>
+                    render={helpers => <>
+                    <Card>
                         <h3>Заводчики</h3>
                         <table>
                             <thead>
@@ -34,7 +37,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes}) => {
                                     }}
                                     i={i}
                                     active={i === active}
-                                    activateClick={() => setActive(i)}
+                                    activateClick={() => setActive(i === active ? -1 : i)}
                                     doctypes={doctypes}
                                     breeds={breeds}
                                     sexTypes={sexTypes}
@@ -47,7 +50,18 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes}) => {
                                 helpers.push({...emptyDeclarant});
                             }} />
                         </div>
-                    </Card>}
+                    </Card>
+                    <Card>
+                        <FormGroup>
+                            <p><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
+                            <FormFile name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
+                            <FormField name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
+                            <FormField name='payment_number' label='Номер платежного документа' />
+                        </FormGroup>
+                    </Card>
+                </>
+
+                    }
                 />;
 };
 

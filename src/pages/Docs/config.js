@@ -27,10 +27,11 @@ const emptyDeclarant = {
 
     email: '',
     folder_number: '',
-    was_reviewed: true,
+    was_reviewed: false,
     litter_or_request_number: '',
     biometric_card_document: '',
-    personal_data_document: ''
+    personal_data_document: '',
+    chip_number: ''
 };
 
 export {

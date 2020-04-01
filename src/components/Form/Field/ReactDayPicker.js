@@ -23,7 +23,7 @@ function ReactDayPicker({ name, formik, disabled }) {
     const value = getIn(formik.values, name);
 
     const onChange = date => {
-        formik.setFieldValue(name, new Date(date).toLocaleDateString("ru"));
+        formik.setFieldValue(name, date);
     };
 
     return (
