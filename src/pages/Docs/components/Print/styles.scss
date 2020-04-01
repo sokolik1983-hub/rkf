@@ -1,0 +1,68 @@
+.DocRegistry {
+    width: 750px;
+    margin: auto;
+    font-weight: 400;
+    h1 {
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+    }
+    h3 {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 15px;
+    }
+    &__columns {
+        display: flex;
+        margin: 20px 0;
+        div:first-child {
+            width: 68%;
+        }
+        div + div {
+            width: 32%;
+        }
+    }
+    table {
+        width: 100%;
+        tbody {
+            tr:first-child {
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+        td {
+            border: 1px solid;
+            padding: 5px;
+            &:first-child {
+                text-align: center;
+            }
+            p {
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+    button {
+        margin: 10px 0 10px auto;
+        display: block;
+        padding: 5px;
+        @media print {
+            display: none;
+        }
+    }
+}
+#wrap {
+    .header,
+    .Footer,
+    .top-component,
+    .club-documents-status__head {
+        @media print {
+            display: none;
+        }
+    }
+}
