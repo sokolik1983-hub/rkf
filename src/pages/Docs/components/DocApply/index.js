@@ -72,7 +72,7 @@ const validationSchema = object().shape({
     payment_name: string().required(reqText)
 });
 
-const initial = {
+let initial = {
     federation_id: 0,
     last_name: '',
     first_name: '',
@@ -88,7 +88,7 @@ const initial = {
     payment_name: ''
 };
 
-const DocApply = ({ clubAlias }) => {
+const DocApply = ({ clubAlias, history, distinction }) => {
     const [docItems, setDocItems] = useState([0]);
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
@@ -102,6 +102,7 @@ const DocApply = ({ clubAlias }) => {
     const [formValid, setFormValid] = useState({});
     const [res, setResponse] = useState({});
     const [moreItems, setMoreItems] = useState(1);
+    const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
     const clearClick = e => {
         setDocItems([]);
@@ -118,6 +119,11 @@ const DocApply = ({ clubAlias }) => {
             setErrAlert(true);
         });
     }
+
+    const update = !!history;
+    const id = update && history.location.pathname.split('/').pop();
+    initial = {...initial, ...values};
+    console.log(initial);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
@@ -129,7 +135,8 @@ const DocApply = ({ clubAlias }) => {
             PromiseRequest(apiBreedsEndpoint)
             .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiSexTypesEndpoint)
-            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))))
+            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(setValues) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
@@ -166,13 +173,14 @@ const DocApply = ({ clubAlias }) => {
             <Form
                 onSuccess={() => setErrAlert(true)}
                 action={apiEndpoint}
+                method={update ? "PUT" : "POST"}
                 validationSchema={validationSchema}
                 transformValues={v => console.log(v)||v}
                 initialValues={initial}
                 format="multipart/form-data"
             >
                 <Card>
-                    <h3>Регистрация заявления на регистрацию помета</h3>
+                    <h3>Регистрация заявления на регистрацию родословной</h3>
                     <FormGroup>
                         <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
                         <FormField name='first_name' label='Имя заявителя' />
@@ -188,7 +196,7 @@ const DocApply = ({ clubAlias }) => {
                     <FormGroup>
                         <p><b>Приложите квитанцию об оплате {docItems.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                         <FormFile name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
-                        <FormField name='payment_date' label='Дата оплаты' type="date" />
+                        <FormField name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
                         <FormField name='payment_number' label='Номер платежного документа' />
                         <FormField name='payment_name' label='ФИО плательщика / юр. лица' />
                     </FormGroup>
