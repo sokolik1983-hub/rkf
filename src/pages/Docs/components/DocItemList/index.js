@@ -7,7 +7,7 @@ import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
 import { emptyDeclarant } from "../../config.js";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update}) => {
     const [active, setActive] = useState(0);
     return <FieldArray
                     name={name}
@@ -41,10 +41,12 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName}) => {
                                     doctypes={doctypes}
                                     breeds={breeds}
                                     sexTypes={sexTypes}
+                                    view={view}
+                                    update={update}
                                 />)}
                             </tbody>
                         </table>
-                        <div className="flex-row">
+                        <div className={`flex-row ${update ? 'hidden' : ''}`}>
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
                                 setActive(formik.values.declarants.length);
                                 helpers.push({...emptyDeclarant});
@@ -53,10 +55,10 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName}) => {
                     </Card>
                     <Card>
                         <FormGroup>
-                            <p><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                            <FormFile name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
-                            <FormField name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
-                            <FormField name='payment_number' label='Номер платежного документа' />
+                            <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
+                            <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
+                            <FormField disabled={view} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
+                            <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
                     </Card>
                 </>

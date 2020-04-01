@@ -75,17 +75,17 @@ const updateSchema = object().shape({
     declarants: array().of(object().shape({
         id: number(),
         declarant_uid: string(),
-        biometric_card_document: string().required(reqText),
-        personal_data_document: string().required(reqText),
+        biometric_card_document: string(),
+        personal_data_document: string(),
         documents: array().of(object().shape({
             id: number(),
             document_type_id: number(),
             document: string()
         }))
     })),
-    payment_document: string().required(reqText),
-    payment_date: string().required(reqText),
-    payment_number: string().required(reqText)
+    payment_document: string(),
+    payment_date: string(),
+    payment_number: string()
 
 });
 
@@ -166,7 +166,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }))();
     }, []);
 
-    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${view && 'view'}`}>
+    return loading ? <Loading/> : <div className={`documents-page__info DocApply`}>
         <aside className="documents-page__left">
         {okAlert &&
             <Alert
@@ -203,17 +203,17 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 <Card>
                     <h3>Регистрация заявления на регистрацию родословной</h3>
                     <FormGroup>
-                        <FormField options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
-                        <FormField name='first_name' label='Имя заявителя' />
-                        <FormField name='last_name' label='Фамилия заявителя' />
-                        <FormField name='second_name' label='Отчество заявителя (если есть)' />
-                        <FormField name='phone' type="tel" fieldType="masked" mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
-                        <FormField name='address' label='Адрес заявителя' />
-                        <FormField name='email' type="email" label='Email заявителя' />
+                        <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
+                        <FormField disabled={update} name='first_name' label='Имя заявителя' />
+                        <FormField disabled={update} name='last_name' label='Фамилия заявителя' />
+                        <FormField disabled={update} name='second_name' label='Отчество заявителя (если есть)' />
+                        <FormField disabled={update} name='phone' type="tel" fieldType="masked" showMask={true} mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
+                        <FormField disabled={update} name='address' label='Адрес заявителя' />
+                        <FormField disabled={update} name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName}/>
-                <div className="flex-row">
+                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update}/>
+                <div className={`flex-row ${view ? 'hidden' : ''}`}>
                     <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                 </div>
