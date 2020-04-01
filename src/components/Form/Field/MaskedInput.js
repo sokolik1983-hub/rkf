@@ -9,6 +9,7 @@ const MaskedField = ({
                          placeholder,
                          type,
                          mask,
+                         disabled,
                          showMask = false,
                          guide =false
                      }) => {
@@ -23,6 +24,7 @@ const MaskedField = ({
             value={getIn(formik.values, name)}
             mask={mask}
             guide={guide}
+            disabled={disabled}
             showMask={showMask}
         />
     )

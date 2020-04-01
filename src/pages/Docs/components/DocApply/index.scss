@@ -1,13 +1,13 @@
 .DocApply {
+    .hidden {
+        display: none!important;
+    }
     &.view {
         pointer-events: none;
         opacity: 0.75;
     }
     .FormInput {
         margin-bottom: 20px;
-        &.hidden {
-            display: none;
-        }
     }
     table {
         width: 100%;
