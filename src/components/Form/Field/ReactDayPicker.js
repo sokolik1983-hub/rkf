@@ -21,14 +21,15 @@ const MONTHS = [
 
 function ReactDayPicker({ name, formik, disabled }) {
     const value = getIn(formik.values, name);
-    
+
     const onChange = date => {
         formik.setFieldValue(name, new Date(date).toLocaleDateString("ru"));
     };
 
     return (
         <DayPickerInput
-            value={value ? formatDate(value) : ''}
+            //value={value ? formatDate(value) : ''}
+            value={value ? new Date(value).toLocaleDateString() : new Date()}
             inputProps={{
                 className: 'FormInput__input',
                 name: name || 'date',
@@ -46,7 +47,7 @@ function ReactDayPicker({ name, formik, disabled }) {
             }}
             onDayChange={onChange}
             onBlur={formik.handleBlur}
-            placeholder="DD.MM.YYYY"
+            //placeholder="DD.MM.YYYY"
         />
     )
 }
