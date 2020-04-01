@@ -8,14 +8,18 @@ import './styles.scss';
 const DocRegistry = ({ history, distinction }) => {
     const [data, setData] = useState({});
     const { id } = useParams();
+    const isPedigree = distinction === 'pedigree';
+    const url = isPedigree
+        ? `/api/clubs/requests/PedigreeRequest/register_of_documents?id=${id}`
+        : `/api/clubs/requests/LitterRequest/register_of_documents?id=${id}`;
 
     useEffect(() => {
         Request({
-            url: `/api/clubs/requests/PedigreeRequest/register_of_documents?id=${id}`
+            url: url
         }, result => setData(result));
     }, []);
 
-    const { phone, mail, name, club_name, number, federation_name, declarants } = data;
+    const { phone, mail, name, club_name, request_check_code, number, federation_name, declarants } = data;
     const date = new Date(data.date);
     const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
@@ -26,8 +30,9 @@ const DocRegistry = ({ history, distinction }) => {
                 <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
             </div>
             <div className="DocRegistry">
+                <div className="request-check-code">{request_check_code}</div>
                 <h1>Р Е Е С Т Р &nbsp; Д О К У М Е Н Т О В,</h1>
-                <h2>приложенных к заявлению на регистрацию помета/оформление родословной</h2>
+                <h2>приложенных к заявлению на {isPedigree ? 'оформление родословной' : 'регистрацию помета'}</h2>
                 <div className="DocRegistry__columns">
                     <div>
                         <p><strong>Заявление №</strong>{number}</p>
@@ -53,7 +58,7 @@ const DocRegistry = ({ history, distinction }) => {
                     <tbody>
                         <tr>
                             <td>№<br />п/п</td>
-                            <td>ФИО владельца собаки/заводчика</td>
+                            <td>ФИО {isPedigree ? 'владельца собаки' : 'заводчика'}</td>
                             <td>Прикрепленные документы</td>
                         </tr>
                         {
