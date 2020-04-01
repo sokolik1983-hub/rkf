@@ -2,8 +2,8 @@ import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
-import {formatDateWithTime} from "../../../../../../utils";
-import {Link} from "react-router-dom";
+import { formatDateWithTime } from "../../../../../../utils";
+import { Link } from "react-router-dom";
 
 
 export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias) => {
@@ -66,7 +66,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
     cols.push({
         cell: {
             formatters: [
-                (value, {rowData}) => {
+                (value, { rowData }) => {
                     return (
                         <RowControl>
                             <ul className="row-control__list">
@@ -88,6 +88,14 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         </Link>
                                     </li>
                                 }
+                                <li className="row-control__item">
+                                    <Link
+                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}/print`}
+                                        className="row-control__link"
+                                    >
+                                        Печать
+                                    </Link>
+                                </li>
                             </ul>
                         </RowControl>
                     )
