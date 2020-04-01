@@ -75,7 +75,12 @@ const updateSchema = object().shape({
         id: number(),
         declarant_uid: string(),
         biometric_card_document: string().required(reqText),
-        personal_data_document: string().required(reqText)
+        personal_data_document: string().required(reqText),
+        documents: array().of(object().shape({
+            id: number(),
+            document_type_id: number(),
+            document: string()
+        }))
     })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
@@ -114,12 +119,21 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const update = !!history;
     const id = update && history.location.pathname.split('/').pop();
     let initial = {...initialValues, ...values};
+    console.log(updateSchema);
+    const filterBySchema = (values, fields) => {
+        let r = {};
+        Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
+            if (Array.isArray(values[k])) {
+                r[k] = values[k].map(m => filterBySchema(m, fields[k]._subType.fields));
+            } else {
+                r[k] = values[k];
+            }
+        });
+        return r;
+    }
     const transformValues = values => {
         if (update) {
-            let r = {};
-            Object.keys(values).filter(k => Object.keys(updateSchema.fields).includes(k)).forEach(k => r[k] = values[k]);
-            r.declarants = [];
-            values.declarants.filter(k => Object.keys(updateSchema.fields.declarants._subType.fields).includes(k)).forEach(k => r.declarants[k] = values.declarants[k]);
+            let r = filterBySchema(values, updateSchema.fields);
             console.log(r);
             return r;
         } else {
