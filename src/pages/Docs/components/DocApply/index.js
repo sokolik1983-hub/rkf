@@ -123,7 +123,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const update = !!history;
     const id = update && history.location.pathname.split('/').pop();
     initial = {...initial, ...values};
-    console.log(initial);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
