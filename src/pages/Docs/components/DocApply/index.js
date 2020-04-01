@@ -63,7 +63,12 @@ const validationSchema = object().shape({
         litter_or_request_number: string(),
         biometric_card_document: string().required(reqText),
         personal_data_document: string().required(reqText),
-        chip_number: string().required(reqText)
+        chip_number: string().required(reqText),
+        documents: array().of(object().shape({
+            id: number(),
+            document_type_id: number(),
+            document: string()
+        }))
     })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
@@ -142,7 +147,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             let r = filterBySchema(values, updateSchema.fields);
             return r;
         } else {
-            return values;
+            let r = filterBySchema(values, validationSchema.fields);
+            return r;
         }
     }
     
