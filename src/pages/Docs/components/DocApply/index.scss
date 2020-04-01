@@ -1,4 +1,8 @@
 .DocApply {
+    &.view {
+        pointer-events: none;
+        opacity: 0.75;
+    }
     .FormInput {
         margin-bottom: 20px;
         &.hidden {

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { emptyDeclarant } from "../../config.js"
+import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
@@ -75,7 +76,12 @@ const updateSchema = object().shape({
         id: number(),
         declarant_uid: string(),
         biometric_card_document: string().required(reqText),
-        personal_data_document: string().required(reqText)
+        personal_data_document: string().required(reqText),
+        documents: array().of(object().shape({
+            id: number(),
+            document_type_id: number(),
+            document: string()
+        }))
     })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
@@ -111,16 +117,29 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
 
-    const update = !!history;
-    const id = update && history.location.pathname.split('/').pop();
+    let update = false, id, view = false;
+    if (history) {
+        let path = history.location.pathname.split('/');
+        let x = path.pop();
+        id = isNaN(x) ? path.pop() : x;
+        update = true;
+        view = x !== 'edit';
+    }
     let initial = {...initialValues, ...values};
+    const filterBySchema = (values, fields) => {
+        let r = {};
+        Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
+            if (Array.isArray(values[k])) {
+                r[k] = values[k].map(m => filterBySchema(m, fields[k]._subType.fields));
+            } else {
+                r[k] = values[k];
+            }
+        });
+        return r;
+    }
     const transformValues = values => {
         if (update) {
-            let r = {};
-            Object.keys(values).filter(k => Object.keys(updateSchema.fields).includes(k)).forEach(k => r[k] = values[k]);
-            r.declarants = [];
-            values.declarants.filter(k => Object.keys(updateSchema.fields.declarants._subType.fields).includes(k)).forEach(k => r.declarants[k] = values.declarants[k]);
-            console.log(r);
+            let r = filterBySchema(values, updateSchema.fields);
             return r;
         } else {
             return values;
@@ -147,7 +166,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }))();
     }, []);
 
-    return loading ? <Loading/> : <div className="documents-page__info DocApply">
+    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${view && 'view'}`}>
         <aside className="documents-page__left">
         {okAlert &&
             <Alert
@@ -188,7 +207,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField name='first_name' label='Имя заявителя' />
                         <FormField name='last_name' label='Фамилия заявителя' />
                         <FormField name='second_name' label='Отчество заявителя (если есть)' />
-                        <FormField name='phone' type="tel" label='Телефон заявителя' />
+                        <FormField name='phone' type="tel" fieldType="masked" mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
                         <FormField name='address' label='Адрес заявителя' />
                         <FormField name='email' type="email" label='Email заявителя' />
                     </FormGroup>
