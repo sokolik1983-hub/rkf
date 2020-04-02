@@ -11,6 +11,7 @@ import { emptyDeclarant } from "../../config.js";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref}) => {
     const [active, setActive] = useState(0);
+    const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
     return <FieldArray
                     name={name}
                     render={helpers => <>
@@ -59,12 +60,12 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     <Card>
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                            <HideIf cond={view || formik.values.payment_document_accept}>
+                            <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
                                 <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
                             </HideIf>
                             <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
-                            <FormField disabled={view || formik.values.payment_date_accept} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
-                            <FormField disabled={view || formik.values.payment_number_accept} name='payment_number' label='Номер платежного документа' />
+                            <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
+                            <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
                     </Card>
                 </>
