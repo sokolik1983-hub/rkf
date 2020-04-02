@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { FormGroup, FormField } from "components/Form";
+import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
 import { connect, FieldArray } from "formik";
 import Card from "components/Card";
 import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
+import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update}) => {
@@ -56,9 +58,12 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     <Card>
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                            <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
-                            <FormField disabled={view} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
-                            <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
+                            <HideIf cond={formik.values.payment_document_accept}>
+                                <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
+                            </HideIf>
+                            <DocLink docId={formik.values.payment_document_id}/>
+                            <FormField disabled={view || formik.values.payment_date_accept} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
+                            <FormField disabled={view || formik.values.payment_number_accept} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
                     </Card>
                 </>

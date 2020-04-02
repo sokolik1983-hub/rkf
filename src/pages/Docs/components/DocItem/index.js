@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
+import DocLink from "../../components/DocLink";
 import PlusButton from "../../../../components/PlusButton";
 import { FormGroup, FormField } from "components/Form";
 import FormFile from "../../components/FormFile";
@@ -70,14 +71,20 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <HideIf cond={view || declarant.biometric_card_document_accept}>
                 <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
             </HideIf>
+            <DocLink docId={formik.values.payment_document_id}/>
             <HideIf cond={view || declarant.personal_data_document_accept}>
                 <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
             </HideIf>
+            <DocLink docId={formik.values.personal_data_document_id}/>
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((m,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={update} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <FormFile disabled={view} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                    <div className="FormInput">
+                        <label>&nbsp;</label>
+                        <DocLink docId={declarant.documents[j]["document id"]}/>
+                    </div>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
