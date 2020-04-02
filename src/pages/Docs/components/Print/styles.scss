@@ -57,9 +57,11 @@
     }
     .request-check-code {
         text-align: right;
-        font-style: italic;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         font-size: 14px;
+        em {
+            font-style: italic;
+        }
     }
     @media print {
         visibility: visible;
