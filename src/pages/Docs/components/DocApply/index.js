@@ -190,7 +190,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }))();
     }, []);
 
-    const comment = initial.rejected_comment;
+    const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         <aside className="documents-page__left">
