@@ -4,6 +4,7 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import Button from "components/Button";
+import HideIf from "components/HideIf";
 import { Form, FormGroup, FormField } from "components/Form";
 import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
@@ -145,6 +146,13 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const transformValues = values => {
         if (update) {
             let r = filterBySchema(values, updateSchema.fields);
+            if (!(r.payment_document instanceof File)) {
+                delete r.payment_document;
+            }
+            r.declarants.forEach(d => {
+                if (!d.documents) return;
+                d.documents = d.documents.filter(f => !!f.document);
+            });
             return r;
         } else {
             let r = filterBySchema(values, validationSchema.fields);
@@ -171,6 +179,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             setLoading(false);
         }))();
     }, []);
+
+    let comment = initial.histories && initial.histories.find(f => f.comment !== null);
+    comment = comment && comment.comment;
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply`}>
         <aside className="documents-page__left">
@@ -208,6 +219,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             >
                 <Card>
                     <h3>Регистрация заявления на регистрацию родословной</h3>
+                    {comment && <div className="alert alert-danger">
+                        {comment}
+                    </div>}
                     <FormGroup>
                         <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
                         <FormField disabled={update} name='first_name' label='Имя заявителя' />
@@ -219,10 +233,10 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </FormGroup>
                 </Card>
                 <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update}/>
-                <div className={`flex-row ${view ? 'hidden' : ''}`}>
+                <HideIf cond={view} className="flex-row">
                     <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
-                </div>
+                </HideIf>
             </Form>
         </div>
     </div>

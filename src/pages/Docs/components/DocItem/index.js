@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
+import DocLink from "../../components/DocLink";
 import PlusButton from "../../../../components/PlusButton";
 import { FormGroup, FormField } from "components/Form";
 import FormFile from "../../components/FormFile";
+import HideIf from "components/HideIf";
 import "./index.scss";
 
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update }) => {
@@ -12,6 +14,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [secondName, setSecondName] = useState('');
+    const declarant = formik.values.declarants[i];
+    let comment = declarant.histories && declarant.histories.find(f => f.comment !== null);
+    comment = comment && comment.comment;
     
     return <><tr className="DocItem">
         <td>{new Date().toLocaleDateString("ru")}</td>
@@ -19,7 +24,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>322-223-322</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{formik.values.declarants[i].documents ? formik.values.declarants[i].documents.length : 0}</td>
+        <td>{declarant.documents ? declarant.documents.length : 0}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -27,6 +32,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
+            {comment && <div className="alert alert-danger">
+                {comment}
+            </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             
@@ -61,22 +69,40 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
             <FormField disabled={update} name={`declarants[${i}].was_reviewed`} type="checkbox" label='Щенок был на пересмотре, соответствует племенным требованиям'/>
-            <FormField disabled={update} className={!formik.values.declarants[i].was_reviewed && 'hidden'} name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
-            <FormFile disabled={view} name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
-            <FormFile disabled={view} name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
+            <HideIf cond={!declarant.was_reviewed}>
+                <FormField disabled={update} name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
+            </HideIf>
+            <HideIf cond={view || declarant.biometric_card_document_accept}>
+                <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
+            </HideIf>
+            <DocLink docId={formik.values.payment_document_id}/>
+            <HideIf cond={view || declarant.personal_data_document_accept}>
+                <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
+            </HideIf>
+            <DocLink docId={formik.values.personal_data_document_id}/>
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
-            {formik.values.declarants[i].documents && formik.values.declarants[i].documents.map((m,j) => <FormGroup inline key={j}>
+            {declarant.documents && declarant.documents.map((m,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={view} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <FormField disabled={update} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <FormFile disabled={view} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
-                    <DeleteButton className={update ? 'hidden' : ''} onClick={() => remove(j)} title="Удалить"/>
+                    <div className="FormInput">
+                        <label>&nbsp;</label>
+                        <DocLink docId={declarant.documents[j].document_id}/>
+                    </div>
+                    <HideIf cond={update}>
+                        <DeleteButton onClick={() => remove(j)} title="Удалить"/>
+                    </HideIf>
                 </FormGroup>)}
-                <div className={`flex-row ${update ? 'hidden' : ''}`}>
-                    <PlusButton small onClick={() => push({document_type_id:0,document:''})} title="Добавить документ"/>
-                </div>
+                <HideIf cond={update}>
+                    <div className="flex-row">
+                        <PlusButton small onClick={() => push({document_type_id:0,document:''})} title="Добавить документ"/>
+                    </div>
+                </HideIf>
             </>)}
             />
-            <Button className={`btn-red ${update ? 'hidden' : ''}`} onClick={closeClick}>Удалить</Button>
+            <HideIf cond={update}>
+                <Button className="btn-red" onClick={closeClick}>Удалить</Button>
+            </HideIf>
         </FormGroup>
     </td>
     </tr>
