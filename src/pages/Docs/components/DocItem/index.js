@@ -14,8 +14,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [secondName, setSecondName] = useState('');
-    let declarant = formik.values.declarants[i];
-    console.log(declarant);
+    const declarant = formik.values.declarants[i];
+    let comment = declarant.histories && declarant.histories.find(f => f.comment !== null);
+    comment = comment && comment.comment;
     
     return <><tr className="DocItem">
         <td>{new Date().toLocaleDateString("ru")}</td>
@@ -31,6 +32,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
+            {comment && <div className="alert alert-danger">
+                {comment}
+            </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             
@@ -83,7 +87,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <FormFile disabled={view} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
                     <div className="FormInput">
                         <label>&nbsp;</label>
-                        <DocLink docId={declarant.documents[j]["document id"]}/>
+                        <DocLink docId={declarant.documents[j].document_id}/>
                     </div>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>

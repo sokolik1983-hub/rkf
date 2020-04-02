@@ -180,6 +180,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         }))();
     }, []);
 
+    let comment = initial.histories && initial.histories.find(f => f.comment !== null);
+    comment = comment && comment.comment;
+
     return loading ? <Loading/> : <div className={`documents-page__info DocApply`}>
         <aside className="documents-page__left">
         {okAlert &&
@@ -216,6 +219,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             >
                 <Card>
                     <h3>Регистрация заявления на регистрацию родословной</h3>
+                    {comment && <div className="alert alert-danger">
+                        {comment}
+                    </div>}
                     <FormGroup>
                         <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
                         <FormField disabled={update} name='first_name' label='Имя заявителя' />
