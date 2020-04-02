@@ -197,7 +197,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 title="Документы отправлены"
                 text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
                 autoclose={1.5}
-                onOk={() => setOkAlert(false)}
+                okButton="true"
+                onOk={() => window.navigator.history.popState()}
             />
         }
         {errAlert &&
@@ -216,10 +217,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         </aside>
         <div className="documents-page__right">
             <Form
-                onSuccess={e => {setResponse(e); setErrAlert(true)}}
+                onSuccess={e => setOkAlert(true)}
                 action={apiEndpoint}
                 method={update ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
+                onSubmit={e => console.log(e)}
                 transformValues={transformValues}
                 initialValues={initial}
                 format="multipart/form-data"
