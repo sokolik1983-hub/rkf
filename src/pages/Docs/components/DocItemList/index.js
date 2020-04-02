@@ -59,10 +59,10 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     <Card>
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                            <HideIf cond={formik.values.payment_document_accept}>
+                            <HideIf cond={view || formik.values.payment_document_accept}>
                                 <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
                             </HideIf>
-                            <DocLink docId={formik.values.payment_document_id}/>
+                            <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                             <FormField disabled={view || formik.values.payment_date_accept} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
                             <FormField disabled={view || formik.values.payment_number_accept} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
