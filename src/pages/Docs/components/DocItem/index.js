@@ -7,22 +7,21 @@ import PlusButton from "../../../../components/PlusButton";
 import { FormGroup, FormField } from "components/Form";
 import FormFile from "../../components/FormFile";
 import HideIf from "components/HideIf";
+import moment from "moment";
 import "./index.scss";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref }) => {
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [secondName, setSecondName] = useState('');
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, statuses }) => {
     const declarant = formik.values.declarants[i];
+    const [email, setEmail] = useState(declarant.email || '');
+    const [firstName, setFirstName] = useState(declarant.owner_first_name || '');
+    const [lastName, setLastName] = useState(declarant.owner_last_name || '');
+    const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
-    let comment = declarant.histories && declarant.histories.find(f => f.comment !== null);
-    comment = comment && comment.comment;
     
     return <><tr className="DocItem">
-        <td>{new Date().toLocaleDateString("ru")}</td>
-        <td><i>Не обработан</i></td>
-        <td>322-223-322</td>
+        <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
+        <td><i>{!!statuses.find(s => s.id === declarant.status_id) ? statuses[declarant.status_id].name : 'Не обработан'}</i></td>
+        <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
         <td>{declarant.documents ? declarant.documents.length + 2 : 2}</td>
@@ -33,8 +32,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <tr className={`DocItem collapse ${active && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
-            {comment && <div className="alert alert-danger">
-                {comment}
+            {declarant.rejected_comment && <div className="alert alert-danger">
+                {declarant.rejected_comment}
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
@@ -42,6 +41,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (если есть)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+            <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
             <FormField disabled={update} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormField disabled={update} name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
@@ -65,7 +65,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (если есть)'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
-            <FormField disabled={update} name={`declarants[${i}].email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
 
             <FormField disabled={update} name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
