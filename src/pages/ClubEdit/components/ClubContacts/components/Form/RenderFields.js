@@ -12,9 +12,6 @@ const RenderFields = ({disabled, contact_type_id, isMaskedTel}) => {
     return (
         <FormGroup inline>
             <FormField
-                disabled
-                name="contact_type_id"
-                type={'hidden'}
                 value={contact_type_id}
             />
             {isMaskedTel ?
