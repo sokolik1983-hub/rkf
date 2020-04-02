@@ -9,6 +9,8 @@ const DocLink = ({docId}) => {
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
     useEffect(() => {
+        if (isNaN(docId))
+            return;
         fetch(apiEndpoint + '?id=' + docId)
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
