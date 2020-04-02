@@ -33,7 +33,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <td colSpan="7">
         <FormGroup className="card">
             {declarant.rejected_comment && <div className="alert alert-danger">
-                {declarant.rejected_comment}
+                {declarant.rejected_comment.comment}
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
