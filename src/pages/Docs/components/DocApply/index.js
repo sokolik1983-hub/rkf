@@ -136,6 +136,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     let initial = {...initialValues, ...values};
     const statusAllowsUpdate = initial.status_id ? initial.status_id === 2 : true;
+    const canSave = statusAllowsUpdate || initial.declarants.some(d => d.status_id ? d.status_id === 2 : true);
     const filterBySchema = (values, fields) => {
         let r = {};
         Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
@@ -242,7 +243,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </FormGroup>
                 </Card>
                 <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update} privacyHref={privacyHref}/>
-                <HideIf cond={view || !statusAllowsUpdate} className="flex-row">
+                <HideIf cond={view || !canSave} className="flex-row">
                     <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                 </HideIf>
