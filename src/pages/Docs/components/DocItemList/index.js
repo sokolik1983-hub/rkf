@@ -9,7 +9,7 @@ import DocItem from "../../components/DocItem";
 import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref}) => {
     const [active, setActive] = useState(0);
     return <FieldArray
                     name={name}
@@ -45,6 +45,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     sexTypes={sexTypes}
                                     view={view}
                                     update={update}
+                                    privacyHref={privacyHref}
                                 />)}
                             </tbody>
                         </table>

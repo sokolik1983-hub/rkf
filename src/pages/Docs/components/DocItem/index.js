@@ -9,7 +9,7 @@ import FormFile from "../../components/FormFile";
 import HideIf from "components/HideIf";
 import "./index.scss";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref }) => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -24,7 +24,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>322-223-322</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length : 0}</td>
+        <td>{declarant.documents ? declarant.documents.length + 2 : 2}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -75,20 +75,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <HideIf cond={view || declarant.biometric_card_document_accept}>
                 <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
             </HideIf>
-            <DocLink docId={formik.values.payment_document_id}/>
+            <DocLink docId={declarant.biometric_card_document_id} label='Метрика щенка' showLabel={view || declarant.biometric_card_document_accept} />
             <HideIf cond={view || declarant.personal_data_document_accept}>
                 <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
+                <a download="privacy.docx" href={privacyHref}>Скачать форму соглашения</a>
             </HideIf>
-            <DocLink docId={formik.values.personal_data_document_id}/>
+            <DocLink docId={declarant.personal_data_document_id} label='Соглашение на обработку персональных данных' showLabel={view || declarant.personal_data_document_accept}/>
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((m,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={update} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
-                    <FormFile disabled={view} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
-                    <div className="FormInput">
-                        <label>&nbsp;</label>
-                        <DocLink docId={declarant.documents[j].document_id}/>
-                    </div>
+                    <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <FormFile disabled={view} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                    <DocLink docId={declarant.documents[j].document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>

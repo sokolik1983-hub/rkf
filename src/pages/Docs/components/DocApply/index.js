@@ -19,6 +19,8 @@ const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
 const apiDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
+const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
+
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -64,7 +66,7 @@ const validationSchema = object().shape({
         litter_or_request_number: string(),
         biometric_card_document: string().required(reqText),
         personal_data_document: string().required(reqText),
-        chip_number: string().required(reqText),
+        chip_number: string(),
         documents: array().of(object().shape({
             id: number(),
             document_type_id: number(),
@@ -115,6 +117,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [doctypes, setDoctypes] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
+    const [privacyHref, setPrivacyHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
@@ -171,6 +174,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiSexTypesEndpoint)
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            fetch(apiPrivacyEndpoint)
+            .then(response => response.blob())
+            .then(data => setPrivacyHref(URL.createObjectURL(data))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(setValues) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
@@ -232,7 +238,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField disabled={update} name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update}/>
+                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update} privacyHref={privacyHref}/>
                 <HideIf cond={view} className="flex-row">
                     <Button className="btn-green" type="submit">Сохранить</Button>
                     <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
