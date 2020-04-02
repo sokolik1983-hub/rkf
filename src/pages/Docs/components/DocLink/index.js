@@ -5,7 +5,7 @@ import "./index.scss";
 
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest/document';
 
-const DocLink = ({docId}) => {
+const DocLink = ({ docId, label, showLabel }) => {
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
     useEffect(() => {
@@ -21,7 +21,10 @@ const DocLink = ({docId}) => {
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
             <embed src={url}/>
         </Modal>
-        {docId && <Button onClick={e => setShowModal(true)}>Посмотреть</Button>}
+        {docId && <div className="FormInput">
+            <label>{showLabel ? label : "\u00a0"}</label>
+            <Button onClick={e => setShowModal(true)}>Посмотреть</Button>
+        </div>}
     </>;
 }
 
