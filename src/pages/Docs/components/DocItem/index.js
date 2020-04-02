@@ -67,7 +67,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {formik.values.declarants[i].documents && formik.values.declarants[i].documents.map((m,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={view} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <FormField disabled={update} options={doctypes} label={`Документ №${j + 2} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <FormFile disabled={view} label={`Документ №${j + 2}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
                     <DeleteButton className={update ? 'hidden' : ''} onClick={() => remove(j)} title="Удалить"/>
                 </FormGroup>)}

@@ -145,6 +145,13 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const transformValues = values => {
         if (update) {
             let r = filterBySchema(values, updateSchema.fields);
+            if (!(r.payment_document instanceof File)) {
+                delete r.payment_document;
+            }
+            r.declarants.forEach(d => {
+                if (!d.documents) return;
+                d.documents = d.documents.filter(f => !!f.document);
+            });
             return r;
         } else {
             let r = filterBySchema(values, validationSchema.fields);
