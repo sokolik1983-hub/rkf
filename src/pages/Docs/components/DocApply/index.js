@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
@@ -122,7 +123,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
-    const [res, setResponse] = useState({});
+    const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
 
@@ -191,21 +192,22 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     let comment = initial.histories && initial.histories.find(f => f.comment !== null);
     comment = comment && comment.comment;
 
-    return loading ? <Loading/> : <div className={`documents-page__info DocApply`}>
+    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         <aside className="documents-page__left">
         {okAlert &&
             <Alert
                 title="Документы отправлены"
                 text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
-                autoclose={1.5}
+                autoclose={2.5}
                 okButton="true"
-                onOk={() => window.navigator.history.popState()}
+                onOk={() => setRedirect(true)}
             />
         }
+        {redirect && <Redirect to={`/${clubAlias}/documents`}/>}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Сервер вернул ошибку: ${res.status} - ${res.statusText}`}
+                text={`Сервер вернул ошибку`}
                 okButton="true"
                 onOk={() => setErrAlert(false)}
             />
