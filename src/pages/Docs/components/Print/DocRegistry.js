@@ -30,7 +30,7 @@ const DocRegistry = ({ history, distinction }) => {
                 <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
             </div>
             <div className="DocRegistry">
-                <div className="request-check-code">{`Идентификатор документа: ${request_check_code}`}</div>
+                <div className="request-check-code">Идентификатор документа: &nbsp;<em>{request_check_code}</em></div>
                 <h1>Р Е Е С Т Р &nbsp; Д О К У М Е Н Т О В,</h1>
                 <h2>приложенных к заявлению на {isPedigree ? 'оформление родословной' : 'регистрацию помета'}</h2>
                 <div className="DocRegistry__columns">
