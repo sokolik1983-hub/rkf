@@ -85,7 +85,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {declarant.documents && declarant.documents.map((m,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
-                    <FormFile disabled={view} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                    <HideIf cond={view}>
+                        <FormFile disabled={view} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                    </HideIf>
                     <DocLink docId={declarant.documents[j].document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
