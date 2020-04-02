@@ -123,7 +123,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
-    const [redirect, setRedirect] = useState({});
+    const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
     const fedChange = e => setFedName(e.label);
 
