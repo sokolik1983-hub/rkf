@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from "components/Button";
+import { Link } from "react-router-dom";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
@@ -9,9 +11,10 @@ import DocItem from "../../components/DocItem";
 import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, statuses, clubAlias}) => {
     const [active, setActive] = useState(0);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
+    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
     return <FieldArray
                     name={name}
                     render={helpers => <>
@@ -47,6 +50,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     view={view}
                                     update={update}
                                     privacyHref={privacyHref}
+                                    statuses={statuses}
                                 />)}
                             </tbody>
                         </table>
@@ -68,6 +72,10 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                         </FormGroup>
                     </Card>
+                    <HideIf cond={view || !canSave} className="flex-row">
+                        <Button className="btn-green" type="submit" disabled={formik.isSubmitting}>Сохранить</Button>
+                        <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
+                    </HideIf>
                 </>
 
                     }

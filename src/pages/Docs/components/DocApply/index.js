@@ -4,8 +4,6 @@ import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
-import Button from "components/Button";
-import HideIf from "components/HideIf";
 import { Form, FormGroup, FormField } from "components/Form";
 import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
@@ -21,6 +19,7 @@ const apiDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_docum
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
+const apiStatusesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
 
 
 const reqText = 'Обязательное поле';
@@ -116,6 +115,7 @@ const initialValues = {
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
+    const [statuses, setStatuses] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
@@ -136,8 +136,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         view = x !== 'edit';
     }
     let initial = {...initialValues, ...values};
-    const statusAllowsUpdate = initial.status_id ? initial.status_id === 2 : true;
-    const canSave = statusAllowsUpdate || initial.declarants.some(d => d.status_id ? d.status_id === 2 : true);
     const filterBySchema = (values, fields) => {
         let r = {};
         Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
@@ -177,20 +175,22 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiSexTypesEndpoint)
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            PromiseRequest(apiStatusesEndpoint)
+            .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
             fetch(apiPrivacyEndpoint)
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
-            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(setValues) : new Promise(res => res())
+            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
+            setRedirect('/404');
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         }))();
     }, []);
 
-    let comment = initial.histories && initial.histories.find(f => f.comment !== null);
-    comment = comment && comment.comment;
+    const comment = initial.rejected_comment;
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         <aside className="documents-page__left">
@@ -200,10 +200,10 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
                 autoclose={2.5}
                 okButton="true"
-                onOk={() => setRedirect(true)}
+                onOk={() => setRedirect(`/${clubAlias}/documents`)}
             />
         }
-        {redirect && <Redirect to={`/${clubAlias}/documents`}/>}
+        {redirect && <Redirect to={redirect}/>}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
@@ -244,11 +244,18 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField disabled={update} name='email' type="email" label='Email заявителя' />
                     </FormGroup>
                 </Card>
-                <DocItemList name="declarants" doctypes={doctypes} breeds={breeds} sexTypes={sexTypes} fedName={fedName} view={view} update={update} privacyHref={privacyHref}/>
-                <HideIf cond={view || !canSave} className="flex-row">
-                    <Button className="btn-green" type="submit">Сохранить</Button>
-                    <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
-                </HideIf>
+                <DocItemList
+                    name="declarants"
+                    doctypes={doctypes}
+                    breeds={breeds}
+                    sexTypes={sexTypes}
+                    fedName={fedName}
+                    view={view}
+                    update={update}
+                    privacyHref={privacyHref}
+                    statuses={statuses}
+                    clubAlias={clubAlias}
+                />
             </Form>
         </div>
     </div>
