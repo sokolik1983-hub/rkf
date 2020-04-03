@@ -25,7 +25,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + 2 : 2}</td>
+        <td>{declarant.documents ? declarant.documents.length + 3 : 3}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -94,7 +94,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <FormFile name={`declarants[${i}].request_extract_from_verk_document`} label='Заявка на изготовление выписки из ВЕРК' accept="application/pdf" type="file" />
                 <a download="request_extract_from_verk_document.docx" href={verkHref}>Скачать шаблон формы</a>
             </HideIf>
-            <DocLink docId={declarant.personal_data_document_id} label='Заявка на изготовление выписки из ВЕРК' showLabel={view || declarant.personal_data_document_accept}/>
+            <DocLink docId={declarant.request_extract_from_verk_document_id} label='Заявка на изготовление выписки из ВЕРК' showLabel={view || declarant.request_extract_from_verk_document_accept}/>
             
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
