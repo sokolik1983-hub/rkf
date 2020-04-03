@@ -4,6 +4,7 @@ import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
+import HideIf from "components/HideIf";
 import { Form, FormGroup, FormField } from "components/Form";
 import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
@@ -61,7 +62,6 @@ const validationSchema = object().shape({
         breeder_address: string().required(reqText),
 
         email: string().required(reqText).email(reqEmail),
-        folder_number: string().required(reqText),
         was_reviewed: boolean().required(reqText),
         litter_or_request_number: string(),
         biometric_card_document: string().required(reqText),
@@ -75,7 +75,8 @@ const validationSchema = object().shape({
     })),
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
-    payment_number: string().required(reqText)
+    payment_number: string().required(reqText),
+    ogrn: string()
 });
 
 const updateSchema = object().shape({
@@ -94,7 +95,6 @@ const updateSchema = object().shape({
     payment_document: string(),
     payment_date: string(),
     payment_number: string()
-
 });
 
 const initialValues = {
@@ -242,6 +242,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField disabled={update} name='phone' type="tel" fieldType="masked" showMask={true} mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
                         <FormField disabled={update} name='address' label='Адрес заявителя' />
                         <FormField disabled={update} name='email' type="email" label='Email заявителя' />
+                        <HideIf cond={!update}>
+                            <FormField disabled name='folder_number' label='Номер папки'/>
+                        </HideIf>
                     </FormGroup>
                 </Card>
                 <DocItemList

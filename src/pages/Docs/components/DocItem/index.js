@@ -66,9 +66,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (если есть)'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
 
-            <FormField disabled={update} name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
-            <FormField disabled={update} name={`declarants[${i}].was_reviewed`} type="checkbox" label='Щенок был на пересмотре, соответствует племенным требованиям'/>
+            <FormField
+                disabled={update}
+                name={`declarants[${i}].was_reviewed`}
+                type="checkbox"
+                label='Щенок был на пересмотре, соответствует племенным требованиям'
+                onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].litter_or_request_number`, '')}}
+            />
             <HideIf cond={!declarant.was_reviewed}>
                 <FormField disabled={update} name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
             </HideIf>
