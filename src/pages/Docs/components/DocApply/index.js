@@ -94,7 +94,8 @@ const updateSchema = object().shape({
     })),
     payment_document: string(),
     payment_date: string(),
-    payment_number: string()
+    payment_number: string(),
+    payment_name: string().required()
 });
 
 const initialValues = {
@@ -105,11 +106,14 @@ const initialValues = {
     phone: '',
     address: '',
     email: '',
+    folder_number: '',
     declarants: [emptyDeclarant],
 
     payment_document: '',
     payment_date: '',
-    payment_number: ''
+    payment_number: '',
+    payment_name: '',
+    ogrn: ''
 };
 
 const DocApply = ({ clubAlias, history, distinction }) => {
