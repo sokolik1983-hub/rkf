@@ -95,7 +95,7 @@ const updateSchema = object().shape({
     payment_document: string(),
     payment_date: string(),
     payment_number: string(),
-    payment_name: string().required()
+    payment_name: string().required(reqText)
 });
 
 const initialValues = {
