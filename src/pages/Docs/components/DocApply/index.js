@@ -76,6 +76,7 @@ const validationSchema = object().shape({
     payment_document: string().required(reqText),
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),
+    payment_name: string().required(reqText),
     ogrn: string()
 });
 
@@ -94,8 +95,7 @@ const updateSchema = object().shape({
     })),
     payment_document: string(),
     payment_date: string(),
-    payment_number: string(),
-    payment_name: string().required(reqText)
+    payment_number: string()
 });
 
 const initialValues = {
