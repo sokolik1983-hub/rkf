@@ -26,7 +26,6 @@ const emptyDeclarant = {
     breeder_address: '',
 
     email: '',
-    folder_number: '',
     was_reviewed: false,
     litter_or_request_number: '',
     biometric_card_document: '',

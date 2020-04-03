@@ -66,7 +66,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (если есть)'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
 
-            <FormField disabled={update} name={`declarants[${i}].folder_number`} label='Номер папки'/>
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
             <FormField disabled={update} name={`declarants[${i}].was_reviewed`} type="checkbox" label='Щенок был на пересмотре, соответствует племенным требованиям'/>
             <HideIf cond={!declarant.was_reviewed}>
