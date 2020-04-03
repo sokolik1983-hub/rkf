@@ -52,7 +52,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                         banner_link={info.header_picture_link}
                     />
                     <div className="rkf-page__banner">
-                        <img src="/static/images/rkf/banner-rkf.svg" alt="banner"/>
+                        <img src="/static/images/slider/1.jpg" alt="banner"/>
                     </div>
                     <ExhibitionsComponent alias="rkf"/>
                     <div className="rkf-page__photo _mobile">
