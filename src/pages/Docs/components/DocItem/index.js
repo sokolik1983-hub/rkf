@@ -3,7 +3,6 @@ import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
-import PlusButton from "../../../../components/PlusButton";
 import { FormGroup, FormField } from "components/Form";
 import FormFile from "../../components/FormFile";
 import HideIf from "components/HideIf";
@@ -98,9 +97,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
                 </FormGroup>)}
-                <HideIf cond={update}>
+                <HideIf cond={update || (declarant.documents && declarant.documents.length > 29)}>
+                    <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
-                        <PlusButton small onClick={() => push({document_type_id:0,document:''})} title="Добавить документ"/>
+                        <Button small onClick={() => push({document_type_id:0,document:''})}>Добавить доп. документ</Button>
                     </div>
                 </HideIf>
             </>)}

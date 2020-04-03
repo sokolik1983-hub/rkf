@@ -2,7 +2,7 @@ import React from "react";
 
 const HideIf = props => {
     let {cond, children, ...other} = props;
-    return <div style={cond ? {display : 'none'} : {}} {...other}>{children}</div>;
+    return cond ? (<div style={{display : 'none'}} {...other}>{children}</div>) : <>{children}</>;
 }
 
 export default HideIf;
