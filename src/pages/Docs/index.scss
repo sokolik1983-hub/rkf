@@ -25,6 +25,13 @@
       padding: 12px;
     }
   }
+  &__icon {
+    float: right;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: url("/static/images/documents/document.jpg") center center/cover no-repeat;
+  }
   &__img {
     display: block;
     border-radius: 6px;
