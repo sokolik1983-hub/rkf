@@ -20,6 +20,7 @@ const apiDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_docum
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
+const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
 
 
@@ -66,6 +67,7 @@ const validationSchema = object().shape({
         litter_or_request_number: string(),
         biometric_card_document: string().required(reqText),
         personal_data_document: string().required(reqText),
+        request_extract_from_verk_document: string().required(reqText),
         chip_number: string(),
         documents: array().of(object().shape({
             id: number(),
@@ -87,6 +89,7 @@ const updateSchema = object().shape({
         declarant_uid: string(),
         biometric_card_document: string(),
         personal_data_document: string(),
+        request_extract_from_verk_document: string(),
         documents: array().of(object().shape({
             id: number(),
             document_type_id: number(),
@@ -123,6 +126,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
+    const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
@@ -184,6 +188,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             fetch(apiPrivacyEndpoint)
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
+            fetch(apiVerkEndpoint)
+            .then(response => response.blob())
+            .then(data => setVerkHref(URL.createObjectURL(data))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
@@ -260,6 +267,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     view={view}
                     update={update}
                     privacyHref={privacyHref}
+                    verkHref={verkHref}
                     statuses={statuses}
                     clubAlias={clubAlias}
                 />

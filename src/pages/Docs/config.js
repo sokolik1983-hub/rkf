@@ -30,7 +30,9 @@ const emptyDeclarant = {
     litter_or_request_number: '',
     biometric_card_document: '',
     personal_data_document: '',
-    chip_number: ''
+    request_extract_from_verk_document: '',
+    chip_number: '',
+    documents: []
 };
 
 export {

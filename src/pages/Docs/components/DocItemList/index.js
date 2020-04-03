@@ -11,7 +11,7 @@ import DocItem from "../../components/DocItem";
 import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, statuses, clubAlias}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias}) => {
     const [active, setActive] = useState(0);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
     const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
@@ -50,6 +50,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     view={view}
                                     update={update}
                                     privacyHref={privacyHref}
+                                    verkHref={verkHref}
                                     statuses={statuses}
                                 />)}
                             </tbody>
