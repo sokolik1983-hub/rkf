@@ -16,10 +16,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [lastName, setLastName] = useState(declarant.owner_last_name || '');
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    let status = statuses.find(s => s.id === declarant.status_id);
+    status = status ? status.name : 'Не обработана';
     
     return <><tr className="DocItem">
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
-        <td><i>{!!statuses.find(s => s.id === declarant.status_id) ? statuses[declarant.status_id].name : 'Не обработан'}</i></td>
+        <td><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
