@@ -44,7 +44,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             
             <FormField disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-            <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (если есть)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+            <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
             <FormField disabled={update} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
@@ -67,7 +67,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
-            <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (если есть)'/>
+            <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
 
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
