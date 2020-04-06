@@ -19,7 +19,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
-    let error = formik.errors.declarants && formik.errors.declarants[i];
+    let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     return <><tr className={`DocItem ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>

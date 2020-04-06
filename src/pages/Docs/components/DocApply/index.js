@@ -71,17 +71,17 @@ const validationSchema = object().shape({
         email: string().required(reqText).email(reqEmail),
         was_reviewed: boolean().required(reqText),
         litter_or_request_number: string(),
-        biometric_card_document: mixed().required(reqText),
-        personal_data_document: mixed().required(reqText),
-        request_extract_from_verk_document: mixed().required(reqText),
+        biometric_card_document: string().required(reqText),
+        personal_data_document: string().required(reqText),
+        request_extract_from_verk_document: string().required(reqText),
         chip_number: string(),
         documents: array().of(object().shape({
             id: number(),
             document_type_id: number().required(reqText).typeError(reqText),
-            document: mixed().required(reqText)
+            document: string().required(reqText)
         }))
     })).min(1, 'Заполните хотя бы одну заявку'),
-    payment_document: mixed().required(reqText),
+    payment_document: string().required(reqText),
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),
     payment_name: string().required(reqText),
