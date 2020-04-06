@@ -55,6 +55,7 @@ function Form({
     validationSchema,
     initialValues,
     onSuccess,
+    onError,
     withLoading,
     className,
     children,
@@ -85,6 +86,7 @@ function Form({
         const onRequestError = (error) => {
             setLoading(false);
             actions.setSubmitting(false);
+            onError(error);
             if (error.isAxiosError) {
                 const { data } = error.response;
                 actions.setErrors(data.errors);

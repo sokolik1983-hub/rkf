@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'components/WidgetCalendar/index.scss';
 import { connect, getIn } from "formik";
@@ -21,7 +21,7 @@ const MONTHS = [
 
 function ReactDayPicker({ name, formik, disabled }) {
     const value = getIn(formik.values, name);
-
+    const ref = useRef();
     const onChange = date => {
         formik.setFieldValue(name, date);
     };
@@ -32,6 +32,7 @@ function ReactDayPicker({ name, formik, disabled }) {
             inputProps={{
                 className: 'FormInput__input',
                 name: name || 'date',
+                ref: ref,
                 disabled: !!disabled,
                 style: {
                     width: '100%',
@@ -46,7 +47,7 @@ function ReactDayPicker({ name, formik, disabled }) {
             }}
             onDayChange={onChange}
             onBlur={formik.handleBlur}
-            placeholder="DD.MM.YYYY"
+            placeholder="ДД.ММ.ГГГГ"
         />
     )
 }

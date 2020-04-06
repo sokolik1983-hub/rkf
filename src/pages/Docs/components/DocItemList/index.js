@@ -10,8 +10,15 @@ import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
 import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
+import test from "../../test.json";
+
+const accept = ".pdf, .jpg, .jpeg";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias}) => {
+    window.test = () => Object.keys(test).forEach(t => {
+        formik.setFieldValue(t, test[t]);
+    });
+    Object.keys(formik.errors).length && console.log(formik.errors);
     const [active, setActive] = useState(0);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
     const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
@@ -66,7 +73,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                             <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept="application/pdf" />
+                                <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
                             </HideIf>
                             <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                             <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
@@ -76,7 +83,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                         </FormGroup>
                     </Card>
                     <HideIf cond={view || !canSave} className="flex-row">
-                        <Button className="btn-green" type="submit" disabled={formik.isSubmitting}>Сохранить</Button>
+                        <Button className="btn-green" type="submit" disabled={formik.isSubmitting}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
                         <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
                     </HideIf>
                 </>

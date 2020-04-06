@@ -37,13 +37,14 @@ function getField(fieldType) {
     }
 }
 
-function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
+function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, errName, ...fieldProps }) {
     const Input = getField(fieldType);
 
     return (
         <FormInput
             style={style}
             name={fieldProps.name}
+            errName={errName}
             className={classnames(
                 { [className]: className },
                 { [`FormInput--${fieldProps.type}`]: fieldProps.type },
@@ -70,7 +71,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                     />
             }
 
-            <Error name={fieldProps.name} noTouch={noTouch ? noTouch : null} />
+            <Error name={errName || fieldProps.name} noTouch={noTouch ? noTouch : null} />
         </FormInput>
     )
 

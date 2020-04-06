@@ -9,6 +9,8 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
 
+const accept = ".pdf, .jpg, .jpeg";
+
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -18,8 +20,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
+    let error = formik.errors.declarants && formik.errors.declarants[i];
     
-    return <><tr className="DocItem">
+    return <><tr className={`DocItem ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
         <td><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
@@ -80,18 +83,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </HideIf>
             
             <HideIf cond={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}>
-                <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept="application/pdf" type="file" />
+                <FormFile name={`declarants[${i}].biometric_card_document`} label='Метрика щенка' accept={accept} type="file" />
             </HideIf>
             <DocLink docId={declarant.biometric_card_document_id} label='Метрика щенка' showLabel={view || declarant.biometric_card_document_accept} />
             
             <HideIf cond={view || declarant.personal_data_document_accept || !statusAllowsUpdate}>
-                <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept="application/pdf" type="file" />
+                <FormFile name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept={accept} type="file" />
                 <a download="privacy.docx" href={privacyHref}>Скачать форму соглашения</a>
             </HideIf>
             <DocLink docId={declarant.personal_data_document_id} label='Соглашение на обработку персональных данных' showLabel={view || declarant.personal_data_document_accept}/>
             
             <HideIf cond={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}>
-                <FormFile name={`declarants[${i}].request_extract_from_verk_document`} label='Заявка на изготовление выписки из ВЕРК' accept="application/pdf" type="file" />
+                <FormFile name={`declarants[${i}].request_extract_from_verk_document`} label='Заявка на изготовление выписки из ВЕРК' accept={accept} type="file" />
                 <a download="request_extract_from_verk_document.docx" href={verkHref}>Скачать шаблон формы</a>
             </HideIf>
             <DocLink docId={declarant.request_extract_from_verk_document_id} label='Заявка на изготовление выписки из ВЕРК' showLabel={view || declarant.request_extract_from_verk_document_accept}/>
@@ -101,7 +104,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormFile disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept="application/pdf" />
+                        <FormFile disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink docId={doc.document_id}/>
                     <HideIf cond={update}>

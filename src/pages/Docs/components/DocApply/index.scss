@@ -1,4 +1,13 @@
 .DocApply {
+    .FormInput__custom-error {
+        color: #FA5D50;
+        position: absolute;
+        line-height: 100%;
+        bottom: -24px;
+        padding: 4px;
+        white-space: nowrap;
+        background-color: white;
+    }
     .hidden {
         display: none!important;
     }
