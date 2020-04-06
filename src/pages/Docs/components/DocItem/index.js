@@ -102,7 +102,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormFile disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} type="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>

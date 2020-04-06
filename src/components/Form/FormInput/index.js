@@ -6,7 +6,7 @@ import './styles.scss'
 const FormInput = ({formik, name, errName, className, checkbox, style, children}) => {
     // All Formikavailable on formik!
     const error = getIn(formik.errors, errName || name);
-    const touch = getIn(formik.touched, errName || name);
+    const touch = getIn(formik.touched, name);
     const classNames = classnames(
         'FormInput',
         {[className]: className},

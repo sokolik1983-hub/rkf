@@ -71,7 +71,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                     />
             }
 
-            <Error name={errName || fieldProps.name} noTouch={noTouch ? noTouch : null} />
+            <Error name={fieldProps.name} errName={errName} noTouch={noTouch ? noTouch : null} />
         </FormInput>
     )
 
