@@ -102,7 +102,7 @@ const updateSchema = object().shape({
 });
 
 const initialValues = {
-    federation_id: 0,
+    federation_id: '',
     last_name: '',
     first_name: '',
     second_name: '',
