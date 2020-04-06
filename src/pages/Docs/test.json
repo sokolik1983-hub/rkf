@@ -4,7 +4,10 @@
    "last_name":"Тестов",
    "second_name":"Тестович",
    "phone":"1",
-   "address":"1",
+   "index": "1",
+   "city_id": "1",
+   "street": "1",
+   "house": "1",
    "email":"test@gmail.com",
    "folder_number":"1",
    "declarants[0].id":"1",
@@ -36,5 +39,5 @@
    "payment_date":"01.04.2020",
    "payment_number":"1",
    "payment_name":"1",
-   "ogrn":"1"
+   "ogrn":"1234567890123"
 }

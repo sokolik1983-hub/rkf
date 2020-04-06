@@ -80,7 +80,7 @@ const validationSchema = object().shape({
             document_type_id: number().required(reqText).typeError(reqText),
             document: mixed().required(reqText)
         }))
-    })),
+    })).min(1, 'Заполните хотя бы одну заявку'),
     payment_document: mixed().required(reqText),
     payment_date: string().required(reqText),
     payment_number: string().required(reqText),

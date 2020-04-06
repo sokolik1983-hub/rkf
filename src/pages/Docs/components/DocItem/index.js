@@ -87,7 +87,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <DocLink docId={declarant.biometric_card_document_id} label='Метрика щенка' showLabel={view || declarant.biometric_card_document_accept} />
             
             <HideIf cond={view || declarant.personal_data_document_accept || !statusAllowsUpdate}>
-                <FormField onChange={e => console.log(e)} name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept={accept} fieldType="file" />
+                <FormField name={`declarants[${i}].personal_data_document`} label='Соглашение на обработку персональных данных' accept={accept} fieldType="file" />
                 <a download="privacy.docx" href={privacyHref}>Скачать форму соглашения</a>
             </HideIf>
             <DocLink docId={declarant.personal_data_document_id} label='Соглашение на обработку персональных данных' showLabel={view || declarant.personal_data_document_accept}/>
