@@ -6,12 +6,13 @@ import "./index.scss";
 const apiEndpoint = '/api/clubs/requests/PedigreeRequest/document';
 
 const DocLink = ({ docId, label, showLabel }) => {
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
     useEffect(() => {
         if (isNaN(docId))
             return;
-        fetch(apiEndpoint + '?id=' + docId)
+        fetch(apiEndpoint + '?id=' + docId, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
         .then(url => setUrl(url));
