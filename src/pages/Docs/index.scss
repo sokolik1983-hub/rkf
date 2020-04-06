@@ -19,6 +19,12 @@
   }
   p {
     font-weight: normal;
+    @media (min-width: 560px) {
+      padding-right: 180px;
+    }
+  }
+  hr {
+    clear: both;
   }
   .Card {
     @media (max-width: 560px) {
@@ -27,10 +33,15 @@
   }
   &__icon {
     float: right;
-    width: 75px;
-    height: 75px;
+    width: 145px;
+    height: 145px;
+    margin: 0 0 10px 10px;
     border-radius: 50%;
     background: url("/static/images/documents/document.jpg") center center/cover no-repeat;
+    @media (max-width: 560px) {
+      width: 100px;
+      height: 100px;
+    }
   }
   &__img {
     display: block;
