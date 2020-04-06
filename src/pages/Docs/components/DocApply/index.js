@@ -173,6 +173,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     useEffect(() => {
         (() => Promise.all([
             PromiseRequest(endpointGetFederations)
@@ -185,10 +186,10 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiStatusesEndpoint)
             .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
-            fetch(apiPrivacyEndpoint)
+            fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
-            fetch(apiVerkEndpoint)
+            fetch(apiVerkEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setVerkHref(URL.createObjectURL(data))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setValues(values) : setRedirect('/404')) : new Promise(res => res())
