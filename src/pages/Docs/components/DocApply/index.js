@@ -251,9 +251,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
                         <FormField disabled={update} name='first_name' label='Имя заявителя' />
                         <FormField disabled={update} name='last_name' label='Фамилия заявителя' />
-                        <FormField disabled={update} name='second_name' label='Отчество заявителя (если есть)' />
+                        <FormField disabled={update} name='second_name' label='Отчество заявителя (опционально)' />
                         <FormField disabled={update} name='phone' type="tel" fieldType="masked" showMask={true} mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
-                        <FormField disabled={update} name='address' label='Адрес заявителя' />
+                        <FormField disabled={update} name='address' label='Адрес заявителя для отправки корреспонденции' />
                         <FormField disabled={update} name='email' type="email" label='Email заявителя' />
                         <HideIf cond={!update}>
                             <FormField disabled name='folder_number' label='Номер папки'/>
