@@ -8,8 +8,8 @@ import HideIf from "components/HideIf";
 import { Form, FormGroup, FormField } from "components/Form";
 import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
-import { Link } from "react-router-dom";
-import CustomMenu from "components/CustomMenu";
+//import { Link } from "react-router-dom";
+//import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { emptyDeclarant } from "../../config.js"
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
@@ -71,7 +71,7 @@ const validationSchema = object().shape({
         chip_number: string(),
         documents: array().of(object().shape({
             id: number(),
-            document_type_id: number().required(reqText),
+            document_type_id: number().required(reqText).typeError(reqText),
             document: string().required(reqText)
         }))
     })),
@@ -205,7 +205,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
-        <aside className="documents-page__left">
         {okAlert &&
             <Alert
                 title="Документы отправлены"
@@ -224,12 +223,14 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 onOk={() => setErrAlert(false)}
             />
         }
+        {/*<aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
+        */}
         <div className="documents-page__right">
             <Form
                 onSuccess={e => setOkAlert(true)}
@@ -259,20 +260,20 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                             <FormField disabled name='folder_number' label='Номер папки'/>
                         </HideIf>
                     </FormGroup>
+                    <DocItemList
+                        name="declarants"
+                        doctypes={doctypes}
+                        breeds={breeds}
+                        sexTypes={sexTypes}
+                        fedName={fedName}
+                        view={view}
+                        update={update}
+                        privacyHref={privacyHref}
+                        verkHref={verkHref}
+                        statuses={statuses}
+                        clubAlias={clubAlias}
+                    />
                 </Card>
-                <DocItemList
-                    name="declarants"
-                    doctypes={doctypes}
-                    breeds={breeds}
-                    sexTypes={sexTypes}
-                    fedName={fedName}
-                    view={view}
-                    update={update}
-                    privacyHref={privacyHref}
-                    verkHref={verkHref}
-                    statuses={statuses}
-                    clubAlias={clubAlias}
-                />
             </Form>
         </div>
     </div>

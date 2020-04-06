@@ -86,7 +86,7 @@ function Form({
         const onRequestError = (error) => {
             setLoading(false);
             actions.setSubmitting(false);
-            onError(error);
+            onError && onError(error);
             if (error.isAxiosError) {
                 const { data } = error.response;
                 actions.setErrors(data.errors);
