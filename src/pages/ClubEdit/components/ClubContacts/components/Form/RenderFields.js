@@ -6,14 +6,11 @@ import {ContactTypeContext} from "../../context";
 
 const {fields} = clubClubContactsConfig;
 
-const RenderFields = ({disabled, contact_type_id, isMaskedTel}) => {
+const RenderFields = ({disabled, isMaskedTel}) => {
     const {contactType} = useContext(ContactTypeContext);
 
     return (
         <FormGroup inline>
-            <FormField
-                value={contact_type_id}
-            />
             {isMaskedTel ?
                 <FormField
                     disabled={disabled}
