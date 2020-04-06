@@ -1,6 +1,9 @@
 .DocItem {
     //margin-bottom: 1em;
     //position: relative;
+    &.error {
+        outline: 1px solid red;
+    }
     &__chevron {
         //position: absolute;
         //top: 1em;

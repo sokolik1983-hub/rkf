@@ -71,8 +71,8 @@ const validationSchema = object().shape({
         chip_number: string(),
         documents: array().of(object().shape({
             id: number(),
-            document_type_id: number(),
-            document: string()
+            document_type_id: number().required(reqText),
+            document: string().required(reqText)
         }))
     })),
     payment_document: string().required(reqText),
@@ -218,8 +218,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Сервер вернул ошибку`}
-                okButton="true"
+                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                autoclose={2.5}
                 onOk={() => setErrAlert(false)}
             />
         }
@@ -232,6 +232,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         <div className="documents-page__right">
             <Form
                 onSuccess={e => setOkAlert(true)}
+                onError={e => console.log(e)||setErrAlert(true)}
                 action={apiEndpoint}
                 method={update ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
