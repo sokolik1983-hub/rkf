@@ -3,7 +3,6 @@ import Button from "components/Button";
 import { Link } from "react-router-dom";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
-import FormFile from "../../components/FormFile";
 import { connect, FieldArray } from "formik";
 import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
@@ -72,7 +71,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                             <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
+                                <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
                             </HideIf>
                             <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                             <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" />
