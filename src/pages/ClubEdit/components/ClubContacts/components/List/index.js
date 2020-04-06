@@ -18,7 +18,7 @@ const btnStyle = {
 };
 
 
-const ClientContactList = (props) => {
+const ClientContactList = props => {
     const { contactType, bindSubmitForm } = props;
     const { visibility, toggleVisibility, setInvisible } = useVisibility(false);
     const listIds = props[contactType.storeListIds];
