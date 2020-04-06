@@ -22,7 +22,7 @@ const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
 const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
-const apiCitiesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
+const apiCitiesEndpoint = '/api/City';
 
 
 const reqText = 'Обязательное поле';
@@ -34,7 +34,12 @@ const validationSchema = object().shape({
     first_name: string().required(reqText),
     second_name: string(),
     phone: string().required(reqText),
-    address: string().required(reqText),
+    index: string().required(reqText),
+    city_id: number().required(reqText).typeError(reqText),
+    street: string().required(reqText),
+    house: string().required(reqText),
+    building: string(),
+    flat: string(),
     email: string().required(reqText).email(reqEmail),
     declarants: array().of(object().shape({
         owner_first_name: string().required(reqText),
@@ -108,7 +113,12 @@ const initialValues = {
     first_name: '',
     second_name: '',
     phone: '',
-    address: '',
+    index: '',
+    city_id: '',
+    street: '',
+    house: '',
+    building: '',
+    flat: '',
     email: '',
     folder_number: '',
     declarants: [emptyDeclarant],
@@ -261,7 +271,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <p>Адрес заявителя для отправки корреспонденции</p>
                         <FormGroup inline>
                             <FormField disabled={update} name="index" label="Индекс" />
-                            <FormField disabled={update} name="city_id" placeholder="Выберите..." label="Город" fieldType="reactSelect" options={cities} />
+                            <FormField disabled={update} name="city_id" placeholder="Начните писать..." label="Город" fieldType="reactSelect" options={cities} />
                         </FormGroup>
                         <FormGroup inline>
                             <FormField disabled={update} name="street" label="Улица" />
