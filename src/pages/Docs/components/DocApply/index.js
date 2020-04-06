@@ -22,6 +22,7 @@ const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
 const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
+const apiCitiesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
 
 
 const reqText = 'Обязательное поле';
@@ -125,6 +126,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [statuses, setStatuses] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
+    const [cities, setCities] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
     const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
@@ -186,6 +188,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiStatusesEndpoint)
             .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
+            PromiseRequest(apiCitiesEndpoint)
+            .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
@@ -254,7 +258,17 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <FormField disabled={update} name='last_name' label='Фамилия заявителя' />
                         <FormField disabled={update} name='second_name' label='Отчество заявителя (опционально)' />
                         <FormField disabled={update} name='phone' type="tel" fieldType="masked" showMask={true} mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
-                        <FormField disabled={update} name='address' label='Адрес заявителя для отправки корреспонденции' />
+                        <p>Адрес заявителя для отправки корреспонденции</p>
+                        <FormGroup inline>
+                            <FormField disabled={update} name="index" label="Индекс" />
+                            <FormField disabled={update} name="city_id" placeholder="Выберите..." label="Город" fieldType="reactSelect" options={cities} />
+                        </FormGroup>
+                        <FormGroup inline>
+                            <FormField disabled={update} name="street" label="Улица" />
+                            <FormField disabled={update} name="house" label="Дом" />
+                            <FormField disabled={update} name="building" label="Стр." />
+                            <FormField disabled={update} name="flat" label="Кв." />
+                        </FormGroup>
                         <FormField disabled={update} name='email' type="email" label='Email заявителя' />
                         <HideIf cond={!update}>
                             <FormField disabled name='folder_number' label='Номер папки'/>
