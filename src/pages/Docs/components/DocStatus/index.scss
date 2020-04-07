@@ -30,8 +30,11 @@
     }
   }
   &__table {
-    margin-bottom: 40px;
+    padding-bottom: 40px;
     overflow-x: auto;
+    @media (max-width: 860px) {
+      padding-bottom: 12px;
+    }
     @media (max-width: 600px) {
       .primary-controls {
         display: block;
@@ -41,17 +44,30 @@
       }
     }
     @media (max-width: 560px) {
-      margin-bottom: 16px;
       h2 {
         font-size: 24px;
         line-height: 32px;
       }
+    }
+    td:last-child {
+      width: 50px;
+      min-width: 50px;
     }
   }
   &__bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    p {
+      padding: 0 !important;
+    }
+    @media (max-width: 560px) {
+      flex-direction: column;
+      .btn-add {
+        order: -1;
+        margin: 16px 0 !important;
+      }
+    }
   }
   .btn-add {
     display: block;
