@@ -9,6 +9,7 @@ const DocHome = ({ clubAlias }) => (
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/${clubAlias}/documents/check-status`} title="Отслеживание статуса">Отслеживание статуса</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
