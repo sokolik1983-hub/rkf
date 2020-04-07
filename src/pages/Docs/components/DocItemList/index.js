@@ -3,9 +3,7 @@ import Button from "components/Button";
 import { Link } from "react-router-dom";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
-import FormFile from "../../components/FormFile";
 import { connect, FieldArray } from "formik";
-import Card from "components/Card";
 import PlusButton from "components/PlusButton";
 import DocItem from "../../components/DocItem";
 import DocLink from "../../components/DocLink";
@@ -19,13 +17,13 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
         formik.setFieldValue(t, test[t]);
     });
     Object.keys(formik.errors).length && console.log(formik.errors);
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(-1);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
     const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
     return <FieldArray
                     name={name}
                     render={helpers => <>
-                    <Card>
+                    <div>
                         <h3>Владельцы</h3>
                         <table>
                             <thead>
@@ -63,17 +61,20 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             </tbody>
                         </table>
                         <div className={`flex-row ${update ? 'hidden' : ''}`}>
+                            {(typeof(formik.errors.declarants) === "string") &&
+                                <p className="red">{formik.errors.declarants}</p>
+                            }
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
                                 setActive(formik.values.declarants.length);
                                 helpers.push({...emptyDeclarant});
                             }} />
                         </div>
-                    </Card>
-                    <Card>
+                    </div>
+                    <div>
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                             <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                <FormFile disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
+                                <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
                             </HideIf>
                             <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                             <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
@@ -81,7 +82,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             <FormField disabled={update} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
                             <FormField disabled={update} name='ogrn' label='ОГРН (для юр. лиц)' />
                         </FormGroup>
-                    </Card>
+                    </div>
                     <HideIf cond={view || !canSave} className="flex-row">
                         <Button className="btn-green" type="submit" disabled={formik.isSubmitting}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
                         <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
