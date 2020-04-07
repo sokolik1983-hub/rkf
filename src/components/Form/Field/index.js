@@ -14,6 +14,7 @@ import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
 import ReactDayPicker from './ReactDayPicker'
+import FormFile from './FormFile'
 
 const FIELDS = {
     textarea: TextArea,
@@ -24,6 +25,7 @@ const FIELDS = {
     reactSelectAsync: ReactSelectAsync,
     reactSelectDict: ReactSelectDict,
     masked: MaskedField,
+    file: FormFile,
     DraftJs: DraftJs,
     Field: Field,
     reactDayPicker: ReactDayPicker
@@ -37,14 +39,13 @@ function getField(fieldType) {
     }
 }
 
-function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, errName, ...fieldProps }) {
+function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
     const Input = getField(fieldType);
 
     return (
         <FormInput
             style={style}
             name={fieldProps.name}
-            errName={errName}
             className={classnames(
                 { [className]: className },
                 { [`FormInput--${fieldProps.type}`]: fieldProps.type },
@@ -71,7 +72,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                     />
             }
 
-            <Error name={fieldProps.name} errName={errName} noTouch={noTouch ? noTouch : null} />
+            <Error name={fieldProps.name} noTouch={noTouch ? noTouch : null} />
         </FormInput>
     )
 
