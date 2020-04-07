@@ -1,10 +1,14 @@
 import React from "react";
-import { connect } from "formik";
 import { FormField } from "components/Form";
 
-const FormFile = React.forwardRef((props, ref) => <FormField {...props} ref={ref} type="file" name={`${props.name}`} errName={props.name} onChange={e => {
-    props.formik.setFieldValue(props.name, e.currentTarget.files[0]);
-    //props.onChange && props.onChange(e);
-}} />);
+const accept = ".pdf, .jpg, .jpeg";
 
-export default connect(React.memo(FormFile));
+const FormFile = ({name, label, docId, disabled, statusAllowsUpdate, form}) => <>
+    <HideIf cond={disabled || !statusAllowsUpdate}>
+        <FormField name={name} label={label} accept={accept} fieldType="file" />
+        {form && <a download={form.filename} href={form.href}>{form.linkText}</a>}
+    </HideIf>
+    <DocLink docId={docId} label={label} showLabel={disabled} />
+</>
+
+export default React.memo(FormFile);

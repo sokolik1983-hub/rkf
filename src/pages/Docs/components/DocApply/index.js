@@ -268,7 +268,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 format="multipart/form-data"
             >
                 <Card>
-                    <h3>Регистрация заявления на регистрацию родословной</h3>
+                    <h3>Регистрация заявления на регистрацию {distinction === "pedigree" ? "родословной" : "помета"}</h3>
                     {comment && <div className="alert alert-danger">
                         {comment}
                     </div>}
@@ -307,6 +307,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         statuses={statuses}
                         clubAlias={clubAlias}
                         cash_payment={initial.cash_payment}
+                        distinction={distinction}
                     />
                 </Card>
             </Form>

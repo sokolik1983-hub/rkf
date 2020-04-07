@@ -5,18 +5,20 @@ import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import { connect, FieldArray } from "formik";
 import PlusButton from "components/PlusButton";
-import DocItem from "../../components/DocItem";
+import DocItemPedigree from "../../components/DocItemPedigree";
+import DocItemLitter from "../../components/DocItemLitter";
 import DocLink from "../../components/DocLink";
 import { emptyDeclarant } from "../../config.js";
 import test from "../../test.json";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction}) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
     Object.keys(formik.errors).length && console.log(formik.errors);
+    const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
     const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
