@@ -19,7 +19,7 @@ const MONTHS = [
     'Декабрь',
 ];
 
-function ReactDayPicker({ name, formik, disabled }) {
+function ReactDayPicker({ name, formik, disabled, readOnly }) {
     const value = getIn(formik.values, name);
     const ref = useRef();
     const onChange = date => {
@@ -34,6 +34,7 @@ function ReactDayPicker({ name, formik, disabled }) {
                 name: name || 'date',
                 ref: ref,
                 disabled: !!disabled,
+                readOnly: !!readOnly,
                 style: {
                     width: '100%',
                 }

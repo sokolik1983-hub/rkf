@@ -39,7 +39,7 @@ function getField(fieldType) {
     }
 }
 
-function FormField({ fieldType, className, style, disabled, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
+function FormField({ fieldType, className, style, disabled, readOnly, blockIfHasValue, isUrl, noTouch, ...fieldProps }) {
     const Input = getField(fieldType);
 
     return (
@@ -68,6 +68,7 @@ function FormField({ fieldType, className, style, disabled, blockIfHasValue, isU
                         id={fieldProps.name}
                         className={fieldType !== "reactSelect" && 'FormInput__input'}
                         disabled={disabled || (fieldProps.value && blockIfHasValue)}
+                        readOnly={readOnly}
                         {...fieldProps}
                     />
             }
