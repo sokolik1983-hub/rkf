@@ -9,7 +9,6 @@ import DocApply from "./components/DocApply";
 import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import DocRegistry from "./components/Print/DocRegistry";
-import CheckStatus from "./components/CheckStatus";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -63,9 +62,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/pedigree/:id/print' component={() =>
                             <DocRegistry history={history} distinction="pedigree" />}
-                        />
-                        <Route exact={true} path='/:route/documents/check-status' component={() =>
-                            <CheckStatus clubAlias={clubAlias} history={history} />}
                         />
                         <Route component={LoadableNotFound} />
                     </Switch>

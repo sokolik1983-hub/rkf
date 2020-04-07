@@ -101,3 +101,8 @@ export const LoadableNotFound = Loadable({
     loader: () => import('./pages/404/index'),
     loading: Loading
 });
+
+export const LoadableDocumentStatus = Loadable({
+    loader: () => import('./pages/Club/DocumentStatus'),
+    loading: Loading
+});

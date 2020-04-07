@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 import Alert from "../Alert";
 import Modal from "../Modal";
@@ -83,7 +83,7 @@ const presidium = {
     }
 };
 
-const MenuComponent = ({alias, name}) => {
+const MenuComponent = ({ alias, name }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -117,6 +117,9 @@ const MenuComponent = ({alias, name}) => {
                         <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
                     </li>
                 }
+                <li className="menu-component__item">
+                    <Link to={`/${alias}/document-status`} title="Отслеживание статуса документов">Отслеживание статуса документов</Link>
+                </li>
                 <li className="menu-component__item">
                     <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
                 </li>
