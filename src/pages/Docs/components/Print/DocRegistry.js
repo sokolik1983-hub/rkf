@@ -52,14 +52,17 @@ const DocRegistry = ({ history, distinction }) => {
                 <h3>Содержание заявление:</h3>
                 <table>
                     <colgroup>
-                        <col width="40" />
-                        <col width="240" />
+                        <col width="35" />
+                        <col width="220" />
+                        <col />
+                        <col width="120" />
                     </colgroup>
                     <tbody>
                         <tr>
                             <td>№<br />п/п</td>
                             <td>ФИО {isPedigree ? 'владельца собаки' : 'заводчика'}</td>
                             <td>Прикрепленные документы</td>
+                            <td>Номер для отслеживания</td>
                         </tr>
                         {
                             declarants && declarants.map((d, key) => {
@@ -71,6 +74,7 @@ const DocRegistry = ({ history, distinction }) => {
                                             d.documents && d.documents.map((d, key) => <p key={key}>{`- ${d}`}</p>)
                                         }
                                     </td>
+                                    <td>{d.barcode}</td>
                                 </tr>
                             })
                         }

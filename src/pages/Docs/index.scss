@@ -23,9 +23,6 @@
   }
   p {
     font-weight: normal;
-    @media (min-width: 560px) {
-      padding-right: 180px;
-    }
   }
   hr {
     clear: both;
@@ -186,6 +183,11 @@
   &__info {
     display: flex;
     justify-content: space-between;
+    p {
+      @media (min-width: 560px) {
+        padding-right: 180px;
+      }
+    }
     @media (max-width: 990px) {
       display: block;
     }
