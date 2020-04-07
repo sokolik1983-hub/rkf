@@ -3,6 +3,10 @@
   &__content {
     padding-top: 70px;
     padding-bottom: 70px;
+    @media (max-width: 560px) {
+      padding-top: 45px;
+      padding-bottom: 16px;
+    }
   }
   .mobile-only {
     @media (min-width: 991px) {
