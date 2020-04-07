@@ -1,0 +1,26 @@
+.check-status {
+    font-weight: normal;
+    min-height: 182px;
+    &__field {
+        display: flex;
+        flex-wrap: wrap;
+        input {
+            min-width: 250px;
+            width: 310px;
+        }
+        input,
+        button {
+            padding: 5px;
+            border-radius: 6px;
+            margin: 0 10px 10px 0;
+        }
+    }
+    &__response {
+        span {
+            color: red;
+        }
+    }
+    .Loading__title {
+        margin: 0;
+    }
+}
