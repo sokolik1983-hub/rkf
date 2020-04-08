@@ -24,7 +24,7 @@ const CheckStatus = () => {
             if (data.result.length) {
                 setStatus(data.result);
             } else {
-                setStatus(null);
+                setStatus([]);
                 setAlert(true);
             }
             setLoading(false);
