@@ -4,26 +4,41 @@
     h3 {
         margin-bottom: 20px;
     }
-    &__field {
+    &__input {
+        min-width: 250px;
+        border-radius: 6px;
+        padding: 5px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    &__button {
         display: flex;
-        flex-wrap: wrap;
-        input {
-            min-width: 250px;
-            width: 310px;
-        }
-        input,
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 20px;
         button {
             padding: 5px;
-            border-radius: 6px;
-            margin: 0 10px 10px 0;
+            margin-left: 5px;
+        }
+        .Loading__title {
+            margin: 0;
+            width: 5em;
+            height: 5em;
         }
     }
-    &__response {
-        span {
-            color: red;
+    &__table {
+        width: 100%;
+        &-heading {
+            text-align: center;
+            font-weight: bold;
         }
-    }
-    .Loading__title {
-        margin: 0;
+        td {
+            border: 1px solid;
+            padding: 5px;
+            min-width: 120px;
+        }
+        @media (max-width: 475px) {
+            overflow-x: scroll;
+        }
     }
 }
