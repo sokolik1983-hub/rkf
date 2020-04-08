@@ -53,7 +53,7 @@ function FormField({ fieldType, className, style, disabled, readOnly, blockIfHas
                 { [`FormInput--${fieldProps.type}`]: fieldProps.type },
             )}
         >
-            <Label htmlFor={fieldProps.name} label={fieldProps.label} />
+            {(fieldType !== "customCheckbox") &&<Label htmlFor={fieldProps.name} label={fieldProps.label} />}
             {
                 isUrl
                     ? <Input

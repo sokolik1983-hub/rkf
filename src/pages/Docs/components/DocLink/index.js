@@ -10,7 +10,7 @@ const DocLink = ({ docId, label, showLabel }) => {
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
     useEffect(() => {
-        if (isNaN(docId))
+        if (isNaN(docId) || !docId)
             return;
         fetch(apiEndpoint + '?id=' + docId, {headers})
         .then(res => res.blob())

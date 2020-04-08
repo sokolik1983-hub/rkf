@@ -21,7 +21,7 @@ const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
 const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
-const apiStatusesEndpoint = '/api/clubs/requests/PedigreeRequest/status';
+const apiStatusesEndpoint = '/api/clubs/requests/CommonRequest/status';
 const apiCitiesEndpoint = '/api/City';
 
 
