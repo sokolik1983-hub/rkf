@@ -39,7 +39,10 @@ const ClubInfo = ({
         ))();
     }, [id]);
     
-    const fact_address = address || legal_address;
+    const legal_city_name = legal_city && legal_city.name;
+    const city_name = (city && city.name) || legal_city_name;
+    const legal_address_or_city = legal_address || legal_city_name;
+    const address_or_city = address || legal_address || city_name;
 
     return (
         <Card className="club-page__info-wrap">
@@ -50,16 +53,16 @@ const ClubInfo = ({
                     <span>{name}</span>
                 </p>
             }
-            {legal_address &&
+            {legal_address_or_city &&
                 <p className="club-page__info-address">
                     <span>Юридический адрес</span><br />
-                    <span>{legal_address}</span>
+                    <span>{legal_address_or_city}</span>
                 </p>
             }
-            {fact_address &&
+            {address_or_city &&
                 <p className="club-page__info-address">
                     <span>Фактический адрес</span><br />
-                    <span>{fact_address}</span>
+                    <span>{address_or_city}</span>
                 </p>
             }
             {owner_name &&
