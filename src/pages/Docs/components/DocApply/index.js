@@ -27,6 +27,11 @@ const apiCitiesEndpoint = '/api/City';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
+const reqIfCash = () => string().when('cash_payment', {
+    is: true,
+    then: string(),
+    otherwise: string().required(reqText)
+})
 
 const validationSchema = object().shape({
     federation_id: number().required(reqText).typeError(reqText),
@@ -81,10 +86,11 @@ const validationSchema = object().shape({
             document: string().required(reqText)
         }))
     })).min(1, 'Заполните хотя бы одну заявку'),
-    payment_document: string().required(reqText),
-    payment_date: string().required(reqText),
-    payment_number: string().required(reqText),
-    payment_name: string().required(reqText),
+    cash_payment: boolean().required(reqText),
+    payment_document: reqIfCash(),
+    payment_date: reqIfCash(),
+    payment_number: reqIfCash(),
+    payment_name: reqIfCash(),
     ogrn: string()
 });
 
@@ -123,6 +129,7 @@ const initialValues = {
     folder_number: '',
     declarants: [emptyDeclarant],
 
+    cash_payment: '',
     payment_document: '',
     payment_date: '',
     payment_number: '',
