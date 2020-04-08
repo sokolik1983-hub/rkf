@@ -73,7 +73,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     <div>
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
-                            <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} type="checkbox" name='cash_payment' label='Оплата наличными'/>
+                            <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
                             <HideIf cond={formik.values.cash_payment}>
                                 <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
                                     <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />

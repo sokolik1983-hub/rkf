@@ -6,7 +6,7 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import HideIf from "components/HideIf";
 import { Form, FormGroup, FormField } from "components/Form";
-import { object, string, array, number, boolean, mixed } from "yup";
+import { object, string, array, number, boolean } from "yup";
 import DocItemList from "../DocItemList";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
@@ -129,7 +129,7 @@ const initialValues = {
     folder_number: '',
     declarants: [emptyDeclarant],
 
-    cash_payment: '',
+    cash_payment: false,
     payment_document: '',
     payment_date: '',
     payment_number: '',

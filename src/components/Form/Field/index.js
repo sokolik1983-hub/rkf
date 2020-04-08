@@ -9,6 +9,7 @@ import TextArea from "./textarea";
 import MaskedField from './MaskedInput'
 import CustomEmail from './CustomEmail'
 import CustomPhone from './CustomPhone'
+import CustomCheckbox from './FormikCheckbox'
 import ReactSelect from './ReactSelect'
 import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
@@ -21,6 +22,7 @@ const FIELDS = {
     image: ImageInput,
     customEmail: CustomEmail,
     customPhone: CustomPhone,
+    customCheckbox: CustomCheckbox,
     reactSelect: ReactSelect,
     reactSelectAsync: ReactSelectAsync,
     reactSelectDict: ReactSelectDict,
