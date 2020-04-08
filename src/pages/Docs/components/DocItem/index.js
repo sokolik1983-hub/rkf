@@ -73,7 +73,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField
                 disabled={update}
                 name={`declarants[${i}].was_reviewed`}
-                type="checkbox"
+                type="customCheckbox"
                 label='Щенок был на пересмотре, соответствует племенным требованиям'
                 onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].litter_or_request_number`, '')}}
             />
