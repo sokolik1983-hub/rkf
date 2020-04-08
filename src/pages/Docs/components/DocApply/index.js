@@ -108,9 +108,12 @@ const updateSchema = object().shape({
             document: string()
         }))
     })),
+    cash_payment: boolean(),
     payment_document: string(),
     payment_date: string(),
-    payment_number: string()
+    payment_number: string(),
+    payment_name: string(),
+    ogrn: string()
 });
 
 const initialValues = {
@@ -303,6 +306,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         verkHref={verkHref}
                         statuses={statuses}
                         clubAlias={clubAlias}
+                        cash_payment={initial.cash_payment}
                     />
                 </Card>
             </Form>
