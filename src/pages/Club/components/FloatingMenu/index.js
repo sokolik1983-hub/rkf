@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Dropdown from "../../../../components/Dropdown";
-import {DropDownItem} from "../../../../components/DropDownItem";
+import { DropDownItem } from "../../../../components/DropDownItem";
 import Modal from "../../../../components/Modal";
 import Alert from "../../../../components/Alert";
 import "./index.scss";
@@ -129,6 +129,9 @@ const FloatingMenu = ({ alias, name }) => {
                     <Link to="/" onClick={handleStampClick} className="FloatingMenu__link" title="Клейма">Клейма</Link>
                 </DropDownItem>
             }
+            <DropDownItem>
+                <Link to={`/${alias}/document-status`} title="Отслеживание статуса документов">Отслеживание статуса</Link>
+            </DropDownItem>
             <DropDownItem>
                 <Link to={`/${alias}`} className="FloatingMenu__link" title={name}>{name}</Link>
             </DropDownItem>

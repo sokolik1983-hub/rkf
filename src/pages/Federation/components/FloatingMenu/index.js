@@ -129,6 +129,9 @@ const FloatingMenu = ({ alias, name }) => {
                 </DropDownItem>
             }
             <DropDownItem>
+                <Link to={`/${alias}/document-status`} title="Отслеживание статуса документов">Отслеживание статуса</Link>
+            </DropDownItem>
+            <DropDownItem>
                 <Link to={`/${alias}`} className="FloatingMenu__link" title={name}>{name}</Link>
             </DropDownItem>
         </Dropdown>
