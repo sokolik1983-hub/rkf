@@ -87,9 +87,9 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     address_lat: string().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
     stamp_number: string().required(reqText),
-    father_name: string().required(reqText),
+    father_dog_name: string().required(reqText),
     father_pedigree_number: string().required(reqText),
-    mother_name: string().required(reqText),
+    mother_dog_name: string().required(reqText),
     mother_pedigree_number: string().required(reqText),
     date_of_birth_litter: string().required(reqText),
     nursery_name: string().required(reqText),
@@ -113,7 +113,11 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
         stamp_number: string().required(reqText),
         chip_number: string().required(reqText),
         litter_dog_status_id: string().required(reqText),
-        status_comment: string()
+        status_comment: string().when('litter_dog_status_id', {
+            is: v => ![2,4].includes(v),
+            then: string(),
+            otherwise: string().required(reqText)
+        })
     })),
     documents: array().of(object().shape({
         id: number(),
@@ -235,9 +239,9 @@ const emptyLitterDeclarant = {
     address_lat: '',
     breed_id: '',
     stamp_number: '',
-    father_name: '',
+    father_dog_name: '',
     father_pedigree_number: '',
-    mother_name: '',
+    mother_dog_name: '',
     mother_pedigree_number: '',
     date_of_birth_litter: '',
     nursery_name: '',

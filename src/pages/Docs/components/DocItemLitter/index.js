@@ -18,7 +18,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState(declarant.first_name || '');
     const [lastName, setLastName] = useState(declarant.last_name || '');
     const [secondName, setSecondName] = useState(declarant.second_name || '');
-    const [activePuppy, setActivePuppy] = useState(-1);
+    const [activePuppy, setActivePuppy] = useState(0);
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
@@ -57,9 +57,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
             <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
 
-            <FormField disabled={update} name={`declarants[${i}].father_name`} label='Кличка производителя'/>
+            <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>
             <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_name`} label='Кличка производительницы'/>
+            <FormField disabled={update} name={`declarants[${i}].mother_dog_name`} label='Кличка производительницы'/>
             <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производительницы'/>
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
@@ -91,22 +91,22 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
                 label='dog_mating_act'
-                docId={declarant.dog_mating_act}
-                disabled={view || declarant.dog_mating_act}
+                docId={declarant.dog_mating_act_id}
+                disabled={view || declarant.dog_mating_act_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate1`}
                 label='parent_certificate1'
-                docId={declarant.parent_certificate1}
-                disabled={view || declarant.parent_certificate1}
+                docId={declarant.parent_certificate1_id}
+                disabled={view || declarant.parent_certificate1_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate2`}
                 label='parent_certificate2'
-                docId={declarant.parent_certificate2}
-                disabled={view || declarant.parent_certificate2}
+                docId={declarant.parent_certificate2_id}
+                disabled={view || declarant.parent_certificate2_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
@@ -146,6 +146,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             view={view}
                             statusAllowsUpdate={statusAllowsUpdate}
                             litterStatuses={litterStatuses}
+                            puppyCount={declarant.litters ? declarant.litters.length : 0}
                         />)
                     }
                     <tr>
