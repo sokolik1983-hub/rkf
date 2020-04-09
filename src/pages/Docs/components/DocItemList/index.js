@@ -8,7 +8,7 @@ import PlusButton from "components/PlusButton";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import DocLink from "../../components/DocLink";
-import { emptyDeclarant } from "../../config.js";
+import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
 
 const accept = ".pdf, .jpg, .jpeg";
@@ -68,7 +68,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             }
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
                                 setActive(formik.values.declarants.length);
-                                helpers.push({...emptyDeclarant});
+                                helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant} : {...emptyLitterDeclarant});
                             }} />
                         </div>
                     </div>

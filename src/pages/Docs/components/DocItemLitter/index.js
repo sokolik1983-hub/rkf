@@ -4,6 +4,7 @@ import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import FormFile from "../../components/FormFile";
+import PuppyItem from "../../components/PuppyItem";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import moment from "moment";
@@ -17,6 +18,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState(declarant.first_name || '');
     const [lastName, setLastName] = useState(declarant.last_name || '');
     const [secondName, setSecondName] = useState(declarant.second_name || '');
+    const [activePuppy, setActivePuppy] = useState(-1);
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
@@ -129,39 +131,38 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     </tr>
                 </thead>
                 <tbody>
-                    {declarant.litters && declarant.litters.map((puppy,j) => <><tr className={`DocItem ${error ? 'error' : ''}`} key={j}>
-                         <td>{puppy.dog_name}</td>
-                         <td>{puppy.dog_color}</td>
-                         <td>{sexTypes && sexTypes.find(f => f.id === puppy.dog_sex_type_id)}</td>
-                         <td>{puppy.stamp_number}</td>
-                        <td>
-                            <img className={`DocItem__chevron ${'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
-                        </td>
-                    </tr>
-                    <tr className={`DocItem collapse ${'active'}`}>
-                        <td colSpan="5">
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect"/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].stamp_number`} label='Номер клейма'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].chip_number`} label='Номер чипа'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].status_comment`} label='Комментарий'/>
-                            <Button className="btn-red" onClick={() => remove(j)} title="Удалить">Удалить</Button>
-                        </td>
-                    </tr></>)}
+                    {declarant.litters && declarant.litters.map((puppy,j) => 
+                        <PuppyItem
+                            puppy={puppy}
+                            j={j}
+                            i={i}
+                            key={j}
+                            activePuppy={activePuppy}
+                            activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                            deleteClick={() => {remove(j); setActivePuppy(-1);}}
+                            sexTypes={sexTypes}
+                            error={error && formik.errors.declarants[i].litters && formik.errors.declarants[i].litters[j] && formik.touched.declarants[i].litters && formik.touched.declarants[i].litters[j]}
+                            update={update}
+                            view={view}
+                            statusAllowsUpdate={statusAllowsUpdate}
+                        />)
+                    }
                     <tr>
                         <td colSpan="5">
                             <HideIf cond={update}>
                                 <div className="flex-row">
-                                    <Button small onClick={() => push({
-                                        dog_name:'',
-                                        dog_color:'',
-                                        dog_sex_type_id:'',
-                                        stamp_number:'',
-                                        chip_number:'',
-                                        litter_dog_status_id:'',
-                                        status_comment:''
-                                    })}>Добавить щенка</Button>
+                                    <Button small onClick={() => {
+                                        push({
+                                            dog_name:'',
+                                            dog_color:'',
+                                            dog_sex_type_id:'',
+                                            stamp_number:'',
+                                            chip_number:'',
+                                            litter_dog_status_id:'',
+                                            status_comment:''
+                                        });
+                                        setActivePuppy(declarant.litters ? declarant.litters.length : 0);
+                                    }}>Добавить щенка</Button>
                                 </div>
                             </HideIf>
                         </td>
