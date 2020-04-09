@@ -62,8 +62,78 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     }))
 }));
 
-const litterDeclarantsValidationSchema = array();
-const litterDeclarantsUpdateSchema = array();
+const litterDeclarantsValidationSchema = array().of(object().shape({
+    first_name: string().required(reqText),
+    last_name: string().required(reqText),
+    second_name: string().required(reqText),
+    email: string().required(reqText),
+    address: string().required(reqText),
+    first_name_lat: string().required(reqText),
+    last_name_lat: string().required(reqText),
+    address_lat: string().required(reqText),
+    breed_id: number().required(reqText).typeError(reqText),
+    stamp_number: string().required(reqText),
+    father_name: string().required(reqText),
+    father_pedigree_number: string().required(reqText),
+    mother_name: string().required(reqText),
+    mother_pedigree_number: string().required(reqText),
+    date_of_birth_litter: string().required(reqText),
+    nursery_name: string().required(reqText),
+    instructor_nursery_owner_first_name: string().required(reqText),
+    instructor_nursery_owner_last_name: string().required(reqText),
+    instructor_nursery_owner_second_name: string().required(reqText),
+    hall_mark_first_name: string().required(reqText),
+    hall_mark_last_name: string().required(reqText),
+    hall_mark_second_name: string().required(reqText),
+
+    application_document: string().required(reqText),
+    litter_diagnostic: string().required(reqText),
+    dog_mating_act: string().required(reqText),
+    parent_certificate1: string().required(reqText),
+    parent_certificate2: string().required(reqText),
+    personal_data_document: string().required(reqText),
+    litters: array().of(object().shape({
+        dog_name: string().required(reqText),
+        dog_color: string().required(reqText),
+        dog_sex_type_id: number().required(reqText).typeError(reqText),
+        stamp_number: string().required(reqText),
+        chip_number: string().required(reqText),
+        litter_dog_status_id: string().required(reqText),
+        status_comment: string()
+    })),
+    documents: array().of(object().shape({
+        id: number(),
+        document_type_id: number().required(reqText).typeError(reqText),
+        document: string().required(reqText)
+    }))
+})).min(1, 'Заполните хотя бы одну заявку');
+
+const litterDeclarantsUpdateSchema = array().of(object().shape({
+    id: number(),
+    declarant_uid: string(),
+    application_document: string(),
+    litter_diagnostic: string(),
+    dog_mating_act: string(),
+    parent_certificate1: string(),
+    parent_certificate2: string(),
+    personal_data_document: string(),
+    documents: array().of(object().shape({
+        id: number(),
+        document_type_id: number(),
+        document: string()
+    })),
+    litters: array().of(object().shape({
+        id: number(),
+        dog_name: string(),
+        dog_name_lat: string(),
+        dog_color: string(),
+        dog_sex_type_id: number(),
+        stamp_number: string(),
+        chip_number: string(),
+        litter_dog_status_id: number(),
+        status_comment: string()
+    }))
+}));
 
 const commonValidationSchema = {
     federation_id: number().required(reqText).typeError(reqText),
@@ -141,7 +211,44 @@ const emptyPedigreeDeclarant = {
 };
 
 const emptyLitterDeclarant = {
-    
+    first_name: '',
+    last_name: '',
+    second_name: '',
+    email: '',
+    address: '',
+    first_name_lat: '',
+    last_name_lat: '',
+    address_lat: '',
+    breed_id: '',
+    stamp_number: '',
+    father_name: '',
+    father_pedigree_number: '',
+    mother_name: '',
+    mother_pedigree_number: '',
+    date_of_birth_litter: '',
+    nursery_name: '',
+    instructor_nursery_owner_first_name: '',
+    instructor_nursery_owner_last_name: '',
+    instructor_nursery_owner_second_name: '',
+    hall_mark_first_name: '',
+    hall_mark_last_name: '',
+    hall_mark_second_name: '',
+    application_document: '',
+    litter_diagnostic: '',
+    dog_mating_act: '',
+    parent_certificate1: '',
+    parent_certificate2: '',
+    personal_data_document: '',
+    litters: [{
+        dog_name: '',
+        dog_color: '',
+        dog_sex_type_id: '',
+        stamp_number: '',
+        chip_number: '',
+        litter_dog_status_id: '',
+        status_comment: ''
+    }],
+    documents: []
 };
 
 export {
