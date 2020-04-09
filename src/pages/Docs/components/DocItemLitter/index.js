@@ -12,7 +12,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses }) => {
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
     const [firstName, setFirstName] = useState(declarant.first_name || '');
@@ -145,6 +145,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             update={update}
                             view={view}
                             statusAllowsUpdate={statusAllowsUpdate}
+                            litterStatuses={litterStatuses}
                         />)
                     }
                     <tr>

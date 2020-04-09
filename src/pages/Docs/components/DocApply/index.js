@@ -10,18 +10,28 @@ import DocItemList from "../DocItemList";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
 import { endpointGetFederations } from "pages/Clubs/config";
-import { emptyPedigreeDeclarant, emptyLitterDeclarant, pedigreeUpdateSchema, litterUpdateSchema, litterValidationSchema, pedigreeValidationSchema } from "../../config.js"
+import {
+    emptyPedigreeDeclarant,
+    emptyLitterDeclarant,
+    pedigreeValidationSchema,
+    litterValidationSchema,
+    pedigreeUpdateSchema,
+    litterUpdateSchema,
+    apiPedigreeEndpoint,
+    apiLitterEndpoint,
+    apiPedigreeDoctypeEndpoint,
+    apiLitterDoctypeEndpoint,
+    apiBreedsEndpoint,
+    apiSexTypesEndpoint,
+    apiPedigreePrivacyEndpoint,
+    apiLitterPrivacyEndpoint,
+    apiVerkEndpoint,
+    apiStatusesEndpoint,
+    apiCitiesEndpoint,
+    apiLitterDogStatusEndpoint
+}from "../../config.js"
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
-
-const apiEndpoint = '/api/clubs/requests/PedigreeRequest';
-const apiDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_document_types';
-const apiBreedsEndpoint = '/api/dog/Breed';
-const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
-const apiPrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
-const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
-const apiStatusesEndpoint = '/api/clubs/requests/CommonRequest/status';
-const apiCitiesEndpoint = '/api/City';
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const initialValues = {
@@ -49,12 +59,16 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     };
     const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
     const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
+    const apiDoctypeEndpoint = distinction === "pedigree" ? apiPedigreeDoctypeEndpoint : apiLitterDoctypeEndpoint;
+    const apiPrivacyEndpoint = distinction === "pedigree" ? apiPedigreePrivacyEndpoint : apiLitterPrivacyEndpoint;
+    const apiEndpoint = distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint;
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
     const [statuses, setStatuses] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
     const [cities, setCities] = useState([]);
+    const [litterStatuses, setLitterStatuses] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
     const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
@@ -116,6 +130,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiStatusesEndpoint)
             .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
+            PromiseRequest(apiLitterDogStatusEndpoint)
+            .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiCitiesEndpoint)
             .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             fetch(apiPrivacyEndpoint, {headers})
@@ -216,6 +232,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         clubAlias={clubAlias}
                         cash_payment={initial.cash_payment}
                         distinction={distinction}
+                        litterStatuses={litterStatuses}
                     />
                 </Card>
             </Form>

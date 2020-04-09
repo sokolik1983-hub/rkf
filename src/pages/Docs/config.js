@@ -1,5 +1,19 @@
 import { object, string, array, number, boolean } from "yup";
 
+const apiPedigreeEndpoint = '/api/clubs/requests/PedigreeRequest';
+const apiLitterEndpoint = '/api/clubs/requests/LitterRequest';
+const apiPedigreeDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_document_types';
+const apiLitterDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
+const apiBreedsEndpoint = '/api/dog/Breed';
+const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
+const apiPedigreePrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
+const apiLitterPrivacyEndpoint = '/api/clubs/requests/LitterRequest/personal_data_document';
+const apiLitterDogStatusEndpoint = '/api/clubs/requests/LitterRequest/litter_dog_status';
+const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
+const apiStatusesEndpoint = '/api/clubs/requests/CommonRequest/status';
+const apiCitiesEndpoint = '/api/City';
+
+
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
 const reqIfCash = () => string().when('cash_payment', {
@@ -257,5 +271,17 @@ export {
     pedigreeValidationSchema,
     litterValidationSchema,
     pedigreeUpdateSchema,
-    litterUpdateSchema
+    litterUpdateSchema,
+    apiPedigreeEndpoint,
+    apiLitterEndpoint,
+    apiPedigreeDoctypeEndpoint,
+    apiLitterDoctypeEndpoint,
+    apiBreedsEndpoint,
+    apiSexTypesEndpoint,
+    apiPedigreePrivacyEndpoint,
+    apiLitterPrivacyEndpoint,
+    apiVerkEndpoint,
+    apiStatusesEndpoint,
+    apiCitiesEndpoint,
+    apiLitterDogStatusEndpoint
 };
