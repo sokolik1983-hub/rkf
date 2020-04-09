@@ -87,35 +87,87 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
-                name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных'
-                docId={}
-                disabled={view || declarant.personal_data_document_accept}
+                name={`declarants[${i}].dog_mating_act`}
+                label='dog_mating_act'
+                docId={declarant.dog_mating_act}
+                disabled={view || declarant.dog_mating_act}
+                statusAllowsUpdate={statusAllowsUpdate}
+            />
+            <FormFile
+                name={`declarants[${i}].parent_certificate1`}
+                label='parent_certificate1'
+                docId={declarant.parent_certificate1}
+                disabled={view || declarant.parent_certificate1}
+                statusAllowsUpdate={statusAllowsUpdate}
+            />
+            <FormFile
+                name={`declarants[${i}].parent_certificate2`}
+                label='parent_certificate2'
+                docId={declarant.parent_certificate2}
+                disabled={view || declarant.parent_certificate2}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
                 label='Соглашение на обработку персональных данных'
-                docId={}
-                disabled={view || declarant.personal_data_document_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
-            />
-            <FormFile
-                name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных'
-                docId={}
-                disabled={view || declarant.personal_data_document_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
-            />
-            <FormFile
-                name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных'
-                docId={}
+                docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
             />
             {/*files*/}
+
+            <h4>Щенята</h4>
+            <FieldArray name={`declarants[${i}].litters`} render={({push, remove}) => (<table>
+                <thead>
+                    <tr>
+                    <th>Кличка</th>
+                    <th>Окрас</th>
+                    <th>Пол</th>
+                    <th>№ клейма</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {declarant.litters && declarant.litters.map((puppy,j) => <><tr className={`DocItem ${error ? 'error' : ''}`} key={j}>
+                         <td>{puppy.dog_name}</td>
+                         <td>{puppy.dog_color}</td>
+                         <td>{sexTypes && sexTypes.find(f => f.id === puppy.dog_sex_type_id)}</td>
+                         <td>{puppy.stamp_number}</td>
+                        <td>
+                            <img className={`DocItem__chevron ${'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
+                        </td>
+                    </tr>
+                    <tr className={`DocItem collapse ${'active'}`}>
+                        <td colSpan="5">
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect"/>
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].stamp_number`} label='Номер клейма'/>
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].chip_number`} label='Номер чипа'/>
+                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].status_comment`} label='Комментарий'/>
+                            <Button className="btn-red" onClick={() => remove(j)} title="Удалить">Удалить</Button>
+                        </td>
+                    </tr></>)}
+                    <tr>
+                        <td colSpan="5">
+                            <HideIf cond={update}>
+                                <div className="flex-row">
+                                    <Button small onClick={() => push({
+                                        dog_name:'',
+                                        dog_color:'',
+                                        dog_sex_type_id:'',
+                                        stamp_number:'',
+                                        chip_number:'',
+                                        litter_dog_status_id:'',
+                                        status_comment:''
+                                    })}>Добавить щенка</Button>
+                                </div>
+                            </HideIf>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>)} />
             
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>

@@ -1,5 +1,7 @@
 import React from "react";
 import { FormField } from "components/Form";
+import HideIf from "components/HideIf";
+import DocLink from "../../components/DocLink";
 
 const accept = ".pdf, .jpg, .jpeg";
 
