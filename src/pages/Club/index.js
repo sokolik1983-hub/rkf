@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import NotConfirmed from "../NotConfirmed";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
@@ -6,17 +6,17 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
-import ClubHeader from "./components/ClubHeader";
+import UserHeader from "../../components/UserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import ClubInfo from "./components/ClubInfo";
-import ClubDescription from "./components/ClubDescription";
-import AddArticle from "../../components/AddArticleComponent";
-import ClubNews from "./components/ClubNews";
+import UserDescription from "../../components/UserDescription";
+import AddArticle from "../../components/UserAddArticle";
+import UserNews from "../../components/UserNews";
 import FloatingMenu from './components/FloatingMenu';
-import { Request } from "../../utils/request";
+import {Request} from "../../utils/request";
 import shorten from "../../utils/shorten";
-import { endpointGetClubInfo } from "./config";
-import { connectAuthVisible } from "../Login/connectors";
+import {endpointGetClubInfo} from "./config";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 
@@ -53,28 +53,29 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                     <NotConfirmed/> :
                     <Layout>
                         <Container className="content club-page">
-                            <ClubHeader
-                                clubLogo={clubInfo.logo_link}
-                                clubImg={clubInfo.headliner_link}
-                                clubName={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                            <UserHeader
+                                logo={clubInfo.logo_link}
+                                banner={clubInfo.headliner_link}
+                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                 federationName={clubInfo.federation_name}
                                 federationAlias={clubInfo.federation_alias}
                                 canEdit={canEdit}
+                                editLink="/client"
                             />
                             <ExhibitionsComponent alias={clubInfo.club_alias} />
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    <ClubDescription description={clubInfo.description} />
+                                    <UserDescription description={clubInfo.description} />
                                     {canEdit &&
                                         <AddArticle
-                                            clubId={clubInfo.id}
+                                            id={clubInfo.id}
                                             logo={clubInfo.logo_link}
                                             setPage={setPage}
                                             setNeedRequest={setNeedRequest}
                                         />
                                     }
-                                    <ClubNews
-                                        clubId={clubInfo.id}
+                                    <UserNews
+                                        canEdit={canEdit}
                                         alias={match.params.route}
                                         page={page}
                                         setPage={setPage}

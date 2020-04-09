@@ -6,7 +6,7 @@ import Container from "../../components/Layouts/Container";
 import TopComponent from "../../components/TopComponent";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import AboutComponent from "../../components/AboutComponent";
-import AddArticle from "../../components/AddArticleComponent";
+import AddArticle from "../../components/UserAddArticle";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponent from "../../components/MenuComponent";

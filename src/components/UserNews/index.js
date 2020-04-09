@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
-import Loading from "../../../../components/Loading";
-import Card from "../../../../components/Card";
-import NewsAreEmpty from "../../../../components/Club/NewsAreEmpty";
-import List from "../../../../components/List";
-import {Request} from "../../../../utils/request";
-import {endpointGetNews, endpointDeleteArticle} from "../../config";
-import {connectAuthVisible} from "../../../Login/connectors";
+import Loading from "../Loading";
+import Card from "../Card";
+import List from "../List";
+import {Request} from "../../utils/request";
+import {endpointGetNews, endpointDeleteArticle} from "./config";
+import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const ClubNews = ({isAuthenticated, profile_id, clubId, alias, page, setPage, needRequest, setNeedRequest}) => {
+const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) => {
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [pagesCount, setPagesCount] = useState(1);
@@ -51,11 +50,6 @@ const ClubNews = ({isAuthenticated, profile_id, clubId, alias, page, setPage, ne
         }
     };
 
-    const setNewsPage = page => {
-        setPage(page);
-        setNeedRequest(true);
-    };
-
     useEffect(() => {
         if(needRequest) (() => getNews(page))();
     }, [needRequest, page]);
@@ -63,20 +57,26 @@ const ClubNews = ({isAuthenticated, profile_id, clubId, alias, page, setPage, ne
     return loading ?
         <Loading/> :
         !news || !news.length ?
-            <Card className="club-page__news">
-                <NewsAreEmpty/>
+            <Card className="user-news">
+                <div className="user-news__content">
+                    <h4 className="user-news__text">Новости не найдены</h4>
+                    <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                </div>
             </Card> :
             <List
                 list={news}
                 listNotFound="Новости не найдены"
-                listClass="club-page__news"
+                listClass="user-news"
                 isFullDate={true}
-                removable={isAuthenticated && profile_id === clubId}
+                removable={canEdit}
                 onDelete={deleteArticle}
                 pagesCount={pagesCount}
                 currentPage={page}
-                setPage={setNewsPage}
+                setPage={page => {
+                    setPage(page);
+                    setNeedRequest(true);
+                }}
             />
 };
 
-export default React.memo(connectAuthVisible(ClubNews));
+export default React.memo(UserNews);

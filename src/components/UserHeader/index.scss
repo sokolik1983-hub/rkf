@@ -1,33 +1,11 @@
-.club-page__header {
+.user-header {
   padding: 0 !important;
   margin-bottom: 24px;
   word-break: break-word;
   @media (max-width: 560px) {
     margin-bottom: 12px;
   }
-  &-wrap {
-    flex: 1;
-  }
-  &-info {
-    width: 100%;
-  }
-  .share-desktop {
-    display: none!important;
-  }
-  .share-mobile {
-    display: inline-block!important;
-    cursor: pointer;
-    height: 20px;
-  }
-  @media (min-width: 990px) {
-    .share-desktop {
-      display: inline-block!important;
-    }
-    .share-mobile {
-      display: none!important;
-    }
-  }
-  &-img {
+  &__img {
     height: 250px;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -39,7 +17,7 @@
       height: 150px;
     }
   }
-  &-content {
+  &__content {
     padding: 12px;
     display: flex;
     justify-content: space-between;
@@ -48,11 +26,12 @@
       display: block;
     }
   }
-  &-info {
+  &__info {
+    width: 100%;
     display: flex;
     align-items: center;
   }
-  &-logo {
+  &__logo {
     width: 110px;
     min-width: 110px;
     height: 110px;
@@ -68,7 +47,10 @@
       margin-right: 12px;
     }
   }
-  &-name {
+  &__wrap {
+    flex: 1;
+  }
+  &__name {
     @media (max-width: 768px) {
       font-size: 24px;
       line-height: 1.2;
@@ -77,7 +59,7 @@
       font-size: 18px;
     }
   }
-  &-federation {
+  &__federation {
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
@@ -103,6 +85,22 @@
     @media (max-width: 560px) {
       width: 100%;
       text-align: center;
+    }
+  }
+  .share-desktop {
+    display: none!important;
+  }
+  .share-mobile {
+    display: inline-block!important;
+    cursor: pointer;
+    height: 20px;
+  }
+  @media (min-width: 990px) {
+    .share-desktop {
+      display: inline-block!important;
+    }
+    .share-mobile {
+      display: none!important;
     }
   }
 }

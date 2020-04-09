@@ -6,14 +6,14 @@ import {newsArticleFormConfig} from "./config";
 import './index.scss';
 
 
-const AddArticle = ({clubId, logo, setPage, setNeedRequest}) => {
+const AddArticle = ({id, logo, setPage, setNeedRequest}) => {
     const onSuccess = () => {
         setPage(1);
         setNeedRequest(true);
     };
 
     const transformValues = values => {
-        return {...values, club_id: clubId};
+        return {...values, club_id: id};
     };
 
     return (
@@ -26,7 +26,7 @@ const AddArticle = ({clubId, logo, setPage, setNeedRequest}) => {
                 {...newsArticleFormConfig}
                 className="ArticleCreateForm"
             >
-                <RenderFields fields={newsArticleFormConfig.fields} clubLogo={logo} />
+                <RenderFields fields={newsArticleFormConfig.fields} logo={logo} />
             </Form>
         </Card>
     )

@@ -8,7 +8,7 @@ import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 
 
-const RenderFields = ({fields, clubLogo, formik}) => {
+const RenderFields = ({fields, logo, formik}) => {
     const [src, setSrc] = useState('');
     const {focus, setFocused, setBlured} = useFocus(false);
     const {content, file} = formik.values;
@@ -62,7 +62,7 @@ const RenderFields = ({fields, clubLogo, formik}) => {
                 onChange={handleChange}
             />
             <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
-                <ClientAvatar size={60} avatar={clubLogo ? clubLogo : DEFAULT_IMG.clubAvatar} />
+                <ClientAvatar size={60} avatar={logo ? logo : DEFAULT_IMG.clubAvatar} />
                 <FormField
                     {...fields.content}
                     onChange={handleKeyDown}

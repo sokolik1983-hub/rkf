@@ -87,6 +87,11 @@ export const LoadableRegistration = Loadable({
     loading: Loading
 });
 
+export const LoadableOwnerPage = Loadable({
+    loader: () => import('./pages/Owner'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading
