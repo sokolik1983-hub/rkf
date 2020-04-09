@@ -21,6 +21,7 @@ const HomepageSlider = () => (
         >
             <img src="/static/images/slider/1.jpg" alt="" />
             <img src="/static/images/slider/2.jpg" alt="" />
+            <img src="/static/images/slider/3.jpg" alt="" />
         </Slider>
     </div>
 );
