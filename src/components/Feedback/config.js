@@ -30,6 +30,7 @@ export const reasons = [
 
 export const feedbackFormConfig = {
     action: '/api/Feedback',
+    format: "multipart/form-data",
     fields: {
         reason: {
             name: 'reason',
@@ -65,6 +66,10 @@ export const feedbackFormConfig = {
             type: 'text',
             fieldType: 'textarea',
             placeholder: "Введите ваше сообщение"
+        },
+        picture: {
+            name: 'picture',
+            type: 'file'
         },
         terms: {
             name: 'terms',
