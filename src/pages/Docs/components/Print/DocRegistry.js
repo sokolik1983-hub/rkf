@@ -10,8 +10,8 @@ const DocRegistry = ({ history, distinction }) => {
     const { id } = useParams();
     const isPedigree = distinction === 'pedigree';
     const url = isPedigree
-        ? `/api/clubs/requests/PedigreeRequest/register_of_documents?id=${id}`
-        : `/api/clubs/requests/LitterRequest/register_of_documents?id=${id}`;
+        ? `/api/requests/PedigreeRequest/register_of_documents?id=${id}`
+        : `/api/requests/LitterRequest/register_of_documents?id=${id}`;
 
     useEffect(() => {
         Request({
