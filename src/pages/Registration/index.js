@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
+import IndividualRegistration from "./components/IndividualRegistration";
 import "./index.scss";
 
 
 const RegistrationPage = () => {
-    const [activeTab, setActiveTab] = useState('club');
+    const [activeTab, setActiveTab] = useState('individual');
 
     return (
         <Layout>
@@ -15,27 +16,18 @@ const RegistrationPage = () => {
                 <div className="registration-page__tabs">
                     <div className="registration-page__tabs-controls">
                         <div className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
-                             onClick={() => setActiveTab('club')}
+                            onClick={() => setActiveTab('club')}
                         >
-                            Клубы
+                            Клуб
                         </div>
-                        <div className={`registration-page__tab${activeTab === 'nkp' ? ' _active' : ''}`}
-                             onClick={() => null} //setActiveTab('nkp')
+                        <div className={`registration-page__tab${activeTab === 'individual' ? ' _active' : ''}`}
+                            onClick={() => setActiveTab('individual')}
                         >
-                            НКП
-                        </div>
-                        <div className={`registration-page__tab${activeTab === 'kennel' ? ' _active' : ''}`}
-                             onClick={() => null} //setActiveTab('kennel')
-                        >
-                            Питомники
-                        </div>
-                        <div className={`registration-page__tab${activeTab === 'owner' ? ' _active' : ''}`}
-                             onClick={() => null} //setActiveTab('owner')
-                        >
-                            Владельцы
-                        </div>
+                            Физическое лицо
+                            </div>
                     </div>
-                    {activeTab === 'club' && <ClubRegistration/>}
+                    {activeTab === 'club' && <ClubRegistration />}
+                    {activeTab === 'individual' && <IndividualRegistration />}
                 </div>
             </AuthLayout>
         </Layout>
