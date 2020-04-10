@@ -14,7 +14,7 @@ const DocHome = ({ clubAlias }) => (
             </CustomMenu>
         </aside>
         <div className="documents-page__right">
-            {/*<Card>
+            <Card>
                 <div className="documents-page__icon" />
                 <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
                 <p>
@@ -27,7 +27,7 @@ const DocHome = ({ clubAlias }) => (
                     <Link to={`/${clubAlias}/documents/litter/form`}>Подать заявление</Link>
                     <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
                 </div>
-            </Card>*/}
+            </Card>
             <Card>
                 <div className="documents-page__icon" />
                 <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
