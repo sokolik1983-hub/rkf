@@ -17,6 +17,7 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
 <tr className={`DocItem collapse ${activePuppy === j ? 'active' : ''}`}>
     <td colSpan="5">
         <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
+        <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_name_lat`} label='Кличка латиницей'/>
         <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
         <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect" placeholder="Выберите..."/>
         <FormField disabled={update} name={`declarants[${i}].litters[${j}].stamp_number`} label='Номер клейма'/>
