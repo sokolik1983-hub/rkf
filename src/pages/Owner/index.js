@@ -78,7 +78,6 @@ const OwnerPage = ({match}) => {
                             alias={alias}
                             name={owner.name || 'Имя отсутствует'}
                         />
-                        {/*<ClubInfo {...clubInfo} />*/}
                     </Aside>
                 </div>
             </Container>
