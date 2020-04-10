@@ -15,7 +15,7 @@ const CheckStatus = () => {
         e.preventDefault();
         setLoading(true);
         Request({
-            url: `/api/clubs/requests/CommonRequest/request_tracking?barcode=${barcode}`,
+            url: `/api/requests/CommonRequest/request_tracking?barcode=${barcode}`,
             options: {
                 method: "GET",
                 headers: getHeaders(),
