@@ -5,6 +5,7 @@ const emptyFieldMsg = 'Поле не может быть пустым';
 const config = {
     method: 'POST',
     action: '/',
+    withLoading: true,
     initialValues: {
         email: '',
         surname: '',
@@ -12,6 +13,11 @@ const config = {
         patronymic: '',
         password: '',
         passwordConfirm: ''
+    },
+    transformValues: values => {
+        const filtered = { ...values };
+        delete filtered.passwordConfirm;
+        return filtered;
     },
     validationSchema: object().shape({
         email: string()
