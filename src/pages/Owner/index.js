@@ -8,6 +8,7 @@ import UserDescription from "../../components/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import "./index.scss";
 import UserNews from "../../components/UserNews";
+import UserMenu from "./components/UserMenu";
 // import ClubNews from "../Club/components/ClubNews";
 // import MenuComponent from "../../components/MenuComponent";
 // import shorten from "../../utils/shorten";
@@ -53,13 +54,6 @@ const OwnerPage = ({match}) => {
                     editLink={`/owner/${alias}/edit`}
                 />
                 <div className="owner-page__content-wrap">
-                    <Aside className="owner-page__info">
-                        {/*<MenuComponent*/}
-                        {/*    alias={clubInfo.club_alias}*/}
-                        {/*    name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}*/}
-                        {/*/>*/}
-                        {/*<ClubInfo {...clubInfo} />*/}
-                    </Aside>
                     <div className="owner-page__content">
                         <UserDescription description={owner.description} />
                         {canEdit &&
@@ -79,6 +73,13 @@ const OwnerPage = ({match}) => {
                             setNeedRequest={setNeedRequest}
                         />
                     </div>
+                    <Aside className="owner-page__info">
+                        <UserMenu
+                            alias={alias}
+                            name={owner.name || 'Имя отсутствует'}
+                        />
+                        {/*<ClubInfo {...clubInfo} />*/}
+                    </Aside>
                 </div>
             </Container>
         </Layout>

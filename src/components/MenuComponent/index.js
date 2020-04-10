@@ -110,18 +110,18 @@ const MenuComponent = ({ alias, name }) => {
                     </li>
                 }
                 <li className="menu-component__item">
-                    <Link to={`/${alias}/news`} className="menu-component__link not-active" title="Новости">Новости</Link>
+                    <Link to={`/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
                 </li>
                 {alias !== 'rkf' &&
                     <li className="menu-component__item">
-                        <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
+                        <Link to="/" onClick={handleClick} className="menu-component__link" title="Клейма">Клейма</Link>
                     </li>
                 }
                 <li className="menu-component__item">
                     <Link to={`/${alias}/document-status`} title="Отслеживание статуса документов">Отслеживание статуса документов</Link>
                 </li>
                 <li className="menu-component__item">
-                    <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
+                    <Link to={`/${alias}`} className="menu-component__link" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
                 </li>
             </ul>
             {showAlert &&

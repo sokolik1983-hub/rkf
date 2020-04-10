@@ -1,0 +1,49 @@
+.user-menu {
+  padding: 14px 16px 16px !important;
+  margin-bottom: 24px;
+  &__title {
+    max-height: 40px;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-bottom: 12px
+  }
+  &__list {
+    list-style: none;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+  &__link, & a {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #72839c;
+    transition: color 0.2s linear;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    &:visited,
+    &:active {
+      color: #72839c;
+    }
+    &:hover {
+      color: #3366ff;
+    }
+    &.disabled {
+      color: #babfc7;
+      &:visited,
+      &:active,
+      &:hover {
+        color: #babfc7;
+      }
+    }
+  }
+}
