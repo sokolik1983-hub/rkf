@@ -69,9 +69,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника'/>
             <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
             
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_first_name`} label='Имя ответственного за клеймление'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_last_name`} label='Фамилия ответственного за клеймление'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_second_name`} label='Отчество ответсятвенного за клеймление (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].hallmark_first_name`} label='Имя ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hallmark_second_name`} label='Отчество ответсятвенного за клеймление (опционально)'/>
             
             {/*files*/}
             <FormFile
@@ -96,17 +96,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
-                name={`declarants[${i}].parent_certificate1`}
+                name={`declarants[${i}].parent_certificate_1`}
                 label='Свидетельство о происхождении производителя'
-                docId={declarant.parent_certificate1_id}
-                disabled={view || declarant.parent_certificate1_accept}
+                docId={declarant.parent_certificate_1_id}
+                disabled={view || declarant.parent_certificate_1_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
-                name={`declarants[${i}].parent_certificate2`}
+                name={`declarants[${i}].parent_certificate_2`}
                 label='Свидетельство о происхождении производительницы'
-                docId={declarant.parent_certificate2_id}
-                disabled={view || declarant.parent_certificate2_accept}
+                docId={declarant.parent_certificate_2_id}
+                disabled={view || declarant.parent_certificate_2_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
