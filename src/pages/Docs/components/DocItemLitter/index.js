@@ -4,6 +4,7 @@ import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import FormFile from "../../components/FormFile";
+import PuppyItem from "../../components/PuppyItem";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import moment from "moment";
@@ -11,12 +12,13 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses }) => {
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
     const [firstName, setFirstName] = useState(declarant.first_name || '');
     const [lastName, setLastName] = useState(declarant.last_name || '');
     const [secondName, setSecondName] = useState(declarant.second_name || '');
+    const [activePuppy, setActivePuppy] = useState(0);
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
@@ -55,56 +57,56 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
             <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
 
-            <FormField disabled={update} name={`declarants[${i}].father_name`} label='Кличка производителя'/>
+            <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>
             <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_name`} label='Кличка производительницы'/>
+            <FormField disabled={update} name={`declarants[${i}].mother_dog_name`} label='Кличка производительницы'/>
             <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производительницы'/>
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
 
-            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='nursery_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='instructor_nursery_owner_first_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='instructor_nursery_owner_last_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='instructor_nursery_owner_second_name (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
             
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_first_name`} label='hall_mark_first_name'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_last_name`} label='hall_mark_last_name'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_second_name`} label='hall_mark_second_name (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_first_name`} label='Имя ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_last_name`} label='Фамилия ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_second_name`} label='Отчество ответсятвенного за клеймление (опционально)'/>
             
             {/*files*/}
             <FormFile
                 name={`declarants[${i}].application_document`}
-                label='application_document'
+                label='Заявление на регистрацию помета'
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
-                label='litter_diagnostic'
+                label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
-                label='dog_mating_act'
-                docId={declarant.dog_mating_act}
-                disabled={view || declarant.dog_mating_act}
+                label='Акт вязки'
+                docId={declarant.dog_mating_act_id}
+                disabled={view || declarant.dog_mating_act_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate1`}
-                label='parent_certificate1'
-                docId={declarant.parent_certificate1}
-                disabled={view || declarant.parent_certificate1}
+                label='Свидетельство о происхождении производителя'
+                docId={declarant.parent_certificate1_id}
+                disabled={view || declarant.parent_certificate1_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate2`}
-                label='parent_certificate2'
-                docId={declarant.parent_certificate2}
-                disabled={view || declarant.parent_certificate2}
+                label='Свидетельство о происхождении производительницы'
+                docId={declarant.parent_certificate2_id}
+                disabled={view || declarant.parent_certificate2_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
@@ -129,39 +131,40 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     </tr>
                 </thead>
                 <tbody>
-                    {declarant.litters && declarant.litters.map((puppy,j) => <><tr className={`DocItem ${error ? 'error' : ''}`} key={j}>
-                         <td>{puppy.dog_name}</td>
-                         <td>{puppy.dog_color}</td>
-                         <td>{sexTypes && sexTypes.find(f => f.id === puppy.dog_sex_type_id)}</td>
-                         <td>{puppy.stamp_number}</td>
-                        <td>
-                            <img className={`DocItem__chevron ${'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
-                        </td>
-                    </tr>
-                    <tr className={`DocItem collapse ${'active'}`}>
-                        <td colSpan="5">
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect"/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].stamp_number`} label='Номер клейма'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].chip_number`} label='Номер чипа'/>
-                            <FormField disabled={update} name={`declarants[${i}].litters[${j}].status_comment`} label='Комментарий'/>
-                            <Button className="btn-red" onClick={() => remove(j)} title="Удалить">Удалить</Button>
-                        </td>
-                    </tr></>)}
+                    {declarant.litters && declarant.litters.map((puppy,j) => 
+                        <PuppyItem
+                            puppy={puppy}
+                            j={j}
+                            i={i}
+                            key={j}
+                            activePuppy={activePuppy}
+                            activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
+                            deleteClick={() => {remove(j); setActivePuppy(-1);}}
+                            sexTypes={sexTypes}
+                            error={error && formik.errors.declarants[i].litters && formik.errors.declarants[i].litters[j] && formik.touched.declarants[i].litters && formik.touched.declarants[i].litters[j]}
+                            update={update}
+                            view={view}
+                            statusAllowsUpdate={statusAllowsUpdate}
+                            litterStatuses={litterStatuses}
+                            puppyCount={declarant.litters ? declarant.litters.length : 0}
+                        />)
+                    }
                     <tr>
                         <td colSpan="5">
                             <HideIf cond={update}>
                                 <div className="flex-row">
-                                    <Button small onClick={() => push({
-                                        dog_name:'',
-                                        dog_color:'',
-                                        dog_sex_type_id:'',
-                                        stamp_number:'',
-                                        chip_number:'',
-                                        litter_dog_status_id:'',
-                                        status_comment:''
-                                    })}>Добавить щенка</Button>
+                                    <Button small onClick={() => {
+                                        push({
+                                            dog_name:'',
+                                            dog_color:'',
+                                            dog_sex_type_id:'',
+                                            stamp_number:'',
+                                            chip_number:'',
+                                            litter_dog_status_id:'',
+                                            status_comment:''
+                                        });
+                                        setActivePuppy(declarant.litters ? declarant.litters.length : 0);
+                                    }}>Добавить щенка</Button>
                                 </div>
                             </HideIf>
                         </td>
