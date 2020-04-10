@@ -12,6 +12,8 @@ const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_statu
 const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiCitiesEndpoint = '/api/City';
+const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
+const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
 
 
 const reqText = 'Обязательное поле';
@@ -287,5 +289,7 @@ export {
     apiVerkEndpoint,
     apiStatusesEndpoint,
     apiCitiesEndpoint,
-    apiLitterDogStatusEndpoint
+    apiLitterDogStatusEndpoint,
+    apiPedigreeDocumentEndpoint,
+    apiLitterDocumentEndpoint
 };

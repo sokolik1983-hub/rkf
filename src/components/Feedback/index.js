@@ -38,14 +38,15 @@ const Feedback = ({ className, title }) => {
         return { ...newValues }
     };
 
-    const onSuccess = data => {
-        if (data) {
-            alert('Ваше сообщение отправлено');
-            setShowModal(false);
-        } else {
-            alert('Произошла ошибка, попробуйте позже');
-        }
+    const onSuccess = () => {
+        alert('Ваше сообщение отправлено');
+        setShowModal(false);
     };
+
+    const onError = () => {
+        alert('Произошла ошибка, попробуйте позже');
+        setShowModal(false);
+    }
 
     return (
         <>
@@ -64,6 +65,7 @@ const Feedback = ({ className, title }) => {
                             {...feedbackFormConfig}
                             transformValues={transformValues}
                             onSuccess={onSuccess}
+                            onError={onError}
                             initialValues={initialValues}
                         >
                             <FormGroup>
