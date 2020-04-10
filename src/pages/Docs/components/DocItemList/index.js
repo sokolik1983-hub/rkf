@@ -81,7 +81,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                 <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
                                     <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
                                 </HideIf>
-                                <DocLink docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
+                                <DocLink distinction={distinction} docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                                 <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
                                 <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                                 <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
