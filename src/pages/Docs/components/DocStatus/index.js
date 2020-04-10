@@ -14,8 +14,8 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree' ?
-                '/api/clubs/requests/PedigreeRequest/headers_base_info' :
-                '/api/clubs/requests/LitterRequest/headers_base_info'
+                '/api/requests/PedigreeRequest/headers_base_info' :
+                '/api/requests/LitterRequest/headers_base_info'
         },
         data => {
             setDocuments(data);
