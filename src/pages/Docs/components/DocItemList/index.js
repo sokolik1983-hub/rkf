@@ -17,7 +17,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
-    Object.keys(formik.errors).length && console.log(formik.errors);
+    formik.errors && Object.keys(formik.errors).length && console.log(formik.errors);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
     const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
@@ -192,6 +192,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 format="multipart/form-data"
             >
                 <Card>
+                    <div className="club-documents-status__head">
+                        <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
+                    </div>
                     <h3>Регистрация заявления на регистрацию {distinction === "pedigree" ? "родословной" : "помета"}</h3>
                     {comment && <div className="alert alert-danger">
                         {comment}

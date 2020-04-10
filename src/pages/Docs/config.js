@@ -1,16 +1,16 @@
 import { object, string, array, number, boolean } from "yup";
 
-const apiPedigreeEndpoint = '/api/clubs/requests/PedigreeRequest';
-const apiLitterEndpoint = '/api/clubs/requests/LitterRequest';
-const apiPedigreeDoctypeEndpoint = '/api/clubs/requests/PedigreeRequest/additional_document_types';
-const apiLitterDoctypeEndpoint = '/api/clubs/requests/LitterRequest/additional_document_types';
+const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
+const apiLitterEndpoint = '/api/requests/LitterRequest';
+const apiPedigreeDoctypeEndpoint = '/api/requests/PedigreeRequest/additional_document_types';
+const apiLitterDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
-const apiPedigreePrivacyEndpoint = '/api/clubs/requests/PedigreeRequest/personal_data_document';
-const apiLitterPrivacyEndpoint = '/api/clubs/requests/LitterRequest/personal_data_document';
-const apiLitterDogStatusEndpoint = '/api/clubs/requests/LitterRequest/litter_dog_status';
-const apiVerkEndpoint = '/api/clubs/requests/PedigreeRequest/request_extract_from_verk_document';
-const apiStatusesEndpoint = '/api/clubs/requests/CommonRequest/status';
+const apiPedigreePrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
+const apiLitterPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
+const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
+const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
+const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiCitiesEndpoint = '/api/City';
 
 
@@ -79,7 +79,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
 const litterDeclarantsValidationSchema = array().of(object().shape({
     first_name: string().required(reqText),
     last_name: string().required(reqText),
-    second_name: string().required(reqText),
+    second_name: string(),
     email: string().required(reqText),
     address: string().required(reqText),
     first_name_lat: string().required(reqText),
@@ -95,10 +95,10 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     nursery_name: string().required(reqText),
     instructor_nursery_owner_first_name: string().required(reqText),
     instructor_nursery_owner_last_name: string().required(reqText),
-    instructor_nursery_owner_second_name: string().required(reqText),
+    instructor_nursery_owner_second_name: string(),
     hall_mark_first_name: string().required(reqText),
     hall_mark_last_name: string().required(reqText),
-    hall_mark_second_name: string().required(reqText),
+    hall_mark_second_name: string(),
 
     application_document: string().required(reqText),
     litter_diagnostic: string().required(reqText),

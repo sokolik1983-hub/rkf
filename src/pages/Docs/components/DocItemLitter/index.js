@@ -64,47 +64,47 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
 
-            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='nursery_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='instructor_nursery_owner_first_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='instructor_nursery_owner_last_name'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='instructor_nursery_owner_second_name (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
             
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_first_name`} label='hall_mark_first_name'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_last_name`} label='hall_mark_last_name'/>
-            <FormField disabled={update} name={`declarants[${i}].hall_mark_second_name`} label='hall_mark_second_name (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_first_name`} label='Имя ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_last_name`} label='Фамилия ответственного за клеймление'/>
+            <FormField disabled={update} name={`declarants[${i}].hall_mark_second_name`} label='Отчество ответсятвенного за клеймление (опционально)'/>
             
             {/*files*/}
             <FormFile
                 name={`declarants[${i}].application_document`}
-                label='application_document'
+                label='Заявление на регистрацию помета'
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
-                label='litter_diagnostic'
+                label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
-                label='dog_mating_act'
+                label='Акт вязки'
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate1`}
-                label='parent_certificate1'
+                label='Свидетельство о происхождении производителя'
                 docId={declarant.parent_certificate1_id}
                 disabled={view || declarant.parent_certificate1_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate2`}
-                label='parent_certificate2'
+                label='Свидетельство о происхождении производительницы'
                 docId={declarant.parent_certificate2_id}
                 disabled={view || declarant.parent_certificate2_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
