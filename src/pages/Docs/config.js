@@ -110,6 +110,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     personal_data_document: string().required(reqText),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
+        dog_name_lat: string().required(reqText),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
@@ -261,6 +262,7 @@ const emptyLitterDeclarant = {
     personal_data_document: '',
     litters: [{
         dog_name: '',
+        dog_name_lat: '',
         dog_color: '',
         dog_sex_type_id: '',
         stamp_number: '',
