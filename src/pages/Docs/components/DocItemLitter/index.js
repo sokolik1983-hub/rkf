@@ -11,8 +11,9 @@ import moment from "moment";
 import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg";
-
+// litter
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses }) => {
+    const distinction = "litter";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
     const [firstName, setFirstName] = useState(declarant.first_name || '');
@@ -80,6 +81,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
+                distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
@@ -87,6 +89,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
+                distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
@@ -94,6 +97,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
+                distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_1`}
@@ -101,6 +105,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.parent_certificate_1_id}
                 disabled={view || declarant.parent_certificate_1_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
+                distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_2`}
@@ -108,6 +113,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.parent_certificate_2_id}
                 disabled={view || declarant.parent_certificate_2_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
+                distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
@@ -116,6 +122,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.personal_data_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
+                distinction={distinction}
             />
             {/*files*/}
 
@@ -179,7 +186,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
-                    <DocLink docId={doc.document_id}/>
+                    <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
