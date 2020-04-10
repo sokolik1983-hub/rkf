@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
 import { Form, SubmitButton, FormGroup, FormField } from '../Form';
-import { feedbackFormConfig } from "./config";
+import FormFile from '../Form/Field/FormFile';
+import { feedbackFormConfig, reasons } from "./config";
 import './styles.scss';
 
 
@@ -14,6 +15,7 @@ const Feedback = ({ className, title }) => {
         phone_number: '',
         mail: '',
         description: '',
+        picture: null,
         terms: false
     };
 
@@ -30,7 +32,7 @@ const Feedback = ({ className, title }) => {
         let newValues = { ...values };
 
         newValues.type = newValues.reason;
-        newValues.title = '';
+        newValues.title = reasons.filter(r => r.type === newValues.reason)[0].name;
         delete newValues.reason;
 
         return { ...newValues }
@@ -70,6 +72,10 @@ const Feedback = ({ className, title }) => {
                                 <FormField {...fields.phone_number} />
                                 <FormField {...fields.mail} />
                                 <FormField {...fields.description} />
+                                <div className="FormInput">
+                                    <label htmlFor="picture">Прикрепите файл</label>
+                                    <FormFile {...fields.picture} />
+                                </div>
                                 <FormField {...fields.terms} />
                             </FormGroup>
                             <div className="feedback__buttons">
