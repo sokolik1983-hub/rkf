@@ -56,7 +56,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
+            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
 
             <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
             <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>

@@ -57,7 +57,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
             <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
+            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
             <FormField disabled={update} name={`declarants[${i}].color`} label='Цвет'/>
 
             <FormField disabled={update} name={`declarants[${i}].father_name`} label='Кличка отца собаки'/>
