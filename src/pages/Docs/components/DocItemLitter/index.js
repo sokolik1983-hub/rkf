@@ -72,7 +72,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             
             <FormField disabled={update} name={`declarants[${i}].hallmark_first_name`} label='Имя ответственного за клеймление'/>
             <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>
-            <FormField disabled={update} name={`declarants[${i}].hallmark_second_name`} label='Отчество ответсятвенного за клеймление (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].hallmark_second_name`} label='Отчество ответственного за клеймление (опционально)'/>
             
             {/*files*/}
             <FormFile
