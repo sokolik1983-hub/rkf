@@ -13,7 +13,7 @@ import test from "../../test.json";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -58,6 +58,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     update={update}
                                     privacyHref={privacyHref}
                                     verkHref={verkHref}
+                                    litterHref={litterHref}
                                     statuses={statuses}
                                     litterStatuses={litterStatuses}
                                 />)}

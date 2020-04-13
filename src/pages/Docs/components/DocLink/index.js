@@ -22,7 +22,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
             <embed src={url}/>
         </Modal>
-        {docId && <div className="FormInput">
+        {!!docId && <div className="FormInput">
             <label>{showLabel ? label : "\u00a0"}</label>
             <Button onClick={e => setShowModal(true)}>Посмотреть</Button>
         </div>}

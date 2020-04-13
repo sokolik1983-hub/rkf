@@ -12,7 +12,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg";
 // litter
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref }) => {
     const distinction = "litter";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -82,6 +82,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.application_document_accept}
                 statusAllowsUpdate={statusAllowsUpdate}
                 distinction={distinction}
+                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}

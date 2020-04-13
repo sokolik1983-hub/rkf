@@ -28,7 +28,8 @@ import {
     apiVerkEndpoint,
     apiStatusesEndpoint,
     apiCitiesEndpoint,
-    apiLitterDogStatusEndpoint
+    apiLitterDogStatusEndpoint,
+    apiLitterEmptyDocument
 }from "../../config.js"
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
@@ -70,6 +71,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [cities, setCities] = useState([]);
     const [litterStatuses, setLitterStatuses] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
+    const [litterHref, setLitterHref] = useState('');
     const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
@@ -137,6 +139,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
+            fetch(apiLitterEmptyDocument, {headers})
+            .then(response => response.blob())
+            .then(data => setLitterHref(URL.createObjectURL(data))),
             fetch(apiVerkEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setVerkHref(URL.createObjectURL(data))),
@@ -236,6 +241,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         cash_payment={initial.cash_payment}
                         distinction={distinction}
                         litterStatuses={litterStatuses}
+                        litterHref={litterHref}
                     />
                 </Card>
             </Form>
