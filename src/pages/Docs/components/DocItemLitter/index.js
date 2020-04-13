@@ -150,16 +150,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             deleteClick={() => {remove(j); setActivePuppy(-1);}}
                             sexTypes={sexTypes}
                             error={error && formik.errors.declarants[i].litters && formik.errors.declarants[i].litters[j] && formik.touched.declarants[i].litters && formik.touched.declarants[i].litters[j]}
-                            update={update}
-                            view={view}
-                            statusAllowsUpdate={statusAllowsUpdate}
+                            cantEdit={view || declarant.litters_accept || !statusAllowsUpdate}
                             litterStatuses={litterStatuses}
                             puppyCount={declarant.litters ? declarant.litters.length : 0}
                         />)
                     }
                     <tr>
                         <td colSpan="5">
-                            <HideIf cond={update}>
+                            <HideIf cond={view || declarant.litters_accept || !statusAllowsUpdate}>
                                 <div className="flex-row">
                                     <Button small onClick={() => {
                                         push({
