@@ -26,7 +26,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                     name={name}
                     render={helpers => <>
                     <div>
-                        <h3>Владельцы</h3>
+                        <h3>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -86,7 +86,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                 <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
                                 <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                                 <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                                <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='ogrn' label='ОГРН (для юр. лиц)' />
+                                <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='inn' label='ИНН (для юр. лиц)' />
                             </HideIf>
                         </FormGroup>
                     </div>

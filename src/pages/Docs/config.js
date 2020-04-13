@@ -95,9 +95,9 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     mother_dog_name: string().required(reqText),
     mother_pedigree_number: string().required(reqText),
     date_of_birth_litter: string().required(reqText),
-    nursery_name: string().required(reqText),
-    instructor_nursery_owner_first_name: string().required(reqText),
-    instructor_nursery_owner_last_name: string().required(reqText),
+    nursery_name: string(),
+    instructor_nursery_owner_first_name: string(),
+    instructor_nursery_owner_last_name: string(),
     instructor_nursery_owner_second_name: string(),
     hallmark_first_name: string().required(reqText),
     hallmark_last_name: string().required(reqText),
@@ -115,7 +115,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
-        chip_number: string().required(reqText),
+        chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
             is: v => ![2,4].includes(v),
@@ -176,7 +176,7 @@ const commonValidationSchema = {
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
-    ogrn: string()
+    inn: string()
 };
 
 const commonUpdateSchema = {
@@ -186,7 +186,7 @@ const commonUpdateSchema = {
     payment_date: string(),
     payment_number: string(),
     payment_name: string(),
-    ogrn: string()
+    inn: string()
 };
 
 const pedigreeValidationSchema = object().shape({...commonValidationSchema, declarants: pedigreeDeclarantsValidationSchema});
