@@ -34,6 +34,14 @@ import {
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
 
+const removeNulls = o => {
+    Object.keys(o).forEach(k => {
+        if (o[k] === null) o[k] = '';
+        if (typeof(o[k]) === 'object') removeNulls(o[k]);
+    });
+    return o;
+}
+
 const DocApply = ({ clubAlias, history, distinction }) => {
     const initialValues = {
         federation_id: '',
@@ -89,7 +97,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         update = true;
         view = x !== 'edit';
     }
-    let initial = {...initialValues, ...values};
+    let initial = {...initialValues, ...removeNulls(values)};
     const filterBySchema = (values, fields) => {
         let r = {};
         Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
