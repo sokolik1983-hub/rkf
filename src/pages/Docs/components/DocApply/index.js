@@ -56,7 +56,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         payment_date: '',
         payment_number: '',
         payment_name: '',
-        ogrn: ''
+        inn: ''
     };
     const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
     const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;

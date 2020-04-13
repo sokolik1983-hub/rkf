@@ -56,18 +56,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
+            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
 
-            <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>
             <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_dog_name`} label='Кличка производительницы'/>
+            <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>
             <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производительницы'/>
+            <FormField disabled={update} name={`declarants[${i}].mother_dog_name`} label='Кличка производительницы'/>
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
 
-            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника'/>
+            <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника (опционально)'/>
             <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
             
             <FormField disabled={update} name={`declarants[${i}].hallmark_first_name`} label='Имя ответственного за клеймление'/>
@@ -127,7 +127,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
             {/*files*/}
 
-            <h4>Щенята</h4>
+            <h4>Щенки</h4>
             <FieldArray name={`declarants[${i}].litters`} render={({push, remove}) => (<table>
                 <thead>
                     <tr>
