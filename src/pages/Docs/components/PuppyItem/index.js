@@ -3,11 +3,14 @@ import { FormField } from "components/Form";
 import Button from "components/Button";
 import HideIf from "components/HideIf";
 
-const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTypes, error, cantEdit, litterStatuses, puppyCount}) => <>
+const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTypes, error, cantEdit, litterStatuses, puppyCount}) => {
+    let sex = sexTypes && sexTypes.find(f => f.value === puppy.dog_sex_type_id);
+    sex = sex ? sex.label : '';
+    return <>
 <tr className={`DocItem ${error ? 'error' : ''}`}>
     <td>{puppy.dog_name}</td>
     <td>{puppy.dog_color}</td>
-    <td>{sexTypes && sexTypes.find(f => f.value === puppy.dog_sex_type_id).label}</td>
+    <td>{sex}</td>
     <td>{puppy.stamp_number}</td>
     <td>
         <img className={`DocItem__chevron ${activePuppy === j ? 'active' : ''}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
@@ -29,6 +32,6 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
             <Button className="btn-red" onClick={deleteClick} title="Удалить">Удалить</Button>
         </HideIf>
     </td>
-</tr></>;
+</tr></>;}
 
 export default React.memo(PuppyItem);
