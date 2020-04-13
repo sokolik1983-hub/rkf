@@ -119,7 +119,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route/document-status',
+        path: '/:route/document-status/:query?',
         component: LoadableModules.LoadableDocumentStatus
     }
 ];

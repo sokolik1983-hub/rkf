@@ -1,0 +1,16 @@
+.HomepageCheckStatus {
+    font-weight: normal;
+    input {
+        min-width: 250px;
+        border-radius: 6px;
+        padding: 5px;
+        width: 100%;
+        margin-bottom: 10px;
+        letter-spacing: -0.2px;
+    }
+    button {
+        display: block;
+        margin-left: auto;
+        padding: 3px 5px;
+    }
+}
