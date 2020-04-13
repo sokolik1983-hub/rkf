@@ -8,6 +8,7 @@ import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsSlider from "./components/ExhibitionsSlider";
+import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
 import ClubsMap from "../../components/ClubsMap";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
@@ -67,6 +68,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                             <h3>{RKFInfo.aboutTitle}</h3>
                             <p>{RKFInfo.about}</p>
                         </Card>
+                        <HomepageCheckStatus />
                         <Card>
                             <div className="home-page__projects">
                                 <h3>Наши проекты</h3>
