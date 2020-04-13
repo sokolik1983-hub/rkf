@@ -70,7 +70,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
 
-            <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (если есть)'/>
+            <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (опционально)'/>
             <FormField
                 disabled={update}
                 name={`declarants[${i}].was_reviewed`}
