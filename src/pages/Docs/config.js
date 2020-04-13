@@ -14,6 +14,7 @@ const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
 const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
+const apiLitterEmptyDocument = '/api/request/LitterRequest/litter_empty_document';
 
 
 const reqText = 'Обязательное поле';
@@ -293,5 +294,6 @@ export {
     apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
     apiPedigreeDocumentEndpoint,
-    apiLitterDocumentEndpoint
+    apiLitterDocumentEndpoint,
+    apiLitterEmptyDocument
 };
