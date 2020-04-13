@@ -12,8 +12,12 @@ import FormField from './components/FormField';
 import { getHeaders } from "utils/request";
 import formatDate from 'utils/formatDate';
 import { invoices, legalFields } from './config';
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ru from 'date-fns/locale/ru';
 import "./index.scss";
 
+registerLocale('ru', ru);
 
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
@@ -151,13 +155,16 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'membership_payment_document_second'
                     || key === 'membership_payment_document_third'
                     || key === 'membership_payment_document_fourth'
-                    || key === 'membership_payment_document_first_date'
-                    || key === 'membership_payment_document_second_date'
-                    || key === 'membership_payment_document_third_date'
-                    || key === 'membership_payment_document_fourth_date'
                     || key === 'membership_payment_document_valid'
                 ) {
                     return data.append(key, fields[key])
+                }
+                if (key === 'membership_payment_document_first_date'
+                    || key === 'membership_payment_document_second_date'
+                    || key === 'membership_payment_document_third_date'
+                    || key === 'membership_payment_document_fourth_date'
+                ) {
+                    data.append(key, formatDate(fields[key], 'en'));
                 }
                 if (key === 'regions') !!fields[key].length && fields[key].map(r => data.append(key, r.value));
                 if (key === 'activities') !!fields[key].length && fields[key].map(a => data.append(key, a));
@@ -209,6 +216,13 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             ...fields,
             certificate_of_registration_legal_entity_valid: (fields.status !== 3 && target.value !== 3) ? false : true,
             [target.name]: target.value
+        });
+    };
+
+    const onDateChange = (date, name) => {
+        setFields({
+            ...fields,
+            [name]: date
         });
     };
 
@@ -442,7 +456,15 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                     {fields[name] &&
                                                         <div>
                                                             <span>Дата оплаты взноса: </span>
-                                                            <input type="date" name={`${name}_date`} onChange={onInputChange} required />
+                                                            <DatePicker
+                                                                selected={fields[`${name}_date`] && new Date(fields[`${name}_date`])}
+                                                                onChange={date => onDateChange(date, `${name}_date`)}
+                                                                dateFormat='dd.MM.yyyy'
+                                                                placeholderText='дд.мм.гггг'
+                                                                showYearDropdown
+                                                                locale='ru'
+                                                                required
+                                                            />
                                                         </div>
                                                     }
                                                 </div>
