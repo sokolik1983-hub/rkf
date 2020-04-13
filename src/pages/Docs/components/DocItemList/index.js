@@ -33,7 +33,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     <th>Дата регистрации</th>
                                     <th>Статус</th>
                                     <th>Номер док-та</th>
-                                    <th>ФИО владельца</th>
+                                    <th>ФИО {distinction === "pedigree" ? "владельца" : "заводчика"}</th>
                                     <th>Эл. почта</th>
                                     <th>Кол-во док.</th>
                                     <th></th>
