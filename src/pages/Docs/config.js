@@ -146,14 +146,18 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     })),
     litters: array().of(object().shape({
         id: number(),
-        dog_name: string(),
-        dog_name_lat: string(),
-        dog_color: string(),
-        dog_sex_type_id: number(),
-        stamp_number: string(),
+        dog_name: string().required(reqText),
+        dog_name_lat: string().required(reqText),
+        dog_color: string().required(reqText),
+        dog_sex_type_id: number().required(reqText).typeError(reqText),
+        stamp_number: string().required(reqText),
         chip_number: string(),
-        litter_dog_status_id: number(),
-        status_comment: string()
+        litter_dog_status_id: number().required(reqText).typeError(reqText),
+        status_comment: string().when('litter_dog_status_id', {
+            is: v => ![2,4].includes(v),
+            then: string(),
+            otherwise: string().required(reqText)
+        })
     }))
 }));
 
