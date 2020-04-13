@@ -7,7 +7,7 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
 <tr className={`DocItem ${error ? 'error' : ''}`}>
     <td>{puppy.dog_name}</td>
     <td>{puppy.dog_color}</td>
-    <td>{sexTypes && sexTypes.find(f => f.id === puppy.dog_sex_type_id)}</td>
+    <td>{sexTypes && sexTypes.find(f => f.value === puppy.dog_sex_type_id).label}</td>
     <td>{puppy.stamp_number}</td>
     <td>
         <img className={`DocItem__chevron ${activePuppy === j ? 'active' : ''}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
