@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { connect, FieldArray } from "formik";
+import { connect, FieldArray, getIn } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
+import Alert from "components/Alert";
 import { FormGroup, FormField } from "components/Form";
+import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
@@ -17,12 +19,50 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState(declarant.owner_first_name || '');
     const [lastName, setLastName] = useState(declarant.owner_last_name || '');
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
+    const [fatherEverk, setFatherEverk] = useState(false);
+    const [motherEverk, setMotherEverk] = useState(false);
+    const [everkAlert, setEverkAlert] = useState(false);
+    const setEverk = { 'father': setFatherEverk, 'mother': setMotherEverk };
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+
+    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+    const getEverk = who => {
+        let rfc = getIn(formik.values, `declarants[${i}].${who}_pedigree_number`);
+        rfc = rfc.split('-')[1] || rfc;
+        if (!rfc) return;
+        PromiseRequest(`/api/dog/Dog/everk_dog/${rfc}`)
+        .then(data => data && (data.name || data.name_lat))
+        .then(name => {
+            if (!name) {
+                throw "name not set";
+            }
+            setEverk[who] && setEverk[who](true);
+            formik.setFieldValue(`declarants[${i}].${who}_name`, name);
+        })
+        .catch(x => setEverkAlert(true));
+    }
+    const clearEverk = who => {
+        if (!setEverk[who]) return;
+        setEverk[who](false);
+        formik.setFieldValue(`declarants[${i}].${who}_name`, '');
+        formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
+    }
+
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
-    return <><tr className={`DocItem ${error ? 'error' : ''}`}>
+    return <>
+        {everkAlert &&
+            <Alert
+                title="Ошибка"
+                text="Номер родословной не найден в базе ЕВЕРК. Если производитель иностранный, пожалуйста заполните поля вручную и прикрепите копию свидетельства о происхождении"
+                autoclose={false}
+                okButton={true}
+                onOk={() => setEverkAlert(false)}
+            />
+        }
+    <tr className={`DocItem ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
         <td><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
@@ -60,10 +100,28 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
             <FormField disabled={update} name={`declarants[${i}].color`} label='Цвет'/>
 
-            <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной отца собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].father_name`} label='Кличка отца собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной матери собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_name`} label='Кличка матери собаки'/>
+            <FormGroup inline>
+                <FormField disabled={update || fatherEverk} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
+                <HideIf cond={update}>
+                    <Button onClick={e => getEverk('father')} disabled={fatherEverk}>Поиск</Button>
+                </HideIf>
+            </FormGroup>
+            <FormField disabled={update || fatherEverk} name={`declarants[${i}].father_name`} label='Кличка производителя'/>
+            <HideIf cond={!fatherEverk}>
+                <Button className="btn-red" onClick={e => clearEverk('father')}>Удалить данные производителя</Button> 
+            </HideIf>
+            
+            <FormGroup inline>
+                <FormField disabled={update || motherEverk} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производителя'/>
+                <HideIf cond={update}>
+                    <Button onClick={e => getEverk('mother')} disabled={motherEverk}>Поиск</Button>
+                </HideIf>
+            </FormGroup>
+            <FormField disabled={update || motherEverk} name={`declarants[${i}].mother_name`} label='Кличка производителя'/>
+            <HideIf cond={!motherEverk}>
+                <Button className="btn-red" onClick={e => clearEverk('mother')}>Удалить данные производительницы</Button> 
+            </HideIf>
+
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
