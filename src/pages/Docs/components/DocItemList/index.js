@@ -65,7 +65,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             </tbody>
                         </table>
                         <div className={`flex-row ${update ? 'hidden' : ''}`}>
-                            {(typeof(formik.errors.declarants) === "string") &&
+                            {formik.errors && (typeof(formik.errors.declarants) === "string") &&
                                 <p className="red">{formik.errors.declarants}</p>
                             }
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
