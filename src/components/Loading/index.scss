@@ -45,4 +45,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  &.inline {
+    display: inline-block;
+    margin: 0 10px;
+    .Loading__title {
+      margin: 10px 0;
+    }
+  }
 }
