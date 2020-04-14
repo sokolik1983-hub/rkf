@@ -30,6 +30,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [membership, setMembership] = useState(null);
     const [preloaded, setPreloaded] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         Promise.all([getStatus(), getRegions(), getActivities(), getFields()])
@@ -132,6 +133,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
         const data = new FormData();
 
         Object.keys(fields).forEach(
@@ -181,9 +183,11 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             data: data
         }, () => {
             alert('Информация отправлена');
+            setSubmitting(false);
             logOutUser();
             history.push('/');
         }, error => {
+            setSubmitting(false);
             if (error.response.status === 413) { return alert('Ошибка: слишком большой файл') };
             alert(
                 `Ошибка: ${error.response.data.errors
@@ -485,7 +489,13 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                             <p>Нет прикреплённых квитанций</p>
                                     }
                                 </Card>
-                                {!isSubmitted && <button type="submit" className="btn btn-simple">Отправить</button>}
+                                {
+                                    !isSubmitted
+                                    && <div className="NotConfirmed__submit">
+                                        {submitting && <Loading inline={true} />}
+                                        <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
+                                    </div>
+                                }
                             </fieldset>
                         </form>
                         <p className="NotConfirmed__feedback-reminder">В случае обнаружения ошибок или несоответствий - воспользуйтесь формой <Feedback className="feedback-link" title="обратной связи" /></p>
