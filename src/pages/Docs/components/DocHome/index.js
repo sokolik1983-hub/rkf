@@ -40,6 +40,15 @@ const DocHome = ({ clubAlias }) => (
                     <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
                 </div>
             </Card>
+            <Card>
+                <div className="documents-page__icon" />
+                <h3>МЕТРИКА ЩЕНКА</h3>
+                <p>...</p>
+                <hr />
+                <div className="Card__links">
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
+                </div>
+            </Card>
         </div>
     </div>
 );
