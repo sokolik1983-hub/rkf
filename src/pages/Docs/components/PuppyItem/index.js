@@ -22,7 +22,7 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
         <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_name_lat`} label='Кличка латиницей'/>
         <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
         <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect" placeholder="Выберите..."/>
-        <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].stamp_number`} label='Номер клейма'/>
+        <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].stamp_number`} label='Код клейма'/>
         <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].chip_number`} label='Номер чипа (опционально)'/>
         <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].litter_dog_status_id`} label='Статус щенка' fieldType="reactSelect" options={litterStatuses} placeholder="Выберите..." />
         <HideIf cond={![2,4].includes(puppy.litter_dog_status_id)}>
