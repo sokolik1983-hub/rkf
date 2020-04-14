@@ -26,6 +26,7 @@ const reqIfCash = () => string().when('cash_payment', {
 })
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
+    express: boolean().required(reqText),
     owner_first_name: string().required(reqText),
     owner_last_name: string().required(reqText),
     owner_second_name: string(),
@@ -200,6 +201,7 @@ const litterValidationSchema = object().shape({...commonValidationSchema, declar
 const litterUpdateSchema = object().shape({...commonUpdateSchema, declarants: litterDeclarantsUpdateSchema});
 
 const emptyPedigreeDeclarant = {
+    express: false,
     owner_first_name: '',
     owner_last_name: '',
     owner_second_name: '',
