@@ -19,13 +19,15 @@ const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_documen
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
-const reqIfCash = () => string().when('cash_payment', {
-    is: true,
-    then: string(),
-    otherwise: string().required(reqText)
+const reqCheckbox = (x, v = true) => string().when(x, {
+    is: v,
+    then: string().required(reqText),
+    otherwise: string()
 })
+const reqIfCash = () => reqCheckbox('cash_payment', false)
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
+    express: boolean().required(reqText),
     owner_first_name: string().required(reqText),
     owner_last_name: string().required(reqText),
     owner_second_name: string(),
@@ -43,8 +45,12 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     color: string().required(reqText),
 
     father_name: string().required(reqText),
+    father_foreign: boolean().required(reqText),
+    father_pedigree_document: reqCheckbox('father_foreign'),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
+    mother_foreign: boolean().required(reqText),
+    mother_pedigree_document: reqCheckbox('mother_foreign'),
     mother_pedigree_number: string().required(reqText),
 
     breeder_first_name: string().required(reqText),
@@ -200,6 +206,7 @@ const litterValidationSchema = object().shape({...commonValidationSchema, declar
 const litterUpdateSchema = object().shape({...commonUpdateSchema, declarants: litterDeclarantsUpdateSchema});
 
 const emptyPedigreeDeclarant = {
+    express: false,
     owner_first_name: '',
     owner_last_name: '',
     owner_second_name: '',
@@ -217,9 +224,13 @@ const emptyPedigreeDeclarant = {
     color: '',
 
     father_name: '',
+    father_foreign: false,
     father_pedigree_number: '',
+    father_pedigree_document: '',
     mother_name: '',
+    mother_foreign: false,
     mother_pedigree_number: '',
+    mother_pedigree_document: '',
 
     breeder_first_name: '',
     breeder_last_name: '',
