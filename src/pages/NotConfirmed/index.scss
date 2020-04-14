@@ -103,4 +103,10 @@
       max-width: 250px;
     }
   }
+  &__submit {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px;
+  }
 }

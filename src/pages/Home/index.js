@@ -120,7 +120,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     </HorizontalSwipe>
                 </div>
                 <h3 className="Homepage__map-header">
-                    <Link className="Homepage__map-title" to="/clubs-map" target="_blank">Карта клубов</Link>
+                    <Link className="Homepage__map-title" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
                 </h3>
                 <div className="Homepage__map-wrap">
                     <ClubsMap />
