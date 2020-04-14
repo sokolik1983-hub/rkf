@@ -47,7 +47,6 @@ const DocHome = ({ clubAlias }) => (
                 <hr />
                 <div className="Card__links">
                     <Link to={`/${clubAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
-                    <Link to={`/${clubAlias}/documents/puppy/metrics/1/print`}>Образец печати</Link>
                 </div>
             </Card>
         </div>
