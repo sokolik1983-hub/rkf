@@ -13,6 +13,7 @@ import PuppyMetrics from "./components/Print/PuppyMetrics";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import PuppiesMetrics from "./components/PuppiesMetrics";
 
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
@@ -64,8 +65,8 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/pedigree/:id/print' component={() =>
                             <DocRegistry history={history} distinction="pedigree" />}
                         />
-                        <Route exact={true} path='/:route/documents/pedigree/:id/print' component={() =>
-                            <DocRegistry history={history} distinction="pedigree" />}
+                        <Route exact={true} path='/:route/documents/puppy/metrics' component={() =>
+                            <PuppiesMetrics clubAlias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}
