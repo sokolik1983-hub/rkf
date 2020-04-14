@@ -34,7 +34,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         .then(data => data && (data.name || data.name_lat))
         .then(name => {
             if (!name) {
-                throw "name not set";
+                throw new Error("name not set");
             }
             setEverk[who] && setEverk[who](true);
             formik.setFieldValue(`declarants[${i}].${who}_name`, name);
@@ -103,26 +103,51 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormGroup inline>
                 <FormField disabled={update || fatherEverk} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
-                <HideIf cond={update}>
+                <HideIf cond={update || declarant.father_foreign}>
                     <Button onClick={e => getEverk('father')} disabled={fatherEverk}>Поиск</Button>
                 </HideIf>
             </FormGroup>
             <FormField disabled={update || fatherEverk} name={`declarants[${i}].father_name`} label='Кличка производителя'/>
-            <HideIf cond={!fatherEverk}>
+            <HideIf cond={update || !fatherEverk}>
                 <Button className="btn-red" onClick={e => clearEverk('father')}>Удалить данные производителя</Button> 
+            </HideIf>
+            <HideIf cond={fatherEverk}>
+                <FormField
+                    disabled={update}
+                    fieldType="customCheckbox"
+                    name={`declarants[${i}].father_foreign`}
+                    label='Иностранный производитель'
+                    onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].father_pedigree_document`, '')}}
+                />
+                <HideIf cond={view || !statusAllowsUpdate || !declarant.father_foreign}>
+                    <FormField name={`declarants[${i}].father_pedigree_document`} label='Свидетельство о происхождении производителя' accept={accept} fieldType="file" />
+                </HideIf>
+                <DocLink distinction={distinction} docId={declarant.father_pedigree_document_id} label='Свидетельство о происхождении производителя' showLabel={view} />
             </HideIf>
             
             <FormGroup inline>
                 <FormField disabled={update || motherEverk} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производителя'/>
-                <HideIf cond={update}>
+                <HideIf cond={update || declarant.mother_foreign}>
                     <Button onClick={e => getEverk('mother')} disabled={motherEverk}>Поиск</Button>
                 </HideIf>
             </FormGroup>
             <FormField disabled={update || motherEverk} name={`declarants[${i}].mother_name`} label='Кличка производителя'/>
-            <HideIf cond={!motherEverk}>
-                <Button className="btn-red" onClick={e => clearEverk('mother')}>Удалить данные производительницы</Button> 
+            <HideIf cond={update || !motherEverk}>
+                <Button className="btn-red" onClick={e => clearEverk('mother')}>Удалить данные производителя</Button> 
             </HideIf>
-
+            <HideIf cond={motherEverk}>
+                <FormField
+                    disabled={update}
+                    fieldType="customCheckbox"
+                    name={`declarants[${i}].mother_foreign`}
+                    label='Иностранный производитель'
+                    onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].mother_pedigree_document`, '')}}
+                />
+                <HideIf cond={view || !statusAllowsUpdate || !declarant.mother_foreign}>
+                    <FormField name={`declarants[${i}].mother_pedigree_document`} label='Свидетельство о происхождении производителя' accept={accept} fieldType="file" />
+                </HideIf>
+                <DocLink distinction={distinction} docId={declarant.mother_pedigree_document_id} label='Свидетельство о происхождении производителя' showLabel={view} />
+            </HideIf>
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
