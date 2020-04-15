@@ -60,7 +60,7 @@ const CheckStatus = () => {
             />
             <div className="check-status__button">
                 {loading && <Loading centered={false} />}
-                <button type="submit" disabled={loading}>Отправить</button>
+                <button type="submit" disabled={loading}>Найти</button>
             </div>
         </form>
         {!!status.length && <div className="check-status__table">

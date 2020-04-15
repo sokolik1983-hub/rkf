@@ -22,7 +22,7 @@ const HomepageCheckStatus = () => {
                 placeholder="Введите 13-значный номер отслеживания"
                 required
             />
-            <button type="submit">Отправить</button>
+            <button type="submit">Найти</button>
         </form>
     </Card>
 };
