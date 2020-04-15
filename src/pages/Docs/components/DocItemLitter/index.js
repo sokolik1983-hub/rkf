@@ -66,7 +66,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
-                addDocument={true}
+                addDocument={false}
                 who="father"
                 whoRu="производителя"
             />
@@ -77,7 +77,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
-                addDocument={true}
+                addDocument={false}
                 who="mother"
                 whoRu="производительницы"
             />
