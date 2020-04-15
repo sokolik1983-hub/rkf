@@ -1,0 +1,86 @@
+import React, { useState } from "react";
+import Alert from "components/Alert";
+import Button from "components/Button";
+import { FormGroup, FormField } from "components/Form";
+import DeleteButton from "../../components/DeleteButton";
+import DocLink from "../../components/DocLink";
+import HideIf from "components/HideIf";
+import { connect, getIn } from "formik";
+import { Request } from "utils/request";
+
+const accept = ".pdf, .jpg, .jpeg";
+
+const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who, whoRu, distinction, addDocument}) => {
+    const [everk, setEverk] = useState(false);
+    const [everkAlert, setEverkAlert] = useState(false);
+
+    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+    const getEverk = who => {
+        let rfc = getIn(formik.values, `declarants[${i}].${who}_pedigree_number`);
+        rfc = rfc.split('-')[1] || rfc;
+        if (!rfc) return;
+        PromiseRequest(`/api/dog/Dog/everk_dog/${rfc}`)
+        .then(data => data && (data.name || data.name_lat))
+        .then(name => {
+            if (!name) {
+                throw new Error("name not set");
+            }
+            setEverk && setEverk(true);
+            formik.setFieldValue(`declarants[${i}].${who}_name`, name);
+        })
+        .catch(x => setEverkAlert(true));
+    }
+    const clearEverk = who => {
+        if (!setEverk[who]) return;
+        setEverk[who](false);
+        formik.setFieldValue(`declarants[${i}].${who}_name`, '');
+        formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
+    }
+
+    return <>
+        {everkAlert &&
+            <Alert
+                title="Ошибка"
+                text="Номер родословной не найден в базе ВЕРК. Если производитель иностранный, пожалуйста заполните поля вручную и прикрепите копию свидетельства о происхождении"
+                autoclose={false}
+                okButton={true}
+                onOk={() => setEverkAlert(false)}
+            />
+        }
+    <FormGroup inline>
+                <FormField disabled={update || everk} name={`declarants[${i}].${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
+                <HideIf cond={update || declarant[`${who}_foreign`] || everk}>
+                    <Button onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
+                </HideIf>
+                <HideIf cond={update || !everk}>
+                    <DeleteButton className="btn-red" onClick={e => clearEverk(who)} title={`Удалить данные ${whoRu}`}/> 
+                </HideIf>
+            </FormGroup>
+            <FormField
+                disabled={update || !declarant[`${who}_foreign`]}
+                name={`declarants[${i}].${who}_name`}
+                label={`Кличка ${whoRu}`}
+                placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
+            />
+            <HideIf cond={everk}>
+                <FormField
+                    disabled={update}
+                    fieldType="customCheckbox"
+                    name={`declarants[${i}].${who}_foreign`}
+                    label='Иностранный производитель'
+                    onChange={e => {
+                        formik.handleChange(e);
+                        !!addDocument && formik.setFieldValue(`declarants[${i}].${who}_pedigree_document`, '');
+                        formik.setFieldValue(`declarants[${i}].${who}_name`, '');
+                    }}
+                />
+                <HideIf cond={!addDocument}>
+                    <HideIf cond={view || !statusAllowsUpdate || !declarant[`${who}_foreign`]}>
+                        <FormField name={`declarants[${i}].${who}_pedigree_document`} label={`Копия родословной ${whoRu}`} accept={accept} fieldType="file" />
+                    </HideIf>
+                    <DocLink distinction={distinction} docId={declarant[`${who}_pedigree_document_id`]} label={`Копия родословной ${whoRu}`} showLabel={view} />
+                </HideIf>
+            </HideIf>
+            </>}
+
+export default connect(React.memo(VerkParent))
