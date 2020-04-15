@@ -50,10 +50,13 @@
             }
         }
     }
-    button {
-        margin: 10px 0 10px auto;
-        display: block;
-        padding: 5px;
+    .print-button {
+        margin-top: 25px;
+        text-align: right;
+        a {
+            font-size: 18px;
+            text-decoration: none;
+        }
         @media print {
             display: none;
         }
@@ -119,10 +122,13 @@
             margin-top: 10px;
         }
     }
-    button {
-        margin: 10px 0 10px auto;
-        display: block;
-        padding: 5px;
+    .print-button {
+        margin-top: 25px;
+        text-align: right;
+        a {
+            font-size: 18px;
+            text-decoration: none;
+        }
         @media print {
             display: none;
         }
@@ -130,6 +136,18 @@
     &__footer {
         font-size: 14px;
         line-height: 20px;
+    }
+    &__column-block {
+        display: flex;
+        flex-direction: column;
+        min-height: 66px;
+    }
+    &__data {
+        color: navy;
+        margin-left: 10px;
+        &.no-margin {
+            margin: 0;
+        }
     }
     @media print {
         visibility: visible;
