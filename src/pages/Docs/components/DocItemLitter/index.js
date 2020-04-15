@@ -5,6 +5,7 @@ import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import FormFile from "../../components/FormFile";
 import PuppyItem from "../../components/PuppyItem";
+import VerkParent from "../../components/VerkParent";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import moment from "moment";
@@ -57,11 +58,29 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
             <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-
-            <FormField disabled={update} name={`declarants[${i}].father_pedigree_number`} label='Номер родословной производителя'/>
-            <FormField disabled={update} name={`declarants[${i}].father_dog_name`} label='Кличка производителя'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_pedigree_number`} label='Номер родословной производительницы'/>
-            <FormField disabled={update} name={`declarants[${i}].mother_dog_name`} label='Кличка производительницы'/>
+            
+            <VerkParent
+                update={update}
+                view={view}
+                statusAllowsUpdate={statusAllowsUpdate}
+                declarant={declarant}
+                i={i}
+                distinction={distinction}
+                addDocument={true}
+                who="father"
+                whoRu="производителя"
+            />
+            <VerkParent
+                update={update}
+                view={view}
+                statusAllowsUpdate={statusAllowsUpdate}
+                declarant={declarant}
+                i={i}
+                distinction={distinction}
+                addDocument={true}
+                who="mother"
+                whoRu="производительницы"
+            />
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
 
