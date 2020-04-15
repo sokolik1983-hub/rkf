@@ -31,8 +31,8 @@ const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who
         .catch(x => setEverkAlert(true));
     }
     const clearEverk = who => {
-        if (!setEverk[who]) return;
-        setEverk[who](false);
+        if (!setEverk) return;
+        setEverk(false);
         formik.setFieldValue(`declarants[${i}].${who}_name`, '');
         formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
     }
