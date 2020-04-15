@@ -10,7 +10,7 @@ import { Request } from "utils/request";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who, whoRu, distinction, addDocument}) => {
+const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument}) => {
     const [everk, setEverk] = useState(false);
     const [everkAlert, setEverkAlert] = useState(false);
 
@@ -67,7 +67,7 @@ const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who
                     disabled={update}
                     fieldType="customCheckbox"
                     name={`declarants[${i}].${who}_foreign`}
-                    label='Иностранный производитель'
+                    label={checkboxCaption}
                     onChange={e => {
                         formik.handleChange(e);
                         !!addDocument && formik.setFieldValue(`declarants[${i}].${who}_pedigree_document`, '');

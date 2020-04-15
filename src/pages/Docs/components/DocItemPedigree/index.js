@@ -75,6 +75,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 addDocument={true}
                 who="father"
                 whoRu="производителя"
+                checkboxCaption='Иностранный производитель'
             />
             <VerkParent
                 update={update}
@@ -86,6 +87,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 addDocument={true}
                 who="mother"
                 whoRu="производительницы"
+                checkboxCaption='Иностранная производительница'
             />
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>

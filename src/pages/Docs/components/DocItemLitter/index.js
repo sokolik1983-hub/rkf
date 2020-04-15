@@ -69,6 +69,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 addDocument={false}
                 who="father"
                 whoRu="производителя"
+                checkboxCaption='Иностранный производитель'
             />
             <VerkParent
                 update={update}
@@ -80,6 +81,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 addDocument={false}
                 who="mother"
                 whoRu="производительницы"
+                checkboxCaption='Иностранная производительница'
             />
 
             <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
