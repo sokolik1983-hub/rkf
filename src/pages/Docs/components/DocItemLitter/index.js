@@ -211,7 +211,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
                 </FormGroup>)}
-                <HideIf cond={update || (declarant.documents && declarant.documents.length > 29)}>
+                <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
                     <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
                         <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>

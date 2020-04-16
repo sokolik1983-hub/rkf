@@ -80,7 +80,11 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     request_extract_from_verk_document: string(),
     documents: array().of(object().shape({
         id: number(),
-        document_type_id: number(),
+        document_type_id: number().when('document', {
+            is: '',
+            then: number(),
+            otherwise: number().required(reqText).typeError(reqText)
+        }),
         document: string()
     }))
 }));
@@ -151,7 +155,11 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     personal_data_document: string(),
     documents: array().of(object().shape({
         id: number(),
-        document_type_id: number(),
+        document_type_id: number().when('document', {
+            is: '',
+            then: number(),
+            otherwise: number().required(reqText).typeError(reqText)
+        }),
         document: string()
     })),
     litters: array().of(object().shape({
