@@ -9,6 +9,8 @@ import PrimaryControls from "../PrimaryControls";
 import {paginate, Paginator} from "../Pagination";
 import {getTableColumns} from "./config";
 import "./index.scss";
+import Modal from "../../../../../../components/Modal";
+import AddOwnerForm from "../AddOwnerForm";
 
 
 class PuppiesTable extends PureComponent {
@@ -19,7 +21,9 @@ class PuppiesTable extends PureComponent {
         pagination: {page: 1, perPage: 5},
         clubAlias: this.props.clubAlias,
         rows: this.props.puppies,
-        columns: null
+        columns: null,
+        showModal: false,
+        puppyId: null
     };
 
     componentDidMount() {
@@ -42,7 +46,7 @@ class PuppiesTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.clubAlias);
+        return getTableColumns(this.state.sortingColumns, sortable, this.state.clubAlias, data => this.setState(data));
     };
 
     onSelect = page => {
@@ -107,6 +111,18 @@ class PuppiesTable extends PureComponent {
                     pages={paginated.amount}
                     onSelect={this.onSelect}
                 />
+
+                {this.state.showModal &&
+                    <Modal
+                        showModal={this.state.showModal}
+                        handleClose={() => this.setState({showModal: false})}
+                        noBackdrop={true}
+                        hideCloseButton={true}
+                        className="puppies-table__modal"
+                    >
+                        <AddOwnerForm puppyId={this.state.puppyId} setState={data => this.setState(data)}/>
+                    </Modal>
+                }
             </>
         )
     }

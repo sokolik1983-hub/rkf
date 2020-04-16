@@ -56,3 +56,14 @@
     background: yellow;
   }
 }
+.puppies-table__modal {
+  .Modal__close {
+    width: 16px !important;
+    height: 16px !important;
+    right: 40px !important;
+    z-index: 1;
+  }
+  .Modal__inner {
+    max-height: calc(100% - 10px) !important;
+  }
+}
