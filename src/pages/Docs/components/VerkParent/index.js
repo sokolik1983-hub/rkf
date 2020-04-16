@@ -11,7 +11,7 @@ import { Request } from "utils/request";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument}) => {
+const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument, everkData}) => {
     const [everk, setEverk] = useState(false);
     const [everkAlert, setEverkAlert] = useState(false);
 
@@ -37,7 +37,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
         formik.setFieldValue(`declarants[${i}].${who}_name`, '');
         formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
     }
-
+    const filledEverk = !!everkData && !!everkData[`${who}_pedigree_number`];
     return <>
         {everkAlert &&
             <Alert
@@ -49,11 +49,11 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
             />
         }
     <FormGroup inline>
-                <FormField disabled={update || everk} name={`declarants[${i}].${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
-                <HideIf cond={update || declarant[`${who}_foreign`] || everk}>
+                <FormField disabled={update || everk || filledEverk} name={`declarants[${i}].${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
+                <HideIf cond={update || declarant[`${who}_foreign`] || everk || filledEverk}>
                     <Button onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
                 </HideIf>
-                <HideIf cond={update || !everk}>
+                <HideIf cond={update || !everk || filledEverk}>
                     <DeleteButton className="btn-red" onClick={e => clearEverk(who)} title={`Удалить данные ${whoRu}`}/> 
                 </HideIf>
             </FormGroup>
@@ -63,7 +63,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 label={`Кличка ${whoRu}`}
                 placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
             />
-            <HideIf cond={everk}>
+            <HideIf cond={everk || filledEverk}>
                 <FormField
                     disabled={update}
                     fieldType="customCheckbox"

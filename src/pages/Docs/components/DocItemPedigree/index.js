@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alert from "components/Alert";
 import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
@@ -6,6 +7,8 @@ import DocLink from "../../components/DocLink";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
 import { FormGroup, FormField } from "components/Form";
+import { apiPedigreeEverk } from "../../config.js";
+import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
@@ -19,6 +22,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState(declarant.owner_first_name || '');
     const [lastName, setLastName] = useState(declarant.owner_last_name || '');
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
+    const [everkAlert, setEverkAlert] = useState(false);
+    const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
@@ -26,8 +31,35 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
     const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
     
+
+    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+    const getEverkData = stamp_number =>
+        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}`)
+        .then(data => {
+            Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
+            setEverkData(data);
+            setEverkAlert(true);
+        })
+        .catch(e => setEverkAlert(true));
+    const clearEverkData = () => {
+        if (!everkData) return;
+        Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
+        formik.setFieldValue(`declarants[${i}].stamp_number`, '');
+        setEverkData(null);
+    }
+    const filledEverk = val => !!everkData && !!everkData[val]
+    
     return <>
-            <tr className={`DocItem ${error ? 'error' : ''}`}>
+        {everkAlert &&
+            <Alert
+                title={everkData ? "" : "Ошибка"}
+                text={everkData ? "Данные подгружены из базы ВЕРК" : "Указанный код клейма не найден. Возможно, помет не был зарегистрирован. Если вы уверены в правильности заполнения данного поля - просим вас обратиться в кинологическую организацию, осуществлявшую регистрацию помета"}
+                autoclose={!!everkData}
+                okButton={!everkData}
+                onOk={() => setEverkAlert(false)}
+            />
+        }
+    <tr className={`DocItem ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
         <td><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
@@ -47,24 +79,38 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
+            <FormGroup inline>
+                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
+                <HideIf cond={!!everkData}>
+                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                </HideIf>
+                <HideIf cond={!everkData}>
+                    <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
+                </HideIf>
+            </FormGroup>
             
             <FormField disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+            <HideIf cond={!declarant.owner_last_name.includes(' ')}>
+                <p>Пожалуйста, заполните фамилию без инициалов, даже если в таком виде пришли данные из ВЕРК</p>
+            </HideIf>
             <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <FormField disabled={update} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
+            <FormField disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormField disabled={update} name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
             <FormField disabled={update} name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
-            <FormField disabled={update} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
+            <HideIf cond={!declarant.owner_last_name_lat.includes(' ')}>
+                <p>Пожалуйста, заполните фамилию без инициалов, даже если в таком виде пришли данные из ВЕРК</p>
+            </HideIf>
+            <FormField disabled={update || filledEverk('owner_address_lat')} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
 
             <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-            <FormField disabled={update} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
+            <FormField disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
+            <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
             <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
-            <FormField disabled={update} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-            <FormField disabled={update} name={`declarants[${i}].color`} label='Цвет'/>
+            <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Цвет'/>
 
             <VerkParent
                 update={update}
@@ -73,6 +119,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 i={i}
                 distinction={distinction}
                 addDocument={true}
+                everkData={everkData}
                 who="father"
                 whoRu="производителя"
                 checkboxCaption='Иностранный производитель'
@@ -84,6 +131,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 i={i}
                 distinction={distinction}
                 addDocument={true}
+                everkData={everkData}
                 who="mother"
                 whoRu="производительницы"
                 checkboxCaption='Иностранная производительница'
@@ -91,8 +139,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
             <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
+            <HideIf cond={!declarant.breeder_last_name.includes(' ')}>
+                <p>Пожалуйста, заполните фамилию без инициалов, даже если в таком виде пришли данные из ВЕРК</p>
+            </HideIf>
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
-            <FormField disabled={update} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
+            <FormField disabled={update || filledEverk('breeder_address')} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
 
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (опционально)'/>
             <FormField

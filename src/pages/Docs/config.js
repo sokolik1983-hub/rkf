@@ -15,6 +15,8 @@ const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
 const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
+const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
+const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
 
 
 const reqText = 'Обязательное поле';
@@ -326,5 +328,7 @@ export {
     apiLitterDogStatusEndpoint,
     apiPedigreeDocumentEndpoint,
     apiLitterDocumentEndpoint,
-    apiLitterEmptyDocument
+    apiLitterEmptyDocument,
+    apiPedigreeEverk,
+    apiLitterEverk
 };
