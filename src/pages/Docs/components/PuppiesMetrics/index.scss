@@ -34,9 +34,6 @@
   &__table {
     padding-bottom: 55px;
     overflow-x: auto;
-    @media (max-width: 860px) {
-      padding-bottom: 12px;
-    }
     @media (max-width: 600px) {
       .primary-controls {
         display: block;

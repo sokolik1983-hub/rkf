@@ -6,7 +6,7 @@ import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, clubAlias) => {
+export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) => {
     let cols = [
         {
             property: 'date_create',
@@ -82,6 +82,7 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias) => {
                                 <li className="row-control__item">
                                     <Link
                                         to={`/${clubAlias}/documents/puppy/metrics/${rowData.id}/print`}
+                                        target="_blank"
                                         className="row-control__link"
                                     >
                                         Распечатать
@@ -90,12 +91,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias) => {
                                 {rowData.status_id === 5 &&
                                     <>
                                         <li className="row-control__item">
-                                            <Link
-                                                to={`/${clubAlias}/documents/puppy/${rowData.id}/edit`}
+                                            <span
                                                 className="row-control__link"
+                                                onClick={() => setState({puppyId: rowData.id, showModal: true})}
                                             >
                                                 Добавить владельца
-                                            </Link>
+                                            </span>
                                         </li>
                                         <li className="row-control__item">
                                             <span
