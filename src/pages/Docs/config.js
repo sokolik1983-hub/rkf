@@ -1,4 +1,4 @@
-import { object, string, array, number, boolean } from "yup";
+import { object, string, array, number, boolean, mixed } from "yup";
 
 const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
 const apiLitterEndpoint = '/api/requests/LitterRequest';
@@ -80,9 +80,9 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     request_extract_from_verk_document: string(),
     documents: array().of(object().shape({
         id: number(),
-        document_type_id: number().when('document', {
+        document_type_id: mixed().when('document', {
             is: '',
-            then: number(),
+            then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
         document: string()
@@ -155,9 +155,9 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     personal_data_document: string(),
     documents: array().of(object().shape({
         id: number(),
-        document_type_id: number().when('document', {
+        document_type_id: mixed().when('document', {
             is: '',
-            then: number(),
+            then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
         document: string()
