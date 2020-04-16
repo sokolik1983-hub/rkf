@@ -4,13 +4,14 @@ import Button from "components/Button";
 import { FormGroup, FormField } from "components/Form";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
+import FormFile from "../../components/FormFile";
 import HideIf from "components/HideIf";
 import { connect, getIn } from "formik";
 import { Request } from "utils/request";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument}) => {
+const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument}) => {
     const [everk, setEverk] = useState(false);
     const [everkAlert, setEverkAlert] = useState(false);
 
@@ -75,10 +76,13 @@ const VerkParent = ({formik, update, view, statusAllowsUpdate, declarant, i, who
                     }}
                 />
                 <HideIf cond={!addDocument}>
-                    <HideIf cond={view || !statusAllowsUpdate || !declarant[`${who}_foreign`]}>
-                        <FormField name={`declarants[${i}].${who}_pedigree_document`} label={`Копия родословной ${whoRu}`} accept={accept} fieldType="file" />
-                    </HideIf>
-                    <DocLink distinction={distinction} docId={declarant[`${who}_pedigree_document_id`]} label={`Копия родословной ${whoRu}`} showLabel={view} />
+                    <FormFile
+                        name={`declarants[${i}].${who}_pedigree_document`}
+                        label={`Копия родословной ${whoRu}`}
+                        docId={declarant[`${who}_pedigree_document_id`]}
+                        disabled={update || !declarant[`${who}_foreign`]}
+                        distinction={distinction}
+                    />
                 </HideIf>
             </HideIf>
             </>}

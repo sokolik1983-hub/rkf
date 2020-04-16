@@ -69,7 +69,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <VerkParent
                 update={update}
                 view={view}
-                statusAllowsUpdate={statusAllowsUpdate}
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
@@ -81,7 +80,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <VerkParent
                 update={update}
                 view={view}
-                statusAllowsUpdate={statusAllowsUpdate}
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
