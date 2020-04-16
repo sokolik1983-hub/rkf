@@ -110,7 +110,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
             <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
-            <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Цвет'/>
+            <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Окрас'/>
 
             <VerkParent
                 update={update}
