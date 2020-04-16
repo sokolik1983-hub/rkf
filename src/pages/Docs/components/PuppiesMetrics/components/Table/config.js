@@ -87,24 +87,26 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias) => {
                                         Распечатать
                                     </Link>
                                 </li>
-                                {rowData.status_id === 2 &&
-                                    <li className="row-control__item">
-                                        <Link
-                                            to={`/${clubAlias}/documents/puppy/${rowData.id}/edit`}
-                                            className="row-control__link"
-                                        >
-                                            Редактировать
-                                        </Link>
-                                    </li>
+                                {rowData.status_id === 5 &&
+                                    <>
+                                        <li className="row-control__item">
+                                            <Link
+                                                to={`/${clubAlias}/documents/puppy/${rowData.id}/edit`}
+                                                className="row-control__link"
+                                            >
+                                                Добавить владельца
+                                            </Link>
+                                        </li>
+                                        <li className="row-control__item">
+                                            <span
+                                                className="row-control__link"
+                                                onClick={() => null}
+                                            >
+                                                Добавить в заявку на оформление родословной
+                                            </span>
+                                        </li>
+                                    </>
                                 }
-                                <li className="row-control__item">
-                                    <span
-                                        className="row-control__link"
-                                        onClick={() => null}
-                                    >
-                                        Добавить в заявку на оформление родословной
-                                    </span>
-                                </li>
                             </ul>
                         </RowControl>
                     )
