@@ -5,8 +5,8 @@ import DocLink from "../../components/DocLink";
 
 const accept = ".pdf, .jpg, .jpeg";
 
-const FormFile = ({name, label, docId, disabled, statusAllowsUpdate, form, distinction}) => <>
-    <HideIf cond={disabled || !statusAllowsUpdate}>
+const FormFile = ({name, label, docId, disabled, form, distinction}) => <>
+    <HideIf cond={disabled}>
         <FormField name={name} label={label} accept={accept} fieldType="file" />
         {form && <a download={form.filename} href={form.href}>{form.linkText}</a>}
     </HideIf>

@@ -32,7 +32,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + 3 : 3}</td>
+        <td>{declarant.documents ? declarant.documents.length + 6 : 6}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -100,8 +100,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 name={`declarants[${i}].application_document`}
                 label='Заявление на регистрацию помета'
                 docId={declarant.application_document_id}
-                disabled={view || declarant.application_document_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
                 form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
@@ -109,40 +108,35 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 name={`declarants[${i}].litter_diagnostic`}
                 label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
-                disabled={view || declarant.litter_diagnostic_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
                 label='Акт вязки'
                 docId={declarant.dog_mating_act_id}
-                disabled={view || declarant.dog_mating_act_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_1`}
                 label='Свидетельство о происхождении производителя'
                 docId={declarant.parent_certificate_1_id}
-                disabled={view || declarant.parent_certificate_1_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_2`}
                 label='Свидетельство о происхождении производительницы'
                 docId={declarant.parent_certificate_2_id}
-                disabled={view || declarant.parent_certificate_2_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
                 label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
-                disabled={view || declarant.personal_data_document_accept}
-                statusAllowsUpdate={statusAllowsUpdate}
+                disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
             />
@@ -202,7 +196,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={update} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
@@ -211,7 +205,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
                 </FormGroup>)}
-                <HideIf cond={update || (declarant.documents && declarant.documents.length > 29)}>
+                <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
                     <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
                         <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
