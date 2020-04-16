@@ -254,40 +254,4 @@
       margin-left: 1em;
     }
   }
-
-  .Card {
-    margin-bottom: 1em;
-    h3 {
-      font-size: 18px;
-      line-height: 26px;
-      letter-spacing: 0.4px;
-      margin-bottom: 6px;
-      @media (max-width: 560px) {
-      }
-    }
-    p {
-      margin-bottom: 10px;
-      letter-spacing: 0.2px;
-    }
-    hr {
-      border: none;
-      border-bottom: 1px solid #e8e8e8;
-    }
-    &__links {
-      display: flex;
-      flex-wrap: wrap;
-      font-weight: normal;
-      padding: 5px 0 0;
-      a {
-        padding: 5px 0 0;
-        text-decoration: none;
-        &:first-child {
-          margin-right: 20px;
-        }
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
 }
