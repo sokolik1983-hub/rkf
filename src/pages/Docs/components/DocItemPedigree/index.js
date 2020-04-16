@@ -81,10 +81,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-                <HideIf cond={!!everkData}>
+                <HideIf cond={!!everkData || update}>
                     <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
                 </HideIf>
-                <HideIf cond={!everkData}>
+                <HideIf cond={!everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
