@@ -88,23 +88,22 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 </HideIf>
             </FormGroup>
             
-            <FormField disabled={update} name={`declarants[${i}].first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
-            <FormField disabled={update} name={`declarants[${i}].last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+            <FormGroup inline>
+                <FormField disabled={update} name={`declarants[${i}].last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+                <FormField disabled={update} name={`declarants[${i}].first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+            </FormGroup>
             <HideIf cond={!declarant.last_name.includes(' ')}>
-                <p>Пожалуйста, заполните фамилию без инициалов, даже если в таком виде пришли данные из ВЕРК</p>
+                <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
             <FormField disabled={update} name={`declarants[${i}].second_name`} label='Отчество заводчика (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
             <FormField disabled={update || filledEverk('address')} name={`declarants[${i}].address`} label='Адрес заводчика'/>
-            <FormField disabled={update} name={`declarants[${i}].first_name_lat`} label='Имя заводчика латиницей'/>
-            <FormField disabled={update} name={`declarants[${i}].last_name_lat`} label='Фамилия заводчика латиницей'/>
-            <HideIf cond={!declarant.last_name_lat.includes(' ')}>
-                <p>Пожалуйста, заполните фамилию без инициалов, даже если в таком виде пришли данные из ВЕРК</p>
-            </HideIf>
-            <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
-            <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
+            <FormGroup inline>
+                <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
+                <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
+            </FormGroup>
             
             <VerkParent
                 update={update}
@@ -129,17 +128,29 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 checkboxCaption='Иностранная производительница'
             />
 
-            <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
 
             <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника (опционально)'/>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника (опционально)'/>
+            <FormGroup inline>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника (опционально)'/>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника (опционально)'/>
+            </FormGroup>
             <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
             
-            <FormField disabled={update} name={`declarants[${i}].hallmark_first_name`} label='Имя ответственного за клеймление'/>
-            <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>
+            <FormGroup inline>
+                <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>
+                <FormField disabled={update} name={`declarants[${i}].hallmark_first_name`} label='Имя ответственного за клеймление'/>
+            </FormGroup>
             <FormField disabled={update} name={`declarants[${i}].hallmark_second_name`} label='Отчество ответственного за клеймление (опционально)'/>
             
+            <FormGroup inline>
+                <FormField disabled={update} name={`declarants[${i}].last_name_lat`} label='Фамилия заводчика латиницей'/>
+                <FormField disabled={update} name={`declarants[${i}].first_name_lat`} label='Имя заводчика латиницей'/>
+            </FormGroup>
+            <HideIf cond={!declarant.last_name_lat.includes(' ')}>
+                <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
+            </HideIf>
+            <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
+
             {/*files*/}
             <FormFile
                 name={`declarants[${i}].application_document`}
