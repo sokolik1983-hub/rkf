@@ -82,7 +82,6 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                 <li className="row-control__item">
                                     <Link
                                         to={`/${clubAlias}/documents/puppy/metrics/${rowData.id}/print`}
-                                        target="_blank"
                                         className="row-control__link"
                                     >
                                         Распечатать
