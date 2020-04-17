@@ -9,8 +9,7 @@ const PuppyMetrics = ({ history }) => {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(false);
     const { id: puppyId } = useParams();
-    const { id,
-        breed,
+    const { breed,
         name,
         date_of_birth,
         sex_type,
@@ -53,7 +52,7 @@ const PuppyMetrics = ({ history }) => {
             </div>
             <div className="PuppyMetrics">
                 <img className="PuppyMetrics__logo" src="/static/images/header/rkf-logo-transparent.svg" alt="" />
-                <p className="PuppyMetrics__centered-block">Бланк №{id}</p>
+                <p className="PuppyMetrics__centered-block">Бланк №10</p>
                 <h1>РОССИЙСКАЯ КИНОЛОГИЧЕСКАЯ ФЕДЕРАЦИЯ<br />
                 RUSSIAN KYNOLOGICAL FEDERATION</h1>
                 <p className="PuppyMetrics__centered-block">127106 Москва, а/я 28. РКФ;    www.rkf.org.ru;    rkf@rkf.org.ru;</p>
