@@ -68,6 +68,7 @@ const RenderFields = ({ fields, isUpdate, formik, clubLogo }) => {
                 type="file"
                 name="file"
                 id="file"
+                accept=".jpg,.png"
                 className="ArticleCreateForm__inputfile"
                 onChange={handleChange}
             />

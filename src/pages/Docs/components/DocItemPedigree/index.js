@@ -13,7 +13,7 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
 
-const accept = ".pdf, .jpg, .jpeg";
+const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
     const distinction = "pedigree";
@@ -170,7 +170,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
              <FormFile
                 name={`declarants[${i}].biometric_card_document`}
-                label='Метрика щенка'
+                label='Метрика щенка (PDF, JPEG, JPG, PNG)'
                 docId={declarant.biometric_card_document_id}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
@@ -178,7 +178,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных'
+                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
@@ -187,7 +187,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             
             <FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
-                label='Заявка на изготовление выписки из ВЕРК'
+                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
                 docId={declarant.request_extract_from_verk_document_id}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
                 form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
@@ -199,7 +199,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>

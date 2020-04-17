@@ -75,7 +75,7 @@ const Feedback = ({ className, title }) => {
                                 <FormField {...fields.mail} />
                                 <FormField {...fields.description} />
                                 <div className="FormInput">
-                                    <label htmlFor="picture">Прикрепите файл</label>
+                                    <label htmlFor="picture">Прикрепите файл (JPEG, JPG, PNG)</label>
                                     <FormFile {...fields.picture} />
                                 </div>
                                 <FormField {...fields.terms} />

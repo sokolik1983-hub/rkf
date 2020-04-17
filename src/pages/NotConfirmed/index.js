@@ -422,7 +422,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                         'Документ о регистрации кода клейма'
                                                     }
                                                 </h4>
-                                                <span>Прикрепите файл формата PDF: </span>
+                                                <span>Прикрепите файл (PDF) </span>
                                                 <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
                                                 <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                             </> :
@@ -439,7 +439,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                             'Свидетельство о регистрации организации'
                                                         }
                                                     </h4>
-                                                    <span>Прикрепите файл формата PDF: </span>
+                                                    <span>Прикрепите файл (PDF) </span>
                                                     <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
                                                 </> :
@@ -454,7 +454,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                             {invoices.map(name =>
                                                 <div className="invoice" key={name}>
                                                     <div>
-                                                        <span>Прикрепите файл формата PDF: </span>
+                                                        <span>Прикрепите файл (PDF)</span>
                                                         <input type="file" accept=".pdf" name={name} onChange={onFileChange} />
                                                     </div>
                                                     {fields[name] &&
