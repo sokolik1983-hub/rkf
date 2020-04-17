@@ -3,7 +3,7 @@ import { FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import DocLink from "../../components/DocLink";
 
-const accept = ".pdf, .jpg, .jpeg";
+const accept = ".pdf, .jpg, .jpeg, .png";
 
 const FormFile = ({name, label, docId, disabled, form, distinction}) => <>
     <HideIf cond={disabled}>

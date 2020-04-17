@@ -14,7 +14,7 @@ import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
 
-const accept = ".pdf, .jpg, .jpeg";
+const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref }) => {
     const distinction = "litter";
@@ -154,7 +154,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {/*files*/}
             <FormFile
                 name={`declarants[${i}].application_document`}
-                label='Заявление на регистрацию помета'
+                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
@@ -162,35 +162,35 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
-                label='Акт обследования помета'
+                label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
-                label='Акт вязки'
+                label='Акт вязки (PDF, JPEG, JPG, PNG)'
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_1`}
-                label='Свидетельство о происхождении производителя'
+                label='Свидетельство о происхождении производителя (PDF, JPEG, JPG, PNG)'
                 docId={declarant.parent_certificate_1_id}
                 disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].parent_certificate_2`}
-                label='Свидетельство о происхождении производительницы'
+                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
                 docId={declarant.parent_certificate_2_id}
                 disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных'
+                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
@@ -254,7 +254,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>

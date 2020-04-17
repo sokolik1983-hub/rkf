@@ -11,7 +11,7 @@ import DocLink from "../../components/DocLink";
 import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
 
-const accept = ".pdf, .jpg, .jpeg";
+const accept = ".pdf, .jpg, .jpeg, .png";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
     window.test = () => Object.keys(test).forEach(t => {
@@ -80,7 +80,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
                             <HideIf cond={formik.values.cash_payment}>
                                 <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                    <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате' accept={accept} />
+                                    <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате (PDF, JPEG, JPG, PNG)' accept={accept} />
                                 </HideIf>
                                 <DocLink distinction={distinction} docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
                                 <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />

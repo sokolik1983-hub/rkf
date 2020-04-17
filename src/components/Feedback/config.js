@@ -69,7 +69,8 @@ export const feedbackFormConfig = {
         },
         picture: {
             name: 'picture',
-            type: 'file'
+            type: 'file',
+            accept: '.jpg, .jpeg, .png'
         },
         terms: {
             name: 'terms',

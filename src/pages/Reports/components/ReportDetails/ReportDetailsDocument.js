@@ -242,7 +242,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
             <h4>Прикрепление документов</h4>
             <div className="report-documents">
                 <div className="report-documents__document">
-                    <label className="report-documents__document-label">Каталог мероприятия</label>
+                    <label className="report-documents__document-label">Каталог мероприятия (PDF)</label>
                     {!reportHeader.doc_catalog_accept ?
                         <>
                             {catalogUrl && <a className="ReportDocumentLink" href={catalogUrl} download="Каталог мероприятия" rel="noopener noreferrer">Прикрепленный документ</a>}
@@ -258,7 +258,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                 </div>
                 <div className="report-documents__document">
                     <label className="report-documents__document-label">
-                        Квитанция об оплате взноса за обработку результатов мероприятия
+                        Квитанция об оплате взноса за обработку результатов мероприятия (PDF)
                     </label>
                     {!reportHeader.doc_payment_accept ?
                         <>
@@ -286,7 +286,7 @@ const ReportDetailsTable = ({ reportHeader, getHeader }) => {
                                     ? extraDocs.map(d => {
                                         return <div className="report-extra-documents__document" key={d.id}>
                                             <label className="report-extra-documents__document-label">
-                                                Дополнительный документ {
+                                                Дополнительный документ (PDF) {
                                                     d.name === null
                                                         ? <span onClick={() => deleteEmptyExtraDoc(d.id)} className="report-extra-documents__document-del"></span>
                                                         : typeof (d.name) !== 'object'
