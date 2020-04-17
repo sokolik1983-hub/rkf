@@ -3,13 +3,10 @@ import Alert from "components/Alert";
 import Button from "components/Button";
 import { FormGroup, FormField } from "components/Form";
 import DeleteButton from "../../components/DeleteButton";
-import DocLink from "../../components/DocLink";
 import FormFile from "../../components/FormFile";
 import HideIf from "components/HideIf";
 import { connect, getIn } from "formik";
 import { Request } from "utils/request";
-
-const accept = ".pdf, .jpg, .jpeg";
 
 const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument, everkData}) => {
     const [everk, setEverk] = useState(false);
@@ -38,6 +35,11 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
         formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
     }
     const filledEverk = !!everkData && !!everkData[`${who}_pedigree_number`];
+    filledEverk && everk && setEverk(false);
+    if (filledEverk && getIn(formik.values, `declarants[${i}].${who}_foreign`)) {
+        formik.setFieldValue(`declarants[${i}].${who}_foreign`, false);
+        formik.setFieldValue(`declarants[${i}].${who}_pedigree_document`, '');
+    }
     return <>
         {everkAlert &&
             <Alert
