@@ -254,7 +254,7 @@
       margin-left: 1em;
     }
   }
-  .Loading {
+  .Loading:not(.inline) {
     display: flex;
     align-items: center;
     min-height: 300px;

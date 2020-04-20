@@ -1,0 +1,35 @@
+.AddStamp {
+    font-weight: normal;
+    overflow: hidden;
+    &__inline {
+        display: flex;
+        flex-wrap: wrap;
+        .FormInput {
+            flex-grow: 1;
+            max-width: 100%;
+            &__error {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 100%;
+            }
+            &:first-child {
+                flex-basis: 33%;
+                flex-grow: 0;
+                @media screen and (min-width: 899px) {
+                    margin-right: 2%;
+                }
+            }
+        }
+        @media screen and (max-width: 899px) {
+            flex-direction: column;
+        }
+    }
+    .SubmitButton {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .Loading.inline .Loading__title {
+            margin: 5px 0;
+        }
+    }
+}
