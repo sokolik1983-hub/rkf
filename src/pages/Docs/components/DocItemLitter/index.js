@@ -3,6 +3,7 @@ import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
+import Transliteratable from "../../components/Transliteratable";
 import FormFile from "../../components/FormFile";
 import PuppyItem from "../../components/PuppyItem";
 import VerkParent from "../../components/VerkParent";
@@ -16,7 +17,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes }) => {
     const distinction = "litter";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -26,14 +27,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [activePuppy, setActivePuppy] = useState(0);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = stamp_number =>
-        PromiseRequest(`${apiLitterEverk}?stamp_number=${stamp_number}`)
+    const getEverkData = stamp_code =>
+        PromiseRequest(`${apiLitterEverk}?stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
             setEverkData(data);
@@ -43,7 +44,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
-        formik.setFieldValue(`declarants[${i}].stamp_number`, '');
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
@@ -79,18 +79,23 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-                <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <HideIf cond={true || !!everkData || update}>
+                    <Button onClick={e => {
+                        let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
+                        if (!stamp_code) return;
+                        stamp_code = stamp_code.label;
+                        getEverkData(stamp_code);
+                    }}>Поиск</Button>
                 </HideIf>
-                <HideIf cond={!everkData || update}>
+                <HideIf cond={true || !everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
             
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <FormField disabled={update} name={`declarants[${i}].first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             </FormGroup>
             <HideIf cond={!declarant.last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
@@ -98,7 +103,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].second_name`} label='Отчество заводчика (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <FormField disabled={update || filledEverk('address')} name={`declarants[${i}].address`} label='Адрес заводчика'/>
+            <Transliteratable disabled={update || filledEverk('address')} name={`declarants[${i}].address`} label='Адрес заводчика'/>
 
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>

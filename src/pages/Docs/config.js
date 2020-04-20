@@ -11,13 +11,14 @@ const apiLitterPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_docu
 const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
 const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
+const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
 const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
-
+const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -44,6 +45,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
     stamp_number: string().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     color: string().required(reqText),
 
     father_name: string().required(reqText),
@@ -101,7 +103,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     last_name_lat: string().required(reqText),
     address_lat: string().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
-    stamp_number: string().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
@@ -235,6 +237,7 @@ const emptyPedigreeDeclarant = {
     dog_birth_date: '',
     dog_sex_type: '',
     stamp_number: '',
+    stamp_code_id: '',
     color: '',
 
     father_name: '',
@@ -271,7 +274,7 @@ const emptyLitterDeclarant = {
     last_name_lat: '',
     address_lat: '',
     breed_id: '',
-    stamp_number: '',
+    stamp_code_id: '',
     
     father_name: '',
     father_foreign: false,
@@ -330,5 +333,7 @@ export {
     apiLitterDocumentEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeEverk,
-    apiLitterEverk
+    apiLitterEverk,
+    apiPedigreeStatusesEndpoint,
+    apiStampCodesEndpoint
 };

@@ -5,23 +5,21 @@ import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import { connect, FieldArray } from "formik";
 import PlusButton from "components/PlusButton";
+import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
-import DocLink from "../../components/DocLink";
 import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
 
-const accept = ".pdf, .jpg, .jpeg, .png";
-
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref, stampCodes}) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
     formik.errors && Object.keys(formik.errors).length && console.log(formik.errors);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
-    const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
-    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
+    const statusAllowsUpdate = formik.values.status_id ? [2,4].includes(formik.values.status_id) : true;
+    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4].includes(d.status_id) : true);
     return <FieldArray
                     name={name}
                     render={helpers => <>
@@ -61,6 +59,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     litterHref={litterHref}
                                     statuses={statuses}
                                     litterStatuses={litterStatuses}
+                                    stampCodes={stampCodes}
                                 />)}
                             </tbody>
                         </table>
@@ -70,7 +69,9 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             }
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
                                 setActive(formik.values.declarants.length);
-                                helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant} : {...emptyLitterDeclarant});
+                                let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+                                console.log(stamp_code_id);
+                                helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
                             }} />
                         </div>
                     </div>
@@ -78,11 +79,16 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                             <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
+
                             <HideIf cond={formik.values.cash_payment}>
-                                <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                    <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате (PDF, JPEG, JPG, PNG)' accept={accept} />
-                                </HideIf>
-                                <DocLink distinction={distinction} docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
+                                <FormFile
+                                    name='payment_document'
+                                    label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
+                                    docId={formik.values.payment_document_id}
+                                    disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
+                                    distinction={distinction}
+                                />
+
                                 <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
                                 <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                                 <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />

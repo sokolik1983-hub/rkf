@@ -6,6 +6,7 @@ import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
+import Transliteratable from "../../components/Transliteratable";
 import { FormGroup, FormField } from "components/Form";
 import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
@@ -15,7 +16,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes }) => {
     const distinction = "pedigree";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -24,7 +25,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -33,8 +34,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     
 
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = stamp_number =>
-        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}`)
+    const getEverkData = (stamp_number, stamp_code) =>
+        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
             setEverkData(data);
@@ -80,9 +81,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
                 <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                    <Button onClick={e => {
+                        let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
+                        if (!stamp_code) return;
+                        stamp_code = stamp_code.label;
+                        getEverkData(declarant.stamp_number, stamp_code);
+                    }}>Поиск</Button>
                 </HideIf>
                 <HideIf cond={!everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
@@ -90,8 +97,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <FormField disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
@@ -99,12 +106,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <FormField disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
+            <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
                 <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
             </FormGroup>
-            <FormField disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
+            <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormGroup inline>
                 <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Окрас'/>
                 <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
