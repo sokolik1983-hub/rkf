@@ -129,7 +129,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     personal_data_document: string().required(reqText),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
-        dog_name_lat: string().required(reqText),
+        dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
@@ -169,7 +169,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: string().required(reqText),
+        dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: string().required(reqText),
