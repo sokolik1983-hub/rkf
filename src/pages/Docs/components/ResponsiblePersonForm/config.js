@@ -3,8 +3,7 @@ import {DEFAULT_PHONE_INPUT_MASK, DEFAULT_PHONE_INPUT_PLACEHOLDER} from "../../.
 
 
 export const ResponsibleFormConfig = {
-    action: '',
-    method: 'PUT',
+    action: '/api/clubs/Declarant',
     fields: {
         last_name: {
             name: 'last_name',
@@ -38,6 +37,11 @@ export const ResponsibleFormConfig = {
             fieldType: 'masked',
             showMask: true,
             mask: DEFAULT_PHONE_INPUT_MASK
+        },
+        subscriber_mail: {
+            name: 'subscriber_mail',
+            label: 'Абонентский ящик',
+            type: 'text'
         },
         index: {
             name: 'index',
@@ -87,6 +91,7 @@ export const ResponsibleFormConfig = {
         second_name: string(),
         phone: string().required('Укажите телефон'),
         email: string().required('Укажите email').email('Неверный формат email'),
+        subscriber_mail: string(),
         index: string().required('Укажите индекс'),
         city_id: number().required('Укажите город').typeError('Укажите город'),
         street: string().required('Укажите улицу'),

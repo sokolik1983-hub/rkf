@@ -57,6 +57,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                 <h3>Ответственное лицо</h3>
                 <Form
                     {...ResponsibleFormConfig}
+                    method="POST"
                     transformValues={transformValues}
                     onSuccess={() => setOkAlert(true)}
                     onError={() => setErrAlert(true)}
@@ -75,6 +76,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                     <FormGroup inline>
                         <FormField {...ResponsibleFormConfig.fields.index} />
                         <FormField {...ResponsibleFormConfig.fields.city_id} options={cities} />
+                        <FormField {...ResponsibleFormConfig.fields.subscriber_mail} />
                     </FormGroup>
                     <FormGroup inline>
                         <FormField {...ResponsibleFormConfig.fields.street} />
