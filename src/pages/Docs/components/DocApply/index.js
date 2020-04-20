@@ -29,7 +29,8 @@ import {
     apiStatusesEndpoint,
     apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
-    apiLitterEmptyDocument
+    apiLitterEmptyDocument,
+    apiPedigreeStatusesEndpoint
 }from "../../config.js"
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
@@ -71,6 +72,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const apiDoctypeEndpoint = distinction === "pedigree" ? apiPedigreeDoctypeEndpoint : apiLitterDoctypeEndpoint;
     const apiPrivacyEndpoint = distinction === "pedigree" ? apiPedigreePrivacyEndpoint : apiLitterPrivacyEndpoint;
     const apiEndpoint = distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint;
+    const apiDeclarantStatusesEndpoint = distinction === "pedigree" ? apiPedigreeStatusesEndpoint : apiStatusesEndpoint;
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
     const [statuses, setStatuses] = useState([]);
@@ -138,7 +140,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiSexTypesEndpoint)
             .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiStatusesEndpoint)
+            PromiseRequest(apiDeclarantStatusesEndpoint)
             .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
             PromiseRequest(apiLitterDogStatusEndpoint)
             .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),

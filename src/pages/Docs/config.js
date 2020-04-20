@@ -11,6 +11,7 @@ const apiLitterPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_docu
 const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
 const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
+const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
 const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
@@ -330,5 +331,6 @@ export {
     apiLitterDocumentEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeEverk,
-    apiLitterEverk
+    apiLitterEverk,
+    apiPedigreeStatusesEndpoint
 };
