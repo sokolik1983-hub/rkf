@@ -103,7 +103,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     last_name_lat: string().required(reqText),
     address_lat: string().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
-    stamp_number: string().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
@@ -274,7 +274,7 @@ const emptyLitterDeclarant = {
     last_name_lat: '',
     address_lat: '',
     breed_id: '',
-    stamp_number: '',
+    stamp_code_id: '',
     
     father_name: '',
     father_foreign: false,

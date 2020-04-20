@@ -33,8 +33,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = (stamp_number, stamp_code) =>
-        PromiseRequest(`${apiLitterEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
+    const getEverkData = stamp_code =>
+        PromiseRequest(`${apiLitterEverk}?stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
             setEverkData(data);
@@ -44,7 +44,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
-        formik.setFieldValue(`declarants[${i}].stamp_number`, '');
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
@@ -80,17 +79,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-                <HideIf cond={!!everkData || update}>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <HideIf cond={true || !!everkData || update}>
                     <Button onClick={e => {
                         let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
                         if (!stamp_code) return;
                         stamp_code = stamp_code.label;
-                        getEverkData(declarant.stamp_number, stamp_code);
+                        getEverkData(stamp_code);
                     }}>Поиск</Button>
                 </HideIf>
-                <HideIf cond={!everkData || update}>
+                <HideIf cond={true || !everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
