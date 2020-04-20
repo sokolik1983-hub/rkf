@@ -6,6 +6,7 @@ import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
+import Transliteratable from "../../components/Transliteratable";
 import { FormGroup, FormField } from "components/Form";
 import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
@@ -90,8 +91,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <FormField disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
@@ -99,12 +100,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <FormField disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
+            <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
                 <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
             </FormGroup>
-            <FormField disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
+            <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormGroup inline>
                 <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Окрас'/>
                 <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>

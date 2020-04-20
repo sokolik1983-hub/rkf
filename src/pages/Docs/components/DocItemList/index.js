@@ -10,6 +10,7 @@ import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
+import transliterate from "utils/transliterate";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
     window.test = () => Object.keys(test).forEach(t => {
