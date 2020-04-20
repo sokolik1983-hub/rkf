@@ -5,13 +5,11 @@ import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import { connect, FieldArray } from "formik";
 import PlusButton from "components/PlusButton";
+import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
-import DocLink from "../../components/DocLink";
 import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
-
-const accept = ".pdf, .jpg, .jpeg, .png";
 
 const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
     window.test = () => Object.keys(test).forEach(t => {
@@ -78,11 +76,16 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                         <FormGroup>
                             <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                             <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
+
                             <HideIf cond={formik.values.cash_payment}>
-                                <HideIf cond={view || formik.values.payment_document_accept || !statusAllowsUpdate}>
-                                    <FormField fieldType="file" disabled={view} name='payment_document' label='Квитанция об оплате (PDF, JPEG, JPG, PNG)' accept={accept} />
-                                </HideIf>
-                                <DocLink distinction={distinction} docId={formik.values.payment_document_id} label='Квитанция об оплате' showLabel={view || formik.values.payment_document_accept}/>
+                                <FormFile
+                                    name='payment_document'
+                                    label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
+                                    docId={formik.values.payment_document_id}
+                                    disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
+                                    distinction={distinction}
+                                />
+
                                 <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
                                 <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                                 <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
