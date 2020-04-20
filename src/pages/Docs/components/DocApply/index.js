@@ -217,7 +217,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     <div className="club-documents-status__head">
                         <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                     </div>
-                    <h3>Регистрация заявления на регистрацию {distinction === "pedigree" ? "родословной" : "помета"}</h3>
+                    <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление на регистрацию помёта"}</h3>
                     {comment && <div className="alert alert-danger">
                         {comment}
                     </div>}
