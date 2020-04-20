@@ -34,8 +34,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     
 
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = stamp_number =>
-        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}`)
+    const getEverkData = (stamp_number, stamp_code) =>
+        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
             setEverkData(data);
@@ -84,7 +84,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <FormField disabled={update || !!everkData} fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
                 <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number, declarant.stamp_code)}>Поиск</Button>
+                    <Button onClick={e => {
+                        let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
+                        if (!stamp_code) return;
+                        stamp_code = stamp_code.label;
+                        getEverkData(declarant.stamp_number, stamp_code);
+                    }}>Поиск</Button>
                 </HideIf>
                 <HideIf cond={!everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { Request } from "utils/request";
+import ls from "local-storage";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
@@ -46,8 +47,8 @@ const removeNulls = o => {
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [stampCodes, setStampCodes] = useState([]);
+    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
-    console.log(stamp_code_id);
     const initialValues = {
         federation_id: '',
         last_name: '',
@@ -150,7 +151,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiCitiesEndpoint)
             .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiStampCodesEndpoint)
+            PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
             .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.id, label:m.stamp_code})))),
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
