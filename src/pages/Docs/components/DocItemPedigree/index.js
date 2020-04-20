@@ -10,6 +10,7 @@ import Transliteratable from "../../components/Transliteratable";
 import { FormGroup, FormField } from "components/Form";
 import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
+import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
@@ -32,12 +33,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
     const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
     
-
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
         .then(data => {
-            Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
+            Object.keys(data).forEach(k => {
+                if (!data[k]) return;
+                formik.setFieldValue(`declarants[${i}].${k}`, data[k]);
+                !data[`${k}_lat`] && formik.setFieldValue(`declarants[${i}].${k}_lat`, transliterate(data[k]));
+            });
             setEverkData(data);
             setEverkAlert(true);
         })
