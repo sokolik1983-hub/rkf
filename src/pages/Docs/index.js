@@ -9,6 +9,7 @@ import DocApply from "./components/DocApply";
 import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
+import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
@@ -16,7 +17,6 @@ import Registry from "./components/Stamps/Registry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
-import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
