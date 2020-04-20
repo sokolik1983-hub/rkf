@@ -30,7 +30,8 @@ import {
     apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
     apiLitterEmptyDocument,
-    apiPedigreeStatusesEndpoint
+    apiPedigreeStatusesEndpoint,
+    apiStampCodesEndpoint
 }from "../../config.js"
 import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import './index.scss';
@@ -44,6 +45,9 @@ const removeNulls = o => {
 }
 
 const DocApply = ({ clubAlias, history, distinction }) => {
+    const [stampCodes, setStampCodes] = useState([]);
+    let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+    console.log(stamp_code_id);
     const initialValues = {
         federation_id: '',
         last_name: '',
@@ -58,7 +62,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         flat: '',
         email: '',
         folder_number: '',
-        declarants: [distinction === "pedigree" ? emptyPedigreeDeclarant : emptyLitterDeclarant],
+        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id}],
     
         cash_payment: false,
         payment_document: '',
@@ -146,6 +150,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             PromiseRequest(apiCitiesEndpoint)
             .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            PromiseRequest(apiStampCodesEndpoint)
+            .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.id, label:m.stamp_code})))),
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),
@@ -256,6 +262,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         distinction={distinction}
                         litterStatuses={litterStatuses}
                         litterHref={litterHref}
+                        stampCodes={stampCodes}
                     />
                 </Card>
             </Form>

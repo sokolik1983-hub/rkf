@@ -16,7 +16,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes }) => {
     const distinction = "pedigree";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -81,9 +81,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
                 <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                    <Button onClick={e => getEverkData(declarant.stamp_number, declarant.stamp_code)}>Поиск</Button>
                 </HideIf>
                 <HideIf cond={!everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>

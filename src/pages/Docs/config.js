@@ -18,7 +18,7 @@ const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
-
+const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -45,6 +45,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
     stamp_number: string().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     color: string().required(reqText),
 
     father_name: string().required(reqText),
@@ -236,6 +237,7 @@ const emptyPedigreeDeclarant = {
     dog_birth_date: '',
     dog_sex_type: '',
     stamp_number: '',
+    stamp_code_id: '',
     color: '',
 
     father_name: '',
@@ -332,5 +334,6 @@ export {
     apiLitterEmptyDocument,
     apiPedigreeEverk,
     apiLitterEverk,
-    apiPedigreeStatusesEndpoint
+    apiPedigreeStatusesEndpoint,
+    apiStampCodesEndpoint
 };

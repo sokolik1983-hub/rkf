@@ -11,7 +11,7 @@ import DocItemLitter from "../../components/DocItemLitter";
 import { emptyPedigreeDeclarant, emptyLitterDeclarant } from "../../config.js";
 import test from "../../test.json";
 
-const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref}) => {
+const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, update, privacyHref, verkHref, statuses, clubAlias, cash_payment, distinction, litterStatuses, litterHref, stampCodes}) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -59,6 +59,7 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                                     litterHref={litterHref}
                                     statuses={statuses}
                                     litterStatuses={litterStatuses}
+                                    stampCodes={stampCodes}
                                 />)}
                             </tbody>
                         </table>
@@ -68,7 +69,9 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
                             }
                             <PlusButton title="Добавить еще заводчика" onClick={() => {
                                 setActive(formik.values.declarants.length);
-                                helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant} : {...emptyLitterDeclarant});
+                                let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+                                console.log(stamp_code_id);
+                                helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
                             }} />
                         </div>
                     </div>
