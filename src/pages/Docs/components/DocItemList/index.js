@@ -20,8 +20,8 @@ const DocItemList = ({formik, name, doctypes, breeds, sexTypes, fedName, view, u
     formik.errors && Object.keys(formik.errors).length && console.log(formik.errors);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
-    const statusAllowsUpdate = formik.values.status_id ? formik.values.status_id === 2 : true;
-    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? d.status_id === 2 : true);
+    const statusAllowsUpdate = formik.values.status_id ? [2,4].includes(formik.values.status_id) : true;
+    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4].includes(d.status_id) : true);
     return <FieldArray
                     name={name}
                     render={helpers => <>

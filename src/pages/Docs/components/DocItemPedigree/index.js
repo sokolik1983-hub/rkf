@@ -24,7 +24,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
