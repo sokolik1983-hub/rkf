@@ -5,7 +5,7 @@ import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerson) => {
+export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerson, setDefaultPerson) => {
     let cols = [
         {
             property: 'full_name',
@@ -36,6 +36,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
             header: {
                 label: 'Адрес'
             }
+        },
+        {
+            property: 'is_default',
+            header: {
+                label: 'По умолчанию'
+            }
         }
     ];
 
@@ -58,6 +64,10 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
             col.cell.resolve = data => data || 'не указан';
         }
 
+        if (col.property === 'is_default') {
+            col.cell.resolve = data => data ? 'да' : 'нет';
+        }
+
         return col;
     });
 
@@ -71,7 +81,7 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
                                 <li className="row-control__item">
                                     <span
                                         className="row-control__link"
-                                        onClick={() => null}
+                                        onClick={() => setDefaultPerson(rowData.id)}
                                     >
                                         Сделать по умолчанию
                                     </span>
