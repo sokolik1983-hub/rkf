@@ -178,12 +178,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('owner_address_lat')} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
-
-             <FormFile
+            
+            <FormFile
                 name={`declarants[${i}].biometric_card_document`}
                 label='Метрика щенка (PDF, JPEG, JPG, PNG)'
                 docId={declarant.biometric_card_document_id}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
+                distinction={distinction}
+            />
+
+            <FormFile
+                name={`declarants[${i}].request_extract_from_verk_document`}
+                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
+                docId={declarant.request_extract_from_verk_document_id}
+                disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
+                form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
                 distinction={distinction}
             />
 
@@ -196,14 +205,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 distinction={distinction}
             />
             
-            <FormFile
-                name={`declarants[${i}].request_extract_from_verk_document`}
-                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
-                docId={declarant.request_extract_from_verk_document_id}
-                disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
-                form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
-                distinction={distinction}
-            />
 
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
