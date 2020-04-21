@@ -8,12 +8,15 @@ import TopComponent from "../../components/TopComponent";
 import DocApply from "./components/DocApply";
 import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
+import PuppiesMetrics from "./components/PuppiesMetrics";
+import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
+import AddStamp from "./components/Stamps/AddStamp";
+import Registry from "./components/Stamps/Registry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
-import PuppiesMetrics from "./components/PuppiesMetrics";
 
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
@@ -34,7 +37,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
-                        <Route exact={true} path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route exact={true} path='/:route/documents/litter/form' component={() =>
                             <DocApply clubAlias={clubAlias} distinction="litter" />}
                         />
@@ -71,6 +73,16 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}
                         />
+                        <Route exact={true} path='/:route/documents/stamps/add' component={() =>
+                            <AddStamp history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/stamps/registry' component={() =>
+                            <Registry history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/form' component={() =>
+                            <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </Container>
