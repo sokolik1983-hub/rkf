@@ -60,7 +60,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         let declarant = declarants.find(f => f.id === value);
         if (!declarant) return;
         Object.keys(removeNulls(declarant))
-        .forEach(key => formik.setFieldValue(key, declarant[key]));
+        .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
