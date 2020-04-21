@@ -1,5 +1,6 @@
 import React from "react";
 import { FormField, FormGroup } from "components/Form";
+import Transliteratable from "../../components/Transliteratable";
 import Button from "components/Button";
 import HideIf from "components/HideIf";
 
@@ -18,8 +19,8 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
 </tr>
 <tr className={`DocItem collapse ${activePuppy === j ? 'active' : ''}`}>
     <td colSpan="5">
-        <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
-        <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_name_lat`} label='Кличка латиницей'/>
+        <Transliteratable disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_name`} label='Кличка'/>
+        <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_name_lat`} label='Кличка латиницей (опционально)'/>
         <FormGroup inline>
             <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_color`} label='Окрас'/>
             <FormField disabled={cantEdit} name={`declarants[${i}].litters[${j}].dog_sex_type_id`} label='Пол' options={sexTypes} fieldType="reactSelect" placeholder="Выберите..."/>
