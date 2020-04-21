@@ -114,7 +114,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                  <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
                  <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
                  <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
-                 <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder='Заполняется автоматически' />
             </HideIf>
             <HideIf cond={!update}>
                 <FormGroup>
@@ -143,6 +142,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                     </HideIf>
                  </FormGroup>
             </HideIf>
+            <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
         <div>
             <h3>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h3>
             <table>
