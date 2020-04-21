@@ -157,6 +157,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
+            <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].application_document`}
                 label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
@@ -172,6 +173,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
                 label='Акт вязки (PDF, JPEG, JPG, PNG)'
@@ -186,6 +189,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].parent_certificate_2`}
                 label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
@@ -201,6 +206,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
             />
+            </FormGroup>
             {/*files*/}
 
             <h4>Щенки</h4>

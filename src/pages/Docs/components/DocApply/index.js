@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
+import ls from "local-storage";
 import { Redirect, Link } from "react-router-dom";
 import { Request } from "utils/request";
-import ls from "local-storage";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
-import HideIf from "components/HideIf";
-import { Form, FormGroup, FormField } from "components/Form";
+import { Form } from "components/Form";
 import DocItemList from "../DocItemList";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
-import { endpointGetFederations } from "pages/Clubs/config";
+import removeNulls from "utils/removeNulls";
+import './index.scss';
+
 import {
     emptyPedigreeDeclarant,
     emptyLitterDeclarant,
@@ -18,37 +19,21 @@ import {
     litterValidationSchema,
     pedigreeUpdateSchema,
     litterUpdateSchema,
+    apiStampCodesEndpoint,
+    apiClubDeclarantsEndpoint,
     apiPedigreeEndpoint,
-    apiLitterEndpoint,
-    apiPedigreeDoctypeEndpoint,
-    apiLitterDoctypeEndpoint,
-    apiBreedsEndpoint,
-    apiSexTypesEndpoint,
-    apiPedigreePrivacyEndpoint,
-    apiLitterPrivacyEndpoint,
-    apiVerkEndpoint,
-    apiStatusesEndpoint,
-    apiCitiesEndpoint,
-    apiLitterDogStatusEndpoint,
-    apiLitterEmptyDocument,
-    apiPedigreeStatusesEndpoint,
-    apiStampCodesEndpoint
-}from "../../config.js"
-import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
-import './index.scss';
-
-const removeNulls = o => {
-    Object.keys(o).forEach(k => {
-        if (o[k] === null) o[k] = '';
-        if (typeof(o[k]) === 'object') removeNulls(o[k]);
-    });
-    return o;
-}
+    apiLitterEndpoint
+} from "../../config.js";
 
 const DocApply = ({ clubAlias, history, distinction }) => {
+    const apiEndpoint = distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint;
+    const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
+    const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
     const [stampCodes, setStampCodes] = useState([]);
+    const [declarants, setDeclarants] = useState([]);
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+    let declarant_id = declarants && declarants[0] && declarants[0].id;
     const initialValues = {
         federation_id: '',
         last_name: '',
@@ -70,31 +55,18 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         payment_date: '',
         payment_number: '',
         payment_name: '',
-        inn: ''
+        inn: '',
+
+        full_name: '',
+        address: '',
+        subscriber_mail: '',
+        declarant_id
     };
-    const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
-    const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
-    const apiDoctypeEndpoint = distinction === "pedigree" ? apiPedigreeDoctypeEndpoint : apiLitterDoctypeEndpoint;
-    const apiPrivacyEndpoint = distinction === "pedigree" ? apiPedigreePrivacyEndpoint : apiLitterPrivacyEndpoint;
-    const apiEndpoint = distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint;
-    const apiDeclarantStatusesEndpoint = distinction === "pedigree" ? apiPedigreeStatusesEndpoint : apiStatusesEndpoint;
-    const [federations, setFederations] = useState([]);
-    const [doctypes, setDoctypes] = useState([]);
-    const [statuses, setStatuses] = useState([]);
-    const [breeds, setBreeds] = useState([]);
-    const [sexTypes, setSexTypes] = useState([]);
-    const [cities, setCities] = useState([]);
-    const [litterStatuses, setLitterStatuses] = useState([]);
-    const [privacyHref, setPrivacyHref] = useState('');
-    const [litterHref, setLitterHref] = useState('');
-    const [verkHref, setVerkHref] = useState('');
-    const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
-    const fedChange = e => setFedName(e.label);
 
     let update = false, id, view = false;
     if (history) {
@@ -134,34 +106,12 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     useEffect(() => {
         (() => Promise.all([
-            PromiseRequest(endpointGetFederations)
-            .then(data => setFederations(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name})))),
-            PromiseRequest(apiDoctypeEndpoint)
-            .then(data => setDoctypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})))),
-            PromiseRequest(apiBreedsEndpoint)
-            .then(data => setBreeds(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiSexTypesEndpoint)
-            .then(data => setSexTypes(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiDeclarantStatusesEndpoint)
-            .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
-            PromiseRequest(apiLitterDogStatusEndpoint)
-            .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiCitiesEndpoint)
-            .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            PromiseRequest(apiClubDeclarantsEndpoint)
+            .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
             PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
             .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.id, label:m.stamp_code})))),
-            fetch(apiPrivacyEndpoint, {headers})
-            .then(response => response.blob())
-            .then(data => setPrivacyHref(URL.createObjectURL(data))),
-            fetch(apiLitterEmptyDocument, {headers})
-            .then(response => response.blob())
-            .then(data => setLitterHref(URL.createObjectURL(data))),
-            fetch(apiVerkEndpoint, {headers})
-            .then(response => response.blob())
-            .then(data => setVerkHref(URL.createObjectURL(data))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
@@ -221,49 +171,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     {comment && <div className="alert alert-danger">
                         {comment}
                     </div>}
-                    <FormGroup>
-                        <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={fedChange} placeholder="Выберите..."/>
-                        <FormGroup inline>
-                            <FormField disabled={update} name='last_name' label='Фамилия заявителя' />
-                            <FormField disabled={update} name='first_name' label='Имя заявителя' />
-                        </FormGroup>
-                        <FormField disabled={update} name='second_name' label='Отчество заявителя (опционально)' />
-                        <FormGroup inline>
-                            <FormField disabled={update} name='phone' type="tel" fieldType="masked" showMask={true} mask={DEFAULT_PHONE_INPUT_MASK} label='Телефон заявителя' />
-                            <FormField disabled={update} name='email' type="email" label='Email заявителя' />
-                        </FormGroup>
-                        <p>Адрес заявителя для отправки корреспонденции</p>
-                        <FormGroup inline>
-                            <FormField disabled={update} name="index" label="Индекс" />
-                            <FormField disabled={update} name="city_id" placeholder="Начните писать..." label="Город" fieldType="reactSelect" options={cities} />
-                        </FormGroup>
-                        <FormGroup inline>
-                            <FormField disabled={update} name="street" label="Улица" />
-                            <FormField disabled={update} name="house" label="Дом" />
-                            <FormField disabled={update} name="building" label="Стр." />
-                            <FormField disabled={update} name="flat" label="Кв." />
-                        </FormGroup>
-                        <HideIf cond={!update}>
-                            <FormField disabled name='folder_number' label='Номер папки'/>
-                        </HideIf>
-                    </FormGroup>
                     <DocItemList
                         name="declarants"
-                        doctypes={doctypes}
-                        breeds={breeds}
-                        sexTypes={sexTypes}
-                        fedName={fedName}
-                        view={view}
-                        update={update}
-                        privacyHref={privacyHref}
-                        verkHref={verkHref}
-                        statuses={statuses}
-                        clubAlias={clubAlias}
-                        cash_payment={initial.cash_payment}
-                        distinction={distinction}
-                        litterStatuses={litterStatuses}
-                        litterHref={litterHref}
-                        stampCodes={stampCodes}
+                        {...{view, update, distinction, stampCodes, declarants}}
                     />
                 </Card>
             </Form>
