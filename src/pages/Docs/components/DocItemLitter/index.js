@@ -159,12 +159,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {/*files*/}
             <FormGroup inline>
             <FormFile
-                name={`declarants[${i}].application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
-                docId={declarant.application_document_id}
-                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
+                name={`declarants[${i}].parent_certificate_2`}
+                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
+                docId={declarant.parent_certificate_2_id}
+                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
                 distinction={distinction}
-                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
@@ -192,11 +191,12 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             <FormGroup inline>
             <FormFile
-                name={`declarants[${i}].parent_certificate_2`}
-                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_2_id}
-                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
+                name={`declarants[${i}].application_document`}
+                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                docId={declarant.application_document_id}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
+                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
