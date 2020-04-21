@@ -108,13 +108,12 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
             <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
-            <HideIf cond={update}>
-                <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
-                 <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
-                 <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
-                 <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
-                 <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
-            </HideIf>
+            <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
+            <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
+            <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
+            <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
+            <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
+            {/*
             <HideIf cond={!update}>
                 <FormGroup>
                     <FormGroup inline>
@@ -142,6 +141,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                     </HideIf>
                  </FormGroup>
             </HideIf>
+            */}
             <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
         <div>
             <h3>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h3>
