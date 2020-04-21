@@ -43,7 +43,13 @@ class ResponsibleTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.clubAlias, id => this.deletePerson(id));
+        return getTableColumns(
+            this.state.sortingColumns,
+            sortable,
+            this.state.clubAlias,
+            id => this.deletePerson(id),
+            id => this.setDefaultPerson(id)
+        );
     };
 
     onSelect = page => {
@@ -70,6 +76,25 @@ class ResponsibleTable extends PureComponent {
                 console.log(error.response);
             });
         }
+    }
+
+    setDefaultPerson = async id => {
+        await Request({
+            url: '/api/clubs/Declarant',
+            method: 'PUT',
+            data: JSON.stringify({id: id, is_default: true})
+        }, () => {
+            let newDefaultPerson = this.state.rows.filter(row => row.id === id)[0];
+            newDefaultPerson.is_default = true;
+            const otherPerson = this.state.rows.filter(row => row.id !== id).map(row => {
+                row.is_default = false;
+                return row;
+            });
+
+            this.setState({rows: [newDefaultPerson, ...otherPerson], pagination: {page: 1, perPage: 5}});
+        }, error => {
+            console.log(error.response);
+        });
     }
 
     render() {
