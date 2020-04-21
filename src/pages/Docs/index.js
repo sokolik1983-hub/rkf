@@ -10,6 +10,7 @@ import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
+import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
@@ -81,6 +82,12 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/:id/edit' component={() =>
+                            <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/table' component={() =>
+                            <ResponsivePersonTable clubAlias={clubAlias} history={history} />}
                         />
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route component={LoadableNotFound} />

@@ -13,6 +13,8 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
+    const path = history.location.pathname.split('/');
+    const personId = +path[path.length - 2];
     const [initialValues, setInitialValues] = useState({
         last_name: '',
         first_name: '',
@@ -29,6 +31,23 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
     });
 
     useEffect(() => {
+        if(personId) {
+            (() => Request({
+                    url: `/api/clubs/Declarant/${personId}`
+                },
+                data => {
+                    let newInitialValues = {};
+                    Object.keys(data).forEach(key => newInitialValues[key] = data[key] || initialValues[key]);
+
+                    setInitialValues(newInitialValues);
+                    setLoading(false);
+                },
+                error => {
+                    console.log(error.response);
+                    setLoading(false);
+                }))();
+        }
+
         (() => Request({
                 url: '/api/City'
             },
@@ -42,10 +61,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
             }))();
     }, []);
 
-    const transformValues = values => {
-        console.log('values', values);
-        return values;
-    };
+    const transformValues = values => personId ? {...values, id: personId} : values;
 
     return loading ?
         <Loading/> :
@@ -57,7 +73,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                 <h3>Ответственное лицо</h3>
                 <Form
                     {...ResponsibleFormConfig}
-                    method="POST"
+                    method={personId ? 'PUT' : 'POST'}
                     transformValues={transformValues}
                     onSuccess={() => setOkAlert(true)}
                     onError={() => setErrAlert(true)}
