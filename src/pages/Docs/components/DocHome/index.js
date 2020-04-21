@@ -122,10 +122,28 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
+const ResponsibleCards = ({ clubAlias }) => {
+    return <div className="documents-page__right">
+        <Card>
+            <div className="documents-page__icon" />
+            <h3>ОРГАНИЗАЦИОННАЯ ИНФОРМАЦИЯ</h3>
+            <p>
+                В данном разделе могут быть добавлены ответственные лица, уполномоченные действовать от имени клуба в части оформления и отслеживания заявок на изготовление документов.
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
+                <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
+            </div>
+        </Card>
+    </div>
+};
+
 const DocHome = ({ clubAlias }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
+                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
@@ -133,6 +151,7 @@ const DocHome = ({ clubAlias }) => {
             </CustomMenu>
         </aside>
         <Switch>
+            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} />} />
             <Route component={LoadableNotFound} />
