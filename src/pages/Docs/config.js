@@ -19,6 +19,7 @@ const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_documen
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
+const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -185,18 +186,21 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
 
 const commonValidationSchema = {
     federation_id: number().required(reqText).typeError(reqText),
+    declarant_id: number().required(reqText).typeError(reqText),
+    /*
     last_name: string().required(reqText),
     first_name: string().required(reqText),
     second_name: string(),
-    phone: string().required(reqText),
     index: string().required(reqText),
     city_id: number().required(reqText).typeError(reqText),
     street: string().required(reqText),
     house: string().required(reqText),
     building: string(),
     flat: string(),
+    phone: string().required(reqText),
     email: string().required(reqText).email(reqEmail),
-    
+    */
+
     cash_payment: boolean().required(reqText),
     payment_document: reqIfCash(),
     payment_date: reqIfCash(),
@@ -335,5 +339,6 @@ export {
     apiPedigreeEverk,
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
-    apiStampCodesEndpoint
+    apiStampCodesEndpoint,
+    apiClubDeclarantsEndpoint
 };
