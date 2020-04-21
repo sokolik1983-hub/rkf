@@ -8,6 +8,11 @@ import Alert from 'components/Alert';
 import './styles.scss';
 
 const DocumentCards = ({ clubAlias }) => {
+    const [alert, seAlert] = useState(false);
+    const handleClick = e => {
+        e.preventDefault();
+        seAlert(true);
+    };
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon" />
@@ -59,6 +64,31 @@ const DocumentCards = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
             </div>
         </Card>
+        <Card>
+            <div className="documents-page__icon" />
+            <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
+            <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
+            <hr />
+            <div className="Card__link-columns">
+                <div>
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По внутренней родословной старого образца</Link>
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По экспортной родословной старого образца</Link>
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По заявлению при смене владельца</Link>
+                </div>
+                <div>
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По родословной выданной вне системы РКФ/FCI</Link>
+                    <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По заявлению о выдаче дубликата</Link>
+                </div>
+            </div>
+        </Card>
+        {alert &&
+            <Alert
+                title="Внимание!"
+                text="В настоящее время данный раздел в разработке и будет доступен в ближайшее время. При необходимости подачи заявок данного характера - просьба пользоваться сервисом подачи заявок по электронной почте."
+                autoclose={5}
+                onOk={() => seAlert(false)}
+            />
+        }
     </div>
 };
 
@@ -92,8 +122,8 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
-const DocHome = ({ clubAlias }) => (
-    <div className="documents-page__info">
+const DocHome = ({ clubAlias }) => {
+    return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
@@ -108,6 +138,6 @@ const DocHome = ({ clubAlias }) => (
             <Route component={LoadableNotFound} />
         </Switch>
     </div>
-);
+};
 
 export default React.memo(DocHome);

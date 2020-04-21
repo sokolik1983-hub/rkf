@@ -45,5 +45,24 @@
                 }
             }
         }
+        &__link-columns {
+            display: flex;
+            flex-wrap: wrap;
+            font-weight: normal;
+            padding: 6px 0 0;
+            a {
+                text-decoration: none;
+                font-weight: 600;
+                white-space: nowrap;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 50%;
+            }
+        }
     }
 }
