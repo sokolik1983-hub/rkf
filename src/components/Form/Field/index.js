@@ -11,6 +11,7 @@ import CustomEmail from './CustomEmail'
 import CustomPhone from './CustomPhone'
 import CustomCheckbox from './FormikCheckbox'
 import ReactSelect from './ReactSelect'
+import ReactSelectCreatable from './ReactSelectCreatable'
 import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
@@ -30,7 +31,8 @@ const FIELDS = {
     file: FormFile,
     DraftJs: DraftJs,
     Field: Field,
-    reactDayPicker: ReactDayPicker
+    reactDayPicker: ReactDayPicker,
+    reactSelectCreatable: ReactSelectCreatable
 };
 
 function getField(fieldType) {
@@ -68,7 +70,7 @@ function FormField({ fieldType, className, style, disabled, readOnly, blockIfHas
                     />
                     : <Input
                         id={fieldProps.name}
-                        className={fieldType !== "reactSelect" && 'FormInput__input'}
+                        className={!["reactSelect", "reactSelectCreatable"].includes(fieldType) && 'FormInput__input'}
                         disabled={disabled || (fieldProps.value && blockIfHasValue)}
                         readOnly={readOnly}
                         {...fieldProps}
