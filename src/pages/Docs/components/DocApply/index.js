@@ -77,6 +77,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         view = x !== 'edit';
     }
     let initial = {...initialValues, ...removeNulls(values)};
+    let cash_payment = initial.cash_payment;
     const filterBySchema = (values, fields) => {
         let r = {};
         Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
@@ -173,7 +174,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment}}
                     />
                 </Card>
             </Form>
