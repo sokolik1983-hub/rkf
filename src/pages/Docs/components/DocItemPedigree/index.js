@@ -85,8 +85,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма'/>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
+                <FormField disabled={update || !!everkData} placeholder="XXX" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>
                     <Button onClick={e => {
                         let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
