@@ -33,7 +33,7 @@ const ResponsivePersonTable = ({history, clubAlias}) => {
             <div className="responsible-persons__table">
                 {declarants && !!declarants.length ?
                     <ResponsibleTable declarants={declarants} clubAlias={clubAlias}/> :
-                    <h2>Документов не найдено</h2>
+                    <h2>Ответственных лиц не найдено</h2>
                 }
             </div>
         </Card>
