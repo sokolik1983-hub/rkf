@@ -98,7 +98,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),
-    email: string().required(reqText),
+    email: string().required(reqText).email(reqEmail),
     address: string().required(reqText),
     first_name_lat: string().required(reqText),
     last_name_lat: string().required(reqText),

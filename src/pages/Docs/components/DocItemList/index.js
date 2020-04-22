@@ -31,12 +31,11 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants }) => {
+const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
     formik.errors && Object.keys(formik.errors).length && console.log(formik.errors);
-    const cash_payment = getIn(formik.values, 'cash_payment');
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
     const [federations, setFederations] = useState([]);
