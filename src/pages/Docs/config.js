@@ -11,13 +11,15 @@ const apiLitterPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_docu
 const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
 const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
+const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/PedigreeRequest/document';
 const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
-
+const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
+const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -26,6 +28,7 @@ const reqCheckbox = (x, v = true) => string().when(x, {
     then: string().required(reqText),
     otherwise: string()
 })
+const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
 const reqIfCash = () => reqCheckbox('cash_payment', false)
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
@@ -43,7 +46,8 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     dog_name_lat: string().required(reqText),
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
-    stamp_number: string().required(reqText),
+    stamp_number: numbersOnly().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     color: string().required(reqText),
 
     father_name: string().required(reqText),
@@ -95,13 +99,13 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),
-    email: string().required(reqText),
+    email: string().required(reqText).email(reqEmail),
     address: string().required(reqText),
     first_name_lat: string().required(reqText),
     last_name_lat: string().required(reqText),
     address_lat: string().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
-    stamp_number: string().required(reqText),
+    stamp_code_id: number().required(reqText).typeError(reqText),
     
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
@@ -127,10 +131,10 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     personal_data_document: string().required(reqText),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
-        dog_name_lat: string().required(reqText),
+        dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
-        stamp_number: string().required(reqText),
+        stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
@@ -167,10 +171,10 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: string().required(reqText),
+        dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
-        stamp_number: string().required(reqText),
+        stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
@@ -183,18 +187,21 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
 
 const commonValidationSchema = {
     federation_id: number().required(reqText).typeError(reqText),
+    declarant_id: number().required(reqText).typeError(reqText),
+    /*
     last_name: string().required(reqText),
     first_name: string().required(reqText),
     second_name: string(),
-    phone: string().required(reqText),
     index: string().required(reqText),
     city_id: number().required(reqText).typeError(reqText),
     street: string().required(reqText),
     house: string().required(reqText),
     building: string(),
     flat: string(),
+    phone: string().required(reqText),
     email: string().required(reqText).email(reqEmail),
-    
+    */
+
     cash_payment: boolean().required(reqText),
     payment_document: reqIfCash(),
     payment_date: reqIfCash(),
@@ -235,6 +242,7 @@ const emptyPedigreeDeclarant = {
     dog_birth_date: '',
     dog_sex_type: '',
     stamp_number: '',
+    stamp_code_id: '',
     color: '',
 
     father_name: '',
@@ -271,7 +279,7 @@ const emptyLitterDeclarant = {
     last_name_lat: '',
     address_lat: '',
     breed_id: '',
-    stamp_number: '',
+    stamp_code_id: '',
     
     father_name: '',
     father_foreign: false,
@@ -330,5 +338,8 @@ export {
     apiLitterDocumentEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeEverk,
-    apiLitterEverk
+    apiLitterEverk,
+    apiPedigreeStatusesEndpoint,
+    apiStampCodesEndpoint,
+    apiClubDeclarantsEndpoint
 };

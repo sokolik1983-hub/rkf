@@ -17,7 +17,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes }) => {
     const distinction = "pedigree";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -26,7 +26,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -34,8 +34,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = stamp_number =>
-        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}`)
+    const getEverkData = (stamp_number, stamp_code) =>
+        PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => {
                 if (!data[k]) return;
@@ -85,9 +85,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма'/>
                 <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                    <Button onClick={e => {
+                        let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
+                        if (!stamp_code) return;
+                        stamp_code = stamp_code.label;
+                        getEverkData(declarant.stamp_number, stamp_code);
+                    }}>Поиск</Button>
                 </HideIf>
                 <HideIf cond={!everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
@@ -172,12 +178,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('owner_address_lat')} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
-
-             <FormFile
+            
+            <FormFile
                 name={`declarants[${i}].biometric_card_document`}
                 label='Метрика щенка (PDF, JPEG, JPG, PNG)'
                 docId={declarant.biometric_card_document_id}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
+                distinction={distinction}
+            />
+
+            <FormFile
+                name={`declarants[${i}].request_extract_from_verk_document`}
+                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
+                docId={declarant.request_extract_from_verk_document_id}
+                disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
+                form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
                 distinction={distinction}
             />
 
@@ -190,14 +205,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 distinction={distinction}
             />
             
-            <FormFile
-                name={`declarants[${i}].request_extract_from_verk_document`}
-                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
-                docId={declarant.request_extract_from_verk_document_id}
-                disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
-                form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
-                distinction={distinction}
-            />
 
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>

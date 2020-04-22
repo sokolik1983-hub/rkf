@@ -1,4 +1,4 @@
-const declension = (n, text_forms) => {
+const declension = (n, text_forms) => { //text_forms example: ['Клуб', 'Клуба', 'Клубов']
     n = Math.abs(n) % 100;
     var n1 = n % 10;
 

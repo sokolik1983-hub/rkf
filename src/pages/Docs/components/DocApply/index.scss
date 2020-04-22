@@ -9,8 +9,11 @@
         background-color: white;
     }
     .FormGroup .btn {
-        align-self: flex-end;
+        align-self: flex-start;
         margin-bottom: 22px;
+    }
+    .FormGroup--inline .btn {
+        align-self: flex-end;
     }
     .red {
         color: #FA5D50;

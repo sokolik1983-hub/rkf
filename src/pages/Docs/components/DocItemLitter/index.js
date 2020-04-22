@@ -17,7 +17,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes }) => {
     const distinction = "litter";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -27,14 +27,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [activePuppy, setActivePuppy] = useState(0);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? declarant.status_id === 2 : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    const getEverkData = stamp_number =>
-        PromiseRequest(`${apiLitterEverk}?stamp_number=${stamp_number}`)
+    const getEverkData = stamp_code =>
+        PromiseRequest(`${apiLitterEverk}?stamp_code=${stamp_code}`)
         .then(data => {
             Object.keys(data).forEach(k => data[k] && formik.setFieldValue(`declarants[${i}].${k}`, data[k]))
             setEverkData(data);
@@ -44,7 +44,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
-        formik.setFieldValue(`declarants[${i}].stamp_number`, '');
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
@@ -80,11 +79,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Код клейма'/>
-                <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => getEverkData(declarant.stamp_number)}>Поиск</Button>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`declarants[${i}].stamp_code_id`} label='Код клейма'/>
+                <HideIf cond={true || !!everkData || update}>
+                    <Button onClick={e => {
+                        let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
+                        if (!stamp_code) return;
+                        stamp_code = stamp_code.label;
+                        getEverkData(stamp_code);
+                    }}>Поиск</Button>
                 </HideIf>
-                <HideIf cond={!everkData || update}>
+                <HideIf cond={true || !everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
@@ -153,13 +157,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
+            <FormGroup inline>
             <FormFile
-                name={`declarants[${i}].application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
-                docId={declarant.application_document_id}
-                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
+                name={`declarants[${i}].parent_certificate_2`}
+                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
+                docId={declarant.parent_certificate_2_id}
+                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
                 distinction={distinction}
-                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
@@ -168,6 +172,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
                 label='Акт вязки (PDF, JPEG, JPG, PNG)'
@@ -182,12 +188,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
             <FormFile
-                name={`declarants[${i}].parent_certificate_2`}
-                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_2_id}
-                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
+                name={`declarants[${i}].application_document`}
+                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                docId={declarant.application_document_id}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
+                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
@@ -197,6 +206,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
             />
+            </FormGroup>
             {/*files*/}
 
             <h4>Щенки</h4>
