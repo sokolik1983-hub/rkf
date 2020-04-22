@@ -28,6 +28,7 @@ const reqCheckbox = (x, v = true) => string().when(x, {
     then: string().required(reqText),
     otherwise: string()
 })
+const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
 const reqIfCash = () => reqCheckbox('cash_payment', false)
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
@@ -45,7 +46,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     dog_name_lat: string().required(reqText),
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
-    stamp_number: string().required(reqText),
+    stamp_number: numbersOnly().required(reqText),
     stamp_code_id: number().required(reqText).typeError(reqText),
     color: string().required(reqText),
 
@@ -133,7 +134,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
         dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
-        stamp_number: string().required(reqText),
+        stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
@@ -173,7 +174,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
         dog_name_lat: string(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
-        stamp_number: string().required(reqText),
+        stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
