@@ -47,7 +47,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
     stamp_number: numbersOnly().required(reqText),
-    stamp_code_id: number().required(reqText).typeError(reqText),
+    stamp_code_name: string().required(reqText),
     color: string().required(reqText),
 
     father_name: string().required(reqText),
@@ -242,7 +242,7 @@ const emptyPedigreeDeclarant = {
     dog_birth_date: '',
     dog_sex_type: '',
     stamp_number: '',
-    stamp_code_id: '',
+    stamp_code_name: '',
     color: '',
 
     father_name: '',
