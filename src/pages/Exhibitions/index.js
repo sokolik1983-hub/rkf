@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import Card from "../../components/Card";
+//import Card from "../../components/Card";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
