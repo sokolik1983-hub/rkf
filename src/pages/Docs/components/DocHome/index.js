@@ -143,8 +143,8 @@ const DocHome = ({ clubAlias }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>

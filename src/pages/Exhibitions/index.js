@@ -98,11 +98,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             <Container className="exhibitions-page content">
                 <Filters filters={filters} clubName={shorten(displayName)} />
                 <div className="exhibitions-page__content">
-                    <Card className="exhibitions-page__disclaimer">
-                        <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
-                        Для ознакомления с другими мероприятиями - просьба перейти на
-                            сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">РКФ</a></p>
-                    </Card>
+                    {/* <Card className="exhibitions-page__disclaimer"></Card> */}
                     <ListFilter alias={filters.Alias} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList
