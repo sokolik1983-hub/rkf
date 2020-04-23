@@ -30,7 +30,7 @@ function ReactSelectCreatable({
         const value = getIn(formik.values, name);
         if (options) {
             let val = options.find(option => option.label === value);
-            let id = options.reduce((a, b) => a.value < b.value ? a : b, {value:0});
+            let id = options.reduce((a, b) => a.value > b.value ? a : b, {value:0});
             return val ? val : { value: id.value + 1, label: value };
         } else {
             return "";
