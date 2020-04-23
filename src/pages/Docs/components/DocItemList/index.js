@@ -11,7 +11,6 @@ import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import { endpointGetFederations } from "pages/Clubs/config";
 import removeNulls from "utils/removeNulls";
-import { DEFAULT_PHONE_INPUT_MASK } from "appConfig";
 import test from "../../test.json";
 import Loading from "components/Loading";
 import {
@@ -25,7 +24,7 @@ import {
     apiLitterPrivacyEndpoint,
     apiVerkEndpoint,
     apiStatusesEndpoint,
-    apiCitiesEndpoint,
+    //apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeStatusesEndpoint,
@@ -43,7 +42,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
     const [statuses, setStatuses] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
-    const [cities, setCities] = useState([]);
+    //const [cities, setCities] = useState([]);
     const [litterStatuses, setLitterStatuses] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
     const [litterHref, setLitterHref] = useState('');
@@ -77,8 +76,8 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             .then(data => setStatuses(data.sort((a,b) => a.id - b.id))),
             PromiseRequest(apiLitterDogStatusEndpoint)
             .then(data => setLitterStatuses(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
-            PromiseRequest(apiCitiesEndpoint)
-            .then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
+            //PromiseRequest(apiCitiesEndpoint)
+            //.then(data => setCities(data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})))),
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
             .then(data => setPrivacyHref(URL.createObjectURL(data))),

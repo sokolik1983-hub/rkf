@@ -126,7 +126,7 @@ const ResponsibleCards = ({ clubAlias }) => {
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon" />
-            <h3>ОРГАНИЗАЦИОННАЯ ИНФОРМАЦИЯ</h3>
+            <h3>ЗАЯВИТЕЛИ</h3>
             <p>
                 В данном разделе могут быть добавлены ответственные лица, уполномоченные действовать от имени клуба в части оформления и отслеживания заявок на изготовление документов.
             </p>
@@ -143,8 +143,8 @@ const DocHome = ({ clubAlias }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
