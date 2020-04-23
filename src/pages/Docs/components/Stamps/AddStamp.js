@@ -27,9 +27,13 @@ const fields = {
 
 const AddStamp = ({ history }) => {
     const [errorAlert, setErrorAlert] = useState(false);
+    const [errorText, setErrorText] = useState('');
     const [successAlert, setSuccessAlert] = useState(false);
     const handleSusccess = () => setSuccessAlert(true);
-    const handleError = () => setErrorAlert(true);
+    const handleError = ({ response }) => {
+        setErrorText(response ? Object.values(response.data.errors).join(', ') : '');
+        setErrorAlert(true);
+    };
 
     return <Card style={{ margin: 0 }}>
         <div className="club-documents-status__head">
@@ -64,7 +68,7 @@ const AddStamp = ({ history }) => {
             {errorAlert &&
                 <Alert
                     title="Ошибка!"
-                    text="Код клейма не был добавлен"
+                    text={errorText}
                     autoclose={3}
                     onOk={() => setErrorAlert(false)}
                 />
