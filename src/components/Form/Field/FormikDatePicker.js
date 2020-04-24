@@ -10,6 +10,10 @@ function FormikDatePicker({ name, formik, disabled, readOnly, dateFormat = 'dd.M
     const value = getIn(formik.values, name);
     const onChange = date => formik.setFieldValue(name, date);
 
+    const handleDateChangeRaw = (e) => {
+        e.preventDefault();
+    }
+
     return <DatePicker
         selected={value && new Date(value)}
         onChange={date => onChange(date)}
@@ -17,7 +21,8 @@ function FormikDatePicker({ name, formik, disabled, readOnly, dateFormat = 'dd.M
         className={'FormInput__input'}
         dateFormat={dateFormat}
         disabled={!!disabled}
-        readOnly={!!readOnly}
+        onChangeRaw={readOnly && handleDateChangeRaw}
+        //readOnly={!!readOnly}
         showYearDropdown
         locale='ru'
         required

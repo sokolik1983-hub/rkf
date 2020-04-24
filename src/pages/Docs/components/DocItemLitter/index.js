@@ -27,7 +27,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [activePuppy, setActivePuppy] = useState(0);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -107,7 +107,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
+                <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' readOnly={true} fieldType="formikDatePicker"/>
             </FormGroup>
             
             <VerkParent

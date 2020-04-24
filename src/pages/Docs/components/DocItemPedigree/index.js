@@ -26,7 +26,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
-    const statusAllowsUpdate = declarant.status_id ? [2,4].includes(declarant.status_id) : true;
+    const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -113,7 +113,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="reactDayPicker" readOnly={true} />
+                <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
             </FormGroup>
             <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormGroup inline>

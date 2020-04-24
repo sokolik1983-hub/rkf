@@ -26,7 +26,9 @@ import {
 } from "../../config.js";
 
 const DocApply = ({ clubAlias, history, distinction }) => {
-    const apiEndpoint = distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint;
+    const [draft, setDraft] = useState(false);
+    const apiEndpoint = (distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint) + (draft ? '/draft/' : '');
+    //console.log(apiEndpoint);
     const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
     const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
     const [stampCodes, setStampCodes] = useState([]);
@@ -67,6 +69,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
+    const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
     if (history) {
@@ -90,21 +93,33 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         return r;
     }
     const transformValues = values => {
-        if (update) {
-            let r = filterBySchema(values, updateSchema.fields);
+        //if (update) {
+            let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
             if (!(r.payment_document instanceof File)) {
                 delete r.payment_document;
             }
             r.declarants.forEach(d => {
+                Object.keys(d).forEach(k => {
+                    if (d[k] === '') {
+                        delete d[k];
+                    }
+                });
                 if (!d.documents) return;
                 d.documents = d.documents.filter(f => !!f.document);
             });
             return r;
-        } else {
-            let r = filterBySchema(values, validationSchema.fields);
-            return r;
-        }
+        //} else {
+        //    let r = filterBySchema(values, validationSchema.fields);
+        //    return r;
+        //}
     }
+
+    const setFormValues = values => {
+        setValues(values);
+        setDraft(update && !view && values && values.status_id === 7);
+        setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
+    }
+    draft && (update = false);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
@@ -113,7 +128,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
             PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
             .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.id, label:m.stamp_code})))),
-            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setValues(values) : setRedirect('/404')) : new Promise(res => res())
+            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
             console.log(error.response);
@@ -157,7 +172,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 onSuccess={e => setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={apiEndpoint}
-                method={update ? "PUT" : "POST"}
+                method={update || draft ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
                 onSubmit={e => console.log(e)}
                 transformValues={transformValues}
@@ -174,7 +189,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate}}
                     />
                 </Card>
             </Form>
