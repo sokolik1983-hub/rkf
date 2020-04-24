@@ -103,7 +103,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].second_name`} label='Отчество заводчика (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <Transliteratable disabled={update || filledEverk('address')} name={`declarants[${i}].address`} label='Адрес заводчика'/>
+            <Transliteratable disabled={update || filledEverk('address')} name={`declarants[${i}].address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
 
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
