@@ -83,7 +83,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
-            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
+            <b><FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/></b>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
