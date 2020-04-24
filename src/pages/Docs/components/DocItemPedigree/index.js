@@ -83,7 +83,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
-            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
+            <b><FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/></b>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
@@ -110,7 +110,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца'/>
+            <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
                 <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
@@ -154,7 +154,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
             <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
-            <FormField disabled={update || filledEverk('breeder_address')} name={`declarants[${i}].breeder_address`} label='Адрес заводчика'/>
+            <FormField disabled={update || filledEverk('breeder_address')} name={`declarants[${i}].breeder_address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
 
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (опционально)'/>
             <FormField

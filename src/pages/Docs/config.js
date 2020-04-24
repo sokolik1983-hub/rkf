@@ -37,6 +37,7 @@ const idNumber = name => mixed().when(name,{
     })
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
+    id: number(),
     express: boolean().required(reqText),
     owner_first_name: string().required(reqText),
     owner_last_name: string().required(reqText),
@@ -101,6 +102,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
 }));
 
 const litterDeclarantsValidationSchema = array().of(object().shape({
+    id: number(),
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),

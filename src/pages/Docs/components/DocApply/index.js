@@ -105,7 +105,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     }
                 });
                 if (!d.documents) return;
-                d.documents = d.documents.filter(f => !!f.document);
+                d.documents.forEach(doc => {
+                    if (!doc.document) {
+                        delete doc.document;
+                    }
+                });
             });
             return r;
         //} else {
@@ -127,7 +131,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             PromiseRequest(apiClubDeclarantsEndpoint)
             .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
             PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
-            .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.id, label:m.stamp_code})))),
+            .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code})))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
         .catch(error => {
