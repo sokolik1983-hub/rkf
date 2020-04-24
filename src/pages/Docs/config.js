@@ -30,6 +30,11 @@ const reqCheckbox = (x, v = true) => string().when(x, {
 })
 const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
 const reqIfCash = () => reqCheckbox('cash_payment', false)
+const idNumber = name => mixed().when(name,{
+        is: id => id === Number(id),
+        then: mixed(),
+        otherwise: string().required(reqText)
+    })
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     express: boolean().required(reqText),
@@ -67,9 +72,9 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     email: string().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
     litter_or_request_number: string(),
-    biometric_card_document: string().required(reqText),
-    personal_data_document: string().required(reqText),
-    request_extract_from_verk_document: string().required(reqText),
+    biometric_card_document: idNumber('biometric_card_document_id'),
+    personal_data_document: idNumber('personal_data_document_id'),
+    request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id'),
     chip_number: string(),
     documents: array().of(object().shape({
         id: number(),
@@ -123,12 +128,12 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     hallmark_last_name: string().required(reqText),
     hallmark_second_name: string(),
 
-    application_document: string().required(reqText),
-    litter_diagnostic: string().required(reqText),
-    dog_mating_act: string().required(reqText),
-    parent_certificate_1: string().required(reqText),
-    parent_certificate_2: string().required(reqText),
-    personal_data_document: string().required(reqText),
+    application_document: idNumber('application_document_id'),
+    litter_diagnostic: idNumber('litter_diagnostic_id'),
+    dog_mating_act: idNumber('dog_mating_act_id'),
+    parent_certificate_1: idNumber('parent_certificate_1_id'),
+    parent_certificate_2: idNumber('parent_certificate_2_id'),
+    personal_data_document: idNumber('personal_data_document_id'),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
         dog_name_lat: string(),
@@ -186,6 +191,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
 }));
 
 const commonValidationSchema = {
+    status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
     /*
@@ -203,7 +209,19 @@ const commonValidationSchema = {
     */
 
     cash_payment: boolean().required(reqText),
-    payment_document: reqIfCash(),
+    payment_document: reqIfCash().when('payment_document_id',{
+        is: id => id === Number(id),
+        then: mixed(),
+        otherwise: string().required(reqText)
+    })/*mixed().when('payment_document_id',{
+        is: id => id === Number(id),
+        then: mixed(),
+        otherwise: mixed().when('cash_payment',{
+            is: false,
+            then: string().required(reqText),
+            otherwise: mixed()
+        }).required(reqText)
+    })*/,
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
@@ -211,6 +229,7 @@ const commonValidationSchema = {
 };
 
 const commonUpdateSchema = {
+    status_id: number(),
     id: number(),
     cash_payment: boolean(),
     payment_document: string(),
