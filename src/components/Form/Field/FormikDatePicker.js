@@ -21,7 +21,7 @@ function FormikDatePicker({ name, formik, disabled, readOnly, dateFormat = 'dd.M
         className={'FormInput__input'}
         dateFormat={dateFormat}
         disabled={!!disabled}
-        onChangeRaw={!readOnly && handleDateChangeRaw}
+        onChangeRaw={readOnly && handleDateChangeRaw}
         //readOnly={!!readOnly}
         showYearDropdown
         locale='ru'
