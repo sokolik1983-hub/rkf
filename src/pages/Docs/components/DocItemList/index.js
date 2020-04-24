@@ -30,7 +30,7 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment }) => {
+const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -100,7 +100,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         }))();
     }, []);
 
-    const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4,7].includes(d.status_id) : true);
     return loading ? <Loading/> : <FieldArray
         name="declarants"
@@ -221,7 +220,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             </FormGroup>
         </div>
         <HideIf cond={view || !canSave} className="flex-row">
-            <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',1) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
+            <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить черновик"}</Button>
             </HideIf>

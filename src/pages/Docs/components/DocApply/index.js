@@ -69,6 +69,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
+    const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
     if (history) {
@@ -116,6 +117,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const setFormValues = values => {
         setValues(values);
         setDraft(update && !view && values && values.status_id === 7);
+        setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
     draft && (update = false);
     
@@ -187,7 +189,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate}}
                     />
                 </Card>
             </Form>
