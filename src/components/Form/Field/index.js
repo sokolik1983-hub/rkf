@@ -17,6 +17,7 @@ import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
 import ReactDayPicker from './ReactDayPicker'
 import FormFile from './FormFile'
+import FormikDatePicker from './FormikDatePicker';
 
 const FIELDS = {
     textarea: TextArea,
@@ -31,7 +32,8 @@ const FIELDS = {
     file: FormFile,
     DraftJs: DraftJs,
     Field: Field,
-    reactDayPicker: ReactDayPicker,
+    reactDayPicker: ReactDayPicker, // Deprecated. Use formikDatePicker instead
+    formikDatePicker: FormikDatePicker,
     reactSelectCreatable: ReactSelectCreatable
 };
 
@@ -55,7 +57,7 @@ function FormField({ fieldType, className, style, disabled, readOnly, blockIfHas
                 { [`FormInput--${fieldProps.type}`]: fieldProps.type },
             )}
         >
-            {(fieldType !== "customCheckbox") &&<Label htmlFor={fieldProps.name} label={fieldProps.label} />}
+            {(fieldType !== "customCheckbox") && <Label htmlFor={fieldProps.name} label={fieldProps.label} />}
             {
                 isUrl
                     ? <Input
