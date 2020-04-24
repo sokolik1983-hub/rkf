@@ -220,7 +220,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             </FormGroup>
         </div>
         <HideIf cond={view || !canSave} className="flex-row">
-            <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
+            <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (!update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить черновик"}</Button>
             </HideIf>
