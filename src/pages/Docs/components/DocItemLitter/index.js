@@ -107,7 +107,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' fieldType="reactDayPicker"/>
+                <FormField disabled={update} name={`declarants[${i}].date_of_birth_litter`} label='Дата рождения помета' readOnly={true} fieldType="formikDatePicker"/>
             </FormGroup>
             
             <VerkParent
