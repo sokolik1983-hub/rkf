@@ -30,10 +30,10 @@ const reqCheckbox = (x, v = true) => string().when(x, {
 })
 const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
 const reqIfCash = () => reqCheckbox('cash_payment', false)
-const idNumber = name => mixed().when(name,{
+const idNumber = (name, o = null) => mixed().when(name,{
         is: id => id === Number(id),
         then: mixed(),
-        otherwise: string().required(reqText)
+        otherwise: o || string().required(reqText)
     })
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
@@ -58,11 +58,11 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
 
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_pedigree_document: reqCheckbox('father_foreign'),
+    father_pedigree_document: idNumber('father_pedigree_document_id', reqCheckbox('father_foreign')),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
-    mother_pedigree_document: reqCheckbox('mother_foreign'),
+    mother_pedigree_document: idNumber('mother_pedigree_document_id', reqCheckbox('mother_foreign')),
     mother_pedigree_number: string().required(reqText),
 
     breeder_first_name: string().required(reqText),
@@ -212,19 +212,7 @@ const commonValidationSchema = {
     */
 
     cash_payment: boolean().required(reqText),
-    payment_document: mixed().when('payment_document_id',{
-        is: id => id === Number(id),
-        then: mixed(),
-        otherwise: reqIfCash()
-    })/*mixed().when('payment_document_id',{
-        is: id => id === Number(id),
-        then: mixed(),
-        otherwise: mixed().when('cash_payment',{
-            is: false,
-            then: string().required(reqText),
-            otherwise: mixed()
-        }).required(reqText)
-    })*/,
+    payment_document: idNumber('payment_document_id', reqIfCash()),
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
