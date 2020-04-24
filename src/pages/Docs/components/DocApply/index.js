@@ -45,6 +45,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [declarants, setDeclarants] = useState([]);
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+    let stamp_code_name = (stampCodes && stampCodes[0]) ? stampCodes[0].label : '';
     let declarant_id = declarants && declarants[0] && declarants[0].id;
     const initialValues = {
         federation_id: '',
@@ -60,7 +61,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         flat: '',
         email: '',
         folder_number: '',
-        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id}],
+        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_name} : {...emptyLitterDeclarant, stamp_code_id}],
     
         cash_payment: false,
         payment_document: '',
