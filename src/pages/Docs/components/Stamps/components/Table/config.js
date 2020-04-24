@@ -2,39 +2,27 @@ import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
-import { Link } from "react-router-dom";
+import formatDate from 'utils/formatDate';
+import { getHeaders } from "utils/request";
 
-
-export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerson, setDefaultPerson) => {
+export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
     let cols = [
         {
-            property: 'full_name',
+            property: 'stamp_code',
             header: {
-                label: 'ФИО'
+                label: 'Код клейма'
             }
         },
         {
-            property: 'phone',
+            property: 'document_id',
             header: {
-                label: 'Телефон'
+                label: 'Свидетельство о регистрации кода клейма'
             }
         },
         {
-            property: 'email',
+            property: 'date_create',
             header: {
-                label: 'Email'
-            }
-        },
-        {
-            property: 'subscriber_mail',
-            header: {
-                label: 'Абонентский ящик'
-            }
-        },
-        {
-            property: 'address',
-            header: {
-                label: 'Адрес'
+                label: 'Дата добавления клейма'
             }
         },
         {
@@ -44,6 +32,24 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
             }
         }
     ];
+
+    const handleClick = (e, id) => {
+        e.preventDefault();
+        fetch(`/api/clubs/ClubStampCode/document?id=${id}`, {
+            method: 'GET',
+            headers: getHeaders()
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob),
+                    a = document.createElement('a');
+                a.href = url;
+                a.download = `Свидетельство о регистрации кода клейма ${id}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            });
+    };
 
     cols.map(col => {
         col.header.formatters = [
@@ -60,8 +66,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
             ]
         };
 
-        if (col.property === 'subscriber_mail') {
-            col.cell.resolve = data => data || 'не указан';
+        if (col.property === 'date_create') {
+            col.cell.resolve = data => formatDate(data, 'ru') || 'не указана';
+        }
+
+        if (col.property === 'document_id') {
+            col.cell.formatters = [id => <a href="/" onClick={e => handleClick(e, id)}>Скачать файл</a>] || 'отсутствует';
         }
 
         if (col.property === 'is_default') {
@@ -81,25 +91,9 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
                                 <li className="row-control__item">
                                     <span
                                         className="row-control__link"
-                                        onClick={() => setDefaultPerson(rowData.id)}
+                                        onClick={() => setDefaultStamp(rowData.stamp_code_id)}
                                     >
                                         Сделать по умолчанию
-                                    </span>
-                                </li>
-                                <li className="row-control__item">
-                                    <Link
-                                        to={`/${clubAlias}/documents/responsible/${rowData.id}/edit`}
-                                        className="row-control__link"
-                                    >
-                                        Редактировать
-                                    </Link>
-                                </li>
-                                <li className="row-control__item">
-                                    <span
-                                        className="row-control__link"
-                                        onClick={() => deletePerson(rowData.id)}
-                                    >
-                                        Удалить
                                     </span>
                                 </li>
                             </ul>

@@ -1,15 +1,15 @@
-import React, {PureComponent} from "react";
-import {compose} from "redux";
-import {orderBy} from "lodash";
+import React, { PureComponent } from "react";
+import { compose } from "redux";
+import { orderBy } from "lodash";
 import * as Table from "reactabular-table";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
-import {paginate, Paginator} from "../Pagination";
-import {getTableColumns} from "./config";
+import { paginate, Paginator } from "../Pagination";
+import { getTableColumns } from "./config";
 import "./index.scss";
-import {Request} from "../../../../../../utils/request";
+import { Request } from "../../../../../../utils/request";
 
 
 class StampsRegistry extends PureComponent {
@@ -17,18 +17,18 @@ class StampsRegistry extends PureComponent {
         searchQuery: {},
         searchColumn: 'all',
         sortingColumns: null,
-        pagination: {page: 1, perPage: 5},
-        clubAlias: this.props.clubAlias,
+        pagination: { page: 1, perPage: 5 },
+        profile_id: this.props.profileId,
         rows: this.props.stamps,
         columns: null
     };
 
     componentDidMount() {
-        this.setState({columns: this.getColumns()});
+        this.setState({ columns: this.getColumns() });
     };
 
     componentWillReceiveProps(nextProps) {
-        this.setState({rows: nextProps.stamps});
+        this.setState({ rows: nextProps.stamps });
     };
 
     getColumns = () => {
@@ -46,9 +46,7 @@ class StampsRegistry extends PureComponent {
         return getTableColumns(
             this.state.sortingColumns,
             sortable,
-            this.state.clubAlias,
-            id => this.deletePerson(id),
-            id => this.setDefaultPerson(id)
+            id => this.setDefaultStamp(id)
         );
     };
 
@@ -58,47 +56,33 @@ class StampsRegistry extends PureComponent {
         this.setState({ pagination: { ...this.state.pagination, page: Math.min(Math.max(page, 1), pages) } });
     };
 
-    onPerPage = value => this.setState({pagination: {...this.state.pagination, perPage: parseInt(value, 10) || 5}});
+    onPerPage = value => this.setState({ pagination: { ...this.state.pagination, perPage: parseInt(value, 10) || 5 } });
 
-    onColumnChange = searchColumn => this.setState({searchColumn});
+    onColumnChange = searchColumn => this.setState({ searchColumn });
 
-    onSearch = query => this.setState({searchQuery: query});
+    onSearch = query => this.setState({ searchQuery: query });
 
-    deletePerson = async id => {
-        if(window.confirm('Вы уверены, что хотите удалить это ответственное лицо?')) {
-            await Request({
-                url: '/api/clubs/Declarant',
-                method: 'DELETE',
-                data: JSON.stringify({id: id})
-            }, () => {
-                this.setState({rows: this.state.rows.filter(row => row.id !== id)})
-            }, error => {
-                console.log(error.response);
-            });
-        }
-    }
-
-    setDefaultPerson = async id => {
+    setDefaultStamp = async id => {
         await Request({
-            url: '/api/clubs/Declarant',
+            url: '/api/clubs/ClubStampCode/default',
             method: 'PUT',
-            data: JSON.stringify({id: id, is_default: true})
+            data: JSON.stringify({ profile_id: this.state.profile_id, stamp_code_id: id })
         }, () => {
-            let newDefaultPerson = this.state.rows.filter(row => row.id === id)[0];
-            newDefaultPerson.is_default = true;
-            const otherPerson = this.state.rows.filter(row => row.id !== id).map(row => {
+            let newDefaultStamp = this.state.rows.filter(row => row.stamp_code_id === id)[0];
+            newDefaultStamp.is_default = true;
+            const otherStamp = this.state.rows.filter(row => row.stamp_code_id !== id).map(row => {
                 row.is_default = false;
                 return row;
             });
 
-            this.setState({rows: [newDefaultPerson, ...otherPerson], pagination: {page: 1, perPage: 5}});
+            this.setState({ rows: [newDefaultStamp, ...otherStamp], pagination: { page: 1, perPage: 5 } });
         }, error => {
             console.log(error.response);
         });
     }
 
     render() {
-        const {columns, rows, sortingColumns, pagination, searchQuery, searchColumn} = this.state;
+        const { columns, rows, sortingColumns, pagination, searchQuery, searchColumn } = this.state;
 
         if (!columns) return null;
 
@@ -111,8 +95,8 @@ class StampsRegistry extends PureComponent {
 
         const paginated = compose(
             paginate(pagination),
-            search.highlighter({columns: columns, matches: search.matches, query: searchQuery}),
-            search.multipleColumns({columns: columns, query: searchQuery}),
+            search.highlighter({ columns: columns, matches: search.matches, query: searchQuery }),
+            search.multipleColumns({ columns: columns, query: searchQuery }),
             resolve.resolve({
                 columns: columns,
                 method: (extra) => compose(
@@ -137,7 +121,7 @@ class StampsRegistry extends PureComponent {
                 />
 
                 <Table.Provider className="responsible-table__table" columns={columns}>
-                    <Table.Header headerRows={resolve.headerRows({columns: columns})} />
+                    <Table.Header headerRows={resolve.headerRows({ columns: columns })} />
                     <Table.Body rows={paginated.rows} rowKey="id" />
                 </Table.Provider>
 

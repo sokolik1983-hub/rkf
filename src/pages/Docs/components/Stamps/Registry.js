@@ -6,7 +6,7 @@ import StampsRegistry from "./components/Table";
 import { Request } from "utils/request";
 import './styles.scss';
 
-const Registry = ({ history, clubAlias, profile_id }) => {
+const Registry = ({ history, profile_id }) => {
     const [loading, setLoading] = useState(true);
     const [stamps, setStamps] = useState(null);
 
@@ -24,19 +24,18 @@ const Registry = ({ history, clubAlias, profile_id }) => {
             }))();
     }, []);
 
-    return loading ?
-        <Loading /> :
-        <Card className="responsible-persons">
-            <div className="responsible-persons__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-            </div>
-            <div className="responsible-persons__table">
-                {stamps && !!stamps.length ?
-                    <StampsRegistry stamps={stamps} clubAlias={clubAlias} /> :
-                    <h2>Клейм не найдено</h2>
+    return <Card className="responsible-stamps">
+        <h3>РЕЕСТР КОДОВ КЛЕЙМ</h3>
+        {loading
+            ? <Loading />
+            : <div className="responsible-stamps__table">
+                {
+                    stamps && !!stamps.length
+                        ? <StampsRegistry stamps={stamps} profileId={profile_id} />
+                        : <h2>Клейм не найдено</h2>
                 }
-            </div>
-        </Card>
+            </div>}
+    </Card>
 };
 
 const mapStateToProps = state => ({ profile_id: state.authentication.profile_id });
