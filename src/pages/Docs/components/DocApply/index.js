@@ -25,6 +25,16 @@ import {
     apiLitterEndpoint
 } from "../../config.js";
 
+const sendAlertProps = {
+    title: "Документы отправлены",
+    text: "Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
+}
+
+const draftAlertProps = {
+    title: "Заявка сохранена",
+    text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
+}
+
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
     const apiEndpoint = (distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint) + (draft ? '/draft/' : '');
@@ -69,6 +79,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
+    const [statusId, setStatusId] = useState(1);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
@@ -94,6 +105,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     const transformValues = values => {
         //if (update) {
+            setStatusId(values.status_id);
             let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
             if (!(r.payment_document instanceof File)) {
                 delete r.payment_document;
@@ -147,8 +159,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
             <Alert
-                title="Документы отправлены"
-                text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
+                {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
                 autoclose={2.5}
                 okButton="true"
                 onOk={() => setRedirect(`/${clubAlias}/documents`)}

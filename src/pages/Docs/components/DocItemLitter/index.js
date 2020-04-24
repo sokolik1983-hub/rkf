@@ -138,10 +138,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника (опционально)'/>
-                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника (опционально)'/>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
             </FormGroup>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора клуба / владельца питомника (опционально)'/>
             
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>

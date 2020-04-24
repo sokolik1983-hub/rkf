@@ -80,7 +80,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: string().required(reqText)
+        document: idNumber('id')
     }))
 })).min(1, 'Заполните хотя бы одну заявку');
 
@@ -153,7 +153,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: string().required(reqText)
+        document: idNumber('id')
     }))
 })).min(1, 'Заполните хотя бы одну заявку');
 
