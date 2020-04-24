@@ -212,10 +212,10 @@ const commonValidationSchema = {
     */
 
     cash_payment: boolean().required(reqText),
-    payment_document: reqIfCash().when('payment_document_id',{
+    payment_document: mixed().when('payment_document_id',{
         is: id => id === Number(id),
         then: mixed(),
-        otherwise: string().required(reqText)
+        otherwise: reqIfCash()
     })/*mixed().when('payment_document_id',{
         is: id => id === Number(id),
         then: mixed(),
