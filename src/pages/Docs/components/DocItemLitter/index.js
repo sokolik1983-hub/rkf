@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect, FieldArray } from "formik";
+import { Link } from "react-router-dom";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
@@ -17,7 +18,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes, clubAlias }) => {
     const distinction = "litter";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -92,6 +93,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
+            <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
             
             <FormGroup inline>
                 <Transliteratable disabled={update} name={`declarants[${i}].last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
@@ -136,10 +138,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора / владельца питомника (опционально)'/>
-                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора / владельца питомника (опционально)'/>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
+                <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
             </FormGroup>
-            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора / владельца питомника (опционально)'/>
+            <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_second_name`} label='Отчество инструктора клуба / владельца питомника (опционально)'/>
             
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].hallmark_last_name`} label='Фамилия ответственного за клеймление'/>

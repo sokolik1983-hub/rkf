@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Alert from "components/Alert";
 import { connect, FieldArray } from "formik";
 import Button from "components/Button";
@@ -17,7 +18,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes, clubAlias }) => {
     const distinction = "pedigree";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -99,6 +100,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
+            <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
             
             <FormGroup inline>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
