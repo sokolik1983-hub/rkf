@@ -4,6 +4,7 @@ import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
+import Registry from '../Stamps/Registry';
 import Alert from 'components/Alert';
 import './styles.scss';
 
@@ -93,6 +94,11 @@ const DocumentCards = ({ clubAlias }) => {
 };
 
 const StampCards = ({ clubAlias }) => {
+    const [alert, seAlert] = useState(false);
+    const handleClick = e => {
+        e.preventDefault();
+        seAlert(true);
+    };
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon" />
@@ -103,10 +109,19 @@ const StampCards = ({ clubAlias }) => {
             <hr />
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-                <Link to={`/${clubAlias}/documents/stamps/registry`}>Реестр кодов клейм</Link>
+                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
+                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
             </div>
-
+            {alert &&
+                <Alert
+                    title="Внимание!"
+                    text="Раздел находится в разработке."
+                    autoclose={1.5}
+                    onOk={() => seAlert(false)}
+                />
+            }
         </Card>
+        <Registry />
     </div>
 };
 
