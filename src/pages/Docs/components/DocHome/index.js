@@ -4,6 +4,7 @@ import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
+import Registry from '../Stamps/Registry';
 import Alert from 'components/Alert';
 import './styles.scss';
 
@@ -108,7 +109,8 @@ const StampCards = ({ clubAlias }) => {
             <hr />
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр кодов клейм</Link>
+                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
+                <Link to={`/${clubAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
             </div>
             {alert &&
                 <Alert
@@ -119,6 +121,7 @@ const StampCards = ({ clubAlias }) => {
                 />
             }
         </Card>
+        <Registry />
     </div>
 };
 
