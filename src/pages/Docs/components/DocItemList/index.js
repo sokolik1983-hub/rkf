@@ -30,11 +30,12 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment }) => {
+const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
-    formik.errors && Object.keys(formik.errors).length && console.log(formik.errors);
+    formik.errors && Object.keys(formik.errors).length && console.log("errors",formik.errors);
+    //formik.values && Object.keys(formik.values).length && console.log("values",formik.values);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
     const [federations, setFederations] = useState([]);
@@ -99,14 +100,14 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         }))();
     }, []);
 
-    const statusAllowsUpdate = formik.values.status_id ? [2,4].includes(formik.values.status_id) : true;
-    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4].includes(d.status_id) : true);
+    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4,7].includes(d.status_id) : true);
     return loading ? <Loading/> : <FieldArray
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
             <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
+            <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
             <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
             <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
             <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
@@ -178,6 +179,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                         statuses={statuses}
                         litterStatuses={litterStatuses}
                         stampCodes={stampCodes}
+                        clubAlias={clubAlias}
                     />)}
                 </tbody>
             </table>
@@ -209,7 +211,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                             distinction={distinction}
                         />
 
-                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' fieldType="reactDayPicker" readOnly={true} />
+                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
                         <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>
@@ -220,7 +222,10 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             </FormGroup>
         </div>
         <HideIf cond={view || !canSave} className="flex-row">
-            <Button className="btn-green" type="submit" disabled={formik.isSubmitting}>{formik.isSubmitting ? "Идет отправка..." : "Сохранить"}</Button>
+            <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (!update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? (formik.values && formik.values.status_id !== 7 ? "Идет отправка..." : "Сохранение...") : "Отправить"}</Button>
+            <HideIf cond={update}>
+                <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
+            </HideIf>
             <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
         </HideIf>
     </>}
