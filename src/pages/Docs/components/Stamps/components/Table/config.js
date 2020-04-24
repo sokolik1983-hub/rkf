@@ -33,9 +33,12 @@ export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
         }
     ];
 
-    const handleClick = (e, id) => {
+    const handleClick = async (e, id) => {
         e.preventDefault();
-        fetch(`/api/clubs/ClubStampCode/document?id=${id}`, {
+        let el = e.target;
+        el.className = 'stamp-loading';
+        el.innerText = 'Загрузка...';
+        await fetch(`/api/clubs/ClubStampCode/document?id=${id}`, {
             method: 'GET',
             headers: getHeaders()
         })
@@ -49,6 +52,8 @@ export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
                 a.click();
                 a.remove();
             });
+        el.innerText = 'Скачать файл';
+        el.className = '';
     };
 
     cols.map(col => {
