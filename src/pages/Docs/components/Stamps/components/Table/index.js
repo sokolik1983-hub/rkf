@@ -122,7 +122,7 @@ class StampsRegistry extends PureComponent {
 
                 <Table.Provider className="responsible-table__table" columns={columns}>
                     <Table.Header headerRows={resolve.headerRows({ columns: columns })} />
-                    <Table.Body rows={paginated.rows} rowKey="id" />
+                    <Table.Body rows={paginated.rows} rowKey="stamp_code_id" />
                 </Table.Provider>
 
                 <Paginator

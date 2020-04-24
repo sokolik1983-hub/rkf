@@ -6,7 +6,7 @@ import StampsRegistry from "./components/Table";
 import { Request } from "utils/request";
 import './styles.scss';
 
-const Registry = ({ history, profile_id }) => {
+const Registry = ({ profile_id }) => {
     const [loading, setLoading] = useState(true);
     const [stamps, setStamps] = useState(null);
 
