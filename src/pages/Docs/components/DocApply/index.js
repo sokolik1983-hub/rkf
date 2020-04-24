@@ -193,7 +193,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias}}
                     />
                 </Card>
             </Form>

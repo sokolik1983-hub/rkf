@@ -107,6 +107,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             {redirect && <Redirect to={redirect}/>}
             <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
+            <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
             <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
             <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
             <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
@@ -178,6 +179,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                         statuses={statuses}
                         litterStatuses={litterStatuses}
                         stampCodes={stampCodes}
+                        clubAlias={clubAlias}
                     />)}
                 </tbody>
             </table>
