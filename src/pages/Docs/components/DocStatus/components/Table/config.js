@@ -12,8 +12,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
             property: 'date_create',
             header: {
                 label: 'Дата регистрации'
-            },
-            footer: () => 'Итого:'
+            }
         },
         {
             property: 'federation_name',
@@ -78,7 +77,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         Подробнее
                                     </Link>
                                 </li>
-                                {rowData.status_id === 1 &&
+                                {(rowData.status_id === 1 || rowData.status_id === 4) &&
                                     <li className="row-control__item">
                                         <Link
                                             to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
