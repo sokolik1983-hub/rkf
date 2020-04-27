@@ -25,7 +25,12 @@ function ReactSelectCreatable({
         formik.setFieldValue(name, value.label);
         onChange && onChange(value.label);
     }
-    const onBlur = () => formik.setFieldTouched(name)
+    const onBlur = e => {
+        let x = e && e.currentTarget && e.currentTarget.value;
+        let v = getIn(formik.values, name);
+        x && (x !== v) && formik.setFieldValue(name, x.toUpperCase());
+        formik.setFieldTouched(name);
+    }
     const getValue = () => {
         const value = getIn(formik.values, name);
         if (options) {
@@ -54,7 +59,7 @@ function ReactSelectCreatable({
             defaultValue={defaultValue}
             isSearchable
             classNamePrefix={"RSInput"}
-            formatCreateLabel={inputValue => `Создать "${inputValue}"`}
+            formatCreateLabel={inputValue => `Добавить "${inputValue}" как код стороннего клуба`}
         />
     )
 }
