@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import Disclaimer from "components/Disclaimer";
+import Disclaimer from "../../components/Disclaimer";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
@@ -38,7 +38,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
         return () => unListen();
     }, []);
-
 
     const getExhibitions = async (url) => {
         setExhibitionsLoading(true);
@@ -103,7 +102,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                             Инструкция по использованию фильтров в календаре мероприятий
                         </a>
                     </Disclaimer>
-                    <ListFilter alias={filters.Alias} />
+                    <ListFilter categoryId={filters.CategoryId} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList
                         exhibitions={exhibitions}
