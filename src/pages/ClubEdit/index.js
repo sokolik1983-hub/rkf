@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {withRouter} from "react-router";
-import {compose} from "redux";
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router";
+import { compose } from "redux";
 import ClubInfo from "./components/ClubInfo";
 import EditPageButtons from "./components/EditPageButtons";
 import ClubHeaderPicture from "./components/ClubHeaderPicture";
@@ -10,21 +10,22 @@ import ClubLegalInfo from "./components/ClubLegalInfo";
 import ClubBankInfo from "./components/ClubBankInfo";
 import ClubContacts from "./components/ClubContacts";
 import ClubDocuments from "./components/ClubDocuments";
+import Disclaimer from "components/Disclaimer";
 import AuthOrLogin from "../../apps/Auth/containers/AuthOrLogin";
 import Card from "../../components/Card";
 import Header from "../../components/Layouts/Header";
 import Container from "../../components/Layouts/Container";
-import {defaultReduxKey, endpointUrl} from "./config";
-import {connectClientClubAlias} from "./connectors";
+import { defaultReduxKey, endpointUrl } from "./config";
+import { connectClientClubAlias } from "./connectors";
 import reducer from "./reducer";
-import {useResourceAndStoreToRedux} from "../../shared/hooks";
+import { useResourceAndStoreToRedux } from "../../shared/hooks";
 import injectReducer from "../../utils/injectReducer";
 import "./styles.scss";
 
 
 let unblock;
 
-const ClubEditPage = ({club_alias, club_id, is_federation, is_active_profile, history, getClubSuccess}) => {
+const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, history, getClubSuccess }) => {
     //Всё это один большой костыль! Предполагается это исправить, когда будет 1 форма вместо 10
     let [serverErrors, setErrors] = useState({});
     let [isSubmit, setIsSubmit] = useState(false);
@@ -195,11 +196,16 @@ const ClubEditPage = ({club_alias, club_id, is_federation, is_active_profile, hi
         <Container className="content">
             <div className="ClubEditPage">
                 <h2>Личный кабинет</h2>
+                <Disclaimer>
+                    <a className="Disclaimer__support-link" href="http://support.rkf.online/%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%86%d0%b8%d1%8f-%d0%bf%d0%be-%d1%80%d0%b5%d0%b4%d0%b0%d0%ba%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8e-%d0%bf%d1%80%d0%be%d1%84%d0%b8%d0%bb-2/" target="_blank" rel="noopener noreferrer">
+                        Инструкция по редактированию профиля клуба
+                    </a>
+                </Disclaimer>
                 <Card className="ClubEditPage__about">
                     <ClubInfo bindSubmitClubAlias={bindSubmitClubAlias}
-                              bindSubmitClubLogo={bindSubmitClubLogo}
-                              bindSubmitClubInfo={bindSubmitClubInfo}
-                              isFederation={is_federation}
+                        bindSubmitClubLogo={bindSubmitClubLogo}
+                        bindSubmitClubInfo={bindSubmitClubInfo}
+                        isFederation={is_federation}
                     />
                 </Card>
                 <Card className="ClubEditPage__schedule">
@@ -214,7 +220,7 @@ const ClubEditPage = ({club_alias, club_id, is_federation, is_active_profile, hi
                 <Card className="ClubEditPage__contacts">
                     <h3>Контакты</h3>
                     <ClubContacts bindSubmitClubEmail={bindSubmitClubEmail}
-                                  bindSubmitClubPhone={bindSubmitClubPhone}
+                        bindSubmitClubPhone={bindSubmitClubPhone}
                     />
                 </Card>
                 <Card className="ClubEditPage__documents">
