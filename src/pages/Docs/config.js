@@ -23,19 +23,26 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
-const reqCheckbox = (x, v = true) => string().when(x, {
+const reqCheckbox = (x, v = true, o = null) => mixed().when(x, {
     is: v,
-    then: string().required(reqText),
-    otherwise: string()
+    then: (o || mixed()).required(reqText),
+    otherwise: o || mixed()
 })
 const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
-const reqIfCash = () => reqCheckbox('cash_payment', false)
+const reqIfCash = o => reqCheckbox('cash_payment', false, o)
 const idNumber = (name, o = null) => mixed().when(name,{
         is: id => id === Number(id),
-        then: mixed(),
-        otherwise: o || string().required(reqText)
+        then: o || mixed(),
+        otherwise: (o || mixed()).required(reqText)
     })
 const lat = () => string().matches(/^[^а-я]*$/ig, {message:'Поле заполняется латиницей'})
+const file = () => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
+        f => (f && [
+            "image/png",
+            "image/jpeg",
+            "application/pdf"
+        ].includes(f.type)) || !f
+    )
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
@@ -59,11 +66,11 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
 
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_pedigree_document: idNumber('father_pedigree_document_id', reqCheckbox('father_foreign')),
+    father_pedigree_document: idNumber('father_pedigree_document_id', reqCheckbox('father_foreign', true, file())),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
-    mother_pedigree_document: idNumber('mother_pedigree_document_id', reqCheckbox('mother_foreign')),
+    mother_pedigree_document: idNumber('mother_pedigree_document_id', reqCheckbox('mother_foreign', true, file())),
     mother_pedigree_number: string().required(reqText),
 
     breeder_first_name: string().required(reqText),
@@ -74,23 +81,23 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     email: lat().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
     litter_or_request_number: string(),
-    biometric_card_document: idNumber('biometric_card_document_id'),
-    personal_data_document: idNumber('personal_data_document_id'),
-    request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id'),
+    biometric_card_document: idNumber('biometric_card_document_id', file()),
+    personal_data_document: idNumber('personal_data_document_id', file()),
+    request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id', file()),
     chip_number: string(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: idNumber('id')
+        document: idNumber('id', file())
     }))
 })).min(1, 'Заполните хотя бы одну заявку');
 
 const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     id: number(),
     declarant_uid: string(),
-    biometric_card_document: string(),
-    personal_data_document: string(),
-    request_extract_from_verk_document: string(),
+    biometric_card_document: file(),
+    personal_data_document: file(),
+    request_extract_from_verk_document: file(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -98,7 +105,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
             then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
-        document: string()
+        document: file()
     }))
 }));
 
@@ -131,12 +138,12 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     hallmark_last_name: string().required(reqText),
     hallmark_second_name: string(),
 
-    application_document: idNumber('application_document_id'),
-    litter_diagnostic: idNumber('litter_diagnostic_id'),
-    dog_mating_act: idNumber('dog_mating_act_id'),
-    parent_certificate_1: idNumber('parent_certificate_1_id'),
-    parent_certificate_2: idNumber('parent_certificate_2_id'),
-    personal_data_document: idNumber('personal_data_document_id'),
+    application_document: idNumber('application_document_id', file()),
+    litter_diagnostic: idNumber('litter_diagnostic_id', file()),
+    dog_mating_act: idNumber('dog_mating_act_id', file()),
+    parent_certificate_1: idNumber('parent_certificate_1_id', file()),
+    parent_certificate_2: idNumber('parent_certificate_2_id', file()),
+    personal_data_document: idNumber('personal_data_document_id', file()),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
         dog_name_lat: lat(),
@@ -154,19 +161,19 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: idNumber('id')
+        document: idNumber('id', file())
     }))
 })).min(1, 'Заполните хотя бы одну заявку');
 
 const litterDeclarantsUpdateSchema = array().of(object().shape({
     id: number(),
     declarant_uid: string(),
-    application_document: string(),
-    litter_diagnostic: string(),
-    dog_mating_act: string(),
-    parent_certificate_1: string(),
-    parent_certificate_2: string(),
-    personal_data_document: string(),
+    application_document: file(),
+    litter_diagnostic: file(),
+    dog_mating_act: file(),
+    parent_certificate_1: file(),
+    parent_certificate_2: file(),
+    personal_data_document: file(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -174,7 +181,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
             then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
-        document: string()
+        document: file()
     })),
     litters: array().of(object().shape({
         id: number(),
@@ -213,7 +220,7 @@ const commonValidationSchema = {
     */
 
     cash_payment: boolean().required(reqText),
-    payment_document: idNumber('payment_document_id', reqIfCash()),
+    payment_document: idNumber('payment_document_id', reqIfCash(file())),
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
@@ -224,7 +231,7 @@ const commonUpdateSchema = {
     status_id: number(),
     id: number(),
     cash_payment: boolean(),
-    payment_document: string(),
+    payment_document: file(),
     payment_date: string(),
     payment_number: string(),
     payment_name: string(),
