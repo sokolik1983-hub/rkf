@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import HideIf from "components/HideIf";
-import Button from "components/Button";
 import './index.scss';
 
 const ResponsibleContactInfo = props => {

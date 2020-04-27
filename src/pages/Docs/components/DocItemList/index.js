@@ -4,7 +4,6 @@ import { Request } from "utils/request";
 import { Redirect, Link } from "react-router-dom";
 import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
-import CustomCheckbox from "components/Form/CustomCheckbox"
 import { connect, FieldArray, getIn } from "formik";
 import PlusButton from "components/PlusButton";
 import FormFile from "../../components/FormFile";
@@ -52,7 +51,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
     const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
-    const [hideResponsible, setHideResponsible] = useState(true);
     const [redirect, setRedirect] = useState(false);
     
     const apiDoctypeEndpoint = distinction === "pedigree" ? apiPedigreeDoctypeEndpoint : apiLitterDoctypeEndpoint;
