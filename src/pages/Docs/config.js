@@ -1,4 +1,5 @@
 import { object, string, array, number, boolean, mixed } from "yup";
+import fileType from "file-type/browser";
 
 const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
 const apiLitterEndpoint = '/api/requests/LitterRequest';
@@ -37,11 +38,11 @@ const idNumber = (name, o = null) => mixed().when(name,{
     })
 const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
 const file = () => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
-        f => (f && [
+        (async f => (f instanceof File) && [
             "image/png",
             "image/jpeg",
             "application/pdf"
-        ].includes(f.type)) || !f
+        ].includes(await fileType.fromBlob(f).then(x => x.mime).catch(e => undefined)))
     )
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
