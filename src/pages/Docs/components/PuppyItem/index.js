@@ -8,10 +8,10 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
     let sex = sexTypes && sexTypes.find(f => f.value === puppy.dog_sex_type_id);
     sex = sex ? sex.label : '';
     return <>
-<tr className={`DocItem ${error ? 'error' : ''}`} onClick={activateClick}>
+<tr className={`DocItem caps ${error ? 'error' : ''}`} onClick={activateClick}>
     <td>{puppy.dog_name}</td>
     <td>{puppy.dog_color}</td>
-    <td>{sex}</td>
+    <td className="no-caps">{sex}</td>
     <td>{puppy.stamp_number}</td>
     <td>
         <img className={`DocItem__chevron ${activePuppy === j ? 'active' : ''}`} src="/static/icons/chevron_left.svg" alt=""/>
