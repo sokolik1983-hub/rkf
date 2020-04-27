@@ -1,4 +1,5 @@
 import { object, string, array, number, boolean, mixed } from "yup";
+import fileType from "file-type/browser";
 
 const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
 const apiLitterEndpoint = '/api/requests/LitterRequest';
@@ -35,13 +36,13 @@ const idNumber = (name, o = null) => mixed().when(name,{
         then: o || mixed(),
         otherwise: (o || mixed()).required(reqText)
     })
-const lat = () => string().matches(/^[^а-я]*$/ig, {message:'Поле заполняется латиницей'})
+const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
 const file = () => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
-        f => (f && [
+        (async f => (f instanceof File) && [
             "image/png",
             "image/jpeg",
             "application/pdf"
-        ].includes(f.type)) || !f
+        ].includes(await fileType.fromBlob(f).then(x => x.mime).catch(e => undefined)))
     )
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
@@ -224,7 +225,7 @@ const commonValidationSchema = {
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
-    inn: numbersOnly().length(11, 'Номер ИНН состоит из 11 цифр')
+    inn: numbersOnly().length(10, 'Номер ИНН состоит из 10 цифр')
 };
 
 const commonUpdateSchema = {
@@ -235,7 +236,7 @@ const commonUpdateSchema = {
     payment_date: string(),
     payment_number: string(),
     payment_name: string(),
-    inn: numbersOnly().length(11, 'Номер ИНН состоит из 11 цифр')
+    inn: numbersOnly().length(10, 'Номер ИНН состоит из 10 цифр')
 };
 
 const pedigreeValidationSchema = object().shape({...commonValidationSchema, declarants: pedigreeDeclarantsValidationSchema});
