@@ -35,6 +35,7 @@ const idNumber = (name, o = null) => mixed().when(name,{
         then: mixed(),
         otherwise: o || string().required(reqText)
     })
+const lat = () => string().matches(/^[^а-я]*$/ig, {message:'Поле заполняется латиницей'})
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
@@ -43,13 +44,13 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     owner_last_name: string().required(reqText),
     owner_second_name: string(),
     owner_address: string().required(reqText),
-    owner_address_lat: string().required(reqText),
-    owner_first_name_lat: string().required(reqText),
-    owner_last_name_lat: string().required(reqText),
+    owner_address_lat: lat().required(reqText),
+    owner_first_name_lat: lat().required(reqText),
+    owner_last_name_lat: lat().required(reqText),
 
     breed_id: number().required(reqText).typeError(reqText),
     dog_name: string().required(reqText),
-    dog_name_lat: string().required(reqText),
+    dog_name_lat: lat().required(reqText),
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
     stamp_number: numbersOnly().required(reqText),
@@ -70,7 +71,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     breeder_second_name: string(),
     breeder_address: string().required(reqText),
 
-    email: string().required(reqText).email(reqEmail),
+    email: lat().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
     litter_or_request_number: string(),
     biometric_card_document: idNumber('biometric_card_document_id'),
@@ -106,11 +107,11 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     first_name: string().required(reqText),
     last_name: string().required(reqText),
     second_name: string(),
-    email: string().required(reqText).email(reqEmail),
+    email: lat().required(reqText).email(reqEmail),
     address: string().required(reqText),
-    first_name_lat: string().required(reqText),
-    last_name_lat: string().required(reqText),
-    address_lat: string().required(reqText),
+    first_name_lat: lat().required(reqText),
+    last_name_lat: lat().required(reqText),
+    address_lat: lat().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
     stamp_code_id: number().required(reqText).typeError(reqText),
     
@@ -138,7 +139,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     personal_data_document: idNumber('personal_data_document_id'),
     litters: array().of(object().shape({
         dog_name: string().required(reqText),
-        dog_name_lat: string(),
+        dog_name_lat: lat(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
@@ -178,7 +179,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: string(),
+        dog_name_lat: lat(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
@@ -216,7 +217,7 @@ const commonValidationSchema = {
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
-    inn: string()
+    inn: numbersOnly().length(11, 'Номер ИНН состоит из 11 цифр')
 };
 
 const commonUpdateSchema = {
@@ -227,7 +228,7 @@ const commonUpdateSchema = {
     payment_date: string(),
     payment_number: string(),
     payment_name: string(),
-    inn: string()
+    inn: numbersOnly().length(11, 'Номер ИНН состоит из 11 цифр')
 };
 
 const pedigreeValidationSchema = object().shape({...commonValidationSchema, declarants: pedigreeDeclarantsValidationSchema});
