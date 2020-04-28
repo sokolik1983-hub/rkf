@@ -6,10 +6,9 @@ import * as signalR from "@microsoft/signalr";
 const SignalR = () => {
     const [alert, setAlert] = useState(false);
     const [message, setMessage] = useState('');
-
-    const hubUrl = isDevEnv
+    const hubUrl = isDevEnv()
         ? 'http://dev.uep24.ru/api/hubs/deploy_hub'
-        : 'http://rkf.online/api/hubs/deploy_hub';
+        : 'https://rkf.online/api/hubs/deploy_hub';
 
     useEffect(() => {
         const connection = new signalR.HubConnectionBuilder()
