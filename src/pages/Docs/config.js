@@ -26,7 +26,7 @@ const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
 const reqCheckbox = (x, v = true, o = null) => mixed().when(x, {
     is: v,
-    then: (o || mixed()).required(reqText),
+    then: o || mixed().required(reqText),
     otherwise: mixed()
 })
 const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
@@ -37,16 +37,17 @@ const idNumber = (name, o = null) => mixed().when(name,{
         otherwise: (o || mixed()).required(reqText)
     })
 const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
-const file = () => string()/*mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
+const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
         (async f => (f instanceof File) && [
             "image/png",
             "image/jpeg",
             "application/pdf"
-        ].includes(await fileType.fromBlob(f).then(x => x.mime).catch(e => undefined)) || !f)
+        ].includes(await (fileType.fromBlob(f).then(x => x.mime).catch(e => e))) || !f)
     )
-
-console.log(file().validate(""))//console.log(file().validateSync("1234"))//, lat().validateSync("123"), idNumber("id", reqIfCash(file())).validateSync("123"))
+window.ft = fileType
 */
+//console.log(file().validate(""))//console.log(file().validateSync("1234"))//, lat().validateSync("123"), idNumber("id", reqIfCash(file())).validateSync("123"))
+
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
     express: boolean().required(reqText),
