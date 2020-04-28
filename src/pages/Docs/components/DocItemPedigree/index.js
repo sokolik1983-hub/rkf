@@ -65,15 +65,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <tr className={`DocItem ${error ? 'error' : ''}`}>
+    <tr onClick={activateClick} className={`DocItem caps ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
-        <td><i>{status}</i></td>
+        <td className="no-caps"><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
         <td>{declarant.documents ? declarant.documents.length + docConst : docConst}</td>
         <td>
-        <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
+        <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>
         </td>
     </tr>
     <tr className={`DocItem collapse ${active && 'active'}`}>
