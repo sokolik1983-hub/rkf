@@ -27,7 +27,7 @@ const reqEmail = 'Необходимо ввести email';
 const reqCheckbox = (x, v = true, o = null) => mixed().when(x, {
     is: v,
     then: (o || mixed()).required(reqText),
-    otherwise: o || mixed()
+    otherwise: mixed()
 })
 const numbersOnly = () => string().matches(/^\d+$/, {message:'Можно использовать только цифры'})
 const reqIfCash = o => reqCheckbox('cash_payment', false, o)
@@ -37,14 +37,16 @@ const idNumber = (name, o = null) => mixed().when(name,{
         otherwise: (o || mixed()).required(reqText)
     })
 const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
-const file = () => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
+const file = () => string()/*mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
         (async f => (f instanceof File) && [
             "image/png",
             "image/jpeg",
             "application/pdf"
-        ].includes(await fileType.fromBlob(f).then(x => x.mime).catch(e => undefined)))
+        ].includes(await fileType.fromBlob(f).then(x => x.mime).catch(e => undefined)) || !f)
     )
 
+console.log(file().validate(""))//console.log(file().validateSync("1234"))//, lat().validateSync("123"), idNumber("id", reqIfCash(file())).validateSync("123"))
+*/
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
     express: boolean().required(reqText),
@@ -67,11 +69,11 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
 
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_pedigree_document: idNumber('father_pedigree_document_id', reqCheckbox('father_foreign', true, file())),
+    father_pedigree_document: reqCheckbox('father_foreign', true, idNumber('father_pedigree_document_id', file())),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
-    mother_pedigree_document: idNumber('mother_pedigree_document_id', reqCheckbox('mother_foreign', true, file())),
+    mother_pedigree_document: reqCheckbox('mother_foreign', true, idNumber('mother_pedigree_document_id', file())),
     mother_pedigree_number: string().required(reqText),
 
     breeder_first_name: string().required(reqText),
@@ -221,7 +223,7 @@ const commonValidationSchema = {
     */
 
     cash_payment: boolean().required(reqText),
-    payment_document: idNumber('payment_document_id', reqIfCash(file())),
+    payment_document: reqIfCash(idNumber('payment_document_id', file())),
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
