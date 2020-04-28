@@ -19,6 +19,7 @@ const SignalR = () => {
                     transport: signalR.HttpTransportType.WebSockets
                 }
             )
+            .withAutomaticReconnect()
             //.configureLogging(signalR.LogLevel.Debug)
             .build();
 
@@ -28,7 +29,7 @@ const SignalR = () => {
         });
 
         connection.start()
-            .then(() => console.log('Connection started!'))
+            //.then(() => console.log(connection))
             .catch(() => console.log('Error while establishing connection :('));
     }, []);
 
