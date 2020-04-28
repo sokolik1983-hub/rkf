@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Alert from 'components/Alert';
+import { isDevEnv } from 'utils';
 import * as signalR from "@microsoft/signalr";
 
 const SignalR = () => {
     const [alert, setAlert] = useState(false);
     const [message, setMessage] = useState('');
 
+    const hubUrl = isDevEnv
+        ? 'http://dev.uep24.ru/api/hubs/deploy_hub'
+        : 'http://rkf.online/api/hubs/deploy_hub';
+
     useEffect(() => {
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl('http://dev.uep24.ru/api/hubs/deploy_hub',
+            .withUrl(hubUrl,
                 {
                     skipNegotiation: true,
                     transport: signalR.HttpTransportType.WebSockets
                 }
             )
-            .configureLogging(signalR.LogLevel.Debug)
+            //.configureLogging(signalR.LogLevel.Debug)
             .build();
 
         connection.on("display_notification", data => {
