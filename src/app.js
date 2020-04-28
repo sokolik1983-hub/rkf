@@ -7,6 +7,7 @@ import configureStore from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import history from "./utils/history";
 import ScrollToTop from "./utils/ScrollToTop";
+import SignalR from 'components/SignalR';
 
 
 //Store
@@ -17,6 +18,7 @@ ReactDOM.render(
         <ConnectedRouter history={history}>
             <ScrollToTop>
                 <App/>
+                <SignalR />
             </ScrollToTop>
         </ConnectedRouter>
     </Provider>,
