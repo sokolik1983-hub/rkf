@@ -60,9 +60,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <tr className={`DocItem ${error ? 'error' : ''}`}>
+    <tr className={`DocItem caps ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
-        <td><i>{status}</i></td>
+        <td className="no-caps"><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>

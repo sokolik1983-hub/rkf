@@ -1,4 +1,10 @@
 .DocApply {
+    & input, & .caps {
+        text-transform: uppercase;
+    }
+    & .no-caps {
+        text-transform: none;
+    }
     .FormInput__custom-error, .FormInput__error {
         color: #FA5D50;
         position: absolute;

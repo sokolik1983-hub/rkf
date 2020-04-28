@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-//import Card from "../../components/Card";
+import Disclaimer from "../../components/Disclaimer";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
@@ -38,7 +38,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
         return () => unListen();
     }, []);
-
 
     const getExhibitions = async (url) => {
         setExhibitionsLoading(true);
@@ -98,8 +97,12 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             <Container className="exhibitions-page content">
                 <Filters filters={filters} clubName={shorten(displayName)} />
                 <div className="exhibitions-page__content">
-                    {/* <Card className="exhibitions-page__disclaimer"></Card> */}
-                    <ListFilter alias={filters.Alias} />
+                    <Disclaimer>
+                        <a className="Disclaimer__support-link" href="http://support.rkf.online/%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%86%d0%b8%d1%8f-%d0%bf%d0%be-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8e-%d1%84%d0%b8%d0%bb%d1%8c%d1%82%d1%80%d0%be-2/" target="_blank" rel="noopener noreferrer">
+                            Инструкция по календарю мероприятий
+                        </a>
+                    </Disclaimer>
+                    <ListFilter categoryId={filters.CategoryId} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList
                         exhibitions={exhibitions}

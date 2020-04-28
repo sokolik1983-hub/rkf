@@ -9,6 +9,7 @@ import PlusButton from "components/PlusButton";
 import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
+import ResponsibleContactInfo from "../../components/ResponsibleContactInfo";
 import { endpointGetFederations } from "pages/Clubs/config";
 import removeNulls from "utils/removeNulls";
 import test from "../../test.json";
@@ -108,10 +109,13 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
             <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
-            <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
-            <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
-            <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
-            <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
+            <ResponsibleContactInfo>
+                <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
+                <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
+                <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
+                <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
+                <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
+            </ResponsibleContactInfo>
             {/*
             <HideIf cond={!update}>
                 <FormGroup>
@@ -141,7 +145,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                  </FormGroup>
             </HideIf>
             */}
-            <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
         <div>
             <h4>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h4>
             <table>

@@ -1,0 +1,17 @@
+.Disclaimer {
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    &__support-link {
+        text-decoration: none;
+        margin-bottom: 10px;
+        background: url("/static/icons/registration/info.svg") left center/contain no-repeat;
+        padding-left: 25px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    @media (max-width: 560px) {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
