@@ -92,7 +92,10 @@ export const ResponsibleFormConfig = {
         phone: string().required('Укажите телефон'),
         email: string().required('Укажите email').email('Неверный формат email'),
         subscriber_mail: string(),
-        index: string().required('Укажите индекс'),
+        index: string().required('Укажите индекс')
+            .matches(/\d/g, 'Индекс должен состоять только из цифр')
+            .max(6, 'Индекс не должен превышать 6 цифр')
+            .min(5, 'Введите минимум 5 цифр'),
         city_id: number().required('Укажите город').typeError('Укажите город'),
         street: string().required('Укажите улицу'),
         house: string().required('Укажите дом'),
