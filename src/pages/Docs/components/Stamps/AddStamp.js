@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from 'components/Card';
 import { Form } from 'components/Form';
 import FormField from 'components/Form/Field';
+import UppercaseInput from 'components/Form/Field/UppercaseInput';
 import SubmitButton from "./components/SubmitButton";
 import Alert from 'components/Alert';
 import './styles.scss';
@@ -49,7 +50,7 @@ const AddStamp = ({ history }) => {
                 initialValues={{ stamp_code: '', stamp_code_document: '' }}
             >
                 <div className="AddStamp__inline">
-                    <FormField
+                    <UppercaseInput
                         {...fields.stamp_code}
                     />
                     <FormField
