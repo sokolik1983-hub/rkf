@@ -14,7 +14,6 @@ const Declarants = ({id}) => {
                 url: `/api/requests/PedigreeRequest/header_main_info?id=${id}`
             },
             data => {
-                console.log('data', data);
                 setDeclarants(data);
                 setLoading(false);
             },
