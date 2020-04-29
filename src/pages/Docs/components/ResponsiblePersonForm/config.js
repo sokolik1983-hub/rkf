@@ -47,7 +47,8 @@ export const ResponsibleFormConfig = {
             name: 'index',
             label: 'Индекс',
             placeholder: 'Индекс',
-            type: 'text'
+            type: 'text',
+            maxLength: 6
         },
         city_id: {
             name: 'city_id',
@@ -92,7 +93,7 @@ export const ResponsibleFormConfig = {
         phone: string().required('Укажите телефон'),
         email: string().required('Укажите email').email('Неверный формат email'),
         subscriber_mail: string(),
-        index: string().required('Укажите индекс'),
+        index: string().required('Укажите индекс').min(5, 'Введите минимум 5 цифр'),
         city_id: number().required('Укажите город').typeError('Укажите город'),
         street: string().required('Укажите улицу'),
         house: string().required('Укажите дом'),

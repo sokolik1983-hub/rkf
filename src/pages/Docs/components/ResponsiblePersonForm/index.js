@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
 import {Form, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
+import CustomNumber from "../../../../components/Form/Field/CustomNumber";
 import Alert from "../../../../components/Alert";
 import {ResponsibleFormConfig} from "./config";
 import {Request} from "../../../../utils/request";
@@ -90,7 +91,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                         <FormField {...ResponsibleFormConfig.fields.email} />
                     </FormGroup>
                     <FormGroup inline>
-                        <FormField {...ResponsibleFormConfig.fields.index} />
+                        <CustomNumber {...ResponsibleFormConfig.fields.index} />
                         <FormField {...ResponsibleFormConfig.fields.city_id} options={cities} />
                         <FormField {...ResponsibleFormConfig.fields.subscriber_mail} />
                     </FormGroup>

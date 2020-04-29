@@ -15,7 +15,7 @@ const Feedback = ({ className, title }) => {
         phone_number: '',
         mail: '',
         description: '',
-        picture: null,
+        //picture: null,
         terms: false
     };
 
@@ -74,10 +74,10 @@ const Feedback = ({ className, title }) => {
                                 <FormField {...fields.phone_number} />
                                 <FormField {...fields.mail} />
                                 <FormField {...fields.description} />
-                                <div className="FormInput">
+                                {/* <div className="FormInput">
                                     <label htmlFor="picture">Прикрепите файл (JPEG, JPG, PNG)</label>
                                     <FormFile {...fields.picture} />
-                                </div>
+                                </div> */}
                                 <FormField {...fields.terms} />
                             </FormGroup>
                             <div className="feedback__buttons">

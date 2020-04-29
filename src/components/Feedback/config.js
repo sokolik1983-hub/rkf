@@ -67,11 +67,11 @@ export const feedbackFormConfig = {
             fieldType: 'textarea',
             placeholder: "Введите ваше сообщение"
         },
-        picture: {
-            name: 'picture',
-            type: 'file',
-            accept: '.jpg, .jpeg, .png'
-        },
+        // picture: {
+        //     name: 'picture',
+        //     type: 'file',
+        //     accept: '.jpg, .jpeg, .png'
+        // },
         terms: {
             name: 'terms',
             label: 'Я принимаю условия использования сервиса',
