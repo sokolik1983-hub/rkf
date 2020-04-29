@@ -6,10 +6,11 @@ import * as sort from "sortabular";
 import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
-// import CustomFooter from "../CustomFooter";
 import {paginate, Paginator} from "../Pagination";
+import Modal from "../../../../../../components/Modal";
 import {getTableColumns} from "./config";
 import "./index.scss";
+import Declarants from "../Declarants";
 
 
 class StatusTable extends PureComponent {
@@ -21,7 +22,9 @@ class StatusTable extends PureComponent {
         distinction: this.props.distinction,
         clubAlias: this.props.clubAlias,
         rows: this.props.documents,
-        columns: null
+        columns: null,
+        showModal: false,
+        docId: null
     };
 
     componentDidMount() {
@@ -44,7 +47,13 @@ class StatusTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.distinction, this.state.clubAlias);
+        return getTableColumns(
+            this.state.sortingColumns,
+            sortable,
+            this.state.distinction,
+            this.state.clubAlias,
+            data => this.setState(data)
+        );
     };
 
     onSelect = page => {
@@ -101,7 +110,6 @@ class StatusTable extends PureComponent {
                 <Table.Provider className="status-table__table" columns={columns}>
                     <Table.Header headerRows={resolve.headerRows({columns: columns})} />
                     <Table.Body rows={paginated.rows} rowKey="id" />
-                    {/*<CustomFooter columns={columns} rows={paginated.rows} />*/}
                 </Table.Provider>
 
                 <Paginator
@@ -110,6 +118,18 @@ class StatusTable extends PureComponent {
                     pages={paginated.amount}
                     onSelect={this.onSelect}
                 />
+
+                {this.state.showModal &&
+                    <Modal
+                        showModal={this.state.showModal}
+                        handleClose={() => this.setState({showModal: false})}
+                        noBackdrop={true}
+                        hideCloseButton={true}
+                        className="status-table__modal"
+                    >
+                        <Declarants id={this.state.docId} />
+                    </Modal>
+                }
             </>
         )
     }

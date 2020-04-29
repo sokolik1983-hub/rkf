@@ -1,0 +1,92 @@
+.declarants {
+  max-width: 600px;
+  padding: 15px 24px 24px;
+  background: #fff;
+  &__title {
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 15px 5px 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #dcd3de;
+  }
+  &__accardion{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0.8rem 0.1rem rgba(darken(#3978EF, 20%), 0.06),
+                0 20px 30px -10px rgba(darken(#3978EF, 20%), 0.2);
+    &-item:not(:first-child){
+      border-top: 1px solid rgba(0, 0, 0, .1);
+    }
+  }
+
+  .accordion-item{
+    &--opened{
+      .accordion-item__icon{
+        transform: rotate(180deg);
+      }
+      .accordion-item__inner{
+        max-height: 100rem;
+        transition: max-height .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+      }
+      .accordion-item__content{
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity .2s ease-in-out .2s, transform .2s ease-in-out .2s;
+      }
+    }
+
+    &__line{
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      z-index: 2;
+      position: relative;
+    }
+
+    &__title{
+      font-size: 18px;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    &__icon{
+      width: 1.2rem;
+      height: 1.2rem;
+      transition: transform .3s ease-in-out;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAABGklEQVR4Ae3RAcZCQRiF4buDfwshBGi+2UQgcIGAVtpSIuS/KyilG+UTcbk6zIH3GQBm3mM6AAAAAAAAAACA+eqf/yZBXcV/2XeCVPYx1FXj/FjGUMd45AQp/1HHGGLZNL+e61jHnKDmv8652YT1IvPfE2LX/Sh27/ycsF60yT/lk58JYn6eU4MJccjnlAmZ/33i0OAH4jg9Qcw/5g9YJpS+m6n0xvzpCfVe+nn59S7kGyYo+YYJWz3fO+E2PaFs9XzPhMy/6fmWCXq+YUJs9HzrhLh+JsQmrnq+bYKeb52g53snXPR88wQ93z9Bz/dP0PP9E/R89wQ93zpBz7dO0POtE/R86wQ93zpBzzdP+MoHAAAAAAAAAADAExTnTW20AtjhAAAAAElFTkSuQmCC);
+      opacity: 0.6;
+    }
+
+    &__inner{
+      max-height: 0;
+      overflow: hidden;
+      text-transform: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      transition: max-height .5s;
+      position: relative;
+      z-index: 1;
+    }
+
+    &__content{
+      opacity: 0;
+      transform: translateY(-1rem);
+      transition: opacity .1s linear .5s, transform .1s ease;
+      padding: 0 1.2rem 1.2rem;
+      p {
+        font-weight: 300;
+        color: #61797c;
+        span {
+          font-weight: 400;
+          color: #253c5e;
+        }
+      }
+    }
+  }
+}

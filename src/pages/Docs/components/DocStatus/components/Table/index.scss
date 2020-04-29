@@ -61,3 +61,14 @@
     background: yellow;
   }
 }
+
+.status-table__modal {
+  .Modal__inner {
+    padding: 0;
+  }
+  .Modal__close {
+    right: 24px !important;
+    width: 12px;
+    height: 12px;
+  }
+}
