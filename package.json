@@ -172,5 +172,5 @@
     "node-sass": "^4.13.1",
     "prettier": "^1.18.2"
   },
-  "proxy": "http://192.168.31.83"
+  "proxy": "http://dev.uep24.ru"
 }
