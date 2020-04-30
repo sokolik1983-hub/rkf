@@ -31,7 +31,7 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, stage }) => {
+const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, stage, setStage }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -173,19 +173,8 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                         }}
                         i={i}
                         active={i === active}
-                        activateClick={() => setActive(i === active ? -1 : i)}
-                        doctypes={doctypes}
-                        breeds={breeds}
-                        sexTypes={sexTypes}
-                        view={view}
-                        update={update}
-                        privacyHref={privacyHref}
-                        verkHref={verkHref}
-                        litterHref={litterHref}
-                        statuses={statuses}
-                        litterStatuses={litterStatuses}
-                        stampCodes={stampCodes}
-                        clubAlias={clubAlias}
+                        activateClick={() => {setActive(i === active ? -1 : i); setStage(i === active ? 1 : 2)}}
+                        {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, clubAlias, stage}}
                     />)}
                 </tbody>
             </table>
