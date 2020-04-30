@@ -31,7 +31,7 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate }) => {
+const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, stage }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -106,16 +106,18 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
-            <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
-            <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
-            <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
-            <ResponsibleContactInfo>
-                <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
-                <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
-                <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
-                <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
-                <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
-            </ResponsibleContactInfo>
+            <HideIf cond={stage !== 0}>
+                <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
+                <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
+                <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
+                <ResponsibleContactInfo>
+                    <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
+                    <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
+                    <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
+                    <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
+                    <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
+                </ResponsibleContactInfo>
+            </HideIf>
             {/*
             <HideIf cond={!update}>
                 <FormGroup>
@@ -145,6 +147,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                  </FormGroup>
             </HideIf>
             */}
+        <HideIf cond={![1,2].includes(stage)}>
         <div>
             <h4>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h4>
             <table>
@@ -198,6 +201,8 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                 }} />
             </div>
         </div>
+        </HideIf>
+        <HideIf cond={stage !== 3}>
         <div>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
@@ -230,6 +235,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
             </HideIf>
             <Link to={`/${clubAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
+        </HideIf>
         </HideIf>
     </>}
     />;

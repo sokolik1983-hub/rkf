@@ -7,6 +7,9 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import { Form } from "components/Form";
 import DocItemList from "../DocItemList";
+import HideIf from "components/HideIf";
+import Button from "components/Button";
+import StageStrip from "../StageStrip";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
 import removeNulls from "utils/removeNulls";
@@ -81,6 +84,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
     const [statusId, setStatusId] = useState(1);
+    const [stage, setStage] = useState(0);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
@@ -184,6 +188,28 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         </aside>
         */}
         <div className="documents-page__right">
+            <div className="documents-page__title">
+                <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"}</h3>
+                <div className="divider"/>
+            </div>
+            <StageStrip items={[
+                {
+                    icon: 'pen-opaque',
+                    text: 'Выбор ответственного лица'
+                },
+                {
+                    icon: 'pen-opaque',
+                    text: 'Владельцы'
+                },
+                {
+                    icon: 'pen-opaque',
+                    text: 'Заполнение заявки'
+                },
+                {
+                    icon: 'pen-opaque',
+                    text: 'Информация о платеже'
+                }
+            ]} active={stage}/>
             <Form
                 onSuccess={e => setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
@@ -196,18 +222,25 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 format="multipart/form-data"
             >
                 <Card>
-                    <div className="club-documents-status__head">
+                    {/*<div className="club-documents-status__head">
                         <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
-                    </div>
-                    <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление на регистрацию помёта"}</h3>
+                    </div>*/}
                     {comment && <div className="alert alert-danger">
                         {comment}
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias, stage}}
                     />
                 </Card>
+                <div className="stage-controls flex-row">
+                    <HideIf cond={stage < 1}>
+                        <Button className="btn-transparent" onClick={e => setStage(stage - 1)}>Назад</Button>
+                    </HideIf>
+                    <HideIf cond={stage > 2}>
+                        <Button className="btn-green" onClick={e => setStage(stage + 1)}>Продолжить</Button>
+                    </HideIf>
+                </div>
             </Form>
         </div>
     </div>
