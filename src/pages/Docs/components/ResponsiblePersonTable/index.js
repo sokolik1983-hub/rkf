@@ -29,6 +29,7 @@ const ResponsivePersonTable = ({history, clubAlias}) => {
         <Card className="responsible-persons">
             <div className="responsible-persons__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+                &nbsp;/&nbsp;ЗАЯВИТЕЛИ
             </div>
             <div className="responsible-persons__table">
                 {declarants && !!declarants.length ?
