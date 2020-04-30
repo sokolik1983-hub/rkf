@@ -37,16 +37,13 @@ const idNumber = (name, o = null) => mixed().when(name,{
         otherwise: (o || mixed()).required(reqText)
     })
 const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
-const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
-        (async f => (f instanceof File) && [
+const file = () => string()/*mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
+        ( f => true && (f instanceof File) && [
             "image/png",
             "image/jpeg",
             "application/pdf"
-        ].includes(await (fileType.fromBlob(f).then(x => x.mime).catch(e => e))) || !f)
-    )
-window.ft = fileType
-*/
-//console.log(file().validate(""))//console.log(file().validateSync("1234"))//, lat().validateSync("123"), idNumber("id", reqIfCash(file())).validateSync("123"))
+        ].includes(await (fileType.fromBlob(f).then(x => x.mime).catch(e => undefined))) || !f)
+    )*/
 
 const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     id: number(),
