@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
 import { Form, SubmitButton, FormGroup, FormField } from '../Form';
-import FormFile from '../Form/Field/FormFile';
+//import FormFile from '../Form/Field/FormFile';
 import { feedbackFormConfig, reasons } from "./config";
 import './styles.scss';
 
