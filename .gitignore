@@ -27,3 +27,6 @@ yarn-error.log*
 /smb_share
 /utility
 /cypress
+
+# test screenshots
+/tests/screenshots

@@ -1,0 +1,11 @@
+{
+    "localhost": "http://localhost:3000",
+    "mobile": {
+        "defaultViewport": {
+            "width": 375,
+            "height": 1000,
+            "isMobile": true,
+            "hasTouch": true
+        }
+    }
+}
