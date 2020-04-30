@@ -18,7 +18,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes, clubAlias }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes, clubAlias, stage }) => {
     const distinction = "pedigree";
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
@@ -65,7 +65,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <tr onClick={activateClick} className={`DocItem caps ${error ? 'error' : ''}`}>
+    <HideIf cond={stage !== 1}>
+    <tr className={`DocItem caps ${error ? 'error' : ''}`}>
         <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
         <td className="no-caps"><i>{status}</i></td>
         <td>{declarant.id || ''}</td>
@@ -73,10 +74,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{email}</td>
         <td>{declarant.documents ? declarant.documents.length + docConst : docConst}</td>
         <td>
-        <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>
+        {/*<img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>*/}
+        <Button className="btn-primary" onClick={activateClick}>Подробнее</Button>
         </td>
     </tr>
-    <tr className={`DocItem collapse ${active && 'active'}`}>
+    </HideIf>
+    <HideIf cond={stage === 1}>
+    <tr className={`DocItem collapse ${stage === 2 && 'active'}`}>
     <td colSpan="7">
         <FormGroup className="card">
             {declarant.rejected_comment && <div className="alert alert-danger">
@@ -234,6 +238,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         </FormGroup>
     </td>
     </tr>
+    </HideIf>
     </>
 };
 

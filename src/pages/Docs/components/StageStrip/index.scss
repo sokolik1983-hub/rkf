@@ -42,7 +42,8 @@
         right: -15px;
         border-radius: 6px;
         background-color: white;
-        box-shadow: 1px 0px 0px #EBF0F2, 5px 0px 20px #EBF0F2;
+        //box-shadow: 1px 0px 0px #EBF0F2, 5px 0px 20px #EBF0F2;
+        box-shadow: 1px 0px 0px #ccc, 5px 0px 20px #ccc;
         transform: rotate(45deg);
     }
     &.active {

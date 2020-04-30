@@ -230,7 +230,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias, stage}}
+                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias, stage, setStage}}
                     />
                 </Card>
                 <div className="stage-controls flex-row">
