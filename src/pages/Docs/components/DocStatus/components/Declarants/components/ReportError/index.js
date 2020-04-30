@@ -6,54 +6,60 @@ import Alert from 'components/Alert';
 import './styles.scss';
 
 const config = {
-    action: '/',
+    action: '/api/requests/PedigreeRequest/error',
     format: "multipart/form-data",
     fields: {
-        description: {
-            name: 'description',
+        error_message: {
+            name: 'error_message',
             label: 'Сообщение',
             type: 'text',
             fieldType: 'textarea',
             placeholder: "Введите ваше сообщение"
         },
-        picture: {
-            name: 'picture',
+        document: {
+            name: 'document',
             type: 'file',
             accept: '.jpg, .jpeg, .png'
         }
     },
     validationSchema: object().shape({
-        description: string()
+        error_message: string()
             .required('Поле не может быть пустым')
     })
 };
 
-const ReportError = ({ setIsNestedOpen }) => {
+const ReportError = ({ id, declarant_uid, setIsNestedOpen }) => {
     const [errorAlert, setErrorAlert] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
-    const handleError = () => setErrorAlert(true);
+    const [errorText, setErrorText] = useState('');
+    const handleError = ({ response }) => {
+        setErrorText(response ? Object.values(response.data.errors).join(', ') : '');
+        setErrorAlert(true);
+    };
     const handleSusccess = () => {
         setSuccessAlert(true);
         setIsNestedOpen(false);
     };
     const { fields } = config;
     const initialValues = {
-        description: '',
-        picture: null
+        error_message: '',
+        document: null
     };
+    const transformValues = values => ({ ...values, id, declarant_uid });
 
     return <div className="ReportError">
         <Form
             {...config}
             onSuccess={handleSusccess}
             onError={handleError}
+            transformValues={transformValues}
             initialValues={initialValues}
         >
             <FormGroup>
-                <FormField {...fields.description} />
+                <FormField {...fields.error_message} />
                 <div className="FormInput">
-                    <label htmlFor="picture">Прикрепите файл (JPEG, JPG, PNG)</label>
-                    <FormFile {...fields.picture} />
+                    <label htmlFor="document">Прикрепите файл (JPEG, JPG, PNG)</label>
+                    <FormFile {...fields.document} />
                 </div>
             </FormGroup>
             <div className="feedback__buttons">
@@ -71,7 +77,7 @@ const ReportError = ({ setIsNestedOpen }) => {
         {errorAlert &&
             <Alert
                 title="Ошибка!"
-                text="Сообщение не отправлено"
+                text={errorText}
                 autoclose={2}
                 onOk={() => setErrorAlert(false)}
             />

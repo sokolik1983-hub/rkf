@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { formatDateWithTime } from "utils";
 import ReportError from './components/ReportError';
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status }) => {
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
+
+    const isReportable = status_id === 10 || status_id === 6;
 
     return (
         <div className={`accordion-item${isOpen ? ' accordion-item--opened' : ''}`}>
@@ -24,13 +26,21 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                     <p><span>Кличка: </span>{dog_name}</p>
                     <p><span>Клеймо: </span>{stamp}</p>
                     <p><span>Трек-номер: </span>{barcode}</p>
-                    <p><span>Статус: </span>{status} <span className="report-error" onClick={() => setIsNestedOpen(!isNestedOpen)}> сообщить об ошибке</span></p>
-                    <div className={`accordion-nested-item${isNestedOpen ? ' accordion-nested-item--opened' : ''}`}>
+                    <p>
+                        <span>Статус: </span>
+                        {status}
+                        &nbsp;
+                        {isReportable && <span className="report-error" onClick={() => setIsNestedOpen(!isNestedOpen)}>сообщить об ошибке</span>}
+                    </p>
+                    {isReportable && <div className={`accordion-nested-item${isNestedOpen ? ' accordion-nested-item--opened' : ''}`}>
                         <div className="accordion-nested-item__inner">
-                            <ReportError setIsNestedOpen={setIsNestedOpen} />
+                            <ReportError
+                                id={id}
+                                declarant_uid={declarant_uid}
+                                setIsNestedOpen={setIsNestedOpen} />
                         </div>
-                    </div>
-                    {pedigree_link && <p><a href={pedigree_link}>Ссылка на электронную копию родословной</a></p>}
+                    </div>}
+                    {pedigree_link && <p><a target="_blank" rel="noopener noreferrer" href={pedigree_link}>Ссылка на электронную копию родословной</a></p>}
                 </div>
             </div>
         </div>
