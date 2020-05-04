@@ -65,23 +65,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 onOk={() => setEverkAlert(false)}
             />
         }
-    <HideIf cond={stage !== 1}>
-    <tr className={`DocItem caps ${error ? 'error' : ''}`}>
-        <td>{declarant.date_created ? moment(declarant.date_created).format("DD.MM.YYYY") : ''}</td>
-        <td className="no-caps"><i>{status}</i></td>
-        <td>{declarant.id || ''}</td>
-        <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
-        <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + docConst : docConst}</td>
-        <td>
-        {/*<img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>*/}
-        <Button className="btn-primary" onClick={activateClick}>Подробнее</Button>
-        </td>
-    </tr>
-    </HideIf>
-    <HideIf cond={stage === 1}>
-    <tr className={`DocItem collapse ${stage === 2 && 'active'}`}>
-    <td colSpan="7">
+    <HideIf cond={false}>
+    <div className={`DocItem`}>
+        <h4>Добавление заявки</h4>
         <FormGroup className="card">
             {declarant.rejected_comment && <div className="alert alert-danger">
                 {declarant.rejected_comment.comment}
@@ -236,8 +222,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <Button className="btn-red" onClick={closeClick}>Удалить</Button>
             </HideIf>
         </FormGroup>
-    </td>
-    </tr>
+    </div>
     </HideIf>
     </>
 };

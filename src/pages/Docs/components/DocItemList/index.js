@@ -8,6 +8,7 @@ import { connect, FieldArray, getIn } from "formik";
 import PlusButton from "components/PlusButton";
 import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
+import DocTableItem from "../../components/DocItemTablePedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import ResponsibleContactInfo from "../../components/ResponsibleContactInfo";
 import { endpointGetFederations } from "pages/Clubs/config";
@@ -147,9 +148,18 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                  </FormGroup>
             </HideIf>
             */}
-        <HideIf cond={![1,2].includes(stage)}>
+
+            
+        <HideIf cond={stage !== 1}>
         <div>
-            <h4>{distinction === "pedigree" ? "Владельцы" : "Заводчики"}</h4>
+            <div className="flex-row">
+                <Button className="btn-primary" onClick={() => {
+                    setActive(formik.values.declarants.length);
+                    let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
+                    console.log(stamp_code_id);
+                    helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
+                }}>Добавить заявку</Button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -163,18 +173,10 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                     </tr>
                 </thead>
                 <tbody>
-                    {formik.values.declarants.map((m, i) => <DocItem
+                    {formik.values.declarants.map((m, i) => <DocTableItem
                         key={i}
-                        closeClick={() => {
-                            helpers.remove(i);
-                            if (active > formik.values.declarants.length - 1) {
-                                setActive(formik.values.declarants.length - 1);
-                            }
-                        }}
-                        i={i}
-                        active={i === active}
                         activateClick={() => {setActive(i === active ? -1 : i); setStage(i === active ? 1 : 2)}}
-                        {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, clubAlias, stage}}
+                        {...m}
                     />)}
                 </tbody>
             </table>
@@ -182,14 +184,15 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                 {formik.errors && (typeof(formik.errors.declarants) === "string") &&
                     <p className="red">{formik.errors.declarants}</p>
                 }
-                <PlusButton title="Добавить еще заводчика" onClick={() => {
-                    setActive(formik.values.declarants.length);
-                    let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
-                    console.log(stamp_code_id);
-                    helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
-                }} />
-            </div>
+                            </div>
         </div>
+        </HideIf>
+        <HideIf cond={![2].includes(stage)}>
+            <DocItem
+                i={0}
+                active={true}
+                {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, clubAlias, stage}}
+            />
         </HideIf>
         <HideIf cond={stage !== 3}>
         <div>

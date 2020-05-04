@@ -6,7 +6,7 @@
         font-size: 26px;
         line-height: 32px;
         color: #253C5E;
-        text-align: left;
+        text-align: center;
     }
     .shadow {
         box-shadow: 0px 10px 20px rgba(51, 102, 255, 0.1);
@@ -79,5 +79,17 @@
         color: #721c24;
         background-color: #f8d7da;
         border-color: #f5c6cb;
+    }
+
+    .stage-controls {
+        background-color: white;
+        padding: 8px 14px;
+    }
+    .stage-controls .btn:first-child {
+        margin-right: auto;
+    }
+    .stage-controls .btn-green.btn-light {
+        background: transparent;
+        color: #00c48c;
     }
 }
