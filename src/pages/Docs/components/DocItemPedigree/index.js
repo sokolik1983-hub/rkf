@@ -67,19 +67,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         }
     <HideIf cond={false}>
     <div className={`DocItem`}>
-        <h4>Добавление заявки</h4>
+        <div className="flex-row heading-row">
+            <h4 className="caps">Добавление заявки</h4>
+            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
+        </div>
         <FormGroup className="card">
             {declarant.rejected_comment && <div className="alert alert-danger">
                 {declarant.rejected_comment.comment}
             </div>}
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
-            <b><FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/></b>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>
-                    <Button onClick={e => {
+                    <Button className="btn-primary" onClick={e => {
                         //let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
                         //if (!stamp_code) return;
                         //stamp_code = stamp_code.label;
@@ -95,22 +97,24 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormGroup inline>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+                <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
-            <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
-            <FormField disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
+            <FormGroup inline>
+                <FormField style={{maxWidth:'32%'}} disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
             
-            <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
+                <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
+            </FormGroup>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <FormField disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
+                <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             </FormGroup>
-            <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             <FormGroup inline>
+                <FormField style={{flexGrow:0}} disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
                 <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Окрас'/>
-                <FormField disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
+                <FormField style={{minWidth:'50%'}} disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
             </FormGroup>
 
             <VerkParent
@@ -141,11 +145,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
                 <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
+                <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
             </FormGroup>
             <HideIf cond={!declarant.breeder_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
-            <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
             <FormField disabled={update || filledEverk('breeder_address')} name={`declarants[${i}].breeder_address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
 
             <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (опционально)'/>
@@ -179,6 +183,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 distinction={distinction}
             />
 
+            <FormGroup inline> 
             <FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
@@ -196,6 +201,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
             />
+            </FormGroup>
             
 
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
@@ -211,14 +217,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     </HideIf>
                 </FormGroup>)}
                 <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
-                    <p>Вы можете добавить дополнительные документы</p>
+                    {/*<p>Вы можете добавить дополнительные документы</p>*/}
                     <div className="flex-row">
-                        <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
+                        <Button small className="btn-primary" onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
                     </div>
                 </HideIf>
             </>)}
             />
-            <HideIf cond={update}>
+            <HideIf cond={true||update}>
                 <Button className="btn-red" onClick={closeClick}>Удалить</Button>
             </HideIf>
         </FormGroup>

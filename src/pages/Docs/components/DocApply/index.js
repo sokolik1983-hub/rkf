@@ -84,7 +84,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [redirect, setRedirect] = useState(false);
     const [values, setValues] = useState({});
     const [statusId, setStatusId] = useState(1);
-    const [stage, setStage] = useState(0);
+    const [stage, setStage] = [2, x=>x];//useState(0);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
     let update = false, id, view = false;
@@ -195,11 +195,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             <StageStrip items={[
                 {
                     icon: 'pen-opaque',
-                    text: 'Выбор ответственного лица'
+                    text: 'Основная информация'
                 },
                 {
                     icon: 'pen-opaque',
-                    text: 'Владельцы'
+                    text: 'Заявки'
                 },
                 {
                     icon: 'pen-opaque',
@@ -207,7 +207,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 },
                 {
                     icon: 'pen-opaque',
-                    text: 'Информация о платеже'
+                    text: 'Информация об оплате'
                 }
             ]} active={stage}/>
             <Form
