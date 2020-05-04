@@ -195,11 +195,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
             <StageStrip items={[
                 {
                     icon: 'pen-opaque',
-                    text: 'Выбор ответственного лица'
+                    text: 'Основная информация'
                 },
                 {
                     icon: 'pen-opaque',
-                    text: 'Владельцы'
+                    text: 'Заявки'
                 },
                 {
                     icon: 'pen-opaque',
@@ -207,7 +207,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 },
                 {
                     icon: 'pen-opaque',
-                    text: 'Информация о платеже'
+                    text: 'Информация об оплате'
                 }
             ]} active={stage}/>
             <Form
@@ -235,10 +235,11 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 </Card>
                 <div className="stage-controls flex-row">
                     <HideIf cond={stage < 1}>
-                        <Button className="btn-transparent" onClick={e => setStage(stage - 1)}>Назад</Button>
+                        <Button className="btn-condensed" onClick={e => setStage(stage - 1)}>Назад</Button>
                     </HideIf>
+                    <Button className="btn-condensed btn-green btn-light" onClick={e => setStage(stage + 1)}>Сохранить</Button>
                     <HideIf cond={stage > 2}>
-                        <Button className="btn-green" onClick={e => setStage(stage + 1)}>Продолжить</Button>
+                        <Button className="btn-green btn-condensed" onClick={e => setStage(stage + 1)}>Продолжить</Button>
                     </HideIf>
                 </div>
             </Form>

@@ -4,6 +4,12 @@
     &.error {
         outline: 1px solid red;
     }
+    .heading-row h4 {
+        margin-right: auto;
+    }
+    .heading-row * {
+        margin-bottom: 0!important;
+    }
     &__chevron {
         //position: absolute;
         //top: 1em;
@@ -33,4 +39,9 @@
         position: relative;
         left: 7.5px;
     }
+}
+
+.DocItem.table:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .05);
 }

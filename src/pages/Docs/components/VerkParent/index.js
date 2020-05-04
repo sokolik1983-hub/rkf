@@ -53,18 +53,20 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
     <FormGroup inline>
                 <FormField disabled={update || everk || filledEverk} name={`declarants[${i}].${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
                 <HideIf cond={update || declarant[`${who}_foreign`] || everk || filledEverk}>
-                    <Button onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
+                    <Button style={{marginRight: '16px'}} className="btn-primary" onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
                 </HideIf>
                 <HideIf cond={update || !everk || filledEverk}>
                     <DeleteButton className="btn-red" onClick={e => clearEverk(who)} title={`Удалить данные ${whoRu}`}/> 
                 </HideIf>
-            </FormGroup>
             <FormField
+                style={{minWidth:'50%'}}
                 disabled={update || !declarant[`${who}_foreign`]}
                 name={`declarants[${i}].${who}_name`}
                 label={`Кличка ${whoRu}`}
                 placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
             />
+            </FormGroup>
+    <FormGroup inline>
             <HideIf cond={everk || filledEverk}>
                 <FormField
                     disabled={update}
@@ -87,6 +89,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                     />
                 </HideIf>
             </HideIf>
+            </FormGroup>
             </>}
 
 export default connect(React.memo(VerkParent))
