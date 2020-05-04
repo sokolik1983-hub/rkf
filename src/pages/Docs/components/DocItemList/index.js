@@ -39,7 +39,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
     formik.errors && Object.keys(formik.errors).length && console.log("errors",formik.errors);
     //formik.values && Object.keys(formik.values).length && console.log("values",formik.values);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
-    const [active, setActive] = useState(-1);
+    const [_editing, set_Editing] = useState(false);
     const [federations, setFederations] = useState([]);
     const [doctypes, setDoctypes] = useState([]);
     const [statuses, setStatuses] = useState([]);
@@ -150,11 +150,10 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             */}
 
             
-        <HideIf cond={stage !== 1}>
+        <HideIf cond={stage !== 1 || _editing}>
         <div>
             <div className="flex-row">
                 <Button className="btn-primary" onClick={() => {
-                    setActive(formik.values.declarants.length);
                     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
                     console.log(stamp_code_id);
                     helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
@@ -175,7 +174,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                 <tbody>
                     {formik.values.declarants.map((m, i) => <DocTableItem
                         key={i}
-                        activateClick={() => {setActive(i === active ? -1 : i); setStage(i === active ? 1 : 2)}}
+                        activateClick={() => set_Editing(true)}
                         {...m}
                     />)}
                 </tbody>
@@ -187,14 +186,14 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                             </div>
         </div>
         </HideIf>
-        <HideIf cond={![2].includes(stage)}>
+        <HideIf cond={![1].includes(stage) || !_editing}>
             <DocItem
                 i={0}
                 active={true}
                 {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, clubAlias, stage}}
             />
         </HideIf>
-        <HideIf cond={stage !== 3}>
+        <HideIf cond={stage !== 2}>
         <div>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</p>

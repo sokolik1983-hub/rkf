@@ -108,7 +108,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
+                <FormField disabled={update} name={`declarants[${i}].breed_id`} style={{maxWidth:'50%'}} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
                 <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
             </FormGroup>
             <FormGroup inline>
