@@ -197,9 +197,9 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         <HideIf cond={stage !== 3}>
         <div>
             <FormGroup>
-                <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
+                <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</p>
                 <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
-                <h4>Информация о платеже</h4>
+                <h4 className="caps">Информация о платеже</h4>
 
                 <HideIf cond={formik.values.cash_payment}>
                     <FormGroup inline>
@@ -221,7 +221,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                 </HideIf>
             </FormGroup>
         </div>
-        <HideIf cond={view || !canSave} className="flex-row">
+        <HideIf cond={true||view || !canSave} className="flex-row">
             <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (!update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? (formik.values && formik.values.status_id !== 7 ? "Идет отправка..." : "Сохранение...") : "Отправить"}</Button>
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
