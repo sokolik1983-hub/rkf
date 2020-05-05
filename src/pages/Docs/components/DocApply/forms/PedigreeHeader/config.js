@@ -31,7 +31,16 @@ const config = {
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
     },
-    url: apiPedigreeEndpoint
+    url: apiPedigreeEndpoint,
+    initialValues: {
+        federation_id: '',
+        declarant_id: 0,
+        folder_number: '',
+        phone: '',
+        email: '',
+        address: '',
+        subscriber_mail: ''
+    }
 }
 
 export default config; 

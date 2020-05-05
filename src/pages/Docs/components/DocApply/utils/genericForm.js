@@ -8,6 +8,7 @@ import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import filterBySchema from "./filterBySchema";
+import deepInitial from "./deepInitial";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
@@ -30,9 +31,8 @@ const genericForm = (Component, config) => {
                     PromiseRequest(config.options[k].url)
                     .then(data => ({[k]:config.options[k].mapping ? config.options[k].mapping(data) : data})))
                 : [new Promise()])
-                .then(options => console.log(options) || options)
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))
-                .then(options => console.log('options',options)||setOptions(options)),
+                .then(options => setOptions(options)),
                 id ? PromiseRequest(config.url + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
             ]).then(() => setLoading(false))
             .catch(error => {
@@ -42,14 +42,15 @@ const genericForm = (Component, config) => {
                 setLoading(false);
             }))();
         }, []);
-        
+
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => {setOkAlert(true);nextStage && nextStage()}}
+                onSuccess={e => nextStage ? nextStage(e) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={config.url}
                 method={update  ? "PUT" : "POST"}
+                initialValues={config.initialValues}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
-                onSubmit={e => console.log(e)}
+                //onSubmit={e => console.log(e)}
                 transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}
                 //format="multipart/form-data"
                 format="application/json"

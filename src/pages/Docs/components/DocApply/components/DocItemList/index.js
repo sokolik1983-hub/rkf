@@ -134,34 +134,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             
         <HideIf cond={stage !== 1 || _editing}>
         <div>
-            <div className="flex-row">
-                <Button className="btn-primary" onClick={() => {
-                    let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
-                    console.log(stamp_code_id);
-                    helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
-                }}>Добавить заявку</Button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Дата регистрации</th>
-                        <th>Статус</th>
-                        <th>Номер док-та</th>
-                        <th>ФИО {distinction === "pedigree" ? "владельца" : "заводчика"}</th>
-                        <th>Эл. почта</th>
-                        <th>Кол-во док.</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {formik.values.declarants.map((m, i) => <DocTableItem
-                        key={i}
-                        activateClick={() => set_Editing(true)}
-                        {...m}
-                    />)}
-                </tbody>
-            </table>
-            <div className={`flex-row ${update ? 'hidden' : ''}`}>
+                                    <div className={`flex-row ${update ? 'hidden' : ''}`}>
                 {formik.errors && (typeof(formik.errors.declarants) === "string") &&
                     <p className="red">{formik.errors.declarants}</p>
                 }
