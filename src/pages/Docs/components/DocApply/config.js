@@ -360,5 +360,8 @@ export {
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
     apiStampCodesEndpoint,
-    apiClubDeclarantsEndpoint
+    apiClubDeclarantsEndpoint,
+
+
+    reqText
 };

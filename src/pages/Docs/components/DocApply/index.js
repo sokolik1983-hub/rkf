@@ -6,10 +6,10 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import { Form } from "components/Form";
-import DocItemList from "../DocItemList";
+import PedigreeHeader from "./forms/PedigreeHeader";
 import HideIf from "components/HideIf";
 import Button from "components/Button";
-import StageStrip from "../StageStrip";
+import StageStrip from "./components/StageStrip";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
 import removeNulls from "utils/removeNulls";
@@ -26,7 +26,7 @@ import {
     apiClubDeclarantsEndpoint,
     apiPedigreeEndpoint,
     apiLitterEndpoint
-} from "../../config.js";
+} from "./config.js";
 
 const sendAlertProps = {
     title: "Документы отправлены",
@@ -37,6 +37,10 @@ const draftAlertProps = {
     title: "Заявка сохранена",
     text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
 }
+
+const forms = [
+    PedigreeHeader
+]
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
@@ -160,6 +164,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }, []);
 
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
+    const FormContent = forms[stage];
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -206,39 +211,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     text: 'Информация об оплате'
                 }
             ]} active={stage}/>
-            <Form
-                onSuccess={e => setOkAlert(true)}
-                onError={e => console.log(e)||setErrAlert(true)}
-                action={apiEndpoint}
-                method={update || draft ? "PUT" : "POST"}
-                validationSchema={update ? updateSchema : validationSchema}
-                onSubmit={e => console.log(e)}
-                transformValues={transformValues}
-                initialValues={initial}
-                format="multipart/form-data"
-            >
-                <Card>
-                    {/*<div className="club-documents-status__head">
-                        <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
-                    </div>*/}
-                    {comment && <div className="alert alert-danger">
-                        {comment}
-                    </div>}
-                    <DocItemList
-                        name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias, stage, setStage}}
-                    />
-                </Card>
-                <div className="stage-controls flex-row">
-                    <HideIf cond={stage < 1}>
-                        <Button className="btn-condensed" onClick={e => setStage(stage - 1)}>Назад</Button>
-                    </HideIf>
-                    <Button className="btn-condensed btn-green btn-light" onClick={e => setStage(stage + 1)}>Сохранить</Button>
-                    <HideIf cond={stage > 1}>
-                        <Button className="btn-green btn-condensed" onClick={e => setStage(stage + 1)}>Продолжить</Button>
-                    </HideIf>
-                </div>
-            </Form>
+            <FormContent />
         </div>
     </div>
 };
