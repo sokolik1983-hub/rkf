@@ -6,6 +6,7 @@ import HideIf from "components/HideIf";
 import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
+import filterBySchema from "./filterBySchema";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
@@ -40,8 +41,14 @@ const genericForm = (Component, config) => {
         }, []);
         
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-
-
+                //onSuccess={e => setOkAlert(true)}
+                //onError={e => console.log(e)||setErrAlert(true)}
+                action={config.url}
+                method={update  ? "PUT" : "POST"}
+                validationSchema={update ? config.updateSchema : config.validationSchema}
+                onSubmit={e => console.log(e)}
+                transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema).fields)}
+                format="multipart/form-data"
         >
             <Card>
                 {/*<div className="club-documents-status__head">
