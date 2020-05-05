@@ -6,7 +6,10 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import { Form } from "components/Form";
+
 import PedigreeHeader from "./forms/PedigreeHeader";
+import PedigreeTable from "./forms/PedigreeTable";
+
 import HideIf from "components/HideIf";
 import Button from "components/Button";
 import StageStrip from "./components/StageStrip";
@@ -39,95 +42,42 @@ const draftAlertProps = {
 }
 
 const forms = [
-    PedigreeHeader
+    PedigreeHeader,
+    PedigreeTable
 ]
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
-    const apiEndpoint = (distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint) + (draft ? '/draft/' : '');
-    //console.log(apiEndpoint);
-    const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
-    const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
-    const [stampCodes, setStampCodes] = useState([]);
-    const [declarants, setDeclarants] = useState([]);
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
-    let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
-    let stamp_code_name = (stampCodes && stampCodes[0]) ? stampCodes[0].label : '';
-    let declarant_id = declarants && declarants[0] && declarants[0].id;
-    const initialValues = {
-        federation_id: '',
-        last_name: '',
-        first_name: '',
-        second_name: '',
-        phone: '',
-        index: '',
-        city_id: '',
-        street: '',
-        house: '',
-        building: '',
-        flat: '',
-        email: '',
-        folder_number: '',
-        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_name} : {...emptyLitterDeclarant, stamp_code_id}],
-    
-        cash_payment: false,
-        payment_document: '',
-        payment_date: '',
-        payment_number: '',
-        payment_name: '',
-        inn: '',
 
-        full_name: '',
-        address: '',
-        subscriber_mail: '',
-        declarant_id
-    };
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
-    const [values, setValues] = useState({});
+    const [id, setId] = useState(undefined);
     const [statusId, setStatusId] = useState(1);
     const [stage, setStage] = useState(0);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
-    let update = false, id, view = false;
+    let update = false, view = false;
     if (history) {
         let path = history.location.pathname.split('/');
         let x = path.pop();
-        id = isNaN(x) ? path.pop() : x;
+        let hist_id = isNaN(x) ? path.pop() : x;
+        if (hist_id !== id) setId(hist_id);
         update = true;
         view = x !== 'edit';
     }
-    let initial = {...initialValues, ...removeNulls(values)};
-    let cash_payment = initial.cash_payment;
         
     const setFormValues = values => {
-        setValues(values);
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
     draft && (update = false);
     
-    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
-    useEffect(() => {
-        (() => Promise.all([
-            PromiseRequest(apiClubDeclarantsEndpoint)
-            .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
-            PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
-            .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code})))),
-            update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
-        ]).then(() => setLoading(false))
-        .catch(error => {
-            console.log(error.response);
-            setRedirect('/404');
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-        }))();
-    }, []);
-
-    const comment = initial.rejected_comment && initial.rejected_comment.comment;
     const FormContent = forms[stage];
+    const nextStage = values => {values.id && setId(values.id);stage++}
+    const prevStage = values => {stage--}
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -174,7 +124,9 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     text: 'Информация об оплате'
                 }
             ]} active={stage}/>
-            <FormContent />
+            <FormContent
+                {...{clubAlias, id, nextStage}}
+            />
         </div>
     </div>
 };
