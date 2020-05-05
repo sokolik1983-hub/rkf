@@ -33,7 +33,7 @@ const genericForm = (Component, config) => {
                 : [new Promise()])
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))
                 .then(options => setOptions(options)),
-                id ? PromiseRequest(config.url + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
+                (id && config.get) ? PromiseRequest(config.get + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
             ]).then(() => setLoading(false))
             .catch(error => {
                 console.log(error);
@@ -55,6 +55,7 @@ const genericForm = (Component, config) => {
                 //format="multipart/form-data"
                 format="application/json"
         >
+        <input type="hidden" name="id"/>
         {okAlert &&
             <Alert
                 title="Сохранение"
@@ -86,7 +87,7 @@ const genericForm = (Component, config) => {
                 </HideIf>
                 <Button className="btn-condensed btn-green btn-light" type="submit">Сохранить</Button>
                 <HideIf cond={!nextStage}>
-                    <Button className="btn-green btn-condensed" onClick={e => nextStage()}>Продолжить</Button>
+                    <Button className="btn-green btn-condensed" onClick={e => id && nextStage()}>Продолжить</Button>
                 </HideIf>
             </div>
         </Form>

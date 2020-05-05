@@ -27,7 +27,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {options.declarants.map((m, i) => <DocTableItem
+                    {options && options.declarants && options.declarants.map((m, i) => <DocTableItem
                         key={i}
                         activateClick={() => setEditing(i)}
                         {...m}
