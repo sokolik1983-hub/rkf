@@ -61,7 +61,7 @@ const Feedback = ({ className, title }) => {
                     <p>
                         Уважаемые пользователи! В случае возникновения у Вас вопросов по функционированию Цифровой Платформы российского кинологического сообщества RKF.Online просим Вас ознакомиться с разделом "База знаний" в <a
                             href="https://help.rkf.online/" target="_blank" rel="noopener noreferrer">Центре поддержки</a>. <br /><br />
-                        Если ответ на Ваш вопрос отсутствует - обратитесь в центр поддержки <br />по e-mail <a href="mailto:support@rkf.online">support@rkf.online</a>. <br /><br />
+                        Если ответ на Ваш вопрос отсутствует - обратитесь в центр поддержки по email <a href="mailto:support@rkf.online">support@rkf.online</a>. <br /><br />
                         Спасибо, что Вы с нами!
                     </p>
                     {/*<h1>Форма обратной связи</h1>*/}
