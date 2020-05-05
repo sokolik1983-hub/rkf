@@ -14,6 +14,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias}) => {
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
     return <>
+        <FormGroup inline>
         <FormField
             disabled={update}
             options={options.federations}
@@ -22,6 +23,13 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias}) => {
             label='Федерация'
             placeholder="Выберите федерацию"
         />
+        <FormField
+            disabled={update}
+            name="folder_number"
+            label="Номер папки"
+            placeholder="0000"
+        />
+        </FormGroup>
         <FormField
             disabled={update}
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}

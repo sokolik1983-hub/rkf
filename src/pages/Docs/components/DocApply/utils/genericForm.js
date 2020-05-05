@@ -44,14 +44,15 @@ const genericForm = (Component, config) => {
         }, []);
         
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => setOkAlert(true)}
+                onSuccess={e => {setOkAlert(true);nextStage && nextStage()}}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={config.url}
                 method={update  ? "PUT" : "POST"}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 onSubmit={e => console.log(e)}
                 transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}
-                format="multipart/form-data"
+                //format="multipart/form-data"
+                format="application/json"
         >
         {okAlert &&
             <Alert
