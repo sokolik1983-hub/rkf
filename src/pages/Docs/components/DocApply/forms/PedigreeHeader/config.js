@@ -1,9 +1,8 @@
 import {number} from "yup";
-import {reqText} from "../../config.js";
+import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
-const apiLitterEndpoint = '/api/requests/LitterRequest';
+const apiPedigreeEndpoint = '/api/requests/pedigree_request/PedigreeRequestHeader';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
@@ -13,6 +12,7 @@ const validationSchema = {
     status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
+    folder_number: numbersOnly().required(reqText)
 };
 
 const updateSchema = {
@@ -30,7 +30,8 @@ const config = {
             url: apiClubDeclarantsEndpoint,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
-    }
+    },
+    url: apiPedigreeEndpoint
 }
 
 export default config; 
