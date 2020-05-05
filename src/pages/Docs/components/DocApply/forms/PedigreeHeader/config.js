@@ -32,6 +32,7 @@ const config = {
         }
     },
     url: apiPedigreeEndpoint,
+    //get: '/api/requests/pedigree_request/PedigreeRequest',
     initialValues: {
         federation_id: '',
         declarant_id: 0,

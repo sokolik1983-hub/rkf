@@ -50,7 +50,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
-    const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -76,10 +75,10 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     draft && (update = false);
     
     const FormContent = forms[stage];
-    const nextStage = values => {values.id && setId(values.id);stage++}
-    const prevStage = values => {stage--}
+    const nextStage = values => {values && values.id && (setId(values.id) || setStage(stage + 1))}
+    const prevStage = values => {setStage(stage - 1)}
 
-    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
+    return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
             <Alert
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
