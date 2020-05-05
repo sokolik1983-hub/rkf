@@ -41,10 +41,6 @@ const draftAlertProps = {
     text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
 }
 
-const forms = [
-    PedigreeHeader,
-    PedigreeTable
-]
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
@@ -72,11 +68,15 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
-    draft && (update = false);
-    
+    const forms = [
+        PedigreeHeader,
+        PedigreeTable
+    ]
+
     const FormContent = forms[stage];
     const nextStage = values => {values && values.id && (setId(values.id) || setStage(stage + 1))}
     const prevStage = values => {setStage(stage - 1)}
+    const onSuccess = values => [x => nextStage(values), x => x, x => nextStage(values)][stage]()
 
     return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -124,7 +124,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 }
             ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id, nextStage}}
+                {...{clubAlias, id, nextStage, prevStage: stage && prevStage, onSuccess}}
             />
         </div>
     </div>

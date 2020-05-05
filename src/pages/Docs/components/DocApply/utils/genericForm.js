@@ -13,7 +13,7 @@ import deepInitial from "./deepInitial";
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
 const genericForm = (Component, config) => {
-    return ({update, clubAlias, clubId, id, prevStage, nextStage}) => {
+    return ({update, clubAlias, clubId, id, prevStage, nextStage, onSuccess}) => {
         const [values, setValues] = useState({}),
               [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -44,25 +44,25 @@ const genericForm = (Component, config) => {
         }, []);
 
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => nextStage ? nextStage(e) : setOkAlert(true)}
+                onSuccess={e => onSuccess ? onSuccess(e) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={config.url}
                 method={update  ? "PUT" : "POST"}
-                initialValues={config.initialValues}
+                initialValues={{...config.initialValues, id}}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 //onSubmit={e => console.log(e)}
                 transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}
                 //format="multipart/form-data"
                 format="application/json"
         >
-        <input type="hidden" name="id"/>
+        <input type="hidden" name="id" />
         {okAlert &&
             <Alert
                 title="Сохранение"
                 text="Форма успешно сохранена"
                 autoclose={2.5}
                 okButton="true"
-                onOk={() => setRedirect(`/${clubAlias}/documents`)}
+                //onOk={() => setRedirect(`/${clubAlias}/documents`)}
             />
         }
         {redirect && <Redirect to={redirect}/>}

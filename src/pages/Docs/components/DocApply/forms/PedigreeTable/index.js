@@ -10,6 +10,7 @@ import Button from "components/Button";
 // pedigree
 const TableFormFields = connect(({formik, update, options, clubAlias}) => {
     const [editing, setEditing] = useState(-1);
+    
     return <>
         <div className="flex-row">
                 <Button className="btn-primary" type="submit">Добавить заявку</Button>
