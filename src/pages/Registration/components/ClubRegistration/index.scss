@@ -20,7 +20,7 @@
     &-icon {
       width: 151px;
       height: 118px;
-      background: url("/static/images/Default/invoice-empty.svg") no-repeat center;
+      background: url("/static/images/default/invoice-empty.svg") no-repeat center;
       margin: 0 auto;
     }
   }
@@ -51,8 +51,9 @@
       right: 12px;
       top: 12px;
     }
-    @media (max-width: 767px) {
-      & > div {
+    & > div {
+      max-width: 900px;
+      @media (max-width: 767px) {
         width: 92% !important;
       }
     }
@@ -78,7 +79,7 @@
     }
     &-content {
       padding-left: 230px;
-      background: url("/static/images/Default/email.svg") no-repeat left 30px center;
+      background: url("/static/images/default/email.svg") no-repeat left 30px center;
       @media (max-width: 990px) {
         padding-left: 173px;
         background-position: left center;
