@@ -7,6 +7,7 @@ import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
+import RadioGroup from "../../components/RadioGroup";
 import Transliteratable from "../../components/Transliteratable";
 import { FormGroup, FormField } from "components/Form";
 import { apiPedigreeEverk } from "../../config.js";
@@ -71,6 +72,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <h4 className="caps">Добавление заявки</h4>
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
         </div>
+        <RadioGroup radios={[
+            {
+                name: 'two_generation',
+                label: 'Выписка из ВЕРК РКФ единого образца (на двух языках)'
+            },
+            {
+                name: 'one_generation',
+                label: 'Свидетельство о регистрации собаки в ВЕРК РКФ'
+            }
+        ]}/>
         <FormGroup className="card">
             {declarant.rejected_comment && <div className="alert alert-danger">
                 {declarant.rejected_comment.comment}
