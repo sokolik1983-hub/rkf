@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from "react";
+import Alert from "components/Alert";
 import { Request } from "utils/request";
 import Button from "components/Button";
 import {Form} from "components/Form";
@@ -16,6 +17,8 @@ const genericForm = (Component, config) => {
               [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
               [options, setOptions] = useState(null),
+              [okAlert, setOkAlert] = useState(false),
+              [errAlert, setErrAlert] = useState(false),
               [loading, setLoading] = useState(true);
         const setFormValues = values => {
             setValues(values);
@@ -41,15 +44,34 @@ const genericForm = (Component, config) => {
         }, []);
         
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                //onSuccess={e => setOkAlert(true)}
-                //onError={e => console.log(e)||setErrAlert(true)}
+                onSuccess={e => setOkAlert(true)}
+                onError={e => console.log(e)||setErrAlert(true)}
                 action={config.url}
                 method={update  ? "PUT" : "POST"}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 onSubmit={e => console.log(e)}
-                transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema).fields)}
+                transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}
                 format="multipart/form-data"
         >
+        {okAlert &&
+            <Alert
+                title="Сохранение"
+                text="Форма успешно сохранена"
+                autoclose={2.5}
+                okButton="true"
+                onOk={() => setRedirect(`/${clubAlias}/documents`)}
+            />
+        }
+        {redirect && <Redirect to={redirect}/>}
+        {errAlert &&
+            <Alert
+                title="Ошибка отправки"
+                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
+                autoclose={2.5}
+                onOk={() => setErrAlert(false)}
+            />
+        }
+
             <Card>
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>

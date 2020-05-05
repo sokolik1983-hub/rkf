@@ -30,7 +30,8 @@ const config = {
             url: apiClubDeclarantsEndpoint,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
-    }
+    },
+    url: apiPedigreeEndpoint
 }
 
 export default config; 
