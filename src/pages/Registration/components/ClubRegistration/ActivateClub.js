@@ -79,7 +79,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
                         </div>
                         <div className="club-registration__activate-email">
                             <p>Код активации будет отправлен на почту: <b>{club.mail}</b></p>
-                            <p className="club-registration__activate-warn">Если информация указана неверно, воспользуйтесь формой обратной ссвязи</p>
+                            <p className="club-registration__activate-warn">Если информация указана неверно, воспользуйтесь формой обратной связи</p>
                             <button className="btn btn-primary" onClick={onEmailSubmit}>Отправить</button>
                         </div>
                     </> :
