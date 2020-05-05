@@ -203,10 +203,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 },
                 {
                     icon: 'pen-opaque',
-                    text: 'Заполнение заявки'
-                },
-                {
-                    icon: 'pen-opaque',
                     text: 'Информация об оплате'
                 }
             ]} active={stage}/>
@@ -238,7 +234,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                         <Button className="btn-condensed" onClick={e => setStage(stage - 1)}>Назад</Button>
                     </HideIf>
                     <Button className="btn-condensed btn-green btn-light" onClick={e => setStage(stage + 1)}>Сохранить</Button>
-                    <HideIf cond={stage > 2}>
+                    <HideIf cond={stage > 1}>
                         <Button className="btn-green btn-condensed" onClick={e => setStage(stage + 1)}>Продолжить</Button>
                     </HideIf>
                 </div>
