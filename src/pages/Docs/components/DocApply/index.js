@@ -6,10 +6,10 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import Card from "components/Card";
 import { Form } from "components/Form";
-import DocItemList from "../DocItemList";
+import PedigreeHeader from "./forms/PedigreeHeader";
 import HideIf from "components/HideIf";
 import Button from "components/Button";
-import StageStrip from "../StageStrip";
+import StageStrip from "./components/StageStrip";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
 import removeNulls from "utils/removeNulls";
@@ -26,7 +26,7 @@ import {
     apiClubDeclarantsEndpoint,
     apiPedigreeEndpoint,
     apiLitterEndpoint
-} from "../../config.js";
+} from "./config.js";
 
 const sendAlertProps = {
     title: "Документы отправлены",
@@ -37,6 +37,10 @@ const draftAlertProps = {
     title: "Заявка сохранена",
     text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
 }
+
+const forms = [
+    PedigreeHeader
+]
 
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
@@ -97,44 +101,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     let initial = {...initialValues, ...removeNulls(values)};
     let cash_payment = initial.cash_payment;
-    const filterBySchema = (values, fields) => {
-        let r = {};
-        Object.keys(values).filter(k => Object.keys(fields).includes(k)).forEach(k => {
-            if (Array.isArray(values[k])) {
-                r[k] = values[k].map(m => filterBySchema(m, fields[k]._subType.fields));
-            } else {
-                r[k] = values[k];
-            }
-        });
-        return r;
-    }
-    const transformValues = values => {
-        //if (update) {
-            setStatusId(values.status_id);
-            let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
-            if (!(r.payment_document instanceof File)) {
-                delete r.payment_document;
-            }
-            r.declarants.forEach(d => {
-                Object.keys(d).forEach(k => {
-                    if (d[k] === '') {
-                        delete d[k];
-                    }
-                });
-                if (!d.documents) return;
-                d.documents.forEach(doc => {
-                    if (!doc.document) {
-                        delete doc.document;
-                    }
-                });
-            });
-            return r;
-        //} else {
-        //    let r = filterBySchema(values, validationSchema.fields);
-        //    return r;
-        //}
-    }
-
+        
     const setFormValues = values => {
         setValues(values);
         setDraft(update && !view && values && values.status_id === 7);
@@ -160,6 +127,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }, []);
 
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
+    const FormContent = forms[stage];
 
     return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -206,39 +174,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     text: 'Информация об оплате'
                 }
             ]} active={stage}/>
-            <Form
-                onSuccess={e => setOkAlert(true)}
-                onError={e => console.log(e)||setErrAlert(true)}
-                action={apiEndpoint}
-                method={update || draft ? "PUT" : "POST"}
-                validationSchema={update ? updateSchema : validationSchema}
-                onSubmit={e => console.log(e)}
-                transformValues={transformValues}
-                initialValues={initial}
-                format="multipart/form-data"
-            >
-                <Card>
-                    {/*<div className="club-documents-status__head">
-                        <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
-                    </div>*/}
-                    {comment && <div className="alert alert-danger">
-                        {comment}
-                    </div>}
-                    <DocItemList
-                        name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias, stage, setStage}}
-                    />
-                </Card>
-                <div className="stage-controls flex-row">
-                    <HideIf cond={stage < 1}>
-                        <Button className="btn-condensed" onClick={e => setStage(stage - 1)}>Назад</Button>
-                    </HideIf>
-                    <Button className="btn-condensed btn-green btn-light" onClick={e => setStage(stage + 1)}>Сохранить</Button>
-                    <HideIf cond={stage > 1}>
-                        <Button className="btn-green btn-condensed" onClick={e => setStage(stage + 1)}>Продолжить</Button>
-                    </HideIf>
-                </div>
-            </Form>
+            <FormContent />
         </div>
     </div>
 };

@@ -10,11 +10,9 @@ import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocTableItem from "../../components/DocItemTablePedigree";
 import DocItemLitter from "../../components/DocItemLitter";
-import ResponsibleContactInfo from "../../components/ResponsibleContactInfo";
 import { endpointGetFederations } from "pages/Clubs/config";
 import removeNulls from "utils/removeNulls";
 import test from "../../test.json";
-import Loading from "components/Loading";
 import {
     emptyPedigreeDeclarant,
     emptyLitterDeclarant,
@@ -57,13 +55,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
     const apiDoctypeEndpoint = distinction === "pedigree" ? apiPedigreeDoctypeEndpoint : apiLitterDoctypeEndpoint;
     const apiPrivacyEndpoint = distinction === "pedigree" ? apiPedigreePrivacyEndpoint : apiLitterPrivacyEndpoint;
     const apiDeclarantStatusesEndpoint = distinction === "pedigree" ? apiPedigreeStatusesEndpoint : apiStatusesEndpoint;
-    const setDeclarant = value => {
-        let declarant = declarants.find(f => f.id === value);
-        if (!declarant) return;
-        Object.keys(removeNulls(declarant))
-        .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
-    }
-    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+        const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     useEffect(() => {
         (() => Promise.all([
@@ -108,16 +100,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
             <HideIf cond={stage !== 0}>
-                <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
-                <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
-                <Link to={`/${clubAlias}/documents/responsible/form`}>Создать ответственное лицо</Link>
-                {/*<FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />*/}
-                <FormGroup inline>
-                    <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
-                    <FormField disabled name='email' label='Email' placeholder='Заполняется автоматически' />
-                </FormGroup>
-                <FormField disabled name='address' label='Адрес' placeholder='Заполняется автоматически' />
-                <FormField disabled name='subscriber_mail' label='Абонентский ящик' placeholder={update ? '' : 'Заполняется автоматически'} />
             </HideIf>
             {/*
             <HideIf cond={!update}>
