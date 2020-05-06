@@ -16,7 +16,11 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
     return <>
     <Card>
         <div className="flex-row">
-                <Button className="btn-primary" type="submit">Добавить заявку</Button>
+                <Button className="btn-primary"
+                    onClick={e => send({
+                        button: 'create'
+                    }, formik)}>
+                Добавить заявку</Button>
             </div>
         <table>
                 <thead>
