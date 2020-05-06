@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ls from "local-storage";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useParams } from "react-router-dom";
 import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
@@ -41,12 +41,9 @@ const draftAlertProps = {
     text: "Заявка сохранена. Вы можете отредактировать ее в личном кабинете."
 }
 
-const forms = [
-    PedigreeHeader,
-    PedigreeTable
-]
 
-const DocApply = ({ clubAlias, history, distinction }) => {
+const DocApply = ({ clubAlias, history }) => {
+    let distinction;
     const [draft, setDraft] = useState(false);
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
@@ -58,25 +55,38 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const [stage, setStage] = useState(0);
     const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
 
+
+
     let update = false, view = false;
-    if (history) {
-        let path = history.location.pathname.split('/');
-        let x = path.pop();
-        let hist_id = isNaN(x) ? path.pop() : x;
-        if (hist_id !== id) setId(hist_id);
-        update = true;
-        view = x !== 'edit';
+
+    const stages = {
+        header: 0,
+        table: 1,
+        declarant: 1,
+        payment: 2
     }
+    let url_stage;
+    if (history) {
+        let params = useParams();
+        distinction = params.distinction;
+        params.id && id !== params.id && setId(params.id);
+        url_stage = params.stage || (params.d_id && 'table');
+        url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
+    } else (setRedirect('/404'))
         
     const setFormValues = values => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
-    draft && (update = false);
-    
-    const FormContent = forms[stage];
+    const forms = {
+        header: PedigreeHeader,
+        table: PedigreeTable
+    }
+
+    const FormContent = forms[url_stage] || forms.header;
     const nextStage = values => {values && values.id && (setId(values.id) || setStage(stage + 1))}
     const prevStage = values => {setStage(stage - 1)}
+    const onSuccess = values => [x => nextStage(values), x => x, x => nextStage(values)][stage]()
 
     return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -124,7 +134,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 }
             ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id, nextStage}}
+                {...{clubAlias, id, nextStage, prevStage: stage && prevStage, onSuccess}}
             />
         </div>
     </div>
