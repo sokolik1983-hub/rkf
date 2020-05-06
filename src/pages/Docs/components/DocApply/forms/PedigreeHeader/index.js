@@ -10,7 +10,7 @@ import HideIf from "components/HideIf";
 import Card from "components/Card";
 
 // pedigree
-const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect}) => {
+const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -72,9 +72,17 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         />
 </Card>
     <div className="stage-controls flex-row">
-        <Button className="btn-condensed btn-green btn-light" type="submit">Сохранить</Button>
+        <Button className="btn-condensed btn-green btn-light" onClick={e => send({
+            method: formik.values.id ? "PUT" : "POST",
+            action: config.url + (formik.values.id ? '/draft' : ''),
+            onSuccess: formik.values.id ? undefined : values => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/header/form`)
+        }, formik)}>Сохранить</Button>
         <HideIf>
-            <Button className="btn-green btn-condensed" onClick={e => formik.submitForm().then(r => console.log(r)|| setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}>Продолжить</Button>
+            <Button className="btn-green btn-condensed" onClick={e => send({
+                method: formik.values.id ? "PUT" : "POST",
+                action: config.url + (formik.values.id ? '/draft' : ''),
+                onSuccess: values => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/table/form`)
+            }, formik)}>Продолжить</Button>
         </HideIf>
     </div>
     </>

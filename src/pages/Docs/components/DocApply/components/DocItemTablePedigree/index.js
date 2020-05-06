@@ -18,10 +18,10 @@ import "../DocItemPedigree/index.scss";
 
 const docConst = 6;
 
-const DocTableItem = ({date_created, status_id, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick}) => {
+const DocTableItem = ({date_created, status_name, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick}) => {
     return <tr className={`DocItem table caps`} onClick={activateClick}>
         <td>{date_created ? moment(date_created).format("DD.MM.YYYY") : ''}</td>
-        <td className="no-caps"><i>{status_id}</i></td>
+        <td className="no-caps"><i>{status_name}</i></td>
         <td>{id || ''}</td>
         <td>{[owner_last_name, owner_first_name, owner_second_name].filter(f=>f).join(' ')}</td>
         <td>{email}</td>

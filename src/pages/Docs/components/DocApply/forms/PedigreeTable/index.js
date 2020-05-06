@@ -13,7 +13,6 @@ import Card from "components/Card";
 // pedigree
 const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect}) => {
     const [editing, setEditing] = useState(-1);
-    
     return <>
     <Card>
         <div className="flex-row">
@@ -32,10 +31,10 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                     </tr>
                 </thead>
                 <tbody>
-                    {options && options.declarants && options.declarants.map((m, i) => <DocTableItem
+                    {formik.values && formik.values.declarants && Object.keys(formik.values.declarants).map(i => <DocTableItem
                         key={i}
                         activateClick={() => setEditing(i)}
-                        {...m}
+                        {...formik.values.declarants[i]}
                     />)}
                 </tbody>
             </table>    
