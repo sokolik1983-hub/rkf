@@ -7,6 +7,7 @@ import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import filterBySchema from "./filterBySchema";
 import deepInitial from "./deepInitial";
+import removeNulls from "utils/removeNulls";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
@@ -33,13 +34,13 @@ const genericForm = (Component, config) => {
               [button, setButton] = useState('save'),
               [submitForm, setSubmitForm] = useState(undefined);
         const setFormValues = values => {
-            setValues(values.declarant ? values.declarant : values);
+            setValues(removeNulls(config.hooks && config.hooks.values ? config.hooks.values(values) : values));
             setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
         }
         useEffect(() => {
             (() => Promise.all(
                 [Promise.all(config.options ? Object.keys(config.options).map(k =>
-                    PromiseRequest(config.options[k].url)
+                    PromiseRequest(typeof(config.options[k].url) === "function" ? config.options[k].url(clubId) : config.options[k].url)
                     .then(data => ({[k]:!!config.options[k].mapping ? config.options[k].mapping(data) : data})))
                 : [new Promise()])
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))

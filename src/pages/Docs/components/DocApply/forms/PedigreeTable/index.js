@@ -49,7 +49,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
             <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
         </HideIf>
         <HideIf >
-            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
+            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/payment/form`)}>Продолжить</Button>
         </HideIf>
     </div>
     </>

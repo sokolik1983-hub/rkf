@@ -14,7 +14,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
 
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverk = who => {
-        let rfc = getIn(formik.values, `declarants[${i}].${who}_pedigree_number`);
+        let rfc = getIn(formik.values, `${who}_pedigree_number`);
         rfc = rfc.split('-')[1] || rfc;
         if (!rfc) return;
         PromiseRequest(`/api/dog/Dog/everk_dog/${rfc}`)
@@ -24,21 +24,21 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 throw new Error("name not set");
             }
             setEverk && setEverk(true);
-            formik.setFieldValue(`declarants[${i}].${who}_name`, name);
+            formik.setFieldValue(`${who}_name`, name);
         })
         .catch(x => setEverkAlert(true));
     }
     const clearEverk = who => {
         if (!setEverk) return;
         setEverk(false);
-        formik.setFieldValue(`declarants[${i}].${who}_name`, '');
-        formik.setFieldValue(`declarants[${i}].${who}_pedigree_number`, '');
+        formik.setFieldValue(`${who}_name`, '');
+        formik.setFieldValue(`${who}_pedigree_number`, '');
     }
     const filledEverk = !!everkData && !!everkData[`${who}_pedigree_number`];
     filledEverk && everk && setEverk(false);
-    if (filledEverk && getIn(formik.values, `declarants[${i}].${who}_foreign`)) {
-        formik.setFieldValue(`declarants[${i}].${who}_foreign`, false);
-        formik.setFieldValue(`declarants[${i}].${who}_pedigree_document`, '');
+    if (filledEverk && getIn(formik.values, `${who}_foreign`)) {
+        formik.setFieldValue(`${who}_foreign`, false);
+        formik.setFieldValue(`${who}_pedigree_document`, '');
     }
     return <>
         {everkAlert &&
@@ -51,7 +51,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
             />
         }
     <FormGroup inline>
-                <FormField disabled={update || everk || filledEverk} name={`declarants[${i}].${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
+                <FormField disabled={update || everk || filledEverk} name={`${who}_pedigree_number`} label={`Номер родословной ${whoRu}`}/>
                 <HideIf cond={update || declarant[`${who}_foreign`] || everk || filledEverk}>
                     <Button style={{marginRight: '16px'}} className="btn-primary" onClick={e => getEverk(who)} disabled={everk}>Поиск</Button>
                 </HideIf>
@@ -61,7 +61,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
             <FormField
                 style={{minWidth:'50%'}}
                 disabled={update || !declarant[`${who}_foreign`]}
-                name={`declarants[${i}].${who}_name`}
+                name={`${who}_name`}
                 label={`Кличка ${whoRu}`}
                 placeholder={declarant[`${who}_foreign`] ? 'Введите кличку' : 'Кличка заполняется автоматически по номеру родословной'}
             />
@@ -71,17 +71,17 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                 <FormField
                     disabled={update}
                     fieldType="customCheckbox"
-                    name={`declarants[${i}].${who}_foreign`}
+                    name={`${who}_foreign`}
                     label={checkboxCaption}
                     onChange={e => {
                         formik.handleChange(e);
-                        !!addDocument && formik.setFieldValue(`declarants[${i}].${who}_pedigree_document`, '');
-                        formik.setFieldValue(`declarants[${i}].${who}_name`, '');
+                        !!addDocument && formik.setFieldValue(`${who}_pedigree_document`, '');
+                        formik.setFieldValue(`${who}_name`, '');
                     }}
                 />
                 <HideIf cond={!addDocument}>
                     <FormFile
-                        name={`declarants[${i}].${who}_pedigree_document`}
+                        name={`${who}_pedigree_document`}
                         label={`Копия родословной ${whoRu}`}
                         docId={declarant[`${who}_pedigree_document_id`]}
                         document_type_id={7}

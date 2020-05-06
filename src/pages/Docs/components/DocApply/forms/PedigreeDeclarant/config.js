@@ -25,8 +25,11 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 
 const validationSchema = {
+    pedigree_header_declarant_request_id: number(),
     id: number(),
     express: boolean().required(reqText),
+    one_generation: boolean(),
+    two_generation: boolean(),
     owner_first_name: string().required(reqText),
     owner_last_name: string().required(reqText),
     owner_second_name: string(),
@@ -46,11 +49,11 @@ const validationSchema = {
 
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_pedigree_document: reqCheckbox('father_foreign', true, idNumber('father_pedigree_document_id', file())),
+    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
-    mother_pedigree_document: reqCheckbox('mother_foreign', true, idNumber('mother_pedigree_document_id', file())),
+    mother_pedigree_document_id: reqCheckbox('mother_foreign', true, number().required(reqText)),
     mother_pedigree_number: string().required(reqText),
 
     breeder_first_name: string().required(reqText),
@@ -61,9 +64,8 @@ const validationSchema = {
     email: lat().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
     litter_or_request_number: string(),
-    biometric_card_document: idNumber('biometric_card_document_id', file()),
-    personal_data_document: idNumber('personal_data_document_id', file()),
-    request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id', file()),
+    biometric_card_document_id: number().required(reqText),
+    personal_data_document_id: number().required(reqText),
     chip_number: string(),
     documents: array().of(object().shape({
         id: number(),
@@ -75,9 +77,8 @@ const validationSchema = {
 const updateSchema = {
     id: number(),
     declarant_uid: string(),
-    biometric_card_document: file(),
-    personal_data_document: file(),
-    request_extract_from_verk_document: file(),
+    biometric_card_document_id: number(),
+    personal_data_document_id: number(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -92,6 +93,8 @@ const updateSchema = {
 
 const emptyPedigreeDeclarant = {
     express: false,
+    one_generation: false,
+    two_generation: true,
     owner_first_name: '',
     owner_last_name: '',
     owner_second_name: '',
@@ -164,11 +167,14 @@ const config = {
             mapping: data => data.sort((a,b) => a.id - b.id),
         },
         stampCodes: {
-            url: apiStampCodesEndpoint,
+            url: clubId => apiStampCodesEndpoint + '?id=' + clubId,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
         }
     },
-    url: '/api/requests/pedigree_request/PedigreeDeclarantRequest/declarant',
+    hooks: {
+        values: values => ({...values.declarant, pedigree_header_declarant_request_id: values.id, pedigree_request_id: values.pedigree_request_id})
+    },
+    url: '/api/requests/pedigree_request/PedigreeDeclarantRequest',
     get: '/api/requests/pedigree_request/PedigreeDeclarantRequest/declarant',
     initialValues: emptyPedigreeDeclarant
 }
