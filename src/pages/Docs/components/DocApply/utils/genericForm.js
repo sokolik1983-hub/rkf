@@ -40,7 +40,7 @@ const genericForm = (Component, config) => {
             (() => Promise.all(
                 [Promise.all(config.options ? Object.keys(config.options).map(k =>
                     PromiseRequest(config.options[k].url)
-                    .then(data => ({[k]:config.options[k].mapping ? config.options[k].mapping(data) : data})))
+                    .then(data => ({[k]:!!config.options[k].mapping ? config.options[k].mapping(data) : data})))
                 : [new Promise()])
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))
                 .then(options => setOptions(options)),
