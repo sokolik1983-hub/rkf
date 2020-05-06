@@ -48,7 +48,7 @@ const genericForm = (Component, config) => {
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={config.url}
                 method={update  ? "PUT" : "POST"}
-                initialValues={{...config.initialValues, id}}
+                initialValues={{...config.initialValues, ...values, id}}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 //onSubmit={e => console.log(e)}
                 transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}

@@ -11,6 +11,7 @@ const updateSchema = {
 const config = {
     validationSchema, updateSchema,
     url: '/api/requests/pedigree_request/PedigreeDeclarantRequest/header',
+    get: '/api/requests/PedigreeRequest',
     options: {},
     initialValues: {
         declarants: []
