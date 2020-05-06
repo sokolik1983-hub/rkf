@@ -1,8 +1,19 @@
 import React, { useState } from "react";
-import { formatDateWithTime } from "utils";
+import {formatDateWithTime} from "../../../../../../utils";
 import ReportError from './components/ReportError';
 
-const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid }) => {
+const formatCountTime = (str) => {
+    const dateArray = str.split('.');
+    const timeArray = dateArray[1].split(':');
+    const days = +dateArray[0];
+    const hours = +timeArray[0];
+    const minutes = +timeArray[1];
+
+    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+}
+
+
+const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, full_name, pedigree_link, stamp, status, status_id, id, declarant_uid, count_time }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
 
@@ -40,6 +51,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                                 setIsNestedOpen={setIsNestedOpen} />
                         </div>
                     </div>}
+                    <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>
                     {pedigree_link && <p><a target="_blank" rel="noopener noreferrer" href={pedigree_link}>Ссылка на электронную копию родословной</a></p>}
                 </div>
             </div>
