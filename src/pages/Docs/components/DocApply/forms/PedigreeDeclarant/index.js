@@ -32,7 +32,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
             <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: true ? "PUT" : "POST",
-            action: config.url + (!isNew ? '/draft' : ''),
+            action: config.url + (true ? '/draft' : ''),
             button: formik.values.dog_name ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
     </div>
