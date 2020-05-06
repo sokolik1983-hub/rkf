@@ -28,6 +28,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
                             label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
                             docId={formik.values.payment_document_id}
                             disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
+                            document_type_id={5}
                             distinction="pedigree"
                         />
 
