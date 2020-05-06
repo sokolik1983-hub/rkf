@@ -37,7 +37,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                 <tbody>
                     {formik.values && formik.values.declarants && Object.keys(formik.values.declarants).map(i => <DocTableItem
                         key={i}
-                        activateClick={() => setEditing(i)}
+                        activateClick={() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i]}
                     />)}
                 </tbody>

@@ -10,6 +10,7 @@ import { Form } from "components/Form";
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
+import PedigreeDeclarant from "./forms/PedigreeDeclarant";
 
 import HideIf from "components/HideIf";
 import Button from "components/Button";
@@ -82,7 +83,8 @@ const DocApply = ({ clubAlias, history }) => {
     const forms = {
         header: PedigreeHeader,
         table: PedigreeTable,
-        payment: PedigreePayment
+        payment: PedigreePayment,
+        declarant: PedigreeDeclarant
     }
 
     const FormContent = forms[url_stage] || forms.header;

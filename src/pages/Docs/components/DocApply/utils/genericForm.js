@@ -11,7 +11,7 @@ import deepInitial from "./deepInitial";
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
 const addNulls = o => {
-    if (!o) return null;
+    if (o === null || o === undefined) return null;
     Object.keys(o).forEach(k => {
         if (o[k] === '') o[k] = null;
         if (typeof(o[k]) === 'object') addNulls(o[k]);
