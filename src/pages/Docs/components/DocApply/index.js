@@ -9,6 +9,7 @@ import { Form } from "components/Form";
 
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
+import PedigreePayment from "./forms/PedigreePayment";
 
 import HideIf from "components/HideIf";
 import Button from "components/Button";
@@ -70,7 +71,7 @@ const DocApply = ({ clubAlias, history }) => {
         let params = useParams();
         distinction = params.distinction;
         params.id && id !== params.id && setId(params.id);
-        url_stage = params.stage || (params.d_id && 'table');
+        url_stage = params.stage;
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
         
@@ -80,11 +81,12 @@ const DocApply = ({ clubAlias, history }) => {
     }
     const forms = {
         header: PedigreeHeader,
-        table: PedigreeTable
+        table: PedigreeTable,
+        payment: PedigreePayment
     }
 
     const FormContent = forms[url_stage] || forms.header;
-    const onSuccess = values => {values && values.id && !id && setRedirect(`/${clubAlias}/documents/${distinction}/${values.id}/header/form`)}
+    //const onSuccess = values => {values && values.id && !id && setRedirect(`/${clubAlias}/documents/${distinction}/${values.id}/header/form`)}
 
     return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -95,7 +97,7 @@ const DocApply = ({ clubAlias, history }) => {
                 onOk={() => setRedirect(`/${clubAlias}/documents`)}
             />
         }
-        {redirect && <Redirect to={redirect}/>}
+        {redirect && <Redirect push to={redirect}/>}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
@@ -132,7 +134,7 @@ const DocApply = ({ clubAlias, history }) => {
                 }
             ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id, onSuccess}}
+                {...{clubAlias, id}}
             />
         </div>
     </div>

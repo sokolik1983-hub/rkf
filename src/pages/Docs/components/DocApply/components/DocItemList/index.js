@@ -150,31 +150,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         </HideIf>
         <HideIf cond={stage !== 2}>
         <div>
-            <FormGroup>
-                <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</p>
-                <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
-                <h4 className="caps">Информация о платеже</h4>
-
-                <HideIf cond={formik.values.cash_payment}>
-                    <FormGroup inline>
-                        <FormFile
-                            name='payment_document'
-                            label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
-                            docId={formik.values.payment_document_id}
-                            disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
-                            distinction={distinction}
-                        />
-
-                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
-                    </FormGroup>
-                    <FormGroup inline>
-                        <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='inn' label='ИНН (для юр. лиц)' />
-                    </FormGroup>
-                </HideIf>
-            </FormGroup>
-        </div>
+                    </div>
         <HideIf cond={true||view || !canSave} className="flex-row">
             <Button className="btn-green" type="link" disabled={formik.isSubmitting} onClick={e => (!update ? formik.setFieldValue('status_id',1) : false) || formik.submitForm()}>{formik.isSubmitting ? (formik.values && formik.values.status_id !== 7 ? "Идет отправка..." : "Сохранение...") : "Отправить"}</Button>
             <HideIf cond={update}>

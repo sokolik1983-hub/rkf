@@ -364,5 +364,6 @@ export {
 
 
     reqText,
-    numbersOnly
+    numbersOnly,
+    reqIfCash, idNumber, file
 };
