@@ -75,13 +75,13 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url + (formik.values.id ? '/draft' : ''),
-            onSuccess: formik.values.id ? undefined : values => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/header/form`)
+            button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
         <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
                 action: config.url + (formik.values.id ? '/draft' : ''),
-                onSuccess: values => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/table/form`)
+                button: 'next'
             }, formik)}>Продолжить</Button>
         </HideIf>
     </div>
