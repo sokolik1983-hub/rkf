@@ -84,6 +84,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                         name={`declarants[${i}].${who}_pedigree_document`}
                         label={`Копия родословной ${whoRu}`}
                         docId={declarant[`${who}_pedigree_document_id`]}
+                        document_type_id={7}
                         disabled={update || !declarant[`${who}_foreign`]}
                         distinction={distinction}
                     />

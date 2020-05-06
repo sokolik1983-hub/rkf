@@ -33,7 +33,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
-    let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
+    let error = formik.errors && formik.touched;
 
     const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
     
@@ -207,25 +207,28 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 name={`declarants[${i}].biometric_card_document`}
                 label='Метрика щенка (PDF, JPEG, JPG, PNG)'
                 docId={declarant.biometric_card_document_id}
+                document_type_id={9}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
 
             <FormGroup inline> 
-            <FormFile
+            {/*<FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
                 docId={declarant.request_extract_from_verk_document_id}
+                document_type_id={11}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
                 form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
                 distinction={distinction}
-            />
+            />*/}
 
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
                 label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
+                document_type_id={11}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
             />
