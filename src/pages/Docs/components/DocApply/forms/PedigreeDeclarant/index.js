@@ -28,10 +28,10 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
             />
         </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
-            action: config.url + (formik.values.id ? '/draft' : ''),
+            action: config.url + (formik.values.pedigree_request_id ? '/draft' : ''),
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
     </div>
