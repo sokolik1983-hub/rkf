@@ -33,7 +33,7 @@ const genericForm = (Component, config) => {
               [button, setButton] = useState('save'),
               [submitForm, setSubmitForm] = useState(undefined);
         const setFormValues = values => {
-            setValues(values);
+            setValues(values.declarant && values);
             setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
         }
         useEffect(() => {

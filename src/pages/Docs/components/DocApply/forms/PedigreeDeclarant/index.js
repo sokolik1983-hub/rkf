@@ -18,7 +18,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
         Object.keys(removeNulls(declarant))
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
-           const {doctypes, breeds, sexTypes, statuses, stampCodes} = config.options;
+           const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
     return <>
 <Card>
             <DocItem

@@ -25,8 +25,7 @@ const accept = ".pdf, .jpg, .jpeg, .png";
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, clubAlias, stage }) => {
     const distinction = "pedigree";
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const declarant = formik.values.declarants[i];
-    console.log(formik.values);
+    const declarant = formik.values;
     const [everkAlert, setEverkAlert] = useState(false);
     const [privacyHref, setPrivacyHref] = useState('');
     const [verkHref, setVerkHref] = useState('');
