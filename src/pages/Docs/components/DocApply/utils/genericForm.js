@@ -11,14 +11,18 @@ import deepInitial from "./deepInitial";
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
 const genericForm = (Component, config) => {
-    return ({update, clubAlias, clubId, id, prevStage, nextStage, onSuccess}) => {
+    return ({update, clubAlias, clubId, id, prevStage, nextStage}) => {
         const [values, setValues] = useState({}),
               [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
               [options, setOptions] = useState(null),
               [okAlert, setOkAlert] = useState(false),
               [errAlert, setErrAlert] = useState(false),
-              [loading, setLoading] = useState(true);
+              [loading, setLoading] = useState(true),
+              [action, setAction] = useState(config.url),
+              [method, setMethod] = useState(update ? "PUT" : "POST"),
+              [submitForm, setSubmitForm] = useState(undefined),
+              [onSuccess, setOnSuccess] = useState(config.onSuccess ? config.onSuccess : undefined);
         const setFormValues = values => {
             setValues(values);
             setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
@@ -41,11 +45,20 @@ const genericForm = (Component, config) => {
             }))();
         }, []);
 
+        if (typeof(submitForm)==="function"){console.log(onSuccess);setSubmitForm(undefined);submitForm()}
+
+        const send = (params, formik) => {
+            params.action && setAction(params.action);
+            params.method && setMethod(params.method);
+            params.onSuccess && setOnSuccess(params.onSuccess);
+            formik.submitForm();
+        }
+
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => onSuccess ? onSuccess(e) : setOkAlert(true)}
+                onSuccess={e => onSuccess ? onSuccess(e, setRedirect) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
-                action={config.url}
-                method={update  ? "PUT" : "POST"}
+                action={action}
+                method={method}
                 initialValues={{...config.initialValues, ...values, id}}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 //onSubmit={e => console.log(e)}
@@ -76,7 +89,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, clubAlias, setRedirect}}/>}
+            {!!options && <Component {...{update, options, clubAlias, setRedirect, send}}/>}
             </Form>
     }
 }
