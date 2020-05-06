@@ -44,7 +44,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     <HideIf cond={!loading}>
         <Loading/>
     </HideIf>
-    <DocLink distinction={distinction} docId={docId} label={label} showLabel={disabled} />
+    <DocLink distinction={distinction} docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={disabled} />
 </div>
 }
 

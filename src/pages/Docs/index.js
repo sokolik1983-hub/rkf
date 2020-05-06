@@ -97,7 +97,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
 
-
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
