@@ -25,11 +25,7 @@ const accept = ".pdf, .jpg, .jpeg, .png";
 const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, clubAlias, stage }) => {
     const distinction = "pedigree";
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const declarant = formik.values.declarants[i];
-    const [email, setEmail] = useState(declarant.email || '');
-    const [firstName, setFirstName] = useState(declarant.owner_first_name || '');
-    const [lastName, setLastName] = useState(declarant.owner_last_name || '');
-    const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
+    const declarant = formik.values;
     const [everkAlert, setEverkAlert] = useState(false);
     const [privacyHref, setPrivacyHref] = useState('');
     const [verkHref, setVerkHref] = useState('');
@@ -127,15 +123,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
             
             <FormGroup inline>
-                <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
-                <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' />
+                <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' />
+                <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' />
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
             <FormGroup inline>
-                <FormField style={{maxWidth:'32%'}} disabled={update} name={`declarants[${i}].email`} label='Email владельца' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
+                <FormField style={{maxWidth:'32%'}} disabled={update} name={`declarants[${i}].email`} label='Email владельца' />
             
                 <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>

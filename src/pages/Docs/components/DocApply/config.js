@@ -365,5 +365,5 @@ export {
 
     reqText,
     numbersOnly,
-    reqIfCash, idNumber, file
+    reqIfCash, idNumber, file, lat, reqCheckbox, reqEmail
 };
