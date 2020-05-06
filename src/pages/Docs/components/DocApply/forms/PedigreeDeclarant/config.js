@@ -149,7 +149,7 @@ const config = {
         },
         doctypes: {
             url: apiDoctypeEndpoint,
-            maping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})),
+            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})),
         },
         breeds: {
             url: apiBreedsEndpoint,
@@ -162,6 +162,10 @@ const config = {
         statuses: {
             url: apiPedigreeStatusesEndpoint,
             mapping: data => data.sort((a,b) => a.id - b.id),
+        },
+        stampCodes: {
+            url: apiStampCodesEndpoint,
+            mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
         }
     },
     url: '/api/requests/pedigree_request/PedigreeDeclarantRequest/declarant',

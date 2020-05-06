@@ -235,7 +235,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             
 
-            <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
+            <FieldArray name={`documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
