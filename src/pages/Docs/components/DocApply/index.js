@@ -84,9 +84,7 @@ const DocApply = ({ clubAlias, history }) => {
     }
 
     const FormContent = forms[url_stage] || forms.header;
-    const nextStage = values => {values && values.id && (setId(values.id) || setStage(stage + 1))}
-    const prevStage = values => {setStage(stage - 1)}
-    const onSuccess = values => [x => nextStage(values), x => x, x => nextStage(values)][stage]()
+    const onSuccess = values => {values && values.id && !id && setRedirect(`/${clubAlias}/documents/${distinction}/${values.id}/header/form`)}
 
     return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
@@ -134,7 +132,7 @@ const DocApply = ({ clubAlias, history }) => {
                 }
             ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id, nextStage, prevStage: stage && prevStage, onSuccess}}
+                {...{clubAlias, id, onSuccess}}
             />
         </div>
     </div>

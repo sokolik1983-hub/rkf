@@ -5,8 +5,12 @@ import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "../../utils/genericForm";
 import config from "./config.js";
+import Button from "components/Button";
+import HideIf from "components/HideIf";
+import Card from "components/Card";
+
 // pedigree
-const HeaderFormFields = connect(({formik, update, options, clubAlias}) => {
+const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -14,6 +18,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias}) => {
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
     return <>
+<Card>
         <FormGroup inline>
         <FormField
             disabled={update}
@@ -65,6 +70,13 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias}) => {
             label='Абонентский ящик'
             placeholder={update ? '' : 'Заполняется автоматически'}
         />
+</Card>
+    <div className="stage-controls flex-row">
+        <Button className="btn-condensed btn-green btn-light" type="submit">Сохранить</Button>
+        <HideIf>
+            <Button className="btn-green btn-condensed" onClick={e => formik.submitForm().then(r => console.log(r)|| setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}>Продолжить</Button>
+        </HideIf>
+    </div>
     </>
 })
 

@@ -3,10 +3,8 @@ import Alert from "components/Alert";
 import { Request } from "utils/request";
 import Button from "components/Button";
 import {Form} from "components/Form";
-import HideIf from "components/HideIf";
 import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
-import Card from "components/Card";
 import filterBySchema from "./filterBySchema";
 import deepInitial from "./deepInitial";
 
@@ -65,7 +63,7 @@ const genericForm = (Component, config) => {
                 //onOk={() => setRedirect(`/${clubAlias}/documents`)}
             />
         }
-        {redirect && <Redirect to={redirect}/>}
+        {redirect && <Redirect push to={redirect}/>}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
@@ -75,22 +73,11 @@ const genericForm = (Component, config) => {
             />
         }
 
-            <Card>
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, clubAlias}}/>}
-            </Card>
-            <div className="stage-controls flex-row">
-                <HideIf cond={!prevStage}>
-                    <Button className="btn-condensed" onClick={e => prevStage()}>Назад</Button>
-                </HideIf>
-                <Button className="btn-condensed btn-green btn-light" type="submit">Сохранить</Button>
-                <HideIf cond={!nextStage}>
-                    <Button className="btn-green btn-condensed" onClick={e => id && nextStage()}>Продолжить</Button>
-                </HideIf>
-            </div>
-        </Form>
+            {!!options && <Component {...{update, options, clubAlias, setRedirect}}/>}
+            </Form>
     }
 }
 
