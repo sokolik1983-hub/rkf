@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Alert from "components/Alert";
 import { connect, FieldArray } from "formik";
@@ -16,17 +16,23 @@ import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
+const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
+const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
+
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, stampCodes, clubAlias, stage }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, clubAlias, stage }) => {
     const distinction = "pedigree";
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const declarant = formik.values.declarants[i];
     const [email, setEmail] = useState(declarant.email || '');
     const [firstName, setFirstName] = useState(declarant.owner_first_name || '');
     const [lastName, setLastName] = useState(declarant.owner_last_name || '');
     const [secondName, setSecondName] = useState(declarant.owner_second_name || '');
     const [everkAlert, setEverkAlert] = useState(false);
+    const [privacyHref, setPrivacyHref] = useState('');
+    const [verkHref, setVerkHref] = useState('');
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
@@ -48,6 +54,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             setEverkAlert(true);
         })
         .catch(e => setEverkAlert(true));
+
+    useEffect(() => {
+        Promise.all([
+            fetch(apiPrivacyEndpoint, {headers})
+            .then(response => response.blob())
+            .then(data => setPrivacyHref(URL.createObjectURL(data))),
+            //fetch(apiLitterEmptyDocument, {headers})
+            //.then(response => response.blob())
+            //.then(data => setLitterHref(URL.createObjectURL(data))),
+            fetch(apiVerkEndpoint, {headers})
+            .then(response => response.blob())
+            .then(data => setVerkHref(URL.createObjectURL(data)))
+        ])
+    }, []);
+
     const clearEverkData = () => {
         if (!everkData) return;
         Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
