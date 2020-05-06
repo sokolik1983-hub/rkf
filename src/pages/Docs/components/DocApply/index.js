@@ -136,7 +136,7 @@ const DocApply = ({ clubAlias, history }) => {
                 }
             ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id}}
+                {...{clubAlias, id, clubId}}
             />
         </div>
     </div>

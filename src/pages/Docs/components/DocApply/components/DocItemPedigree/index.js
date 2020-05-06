@@ -43,8 +43,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         .then(data => {
             Object.keys(data).forEach(k => {
                 if (!data[k]) return;
-                formik.setFieldValue(`declarants[${i}].${k}`, data[k]);
-                !data[`${k}_lat`] && formik.setFieldValue(`declarants[${i}].${k}_lat`, transliterate(data[k]));
+                formik.setFieldValue(`${k}`, data[k]);
+                !data[`${k}_lat`] && formik.setFieldValue(`${k}_lat`, transliterate(data[k]));
             });
             setEverkData(data);
             setEverkAlert(true);
@@ -67,8 +67,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
     const clearEverkData = () => {
         if (!everkData) return;
-        Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
-        formik.setFieldValue(`declarants[${i}].stamp_number`, '');
+        Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`${k}`, ''));
+        formik.setFieldValue(`stamp_number`, '');
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
@@ -87,7 +87,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <div className={`DocItem`}>
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/>
+            <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочная'/>
         </div>
         <RadioGroup radios={[
             {
@@ -103,11 +103,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {declarant.rejected_comment && <div className="alert alert-danger">
                 {declarant.rejected_comment.comment}
             </div>}
-            <input type="hidden" name={`declarants[${i}].id`} />
-            <input type="hidden" name={`declarants[${i}].declarant_uid`} />
+            <input type="hidden" name={`id`} />
+            <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
-                <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
+                <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
+                <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>
                     <Button className="btn-primary" onClick={e => {
                         //let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
@@ -123,26 +123,26 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
             
             <FormGroup inline>
-                <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' />
-                <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' />
-                <FormField disabled={update} name={`declarants[${i}].owner_second_name`} label='Отчество владельца (опционально)' />
+                <Transliteratable disabled={update} name={`owner_last_name`} label='Фамилия владельца' />
+                <Transliteratable disabled={update} name={`owner_first_name`} label='Имя владельца' />
+                <FormField disabled={update} name={`owner_second_name`} label='Отчество владельца (опционально)' />
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
             <FormGroup inline>
-                <FormField style={{maxWidth:'32%'}} disabled={update} name={`declarants[${i}].email`} label='Email владельца' />
+                <FormField style={{maxWidth:'32%'}} disabled={update} name={`email`} label='Email владельца' />
             
-                <Transliteratable disabled={update || filledEverk('owner_address')} name={`declarants[${i}].owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
+                <Transliteratable disabled={update || filledEverk('owner_address')} name={`owner_address`} label='Адрес владельца (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].breed_id`} style={{maxWidth:'50%'}} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <Transliteratable disabled={update || filledEverk('dog_name')} name={`declarants[${i}].dog_name`} label='Кличка собаки'/>
+                <FormField disabled={update} name={`breed_id`} style={{maxWidth:'50%'}} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
+                <Transliteratable disabled={update || filledEverk('dog_name')} name={`dog_name`} label='Кличка собаки'/>
             </FormGroup>
             <FormGroup inline>
-                <FormField style={{flexGrow:0}} disabled={update} name={`declarants[${i}].dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
-                <FormField disabled={update || filledEverk('color')} name={`declarants[${i}].color`} label='Окрас'/>
-                <FormField style={{minWidth:'50%'}} disabled={update} name={`declarants[${i}].dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
+                <FormField style={{flexGrow:0}} disabled={update} name={`dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
+                <FormField disabled={update || filledEverk('color')} name={`color`} label='Окрас'/>
+                <FormField style={{minWidth:'50%'}} disabled={update} name={`dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки'/>
             </FormGroup>
 
             <VerkParent
@@ -171,40 +171,40 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
 
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].breeder_last_name`} label='Фамилия заводчика'/>
-                <FormField disabled={update} name={`declarants[${i}].breeder_first_name`} label='Имя заводчика'/>
-                <FormField disabled={update} name={`declarants[${i}].breeder_second_name`} label='Отчество заводчика (опционально)'/>
+                <FormField disabled={update} name={`breeder_last_name`} label='Фамилия заводчика'/>
+                <FormField disabled={update} name={`breeder_first_name`} label='Имя заводчика'/>
+                <FormField disabled={update} name={`breeder_second_name`} label='Отчество заводчика (опционально)'/>
             </FormGroup>
             <HideIf cond={!declarant.breeder_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
-            <FormField disabled={update || filledEverk('breeder_address')} name={`declarants[${i}].breeder_address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
+            <FormField disabled={update || filledEverk('breeder_address')} name={`breeder_address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
 
-            <FormField disabled={update} name={`declarants[${i}].chip_number`} label='Номер чипа (опционально)'/>
+            <FormField disabled={update} name={`chip_number`} label='Номер чипа (опционально)'/>
             <FormField
                 disabled={update}
-                name={`declarants[${i}].was_reviewed`}
+                name={`was_reviewed`}
                 fieldType="customCheckbox"
                 label='Щенок был на пересмотре, соответствует племенным требованиям'
-                onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].litter_or_request_number`, '')}}
+                onChange={e => {formik.handleChange(e); formik.setFieldValue(`litter_or_request_number`, '')}}
             />
             <HideIf cond={!declarant.was_reviewed}>
-                <FormField disabled={update} name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
+                <FormField disabled={update} name={`litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
             </HideIf>
             
             <FormGroup inline>
-                <FormField disabled={update} name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
-                <FormField disabled={update} name={`declarants[${i}].owner_first_name_lat`} label='Имя владельца латиницей'/>
+                <FormField disabled={update} name={`owner_last_name_lat`} label='Фамилия владельца латиницей'/>
+                <FormField disabled={update} name={`owner_first_name_lat`} label='Имя владельца латиницей'/>
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name_lat.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
-            <FormField disabled={update || filledEverk('owner_address_lat')} name={`declarants[${i}].owner_address_lat`} label='Адрес владельца латиницей'/>
+            <FormField disabled={update || filledEverk('owner_address_lat')} name={`owner_address_lat`} label='Адрес владельца латиницей'/>
 
-            <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
+            <FormField disabled={update || filledEverk('dog_name_lat')} name={`dog_name_lat`} label='Кличка собаки латиницей'/>
             
             <FormFile
-                name={`declarants[${i}].biometric_card_document`}
+                name={`biometric_card_document`}
                 label='Метрика щенка (PDF, JPEG, JPG, PNG)'
                 docId={declarant.biometric_card_document_id}
                 document_type_id={9}
@@ -214,7 +214,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormGroup inline> 
             {/*<FormFile
-                name={`declarants[${i}].request_extract_from_verk_document`}
+                name={`request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
                 docId={declarant.request_extract_from_verk_document_id}
                 document_type_id={11}
@@ -224,7 +224,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />*/}
 
             <FormFile
-                name={`declarants[${i}].personal_data_document`}
+                name={`personal_data_document`}
                 label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
@@ -237,10 +237,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FieldArray name={`documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
-                    <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <input type="hidden" name={`documents[${j}].id`} />
+                    <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
