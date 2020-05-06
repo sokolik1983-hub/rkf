@@ -11,7 +11,7 @@ import Card from "components/Card";
 import DocItem from "../../components/DocItemPedigree";
 
 // pedigree
-const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
+const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -19,7 +19,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
            const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
-           const isNew = formik.values.date_change === formik.values.date_create
+           const isNew = !initial.dog_name;
     return <>
 <Card>
             <DocItem
@@ -31,8 +31,8 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
     <div className="stage-controls flex-row">
             <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
-            method: true ? "PUT" : "POST",
-            action: config.url + (true ? '/draft' : ''),
+            method: !isNew ? "PUT" : "POST",
+            action: config.url + (!isNew ? '/draft' : ''),
             button: formik.values.dog_name ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
     </div>
