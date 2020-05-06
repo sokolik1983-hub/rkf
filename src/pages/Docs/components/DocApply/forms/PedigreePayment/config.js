@@ -10,7 +10,7 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 const validationSchema = {
     id: number(),
     cash_payment: boolean().required(reqText),
-    payment_document: reqIfCash(idNumber('payment_document_id', file())),
+    payment_document_id: reqIfCash(number().required(reqText).typeError(reqText)),
     payment_date: reqIfCash(),
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
