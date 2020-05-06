@@ -21,8 +21,8 @@ const genericForm = (Component, config) => {
               [loading, setLoading] = useState(true),
               [action, setAction] = useState(config.url),
               [method, setMethod] = useState(update ? "PUT" : "POST"),
-              [submitForm, setSubmitForm] = useState(undefined),
-              [onSuccess, setOnSuccess] = useState(config.onSuccess ? config.onSuccess : undefined);
+              [button, setButton] = useState('save'),
+              [submitForm, setSubmitForm] = useState(undefined);
         const setFormValues = values => {
             setValues(values);
             setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
@@ -45,17 +45,15 @@ const genericForm = (Component, config) => {
             }))();
         }, []);
 
-        if (typeof(submitForm)==="function"){console.log(onSuccess);setSubmitForm(undefined);submitForm()}
-
         const send = (params, formik) => {
             params.action && setAction(params.action);
             params.method && setMethod(params.method);
-            params.onSuccess && setOnSuccess(params.onSuccess);
+            params.button && setButton(params.button);
             formik.submitForm();
         }
 
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => onSuccess ? onSuccess(e, setRedirect) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={action}
                 method={method}

@@ -21,6 +21,10 @@ const updateSchema = {
 
 const config = {
     validationSchema, updateSchema,
+    onSuccess: {
+        save: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/header/form`),
+        next: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/table/form`)
+    },
     options: {
         federations: {
             url: endpointGetFederations,
