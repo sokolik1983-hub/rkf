@@ -10,6 +10,15 @@ import deepInitial from "./deepInitial";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
+const addNulls = o => {
+    if (!o) return null;
+    Object.keys(o).forEach(k => {
+        if (o[k] === '') o[k] = null;
+        if (typeof(o[k]) === 'object') addNulls(o[k]);
+    });
+    return o;
+}
+
 const genericForm = (Component, config) => {
     return ({update, clubAlias, clubId, id, prevStage, nextStage}) => {
         const [values, setValues] = useState({}),
@@ -60,7 +69,7 @@ const genericForm = (Component, config) => {
                 initialValues={{...config.initialValues, ...values, id}}
                 validationSchema={update ? config.updateSchema : config.validationSchema}
                 //onSubmit={e => console.log(e)}
-                transformValues={values => filterBySchema(values, (update ? config.updateSchema : config.validationSchema))}
+                transformValues={values => addNulls(filterBySchema(values, (update ? config.updateSchema : config.validationSchema))||{})}
                 //format="multipart/form-data"
                 format="application/json"
         >
