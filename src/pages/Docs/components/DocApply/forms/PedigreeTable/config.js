@@ -12,6 +12,9 @@ const config = {
     validationSchema, updateSchema,
     url: '/api/requests/pedigree_request/PedigreeDeclarantRequest/header',
     get: '/api/requests/PedigreeRequest',
+    onSuccess: {
+        create: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/declarant/form`),
+    },
     options: {},
     initialValues: {
         declarants: []
