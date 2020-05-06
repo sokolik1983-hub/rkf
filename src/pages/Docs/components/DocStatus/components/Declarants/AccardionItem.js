@@ -51,7 +51,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                                 setIsNestedOpen={setIsNestedOpen} />
                         </div>
                     </div>}
-                    <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>
+                    {count_time && <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>}
                     {pedigree_link && <p><a target="_blank" rel="noopener noreferrer" href={pedigree_link}>Ссылка на электронную копию родословной</a></p>}
                 </div>
             </div>
