@@ -10,7 +10,7 @@ const RadioButton = ({active}) => <svg viewBox="0 0 64 64">
 const RadioGroup = ({formik, radios}) => {
     const [active, setActive] = useState((radios && radios.findIndex(i => getIn(formik.values, i.name)))||0);
     return <div className="FormInput">
-        {radios && radios.map((radio, i) => <p key={i} onClick={e => setActive(i)} className={`radio ${active === i ? 'active' : ''}`}><RadioButton/>{radio.label}</p>)}
+        {radios && radios.map((radio, i) => <p key={i} onClick={e => {setActive(i);radios.forEach((r,j) => formik.setFieldValue(r.name, i === j))}} className={`radio ${active === i ? 'active' : ''}`}><RadioButton/>{radio.label}</p>)}
     </div>
 }
 
