@@ -172,7 +172,7 @@ const config = {
         }
     },
     hooks: {
-        values: values => ({...values.declarant, pedigree_header_declarant_request_id: values.id, pedigree_request_id: values.pedigree_request_id})
+        values: values => ({...values.declarant, pedigree_header_declarant_request_id: values.id, pedigree_request_id: values.pedigree_request_id, declarant_uid: values.declarant_uid})
     },
     url: '/api/requests/pedigree_request/PedigreeDeclarantRequest',
     get: '/api/requests/pedigree_request/PedigreeDeclarantRequest/declarant',

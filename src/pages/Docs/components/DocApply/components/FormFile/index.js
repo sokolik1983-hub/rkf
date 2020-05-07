@@ -10,7 +10,7 @@ import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 
-const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id}) => {
+const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid}) => {
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
     return <div style={{
@@ -35,10 +35,11 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
                 fd.append("document", file);
                 fd.append("document_type_id", document_type_id);
                 fd.append("club_id", clubId);
+                declarant_uid && fd.append("declarant_uid", declarant_uid);
                 setLoading(true);
                 Request({
                     isMultipart: true,
-                    url: '/api/requests/pedigree_request/PedigreeDocument',
+                    url: `/api/requests/pedigree_request/PedigreeDocument${declarant_uid ? '/additional' : ''}`,
                     method: "POST",
                     data: fd
                 }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, '')})

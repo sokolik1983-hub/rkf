@@ -249,6 +249,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             fieldType="file"
                             distinction={distinction}
                             accept={accept}
+                            declarant_uid={declarant.declarant_uid}
                         />
                     </HideIf>
                     <HideIf cond={update}>
