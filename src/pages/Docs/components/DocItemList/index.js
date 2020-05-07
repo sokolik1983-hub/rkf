@@ -106,7 +106,10 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
-            <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
+            <FormGroup inline>
+                <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
+                {formik.values.folder_number && (distinction === "pedigree") && <FormField disabled name="folder_number" label='Номер папки' />}
+            </FormGroup>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
             <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
             <ResponsibleContactInfo>
