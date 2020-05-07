@@ -5,6 +5,7 @@ import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
+import RadioGroup from "../DocApply/components/RadioGroup";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
 import Transliteratable from "../../components/Transliteratable";
@@ -85,6 +86,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <b><FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/></b>
+            <RadioGroup disabled={update} radios={[
+            {
+                name: `declarants[${i}].two_generation`,
+                label: 'Выписка из ВЕРК РКФ единого образца (на двух языках)'
+            },
+            {
+                name: `declarants[${i}].one_generation`,
+                label: 'Свидетельство о регистрации собаки в ВЕРК РКФ'
+            }
+            ]}/>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
