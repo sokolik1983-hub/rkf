@@ -105,7 +105,7 @@ function Form({
 }
 
 Form.propTypes = {
-    method: oneOf(["POST", "PUT"]).isRequired,
+    method: oneOf(["POST", "PUT", "DELETE"]).isRequired,
     action: string.isRequired,
     format: string,
     transformValues: func,
