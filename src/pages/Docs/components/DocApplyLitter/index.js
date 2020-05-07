@@ -195,7 +195,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 transformValues={transformValues}
                 initialValues={initial}
                 format="multipart/form-data"
-            >{update.toString()}
+            >
                 <Card>
                     <div className="club-documents-status__head">
                         <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
