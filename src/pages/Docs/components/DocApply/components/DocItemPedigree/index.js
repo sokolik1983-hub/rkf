@@ -243,7 +243,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <FormFile
                             name={`documents[${j}].document`}
                             label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
-                            docId={declarant.documents[j].id}
+                            docId={declarant.documents[j].document_id}
                             disabled={view || !statusAllowsUpdate || doc.document_accept}
                             document_type_id={doc.document_type_id}
                             fieldType="file"
