@@ -91,7 +91,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         update = true;
         view = x !== 'edit';
     }
-    let initial = {...initialValues, ...removeNulls(values), declarants: distinction === "litter" ? values.declarants : values.declarants && values.declarants.map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode}))};
+    let initial = {...initialValues, ...removeNulls(values)};
+    values.declarants && (initial = {...initial, declarants: distinction === "litter" ? values.declarants : values.declarants && values.declarants.map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode}))});
     let cash_payment = initial.cash_payment;
     const filterBySchema = (values, fields) => {
         let r = {};
