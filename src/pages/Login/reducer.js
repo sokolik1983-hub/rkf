@@ -58,7 +58,7 @@ const authInitialState = {
 
 const authReducer = createReducer(authInitialState, {
     [actiontypes.LOGIN_SUCCESS](state, action) {
-        const {access_token, is_active_profile, user_info, profile_id} = action.data;
+        const {access_token, is_active_profile, user_info, profile_id, api_key} = action.data;
 
         saveApiKey(access_token);
         saveUserInfo(user_info);
@@ -74,7 +74,8 @@ const authReducer = createReducer(authInitialState, {
             isAuthenticated: true,
             is_active_profile,
             user_info,
-            profile_id
+            profile_id,
+            api_key
         };
     },
     [actiontypes.LOGOUT](state, action) {
