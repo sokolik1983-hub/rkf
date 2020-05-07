@@ -91,7 +91,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         update = true;
         view = x !== 'edit';
     }
-    let initial = {...initialValues, ...removeNulls(values)};
+    let initial = {...initialValues, ...removeNulls(values), declarants: distinction === "litter" ? values.declarants : values.declarants && values.declarants.map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode}))};
     let cash_payment = initial.cash_payment;
     const filterBySchema = (values, fields) => {
         let r = {};
@@ -136,7 +136,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
-    draft && (update = false);
+    //draft && (update = false);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
@@ -185,7 +185,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         */}
         <div className="documents-page__right">
             <Form
-                novalidate
                 onSuccess={e => setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={apiEndpoint}
@@ -195,7 +194,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 transformValues={transformValues}
                 initialValues={initial}
                 format="multipart/form-data"
-            >
+            >{update.toString()}
                 <Card>
                     <div className="club-documents-status__head">
                         <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
