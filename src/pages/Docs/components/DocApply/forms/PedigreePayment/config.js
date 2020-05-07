@@ -1,6 +1,7 @@
 import {number, boolean} from "yup";
 import {reqText, numbersOnly, reqIfCash, idNumber, file} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
+import { Request } from "utils/request";
 
 const apiPedigreeEndpoint = '/api/requests/pedigree_request/PedigreeRequestHeader/payment';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
@@ -25,7 +26,11 @@ const updateSchema = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        send: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents`)
+        next: (values, setRedirect, clubAlias) => values && values.id && Request({
+            url: '/api/requests/PedigreeRequest/new',
+            method: "POST",
+            data: {id:values.id}
+        }, e => {alert("Заявка отправлена на рассмотрение");setRedirect(`/${clubAlias}/documents`)})
     },
     options: {
         federations: {

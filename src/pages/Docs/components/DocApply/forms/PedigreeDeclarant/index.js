@@ -33,7 +33,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
             action: config.url + (!isNew ? '/draft' : ''),
-            button: formik.values.dog_name ? 'none' : 'save'
+            button: !isNew ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
     </div>
     </>
