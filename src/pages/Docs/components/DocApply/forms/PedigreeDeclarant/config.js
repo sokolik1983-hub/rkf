@@ -70,7 +70,7 @@ const validationSchema = {
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: idNumber('id', file())
+        document_id: number().required(reqText)
     }))
 }
 
@@ -86,7 +86,7 @@ const updateSchema = {
             then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
-        document: file()
+        document_id: number().required(reqText)
     }))
 }
 
@@ -172,7 +172,7 @@ const config = {
         }
     },
     hooks: {
-        values: values => ({...values.declarant, pedigree_header_declarant_request_id: values.id, pedigree_request_id: values.pedigree_request_id, declarant_uid: values.declarant_uid})
+        values: values => ({...values.declarant, pedigree_header_declarant_request_id: values.id, pedigree_request_id: values.pedigree_request_id, declarant_uid: values.declarant_uid, documents: values.documents})
     },
     url: '/api/requests/pedigree_request/PedigreeDeclarantRequest',
     get: '/api/requests/pedigree_request/PedigreeDeclarantRequest/declarant',
