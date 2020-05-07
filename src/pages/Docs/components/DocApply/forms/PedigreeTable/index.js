@@ -9,6 +9,7 @@ import config from "./config.js";
 import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
+import {Request} from "utils/request";
 
 // pedigree
 const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
@@ -40,6 +41,12 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         key={i}
                         activateClick={() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i].declarant}
+                        onDelete={() => {
+                        if (window.confirm("Удалить заявку?")) {
+                        Request({
+                            method: 'DELETE',
+                            url: `/api/requests/pedigree_request/PedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
+                        },setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>
             </table>    
