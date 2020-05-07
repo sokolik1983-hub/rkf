@@ -137,7 +137,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }
-    //draft && (update = false);
+    draft && (update = false);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
