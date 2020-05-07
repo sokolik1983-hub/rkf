@@ -240,9 +240,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`documents[${j}].document`} accept={accept} />
+                        <FormFile
+                            name={`documents[${j}].document`}
+                            label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
+                            docId={declarant.documents[j].id}
+                            disabled={view || !statusAllowsUpdate || doc.document_accept}
+                            document_type_id={doc.document_type_id}
+                            fieldType="file"
+                            distinction={distinction}
+                            accept={accept}
+                        />
                     </HideIf>
-                    <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
