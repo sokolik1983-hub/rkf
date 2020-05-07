@@ -1,4 +1,23 @@
 .DocApply {
+    h3 {
+        font-family: Source Sans Pro;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 32px;
+        color: #253C5E;
+        text-align: center;
+    }
+    .shadow {
+        box-shadow: 0px 10px 20px rgba(51, 102, 255, 0.1);
+    }
+    .divider {
+        background: #EBF0F2;
+        width: 100%;
+        height: 1px;
+        margin-bottom: 24px;
+    }
+    
     & input, & .caps {
         text-transform: uppercase;
     }
@@ -18,11 +37,15 @@
         align-self: flex-start;
         margin-bottom: 22px;
     }
+    .FormGroup--inline {
+        margin-bottom: 0;
+    }
     .FormGroup--inline .btn {
         align-self: flex-end;
     }
     .red {
-        color: #FA5D50;
+        //color: #FA5D50;
+        color: #00c48c!important;
     }
     .hidden {
         display: none!important;
@@ -43,10 +66,14 @@
             padding: .75rem;
             vertical-align: top;
             border-top: 1px solid #dee2e6;
+            font-weight: normal;
+            color: #72839C;
         }
         thead th {
             vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
+        }
+        td {
+            color: #253C5E;
         }
     }
     .alert {
@@ -60,5 +87,17 @@
         color: #721c24;
         background-color: #f8d7da;
         border-color: #f5c6cb;
+    }
+
+    .stage-controls {
+        background-color: white;
+        padding: 8px 14px;
+    }
+    .stage-controls .btn:first-child {
+        margin-right: auto;
+    }
+    .stage-controls .btn-green.btn-light {
+        background: transparent;
+        color: #00c48c;
     }
 }

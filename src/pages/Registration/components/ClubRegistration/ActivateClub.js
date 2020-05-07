@@ -9,8 +9,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
     const [code, setCode] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const onEmailSubmit = (e) => {
-        e.preventDefault();
+    const onEmailSubmit = () => {
         setLoading(true);
 
         fetch('/api/Activation', {
@@ -28,7 +27,6 @@ const ActivateClub = ({club, history, logOutUser}) => {
             .then((response) => {
                 setLoading(false);
                 if (response.returnCode >= 200 && response.returnCode < 300) {
-                    alert('Код активации отправлен на ' + club.mail);
                     setCode('');
                 } else {
                     alert(`Ошибка: ${Object.values(response.errors)}`);
@@ -36,7 +34,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
             });
     };
 
-    const onCodeSubmit = (e) => {
+    const onCodeSubmit = e => {
         e.preventDefault();
         setLoading(true);
 
@@ -67,41 +65,40 @@ const ActivateClub = ({club, history, logOutUser}) => {
     return loading ?
         <Loading/> :
         <div className="club-registration__activate">
-            <h3>{club.name || club.legal_name}</h3>
-            <table className="club-registration__activate-table">
-                <tbody>
-                    <tr>
-                        <th>ОГРН</th>
-                        <th>ИНН</th>
-                        <th>Адрес</th>
-                        <th>ФИО</th>
-                    </tr>
-                    <tr>
-                        <td>{club.ogrn || 'Отсутствует'}</td>
-                        <td>{club.inn || 'Отсутствует'}</td>
-                        <td>{club.address || club.legal_address || 'Отсутствует'}</td>
-                        <td>{club.owner_name || 'Отсутствует'}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3>Активация клуба</h3>
-            {code === null ?
-                <form onSubmit={onEmailSubmit} className="club-registration__activate-form">
-                    <p>Код активации будет отправлен на почту: <b>{club.mail}</b></p>
-                    <p className="club-registration__activate-warn">Если email указан неверно, воспользуйтесь формой обратной ссвязи</p>
-                    <button type="submit" className="btn btn-simple">Отправить</button>
-                </form> :
-                <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
-                    <input size="30"
-                           type="text"
-                           onChange={e => setCode(e.target.value)}
-                           minLength="4"
-                           required
-                           placeholder="Введите код активации"
-                    />
-                    <button type="submit" className="btn btn-simple">Отправить</button>
-                </form>
-            }
+            <h3>{code === null ? 'Активация клуба' : 'Подтвердите ваш e-mail'}</h3>
+            <div className="club-registration__activate-content">
+                {code === null ?
+                    <>
+                        <div className="club-registration__activate-info">
+                            <p>Пожалуйста, проверьте правильность указанной информации:</p>
+                            <p><span>Название:&nbsp;</span><span>{club.name || club.legal_name}</span></p>
+                            <p><span>ОГРН:&nbsp;</span><span>{club.ogrn || 'Отсутствует'}</span></p>
+                            <p><span>ИНН:&nbsp;</span><span>{club.inn || 'Отсутствует'}</span></p>
+                            <p><span>Адрес:&nbsp;</span><span>{club.address || club.legal_address || 'Отсутствует'}</span></p>
+                            <p><span>ФИО руководителя:&nbsp;</span><span>{club.owner_name || 'Отсутствует'}</span></p>
+                        </div>
+                        <div className="club-registration__activate-email">
+                            <p>Код активации будет отправлен на почту: <b>{club.mail}</b></p>
+                            <p className="club-registration__activate-warn">Если информация указана неверно, воспользуйтесь формой обратной связи</p>
+                            <button className="btn btn-primary" onClick={onEmailSubmit}>Отправить</button>
+                        </div>
+                    </> :
+                    <div className="club-registration__activate-confirm">
+                        <p>Мы отправили письмо с проверочным кодом на указанный вами адрес: <b>{club.mail}</b></p>
+                        <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
+                        <form onSubmit={onCodeSubmit} className="club-registration__activate-form">
+                            <input size="30"
+                                   type="text"
+                                   onChange={e => setCode(e.target.value)}
+                                   minLength="4"
+                                   required
+                                   placeholder="Введите код активации"
+                            />
+                            <button type="submit" className="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                }
+            </div>
         </div>
 };
 

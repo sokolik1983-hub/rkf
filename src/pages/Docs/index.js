@@ -6,6 +6,7 @@ import Container from "../../components/Layouts/Container";
 import Layout from "../../components/Layouts";
 import TopComponent from "../../components/TopComponent";
 import DocApply from "./components/DocApply";
+import DocApplyLitter from "./components/DocApplyLitter";
 import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
@@ -38,29 +39,11 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
-                        <Route exact={true} path='/:route/documents/litter/form' component={() =>
-                            <DocApply clubAlias={clubAlias} distinction="litter" />}
-                        />
-                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
-                            <DocApply clubAlias={clubAlias} distinction="pedigree" />}
-                        />
                         <Route exact={true} path='/:route/documents/litter/status' component={() =>
                             <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/:route/documents/pedigree/status' component={() =>
                             <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="pedigree" />}
-                        />
-                        <Route exact={true} path='/:route/documents/litter/:id' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="litter" />}
-                        />
-                        <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="pedigree" />}
-                        />
-                        <Route exact={true} path='/:route/documents/litter/:id/edit' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="litter" />}
-                        />
-                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/:route/documents/litter/:id/print' component={() =>
                             <DocRegistry history={history} distinction="litter" />}
@@ -89,6 +72,33 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/responsible/table' component={() =>
                             <ResponsivePersonTable clubAlias={clubAlias} history={history} />}
                         />
+                        <Route exact={true} path='/:route/documents/litter/form' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} distinction="litter" />}
+                        />
+                        <Route exact={true} path='/:route/documents/litter/:id' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
+                        />
+                        <Route exact={true} path='/:route/documents/litter/:id/edit' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
+                        />
+                        
+                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                        />
+
+                        <Route exact={true} path='/:route/documents/pedigree/:id/:action' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/:id/:stage/:action' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
+                        />
+
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>

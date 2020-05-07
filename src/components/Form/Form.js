@@ -4,37 +4,13 @@ import classnames from 'classnames'
 import { Formik } from 'formik';
 import { Request } from '../../utils/request';
 import Loading from "../Loading";
-import moment from "moment";
+import flatten from 'utils/flatten';
 
 const getFormData = data => {
     const formData = new FormData();
     Object.keys(data).forEach(key => formData.append(key, data[key]));
     return formData;
 };
-
-const flatten = ob => {
-    let toReturn = {};
-    for (let i in ob) {
-        if (!ob.hasOwnProperty(i)) continue;
-        if ((typeof ob[i]) == 'object' && ob[i] !== null && !(ob[i] instanceof File) && !(ob[i] instanceof Date)) {
-            let flatObject = flatten(ob[i]);
-            for (let x in flatObject) {
-                if (!flatObject.hasOwnProperty(x)) continue;
-                let si = isNaN(i) ? i : `[${i}]`;
-                let sx = x[0] !== '[' ? `.${x}` : x;
-                toReturn[`${si}${sx}`] = flatObject[x];
-            }
-        } else {
-            if (ob[i] instanceof Date) {
-                toReturn[i] = moment(ob[i]).format("YYYY-MM-DD");
-            } else {
-                toReturn[i] = ob[i];
-            }
-        }
-    }
-    return toReturn;
-}
-
 /**
  * Functional component encapsulate Formik functionality and form submit request.
  * @param {string} method POST if create, PUT/UPDATE if Update
@@ -129,7 +105,7 @@ function Form({
 }
 
 Form.propTypes = {
-    method: oneOf(["POST", "PUT"]).isRequired,
+    method: oneOf(["POST", "PUT", "DELETE"]).isRequired,
     action: string.isRequired,
     format: string,
     transformValues: func,

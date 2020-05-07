@@ -5,6 +5,7 @@ import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
 import DocLink from "../../components/DocLink";
+import RadioGroup from "../DocApply/components/RadioGroup";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
 import Transliteratable from "../../components/Transliteratable";
@@ -85,6 +86,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarants[${i}].id`} />
             <input type="hidden" name={`declarants[${i}].declarant_uid`} />
             <b><FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].express`} label='Срочная'/></b>
+            <RadioGroup disabled={update} radios={[
+            {
+                name: `declarants[${i}].two_generation`,
+                label: 'Выписка из ВЕРК РКФ единого образца (на двух языках)'
+            },
+            {
+                name: `declarants[${i}].one_generation`,
+                label: 'Свидетельство о регистрации собаки в ВЕРК РКФ'
+            }
+            ]}/>
             <FormGroup inline>
                 <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`declarants[${i}].stamp_code_name`} label='Код клейма' onChange={e => formik.setFieldValue(`declarants[${i}].stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`declarants[${i}].stamp_number`} label='Номер клейма' placeholder="0000"/>
@@ -189,14 +200,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 distinction={distinction}
             />
 
-            <FormFile
+            {/*<FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
                 docId={declarant.request_extract_from_verk_document_id}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
                 form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
                 distinction={distinction}
-            />
+            />*/}
 
             <FormFile
                 name={`declarants[${i}].personal_data_document`}

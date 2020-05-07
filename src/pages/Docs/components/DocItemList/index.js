@@ -86,9 +86,9 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             fetch(apiLitterEmptyDocument, {headers})
             .then(response => response.blob())
             .then(data => setLitterHref(URL.createObjectURL(data))),
-            fetch(apiVerkEndpoint, {headers})
-            .then(response => response.blob())
-            .then(data => setVerkHref(URL.createObjectURL(data)))
+            //fetch(apiVerkEndpoint, {headers})
+            //.then(response => response.blob())
+            //.then(data => setVerkHref(URL.createObjectURL(data)))
         ]).then(() => {
             setDeclarant(getIn(formik.values, 'declarant_id'));
             setLoading(false);
@@ -106,7 +106,10 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         name="declarants"
         render={helpers => <>
             {redirect && <Redirect to={redirect}/>}
-            <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
+            <FormGroup inline>
+                <FormField disabled={update} options={federations} fieldType="reactSelect" name="federation_id" label='Федерация' onChange={e => setFedName(e.label)} placeholder="Выберите..."/>
+                {formik.values.folder_number && (distinction === "pedigree") && <FormField disabled name="folder_number" label='Номер папки' />}
+            </FormGroup>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
             <Link to={`/${clubAlias}/documents/responsible/form`}>Создать заявителя</Link>
             <ResponsibleContactInfo>
@@ -160,7 +163,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                     </tr>
                 </thead>
                 <tbody>
-                    {formik.values.declarants.map((m, i) => <DocItem
+                    {formik.values.declarants && formik.values.declarants.map((m, i) => <DocItem
                         key={i}
                         closeClick={() => {
                             helpers.remove(i);
@@ -200,7 +203,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
         </div>
         <div>
             <FormGroup>
-                <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
+                <p className={update ? 'hidden' : ''}><b>Приложите квитанцию об оплате {formik.values.declarants && formik.values.declarants.length} заявок по тарифу {fedName} и заполните информацию о платеже.</b></p>
                 <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
                 <h4>Информация о платеже</h4>
 
@@ -214,7 +217,7 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                             distinction={distinction}
                         />
 
-                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" required={false}/>
                         <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>

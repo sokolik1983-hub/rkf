@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Select from "react-select";
+import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import ActivateClub from "./ActivateClub";
 import {useDictionary} from "../../../../apps/Dictionaries";
@@ -10,6 +11,7 @@ import "./index.scss";
 
 const ClubRegistration = () => {
     const [clubs, setClubs] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [activeClub, setActiveClub] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const {dictionary} = useDictionary(DICTIONARIES.cities);
@@ -18,7 +20,7 @@ const ClubRegistration = () => {
         ...dictionary.options
     ];
 
-    const onClubClick = (id) => {
+    const onClubClick = id => {
         setShowModal(true);
         setActiveClub(...clubs.filter(club => club.club_id === id));
     };
@@ -32,10 +34,15 @@ const ClubRegistration = () => {
 
     const onCityChange = async value => {
         if (value.value && value.value !== 'reset') {
+            setLoading(true);
             await Request({
                 url: `/api/Club/short_all?LegalCityId=${value.value}&QueryDate=${new Date().toISOString().split('T')[0]}`
-            }, data => setClubs(data),
+            }, data => {
+                setClubs(data);
+                setLoading(false);
+            },
             error => {
+                setLoading(false);
                 console.log(error.response);
             });
         }
@@ -61,7 +68,8 @@ const ClubRegistration = () => {
                     })
                 }}
             />
-            {clubs &&
+            {loading && <Loading inline/>}
+            {!loading && clubs &&
                 <>
                     {clubs.length ?
                         <ul className="club-registration__list">
@@ -71,14 +79,19 @@ const ClubRegistration = () => {
                                 </li>
                             )}
                         </ul> :
-                        <h3>Ничего не найдено</h3>
+                        <div className="club-registration__empty">
+                            <h3 className="club-registration__empty-title">Ничего не найдено</h3>
+                            <div className="club-registration__empty-icon" />
+                        </div>
                     }
                     <p className="club-registration__not-found">Если Вы не нашли Ваш клуб в списке, воспользуйтесь формой обратной связи</p>
                 </>
             }
-            {activeClub && <Modal showModal={showModal} handleClose={onModalClose}>
-                <ActivateClub club={activeClub}/>
-            </Modal>}
+            {activeClub &&
+                <Modal showModal={showModal} handleClose={onModalClose} className="club-registration__modal">
+                    <ActivateClub club={activeClub}/>
+                </Modal>
+            }
         </div>
     )
 };

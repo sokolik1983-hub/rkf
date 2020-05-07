@@ -1,9 +1,9 @@
 import React from 'react';
-import {connect} from 'formik';
+import { connect } from 'formik';
 import Button from "../../Button";
 
 
-const SubmitButton = ({formik, className, onClick, children, ...restProps}) => (
+const SubmitButton = ({ formik, className, onClick, children, ...restProps }) => (
     <Button
         type="submit"
         disabled={!formik.isValid || formik.isSubmitting}
