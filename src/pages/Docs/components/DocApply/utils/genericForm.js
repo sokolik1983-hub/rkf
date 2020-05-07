@@ -63,7 +63,7 @@ const genericForm = (Component, config) => {
         }
 
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={action}
                 method={method}
