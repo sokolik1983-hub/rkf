@@ -6,7 +6,7 @@ import ru from 'date-fns/locale/ru';
 
 registerLocale('ru', ru);
 
-function FormikDatePicker({ name, formik, disabled, readOnly, dateFormat = 'dd.MM.yyyy', placeholderText = 'дд.мм.гггг' }) {
+function FormikDatePicker({ name, formik, disabled, readOnly, required = true, dateFormat = 'dd.MM.yyyy', placeholderText = 'дд.мм.гггг' }) {
     const value = getIn(formik.values, name);
     const onChange = date => formik.setFieldValue(name, date);
 
@@ -25,7 +25,7 @@ function FormikDatePicker({ name, formik, disabled, readOnly, dateFormat = 'dd.M
         //readOnly={!!readOnly}
         showYearDropdown
         locale='ru'
-        required
+        required={required}
     />
 };
 

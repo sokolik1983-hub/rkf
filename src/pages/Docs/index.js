@@ -6,6 +6,7 @@ import Container from "../../components/Layouts/Container";
 import Layout from "../../components/Layouts";
 import TopComponent from "../../components/TopComponent";
 import DocApply from "./components/DocApply";
+import DocApplyLitter from "./components/DocApplyLitter";
 import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
@@ -72,28 +73,25 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <ResponsivePersonTable clubAlias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/litter/form' component={() =>
-                            <DocApply clubAlias={clubAlias} distinction="litter" />}
+                            <DocApplyLitter clubAlias={clubAlias} distinction="litter" />}
                         />
                         <Route exact={true} path='/:route/documents/litter/:id' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="litter" />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/:route/documents/litter/:id/edit' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} distinction="litter" />}
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         
-                        <Route exact={true} path='/:route/documents/:distinction/form' component={() =>
+                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
-                        <Route exact={true} path='/:route/documents/:distinction/:id' component={() =>
+                        <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
-                        <Route exact={true} path='/:route/documents/:distinction/:id/form' component={() =>
+                        <Route exact={true} path='/:route/documents/pedigree/:id/:action' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
-                        <Route exact={true} path='/:route/documents/:distinction/:id/declarant/:d_id/form' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} />}
-                        />
-                        <Route exact={true} path='/:route/documents/:distinction/:id/:stage/form' component={() =>
+                        <Route exact={true} path='/:route/documents/pedigree/:id/:stage/:action' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
 
