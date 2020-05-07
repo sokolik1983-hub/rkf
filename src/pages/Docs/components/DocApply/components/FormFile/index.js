@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import { FormField, FormGroup } from "components/Form";
+import { FormField, FormGroup, FormInput } from "components/Form";
 import {connect, getIn} from "formik";
 import ls from "local-storage";
 import HideIf from "components/HideIf";
 import Loading from "components/Loading";
+import Error from "components/Form/Field/Error";
 import DocLink from "../../components/DocLink";
 import {Request} from "utils/request";
 import "./index.scss";
@@ -12,20 +13,22 @@ const accept = ".pdf, .jpg, .jpeg, .png";
 
 const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid}) => {
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false),
+          [touched, setTouched] = useState(false);
     return <div style={{
     display: 'flex',
     flexDirection: 'column',
     marginRight: '15px',
     width: '50%'
 }}>
-    <div className="FormInput">
+    <FormInput name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"}</label>
 <FormGroup inline>
     <HideIf cond={disabled || loading}>
-                <label htmlFor={`${name}-file`} disabled={!document_type_id} className={`btn btn-primary ${!document_type_id ? 'disabled' : ''}`}>
-<input className="hidden-file" id={`${name}-file`} name={name} disabled={!document_type_id} label={label} accept={accept} type="file"
+                <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn btn-primary ${!document_type_id ? 'disabled' : ''}`}>
+<input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} label={label} accept={accept} type="file"
             onChange={e => {
+                formik.setTouched(`${name}_id`);
                 let file =  e.target.files[0]
                 if (!file) {
                     formik.setFieldValue(`${name}_id`, null);
@@ -54,7 +57,8 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     <DocLink distinction={distinction} docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} />
 </FormGroup>
     {form && <a download={form.filename} href={form.href}>{form.linkText}</a>}
-</div>
+    <Error name={`${name}_id`} noTouch/>
+</FormInput>
 </div>
 }
 
