@@ -63,7 +63,7 @@ const validationSchema = {
 
     email: lat().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
-    litter_or_request_number: string(),
+    litter_or_request_number: reqCheckbox('was_reviewed'),
     biometric_card_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     chip_number: string(),
