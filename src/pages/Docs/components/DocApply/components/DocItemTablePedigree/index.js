@@ -28,6 +28,7 @@ const DocTableItem = ({date_created, status_name, id, owner_last_name, owner_fir
         <td>{documents ? documents.length + docConst : docConst}</td>
         <td>
         {/*<img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" alt=""/>*/}
+        <DeleteButton />
         </td>
     </tr>;
 }

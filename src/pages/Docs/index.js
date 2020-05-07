@@ -82,10 +82,14 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
                         
-                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} />}
+                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
                         <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
+                        />
+
+                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
                             <DocApply clubAlias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/pedigree/:id/:action' component={() =>
