@@ -29,7 +29,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
             />
         </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
             action: config.url + (!isNew ? '/draft' : ''),

@@ -72,6 +72,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         />
 </Card>
     <div className="stage-controls flex-row">
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url + (formik.values.id ? '/draft' : ''),
