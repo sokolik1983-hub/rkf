@@ -86,9 +86,9 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             fetch(apiLitterEmptyDocument, {headers})
             .then(response => response.blob())
             .then(data => setLitterHref(URL.createObjectURL(data))),
-            fetch(apiVerkEndpoint, {headers})
-            .then(response => response.blob())
-            .then(data => setVerkHref(URL.createObjectURL(data)))
+            //fetch(apiVerkEndpoint, {headers})
+            //.then(response => response.blob())
+            //.then(data => setVerkHref(URL.createObjectURL(data)))
         ]).then(() => {
             setDeclarant(getIn(formik.values, 'declarant_id'));
             setLoading(false);

@@ -189,14 +189,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 distinction={distinction}
             />
 
-            <FormFile
+            {/*<FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
                 docId={declarant.request_extract_from_verk_document_id}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
                 form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
                 distinction={distinction}
-            />
+            />*/}
 
             <FormFile
                 name={`declarants[${i}].personal_data_document`}

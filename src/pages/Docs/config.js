@@ -87,7 +87,7 @@ const pedigreeDeclarantsValidationSchema = array().of(object().shape({
     litter_or_request_number: string(),
     biometric_card_document: idNumber('biometric_card_document_id', file()),
     personal_data_document: idNumber('personal_data_document_id', file()),
-    request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id', file()),
+    //request_extract_from_verk_document: idNumber('request_extract_from_verk_document_id', file()),
     chip_number: string(),
     documents: array().of(object().shape({
         id: number(),
@@ -101,7 +101,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     declarant_uid: string(),
     biometric_card_document: file(),
     personal_data_document: file(),
-    request_extract_from_verk_document: file(),
+    //request_extract_from_verk_document: file(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -286,7 +286,7 @@ const emptyPedigreeDeclarant = {
     litter_or_request_number: '',
     biometric_card_document: '',
     personal_data_document: '',
-    request_extract_from_verk_document: '',
+    //request_extract_from_verk_document: '',
     chip_number: '',
     documents: []
 };
