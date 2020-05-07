@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from "react";
+import {object} from "yup";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import Button from "components/Button";
@@ -68,7 +69,7 @@ const genericForm = (Component, config) => {
                 action={action}
                 method={method}
                 initialValues={{...config.initialValues, ...values, id}}
-                validationSchema={update ? config.updateSchema : config.validationSchema}
+                validationSchema={update ? config.updateSchema : object().shape(config.validationSchema)}
                 //onSubmit={e => console.log(e)}
                 transformValues={values => addNulls(filterBySchema(values, (update ? config.updateSchema : config.validationSchema))||{})}
                 //format="multipart/form-data"
