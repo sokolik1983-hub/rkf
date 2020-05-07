@@ -13,6 +13,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
     const get = () => {
         if (isNaN(docId) || !docId)
             return;
+        setUrl('');
         fetch('/api/requests/pedigree_request/PedigreeDocument' + '?id=' + docId, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
