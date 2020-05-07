@@ -67,11 +67,12 @@ const DocApply = ({ clubAlias, history }) => {
         declarant: 1,
         payment: 2
     }
-    let url_stage;
+    let url_stage, action;
     if (history) {
         let params = useParams();
-        distinction = params.distinction;
+        distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
+        action = params.action || "form";
         url_stage = params.stage;
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
