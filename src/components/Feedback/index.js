@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
+import { connect } from "react-redux";
+import Alert from 'components/Alert';
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
 import './styles.scss';
 
 
-const Feedback = ({ className, title }) => {
+const Feedback = ({ className, title, apiKey }) => {
     const [showModal, setShowModal] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [errorText, setErrorText] = useState('');
     // const { fields } = feedbackFormConfig;
     // const initialValues = {
     //     reason: null,
@@ -19,9 +23,25 @@ const Feedback = ({ className, title }) => {
     //     terms: false
     // };
 
+    const openHelpdesk = async () => {
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "apiKey": apiKey })
+        };
+        try {
+            let { token } = await fetch('https://helpapi.rkf.online/api/v1/token', options)
+                .then(response => response.json());
+            window.open('https://helpapi.rkf.online/api/v1/login/' + token);
+        } catch (error) {
+            setErrorText(error.message);
+            setAlert(true);
+        };
+    }
+
     const handleClick = (e) => {
         e.preventDefault();
-        setShowModal(true);
+        apiKey ? openHelpdesk() : setShowModal(true);
     };
 
     const onModalClose = () => {
@@ -94,8 +114,20 @@ const Feedback = ({ className, title }) => {
                     {/*</div>*/}
                 </div>
             </Modal>
+            {alert &&
+                <Alert
+                    title="Ошибка!"
+                    text={errorText}
+                    autoclose={2.5}
+                    onOk={() => setAlert(false)}
+                />
+            }
         </>
     );
 };
 
-export default Feedback;
+const mapStateToProps = state => ({
+    apiKey: state.authentication.api_key
+});
+
+export default connect(mapStateToProps)(Feedback);
