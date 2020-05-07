@@ -41,6 +41,9 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         key={i}
                         activateClick={() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i].declarant}
+                        statuses={options.statuses}
+                        status_id={formik.values.declarants[i].status_id}
+                        date_created={formik.values.declarants[i].date_create}
                         onDelete={() => {
                         if (window.confirm("Удалить заявку?")) {
                         Request({

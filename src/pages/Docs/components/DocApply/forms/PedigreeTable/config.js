@@ -1,4 +1,5 @@
 import {number} from "yup";
+const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 
 const validationSchema = {
     id: number(),
@@ -15,7 +16,12 @@ const config = {
     onSuccess: {
         create: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${values.id}/declarant/form`),
     },
-    options: {},
+    options: {
+        statuses: {
+            url: apiPedigreeStatusesEndpoint,
+            mapping: data => data.sort((a,b) => a.id - b.id),
+        },
+    },
     initialValues: {
         declarants: []
     }

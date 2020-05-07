@@ -19,10 +19,11 @@ import "./index.scss";
 
 const docConst = 6;
 
-const DocTableItem = ({date_created, status_name, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick, onDelete}) => {
+const DocTableItem = ({date_created, statuses, status_id, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick, onDelete}) => {
+    let st = statuses.find(f => status_id === f.id)
     return <tr className={`DocItem table caps`}>
         <td onClick={activateClick}>{date_created ? moment(date_created).format("DD.MM.YYYY") : ''}</td>
-        <td onClick={activateClick} className="no-caps"><i>{status_name}</i></td>
+        <td onClick={activateClick} className="no-caps"><i>{st && st.name}</i></td>
         <td onClick={activateClick}>{id || ''}</td>
         <td onClick={activateClick}>{[owner_last_name, owner_first_name, owner_second_name].filter(f=>f).join(' ')}</td>
         <td onClick={activateClick}>{email}</td>
