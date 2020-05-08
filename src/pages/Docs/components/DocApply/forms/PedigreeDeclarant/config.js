@@ -138,7 +138,8 @@ const emptyPedigreeDeclarant = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        save: (values, setRedirect, clubAlias, id) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${id}/table/form`)
+        save: (values, setRedirect, clubAlias, id) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${id}/declarant/form`),
+        next: (values, setRedirect, clubAlias, id) => values && values.id && setRedirect(`/${clubAlias}/documents/pedigree/${id}/table/form`)
     },
     options: {
         federations: {

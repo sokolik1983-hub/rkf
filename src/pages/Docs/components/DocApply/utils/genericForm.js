@@ -33,6 +33,7 @@ const genericForm = (Component, config) => {
               [action, setAction] = useState(config.url),
               [method, setMethod] = useState(update ? "PUT" : "POST"),
               [button, setButton] = useState('save'),
+              [target_id, setTargetId] = useState(undefined),
               [submitForm, setSubmitForm] = useState(undefined);
         const setFormValues = values => {
             setValues(removeNulls(config.hooks && config.hooks.values ? config.hooks.values(values) : values));
@@ -60,11 +61,12 @@ const genericForm = (Component, config) => {
             params.action && setAction(params.action);
             params.method && setMethod(params.method);
             params.button && setButton(params.button);
+            params.target_id && setTargetId(params.target_id);
             formik.submitForm();
         }
 
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, values.pedigree_request_id||id) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, target_id||values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={action}
                 method={method}
@@ -83,6 +85,7 @@ const genericForm = (Component, config) => {
                 autoclose={2.5}
                 okButton="true"
                 //onOk={() => setRedirect(`/${clubAlias}/documents`)}
+                onOk={() => {setOkAlert(false);setRedirect(window.location.pathname);}}
             />
         }
         {redirect && <Redirect push to={redirect}/>}
