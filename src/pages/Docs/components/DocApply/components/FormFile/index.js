@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import fileType from "file-type/browser";
-import { FormField, FormGroup, FormInput } from "components/Form";
+import { FormGroup, FormInput } from "components/Form";
 import {connect, getIn} from "formik";
 import ls from "local-storage";
 import HideIf from "components/HideIf";
@@ -27,8 +27,7 @@ const message = e =>
 
 const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid}) => {
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
-    const [loading, setLoading] = useState(false),
-          [touched, setTouched] = useState(false);
+    const [loading, setLoading] = useState(false);
     return <div style={{
     display: 'flex',
     flexDirection: 'column',

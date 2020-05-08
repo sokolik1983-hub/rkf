@@ -1,5 +1,4 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
 import "../DocStatus/index.scss";
 
 const DocHead = ({text, link, history}) => <div className="club-documents-status__head">

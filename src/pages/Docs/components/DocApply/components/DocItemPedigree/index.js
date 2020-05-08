@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Alert from "components/Alert";
 import { connect, FieldArray } from "formik";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
-import DocLink from "../../components/DocLink";
 import VerkParent from "../../components/VerkParent";
 import FormFile from "../../components/FormFile";
 import RadioGroup from "../../components/RadioGroup";
@@ -14,10 +12,8 @@ import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
 import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
-import moment from "moment";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
-const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 
@@ -28,15 +24,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const declarant = formik.values;
     const [everkAlert, setEverkAlert] = useState(false);
     const [privacyHref, setPrivacyHref] = useState('');
-    const [verkHref, setVerkHref] = useState('');
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
-    let status = statuses.find(s => s.id === declarant.status_id);
-    status = status ? status.name : 'Не обработана';
-    let error = formik.errors && formik.touched;
+    //let error = formik.errors && formik.touched;
 
-    const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
-    
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`${apiPedigreeEverk}?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
@@ -59,9 +50,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             //fetch(apiLitterEmptyDocument, {headers})
             //.then(response => response.blob())
             //.then(data => setLitterHref(URL.createObjectURL(data))),
-            fetch(apiVerkEndpoint, {headers})
-            .then(response => response.blob())
-            .then(data => setVerkHref(URL.createObjectURL(data)))
         ])
     }, []);
 

@@ -1,12 +1,9 @@
 import {number, boolean} from "yup";
-import {reqText, numbersOnly, reqIfCash, idNumber, file} from "../../config.js";
+import {reqText, numbersOnly, reqIfCash} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { Request } from "utils/request";
 
 const apiPedigreeEndpoint = '/api/requests/pedigree_request/PedigreeRequestHeader/payment';
-const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
-const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
-const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const validationSchema = {
     id: number(),

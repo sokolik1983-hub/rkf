@@ -2,12 +2,10 @@ import React, {useState,useEffect} from "react";
 import {object} from "yup";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
-import Button from "components/Button";
 import {Form} from "components/Form";
 import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import filterBySchema from "./filterBySchema";
-import deepInitial from "./deepInitial";
 import removeNulls from "utils/removeNulls";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
@@ -24,7 +22,7 @@ const addNulls = o => {
 const genericForm = (Component, config) => {
     return ({update, clubAlias, clubId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
-              [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
+              //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
               [options, setOptions] = useState(null),
               [okAlert, setOkAlert] = useState(false),
@@ -33,11 +31,10 @@ const genericForm = (Component, config) => {
               [action, setAction] = useState(config.url),
               [method, setMethod] = useState(update ? "PUT" : "POST"),
               [button, setButton] = useState('save'),
-              [target_id, setTargetId] = useState(undefined),
-              [submitForm, setSubmitForm] = useState(undefined);
+              [target_id, setTargetId] = useState(undefined);
         const setFormValues = values => {
             setValues(removeNulls(config.hooks && config.hooks.values ? config.hooks.values(values) : values));
-            setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
+            //setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
         }
         useEffect(() => {
             (() => Promise.all(
