@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {FormGroup} from "components/Form";
 import {connect, getIn} from "formik";
 import "./index.scss";
 
@@ -9,9 +10,9 @@ const RadioButton = ({active}) => <svg viewBox="0 0 64 64">
 
 const RadioGroup = ({formik, radios, disabled}) => {
     const [active, setActive] = useState((radios && radios.findIndex(i => getIn(formik.values, i.name)))||0);
-    return <div className={`FormInput ${disabled ? 'disabled' : ''}`}>
-        {radios && radios.map((radio, i) => <p key={i} onClick={e => {setActive(i);radios.forEach((r,j) => formik.setFieldValue(r.name, i === j))}} className={`radio ${active === i ? 'active' : ''}`}><RadioButton/>{radio.label}</p>)}
-    </div>
+    return <FormGroup inline className={`${disabled ? 'disabled' : ''}`}>
+        {radios && radios.map((radio, i) => <div key={i} onClick={e => {setActive(i);radios.forEach((r,j) => formik.setFieldValue(r.name, i === j))}} className={`FormInput radio ${active === i ? 'active' : ''}`}><RadioButton/>{radio.label}</div>)}
+    </FormGroup>
 }
 
 export default connect(React.memo(RadioGroup))

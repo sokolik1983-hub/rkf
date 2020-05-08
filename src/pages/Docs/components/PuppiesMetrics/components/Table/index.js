@@ -7,10 +7,10 @@ import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
 import {paginate, Paginator} from "../Pagination";
-import {getTableColumns} from "./config";
-import "./index.scss";
 import Modal from "../../../../../../components/Modal";
 import AddOwnerForm from "../AddOwnerForm";
+import {getTableColumns} from "./config";
+import "./index.scss";
 
 
 class PuppiesTable extends PureComponent {

@@ -6,6 +6,7 @@ import {setFiltersToUrl} from "../../../../utils";
 import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
 import {formatDateToString} from "../../../../../../utils/datetime";
 import "./index.scss";
+import "components/WidgetCalendar/index.scss";
 
 
 const Calendar = ({calendarData, DateFrom}) => {

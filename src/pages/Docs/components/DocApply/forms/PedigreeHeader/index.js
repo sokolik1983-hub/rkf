@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {connect} from "formik";
-import {Link} from "react-router-dom";
 import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "../../utils/genericForm";
@@ -10,7 +9,7 @@ import HideIf from "components/HideIf";
 import Card from "components/Card";
 
 // pedigree
-const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
+const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -19,6 +18,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
     }
     return <>
 <Card>
+    <Title/>
         <FormGroup inline>
         <FormField
             disabled={update}
@@ -40,9 +40,8 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label='Ответственное лицо'
+            label={`Ответственное лицо (<a href="/${clubAlias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
-        <Link to={`/${clubAlias}/documents/responsible/form`}>Создать ответственное лицо</Link>
         {/*<FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />*/}
         <FormGroup inline>
             <FormField
@@ -83,7 +82,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
                 method: formik.values.id ? "PUT" : "POST",
                 action: config.url + (formik.values.id ? '/draft' : ''),
                 button: 'next'
-            }, formik)}>Продолжить</Button>
+            }, formik)}>Сохранить и продолжить</Button>
         </HideIf>
     </div>
     </>

@@ -23,7 +23,6 @@ import {
     apiSexTypesEndpoint,
     apiPedigreePrivacyEndpoint,
     apiLitterPrivacyEndpoint,
-    apiVerkEndpoint,
     apiStatusesEndpoint,
     //apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
@@ -48,7 +47,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
     const [litterStatuses, setLitterStatuses] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
     const [litterHref, setLitterHref] = useState('');
-    const [verkHref, setVerkHref] = useState('');
     const [fedName, setFedName] = useState('федерации');
     const [loading, setLoading] = useState(true);
     const [redirect, setRedirect] = useState(false);
@@ -180,7 +178,6 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
                         view={view}
                         update={update}
                         privacyHref={privacyHref}
-                        verkHref={verkHref}
                         litterHref={litterHref}
                         statuses={statuses}
                         litterStatuses={litterStatuses}

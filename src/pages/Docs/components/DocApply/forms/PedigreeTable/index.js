@@ -1,8 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {connect} from "formik";
-import {Link} from "react-router-dom";
-import removeNulls from "utils/removeNulls";
-import { FormGroup, FormField } from "components/Form";
 import genericForm from "../../utils/genericForm";
 import DocTableItem from "../../components/DocItemTablePedigree";
 import config from "./config.js";
@@ -12,10 +9,9 @@ import Card from "components/Card";
 import {Request} from "utils/request";
 
 // pedigree
-const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
-    const [editing, setEditing] = useState(-1);
-    return <>
+const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => <>
     <Card>
+    <Title/>
         <div className="flex-row">
                 <Button className="btn-primary"
                     onClick={e => send({
@@ -33,6 +29,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         <th>ФИО владельца</th>
                         <th>Эл. почта</th>
                         <th>Кол-во док.</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -63,7 +60,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
         </HideIf>
     </div>
     </>
-})
+)
 
 const TableForm = genericForm(TableFormFields, config)
 

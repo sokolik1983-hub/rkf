@@ -2,12 +2,10 @@ import React, {useState,useEffect} from "react";
 import {object} from "yup";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
-import Button from "components/Button";
 import {Form} from "components/Form";
 import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import filterBySchema from "./filterBySchema";
-import deepInitial from "./deepInitial";
 import removeNulls from "utils/removeNulls";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
@@ -22,9 +20,9 @@ const addNulls = o => {
 }
 
 const genericForm = (Component, config) => {
-    return ({update, clubAlias, clubId, id, prevStage, nextStage}) => {
+    return ({update, clubAlias, clubId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
-              [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
+              //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
               [options, setOptions] = useState(null),
               [okAlert, setOkAlert] = useState(false),
@@ -33,10 +31,10 @@ const genericForm = (Component, config) => {
               [action, setAction] = useState(config.url),
               [method, setMethod] = useState(update ? "PUT" : "POST"),
               [button, setButton] = useState('save'),
-              [submitForm, setSubmitForm] = useState(undefined);
+              [target_id, setTargetId] = useState(undefined);
         const setFormValues = values => {
             setValues(removeNulls(config.hooks && config.hooks.values ? config.hooks.values(values) : values));
-            setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
+            //setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
         }
         useEffect(() => {
             (() => Promise.all(
@@ -60,11 +58,12 @@ const genericForm = (Component, config) => {
             params.action && setAction(params.action);
             params.method && setMethod(params.method);
             params.button && setButton(params.button);
+            params.target_id && setTargetId(params.target_id);
             formik.submitForm();
         }
 
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
-                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, values.pedigree_request_id||id) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, target_id||values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={action}
                 method={method}
@@ -83,6 +82,7 @@ const genericForm = (Component, config) => {
                 autoclose={2.5}
                 okButton="true"
                 //onOk={() => setRedirect(`/${clubAlias}/documents`)}
+                onOk={() => {setOkAlert(false);setRedirect(window.location.pathname);}}
             />
         }
         {redirect && <Redirect push to={redirect}/>}
@@ -98,7 +98,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, clubAlias, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, options, clubAlias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }

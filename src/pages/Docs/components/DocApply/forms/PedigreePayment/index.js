@@ -1,7 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {connect} from "formik";
-import {Link} from "react-router-dom";
-import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "../../utils/genericForm";
 import config from "./config.js";
@@ -11,11 +9,12 @@ import Card from "components/Card";
 import FormFile from "../../components/FormFile";
 
 // pedigree
-const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial}) => {
+const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial, Title}) => {
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
     return <>
 <Card>
+<Title/>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {options.federations.find(f => f.value === formik.values.federation_id).label} и заполните информацию о платеже.</p>
                 <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
@@ -32,7 +31,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
                             distinction="pedigree"
                         />
 
-                        <FormField disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <FormField className="special" required={false} disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
                         <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>

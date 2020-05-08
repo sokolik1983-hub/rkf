@@ -1,4 +1,7 @@
 .DocApply {
+    .special .FormInput__input {
+        width: 100%;
+    }
     h3 {
         font-family: Source Sans Pro;
         font-style: normal;
@@ -95,6 +98,9 @@
     }
     .stage-controls .btn:first-child {
         margin-right: auto;
+    }
+    .stage-controls .btn:last-child {
+        margin-right: 1em;
     }
     .stage-controls .btn-green.btn-light {
         background: transparent;
