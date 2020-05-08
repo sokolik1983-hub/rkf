@@ -83,7 +83,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
                 method: formik.values.id ? "PUT" : "POST",
                 action: config.url + (formik.values.id ? '/draft' : ''),
                 button: 'next'
-            }, formik)}>Продолжить</Button>
+            }, formik)}>Сохранить и продолжить</Button>
         </HideIf>
     </div>
     </>

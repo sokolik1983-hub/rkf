@@ -34,8 +34,14 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
             action: config.url + (!isNew ? '/draft' : ''),
-            button: !isNew ? 'none' : 'save'
+            button: 'none',
+            target_id: formik.values.pedigree_header_declarant_request_id,
         }, formik)}>Сохранить</Button>
+        <Button className="btn-condensed btn-green" onClick={e => send({
+            method: !isNew ? "PUT" : "POST",
+            action: config.url + (!isNew ? '/draft' : ''),
+            button: 'next'
+        }, formik)}>Сохранить и продолжить</Button>
     </div>
     </>
 })
