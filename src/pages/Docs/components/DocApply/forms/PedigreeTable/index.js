@@ -35,6 +35,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         <th>Эл. почта</th>
                         <th>Кол-во док.</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
