@@ -4,8 +4,8 @@
     &.error {
         outline: 1px solid red;
     }
-    .heading-row h4 {
-        margin-right: auto;
+    .heading-row {
+        justify-content: flex-start!important;
     }
     .heading-row * {
         margin-bottom: 0!important;

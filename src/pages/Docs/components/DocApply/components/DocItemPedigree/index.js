@@ -87,7 +87,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     <div className={`DocItem`}>
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочная'/>
+            <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
         <RadioGroup radios={[
             {
