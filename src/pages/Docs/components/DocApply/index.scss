@@ -99,6 +99,9 @@
     .stage-controls .btn:first-child {
         margin-right: auto;
     }
+    .stage-controls .btn:last-child {
+        margin-right: 1em;
+    }
     .stage-controls .btn-green.btn-light {
         background: transparent;
         color: #00c48c;
