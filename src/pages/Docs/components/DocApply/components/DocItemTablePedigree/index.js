@@ -1,25 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Alert from "components/Alert";
-import { connect, FieldArray } from "formik";
-import Button from "components/Button";
+import React from "react";
+import { connect } from "formik";
 import DeleteButton from "../../components/DeleteButton";
-import DocLink from "../../components/DocLink";
-import VerkParent from "../../components/VerkParent";
-import FormFile from "../../components/FormFile";
-import Transliteratable from "../../components/Transliteratable";
-import { FormGroup, FormField } from "components/Form";
-import { apiPedigreeEverk } from "../../config.js";
-import { Request } from "utils/request";
-import transliterate from "utils/transliterate";
-import HideIf from "components/HideIf";
 import moment from "moment";
 import "../DocItemPedigree/index.scss";
 import "./index.scss";
 
-const docConst = 6;
-
-const DocTableItem = ({date_created, statuses, status_id, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick, onDelete}) => {
+const DocTableItem = ({date_created, statuses, status_id, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick, onDelete, father_foreign, mother_foreign}) => {
+    const docConst = 2 + Number(father_foreign) + Number(mother_foreign);
     let st = statuses.find(f => status_id === f.id)
     return <tr className={`DocItem table caps`}>
         <td onClick={activateClick}>{date_created ? moment(date_created).format("DD.MM.YYYY") : ''}</td>

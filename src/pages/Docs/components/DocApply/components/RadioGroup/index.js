@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {FormGroup, FormInput} from "components/Form";
+import {FormGroup} from "components/Form";
 import {connect, getIn} from "formik";
 import "./index.scss";
 

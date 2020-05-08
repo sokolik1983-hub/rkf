@@ -1,5 +1,4 @@
 import { object, string, array, number, boolean, mixed } from "yup";
-import fileType from "file-type/browser";
 
 const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
 const apiLitterEndpoint = '/api/requests/LitterRequest';
