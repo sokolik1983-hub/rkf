@@ -22,11 +22,11 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     width: '50%'
 }}>
     <FormInput name={`${name}_id`}>
-            <label>{!!label ? label : "\u00a0"}</label>
+            <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
 <FormGroup inline>
     <HideIf cond={disabled || loading}>
                 <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn btn-primary ${!document_type_id ? 'disabled' : ''}`}>
-<input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} label={label} accept={accept} type="file"
+<input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} accept={accept} type="file"
             onChange={e => {
                 formik.setTouched(`${name}_id`);
                 let file =  e.target.files[0]
@@ -56,7 +56,6 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     </HideIf>
     <DocLink distinction={distinction} docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} />
 </FormGroup>
-    {form && <a download={form.filename} href={form.href}>{form.linkText}</a>}
     <Error name={`${name}_id`} noTouch/>
 </FormInput>
 </div>

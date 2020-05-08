@@ -22,7 +22,7 @@ const addNulls = o => {
 }
 
 const genericForm = (Component, config) => {
-    return ({update, clubAlias, clubId, id, prevStage, nextStage}) => {
+    return ({update, clubAlias, clubId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
               [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -98,7 +98,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, clubAlias, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, options, clubAlias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }
