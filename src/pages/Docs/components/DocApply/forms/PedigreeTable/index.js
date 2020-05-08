@@ -12,10 +12,11 @@ import Card from "components/Card";
 import {Request} from "utils/request";
 
 // pedigree
-const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect, send}) => {
+const TableFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
     const [editing, setEditing] = useState(-1);
     return <>
     <Card>
+    <Title/>
         <div className="flex-row">
                 <Button className="btn-primary"
                     onClick={e => send({

@@ -11,11 +11,12 @@ import Card from "components/Card";
 import FormFile from "../../components/FormFile";
 
 // pedigree
-const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial}) => {
+const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial, Title}) => {
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
     return <>
 <Card>
+<Title/>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {options.federations.find(f => f.value === formik.values.federation_id).label} и заполните информацию о платеже.</p>
                 <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>

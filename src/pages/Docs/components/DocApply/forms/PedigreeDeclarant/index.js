@@ -11,7 +11,7 @@ import Card from "components/Card";
 import DocItem from "../../components/DocItemPedigree";
 
 // pedigree
-const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial}) => {
+const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial, Title}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -22,6 +22,7 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
            const isNew = !initial.dog_name;
     return <>
 <Card>
+<Title/>
             <DocItem
                 i={0}
                 active={true}

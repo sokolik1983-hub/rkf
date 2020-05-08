@@ -91,6 +91,26 @@ const DocApply = ({ clubAlias, history }) => {
     const FormContent = forms[url_stage] || forms.header;
     //const onSuccess = values => {values && values.id && !id && setRedirect(`/${clubAlias}/documents/${distinction}/${values.id}/header/form`)}
 
+    const Title = props => <><div className="documents-page__title">
+                <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"}</h3>
+                <div className="divider"/>
+            </div>
+            <StageStrip items={[
+                {
+                    icon: 'pen-opaque',
+                    text: 'Основная информация'
+                },
+                {
+                    icon: 'pen-opaque',
+                    text: 'Заявки'
+                },
+                {
+                    icon: 'pen-opaque',
+                    text: 'Информация об оплате'
+                }
+            ]} active={stage}/></>
+
+
     return <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
             <Alert
@@ -118,26 +138,8 @@ const DocApply = ({ clubAlias, history }) => {
         </aside>
         */}
         <div className="documents-page__right">
-            <div className="documents-page__title">
-                <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"}</h3>
-                <div className="divider"/>
-            </div>
-            <StageStrip items={[
-                {
-                    icon: 'pen-opaque',
-                    text: 'Основная информация'
-                },
-                {
-                    icon: 'pen-opaque',
-                    text: 'Заявки'
-                },
-                {
-                    icon: 'pen-opaque',
-                    text: 'Информация об оплате'
-                }
-            ]} active={stage}/>
             <FormContent
-                {...{clubAlias, id, clubId}}
+                {...{clubAlias, id, clubId, Title}}
             />
         </div>
     </div>
