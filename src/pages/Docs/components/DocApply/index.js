@@ -18,6 +18,9 @@ import StageStrip from "./components/StageStrip";
 //import { Link } from "react-router-dom";
 //import CustomMenu from "components/CustomMenu";
 import removeNulls from "utils/removeNulls";
+
+import DocHead from "../DocHead";
+
 import './index.scss';
 
 import {
@@ -91,9 +94,8 @@ const DocApply = ({ clubAlias, history }) => {
     const FormContent = forms[url_stage] || forms.header;
     //const onSuccess = values => {values && values.id && !id && setRedirect(`/${clubAlias}/documents/${distinction}/${values.id}/header/form`)}
 
-    const Title = props => <><div className="documents-page__title">
-                <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"}</h3>
-                <div className="divider"/>
+    const Title = props => <><div>
+        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/${clubAlias}/documents`} history={history}/>
             </div>
             <StageStrip items={[
                 {
