@@ -75,11 +75,11 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                     label={checkboxCaption}
                     onChange={e => {
                         formik.handleChange(e);
-                        !!addDocument && formik.setFieldValue(`${who}_pedigree_document`, '');
+                        formik.setFieldValue(`${who}_pedigree_document`, '');
                         formik.setFieldValue(`${who}_name`, '');
                     }}
                 />
-                <HideIf cond={!addDocument}>
+                <HideIf cond={!getIn(formik.values, `${who}_foreign`)}>
                     <FormFile
                         name={`${who}_pedigree_document`}
                         label={`Копия родословной ${whoRu}`}
