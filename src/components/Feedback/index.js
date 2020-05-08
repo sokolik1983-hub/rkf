@@ -8,7 +8,7 @@ import Alert from 'components/Alert';
 import './styles.scss';
 
 
-const Feedback = ({ className, title, apiKey }) => {
+const Feedback = ({ className, title, HelpdeskApiKey }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -27,7 +27,7 @@ const Feedback = ({ className, title, apiKey }) => {
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ "apiKey": apiKey })
+            body: JSON.stringify({ "apiKey": HelpdeskApiKey })
         };
         try {
             let { token } = await fetch('https://helpapi.rkf.online/api/v1/token', options)
@@ -41,7 +41,7 @@ const Feedback = ({ className, title, apiKey }) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        apiKey ? openHelpdesk() : setShowModal(true);
+        HelpdeskApiKey ? openHelpdesk() : setShowModal(true);
     };
 
     const onModalClose = () => {
@@ -127,7 +127,7 @@ const Feedback = ({ className, title, apiKey }) => {
 };
 
 const mapStateToProps = state => ({
-    apiKey: state.authentication.api_key
+    HelpdeskApiKey: state.authentication.helpdesk_api_key
 });
 
 export default connect(mapStateToProps)(Feedback);
