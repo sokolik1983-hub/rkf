@@ -14,6 +14,12 @@ export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
             }
         },
         {
+            property: 'status_name',
+            header: {
+                label: 'Статус'
+            }
+        },
+        {
             property: 'document_id',
             header: {
                 label: 'Свидетельство о регистрации кода клейма'
@@ -91,7 +97,8 @@ export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
             formatters: [
                 (value, { rowData }) => {
                     return (
-                        <RowControl>
+                        // status_id = 2 (Клеймо отклонено, отключаем возможность сделать по-умолчанию)
+                        rowData.status_id !== 2 && <RowControl>
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <span
