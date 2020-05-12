@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react";
 import {object} from "yup";
+import moment from "moment";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import {Form} from "components/Form";
@@ -7,6 +8,7 @@ import {Redirect} from "react-router-dom";
 import Loading from "components/Loading";
 import filterBySchema from "./filterBySchema";
 import removeNulls from "utils/removeNulls";
+import deepMap from "../utils/deepMap";
 
 const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
 
@@ -18,6 +20,15 @@ const addNulls = o => {
     });
     return o;
 }
+
+const transform = values => deepMap(values, v => {
+    let t = typeof v;
+    if (t !== 'object') return v;
+
+    if (v instanceof Date) return moment(v).format("YYYY-MM-DD");
+
+    return v;
+})
 
 const genericForm = (Component, config) => {
     return ({update, clubAlias, clubId, id, prevStage, nextStage, Title}) => {
@@ -70,7 +81,7 @@ const genericForm = (Component, config) => {
                 initialValues={{...config.initialValues, ...values, id}}
                 validationSchema={update ? config.updateSchema : object().shape(config.validationSchema)}
                 //onSubmit={e => console.log(e)}
-                transformValues={values => addNulls(filterBySchema(values, (update ? config.updateSchema : config.validationSchema))||{})}
+                transformValues={values => addNulls(transform(filterBySchema(values, (update ? config.updateSchema : config.validationSchema))||{}))}
                 //format="multipart/form-data"
                 format="application/json"
         >
