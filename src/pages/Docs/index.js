@@ -72,8 +72,14 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/responsible/table' component={() =>
                             <ResponsivePersonTable clubAlias={clubAlias} history={history} />}
                         />
-                        <Route exact={true} path='/:route/documents/litter/form' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} distinction="litter" />}
+                        <Route exact={true} path='/:route/documents/:distinction/form' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/:distinction/:id/form' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/:distinction/:id/:stage/form' component={() =>
+                            <DocApply clubAlias={clubAlias} history={history} />}
                         />
                         <Route exact={true} path='/:route/documents/litter/:id' component={() =>
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
@@ -81,22 +87,11 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/litter/:id/edit' component={() =>
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
-                        
-                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
-                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
-                        />
-                        <Route exact={true} path='/:route/documents/pedigree/form' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} />}
-                        />
                         <Route exact={true} path='/:route/documents/pedigree/:id' component={() =>
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
-
-                        <Route exact={true} path='/:route/documents/pedigree/:id/:action' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} />}
-                        />
-                        <Route exact={true} path='/:route/documents/pedigree/:id/:stage/:action' component={() =>
-                            <DocApply clubAlias={clubAlias} history={history} />}
+                        <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
+                            <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
 
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
