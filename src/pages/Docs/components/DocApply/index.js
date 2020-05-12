@@ -8,10 +8,30 @@ import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
 import PedigreeDeclarant from "./forms/PedigreeDeclarant";
 
+import LitterHeader from "./forms/LitterHeader";
+import LitterTable from "./forms/LitterTable";
+import LitterPayment from "./forms/LitterPayment";
+import LitterDeclarant from "./forms/LitterDeclarant";
+
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
 
 import './index.scss';
+
+const forms = {
+    pedigree: {
+        header: PedigreeHeader,
+        table: PedigreeTable,
+        payment: PedigreePayment,
+        declarant: PedigreeDeclarant
+    },
+    litter: {
+        header: LitterHeader,
+        table: LitterTable,
+        payment: LitterPayment,
+        declarant: LitterDeclarant
+    }
+}
 
 const DocApply = ({ clubAlias, history }) => {
     let distinction;
@@ -37,25 +57,23 @@ const DocApply = ({ clubAlias, history }) => {
     let url_stage;//, action;
     if (history) {
         let params = useParams();
+        console.log(params);
         distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
         //action = params.action || "form";
-        url_stage = params.stage;
+        url_stage = params.stage || "header";
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
+
+    //if (!Object.keys(forms).includes(distinction)) setRedirect('/404');
+    //if (!Object.keys(forms[distinction]).includes(url_stage)) setRedirect('/404');
         
     /*const setFormValues = values => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }*/
-    const forms = {
-        header: PedigreeHeader,
-        table: PedigreeTable,
-        payment: PedigreePayment,
-        declarant: PedigreeDeclarant
-    }
-
-    const FormContent = forms[url_stage] || forms.header;
+    console.log(url_stage);
+    const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
         <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/${clubAlias}/documents`} history={history}/>
