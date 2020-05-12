@@ -10,8 +10,8 @@ import ClubLegalInfo from "./components/ClubLegalInfo";
 import ClubBankInfo from "./components/ClubBankInfo";
 import ClubContacts from "./components/ClubContacts";
 import ClubDocuments from "./components/ClubDocuments";
-import Disclaimer from "components/Disclaimer";
-import AuthOrLogin from "../../apps/Auth/containers/AuthOrLogin";
+import Disclaimer from "../../components/Disclaimer";
+import AuthOrLogin from "../Login/components/AuthOrLogin";
 import Card from "../../components/Card";
 import Header from "../../components/Layouts/Header";
 import Container from "../../components/Layouts/Container";
@@ -59,9 +59,11 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, alias: errors }));
         }
     };
+
     const bindSubmitClubLogo = (submitFormFunction) => {
         submitClubLogo = submitFormFunction;
     };
+
     const bindSubmitClubInfo = {
         submit: (submitFunc, errors) => {
             submitClubInfo = submitFunc;
@@ -71,6 +73,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, info: errors }));
         }
     };
+
     const bindSubmitClubSchedule = {
         submit: (submitFunc, errors) => {
             submitClubSchedule = submitFunc;
@@ -80,6 +83,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, schedule: errors }));
         }
     };
+
     const bindSubmitClubLegalInfo = {
         submit: (submitFunc, errors) => {
             submitClubLegalInfo = submitFunc;
@@ -89,6 +93,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, legalInfo: errors }));
         }
     };
+
     const bindSubmitClubBankInfo = {
         submit: (submitFunc, errors) => {
             submitClubBankInfo = submitFunc;
@@ -98,6 +103,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, bankInfo: errors }));
         }
     };
+
     const bindSubmitClubEmail = {
         submit: (submitFunc, errors) => {
             submitClubEmail = submitFunc;
@@ -107,6 +113,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, email: errors }));
         }
     };
+
     const bindSubmitClubPhone = {
         submit: (submitFunc, errors) => {
             submitClubPhone = submitFunc;
@@ -116,6 +123,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, phone: errors }));
         }
     };
+
     const bindSubmitClubDocuments = {
         submit: (submitFunc, errors) => {
             submitClubDocuments = submitFunc;
@@ -125,6 +133,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, documents: errors }));
         }
     };
+
     const bindSubmitClubSocials = {
         submit: (submitFunc, errors) => {
             submitClubSocials = submitFunc;
@@ -134,6 +143,7 @@ const ClubEditPage = ({ club_alias, club_id, is_federation, is_active_profile, h
             setErrors(prevObj => ({ ...prevObj, socials: errors }));//подумать, где вызвать
         }
     };
+
     const bindSubmitClubHeaderPicture = (submitFormFunction) => {
         submitClubHeaderPicture = submitFormFunction;
     };

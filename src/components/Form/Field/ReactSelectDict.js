@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { connect, getIn } from "formik";
-import { useDictionary } from 'apps/Dictionaries/hooks'
+import {useDictionary} from "../../../dictionaries";
 import { defaultReactSelectStyles } from '../config'
 
 import createFilterOptions from "react-select-fast-filter-options";

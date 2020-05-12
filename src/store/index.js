@@ -1,7 +1,7 @@
 /**
  * Create the store with dynamic reducers
  */
-import dictsSaga from 'apps/Dictionaries/saga'
+import dictsSaga from "../dictionaries/saga";
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';

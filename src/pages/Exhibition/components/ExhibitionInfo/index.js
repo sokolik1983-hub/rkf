@@ -2,8 +2,8 @@ import React from "react";
 import Card from "../../../../components/Card";
 import CountDown from "../../../../components/CountDown";
 import PropertyP from "../../../../components/PropertyP";
-import { useDictionary, getDictElementsArray } from "../../../../apps/Dictionaries";
-import { getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter } from "../../../../utils/datetime";
+import {useDictionary, getDictElementsArray} from "../../../../dictionaries";
+import {getLocalizedWeekDay, transformDateSafariFriendly, timeSecondsCutter} from "../../../../utils/datetime";
 import declension from "../../../../utils/declension";
 import "./index.scss";
 
