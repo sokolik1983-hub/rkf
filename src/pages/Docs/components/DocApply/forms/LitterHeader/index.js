@@ -28,12 +28,6 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             label='Федерация'
             placeholder="Выберите федерацию"
         />
-        <FormField
-            disabled={update}
-            name="folder_number"
-            label="Номер папки"
-            placeholder="0000"
-        />
         </FormGroup>
         <FormField
             disabled={update}

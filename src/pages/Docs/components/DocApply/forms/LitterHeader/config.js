@@ -10,7 +10,6 @@ const validationSchema = {
     status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
-    folder_number: numbersOnly().required(reqText)
 };
 
 const updateSchema = {
