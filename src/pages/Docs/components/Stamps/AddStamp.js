@@ -23,6 +23,11 @@ const fields = {
         fieldType: 'file',
         required: true,
         accept: '.pdf,.jpeg,.jpg,.png'
+    },
+    comment: {
+        name: 'comment',
+        label: 'Комментарий',
+        fieldType: 'textarea'
     }
 };
 
@@ -58,6 +63,9 @@ const AddStamp = ({ history }) => {
                         {...fields.stamp_code_document}
                     />
                 </div>
+                <FormField
+                    {...fields.comment}
+                />
                 <SubmitButton />
             </Form>
             {successAlert &&
