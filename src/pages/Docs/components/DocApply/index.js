@@ -61,7 +61,7 @@ const DocApply = ({ clubAlias, history }) => {
         distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
         //action = params.action || "form";
-        url_stage = params.stage;
+        url_stage = params.stage || "header";
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
 
@@ -72,7 +72,7 @@ const DocApply = ({ clubAlias, history }) => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }*/
-    
+    console.log(url_stage);
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
