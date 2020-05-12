@@ -21,24 +21,22 @@ const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, club_
         {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
         <div className="list-item__content">
             <div className="list-item__head">
-                <div className="list-item__head-info">
-                    <div className="list-item__club">
-                        <Link to={alias}>
-                            <div className="list-item__club-logo" style={{
-                                background: `url(${logo_link
-                                    ? logo_link
-                                    : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
-                            }} />
-                        </Link>
-                        <span className="list-item__club-name">
-                            <Link to={alias}>{club_name}</Link>
-                            <span>{formattedDate}</span>
-                        </span>
-                    </div>
-                    <span className="list-item__city" onClick={handleCityChange}>
-                        {city}
+                <div className="list-item__club">
+                    <Link to={alias}>
+                        <div className="list-item__club-logo" style={{
+                            background: `url(${logo_link
+                                ? logo_link
+                                : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
+                        }} />
+                    </Link>
+                    <span className="list-item__club-name">
+                        <Link to={alias}>{club_name}</Link>
+                        <span>{formattedDate}</span>
                     </span>
                 </div>
+                <span className="list-item__city" onClick={handleCityChange}>
+                    {city}
+                </span>
             </div>
             <div className="list-item__body">
                 <div className="list-item__info">
