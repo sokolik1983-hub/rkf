@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState } from "react";
 import {connect} from "formik";
 import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
@@ -16,6 +16,18 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         Object.keys(removeNulls(declarant))
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
+    const [init, setInit] = useState(false);
+    useEffect(() => {
+            if (!init && !formik.values.id) {
+            setInit(true);
+            let declarant = options.declarants.find(f => f.is_default);
+            if (!!declarant) {
+                formik.setFieldValue('declarant_id', declarant.id);
+                setDeclarant(declarant.id);
+            }
+        }
+    }, []);
+
     return <>
 <Card>
     <Title/>

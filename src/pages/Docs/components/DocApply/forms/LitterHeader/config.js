@@ -1,8 +1,8 @@
 import {number} from "yup";
-import {reqText, numbersOnly} from "../../config.js";
+import {reqText} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const apiLitterEndpoint = '/api/requests/litter_request/LitterRequestHeader';
+const apiLitterEndpoint = '/api/litter/pedigree_request/LitterRequestHeader';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const validationSchema = {
