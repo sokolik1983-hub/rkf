@@ -103,7 +103,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         <div className="exhibition-page__info">
                             <div className="mobile-only">
                                 <Disclaimer style={{ marginBottom: '12px' }}>
-                                    <a className="Disclaimer__support-link" href="http://support.rkf.online/%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%86%d0%b8%d1%8f-%d0%bf%d0%be-%d0%bf%d1%80%d0%be%d1%81%d0%bc%d0%be%d1%82%d1%80%d1%83-%d0%b2%d1%8b%d1%81%d1%82%d0%b0%d0%b2%d0%ba%d0%b8-%d0%ba%d0%bb%d1%83/" target="_blank" rel="noopener noreferrer">
+                                    <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
                                         Инструкция по странице выставки
                                     </a>
                                 </Disclaimer>
@@ -135,7 +135,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
                                     <Disclaimer style={{ marginBottom: '12px' }}>
-                                        <a className="Disclaimer__support-link" href="http://support.rkf.online/%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%86%d0%b8%d1%8f-%d0%bf%d0%be-%d0%bf%d1%80%d0%be%d1%81%d0%bc%d0%be%d1%82%d1%80%d1%83-%d0%b2%d1%8b%d1%81%d1%82%d0%b0%d0%b2%d0%ba%d0%b8-%d0%ba%d0%bb%d1%83/" target="_blank" rel="noopener noreferrer">
+                                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
                                             Инструкция по странице выставки
                                     </a>
                                     </Disclaimer>
