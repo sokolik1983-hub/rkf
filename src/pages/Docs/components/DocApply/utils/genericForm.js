@@ -73,6 +73,9 @@ const genericForm = (Component, config) => {
             formik.submitForm();
         }
 
+        //let initialValues = {...config.initialValues, ...values, id};
+        //initialValues = config.hooks && config.hooks.initialValues ? config.hooks.initialValues(initialValues) : initialValues;
+
         return loading ? <Loading/> : redirect ? <Redirect to={redirect}/> : <Form
                 onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, target_id||values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}

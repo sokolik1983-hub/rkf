@@ -57,7 +57,6 @@ const DocApply = ({ clubAlias, history }) => {
     let url_stage;//, action;
     if (history) {
         let params = useParams();
-        console.log(params);
         distinction = params.distinction || "pedigree";
         params.id && id !== params.id && setId(params.id);
         //action = params.action || "form";
@@ -72,7 +71,6 @@ const DocApply = ({ clubAlias, history }) => {
         setDraft(update && !view && values && values.status_id === 7);
         setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
     }*/
-    console.log(url_stage);
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
