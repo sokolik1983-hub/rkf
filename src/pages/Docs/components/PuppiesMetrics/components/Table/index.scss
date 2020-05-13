@@ -57,13 +57,19 @@
   }
 }
 .puppies-table__modal {
+  & > div {
+    max-height: 90%;
+    overflow-y: auto;
+    max-width: 600px;
+    width: calc(100vw - 10px) !important;
+  }
   .Modal__close {
     width: 16px !important;
     height: 16px !important;
-    right: 40px !important;
+    right: 15px !important;
     z-index: 1;
   }
   .Modal__inner {
-    max-height: calc(100% - 10px) !important;
+    padding: 0;
   }
 }

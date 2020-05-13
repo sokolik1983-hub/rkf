@@ -69,6 +69,9 @@
     &__table {
       padding-bottom: 55px;
       overflow-x: auto;
+      td span{
+        white-space: nowrap;
+      }
       @media (max-width: 600px) {
         .primary-controls {
           display: block;

@@ -45,13 +45,13 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
         <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
-            action: config.url + (formik.values.id ? '_draft' : ''),
+            action: config.url,
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
         <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
-                action: config.url + (formik.values.id ? '_draft' : ''),
+                action: config.url,
                 button: 'next'
             }, formik)}>Отправить</Button>
         </HideIf>
