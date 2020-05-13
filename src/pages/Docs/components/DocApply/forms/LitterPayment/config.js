@@ -3,7 +3,7 @@ import {reqText, numbersOnly, reqIfCash} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { Request } from "utils/request";
 
-const apiLitterEndpoint = '/api/requests/litter_request/LitterRequestHeader/payment';
+const apiLitterEndpoint = '/api/litter/pedigree_request/LitterRequestHeader/payment';
 
 const validationSchema = {
     id: number(),
@@ -13,7 +13,6 @@ const validationSchema = {
     payment_number: reqIfCash(),
     payment_name: reqIfCash(),
     inn: numbersOnly().length(10, 'Номер ИНН состоит из 10 цифр')
-
 };
 
 const updateSchema = {
