@@ -7,7 +7,6 @@ import {ReactComponent as Stage3} from "./stage3.svg"
 import {ReactComponent as Passed} from "./passed.svg"
 
 const stages = [Stage1, Stage2, Stage3]
-console.log(Stage1)
 
 const StageStrip = ({items, active}) =>
 <div className="stage-strip">
