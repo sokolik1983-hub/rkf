@@ -39,7 +39,7 @@
       }
     }
   }
-  &__form-email {
+  &__form-email, &__form-code {
     display: flex;
     align-items: center;
     .FormInput .FormInput__input {
@@ -49,6 +49,10 @@
       margin-left: 8px;
       padding: 6px 24px;
     }
+  }
+  &__form-code {
+    align-items: start;
+    margin-top: 24px;
   }
   &__activate-warn {
     font-weight: 600;

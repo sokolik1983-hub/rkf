@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-// import Loading from "../../../../components/Loading";
 import {Form, FormField} from "../../../../components/Form";
 import Alert from "../../../../components/Alert";
-import {emailForm, kennelForm} from "./config";
+import {emailForm, kennelForm, codeForm} from "./config";
 import "./index.scss";
 
 
@@ -15,12 +14,17 @@ const defaultKennel = {
 const KennelRegistration = ({history}) => {
     const [kennel, setKennel] = useState(null);
     const [code, setCode] = useState(null);
+    const [kennelEmail, setKennelEmail] = useState(null);
     const [errorAlert, setErrorAlert] = useState(false);
-    // const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setKennel(defaultKennel);
-    }, []);
+    // useEffect(() => {
+    //     setKennel(defaultKennel);
+    // }, []);
+
+    const transformEmailValues = data => {
+        setKennelEmail(data.email);
+        return data;
+    }
 
     return (
         <div className="kennel-registration">
@@ -48,6 +52,7 @@ const KennelRegistration = ({history}) => {
                             <div className="kennel-registration__activate-email">
                                 <Form
                                     {...emailForm}
+                                    transformValues={transformEmailValues}
                                     onSuccess={data => console.log('data', data)}
                                     onError={() => setErrorAlert(true)}
                                     className="kennel-registration__form-email"
@@ -60,7 +65,19 @@ const KennelRegistration = ({history}) => {
                         </>
                     }
                     {code !== null &&
-                        <div></div>
+                        <>
+                            <p>Мы отправили письмо с проверочным кодом на указанный вами адрес: <b>{kennelEmail || 'pupkin@mail.ru'}</b></p>
+                            <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
+                            <Form
+                                {...codeForm}
+                                onSuccess={data => console.log('data', data)}
+                                onError={() => setErrorAlert(true)}
+                                className="kennel-registration__form-code"
+                            >
+                                <FormField {...codeForm.fields.code} />
+                                <button className="btn btn-primary" type="submit">Отправить</button>
+                            </Form>
+                        </>
                     }
                 </div>
             }

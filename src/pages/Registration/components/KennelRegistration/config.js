@@ -42,3 +42,22 @@ export const emailForm = {
         email: string().email('Неверный формат E-mail').required('Поле не может быть пустым')
     })
 };
+
+export const codeForm = {
+    method: 'POST',
+    action: '/',
+    withLoading: true,
+    initialValues: {
+        code: ''
+    },
+    fields: {
+        code: {
+            name: 'code',
+            type: 'text',
+            placeholder: 'Введите код'
+        }
+    },
+    validationSchema: object().shape({
+        email: string().required('Поле не может быть пустым')
+    })
+};
