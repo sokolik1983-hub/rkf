@@ -79,13 +79,13 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
-            action: config.url + (formik.values.id ? '/draft' : ''),
+            action: config.url,
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
         <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
-                action: config.url + (formik.values.id ? '/draft' : ''),
+                action: config.url,
                 button: 'next'
             }, formik)}>Сохранить и продолжить</Button>
         </HideIf>
