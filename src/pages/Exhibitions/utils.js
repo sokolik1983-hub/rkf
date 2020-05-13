@@ -6,10 +6,10 @@ const buildUrlParams = filter => {
     let params = '';
 
     Object.keys(filter).forEach(key => {
-        if (filter.ExhibitionName) {
-            delete filter.DateFrom;
-            delete filter.DateTo;
-        }
+        // if (filter.ExhibitionName) {
+        //     delete filter.DateFrom;
+        //     delete filter.DateTo;
+        // }
 
         if (filter[key]) {
             if (key === 'PageNumber') {

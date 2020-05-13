@@ -12,7 +12,7 @@ const Registry = ({ profile_id }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/clubs/ClubStampCode/club?id=${profile_id}`
+            url: `/api/requests/StampCodeRequest/club`
         },
             data => {
                 setStamps(data);
