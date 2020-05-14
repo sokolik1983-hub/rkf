@@ -24,8 +24,22 @@
     border: none;
     background: url("/static/icons/icon-search-gray.svg") no-repeat center;
   }
-  &__content {
+  &__empty {
     text-align: center;
+    &-title {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839C;
+      margin-bottom: 8px;
+    }
+    &-icon {
+      width: 151px;
+      height: 118px;
+      background: url("/static/images/default/invoice-empty.svg") no-repeat center;
+      margin: 0 auto 8px;
+    }
   }
   &__about {
     margin-bottom: 24px;

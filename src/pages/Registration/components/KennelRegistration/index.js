@@ -12,6 +12,7 @@ const defaultKennel = {
 }
 
 const KennelRegistration = ({history}) => {
+    const [isRegistrationNumberSend, setIsRegistrationNumberSend] = useState(true);
     const [kennel, setKennel] = useState(null);
     const [code, setCode] = useState(null);
     const [kennelEmail, setKennelEmail] = useState(null);
@@ -39,8 +40,15 @@ const KennelRegistration = ({history}) => {
                     <button type="submit" className="kennel-registration__search"/>
                 </Form>
             }
-            {(code || kennel) &&
+            {isRegistrationNumberSend &&
                 <div className="kennel-registration__info">
+                    {code === null && !kennel &&
+                    <div className="kennel-registration__empty">
+                        <h3 className="kennel-registration__empty-title">Ничего не найдено</h3>
+                        <div className="kennel-registration__empty-icon" />
+                        <p className="kennel-registration__activate-warn">Если Вы не нашли свой питомник, воспользуйтесь формой обратной связи</p>
+                    </div>
+                    }
                     {code === null && kennel &&
                         <>
                             <div className="kennel-registration__about">
