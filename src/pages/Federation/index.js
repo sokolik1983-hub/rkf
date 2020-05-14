@@ -10,7 +10,7 @@ import AddArticle from "../../components/AddArticleComponent";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponent from "../../components/MenuComponent";
-import FloatingMenu from './components/FloatingMenu';
+import FloatingMenu from '../Club/components/FloatingMenu';
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import { Request } from "../../utils/request";
@@ -73,6 +73,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             />
                             <MenuComponent
                                 alias={alias}
+                                profileId={federation.id}
                                 name={federation.name}
                             />
                             <ContactsComponent {...federation} />
@@ -103,6 +104,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                     </div>
                     <FloatingMenu
                         alias={alias}
+                        profileId={federation.id}
                         name={federation.name}
                     />
                 </Container>

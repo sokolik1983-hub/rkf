@@ -91,6 +91,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                 <div className="exhibition-page">
                     <FloatingMenu
                         alias={exhibition.club_information.club_alias}
+                        profileId={exhibition.club_id}
                         name={shorten(exhibition.club_information.display_name, 16)}
                         btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                     />
@@ -116,6 +117,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             <aside className="exhibition-page__left">
                                 <MenuComponent
                                     alias={exhibition.club_information.club_alias}
+                                    profileId={exhibition.club_id}
                                     name={shorten(exhibition.club_information.display_name)}
                                     btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                                 />

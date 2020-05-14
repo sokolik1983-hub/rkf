@@ -91,6 +91,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <Aside className="club-page__info">
                                 <MenuComponent
                                     alias={clubInfo.club_alias}
+                                    profileId={clubInfo.id}
                                     name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                                 />
                                 <ClubInfo {...clubInfo} />
@@ -98,6 +99,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         </div>
                         <FloatingMenu
                             alias={clubInfo.club_alias}
+                            profileId={clubInfo.id}
                             name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                         />
                     </Container>

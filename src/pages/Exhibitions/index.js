@@ -27,6 +27,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [pagesCount, setPagesCount] = useState(1);
     const [displayName, setDisplayName] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
+    const [clubId, setClubId] = useState('');
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -58,6 +59,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             if (club) {
                 setDisplayName(club.display_name || "Название клуба отсутствует");
                 setClubAvatar(club.club_avatar);
+                setClubId(club.club_id);
             }
 
             setExhibitions(modifiedExhibitions);
@@ -83,6 +85,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                 <>
                     <FloatingMenu
                         alias={filters.Alias}
+                        profileId={clubId}
                         name={shorten(displayName, 16)}
                     />
                     <div className="exhibitions-page__top-wrap container">
@@ -95,7 +98,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <Container className="exhibitions-page content">
-                <Filters filters={filters} clubName={shorten(displayName)} />
+                <Filters filters={filters} clubName={shorten(displayName)} profileId={clubId} />
                 <div className="exhibitions-page__content">
                     <Disclaimer>
                         <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" target="_blank" rel="noopener noreferrer">
