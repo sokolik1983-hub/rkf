@@ -73,6 +73,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             />
                             <MenuComponent
                                 alias={alias}
+                                profileId={federation.id}
                                 name={federation.name}
                             />
                             <ContactsComponent {...federation} />
@@ -103,6 +104,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                     </div>
                     <FloatingMenu
                         alias={alias}
+                        profileId={federation.id}
                         name={federation.name}
                     />
                 </Container>
