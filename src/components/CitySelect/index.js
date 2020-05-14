@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from './config';
-import { useDictionary } from 'apps/Dictionaries';
-import { DICTIONARIES } from 'apps/Dictionaries/config';
+import {useDictionary} from "../../dictionaries";
+import {DICTIONARIES} from "../../dictionaries/config";
 import Dropdown from 'components/Dropdown';
 import './styles.scss';
 

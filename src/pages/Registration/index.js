@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
-//import IndividualRegistration from "./components/IndividualRegistration";
+import KennelRegistration from "./components/KennelRegistration";
 import "./index.scss";
 
 
-const RegistrationPage = () => {
+const RegistrationPage = ({history}) => {
     const [activeTab, setActiveTab] = useState('club');
 
     return (
@@ -28,15 +28,14 @@ const RegistrationPage = () => {
                         >
                             Клуб
                         </div>
-                        <div className={`registration-page__tab${activeTab === 'individual' ? ' _active' : ''}`}
-                            //onClick={() => setActiveTab('individual')}
-                            onClick={() => null}
+                        <div className={`registration-page__tab${activeTab === 'kennel' ? ' _active' : ''}`}
+                            onClick={() => setActiveTab('kennel')}
                         >
-                            Физическое лицо
-                            </div>
+                            Питомник
+                        </div>
                     </div>
                     {activeTab === 'club' && <ClubRegistration />}
-                    {/* {activeTab === 'individual' && <IndividualRegistration />} */}
+                    {activeTab === 'kennel' && <KennelRegistration history={history} />}
                 </div>
             </AuthLayout>
         </Layout>
