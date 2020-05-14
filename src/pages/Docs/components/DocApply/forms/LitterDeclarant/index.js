@@ -8,15 +8,15 @@ import DocItem from "../../components/DocItemLitter";
 
 // litter
 const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial, Title}) => {
-    const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
-    const isNew = !initial.dog_name;
+    const {doctypes, breeds, sexTypes, statuses, stampCodes, litterStatuses} = options;
+    const isNew = !initial.first_name;
     return <>
 <Card>
 <Title/>
             <DocItem
                 i={0}
                 active={true}
-                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, clubAlias}}
+                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, clubAlias, litterStatuses}}
             />
         </Card>
     <div className="stage-controls flex-row">

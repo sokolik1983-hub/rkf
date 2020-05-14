@@ -6,6 +6,7 @@ const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_type
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiLitterStatusesEndpoint = '/api/requests/CommonRequest/status';
+const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
@@ -60,7 +61,7 @@ const validationSchema = {
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document: number().required(reqText)
+        document_id: number().required(reqText)
     }))
 
 }
@@ -176,10 +177,14 @@ const config = {
         stampCodes: {
             url: clubId => apiStampCodesEndpoint + '?id=' + clubId,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
+        },
+        litterStatuses: {
+            url: apiLitterDogStatusEndpoint,
+            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))
         }
     },
     hooks: {
-        values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents})
+        values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents, litters: values.litters})
     },
     url: '/api/requests/litter_request/LitterDeclarantRequest',
     get: '/api/requests/litter_request/LitterDeclarantRequest/declarant',
