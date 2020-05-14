@@ -6,28 +6,24 @@ import Aside from "../../components/Layouts/Aside";
 import UserHeader from "../../components/UserHeader";
 import UserDescription from "../../components/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import "./index.scss";
 import UserNews from "../../components/UserNews";
 import UserMenu from "./components/UserMenu";
-// import ClubNews from "../Club/components/ClubNews";
-// import MenuComponent from "../../components/MenuComponent";
-// import shorten from "../../utils/shorten";
-// import ClubInfo from "../Club/components/ClubInfo";
+import "./index.scss";
 
 
-const defaultOwner = {
+const defaultKennel = {
     id: 1,
     logo_link: '',
     headliner_link: '',
-    name: 'Пупкин Василий Иванович',
+    name: 'Питомник №1',
     federation_name: 'ОАНКОО',
     federation_alias: 'oankoo',
     description: 'Кстати, акционеры крупнейших компаний неоднозначны и будут объективно рассмотрены соответствующими инстанциями. Являясь всего лишь частью общей картины, предприниматели в сети интернет освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, в равной степени предоставлены сами себе. Банальные, но неопровержимые выводы, а также сторонники тоталитаризма в науке, вне зависимости от их уровня, должны быть ограничены исключительно образом мышления.',
 
 };
 
-const OwnerPage = ({match}) => {
-    const [owner, setOwner] = useState(null);
+const KennelPage = ({match}) => {
+    const [kennel, setKennel] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -35,7 +31,7 @@ const OwnerPage = ({match}) => {
     const alias = match.params.id;
 
     useEffect(() => {
-        setOwner(defaultOwner);
+        setKennel(defaultKennel);
         setCanEdit(true);
         setLoading(false);
     }, []);
@@ -45,21 +41,21 @@ const OwnerPage = ({match}) => {
         <Layout>
             <Container className="content owner-page">
                 <UserHeader
-                    logo={owner.logo_link}
-                    banner={owner.headliner_link}
-                    name={owner.name || 'Имя отсутствует'}
-                    federationName={owner.federation_name}
-                    federationAlias={owner.federation_alias}
+                    logo={kennel.logo_link}
+                    banner={kennel.headliner_link}
+                    name={kennel.name || 'Имя отсутствует'}
+                    federationName={kennel.federation_name}
+                    federationAlias={kennel.federation_alias}
                     canEdit={canEdit}
-                    editLink={`/owner/${alias}/edit`}
+                    editLink={`/kennel/${alias}/edit`}
                 />
                 <div className="owner-page__content-wrap">
                     <div className="owner-page__content">
-                        <UserDescription description={owner.description} />
+                        <UserDescription description={kennel.description} />
                         {canEdit &&
                             <AddArticle
-                                id={owner.id}
-                                logo={owner.logo_link}
+                                id={kennel.id}
+                                logo={kennel.logo_link}
                                 setPage={setPage}
                                 setNeedRequest={setNeedRequest}
                             />
@@ -76,7 +72,7 @@ const OwnerPage = ({match}) => {
                     <Aside className="owner-page__info">
                         <UserMenu
                             alias={alias}
-                            name={owner.name || 'Имя отсутствует'}
+                            name={kennel.name || 'Имя отсутствует'}
                         />
                     </Aside>
                 </div>
@@ -84,4 +80,4 @@ const OwnerPage = ({match}) => {
         </Layout>
 };
 
-export default React.memo(OwnerPage);
+export default React.memo(KennelPage);

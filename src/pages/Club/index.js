@@ -8,7 +8,7 @@ import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import UserHeader from "../../components/UserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import Disclaimer from "components/Disclaimer";
+import Disclaimer from "../../components/Disclaimer";
 import ClubInfo from "./components/ClubInfo";
 import UserDescription from "../../components/UserDescription";
 import AddArticle from "../../components/UserAddArticle";

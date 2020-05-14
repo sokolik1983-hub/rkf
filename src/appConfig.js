@@ -99,8 +99,8 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/owner/:id',
-        component: LoadableModules.LoadableOwnerPage
+        path: '/kennel/:id',
+        component: LoadableModules.LoadableKennelPage
     },
     {
         exact: false,
