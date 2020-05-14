@@ -68,7 +68,20 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`id`} />
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label='Код клейма'/>
+                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
+                <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+            </FormGroup>
+            <HideIf cond={!declarant.last_name.includes(' ')}>
+                <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
+            </HideIf>
+
+            <FormGroup inline>
+                <FormField disabled={update} name={`email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
+                <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
+            </FormGroup>
+            <FormGroup inline>
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label={`Код клейма (<a href="/${clubAlias}/documents/stamps/add">Добавить клеймо</a>)`}/>
                 <HideIf cond={true || !!everkData || update}>
                     <Button onClick={e => {
                         let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
@@ -80,24 +93,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <HideIf cond={true || !everkData || update}>
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
-            </FormGroup>
-            <Link to={`/${clubAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-            
-            <FormGroup inline>
-                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
-            </FormGroup>
-            <HideIf cond={!declarant.last_name.includes(' ')}>
-                <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
-            </HideIf>
-            <FormField disabled={update} name={`second_name`} label='Отчество заводчика (опционально)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
-            <FormField disabled={update} name={`email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
-            
-            <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
-
-            <FormGroup inline>
                 <FormField disabled={update} name={`breed_id`} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
                 <FormField disabled={update} name={`date_of_birth_litter`} label='Дата рождения помета' readOnly={true} fieldType="formikDatePicker"/>
+            </FormGroup>
+            
+            <FormGroup inline>
             </FormGroup>
             
             <VerkParent
@@ -149,10 +149,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {/*files*/}
             <FormGroup inline>
             <FormFile
-                name={`parent_certificate_2`}
-                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_2_id}
-                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
+                name={`dog_mating_act`}
+                label='Акт вязки (PDF, JPEG, JPG, PNG)'
+                docId={declarant.dog_mating_act_id}
+                disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
@@ -161,32 +161,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
-            />
-            </FormGroup>
-            <FormGroup inline>
-            <FormFile
-                name={`dog_mating_act`}
-                label='Акт вязки (PDF, JPEG, JPG, PNG)'
-                docId={declarant.dog_mating_act_id}
-                disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
-                distinction={distinction}
-            />
-            <FormFile
-                name={`parent_certificate_1`}
-                label='Свидетельство о происхождении производителя (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_1_id}
-                disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
-                distinction={distinction}
-            />
-            </FormGroup>
-            <FormGroup inline>
-            <FormFile
-                name={`application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
-                docId={declarant.application_document_id}
-                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
-                distinction={distinction}
-                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`personal_data_document`}
