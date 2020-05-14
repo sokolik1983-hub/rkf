@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, FieldArray } from "formik";
 import { Link } from "react-router-dom";
 import Button from "components/Button";
@@ -15,13 +15,16 @@ import { FormGroup, FormField } from "components/Form";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
+const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, privacyHref, verkHref, statuses, litterStatuses, litterHref, stampCodes, clubAlias }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, verkHref, statuses, litterStatuses, litterHref, stampCodes, clubAlias }) => {
     const distinction = "litter";
+    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const declarant = formik.values;
     const [email, setEmail] = useState(declarant.email || '');
+    const [privacyHref, setPrivacyHref] = useState(declarant.email || '');
     const [firstName, setFirstName] = useState(declarant.first_name || '');
     const [lastName, setLastName] = useState(declarant.last_name || '');
     const [secondName, setSecondName] = useState(declarant.second_name || '');
@@ -48,7 +51,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-    
+
+
+    useEffect(() => {
+        Promise.all([
+            fetch(apiPrivacyEndpoint, {headers})
+            .then(response => response.blob())
+            .then(data => setPrivacyHref(URL.createObjectURL(data))),
+            //fetch(apiLitterEmptyDocument, {headers})
+            //.then(response => response.blob())
+            //.then(data => setLitterHref(URL.createObjectURL(data))),
+        ])
+    }, []);
 
     return <>
         {everkAlert &&
@@ -151,6 +165,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormFile
                 name={`dog_mating_act`}
                 label='Акт вязки (PDF, JPEG, JPG, PNG)'
+                document_type_id={14}
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
@@ -159,6 +174,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 name={`litter_diagnostic`}
                 label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
                 docId={declarant.litter_diagnostic_id}
+                document_type_id={13}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
@@ -166,6 +182,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 name={`personal_data_document`}
                 label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={declarant.personal_data_document_id}
+                document_type_id={11}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
@@ -229,9 +246,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`documents[${j}].document`} accept={accept} />
+                        <FormFile
+                            name={`documents[${j}].document`}
+                            label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
+                            docId={declarant.documents[j].document_id}
+                            disabled={view || !statusAllowsUpdate || doc.document_accept}
+                            document_type_id={doc.document_type_id}
+                            fieldType="file"
+                            distinction={distinction}
+                            accept={accept}
+                            declarant_uid={declarant.declarant_uid}
+                        />
                     </HideIf>
-                    <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
@@ -239,14 +265,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
                     <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
-                        <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
+                        <Button small className="btn-primary" onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
                     </div>
                 </HideIf>
             </>)}
             />
-            <HideIf cond={update}>
-                <Button className="btn-red" onClick={closeClick}>Удалить</Button>
-            </HideIf>
         </FormGroup>
     </div>
     </>
