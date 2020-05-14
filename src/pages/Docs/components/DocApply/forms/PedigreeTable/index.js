@@ -47,7 +47,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         Request({
                             method: 'DELETE',
                             url: `/api/requests/pedigree_request/PedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
-                        },setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
+                        },() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>
             </table>    
