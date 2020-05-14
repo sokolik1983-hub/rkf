@@ -5,7 +5,8 @@ import { endpointGetFederations } from "pages/Clubs/config";
 const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
-const apiLitterStatusesEndpoint = '/api/requests/LitterRequest/statuses';
+const apiLitterStatusesEndpoint = '/api/requests/CommonRequest/status';
+const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
@@ -13,57 +14,63 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 const validationSchema = {
     litter_header_declarant_request_id: number(),
     id: number(),
-    express: boolean().required(reqText),
-    one_generation: boolean(),
-    two_generation: boolean(),
-    owner_first_name: string().required(reqText),
-    owner_last_name: string().required(reqText),
-    owner_second_name: string(),
-    owner_address: string().required(reqText),
-    owner_address_lat: lat().required(reqText),
-    owner_first_name_lat: lat().required(reqText),
-    owner_last_name_lat: lat().required(reqText),
-
+    first_name: string().required(reqText),
+    last_name: string().required(reqText),
+    second_name: string(),
+    email: lat().required(reqText).email(reqEmail),
+    address: string().required(reqText),
+    first_name_lat: lat().required(reqText),
+    last_name_lat: lat().required(reqText),
+    address_lat: lat().required(reqText),
     breed_id: number().required(reqText).typeError(reqText),
-    dog_name: string().required(reqText),
-    dog_name_lat: lat().required(reqText),
-    dog_birth_date: string().required(reqText),
-    dog_sex_type: number().required(reqText).typeError(reqText),
-    stamp_number: numbersOnly().required(reqText),
-    stamp_code_name: string().required(reqText).matches(/^[A-Z]{3}$/, {message:'Введите 3 латинские буквы'}),
-    color: string().required(reqText),
-
+    stamp_code_id: number().required(reqText).typeError(reqText),
+    
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_litter_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
-    father_litter_number: string().required(reqText),
+    father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
-    mother_litter_document_id: reqCheckbox('mother_foreign', true, number().required(reqText)),
-    mother_litter_number: string().required(reqText),
+    mother_pedigree_number: string().required(reqText),
 
-    breeder_first_name: string().required(reqText),
-    breeder_last_name: string().required(reqText),
-    breeder_second_name: string(),
-    breeder_address: string().required(reqText),
+    date_of_birth_litter: string().required(reqText),
+    nursery_name: string(),
+    instructor_nursery_owner_first_name: string(),
+    instructor_nursery_owner_last_name: string(),
+    instructor_nursery_owner_second_name: string(),
+    hallmark_first_name: string().required(reqText),
+    hallmark_last_name: string().required(reqText),
+    hallmark_second_name: string(),
 
-    email: lat().required(reqText).email(reqEmail),
-    was_reviewed: boolean().required(reqText),
-    litter_or_request_number: reqCheckbox('was_reviewed'),
-    biometric_card_document_id: number().required(reqText),
+    litter_diagnostic_id: number().required(reqText),
+    dog_mating_act_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
-    chip_number: string(),
+    litters: array().of(object().shape({
+        dog_name: string().required(reqText),
+        dog_name_lat: lat(),
+        dog_color: string().required(reqText),
+        dog_sex_type_id: number().required(reqText).typeError(reqText),
+        stamp_number: numbersOnly().required(reqText),
+        chip_number: string(),
+        litter_dog_status_id: string().required(reqText),
+        status_comment: string().when('litter_dog_status_id', {
+            is: v => ![2,4].includes(v),
+            then: string(),
+            otherwise: string().required(reqText)
+        })
+    })),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
         document_id: number().required(reqText)
     }))
+
 }
 
 const updateSchema = {
     id: number(),
     declarant_uid: string(),
-    biometric_card_document_id: number(),
+    litter_diagnostic_id: number(),
+    dog_mating_act_id: number(),
     personal_data_document_id: number(),
     documents: array().of(object().shape({
         id: number(),
@@ -72,55 +79,70 @@ const updateSchema = {
             then: mixed(),
             otherwise: number().required(reqText).typeError(reqText)
         }),
-        document_id: number().required(reqText)
+        document: number()
+    })),
+    litters: array().of(object().shape({
+        id: number(),
+        dog_name: string().required(reqText),
+        dog_name_lat: lat(),
+        dog_color: string().required(reqText),
+        dog_sex_type_id: number().required(reqText).typeError(reqText),
+        stamp_number: numbersOnly().required(reqText),
+        chip_number: string(),
+        litter_dog_status_id: number().required(reqText).typeError(reqText),
+        status_comment: string().when('litter_dog_status_id', {
+            is: v => ![2,4].includes(v),
+            then: string(),
+            otherwise: string().required(reqText)
+        })
     }))
+
 }
 
 
 const emptyLitterDeclarant = {
-    express: false,
-    one_generation: false,
-    two_generation: true,
-    owner_first_name: '',
-    owner_last_name: '',
-    owner_second_name: '',
-    owner_address: '',
-    owner_address_lat: '',
-    owner_first_name_lat: '',
-    owner_last_name_lat: '',
-
+    first_name: '',
+    last_name: '',
+    second_name: '',
+    email: '',
+    address: '',
+    first_name_lat: '',
+    last_name_lat: '',
+    address_lat: '',
     breed_id: '',
-    dog_name: '',
-    dog_name_lat: '',
-    dog_birth_date: '',
-    dog_sex_type: '',
-    stamp_number: '',
-    stamp_code_name: '',
-    color: '',
-
+    stamp_code_id: '',
+    
     father_name: '',
     father_foreign: false,
-    father_litter_number: '',
-    father_litter_document: '',
+    father_pedigree_number: '',
     mother_name: '',
     mother_foreign: false,
-    mother_litter_number: '',
-    mother_litter_document: '',
+    mother_pedigree_number: '',
 
-    breeder_first_name: '',
-    breeder_last_name: '',
-    breeder_second_name: '',
-    breeder_address: '',
-
-    email: '',
-    was_reviewed: false,
-    litter_or_request_number: '',
-    biometric_card_document: '',
+    date_of_birth_litter: '',
+    nursery_name: '',
+    instructor_nursery_owner_first_name: '',
+    instructor_nursery_owner_last_name: '',
+    instructor_nursery_owner_second_name: '',
+    hallmark_first_name: '',
+    hallmark_last_name: '',
+    hallmark_second_name: '',
+    litter_diagnostic: '',
+    dog_mating_act: '',
     personal_data_document: '',
-    request_extract_from_verk_document: '',
-    chip_number: '',
+    litters: [{
+        dog_name: '',
+        dog_name_lat: '',
+        dog_color: '',
+        dog_sex_type_id: '',
+        stamp_number: '',
+        chip_number: '',
+        litter_dog_status_id: '',
+        status_comment: ''
+    }],
     documents: []
 };
+
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
@@ -155,10 +177,14 @@ const config = {
         stampCodes: {
             url: clubId => apiStampCodesEndpoint + '?id=' + clubId,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
+        },
+        litterStatuses: {
+            url: apiLitterDogStatusEndpoint,
+            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name}))
         }
     },
     hooks: {
-        values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents})
+        values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents, litters: values.litters})
     },
     url: '/api/requests/litter_request/LitterDeclarantRequest',
     get: '/api/requests/litter_request/LitterDeclarantRequest/declarant',
