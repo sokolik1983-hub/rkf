@@ -81,7 +81,9 @@ const DocRegistry = ({ history, distinction }) => {
 
                     </tbody>
                 </table>
-                <button type="button" onClick={() => window.print()}>Печать</button>
+                <div className="print-button">
+                    <a href="/" title="" onClick={e => { e.preventDefault(); window.print() }}>Печать</a>
+                </div>
             </div>
         </Card>
 }

@@ -1,0 +1,64 @@
+.DocApply {
+    & input, & .caps {
+        text-transform: uppercase;
+    }
+    & .no-caps {
+        text-transform: none;
+    }
+    .FormInput__custom-error, .FormInput__error {
+        color: #FA5D50;
+        position: absolute;
+        line-height: 100%;
+        bottom: -24px;
+        padding: 4px;
+        white-space: nowrap;
+        background-color: white;
+    }
+    .FormGroup .btn {
+        align-self: flex-start;
+        margin-bottom: 22px;
+    }
+    .FormGroup--inline .btn {
+        align-self: flex-end;
+    }
+    .red {
+        color: #FA5D50;
+    }
+    .hidden {
+        display: none!important;
+    }
+    &.view {
+        pointer-events: none;
+        opacity: 0.75;
+    }
+    .FormInput {
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 1rem;
+        color: #212529;
+        td, th {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+    }
+    .alert {
+        position: relative;
+        padding: .75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+    }
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+}

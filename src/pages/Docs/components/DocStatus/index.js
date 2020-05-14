@@ -32,9 +32,13 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
         <Card className="club-documents-status">
             <div className="club-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+                &nbsp;/&nbsp;
+                {distinction === 'pedigree' 
+                    ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
+                    : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
             </div>
             <div className="club-documents-status__table">
-                {documents && documents.length ?
+                {documents && !!documents.length ?
                     <StatusTable documents={documents} distinction={distinction} clubAlias={clubAlias}/> :
                     <h2>Документов не найдено</h2>
                 }

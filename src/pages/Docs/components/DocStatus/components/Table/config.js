@@ -6,14 +6,13 @@ import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias) => {
+export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState) => {
     let cols = [
         {
             property: 'date_create',
             header: {
                 label: 'Дата регистрации'
-            },
-            footer: () => 'Итого:'
+            }
         },
         {
             property: 'federation_name',
@@ -78,13 +77,43 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         Подробнее
                                     </Link>
                                 </li>
-                                {rowData.status_id === 1 &&
+                                {distinction === 'pedigree' &&
+                                    <li className="row-control__item">
+                                        <span
+                                            className="row-control__link"
+                                            onClick={() => setState({docId: rowData.id, showModal: true})}
+                                        >
+                                            Вложенные заявки
+                                        </span>
+                                    </li>
+                                }
+                                {distinction === 'litter' && (rowData.status_id === 1 || rowData.status_id === 4) &&
                                     <li className="row-control__item">
                                         <Link
                                             to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
                                             className="row-control__link"
                                         >
                                             Редактировать
+                                        </Link>
+                                    </li>
+                                }
+                                {distinction === 'pedigree' && rowData.status_id === 4 &&
+                                    <li className="row-control__item">
+                                        <Link
+                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/form`}
+                                            className="row-control__link"
+                                        >
+                                            Редактировать
+                                        </Link>
+                                    </li>
+                                }
+                                {distinction === 'pedigree' && rowData.status_id === 1 &&
+                                    <li className="row-control__item">
+                                        <Link
+                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
+                                            className="row-control__link"
+                                        >
+                                            Ответить
                                         </Link>
                                     </li>
                                 }

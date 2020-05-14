@@ -12,8 +12,12 @@ import FormField from './components/FormField';
 import { getHeaders } from "utils/request";
 import formatDate from 'utils/formatDate';
 import { invoices, legalFields } from './config';
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ru from 'date-fns/locale/ru';
 import "./index.scss";
 
+registerLocale('ru', ru);
 
 const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [fields, setFields] = useState(null);
@@ -26,6 +30,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
     const [membership, setMembership] = useState(null);
     const [preloaded, setPreloaded] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         Promise.all([getStatus(), getRegions(), getActivities(), getFields()])
@@ -128,6 +133,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
         const data = new FormData();
 
         Object.keys(fields).forEach(
@@ -151,13 +157,16 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                     || key === 'membership_payment_document_second'
                     || key === 'membership_payment_document_third'
                     || key === 'membership_payment_document_fourth'
-                    || key === 'membership_payment_document_first_date'
-                    || key === 'membership_payment_document_second_date'
-                    || key === 'membership_payment_document_third_date'
-                    || key === 'membership_payment_document_fourth_date'
                     || key === 'membership_payment_document_valid'
                 ) {
                     return data.append(key, fields[key])
+                }
+                if (key === 'membership_payment_document_first_date'
+                    || key === 'membership_payment_document_second_date'
+                    || key === 'membership_payment_document_third_date'
+                    || key === 'membership_payment_document_fourth_date'
+                ) {
+                    data.append(key, formatDate(fields[key], 'en'));
                 }
                 if (key === 'regions') !!fields[key].length && fields[key].map(r => data.append(key, r.value));
                 if (key === 'activities') !!fields[key].length && fields[key].map(a => data.append(key, a));
@@ -174,9 +183,11 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             data: data
         }, () => {
             alert('Информация отправлена');
+            setSubmitting(false);
             logOutUser();
             history.push('/');
         }, error => {
+            setSubmitting(false);
             if (error.response.status === 413) { return alert('Ошибка: слишком большой файл') };
             alert(
                 `Ошибка: ${error.response.data.errors
@@ -209,6 +220,13 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
             ...fields,
             certificate_of_registration_legal_entity_valid: (fields.status !== 3 && target.value !== 3) ? false : true,
             [target.name]: target.value
+        });
+    };
+
+    const onDateChange = (date, name) => {
+        setFields({
+            ...fields,
+            [name]: date
         });
     };
 
@@ -404,7 +422,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                         'Документ о регистрации кода клейма'
                                                     }
                                                 </h4>
-                                                <span>Прикрепите файл формата PDF: </span>
+                                                <span>Прикрепите файл (PDF) </span>
                                                 <input type="file" accept=".pdf" name="stamp_code_registration_certificate" required onChange={onFileChange} />
                                                 <div className="FormField__comment">{fields['stamp_code_registration_certificate_comment']}</div>
                                             </> :
@@ -421,7 +439,7 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                                             'Свидетельство о регистрации организации'
                                                         }
                                                     </h4>
-                                                    <span>Прикрепите файл формата PDF: </span>
+                                                    <span>Прикрепите файл (PDF) </span>
                                                     <input type="file" accept=".pdf" name="certificate_of_registration_legal_entity" required onChange={onFileChange} />
                                                     <div className="FormField__comment">{fields['certificate_of_registration_legal_entity_comment']}</div>
                                                 </> :
@@ -436,13 +454,21 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                             {invoices.map(name =>
                                                 <div className="invoice" key={name}>
                                                     <div>
-                                                        <span>Прикрепите файл формата PDF: </span>
+                                                        <span>Прикрепите файл (PDF)</span>
                                                         <input type="file" accept=".pdf" name={name} onChange={onFileChange} />
                                                     </div>
                                                     {fields[name] &&
                                                         <div>
                                                             <span>Дата оплаты взноса: </span>
-                                                            <input type="date" name={`${name}_date`} onChange={onInputChange} required />
+                                                            <DatePicker
+                                                                selected={fields[`${name}_date`] && new Date(fields[`${name}_date`])}
+                                                                onChange={date => onDateChange(date, `${name}_date`)}
+                                                                dateFormat='dd.MM.yyyy'
+                                                                placeholderText='дд.мм.гггг'
+                                                                showYearDropdown
+                                                                locale='ru'
+                                                                required
+                                                            />
                                                         </div>
                                                     }
                                                 </div>
@@ -463,7 +489,13 @@ const NotConfirmed = ({ clubId, history, logOutUser }) => {
                                             <p>Нет прикреплённых квитанций</p>
                                     }
                                 </Card>
-                                {!isSubmitted && <button type="submit" className="btn btn-simple">Отправить</button>}
+                                {
+                                    !isSubmitted
+                                    && <div className="NotConfirmed__submit">
+                                        {submitting && <Loading inline={true} />}
+                                        <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
+                                    </div>
+                                }
                             </fieldset>
                         </form>
                         <p className="NotConfirmed__feedback-reminder">В случае обнаружения ошибок или несоответствий - воспользуйтесь формой <Feedback className="feedback-link" title="обратной связи" /></p>

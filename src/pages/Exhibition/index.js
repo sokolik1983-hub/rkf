@@ -11,6 +11,7 @@ import TopComponent from "../../components/TopComponent";
 import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
 import ContactsComponent from "../../components/ContactsComponent";
+import Disclaimer from "components/Disclaimer";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
@@ -101,6 +102,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         />
                         <div className="exhibition-page__info">
                             <div className="mobile-only">
+                                <Disclaimer style={{ marginBottom: '12px' }}>
+                                    <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
+                                        Инструкция по странице выставки
+                                    </a>
+                                </Disclaimer>
                                 <div className="exhibition-page__title-wrap">
                                     <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                     {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
@@ -128,6 +134,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
+                                    <Disclaimer style={{ marginBottom: '12px' }}>
+                                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
+                                            Инструкция по странице выставки
+                                    </a>
+                                    </Disclaimer>
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}

@@ -1,0 +1,128 @@
+/*.stage-strip {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+    }
+    .stage-item {
+    position: relative;
+    height: 47.92px;
+    border-radius: 5px;
+    padding: 14.39px 33px 13.54px;
+    display: flex;
+    color: #72839C;
+    & * {
+        position: relative;
+        z-index: 2;
+    }
+    &::after {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        background-color: white;
+        top: 0; left: 0;
+    }
+    &__text {
+        font-family: Source Sans Pro;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+    }
+    &__icon {
+        margin-right: 15px;
+    }
+    &::before {
+        content: " ";
+        position: absolute;
+        width: 36.88px;
+        height: 36.88px;
+        top: 5.4px;
+        right: -15px;
+        border-radius: 6px;
+        background-color: white;
+        //box-shadow: 1px 0px 0px #EBF0F2, 5px 0px 20px #EBF0F2;
+        box-shadow: 1px 0px 0px #ccc, 5px 0px 20px #ccc;
+        transform: rotate(45deg);
+    }
+    &.active {
+        background: #3366FF;
+        color: #FFFFFF;
+        &::before, &::after {
+            background: #3366FF;
+        }
+    }
+}
+*/
+.stage-strip {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around; 
+  width: 100%;
+  margin-bottom: 24px;
+}
+.stage-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+.stage-strip .bar {
+  content: '';
+  width: 66%;
+  left: 16.5%;
+  border: 2px solid #90999E;
+  position: absolute;
+  top: 28px;
+  margin-top: -2px;
+}
+.stage-strip .bar.blue {
+    border-color: #3366ff;
+}
+.stage-item__icon {
+  width: 57px;
+  height: 57px;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 50%;
+  border: 2px solid #3366FF;
+  background: #3366FF;
+  margin: 0 1em;
+  display: inline-block;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stage-item__icon svg {
+    width: 26px;
+    height: 26px;
+    z-index: 1;
+}
+.stage-item__icon svg path {
+    fill: white;
+}
+.active svg path {
+    fill: #3366FF;
+}
+.active .stage-item__icon {
+  background: white;
+}
+.stage-item__text {
+    color: #3366ff;
+}
+.active ~ .stage-item {
+    .stage-item__text {
+        color: #90999E;
+    }
+    .stage-item__icon {
+        background: white;
+        border-color: #90999E;
+        svg path {
+            fill: #90999E;
+        }
+    }
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import Card from "../../components/Card";
+import Disclaimer from "../../components/Disclaimer";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
@@ -38,7 +38,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
         return () => unListen();
     }, []);
-
 
     const getExhibitions = async (url) => {
         setExhibitionsLoading(true);
@@ -98,12 +97,12 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             <Container className="exhibitions-page content">
                 <Filters filters={filters} clubName={shorten(displayName)} />
                 <div className="exhibitions-page__content">
-                    <Card className="exhibitions-page__disclaimer">
-                        <p>В настоящее  время на Платформе представлены выставки рангов CAC и CACIB.
-                        Для ознакомления с другими мероприятиями - просьба перейти на
-                            сайт <a href="http://rkf.org.ru/" target="_blank" rel="noopener noreferrer">РКФ</a></p>
-                    </Card>
-                    <ListFilter alias={filters.Alias} />
+                    <Disclaimer>
+                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" target="_blank" rel="noopener noreferrer">
+                            Инструкция по календарю мероприятий
+                        </a>
+                    </Disclaimer>
+                    <ListFilter categoryId={filters.CategoryId} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList
                         exhibitions={exhibitions}

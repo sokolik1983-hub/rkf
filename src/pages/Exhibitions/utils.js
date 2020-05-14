@@ -6,14 +6,18 @@ const buildUrlParams = filter => {
     let params = '';
 
     Object.keys(filter).forEach(key => {
-        if (filter.ExhibitionName) {
-            delete filter.DateFrom;
-            delete filter.DateTo;
-        }
+        // if (filter.ExhibitionName) {
+        //     delete filter.DateFrom;
+        //     delete filter.DateTo;
+        // }
 
         if (filter[key]) {
             if (key === 'PageNumber') {
                 if (filter[key] > 1) {
+                    params = params + `${key}=${filter[key]}&`;
+                }
+            } else if (key === 'CategoryId') {
+                if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
             } else if (key === 'RankIds' || key === 'BreedIds' || key === 'CityIds') {
@@ -82,6 +86,7 @@ export const getEmptyFilters = (alias = null) => ({
     ClubIds: null,
     RankIds: [],
     BreedIds: [],
+    CategoryId: 0,
     ExhibitionName: '',
     DateFrom: formatDateToString(new Date()),
     DateTo: null,

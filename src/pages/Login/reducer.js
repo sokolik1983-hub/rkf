@@ -45,6 +45,17 @@ const clearProfile = () => {
     localStorage.removeItem('profile_id');
 };
 
+const loadHelpdeskApiKey = () => {
+    const helpdesk_api_key = localStorage.getItem('helpdesk_api_key');
+    return helpdesk_api_key === null ? null : helpdesk_api_key.replace(/['"]+/g, '');
+};
+const saveHelpdeskApiKey = helpdesk_api_key => {
+    helpdesk_api_key && localStorage.setItem('helpdesk_api_key', JSON.stringify(helpdesk_api_key));
+};
+const clearHelpdeskApiKey = () => {
+    localStorage.removeItem('helpdesk_api_key');
+};
+
 const isUserAuthenticated = () => {
     return !!loadApiKey();
 };
@@ -53,19 +64,21 @@ const authInitialState = {
     isAuthenticated: isUserAuthenticated(),
     is_active_profile: loadIsActiveProfile(),
     user_info: loadUserInfo(),
-    profile_id: loadProfile()
+    profile_id: loadProfile(),
+    helpdesk_api_key: loadHelpdeskApiKey()
 };
 
 const authReducer = createReducer(authInitialState, {
     [actiontypes.LOGIN_SUCCESS](state, action) {
-        const {access_token, is_active_profile, user_info, profile_id} = action.data;
+        const { access_token, is_active_profile, user_info, profile_id, api_key: helpdesk_api_key } = action.data;
 
         saveApiKey(access_token);
         saveUserInfo(user_info);
         saveIsActiveProfile(is_active_profile);
         saveProfile(profile_id);
+        saveHelpdeskApiKey(helpdesk_api_key);
 
-        const {club_alias, club_name} = user_info;
+        const { club_alias, club_name } = user_info;
 
         return {
             ...state,
@@ -74,7 +87,8 @@ const authReducer = createReducer(authInitialState, {
             isAuthenticated: true,
             is_active_profile,
             user_info,
-            profile_id
+            profile_id,
+            helpdesk_api_key
         };
     },
     [actiontypes.LOGOUT](state, action) {
@@ -82,10 +96,12 @@ const authReducer = createReducer(authInitialState, {
         clearUserInfo();
         clearIsActiveProfile();
         clearProfile();
+        clearHelpdeskApiKey();
         return {
             ...state,
             isAuthenticated: false,
-            user_info: null
+            user_info: null,
+            helpdesk_api_key: null
         };
     }
 });

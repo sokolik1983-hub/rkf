@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Card from "../../../../components/Card";
 import Request, { getHeaders } from "utils/request";
 import Loading from "components/Loading";
@@ -6,13 +7,25 @@ import Alert from "components/Alert";
 import './styles.scss';
 
 const CheckStatus = () => {
-    const [barcode, setBarcode] = useState(null);
+    const [barcode, setBarcode] = useState('');
     const [status, setStatus] = useState([]);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
+    const { query } = useParams();
+
+    useEffect(() => {
+        if (query && query.length === 13) {
+            setBarcode(query);
+            requestTracking(query);
+        }
+    }, [query]);
 
     const handleSubmit = e => {
         e.preventDefault();
+        requestTracking(barcode);
+    };
+
+    const requestTracking = barcode => {
         setLoading(true);
         Request({
             url: `/api/requests/CommonRequest/request_tracking?barcode=${barcode}`,
@@ -39,13 +52,15 @@ const CheckStatus = () => {
                 type="text"
                 pattern="[0-9]{13}"
                 onChange={({ target }) => setBarcode(target.value)}
+                value={barcode}
                 title="Введите 13-значный номер отслеживания"
                 placeholder="Введите 13-значный номер отслеживания"
+                disabled={loading}
                 required
             />
             <div className="check-status__button">
                 {loading && <Loading centered={false} />}
-                <button type="submit">Отправить</button>
+                <button type="submit" disabled={loading}>Найти</button>
             </div>
         </form>
         {!!status.length && <div className="check-status__table">
@@ -83,4 +98,4 @@ const CheckStatus = () => {
     </Card>
 };
 
-export default CheckStatus;
+export default React.memo(CheckStatus);

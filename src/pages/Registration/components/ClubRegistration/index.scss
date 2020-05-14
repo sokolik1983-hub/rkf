@@ -1,20 +1,27 @@
 .club-registration {
-  h3 {
-    margin: auto;
-    text-align: center;
-  }
-  &__holder {
-    margin: 0 0 24px;
-    @media (max-width: 560px) {
-      margin-bottom: 0;
-      padding: 12px;
-    }
-  }
+  text-align: center;
   &__select {
     margin: 0 auto 24px;
+    text-align: left;
     @media (max-width: 560px) {
       width: 100% !important;
       max-width: 300px;
+    }
+  }
+  &__empty {
+    &-title {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839C;
+      margin-bottom: 8px;
+    }
+    &-icon {
+      width: 151px;
+      height: 118px;
+      background: url("/static/images/default/invoice-empty.svg") no-repeat center;
+      margin: 0 auto;
     }
   }
   &__not-found {
@@ -28,83 +35,104 @@
     list-style-position: inside;
     max-width: 300px;
     margin: auto;
+    text-align: left;
     li:hover {
       cursor: pointer;
       text-decoration: underline;
     }
   }
+  &__modal {
+    .Modal__inner {
+      padding: 0 40px;
+    }
+    .Modal__close {
+      width: 16px;
+      height: 16px;
+      right: 12px;
+      top: 12px;
+    }
+    & > div {
+      max-width: 900px;
+      @media (max-width: 767px) {
+        width: 92% !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .Modal__inner {
+        padding: 0 32px 0 12px;
+      }
+    }
+  }
   &__activate {
-    margin: 24px 0;
-    text-align: center;
-    @media (max-width: 560px) {
-      margin: 12px 0;
+    padding: 32px 0;
+    @media (max-width: 600px) {
+      padding: 12px 0;
     }
     h3 {
-      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 32px;
+      margin-bottom: 40px;
+      @media (max-width: 600px) {
+        margin-bottom: 24px;
+      }
+    }
+    &-content {
+      padding-left: 230px;
+      background: url("/static/images/default/email.svg") no-repeat left 30px center;
+      @media (max-width: 990px) {
+        padding-left: 173px;
+        background-position: left center;
+      }
+      @media (max-width: 600px) {
+        padding-left: 0;
+        background: transparent;
+      }
+    }
+    &-info {
+      margin-bottom: 24px;
+      p {
+        &:first-child {
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+        span:last-child {
+          font-weight: 300;
+        }
+      }
+    }
+    &-email {
+      button {
+        margin-top: 24px;
+      }
     }
     &-warn {
       font-weight: 600;
       color: firebrick;
     }
+    &-confirm {
+      min-height: 133px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     &-form {
+      margin-top: 24px;
       input {
-        padding: 5px 15px;
+        max-width: 315px;
+        padding: 10px 15px;
         border-radius: 4px;
         border: 1px solid #ddd;
         font-size: 16px;
         line-height: 24px;
         margin-right: 8px;
-      }
-      @media (max-width: 560px) {
-        input {
+        @media (max-width: 990px) {
+          max-width: 195px;
+        }
+        @media (max-width: 767px) {
+          max-width: none;
           width: 100%;
-          margin: 0;
-        }
-      }
-      button {
-        margin-top: 10px;
-        padding: 5px 15px;
-      }
-    }
-    table,
-    td,
-    th {
-      border: 1px solid #ddd;
-      text-align: left;
-      @media (max-width: 560px) {
-        display: block;
-        border: none;
-        tr:first-child {
-          display: none;
-        }
-      }
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-bottom: 24px;
-    }
-    th,
-    td {
-      padding: 5px;
-    }
-    @media (max-width: 560px) {
-      td {
-        &:before {
-          font-weight: bold;
-          margin-right: 5px;
-        }
-        &:nth-child(1):before {
-          content: 'ОГРН';
-        }
-        &:nth-child(2):before {
-          content: 'ИНН';
-        }
-        &:nth-child(3):before {
-          content: 'Адрес';
-        }
-        &:nth-child(4):before {
-          content: 'ФИО';
+          margin: 0 0 12px;
         }
       }
     }
