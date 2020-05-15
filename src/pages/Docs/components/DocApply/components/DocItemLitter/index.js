@@ -82,7 +82,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </HideIf>
 
             <FormGroup inline>
-                <FormField disabled={update} name={`email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
+                <FormField disabled={update} name={`email`} label='Email заводчика' />
                 <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>
             <FormGroup inline>
