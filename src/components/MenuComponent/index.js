@@ -85,8 +85,7 @@ const presidium = {
     }
 };
 
-const MenuComponent = ({ alias, name }) => {
-    const [showAlert, setShowAlert] = useState(false);
+const MenuComponent = ({ alias, name, profileId }) => {
     const [showModal, setShowModal] = useState(false);
     const [stamps, setStamps] = useState(null);
     const [showStampsModal, setShowStampsModal] = useState(false);
