@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
-import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
+import { REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 
 const WidgetLogin = forwardRef(
@@ -47,7 +47,7 @@ const WidgetLogin = forwardRef(
                             </div>
                         </CSSTransition>
                     </OutsideClickHandler>
-                    : <Link className="login-link" to={LOGIN_URL}>Войти</Link>
+                    : <Link className="login-link" to={REGISTRATION_URL}>Вход и регистрация</Link>
                 }
             </div >
         )

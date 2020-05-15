@@ -432,6 +432,7 @@
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.5px;
+    white-space: nowrap;
     @media (max-width: 990px) {
       padding: 0;
       text-transform: none;
