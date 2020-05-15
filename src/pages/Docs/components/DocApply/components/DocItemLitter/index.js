@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Error from "components/Form/Field/Error";
 import { connect, FieldArray } from "formik";
-import { Link } from "react-router-dom";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
-import DocLink from "../../components/DocLink";
 import Transliteratable from "../../components/Transliteratable";
 import FormFile from "../../components/FormFile";
 import PuppyItem from "../../components/PuppyItem";
@@ -14,7 +12,6 @@ import { apiLitterEverk } from "../../config.js";
 import Alert from "components/Alert";
 import { FormGroup, FormField, FormInput } from "components/Form";
 import HideIf from "components/HideIf";
-import moment from "moment";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
 
@@ -24,18 +21,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const distinction = "litter";
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const declarant = formik.values;
-    const [email, setEmail] = useState(declarant.email || '');
     const [privacyHref, setPrivacyHref] = useState(declarant.email || '');
-    const [firstName, setFirstName] = useState(declarant.first_name || '');
-    const [lastName, setLastName] = useState(declarant.last_name || '');
-    const [secondName, setSecondName] = useState(declarant.second_name || '');
     const [activePuppy, setActivePuppy] = useState(-1);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
-    let status = statuses.find(s => s.id === declarant.status_id);
-    status = status ? status.name : 'Не обработана';
-    let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = stamp_code =>
@@ -83,9 +73,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`id`} />
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
-                <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' />
+                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' />
+                <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' />
             </FormGroup>
             <HideIf cond={!declarant.last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
