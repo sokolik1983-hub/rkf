@@ -60,6 +60,7 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
                         <Aside className="club-page__info">
                             <MenuComponent
                                 alias={clubInfo.club_alias}
+                                profileId={clubInfo.id}
                                 name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                             />
                             <ClubInfo {...clubInfo} />
@@ -67,6 +68,7 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
                     </div>
                     <FloatingMenu
                         alias={clubInfo.club_alias}
+                        profileId={clubInfo.id}
                         name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                     />
                 </Container>
