@@ -28,7 +28,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [firstName, setFirstName] = useState(declarant.first_name || '');
     const [lastName, setLastName] = useState(declarant.last_name || '');
     const [secondName, setSecondName] = useState(declarant.second_name || '');
-    const [activePuppy, setActivePuppy] = useState(0);
+    const [activePuppy, setActivePuppy] = useState(-1);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
@@ -212,7 +212,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
                             deleteClick={() => {remove(j); setActivePuppy(-1);}}
                             sexTypes={sexTypes}
-                            error={error && formik.errors.declarants[i].litters && formik.errors.declarants[i].litters[j] && formik.touched.declarants[i].litters && formik.touched.declarants[i].litters[j]}
+                            error={formik.errors && formik.errors.litters && formik.errors.litters[j] && formik.touched.litters && formik.touched.litters[j]}
                             cantEdit={view || declarant.litters_accept || !statusAllowsUpdate}
                             litterStatuses={litterStatuses}
                             puppyCount={declarant.litters ? declarant.litters.length : 0}

@@ -53,7 +53,7 @@ const validationSchema = {
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(v),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -91,7 +91,7 @@ const updateSchema = {
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(v),
             then: string(),
             otherwise: string().required(reqText)
         })

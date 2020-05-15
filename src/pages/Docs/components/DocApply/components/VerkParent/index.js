@@ -8,7 +8,7 @@ import HideIf from "components/HideIf";
 import { connect, getIn } from "formik";
 import { Request } from "utils/request";
 
-const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument, everkData}) => {
+const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument = true, everkData}) => {
     const [everk, setEverk] = useState(false);
     const [everkAlert, setEverkAlert] = useState(false);
 
