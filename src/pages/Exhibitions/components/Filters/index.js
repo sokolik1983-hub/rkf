@@ -13,7 +13,7 @@ import {endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitions
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filters, clubName}) => {
+const Filters = ({isOpenFilters, filters, clubName, profileId}) => {
     const [ranks, setRanks] = useState(null);
     const [breeds, setBreeds] = useState(null);
     const [calendarData, setCalendarData] = useState(null);
@@ -90,6 +90,7 @@ const Filters = ({isOpenFilters, filters, clubName}) => {
                     {clubName && filters.Alias &&
                         <MenuComponent
                             alias={filters.Alias}
+                            profileId={profileId}
                             name={clubName}
                             className="phone-hide"
                         />
