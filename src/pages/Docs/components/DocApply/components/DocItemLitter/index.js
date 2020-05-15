@@ -199,6 +199,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <th>Пол</th>
                     <th>№ клейма</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -210,7 +211,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             key={j}
                             activePuppy={activePuppy}
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
-                            deleteClick={() => {remove(j); setActivePuppy(-1);}}
+                            deleteClick={() => {
+                                if (window.confirm("Удалить щенка?")) {
+                                    remove(j); setActivePuppy(-1);
+                                }
+                            }}
                             sexTypes={sexTypes}
                             error={formik.errors && formik.errors.litters && formik.errors.litters[j] && formik.touched.litters && formik.touched.litters[j]}
                             cantEdit={view || declarant.litters_accept || !statusAllowsUpdate}
