@@ -12,7 +12,7 @@ import VerkParent from "../../components/VerkParent";
 import { Request } from "utils/request";
 import { apiLitterEverk } from "../../config.js";
 import Alert from "components/Alert";
-import { FormGroup, FormField } from "components/Form";
+import { FormGroup, FormField, FormInput } from "components/Form";
 import HideIf from "components/HideIf";
 import moment from "moment";
 import "./index.scss";
@@ -227,7 +227,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <tr>
                         <td colSpan="6">
                             <HideIf cond={view || declarant.litters_accept || !statusAllowsUpdate}>
-                                <Error name={`litters`} noTouch/>
+                                <FormInput name="litters">
+                                    <Error name={`litters`} noTouch/>
+                                </FormInput>
                                 <div className="flex-row">
                                     <Button small onClick={() => {
                                         push({
