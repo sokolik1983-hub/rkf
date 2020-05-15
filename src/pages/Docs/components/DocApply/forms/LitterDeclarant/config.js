@@ -45,6 +45,7 @@ const validationSchema = {
     dog_mating_act_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     litters: array().of(object().shape({
+        id: number(),
         dog_name: string().required(reqText),
         dog_name_lat: lat(),
         dog_color: string().required(reqText),
@@ -53,7 +54,7 @@ const validationSchema = {
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => !["2","4"].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -91,7 +92,7 @@ const updateSchema = {
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => !["2","4"].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })

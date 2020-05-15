@@ -1,6 +1,7 @@
 import React from "react";
 import { FormField, FormGroup } from "components/Form";
 import Transliteratable from "../../components/Transliteratable";
+import DeleteButton from "../../components/DeleteButton";
 import Button from "components/Button";
 import Modal from "components/Modal";
 import HideIf from "components/HideIf";
@@ -16,7 +17,10 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
     <td onClick={activateClick} className="no-caps">{sex}</td>
     <td onClick={activateClick}>{puppy.stamp_number}</td>
     <td onClick={activateClick}>
-        <img className={`DocItem__chevron ${activePuppy === j ? 'active' : ''}`} src="/static/icons/chevron_left.svg" alt=""/>
+        <img className={`DocItem__chevron`} src="/static/icons/pen-gray.svg" alt=""/>
+    </td>
+    <td>
+        <DeleteButton onClick={e => deleteClick()} />
     </td>
 </tr>
 <Modal showModal={activePuppy === j} handleClose={() => activePuppy === j && activateClick()}>
