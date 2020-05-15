@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Error from "components/Form/Field/Error";
 import { connect, FieldArray } from "formik";
 import { Link } from "react-router-dom";
 import Button from "components/Button";
@@ -224,8 +225,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         />)
                     }
                     <tr>
-                        <td colSpan="5">
+                        <td colSpan="6">
                             <HideIf cond={view || declarant.litters_accept || !statusAllowsUpdate}>
+                                <Error name={`litters`} noTouch/>
                                 <div className="flex-row">
                                     <Button small onClick={() => {
                                         push({
