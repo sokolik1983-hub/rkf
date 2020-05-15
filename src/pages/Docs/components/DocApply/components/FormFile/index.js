@@ -11,6 +11,7 @@ import {Request} from "utils/request";
 import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
+const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 const mimeWhitelist = [
     "image/png",
     "image/jpeg",
@@ -63,7 +64,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
                     if (descision) {
                         Request({
                             isMultipart: true,
-                            url: `/api/requests/pedigree_request/PedigreeDocument${declarant_uid ? '/additional' : ''}`,
+                            url: `/api/requests/${distinction}_request/${up(distinction)}Document${declarant_uid ? '/additional' : ''}`,
                             method: "POST",
                             data: fd
                         }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); message(e)})

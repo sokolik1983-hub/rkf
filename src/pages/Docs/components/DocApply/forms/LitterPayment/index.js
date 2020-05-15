@@ -8,7 +8,7 @@ import HideIf from "components/HideIf";
 import Card from "components/Card";
 import FormFile from "../../components/FormFile";
 
-// pedigree
+// litter
 const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial, Title}) => {
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
@@ -28,7 +28,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
                             docId={formik.values.payment_document_id}
                             disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
                             document_type_id={5}
-                            distinction="pedigree"
+                            distinction="litter"
                         />
 
                         <FormField className="special" required={false} disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
@@ -42,16 +42,16 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
             </FormGroup>
 </Card>
     <div className="stage-controls flex-row">
-        <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`)}>Назад</Button>
+        <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/table/form`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
-            action: config.url + (formik.values.id ? '_draft' : ''),
+            action: config.url,
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
         <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
-                action: config.url + (formik.values.id ? '_draft' : ''),
+                action: config.url,
                 button: 'next'
             }, formik)}>Отправить</Button>
         </HideIf>

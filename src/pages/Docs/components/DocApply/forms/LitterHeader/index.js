@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, {useState,useEffect} from "react";
 import {connect} from "formik";
 import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
@@ -8,7 +8,7 @@ import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
 
-// pedigree
+// litter
 const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
@@ -27,7 +27,6 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             }
         }
     }, []);
-
     return <>
 <Card>
     <Title/>
@@ -39,12 +38,6 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             name="federation_id"
             label='Федерация'
             placeholder="Выберите федерацию"
-        />
-        <FormField
-            disabled={update}
-            name="folder_number"
-            label="Номер папки"
-            placeholder="0000"
         />
         </FormGroup>
         <FormField
@@ -86,13 +79,13 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/`)}>Назад</Button>
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
-            action: config.url + (formik.values.id ? '/draft' : ''),
+            action: config.url,
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
         <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
-                action: config.url + (formik.values.id ? '/draft' : ''),
+                action: config.url,
                 button: 'next'
             }, formik)}>Сохранить и продолжить</Button>
         </HideIf>

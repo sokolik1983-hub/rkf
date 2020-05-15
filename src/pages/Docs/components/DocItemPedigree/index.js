@@ -33,7 +33,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
 
-    const docConst = 3 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
+    const docConst = 2 + Number(declarant.father_foreign) + Number(declarant.mother_foreign);
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = (stamp_number, stamp_code) =>

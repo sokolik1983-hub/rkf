@@ -8,7 +8,7 @@ import HideIf from "components/HideIf";
 import { connect, getIn } from "formik";
 import { Request } from "utils/request";
 
-const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument, everkData}) => {
+const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCaption, distinction, addDocument = true, everkData}) => {
     const [everk, setEverk] = useState(false);
     const [everkAlert, setEverkAlert] = useState(false);
 
@@ -79,7 +79,7 @@ const VerkParent = ({formik, update, view, declarant, i, who, whoRu, checkboxCap
                         formik.setFieldValue(`${who}_name`, '');
                     }}
                 />
-                <HideIf cond={!getIn(formik.values, `${who}_foreign`)}>
+                <HideIf cond={!getIn(formik.values, `${who}_foreign`) || !addDocument}>
                     <FormFile
                         name={`${who}_pedigree_document`}
                         label={`Копия родословной ${whoRu}`}

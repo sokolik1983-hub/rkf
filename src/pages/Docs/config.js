@@ -14,7 +14,7 @@ const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/pedigree_request/PedigreeDocument';
-const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
+const apiLitterDocumentEndpoint = '/api/requests/litter_request/LitterDocument';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
@@ -156,7 +156,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -196,7 +196,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
