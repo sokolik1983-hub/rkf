@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layouts";
+import { Link } from "react-router-dom";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
+import { LOGIN_URL } from "appConfig";
 //import IndividualRegistration from "./components/IndividualRegistration";
 import "./index.scss";
 
@@ -12,6 +14,7 @@ const RegistrationPage = () => {
     return (
         <Layout>
             <AuthLayout className="registration-page">
+                <div className="registration-page__login">Уже есть аккаунт? Воспользуйтесь формой <Link className="registration-page__login-link" to={LOGIN_URL}>ВХОДА</Link></div>
                 <h1 className="registration-page__title">Регистрация</h1>
                 <div className="registration-page__support-links">
                     <p>
