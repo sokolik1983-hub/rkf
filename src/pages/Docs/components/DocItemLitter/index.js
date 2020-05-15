@@ -66,7 +66,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + 6 : 6}</td>
+        <td>{declarant.documents ? declarant.documents.length + 3 : 3}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
