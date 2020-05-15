@@ -87,17 +87,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         </span>
                                     </li>
                                 }
-                                {distinction === 'litter' && (rowData.status_id === 1 || rowData.status_id === 4) &&
-                                    <li className="row-control__item">
-                                        <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
-                                            className="row-control__link"
-                                        >
-                                            Редактировать
-                                        </Link>
-                                    </li>
-                                }
-                                {distinction === 'pedigree' && rowData.status_id === 4 &&
+                                {rowData.status_id === 4 &&
                                     <li className="row-control__item">
                                         <Link
                                             to={`/${clubAlias}/documents/${distinction}/${rowData.id}/form`}
@@ -107,7 +97,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         </Link>
                                     </li>
                                 }
-                                {distinction === 'pedigree' && rowData.status_id === 1 &&
+                                {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
                                             to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}

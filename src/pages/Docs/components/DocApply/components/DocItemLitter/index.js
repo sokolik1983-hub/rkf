@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Error from "components/Form/Field/Error";
 import { connect, FieldArray } from "formik";
-import { Link } from "react-router-dom";
 import Button from "components/Button";
 import DeleteButton from "../../components/DeleteButton";
-import DocLink from "../../components/DocLink";
 import Transliteratable from "../../components/Transliteratable";
 import FormFile from "../../components/FormFile";
 import PuppyItem from "../../components/PuppyItem";
@@ -11,9 +10,8 @@ import VerkParent from "../../components/VerkParent";
 import { Request } from "utils/request";
 import { apiLitterEverk } from "../../config.js";
 import Alert from "components/Alert";
-import { FormGroup, FormField } from "components/Form";
+import { FormGroup, FormField, FormInput } from "components/Form";
 import HideIf from "components/HideIf";
-import moment from "moment";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
 
@@ -23,18 +21,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const distinction = "litter";
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const declarant = formik.values;
-    const [email, setEmail] = useState(declarant.email || '');
     const [privacyHref, setPrivacyHref] = useState(declarant.email || '');
-    const [firstName, setFirstName] = useState(declarant.first_name || '');
-    const [lastName, setLastName] = useState(declarant.last_name || '');
-    const [secondName, setSecondName] = useState(declarant.second_name || '');
-    const [activePuppy, setActivePuppy] = useState(0);
+    const [activePuppy, setActivePuppy] = useState(-1);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
-    let status = statuses.find(s => s.id === declarant.status_id);
-    status = status ? status.name : 'Не обработана';
-    let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     const getEverkData = stamp_code =>
@@ -82,16 +73,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`id`} />
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
-                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>
-                <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' onChange={e => {formik.handleChange(e); setSecondName(e.target.value)}}/>
+                <Transliteratable disabled={update} name={`last_name`} label='Фамилия заводчика' />
+                <Transliteratable disabled={update} name={`first_name`} label='Имя заводчика' />
+                <FormField disabled={update} name={`second_name`} label='Отчество заводчика (не обязательное поле)' />
             </FormGroup>
             <HideIf cond={!declarant.last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
             </HideIf>
 
             <FormGroup inline>
-                <FormField disabled={update} name={`email`} label='Email заводчика' onChange={e => {formik.handleChange(e); setEmail(e.target.value)}}/>
+                <FormField disabled={update} name={`email`} label='Email заводчика' />
                 <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>
             <FormGroup inline>
@@ -199,6 +190,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <th>Пол</th>
                     <th>№ клейма</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -210,17 +202,24 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             key={j}
                             activePuppy={activePuppy}
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
-                            deleteClick={() => {remove(j); setActivePuppy(-1);}}
+                            deleteClick={() => {
+                                if (window.confirm("Удалить щенка?")) {
+                                    remove(j); setActivePuppy(-1);
+                                }
+                            }}
                             sexTypes={sexTypes}
-                            error={error && formik.errors.declarants[i].litters && formik.errors.declarants[i].litters[j] && formik.touched.declarants[i].litters && formik.touched.declarants[i].litters[j]}
+                            error={formik.errors && formik.errors.litters && formik.errors.litters[j] && formik.touched.litters && formik.touched.litters[j]}
                             cantEdit={view || declarant.litters_accept || !statusAllowsUpdate}
                             litterStatuses={litterStatuses}
                             puppyCount={declarant.litters ? declarant.litters.length : 0}
                         />)
                     }
                     <tr>
-                        <td colSpan="5">
+                        <td colSpan="6">
                             <HideIf cond={view || declarant.litters_accept || !statusAllowsUpdate}>
+                                <FormInput name="litters">
+                                    <Error name={`litters`} noTouch/>
+                                </FormInput>
                                 <div className="flex-row">
                                     <Button small onClick={() => {
                                         push({

@@ -92,7 +92,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         view = x !== 'edit';
     }
     let initial = {...initialValues, ...removeNulls(values)};
-    values.declarants && (initial = {...initial, declarants: distinction === "litter" ? values.declarants : values.declarants && values.declarants.map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode, rejected_comment:d.rejected_comment}))});
+    values.declarants && (initial = {...initial, declarants: values.declarants && values.declarants.map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode, litters: d.litters, rejected_comment:d.rejected_comment}))});
     let cash_payment = initial.cash_payment;
     const filterBySchema = (values, fields) => {
         let r = {};

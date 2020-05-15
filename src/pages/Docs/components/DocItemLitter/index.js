@@ -66,7 +66,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + 6 : 6}</td>
+        <td>{declarant.documents ? declarant.documents.length + 3 : 3}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -161,44 +161,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             {/*files*/}
             <FormGroup inline>
             <FormFile
-                name={`declarants[${i}].parent_certificate_2`}
-                label='Свидетельство о происхождении производительницы (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_2_id}
-                disabled={view || declarant.parent_certificate_2_accept || !statusAllowsUpdate}
-                distinction={distinction}
-            />
-            <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
                 label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
-            </FormGroup>
-            <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
                 label='Акт вязки (PDF, JPEG, JPG, PNG)'
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
-            />
-            <FormFile
-                name={`declarants[${i}].parent_certificate_1`}
-                label='Свидетельство о происхождении производителя (PDF, JPEG, JPG, PNG)'
-                docId={declarant.parent_certificate_1_id}
-                disabled={view || declarant.parent_certificate_1_accept || !statusAllowsUpdate}
-                distinction={distinction}
-            />
-            </FormGroup>
-            <FormGroup inline>
-            <FormFile
-                name={`declarants[${i}].application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
-                docId={declarant.application_document_id}
-                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
-                distinction={distinction}
-                form={{filename:"litter_application.docx", href: litterHref, linkText: 'Скачать бланк заявления'}}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}

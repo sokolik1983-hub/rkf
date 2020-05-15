@@ -17,7 +17,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
 <Title/>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {options.federations.find(f => f.value === formik.values.federation_id).label} и заполните информацию о платеже.</p>
-                <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
+                {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
                 <h4 className="caps">Информация о платеже</h4>
 
