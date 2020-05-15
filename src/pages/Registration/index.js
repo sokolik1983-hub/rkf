@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
 import KennelRegistration from "./components/KennelRegistration";
+import {LOGIN_URL} from "../../appConfig";
 import "./index.scss";
 
 
