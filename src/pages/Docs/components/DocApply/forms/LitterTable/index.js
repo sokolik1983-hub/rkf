@@ -38,6 +38,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         key={i}
                         activateClick={() => setRedirect(`/${clubAlias}/documents/litter/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i].declarant}
+                        documents={formik.values.declarants[i].documents}
                         statuses={options.statuses}
                         status_id={formik.values.declarants[i].status_id}
                         date_created={formik.values.declarants[i].date_create}
