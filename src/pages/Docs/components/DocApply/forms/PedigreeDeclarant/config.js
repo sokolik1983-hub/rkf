@@ -35,7 +35,7 @@ const validationSchema = {
 
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
-    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
+    father_pedigree_document_id: number().typeError(reqText),
     father_pedigree_number: string().required(reqText),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
