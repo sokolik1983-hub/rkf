@@ -6,7 +6,6 @@ import genericForm from "../../utils/genericForm";
 import SubmitError from "../../components/SubmitError";
 import config from "./config.js";
 import Button from "components/Button";
-import HideIf from "components/HideIf";
 import Card from "components/Card";
 
 // pedigree

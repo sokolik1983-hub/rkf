@@ -4,7 +4,6 @@ import genericForm from "../../utils/genericForm";
 import DocTableItem from "../../components/DocItemTablePedigree";
 import config from "./config.js";
 import Button from "components/Button";
-import HideIf from "components/HideIf";
 import SubmitError from "../../components/SubmitError";
 import Card from "components/Card";
 import {Request} from "utils/request";
