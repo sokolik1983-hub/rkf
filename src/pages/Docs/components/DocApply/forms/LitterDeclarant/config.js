@@ -1,5 +1,5 @@
 import {number, boolean, string, object, mixed, array} from "yup";
-import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
+import {reqText, reqEmail, numbersOnly, lat} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
 const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
