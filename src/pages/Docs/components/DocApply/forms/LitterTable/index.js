@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "formik";
 import genericForm from "../../utils/genericForm";
+import SubmitError from "../../components/SubmitError";
 import DocTableItem from "../../components/DocItemTableLitter";
 import config from "./config.js";
 import Button from "components/Button";
@@ -53,12 +54,9 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
             </table>    
     </Card>
     <div className="stage-controls flex-row">
-        <HideIf>
-            <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/header/form`)}>Назад</Button>
-        </HideIf>
-        <HideIf >
-            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/payment/form`)}>Продолжить</Button>
-        </HideIf>
+        <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/header/form`)}>Назад</Button>
+        <SubmitError />
+        <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/payment/form`)}>Продолжить</Button>
     </div>
     </>
 )
