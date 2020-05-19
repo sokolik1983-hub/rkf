@@ -42,9 +42,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
-
+    
+    const [init, setInit] = useState(false);
     useEffect(() => {
+        if (!init && typeof(formik.values.stamp_code_id) !== 'number') {
+            setInit(true);
+            let stamp = stampCodes[0];
+            console.log(stamp);
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code_id', stamp.value);
+            }
+        }
         Promise.all([
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
