@@ -7,6 +7,7 @@ import SubmitError from "../../components/SubmitError";
 import config from "./config.js";
 import Button from "components/Button";
 import Card from "components/Card";
+import { Request } from "utils/request";
 
 // pedigree
 const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
@@ -18,7 +19,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
     }
     const [init, setInit] = useState(false);
     useEffect(() => {
-            if (!init && !formik.values.id) {
+        if (!init && !formik.values.id) {
             setInit(true);
             let declarant = options.declarants.find(f => f.is_default);
             if (!!declarant) {
@@ -26,6 +27,11 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
                 setDeclarant(declarant.id);
             }
         }
+        Request({
+            url: '/api/Club/club_federation'
+        },
+        e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
+        e => {})
     }, []);
 
     return <>
