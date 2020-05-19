@@ -29,7 +29,7 @@ const config = {
         },
         _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/${clubAlias}/documents`)},
         e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.LitterRequest
-            ? e.response.data.errors.PedigreeRequest
+            ? e.response.data.errors.LitterRequest
             : 'Отсутствует соединение с сервером');})
     },
     options: {
