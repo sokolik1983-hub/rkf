@@ -98,8 +98,8 @@ const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, 
             setLoading(false);
         }))();
     }, []);
-
-    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? [2,4,7].includes(d.status_id) : true);
+    const statusArray = distinction === "pedigree" ? [2,4,7,11] : [2,4,7,8];
+    const canSave = statusAllowsUpdate || formik.values.declarants.some(d => d.status_id ? statusArray.includes(d.status_id) : true);
     return loading ? <Loading/> : <FieldArray
         name="declarants"
         render={helpers => <>
