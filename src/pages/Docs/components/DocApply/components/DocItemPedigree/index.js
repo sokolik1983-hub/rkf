@@ -216,6 +216,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 document_type_id={11}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
+                wide={true}
             />
             </FormGroup>
             

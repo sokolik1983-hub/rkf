@@ -28,14 +28,14 @@ const message = e =>
     ? window.alert(e.response.data.errors.document)
     : window.alert('Отсутствует соединение с сервером');
 
-const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid}) => {
+const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid, wide}) => {
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
     return <div style={{
     display: 'flex',
     flexDirection: 'column',
     marginRight: '16px',
-    width: 'calc(50% - 16px)'
+    width: wide ? '100%' : 'calc(50% - 16px)'
 }}>
     <FormInput name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
