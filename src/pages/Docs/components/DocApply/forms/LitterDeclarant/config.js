@@ -1,5 +1,5 @@
 import {number, boolean, string, object, mixed, array} from "yup";
-import {reqText, reqEmail, numbersOnly, lat} from "../../config.js";
+import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
 const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
@@ -28,6 +28,7 @@ const validationSchema = {
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
     father_pedigree_number: string().required(reqText),
+    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
     mother_pedigree_number: string().required(reqText),
@@ -43,6 +44,7 @@ const validationSchema = {
 
     litter_diagnostic_id: number().required(reqText),
     dog_mating_act_id: number().required(reqText),
+    application_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     litters: array().of(object().shape({
         id: number(),
@@ -73,6 +75,8 @@ const updateSchema = {
     litter_diagnostic_id: number(),
     dog_mating_act_id: number(),
     personal_data_document_id: number(),
+    father_pedigree_document_id: mixed(),
+    application_document_id: mixed(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {

@@ -42,9 +42,17 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
-
+    
+    const [init, setInit] = useState(false);
     useEffect(() => {
+        if (!init && typeof(formik.values.stamp_code_id) !== 'number') {
+            setInit(true);
+            let stamp = stampCodes[0];
+            console.log(stamp);
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code_id', stamp.value);
+            }
+        }
         Promise.all([
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
@@ -111,7 +119,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
-                addDocument={false}
+                addDocument={true}
                 who="father"
                 whoRu="производителя"
                 checkboxCaption='Иностранный производитель'
@@ -167,6 +175,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 docId={declarant.litter_diagnostic_id}
                 document_type_id={13}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
+                distinction={distinction}
+            />
+            </FormGroup>
+            <FormGroup inline>
+            <FormFile
+                name={`application_document`}
+                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                document_type_id={12}
+                docId={declarant.application_document_id}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
