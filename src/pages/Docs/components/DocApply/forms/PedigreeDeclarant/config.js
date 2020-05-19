@@ -65,6 +65,8 @@ const updateSchema = {
     declarant_uid: string(),
     biometric_card_document_id: number(),
     personal_data_document_id: number(),
+    father_pedigree_document_id: mixed(),
+    mother_pedigree_document_id: mixed(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {

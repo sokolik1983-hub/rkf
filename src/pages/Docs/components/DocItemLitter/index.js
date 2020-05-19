@@ -48,7 +48,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`declarants[${i}].${k}`, ''));
         setEverkData(null);
     }
-    const filledEverk = val => !!everkData && !!everkData[val]
+    const filledEverk = val => !!everkData && !!everkData[val];
+    const docConst = 3 + Number(declarant && declarant.father_foreign);
     
 
     return <>
@@ -67,7 +68,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         <td>{declarant.id || ''}</td>
         <td>{[lastName, firstName, secondName].filter(f=>f).join(' ')}</td>
         <td>{email}</td>
-        <td>{declarant.documents ? declarant.documents.length + 3 : 3}</td>
+        <td>{declarant.documents ? declarant.documents.length + docConst : docConst}</td>
         <td>
         <img className={`DocItem__chevron ${active && 'active'}`} src="/static/icons/chevron_left.svg" onClick={activateClick} alt=""/>
         </td>
@@ -119,7 +120,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
-                addDocument={false}
+                addDocument={true}
                 who="father"
                 whoRu="производителя"
                 checkboxCaption='Иностранный производитель'
