@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import TopBanner from "./components/TopBanner";
 import NewsComponent from "../../components/NewsComponent";
-import Support from "./components/Support";
+import Statistics from "../Home/components/Statistics";
 import FeedbackComponent from "./components/Feedback";
 import "./index.scss";
 
@@ -14,7 +14,7 @@ const AboutPage = () => {
 
     return (
         <Layout>
-            <TopBanner/>
+            <TopBanner />
             <Container className="about-page__content">
                 <h2>Обновления платформы</h2>
                 <div className="about-page__content-wrap">
@@ -29,8 +29,8 @@ const AboutPage = () => {
                         />
                     </div>
                     <aside className="about-page__info">
-                        <Support />
-                        <FeedbackComponent/>
+                        <FeedbackComponent />
+                        <Statistics />
                     </aside>
                 </div>
             </Container>
