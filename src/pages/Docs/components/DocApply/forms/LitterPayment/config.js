@@ -26,7 +26,11 @@ const config = {
             url: '/api/requests/LitterRequest/new',
             method: "POST",
             data: {id:values.id}
-        }, e => {alert("Заявка отправлена на рассмотрение");setRedirect(`/${clubAlias}/documents`)})
+        },
+        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/${clubAlias}/documents`)},
+        e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.LitterRequest
+            ? e.response.data.errors.PedigreeRequest
+            : 'Отсутствует соединение с сервером');})
     },
     options: {
         federations: {
