@@ -44,6 +44,7 @@ const validationSchema = {
 
     litter_diagnostic_id: number().required(reqText),
     dog_mating_act_id: number().required(reqText),
+    application_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     litters: array().of(object().shape({
         id: number(),
@@ -75,6 +76,7 @@ const updateSchema = {
     dog_mating_act_id: number(),
     personal_data_document_id: number(),
     father_pedigree_document_id: mixed(),
+    application_document_id: mixed(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {

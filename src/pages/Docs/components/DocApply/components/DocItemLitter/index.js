@@ -177,6 +177,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
+            <FormFile
+                name={`application_document`}
+                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                document_type_id={12}
+                docId={declarant.application_document_id}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
+                distinction={distinction}
+            />
             <FormFile
                 name={`personal_data_document`}
                 label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
