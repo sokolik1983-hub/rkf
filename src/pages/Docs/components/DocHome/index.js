@@ -143,13 +143,18 @@ const ResponsibleCards = ({ clubAlias }) => {
 };
 
 const DocHome = ({ clubAlias }) => {
+    const [alert, seAlert] = useState(false);
+    const handleClick = e => {
+        e.preventDefault();
+        seAlert(true);
+    };
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
-                <Link to="/reports" title="Отчеты">Отчеты</Link>
+                <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
@@ -159,6 +164,14 @@ const DocHome = ({ clubAlias }) => {
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
+        {alert &&
+                <Alert
+                    title="Внимание!"
+                    text="Раздел находится в разработке."
+                    autoclose={1.5}
+                    onOk={() => seAlert(false)}
+                />
+            }
     </div>
 };
 
