@@ -2,21 +2,15 @@ import React, {useEffect, useState} from "react";
 import Loading from "../../../../../../components/Loading";
 import {Form, FormField, FormGroup, SubmitButton} from "../../../../../../components/Form";
 import {Request} from "../../../../../../utils/request";
-import {OwnerFormConfig, endpointOwner} from "./config";
+import {endpointOwner, SuffixFormConfig} from "./config";
 import "./index.scss";
 
 
-const AddOwnerForm = ({puppyId, setState}) => {
+const AddSuffixForm = ({puppyId, setState}) => {
     const [loading, setLoading] = useState(true);
     const [initialValues, setIniitialValues] = useState({
-        id: puppyId,
-        last_name: '',
-        first_name: '',
-        second_name: '',
-        email: '',
-        address: '',
-        // suffix: '',
-        // prefix: ''
+        suffix: '',
+        prefix: ''
     });
 
     useEffect(() => {
@@ -43,7 +37,6 @@ const AddOwnerForm = ({puppyId, setState}) => {
     };
 
     const onSuccess = () => {
-        alert('Владелец добавлен');
         setState({showModal: false});
     };
 
@@ -54,28 +47,23 @@ const AddOwnerForm = ({puppyId, setState}) => {
 
     return loading ?
         <Loading/> :
-        <div className="add-owner">
-            <h2 className="add-owner__title">Владелец</h2>
+        <div className="add-suffix">
+            <h2 className="add-suffix__title">Суффикс и префикс</h2>
             <Form
-                {...OwnerFormConfig}
+                {...SuffixFormConfig}
                 transformValues={transformValues}
                 onSuccess={onSuccess}
                 onError={onError}
                 initialValues={initialValues}
-                className="add-owner__form"
+                className="add-suffix__form"
             >
                 <FormGroup>
-                    <FormField {...OwnerFormConfig.fields.last_name} />
-                    <FormField {...OwnerFormConfig.fields.first_name} />
-                    <FormField {...OwnerFormConfig.fields.second_name} />
-                    <FormField {...OwnerFormConfig.fields.email} />
-                    <FormField {...OwnerFormConfig.fields.address} />
-                    {/*<FormField {...OwnerFormConfig.fields.suffix} />*/}
-                    {/*<FormField {...OwnerFormConfig.fields.prefix} />*/}
+                    <FormField {...SuffixFormConfig.fields.suffix} />
+                    <FormField {...SuffixFormConfig.fields.prefix} />
                 </FormGroup>
-                <SubmitButton className="btn-primary add-owner__button">Добавить</SubmitButton>
+                <SubmitButton className="btn-primary add-suffix__button">Добавить</SubmitButton>
             </Form>
         </div>
 };
 
-export default React.memo(AddOwnerForm);
+export default React.memo(AddSuffixForm);
