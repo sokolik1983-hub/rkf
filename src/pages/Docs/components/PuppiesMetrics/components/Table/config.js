@@ -92,7 +92,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                         <li className="row-control__item">
                                             <span
                                                 className="row-control__link"
-                                                onClick={() => setState({puppyId: rowData.id, showModal: true})}
+                                                onClick={() => setState({
+                                                    puppyId: rowData.id,
+                                                    showModal: true,
+                                                    showOwnerForm: true,
+                                                    showSuffixForm: false
+                                                })}
                                             >
                                                 Добавить владельца
                                             </span>
@@ -100,9 +105,14 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                         <li className="row-control__item">
                                             <span
                                                 className="row-control__link"
-                                                onClick={() => null}
+                                                onClick={() => setState({
+                                                    puppyId: rowData.id,
+                                                    showModal: true,
+                                                    showOwnerForm: false,
+                                                    showSuffixForm: true
+                                                })}
                                             >
-                                                Добавить в заявку на оформление родословной
+                                                Добавить суффикс и префикс
                                             </span>
                                         </li>
                                     </>
