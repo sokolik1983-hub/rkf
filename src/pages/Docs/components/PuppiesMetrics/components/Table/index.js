@@ -11,7 +11,6 @@ import Modal from "../../../../../../components/Modal";
 import AddOwnerForm from "../AddOwnerForm";
 import {getTableColumns} from "./config";
 import "./index.scss";
-import AddSuffixForm from "../AddSuffixForm";
 
 
 class PuppiesTable extends PureComponent {
@@ -24,9 +23,7 @@ class PuppiesTable extends PureComponent {
         rows: this.props.puppies,
         columns: null,
         showModal: false,
-        puppyId: null,
-        showOwnerForm: false,
-        showSuffixForm: false
+        puppyId: null
     };
 
     componentDidMount() {
@@ -123,12 +120,7 @@ class PuppiesTable extends PureComponent {
                         hideCloseButton={true}
                         className="puppies-table__modal"
                     >
-                        {this.state.showOwnerForm &&
-                            <AddOwnerForm puppyId={this.state.puppyId} setState={data => this.setState(data)}/>
-                        }
-                        {this.state.showSuffixForm &&
-                            <AddSuffixForm puppyId={this.state.puppyId} setState={data => this.setState(data)}/>
-                        }
+                        <AddOwnerForm puppyId={this.state.puppyId} setState={data => this.setState(data)}/>
                     </Modal>
                 }
             </>

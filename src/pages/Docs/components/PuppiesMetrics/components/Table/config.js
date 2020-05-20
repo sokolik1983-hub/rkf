@@ -94,25 +94,10 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                                 className="row-control__link"
                                                 onClick={() => setState({
                                                     puppyId: rowData.id,
-                                                    showModal: true,
-                                                    showOwnerForm: true,
-                                                    showSuffixForm: false
+                                                    showModal: true
                                                 })}
                                             >
                                                 Добавить владельца
-                                            </span>
-                                        </li>
-                                        <li className="row-control__item">
-                                            <span
-                                                className="row-control__link"
-                                                onClick={() => setState({
-                                                    puppyId: rowData.id,
-                                                    showModal: true,
-                                                    showOwnerForm: false,
-                                                    showSuffixForm: true
-                                                })}
-                                            >
-                                                Добавить суффикс и префикс
                                             </span>
                                         </li>
                                     </>
