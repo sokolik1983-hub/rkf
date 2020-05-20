@@ -7,7 +7,7 @@ import "./index.scss";
 
 // litter
 const DocTableItem = ({date_created, statuses, status_id, id, last_name, first_name, second_name, email, documents, activateClick, onDelete, father_foreign, mother_foreign}) => {
-    const docConst = 3 + Number(father_foreign);
+    const docConst = 3 + Number(father_foreign || 0);
     let st = statuses.find(f => status_id === f.id)
     return <tr className={`DocItem table caps`}>
         <td onClick={activateClick}>{date_created ? moment(date_created).format("DD.MM.YYYY") : ''}</td>
