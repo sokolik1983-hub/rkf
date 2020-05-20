@@ -48,7 +48,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         if (!init && typeof(formik.values.stamp_code_id) !== 'number') {
             setInit(true);
             let stamp = stampCodes[0];
-            console.log(stamp);
             if (!!stamp) {
                 formik.setFieldValue('stamp_code_id', stamp.value);
             }
