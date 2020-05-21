@@ -180,7 +180,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormGroup inline>
             <FormFile
                 name={`application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                label={<>Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)<br/><br/></>}
                 document_type_id={12}
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
@@ -219,8 +219,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             key={j}
                             activePuppy={activePuppy}
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
-                            deleteClick={() => {
-                                if (window.confirm("Удалить щенка?")) {
+                            deleteClick={(force = false) => {
+                                if (force || window.confirm("Удалить щенка?")) {
                                     remove(j); setActivePuppy(-1);
                                 }
                             }}
@@ -241,6 +241,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                                     <Button small onClick={() => {
                                         push({
                                             dog_name:'',
+                                            dog_name_lat: '',
                                             dog_color:'',
                                             dog_sex_type_id:'',
                                             stamp_number:'',
