@@ -188,16 +188,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`dog_name_lat`} label='Кличка собаки латиницей'/>
             
+            <FormGroup inline> 
             <FormFile
                 name={`biometric_card_document`}
-                label='Метрика щенка (PDF, JPEG, JPG, PNG)'
+                label={<>Метрика щенка (PDF, JPEG, JPG, PNG)<br/><br/></>}
                 docId={declarant.biometric_card_document_id}
                 document_type_id={9}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
 
-            <FormGroup inline> 
             {/*<FormFile
                 name={`request_extract_from_verk_document`}
                 label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
@@ -216,7 +216,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 document_type_id={11}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
                 distinction={distinction}
-                wide={true}
             />
             </FormGroup>
             
