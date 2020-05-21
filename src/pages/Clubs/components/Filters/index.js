@@ -3,6 +3,7 @@ import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
 import FederationsFilter from "./components/FederationsFilter";
 import IsActivatedFilter from "./components/IsActivatedFilter";
+import IsActiveMember from "./components/IsActiveMember";
 import CitiesFilter from "./components/CitiesFilter";
 import {setOverflow} from "../../../../utils";
 import {getEmptyFilters} from "../../utils";
@@ -27,6 +28,7 @@ const Filters = ({isOpenFilters, setFilters}) => {
         <Aside className={`clubs-page__left${isOpenFilters ? ' _open' : ''}`}>
             <Card className="card__filter">
                 <FederationsFilter/>
+                <IsActiveMember/>
                 <IsActivatedFilter/>
                 <CitiesFilter/>
                 <a href="/" className="link" onClick={clearFilters}>Сбросить все параметры</a>
