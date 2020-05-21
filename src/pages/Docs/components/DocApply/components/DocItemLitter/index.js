@@ -219,8 +219,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             key={j}
                             activePuppy={activePuppy}
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
-                            deleteClick={() => {
-                                if (window.confirm("Удалить щенка?")) {
+                            deleteClick={(force = false) => {
+                                if (force || window.confirm("Удалить щенка?")) {
                                     remove(j); setActivePuppy(-1);
                                 }
                             }}
@@ -241,6 +241,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                                     <Button small onClick={() => {
                                         push({
                                             dog_name:'',
+                                            dog_name_lat: '',
                                             dog_color:'',
                                             dog_sex_type_id:'',
                                             stamp_number:'',
