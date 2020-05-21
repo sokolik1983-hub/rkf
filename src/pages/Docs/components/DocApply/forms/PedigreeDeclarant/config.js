@@ -144,7 +144,7 @@ const config = {
         },
         breeds: {
             url: apiBreedsEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})),
+            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({value: m.id, label:m.name})),
         },
         sexTypes: {
             url: apiSexTypesEndpoint,
