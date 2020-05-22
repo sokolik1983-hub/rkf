@@ -163,10 +163,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
             <FormGroup inline>
             <FormFile
                 name={`dog_mating_act`}
-                label='Акт вязки (PDF, JPEG, JPG, PNG)'
+                label='Акт вязки'
                 document_type_id={14}
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
@@ -174,7 +175,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
             <FormFile
                 name={`litter_diagnostic`}
-                label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
+                label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
                 document_type_id={13}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
@@ -184,7 +185,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormGroup inline>
             <FormFile
                 name={`application_document`}
-                label={<>Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)<br/><br/></>}
+                label={<>Заявление на регистрацию помета<br/><br/></>}
                 document_type_id={12}
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
@@ -192,7 +193,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
             <FormFile
                 name={`personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
                 document_type_id={11}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
@@ -269,7 +270,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormFile
                             name={`documents[${j}].document`}
-                            label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
+                            label={`Документ ${j + 1}`}
                             docId={declarant.documents[j].document_id}
                             disabled={view || !statusAllowsUpdate || doc.document_accept}
                             document_type_id={doc.document_type_id}
