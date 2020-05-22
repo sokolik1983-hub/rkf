@@ -27,12 +27,17 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
                 formik.setFieldValue('declarant_id', declarant.id);
                 setDeclarant(declarant.id);
             }
+            Request({
+                url: '/api/Club/club_federation'
+            },
+            e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
+            e => {})
+            Request({
+                url: '/api/requests/CommonRequest/folder_number'
+            },
+            e => {e && formik.setFieldValue('folder_number', e)},
+            e => {})
         }
-        Request({
-            url: '/api/Club/club_federation'
-        },
-        e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
-        e => {})
     }, []);
 
     return <>
