@@ -65,7 +65,7 @@ const PuppyMetrics = ({ history }) => {
 
                 <p className="PuppyMetrics__bordered-block">Наименование, адрес и телефон кинологической организации, выдавшей метрику щенка<br />
                 Name address and telephone of the organization which issued the puppy card<br />
-                    {club_name}{[club_phone, club_web_site, club_mail].filter(v => v).join(', ')}
+                    {club_name}&nbsp;{[club_phone, club_web_site, club_mail].filter(v => v).join(', ')}
                 </p>
 
 
