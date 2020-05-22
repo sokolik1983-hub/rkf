@@ -28,6 +28,9 @@ const DocumentCards = ({ clubAlias }) => {
                 <p>
                     <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
                 </p>
+                <p>
+                    <a href="https://help.rkf.online/ru/knowledge_base/article/81/category/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче заявления на регистрацию помета</a>
+                </p>
             </div>
             <hr />
             <div className="Card__links">
