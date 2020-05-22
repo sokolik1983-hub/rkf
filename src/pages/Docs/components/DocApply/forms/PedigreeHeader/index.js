@@ -3,10 +3,11 @@ import {connect} from "formik";
 import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "../../utils/genericForm";
+import SubmitError from "../../components/SubmitError";
 import config from "./config.js";
 import Button from "components/Button";
-import HideIf from "components/HideIf";
 import Card from "components/Card";
+import { Request } from "utils/request";
 
 // pedigree
 const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
@@ -18,7 +19,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
     }
     const [init, setInit] = useState(false);
     useEffect(() => {
-            if (!init && !formik.values.id) {
+        if (!init && !formik.values.id) {
             setInit(true);
             let declarant = options.declarants.find(f => f.is_default);
             if (!!declarant) {
@@ -26,6 +27,11 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
                 setDeclarant(declarant.id);
             }
         }
+        Request({
+            url: '/api/Club/club_federation'
+        },
+        e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
+        e => {})
     }, []);
 
     return <>
@@ -84,18 +90,17 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
 </Card>
     <div className="stage-controls flex-row">
             <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/`)}>Назад</Button>
+            <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url + (formik.values.id ? '/draft' : ''),
             button: formik.values.id ? 'none' : 'save'
         }, formik)}>Сохранить</Button>
-        <HideIf>
             <Button className="btn-green btn-condensed" onClick={e => send({
                 method: formik.values.id ? "PUT" : "POST",
                 action: config.url + (formik.values.id ? '/draft' : ''),
                 button: 'next'
             }, formik)}>Сохранить и продолжить</Button>
-        </HideIf>
     </div>
     </>
 })

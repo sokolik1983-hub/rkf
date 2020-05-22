@@ -128,6 +128,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
     father_pedigree_number: string().required(reqText),
+    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
     mother_pedigree_number: string().required(reqText),
@@ -174,8 +175,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     application_document: file(),
     litter_diagnostic: file(),
     dog_mating_act: file(),
-    parent_certificate_1: file(),
-    parent_certificate_2: file(),
+    father_pedigree_document: file(),
     personal_data_document: file(),
     documents: array().of(object().shape({
         id: number(),

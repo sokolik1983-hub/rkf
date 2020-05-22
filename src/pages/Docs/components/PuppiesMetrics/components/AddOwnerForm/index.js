@@ -15,8 +15,8 @@ const AddOwnerForm = ({puppyId, setState}) => {
         second_name: '',
         email: '',
         address: '',
-        suffix: '',
-        prefix: ''
+        // suffix: '',
+        // prefix: ''
     });
 
     useEffect(() => {
@@ -70,8 +70,8 @@ const AddOwnerForm = ({puppyId, setState}) => {
                     <FormField {...OwnerFormConfig.fields.second_name} />
                     <FormField {...OwnerFormConfig.fields.email} />
                     <FormField {...OwnerFormConfig.fields.address} />
-                    <FormField {...OwnerFormConfig.fields.suffix} />
-                    <FormField {...OwnerFormConfig.fields.prefix} />
+                    {/*<FormField {...OwnerFormConfig.fields.suffix} />*/}
+                    {/*<FormField {...OwnerFormConfig.fields.prefix} />*/}
                 </FormGroup>
                 <SubmitButton className="btn-primary add-owner__button">Добавить</SubmitButton>
             </Form>

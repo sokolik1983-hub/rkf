@@ -92,17 +92,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                         <li className="row-control__item">
                                             <span
                                                 className="row-control__link"
-                                                onClick={() => setState({puppyId: rowData.id, showModal: true})}
+                                                onClick={() => setState({
+                                                    puppyId: rowData.id,
+                                                    showModal: true
+                                                })}
                                             >
                                                 Добавить владельца
-                                            </span>
-                                        </li>
-                                        <li className="row-control__item">
-                                            <span
-                                                className="row-control__link"
-                                                onClick={() => null}
-                                            >
-                                                Добавить в заявку на оформление родословной
                                             </span>
                                         </li>
                                     </>

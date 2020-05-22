@@ -8,8 +8,8 @@
     display: none;
     &:checked ~.custom-checkbox__label {
       &:before {
-        background-color: #00C48C;
-        border-color: #00C48C;
+        background-color: #3366ff;
+        border-color: #3366ff;
       }
       &:after {
         opacity: 1;

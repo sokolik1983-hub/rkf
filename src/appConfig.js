@@ -84,7 +84,12 @@ const appRoutes = [
         component: LoadableModules.LoadableReports
     },
     {
-        exact: false,
+        exact: true,
+        path: '/recovery',
+        component: LoadableModules.LoadablePasswordRecovery
+    },
+    {
+        exact: true,
         path: '/auth/login',
         component: LoadableModules.LoadableAuthorization
     },

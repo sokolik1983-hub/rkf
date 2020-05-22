@@ -29,6 +29,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
+    const statusAllowsDocumentsUpdate = declarant.status_id ? [2,4,7,11].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -222,16 +223,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
-                    <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                    <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <HideIf cond={view || !statusAllowsDocumentsUpdate || doc.accept}>
+                        <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
                 </FormGroup>)}
-                <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
+                <HideIf cond={view || !statusAllowsDocumentsUpdate || (declarant.documents && declarant.documents.length > 29)}>
                     <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
                         <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>

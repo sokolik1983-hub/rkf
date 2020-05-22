@@ -37,8 +37,8 @@
     width: 145px;
     height: 145px;
     margin: 0 0 10px 10px;
-    border-radius: 50%;
-    background: url("/static/images/documents/document.jpg") center center/cover no-repeat;
+    //border-radius: 50%;
+    background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
     @media (max-width: 560px) {
       width: 100px;
       height: 100px;

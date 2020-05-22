@@ -10,6 +10,7 @@ import "./index.scss";
 const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTypes, error, cantEdit, litterStatuses, puppyCount}) => {
     let sex = sexTypes && sexTypes.find(f => f.value === puppy.dog_sex_type_id);
     sex = sex ? sex.label : '';
+    const allFielsEmpty = p => p && typeof p === 'object' && Object.values(p).filter(f => f).length === 0;
     return <>
 <tr className={`DocItem caps ${error ? 'error' : ''}`}>
     <td onClick={activateClick}>{puppy.dog_name}</td>
@@ -23,7 +24,11 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
         <DeleteButton onClick={e => deleteClick()} />
     </td>
 </tr>
-<Modal showModal={activePuppy === j} handleClose={() => activePuppy === j && activateClick()}>
+<Modal
+    showModal={activePuppy === j}
+    handleClose={() => activePuppy === j && activateClick()}
+    handleX={() => activePuppy === j && (activateClick() || (allFielsEmpty(puppy) && deleteClick(true)))}
+>
     <div className="puppy-modal-content">
         <Transliteratable disabled={cantEdit} name={`litters[${j}].dog_name`} label='Кличка'/>
         <FormField disabled={cantEdit} name={`litters[${j}].dog_name_lat`} label='Кличка латиницей (опционально)'/>

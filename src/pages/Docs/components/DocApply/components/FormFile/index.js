@@ -24,16 +24,18 @@ const acceptType = file =>
     .then(mime => mimeWhitelist.includes(mime))
     .catch(err => false);
 const message = e =>
-    e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.document && window.alert(e.response.data.errors.document);
+    e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.document
+    ? window.alert(e.response.data.errors.document)
+    : window.alert('Отсутствует соединение с сервером');
 
-const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid}) => {
+const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid, wide}) => {
     const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
     return <div style={{
     display: 'flex',
     flexDirection: 'column',
     marginRight: '16px',
-    width: 'calc(50% - 16px)'
+    width: wide ? '100%' : 'calc(50% - 16px)'
 }}>
     <FormInput name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
@@ -60,6 +62,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
                 fd.append("club_id", clubId);
                 declarant_uid && fd.append("declarant_uid", declarant_uid);
                 setLoading(true);
+                formik.setFieldValue(name, '');
                 acceptType(file).then(descision => {
                     if (descision) {
                         Request({
@@ -84,7 +87,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     </HideIf>
     <DocLink distinction={distinction} docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} />
 </FormGroup>
-    <Error name={`${name}_id`} noTouch/>
+    {!loading && <Error name={`${name}_id`} noTouch/>}
 </FormInput>
 </div>
 }
