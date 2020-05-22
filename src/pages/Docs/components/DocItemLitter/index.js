@@ -139,6 +139,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
 
             <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
+            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].prefix`} label='Префикс'/>
+            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].suffix`} label='Суффикс'/>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
                 <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>

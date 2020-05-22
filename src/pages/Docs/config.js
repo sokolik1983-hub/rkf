@@ -311,6 +311,8 @@ const emptyLitterDeclarant = {
 
     date_of_birth_litter: '',
     nursery_name: '',
+    prefix: false,
+    suffix: false,
     instructor_nursery_owner_first_name: '',
     instructor_nursery_owner_last_name: '',
     instructor_nursery_owner_second_name: '',
