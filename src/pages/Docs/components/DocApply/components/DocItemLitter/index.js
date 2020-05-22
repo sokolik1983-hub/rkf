@@ -137,8 +137,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
 
             <FormField disabled={update} name={`nursery_name`} label='Название питомника (опционально)'/>
-            <FormField disabled={update} fieldType="customCheckbox" name={`prefix`} label='Префикс'/>
-            <FormField disabled={update} fieldType="customCheckbox" name={`suffix`} label='Суффикс'/>
+            <HideIf cond={!(formik.values && formik.values.nursery_name)}>
+                <FormField disabled={update} fieldType="customCheckbox" name={`prefix`} label='Префикс'/>
+                <FormField disabled={update} fieldType="customCheckbox" name={`suffix`} label='Суффикс'/>
+            </HideIf>
             <FormGroup inline>
                 <FormField disabled={update} name={`instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
                 <FormField disabled={update} name={`instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
