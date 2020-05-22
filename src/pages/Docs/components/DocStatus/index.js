@@ -34,8 +34,8 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree' 
-                    ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
-                    : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
+                    ? 'Оформление родословной'
+                    : 'Заявление на регистрацию помета'}
             </div>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
