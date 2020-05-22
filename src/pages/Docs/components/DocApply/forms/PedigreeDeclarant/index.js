@@ -27,7 +27,6 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
             method: !isNew ? "PUT" : "POST",
             action: config.url + (!isNew ? '/draft' : ''),
             button: 'none',
-            target_id: formik.values.pedigree_header_declarant_request_id,
         }, formik)}>Сохранить</Button>
         <Button className="btn-condensed btn-green" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
