@@ -19,7 +19,13 @@
     }
   }
   .menu-component {
-    margin-bottom: 24px;
+    padding: 24px 32px !important;
+    margin-bottom: 1em;
+    &__title {
+      font-size: 18px;
+      line-height: 26px;
+      margin-bottom: 6px;
+    }
   }
   p {
     font-weight: normal;
@@ -193,12 +199,9 @@
     }
   }
   &__left {
-    width: 266px;
-    min-width: 266px;
-    margin-right: 40px;
-    @media (max-width: 1220px) {
-      margin-right: 24px;
-    }
+    width: 296px;
+    min-width: 296px;
+    margin-right: 16px;
     @media (max-width: 990px) {
       margin-right: 0;
       width: 100%;
@@ -206,6 +209,7 @@
     @media (max-width: 768px) {
       display: block;
       padding-bottom: 0;
+      min-width: 266px;
       & > div {
         width: 100%;
         &:not(:last-child) {
