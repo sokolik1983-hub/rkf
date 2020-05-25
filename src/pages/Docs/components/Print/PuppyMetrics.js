@@ -27,7 +27,7 @@ const PuppyMetrics = ({ history }) => {
         owner_email,
         is_rejected,
         left_for_review,
-        reason_for_review,
+        reason_comment,
         club_name,
         club_phone,
         club_web_site,
@@ -176,18 +176,25 @@ const PuppyMetrics = ({ history }) => {
                 <div className="PuppyMetrics__footer">
                     <p>
                         <strong><span style={{ textDecoration: 'underline' }}>ОСОБЫЕ ОТМЕТКИ</span>:</strong>&nbsp;
-                    Отбракован: <span className="PuppyMetrics__data"><strong>{is_rejected ? 'ДА' : 'НЕТ'}</strong></span>
+                    Отбракован: <span className="PuppyMetrics__data">
+                        <strong>{is_rejected ? 'ДА' : 'НЕТ'}</strong>&nbsp;
+                            {is_rejected
+                                ? `(${reason_comment})`
+                                : `(_______________________________________________________________)`
+                            }
+                        </span>
+                        {!is_rejected && <div style={{paddingLeft: '400px'}}>(указать причину отбраковки)</div>}
                     </p>
 
                     <p>
                         Оставлен на переосмотр: <span className="PuppyMetrics__data">
                             <strong>{left_for_review ? 'ДА' : 'НЕТ'}</strong>&nbsp;
-                            {reason_for_review
-                                ? `(в ____ месяцев ${reason_for_review})`
+                            {left_for_review
+                                ? `(в ____ месяцев ${reason_comment})`
                                 : `(в ____ месяцев ____________________________________________________________)`
                             }
                         </span>
-                        {!reason_for_review && <div style={{paddingLeft: '400px'}}>(указать причину переосмотра)</div>}
+                        {!left_for_review && <div style={{paddingLeft: '400px'}}>(указать причину переосмотра)</div>}
                         
                     </p>
 
