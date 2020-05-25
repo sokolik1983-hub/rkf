@@ -10,7 +10,7 @@ const PuppyMetrics = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const { id: puppyId } = useParams();
     const { breed,
-        name,
+        dog_name,
         date_of_birth,
         sex_type,
         color,
@@ -90,7 +90,7 @@ const PuppyMetrics = ({ history }) => {
                         <tr>
                             <td colSpan="6" >
                                 <strong>КЛИЧКА /</strong> NAME
-                            <span className="PuppyMetrics__data">{name}</span>
+                            <span className="PuppyMetrics__data">{dog_name}</span>
                             </td>
                         </tr>
                         <tr>
