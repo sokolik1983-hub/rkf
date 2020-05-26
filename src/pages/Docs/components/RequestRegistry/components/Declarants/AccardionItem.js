@@ -17,7 +17,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
     const [isOpen, setIsOpen] = useState(false);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
 
-    const isReportable = pedigree_link && (status_id === 10 || status_id === 6);
+    const isReportable = status_id === 10 || status_id === 6;
 
     return (
         <div className={`accordion-item${isOpen ? ' accordion-item--opened' : ''}`}>

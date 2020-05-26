@@ -16,6 +16,7 @@ import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
+import RequestRegistry from "./components/RequestRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -44,6 +45,12 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/pedigree/status' component={() =>
                             <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="pedigree" />}
+                        />
+                        <Route exact={true} path='/:route/documents/litter/requests' component={() =>
+                            <RequestRegistry clubAlias={clubAlias} history={history} distinction="litter" />}
+                        />
+                        <Route exact={true} path='/:route/documents/pedigree/requests' component={() =>
+                            <RequestRegistry clubAlias={clubAlias} history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/:route/documents/litter/:id/print' component={() =>
                             <DocRegistry history={history} distinction="litter" />}

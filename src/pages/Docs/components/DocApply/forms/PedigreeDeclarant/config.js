@@ -49,7 +49,6 @@ const validationSchema = {
 
     email: lat().required(reqText).email(reqEmail),
     was_reviewed: boolean().required(reqText),
-    litter_or_request_number: reqCheckbox('was_reviewed'),
     biometric_card_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     chip_number: string(),
@@ -116,7 +115,6 @@ const emptyPedigreeDeclarant = {
 
     email: '',
     was_reviewed: false,
-    litter_or_request_number: '',
     biometric_card_document: '',
     personal_data_document: '',
     request_extract_from_verk_document: '',

@@ -139,6 +139,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
 
             <FormField disabled={update} name={`declarants[${i}].nursery_name`} label='Название питомника (опционально)'/>
+            <HideIf cond={!(declarant && declarant.nursery_name)}>
+                <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].prefix`} label='Префикс'/>
+                <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].suffix`} label='Суффикс'/>
+            </HideIf>
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
                 <FormField disabled={update} name={`declarants[${i}].instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
@@ -161,17 +165,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`declarants[${i}].address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
             <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].dog_mating_act`}
-                label='Акт вязки (PDF, JPEG, JPG, PNG)'
+                label='Акт вязки'
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].litter_diagnostic`}
-                label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
+                label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
@@ -180,14 +185,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormGroup inline>
             <FormFile
                 name={`declarants[${i}].application_document`}
-                label='Заявление на регистрацию помета (PDF, JPEG, JPG, PNG)'
+                label='Заявление на регистрацию помета'
                 docId={declarant.application_document_id}
                 disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
@@ -252,7 +257,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
                     <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
                     <HideIf cond={view || !statusAllowsDocumentsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                        <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>

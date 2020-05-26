@@ -35,6 +35,8 @@ const validationSchema = {
 
     date_of_birth_litter: string().required(reqText),
     nursery_name: string(),
+    prefix: boolean().required(reqText),
+    suffix: boolean().required(reqText),
     instructor_nursery_owner_first_name: string(),
     instructor_nursery_owner_last_name: string(),
     instructor_nursery_owner_second_name: string(),
@@ -126,6 +128,8 @@ const emptyLitterDeclarant = {
 
     date_of_birth_litter: '',
     nursery_name: '',
+    prefix: false,
+    suffix: false,
     instructor_nursery_owner_first_name: '',
     instructor_nursery_owner_last_name: '',
     instructor_nursery_owner_second_name: '',

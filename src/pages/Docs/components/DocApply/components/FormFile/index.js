@@ -37,11 +37,11 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
     marginRight: '16px',
     width: wide ? '100%' : 'calc(50% - 16px)'
 }}>
-    <FormInput name={`${name}_id`}>
+    <FormInput className="FormFile" name={`${name}_id`}>
             <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
 <FormGroup inline>
     <HideIf cond={disabled || loading}>
-                <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn btn-primary ${!document_type_id ? 'disabled' : ''}`}>
+                <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn nomargin btn-primary ${!document_type_id ? 'disabled' : ''}`}>
 <input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} accept={accept} type="file"
             onChange={e => {
                 formik.setTouched(`${name}_id`);
