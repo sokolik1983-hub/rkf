@@ -101,6 +101,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
 
+                        <Route path='/:route/documents/bookform' component={() => <DocHome bookform={true} clubAlias={clubAlias} />} />
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
