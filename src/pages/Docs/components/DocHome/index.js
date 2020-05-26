@@ -36,6 +36,7 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/litter/form`}>Подать заявление</Link>
                 <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                <Link to={`/${clubAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -57,6 +58,7 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/pedigree/form`}>Подать заявление</Link>
                 <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                <Link to={`/${clubAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
