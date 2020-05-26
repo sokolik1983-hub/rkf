@@ -173,9 +173,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 label='Щенок был на пересмотре, соответствует племенным требованиям'
                 onChange={e => {formik.handleChange(e); formik.setFieldValue(`litter_or_request_number`, '')}}
             />
-            <HideIf cond={!declarant.was_reviewed}>
-                <FormField disabled={update} name={`litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
-            </HideIf>
             
             <FormGroup inline>
                 <FormField disabled={update} name={`owner_last_name_lat`} label='Фамилия владельца латиницей'/>
@@ -188,19 +185,20 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`dog_name_lat`} label='Кличка собаки латиницей'/>
             
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
+            <FormGroup inline> 
             <FormFile
                 name={`biometric_card_document`}
-                label='Метрика щенка (PDF, JPEG, JPG, PNG)'
+                label={<>Метрика щенка<br/><br/></>}
                 docId={declarant.biometric_card_document_id}
                 document_type_id={9}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
 
-            <FormGroup inline> 
             {/*<FormFile
                 name={`request_extract_from_verk_document`}
-                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
+                label='Заявка на изготовление выписки из ВЕРК'
                 docId={declarant.request_extract_from_verk_document_id}
                 document_type_id={11}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
@@ -210,7 +208,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormFile
                 name={`personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 document_type_id={11}
@@ -227,7 +225,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormFile
                             name={`documents[${j}].document`}
-                            label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
+                            label={`Документ ${j + 1}`}
                             docId={declarant.documents[j].document_id}
                             disabled={view || !statusAllowsUpdate || doc.document_accept}
                             document_type_id={doc.document_type_id}

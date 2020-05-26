@@ -31,13 +31,14 @@ const LoginForm = ({loginUserSuccess}) => {
                 />
                 <Error name="authentication" noTouch={true} />
             </FormGroup>
-            <FormGroup>
+            <FormGroup inline>
                 <CustomCheckbox
                     id="remember-me"
                     label="Запомнить меня"
                     checked={rememberMe}
                     onChange={() => setRememberMe(!rememberMe)}
                 />
+                <Link to="/recovery" className="login-page__recovery-link" >Забыли пароль?</Link>
             </FormGroup>
             <div className="login-page__form-controls">
                 <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>

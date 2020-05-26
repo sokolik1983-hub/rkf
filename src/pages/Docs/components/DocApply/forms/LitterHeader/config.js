@@ -1,5 +1,5 @@
 import {number} from "yup";
-import {reqText} from "../../config.js";
+import {reqText,numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
 const apiLitterEndpoint = '/api/litter/pedigree_request/LitterRequestHeader';
@@ -7,9 +7,9 @@ const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const validationSchema = {
     id: number(),
-    status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
+    folder_number: numbersOnly().required(reqText)
 };
 
 const updateSchema = {

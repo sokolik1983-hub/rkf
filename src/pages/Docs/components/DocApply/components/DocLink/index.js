@@ -24,7 +24,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         </Modal>
         {!!docId && <div>
             <label>{showLabel ? label : "\u00a0"}</label>
-            <Button onClick={e => {setShowModal(true); get();}}>Посмотреть</Button>
+            <Button className="btn nomargin" onClick={e => {setShowModal(true); get();}}>Посмотреть</Button>
         </div>}
     </>;
 }

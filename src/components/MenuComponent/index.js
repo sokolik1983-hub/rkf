@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
-import Alert from "../Alert";
 import Modal from "../Modal";
+import Loading from "../Loading";
+import { Request } from "utils/request";
+import formatDate from 'utils/formatDate';
 import "./index.scss";
 
 const presidium = {
@@ -83,13 +85,34 @@ const presidium = {
     }
 };
 
-const MenuComponent = ({ alias, name }) => {
-    const [showAlert, setShowAlert] = useState(false);
+const MenuComponent = ({ alias, name, profileId }) => {
     const [showModal, setShowModal] = useState(false);
+    const [stamps, setStamps] = useState(null);
+    const [showStampsModal, setShowStampsModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [errorText, setErrorText] = useState(null);
 
-    const handleClick = e => {
+    const handleStampsClick = e => {
         e.preventDefault();
-        setShowAlert(true);
+        setErrorText(null);
+        setShowStampsModal(true);
+        if (!stamps) {
+            setLoading(true);
+            Request({
+                url: `/api/clubs/ClubStampCode/activated_codes?id=${profileId}`,
+                method: 'GET'
+            }, data => {
+                setStamps(data);
+                setLoading(false);
+            },
+                error => {
+                    console.log(error.response);
+                    if (error.response) {
+                        setErrorText(`${error.response.status} ${error.response.statusText}`);
+                    }
+                    setLoading(false);
+                });
+        }
     };
 
     const onPresidiumClick = e => {
@@ -114,7 +137,7 @@ const MenuComponent = ({ alias, name }) => {
                 </li>
                 {alias !== 'rkf' &&
                     <li className="menu-component__item">
-                        <Link to="/" onClick={handleClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
+                        <Link to="/" onClick={handleStampsClick} className="menu-component__link not-active" title="Клейма">Клейма</Link>
                     </li>
                 }
                 <li className="menu-component__item">
@@ -124,13 +147,29 @@ const MenuComponent = ({ alias, name }) => {
                     <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
                 </li>
             </ul>
-            {showAlert &&
-                <Alert
-                    title="Внимание!"
-                    text="Раздел находится в разработке."
-                    autoclose={1.5}
-                    onOk={() => setShowAlert(false)}
-                />
+            {showStampsModal &&
+                <Modal className="menu-component__modal" showModal={showStampsModal} handleClose={() => setShowStampsModal(false)} noBackdrop={true}>
+                    <div className="menu-component__presidium">
+                        {
+                            loading
+                                ? <Loading centered={false} />
+                                : <>
+                                    <h4 className="menu-component__presidium-title">Клейма</h4>
+                                    {
+                                        stamps && stamps.length
+                                            ? <ol className="menu-component__presidium-list">
+                                                {stamps.map((s, i) =>
+                                                    <li className="menu-component__presidium-item" key={i}>
+                                                        {`${s.stamp_code} (${formatDate(s.registration_date)})`}
+                                                    </li>
+                                                )}
+                                            </ol>
+                                            : errorText ? errorText : 'Клейм не найдено'
+                                    }
+                                </>
+                        }
+                    </div>
+                </Modal>
             }
             {showModal &&
                 <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>

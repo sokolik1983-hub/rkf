@@ -8,7 +8,6 @@ import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import ClubHeader from "./components/ClubHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import Disclaimer from "components/Disclaimer";
 import ClubInfo from "./components/ClubInfo";
 import ClubDescription from "./components/ClubDescription";
 import AddArticle from "../../components/AddArticleComponent";
@@ -62,11 +61,6 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             federationAlias={clubInfo.federation_alias}
                             canEdit={canEdit}
                         />
-                        <Disclaimer>
-                            <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                                Инструкция по добавлению новости
-                            </a>
-                        </Disclaimer>
                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                         <div className="club-page__content-wrap">
                             <div className="club-page__content">
@@ -91,6 +85,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <Aside className="club-page__info">
                                 <MenuComponent
                                     alias={clubInfo.club_alias}
+                                    profileId={clubInfo.id}
                                     name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                                 />
                                 <ClubInfo {...clubInfo} />
@@ -98,6 +93,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         </div>
                         <FloatingMenu
                             alias={clubInfo.club_alias}
+                            profileId={clubInfo.id}
                             name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                         />
                     </Container>

@@ -4,7 +4,7 @@ import genericForm from "../../utils/genericForm";
 import DocTableItem from "../../components/DocItemTablePedigree";
 import config from "./config.js";
 import Button from "components/Button";
-import HideIf from "components/HideIf";
+import SubmitError from "../../components/SubmitError";
 import Card from "components/Card";
 import {Request} from "utils/request";
 
@@ -38,6 +38,7 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         key={i}
                         activateClick={() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i].declarant}
+                        documents={formik.values.declarants[i].documents}
                         statuses={options.statuses}
                         status_id={formik.values.declarants[i].status_id}
                         date_created={formik.values.declarants[i].date_create}
@@ -46,18 +47,15 @@ const TableFormFields = connect(({formik, update, options, clubAlias, setRedirec
                         Request({
                             method: 'DELETE',
                             url: `/api/requests/pedigree_request/PedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
-                        },setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
+                        },() => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>
             </table>    
     </Card>
     <div className="stage-controls flex-row">
-        <HideIf>
             <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
-        </HideIf>
-        <HideIf >
+            <SubmitError />
             <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
-        </HideIf>
     </div>
     </>
 )

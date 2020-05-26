@@ -7,6 +7,7 @@ import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
 import FormFile from "../../components/FormFile";
+import SubmitError from "../../components/SubmitError";
 
 // litter
 const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial, Title}) => {
@@ -17,7 +18,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
 <Title/>
             <FormGroup>
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате {formik.values.declarants.length} заявок по тарифу {options.federations.find(f => f.value === formik.values.federation_id).label} и заполните информацию о платеже.</p>
-                <FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>
+                {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
                 <h4 className="caps">Информация о платеже</h4>
 
@@ -43,6 +44,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
 </Card>
     <div className="stage-controls flex-row">
         <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/table/form`)}>Назад</Button>
+        <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url,

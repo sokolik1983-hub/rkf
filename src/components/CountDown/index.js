@@ -76,8 +76,8 @@ const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks }) => {
                                                 {` ${new Date(reportDate).getDate() < 10
                                                     ? '0' + new Date(reportDate).getDate()
                                                     : new Date(reportDate).getDate()}.${new Date(reportDate).getMonth() + 1 < 10
-                                                    ? '0' + (new Date(reportDate).getMonth() + 1)
-                                                    : new Date(reportDate).getMonth() + 1}.${new Date(reportDate).getFullYear()} ${isFCI ? '(Поступление в РКФ)' : '(Передача в FCI)'}`
+                                                        ? '0' + (new Date(reportDate).getMonth() + 1)
+                                                        : new Date(reportDate).getMonth() + 1}.${new Date(reportDate).getFullYear()} ${isFCI ? '(Передача в FCI)' : '(Поступление в РКФ)'}`
                                                 }
                                             </span>
                                         }

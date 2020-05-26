@@ -1,5 +1,5 @@
 import {number} from "yup";
-const apiLitterStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
+const apiLitterStatusesEndpoint = '/api/requests/CommonRequest/status';
 
 const validationSchema = {
     id: number(),

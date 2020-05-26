@@ -6,7 +6,7 @@ import "../DocItemPedigree/index.scss";
 import "./index.scss";
 
 const DocTableItem = ({date_created, statuses, status_id, id, owner_last_name, owner_first_name, owner_second_name, email, documents, activateClick, onDelete, father_foreign, mother_foreign}) => {
-    const docConst = 2 + Number(father_foreign) + Number(mother_foreign);
+    const docConst = 2 + Number(mother_foreign || 0);
     let st = statuses.find(f => status_id === f.id)
     return <tr className={`DocItem table caps`}>
         <td onClick={activateClick}>{date_created ? moment(date_created).format("DD.MM.YYYY") : ''}</td>

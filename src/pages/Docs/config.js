@@ -14,7 +14,7 @@ const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
 const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
 const apiPedigreeDocumentEndpoint = '/api/requests/pedigree_request/PedigreeDocument';
-const apiLitterDocumentEndpoint = '/api/requests/LitterRequest/document';
+const apiLitterDocumentEndpoint = '/api/requests/litter_request/LitterDocument';
 const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
@@ -128,6 +128,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
     father_pedigree_number: string().required(reqText),
+    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
     mother_pedigree_number: string().required(reqText),
@@ -156,7 +157,7 @@ const litterDeclarantsValidationSchema = array().of(object().shape({
         chip_number: string(),
         litter_dog_status_id: string().required(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -174,8 +175,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     application_document: file(),
     litter_diagnostic: file(),
     dog_mating_act: file(),
-    parent_certificate_1: file(),
-    parent_certificate_2: file(),
+    father_pedigree_document: file(),
     personal_data_document: file(),
     documents: array().of(object().shape({
         id: number(),
@@ -196,7 +196,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
         chip_number: string(),
         litter_dog_status_id: number().required(reqText).typeError(reqText),
         status_comment: string().when('litter_dog_status_id', {
-            is: v => ![2,4].includes(v),
+            is: v => !["2","4"].includes(String(v)),
             then: string(),
             otherwise: string().required(reqText)
         })
@@ -311,6 +311,8 @@ const emptyLitterDeclarant = {
 
     date_of_birth_litter: '',
     nursery_name: '',
+    prefix: false,
+    suffix: false,
     instructor_nursery_owner_first_name: '',
     instructor_nursery_owner_last_name: '',
     instructor_nursery_owner_second_name: '',

@@ -11,6 +11,7 @@ export const getEmptyFilters = () => ({
     "federation_ids": [],
     "city_ids": [],
     "is_activated": null,
+    "active_member": true,
     "page": 1
 });
 

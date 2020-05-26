@@ -10,7 +10,7 @@ const PuppyMetrics = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const { id: puppyId } = useParams();
     const { breed,
-        name,
+        dog_name,
         date_of_birth,
         sex_type,
         color,
@@ -27,7 +27,11 @@ const PuppyMetrics = ({ history }) => {
         owner_email,
         is_rejected,
         left_for_review,
-        reason_for_review } = data;
+        reason_comment,
+        club_name,
+        club_phone,
+        club_web_site,
+        club_mail } = data;
     const date = new Date(date_of_birth);
     const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
@@ -60,7 +64,9 @@ const PuppyMetrics = ({ history }) => {
                 <h2>МЕТРИКА ЩЕНКА / ЩЕНЯЧЬЯ КАРТОЧКА / PUPPY CARD</h2>
 
                 <p className="PuppyMetrics__bordered-block">Наименование, адрес и телефон кинологической организации, выдавшей метрику щенка<br />
-                Name address and telephone of the organization which issued the puppy card</p>
+                Name address and telephone of the organization which issued the puppy card<br />
+                    {club_name}&nbsp;{[club_phone, club_web_site, club_mail].filter(v => v).join(', ')}
+                </p>
 
 
                 <p>Заполняется на компьютере специалистом КО или владельцем питомника в строгом соответствии с Актом обследования помета. Метрика щенка не дает права на племенное использование собаки и подлежит обязательному обмену на выписку из ВЕРК (свидетельство о происхождении собаки)
@@ -84,7 +90,7 @@ const PuppyMetrics = ({ history }) => {
                         <tr>
                             <td colSpan="6" >
                                 <strong>КЛИЧКА /</strong> NAME
-                            <span className="PuppyMetrics__data">{name}</span>
+                            <span className="PuppyMetrics__data">{dog_name}</span>
                             </td>
                         </tr>
                         <tr>
@@ -170,12 +176,26 @@ const PuppyMetrics = ({ history }) => {
                 <div className="PuppyMetrics__footer">
                     <p>
                         <strong><span style={{ textDecoration: 'underline' }}>ОСОБЫЕ ОТМЕТКИ</span>:</strong>&nbsp;
-                    Отбракован: <span className="PuppyMetrics__data"><strong>{is_rejected ? 'ДА' : 'НЕТ'}</strong></span>
+                    Отбракован: <span className="PuppyMetrics__data">
+                        <strong>{is_rejected ? 'ДА' : 'НЕТ'}</strong>&nbsp;
+                            {is_rejected
+                                ? `(${reason_comment})`
+                                : `(_______________________________________________________________)`
+                            }
+                        </span>
+                        {!is_rejected && <div style={{paddingLeft: '400px'}}>(указать причину отбраковки)</div>}
                     </p>
 
                     <p>
-                        Оставлен на переосмотр: <span className="PuppyMetrics__data"><strong>{left_for_review ? 'ДА' : 'НЕТ'}</strong></span><br />
-                        {reason_for_review && `(${reason_for_review})`}
+                        Оставлен на переосмотр: <span className="PuppyMetrics__data">
+                            <strong>{left_for_review ? 'ДА' : 'НЕТ'}</strong>&nbsp;
+                            {left_for_review
+                                ? `(в ____ месяцев ${reason_comment})`
+                                : `(в ____ месяцев ____________________________________________________________)`
+                            }
+                        </span>
+                        {!left_for_review && <div style={{paddingLeft: '400px'}}>(указать причину переосмотра)</div>}
+                        
                     </p>
 
                     <p>
