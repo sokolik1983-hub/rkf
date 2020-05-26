@@ -109,7 +109,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
 
         col.cell = {
             formatters: [
-                (data, extra) => (search.highlightCell(data, extra))
+                (data, extra) => data ? (search.highlightCell(data, extra)) : ''
             ]
         };
 
@@ -120,7 +120,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
         return col;
     });
 
-    cols.push({
+    /*cols.push({
         cell: {
             formatters: [
                 (value, { rowData }) => {
@@ -135,26 +135,6 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         Подробнее
                                     </Link>
                                 </li>
-                                {distinction === 'pedigree' &&
-                                    <li className="row-control__item">
-                                        <span
-                                            className="row-control__link"
-                                            onClick={() => setState({docId: rowData.id, showModal: true})}
-                                        >
-                                            Вложенные заявки
-                                        </span>
-                                    </li>
-                                }
-                                {rowData.status_id === 4 &&
-                                    <li className="row-control__item">
-                                        <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/form`}
-                                            className="row-control__link"
-                                        >
-                                            Редактировать
-                                        </Link>
-                                    </li>
-                                }
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
@@ -179,7 +159,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                 }
             ]
         }
-    });
+    });*/
 
     return cols;
 };
