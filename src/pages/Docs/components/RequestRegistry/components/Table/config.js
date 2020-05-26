@@ -2,8 +2,8 @@ import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
-import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
 
@@ -113,8 +113,8 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
             ]
         };
 
-        if (col.property === 'date_create') {
-            col.cell.resolve = date => date && formatDateWithTime(date);
+        if (['date_create', 'date_change'].includes(col.property)) {
+            col.cell.resolve = date => date && moment(date).format('DD.MM.YYYY');
         }
 
         return col;
