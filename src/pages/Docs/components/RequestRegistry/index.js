@@ -14,8 +14,8 @@ const RequestRegistry = ({history, clubAlias, distinction}) => {
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/headers_base_info' :
-                '/api/requests/LitterRequest/headers_base_info'
+                '/api/requests/PedigreeRequest/register_of_requests' :
+                '/api/requests/LitterRequest/register_of_requests'
         },
         data => {
             setDocuments(data);
