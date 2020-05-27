@@ -105,6 +105,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/nursery/:id/documents',
+        component: LoadableModules.LoadableNurseryDocuments
+    },
+    {
+        exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
     },

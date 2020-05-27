@@ -1,0 +1,10 @@
+.primary-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    .per-page-control__label,
+    .add-row__label {
+        display: block;
+    }
+}
