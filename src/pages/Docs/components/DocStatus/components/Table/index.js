@@ -53,7 +53,8 @@ class StatusTable extends PureComponent {
             this.state.distinction,
             this.state.clubAlias,
             data => this.setState(data),
-            this.props.rowClick
+            this.props.rowClick,
+            this.props.deleteRow
         );
     };
 

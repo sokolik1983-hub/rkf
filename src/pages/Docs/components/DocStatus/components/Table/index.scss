@@ -1,4 +1,7 @@
 .status-table__table {
+    .row-control__link.red {
+        color: #ff3322 !important;
+    }
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;

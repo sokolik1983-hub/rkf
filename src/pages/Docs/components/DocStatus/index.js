@@ -52,8 +52,10 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
                     : 'Заявление на регистрацию помета'}
             </div>
             <div className="club-documents-status__table">
-                {documents && !!documents.length ? <><h3>Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</h3>
-                    <StatusTable documents={documents} distinction={distinction} clubAlias={clubAlias} rowClick={rowClick}/></> :
+                {documents && !!documents.length ? <><div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+                    <StatusTable
+                        deleteRow={row => setDocuments(documents.filter(x => x && x.id !== row))}
+                        documents={documents} distinction={distinction} clubAlias={clubAlias} rowClick={rowClick}/></> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
