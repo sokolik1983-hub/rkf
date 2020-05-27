@@ -107,7 +107,7 @@ class StatusTable extends PureComponent {
                     onSearch={this.onSearch}
                 />
 
-                <Table.Provider className="status-table__table" columns={columns}>
+                <Table.Provider className="request-registry-table__table" columns={columns}>
                     <Table.Header headerRows={resolve.headerRows({columns: columns})} />
                     <Table.Body rows={paginated.rows} rowKey="id" />
                 </Table.Provider>
