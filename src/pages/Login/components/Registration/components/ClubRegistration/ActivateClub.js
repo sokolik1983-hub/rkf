@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {withRouter} from "react-router";
 import {compose} from "redux";
-import Loading from "../../../../components/Loading";
-import {connectWidgetLogin} from "../../../Login/connectors";
+import Loading from "components/Loading";
+import {connectWidgetLogin} from "pages/Login/connectors";
 
 
 const ActivateClub = ({club, history, logOutUser}) => {
