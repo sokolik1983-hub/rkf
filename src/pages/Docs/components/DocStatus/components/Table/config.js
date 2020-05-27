@@ -4,9 +4,11 @@ import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
+import {Request} from "utils/request";
 
+const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 
-export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState, rowClick) => {
+export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState, rowClick, deleteRow) => {
     let cols = [
         {
             property: 'date_create',
@@ -115,6 +117,25 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         Печать
                                     </Link>
                                 </li>
+                                {rowData.status_id === 4 &&
+                                    <li className="row-control__item">
+                                        <Link to={`/${clubAlias}/documents/`}
+                                            className="row-control__link red"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                if (window.confirm("Удалить черновик?")) {
+                                                    Request({url:`/api/requests/${up(distinction)}Request`,data:rowData.id,method:'DELETE'},
+                                                        data => {deleteRow && deleteRow(rowData.id);window.alert('Заявка удалена')},
+                                                        e => window.alert('Отсутствует соединение с сервером')
+                                                    )
+                                                }
+                                            }}
+                                        >
+                                            Удалить черновик
+                                        </Link>
+                                    </li>
+                                }
+
                             </ul>
                         </RowControl>
                     )
