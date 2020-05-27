@@ -6,7 +6,7 @@ import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState, rowClick) => {
     let cols = [
         {
             property: 'date_create',
@@ -51,7 +51,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
 
         col.cell = {
             formatters: [
-                (data, extra) => (search.highlightCell(data, extra))
+                (data, extra) => (<div onClick={() => rowClick && extra && extra.rowData && extra.rowData.id && rowClick(extra.rowData.id)}>{search.highlightCell(data, extra)}</div>)
             ]
         };
 
