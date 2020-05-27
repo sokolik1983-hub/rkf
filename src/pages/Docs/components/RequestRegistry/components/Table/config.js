@@ -14,10 +14,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
            property: "date_create",
            label: "Дата создания"
        },
-       {
-           property: "date_change",
-           label: "Дата последнего изменения статуса"
-       },
+       //{
+       //    property: "date_change",
+       //    label: "Дата последнего изменения статуса"
+       //},
        {
            property: "owner_full_name",
            label: "ФИО владельца"
@@ -38,10 +38,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
            property: "stamp_number",
            label: "Клеймо"
        },
-       {
-           property: "count_of_documents",
-           label: "Количество прикрепленных документов"
-       },
+       //{
+       //    property: "count_of_documents",
+       //    label: "Количество прикрепленных документов"
+       //},
        {
            property: "barcode",
            label: "Трек-номер"
