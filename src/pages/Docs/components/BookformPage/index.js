@@ -16,15 +16,15 @@ const BookformPage = ({history, clubAlias}) => {
     const [documents, setDocuments] = useState(null);
     return loading ?
         <Loading/> :
-        <Card className="club-documents-status">
-            <div className="club-documents-status__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;Запись на очный прием
-            </div>
+        <Card className="documents-page__right">
+            <div class="documents-page__icon"></div>
+            <h3>Запись на очный прием</h3>
             <div>
                 <p>В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе). При посещении офиса необходимо иметь с собой документ, удостоверяющий личность</p>
             </div>
-            <div>
+            <br/>
+            <hr/>
+            <div className="Card__links">
                 <Bookform />
             </div>
         </Card>
