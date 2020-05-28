@@ -48,7 +48,8 @@
   }
   &__form-code {
     display: flex;
-    align-items: center;
+    align-items: start;
+    margin-top: 24px;
     .FormInput .FormInput__input {
       padding: 6px 10px;
     }
@@ -56,10 +57,6 @@
       margin-left: 8px;
       padding: 6px 24px;
     }
-  }
-  &__form-code {
-    align-items: start;
-    margin-top: 24px;
   }
   &__activate-warn {
     font-weight: 600;
