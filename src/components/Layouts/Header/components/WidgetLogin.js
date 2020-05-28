@@ -34,11 +34,9 @@ const WidgetLogin = forwardRef(
                                         {is_active_profile && <Link className="widget-login__edit" to="/client" />}
                                     </li>
                                     {is_active_profile &&
-                                        <>
-                                            <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                <Link to={`/${clubAlias}/documents/`}>Личный кабинет</Link>
-                                            </li>
-                                        </>
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                            <Link to={`/${clubAlias}/documents/`}>Личный кабинет</Link>
+                                        </li>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to={'/'} onClick={logOutUser}>Выход</Link>

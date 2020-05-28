@@ -104,6 +104,11 @@ const appRoutes = [
         component: LoadableModules.LoadableNotConfirmed
     },
     {
+        exact: true,
+        path: '/kennel/:id',
+        component: LoadableModules.LoadableKennelPage
+    },
+    {
         exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
@@ -120,13 +125,13 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route',
-        component: LoadableModules.LoadableClubPage
+        path: '/:route/document-status',
+        component: LoadableModules.LoadableDocumentStatus
     },
     {
         exact: true,
-        path: '/:route/document-status/:query?',
-        component: LoadableModules.LoadableDocumentStatus
+        path: '/:route',
+        component: LoadableModules.LoadableClubPage
     }
 ];
 
@@ -302,7 +307,8 @@ const DEFAULT_IMG = {
     clubAvatar: '/static/icons/default/club-avatar.svg',
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
-    noImage: '/static/images/noimg/icon-no-image.svg'
+    noImage: '/static/images/noimg/icon-no-image.svg',
+    noNews: '/static/images/news/empty_list.png'
 };
 
 const BAD_SITES = [

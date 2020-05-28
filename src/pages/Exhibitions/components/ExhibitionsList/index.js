@@ -3,7 +3,7 @@ import Placeholder from "./Placeholder";
 import ListItem from "./ListItem";
 import Paginator from "../../../../components/Paginator";
 import {setFiltersToUrl} from "../../utils";
-import {useDictionary} from "../../../../apps/Dictionaries";
+import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 const ExhibitionsList = ({exhibitions, loading, pagesCount, PageNumber}) => {

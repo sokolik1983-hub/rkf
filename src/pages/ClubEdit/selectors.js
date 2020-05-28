@@ -1,5 +1,5 @@
 import { defaultReduxKey } from "./config";
-import { selectProfileId } from 'apps/Auth/selectors'
+import {selectIsAuthenticated} from "../Login/selectors";
 
 export const getState = state => ({ ...state[defaultReduxKey] });
 
@@ -42,7 +42,7 @@ export const selectClubContacts = state => {
 
 
 export const selectListContact = state => {
-    const { profile_id: club_id } = selectProfileId(state);
+    const { profile_id: club_id } = selectIsAuthenticated(state);
 
     const {
         listIds,
@@ -56,7 +56,7 @@ export const selectListContact = state => {
 };
 
 export const selectClubId = state => {
-    const { profile_id: club_id } = selectProfileId(state);
+    const { profile_id: club_id } = selectIsAuthenticated(state);
     return {
         club_id
     }
