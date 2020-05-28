@@ -46,6 +46,18 @@
       }
     }
   }
+  &__form-code {
+    display: flex;
+    align-items: start;
+    margin-top: 24px;
+    .FormInput .FormInput__input {
+      padding: 6px 10px;
+    }
+    .btn {
+      margin-left: 8px;
+      padding: 6px 24px;
+    }
+  }
   &__activate-warn {
     font-weight: 600;
     color: firebrick;
