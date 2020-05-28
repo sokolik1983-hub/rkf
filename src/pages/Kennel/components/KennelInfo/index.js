@@ -1,79 +1,61 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {Fragment} from "react";
 import Card from "../../../../components/Card";
-import { formatWorkTime } from "../../../../utils";
-import { timeSecondsCutter } from "../../../../utils/datetime";
-import { Request } from "../../../../utils/request";
-import { beautify } from "../../../../utils/phone";
-import { endpointGetSocials } from "../../config";
+import {formatWorkTime} from "../../../../utils";
+import {timeSecondsCutter} from "../../../../utils/datetime";
+import {beautify} from "../../../../utils/phone";
 import "./index.scss";
 
 
-const ClubInfo = ({
-    id,
-    legal_city,
-    city,
-    legal_address,
-    address,
-    owner_position,
-    owner_name,
-    contacts,
-    work_time,
-    documents,
-    site,
-    inn,
-    kpp,
-    ogrn,
-    bank_name,
-    rs_number,
-    bic,
-    is_active,
-    name
-}) => {
-    const [socials, setSocials] = useState(null);
-
-    useEffect(() => {
-        (() => Request({
-            url: endpointGetSocials + id
-        }, data => setSocials(data),
-            error => console.log(error.response)
-        ))();
-    }, [id]);
-    
+const KennelInfo = ({
+                      name,
+                      legal_city,
+                      city,
+                      legal_address,
+                      address,
+                      owner_position,
+                      owner_name,
+                      contacts,
+                      socials,
+                      work_time,
+                      documents,
+                      site
+                  }) => {
+    console.log(contacts);
     const legal_city_name = legal_city && legal_city.name;
     const city_name = (city && city.name) || legal_city_name;
     const legal_address_or_city = legal_address || legal_city_name;
     const address_or_city = address || legal_address || city_name;
 
     return (
-        <Card className="club-page__info-wrap">
-            <h4 className="club-page__info-title">Контакты</h4>
+        <Card className="kennel-page__info-wrap">
+            <h4 className="kennel-page__info-title">Контакты</h4>
             {name &&
-                <p className="club-page__info-name">
+                <p className="kennel-page__info-name">
                     <span>Полное наименование</span><br />
                     <span>{name}</span>
                 </p>
             }
             {legal_address_or_city &&
-                <p className="club-page__info-address">
+                <p className="kennel-page__info-address">
                     <span>Юридический адрес</span><br />
                     <span>{legal_address_or_city}</span>
                 </p>
             }
             {address_or_city &&
-                <p className="club-page__info-address">
+                <p className="kennel-page__info-address">
                     <span>Фактический адрес</span><br />
                     <span>{address_or_city}</span>
                 </p>
             }
             {owner_name &&
-                <p className="club-page__info-owner">
+                <p className="kennel-page__info-owner">
                     <span>{owner_position || 'Руководитель'}</span><br />
                     <span>{owner_name}</span>
                 </p>
             }
             {contacts && !!contacts.length &&
                 <>
-                    <div className="club-page__info-phone">
+                    <div className="kennel-page__info-phone">
                         {contacts.filter(item => item.contact_type_id === 1).map(contact => (
                             <p key={contact.id}>
                                 <span>{contact.description || 'Телефон'}</span>
@@ -82,7 +64,7 @@ const ClubInfo = ({
                             </p>
                         ))}
                     </div>
-                    <div className="club-page__info-email">
+                    <div className="kennel-page__info-email">
                         {contacts.filter(item => item.contact_type_id === 2).map(contact => (
                             <p key={contact.id}>
                                 <span>{contact.description || 'E-mail'}</span>
@@ -93,7 +75,7 @@ const ClubInfo = ({
                     </div>
                 </>
             }
-            <div className="club-page__info-site">
+            <div className="kennel-page__info-site">
                 <p>
                     <span>Сайт</span>
                     <br />
@@ -105,12 +87,12 @@ const ClubInfo = ({
                 </p>
             </div>
             {socials && !!socials.length &&
-                <div className="club-page__info-socials">
+                <div className="kennel-page__info-socials">
                     {socials.map(item => (
                         <Fragment key={item.id}>
                             <a href={item.site}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                               target="_blank"
+                               rel="noopener noreferrer"
                             >
                                 {item.description}
                             </a>
@@ -120,7 +102,7 @@ const ClubInfo = ({
                 </div>
             }
             {work_time && !!work_time.length &&
-                <div className="club-page__info-work-time">
+                <div className="kennel-page__info-work-time">
                     <span>График работы</span>
                     {formatWorkTime(work_time).map((period, i) => (
                         <p key={`work-${i}`}>
@@ -132,13 +114,13 @@ const ClubInfo = ({
                 </div>
             }
             {documents && !!documents.length &&
-                <div className="club-page__info-documents">
-                    <h4 className="club-page__info-title">Документы</h4>
+                <div className="kennel-page__info-documents">
+                    <h4 className="kennel-page__info-title">Документы</h4>
                     {documents.map(doc => (
                         <Fragment key={doc.id}>
                             <a href={doc.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                               target="_blank"
+                               rel="noopener noreferrer"
                             >
                                 {doc.name}
                             </a>
@@ -147,31 +129,8 @@ const ClubInfo = ({
                     ))}
                 </div>
             }
-            {!is_active &&
-                <div className="club-page__info-bank">
-                    <h4 className="club-page__info-title">Реквизиты</h4>
-                    <p className="club-page__info-details">
-                        <span>ИНН: </span> {inn}
-                    </p>
-                    <p className="club-page__info-details">
-                        <span>КПП: </span> {kpp}
-                    </p>
-                    <p className="club-page__info-details">
-                        <span>ОГРН: </span> {ogrn}
-                    </p>
-                    <p className="club-page__info-details">
-                        <span>Банк: </span> {bank_name}
-                    </p>
-                    <p className="club-page__info-details">
-                        <span>БИК: </span> {bic}
-                    </p>
-                    <p className="club-page__info-details">
-                        <span>Расчетный счет: </span> {rs_number}
-                    </p>
-                </div>
-            }
         </Card>
     );
 };
 
-export default React.memo(ClubInfo);
+export default React.memo(KennelInfo);

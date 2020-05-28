@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import Card from "../../../../components/Card";
-import Alert from "../../../../components/Alert";
-import {DEFAULT_IMG} from "../../../../appConfig";
+import Card from "../Card";
+import Alert from "../Alert";
+import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlias, canEdit}) => {
+const UserHeader = ({logo, banner, name, federationName, federationAlias, canEdit, editLink}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const share = () => {
@@ -17,15 +17,15 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
     const shareOk = () => setShareAlert(false);
 
     return (
-        <Card className="club-page__header">
-            {clubImg && <div className="club-page__header-img" style={{backgroundImage: `url(${clubImg})`}} />}
-            <div className="club-page__header-content">
-                <div className="club-page__header-info">
-                    <div className="club-page__header-logo" style={{backgroundImage: `url(${clubLogo || DEFAULT_IMG.clubAvatar})`}} />
-                    <div className="club-page__header-wrap">
-                        <h3 className="club-page__header-name">{clubName || 'Название клуба отсутствует'}</h3>
+        <Card className="user-header">
+            {banner && <div className="user-header__img" style={{backgroundImage: `url(${banner})`}} />}
+            <div className="user-header__content">
+                <div className="user-header__info">
+                    <div className="user-header__logo" style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} />
+                    <div className="user-header__wrap">
+                        <h3 className="user-header__name">{name}</h3>
                         {federationName && federationAlias &&
-                            <Link to={`/${federationAlias}`} className="club-page__header-federation">{federationName}</Link>
+                            <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
                         }
                     </div>
                     <div onClick={share} className="share-mobile">
@@ -34,7 +34,7 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
                 </div>
                 <button type="button" className="btn btn-primary share-desktop" onClick={share}>Поделиться</button>
                 {canEdit &&
-                    <Link className="btn btn-primary" to="/client">Редактировать профиль</Link>
+                    <Link className="btn btn-primary" to={editLink}>Редактировать профиль</Link>
                 }
             </div>
             {shareAlert &&
@@ -49,4 +49,4 @@ const ClubHeader = ({clubLogo, clubImg, clubName, federationName, federationAlia
     )
 };
 
-export default React.memo(ClubHeader);
+export default React.memo(UserHeader);

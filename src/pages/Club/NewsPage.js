@@ -7,7 +7,7 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
-import ClubHeader from "./components/ClubHeader";
+import UserHeader from "../../components/UserHeader";
 import ClubInfo from "./components/ClubInfo";
 import List from "../../components/List";
 import FloatingMenu from './components/FloatingMenu';
@@ -77,13 +77,14 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
             error.status === 422 ? <ClubNotActive /> : <PageNotFound />
             : <Layout>
                 <Container className="content club-page NewsPage">
-                    <ClubHeader
-                        clubLogo={clubInfo.logo_link}
-                        clubImg={clubInfo.headliner_link}
-                        clubName={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                    <UserHeader
+                        logo={clubInfo.logo_link}
+                        banner={clubInfo.headliner_link}
+                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                         federationName={clubInfo.federation_name}
                         federationAlias={clubInfo.federation_alias}
                         canEdit={canEdit}
+                        editLink="/client"
                     />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">

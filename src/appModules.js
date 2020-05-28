@@ -92,6 +92,11 @@ export const LoadableRegistration = Loadable({
     loading: Loading
 });
 
+export const LoadableKennelPage = Loadable({
+    loader: () => import('./pages/Kennel'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading
