@@ -126,7 +126,7 @@ const NurseryRegistration = ({history}) => {
                                 onError={handleFormError}
                                 className="nursery-registration__form-code"
                             >
-                                <FormField {...codeForm.fields.code} />
+                                <FormField {...codeForm.fields.activation_code} />
                                 <button className="btn btn-primary" type="submit">Активировать</button>
                             </Form>
                         </>
