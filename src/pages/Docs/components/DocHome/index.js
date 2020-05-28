@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
-import Bookform from '../Bookform';
+import BookformPage from "../../components/BookformPage";
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
 import Registry from '../Stamps/Registry';
@@ -163,12 +163,12 @@ const DocHome = ({ clubAlias, bookform }) => {
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 <Link to={`/${clubAlias}/documents/bookform`}>Запись на очный прием</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
-                {bookform && <Bookform clubAlias={clubAlias}/>}
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
+            <Route path='/:route/documents/bookform' component={() => <BookformPage clubAlias={clubAlias} />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
