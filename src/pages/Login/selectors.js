@@ -6,7 +6,7 @@ export const selectIsAuthenticated = state => {
 export const selectWidgetLogin = state => {
     const { isAuthenticated, user_info, is_active_profile } = state.authentication;
     if (isAuthenticated) {
-        const {logo_link } = user_info;
+        const { logo_link } = user_info;
         return { isAuthenticated, is_active_profile, logo_link };
     }
 

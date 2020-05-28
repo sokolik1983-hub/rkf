@@ -1,24 +1,25 @@
 import React, { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
+import ls from "local-storage";
 import { REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
-        const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
-        const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
-        const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
+        const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
+        const name = ls.get('user_info') ? ls.get('user_info').name : '';
+        const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
+        const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
 
         return (
             <div className="widget-login">
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <div className={`widget-login__user-icon${open ? ' _active' : ''}`}
-                            style={{ backgroundImage: `url(${clubLogo ? clubLogo : DEFAULT_IMG.clubAvatar})` }}
+                            style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }}
                             onClick={() => setOpen(!open)}
                         />
                         <CSSTransition
@@ -30,16 +31,35 @@ const WidgetLogin = forwardRef(
                             <div className="widget-login__content">
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
-                                        <Link to={is_active_profile ? `/${clubAlias}` : "/not-confirmed"}>{clubName}</Link>
-                                        {is_active_profile && <Link className="widget-login__edit" to="/client" />}
+                                        {userType === 3 &&
+                                            <>
+                                                <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                                {is_active_profile && <Link className="widget-login__edit" to="/client" />}
+                                            </>
+                                        }
+                                        {userType === 4 &&
+                                            <>
+                                                <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
+                                                {is_active_profile && <Link className="widget-login__edit" to={`/nursery/${alias}/edit`} />}
+                                            </>
+                                        }
                                     </li>
                                     {is_active_profile &&
-                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                            <Link to={`/${clubAlias}/documents/`}>Личный кабинет</Link>
-                                        </li>
+                                        <>
+                                            {userType === 3 &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                </li>
+                                            }
+                                            {userType === 4 &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+                                                </li>
+                                            }
+                                        </>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                        <Link to={'/'} onClick={logOutUser}>Выход</Link>
+                                        <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -47,7 +67,7 @@ const WidgetLogin = forwardRef(
                     </OutsideClickHandler>
                     : <Link className="login-link" to={REGISTRATION_URL}>Вход и регистрация</Link>
                 }
-            </div >
+            </div>
         )
     }
 );

@@ -31,7 +31,7 @@ export const federationForm = {
 
 export const nurseryForm = {
     method: 'POST',
-    action: '/api/Registration/nursery/activate',
+    action: '​/api​/Registration​/nursery​/send_activation_code',
     withLoading: true,
     fields: {
         city_id: {
@@ -69,5 +69,24 @@ export const nurseryForm = {
         owner_last_name: string().required('Укажите Фамилию'),
         owner_first_name: string().required('Укажите Имя'),
         mail: string().email('Неверный формат E-mail').required('Укажите E-mail')
+    })
+};
+
+export const codeForm = {
+    method: 'POST',
+    action: '/api​/Registration​/nursery​/confirm',
+    withLoading: true,
+    initialValues: {
+        code: ''
+    },
+    fields: {
+        code: {
+            name: 'code',
+            type: 'text',
+            placeholder: 'Введите код'
+        }
+    },
+    validationSchema: object().shape({
+        code: string().required('Введите код')
     })
 };
