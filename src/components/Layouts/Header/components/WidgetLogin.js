@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import ls from "local-storage";
 import OutsideClickHandler from "react-outside-click-handler";
-import { REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
+import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
+import history from "utils/history";
 
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
+
         const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
         const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
         const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
@@ -47,7 +49,7 @@ const WidgetLogin = forwardRef(
                             </div>
                         </CSSTransition>
                     </OutsideClickHandler>
-                    : <Link className="login-link" to={REGISTRATION_URL}>Вход и регистрация</Link>
+                    : history.location.pathname !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход и регистрация</Link>
                 }
             </div >
         )

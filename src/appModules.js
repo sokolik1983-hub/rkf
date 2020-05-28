@@ -87,11 +87,6 @@ export const LoadablePasswordRecovery = Loadable({
     loading: Loading
 });
 
-export const LoadableRegistration = Loadable({
-    loader: () => import('./pages/Registration'),
-    loading: Loading
-});
-
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading

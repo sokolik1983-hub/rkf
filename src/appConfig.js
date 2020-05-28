@@ -95,11 +95,6 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/auth/registration',
-        component: LoadableModules.LoadableRegistration
-    },
-    {
-        exact: true,
         path: '/not-confirmed',
         component: LoadableModules.LoadableNotConfirmed
     },
