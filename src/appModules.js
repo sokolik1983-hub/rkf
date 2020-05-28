@@ -82,6 +82,11 @@ export const LoadableAuthorization = Loadable({
     loading: Loading
 });
 
+export const LoadablePasswordRecovery = Loadable({
+    loader: () => import('./pages/Login/components/PasswordRecovery'),
+    loading: Loading
+});
+
 export const LoadableRegistration = Loadable({
     loader: () => import('./pages/Registration'),
     loading: Loading

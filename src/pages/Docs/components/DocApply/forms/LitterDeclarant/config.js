@@ -28,12 +28,15 @@ const validationSchema = {
     father_name: string().required(reqText),
     father_foreign: boolean().required(reqText),
     father_pedigree_number: string().required(reqText),
+    father_pedigree_document_id: reqCheckbox('father_foreign', true, number().required(reqText)),
     mother_name: string().required(reqText),
     mother_foreign: boolean().required(reqText),
     mother_pedigree_number: string().required(reqText),
 
     date_of_birth_litter: string().required(reqText),
     nursery_name: string(),
+    prefix: boolean().required(reqText),
+    suffix: boolean().required(reqText),
     instructor_nursery_owner_first_name: string(),
     instructor_nursery_owner_last_name: string(),
     instructor_nursery_owner_second_name: string(),
@@ -43,6 +46,7 @@ const validationSchema = {
 
     litter_diagnostic_id: number().required(reqText),
     dog_mating_act_id: number().required(reqText),
+    application_document_id: number().required(reqText),
     personal_data_document_id: number().required(reqText),
     litters: array().of(object().shape({
         id: number(),
@@ -73,6 +77,8 @@ const updateSchema = {
     litter_diagnostic_id: number(),
     dog_mating_act_id: number(),
     personal_data_document_id: number(),
+    father_pedigree_document_id: mixed(),
+    application_document_id: mixed(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
@@ -122,6 +128,8 @@ const emptyLitterDeclarant = {
 
     date_of_birth_litter: '',
     nursery_name: '',
+    prefix: false,
+    suffix: false,
     instructor_nursery_owner_first_name: '',
     instructor_nursery_owner_last_name: '',
     instructor_nursery_owner_second_name: '',
@@ -165,7 +173,7 @@ const config = {
         },
         breeds: {
             url: apiBreedsEndpoint,
-            mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name})),
+            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({value: m.id, label:m.name})),
         },
         sexTypes: {
             url: apiSexTypesEndpoint,

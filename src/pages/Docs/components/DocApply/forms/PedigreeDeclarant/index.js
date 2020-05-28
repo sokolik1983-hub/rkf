@@ -5,6 +5,7 @@ import config from "./config.js";
 import Button from "components/Button";
 import Card from "components/Card";
 import DocItem from "../../components/DocItemPedigree";
+import SubmitError from "../../components/SubmitError";
 
 // pedigree
 const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial, Title}) => {
@@ -21,11 +22,11 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
         </Card>
     <div className="stage-controls flex-row">
             <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
+        <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
             action: config.url + (!isNew ? '/draft' : ''),
             button: 'none',
-            target_id: formik.values.pedigree_header_declarant_request_id,
         }, formik)}>Сохранить</Button>
         <Button className="btn-condensed btn-green" onClick={e => send({
             method: !isNew ? "PUT" : "POST",

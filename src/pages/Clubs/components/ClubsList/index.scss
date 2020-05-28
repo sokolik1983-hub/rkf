@@ -96,6 +96,14 @@
       max-height: none;
       min-height: auto;
     }
+    &__active-member {
+      width: 14px;
+      margin-left: 6px;
+      @media (max-width: 560px) {
+        width: 12px;
+        margin-left: 6px;
+      }
+    }
     &__photo {
       min-height: 164px;
       max-height: 164px;

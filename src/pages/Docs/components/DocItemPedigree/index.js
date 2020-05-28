@@ -29,6 +29,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
+    const statusAllowsDocumentsUpdate = declarant.status_id ? [2,4,7,11].includes(declarant.status_id) : true;
     let status = statuses.find(s => s.id === declarant.status_id);
     status = status ? status.name : 'Не обработана';
     let error = formik.errors.declarants && formik.errors.declarants[i] && formik.touched.declarants && formik.touched.declarants[i];
@@ -177,9 +178,6 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 label='Щенок был на пересмотре, соответствует племенным требованиям'
                 onChange={e => {formik.handleChange(e); formik.setFieldValue(`declarants[${i}].litter_or_request_number`, '')}}
             />
-            <HideIf cond={!declarant.was_reviewed}>
-                <FormField disabled={update} name={`declarants[${i}].litter_or_request_number`} label='Номер общепометной карты (или № заявки), в которую щенок был включен при регистрации помета.'/>
-            </HideIf>
             
             <FormGroup inline>
                 <FormField disabled={update} name={`declarants[${i}].owner_last_name_lat`} label='Фамилия владельца латиницей'/>
@@ -192,9 +190,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormField disabled={update || filledEverk('dog_name_lat')} name={`declarants[${i}].dog_name_lat`} label='Кличка собаки латиницей'/>
             
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
             <FormFile
                 name={`declarants[${i}].biometric_card_document`}
-                label='Метрика щенка (PDF, JPEG, JPG, PNG)'
+                label='Метрика щенка'
                 docId={declarant.biometric_card_document_id}
                 disabled={view || declarant.biometric_card_document_accept || !statusAllowsUpdate}
                 distinction={distinction}
@@ -202,7 +201,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             {/*<FormFile
                 name={`declarants[${i}].request_extract_from_verk_document`}
-                label='Заявка на изготовление выписки из ВЕРК (PDF, JPEG, JPG, PNG)'
+                label='Заявка на изготовление выписки из ВЕРК'
                 docId={declarant.request_extract_from_verk_document_id}
                 disabled={view || declarant.request_extract_from_verk_document_accept || !statusAllowsUpdate}
                 form={{filename:"request_extract_from_verk_document.docx", href: verkHref, linkText: 'Скачать шаблон формы'}}
@@ -211,7 +210,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
             <FormFile
                 name={`declarants[${i}].personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
@@ -222,16 +221,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FieldArray name={`declarants[${i}].documents`} render={({push, remove}) => (<>
             {declarant.documents && declarant.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`declarants[${i}].documents[${j}].id`} />
-                    <FormField disabled={view || !statusAllowsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
-                    <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
-                        <FormField disabled={view || !statusAllowsUpdate || doc.document_accept} label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
+                    <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.accept} options={doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`declarants[${i}].documents[${j}].document_type_id`} />
+                    <HideIf cond={view || !statusAllowsDocumentsUpdate || doc.accept}>
+                        <FormField disabled={view || !statusAllowsDocumentsUpdate || doc.document_accept} label={`Документ ${j + 1}`} fieldType="file" name={`declarants[${i}].documents[${j}].document`} accept={accept} />
                     </HideIf>
                     <DocLink distinction={distinction} docId={doc.document_id}/>
                     <HideIf cond={update}>
                         <DeleteButton onClick={() => remove(j)} title="Удалить"/>
                     </HideIf>
                 </FormGroup>)}
-                <HideIf cond={view || !statusAllowsUpdate || (declarant.documents && declarant.documents.length > 29)}>
+                <HideIf cond={view || !statusAllowsDocumentsUpdate || (declarant.documents && declarant.documents.length > 29)}>
                     <p>Вы можете добавить дополнительные документы</p>
                     <div className="flex-row">
                         <Button small onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>

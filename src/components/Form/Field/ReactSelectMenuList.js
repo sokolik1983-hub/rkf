@@ -21,5 +21,3 @@ export default class MenuList extends Component {
     );
   }
 }
-
-

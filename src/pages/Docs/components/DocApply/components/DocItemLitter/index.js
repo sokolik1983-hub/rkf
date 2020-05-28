@@ -42,9 +42,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         setEverkData(null);
     }
     const filledEverk = val => !!everkData && !!everkData[val]
-
-
+    
+    const [init, setInit] = useState(false);
     useEffect(() => {
+        if (!init && typeof(formik.values.stamp_code_id) !== 'number') {
+            setInit(true);
+            let stamp = stampCodes[0];
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code_id', stamp.value);
+            }
+        }
         Promise.all([
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
@@ -111,7 +118,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 declarant={declarant}
                 i={i}
                 distinction={distinction}
-                addDocument={false}
+                addDocument={true}
                 who="father"
                 whoRu="производителя"
                 checkboxCaption='Иностранный производитель'
@@ -130,6 +137,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
 
 
             <FormField disabled={update} name={`nursery_name`} label='Название питомника (опционально)'/>
+            <HideIf cond={!(formik.values && formik.values.nursery_name)}>
+                <FormField disabled={update} fieldType="customCheckbox" name={`prefix`} label='Префикс'/>
+                <FormField disabled={update} fieldType="customCheckbox" name={`suffix`} label='Суффикс'/>
+            </HideIf>
             <FormGroup inline>
                 <FormField disabled={update} name={`instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
                 <FormField disabled={update} name={`instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
@@ -152,10 +163,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <FormField disabled={update || filledEverk('address_lat')} name={`address_lat`} label='Адрес заводчика латиницей'/>
 
             {/*files*/}
+            <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>
             <FormGroup inline>
             <FormFile
                 name={`dog_mating_act`}
-                label='Акт вязки (PDF, JPEG, JPG, PNG)'
+                label='Акт вязки'
                 document_type_id={14}
                 docId={declarant.dog_mating_act_id}
                 disabled={view || declarant.dog_mating_act_accept || !statusAllowsUpdate}
@@ -163,15 +175,25 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
             <FormFile
                 name={`litter_diagnostic`}
-                label='Акт обследования помета (PDF, JPEG, JPG, PNG)'
+                label='Акт обследования помета'
                 docId={declarant.litter_diagnostic_id}
                 document_type_id={13}
                 disabled={view || declarant.litter_diagnostic_accept || !statusAllowsUpdate}
                 distinction={distinction}
             />
+            </FormGroup>
+            <FormGroup inline>
+            <FormFile
+                name={`application_document`}
+                label={<>Заявление на регистрацию помета<br/><br/></>}
+                document_type_id={12}
+                docId={declarant.application_document_id}
+                disabled={view || declarant.application_document_accept || !statusAllowsUpdate}
+                distinction={distinction}
+            />
             <FormFile
                 name={`personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
+                label='Соглашение на обработку персональных данных'
                 docId={declarant.personal_data_document_id}
                 document_type_id={11}
                 disabled={view || declarant.personal_data_document_accept || !statusAllowsUpdate}
@@ -202,8 +224,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                             key={j}
                             activePuppy={activePuppy}
                             activateClick={() => setActivePuppy(activePuppy === j ? -1 : j)}
-                            deleteClick={() => {
-                                if (window.confirm("Удалить щенка?")) {
+                            deleteClick={(force = false) => {
+                                if (force || window.confirm("Удалить щенка?")) {
                                     remove(j); setActivePuppy(-1);
                                 }
                             }}
@@ -224,6 +246,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                                     <Button small onClick={() => {
                                         push({
                                             dog_name:'',
+                                            dog_name_lat: '',
                                             dog_color:'',
                                             dog_sex_type_id:'',
                                             stamp_number:'',
@@ -247,7 +270,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <HideIf cond={view || !statusAllowsUpdate || doc.accept}>
                         <FormFile
                             name={`documents[${j}].document`}
-                            label={`Документ ${j + 1} (PDF, JPEG, JPG, PNG)`}
+                            label={`Документ ${j + 1}`}
                             docId={declarant.documents[j].document_id}
                             disabled={view || !statusAllowsUpdate || doc.document_accept}
                             document_type_id={doc.document_type_id}

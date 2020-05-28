@@ -29,7 +29,7 @@ const PuppiesMetrics = ({history, clubAlias}) => {
         <Card className="puppies-metrics">
             <div className="puppies-metrics__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;МЕТРИКА ЩЕНКА
+                &nbsp;/&nbsp;Метрика щенка
             </div>
             <div className="puppies-metrics__table">
                 {puppies && !!puppies.length ?

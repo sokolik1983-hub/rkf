@@ -7,6 +7,7 @@ import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
 import FormFile from "../../components/FormFile";
+import SubmitError from "../../components/SubmitError";
 
 // litter
 const PaymentFormFields = connect(({formik, update, view, options, clubAlias, setRedirect, send, initial, Title}) => {
@@ -43,6 +44,7 @@ const PaymentFormFields = connect(({formik, update, view, options, clubAlias, se
 </Card>
     <div className="stage-controls flex-row">
         <Button className="btn-condensed" onClick={e => setRedirect(`/${clubAlias}/documents/litter/${formik.values.id}/table/form`)}>Назад</Button>
+        <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
             action: config.url,

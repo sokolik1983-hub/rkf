@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Layout from "../../components/Layouts";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
-import KennelRegistration from "./components/KennelRegistration";
+import NurseryRegistration from "./components/NurseryRegistration";
 import {LOGIN_URL} from "../../appConfig";
 import "./index.scss";
 
@@ -31,14 +31,14 @@ const RegistrationPage = ({history}) => {
                         >
                             Клуб
                         </div>
-                        <div className={`registration-page__tab${activeTab === 'kennel' ? ' _active' : ''}`}
-                            onClick={() => setActiveTab('kennel')}
+                        <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
+                            onClick={() => setActiveTab('nursery')}
                         >
                             Питомник
                         </div>
                     </div>
                     {activeTab === 'club' && <ClubRegistration />}
-                    {activeTab === 'kennel' && <KennelRegistration history={history} />}
+                    {activeTab === 'nursery' && <NurseryRegistration history={history} />}
                 </div>
             </AuthLayout>
         </Layout>

@@ -1,28 +1,21 @@
-.kennel-registration {
+.nursery-registration {
+  @media (max-width: 560px) {
+    padding: 0 12px;
+  }
   .FormInput .FormInput__input {
-    padding: 6px 10px 6px 34px;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: .2px;
-    color: #90999e;
-    border-width: 1px;
+    //padding: 6px 10px 6px 34px;
+    //font-weight: normal;
+    //font-size: 16px;
+    //line-height: 24px;
+    //letter-spacing: .2px;
+    //color: #90999e;
+    //border-width: 1px;
     box-shadow: none;
     transition: border-color .2s linear;
   }
   &__form {
-    position: relative;
     max-width: 330px;
     margin: 0 auto;
-  }
-  &__search {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 22px;
-    height: 22px;
-    border: none;
-    background: url("/static/icons/icon-search-gray.svg") no-repeat center;
   }
   &__empty {
     text-align: center;
@@ -52,21 +45,6 @@
         font-weight: 300;
       }
     }
-  }
-  &__form-email, &__form-code {
-    display: flex;
-    align-items: center;
-    .FormInput .FormInput__input {
-      padding: 6px 10px;
-    }
-    .btn {
-      margin-left: 8px;
-      padding: 6px 24px;
-    }
-  }
-  &__form-code {
-    align-items: start;
-    margin-top: 24px;
   }
   &__activate-warn {
     font-weight: 600;
