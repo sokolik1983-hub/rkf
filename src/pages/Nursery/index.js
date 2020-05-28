@@ -8,11 +8,11 @@ import UserDescription from "../../components/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/UserNews";
 import UserMenu from "./components/UserMenu";
-import KennelInfo from "./components/KennelInfo";
+import NurseryInfo from "./components/NurseryInfo";
 import "./index.scss";
 
 
-const defaultKennel = {
+const defaultNursery = {
     id: 1,
     logo_link: '',
     headliner_link: '',
@@ -83,8 +83,8 @@ const defaultKennel = {
     }
 };
 
-const KennelPage = ({match}) => {
-    const [kennel, setKennel] = useState(null);
+const NurseryPage = ({match}) => {
+    const [nursery, setNursery] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -92,7 +92,7 @@ const KennelPage = ({match}) => {
     const alias = match.params.id;
 
     useEffect(() => {
-        setKennel(defaultKennel);
+        setNursery(defaultNursery);
         setCanEdit(true);
         setLoading(false);
     }, []);
@@ -100,23 +100,23 @@ const KennelPage = ({match}) => {
     return loading ?
         <Loading/> :
         <Layout>
-            <Container className="content owner-page">
+            <Container className="content nursery-page">
                 <UserHeader
-                    logo={kennel.logo_link}
-                    banner={kennel.headliner_link}
-                    name={kennel.name || 'Имя отсутствует'}
-                    federationName={kennel.federation_name}
-                    federationAlias={kennel.federation_alias}
+                    logo={nursery.logo_link}
+                    banner={nursery.headliner_link}
+                    name={nursery.name || 'Имя отсутствует'}
+                    federationName={nursery.federation_name}
+                    federationAlias={nursery.federation_alias}
                     canEdit={canEdit}
-                    editLink={`/kennel/${alias}/edit`}
+                    editLink={`/nursery/${alias}/edit`}
                 />
-                <div className="owner-page__content-wrap">
-                    <div className="owner-page__content">
-                        <UserDescription description={kennel.description} />
+                <div className="nursery-page__content-wrap">
+                    <div className="nursery-page__content">
+                        <UserDescription description={nursery.description} />
                         {canEdit &&
                             <AddArticle
-                                id={kennel.id}
-                                logo={kennel.logo_link}
+                                id={nursery.id}
+                                logo={nursery.logo_link}
                                 setPage={setPage}
                                 setNeedRequest={setNeedRequest}
                             />
@@ -130,14 +130,14 @@ const KennelPage = ({match}) => {
                             setNeedRequest={setNeedRequest}
                         />
                     </div>
-                    <Aside className="owner-page__info">
+                    <Aside className="nursery-page__info">
                         <UserMenu
                             alias={alias}
-                            name={kennel.name || 'Имя отсутствует'}
+                            name={nursery.name || 'Имя отсутствует'}
                         />
-                        <KennelInfo
-                            name={kennel.name}
-                            {...kennel.info}
+                        <NurseryInfo
+                            name={nursery.name}
+                            {...nursery.info}
                         />
                     </Aside>
                 </div>
@@ -145,4 +145,4 @@ const KennelPage = ({match}) => {
         </Layout>
 };
 
-export default React.memo(KennelPage);
+export default React.memo(NurseryPage);

@@ -105,8 +105,8 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/kennel/:id',
-        component: LoadableModules.LoadableKennelPage
+        path: '/nursery/:id',
+        component: LoadableModules.LoadableNurseryPage
     },
     {
         exact: false,
