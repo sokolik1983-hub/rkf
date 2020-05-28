@@ -52,7 +52,9 @@ class StatusTable extends PureComponent {
             sortable,
             this.state.distinction,
             this.state.clubAlias,
-            data => this.setState(data)
+            data => this.setState(data),
+            this.props.rowClick,
+            this.props.deleteRow
         );
     };
 

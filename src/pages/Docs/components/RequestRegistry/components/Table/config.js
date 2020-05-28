@@ -2,8 +2,8 @@ import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
-import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
 
@@ -14,10 +14,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
            property: "date_create",
            label: "Дата создания"
        },
-       {
-           property: "date_change",
-           label: "Дата последнего изменения статуса"
-       },
+       //{
+       //    property: "date_change",
+       //    label: "Дата последнего изменения статуса"
+       //},
        {
            property: "owner_full_name",
            label: "ФИО владельца"
@@ -38,10 +38,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
            property: "stamp_number",
            label: "Клеймо"
        },
-       {
-           property: "count_of_documents",
-           label: "Количество прикрепленных документов"
-       },
+       //{
+       //    property: "count_of_documents",
+       //    label: "Количество прикрепленных документов"
+       //},
        {
            property: "barcode",
            label: "Трек-номер"
@@ -109,18 +109,18 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
 
         col.cell = {
             formatters: [
-                (data, extra) => (search.highlightCell(data, extra))
+                (data, extra) => data ? (search.highlightCell(data, extra)) : ''
             ]
         };
 
-        if (col.property === 'date_create') {
-            col.cell.resolve = date => date && formatDateWithTime(date);
+        if (['date_create', 'date_change'].includes(col.property)) {
+            col.cell.resolve = date => date && moment(date).format('DD.MM.YYYY');
         }
 
         return col;
     });
 
-    cols.push({
+    /*cols.push({
         cell: {
             formatters: [
                 (value, { rowData }) => {
@@ -135,26 +135,6 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                         Подробнее
                                     </Link>
                                 </li>
-                                {distinction === 'pedigree' &&
-                                    <li className="row-control__item">
-                                        <span
-                                            className="row-control__link"
-                                            onClick={() => setState({docId: rowData.id, showModal: true})}
-                                        >
-                                            Вложенные заявки
-                                        </span>
-                                    </li>
-                                }
-                                {rowData.status_id === 4 &&
-                                    <li className="row-control__item">
-                                        <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/form`}
-                                            className="row-control__link"
-                                        >
-                                            Редактировать
-                                        </Link>
-                                    </li>
-                                }
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
@@ -179,7 +159,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                 }
             ]
         }
-    });
+    });*/
 
     return cols;
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
+import Bookform from '../Bookform';
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
 import Registry from '../Stamps/Registry';
@@ -36,6 +37,7 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/litter/form`}>Подать заявление</Link>
                 <Link to={`/${clubAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                <Link to={`/${clubAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -57,6 +59,7 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/pedigree/form`}>Подать заявление</Link>
                 <Link to={`/${clubAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                <Link to={`/${clubAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -145,7 +148,7 @@ const ResponsibleCards = ({ clubAlias }) => {
     </div>
 };
 
-const DocHome = ({ clubAlias }) => {
+const DocHome = ({ clubAlias, bookform }) => {
     const [alert, seAlert] = useState(false);
     const handleClick = e => {
         e.preventDefault();
@@ -159,6 +162,7 @@ const DocHome = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
+                {bookform && <Bookform clubAlias={clubAlias}/>}
             </CustomMenu>
         </aside>
         <Switch>
