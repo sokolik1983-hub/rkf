@@ -83,6 +83,7 @@ const genericForm = (Component, config) => {
                 method={method}
                 initialValues={{...config.initialValues, ...values, id}}
                 validationSchema={update ? config.updateSchema : object().shape(config.validationSchema)}
+                noEnter={true}
                 //onSubmit={e => console.log(e)}
                 transformValues={values => addNulls(transform(filterBySchema(values, (update ? config.updateSchema : config.validationSchema))||{}))}
                 //format="multipart/form-data"

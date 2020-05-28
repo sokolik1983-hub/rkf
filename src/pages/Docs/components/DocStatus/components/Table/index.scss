@@ -1,4 +1,7 @@
 .status-table__table {
+    .row-control__link.red {
+        color: #ff3322 !important;
+    }
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
@@ -16,6 +19,15 @@
     padding: 8px 16px;
     &:nth-child(7) {
       min-width: 165px;
+    }
+  }
+  td {
+    padding: 0!important;
+    &>div {
+      padding: 8px 16px;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
     }
   }
   tbody {

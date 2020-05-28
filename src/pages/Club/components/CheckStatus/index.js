@@ -59,35 +59,41 @@ const CheckStatus = () => {
                 required
             />
             <div className="check-status__button">
-                {loading && <Loading centered={false} />}
                 <button type="submit" disabled={loading}>Найти</button>
             </div>
         </form>
-        {!!status.length && <div className="check-status__table">
-            <table>
-                <colgroup>
-                    <col width="15%" />
-                    <col width="35%" />
-                    <col width="50%" />
-                </colgroup>
-                <tbody>
-                    <tr className="check-status__table-heading">
-                        <td>Дата</td>
-                        <td>Статус</td>
-                        <td>Комментарий</td>
-                    </tr>
-                    {
-                        status.map(({ status_name, date, comment }, key) => {
-                            return <tr key={key}>
-                                <td>{new Date(date).toLocaleDateString("ru-RU")}</td>
-                                <td>{status_name}</td>
-                                <td>{comment}</td>
+        {
+            loading
+                ? <Loading centered={false} />
+                : !!status.length && <div className="check-status__table">
+                    <div className="check-status__info">
+                        Дорогие друзья! Обращаем Ваше внимание, что ссылки на электронную копию родословной в данной таблице не публикуются. По завершении изготовления документа, ссылка на него будет доступна на странице "Проверить статус документа" или в реестре заявок в личном кабинете Вашего клуба. Публикация ссылки осуществляется в нормативные сроки, установленные Положением РКФ".
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col width="15%" />
+                            <col width="35%" />
+                            <col width="50%" />
+                        </colgroup>
+                        <tbody>
+                            <tr className="check-status__table-heading">
+                                <td>Дата</td>
+                                <td>Статус</td>
+                                <td>Комментарий</td>
                             </tr>
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>}
+                            {
+                                status.map(({ status_name, date, comment }, key) => {
+                                    return <tr key={key}>
+                                        <td>{new Date(date).toLocaleDateString("ru-RU")}</td>
+                                        <td>{status_name}</td>
+                                        <td>{comment}</td>
+                                    </tr>
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+        }
         {alert &&
             <Alert
                 text="Номер не найден"
