@@ -97,6 +97,11 @@ export const LoadableNurseryPage = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryDocuments = Loadable({
+    loader: () => import('./pages/NurseryDocuments'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading
