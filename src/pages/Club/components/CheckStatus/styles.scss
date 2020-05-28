@@ -25,9 +25,19 @@
         word-break: normal;
         margin-bottom: 6px;
         button {
-            padding: 3px 15px;
-            font-weight: bold;
-            margin-left: 5px;
+            padding: 4px 15px;
+            margin-left: 6px;
+            display: block;
+            background: white;
+            border: none;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            border: 1px solid #3366ff;
+            letter-spacing: 0.2px;
+            color: #3366ff;
+            box-sizing: border-box;
+            border-radius: 4px;
         }
         .Loading__title {
             margin: 0;
