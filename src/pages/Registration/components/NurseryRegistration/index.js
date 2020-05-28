@@ -30,7 +30,7 @@ const NurseryRegistration = ({history}) => {
 
     const federationFormSuccess = data => {
         if(data) {
-            setNursery({...data, city_id: data.city.id});
+            setNursery({...data, city_id: data.city ? data.city.id: ''});
             setIsFederationFormSend(true);
         } else {
             setAlertText('Питомник не найден. Проверьте правильность введенных данных. Если данные верны, воспользуйтесь формой обратной связи.');
