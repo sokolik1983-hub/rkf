@@ -92,8 +92,8 @@ export const LoadableRegistration = Loadable({
     loading: Loading
 });
 
-export const LoadableKennelPage = Loadable({
-    loader: () => import('./pages/Kennel'),
+export const LoadableNurseryPage = Loadable({
+    loader: () => import('./pages/Nursery'),
     loading: Loading
 });
 

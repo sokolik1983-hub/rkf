@@ -6,7 +6,7 @@ import {beautify} from "../../../../utils/phone";
 import "./index.scss";
 
 
-const KennelInfo = ({
+const NurseryInfo = ({
                       name,
                       legal_city,
                       city,
@@ -20,42 +20,41 @@ const KennelInfo = ({
                       documents,
                       site
                   }) => {
-    console.log(contacts);
     const legal_city_name = legal_city && legal_city.name;
     const city_name = (city && city.name) || legal_city_name;
     const legal_address_or_city = legal_address || legal_city_name;
     const address_or_city = address || legal_address || city_name;
 
     return (
-        <Card className="kennel-page__info-wrap">
-            <h4 className="kennel-page__info-title">Контакты</h4>
+        <Card className="nursery-page__info-wrap">
+            <h4 className="nursery-page__info-title">Контакты</h4>
             {name &&
-                <p className="kennel-page__info-name">
+                <p className="nursery-page__info-name">
                     <span>Полное наименование</span><br />
                     <span>{name}</span>
                 </p>
             }
             {legal_address_or_city &&
-                <p className="kennel-page__info-address">
+                <p className="nursery-page__info-address">
                     <span>Юридический адрес</span><br />
                     <span>{legal_address_or_city}</span>
                 </p>
             }
             {address_or_city &&
-                <p className="kennel-page__info-address">
+                <p className="nursery-page__info-address">
                     <span>Фактический адрес</span><br />
                     <span>{address_or_city}</span>
                 </p>
             }
             {owner_name &&
-                <p className="kennel-page__info-owner">
+                <p className="nursery-page__info-owner">
                     <span>{owner_position || 'Руководитель'}</span><br />
                     <span>{owner_name}</span>
                 </p>
             }
             {contacts && !!contacts.length &&
                 <>
-                    <div className="kennel-page__info-phone">
+                    <div className="nursery-page__info-phone">
                         {contacts.filter(item => item.contact_type_id === 1).map(contact => (
                             <p key={contact.id}>
                                 <span>{contact.description || 'Телефон'}</span>
@@ -64,7 +63,7 @@ const KennelInfo = ({
                             </p>
                         ))}
                     </div>
-                    <div className="kennel-page__info-email">
+                    <div className="nursery-page__info-email">
                         {contacts.filter(item => item.contact_type_id === 2).map(contact => (
                             <p key={contact.id}>
                                 <span>{contact.description || 'E-mail'}</span>
@@ -75,7 +74,7 @@ const KennelInfo = ({
                     </div>
                 </>
             }
-            <div className="kennel-page__info-site">
+            <div className="nursery-page__info-site">
                 <p>
                     <span>Сайт</span>
                     <br />
@@ -87,7 +86,7 @@ const KennelInfo = ({
                 </p>
             </div>
             {socials && !!socials.length &&
-                <div className="kennel-page__info-socials">
+                <div className="nursery-page__info-socials">
                     {socials.map(item => (
                         <Fragment key={item.id}>
                             <a href={item.site}
@@ -102,7 +101,7 @@ const KennelInfo = ({
                 </div>
             }
             {work_time && !!work_time.length &&
-                <div className="kennel-page__info-work-time">
+                <div className="nursery-page__info-work-time">
                     <span>График работы</span>
                     {formatWorkTime(work_time).map((period, i) => (
                         <p key={`work-${i}`}>
@@ -114,8 +113,8 @@ const KennelInfo = ({
                 </div>
             }
             {documents && !!documents.length &&
-                <div className="kennel-page__info-documents">
-                    <h4 className="kennel-page__info-title">Документы</h4>
+                <div className="nursery-page__info-documents">
+                    <h4 className="nursery-page__info-title">Документы</h4>
                     {documents.map(doc => (
                         <Fragment key={doc.id}>
                             <a href={doc.url}
@@ -133,4 +132,4 @@ const KennelInfo = ({
     );
 };
 
-export default React.memo(KennelInfo);
+export default React.memo(NurseryInfo);

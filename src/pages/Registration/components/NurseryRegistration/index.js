@@ -5,6 +5,7 @@ import {Request} from "../../../../utils/request";
 import {LOGIN_URL} from "../../../../appConfig";
 import {federationForm, nurseryForm} from "./config";
 import "./index.scss";
+import CustomText from "../../../../components/Form/Field/CustomText";
 
 
 const NurseryRegistration = ({history}) => {
@@ -88,7 +89,9 @@ const NurseryRegistration = ({history}) => {
                             className="nursery-registration__form-email"
                         >
                             <FormField {...nurseryForm.fields.city_id} />
-                            <FormField {...nurseryForm.fields.owner_name} />
+                            <CustomText {...nurseryForm.fields.owner_last_name} />
+                            <CustomText {...nurseryForm.fields.owner_first_name} />
+                            <CustomText {...nurseryForm.fields.owner_second_name} />
                             <FormField {...nurseryForm.fields.mail} />
                             <button className="btn btn-primary" type="submit">Активировать</button>
                         </Form>
@@ -97,7 +100,7 @@ const NurseryRegistration = ({history}) => {
             }
             {alert &&
                 <Alert
-                    title="Произошла ошибка! =("
+                    title={isNurseryFormSend ? "Проверьте почту" : "Произошла ошибка! =("}
                     text={alertText || "Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи."}
                     okButton={true}
                     onOk={() => {
