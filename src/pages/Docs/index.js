@@ -11,6 +11,7 @@ import DocHome from "./components/DocHome";
 import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
+import BookformPage from "./components/BookformPage";
 import ResponsivePersonTable from "./components/ResponsiblePersonTable";
 import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
@@ -101,8 +102,8 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
 
-                        <Route path='/:route/documents/bookform' component={() => <DocHome bookform={true} clubAlias={clubAlias} />} />
-                        <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} />} />
+                        <Route path='/:route/documents/bookform' component={() => <BookformPage clubAlias={clubAlias} history={history} />} />
+                        <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} history={history} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </Container>
