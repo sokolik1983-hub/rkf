@@ -102,6 +102,11 @@ export const LoadableNotConfirmed = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryActivation = Loadable({
+    loader: () => import('./pages/NurseryActivation'),
+    loading: Loading
+});
+
 export const LoadableClient = Loadable({
     loader: () => import(/* webpackChunkName: "app.client.root" */ './pages/ClubEdit'),
     loading: Loading
