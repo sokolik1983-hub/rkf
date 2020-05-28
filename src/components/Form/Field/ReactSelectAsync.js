@@ -65,8 +65,7 @@ class ReactSelectAsync extends Component {
     convertDataToOptions = (options) => {
         const {convertDataToOptions} = this.props;
         if (convertDataToOptions) {
-            convertDataToOptions(options);
-            return
+            return convertDataToOptions(options);
         }
         return options.map(option => ({
             label: option.name,
