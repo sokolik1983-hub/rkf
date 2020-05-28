@@ -8,7 +8,30 @@ import {Request} from "utils/request";
 import "./index.scss";
 
 const feds = {
-    rfss: '<script>(function (w,d,s,o,f,js,fjs){w["BookformObject"]=o;w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);}(window,document,"script","Bookform","https://widget.bookform.ru/29440/js"));</script><div id="bookform-embedded-widget-29440"></div><script>Bookform("embedded",{id:29440});</script>'
+    "РФСС": {
+        request: 29514,
+        receive: 29515
+    },
+    "РФЛС": {
+        request: 29516,
+        receive: 29517
+    },
+    "РФОС": {
+        request: 29518,
+        receive: 29519
+    },
+    "ОАНКОО/Фауна": {
+        request: 29520,
+        receive: 29521
+    },
+    "ОАНКОО/РКК": {
+        request: 29525,
+        receive: 29526
+    },
+    "ОАНКОО/Элита": {
+        request: 29523,
+        receive: 29524
+    }
 }
 
 const Bookform = ({history, clubAlias, distinction}) => {
@@ -23,7 +46,7 @@ const Bookform = ({history, clubAlias, distinction}) => {
             url: '/api/Club/club_federation'
         },
         data => {
-            setFederation(data);
+            data && data.short_name && feds[data.short_name] && setFederation(feds[data.short_name]);
             setLoading(false);
         },
         error => {
@@ -32,21 +55,21 @@ const Bookform = ({history, clubAlias, distinction}) => {
         }))();
     }, []);
 
-    return (<>
+    return (<HideIf cond={loading || !federation }>
         <Link to={`/${clubAlias}/documents`} onClick={e => {setShowModal('request');e.preventDefault();}}>Запись на сдачу документов</Link><br/>
         <Link to={`/${clubAlias}/documents`} onClick={e => {setShowModal('receive');e.preventDefault();}}>Запись на получение документов</Link>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
             {!loading ? <div ref={ref}>
                 <HideIf cond={showModal !== 'request'}>
-                    <iframe src={`https://widget.bookform.ru/29440/`}/>
+                    <iframe src={`https://widget.bookform.ru/${federation.request}/`}/>
                 </HideIf>
                 <HideIf cond={showModal !== 'receive'}>
-                    <iframe src={`https://widget.bookform.ru/29218/`}/>
+                    <iframe src={`https://widget.bookform.ru/${federation.receive}/`}/>
                 </HideIf>
             </div>
             : <Loading/>}
         </Modal>
-    </>)
+    </HideIf>)
 };
 
 export default React.memo(Bookform);
