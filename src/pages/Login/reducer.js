@@ -63,8 +63,8 @@ const isUserAuthenticated = () => {
 const authInitialState = {
     isAuthenticated: isUserAuthenticated(),
     is_active_profile: loadIsActiveProfile(),
-    user_info: loadUserInfo(),
     profile_id: loadProfile(),
+    user_info: loadUserInfo(),
     helpdesk_api_key: loadHelpdeskApiKey()
 };
 
@@ -78,16 +78,12 @@ const authReducer = createReducer(authInitialState, {
         saveProfile(profile_id);
         saveHelpdeskApiKey(helpdesk_api_key);
 
-        const { club_alias, club_name } = user_info;
-
         return {
             ...state,
-            club_alias,
-            club_name,
             isAuthenticated: true,
             is_active_profile,
-            user_info,
             profile_id,
+            user_info,
             helpdesk_api_key
         };
     },
@@ -100,6 +96,8 @@ const authReducer = createReducer(authInitialState, {
         return {
             ...state,
             isAuthenticated: false,
+            is_active_profile: false,
+            profile_id: null,
             user_info: null,
             helpdesk_api_key: null
         };
