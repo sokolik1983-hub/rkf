@@ -45,7 +45,7 @@ const CheckStatus = () => {
     };
 
     return <Card className="check-status">
-        <h3>Отслеживание статуса изготовления документов</h3>
+        <h3>Статус документов</h3>
         <form onSubmit={handleSubmit}>
             <input
                 className="check-status__input"
@@ -54,12 +54,12 @@ const CheckStatus = () => {
                 onChange={({ target }) => setBarcode(target.value)}
                 value={barcode}
                 title="Введите 13-значный номер отслеживания"
-                placeholder="Введите 13-значный номер отслеживания"
+                placeholder="введите трек-номер"
                 disabled={loading}
                 required
             />
             <div className="check-status__button">
-                <button type="submit" disabled={loading}>Найти</button>
+                <button type="submit" disabled={loading}>Поиск</button>
             </div>
         </form>
         {

@@ -8,7 +8,7 @@ const IsActivatedFilter = ({is_activated, setFilters}) => (
     <div className="is-activated-filter">
         <CustomCheckbox
             id="is-activated-filter"
-            label="Только активированные клубы"
+            label="Активированные клубы"
             checked={!!is_activated}
             onChange={() => setFilters({is_activated: !is_activated ? !is_activated : null, page: 1})}
         />
