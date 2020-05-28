@@ -29,8 +29,9 @@ const Statistics = () => {
             loading
                 ? <Loading centered={false} />
                 : <>
-                    <h3 style={{ fontSize: '22px' }}>
-                        {`Авторизацию на RKF.Online ${declension(clubs_total_count, ['прошел', 'прошли', 'прошли'])} ${clubDeclension(clubs_total_count)}`}
+                    <h3 className="Statistics__title">
+                        На RKF.Online авторизовано:<br />
+                        {clubDeclension(clubs_total_count)}
                     </h3>
                     {federation_clubs.map((f, key) => {
                         return <p key={key}>

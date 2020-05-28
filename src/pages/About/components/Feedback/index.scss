@@ -8,12 +8,12 @@
     padding: 12px;
   }
   &__title {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 32px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
     @media (max-width: 560px) {
       line-height: 18px;
       letter-spacing: 0.3px;

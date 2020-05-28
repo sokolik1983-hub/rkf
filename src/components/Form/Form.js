@@ -36,6 +36,7 @@ function Form({
     className,
     children,
     bindSubmitForm,
+    noEnter = false,
     resetForm = false
 }) {
     const [loading, setLoading] = useState(false);
@@ -96,7 +97,9 @@ function Form({
 
                 return withLoading && loading ?
                     <Loading centered={false} /> :
-                    <form className={classnames('Form', { [className]: className })} onSubmit={handleSubmit}>
+                    <form
+                        onKeyDown={noEnter ? e => e && e.key === 'Enter' && e.preventDefault() : undefined}
+                        className={classnames('Form', { [className]: className })} onSubmit={handleSubmit}>
                         {children}
                     </form>
             }}

@@ -195,6 +195,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 transformValues={transformValues}
                 initialValues={initial}
                 format="multipart/form-data"
+                noEnter={true}
             >
                 <Card>
                     <div className="club-documents-status__head">
