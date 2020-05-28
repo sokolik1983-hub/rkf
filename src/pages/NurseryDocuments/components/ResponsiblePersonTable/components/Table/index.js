@@ -18,7 +18,7 @@ class ResponsibleTable extends PureComponent {
         searchColumn: 'all',
         sortingColumns: null,
         pagination: {page: 1, perPage: 5},
-        clubAlias: this.props.clubAlias,
+        nurseryAlias: this.props.nurseryAlias,
         rows: this.props.declarants,
         columns: null
     };
@@ -46,7 +46,7 @@ class ResponsibleTable extends PureComponent {
         return getTableColumns(
             this.state.sortingColumns,
             sortable,
-            this.state.clubAlias,
+            this.state.nurseryAlias,
             id => this.deletePerson(id),
             id => this.setDefaultPerson(id)
         );

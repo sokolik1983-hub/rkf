@@ -20,7 +20,7 @@ class StatusTable extends PureComponent {
         sortingColumns: null,
         pagination: {page: 1, perPage: 5},
         distinction: this.props.distinction,
-        clubAlias: this.props.clubAlias,
+        nurseryAlias: this.props.nurseryAlias,
         rows: this.props.documents,
         columns: null,
         showModal: false,
@@ -51,8 +51,10 @@ class StatusTable extends PureComponent {
             this.state.sortingColumns,
             sortable,
             this.state.distinction,
-            this.state.clubAlias,
-            data => this.setState(data)
+            this.state.nurseryAlias,
+            data => this.setState(data),
+            this.props.rowClick,
+            this.props.deleteRow
         );
     };
 

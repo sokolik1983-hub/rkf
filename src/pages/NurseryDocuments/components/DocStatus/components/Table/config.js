@@ -4,9 +4,11 @@ import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
+import {Request} from "utils/request";
 
+const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 
-export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAlias, setState, rowClick, deleteRow) => {
     let cols = [
         {
             property: 'date_create',
@@ -51,7 +53,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
 
         col.cell = {
             formatters: [
-                (data, extra) => (search.highlightCell(data, extra))
+                (data, extra) => (<div onClick={() => rowClick && extra && extra.rowData && extra.rowData.id && rowClick(extra.rowData.id)}>{search.highlightCell(data, extra)}</div>)
             ]
         };
 
@@ -71,7 +73,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}`}
+                                        to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}`}
                                         className="row-control__link"
                                     >
                                         Подробнее
@@ -90,7 +92,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                 {rowData.status_id === 4 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/form`}
+                                            to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/form`}
                                             className="row-control__link"
                                         >
                                             Редактировать
@@ -100,7 +102,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
+                                            to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/edit`}
                                             className="row-control__link"
                                         >
                                             Ответить
@@ -109,12 +111,31 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                 }
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}/print`}
+                                        to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/print`}
                                         className="row-control__link"
                                     >
                                         Печать
                                     </Link>
                                 </li>
+                                {rowData.status_id === 4 &&
+                                    <li className="row-control__item">
+                                        <Link to={`/nursery/${nurseryAlias}/documents/`}
+                                            className="row-control__link red"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                if (window.confirm("Удалить черновик?")) {
+                                                    Request({url:`/api/requests/${up(distinction)}Request`,data:rowData.id,method:'DELETE'},
+                                                        data => {deleteRow && deleteRow(rowData.id);window.alert('Заявка удалена')},
+                                                        e => window.alert('Отсутствует соединение с сервером')
+                                                    )
+                                                }
+                                            }}
+                                        >
+                                            Удалить черновик
+                                        </Link>
+                                    </li>
+                                }
+
                             </ul>
                         </RowControl>
                     )

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
+import Bookform from '../Bookform';
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
 import Registry from '../Stamps/Registry';
@@ -28,11 +29,15 @@ const DocumentCards = ({ nurseryAlias }) => {
                 <p>
                     <a href="https://help.rkf.online/ru/knowledge_base/art/4/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче заявления на регистрацию помета</a>
                 </p>
+                <p>
+                    <a href="https://help.rkf.online/ru/knowledge_base/article/81/category/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по подаче заявления на регистрацию помета</a>
+                </p>
             </div>
             <hr />
             <div className="Card__links">
                 <Link to={`/nursery/${nurseryAlias}/documents/litter/form`}>Подать заявление</Link>
                 <Link to={`/nursery/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                <Link to={`/nursery/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -54,6 +59,7 @@ const DocumentCards = ({ nurseryAlias }) => {
             <div className="Card__links">
                 <Link to={`/nursery/${nurseryAlias}/documents/pedigree/form`}>Подать заявление</Link>
                 <Link to={`/nursery/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                <Link to={`/nursery/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -142,15 +148,21 @@ const ResponsibleCards = ({ nurseryAlias }) => {
     </div>
 };
 
-const DocHome = ({ nurseryAlias }) => {
+const DocHome = ({ nurseryAlias, bookform }) => {
+    const [alert, seAlert] = useState(false);
+    const handleClick = e => {
+        e.preventDefault();
+        seAlert(true);
+    };
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
                 <Link to={`/nursery/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to={`/nursery/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>
-                <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/nursery/${nurseryAlias}`} title="Страница питомника">Страница питомника</Link>
+                <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
+                <Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
+                {bookform && <Bookform nurseryAlias={nurseryAlias}/>}
             </CustomMenu>
         </aside>
         <Switch>
@@ -159,6 +171,14 @@ const DocHome = ({ nurseryAlias }) => {
             <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
+        {alert &&
+                <Alert
+                    title="Внимание!"
+                    text="Раздел находится в разработке."
+                    autoclose={1.5}
+                    onOk={() => seAlert(false)}
+                />
+            }
     </div>
 };
 

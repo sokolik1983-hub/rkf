@@ -6,7 +6,7 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const PuppiesMetrics = ({history, clubAlias}) => {
+const PuppiesMetrics = ({history, nurseryAlias}) => {
     const [loading, setLoading] = useState(true);
     const [puppies, setPuppies] = useState(null);
 
@@ -29,11 +29,11 @@ const PuppiesMetrics = ({history, clubAlias}) => {
         <Card className="puppies-metrics">
             <div className="puppies-metrics__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;МЕТРИКА ЩЕНКА
+                &nbsp;/&nbsp;Метрика щенка
             </div>
             <div className="puppies-metrics__table">
                 {puppies && !!puppies.length ?
-                    <PuppiesTable puppies={puppies} clubAlias={clubAlias}/> :
+                    <PuppiesTable puppies={puppies} nurseryAlias={nurseryAlias}/> :
                     <h2>Документов не найдено</h2>
                 }
             </div>

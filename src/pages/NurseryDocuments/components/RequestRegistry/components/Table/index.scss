@@ -1,0 +1,71 @@
+.request-registry-table__table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  width: 100%;
+  thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+    border-bottom: 1px solid #cbcbcb;
+  }
+  td, th {
+    border-left: 1px solid #cbcbcb;
+    padding: 8px 16px;
+  }
+  tbody {
+    tr:nth-child(2n-1) {
+      background-color: #f2f2f2
+    }
+  }
+  tfoot {
+    border-top: 1px solid #cbcbcb;
+    td {
+      font-weight: bold;
+      border: none;
+    }
+  }
+  .sort-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .sort-value {
+    margin-right: 15px;
+  }
+  .sort-order {
+    margin-left: auto;
+  }
+  .sort {
+    margin-left: 5px;
+    cursor: pointer;
+    &-none:after {
+      content: "\21D5";
+      font-size: 1em;
+    }
+    &-asc:after {
+      content: "\25BC";
+      font-size: 0.7em;
+    }
+    &-desc:after {
+      content: "\25B2";
+      font-size: 0.7em;
+    }
+  }
+  .highlight {
+    background: yellow;
+  }
+}
+
+.status-table__modal {
+  .Modal__inner {
+    padding: 0;
+  }
+  .Modal__close {
+    right: 24px !important;
+    width: 12px;
+    height: 12px;
+  }
+}

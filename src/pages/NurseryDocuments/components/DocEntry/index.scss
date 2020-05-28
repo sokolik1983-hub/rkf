@@ -1,0 +1,23 @@
+.DocEntry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    &__status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        position: relative;
+        padding: .075rem .125rem;
+        margin-bottom: .1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+    }
+}

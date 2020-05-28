@@ -37,18 +37,18 @@ export const OwnerFormConfig = {
             placeholder: 'Адрес',
             type: 'text'
         },
-        suffix: {
-            name: 'suffix',
-            label: 'Суффикс',
-            placeholder: 'Суффикс',
-            type: 'text'
-        },
-        prefix: {
-            name: 'prefix',
-            label: 'Префикс',
-            placeholder: 'Префикс',
-            type: 'text'
-        }
+        // suffix: {
+        //     name: 'suffix',
+        //     label: 'Суффикс',
+        //     placeholder: 'Суффикс',
+        //     type: 'text'
+        // },
+        // prefix: {
+        //     name: 'prefix',
+        //     label: 'Префикс',
+        //     placeholder: 'Префикс',
+        //     type: 'text'
+        // }
     },
     validationSchema: object().shape({
         last_name: string()

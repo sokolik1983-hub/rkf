@@ -1,0 +1,38 @@
+.radio {
+    font-size: 1em;
+    padding: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio svg {
+    width: 1em;
+    height: 1em;
+    margin-right: .3em;
+    position: relative;
+    bottom: 1px;
+}
+
+.radio svg circle {
+    transition: .4s all;
+}
+
+.radio .passive {
+    opacity: 0;
+    transform: scale(0.1,0.1);
+    transform-origin: center center;
+}
+
+.radio.active .passive {
+    opacity: 1;
+    transform: scale(1,1);
+}
+
+.disabled .radio {
+    opacity: 0.75;
+    pointer-events: none;
+}

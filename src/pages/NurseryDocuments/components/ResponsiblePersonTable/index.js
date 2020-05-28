@@ -6,7 +6,7 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const ResponsivePersonTable = ({history, clubAlias}) => {
+const ResponsivePersonTable = ({history, nurseryAlias}) => {
     const [loading, setLoading] = useState(true);
     const [declarants, setDeclarants] = useState(null);
 
@@ -29,11 +29,11 @@ const ResponsivePersonTable = ({history, clubAlias}) => {
         <Card className="responsible-persons">
             <div className="responsible-persons__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;ЗАЯВИТЕЛИ
+                &nbsp;/&nbsp;Заявители
             </div>
             <div className="responsible-persons__table">
                 {declarants && !!declarants.length ?
-                    <ResponsibleTable declarants={declarants} clubAlias={clubAlias}/> :
+                    <ResponsibleTable declarants={declarants} nurseryAlias={nurseryAlias}/> :
                     <h2>Ответственных лиц не найдено</h2>
                 }
             </div>

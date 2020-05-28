@@ -5,7 +5,7 @@ import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerson, setDefaultPerson) => {
+export const getTableColumns = (sortingColumns, sortable, nurseryAlias, deletePerson, setDefaultPerson) => {
     let cols = [
         {
             property: 'full_name',
@@ -88,7 +88,7 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, deletePerso
                                 </li>
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${clubAlias}/documents/responsible/${rowData.id}/edit`}
+                                        to={`/nursery/${nurseryAlias}/documents/responsible/${rowData.id}/edit`}
                                         className="row-control__link"
                                     >
                                         Редактировать

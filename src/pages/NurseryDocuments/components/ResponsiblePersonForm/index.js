@@ -9,7 +9,7 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const ResponsiblePersonForm = ({clubAlias, history}) => {
+const ResponsiblePersonForm = ({nurseryAlias, history}) => {
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
     const [okAlert, setOkAlert] = useState(false);
@@ -111,7 +111,7 @@ const ResponsiblePersonForm = ({clubAlias, history}) => {
                     text="Документы отправлены на рассмотрение. Вы можете отслеживать их статус в личном кабинете."
                     autoclose={2.5}
                     okButton="true"
-                    onOk={() => history.push(`/${clubAlias}/documents`)}
+                    onOk={() => history.push(`/nursery/${nurseryAlias}/documents`)}
                 />
             }
             {errAlert &&

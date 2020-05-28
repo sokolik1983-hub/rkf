@@ -6,7 +6,7 @@ import { formatDateWithTime } from "../../../../../../utils";
 import { Link } from "react-router-dom";
 
 
-export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, nurseryAlias, setState) => {
     let cols = [
         {
             property: 'date_create',
@@ -81,7 +81,7 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${clubAlias}/documents/puppy/metrics/${rowData.id}/print`}
+                                        to={`/nursery/${nurseryAlias}/documents/puppy/metrics/${rowData.id}/print`}
                                         className="row-control__link"
                                     >
                                         Распечатать
@@ -92,17 +92,12 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
                                         <li className="row-control__item">
                                             <span
                                                 className="row-control__link"
-                                                onClick={() => setState({puppyId: rowData.id, showModal: true})}
+                                                onClick={() => setState({
+                                                    puppyId: rowData.id,
+                                                    showModal: true
+                                                })}
                                             >
                                                 Добавить владельца
-                                            </span>
-                                        </li>
-                                        <li className="row-control__item">
-                                            <span
-                                                className="row-control__link"
-                                                onClick={() => null}
-                                            >
-                                                Добавить в заявку на оформление родословной
                                             </span>
                                         </li>
                                     </>

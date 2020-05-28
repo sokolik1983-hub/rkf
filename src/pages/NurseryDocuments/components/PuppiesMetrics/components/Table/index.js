@@ -19,7 +19,7 @@ class PuppiesTable extends PureComponent {
         searchColumn: 'all',
         sortingColumns: null,
         pagination: {page: 1, perPage: 5},
-        clubAlias: this.props.clubAlias,
+        nurseryAlias: this.props.nurseryAlias,
         rows: this.props.puppies,
         columns: null,
         showModal: false,
@@ -46,7 +46,7 @@ class PuppiesTable extends PureComponent {
             strategy: sort.strategies.byProperty
         });
 
-        return getTableColumns(this.state.sortingColumns, sortable, this.state.clubAlias, data => this.setState(data));
+        return getTableColumns(this.state.sortingColumns, sortable, this.state.nurseryAlias, data => this.setState(data));
     };
 
     onSelect = page => {
