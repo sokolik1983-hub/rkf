@@ -124,7 +124,7 @@ const NurseryRegistration = ({history}) => {
                                 transformValues={transformCodeValues}
                                 onSuccess={codeFormSuccess}
                                 onError={handleFormError}
-                                className="kennel-registration__form-code"
+                                className="nursery-registration__form-code"
                             >
                                 <FormField {...codeForm.fields.code} />
                                 <button className="btn btn-primary" type="submit">Активировать</button>
