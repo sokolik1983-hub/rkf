@@ -105,6 +105,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/nursery/activation',
+        component: LoadableModules.LoadableNurseryActivation
+    },
+    {
+        exact: true,
         path: '/nursery/:id',
         component: LoadableModules.LoadableNurseryPage
     },
