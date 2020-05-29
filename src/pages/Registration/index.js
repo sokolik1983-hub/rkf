@@ -1,17 +1,19 @@
 import React, {useState} from "react";
 import Layout from "../../components/Layouts";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import ClubRegistration from "./components/ClubRegistration";
 import NurseryRegistration from "./components/NurseryRegistration";
 import {LOGIN_URL} from "../../appConfig";
+import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
 
 
-const RegistrationPage = ({history}) => {
+const RegistrationPage = ({history, isAuthenticated}) => {
     const [activeTab, setActiveTab] = useState('club');
 
-    return (
+    return isAuthenticated ?
+        <Redirect to={'/'}/> :
         <Layout>
             <AuthLayout className="registration-page">
                 <div className="registration-page__login">Уже есть аккаунт? Воспользуйтесь формой <Link className="registration-page__login-link" to={LOGIN_URL}>ВХОДА</Link></div>
@@ -42,7 +44,6 @@ const RegistrationPage = ({history}) => {
                 </div>
             </AuthLayout>
         </Layout>
-    )
 };
 
-export default React.memo(RegistrationPage);
+export default connectAuthVisible(React.memo(RegistrationPage));

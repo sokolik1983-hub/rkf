@@ -50,6 +50,12 @@
     display: flex;
     align-items: start;
     margin-top: 24px;
+    @media (max-width: 400px) {
+      display: block;
+      .btn {
+        margin-left: 0;
+      }
+    }
     .FormInput .FormInput__input {
       padding: 6px 10px;
     }

@@ -4,7 +4,7 @@ import CustomText from "../../../../components/Form/Field/CustomText";
 import Alert from "../../../../components/Alert";
 import {Request} from "../../../../utils/request";
 import {LOGIN_URL} from "../../../../appConfig";
-import {federationForm, nurseryForm, codeForm} from "./config";
+import {federationForm, nurseryForm, createForm, codeForm} from "./config";
 import "./index.scss";
 
 
@@ -12,6 +12,7 @@ const NurseryRegistration = ({history}) => {
     const [federations, setFederations] = useState([]);
     const [isFederationFormSend, setIsFederationFormSend] = useState(false);
     const [isCodeFormSend, setIsCodeFormSend] = useState(false);
+    const [isNurseryFound, setIsNurseryFound] = useState(true);
     const [nursery, setNursery] = useState(null);
     const [code, setCode] = useState(null);
     const [alert, setAlert] = useState(false);
@@ -29,24 +30,28 @@ const NurseryRegistration = ({history}) => {
             }))();
     }, []);
 
+    const transformFederationValues = values => {
+        setNursery({...values});
+        return values;
+    };
+
     const federationFormSuccess = data => {
         if(data) {
             setNursery({...data, city_id: data.city ? data.city.id: ''});
-            setIsFederationFormSend(true);
         } else {
-            setAlertText('Питомник не найден. Проверьте правильность введенных данных. Если данные верны, воспользуйтесь формой обратной связи.');
-            setAlert(true);
+            setIsNurseryFound(false);
         }
+
+        setIsFederationFormSend(true);
     };
 
-    const transformNurseryValues = data => {
-        let newData = {...data};
-        delete newData.city;
+    const transformNurseryValues = values => {
+        let newData = {...values};
+        if(newData.city) delete newData.city;
 
         setNursery(newData);
 
         return {
-            profile_id: newData.profile_id,
             mail: newData.mail
         };
     };
@@ -57,7 +62,8 @@ const NurseryRegistration = ({history}) => {
 
     const transformCodeValues = values => {
         const newValues = {...values, ...nursery};
-        delete newValues.name;
+        if(isNurseryFound) delete newValues.name;
+
         return newValues;
     };
 
@@ -69,7 +75,7 @@ const NurseryRegistration = ({history}) => {
 
     const handleFormError = error => {
         if(error.response && error.response.data && error.response.data.errors) {
-            setAlertText(error.response.data.errors.error);
+            setAlertText(`${Object.values(error.response.data.errors)}`);
         }
         setAlert(true);
     };
@@ -79,6 +85,7 @@ const NurseryRegistration = ({history}) => {
             {!isFederationFormSend &&
                 <Form
                     {...federationForm}
+                    transformValues={transformFederationValues}
                     onSuccess={federationFormSuccess}
                     onError={handleFormError}
                     className="nursery-registration__form"
@@ -90,7 +97,7 @@ const NurseryRegistration = ({history}) => {
             }
             {isFederationFormSend &&
                 <div className="nursery-registration__info">
-                    {code === null &&
+                    {code === null && isNurseryFound &&
                         <>
                             <div className="nursery-registration__about">
                                 <p>Пожалуйста, проверьте правильность указанной информации:</p>
@@ -115,12 +122,50 @@ const NurseryRegistration = ({history}) => {
                             </div>
                         </>
                     }
+                    {code === null && !isNurseryFound &&
+                        <>
+                            <div className="nursery-registration__activate-email">
+                                <Form
+                                    {...createForm}
+                                    initialValues={{
+                                        ...nursery,
+                                        stamp_code: '',
+                                        city_id: '',
+                                        name: '',
+                                        owner_last_name: '',
+                                        owner_first_name: '',
+                                        owner_second_name: '',
+                                        mail: ''
+                                    }}
+                                    transformValues={transformNurseryValues}
+                                    onSuccess={nurseryFormSuccess}
+                                    onError={handleFormError}
+                                    className="nursery-registration__form-email"
+                                >
+                                    <FormField {...createForm.fields.federation_id} options={federations} />
+                                    <FormField {...createForm.fields.folder_number} />
+                                    <FormField {...createForm.fields.stamp_code} />
+                                    <FormField {...createForm.fields.city_id} />
+                                    <FormField {...createForm.fields.name} />
+                                    <CustomText {...createForm.fields.owner_last_name} />
+                                    <CustomText {...createForm.fields.owner_first_name} />
+                                    <CustomText {...createForm.fields.owner_second_name} />
+                                    <FormField {...createForm.fields.mail} />
+                                    <button className="btn btn-primary" type="submit">Отправить</button>
+                                </Form>
+                            </div>
+                        </>
+                    }
                     {code !== null &&
                         <>
                             <p>Мы отправили письмо с проверочным кодом на указанный вами адрес: <b>{nursery.mail || ''}</b></p>
                             <p>Пожалуйста, зайдите в свою почту и введите полученный код ниже.</p>
                             <Form
                                 {...codeForm}
+                                action={isNurseryFound ?
+                                    '/api/Registration/nursery/confirm' :
+                                    '/api/Registration/nursery/create_and_confirm'
+                                }
                                 transformValues={transformCodeValues}
                                 onSuccess={codeFormSuccess}
                                 onError={handleFormError}
