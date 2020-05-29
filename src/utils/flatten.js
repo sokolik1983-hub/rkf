@@ -10,7 +10,9 @@ const flatten = ob => {
                 if (!flatObject.hasOwnProperty(x)) continue;
                 let si = isNaN(i) ? i : `[${i}]`;
                 let sx = x[0] !== '[' ? `.${x}` : x;
+                if (!isNaN(x)) {sx = `[${x}]`};
                 toReturn[`${si}${sx}`] = flatObject[x];
+                console.log(toReturn);
             }
         } else {
             if (ob[i] instanceof Date) {
