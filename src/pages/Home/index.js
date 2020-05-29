@@ -107,7 +107,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     </HorizontalSwipe>
                 </div>
 
-                <h3 className="Homepage__exhibitions-header">Всероссийские мероприятия</h3>
+                <h3 className="Homepage__exhibitions-header">Международные мероприятия</h3>
                 <div className="Homepage__exhibitions-wrap">
                     <HorizontalSwipe id="Homepage__exhibitions-list">
                         <ul className="Homepage__exhibitions-list">
