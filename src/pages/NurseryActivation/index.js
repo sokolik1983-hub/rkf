@@ -1,67 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, {useState, useEffect} from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import { Request } from "../../utils/request";
-import { connectWidgetLogin } from "../Login/connectors";
-import Feedback from "components/Feedback";
-import { Form, FormField, FormGroup } from 'components/Form';
-import { config, defaultFields } from './config';
-import Alert from 'components/Alert';
+import Feedback from "../../components/Feedback";
+import {Form} from "../../components/Form";
+import RenderFields from "./RenderFields";
+import Alert from "../../components/Alert";
+import {Request} from "../../utils/request";
+import {connectWidgetLogin} from "../Login/connectors";
+import {activationForm, defaultValues} from './config';
 import "./index.scss";
 
-const NurseryActivation = ({ clubId, history, logOutUser }) => {
-    const [fields, setFields] = useState(defaultFields);
+
+const NurseryActivation = ({history, logOutUser}) => {
+    const [initialValues, setInitialValues] = useState(defaultValues);
+    const [streetTypes, setStreetTypes] = useState([]);
+    const [houseTypes, setHouseTypes] = useState([]);
+    const [flatTypes, setFlatTypes] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
 
-
     useEffect(() => {
-        Promise.all([
-            getFields()
-        ])
-            .then(() => setLoaded(true));
-    }, []);
-
-    const getFields = () => {
-        return Request({
+        (() => Request({
             url: '/api/nurseries/Nursery/nursery_registration_main_info'
         }, data => {
-            const updatedFields = { ...fields };
-            const { profile_id,
-                owner_first_name,
-                owner_last_name,
-                owner_second_name,
-                name,
-                mail,
-                folder_number,
-                city_id,
-                stamp_code,
-                street_types,
-                house_types,
-                flat_types,
-            } = data;
+            if(data) {
+                const {
+                    owner_first_name,
+                    owner_last_name,
+                    owner_second_name,
+                    name,
+                    mail,
+                    folder_number,
+                    city_id,
+                    stamp_code,
+                    street_types,
+                    house_types,
+                    flat_types,
+                } = data;
 
-            updatedFields.ownerName.value = `${owner_last_name} ${owner_first_name} ${owner_second_name}`;
-            updatedFields.nurseryName.value = name;
-            updatedFields.mail.value = mail;
-            updatedFields.folder_number.value = folder_number;
-            updatedFields.stamp_code.value = stamp_code;
-
-            updatedFields.city.value = city_id;
-
-            setFields(...updatedFields);
+                setStreetTypes(street_types.map(item => ({value: item.id, label: item.name})));
+                setHouseTypes(house_types.map(item => ({value: item.id, label: item.name})));
+                setFlatTypes(flat_types.map(item => ({value: item.id, label: item.name})));
+                setInitialValues({
+                    ...initialValues,
+                    name,
+                    owner_name: `${owner_last_name} ${owner_first_name}${owner_second_name ? ' ' + owner_second_name : ''}`,
+                    city: city_id,
+                    mail,
+                    stamp_code,
+                    folder_number
+                })
+            }
+            setLoaded(true);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
-        })
-    };
+            setLoaded(true);
+        }))();
+    }, []);
 
+    const transformValues = values => {
+        const newValues = {...values};
+        delete newValues.name;
+        delete newValues.owner_name;
+        delete newValues.city;
+        delete newValues.mail;
+        delete newValues.stamp_code;
+        delete newValues.folder_number;
+
+        return newValues;
+    };
 
     const handleSuccess = () => {
         setSuccessAlert(true);
@@ -70,7 +83,7 @@ const NurseryActivation = ({ clubId, history, logOutUser }) => {
         history.push('/');
     };
 
-    const handleError = (e) => {
+    const handleError = e => {
         setSubmitting(false);
         setErrorText(`${
             e.response.data.errors
@@ -82,71 +95,29 @@ const NurseryActivation = ({ clubId, history, logOutUser }) => {
 
     return (
         <Layout>
-            <Container className="content NurseryActivation">
+            <Container className="content nursery-activation">
                 {!loaded
                     ? <Loading />
                     : <>
                         <h2 style={{ textAlign: 'center' }}>ЗАЯВКА НА ПОДКЛЮЧЕНИЕ К ПОРТАЛУ RKF.ONLINE</h2>
                         <Card>
-                            <Form {...config} onSuccess={handleSuccess} onError={handleError}>
-                                <FormField {...fields.ownerName} />
-                                <FormGroup inline>
-                                    <FormField {...fields.city} />
-                                    <FormField {...fields.postcode} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.street_type_id} />
-                                    <FormField {...fields.street_name} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.house_type_id} />
-                                    <FormField {...fields.house_name} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.flat_type_id} />
-                                    <FormField {...fields.flat_name} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.phone} />
-                                    <FormField {...fields.mail} />
-                                </FormGroup>
-
-                                <FormField {...fields.owner_specialist_rkf} />
-                                <FormGroup inline>
-                                    <FormField {...fields.owner_special_education} />
-                                    <FormField {...fields.owner_speciality} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.owner_place_speciality} />
-                                    <FormField {...fields.owner_date_speciality} />
-                                </FormGroup>
-
-                                <FormGroup inline>
-                                    <FormField {...fields.nurseryName} />
-                                    <FormField {...fields.registration_date} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.stamp_code} />
-                                    <FormField {...fields.folder_number} />
-                                    <FormField {...fields.experience_dog_breeding} />
-                                </FormGroup>
-                                <FormGroup inline>
-                                    <FormField {...fields.breeds} />
-                                    <FormField {...fields.puppies_total_count} />
-                                </FormGroup>
-                                <FormField {...fields.owner_ranks} />
-                                <FormField {...fields.dogs_ranks} />
-                                <FormField {...fields.certificate_registration_nursery_document} />
-                                <FormField {...fields.certificate_registration_in_rkf_document} />
-                                <FormField {...fields.certificate_special_education_document} />
-                                <FormField {...fields.certificate_specialist_rkf_document} />
-                                <FormField {...fields.certificate_honorary_title_document} />
-                                {
-                                    <div className="NurseryActivation__submit">
-                                        {submitting && <Loading inline={true} />}
-                                        <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
-                                    </div>
-                                }
+                            <Form
+                                {...activationForm}
+                                initialValues={initialValues}
+                                transformValues={transformValues}
+                                onSuccess={handleSuccess}
+                                onError={handleError}
+                                className="nursery-activation__form"
+                            >
+                                <RenderFields
+                                    streetTypes={streetTypes}
+                                    houseTypes={houseTypes}
+                                    flatTypes={flatTypes}
+                                />
+                                <div className="nursery-activation__submit">
+                                    {submitting && <Loading inline={true} />}
+                                    <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
+                                </div>
                             </Form>
                             {successAlert &&
                                 <Alert
@@ -165,7 +136,7 @@ const NurseryActivation = ({ clubId, history, logOutUser }) => {
                                 />
                             }
                         </Card>
-                        <p className="NurseryActivation__feedback-reminder">
+                        <p className="nursery-activation__feedback-reminder">
                             В случае обнаружения ошибок или несоответствий - воспользуйтесь формой&nbsp;
                             <Feedback className="feedback-link" title="обратной связи" />
                         </p>
@@ -176,8 +147,4 @@ const NurseryActivation = ({ clubId, history, logOutUser }) => {
     )
 };
 
-const mapStateToProps = state => ({
-    clubId: state.authentication.profile_id
-});
-
-export default connect(mapStateToProps)(connectWidgetLogin(NurseryActivation));
+export default connectWidgetLogin(React.memo(NurseryActivation));

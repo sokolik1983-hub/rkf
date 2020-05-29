@@ -1,4 +1,4 @@
-.NurseryActivation {
+.nursery-activation {
   h2 {
     font-weight: 600;
     font-size: 26px;
@@ -23,10 +23,42 @@
       font-weight: normal;
       width: 100%;
       border-radius: 3px;
-      padding: 0 5px;
+      padding: 6px 7px;
     }
     @media (max-width: 560px) {
       padding: 16px;
+    }
+  }
+  &__form {
+    .nursery-activation__group {
+      align-items: center;
+      .custom-checkbox {
+        margin-top: 32px;
+      }
+    }
+    .RSInput__control {
+      padding: 0 !important;
+      min-height: auto !important;
+      border-radius: 4px !important;
+      border-width: 2px !important;
+    }
+    .RSInput__value-container {
+      padding: 0 5px !important;
+    }
+    .RSInput__menu {
+      margin-top: 0 !important;
+    }
+    .FormInput__input {
+      border-radius: 4px !important;
+      & > div {
+        border: none !important;
+        padding: 0 !important;
+        min-height: auto !important;
+        margin-top: 0 !important;
+        & > div {
+          padding: 0 5px !important;
+        }
+      }
     }
   }
   .FormField {
