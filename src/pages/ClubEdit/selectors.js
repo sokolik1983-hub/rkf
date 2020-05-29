@@ -40,7 +40,6 @@ export const selectClubContacts = state => {
     }
 };
 
-
 export const selectListContact = state => {
     const { profile_id: club_id } = selectIsAuthenticated(state);
 
@@ -61,7 +60,6 @@ export const selectClubId = state => {
         club_id
     }
 };
-
 
 export const selectClubContact = (state, props) => {
     const { listCollection } = selectListContact(state);

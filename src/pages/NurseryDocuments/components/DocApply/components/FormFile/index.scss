@@ -1,0 +1,12 @@
+.hidden-file {
+    display: none;
+}
+
+label.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.btn.nomargin {
+    margin-bottom: 0!important;
+}

@@ -19,7 +19,7 @@ const ClubInfoForm = ({clubInfo, clubInfoUpdateSuccess, bindSubmitForm}) => {
 
     const onSuccess = values => {
         clubInfoUpdateSuccess(values);
-        ls.set('user_info', { ...ls.get('user_info'), club_name: values.name });
+        ls.set('user_info', { ...ls.get('user_info'), name: values.name });
     };
 
     return (

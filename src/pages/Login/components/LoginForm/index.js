@@ -38,7 +38,7 @@ const LoginForm = ({loginUserSuccess}) => {
                     checked={rememberMe}
                     onChange={() => setRememberMe(!rememberMe)}
                 />
-                <Link to="/recovery" className="login-page__recovery-link" >Забыли пароль?</Link>
+                <Link to="/recovery" className="login-page__recovery-link">Забыли пароль?</Link>
             </FormGroup>
             <div className="login-page__form-controls">
                 <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>

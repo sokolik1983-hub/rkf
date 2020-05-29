@@ -1,0 +1,175 @@
+.DocRegistry,
+.PuppyMetrics {
+    margin: auto;
+    font-weight: 400;
+    width: 750px;
+    h1 {
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+    }
+    h3 {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 15px;
+    }
+}
+.DocRegistry {
+    &__columns {
+        display: flex;
+        margin: 20px 0;
+        div:first-child {
+            width: 68%;
+        }
+        div + div {
+            width: 32%;
+        }
+    }
+    table {
+        width: 100%;
+        tbody {
+            tr:first-child {
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+        td {
+            border: 1px solid;
+            padding: 5px;
+            &:first-child {
+                text-align: center;
+            }
+            p {
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+    .print-button {
+        margin-top: 25px;
+        text-align: right;
+        a {
+            font-size: 18px;
+            text-decoration: none;
+        }
+        @media print {
+            display: none;
+        }
+    }
+    .request-check-code {
+        text-align: right;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+    @media print {
+        visibility: visible;
+    }
+}
+.PuppyMetrics {
+    position: relative;
+    font-family: "Times New Roman", serif;
+    -webkit-print-color-adjust: exact;
+    z-index: 0;
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 30px;
+        left: 0;
+        background: url("/static/images/header/rkf-logo-transparent.svg") center center/95% no-repeat;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        z-index: -1;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    &__bordered-block {
+        text-align: center;
+        border: 1px solid black;
+        margin: 5px 0;
+        & + p {
+            line-height: 18px;
+        }
+    }
+    &__centered-block {
+        text-align: center;
+        margin-bottom: 0 !important;
+    }
+    &__logo {
+        position: absolute;
+        width: 100px;
+        top: 20px;
+    }
+    table {
+        width: 100%;
+        line-height: 22px;
+        td {
+            border: 1px solid;
+            padding: 0px 10px;
+            p {
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+        & + table {
+            margin-top: 10px;
+        }
+    }
+    .print-button {
+        margin-top: 25px;
+        text-align: right;
+        a {
+            font-size: 18px;
+            text-decoration: none;
+        }
+        @media print {
+            display: none;
+        }
+    }
+    &__footer {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    &__column-block {
+        display: flex;
+        flex-direction: column;
+        min-height: 66px;
+    }
+    &__data {
+        color: navy;
+        margin-left: 10px;
+        &.no-margin {
+            margin: 0;
+        }
+    }
+    @media print {
+        visibility: visible;
+    }
+}
+#wrap {
+    .header,
+    .Footer,
+    .top-component,
+    .club-documents-status__head {
+        @media print {
+            display: none;
+        }
+    }
+    .Card {
+        @media print {
+            visibility: hidden;
+        }
+    }
+    .documents-page {
+        @media print {
+            background-color: white;
+        }
+    }
+}

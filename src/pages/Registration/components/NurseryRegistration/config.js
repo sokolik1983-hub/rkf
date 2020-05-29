@@ -31,7 +31,7 @@ export const federationForm = {
 
 export const nurseryForm = {
     method: 'POST',
-    action: '/api/Registration/nursery/activate',
+    action: '/api/Registration/nursery/send_activation_code',
     withLoading: true,
     fields: {
         city_id: {
@@ -42,10 +42,20 @@ export const nurseryForm = {
             type: 'select',
             optionsEndpoint: '/api/city'
         },
-        owner_name: {
-            name: 'owner_name',
-            label: 'ФИО владельца',
-            placeholder: 'ФИО владельца'
+        owner_last_name: {
+            name: 'owner_last_name',
+            label: 'Фамилия владельца',
+            placeholder: 'Фамилия владельца'
+        },
+        owner_first_name: {
+            name: 'owner_first_name',
+            label: 'Имя владельца',
+            placeholder: 'Имя владельца'
+        },
+        owner_second_name: {
+            name: 'owner_second_name',
+            label: 'Отчество владельца',
+            placeholder: 'Отчество владельца'
         },
         mail: {
             name: 'mail',
@@ -56,7 +66,27 @@ export const nurseryForm = {
     },
     validationSchema: object().shape({
         city_id: string().required('Укажите город'),
-        owner_name: string().required('Укажите ФИО'),
+        owner_last_name: string().required('Укажите Фамилию'),
+        owner_first_name: string().required('Укажите Имя'),
         mail: string().email('Неверный формат E-mail').required('Укажите E-mail')
+    })
+};
+
+export const codeForm = {
+    method: 'POST',
+    action: '/api/Registration/nursery/confirm',
+    withLoading: true,
+    initialValues: {
+        activation_code: ''
+    },
+    fields: {
+        activation_code: {
+            name: 'activation_code',
+            type: 'text',
+            placeholder: 'Введите код'
+        }
+    },
+    validationSchema: object().shape({
+        activation_code: string().required('Введите код')
     })
 };

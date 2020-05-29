@@ -7,7 +7,7 @@ import {connectClubAlias} from "../../../../connectors";
 const ClientClubAlias = ({club_alias, club_id, clubAliasUpdateSuccess, bindSubmitForm}) => {
     const onSuccess = values => {
         clubAliasUpdateSuccess(values);
-        ls.set('user_info', { ...ls.get('user_info'), club_alias: values.alias_name });
+        ls.set('user_info', { ...ls.get('user_info'), alias: values.alias_name });
     };
 
     const transformValues = values => ({ ...values, club_id });
