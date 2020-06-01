@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Form, FormField, SubmitButton} from "components/Form";
+import React, { useEffect, useState } from "react";
+import { Form, FormField, SubmitButton } from "components/Form";
 import CustomText from "components/Form/Field/CustomText";
 import Alert from "components/Alert";
-import {Request} from "utils/request";
-import {federationForm, nurseryForm, createForm, codeForm} from "./config";
+import Confirm from "components/Confirm";
+import { Request } from "utils/request";
+import { federationForm, nurseryForm, createForm, codeForm } from "./config";
 import history from 'utils/history';
 import "./index.scss";
 
@@ -16,14 +17,15 @@ const NurseryRegistration = () => {
     const [nursery, setNursery] = useState(null);
     const [code, setCode] = useState(null);
     const [alert, setAlert] = useState(false);
+    const [confirm, setConfirm] = useState(false);
     const [alertText, setAlertText] = useState('');
 
     useEffect(() => {
         (() => Request({
-                url: '/api/clubs/Federation'
-            }, data => {
-                setFederations(data.map(option => ({label: option.short_name, value: option.id})));
-            },
+            url: '/api/clubs/Federation'
+        }, data => {
+            setFederations(data.map(option => ({ label: option.short_name, value: option.id })));
+        },
             error => {
                 console.log(error.response);
                 setAlert(true);
@@ -31,23 +33,22 @@ const NurseryRegistration = () => {
     }, []);
 
     const transformFederationValues = values => {
-        setNursery({...values});
+        setNursery({ ...values });
         return values;
     };
 
     const federationFormSuccess = data => {
-        if(data) {
-            setNursery({...data, city_id: data.city ? data.city.id: ''});
+        if (data) {
+            setNursery({ ...data, city_id: data.city ? data.city.id : '' });
         } else {
             setIsNurseryFound(false);
         }
-
-        setIsFederationFormSend(true);
+        setConfirm(true);
     };
 
     const transformNurseryValues = values => {
-        let newData = {...values};
-        if(newData.city) delete newData.city;
+        let newData = { ...values };
+        if (newData.city) delete newData.city;
 
         setNursery(newData);
 
@@ -61,8 +62,8 @@ const NurseryRegistration = () => {
     };
 
     const transformCodeValues = values => {
-        const newValues = {...values, ...nursery};
-        if(isNurseryFound) delete newValues.name;
+        const newValues = { ...values, ...nursery };
+        if (isNurseryFound) delete newValues.name;
 
         return newValues;
     };
@@ -74,7 +75,7 @@ const NurseryRegistration = () => {
     }
 
     const handleFormError = error => {
-        if(error.response && error.response.data && error.response.data.errors) {
+        if (error.response && error.response.data && error.response.data.errors) {
             setAlertText(`${Object.values(error.response.data.errors)}`);
         }
         setAlert(true);
@@ -92,7 +93,7 @@ const NurseryRegistration = () => {
                 >
                     <FormField {...federationForm.fields.federation_id} options={federations} />
                     <FormField {...federationForm.fields.folder_number} />
-                    <SubmitButton type="submit" className="btn btn-primary">Отправить</SubmitButton>
+                    <SubmitButton type="submit" className="btn btn-primary">Поиск</SubmitButton>
                 </Form>
             }
             {isFederationFormSend &&
@@ -186,10 +187,20 @@ const NurseryRegistration = () => {
                     onOk={() => {
                         setAlertText('');
                         setAlert(false);
-                        if(isCodeFormSend) {
+                        if (isCodeFormSend) {
                             history.push('/');
                         }
                     }}
+                />
+            }
+            {confirm &&
+                <Confirm
+                    title={"Внимание!"}
+                    text={"Питомник с такими данными не найден в базе RKF.Online\nДобавить питомник?"}
+                    agreeButtonText="Добавить"
+                    disagreeButtonText="Отмена"
+                    agreeFunction={() => setIsFederationFormSend(true)}
+                    disagreeFunction={() => setConfirm(false)}
                 />
             }
         </div>
