@@ -115,6 +115,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
                                 onSuccess={handleSuccess}
                                 onError={handleError}
                                 className="nursery-activation__form"
+                                withLoading={true}
                             >
                                 <RenderFields
                                     streetTypes={streetTypes}
