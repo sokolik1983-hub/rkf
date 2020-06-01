@@ -1,21 +1,30 @@
 .HomepageCheckStatus {
     font-weight: normal;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     input {
-        min-width: 250px;
+        flex-grow: 1;
         border-radius: 6px;
         padding: 5px;
-        width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         letter-spacing: -0.2px;
     }
     button {
         display: block;
-        margin-left: auto;
-        padding: 5px 15px;
+        margin: 0 0 6px 6px;
+        padding: 4px 18px;
         background: white;
         border: none;
-        font-weight: bold;
+        font-weight: normal;
         letter-spacing: initial;
-        font-size: 18px;
+        font-size: 16px;
+        line-height: 24px;
+        border: 1px solid #3366ff;
+        letter-spacing: 0.2px;
+        color: #3366ff;
+        box-sizing: border-box;
+        border-radius: 4px;
     }
 }

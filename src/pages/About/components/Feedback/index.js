@@ -10,7 +10,7 @@ const FeedbackComponent = () => (
         <p className="feedback-component__description">
             Вы также можете задать вопрос или оставить свои пожелания, заполнив форму
         </p>
-        <Feedback className="feedback-component__button" title="Заполнить форму"/>
+        <Feedback className="feedback-component__button" title="Написать обращение"/>
     </Card>
 );
 

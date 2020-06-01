@@ -12,17 +12,17 @@ const HomepageCheckStatus = () => {
     };
 
     return <Card>
-        <h3 style={{ fontSize: '22px' }}>Отслеживание статуса изготовления документов</h3>
+        <h3 style={{ fontSize: '22px' }}>Статус документов</h3>
         <form onSubmit={handleSubmit} className="HomepageCheckStatus">
             <input
                 type="text"
                 pattern="[0-9]{13}"
                 onChange={({ target }) => setBarcode(target.value)}
                 title="Введите 13-значный номер отслеживания"
-                placeholder="Введите 13-значный номер отслеживания"
+                placeholder="введите трек-номер"
                 required
             />
-            <button type="submit">Найти</button>
+            <button type="submit">Поиск</button>
         </form>
     </Card>
 };

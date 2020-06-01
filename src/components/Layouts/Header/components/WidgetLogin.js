@@ -5,6 +5,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
 import { REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
+import history from "utils/history";
 
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
@@ -65,7 +66,7 @@ const WidgetLogin = forwardRef(
                             </div>
                         </CSSTransition>
                     </OutsideClickHandler>
-                    : <Link className="login-link" to={REGISTRATION_URL}>Вход и регистрация</Link>
+                    : history.location.pathname !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход и регистрация</Link>
                 }
             </div>
         )

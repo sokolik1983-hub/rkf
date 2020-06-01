@@ -74,7 +74,7 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
                 onClick={handleClick}
                 href="/"
             >
-                {title || 'Обратная связь'}
+                {title || 'ОБРАТНАЯ СВЯЗЬ'}
             </a>
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
