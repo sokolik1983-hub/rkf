@@ -5,7 +5,7 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import Feedback from "../../components/Feedback";
 import { Form } from "../../components/Form";
-import SubmitButton from "../../components/Form/SubmitButton";
+import SubmitButton from "./SubmitButton";
 import RenderFields from "./RenderFields";
 import Alert from "../../components/Alert";
 import { Request } from "../../utils/request";
@@ -125,7 +125,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
                                 {
                                     !isSubmitted && <div className="nursery-activation__submit">
                                         {submitting && <Loading inline={true} />}
-                                        <SubmitButton disabled={submitting}>Отправить</SubmitButton>
+                                        <SubmitButton>Отправить</SubmitButton>
                                     </div>
                                 }
                             </Form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'formik';
-import Button from "../../Button";
+import Button from "components/Button";
 
 
 const SubmitButton = ({ formik, className, onClick, children, ...restProps }) => (
