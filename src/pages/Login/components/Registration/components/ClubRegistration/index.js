@@ -3,9 +3,9 @@ import Select from "react-select";
 import Loading from "components/Loading";
 import Modal from "components/Modal";
 import ActivateClub from "./ActivateClub";
-import {useDictionary} from "../../../../dictionaries";
-import {DICTIONARIES} from "../../../../dictionaries/config";
-import {Request} from "../../../../utils/request";
+import {useDictionary} from "dictionaries";
+import {DICTIONARIES} from "dictionaries/config";
+import {Request} from "utils/request";
 import "./index.scss";
 
 

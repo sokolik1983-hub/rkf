@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
-import { REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
+import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "utils/history";
 
