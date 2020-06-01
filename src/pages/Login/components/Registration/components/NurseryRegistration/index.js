@@ -4,10 +4,11 @@ import CustomText from "components/Form/Field/CustomText";
 import Alert from "components/Alert";
 import {Request} from "utils/request";
 import {federationForm, nurseryForm, createForm, codeForm} from "./config";
+import history from 'utils/history';
 import "./index.scss";
 
 
-const NurseryRegistration = ({history}) => {
+const NurseryRegistration = () => {
     const [federations, setFederations] = useState([]);
     const [isFederationFormSend, setIsFederationFormSend] = useState(false);
     const [isCodeFormSend, setIsCodeFormSend] = useState(false);
