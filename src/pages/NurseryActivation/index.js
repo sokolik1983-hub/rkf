@@ -1,25 +1,26 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import Feedback from "../../components/Feedback";
-import {Form} from "../../components/Form";
+import { Form } from "../../components/Form";
 import RenderFields from "./RenderFields";
 import Alert from "../../components/Alert";
-import {Request} from "../../utils/request";
-import {connectWidgetLogin} from "../Login/connectors";
-import {activationForm, defaultValues} from './config';
+import { Request } from "../../utils/request";
+import { connectWidgetLogin } from "../Login/connectors";
+import { activationForm, defaultValues } from './config';
 import "./index.scss";
 
 
-const NurseryActivation = ({history, logOutUser}) => {
+const NurseryActivation = ({ history, logOutUser }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [streetTypes, setStreetTypes] = useState([]);
     const [houseTypes, setHouseTypes] = useState([]);
     const [flatTypes, setFlatTypes] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -28,7 +29,7 @@ const NurseryActivation = ({history, logOutUser}) => {
         (() => Request({
             url: '/api/nurseries/Nursery/nursery_registration_main_info'
         }, data => {
-            if(data) {
+            if (data) {
                 const {
                     owner_first_name,
                     owner_last_name,
@@ -41,11 +42,12 @@ const NurseryActivation = ({history, logOutUser}) => {
                     street_types,
                     house_types,
                     flat_types,
+                    is_submitted
                 } = data;
 
-                setStreetTypes(street_types.map(item => ({value: item.id, label: item.name})));
-                setHouseTypes(house_types.map(item => ({value: item.id, label: item.name})));
-                setFlatTypes(flat_types.map(item => ({value: item.id, label: item.name})));
+                setStreetTypes(street_types.map(item => ({ value: item.id, label: item.name })));
+                setHouseTypes(house_types.map(item => ({ value: item.id, label: item.name })));
+                setFlatTypes(flat_types.map(item => ({ value: item.id, label: item.name })));
                 setInitialValues({
                     ...initialValues,
                     name,
@@ -54,18 +56,18 @@ const NurseryActivation = ({history, logOutUser}) => {
                     mail,
                     stamp_code,
                     folder_number
-                })
+                });
+                setIsSubmitted(is_submitted);
             }
             setLoaded(true);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoaded(true);
         }))();
     }, []);
 
     const transformValues = values => {
-        const newValues = {...values};
+        const newValues = { ...values };
         delete newValues.name;
         delete newValues.owner_name;
         delete newValues.city;
@@ -99,7 +101,11 @@ const NurseryActivation = ({history, logOutUser}) => {
                 {!loaded
                     ? <Loading />
                     : <>
-                        <h2 style={{ textAlign: 'center' }}>ЗАЯВКА НА ПОДКЛЮЧЕНИЕ К ПОРТАЛУ RKF.ONLINE</h2>
+                        {
+                            isSubmitted
+                                ? <h2 style={{ color: 'red' }}>Заявка находится на рассмотрении</h2>
+                                : <h2>ЗАЯВКА НА ПОДКЛЮЧЕНИЕ К ПОРТАЛУ RKF.ONLINE</h2>
+                        }
                         <Card>
                             <Form
                                 {...activationForm}
@@ -113,11 +119,14 @@ const NurseryActivation = ({history, logOutUser}) => {
                                     streetTypes={streetTypes}
                                     houseTypes={houseTypes}
                                     flatTypes={flatTypes}
+                                    isSubmitted={isSubmitted}
                                 />
-                                <div className="nursery-activation__submit">
-                                    {submitting && <Loading inline={true} />}
-                                    <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
-                                </div>
+                                {
+                                    !isSubmitted && <div className="nursery-activation__submit">
+                                        {submitting && <Loading inline={true} />}
+                                        <button type="submit" className="btn btn-simple" disabled={submitting}>Отправить</button>
+                                    </div>
+                                }
                             </Form>
                             {successAlert &&
                                 <Alert
