@@ -108,11 +108,11 @@ const appRoutes = [
         path: '/nursery/activation',
         component: LoadableModules.LoadableNurseryActivation
     },
-    {
-        exact: true,
-        path: '/nursery/:id',
-        component: LoadableModules.LoadableNurseryPage
-    },
+    // {
+    //     exact: true,
+    //     path: '/nursery/:id',
+    //     component: LoadableModules.LoadableNurseryPage
+    // },
     {
         exact: false,
         path: '/nursery/:id/documents',
