@@ -1,0 +1,68 @@
+.documents-page {
+    &__support-links {
+        font-weight: normal;
+        a {
+            text-decoration: none;
+            margin-bottom: 10px;
+            background: url("/static/icons/registration/info.svg") left center/contain no-repeat;
+            padding-left: 25px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .Card {
+        margin-bottom: 1em;
+        h3 {
+            font-size: 18px;
+            line-height: 26px;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+            @media (max-width: 560px) {
+            }
+        }
+        p {
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+        hr {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        &__links {
+            display: flex;
+            flex-wrap: wrap;
+            font-weight: normal;
+            padding: 6px 0 0;
+            a {
+                text-decoration: none;
+                font-weight: 600;
+                &:not(:last-child) {
+                    margin-right: 20px;
+                }
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        &__link-columns {
+            display: flex;
+            flex-wrap: wrap;
+            font-weight: normal;
+            padding: 6px 0 0;
+            a {
+                text-decoration: none;
+                font-weight: 600;
+                white-space: nowrap;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 50%;
+            }
+        }
+    }
+}

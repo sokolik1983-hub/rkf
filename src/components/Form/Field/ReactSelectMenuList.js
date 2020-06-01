@@ -7,7 +7,6 @@ export default class MenuList extends Component {
   render() {
     const { options, children, maxHeight, getValue } = this.props;
     const [value] = getValue();
-    console.log(options.indexOf(value))
     const initialOffset = options.indexOf(value) * height;
 
     return (
@@ -21,5 +20,3 @@ export default class MenuList extends Component {
     );
   }
 }
-
-

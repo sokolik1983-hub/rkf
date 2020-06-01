@@ -4,7 +4,7 @@ import Card from "../../../../components/Card";
 import {formatDateCommon} from "../../../../utils/datetime";
 import {formatText} from "../../../../utils";
 import {setFiltersToUrl, getEmptyFilters} from "../../utils";
-import {getDictElement} from "../../../../apps/Dictionaries";
+import {getDictElement} from "../../../../dictionaries";
 import {DEFAULT_IMG} from "../../../../appConfig";
 
 const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, dictionary}) => {

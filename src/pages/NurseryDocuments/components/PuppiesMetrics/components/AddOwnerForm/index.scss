@@ -1,0 +1,60 @@
+.add-owner {
+  margin: auto;
+  padding: 15px;
+  background: #fff;
+  box-shadow: 2px 2px 10px #000;
+  border-radius: 6px;
+  position: relative;
+  @media (max-width: 560px) {
+    padding: 8px;
+  }
+  @media (max-width: 320px) {
+    padding: 8px 5px;
+  }
+  &__title {
+    font-size: 20px;
+    line-height: 1.2;
+    padding: 0 25px 5px 0;
+    border-bottom: 1px solid #dcd3de;
+    @media (max-width: 560px) {
+      padding: 5px 10px;
+    }
+    @media (max-width: 320px) {
+      padding: 5px;
+    }
+  }
+  .FormInput {
+    margin-bottom: 8px;
+    label {
+      font-weight: normal;
+    }
+    input {
+      padding: 5px 10px;
+      border: 1px solid #dcd3de;
+      &:focus,
+      &:active {
+        padding: 5px 10px;
+        border: 1px solid #bcc3ce;
+      }
+    }
+    &--error {
+      .FormInput__error {
+        color: red;
+        position: absolute;
+        right: 10px;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: normal;
+        top: 25px;
+        bottom: auto;
+        background: #fff;
+        padding: 0 4px;
+        white-space: nowrap;
+      }
+    }
+  }
+  &__button {
+    padding: 5px 15px;
+    margin-left: auto;
+  }
+}

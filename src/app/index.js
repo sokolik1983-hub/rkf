@@ -19,8 +19,8 @@ const App = ({history}) => {
         Request({
             url: `/api/Alias/profile/${ls.get('profile_id')}`
         }, result => {
-            if (result.alias_name !== ls.get('user_info').club_alias) { // Updating club alias if it changed
-                ls.set('user_info', { ...ls.get('user_info'), club_alias: result.alias_name });
+            if (result.alias_name !== ls.get('user_info').alias) { // Updating club alias if it changed
+                ls.set('user_info', { ...ls.get('user_info'), alias: result.alias_name });
             }
         });
     };

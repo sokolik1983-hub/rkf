@@ -87,8 +87,23 @@ export const LoadablePasswordRecovery = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryPage = Loadable({
+    loader: () => import('./pages/Nursery'),
+    loading: Loading
+});
+
+export const LoadableNurseryDocuments = Loadable({
+    loader: () => import('./pages/NurseryDocuments'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
+    loading: Loading
+});
+
+export const LoadableNurseryActivation = Loadable({
+    loader: () => import('./pages/NurseryActivation'),
     loading: Loading
 });
 

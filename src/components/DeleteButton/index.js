@@ -4,8 +4,6 @@ import Button from 'components/Button';
 import { useConfirmDialog } from 'shared/hooks';
 import axios from 'axios';
 import { getHeaders } from 'utils/request';
-
-import { usePushMessage } from 'apps/Messages/hooks';
 import './styles.scss';
 
 export default function DeleteButton({
@@ -13,7 +11,6 @@ export default function DeleteButton({
     params,
     onDeleteSuccess,
     successMessage,
-
     style,
     children,
     windowed,
@@ -22,7 +19,6 @@ export default function DeleteButton({
 }) {
     const { confirm, onCancel } = useConfirmDialog();
     const [state, setState] = useState({ loading: false });
-    const { push } = usePushMessage();
 
     const onDelete = async () => {
         setState({ ...state, loading: true });
@@ -34,16 +30,6 @@ export default function DeleteButton({
             onDeleteSuccess();
         } catch (e) {
             console.log('Ошибка запроса на удаление: ', e);
-            push({
-                text: 'Операция удаления не выполнена'
-            });
-        }
-
-        if (successMessage) {
-            push({
-                text: successMessage,
-                timeOut: 3000
-            });
         }
 
         setState({ ...state, loading: false });

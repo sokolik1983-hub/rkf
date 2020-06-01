@@ -1,0 +1,71 @@
+.nursery-registration {
+  @media (max-width: 560px) {
+    padding: 0 12px;
+  }
+  .FormInput .FormInput__input {
+    //padding: 6px 10px 6px 34px;
+    //font-weight: normal;
+    //font-size: 16px;
+    //line-height: 24px;
+    //letter-spacing: .2px;
+    //color: #90999e;
+    //border-width: 1px;
+    box-shadow: none;
+    transition: border-color .2s linear;
+  }
+  &__form {
+    max-width: 330px;
+    margin: 0 auto;
+  }
+  &__empty {
+    text-align: center;
+    &-title {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839C;
+      margin-bottom: 8px;
+    }
+    &-icon {
+      width: 151px;
+      height: 118px;
+      background: url("/static/images/default/invoice-empty.svg") no-repeat center;
+      margin: 0 auto 8px;
+    }
+  }
+  &__about {
+    margin-bottom: 24px;
+    p {
+      &:first-child {
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      span:last-child {
+        font-weight: 300;
+      }
+    }
+  }
+  &__form-code {
+    display: flex;
+    align-items: start;
+    margin-top: 24px;
+    @media (max-width: 400px) {
+      display: block;
+      .btn {
+        margin-left: 0;
+      }
+    }
+    .FormInput .FormInput__input {
+      padding: 6px 10px;
+    }
+    .btn {
+      margin-left: 8px;
+      padding: 6px 24px;
+    }
+  }
+  &__activate-warn {
+    font-weight: 600;
+    color: firebrick;
+  }
+}

@@ -99,6 +99,21 @@ const appRoutes = [
         component: LoadableModules.LoadableNotConfirmed
     },
     {
+        exact: true,
+        path: '/nursery/activation',
+        component: LoadableModules.LoadableNurseryActivation
+    },
+    // {
+    //     exact: true,
+    //     path: '/nursery/:id',
+    //     component: LoadableModules.LoadableNurseryPage
+    // },
+    {
+        exact: false,
+        path: '/nursery/:id/documents',
+        component: LoadableModules.LoadableNurseryDocuments
+    },
+    {
         exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
@@ -115,13 +130,13 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:route',
-        component: LoadableModules.LoadableClubPage
+        path: '/:route/document-status',
+        component: LoadableModules.LoadableDocumentStatus
     },
     {
         exact: true,
-        path: '/:route/document-status/:query?',
-        component: LoadableModules.LoadableDocumentStatus
+        path: '/:route',
+        component: LoadableModules.LoadableClubPage
     }
 ];
 
@@ -297,7 +312,8 @@ const DEFAULT_IMG = {
     clubAvatar: '/static/icons/default/club-avatar.svg',
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
-    noImage: '/static/images/noimg/icon-no-image.svg'
+    noImage: '/static/images/noimg/icon-no-image.svg',
+    noNews: '/static/images/news/empty_list.png'
 };
 
 const BAD_SITES = [

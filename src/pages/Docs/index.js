@@ -23,8 +23,8 @@ import "./index.scss";
 
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
-    const clubAlias = ls.get('user_info') ? ls.get('user_info').club_alias : '';
-    const clubName = ls.get('user_info') ? ls.get('user_info').club_name : '';
+    const clubAlias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const clubName = ls.get('user_info') ? ls.get('user_info').name : '';
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
 

@@ -1,5 +1,5 @@
 import {defaultReduxKey} from "./config";
-import {selectBankInfoId} from 'apps/ClientClub/selectors'
+import {selectBankInfoId} from "../../selectors";
 
 export const selectBankInfo = state => {
     const {bank_data_id} = selectBankInfoId(state);

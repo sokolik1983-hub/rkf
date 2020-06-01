@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ClubRegistration from "./components/ClubRegistration";
 import Card from "components/Card";
-//import IndividualRegistration from "./components/IndividualRegistration";
+import NurseryRegistration from "./components/NurseryRegistration";
+import {connectAuthVisible} from "../../connectors";
 import "./index.scss";
 
 
-const RegistrationPage = () => {
+const RegistrationPage = ({history, isAuthenticated}) => {
     const [activeTab, setActiveTab] = useState('club');
 
     return (
@@ -26,18 +27,17 @@ const RegistrationPage = () => {
                     >
                         Клуб
                         </div>
-                    <div className={`registration-page__tab${activeTab === 'individual' ? ' _active' : ''}`}
-                        //onClick={() => setActiveTab('individual')}
-                        onClick={() => null}
+                    <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
+                        onClick={() => setActiveTab('nursery')}
                     >
-                        Физическое лицо
+                        Питомник
                             </div>
                 </div>
                 {activeTab === 'club' && <ClubRegistration />}
-                {/* {activeTab === 'individual' && <IndividualRegistration />} */}
+                {activeTab === 'nursery' && <NurseryRegistration history={history} />}
             </div>
         </Card>
     )
 };
 
-export default React.memo(RegistrationPage);
+export default connectAuthVisible(React.memo(RegistrationPage));
