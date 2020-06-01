@@ -68,6 +68,7 @@ const RenderFields = ({formik, streetTypes, houseTypes, flatTypes, isSubmitted})
             <FormField {...activationForm.fields.certificate_special_education_document} />
             <FormField {...activationForm.fields.certificate_specialist_rkf_document} />
             <FormField {...activationForm.fields.certificate_honorary_title_document} />
+            {!formik.isValid && <div className="nursery-activation__is-valid">Не все необходимые поля заполнены</div>}
         </fieldset>
     )
 };

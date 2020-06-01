@@ -129,4 +129,8 @@
     justify-content: flex-end;
     margin: 10px;
   }
+  &__is-valid {
+    text-align: right;
+    color: red;
+  }
 }

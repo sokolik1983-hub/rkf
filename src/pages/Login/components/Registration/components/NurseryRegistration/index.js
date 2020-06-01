@@ -3,7 +3,6 @@ import {Form, FormField, SubmitButton} from "components/Form";
 import CustomText from "components/Form/Field/CustomText";
 import Alert from "components/Alert";
 import {Request} from "utils/request";
-import {LOGIN_URL} from "appConfig";
 import {federationForm, nurseryForm, createForm, codeForm} from "./config";
 import "./index.scss";
 
@@ -187,7 +186,7 @@ const NurseryRegistration = ({history}) => {
                         setAlertText('');
                         setAlert(false);
                         if(isCodeFormSend) {
-                            history.push(LOGIN_URL);
+                            history.push('/');
                         }
                     }}
                 />
