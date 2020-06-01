@@ -4,7 +4,8 @@ import ReportError from './components/ReportError';
 
 const formatCountTime = (str) => {
     const dateArray = str.split('.');
-    const timeArray = dateArray[1].split(':');
+    const i = dateArray.length - 2;
+    const timeArray = dateArray[i].split(':');
     const days = +dateArray[0];
     const hours = +timeArray[0];
     const minutes = +timeArray[1];
