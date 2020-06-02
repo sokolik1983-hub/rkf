@@ -12,7 +12,7 @@ const Registry = ({ profile_id }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/requests/StampCodeRequest/nursery`
+            url: `/api/requests/NurseryStampCodeRequest/nursery`
         },
             data => {
                 setStamps(data);

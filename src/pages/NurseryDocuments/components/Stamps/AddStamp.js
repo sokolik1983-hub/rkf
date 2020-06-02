@@ -48,7 +48,7 @@ const AddStamp = ({ history }) => {
         </div>
         <div className="AddStamp">
             <Form
-                action='/api/requests/StampCodeRequest'
+                action='/api/requests/NurseryStampCodeRequest'
                 method='POST'
                 format='multipart/form-data'
                 onSuccess={handleSusccess}
