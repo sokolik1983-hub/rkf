@@ -12,7 +12,8 @@ h6 {
   font-weight: normal;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: bold;
   font-size: 36px;
   line-height: 44px;
@@ -44,3 +45,62 @@ a.lnkText:active {
   text-decoration: none;
   color: currentColor;
 }
+
+/* maintenance-message */
+#maintenance-message {
+  text-align: center;
+  background: red;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  position: fixed;
+  z-index: 100;
+  opacity: 0.8;
+  width: 100%;
+}
+.exhibitions-filters._open{
+  padding-top: 30px !important;
+  @media (max-width: 1024px) {
+    padding-top: 50px !important;
+  }
+  @media (max-width: 559px) {
+    padding-top: 60px !important;
+  }
+  @media (max-width: 399px) {
+    padding-top: 90px !important;
+  }
+}
+#wrap {
+  padding-top: 20px !important;
+  @media (max-width: 1024px) {
+    padding-top: 40px !important;
+  }
+  @media (max-width: 559px) {
+    padding-top: 60px !important;
+  }
+  @media (max-width: 399px) {
+    padding-top: 80px !important;
+  }
+}
+.header {
+  padding-top: 20px !important;
+  @media (max-width: 1024px) {
+    padding-top: 40px !important;
+  }
+  @media (max-width: 559px) {
+    padding-top: 60px !important;
+  }
+  @media (max-width: 399px) {
+    padding-top: 80px !important;
+  }
+  &__nav {
+    .click-guard {
+      top: 90px !important;
+      @media (max-width: 560px) {
+        top: 68px !important;
+      }
+    }
+  }
+}
+/* maintenance-message */
