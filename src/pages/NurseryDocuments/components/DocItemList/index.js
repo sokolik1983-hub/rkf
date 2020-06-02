@@ -15,8 +15,8 @@ import removeNulls from "utils/removeNulls";
 import test from "../../test.json";
 import Loading from "components/Loading";
 import {
-    emptyPedigreeDeclarant,
-    emptyLitterDeclarant,
+    emptyNurseryPedigreeDeclarant,
+    emptyNurseryLitterDeclarant,
     apiPedigreeDoctypeEndpoint,
     apiLitterDoctypeEndpoint,
     apiBreedsEndpoint,
@@ -194,7 +194,7 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
                     setActive(formik.values.declarants.length);
                     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
                     console.log(stamp_code_id);
-                    helpers.push(distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_id} : {...emptyLitterDeclarant, stamp_code_id});
+                    helpers.push(distinction === "pedigree" ? {...emptyNurseryPedigreeDeclarant, stamp_code_id} : {...emptyNurseryLitterDeclarant, stamp_code_id});
                 }} />
             </div>
         </div>

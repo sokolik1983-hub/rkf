@@ -44,7 +44,7 @@ export const getTableColumns = (sortingColumns, sortable, setDefaultStamp) => {
         let el = e.target;
         el.className = 'stamp-loading';
         el.innerText = 'Загрузка...';
-        await fetch(`/api/clubs/ClubStampCode/document?id=${id}`, {
+        await fetch(`/api/nurseries/NurseryStampCode/document?id=${id}`, {
             method: 'GET',
             headers: getHeaders()
         })

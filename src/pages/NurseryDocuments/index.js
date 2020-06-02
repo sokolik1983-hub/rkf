@@ -8,7 +8,7 @@ import TopComponent from "../../components/TopComponent";
 import DocApply from "./components/DocApply";
 import DocApplyLitter from "./components/DocApplyLitter";
 import DocHome from "./components/DocHome";
-import ClubDocumentsStatus from "./components/DocStatus";
+import NurseryDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import ResponsivePersonTable from "./components/ResponsiblePersonTable";
@@ -24,8 +24,8 @@ import "./index.scss";
 
 const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
-    const clubName = ls.get('user_info') ? ls.get('user_info').name : '';
-    const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
+    const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
+    const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     const isVisible = true;
 
@@ -35,17 +35,17 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
             <div className="documents-page">
                 <Container className="documents-page__content">
                     <TopComponent
-                        logo={clubLogo}
-                        name={clubName}
+                        logo={nurseryLogo}
+                        name={nurseryName}
                         canEdit={false}
                         withShare={false}
                     />
                     <Switch>
                         <Route exact={true} path='/nursery/:route/documents/litter/status' component={() =>
-                            <ClubDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
+                            <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/nursery/:route/documents/pedigree/status' component={() =>
-                            <ClubDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="pedigree" />}
+                            <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="pedigree" />}
                         />
                         <Route exact={true} path='/nursery/:route/documents/litter/requests' component={() =>
                             <RequestRegistry nurseryAlias={nurseryAlias} history={history} distinction="litter" />}

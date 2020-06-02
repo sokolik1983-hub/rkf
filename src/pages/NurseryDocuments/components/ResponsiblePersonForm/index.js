@@ -34,7 +34,7 @@ const ResponsiblePersonForm = ({nurseryAlias, history}) => {
     useEffect(() => {
         if(personId) {
             (() => Request({
-                    url: `/api/clubs/Declarant/${personId}`
+                    url: `/api/nurseries/NurseryDeclarant/${personId}`
                 },
                 data => {
                     let newInitialValues = {};

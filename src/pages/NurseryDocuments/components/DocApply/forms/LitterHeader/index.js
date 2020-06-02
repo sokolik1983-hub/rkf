@@ -28,7 +28,7 @@ const HeaderFormFields = connect(({formik, update, options, nurseryAlias, setRed
                 setDeclarant(declarant.id);
             }
             Request({
-                url: '/api/Club/club_federation'
+                url: '/api/Nursery/nursery_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})

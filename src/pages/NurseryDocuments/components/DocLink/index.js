@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Button from "components/Button";
 import Modal from "components/Modal";
 import Loading from "components/Loading";
-import { apiPedigreeDocumentEndpoint, apiLitterDocumentEndpoint } from "../../config.js";
+import { apiNurseryPedigreeDocumentEndpoint, apiNurseryLitterDocumentEndpoint } from "../../config.js";
 import "./index.scss";
 
 const DocLink = ({ docId, label, showLabel, distinction }) => {
-    const apiEndpoint = distinction === "pedigree" ? apiPedigreeDocumentEndpoint : apiLitterDocumentEndpoint;
+    const apiEndpoint = distinction === "pedigree" ? apiNurseryPedigreeDocumentEndpoint : apiNurseryLitterDocumentEndpoint;
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');

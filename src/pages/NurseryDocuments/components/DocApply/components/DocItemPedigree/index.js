@@ -13,7 +13,7 @@ import { Request } from "utils/request";
 import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
 import "./index.scss";
-const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
+const apiPrivacyEndpoint = '/api/requests/NurseryPedigreeRequest/personal_data_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 

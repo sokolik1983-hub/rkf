@@ -42,13 +42,13 @@ const AddStamp = ({ history }) => {
     };
 
     return <Card style={{ margin: 0 }}>
-        <div className="club-documents-status__head">
+        <div className="nursery-documents-status__head">
             <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
             &nbsp;/&nbsp;Клейма
         </div>
         <div className="AddStamp">
             <Form
-                action='/api/requests/StampCodeRequest'
+                action='/api/requests/NurseryStampCodeRequest'
                 method='POST'
                 format='multipart/form-data'
                 onSuccess={handleSusccess}

@@ -14,8 +14,8 @@ import { endpointGetFederations } from "pages/Clubs/config";
 import removeNulls from "utils/removeNulls";
 import test from "../../test.json";
 import {
-    emptyPedigreeDeclarant,
-    emptyLitterDeclarant,
+    emptyNurseryPedigreeDeclarant,
+    emptyNurseryLitterDeclarant,
     apiPedigreeDoctypeEndpoint,
     apiLitterDoctypeEndpoint,
     apiBreedsEndpoint,
