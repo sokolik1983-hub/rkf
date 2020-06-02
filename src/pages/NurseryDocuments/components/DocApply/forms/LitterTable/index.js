@@ -46,7 +46,7 @@ const TableFormFields = connect(({formik, update, options, nurseryAlias, setRedi
                         if (window.confirm("Удалить заявку?")) {
                         Request({
                             method: 'DELETE',
-                            url: `/api/requests/litter_request/LitterDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
+                            url: `/api/requests/litter_request/NurseryLitterDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
                         },() => setRedirect(`/nursery/${nurseryAlias}/documents/litter/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>

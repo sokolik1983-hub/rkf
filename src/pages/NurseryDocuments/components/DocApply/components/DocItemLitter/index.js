@@ -13,7 +13,7 @@ import Alert from "components/Alert";
 import { FormGroup, FormField, FormInput } from "components/Form";
 import HideIf from "components/HideIf";
 import "./index.scss";
-const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
+const apiPrivacyEndpoint = '/api/requests/NurseryLitterRequest/personal_data_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter

@@ -38,7 +38,7 @@ const PuppyMetrics = ({ history }) => {
     useEffect(() => {
         setLoading(true);
         Request({
-            url: `/api/requests/LitterRequest/puppy_metric?id=${puppyId}`
+            url: `/api/requests/NurseryLitterRequest/puppy_metric?id=${puppyId}`
         }, result => {
             result && setData(result);
             setLoading(false);

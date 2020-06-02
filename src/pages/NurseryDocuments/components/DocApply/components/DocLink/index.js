@@ -12,7 +12,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
-        fetch('/api/requests/pedigree_request/PedigreeDocument?id=' + docId, {headers})
+        fetch('/api/requests/pedigree_request/NurseryPedigreeDocument?id=' + docId, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
         .then(url => setUrl(url));

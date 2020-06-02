@@ -12,7 +12,7 @@ const PuppiesMetrics = ({history, nurseryAlias}) => {
 
     useEffect(() => {
         (() => Request({
-            url: '/api/requests/LitterRequest/register_of_metrics'
+            url: '/api/requests/NurseryLitterRequest/register_of_metrics'
         },
         data => {
             setPuppies(data);

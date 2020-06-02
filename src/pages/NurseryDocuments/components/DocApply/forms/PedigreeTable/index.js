@@ -46,7 +46,7 @@ const TableFormFields = connect(({formik, update, options, nurseryAlias, setRedi
                         if (window.confirm("Удалить заявку?")) {
                         Request({
                             method: 'DELETE',
-                            url: `/api/requests/pedigree_request/PedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
+                            url: `/api/requests/pedigree_request/NurseryPedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
                         },() => setRedirect(`/nursery/${nurseryAlias}/documents/pedigree/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>

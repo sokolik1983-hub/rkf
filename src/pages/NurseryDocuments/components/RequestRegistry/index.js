@@ -17,8 +17,8 @@ const RequestRegistry = ({history, nurseryAlias, distinction}) => {
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/register_of_requests' :
-                '/api/requests/LitterRequest/register_of_requests'
+                '/api/requests/NurseryPedigreeRequest/register_of_requests' :
+                '/api/requests/NurseryLitterRequest/register_of_requests'
         },
         data => {
             setDocuments(data);

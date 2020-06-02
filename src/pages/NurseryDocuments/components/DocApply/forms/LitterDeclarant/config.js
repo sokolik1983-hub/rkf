@@ -2,11 +2,11 @@ import {number, boolean, string, object, mixed, array} from "yup";
 import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const apiDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
+const apiDoctypeEndpoint = '/api/requests/NurseryLitterRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiLitterStatusesEndpoint = '/api/requests/CommonRequest/status';
-const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
+const apiLitterDogStatusEndpoint = '/api/requests/NurseryLitterRequest/litter_dog_status';
 const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
@@ -107,7 +107,7 @@ const updateSchema = {
 }
 
 
-const emptyLitterDeclarant = {
+const emptyNurseryLitterDeclarant = {
     first_name: '',
     last_name: '',
     second_name: '',
@@ -195,9 +195,9 @@ const config = {
     hooks: {
         values: values => ({...values.declarant, litter_header_declarant_request_id: values.id, litter_request_id: values.litter_request_id, declarant_uid: values.declarant_uid, documents: values.documents, litters: values.litters})
     },
-    url: '/api/requests/litter_request/LitterDeclarantRequest',
-    get: '/api/requests/litter_request/LitterDeclarantRequest/declarant',
-    initialValues: emptyLitterDeclarant
+    url: '/api/requests/litter_request/NurseryLitterDeclarantRequest',
+    get: '/api/requests/litter_request/NurseryLitterDeclarantRequest/declarant',
+    initialValues: emptyNurseryLitterDeclarant
 }
 
 export default config; 

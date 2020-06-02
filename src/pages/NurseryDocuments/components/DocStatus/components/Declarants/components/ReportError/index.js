@@ -6,7 +6,7 @@ import Alert from 'components/Alert';
 import './styles.scss';
 
 const config = {
-    action: '/api/requests/PedigreeRequest/error',
+    action: '/api/requests/NurseryPedigreeRequest/error',
     format: "multipart/form-data",
     fields: {
         error_message: {

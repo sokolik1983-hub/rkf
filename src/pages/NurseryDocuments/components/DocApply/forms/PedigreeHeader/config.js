@@ -2,7 +2,7 @@ import {number} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const apiPedigreeEndpoint = '/api/requests/pedigree_request/PedigreeRequestHeader';
+const apiPedigreeEndpoint = '/api/requests/pedigree_request/NurseryPedigreeRequestHeader';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const validationSchema = {
@@ -34,7 +34,7 @@ const config = {
         }
     },
     url: apiPedigreeEndpoint,
-    get: '/api/requests/PedigreeRequest',
+    get: '/api/requests/NurseryPedigreeRequest',
     initialValues: {
         federation_id: '',
         declarant_id: 0,

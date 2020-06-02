@@ -14,8 +14,8 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
     const [innerDocuments, setInnerDocuments] = useState(null);
     const rowClick = row => Request({
             url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/register_of_requests?id=' + row :
-                '/api/requests/LitterRequest/register_of_requests?id=' + row
+                '/api/requests/NurseryPedigreeRequest/register_of_requests?id=' + row :
+                '/api/requests/NurseryLitterRequest/register_of_requests?id=' + row
         },
         data => {
             setInnerDocuments(data);
@@ -28,8 +28,8 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
     useEffect(() => {
         (() => Request({
             url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/headers_base_info' :
-                '/api/requests/LitterRequest/headers_base_info'
+                '/api/requests/NurseryPedigreeRequest/headers_base_info' :
+                '/api/requests/NurseryLitterRequest/headers_base_info'
         },
         data => {
             setDocuments(data);

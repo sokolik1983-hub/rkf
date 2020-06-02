@@ -13,8 +13,8 @@ import removeNulls from "utils/removeNulls";
 import './index.scss';
 
 import {
-    emptyPedigreeDeclarant,
-    emptyLitterDeclarant,
+    emptyNurseryPedigreeDeclarant,
+    emptyNurseryLitterDeclarant,
     pedigreeValidationSchema,
     litterValidationSchema,
     pedigreeUpdateSchema,
@@ -61,7 +61,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         flat: '',
         email: '',
         folder_number: '',
-        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_name} : {...emptyLitterDeclarant, stamp_code_id}],
+        declarants: [distinction === "pedigree" ? {...emptyNurseryPedigreeDeclarant, stamp_code_name} : {...emptyNurseryLitterDeclarant, stamp_code_id}],
     
         cash_payment: false,
         payment_document: '',

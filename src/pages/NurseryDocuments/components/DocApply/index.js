@@ -6,12 +6,12 @@ import Alert from "components/Alert";
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
-import PedigreeDeclarant from "./forms/PedigreeDeclarant";
+import NurseryPedigreeDeclarant from "./forms/PedigreeDeclarant";
 
 import LitterHeader from "./forms/LitterHeader";
 import LitterTable from "./forms/LitterTable";
 import LitterPayment from "./forms/LitterPayment";
-import LitterDeclarant from "./forms/LitterDeclarant";
+import NurseryLitterDeclarant from "./forms/LitterDeclarant";
 
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
@@ -23,13 +23,13 @@ const forms = {
         header: PedigreeHeader,
         table: PedigreeTable,
         payment: PedigreePayment,
-        declarant: PedigreeDeclarant
+        declarant: NurseryPedigreeDeclarant
     },
     litter: {
         header: LitterHeader,
         table: LitterTable,
         payment: LitterPayment,
-        declarant: LitterDeclarant
+        declarant: NurseryLitterDeclarant
     }
 }
 

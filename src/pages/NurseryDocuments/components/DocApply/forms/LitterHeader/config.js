@@ -2,7 +2,7 @@ import {number} from "yup";
 import {reqText,numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const apiLitterEndpoint = '/api/litter/pedigree_request/LitterRequestHeader';
+const apiLitterEndpoint = '/api/litter/pedigree_request/NurseryLitterRequestHeader';
 const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
 
 const validationSchema = {
@@ -33,7 +33,7 @@ const config = {
         }
     },
     url: apiLitterEndpoint,
-    get: '/api/requests/LitterRequest',
+    get: '/api/requests/NurseryLitterRequest',
     initialValues: {
         federation_id: '',
         declarant_id: 0,

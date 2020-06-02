@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 
-export const endpointOwner = '/api/requests/LitterRequest/litter_owner';
+export const endpointOwner = '/api/requests/NurseryLitterRequest/litter_owner';
 
 export const OwnerFormConfig = {
     action: endpointOwner,
