@@ -147,8 +147,7 @@ export const activationForm = {
             name: 'certificate_rkf_number',
             label: 'Свидетельство РКФ №',
             placeholder: 'Введите №',
-            type: 'text',
-            maxLength: 15
+            type: 'text'
         },
         owner_specialist_rkf: {
             name: "owner_specialist_rkf",
@@ -229,7 +228,7 @@ export const activationForm = {
         puppies_total_count: number()
             .typeError('Введите число'),
         registration_date: date().required(emptyFieldMsg),
-        certificate_rkf_number: string().required(emptyFieldMsg).min(15, 'Введите минимум 15 цифр'),
+        certificate_rkf_number: string().required(emptyFieldMsg),
         owner_specialist_rkf: boolean(),
         owner_special_education: string()
             .when(['owner_specialist_rkf'], {
