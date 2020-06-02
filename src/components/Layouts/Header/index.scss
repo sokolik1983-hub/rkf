@@ -420,7 +420,8 @@
       transform: scale(0.9);
     }
   }
-  .login-link {
+  .login-link,
+  .registration-link {
     padding: 9px 16px;
     text-decoration: none;
     text-transform: uppercase;
@@ -428,8 +429,8 @@
     border-radius: 4px;
     color: #3366ff;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
     letter-spacing: 0.5px;
     white-space: nowrap;
     @media (max-width: 990px) {
@@ -449,7 +450,6 @@
       }
     }
     @media (max-width: 560px) {
-      display: block;
       font-size: 12px;
       line-height: 14px;
       letter-spacing: normal;
@@ -459,6 +459,22 @@
       }
     }
   }
+  .login-link {
+    margin-right: 16px;
+    @media (max-width: 990px) {
+      &:before {
+        background: url("/static/icons/icon-enter.svg") no-repeat center;
+      }
+    }
+  }
+  .registration-link {
+    @media (max-width: 990px) {
+      &:before {
+        background: url("/static/icons/icon-registration.svg") no-repeat center;
+      }
+    }
+  }
+
   &-transition {
     &-enter,
     &-appear {
