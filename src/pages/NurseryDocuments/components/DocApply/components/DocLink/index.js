@@ -4,6 +4,8 @@ import Modal from "components/Modal";
 import Loading from "components/Loading";
 import "./index.scss";
 
+const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
+
 const DocLink = ({ docId, label, showLabel, distinction }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [showModal, setShowModal] = useState(false);
@@ -12,7 +14,7 @@ const DocLink = ({ docId, label, showLabel, distinction }) => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
-        fetch('/api/requests/pedigree_request/PedigreeDocument?id=' + docId, {headers})
+        fetch(`/api/requests/${distinction}_request/Nursery${up(distinction)}Document?id=` + docId, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
         .then(url => setUrl(url));
