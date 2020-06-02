@@ -221,7 +221,7 @@ export const activationForm = {
             .required(emptyFieldMsg),
         house_type_id: string()
             .required(emptyFieldMsg),
-        house_name: number()
+        house_name: string()
             .typeError('Введите число')
             .required(emptyFieldMsg),
         flat_name: number()
