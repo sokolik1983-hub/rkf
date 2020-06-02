@@ -135,6 +135,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/:route/document-status/:query',
+        component: LoadableModules.LoadableDocumentStatus
+    },
+    {
+        exact: true,
         path: '/:route',
         component: LoadableModules.LoadableClubPage
     }

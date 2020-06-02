@@ -1,0 +1,93 @@
+.Confirm {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 210px;
+    width: 19rem;
+    height: auto;
+    top: 154px;
+    left: calc(50% - 9.5rem);
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0px 10px 50px rgba(51, 102, 255, 0.2);
+    padding: 20px 24px 24px;
+    color: #253c5e;
+    z-index: 99;
+
+    @keyframes slide-in-top {
+        0% {
+            transform: translateY(-1000px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slide-out-top {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-1000px);
+            opacity: 0;
+        }
+    }
+    animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    &.exit {
+        animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    }
+
+    @media (min-width: 768px) {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+
+    &__title {
+        font-family: Source Sans Pro;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    &__text {
+        font-family: Source Sans Pro;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 16px;
+    }
+
+    &__cross {
+        position: absolute;
+        width: 10.5px;
+        height: 10.5px;
+        top: 18.75px;
+        right: 18.75px;
+        cursor: pointer;
+    }
+
+    &__cross svg {
+        position: absolute;
+    }
+
+    &__buttons {
+        margin-top: 16px;
+        display: flex;
+        justify-content: flex-end;
+        button {
+            letter-spacing: 0.2px;
+            padding: 8px 26px;
+            @media (max-width: 768px) {
+                padding: 6px 18px;
+            }
+            &:first-child {
+                margin: 0 16px 0 0;
+            }
+        }
+    }
+}
