@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "formik";
 import { FormField, FormGroup } from "../../components/Form";
-import CustomNumber from "../../components/Form/Field/CustomNumber";
 import { activationForm } from "./config";
 
 
@@ -50,7 +49,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, isSubmitted 
             </FormGroup>
             <FormGroup inline>
                 <FormField {...activationForm.fields.registration_date} disabled={isSubmitted} />
-                <CustomNumber {...activationForm.fields.certificate_rkf_number} />
+                <FormField {...activationForm.fields.certificate_rkf_number} />
             </FormGroup>
             <FormGroup inline>
                 <FormField {...activationForm.fields.stamp_code} />
