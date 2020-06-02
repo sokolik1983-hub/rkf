@@ -12,7 +12,7 @@ const ResponsivePersonTable = ({history, nurseryAlias}) => {
 
     useEffect(() => {
         (() => Request({
-            url: '/api/clubs/Declarant/club_declarants'
+            url: '/api/nurseries/NurseryDeclarant/nursery_declarants'
         },
         data => {
             setDeclarants(data);

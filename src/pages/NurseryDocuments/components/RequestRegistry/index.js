@@ -32,8 +32,8 @@ const RequestRegistry = ({history, nurseryAlias, distinction}) => {
 
     return loading ?
         <Loading/> :
-        <Card className="club-documents-status">
-            <div className="club-documents-status__head">
+        <Card className="nursery-documents-status">
+            <div className="nursery-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree' 
@@ -48,7 +48,7 @@ const RequestRegistry = ({history, nurseryAlias, distinction}) => {
                 <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
                 <p></p>
             </div>
-            <div className="club-documents-status__table">
+            <div className="nursery-documents-status__table">
                 {documents && !!documents.length ?
                     <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} distinction={distinction} nurseryAlias={nurseryAlias}/> :
                     <h2>Документов не найдено</h2>

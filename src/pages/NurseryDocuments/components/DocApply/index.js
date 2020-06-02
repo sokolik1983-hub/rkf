@@ -36,7 +36,7 @@ const forms = {
 const DocApply = ({ nurseryAlias, history }) => {
     let distinction;
     //const [draft, setDraft] = useState(false);
-    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const nurseryId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -112,7 +112,7 @@ const DocApply = ({ nurseryAlias, history }) => {
         */}
         <div className="documents-page__right">
             <FormContent
-                {...{nurseryAlias, id, clubId, Title, update, view}}
+                {...{nurseryAlias, id, nurseryId, Title, update, view}}
             />
         </div>
     </div>

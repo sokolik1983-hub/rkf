@@ -6,8 +6,8 @@ const apiDoctypeEndpoint = '/api/requests/NurseryPedigreeRequest/additional_docu
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
 const apiPedigreeStatusesEndpoint = '/api/requests/NurseryPedigreeRequest/statuses';
-const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
-const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
+const apiStampCodesEndpoint = '/api/nurseries/NurseryStampCode/nursery';
+const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
 
 
 const validationSchema = {
@@ -133,7 +133,7 @@ const config = {
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
         declarants: {
-            url: apiClubDeclarantsEndpoint,
+            url: apiNurseryDeclarantsEndpoint,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         },
         doctypes: {
@@ -153,7 +153,7 @@ const config = {
             mapping: data => data.sort((a,b) => a.id - b.id),
         },
         stampCodes: {
-            url: clubId => apiStampCodesEndpoint + '?id=' + clubId,
+            url: nurseryId => apiStampCodesEndpoint + '?id=' + nurseryId,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
         }
     },

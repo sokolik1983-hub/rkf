@@ -31,7 +31,7 @@ const transform = values => deepMap(values, v => {
 })
 
 const genericForm = (Component, config) => {
-    return ({update, nurseryAlias, clubId, id, prevStage, nextStage, Title}) => {
+    return ({update, nurseryAlias, nurseryId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
               //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -50,7 +50,7 @@ const genericForm = (Component, config) => {
         useEffect(() => {
             (() => Promise.all(
                 [Promise.all(config.options ? Object.keys(config.options).map(k =>
-                    PromiseRequest(typeof(config.options[k].url) === "function" ? config.options[k].url(clubId) : config.options[k].url)
+                    PromiseRequest(typeof(config.options[k].url) === "function" ? config.options[k].url(nurseryId) : config.options[k].url)
                     .then(data => ({[k]:!!config.options[k].mapping ? config.options[k].mapping(data) : data})))
                 : [new Promise()])
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))
@@ -110,7 +110,7 @@ const genericForm = (Component, config) => {
             />
         }
 
-                {/*<div className="club-documents-status__head">
+                {/*<div className="nursery-documents-status__head">
                     <Link className="btn-backward" to={`/nursery/${nurseryAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
             {!!options && <Component {...{update, options, nurseryAlias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}

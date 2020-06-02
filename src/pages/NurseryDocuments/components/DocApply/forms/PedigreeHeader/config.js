@@ -3,7 +3,7 @@ import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
 const apiPedigreeEndpoint = '/api/requests/pedigree_request/NurseryPedigreeRequestHeader';
-const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
+const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
 
 const validationSchema = {
     id: number(),
@@ -29,7 +29,7 @@ const config = {
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
         declarants: {
-            url: apiClubDeclarantsEndpoint,
+            url: apiNurseryDeclarantsEndpoint,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
     },

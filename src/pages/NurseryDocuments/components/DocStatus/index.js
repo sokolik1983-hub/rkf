@@ -8,7 +8,7 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
+const NurseryDocumentsStatus = ({history, nurseryAlias, distinction}) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
@@ -43,16 +43,16 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
 
     return loading ?
         <Loading/> :
-        <Card className="club-documents-status">
-            <div className="club-documents-status__head">
+        <Card className="nursery-documents-status">
+            <div className="nursery-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree' 
                     ? 'Оформление родословной'
                     : 'Заявление на регистрацию помета'}
             </div>
-            <div className="club-documents-status__table">
-                {documents && !!documents.length ? <><div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+            <div className="nursery-documents-status__table">
+                {documents && !!documents.length ? <><div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
                     <StatusTable
                         deleteRow={row => setDocuments(documents.filter(x => x && x.id !== row))}
                         documents={documents} distinction={distinction} nurseryAlias={nurseryAlias} rowClick={rowClick}/></> :
@@ -60,7 +60,7 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
                 }
             </div>
             {innerDocuments && 
-                <div className="club-documents-status__table">
+                <div className="nursery-documents-status__table">
                     {!!innerDocuments.length ?<><h3>Вложенные заявки</h3>
                         <RequestTable
                             documents={innerDocuments}
@@ -72,7 +72,7 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
                     }
                 </div>
             }
-            <div className="club-documents-status__bottom">
+            <div className="nursery-documents-status__bottom">
                 <p>{distinction === 'litter' ?
                     'В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются: акт вязки, акт обследования помета, копии свидетельств о происхождении производителей, копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно - оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.' :
                     'Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.'
@@ -86,4 +86,4 @@ const ClubDocumentsStatus = ({history, nurseryAlias, distinction}) => {
         </Card>
 };
 
-export default React.memo(ClubDocumentsStatus);
+export default React.memo(NurseryDocumentsStatus);

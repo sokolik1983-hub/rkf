@@ -3,7 +3,7 @@ import {DEFAULT_PHONE_INPUT_MASK, DEFAULT_PHONE_INPUT_PLACEHOLDER} from "../../.
 
 
 export const ResponsibleFormConfig = {
-    action: '/api/clubs/Declarant',
+    action: '/api/nurseries/NurseryDeclarant',
     fields: {
         last_name: {
             name: 'last_name',

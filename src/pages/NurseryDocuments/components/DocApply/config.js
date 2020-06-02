@@ -18,8 +18,8 @@ const apiNurseryLitterDocumentEndpoint = '/api/requests/NurseryLitterRequest/doc
 const apiLitterEmptyDocument = '/api/requests/NurseryLitterRequest/litter_empty_document';
 const apiPedigreeEverk = '/api/requests/NurseryPedigreeRequest/everk_dog_info';
 const apiLitterEverk = '/api/requests/NurseryLitterRequest/everk_breeder_info';
-const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
-const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
+const apiStampCodesEndpoint = '/api/nurseries/NurseryStampCode/nursery';
+const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -359,7 +359,7 @@ export {
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
     apiStampCodesEndpoint,
-    apiClubDeclarantsEndpoint,
+    apiNurseryDeclarantsEndpoint,
 
 
     reqText,
