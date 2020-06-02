@@ -77,8 +77,13 @@ export const LoadableClubNews = Loadable({
     loading: Loading
 });
 
-export const LoadableAuthorization = Loadable({
+export const LoadableLogin = Loadable({
     loader: () => import('./pages/Login'),
+    loading: Loading
+});
+
+export const LoadableRegistration = Loadable({
+    loader: () => import('./pages/Registration'),
     loading: Loading
 });
 

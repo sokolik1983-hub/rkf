@@ -6,6 +6,10 @@
     }
     &-controls {
       text-align: center;
+      .btn {
+        display: block;
+        margin-left: auto;
+      }
     }
     .custom-checkbox {
       margin-bottom: 0;
