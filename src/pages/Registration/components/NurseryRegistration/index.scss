@@ -62,7 +62,8 @@
         margin-left: 0;
       }
     }
-    .FormInput .FormInput__input, .FormInput .FormInput__input:active {
+    .FormInput .FormInput__input,
+    .FormInput .FormInput__input:active {
       padding: 6px 10px;
     }
     .btn {
@@ -73,5 +74,9 @@
   &__activate-warn {
     font-weight: 600;
     color: firebrick;
+  }
+  &__skip-search {
+    margin-bottom: 12px;
+    text-align: right;
   }
 }
