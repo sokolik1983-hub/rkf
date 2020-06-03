@@ -30,9 +30,9 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
             body: JSON.stringify({ "apiKey": HelpdeskApiKey })
         };
         try {
-            let { token } = await fetch('https://helpapi.rkf.online/api/v1/token', options)
+            let { token } = await fetch('https://help.rkf.online/api/v1/token', options)
                 .then(response => response.json());
-            window.open('https://helpapi.rkf.online/api/v1/login/' + token);
+            window.open('https://help.rkf.online/api/v1/login/' + token);
         } catch (error) {
             setErrorText(error.message);
             setAlert(true);
