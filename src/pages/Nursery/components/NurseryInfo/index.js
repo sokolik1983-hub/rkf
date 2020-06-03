@@ -56,7 +56,7 @@ const NurseryInfo = ({
                 <>
                     <div className="nursery-page__info-phone">
                         {contacts.filter(item => item.contact_type_id === 1).map(contact => (
-                            <p key={contact.id}>
+                            contact.value && <p key={contact.id}>
                                 <span>{contact.description || 'Телефон'}</span>
                                 <br />
                                 <span>{beautify(contact.value)}</span>
