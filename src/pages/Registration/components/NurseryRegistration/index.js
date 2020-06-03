@@ -40,6 +40,7 @@ const NurseryRegistration = () => {
     const federationFormSuccess = data => {
         if (data) {
             setNursery({ ...data, city_id: data.city ? data.city.id : '' });
+            setIsNurseryFound(true);
             setIsFederationFormSend(true)
         } else {
             setIsNurseryFound(false);
