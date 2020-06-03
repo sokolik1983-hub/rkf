@@ -40,6 +40,7 @@ const NurseryRegistration = () => {
     const federationFormSuccess = data => {
         if (data) {
             setNursery({ ...data, city_id: data.city ? data.city.id : '' });
+            setIsNurseryFound(true);
             setIsFederationFormSend(true)
         } else {
             setIsNurseryFound(false);
@@ -82,6 +83,12 @@ const NurseryRegistration = () => {
         setAlert(true);
     };
 
+    const handleSkip = e => {
+        e.preventDefault();
+        setIsNurseryFound(false);
+        setIsFederationFormSend(true);
+    };
+
     return (
         <div className="nursery-registration">
             {!isFederationFormSend &&
@@ -94,6 +101,9 @@ const NurseryRegistration = () => {
                 >
                     <FormField {...federationForm.fields.federation_id} options={federations} />
                     <FormField {...federationForm.fields.folder_number} />
+                    <div className="nursery-registration__skip-search">
+                        <a href="/" onClick={handleSkip}>Не нашли свой питомник?</a>
+                    </div>
                     <SubmitButton type="submit" className="btn btn-primary">Поиск</SubmitButton>
                 </Form>
             }
