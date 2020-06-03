@@ -91,7 +91,12 @@ const appRoutes = [
     {
         exact: true,
         path: '/auth/login',
-        component: LoadableModules.LoadableAuthorization
+        component: LoadableModules.LoadableLogin
+    },
+    {
+        exact: true,
+        path: '/auth/registration',
+        component: LoadableModules.LoadableRegistration
     },
     {
         exact: true,

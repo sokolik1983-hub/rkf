@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import LoginForm from "./components/LoginForm";
-import Registration from "./components/Registration";
 import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
 import { connectAuthVisible } from "./connectors";
@@ -16,7 +15,6 @@ const LoginPage = ({ isAuthenticated }) => {
         <Layout>
             <AuthLayout className="login-page">
                 <LoginForm />
-                <Registration />
             </AuthLayout>
         </Layout>
 };

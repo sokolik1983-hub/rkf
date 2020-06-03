@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
-import { LOGIN_URL, DEFAULT_IMG } from "../../../../appConfig";
+import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "utils/history";
 
@@ -14,6 +14,14 @@ const WidgetLogin = forwardRef(
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+
+        const AuthButtons = () => {
+            let path = history.location.pathname;
+            return (<>
+                {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход</Link>}
+                {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}>Регистрация</Link>}
+            </>);
+        };
 
         return (
             <div className="widget-login">
@@ -66,7 +74,7 @@ const WidgetLogin = forwardRef(
                             </div>
                         </CSSTransition>
                     </OutsideClickHandler>
-                    : history.location.pathname !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход и регистрация</Link>
+                    : <AuthButtons />
                 }
             </div>
         )

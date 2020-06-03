@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import Loading from "components/Loading";
 import Modal from "components/Modal";
 import ActivateClub from "./ActivateClub";
-import {useDictionary} from "dictionaries";
-import {DICTIONARIES} from "dictionaries/config";
-import {Request} from "utils/request";
+import { useDictionary } from "dictionaries";
+import { DICTIONARIES } from "dictionaries/config";
+import { Request } from "utils/request";
 import "./index.scss";
 
 
@@ -14,9 +14,9 @@ const ClubRegistration = () => {
     const [loading, setLoading] = useState(false);
     const [activeClub, setActiveClub] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const {dictionary} = useDictionary(DICTIONARIES.cities);
+    const { dictionary } = useDictionary(DICTIONARIES.cities);
     const selectOptions = [
-        {value: 'reset', label: 'Все города'},
+        { value: 'reset', label: 'Все города' },
         ...dictionary.options
     ];
 
@@ -41,15 +41,15 @@ const ClubRegistration = () => {
                 setClubs(data);
                 setLoading(false);
             },
-            error => {
-                setLoading(false);
-                console.log(error.response);
-            });
+                error => {
+                    setLoading(false);
+                    console.log(error.response);
+                });
         }
         if (value.value === 'reset') setClubs(null);
     };
 
-    return (
+    return (<>
         <div className="registration-page__holder club-registration">
             <Select
                 className="club-registration__select"
@@ -68,7 +68,7 @@ const ClubRegistration = () => {
                     })
                 }}
             />
-            {loading && <Loading inline/>}
+            {loading && <Loading inline />}
             {!loading && clubs &&
                 <>
                     {clubs.length ?
@@ -89,10 +89,19 @@ const ClubRegistration = () => {
             }
             {activeClub &&
                 <Modal showModal={showModal} handleClose={onModalClose} className="club-registration__modal">
-                    <ActivateClub club={activeClub}/>
+                    <ActivateClub club={activeClub} />
                 </Modal>
             }
         </div>
+        <div className="registration-page__support-links">
+            <p>
+                <a href="https://help.rkf.online/ru/knowledge_base/article/36/category/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по регистрации клуба на портале RKF.Online</a>
+            </p>
+            <p>
+                <a href="https://help.rkf.online/ru/knowledge_base/art/52/cat/3/#/" target="_blank" rel="noopener noreferrer">Видео-инструкция по регистрации клуба на портале RKF.Online</a>
+            </p>
+        </div>
+    </>
     )
 };
 
