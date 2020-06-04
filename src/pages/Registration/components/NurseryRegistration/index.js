@@ -11,9 +11,9 @@ import "./index.scss";
 
 const NurseryRegistration = () => {
     const [federations, setFederations] = useState([]);
-    const [isFederationFormSend, setIsFederationFormSend] = useState(false);
+    const [isFederationFormSend, setIsFederationFormSend] = useState(true);
     const [isCodeFormSend, setIsCodeFormSend] = useState(false);
-    const [isNurseryFound, setIsNurseryFound] = useState(true);
+    const [isNurseryFound, setIsNurseryFound] = useState(false);
     const [nursery, setNursery] = useState(null);
     const [code, setCode] = useState(null);
     const [alert, setAlert] = useState(false);
