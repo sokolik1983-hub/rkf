@@ -65,12 +65,12 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/nursery/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/stamps/add' component={() =>
+                        {/*<Route exact={true} path='/nursery/:route/documents/stamps/add' component={() =>
                             <AddStamp history={history} />}
                         />
                         <Route exact={true} path='/nursery/:route/documents/stamps/registry' component={() =>
                             <Registry history={history} />}
-                        />
+                        />*/}
                         <Route exact={true} path='/nursery/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm nurseryAlias={nurseryAlias} history={history} />}
                         />

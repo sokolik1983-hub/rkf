@@ -159,7 +159,7 @@ const DocHome = ({ nurseryAlias, bookform }) => {
             <CustomMenu title="Личный кабинет">
                 <Link to={`/nursery/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to={`/nursery/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>
+                {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 <Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
                 {bookform && <Bookform nurseryAlias={nurseryAlias}/>}
@@ -167,7 +167,7 @@ const DocHome = ({ nurseryAlias, bookform }) => {
         </aside>
         <Switch>
             <Route path='/nursery/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
-            <Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />
+            {/*<Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
             <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
