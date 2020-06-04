@@ -57,7 +57,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
                 if (status_id === 2) {
                     setShowAlert({
                         title: "Ваша заявка была отклонена!",
-                        text: "Вы можете внести исправления и отправить её повторно.",
+                        //text: "Вы можете внести исправления и отправить её повторно.",
                         autoclose: 5,
                         onOk: () => setShowAlert(false)
                     });
