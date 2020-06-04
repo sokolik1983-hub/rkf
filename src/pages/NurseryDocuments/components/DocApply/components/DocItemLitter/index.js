@@ -13,7 +13,7 @@ import Alert from "components/Alert";
 import { FormGroup, FormField, FormInput } from "components/Form";
 import HideIf from "components/HideIf";
 import "./index.scss";
-const apiPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
+const apiPrivacyEndpoint = '/api/requests/NurseryLitterRequest/personal_data_document';
 
 const accept = ".pdf, .jpg, .jpeg, .png";
 // litter
@@ -25,6 +25,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [activePuppy, setActivePuppy] = useState(-1);
     const [everkAlert, setEverkAlert] = useState(false);
     const [everkData, setEverkData] = useState(null);
+    const [nurseryData, setNurseryData] = useState({});
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
     
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
@@ -59,6 +60,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             //fetch(apiLitterEmptyDocument, {headers})
             //.then(response => response.blob())
             //.then(data => setLitterHref(URL.createObjectURL(data))),
+            PromiseRequest('/api/nurseries/Nursery/request_information')
+            .then(data => {
+                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}`, data[k]))
+                setNurseryData(data);
+            })
         ])
     }, []);
 
@@ -136,16 +142,16 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             />
 
 
-            <FormField disabled={update} name={`nursery_name`} label='Название питомника (опционально)'/>
+            <FormField disabled={update || nurseryData.nursery_name} name={`nursery_name`} label='Название питомника (опционально)'/>
             <HideIf cond={!(formik.values && formik.values.nursery_name)}>
                 <FormField disabled={update} fieldType="customCheckbox" name={`prefix`} label='Префикс'/>
                 <FormField disabled={update} fieldType="customCheckbox" name={`suffix`} label='Суффикс'/>
             </HideIf>
             <FormGroup inline>
-                <FormField disabled={update} name={`instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
-                <FormField disabled={update} name={`instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
+                <FormField disabled={update || nurseryData.instructor_nursery_owner_last_name} name={`instructor_nursery_owner_last_name`} label='Фамилия инструктора клуба / владельца питомника (опционально)'/>
+                <FormField disabled={update || nurseryData.instructor_nursery_owner_first_name} name={`instructor_nursery_owner_first_name`} label='Имя инструктора клуба / владельца питомника (опционально)'/>
             </FormGroup>
-            <FormField disabled={update} name={`instructor_nursery_owner_second_name`} label='Отчество инструктора клуба / владельца питомника (опционально)'/>
+            <FormField disabled={update || nurseryData.instructor_nursery_owner_second_name} name={`instructor_nursery_owner_second_name`} label='Отчество инструктора клуба / владельца питомника (опционально)'/>
             
             <FormGroup inline>
                 <FormField disabled={update} name={`hallmark_last_name`} label='Фамилия ответственного за клеймление'/>

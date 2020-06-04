@@ -28,17 +28,17 @@ const PuppyMetrics = ({ history }) => {
         is_rejected,
         left_for_review,
         reason_comment,
-        club_name,
-        club_phone,
-        club_web_site,
-        club_mail } = data;
+        nursery_name,
+        nursery_phone,
+        nursery_web_site,
+        nursery_mail } = data;
     const date = new Date(date_of_birth);
     const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
     useEffect(() => {
         setLoading(true);
         Request({
-            url: `/api/requests/LitterRequest/puppy_metric?id=${puppyId}`
+            url: `/api/requests/NurseryLitterRequest/puppy_metric?id=${puppyId}`
         }, result => {
             result && setData(result);
             setLoading(false);
@@ -51,7 +51,7 @@ const PuppyMetrics = ({ history }) => {
     return loading
         ? <Loading />
         : <Card style={{ margin: 0 }}>
-            <div className="club-documents-status__head">
+            <div className="nursery-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
             </div>
             <div className="PuppyMetrics">
@@ -65,7 +65,7 @@ const PuppyMetrics = ({ history }) => {
 
                 <p className="PuppyMetrics__bordered-block">Наименование, адрес и телефон кинологической организации, выдавшей метрику щенка<br />
                 Name address and telephone of the organization which issued the puppy card<br />
-                    {club_name}&nbsp;{[club_phone, club_web_site, club_mail].filter(v => v).join(', ')}
+                    {nursery_name}&nbsp;{[nursery_phone, nursery_web_site, nursery_mail].filter(v => v).join(', ')}
                 </p>
 
 

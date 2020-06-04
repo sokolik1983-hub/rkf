@@ -10,8 +10,8 @@ const DocRegistry = ({ history, distinction }) => {
     const { id } = useParams();
     const isPedigree = distinction === 'pedigree';
     const url = isPedigree
-        ? `/api/requests/PedigreeRequest/register_of_documents?id=${id}`
-        : `/api/requests/LitterRequest/register_of_documents?id=${id}`;
+        ? `/api/requests/NurseryPedigreeRequest/register_of_documents?id=${id}`
+        : `/api/requests/NurseryLitterRequest/register_of_documents?id=${id}`;
 
     useEffect(() => {
         Request({
@@ -19,14 +19,14 @@ const DocRegistry = ({ history, distinction }) => {
         }, result => setData(result));
     }, []);
 
-    const { phone, mail, name, club_name, request_check_code, number, federation_name, declarants } = data;
+    const { phone, mail, name, nursery_name, request_check_code, number, federation_name, declarants } = data;
     const date = new Date(data.date);
     const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
     return !data.number
         ? <Loading />
         : <Card style={{ margin: 0 }}>
-            <div className="club-documents-status__head">
+            <div className="nursery-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Назад</button>
             </div>
             <div className="DocRegistry">
@@ -38,7 +38,7 @@ const DocRegistry = ({ history, distinction }) => {
                         <p><strong>Заявление №</strong>{number}</p>
                         <p><strong>Федерация: </strong>{federation_name}</p>
 
-                        <p><strong>Наименование клуба: </strong>{club_name}</p>
+                        <p><strong>Наименование клуба: </strong>{nursery_name}</p>
                         <p><strong>ФИО заявителя: </strong>{name}</p>
                     </div>
                     <div>

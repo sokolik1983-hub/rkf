@@ -1,25 +1,25 @@
 import { object, string, array, number, boolean, mixed } from "yup";
 
-const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
-const apiLitterEndpoint = '/api/requests/LitterRequest';
-const apiPedigreeDoctypeEndpoint = '/api/requests/PedigreeRequest/additional_document_types';
-const apiLitterDoctypeEndpoint = '/api/requests/LitterRequest/additional_document_types';
+const apiPedigreeEndpoint = '/api/requests/NurseryPedigreeRequest';
+const apiLitterEndpoint = '/api/requests/NurseryLitterRequest';
+const apiPedigreeDoctypeEndpoint = '/api/requests/NurseryPedigreeRequest/additional_document_types';
+const apiLitterDoctypeEndpoint = '/api/requests/NurseryLitterRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
-const apiPedigreePrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document';
-const apiLitterPrivacyEndpoint = '/api/requests/LitterRequest/personal_data_document';
-const apiLitterDogStatusEndpoint = '/api/requests/LitterRequest/litter_dog_status';
-const apiVerkEndpoint = '/api/requests/PedigreeRequest/request_extract_from_verk_document';
+const apiPedigreePrivacyEndpoint = '/api/requests/NurseryPedigreeRequest/personal_data_document';
+const apiLitterPrivacyEndpoint = '/api/requests/NurseryLitterRequest/personal_data_document';
+const apiLitterDogStatusEndpoint = '/api/requests/NurseryLitterRequest/litter_dog_status';
+const apiVerkEndpoint = '/api/requests/NurseryPedigreeRequest/request_extract_from_verk_document';
 const apiStatusesEndpoint = '/api/requests/CommonRequest/status';
-const apiPedigreeStatusesEndpoint = '/api/requests/PedigreeRequest/statuses';
+const apiPedigreeStatusesEndpoint = '/api/requests/NurseryPedigreeRequest/statuses';
 const apiCitiesEndpoint = '/api/City';
-const apiPedigreeDocumentEndpoint = '/api/requests/pedigree_request/PedigreeDocument';
-const apiLitterDocumentEndpoint = '/api/requests/litter_request/LitterDocument';
-const apiLitterEmptyDocument = '/api/requests/LitterRequest/litter_empty_document';
-const apiPedigreeEverk = '/api/requests/PedigreeRequest/everk_dog_info';
-const apiLitterEverk = '/api/requests/LitterRequest/everk_breeder_info';
-const apiStampCodesEndpoint = '/api/clubs/ClubStampCode/club';
-const apiClubDeclarantsEndpoint = '/api/clubs/Declarant/club_declarants';
+const apiNurseryPedigreeDocumentEndpoint = '/api/requests/pedigree_request/NurseryPedigreeDocument';
+const apiNurseryLitterDocumentEndpoint = '/api/requests/litter_request/NurseryLitterDocument';
+const apiLitterEmptyDocument = '/api/requests/NurseryLitterRequest/litter_empty_document';
+const apiPedigreeEverk = '/api/requests/NurseryPedigreeRequest/everk_dog_info';
+const apiLitterEverk = '/api/requests/NurseryLitterRequest/everk_breeder_info';
+const apiStampCodesEndpoint = '/api/nurseries/NurseryStampCode/nursery';
+const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';
@@ -247,7 +247,7 @@ const pedigreeUpdateSchema = object().shape({...commonUpdateSchema, declarants: 
 const litterValidationSchema = object().shape({...commonValidationSchema, declarants: litterDeclarantsValidationSchema});
 const litterUpdateSchema = object().shape({...commonUpdateSchema, declarants: litterDeclarantsUpdateSchema});
 
-const emptyPedigreeDeclarant = {
+const emptyNurseryPedigreeDeclarant = {
     express: false,
     owner_first_name: '',
     owner_last_name: '',
@@ -290,7 +290,7 @@ const emptyPedigreeDeclarant = {
     documents: []
 };
 
-const emptyLitterDeclarant = {
+const emptyNurseryLitterDeclarant = {
     first_name: '',
     last_name: '',
     second_name: '',
@@ -339,8 +339,8 @@ const emptyLitterDeclarant = {
 };
 
 export {
-    emptyPedigreeDeclarant,
-    emptyLitterDeclarant,
+    emptyNurseryPedigreeDeclarant,
+    emptyNurseryLitterDeclarant,
     pedigreeValidationSchema,
     litterValidationSchema,
     pedigreeUpdateSchema,
@@ -357,13 +357,13 @@ export {
     apiStatusesEndpoint,
     apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
-    apiPedigreeDocumentEndpoint,
-    apiLitterDocumentEndpoint,
+    apiNurseryPedigreeDocumentEndpoint,
+    apiNurseryLitterDocumentEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeEverk,
     apiLitterEverk,
     apiPedigreeStatusesEndpoint,
     apiStampCodesEndpoint,
-    apiClubDeclarantsEndpoint
+    apiNurseryDeclarantsEndpoint
 };
 

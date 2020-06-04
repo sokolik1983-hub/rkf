@@ -29,7 +29,7 @@ const message = e =>
     : window.alert('Отсутствует соединение с сервером');
 
 const FormFile = ({formik, name, label, docId, disabled, form, distinction, document_type_id, declarant_uid, wide}) => {
-    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const nurseryId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
     return <div style={{
     display: 'flex',
@@ -59,7 +59,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
                 let fd = new FormData();
                 fd.append("document", file);
                 fd.append("document_type_id", document_type_id);
-                fd.append("club_id", clubId);
+                fd.append("nursery_id", nurseryId);
                 declarant_uid && fd.append("declarant_uid", declarant_uid);
                 setLoading(true);
                 formik.setFieldValue(name, '');
@@ -67,7 +67,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, distinction, docu
                     if (descision) {
                         Request({
                             isMultipart: true,
-                            url: `/api/requests/${distinction}_request/${up(distinction)}Document${declarant_uid ? '/additional' : ''}`,
+                            url: `/api/requests/${distinction}_request/Nursery${up(distinction)}Document${declarant_uid ? '/additional' : ''}`,
                             method: "POST",
                             data: fd
                         }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); message(e)})

@@ -20,7 +20,7 @@ const Bookform = ({history, nurseryAlias, distinction}) => {
 
     useEffect(() => {
         (() => Request({
-            url: '/api/Club/club_federation'
+            url: '/api/nurseries/Nursery/nursery_federation'
         },
         data => {
             setFederation(data);

@@ -13,14 +13,14 @@ import removeNulls from "utils/removeNulls";
 import './index.scss';
 
 import {
-    emptyPedigreeDeclarant,
-    emptyLitterDeclarant,
+    emptyNurseryPedigreeDeclarant,
+    emptyNurseryLitterDeclarant,
     pedigreeValidationSchema,
     litterValidationSchema,
     pedigreeUpdateSchema,
     litterUpdateSchema,
     apiStampCodesEndpoint,
-    apiClubDeclarantsEndpoint,
+    apiNurseryDeclarantsEndpoint,
     apiPedigreeEndpoint,
     apiLitterEndpoint
 } from "../../config.js";
@@ -43,7 +43,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
     const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
     const [stampCodes, setStampCodes] = useState([]);
     const [declarants, setDeclarants] = useState([]);
-    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const nurseryId = ls.get('profile_id') ? ls.get('profile_id') : '';
     let stamp_code_id = stampCodes && stampCodes[0] && stampCodes[0].value;
     let stamp_code_name = (stampCodes && stampCodes[0]) ? stampCodes[0].label : '';
     let declarant_id = declarants && declarants[0] && declarants[0].id;
@@ -61,7 +61,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         flat: '',
         email: '',
         folder_number: '',
-        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_name} : {...emptyLitterDeclarant, stamp_code_id}],
+        declarants: [distinction === "pedigree" ? {...emptyNurseryPedigreeDeclarant, stamp_code_name} : {...emptyNurseryLitterDeclarant, stamp_code_id}],
     
         cash_payment: false,
         payment_document: '',
@@ -142,9 +142,9 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
     useEffect(() => {
         (() => Promise.all([
-            PromiseRequest(apiClubDeclarantsEndpoint)
+            PromiseRequest(apiNurseryDeclarantsEndpoint)
             .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
-            PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
+            PromiseRequest(`${apiStampCodesEndpoint}?id=${nurseryId}`)
             .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code})))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
@@ -198,7 +198,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
                 noEnter={true}
             >
                 <Card>
-                    <div className="club-documents-status__head">
+                    <div className="nursery-documents-status__head">
                         <Link className="btn-backward" to={`/nursery/${nurseryAlias}/documents`}>Личный кабинет</Link>
                     </div>
                     <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление на регистрацию помёта"}</h3>

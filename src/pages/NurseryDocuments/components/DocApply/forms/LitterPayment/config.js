@@ -3,7 +3,7 @@ import {reqText, numbersOnly, reqIfCash} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 import { Request } from "utils/request";
 
-const apiLitterEndpoint = '/api/litter/pedigree_request/LitterRequestHeader/payment';
+const apiLitterEndpoint = '/api/litter/pedigree_request/NurseryLitterRequestHeader/payment';
 
 const validationSchema = {
     id: number(),
@@ -23,13 +23,13 @@ const config = {
     validationSchema, updateSchema,
     onSuccess: {
         next: (values, setRedirect, nurseryAlias) => values && values.id && Request({
-            url: '/api/requests/LitterRequest/new',
+            url: '/api/requests/NurseryLitterRequest/new',
             method: "POST",
             data: {id:values.id}
         },
         _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/nursery/${nurseryAlias}/documents`)},
-        e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.LitterRequest
-            ? e.response.data.errors.LitterRequest
+        e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.NurseryLitterRequest
+            ? e.response.data.errors.NurseryLitterRequest
             : 'Отсутствует соединение с сервером');})
     },
     options: {
@@ -39,7 +39,7 @@ const config = {
         }
     },
     url: apiLitterEndpoint,
-    get: '/api/requests/LitterRequest',
+    get: '/api/requests/NurseryLitterRequest',
     initialValues: {
         cash_payment: false,
         payment_document: '',

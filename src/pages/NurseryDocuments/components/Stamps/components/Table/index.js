@@ -64,7 +64,7 @@ class StampsRegistry extends PureComponent {
 
     setDefaultStamp = async id => {
         await Request({
-            url: '/api/clubs/ClubStampCode/default',
+            url: '/api/nurseries/NurseryStampCode/default',
             method: 'PUT',
             data: JSON.stringify({ profile_id: this.state.profile_id, stamp_code_id: id })
         }, () => {

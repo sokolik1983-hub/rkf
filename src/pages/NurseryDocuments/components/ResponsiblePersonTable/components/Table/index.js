@@ -67,7 +67,7 @@ class ResponsibleTable extends PureComponent {
     deletePerson = async id => {
         if(window.confirm('Вы уверены, что хотите удалить это ответственное лицо?')) {
             await Request({
-                url: '/api/clubs/Declarant',
+                url: '/api/nurseries/NurseryDeclarant',
                 method: 'DELETE',
                 data: JSON.stringify({id: id})
             }, () => {
@@ -80,7 +80,7 @@ class ResponsibleTable extends PureComponent {
 
     setDefaultPerson = async id => {
         await Request({
-            url: '/api/clubs/Declarant',
+            url: '/api/nurseries/NurseryDeclarant',
             method: 'PUT',
             data: JSON.stringify({id: id, is_default: true})
         }, () => {

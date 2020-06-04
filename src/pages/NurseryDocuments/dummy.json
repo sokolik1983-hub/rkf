@@ -11,10 +11,10 @@
             "date": "12.03.2020"
         }
     ],
-    "club": {
+    "nursery": {
         "id": 4547,
         "display_name": "Тестовый клуб",
-        "avatar": "/static/icons/default/club-avatar.svg",
+        "avatar": "/static/icons/default/nursery-avatar.svg",
         "email": "test@example.com",
         "phone": "+7(495)223-32-22"
     },

@@ -6,12 +6,12 @@ import Alert from "components/Alert";
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
-import PedigreeDeclarant from "./forms/PedigreeDeclarant";
+import NurseryPedigreeDeclarant from "./forms/PedigreeDeclarant";
 
 import LitterHeader from "./forms/LitterHeader";
 import LitterTable from "./forms/LitterTable";
 import LitterPayment from "./forms/LitterPayment";
-import LitterDeclarant from "./forms/LitterDeclarant";
+import NurseryLitterDeclarant from "./forms/LitterDeclarant";
 
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
@@ -23,20 +23,20 @@ const forms = {
         header: PedigreeHeader,
         table: PedigreeTable,
         payment: PedigreePayment,
-        declarant: PedigreeDeclarant
+        declarant: NurseryPedigreeDeclarant
     },
     litter: {
         header: LitterHeader,
         table: LitterTable,
         payment: LitterPayment,
-        declarant: LitterDeclarant
+        declarant: NurseryLitterDeclarant
     }
 }
 
 const DocApply = ({ nurseryAlias, history }) => {
     let distinction;
     //const [draft, setDraft] = useState(false);
-    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const nurseryId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -112,7 +112,7 @@ const DocApply = ({ nurseryAlias, history }) => {
         */}
         <div className="documents-page__right">
             <FormContent
-                {...{nurseryAlias, id, clubId, Title, update, view}}
+                {...{nurseryAlias, id, nurseryId, Title, update, view}}
             />
         </div>
     </div>
