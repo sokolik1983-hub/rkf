@@ -124,7 +124,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                                             onClick={e => {
                                                 e.preventDefault();
                                                 if (window.confirm("Удалить черновик?")) {
-                                                    Request({url:`/api/requests/${up(distinction)}Request`,data:rowData.id,method:'DELETE'},
+                                                    Request({url:`/api/requests/Nursery${up(distinction)}Request`,data:rowData.id,method:'DELETE'},
                                                         data => {deleteRow && deleteRow(rowData.id);window.alert('Заявка удалена')},
                                                         e => window.alert('Отсутствует соединение с сервером')
                                                     )
