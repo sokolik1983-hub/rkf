@@ -161,7 +161,7 @@ const DocHome = ({ nurseryAlias, bookform }) => {
                 <Link to={`/nursery/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
-                <Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
+                {/*<Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>*/}
                 {bookform && <Bookform nurseryAlias={nurseryAlias}/>}
             </CustomMenu>
         </aside>
