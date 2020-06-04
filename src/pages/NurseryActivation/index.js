@@ -22,6 +22,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
     const [loaded, setLoaded] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [rejectedComment, setRejectedComment] = useState('');
+    const [rejected, setRejected] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
@@ -61,7 +62,8 @@ const NurseryActivation = ({ history, logOutUser }) => {
                         autoclose: 5,
                         onOk: () => setShowAlert(false)
                     });
-                    setIsSubmitted(false);
+                    setIsSubmitted(true);
+                    setRejected(true);
                     setRejectedComment(rejected_comment);
                 }
                 if (status_id === 3) {
@@ -134,7 +136,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
                     : <>
                         {
                             isSubmitted
-                                ? <h2 style={{ color: 'red' }}>Заявка находится на рассмотрении</h2>
+                                ? !rejected && <h2 style={{ color: 'red' }}>Заявка находится на рассмотрении</h2>
                                 : <h2>ЗАЯВКА НА ПОДКЛЮЧЕНИЕ К ПОРТАЛУ RKF.ONLINE</h2>
                         }
                         {rejectedComment && <Card><h3 className="nursery-activation__rejected-comment">{rejectedComment}</h3></Card>}
