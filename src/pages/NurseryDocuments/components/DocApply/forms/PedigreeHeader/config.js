@@ -1,4 +1,4 @@
-import {number} from "yup";
+import {number,string} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
@@ -10,7 +10,7 @@ const validationSchema = {
     status_id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
-    folder_number: numbersOnly().required(reqText)
+    folder_number: string().required(reqText)
 };
 
 const updateSchema = {
