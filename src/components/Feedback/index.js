@@ -81,7 +81,13 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
                     <p>
                         Уважаемые пользователи! В случае возникновения у Вас вопросов по функционированию Цифровой Платформы российского кинологического сообщества RKF.Online просим Вас ознакомиться с разделом "База знаний" в <a
                             href="https://help.rkf.online/" target="_blank" rel="noopener noreferrer">Центре поддержки</a>. <br /><br />
-                        Если ответ на Ваш вопрос отсутствует - обратитесь в центр поддержки по email <a href="mailto:support@rkf.online">support@rkf.online</a>. <br /><br />
+                        Если ответ на Ваш вопрос отсутствует - обратитесь в свою Федерацию:<br />
+                        Российская Федерация Служебного Собаководства (РФСС) - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a><br />
+                        Российская Федерация Любительского Собаководства (РФЛС) - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a><br />
+                        Российская Федерация Охотничьего Собаководства (РФОС) - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a><br />
+                        ОАНКОО/Фауна - <a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a><br />
+                        ОАНКОО/Элита - <a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a><br />
+                        ОАНКОО/РКК - <a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a><br /><br />
                         Спасибо, что Вы с нами!
                     </p>
                     {/*<h1>Форма обратной связи</h1>*/}
