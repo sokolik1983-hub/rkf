@@ -13,7 +13,6 @@ import { connectWidgetLogin } from "../Login/connectors";
 import { activationForm, defaultValues } from './config';
 import "./index.scss";
 
-
 const NurseryActivation = ({ history, logOutUser }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [streetTypes, setStreetTypes] = useState([]);
@@ -21,8 +20,8 @@ const NurseryActivation = ({ history, logOutUser }) => {
     const [flatTypes, setFlatTypes] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [working, setWorking] = useState(false);
     const [rejectedComment, setRejectedComment] = useState('');
-    const [rejected, setRejected] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
@@ -58,12 +57,11 @@ const NurseryActivation = ({ history, logOutUser }) => {
                 if (status_id === 2) {
                     setShowAlert({
                         title: "Ваша заявка была отклонена!",
-                        //text: "Вы можете внести исправления и отправить её повторно.",
+                        text: "Вы можете внести исправления и отправить её повторно.",
                         autoclose: 5,
                         onOk: () => setShowAlert(false)
                     });
-                    setIsSubmitted(true);
-                    setRejected(true);
+                    setIsSubmitted(false);
                     setRejectedComment(rejected_comment);
                 }
                 if (status_id === 3) {
@@ -97,9 +95,14 @@ const NurseryActivation = ({ history, logOutUser }) => {
         delete newValues.name;
         delete newValues.owner_name;
         delete newValues.city;
-        delete newValues.mail;
         delete newValues.stamp_code;
         delete newValues.folder_number;
+
+        delete newValues.certificate_registration_nursery;
+        delete newValues.certificate_registration_in_rkf;
+        delete newValues.certificate_special_education;
+        delete newValues.certificate_specialist_rkf;
+        delete newValues.certificate_honorary_title;
 
         return newValues;
     };
@@ -136,7 +139,7 @@ const NurseryActivation = ({ history, logOutUser }) => {
                     : <>
                         {
                             isSubmitted
-                                ? !rejected && <h2 style={{ color: 'red' }}>Заявка находится на рассмотрении</h2>
+                                ? <h2 style={{ color: 'red' }}>Заявка находится на рассмотрении</h2>
                                 : <h2>ЗАЯВКА НА ПОДКЛЮЧЕНИЕ К ПОРТАЛУ RKF.ONLINE</h2>
                         }
                         {rejectedComment && <Card><h3 className="nursery-activation__rejected-comment">{rejectedComment}</h3></Card>}
@@ -155,9 +158,11 @@ const NurseryActivation = ({ history, logOutUser }) => {
                                     houseTypes={houseTypes}
                                     flatTypes={flatTypes}
                                     isSubmitted={isSubmitted}
+                                    working={working}
+                                    setWorking={setWorking}
                                 />
                                 {
-                                    !isSubmitted && <div className="nursery-activation__submit">
+                                    !isSubmitted && <div className={`nursery-activation__submit${working ? ' working' : ''}`}>
                                         <SubmitButton>Отправить</SubmitButton>
                                     </div>
                                 }
