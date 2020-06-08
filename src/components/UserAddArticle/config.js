@@ -1,7 +1,7 @@
 import {object, string} from "yup";
 
 export const newsArticleFormConfig = {
-    action: '/api/ClubArticle/full',
+    action: '/api/Article/full',
     format: "multipart/form-data",
     fields: {
         content: {

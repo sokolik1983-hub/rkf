@@ -22,7 +22,7 @@ const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) 
 
             if(data.articles.length) {
                 modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
+                    article.title = article.name;
                     article.url = `/news/${article.id}`;
                     return article;
                 });
