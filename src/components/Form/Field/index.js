@@ -17,6 +17,7 @@ import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
 import ReactDayPicker from './ReactDayPicker'
 import FormFile from './FormFile'
+import FormFileDownloadable from './FormFileDownloadable'
 import FormikDatePicker from './FormikDatePicker';
 
 const FIELDS = {
@@ -30,6 +31,7 @@ const FIELDS = {
     reactSelectDict: ReactSelectDict,
     masked: MaskedField,
     file: FormFile,
+    fileDownloadable: FormFileDownloadable,
     DraftJs: DraftJs,
     Field: Field,
     reactDayPicker: ReactDayPicker, // Deprecated. Use formikDatePicker instead
