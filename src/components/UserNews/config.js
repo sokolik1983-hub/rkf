@@ -1,2 +1,2 @@
-export const endpointGetNews = '/api/ClubArticle/public';
-export const endpointDeleteArticle = '/api/ClubArticle/';
+export const endpointGetNews = '/api/Article/public';
+export const endpointDeleteArticle = '/api/Article/';
