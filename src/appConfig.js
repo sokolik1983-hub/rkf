@@ -124,6 +124,11 @@ const appRoutes = [
         component: LoadableModules.LoadableClient
     },
     {
+        exact: false,
+        path: '/nursery/:id/edit',
+        component: LoadableModules.LoadableNurseryEdit
+    },
+    {
         exact: true,
         path: '/:route/news',
         component: LoadableModules.LoadableClubNews
