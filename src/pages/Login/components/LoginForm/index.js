@@ -17,7 +17,7 @@ const LoginForm = ({ loginUserSuccess }) => {
 
     return (
         <Card>
-            <h1 class="login-page__title">Вход</h1>
+            <h1 className="login-page__title">Вход</h1>
             <Form
                 className="login-page__form"
                 initialValues={{ email: '', password: '' }

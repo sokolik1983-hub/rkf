@@ -47,10 +47,12 @@ const WidgetLogin = forwardRef(
                                             </>
                                         }
                                         {userType === 4 &&
-                                            <>
-                                                <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
-                                                {is_active_profile && <Link className="widget-login__edit" to={`/nursery/${alias}/edit`} />}
-                                            </>
+                                            (is_active_profile
+                                                ? <span>{name}</span> // Temporary hide nursery page link
+                                                : <>
+                                                    <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
+                                                    {is_active_profile && <Link className="widget-login__edit" to={`/nursery/${alias}/edit`} />}
+                                                </>)
                                         }
                                     </li>
                                     {is_active_profile &&

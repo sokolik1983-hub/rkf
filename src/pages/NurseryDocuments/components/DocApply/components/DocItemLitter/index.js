@@ -99,7 +99,8 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 <Transliteratable disabled={update || filledEverk('address')} name={`address`} label='Адрес заводчика (Индекс, город, улица, дом, строение, кв./офис)'/>
             </FormGroup>
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label={`Код клейма (<a href="/nursery/${nurseryAlias}/documents/stamps/add">Добавить клеймо</a>)`}/>
+                {/*<FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label={`Код клейма (<a href="/nursery/${nurseryAlias}/documents/stamps/add">Добавить клеймо</a>)`}/>*/}
+                <FormField disabled={update || !!everkData} placeholder="Выберите..." fieldType="reactSelect" options={stampCodes} name={`stamp_code_id`} label={`Код клейма`}/>
                 <HideIf cond={true || !!everkData || update}>
                     <Button onClick={e => {
                         let stamp_code = stampCodes && stampCodes.find(f => declarant.stamp_code_id === f.value);
