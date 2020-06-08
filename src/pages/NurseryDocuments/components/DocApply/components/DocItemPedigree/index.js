@@ -50,6 +50,11 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             //fetch(apiLitterEmptyDocument, {headers})
             //.then(response => response.blob())
             //.then(data => setLitterHref(URL.createObjectURL(data))),
+            PromiseRequest('/api/nurseries/Nursery/pedigree_request_information')
+            .then(data => {
+                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}`, data[k]))
+                //setNurseryData(data);
+            })
         ])
     }, []);
 
