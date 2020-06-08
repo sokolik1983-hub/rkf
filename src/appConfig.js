@@ -70,7 +70,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/clubs',
+        path: '/organizations/clubs',
         component: LoadableModules.LoadableClubs
     },
     {
@@ -108,11 +108,16 @@ const appRoutes = [
         path: '/nursery/activation',
         component: LoadableModules.LoadableNurseryActivation
     },
-    // {
-    //     exact: true,
-    //     path: '/nursery/:id',
-    //     component: LoadableModules.LoadableNurseryPage
-    // },
+    {
+        exact: true,
+        path: '/organizations/nurseries',
+        component: LoadableModules.LoadableNurseries
+    },
+    {
+        exact: true,
+        path: '/nursery/:id',
+        component: LoadableModules.LoadableNurseryPage
+    },
     {
         exact: false,
         path: '/nursery/:id/documents',
@@ -170,7 +175,7 @@ const mainNav = [
             {
                 id: 1.3,
                 title: "Клубы",
-                to: '/clubs',
+                to: '/organizations/clubs',
                 exact: false
             },
             {
