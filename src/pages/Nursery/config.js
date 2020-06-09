@@ -1,0 +1,1 @@
+export const endpointGetNurseryInfo = '/api/nurseries/nursery/public/';
