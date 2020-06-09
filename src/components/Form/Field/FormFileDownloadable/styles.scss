@@ -1,0 +1,32 @@
+.FormFileDownloadable {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    letter-spacing: 0.2px;
+    padding: 6px;
+    border: 2px solid #ebf0f2;
+    border-radius: 4px;
+    &__input {
+        max-width: 300px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__buttons {
+        a {
+            margin-right: 6px;
+        }
+    }
+    &__loading {
+        pointer-events: none;
+        text-decoration: none;
+        color: #253c5e;
+    }
+}
+a.FormFileDownloadable__download {
+    padding: 6px;
+}
+.FormInput--error .FormFileDownloadable {
+    border-color: #fa5d50;
+}

@@ -1,15 +1,36 @@
 import React from "react";
 import { connect } from "formik";
-import { FormField, FormGroup } from "../../components/Form";
-import { activationForm } from "./config";
+import { FormField, FormGroup } from "components/Form";
+import { Request } from "utils/request";
+import { activationForm, documentFields } from "./config";
 
-
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, isSubmitted }) => {
+const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, isSubmitted, working, setWorking }) => {
+    const fileDownloadEndpoit = '/api/requests/NurseryRegistrationDocument';
     const changeInput = e => {
         formik.setFieldValue('suffix', e.target.id === 'suffix' ? e.target.checked : e.target.checked ? !e.target.checked : e.target.checked);
         formik.setFieldValue('prefix', e.target.id === 'prefix' ? e.target.checked : e.target.checked ? !e.target.checked : e.target.checked);
     };
 
+    const handleUpload = ({ target }) => {
+        setWorking(true);
+        const { name, files } = target;
+        let data = new FormData();
+        data.append('document', files[0]);
+        Request({
+            url: '/api/requests/NurseryRegistrationDocument',
+            method: "POST",
+            data: data,
+            isMultipart: true
+        },
+            data => {
+                formik.setFieldValue(`${name}_id`, data);
+                setWorking(false);
+            },
+            error => {
+                console.log(error);
+                setWorking(false);
+            });
+    };
     return (
         <fieldset disabled={isSubmitted}>
             <FormField {...activationForm.fields.owner_name} />
@@ -62,12 +83,24 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, isSubmitted 
             </FormGroup>
             <FormField {...activationForm.fields.owner_ranks} />
             <FormField {...activationForm.fields.dogs_ranks} />
-            <FormField {...activationForm.fields.certificate_registration_nursery_document} />
-            <FormField {...activationForm.fields.certificate_registration_in_rkf_document} />
-            <FormField {...activationForm.fields.certificate_special_education_document} />
-            <FormField {...activationForm.fields.certificate_specialist_rkf_document} />
-            <FormField {...activationForm.fields.certificate_honorary_title_document} />
-            {!formik.isValid && !isSubmitted && <div className="nursery-activation__is-valid">Не все необходимые поля заполнены</div>}
+            {
+                documentFields.map((name, key) => {
+                    return <FormField
+                        key={key}
+                        {...activationForm.fields[name]}
+                        id={formik.values[`${name}_id`]}
+                        url={fileDownloadEndpoit}
+                        onChange={handleUpload}
+                        loading={working}
+                        disabled={isSubmitted}
+                    />
+                })
+            }
+            {!formik.isValid
+                && !isSubmitted
+                && !!Object.keys(formik.errors).length
+                && <div className="nursery-activation__is-valid">Не все необходимые поля заполнены</div>}
+            {working && !isSubmitted && <div className="nursery-activation__is-valid">Идёт загрузка файла...</div>}
         </fieldset>
     )
 };

@@ -26,6 +26,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
     const [privacyHref, setPrivacyHref] = useState('');
     const [everkData, setEverkData] = useState(null);
     const statusAllowsUpdate = declarant.status_id ? [2,4,7].includes(declarant.status_id) : true;
+    const [nurseryData, setNurseryData] = useState({});
     //let error = formik.errors && formik.touched;
 
     const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
@@ -34,6 +35,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         .then(data => {
             Object.keys(data).forEach(k => {
                 if (!data[k]) return;
+                if (nurseryData[k]) return;
                 formik.setFieldValue(`${k}`, data[k]);
                 !data[`${k}_lat`] && formik.setFieldValue(`${k}_lat`, transliterate(data[k]));
             });
@@ -50,12 +52,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             //fetch(apiLitterEmptyDocument, {headers})
             //.then(response => response.blob())
             //.then(data => setLitterHref(URL.createObjectURL(data))),
+            PromiseRequest('/api/nurseries/Nursery/pedigree_request_information')
+            .then(data => {
+                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}`, data[k]))
+                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}_lat`, transliterate(data[k])))
+                setNurseryData(data);
+            })
         ])
     }, []);
 
     const clearEverkData = () => {
         if (!everkData) return;
-        Object.keys(everkData).forEach(k => everkData[k] && formik.setFieldValue(`${k}`, ''));
+        Object.keys(everkData).forEach(k => everkData[k] && !nurseryData[k] && formik.setFieldValue(`${k}`, ''));
         formik.setFieldValue(`stamp_number`, '');
         setEverkData(null);
     }
@@ -111,9 +119,9 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             
             <FormGroup inline>
-                <Transliteratable disabled={update} name={`owner_last_name`} label='Фамилия владельца' />
-                <Transliteratable disabled={update} name={`owner_first_name`} label='Имя владельца' />
-                <FormField disabled={update} name={`owner_second_name`} label='Отчество владельца (опционально)' />
+                <Transliteratable disabled={update || nurseryData.owner_last_name} name={`owner_last_name`} label='Фамилия владельца' />
+                <Transliteratable disabled={update || nurseryData.owner_first_name} name={`owner_first_name`} label='Имя владельца' />
+                <FormField disabled={update || nurseryData.owner_second_name} name={`owner_second_name`} label='Отчество владельца (опционально)' />
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
