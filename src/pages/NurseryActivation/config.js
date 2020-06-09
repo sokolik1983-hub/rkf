@@ -265,16 +265,7 @@ export const activationForm = {
                 is: null,
                 then: mixed().required(emptyFieldMsg),
                 otherwise: mixed().notRequired(),
-            }),
-
-        certificate_special_education_id: number().nullable().default(null), // Test
-        certificate_special_education: mixed()
-            .when(['certificate_special_education_id'], {
-                is: null,
-                then: mixed().required(emptyFieldMsg),
-                otherwise: mixed().notRequired(),
             })
-
     })
 };
 
