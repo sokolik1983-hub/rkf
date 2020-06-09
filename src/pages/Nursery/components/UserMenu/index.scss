@@ -112,7 +112,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: block;
     &:visited,
     &:active {
       color: #72839c;
@@ -129,6 +128,7 @@
       }
     }
     @media (max-width: 768px) {
+      display: block;
       text-decoration: none;
       margin: 8px 0;
       padding: 2px 16px;
