@@ -16,6 +16,7 @@ import DraftJs from './DraftJs'
 import ReactSelectDict from './ReactSelectDict'
 import ReactSelectAsync from './ReactSelectAsync'
 import ReactDayPicker from './ReactDayPicker'
+import CustomAliasInput from './CustomAliasInput';
 import FormFile from './FormFile'
 import FormFileDownloadable from './FormFileDownloadable'
 import FormikDatePicker from './FormikDatePicker';
@@ -26,6 +27,7 @@ const FIELDS = {
     customEmail: CustomEmail,
     customPhone: CustomPhone,
     customCheckbox: CustomCheckbox,
+    customAliasInput: CustomAliasInput,
     reactSelect: ReactSelect,
     reactSelectAsync: ReactSelectAsync,
     reactSelectDict: ReactSelectDict,
