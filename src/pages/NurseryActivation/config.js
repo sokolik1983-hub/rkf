@@ -1,5 +1,5 @@
-import {object, string, number, mixed, boolean, date} from 'yup';
-import {DEFAULT_PHONE_INPUT_PLACEHOLDER, DEFAULT_PHONE_INPUT_MASK} from "../../appConfig";
+import { object, string, number, mixed, boolean, date } from 'yup';
+import { DEFAULT_PHONE_INPUT_PLACEHOLDER, DEFAULT_PHONE_INPUT_MASK } from "../../appConfig";
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 
@@ -7,7 +7,6 @@ const emptyFieldMsg = 'Поле не может быть пустым';
 export const activationForm = {
     method: 'POST',
     action: '/api/requests/NurseryRegistrationRequest',
-    format: "multipart/form-data",
     fields: {
         name: {
             name: "name",
@@ -177,34 +176,34 @@ export const activationForm = {
             label: "Место получения специальности",
             placeholder: "Введите адрес"
         },
-        certificate_registration_nursery_document: {
-            name: 'certificate_registration_nursery_document',
+        certificate_registration_nursery: {
+            name: 'certificate_registration_nursery',
             label: 'Копия свидетельства о регистрации питомника (PDF, JPEG, JPG, PNG)',
-            fieldType: 'file',
+            fieldType: 'fileDownloadable',
             accept: '.pdf, .jpg, .jpeg, .png'
         },
-        certificate_registration_in_rkf_document: {
-            name: 'certificate_registration_in_rkf_document',
+        certificate_registration_in_rkf: {
+            name: 'certificate_registration_in_rkf',
             label: 'Копия свидетельства о регистрации в Федерации (PDF, JPEG, JPG, PNG)',
-            fieldType: 'file',
+            fieldType: 'fileDownloadable',
             accept: '.pdf, .jpg, .jpeg, .png'
         },
-        certificate_special_education_document: {
-            name: 'certificate_special_education_document',
+        certificate_special_education: {
+            name: 'certificate_special_education',
             label: 'Копия свидетельства о специальном образовании (PDF, JPEG, JPG, PNG)',
-            fieldType: 'file',
+            fieldType: 'fileDownloadable',
             accept: '.pdf, .jpg, .jpeg, .png'
         },
-        certificate_specialist_rkf_document: {
-            name: 'certificate_specialist_rkf_document',
+        certificate_specialist_rkf: {
+            name: 'certificate_specialist_rkf',
             label: 'Копия свидетельства о присвоении звания специалиста РКФ (PDF, JPEG, JPG, PNG)',
-            fieldType: 'file',
+            fieldType: 'fileDownloadable',
             accept: '.pdf, .jpg, .jpeg, .png'
         },
-        certificate_honorary_title_document: {
-            name: 'certificate_honorary_title_document',
+        certificate_honorary_title: {
+            name: 'certificate_honorary_title',
             label: 'Копия удостоверения или равного ему документа о присвоении почётного звания(знака) РФСС и/или РКФ (PDF, JPEG, JPG, PNG)',
-            fieldType: 'file',
+            fieldType: 'fileDownloadable',
             accept: '.pdf, .jpg, .jpeg, .png'
         }
     },
@@ -253,11 +252,20 @@ export const activationForm = {
                 then: string().required(emptyFieldMsg),
                 otherwise: string().notRequired(),
             }),
-        certificate_registration_nursery_document: mixed()
-            .required(emptyFieldMsg),
-        certificate_registration_in_rkf_document: mixed()
-            .required(emptyFieldMsg),
-
+        certificate_registration_nursery_id: number().nullable().default(null),
+        certificate_registration_in_rkf_id: number().nullable().default(null),
+        certificate_registration_nursery: mixed()
+            .when(['certificate_registration_nursery_id'], {
+                is: null,
+                then: mixed().required(emptyFieldMsg),
+                otherwise: mixed().notRequired(),
+            }),
+        certificate_registration_in_rkf: mixed()
+            .when(['certificate_registration_in_rkf_id'], {
+                is: null,
+                then: mixed().required(emptyFieldMsg),
+                otherwise: mixed().notRequired(),
+            })
     })
 };
 
@@ -290,9 +298,22 @@ export const defaultValues = {
     owner_speciality: '',
     owner_date_speciality: '',
     owner_place_speciality: '',
-    certificate_registration_nursery_document: '',
-    certificate_registration_in_rkf_document: '',
-    certificate_special_education_document: '',
-    certificate_specialist_rkf_document: '',
-    certificate_honorary_title_document: ''
+    certificate_registration_nursery: '',
+    certificate_registration_in_rkf: '',
+    certificate_special_education: '',
+    certificate_specialist_rkf: '',
+    certificate_honorary_title: '',
+    certificate_registration_nursery_id: '',
+    certificate_registration_in_rkf_id: '',
+    certificate_special_education_id: '',
+    certificate_specialist_rkf_id: '',
+    certificate_honorary_title_id: ''
 };
+
+export const documentFields = [
+    'certificate_registration_nursery',
+    'certificate_registration_in_rkf',
+    'certificate_special_education',
+    'certificate_specialist_rkf',
+    'certificate_honorary_title'
+];

@@ -128,9 +128,18 @@
     align-items: center;
     justify-content: flex-end;
     margin: 10px;
+    &.working {
+      pointer-events: none;
+      opacity: 0.75;
+    }
   }
   &__is-valid {
     text-align: right;
     color: red;
+  }
+  &__rejected-comment {
+    font-style: italic;
+    color: red;
+    margin: 0;
   }
 }

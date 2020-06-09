@@ -92,6 +92,11 @@ export const LoadablePasswordRecovery = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseries = Loadable({
+    loader: () => import('./pages/Nurseries'),
+    loading: Loading
+});
+
 export const LoadableNurseryPage = Loadable({
     loader: () => import('./pages/Nursery'),
     loading: Loading

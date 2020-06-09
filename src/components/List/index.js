@@ -28,7 +28,7 @@ const List = ({
                             <Card>
                                 <ListItem
                                     id={item.id}
-                                    club_name={item.club_name}
+                                    club_name={item.name}
                                     city={item.fact_city_name}
                                     date={item.create_date}
                                     isFullDate={isFullDate}

@@ -112,7 +112,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
-            <Link to={`/nursery/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
+            {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>*/}
             
             <FormGroup inline>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
