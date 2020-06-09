@@ -3,7 +3,7 @@ import { connect } from 'formik';
 import { getHeaders } from "utils/request";
 import './styles.scss';
 
-const FormFileDownloadable = ({ formik, onChange, name, url, id, loading, className, ...props }) => {
+const FormFileDownloadable = ({ formik, onChange, name, url, id, loading, className, disabled, ...props }) => {
     const isDownloadable = url && id;
     const handleClick = async (e) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ const FormFileDownloadable = ({ formik, onChange, name, url, id, loading, classN
             onChange && onChange(e);
         }} />
         <div className="FormFileDownloadable__buttons">
-            {isDownloadable && <a className="btn FormFileDownloadable__download" onClick={handleClick} href="/" title={name}>Скачать</a>}
+            {isDownloadable && !disabled && <a className="btn FormFileDownloadable__download" onClick={handleClick} href="/" title={name}>Скачать</a>}
         </div>
     </div>
 }

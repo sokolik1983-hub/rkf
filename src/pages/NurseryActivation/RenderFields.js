@@ -92,6 +92,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, isSubmitted,
                         url={fileDownloadEndpoit}
                         onChange={handleUpload}
                         loading={working}
+                        disabled={isSubmitted}
                     />
                 })
             }
