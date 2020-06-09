@@ -43,7 +43,7 @@ const NurseryPage = ({match, profile_id, is_active_profile, isAuthenticated}) =>
     return loading ?
         <Loading/> :
         error ?
-            <Redirect to="404"/> :
+            error.status === 422 ? <Redirect to="/nursery/activation"/> : <Redirect to="404"/> :
             <Layout>
                 <Container className="content nursery-page">
                     <UserHeader
