@@ -23,3 +23,15 @@
     }
   }
 }
+
+.NewsPage {
+  &__endMessage {
+    margin: 20px 0;
+    text-align: center;
+    font-weight: normal;
+  }
+  .infinite-scroll-component,
+  .infinite-scroll-component__outerdiv {
+    overflow: visible !important;
+  }
+}

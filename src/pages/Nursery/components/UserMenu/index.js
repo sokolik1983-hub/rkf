@@ -3,13 +3,13 @@ import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import Card from "../../../../components/Card";
-import Alert from "../../../../components/Alert";
+// import Alert from "../../../../components/Alert";
 import "./index.scss";
 
 
 const UserMenu = ({alias, name}) => {
     const [open, setOpen] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -24,10 +24,10 @@ const UserMenu = ({alias, name}) => {
         });
     }, []);
 
-    const defaultClick = e => {
-        e.preventDefault();
-        setShowAlert(true);
-    };
+    // const defaultClick = e => {
+    //     e.preventDefault();
+    //     setShowAlert(true);
+    // };
 
     return (
         <Card className="user-menu">
@@ -52,11 +52,11 @@ const UserMenu = ({alias, name}) => {
                             <Link to={`/exhibitions`} className="user-menu__link">Мероприятия</Link>
                         </li>
                         <li className="user-menu__item">
-                            <Link to={`/kennel/${alias}/news`} onClick={defaultClick} className="user-menu__link disabled">Новости</Link>
+                            <Link to={`/nursery/${alias}/news`} className="user-menu__link">Новости</Link>
                         </li>
                         <li className="user-menu__item">
                             <Link
-                                to={`/kennel/${alias}`}
+                                to={`/nursery/${alias}`}
                                 className="user-menu__link"
                                 title={`Старница ${name}`}
                             >{`Старница ${name}`}</Link>
@@ -64,14 +64,14 @@ const UserMenu = ({alias, name}) => {
                     </ul>
                 </CSSTransition>
             </OutsideClickHandler>
-            {showAlert &&
+            {/*showAlert &&
                 <Alert
                     title="Внимание!"
                     text="Раздел находится в разработке."
                     autoclose={1.5}
                     onOk={() => setShowAlert(false)}
                 />
-            }
+            */}
         </Card>
     )
 };
