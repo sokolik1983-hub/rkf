@@ -118,6 +118,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 </HideIf>
             </FormGroup>
             
+            <FormField
+                disabled={update}
+                fieldType="customCheckbox"
+                name={`foreign_owner`}
+                onChange={e => {
+                    console.log(e, formik.values);
+                }}
+                label='Срочное изготовление'
+            />
             <FormGroup inline>
                 <Transliteratable disabled={update || nurseryData.owner_last_name} name={`owner_last_name`} label='Фамилия владельца' />
                 <Transliteratable disabled={update || nurseryData.owner_first_name} name={`owner_first_name`} label='Имя владельца' />
