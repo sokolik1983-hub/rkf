@@ -161,8 +161,8 @@ const DocHome = ({ clubAlias, bookform }) => {
                 <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
-                <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
                 <Link to={`/${clubAlias}/documents/bookform`}>Запись на очный прием</Link>
+                <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         <Switch>
