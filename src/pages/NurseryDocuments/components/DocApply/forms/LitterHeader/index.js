@@ -38,12 +38,12 @@ const HeaderFormFields = connect(({formik, update, options, nurseryAlias, setRed
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
+        }
             Request({
                 url: '/api/requests/CommonRequest/folder_number'
             },
             setFolder,
             e => {})
-        }
     }, []);
 
     return <>
