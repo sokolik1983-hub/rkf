@@ -54,8 +54,10 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             //.then(data => setLitterHref(URL.createObjectURL(data))),
             PromiseRequest('/api/nurseries/Nursery/pedigree_request_information')
             .then(data => {
-                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}`, data[k]))
-                Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}_lat`, transliterate(data[k])))
+                if (!formik.values.owner_first_name) {
+                    Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}`, data[k]))
+                    Object.keys(data).forEach(k => k !== 'id' && data[k] && formik.setFieldValue(`${k}_lat`, transliterate(data[k])))
+                }
                 setNurseryData(data);
             })
         ])
