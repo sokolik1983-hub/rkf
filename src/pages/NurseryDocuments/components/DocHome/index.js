@@ -88,7 +88,6 @@ const DocumentCards = ({ nurseryAlias }) => {
                 </div>
             </div>
         </Card>
-        <BookformCard url='/api/nurseries/Nursery/nursery_federation'/>
         {alert &&
             <Alert
                 title="Внимание!"
@@ -163,11 +162,13 @@ const DocHome = ({ nurseryAlias, bookform }) => {
                 {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 {/*<Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>*/}
+                <Link to={`/nursery/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/nursery/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
             {/*<Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
+            <Route path='/nursery/:route/documents/bookform' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
