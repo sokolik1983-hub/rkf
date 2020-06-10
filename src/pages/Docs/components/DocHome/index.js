@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
-import BookformPage from "../../components/BookformPage";
+import BookformCard from "components/BookformCard";
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
 import Registry from '../Stamps/Registry';
@@ -88,6 +88,7 @@ const DocumentCards = ({ clubAlias }) => {
                 </div>
             </div>
         </Card>
+        <BookformCard url='/api/Club/club_federation' />
         {alert &&
             <Alert
                 title="Внимание!"
@@ -161,14 +162,12 @@ const DocHome = ({ clubAlias, bookform }) => {
                 <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
-                <Link to={`/${clubAlias}/documents/bookform`}>Запись на очный прием</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
-            <Route path='/:route/documents/bookform' component={() => <BookformPage clubAlias={clubAlias} />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
