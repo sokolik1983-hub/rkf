@@ -127,6 +127,11 @@ export const LoadableClient = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryEdit = Loadable({
+    loader: () => import('./pages/NurseryEdit'),
+    loading: Loading
+});
+
 export const LoadableNotFound = Loadable({
     loader: () => import('./pages/404/index'),
     loading: Loading
