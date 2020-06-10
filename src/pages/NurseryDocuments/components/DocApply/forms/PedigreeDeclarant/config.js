@@ -14,6 +14,7 @@ const validationSchema = {
     pedigree_header_declarant_request_id: number(),
     id: number(),
     express: boolean().required(reqText),
+    foreign_owner: boolean().required(reqText),
     one_generation: boolean(),
     two_generation: boolean(),
     owner_first_name: string().required(reqText),
@@ -80,6 +81,7 @@ const updateSchema = {
 
 const emptyNurseryPedigreeDeclarant = {
     express: false,
+    foreign_owner: false,
     one_generation: false,
     two_generation: true,
     owner_first_name: '',

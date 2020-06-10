@@ -114,6 +114,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>*/}
             
+            <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].foreign_owner`} label='Для иностранного владельца'/>
             <FormGroup inline>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_last_name`} label='Фамилия владельца' onChange={e => {formik.handleChange(e); setLastName(e.target.value)}}/>
                 <Transliteratable disabled={update} name={`declarants[${i}].owner_first_name`} label='Имя владельца' onChange={e => {formik.handleChange(e); setFirstName(e.target.value)}}/>

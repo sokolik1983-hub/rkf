@@ -103,7 +103,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
                 {/*<FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/nursery/${nurseryAlias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>*/}
-                <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
+                <FormField disabled={update || !!everkData || formik.values.foreign_owner} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>
                     <Button className="btn-primary" onClick={e => {
@@ -118,10 +118,21 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 </HideIf>
             </FormGroup>
             
+            <FormField
+                disabled={update}
+                fieldType="customCheckbox"
+                name={`foreign_owner`}
+                onChange={e => {
+                    Object.keys(nurseryData).forEach(k => k !== 'id' && nurseryData[k] && formik.setFieldValue(`${k}`, nurseryData[k]))
+                    Object.keys(nurseryData).forEach(k => k !== 'id' && nurseryData[k] && formik.setFieldValue(`${k}_lat`, transliterate(nurseryData[k])))
+                    stampCodes && stampCodes[0] && formik.setFieldValue('stamp_code_name', stampCodes[0].label)
+                }}
+                label='Для иностранного владельца'
+            />
             <FormGroup inline>
-                <Transliteratable disabled={update || nurseryData.owner_last_name} name={`owner_last_name`} label='Фамилия владельца' />
-                <Transliteratable disabled={update || nurseryData.owner_first_name} name={`owner_first_name`} label='Имя владельца' />
-                <FormField disabled={update || nurseryData.owner_second_name} name={`owner_second_name`} label='Отчество владельца (опционально)' />
+                <Transliteratable disabled={update || (nurseryData.owner_last_name && !formik.values.foreign_owner)} name={`owner_last_name`} label='Фамилия владельца' />
+                <Transliteratable disabled={update || (nurseryData.owner_first_name && !formik.values.foreign_owner)} name={`owner_first_name`} label='Имя владельца' />
+                <FormField disabled={update || (nurseryData.owner_second_name && !formik.values.foreign_owner)} name={`owner_second_name`} label='Отчество владельца (опционально)' />
             </FormGroup>
             <HideIf cond={!declarant.owner_last_name.includes(' ')}>
                 <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
