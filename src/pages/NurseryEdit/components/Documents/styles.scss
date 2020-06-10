@@ -1,0 +1,29 @@
+.Documents {
+    &__button-delete {
+        padding: 7px 12px;
+        color: red;
+        border-color: red;
+    }
+    &__button-add {
+        padding: 7px 12px;
+    }
+    &__buttons-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        .btn + .btn {
+            @media (min-width: 768px) {
+                margin: 0 0 0 12px;
+            }
+        }
+        .btn {
+            @media (max-width: 768px) {
+                width: 100%;
+                margin: 0 0 12px;
+            }
+        }
+    }
+    .FormGroup--inline {
+        align-items: flex-end;
+    }
+}

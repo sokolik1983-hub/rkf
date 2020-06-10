@@ -15,7 +15,8 @@ function ActiveImageWrapper({
     additionalParams,
     bindSubmitForm,
     club_id,
-    backgroundImage
+    backgroundImage,
+    onChangeFunc
 }) {
 
     const inputEl = useRef(null);
@@ -77,6 +78,7 @@ function ActiveImageWrapper({
                 inputValue: inputValue,
                 imagePreview: URL.createObjectURL(inputValue)
             })
+            onChangeFunc && onChangeFunc(inputValue);
         }
     };
 
