@@ -26,6 +26,13 @@ const Contacts = ({ contacts }) => {
                                 placeholder="Введите описание"
                                 name={`contacts[${index}].description`}
                             />
+                            <div className="Contacts__checkbox-wrap">
+                                <div>Основной</div>
+                                <FormField
+                                    name={`contacts[${index}].is_main`}
+                                    fieldType="customCheckbox"
+                                />
+                            </div>
                             <Button className="btn Contacts__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>
                         </FormGroup>
                     ))}
