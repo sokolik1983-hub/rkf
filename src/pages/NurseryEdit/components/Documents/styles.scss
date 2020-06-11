@@ -25,5 +25,9 @@
     }
     .FormGroup--inline {
         align-items: flex-end;
+        @media (max-width: 768px) {
+            padding: 8px;
+            box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+        }
     }
 }

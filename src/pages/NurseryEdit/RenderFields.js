@@ -7,6 +7,7 @@ import Transliteratable from "./components/Transliteratable"; // TODO: move to F
 import Contacts from './components/Contacts';
 import Documents from './components/Documents';
 import SocialNetworks from './components/SocialNetworks';
+import Schedule from './components/Schedule';
 import Card from "components/Card";
 import { Request } from "utils/request";
 import { editForm } from "./config";
@@ -57,7 +58,8 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         logo_link,
         contacts,
         documents,
-        socials } = formik.values;
+        socials,
+        work_time } = formik.values;
 
     return (
         <>
@@ -102,10 +104,10 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                 </FormGroup>
             </Card>
 
-
             <Contacts contacts={contacts} />
             <Documents documents={documents} />
             <SocialNetworks socials={socials} />
+            <Schedule work_time={work_time} />
 
             <Card>
                 <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl={'/'} >

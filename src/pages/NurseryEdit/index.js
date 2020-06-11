@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Container from "components/Layouts/Container";
 import { editForm, defaultValues } from './config';
-import Disclaimer from "components/Disclaimer";
+// import Disclaimer from "components/Disclaimer";
 import Loading from "../../components/Loading";
 import { Form } from "../../components/Form";
 import SubmitButton from "./SubmitButton";
@@ -79,11 +79,11 @@ const NurseryEdit = () => {
     return <Layout>
         <Container className="NurseryEdit content">
             <h2 className="NurseryEdit__page-heading">Редактирование профиля</h2>
-            <Disclaimer>
+            {/* <Disclaimer>
                 <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">
                     Инструкция по редактированию профиля
                     </a>
-            </Disclaimer>
+            </Disclaimer> */}
             {!loaded
                 ? <Loading />
                 : <Form
