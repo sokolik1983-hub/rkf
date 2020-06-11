@@ -9,7 +9,7 @@ export const editForm = {
     fields: {
         alias: {
             name: "alias",
-            label: "Адрес страницы (допускаются цифры, латинские буквы и нижнее подчеркивание)",
+            label: "Адрес страницы",
             fieldType: "customAliasInput",
             baseUrl: "rkf.online/nursery/"
         },
@@ -93,10 +93,12 @@ export const editForm = {
         },
         contacts: [],
         documents: [],
-        socials: []
+        socials: [],
+        work_time: []
     },
     validationSchema: object().shape({
         alias: string()
+            .matches(/^\w+$/, 'Допускаются цифры, латинские буквы и нижнее подчеркивание')
             .required(emptyFieldMsg),
         name: string()
             .required(emptyFieldMsg),
@@ -146,8 +148,13 @@ export const editForm = {
                 .required(emptyFieldMsg),
             description: string()
                 .required(emptyFieldMsg)
+        })),
+        work_time: array().of(object().shape({
+            time_from: string()
+                .required(emptyFieldMsg),
+            time_to: string()
+                .required(emptyFieldMsg)
         }))
-
     })
 };
 
@@ -185,6 +192,12 @@ export const defaultValues = {
         site: '',
         description: '',
         social_network_type_id: 1
+    }],
+    work_time: [{
+        id: null,
+        week_day_id: null,
+        time_from: '',
+        time_to: ''
     }],
 
     logo: '',
