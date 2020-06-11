@@ -16,7 +16,7 @@ const AliasInput = ({ formik, onChange, name, url, id, loading, className, disab
     }
 
     return <div className="AliasInput">
-        <span style={{ "overflow-wrap": "break-word" }}>{baseUrl}<strong>{getIn(formik.values, name)}</strong></span>
+        <span style={{ "overflowWrap": "break-word" }}>{baseUrl}<strong>{getIn(formik.values, name)}</strong></span>
         <Field
             value={getIn(formik.values, name)}
             onChange={handleChange}

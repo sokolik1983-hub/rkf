@@ -31,7 +31,7 @@ const SocialNetworks = ({ socials }) => {
                     ))}
                     <div className="SocialNetworks__buttons-wrap">
                         <Button
-                            className="btn-primary SocialNetworks__button-add"
+                            className="btn-green SocialNetworks__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 site: '',

@@ -31,7 +31,7 @@ const Documents = ({ documents }) => {
                     ))}
                     <div className="Documents__buttons-wrap">
                         <Button
-                            className="btn-primary Documents__button-add"
+                            className="btn-green Documents__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 name: '',

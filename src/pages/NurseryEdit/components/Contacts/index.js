@@ -31,7 +31,7 @@ const Contacts = ({ contacts }) => {
                     ))}
                     <div className="Contacts__buttons-wrap">
                         <Button
-                            className="btn-primary Contacts__button-add"
+                            className="btn-green Contacts__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',
@@ -40,7 +40,7 @@ const Contacts = ({ contacts }) => {
                                 contact_type_id: 1
                             })}>Добавить телефон</Button>
                         <Button
-                            className="btn-primary Contacts__button-add"
+                            className="btn-green Contacts__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',

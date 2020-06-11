@@ -109,7 +109,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
             <SocialNetworks socials={socials} />
             <Schedule work_time={work_time} />
 
-            <Card>
+            <Card className="NurseryEdit__banner-wrap">
                 <ActiveImageWrapper onChangeFunc={file => handleUpload(file, false)} requestUrl={'/'} >
                     <div
                         style={{ backgroundImage: `url(${banner_link ? banner_link : DEFAULT_IMG.clubAvatar})` }} className="NurseryEdit__banner" />
