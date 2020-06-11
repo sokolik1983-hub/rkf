@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Container from "components/Layouts/Container";
 import { editForm, defaultValues } from './config';
-// import Disclaimer from "components/Disclaimer";
-import Loading from "../../components/Loading";
-import { Form } from "../../components/Form";
-import SubmitButton from "./SubmitButton";
+import Disclaimer from "components/Disclaimer";
+import Loading from "components/Loading";
+import { Form } from "components/Form";
+import SubmitButton from "components/Form/SubmitButton";
 import RenderFields from "./RenderFields";
-import Alert from "../../components/Alert";
+import Alert from "components/Alert";
 import Layout from "components/Layouts";
 import { Request } from "utils/request";
+import ls from 'local-storage';
 import './styles.scss';
 
 const NurseryEdit = () => {
@@ -56,12 +57,19 @@ const NurseryEdit = () => {
         return newValues;
     };
 
-    const handleSuccess = () => {
+    const handleSuccess = (data, { alias, logo_link }) => {
+
         setShowAlert({
             title: "Информация сохранена!",
-            autoclose: 7.5,
+            autoclose: 2,
             onOk: () => setShowAlert(false)
         });
+        let updatedUserInfo = {
+            ...ls.get('user_info'),
+            alias,
+            logo_link
+        };
+        ls.set('user_info', updatedUserInfo);
     };
 
     const handleError = e => {
@@ -79,11 +87,11 @@ const NurseryEdit = () => {
     return <Layout>
         <Container className="NurseryEdit content">
             <h2 className="NurseryEdit__page-heading">Редактирование профиля</h2>
-            {/* <Disclaimer>
+            <Disclaimer>
                 <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">
                     Инструкция по редактированию профиля
                     </a>
-            </Disclaimer> */}
+            </Disclaimer>
             {!loaded
                 ? <Loading />
                 : <Form
@@ -105,7 +113,7 @@ const NurseryEdit = () => {
                     />
 
                     <div className={`NurseryEdit__submit${working ? ' working' : ''}`}>
-                        <SubmitButton>Отправить</SubmitButton>
+                        <SubmitButton className="btn-primary">Сохранить</SubmitButton>
                     </div>
                 </Form>
             }
