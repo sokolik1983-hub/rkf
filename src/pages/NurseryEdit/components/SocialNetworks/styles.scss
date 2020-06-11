@@ -1,11 +1,18 @@
 .SocialNetworks {
     &__button-delete {
-        padding: 7px 12px;
-        color: red;
-        border-color: red;
+        padding: 7px 14px;
+        border-color: #fa5d50;
+        background: #fa5d50;
+        color: white;
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
     }
     &__button-add {
-        padding: 7px 12px;
+        padding: 7px 14px;
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
     }
     &__buttons-wrap {
         display: flex;
@@ -28,6 +35,6 @@
         @media (max-width: 768px) {
             padding: 8px;
             box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-          }
+        }
     }
 }

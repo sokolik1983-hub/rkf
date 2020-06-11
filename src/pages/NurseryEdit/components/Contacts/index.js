@@ -26,12 +26,19 @@ const Contacts = ({ contacts }) => {
                                 placeholder="Введите описание"
                                 name={`contacts[${index}].description`}
                             />
+                            <div className="Contacts__checkbox-wrap">
+                                <div>Основной</div>
+                                <FormField
+                                    name={`contacts[${index}].is_main`}
+                                    fieldType="customCheckbox"
+                                />
+                            </div>
                             <Button className="btn Contacts__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>
                         </FormGroup>
                     ))}
                     <div className="Contacts__buttons-wrap">
                         <Button
-                            className="btn-primary Contacts__button-add"
+                            className="btn-green Contacts__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',
@@ -40,7 +47,7 @@ const Contacts = ({ contacts }) => {
                                 contact_type_id: 1
                             })}>Добавить телефон</Button>
                         <Button
-                            className="btn-primary Contacts__button-add"
+                            className="btn-green Contacts__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',
