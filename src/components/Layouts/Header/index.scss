@@ -393,7 +393,8 @@
         color: inherit;
       }
     }
-    &:not(:first-child) a {
+    &:not(:first-child) a,
+    &:not(:first-child) span {
       text-decoration: none;
       white-space: nowrap;
       color: #72839c;
@@ -403,6 +404,7 @@
       display: block;
       padding: 8px 16px;
       transition: all 0.2s linear;
+      cursor: pointer;
       &:hover {
         background-color: whitesmoke;
         color: #3366ff;
@@ -472,6 +474,11 @@
       &:before {
         background: url("/static/icons/icon-registration.svg") no-repeat center;
       }
+    }
+  }
+  &__modal {
+    & > div {
+      max-width: 600px;
     }
   }
 

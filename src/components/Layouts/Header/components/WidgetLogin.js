@@ -3,13 +3,17 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
 import ls from "local-storage";
+import Modal from "../../../Modal";
+import LoginAsUser from "./LoginAsUser";
 import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
 import { connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "utils/history";
 
+
 const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
+        const [showModal, setShowModal] = useState(false);
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
@@ -68,6 +72,9 @@ const WidgetLogin = forwardRef(
                                         </>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                        <span onClick={() => setShowModal(true)}>Войти, как клуб</span>
+                                    </li>
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
                                 </ul>
@@ -76,6 +83,12 @@ const WidgetLogin = forwardRef(
                     </OutsideClickHandler>
                     : <AuthButtons />
                 }
+                <Modal className="widget-login__modal"
+                       showModal={showModal}
+                       handleClose={() => setShowModal(false)}
+                >
+                    <LoginAsUser />
+                </Modal>
             </div>
         )
     }
