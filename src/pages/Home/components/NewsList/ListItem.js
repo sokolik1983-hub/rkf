@@ -5,7 +5,7 @@ import { formatText } from "utils";
 import './index.scss';
 import { DEFAULT_IMG } from "../../../../appConfig";
 
-const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, club_name, city, date, alias, logo_link, photo, text, url }) => {
+const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, name, city, date, alias, logo_link, photo, text, url }) => {
     const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
 
     const handleCityChange = e => {
@@ -30,7 +30,7 @@ const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, club_
                         }} />
                     </Link>
                     <span className="list-item__club-name">
-                        <Link to={alias}>{club_name}</Link>
+                        <Link to={alias}>{name}</Link>
                         <span>{formattedDate}</span>
                     </span>
                 </div>
