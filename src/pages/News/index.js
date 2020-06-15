@@ -50,7 +50,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                             <Link to={`/${news.alias}`} className="news__item-head">
                                 <div className="news__avatar" style={{ backgroundImage: `url(${news.logo_link ? news.logo_link : DEFAULT_IMG.clubAvatar})` }} />
                                 <div className="news__about">
-                                    <h5 className="news__name">{news.club_name}</h5>
+                                    <h5 className="news__name">{news.name}</h5>
                                     <p className="news__date">{formatDateTime(news.create_date)}</p>
                                 </div>
                             </Link>
