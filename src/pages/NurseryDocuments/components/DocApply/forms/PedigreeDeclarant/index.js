@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "formik";
-import genericForm from "../../utils/genericForm";
+import genericForm from "utils/genericForm";
 import config from "./config.js";
 import Button from "components/Button";
 import Card from "components/Card";
