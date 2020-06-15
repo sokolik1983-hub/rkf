@@ -6,7 +6,7 @@ import { connectFilters } from "../../connectors";
 import { getEmptyFilters } from "../../utils";
 
 
-const ListItem = ({ is_active, active_member, setFilters, city, cityId, federation_name, alias, owner, name, content, logo, federation_link }) => {
+const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, federation_name, alias, owner, name, content, logo, federation_link }) => {
     const handleCityClick = (e) => {
         e.preventDefault();
         setFilters({
@@ -29,14 +29,14 @@ const ListItem = ({ is_active, active_member, setFilters, city, cityId, federati
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItem__author">
                                 <span className="ListItem__logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </p>
                         }
                         {city && <a onClick={handleCityClick} className="ListItem__city" href="/" >{city}</a>}
@@ -67,14 +67,14 @@ const ListItem = ({ is_active, active_member, setFilters, city, cityId, federati
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItemMobile__author">
                                 <span className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </p>
                         }
                         <div className="ListItemMobile__info">
