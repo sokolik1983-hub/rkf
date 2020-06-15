@@ -6,18 +6,20 @@ import ls from "local-storage";
 import Modal from "../../../Modal";
 import LoginAsUser from "./LoginAsUser";
 import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
-import { connectWidgetLogin } from "../../../../pages/Login/connectors";
-import history from "utils/history";
+import {connectLogin, connectWidgetLogin} from "../../../../pages/Login/connectors";
+import history from "../../../../utils/history";
+import {Request} from "../../../../utils/request";
 
 
 const WidgetLogin = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
+    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+        const accountType = ls.get('account_type') ? ls.get('account_type') : '';
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -25,6 +27,19 @@ const WidgetLogin = forwardRef(
                 {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход</Link>}
                 {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}>Регистрация</Link>}
             </>);
+        };
+
+        const logoutAsUser = async () => {
+            await Request({
+                url: '/api/administration/authentication/logout',
+                method: 'POST'
+            }, data => {
+                loginUserSuccess(data);
+                history.replace('/');
+            }, error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+            });
         };
 
         return (
@@ -71,9 +86,16 @@ const WidgetLogin = forwardRef(
                                             }
                                         </>
                                     }
-                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                        <span onClick={() => setShowModal(true)}>Войти, как клуб</span>
-                                    </li>
+                                    {accountType === 5 &&
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                            <span onClick={() => setShowModal(true)}>Войти как клуб</span>
+                                        </li>
+                                    }
+                                    {accountType === 5 &&
+                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                            <span onClick={logoutAsUser}>Выйти из клуба</span>
+                                        </li>
+                                    }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
@@ -87,11 +109,11 @@ const WidgetLogin = forwardRef(
                        showModal={showModal}
                        handleClose={() => setShowModal(false)}
                 >
-                    <LoginAsUser />
+                    <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>
             </div>
         )
     }
 );
 
-export default connectWidgetLogin(React.memo(WidgetLogin));
+export default connectWidgetLogin(connectLogin(React.memo(WidgetLogin)));

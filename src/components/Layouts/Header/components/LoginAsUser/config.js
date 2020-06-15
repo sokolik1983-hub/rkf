@@ -2,7 +2,7 @@ import {object, string} from "yup";
 
 export const loginForm = {
     method: 'POST',
-    action: '/',
+    action: '/api/administration/authentication/login',
     withLoading: true,
     initialValues: {
         mail: ''

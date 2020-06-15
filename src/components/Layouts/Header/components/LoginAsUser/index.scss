@@ -2,8 +2,9 @@
   &__title {
     margin-bottom: 12px;
     font-size: 32px;
-  }
-  &__form {
-
+    @media (max-width: 560px) {
+      font-size: 27px;
+      line-height: 32px;
+    }
   }
 }
