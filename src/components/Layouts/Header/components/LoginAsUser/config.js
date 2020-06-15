@@ -11,7 +11,7 @@ export const loginForm = {
         mail: {
             name: 'mail',
             type: 'email',
-            label: 'Войти, как клуб:',
+            label: 'Введите E-mail:',
             placeholder: 'Введите E-mail'
         }
     },
