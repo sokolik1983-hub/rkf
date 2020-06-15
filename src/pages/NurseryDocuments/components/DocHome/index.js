@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import CustomMenu from "../../../../components/CustomMenu";
-import Bookform from '../Bookform';
+import BookformCard from 'components/BookformCard';
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
 import Registry from '../Stamps/Registry';
@@ -162,12 +162,13 @@ const DocHome = ({ nurseryAlias, bookform }) => {
                 {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 {/*<Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>*/}
-                {bookform && <Bookform nurseryAlias={nurseryAlias}/>}
+                <Link to={`/nursery/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/nursery/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
             {/*<Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
+            <Route path='/nursery/:route/documents/bookform' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>

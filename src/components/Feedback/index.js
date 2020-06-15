@@ -36,8 +36,8 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
         } catch (error) {
             setErrorText(error.message);
             setAlert(true);
-        };
-    }
+        }
+    };
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -79,12 +79,11 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
                     <p>
-                        Уважаемые пользователи! В случае возникновения у Вас вопросов по функционированию Цифровой Платформы российского кинологического сообщества RKF.Online просим Вас ознакомиться с разделом "База знаний" в <a
-                            href="https://help.rkf.online/" target="_blank" rel="noopener noreferrer">Центре поддержки</a>. <br /><br />
-                        Если ответ на Ваш вопрос отсутствует - обратитесь в свою Федерацию:<br />
-                        Российская Федерация Служебного Собаководства (РФСС) - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a><br />
-                        Российская Федерация Любительского Собаководства (РФЛС) - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a><br />
-                        Российская Федерация Охотничьего Собаководства (РФОС) - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a><br />
+                        В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a> <br /><br />
+                        Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:<br />
+                        РФСС - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a><br />
+                        РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a><br />
+                        РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a><br />
                         ОАНКОО/Фауна - <a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a><br />
                         ОАНКОО/Элита - <a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a><br />
                         ОАНКОО/РКК - <a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a><br /><br />

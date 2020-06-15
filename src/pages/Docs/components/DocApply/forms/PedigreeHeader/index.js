@@ -18,6 +18,12 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         .forEach(key => key === "id" || formik.setFieldValue(key, declarant[key]));
     }
     const [init, setInit] = useState(false);
+    const [folder, _setFolder] = useState('');
+    const setFolder = e => {
+        if (!e) return;
+        formik.setFieldValue('folder_number', e);
+        _setFolder(e);
+    }
     useEffect(() => {
         if (!init && !formik.values.id) {
             setInit(true);
@@ -31,12 +37,12 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
+        }
             Request({
                 url: '/api/requests/CommonRequest/folder_number'
             },
-            e => {e && formik.setFieldValue('folder_number', e)},
+            setFolder,
             e => {})
-        }
     }, []);
 
     return <>
@@ -52,7 +58,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             placeholder="Выберите федерацию"
         />
         <FormField
-            disabled={update}
+            disabled={update || folder}
             name="folder_number"
             label="Номер папки"
             placeholder="0000"
