@@ -48,7 +48,7 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                         </div>
                         {is_active &&
                             <div>
-                                <span className="ListItem__subtitle">Руководитель клуба</span>
+                                <span className="ListItem__subtitle">Контактное лицо</span>
                                 <p>{owner ? <Link to={`/nursery/${alias}`}>{owner}</Link> : 'Отсутствует'}</p>
                             </div>
                         }
