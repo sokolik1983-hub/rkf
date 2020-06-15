@@ -1,9 +1,9 @@
 import {object, string} from "yup";
 
-export const endpointGetNews = '/api/ClubArticle';
-export const endpointEditNewsText = '/api/ClubArticle'; //PUT
-export const endpointAddNewsPicture = '/api/ClubArticle/image'; //POST
-export const endpointDeleteNewsPicture = '/api/ClubArticle/image/'; // /id DELETE
+export const endpointGetNews = '/api/Article'; //GET
+export const endpointEditNewsText = '/api/Article'; //PUT
+export const endpointAddNewsPicture = '/api/Article/image'; //POST
+export const endpointDeleteNewsPicture = '/api/Article/image/'; // /id DELETE
 
 export const formConfig = {
     action: endpointEditNewsText,

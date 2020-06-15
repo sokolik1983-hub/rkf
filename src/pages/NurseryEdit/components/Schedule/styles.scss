@@ -1,0 +1,45 @@
+.Schedule {
+  &__button-delete {
+    padding: 7px 14px;
+    border-color: #fa5d50;
+    background: #fa5d50;
+    color: white;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+    }
+  }
+  .FormGroup--inline {
+    align-items: flex-end;
+    @media (max-width: 768px) {
+      padding: 8px;
+      box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+    }
+  }
+  &__days {
+    display: flex;
+    list-style: none;
+    margin: 12px 0;
+    &-item {
+      &:not(:last-child) {
+        margin-right: 12px;
+      }
+    }
+    &-btn {
+      border: none;
+      background-color: #ccc;
+      padding: 0;
+      width: 27px;
+      line-height: 27px;
+      font-size: 12px;
+      font-weight: 400;
+      transition: all 0.2s linear;
+      &._active {
+        color: #fff;
+        background-color: #00c48c;
+      }
+    }
+  }
+  &__day-name {
+    padding: 10px 12px;
+  }
+}

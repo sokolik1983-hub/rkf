@@ -5,13 +5,21 @@ import {timeSecondsCutter} from "../../../../utils/datetime";
 import {beautify} from "../../../../utils/phone";
 import "./index.scss";
 
+const getAddressString = addressObj => {
+    let address = '';
+    if(addressObj.postcode) address += `${addressObj.postcode}, `;
+    if(addressObj.city_name) address += `${addressObj.city_name}, `;
+    if(addressObj.street_type_name && addressObj.street_name) address += `${addressObj.street_type_name} ${addressObj.street_name}, `;
+    if(addressObj.house_type_name && addressObj.house_name) address += `${addressObj.house_type_name} ${addressObj.house_name}, `;
+    if(addressObj.flat_type_name && addressObj.flat_name) address += `${addressObj.flat_type_name} ${addressObj.flat_name}`;
+    return address;
+};
+
 
 const NurseryInfo = ({
                       name,
-                      legal_city,
-                      city,
                       legal_address,
-                      address,
+                      fact_address,
                       owner_position,
                       owner_name,
                       contacts,
@@ -20,10 +28,8 @@ const NurseryInfo = ({
                       documents,
                       site
                   }) => {
-    const legal_city_name = legal_city && legal_city.name;
-    const city_name = (city && city.name) || legal_city_name;
-    const legal_address_or_city = legal_address || legal_city_name;
-    const address_or_city = address || legal_address || city_name;
+    const legalAddress = legal_address ? getAddressString(legal_address) : '';
+    const factAddress = fact_address ? getAddressString(fact_address) : legalAddress;
 
     return (
         <Card className="nursery-page__info-wrap">
@@ -34,16 +40,16 @@ const NurseryInfo = ({
                     <span>{name}</span>
                 </p>
             }
-            {legal_address_or_city &&
+            {legalAddress &&
                 <p className="nursery-page__info-address">
                     <span>Юридический адрес</span><br />
-                    <span>{legal_address_or_city}</span>
+                    <span>{legalAddress}</span>
                 </p>
             }
-            {address_or_city &&
+            {factAddress &&
                 <p className="nursery-page__info-address">
                     <span>Фактический адрес</span><br />
-                    <span>{address_or_city}</span>
+                    <span>{factAddress}</span>
                 </p>
             }
             {owner_name &&
@@ -56,8 +62,8 @@ const NurseryInfo = ({
                 <>
                     <div className="nursery-page__info-phone">
                         {contacts.filter(item => item.contact_type_id === 1).map(contact => (
-                            <p key={contact.id}>
-                                <span>{contact.description || 'Телефон'}</span>
+                            contact.value && <p key={contact.id}>
+                                <span title={contact.description || 'Телефон'}>{contact.description || 'Телефон'}</span>
                                 <br />
                                 <span>{beautify(contact.value)}</span>
                             </p>
@@ -66,7 +72,7 @@ const NurseryInfo = ({
                     <div className="nursery-page__info-email">
                         {contacts.filter(item => item.contact_type_id === 2).map(contact => (
                             <p key={contact.id}>
-                                <span>{contact.description || 'E-mail'}</span>
+                                <span title={contact.description || 'E-mail'}>{contact.description || 'E-mail'}</span>
                                 <br />
                                 <a href={`mailto:${contact.value}`}>{contact.value}</a>
                             </p>
@@ -82,7 +88,6 @@ const NurseryInfo = ({
                         <a href={site} target="_blank" rel="noopener noreferrer">{site}</a> :
                         <span>-</span>
                     }
-
                 </p>
             </div>
             {socials && !!socials.length &&

@@ -14,7 +14,7 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
 
     const getNews = async page => {
         await Request({
-            url: `/api/ClubArticle/public?alias=${alias}&page=${page}&size=5`
+            url: `/api/Article/public?alias=${alias}&page=${page}&size=5`
         }, data => {
             setNews(data.articles);
             setPagesCount(Math.ceil(data.articles_count / 5));
@@ -31,7 +31,7 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
     const deleteArticle = async id => {
         if(window.confirm('Вы действительно хотите удалить эту новость?')) {
             await Request({
-                    url: '/api/ClubArticle/' + id,
+                    url: '/api/Article/' + id,
                     method: 'DELETE'
                 }, () => setNeedRequest(true),
                 error => {

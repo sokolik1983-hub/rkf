@@ -77,6 +77,11 @@ export const LoadableClubNews = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryNews = Loadable({
+    loader: () => import('./pages/Nursery/NewsPage'),
+    loading: Loading
+});
+
 export const LoadableLogin = Loadable({
     loader: () => import('./pages/Login'),
     loading: Loading
@@ -89,6 +94,11 @@ export const LoadableRegistration = Loadable({
 
 export const LoadablePasswordRecovery = Loadable({
     loader: () => import('./pages/Login/components/PasswordRecovery'),
+    loading: Loading
+});
+
+export const LoadableNurseries = Loadable({
+    loader: () => import('./pages/Nurseries'),
     loading: Loading
 });
 
@@ -114,6 +124,11 @@ export const LoadableNurseryActivation = Loadable({
 
 export const LoadableClient = Loadable({
     loader: () => import(/* webpackChunkName: "app.client.root" */ './pages/ClubEdit'),
+    loading: Loading
+});
+
+export const LoadableNurseryEdit = Loadable({
+    loader: () => import('./pages/NurseryEdit'),
     loading: Loading
 });
 
