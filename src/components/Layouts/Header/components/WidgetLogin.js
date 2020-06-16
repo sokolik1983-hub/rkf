@@ -59,7 +59,7 @@ const WidgetLogin = forwardRef(
                             <div className="widget-login__content">
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
-                                        {userType === 3 &&
+                                        {(userType === 3 || userType === 5) &&
                                             <>
                                                 <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                                 {is_active_profile && <Link className="widget-login__edit" to="/client" />}
@@ -74,7 +74,7 @@ const WidgetLogin = forwardRef(
                                     </li>
                                     {is_active_profile &&
                                         <>
-                                            {userType === 3 &&
+                                            {(userType === 3 || userType === 5) &&
                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                     <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
                                                 </li>
@@ -84,17 +84,17 @@ const WidgetLogin = forwardRef(
                                                     <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
                                                 </li>
                                             }
+                                            {accountType === 5 && userType === 5 &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <span onClick={() => setShowModal(true)}>Войти как клуб</span>
+                                                </li>
+                                            }
+                                            {accountType === 5 && userType !== 5 &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <span onClick={logoutAsUser}>Выйти из клуба</span>
+                                                </li>
+                                            }
                                         </>
-                                    }
-                                    {accountType === 5 &&
-                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                            <span onClick={() => setShowModal(true)}>Войти как клуб</span>
-                                        </li>
-                                    }
-                                    {accountType === 5 &&
-                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                            <span onClick={logoutAsUser}>Выйти из клуба</span>
-                                        </li>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
