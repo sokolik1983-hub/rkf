@@ -23,12 +23,12 @@ const updateSchema = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        next: (values, setRedirect, clubAlias) => values && values.id && Request({
+        next: (values, setRedirect, alias) => values && values.id && Request({
             url: '/api/requests/PedigreeRequest/new',
             method: "POST",
             data: {id:values.id}
         }, 
-        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/${clubAlias}/documents`)},
+        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/${alias}/documents`)},
         e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.PedigreeRequest
             ? e.response.data.errors.PedigreeRequest
             : 'Отсутствует соединение с сервером');})

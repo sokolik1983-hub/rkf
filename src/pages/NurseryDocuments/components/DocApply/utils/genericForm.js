@@ -31,7 +31,7 @@ const transform = values => deepMap(values, v => {
 })
 
 const genericForm = (Component, config) => {
-    return ({update, nurseryAlias, nurseryId, id, prevStage, nextStage, Title}) => {
+    return ({update, alias, nurseryId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
               //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -77,7 +77,7 @@ const genericForm = (Component, config) => {
         //initialValues = config.hooks && config.hooks.initialValues ? config.hooks.initialValues(initialValues) : initialValues;
 
         return loading ? <Loading/> : redirect ? <Redirect push to={redirect}/> : <Form
-                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, nurseryAlias, target_id||values.litter_request_id||values.pedigree_request_id||id) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, alias, target_id||values.litter_request_id||values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert(true)}
                 action={action}
                 method={method}
@@ -96,7 +96,7 @@ const genericForm = (Component, config) => {
                 text="Форма успешно сохранена"
                 autoclose={2.5}
                 okButton="true"
-                //onOk={() => setRedirect(`/nursery/${nurseryAlias}/documents`)}
+                //onOk={() => setRedirect(`/nursery/${alias}/documents`)}
                 onOk={() => {setOkAlert(false);setRedirect(window.location.pathname);}}
             />
         }
@@ -111,9 +111,9 @@ const genericForm = (Component, config) => {
         }
 
                 {/*<div className="nursery-documents-status__head">
-                    <Link className="btn-backward" to={`/nursery/${nurseryAlias}/documents`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, nurseryAlias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }

@@ -18,7 +18,7 @@ const apiPrivacyEndpoint = '/api/requests/PedigreeRequest/personal_data_document
 const accept = ".pdf, .jpg, .jpeg, .png";
 
 // pedigree
-const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, clubAlias, stage }) => {
+const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctypes, breeds, sexTypes, formik, view, update, statuses, stampCodes, alias, stage }) => {
     const distinction = "pedigree";
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const declarant = formik.values;
@@ -42,7 +42,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         })
         .catch(e => setEverkAlert(true));
 
+    const [init, setInit] = useState(false);
     useEffect(() => {
+        if (!init && formik.values.stamp_code_name === '') {
+            setInit(true);
+            let stamp = stampCodes[0];
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code_name', stamp.label);
+            }
+        }
         Promise.all([
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
@@ -94,7 +102,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`id`} />
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/${clubAlias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
+                <FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>
                     <Button className="btn-primary" onClick={e => {

@@ -34,9 +34,10 @@ const forms = {
 }
 
 const DocApply = ({ clubAlias, history }) => {
+    const alias = clubAlias;
     let distinction;
     //const [draft, setDraft] = useState(false);
-    const clubId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -74,7 +75,7 @@ const DocApply = ({ clubAlias, history }) => {
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
-        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/${clubAlias}/documents`} history={history}/>
+        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/${alias}/documents`} history={history}/>
             </div>
             <StageStrip items={[
                 {
@@ -104,15 +105,15 @@ const DocApply = ({ clubAlias, history }) => {
         }
         {/*<aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/${alias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
+                <Link to={`/${alias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         */}
         <div className="documents-page__right">
             <FormContent
-                {...{clubAlias, id, clubId, Title, update, view}}
+                {...{alias, id, profileId, Title, update, view}}
             />
         </div>
     </div>

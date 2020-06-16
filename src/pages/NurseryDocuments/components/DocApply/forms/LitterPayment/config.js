@@ -22,12 +22,12 @@ const updateSchema = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        next: (values, setRedirect, nurseryAlias) => values && values.id && Request({
+        next: (values, setRedirect, alias) => values && values.id && Request({
             url: '/api/requests/NurseryLitterRequest/new',
             method: "POST",
             data: {id:values.id}
         },
-        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/nursery/${nurseryAlias}/documents`)},
+        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/nursery/${alias}/documents`)},
         e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.NurseryLitterRequest
             ? e.response.data.errors.NurseryLitterRequest
             : 'Отсутствует соединение с сервером');})

@@ -34,9 +34,10 @@ const forms = {
 }
 
 const DocApply = ({ nurseryAlias, history }) => {
+    const alias = nurseryAlias;
     let distinction;
     //const [draft, setDraft] = useState(false);
-    const nurseryId = ls.get('profile_id') ? ls.get('profile_id') : '';
+    const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -74,7 +75,7 @@ const DocApply = ({ nurseryAlias, history }) => {
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
-        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/nursery/${nurseryAlias}/documents`} history={history}/>
+        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/nursery/${alias}/documents`} history={history}/>
             </div>
             <StageStrip items={[
                 {
@@ -104,15 +105,15 @@ const DocApply = ({ nurseryAlias, history }) => {
         }
         {/*<aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/nursery/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/nursery/${alias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
+                <Link to={`/nursery/${alias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         */}
         <div className="documents-page__right">
             <FormContent
-                {...{nurseryAlias, id, nurseryId, Title, update, view}}
+                {...{alias, id, profileId, Title, update, view}}
             />
         </div>
     </div>

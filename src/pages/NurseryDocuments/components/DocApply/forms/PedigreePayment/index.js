@@ -10,7 +10,7 @@ import Card from "components/Card";
 import FormFile from "../../components/FormFile";
 
 // pedigree
-const PaymentFormFields = connect(({formik, update, view, options, nurseryAlias, setRedirect, send, initial, Title}) => {
+const PaymentFormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
     return <>
@@ -43,7 +43,7 @@ const PaymentFormFields = connect(({formik, update, view, options, nurseryAlias,
             </FormGroup>
 </Card>
     <div className="stage-controls flex-row">
-        <Button className="btn-condensed" onClick={e => setRedirect(`/nursery/${nurseryAlias}/documents/pedigree/${formik.values.id}/table/form`)}>Назад</Button>
+        <Button className="btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/table/form`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
