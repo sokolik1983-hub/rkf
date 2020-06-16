@@ -31,7 +31,7 @@ const transform = values => deepMap(values, v => {
 })
 
 const genericForm = (Component, config) => {
-    return ({update, clubAlias, clubId, id, prevStage, nextStage, Title}) => {
+    return ({update, alias, profileId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
               //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -50,7 +50,7 @@ const genericForm = (Component, config) => {
         useEffect(() => {
             (() => Promise.all(
                 [Promise.all(config.options ? Object.keys(config.options).map(k =>
-                    PromiseRequest(typeof(config.options[k].url) === "function" ? config.options[k].url(clubId) : config.options[k].url)
+                    PromiseRequest(typeof(config.options[k].url) === "function" ? config.options[k].url(profileId) : config.options[k].url)
                     .then(data => ({[k]:!!config.options[k].mapping ? config.options[k].mapping(data) : data})))
                 : [new Promise()])
                 .then(options => options.reduce((a,b) => ({...a, ...b}), {}))
@@ -77,7 +77,7 @@ const genericForm = (Component, config) => {
         //initialValues = config.hooks && config.hooks.initialValues ? config.hooks.initialValues(initialValues) : initialValues;
 
         return loading ? <Loading/> : redirect ? <Redirect push to={redirect}/> : <Form
-                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, target_id||values.litter_request_id||values.pedigree_request_id||id) : setOkAlert(true)}
+                onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, alias, target_id||values.litter_request_id||values.pedigree_request_id||id) : setOkAlert(true)}
                 onError={e => console.log(e)||setErrAlert((e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.CommonRequest)||(true))}
                 action={action}
                 method={method}
@@ -114,7 +114,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, clubAlias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }
