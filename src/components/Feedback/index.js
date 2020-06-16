@@ -74,21 +74,30 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
                 onClick={handleClick}
                 href="/"
             >
-                {title || 'ОБРАТНАЯ СВЯЗЬ'}
+                {title || 'ЦЕНТР ПОДДЕРЖКИ'}
             </a>
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
-                    <p>
-                        В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a> <br /><br />
-                        Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:<br />
-                        РФСС - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a><br />
-                        РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a><br />
-                        РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a><br />
-                        ОАНКОО/Фауна - <a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a><br />
-                        ОАНКОО/Элита - <a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a><br />
-                        ОАНКОО/РКК - <a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a><br /><br />
-                        Спасибо, что Вы с нами!
-                    </p>
+                    <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
+                    <br/>
+                    <p>Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:</p>
+                    <p>РФСС - <a href="mailto:support.rfss@rkf.online">support.rfss@rkf.online</a></p>
+                    <p>РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a></p>
+                    <p>РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a></p>
+                    <table>
+                        <tr>
+                            <td>ОАНКОО/Фауна -</td>
+                            <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
+                        </tr>
+                        <tr>
+                            <td>ОАНКОО/Элита -</td>
+                            <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
+                        </tr>
+                        <tr>
+                            <td>ОАНКОО/РКК -</td>
+                            <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
+                        </tr>
+                    </table>
                     {/*<h1>Форма обратной связи</h1>*/}
                     {/*<div className="feedback__inner">*/}
                     {/*    <div className="feedback__close" onClick={onModalClose} />*/}
