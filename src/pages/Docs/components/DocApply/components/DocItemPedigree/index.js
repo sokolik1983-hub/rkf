@@ -42,7 +42,15 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         })
         .catch(e => setEverkAlert(true));
 
+    const [init, setInit] = useState(false);
     useEffect(() => {
+        if (!init && formik.values.stamp_code_name === '') {
+            setInit(true);
+            let stamp = stampCodes[0];
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code_name', stamp.label);
+            }
+        }
         Promise.all([
             fetch(apiPrivacyEndpoint, {headers})
             .then(response => response.blob())
