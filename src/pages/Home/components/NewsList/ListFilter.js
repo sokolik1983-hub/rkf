@@ -34,8 +34,8 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
                         <li style={{ opacity: 0.5 }}>
                             <span>НКП</span>
                         </li>
-                        <li style={{ opacity: 0.5 }}>
-                            <span>Питомники</span>
+                        <li>
+                            <a href="/" name="nurseries" onClick={handleClick} className={activeType === 'nurseries' ? 'active' : undefined}>Питомники</a>
                         </li>
                     </ul>
                 </HorizontalSwipe>

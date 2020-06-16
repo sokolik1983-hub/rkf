@@ -58,8 +58,8 @@ const UserMenu = ({alias, name}) => {
                             <Link
                                 to={`/nursery/${alias}`}
                                 className="user-menu__link"
-                                title={`Старница ${name}`}
-                            >{`Старница ${name}`}</Link>
+                                title={`Страница ${name}`}
+                            >{`Страница ${name}`}</Link>
                         </li>
                     </ul>
                 </CSSTransition>
