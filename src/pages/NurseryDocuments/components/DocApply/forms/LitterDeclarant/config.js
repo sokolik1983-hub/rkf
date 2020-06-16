@@ -155,8 +155,8 @@ const emptyNurseryLitterDeclarant = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        save: (values, setRedirect, nurseryAlias, id) => values && values.id && setRedirect(`/nursery/${nurseryAlias}/documents/litter/${id}/declarant/form`),
-        next: (values, setRedirect, nurseryAlias, id) => values && values.id && setRedirect(`/nursery/${nurseryAlias}/documents/litter/${id}/table/form`)
+        save: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/nursery/${alias}/documents/litter/${id}/declarant/form`),
+        next: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/nursery/${alias}/documents/litter/${id}/table/form`)
     },
     options: {
         federations: {

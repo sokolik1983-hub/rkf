@@ -20,8 +20,8 @@ const updateSchema = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        save: (values, setRedirect, nurseryAlias) => values && values.id && setRedirect(`/nursery/${nurseryAlias}/documents/pedigree/${values.id}/header/form`),
-        next: (values, setRedirect, nurseryAlias) => values && values.id && setRedirect(`/nursery/${nurseryAlias}/documents/pedigree/${values.id}/table/form`)
+        save: (values, setRedirect, alias) => values && values.id && setRedirect(`/nursery/${alias}/documents/pedigree/${values.id}/header/form`),
+        next: (values, setRedirect, alias) => values && values.id && setRedirect(`/nursery/${alias}/documents/pedigree/${values.id}/table/form`)
     },
     options: {
         federations: {

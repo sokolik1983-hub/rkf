@@ -14,7 +14,7 @@ const config = {
     url: '/api/requests/litter_request/LitterDeclarantRequest/header',
     get: '/api/requests/LitterRequest',
     onSuccess: {
-        create: (values, setRedirect, clubAlias) => values && values.id && setRedirect(`/${clubAlias}/documents/litter/${values.id}/declarant/form`),
+        create: (values, setRedirect, alias) => values && values.id && setRedirect(`/${alias}/documents/litter/${values.id}/declarant/form`),
     },
     options: {
         statuses: {

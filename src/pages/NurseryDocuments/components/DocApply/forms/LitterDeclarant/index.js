@@ -8,7 +8,7 @@ import DocItem from "../../components/DocItemLitter";
 import SubmitError from "../../components/SubmitError";
 
 // litter
-const DeclarantFormFields = connect(({formik, update, options, nurseryAlias, setRedirect, send, initial, Title}) => {
+const DeclarantFormFields = connect(({formik, update, options, alias, setRedirect, send, initial, Title}) => {
     const {doctypes, breeds, sexTypes, statuses, stampCodes, litterStatuses} = options;
     const isNew = !initial.first_name;
     return <>
@@ -17,11 +17,11 @@ const DeclarantFormFields = connect(({formik, update, options, nurseryAlias, set
             <DocItem
                 i={0}
                 active={true}
-                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, nurseryAlias, litterStatuses}}
+                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, alias, litterStatuses}}
             />
         </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/nursery/${nurseryAlias}/documents/litter/${formik.values.litter_request_id}/table/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/nursery/${alias}/documents/litter/${formik.values.litter_request_id}/table/form`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",

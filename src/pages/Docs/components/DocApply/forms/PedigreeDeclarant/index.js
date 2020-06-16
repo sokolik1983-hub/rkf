@@ -8,7 +8,7 @@ import DocItem from "../../components/DocItemPedigree";
 import SubmitError from "../../components/SubmitError";
 
 // pedigree
-const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, initial, Title}) => {
+const DeclarantFormFields = connect(({formik, update, options, alias, setRedirect, send, initial, Title}) => {
     const {doctypes, breeds, sexTypes, statuses, stampCodes} = options;
     const isNew = !initial.dog_name;
     return <>
@@ -17,11 +17,11 @@ const DeclarantFormFields = connect(({formik, update, options, clubAlias, setRed
             <DocItem
                 i={0}
                 active={true}
-                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, clubAlias}}
+                {...{doctypes, breeds, sexTypes, view:false, update, statuses, stampCodes, alias}}
             />
         </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${alias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",

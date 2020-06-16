@@ -14,7 +14,7 @@ const config = {
     url: '/api/requests/litter_request/NurseryLitterDeclarantRequest/header',
     get: '/api/requests/NurseryLitterRequest',
     onSuccess: {
-        create: (values, setRedirect, nurseryAlias) => values && values.id && setRedirect(`/nursery/${nurseryAlias}/documents/litter/${values.id}/declarant/form`),
+        create: (values, setRedirect, alias) => values && values.id && setRedirect(`/nursery/${alias}/documents/litter/${values.id}/declarant/form`),
     },
     options: {
         statuses: {

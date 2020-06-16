@@ -30,7 +30,7 @@ import {
     apiPedigreeStatusesEndpoint,
 }from "../../config.js"
 
-const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, stage, setStage }) => {
+const DocItemList = ({formik, view, update, alias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, stage, setStage }) => {
     window.test = () => Object.keys(test).forEach(t => {
         formik.setFieldValue(t, test[t]);
     });
@@ -145,7 +145,7 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
             <DocItem
                 i={0}
                 active={true}
-                {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, nurseryAlias, stage}}
+                {...{doctypes, breeds, sexTypes, view, update, privacyHref, verkHref, litterHref, statuses, litterStatuses, stampCodes, alias, stage}}
             />
         </HideIf>
         <HideIf cond={stage !== 2}>
@@ -156,7 +156,7 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
             </HideIf>
-            <Link to={`/nursery/${nurseryAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
+            <Link to={`/nursery/${alias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
         </HideIf>
         </HideIf>
     </>}

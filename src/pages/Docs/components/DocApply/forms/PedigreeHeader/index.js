@@ -10,7 +10,7 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 
 // pedigree
-const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedirect, send, Title}) => {
+const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, send, Title}) => {
     const setDeclarant = value => {
         let declarant = options.declarants.find(f => f.id === value);
         if (!declarant) return;
@@ -69,7 +69,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label={`Ответственное лицо (<a href="/${clubAlias}/documents/responsible/form">Создать ответственное лицо</a>)`}
+            label={`Ответственное лицо (<a href="/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
         {/*<FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />*/}
         <FormGroup inline>
@@ -100,7 +100,7 @@ const HeaderFormFields = connect(({formik, update, options, clubAlias, setRedire
         />
 </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${clubAlias}/documents/`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${alias}/documents/`)}>Назад</Button>
             <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",
