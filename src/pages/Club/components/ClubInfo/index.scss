@@ -74,7 +74,8 @@
     background-image: url("/static/icons/ico-contact-email.svg");
   }
   &-email p,
-  &-phone p {
+  &-phone p,
+  &-site p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "formik";
 import { FormGroup, FormField } from "components/Form";
-import genericForm from "../../utils/genericForm";
+import genericForm from "utils/genericForm";
 import SubmitError from "../../components/SubmitError";
 import config from "./config.js";
 import Button from "components/Button";

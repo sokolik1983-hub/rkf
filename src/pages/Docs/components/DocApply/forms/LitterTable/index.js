@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "formik";
-import genericForm from "../../utils/genericForm";
+import genericForm from "utils/genericForm";
 import SubmitError from "../../components/SubmitError";
 import DocTableItem from "../../components/DocItemTableLitter";
 import config from "./config.js";

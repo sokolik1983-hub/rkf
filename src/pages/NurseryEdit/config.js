@@ -19,7 +19,7 @@ export const editForm = {
         },
         name_lat: {
             name: "name_lat",
-            label: "Название питомника (translit)",
+            label: "Название питомника (на латинице)",
         },
         description: {
             name: "description",

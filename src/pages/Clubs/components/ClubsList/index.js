@@ -61,6 +61,7 @@ const ClubsList = ({ string_filter, federation_ids, city_ids, is_activated, acti
                                     federation_name={item.federation_name}
                                     federation_link={item.federation_alias}
                                     is_active={item.is_active}
+                                    is_active_member={item.active_member}
                                 />
                             </li>
                         ))}

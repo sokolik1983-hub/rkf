@@ -63,10 +63,10 @@
     }
   }
   &__date {
-   font-weight: normal;
-   font-size: 14px;
-   line-height: 20px;
-   color: #72839c;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #72839c;
   }
   &__city {
     font-weight: normal;
@@ -90,8 +90,8 @@
     padding: 0;
     line-height: 0;
     background: url("/static/icons/delete.svg") no-repeat center;
-    opacity: .7;
-    transition: opacity .2s linear;
+    opacity: 0.7;
+    transition: opacity 0.2s linear;
     &:hover {
       opacity: 1;
     }
@@ -113,6 +113,7 @@
     }
     * {
       max-width: 100% !important;
+      line-height: 20px;
     }
   }
   &__show-all {

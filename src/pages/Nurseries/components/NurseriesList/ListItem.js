@@ -1,12 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import {connectFilters} from "../../connectors";
-import {getEmptyFilters} from "../../utils";
+import { DEFAULT_IMG } from "../../../../appConfig";
+import { connectFilters } from "../../connectors";
+import { getEmptyFilters } from "../../utils";
 
 
-const ListItem = ({is_active, active_member, setFilters, city, cityId, federation_name, alias, owner, name, content, logo, federation_link}) => {
+const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, federation_name, alias, owner, name, content, logo, federation_link }) => {
     const handleCityClick = (e) => {
         e.preventDefault();
         setFilters({
@@ -29,14 +29,14 @@ const ListItem = ({is_active, active_member, setFilters, city, cityId, federatio
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItem__author">
                                 <span className="ListItem__logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </p>
                         }
                         {city && <a onClick={handleCityClick} className="ListItem__city" href="/" >{city}</a>}
@@ -44,11 +44,11 @@ const ListItem = ({is_active, active_member, setFilters, city, cityId, federatio
                     <div className="ListItem__info">
                         <div>
                             <span className="ListItem__subtitle">Федерация</span>
-                            <p>{federation_name && federation_link ? <Link to={federation_link}>{federation_name}</Link> : 'Отсутствует'}</p>
+                            <p>{federation_name && federation_link ? <Link to={`/${federation_link}`}>{federation_name}</Link> : 'Отсутствует'}</p>
                         </div>
                         {is_active &&
                             <div>
-                                <span className="ListItem__subtitle">Руководитель клуба</span>
+                                <span className="ListItem__subtitle">Контактное лицо</span>
                                 <p>{owner ? <Link to={`/nursery/${alias}`}>{owner}</Link> : 'Отсутствует'}</p>
                             </div>
                         }
@@ -67,14 +67,14 @@ const ListItem = ({is_active, active_member, setFilters, city, cityId, federatio
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItemMobile__author">
                                 <span className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
                                 <span>{name ? name : 'Название клуба отсутствует'}</span>
-                                {!!active_member && footprint}
+                                {!!is_active_member && footprint}
                             </p>
                         }
                         <div className="ListItemMobile__info">

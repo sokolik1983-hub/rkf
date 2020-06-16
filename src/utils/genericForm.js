@@ -78,7 +78,7 @@ const genericForm = (Component, config) => {
 
         return loading ? <Loading/> : redirect ? <Redirect push to={redirect}/> : <Form
                 onSuccess={e => config.onSuccess && config.onSuccess[button] ? config.onSuccess[button](e, setRedirect, clubAlias, target_id||values.litter_request_id||values.pedigree_request_id||id) : setOkAlert(true)}
-                onError={e => console.log(e)||setErrAlert(true)}
+                onError={e => console.log(e)||setErrAlert((e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.CommonRequest)||(true))}
                 action={action}
                 method={method}
                 initialValues={{...config.initialValues, ...values, id}}
@@ -104,8 +104,9 @@ const genericForm = (Component, config) => {
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
-                text={`Пожалуйста, проверьте правильность заполнения всех полей`}
-                autoclose={2.5}
+                text={(typeof errAlert === "string") ? errAlert : `Пожалуйста, проверьте правильность заполнения всех полей`}
+                autoclose={(typeof errAlert === "string") ? false : 2.5}
+                okButton="true"
                 onOk={() => setErrAlert(false)}
             />
         }
