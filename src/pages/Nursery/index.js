@@ -47,6 +47,7 @@ const NurseryPage = ({match, profile_id, is_active_profile, isAuthenticated}) =>
             <Layout>
                 <Container className="content nursery-page">
                     <UserHeader
+                        user="nursery"
                         logo={nursery.logo_link}
                         banner={nursery.headliner_link}
                         name={nursery.name || 'Имя отсутствует'}

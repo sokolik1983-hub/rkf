@@ -6,7 +6,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const UserHeader = ({logo, banner, name, federationName, federationAlias, canEdit, editLink}) => {
+const UserHeader = ({user, logo, banner, name, federationName, federationAlias, canEdit, editLink}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const share = () => {
@@ -23,6 +23,9 @@ const UserHeader = ({logo, banner, name, federationName, federationAlias, canEdi
                 <div className="user-header__info">
                     <div className="user-header__logo" style={{backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`}} />
                     <div className="user-header__wrap">
+                        <p className="user-header__user">
+                            {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
+                        </p>
                         <h3 className="user-header__name">{name}</h3>
                         {federationName && federationAlias &&
                             <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
