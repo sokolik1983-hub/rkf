@@ -85,18 +85,20 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
                     <p>РФЛС - <a href="mailto:support.rfls@rkf.online">support.rfls@rkf.online</a></p>
                     <p>РФОС - <a href="mailto:support.rfos@rkf.online">support.rfos@rkf.online</a></p>
                     <table>
-                        <tr>
-                            <td>ОАНКОО/Фауна -</td>
-                            <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
-                        </tr>
-                        <tr>
-                            <td>ОАНКОО/Элита -</td>
-                            <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
-                        </tr>
-                        <tr>
-                            <td>ОАНКОО/РКК -</td>
-                            <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>ОАНКОО/Фауна -</td>
+                                <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
+                            </tr>
+                            <tr>
+                                <td>ОАНКОО/Элита -</td>
+                                <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
+                            </tr>
+                            <tr>
+                                <td>ОАНКОО/РКК -</td>
+                                <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
+                            </tr>
+                        </tbody>
                     </table>
                     {/*<h1>Форма обратной связи</h1>*/}
                     {/*<div className="feedback__inner">*/}
