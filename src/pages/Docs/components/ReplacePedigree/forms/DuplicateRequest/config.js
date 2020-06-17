@@ -14,7 +14,7 @@ const validationSchema = {
     payment_number: string().required(reqText),
     payment_name: string().required(reqText),
     inn: string(),
-    comment: string().required(reqText)
+    comment: string()
 };
 
 const updateSchema = validationSchema;
@@ -22,14 +22,7 @@ const updateSchema = validationSchema;
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        next: (values, setRedirect, alias) => {
-            if (values && values.id) {
-                window.alert("Заявка отправлена на рассмотрение");
-                setRedirect(`/${alias}/documents/`);
-            } else {
-                window.alert("Отсутствует соединение с сервером");
-            }
-        }
+        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/${alias}/documents/`);}
     },
     options: {
         federations: {
@@ -45,12 +38,16 @@ const config = {
     get: '/api/requests/replace_pedigree_request/replacepedigreeduplicaterequest',
     initialValues: {
         federation_id: '',
-        declarant_id: 0,
-        folder_number: '',
-        phone: '',
-        email: '',
-        address: '',
-        subscriber_mail: ''
+        declarant_id: '',
+        express: false,
+        personal_data_document_id: '',
+        duplicate_application_id: '',
+        payment_document_id: '',
+        payment_date: '',
+        payment_number: '',
+        payment_name: '',
+        inn: '',
+        comment: ''
     }
 }
 
