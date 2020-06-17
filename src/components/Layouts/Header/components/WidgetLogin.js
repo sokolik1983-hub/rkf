@@ -98,6 +98,16 @@ const WidgetLogin = forwardRef(
                                                     <span onClick={logoutAsUser}>Выйти из клуба</span>
                                                 </li>
                                             }
+                                            {userType === 4 &&
+                                                <>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/nursery/${alias}/edit`}>Редактировать профиль</Link>
+                                                    </li>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+                                                    </li>
+                                                </>
+                                            }
                                         </>
                                     }
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
