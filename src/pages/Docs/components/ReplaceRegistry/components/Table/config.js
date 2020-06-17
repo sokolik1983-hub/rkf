@@ -3,6 +3,7 @@ import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
+import CustomCheckbox from "components/Form/CustomCheckbox";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
@@ -60,6 +61,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
 
         if (['date_create', 'date_change'].includes(col.property)) {
             col.cell.resolve = date => date && moment(date).format('DD.MM.YYYY');
+        }
+
+        if (col.property === 'express') {
+            col.cell.formatters.push(x => <CustomCheckbox disabled checked={x} />)
         }
 
         return col;
