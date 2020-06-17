@@ -51,7 +51,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         </div>
 
         <FormField
-            disabled={update}
+            disabled
             options={options.federations}
             fieldType="reactSelect"
             name="federation_id"
