@@ -1,0 +1,24 @@
+Index: src/components/Layouts/Header/components/WidgetLogin.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Layouts/Header/components/WidgetLogin.js	(revision e05251db1737abbc022d98cbd106d3af7eb6a849)
++++ src/components/Layouts/Header/components/WidgetLogin.js	(date 1592379246077)
+@@ -98,16 +98,6 @@
+                                                     <span onClick={logoutAsUser}>Выйти из клуба</span>
+                                                 </li>
+                                             }
+-                                            {userType === 4 &&
+-                                                <>
+-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+-                                                        <Link to={`/nursery/${alias}/edit`}>Редактировать профиль</Link>
+-                                                    </li>
+-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+-                                                        <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+-                                                    </li>
+-                                                </>
+-                                            }
+                                         </>
+                                     }
+                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
