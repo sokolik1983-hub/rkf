@@ -17,6 +17,7 @@ import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
+import ReplacePedigree from "./components/ReplacePedigree";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -40,6 +41,13 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
+                        <Route exact={true} path='/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
+                            <ReplacePedigree alias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
+                            <ReplacePedigree alias={clubAlias} history={history} />}
+                        />
+
                         <Route exact={true} path='/:route/documents/litter/status' component={() =>
                             <ClubDocumentsStatus clubAlias={clubAlias} history={history} distinction="litter" />}
                         />
@@ -100,7 +108,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/pedigree/:id/edit' component={() =>
                             <DocApplyLitter clubAlias={clubAlias} history={history} distinction={"pedigree"} />}
                         />
-
+                        
                         <Route path='/:route/documents' component={() => <DocHome clubAlias={clubAlias} history={history} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
