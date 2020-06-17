@@ -6,7 +6,7 @@ import "./index.scss";
 
 const FeedbackComponent = () => (
     <Card className="feedback-component">
-        <h4 className="feedback-component__title">Обратная связь</h4>
+        <h4 className="feedback-component__title">Центр поддержки</h4>
         <p className="feedback-component__description">
             Вы также можете задать вопрос или оставить свои пожелания, заполнив форму
         </p>

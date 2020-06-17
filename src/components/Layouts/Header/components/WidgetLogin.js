@@ -60,29 +60,33 @@ const WidgetLogin = forwardRef(
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
                                         {(userType === 3 || userType === 5) &&
-                                            <>
-                                                <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
-                                                {is_active_profile && <Link className="widget-login__edit" to="/client" />}
-                                            </>
+                                            <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                         }
                                         {userType === 4 &&
-                                            <>
-                                                <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
-                                                {is_active_profile && <Link className="widget-login__edit" to={`/nursery/${alias}/edit`} />}
-                                            </>
+                                            <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
                                         }
                                     </li>
                                     {is_active_profile &&
                                         <>
                                             {(userType === 3 || userType === 5) &&
-                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                    <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
-                                                </li>
+                                                <>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to="/client">Редактировать профиль</Link>
+                                                    </li>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                    </li>
+                                                </>
                                             }
                                             {userType === 4 &&
-                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                    <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
-                                                </li>
+                                                <>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/nursery/${alias}/edit`}>Редактировать профиль</Link>
+                                                    </li>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+                                                    </li>
+                                                </>
                                             }
                                             {accountType === 5 && userType === 5 &&
                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
