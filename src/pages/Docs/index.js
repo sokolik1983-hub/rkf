@@ -17,6 +17,7 @@ import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
+import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
@@ -41,6 +42,9 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
+                        <Route exact={true} path='/:route/documents/replace-pedigree/registry' component={() =>
+                            <ReplaceRegistry alias={clubAlias} history={history} />}
+                        />
                         <Route exact={true} path='/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
                             <ReplacePedigree alias={clubAlias} history={history} />}
                         />

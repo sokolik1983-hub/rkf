@@ -85,6 +85,7 @@ const DocumentCards = ({ clubAlias }) => {
                 <div>
                     <Link to={`/${clubAlias}/documents/puppy/metrics`} onClick={handleClick}>По родословной выданной вне системы РКФ/FCI</Link>
                     <Link to={`/${clubAlias}/documents/replace-pedigree/duplicate/form`} >По заявлению о выдаче дубликата</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
                 </div>
             </div>
         </Card>
