@@ -51,7 +51,7 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
     <Title/>
         <FormGroup inline>
         <FormField
-            disabled={update}
+            disabled
             options={options.federations}
             fieldType="reactSelect"
             name="federation_id"
