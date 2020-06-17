@@ -40,15 +40,9 @@ const NurseryInfo = ({
                     <span>{name}</span>
                 </p>
             }
-            {legalAddress &&
-                <p className="nursery-page__info-address">
-                    <span>Юридический адрес</span><br />
-                    <span>{legalAddress}</span>
-                </p>
-            }
             {factAddress &&
                 <p className="nursery-page__info-address">
-                    <span>Фактический адрес</span><br />
+                    <span>Адрес</span><br />
                     <span>{factAddress}</span>
                 </p>
             }

@@ -54,6 +54,7 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                     <Layout>
                         <Container className="content club-page">
                             <UserHeader
+                                user="club"
                                 logo={clubInfo.logo_link}
                                 banner={clubInfo.headliner_link}
                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}

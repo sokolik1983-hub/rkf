@@ -28,14 +28,14 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                                 <div className="ListItem__club-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
+                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
                                 {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItem__author">
                                 <span className="ListItem__club-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
+                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
                                 {!!is_active_member && footprint}
                             </p>
                         }
@@ -66,14 +66,14 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                                 <div className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
+                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
                                 {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItemMobile__author">
                                 <span className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? club_name : 'Название клуба отсутствует'}</span>
+                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
                                 {!!is_active_member && footprint}
                             </p>
                         }
