@@ -1,17 +1,11 @@
-.gallery {
-  display: flex;
-  flex-flow: row wrap;
-
-  &-item {
-
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-
-  }
-
-  &__first-row,&__second-row {
-    display: flex;
-    flex-flow: row no;
-  }
+.ReactGridGallery {
+    &__title {
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 44px;
+        margin-bottom: 24px;
+    }
+    &__wrap {
+        overflow: hidden;
+    }
 }
