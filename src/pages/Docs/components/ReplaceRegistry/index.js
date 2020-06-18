@@ -8,7 +8,7 @@ import {Request} from "utils/request";
 import "./index.scss";
 
 
-const RequestRegistry = ({history, clubAlias}) => {
+const ReplaceRegistry = ({history, alias}) => {
     const [loading, setLoading] = useState(true);
     const [checked, setChecked] = useState([1,2,3,4]);
     const [statuses, setStatuses] = useState([]);
@@ -45,16 +45,15 @@ const RequestRegistry = ({history, clubAlias}) => {
                 <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                 <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
                 <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
-                <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
                 <p></p>
             </div>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
-                    <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} clubAlias={clubAlias}/> :
+                    <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} alias={alias}/> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
         </Card>
 };
 
-export default React.memo(RequestRegistry);
+export default React.memo(ReplaceRegistry);
