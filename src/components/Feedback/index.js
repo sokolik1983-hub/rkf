@@ -87,15 +87,18 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
                     <table>
                         <tbody>
                             <tr>
-                                <td>ОАНКОО/Фауна -</td>
+                                <td>ОАНКОО/Фауна</td>
+                                <td style={{textAlign: 'center'}}>-</td>
                                 <td><a href="mailto:support.oankoofauna@rkf.online">support.oankoofauna@rkf.online</a></td>
                             </tr>
                             <tr>
-                                <td>ОАНКОО/Элита -</td>
+                                <td>ОАНКОО/Элита</td>
+                                <td style={{textAlign: 'center'}}>-</td>
                                 <td><a href="mailto:support.oankooelita@rkf.online">support.oankooelita@rkf.online</a></td>
                             </tr>
                             <tr>
-                                <td>ОАНКОО/РКК -</td>
+                                <td>ОАНКОО/РКК</td>
+                                <td style={{textAlign: 'center'}}>-</td>
                                 <td><a href="mailto:support.oankoorkk@rkf.online">support.oankoorkk@rkf.online</a></td>
                             </tr>
                         </tbody>

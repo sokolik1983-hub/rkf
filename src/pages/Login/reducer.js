@@ -114,6 +114,7 @@ const authReducer = createReducer(authInitialState, {
             isAuthenticated: false,
             is_active_profile: false,
             profile_id: null,
+            account_type: null,
             user_info: null,
             helpdesk_api_key: null
         };
