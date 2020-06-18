@@ -26,8 +26,9 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
     const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
     const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
+    const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
-    const isVisible = true;
+    const isVisible = personalAccess;
 
     return !isVisible
         ? <PageNotFound />
