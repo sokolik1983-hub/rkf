@@ -1,0 +1,36 @@
+.NurseryGallery {
+    &__title {
+        margin-bottom: 12px;
+    }
+    &__upload {
+        height: 200px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: contain;
+        &:hover {
+            cursor: pointer;
+        }
+        @media (max-width: 560px) {
+            height: 125px;
+        }
+    }
+    &__gallery-edit {
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        background: url("/static/icons/pencil-circle.svg") center/cover no-repeat;
+        margin-left: 6px;
+        filter: brightness(0.6);
+        &:hover {
+            filter: brightness(0.3);
+        }
+    }
+    &__buttons {
+        text-align: right;
+        margin-top: 24px;
+    }
+    &__delete-button {
+        color: red;
+        border-color: red;
+    }
+}

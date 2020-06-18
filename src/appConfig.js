@@ -135,6 +135,16 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/nursery/:id/gallery',
+        component: LoadableModules.LoadableNurseryGallery
+    },
+    {
+        exact: true,
+        path: '/nursery/:id/gallery/edit',
+        component: LoadableModules.LoadableNurseryGalleryEdit
+    },
+    {
+        exact: true,
         path: '/:route/news',
         component: LoadableModules.LoadableClubNews
     },
