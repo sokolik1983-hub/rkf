@@ -36,7 +36,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
        },
        {
            property: "express",
-           label: "Срочное изготовление"
+           label: "Срочная"
        },
        {
            property: "type_name",
@@ -64,7 +64,11 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
         }
 
         if (col.property === 'express') {
-            col.cell.formatters.push(x => <CustomCheckbox disabled checked={x} />)
+            col.cell.formatters.push((value,{rowData}) => <CustomCheckbox disabled checked={rowData.express} />)
+        }
+
+        if (col.property === 'pedigree_link') {
+            col.cell.formatters.push((value,{rowData}) => rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank">Ссылка</a> : '')
         }
 
         return col;
