@@ -1,14 +1,11 @@
+import React from "react";
+import {connect} from "react-redux";
 import axios from "axios";
 import ls from "local-storage";
 import {LOGIN_URL} from "../appConfig";
 import history from "./history";
-import {connectWidgetLogin} from "../pages/Login/connectors";
-
-const logOut = connectWidgetLogin(({logOutUser}) => {
-    return {
-        logOutUser
-    };
-});
+import {store} from "../app";
+import {LOGOUT} from "../pages/Login/actiontypes";
 
 
 export const getHeaders = (isMultipart = false) => {
@@ -35,8 +32,6 @@ export const Request = (options, onSuccess, onError) => {
         headers: getHeaders(options.isMultipart),
     };
 
-    console.log(logOut, typeof logOut);
-
     return (async() => {
         try {
             const response = await axios(axiosConfig);
@@ -47,8 +42,8 @@ export const Request = (options, onSuccess, onError) => {
                 onError(error);
             }
 
-            if(error.response.status === 403 && userType === 4) {
-                logOut();
+            if(error.response && error.response.status === 403 && userType === 4) {
+                store.dispatch({type: LOGOUT});
                 history.replace(LOGIN_URL);
             }
         }

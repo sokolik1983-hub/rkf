@@ -27,22 +27,22 @@ const loadIsActiveProfile = () => {
     const is_active_profile = localStorage.getItem('is_active_profile');
     return is_active_profile === null ? false : JSON.parse(is_active_profile);
 };
-const clearIsActiveProfile = () => {
-    localStorage.removeItem('is_active_profile');
-};
 const saveIsActiveProfile = is_active_profile => {
     localStorage.setItem('is_active_profile', JSON.stringify(is_active_profile));
+};
+const clearIsActiveProfile = () => {
+    localStorage.removeItem('is_active_profile');
 };
 
 const loadPersonalAccess = () => {
     const personal_office_access = localStorage.getItem('personal_office_access');
     return personal_office_access === null ? false : JSON.parse(personal_office_access);
 };
-const clearPersonalAccess = () => {
-    localStorage.removeItem('personal_office_access');
-};
 const savePersonalAccess = personal_office_access => {
     localStorage.setItem('personal_office_access', JSON.stringify(personal_office_access));
+};
+const clearPersonalAccess = () => {
+    localStorage.removeItem('personal_office_access');
 };
 
 const loadProfile = () => {
@@ -52,7 +52,7 @@ const loadProfile = () => {
 const saveProfile = profile_id => {
     localStorage.setItem('profile_id', JSON.stringify(profile_id));
 };
-const clearProfile = () => {
+export const clearProfile = () => {
     localStorage.removeItem('profile_id');
 };
 
