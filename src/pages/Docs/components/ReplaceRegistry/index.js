@@ -7,28 +7,35 @@ import CustomCheckbox from "components/Form/CustomCheckbox";
 import {Request} from "utils/request";
 import "./index.scss";
 
+const PromiseRequest = (data) => new Promise((resolve, reject) => Request(data, resolve, reject));
 
 const ReplaceRegistry = ({history, alias}) => {
     const [loading, setLoading] = useState(true);
     const [checked, setChecked] = useState([1,2,3,4]);
-    const [statuses, setStatuses] = useState([]);
     const [reqTypes, setReqTypes] = useState([]);
+    const [checkedTypes, setCheckedTypes] = useState([]);
     const check = i => setChecked(checked.includes(i) ? checked.filter(x => x !== i) : checked.concat(i));
+    const checkType = i => setCheckedTypes(checkedTypes.includes(i) ? checkedTypes.filter(x => x !== i) : checkedTypes.concat(i))
     const [documents, setDocuments] = useState(null);
 
     useEffect(() => {
-        (() => Request({
-            url: '/api/requests/replace_pedigree_request/replacepedigreerequest/register_of_requests',
-            method: 'POST',
-            data: {}
-        },
+        (() => Promise.all([
+            PromiseRequest({
+                url: '/api/requests/replace_pedigree_request/replacepedigreerequest/register_of_requests',
+                method: 'POST',
+                data: {}
+            }),
+            PromiseRequest({url:'/api/requests/commonrequest/replace_pedigree_type'})
+        ]).then(
         data => {
-            setDocuments(data);
+            setDocuments(data[0]);
+            setReqTypes(data[1]);
+            setCheckedTypes(data[1].map(({id})=>id));
             setLoading(false);
-        },
-        error => {
-            console.log(error.response);
-            setLoading(false);
+        }).catch(
+            error => {
+                console.log(error.response);
+                setLoading(false);
         }))();
     }, []);
 
@@ -41,15 +48,24 @@ const ReplaceRegistry = ({history, alias}) => {
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
             <h3>Фильтры</h3>
-            <div>
-                <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
-                <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
-                <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
-                <p></p>
+            <div className="flex-row heading-row">
+                <div>
+                    <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
+                    <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
+                    <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
+                    <p></p>
+                </div>
+                <div>
+                    {
+                        reqTypes.map(({id, name}) => 
+                    <CustomCheckbox key={id} id={`custom-checkbox-reqtypes-${id}`} label={name} onChange={e => checkType(id)} checked={checkedTypes.includes(id)} />)
+                    }
+                    <p></p>
+                </div>
             </div>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
-                    <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} alias={alias}/> :
+                    <StatusTable documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias}/> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
