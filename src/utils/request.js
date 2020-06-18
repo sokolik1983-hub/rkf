@@ -5,8 +5,9 @@ import history from "./history";
 import {connectWidgetLogin} from "../pages/Login/connectors";
 
 const logOut = connectWidgetLogin(({logOutUser}) => {
-    logOutUser();
-    return null;
+    return {
+        logOutUser
+    };
 });
 
 
@@ -34,7 +35,7 @@ export const Request = (options, onSuccess, onError) => {
         headers: getHeaders(options.isMultipart),
     };
 
-    logOut();
+    console.log(logOut, typeof logOut);
 
     return (async() => {
         try {
