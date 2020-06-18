@@ -76,6 +76,7 @@ const ClubPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         />
                                     }
                                     <UserNews
+                                        user="club"
                                         canEdit={canEdit}
                                         alias={match.params.route}
                                         page={page}

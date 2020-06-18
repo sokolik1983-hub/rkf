@@ -76,7 +76,7 @@
     align-items: center;
     margin-left: 72px;
     @media (max-width: 560px) {
-      margin-left: 60px;
+      margin: 16px;
     }
     &-image,
     &-file {
@@ -92,6 +92,7 @@
   }
   .FormControls {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   .FormInput--file {
@@ -133,12 +134,13 @@
     z-index: -1;
   }
   &__labelfile {
-    width: 20px;
+    padding-left: 26px;
     height: 20px;
+    line-height: 20px;
     cursor: pointer;
-    background: url(/static/icons/client/attach-image.svg);
+    background: url(/static/icons/client/attach-image.svg) no-repeat;
     &:hover {
-      background: url(/static/icons/client/attach-image-active.svg);
+      background: url(/static/icons/client/attach-image-active.svg) no-repeat;
     }
   }
   &__length-hint {

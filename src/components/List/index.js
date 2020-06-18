@@ -7,6 +7,7 @@ import './index.scss';
 
 
 const List = ({
+    user,
     list,
     listNotFound = 'Ничего не найдено',
     listClass,
@@ -27,6 +28,7 @@ const List = ({
                         <li className="list__item" key={item.id}>
                             <Card>
                                 <ListItem
+                                    user={user}
                                     id={item.id}
                                     club_name={item.name}
                                     city={item.fact_city_name}
