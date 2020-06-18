@@ -116,7 +116,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />
             </FormGroup>
     </Card>
-    <div className="stage-controls flex-row">
+    {!view && <div className="stage-controls flex-row">
             {/*<Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/${alias}/documents/`)}>Назад</Button>*/}
             <SubmitError />
             <Button className="btn-green btn-condensed" onClick={e => send({
@@ -124,7 +124,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 action: config.url,
                 button: 'next'
             }, formik)}>Отправить</Button>
-    </div>
+    </div>}
     </>
 })
 
