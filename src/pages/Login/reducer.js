@@ -52,7 +52,7 @@ const loadProfile = () => {
 const saveProfile = profile_id => {
     localStorage.setItem('profile_id', JSON.stringify(profile_id));
 };
-export const clearProfile = () => {
+const clearProfile = () => {
     localStorage.removeItem('profile_id');
 };
 
