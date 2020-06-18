@@ -7,6 +7,16 @@ import CustomCheckbox from "components/Form/CustomCheckbox";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
+const formatCountTime = (str) => {
+    const dateArray = str.split('.');
+    const i = dateArray.length - 2;
+    const timeArray = dateArray[i].split(':');
+    const days = +dateArray[0];
+    const hours = +timeArray[0];
+    const minutes = +timeArray[1];
+
+    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+}
 
 export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
     let cols = [
@@ -68,7 +78,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
         }
 
         if (col.property === 'pedigree_link') {
-            col.cell.formatters.push((value,{rowData}) => rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank">Ссылка</a> : '')
+            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank">Ссылка</a> : ''))
         }
 
         return col;

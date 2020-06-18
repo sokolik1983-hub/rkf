@@ -114,7 +114,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                         <FormField disabled={view} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
                 </HideIf>
-                <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />
+                {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
             </FormGroup>
     </Card>
     {!view && <div className="stage-controls flex-row">
