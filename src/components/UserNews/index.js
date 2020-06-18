@@ -8,7 +8,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) => {
+const UserNews = ({user, canEdit, alias, page, setPage, needRequest, setNeedRequest}) => {
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [pagesCount, setPagesCount] = useState(1);
@@ -64,6 +64,7 @@ const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) 
                 </div>
             </Card> :
             <List
+                user={user}
                 list={news}
                 listNotFound="Новости не найдены"
                 listClass="user-news"
