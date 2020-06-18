@@ -19,7 +19,7 @@ class StatusTable extends PureComponent {
         sortingColumns: null,
         pagination: {page: 1, perPage: 20},
         distinction: this.props.distinction,
-        clubAlias: this.props.clubAlias,
+        alias: this.props.alias,
         rows: this.props.documents,
         columns: null,
         showModal: false,
@@ -49,8 +49,7 @@ class StatusTable extends PureComponent {
         return getTableColumns(
             this.state.sortingColumns,
             sortable,
-            this.state.distinction,
-            this.state.clubAlias,
+            this.state.alias,
             data => this.setState(data)
         );
     };

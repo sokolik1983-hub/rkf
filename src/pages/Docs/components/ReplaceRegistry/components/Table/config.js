@@ -8,7 +8,7 @@ import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
 
-export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
     let cols = [
        {
            property: "date_create",
@@ -70,7 +70,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
         return col;
     });
 
-    /*cols.push({
+    cols.push({
         cell: {
             formatters: [
                 (value, { rowData }) => {
@@ -79,7 +79,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}`}
+                                        to={`/${alias}/documents/replace-pedigree/duplicate/view/${rowData.id}`}
                                         className="row-control__link"
                                     >
                                         Подробнее
@@ -88,28 +88,20 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/${clubAlias}/documents/${distinction}/${rowData.id}/edit`}
+                                            to={`/${alias}/documents/replace-pedigree/duplicate/edit/${rowData.id}`}
                                             className="row-control__link"
                                         >
                                             Ответить
                                         </Link>
                                     </li>
                                 }
-                                <li className="row-control__item">
-                                    <Link
-                                        to={`/${clubAlias}/documents/${distinction}/${rowData.id}/print`}
-                                        className="row-control__link"
-                                    >
-                                        Печать
-                                    </Link>
-                                </li>
                             </ul>
                         </RowControl>
                     )
                 }
             ]
         }
-    });*/
+    });
 
     return cols;
 };

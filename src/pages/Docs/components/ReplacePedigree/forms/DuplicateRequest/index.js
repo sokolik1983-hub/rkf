@@ -45,6 +45,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
     return <>
     <Card>
         <Title/>
+        {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
             <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
