@@ -46,7 +46,7 @@ const ReplacePedigree = ({ alias, history }) => {
     const FormTitle = (forms[reqtype] || forms[3]).title;
 
     const Title = props => <div>
-        <DocHead text={FormTitle} link={`/${alias}/documents`} history={history}/>
+        <DocHead text={FormTitle} link={`/nursery/${alias}/documents`} history={history}/>
             </div>;
 
 
