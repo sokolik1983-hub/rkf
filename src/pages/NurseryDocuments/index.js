@@ -17,6 +17,8 @@ import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
 import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
+import ReplaceRegistry from "./components/ReplaceRegistry";
+import ReplacePedigree from "./components/ReplacePedigree";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -41,7 +43,17 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
-                        <Route exact={true} path='/nursery/:route/documents/litter/status' component={() =>
+                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/registry' component={() =>
+                            <ReplaceRegistry alias={nurseryAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
+                            <ReplacePedigree alias={nurseryAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
+                            <ReplacePedigree alias={nurseryAlias} history={history} />}
+                        />
+
+                       <Route exact={true} path='/nursery/:route/documents/litter/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/nursery/:route/documents/pedigree/status' component={() =>
