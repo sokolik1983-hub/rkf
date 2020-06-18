@@ -2,7 +2,7 @@ export const selectIsAuthenticated = state => {
     const { isAuthenticated, profile_id, is_active_profile, user_info } = state.authentication;
     if (isAuthenticated) {
         const { user_type } = user_info;
-        return { isAuthenticated, is_active_profile, user_type };
+        return { isAuthenticated, profile_id, is_active_profile, user_type };
     }
     return { isAuthenticated, profile_id, is_active_profile };
 };
