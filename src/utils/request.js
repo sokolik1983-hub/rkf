@@ -1,4 +1,14 @@
 import axios from "axios";
+import ls from "local-storage";
+import {LOGIN_URL} from "../appConfig";
+import history from "./history";
+import {connectWidgetLogin} from "../pages/Login/connectors";
+
+const logOut = connectWidgetLogin(({logOutUser}) => {
+    logOutUser();
+    return null;
+});
+
 
 export const getHeaders = (isMultipart = false) => {
     const apiKey = localStorage.getItem('apikey');
@@ -17,10 +27,14 @@ export const getHeaders = (isMultipart = false) => {
 };
 
 export const Request = (options, onSuccess, onError) => {
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+
     const axiosConfig = {
         ...options,
         headers: getHeaders(options.isMultipart),
     };
+
+    logOut();
 
     return (async() => {
         try {
@@ -30,6 +44,11 @@ export const Request = (options, onSuccess, onError) => {
         } catch (error) {
             if (onError) {
                 onError(error);
+            }
+
+            if(error.response.status === 403 && userType === 4) {
+                logOut();
+                history.replace(LOGIN_URL);
             }
         }
     })();
@@ -65,7 +84,6 @@ function parseJSON(response) {
         }
         throw error;
     }
-
 }
 
 /**
