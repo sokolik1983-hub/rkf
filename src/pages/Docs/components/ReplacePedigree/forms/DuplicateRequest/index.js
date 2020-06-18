@@ -48,7 +48,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={update} fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
+            <FormField disabled={view} fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
 
         <FormField
@@ -73,7 +73,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 name={`personal_data_document`}
                 label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
                 docId={formik.values.personal_data_document_id}
-                disabled={view || formik.values.personal_data_document_accept || !statusAllowsUpdate}
+                disabled={view}
                 document_type_id={11}
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
             />
@@ -81,7 +81,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 name={`duplicate_application`}
                 label='Заявление на выдачу дубликата (PDF, JPEG, JPG, PNG)'
                 docId={formik.values.duplicate_application_id}
-                disabled={view || formik.values.duplicate_application_accept || !statusAllowsUpdate}
+                disabled={view}
                 document_type_id={28}
             />
 
@@ -100,17 +100,17 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                             name='payment_document'
                             label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
                             docId={formik.values.payment_document_id}
-                            disabled={view || formik.values.payment_document_accept || !statusAllowsUpdate}
+                            disabled={view}
                             document_type_id={5}
                             distinction="pedigree"
                         />
 
-                        <FormField className="special" required={false} disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
+                        <FormField className="special" required={false} disabled={view} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>
-                        <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view || (!(statusAllowsUpdate && cash_payment && !formik.values.cash_payment_accept) && update)} name='inn' label='ИНН (для юр. лиц)' />
+                        <FormField disabled={view} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
+                        <FormField disabled={view} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
                 </HideIf>
                 <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />

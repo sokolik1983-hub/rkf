@@ -23,7 +23,7 @@ const ReplacePedigree = ({ alias, history }) => {
 
     if (history) {
         let params = useParams();
-        update = params.action === "update" || params.action === "view";
+        update = params.action === "edit" || params.action === "view";
         view = params.action === "view";
         id = params.id;
         reqtype = params.reqtype || reqtype;
