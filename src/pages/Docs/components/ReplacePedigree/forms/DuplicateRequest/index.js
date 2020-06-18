@@ -48,9 +48,8 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={view} fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
-
+        <FormGroup inline>
         <FormField
             disabled
             options={options.federations}
@@ -67,6 +66,8 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             label={`Ответственное лицо (<a href="/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." 
         />
+            <FormField disabled={view} className="inline-checkbox" fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
+        </FormGroup>
 
         <FormGroup inline>
             <FormFile
