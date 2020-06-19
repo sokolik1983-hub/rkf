@@ -31,7 +31,7 @@ export const Request = async (options, onSuccess, onError) => {
         headers: getHeaders(options.isMultipart),
     };
 
-    if(personalAccess === null) {
+    if(personalAccess === null && userType === 4) {
         const response = await axios({
             url: '/api/nurseries/nursery/check_office_access',
             headers: getHeaders(options.isMultipart)
