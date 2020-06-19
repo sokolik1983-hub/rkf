@@ -32,7 +32,10 @@ export const Request = async (options, onSuccess, onError) => {
     };
 
     if(personalAccess === null) {
-        const response = await axios({url: '/api/nurseries/nursery/check_office_access'});
+        const response = await axios({
+            url: '/api/nurseries/nursery/check_office_access',
+            headers: getHeaders(options.isMultipart)
+        });
 
         localStorage.setItem('personal_office_access', JSON.stringify(response.data.result));
     }
