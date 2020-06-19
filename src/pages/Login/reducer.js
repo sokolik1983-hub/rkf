@@ -27,11 +27,22 @@ const loadIsActiveProfile = () => {
     const is_active_profile = localStorage.getItem('is_active_profile');
     return is_active_profile === null ? false : JSON.parse(is_active_profile);
 };
+const saveIsActiveProfile = is_active_profile => {
+    localStorage.setItem('is_active_profile', JSON.stringify(is_active_profile));
+};
 const clearIsActiveProfile = () => {
     localStorage.removeItem('is_active_profile');
 };
-const saveIsActiveProfile = is_active_profile => {
-    localStorage.setItem('is_active_profile', JSON.stringify(is_active_profile));
+
+const loadPersonalAccess = () => {
+    const personal_office_access = localStorage.getItem('personal_office_access');
+    return personal_office_access === null ? false : JSON.parse(personal_office_access);
+};
+const savePersonalAccess = personal_office_access => {
+    localStorage.setItem('personal_office_access', JSON.stringify(personal_office_access));
+};
+const clearPersonalAccess = () => {
+    localStorage.removeItem('personal_office_access');
 };
 
 const loadProfile = () => {
@@ -74,6 +85,7 @@ const isUserAuthenticated = () => {
 const authInitialState = {
     isAuthenticated: isUserAuthenticated(),
     is_active_profile: loadIsActiveProfile(),
+    personal_office_access: loadPersonalAccess(),
     profile_id: loadProfile(),
     account_type: loadAccountType(),
     user_info: loadUserInfo(),
@@ -82,12 +94,13 @@ const authInitialState = {
 
 const authReducer = createReducer(authInitialState, {
     [actiontypes.LOGIN_SUCCESS](state, action) {
-        const { access_token, is_active_profile, user_info, profile_id, account_type, api_key: helpdesk_api_key } = action.data;
+        const { access_token, is_active_profile, personal_office_access, user_info, profile_id, account_type, api_key: helpdesk_api_key } = action.data;
         const accountType = loadAccountType();
 
         saveApiKey(access_token);
         saveUserInfo(user_info);
         saveIsActiveProfile(is_active_profile);
+        savePersonalAccess(personal_office_access);
         saveProfile(profile_id);
         if(accountType !== 5) saveAccountType(account_type);
         saveHelpdeskApiKey(helpdesk_api_key);
@@ -96,6 +109,7 @@ const authReducer = createReducer(authInitialState, {
             ...state,
             isAuthenticated: true,
             is_active_profile,
+            personal_office_access,
             profile_id,
             account_type: accountType !== 5 ? account_type : accountType,
             user_info,
@@ -106,6 +120,7 @@ const authReducer = createReducer(authInitialState, {
         clearApiKey();
         clearUserInfo();
         clearIsActiveProfile();
+        clearPersonalAccess();
         clearProfile();
         clearAccountType();
         clearHelpdeskApiKey();
@@ -113,6 +128,7 @@ const authReducer = createReducer(authInitialState, {
             ...state,
             isAuthenticated: false,
             is_active_profile: false,
+            personal_office_access: false,
             profile_id: null,
             account_type: null,
             user_info: null,

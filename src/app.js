@@ -11,7 +11,7 @@ import SignalR from 'components/SignalR';
 
 
 //Store
-const store = configureStore({}, history);
+export const store = configureStore({}, history);
 
 ReactDOM.render(
     <Provider store={store}>

@@ -31,7 +31,7 @@ const transform = values => deepMap(values, v => {
 })
 
 const genericForm = (Component, config) => {
-    return ({update, alias, profileId, id, prevStage, nextStage, Title}) => {
+    return ({update, view, alias, profileId, id, prevStage, nextStage, Title}) => {
         const [values, setValues] = useState({}),
               //[statusAllowsUpdate, setStatusAllowsUpdate] = useState(true),
               [redirect, setRedirect] = useState(''),
@@ -114,7 +114,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, view, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }

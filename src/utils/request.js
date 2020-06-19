@@ -1,4 +1,10 @@
 import axios from "axios";
+import ls from "local-storage";
+import {LOGIN_URL} from "../appConfig";
+import history from "./history";
+import {store} from "../app";
+import {LOGOUT} from "../pages/Login/actiontypes";
+
 
 export const getHeaders = (isMultipart = false) => {
     const apiKey = localStorage.getItem('apikey');
@@ -17,6 +23,8 @@ export const getHeaders = (isMultipart = false) => {
 };
 
 export const Request = (options, onSuccess, onError) => {
+    const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+
     const axiosConfig = {
         ...options,
         headers: getHeaders(options.isMultipart),
@@ -30,6 +38,11 @@ export const Request = (options, onSuccess, onError) => {
         } catch (error) {
             if (onError) {
                 onError(error);
+            }
+
+            if(error.response && error.response.status === 403 && userType === 4) {
+                store.dispatch({type: LOGOUT});
+                history.replace(LOGIN_URL);
             }
         }
     })();
@@ -65,7 +78,6 @@ function parseJSON(response) {
         }
         throw error;
     }
-
 }
 
 /**
