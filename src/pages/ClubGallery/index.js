@@ -32,7 +32,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     const getImages = (page = 0) => {
         setLoaded(false);
         Request({
-            url: `/api/photogallery/gallery?elemCount=25${page ? '&pageNumber=' + page : ''}`,
+            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
