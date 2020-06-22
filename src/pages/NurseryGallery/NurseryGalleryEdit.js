@@ -9,11 +9,14 @@ import { Gallery, ImageUpload } from "components/Gallery";
 import Button from 'components/Button';
 import Alert from "components/Alert";
 import { Request } from "utils/request";
+import Paginator from "components/Paginator";
 import "./styles.scss";
 
 const NurseryGalleryEdit = () => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
+    const [pagesCount, setPagesCount] = useState(false);
+    const [currentPage, setCurrentPage] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
@@ -22,9 +25,10 @@ const NurseryGalleryEdit = () => {
         getImages()
     }, []);
 
-    const getImages = () => {
+    const getImages = (page = 0) => {
+        setLoaded(false);
         Request({
-            url: `/api/photogallery/gallery`,
+            url: `/api/photogallery/gallery?elemCount=25${page ? '&pageNumber=' + page : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -37,11 +41,10 @@ const NurseryGalleryEdit = () => {
                     caption: p.caption
                 }
             }));
+            setPagesCount(data.page_count);
+            setCurrentPage(data.page_current);
             setLoaded(true);
-        },
-            error => {
-                handleError(error);
-            });
+        }, error => handleError(error));
     }
     const onSelectImage = (index, image) => {
         var imgs = images.slice();
@@ -97,6 +100,12 @@ const NurseryGalleryEdit = () => {
                                     <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
                                 </div>
                             }
+                            <Paginator
+                                scrollToTop={false}
+                                pagesCount={pagesCount}
+                                currentPage={currentPage}
+                                setPage={page => getImages(page)}
+                            />
                         </Card>
                     </>
                 }

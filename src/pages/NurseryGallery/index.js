@@ -8,12 +8,15 @@ import { Gallery } from "components/Gallery";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
+import Paginator from "components/Paginator";
 import "./styles.scss";
 
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     const [images, setImages] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [pagesCount, setPagesCount] = useState(false);
+    const [currentPage, setCurrentPage] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
 
@@ -26,9 +29,10 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
         }, error => handleError(error));
     }, []);
 
-    const getImages = () => {
+    const getImages = (page = 0) => {
+        setLoaded(false);
         Request({
-            url: `/api/photogallery/gallery`,
+            url: `/api/photogallery/gallery?elemCount=25${page ? '&pageNumber=' + page : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -41,6 +45,8 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                     caption: p.caption
                 }
             }));
+            setPagesCount(data.page_count);
+            setCurrentPage(data.page_current);
             setLoaded(true);
         }, error => handleError(error));
     }
@@ -69,6 +75,12 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                             </h3>
 
                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
+                            <Paginator
+                                scrollToTop={false}
+                                pagesCount={pagesCount}
+                                currentPage={currentPage}
+                                setPage={page => getImages(page)}
+                            />
                         </Card>
                     </>
                 }
