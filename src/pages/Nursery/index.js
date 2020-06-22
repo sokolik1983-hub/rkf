@@ -96,6 +96,7 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                     backdropClosesModal={true}
                                     enableImageSelection={false}
                                     maxRows={1}
+                                    withLoading={false}
                                 />
                                 : <img className="nursery-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
                         }

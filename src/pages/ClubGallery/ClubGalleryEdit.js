@@ -12,7 +12,7 @@ import { Request } from "utils/request";
 import Paginator from "components/Paginator";
 import "./styles.scss";
 
-const NurseryGalleryEdit = () => {
+const ClubGalleryEdit = () => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [pagesCount, setPagesCount] = useState(false);
@@ -83,21 +83,21 @@ const NurseryGalleryEdit = () => {
 
     return (
         <Layout>
-            <Container className="content NurseryGallery">
+            <Container className="content ClubGallery">
                 {!loaded
                     ? <Loading />
                     : <>
                         <Card>
-                            <div className="NurseryGallery__back">
-                                <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> <span>&lsaquo;</span> ФОТОГАЛЕРЕЯ</Link> / Редактирование
+                            <div className="ClubGallery__back">
+                                <Link className="btn-backward" to={`/${params.id}/gallery/`}> <span>&lsaquo;</span> ФОТОГАЛЕРЕЯ</Link> / Редактирование
                             </div>
                             <ImageUpload callback={getImages}>
-                                <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="NurseryGallery__upload" />
+                                <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="ClubGallery__upload" />
                             </ImageUpload>
                             <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
                             {!!selectedImages.length
-                                && <div className="NurseryGallery__buttons">
-                                    <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
+                                && <div className="ClubGallery__buttons">
+                                    <Button condensed className="ClubGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
                                 </div>
                             }
                             <Paginator
@@ -115,4 +115,4 @@ const NurseryGalleryEdit = () => {
     )
 };
 
-export default React.memo(NurseryGalleryEdit);
+export default React.memo(ClubGalleryEdit);

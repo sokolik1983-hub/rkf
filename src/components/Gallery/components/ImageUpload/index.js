@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Loading from 'components/Loading';
 import Button from 'components/Button';
 import Alert from 'components/Alert';
@@ -27,7 +27,7 @@ const ImageUpload = ({ callback }) => {
     const uploadFile = (file) => {
         let data = new FormData();
         data.append('photo', file);
-        data.append('caption', file.caption);
+        data.append('caption', file.caption || '');
         data.append('album_id', 0);
         data.append('sorted_number', 0);
 
@@ -51,10 +51,10 @@ const ImageUpload = ({ callback }) => {
                         setLoading(false);
                         setFiles([]);
                         setPreviews([]);
-                        callback && callback();
                     }
                 });
                 setLoading(false);
+                callback && callback();
             })
             .catch(e => {
                 handleError(e);

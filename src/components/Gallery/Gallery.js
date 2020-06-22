@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Loading from "components/Loading";
+import Loading from 'components/Loading';
 import Gallery from 'react-grid-gallery';
 import './styles.scss';
 
-const GalleryComponent = ({ items, ...rest }) => {
+const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
     const [loaded, setLoaded] = useState(false);
     const [images, setImages] = useState([]);
 
@@ -53,11 +53,11 @@ const GalleryComponent = ({ items, ...rest }) => {
     return <div className="ReactGridGallery__wrap">
         {loaded
             ? <Gallery
+                imageCountSeparator="&nbsp;из&nbsp;"
                 images={images}
                 {...rest}
             />
-            : null
-            // : <Loading centered={false} />
+            : withLoading ? <Loading centered={false} /> : null
         }
     </div>
 };
