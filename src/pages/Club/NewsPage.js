@@ -78,6 +78,7 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
             : <Layout>
                 <Container className="content club-page NewsPage">
                     <UserHeader
+                        user="club"
                         logo={clubInfo.logo_link}
                         banner={clubInfo.headliner_link}
                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
