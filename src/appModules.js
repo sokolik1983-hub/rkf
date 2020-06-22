@@ -77,6 +77,16 @@ export const LoadableClubNews = Loadable({
     loading: Loading
 });
 
+export const LoadableClubGallery = Loadable({
+    loader: () => import('./pages/ClubGallery'),
+    loading: Loading
+});
+
+export const LoadableClubGalleryEdit = Loadable({
+    loader: () => import('./pages/ClubGallery/ClubGalleryEdit'),
+    loading: Loading
+});
+
 export const LoadableNurseryNews = Loadable({
     loader: () => import('./pages/Nursery/NewsPage'),
     loading: Loading

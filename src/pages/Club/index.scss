@@ -40,6 +40,34 @@
       min-width: unset;
     }
   }
+  &__gallery {
+    &-wrap {
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      @media (max-width: 560px) {
+        margin-bottom: 12px;
+      }
+    }
+    &-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      a {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #253c5e;
+      }
+    }
+    &-placeholder {
+      width: 100px;
+      display: block;
+      margin: auto;
+    }
+  }
 }
 .NewsPage {
   &__endMessage {
