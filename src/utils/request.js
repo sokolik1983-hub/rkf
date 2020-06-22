@@ -22,13 +22,23 @@ export const getHeaders = (isMultipart = false) => {
     return headers;
 };
 
-export const Request = (options, onSuccess, onError) => {
+export const Request = async (options, onSuccess, onError) => {
     const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
+    const personalAccess = ls.get('personal_office_access');
 
     const axiosConfig = {
         ...options,
         headers: getHeaders(options.isMultipart),
     };
+
+    if(personalAccess === null && userType === 4) {
+        const response = await axios({
+            url: '/api/nurseries/nursery/check_office_access',
+            headers: getHeaders(options.isMultipart)
+        });
+
+        localStorage.setItem('personal_office_access', JSON.stringify(response.data.result));
+    }
 
     return (async() => {
         try {

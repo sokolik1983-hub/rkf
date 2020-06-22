@@ -74,6 +74,7 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
             : <Layout>
                 <Container className="content nursery-page NewsPage">
                     <UserHeader
+                        user="nursery"
                         logo={nurseryInfo.logo_link}
                         banner={nurseryInfo.headliner_link}
                         name={nurseryInfo.short_name || nurseryInfo.name || 'Название клуба отсутствует'}
