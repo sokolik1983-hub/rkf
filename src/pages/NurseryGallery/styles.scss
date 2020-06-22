@@ -1,6 +1,13 @@
 .NurseryGallery {
     &__title {
         margin-bottom: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .btn {
+            font-size: 16px;
+            padding: 3px 24px;
+        }
     }
     &__upload {
         height: 200px;
@@ -12,17 +19,6 @@
         }
         @media (max-width: 560px) {
             height: 125px;
-        }
-    }
-    &__gallery-edit {
-        display: inline-block;
-        height: 16px;
-        width: 16px;
-        background: url("/static/icons/pencil-circle.svg") center/cover no-repeat;
-        margin-left: 6px;
-        filter: brightness(0.6);
-        &:hover {
-            filter: brightness(0.3);
         }
     }
     &__buttons {

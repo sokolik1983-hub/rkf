@@ -7,16 +7,23 @@ import Card from "components/Card";
 import { Gallery } from "components/Gallery";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
+import { connectAuthVisible } from "../Login/connectors";
 import "./styles.scss";
 
-const NurseryGallery = () => {
+const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     const [images, setImages] = useState(false);
+    const [canEdit, setCanEdit] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
 
     useEffect(() => {
         getImages();
+        Request({
+            url: '/api/nurseries/nursery/public/' + params.id
+        }, data => {
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+        }, error => handleError(error));
     }, []);
 
     const getImages = () => {
@@ -35,10 +42,7 @@ const NurseryGallery = () => {
                 }
             }));
             setLoaded(true);
-        },
-            error => {
-                handleError(error);
-            });
+        }, error => handleError(error));
     }
 
     const handleError = e => {
@@ -61,7 +65,8 @@ const NurseryGallery = () => {
                     : <>
                         <Card>
                             <h3 className="NurseryGallery__title">Фотогалерея
-                            <Link className="NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`} /></h3>
+                            {canEdit && <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`}>Редактировать</Link>}
+                            </h3>
 
                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
                         </Card>
@@ -73,4 +78,4 @@ const NurseryGallery = () => {
     )
 };
 
-export default React.memo(NurseryGallery);
+export default connectAuthVisible(React.memo(NurseryGallery));
