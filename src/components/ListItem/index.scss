@@ -68,6 +68,9 @@
         line-height: 20px;
         overflow: hidden;
         color: #253c5e;
+        & > span {
+          color: #72839c;
+        }
       }
       span {
         font-weight: normal;

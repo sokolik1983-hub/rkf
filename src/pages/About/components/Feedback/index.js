@@ -8,7 +8,7 @@ const FeedbackComponent = () => (
     <Card className="feedback-component">
         <h4 className="feedback-component__title">Центр поддержки</h4>
         <p className="feedback-component__description">
-            Вы также можете задать вопрос или оставить свои пожелания, заполнив форму
+            Вы также можете задать вопрос или оставить свои пожелания, связавшись с нами через центр поддержки
         </p>
         <Feedback className="feedback-component__button" title="Написать обращение"/>
     </Card>

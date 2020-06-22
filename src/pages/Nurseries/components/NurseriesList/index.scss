@@ -158,6 +158,9 @@
         line-height: 20px;
         letter-spacing: 0.2px;
         color: #253c5e;
+        & > span {
+          color: #72839c;
+        }
       }
     }
     &__logo {

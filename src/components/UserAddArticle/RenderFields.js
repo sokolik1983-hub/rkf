@@ -98,7 +98,7 @@ const RenderFields = ({fields, logo, formik}) => {
                     </div>
                     <FormControls>
                         <div className="ArticleCreateForm__attach">
-                            <label htmlFor="file" className="ArticleCreateForm__labelfile"/>
+                            <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
                         </div>
                         <div className="ArticleCreateForm__length-hint">
                         <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>

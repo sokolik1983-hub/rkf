@@ -10,7 +10,6 @@ import {paginate, Paginator} from "../Pagination";
 import Modal from "../../../../../../components/Modal";
 import {getTableColumns} from "./config";
 import "./index.scss";
-import Declarants from "../Declarants";
 
 
 class StatusTable extends PureComponent {
@@ -119,17 +118,6 @@ class StatusTable extends PureComponent {
                     onSelect={this.onSelect}
                 />
 
-                {this.state.showModal &&
-                    <Modal
-                        showModal={this.state.showModal}
-                        handleClose={() => this.setState({showModal: false})}
-                        noBackdrop={true}
-                        hideCloseButton={true}
-                        className="status-table__modal"
-                    >
-                        <Declarants id={this.state.docId} />
-                    </Modal>
-                }
             </>
         )
     }

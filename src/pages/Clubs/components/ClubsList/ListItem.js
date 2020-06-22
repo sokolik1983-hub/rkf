@@ -17,6 +17,7 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
     };
 
     const footprint = <img className="ListItem__active-member" src="/static/icons/footprint.svg" title="Активный пользователь RKF.Online" alt="Активный пользователь RKF.Online" />;
+    const clubName = `<span>Клуб</span> ${club_name}`;
 
     return (
         <Card className="ListItem">
@@ -28,14 +29,14 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                                 <div className="ListItem__club-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
+                                {club_name ? <span dangerouslySetInnerHTML={{ __html: clubName }} /> : <span>Название клуба отсутствует</span>}
                                 {!!is_active_member && footprint}
                             </Link> :
                             <p className="ListItem__author">
                                 <span className="ListItem__club-logo" style={{
                                     backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
-                                <span>{club_name ? 'Клуб ' + club_name : 'Название клуба отсутствует'}</span>
+                                {club_name ? <span dangerouslySetInnerHTML={{ __html: clubName }} /> : <span>Название клуба отсутствует</span>}
                                 {!!is_active_member && footprint}
                             </p>
                         }

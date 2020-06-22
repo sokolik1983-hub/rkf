@@ -48,9 +48,9 @@ const UserMenu = ({alias, name}) => {
                     unmountOnExit
                 >
                     <ul className="user-menu__list">
-                        <li className="user-menu__item">
+                        {/* <li className="user-menu__item">
                             <Link to={`/exhibitions`} className="user-menu__link">Мероприятия</Link>
-                        </li>
+                        </li> */}
                         <li className="user-menu__item">
                             <Link to={`/nursery/${alias}/news`} className="user-menu__link">Новости</Link>
                         </li>
