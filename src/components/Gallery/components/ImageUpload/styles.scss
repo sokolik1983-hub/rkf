@@ -1,4 +1,5 @@
-.NurseryGallery, .ClubGallery {
+.NurseryGallery,
+.ClubGallery {
     .ImageUpload {
         &__wrap {
             display: flex;
@@ -11,6 +12,16 @@
             @media (max-width: 560px) {
                 margin-bottom: 12px;
                 padding: 6px;
+            }
+            .Loading {
+                &.inline {
+                    margin: 0 0 0 10px;
+                }
+                &__title {
+                    background: white;
+                    width: 4em;
+                    height: 4em;
+                }
             }
         }
         &__preview {
@@ -61,6 +72,10 @@
                 }
                 &:hover:not(:disabled) {
                     box-shadow: 0 2px 2px rgba(37, 60, 94, 0.24);
+                }
+                &.btn-primary {
+                    display: flex;
+                    align-items: center;
                 }
             }
             .Loading.inline .Loading__title {
