@@ -85,16 +85,18 @@ const BookformCard = ({url}) => {
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
                 </div>
             </Card>
-            <Card>
-                <div className="documents-page__icon" />
-                <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
-                <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации и от взаимодействия с ее службой поддержки. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
-                <hr />
-                <div className="Card__links">
-                    {federation && <Link to={`/`} onClick={e => handleClick(e, null, 'federation')}>Оценить работу {federation}</Link>}
-                    <Link to={`/`} onClick={e => handleClick(e, null, 'support')}>Оценить работу службы поддержки Федерации</Link>
-                </div>
-            </Card>
+            {federation &&
+                <Card>
+                    <div className="documents-page__icon" />
+                    <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
+                    <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации и от взаимодействия с ее службой поддержки. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
+                    <hr />
+                    <div className="Card__links">
+                        <Link to={`/`} onClick={e => handleClick(e, null, 'federation')}>Оценить работу {federation}</Link>
+                        <Link to={`/`} onClick={e => handleClick(e, null, 'support')}>Оценить работу службы поддержки Федерации</Link>
+                    </div>
+                </Card>
+            }
             <Modal showModal={showModal}
                    handleClose={() => {
                        setLink('');
