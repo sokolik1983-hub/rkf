@@ -253,6 +253,9 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           display: block;
+          span {
+            display: inline-block;
+          }
         }
         span {
           display: block;
