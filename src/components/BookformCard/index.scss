@@ -1,7 +1,12 @@
 .documents-page__info .Loading { width: 100%; }
 .documents-page__modal {
-  &._blue .Modal__inner {
-    background: #f0f2f3;
+  &._blue {
+    & > div {
+      max-width: 600px;
+    }
+    .Modal__inner {
+      background: #f0f2f3;
+    }
   }
   & > div {
     height: 80% !important;
