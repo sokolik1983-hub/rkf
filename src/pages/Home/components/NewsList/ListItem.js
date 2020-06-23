@@ -6,8 +6,6 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import { formatDateTime } from "utils/datetime";
 
 const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage, name, city, date, alias, logo_link, photo, text, url }) => {
-    const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
-
     const handleCityChange = e => {
         const cityObj = {
             label: city,
@@ -33,7 +31,7 @@ const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage,
                         <Link to={user === 4 ? `/nursery/${alias}` : `/${alias}`}>
                             <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>&nbsp;{name}
                         </Link>
-                        <span>{formattedDate}</span>
+                        <span>{formatDateTime(date)}</span>
                     </span>
                 </div>
                 <span className="list-item__city" onClick={handleCityChange}>
