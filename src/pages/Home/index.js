@@ -81,7 +81,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                                     <span className="disabled">Образовательный портал</span>
                                 </p>
                                 <p>
-                                    <a href="http://help.rkf.online/" target="_blank" rel="noreferrer noopener">База знаний</a>
+                                    <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noreferrer noopener">База знаний</a>
                                 </p>
                                 <p>
                                     <a href="http://rkfshow.ru/" target="_blank" rel="noreferrer noopener">Запись на мероприятия</a>
