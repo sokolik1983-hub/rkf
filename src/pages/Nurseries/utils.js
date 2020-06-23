@@ -10,8 +10,8 @@ export const getEmptyFilters = () => ({
     "string_filter": "",
     "federation_ids": [],
     "city_ids": [],
-    "is_activated": null,
-    "active_member": true,
+    "is_activated": true,
+    "active_member": false,
     "page": 1
 });
 
