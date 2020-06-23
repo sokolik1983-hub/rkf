@@ -30,7 +30,7 @@ const config = {
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
         declarants: {
-            url: '/api/clubs/Declarant/club_declarants',
+            url: '/api/nurseries/nurserydeclarant/nursery_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
     },

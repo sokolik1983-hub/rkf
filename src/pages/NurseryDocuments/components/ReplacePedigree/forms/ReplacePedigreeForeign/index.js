@@ -26,7 +26,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 formik.setFieldValue('declarant_id', declarant.id);
             }
             Request({
-                url: '/api/Club/club_federation'
+                url: '/api/nurseries/nursery/nursery_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
