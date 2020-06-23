@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getLocalizedMonth } from "utils/datetime";
 import { formatText } from "utils";
 import './index.scss';
 import { DEFAULT_IMG } from "../../../../appConfig";
+import { formatDateTime } from "utils/datetime";
 
 const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, name, city, date, alias, logo_link, photo, text, url }) => {
-    const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
 
     const handleCityChange = e => {
         const cityObj = {
@@ -31,7 +30,7 @@ const ListItem = ({ setNewsFilter, citiesDict, currentActiveType, setPage, name,
                     </Link>
                     <span className="list-item__club-name">
                         <Link to={alias}>{name}</Link>
-                        <span>{formattedDate}</span>
+                        <span>{formatDateTime(date)}</span>
                     </span>
                 </div>
                 <span className="list-item__city" onClick={handleCityChange}>
