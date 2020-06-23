@@ -70,9 +70,13 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                     ? <Loading />
                     : <>
                         <Card>
-                            <h3 className="NurseryGallery__title">Фотогалерея
-                            {canEdit && <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`}>Редактировать</Link>}
-                            </h3>
+                            <div className="NurseryGallery__back">
+                                <div>
+                                    <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                </div>
+                                {canEdit &&
+                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`}>Редактировать</Link>}
+                            </div>
 
                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
                             <Paginator
