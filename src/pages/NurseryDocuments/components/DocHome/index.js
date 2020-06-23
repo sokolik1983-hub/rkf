@@ -80,11 +80,17 @@ const DocumentCards = ({ nurseryAlias }) => {
                 <div>
                     <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
                     <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
-                    <Link to={`/nursery/${nurseryAlias}/documents/puppy/metrics`} onClick={handleClick}>По заявлению при смене владельца</Link>
+                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
                 </div>
                 <div>
-                    <Link to={`/nursery/${nurseryAlias}/documents/puppy/metrics`} onClick={handleClick}>По родословной выданной вне системы РКФ/FCI</Link>
+                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
                     <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
+                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
+                </div>
+            </div>
+            <hr />
+            <div className="Card__link-columns">
+                <div>
                     <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
                 </div>
             </div>
