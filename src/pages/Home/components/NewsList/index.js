@@ -30,6 +30,7 @@ const NewsList = ({
                             {
                                 <Card>
                                     <ListItem
+                                        user={item.user_type}
                                         id={item.id}
                                         name={item.name}
                                         city={item.fact_city_name}

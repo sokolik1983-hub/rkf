@@ -93,6 +93,7 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
                                 endMessage={<div className="NewsPage__endMessage">Новостей больше нет</div>}
                             >
                                 <List
+                                    user="nursery"
                                     list={news}
                                     listNotFound={false}
                                     listClass="nursery-page__news"

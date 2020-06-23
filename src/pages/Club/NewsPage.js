@@ -97,6 +97,7 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
                                 endMessage={<div className="NewsPage__endMessage">Новостей больше нет</div>}
                             >
                                 <List
+                                    user="club"
                                     list={news}
                                     listNotFound={false}
                                     listClass="club-page__news"
