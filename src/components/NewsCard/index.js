@@ -7,7 +7,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const NewsCard = ({id, club_name, fact_city_name, create_date, alias, logo_link, picture_link, content, canEdit, onDelete}) => (
+const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo_link, picture_link, content, canEdit, onDelete}) => (
     <Card className="news-card">
         {picture_link && <Link to={`/news/${id}`} className="news-card__photo" style={{backgroundImage: `url(${picture_link})`}} />}
         <div className="news-card__content">
@@ -19,7 +19,7 @@ const NewsCard = ({id, club_name, fact_city_name, create_date, alias, logo_link,
                             : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                     }} />
                     <div className="news-card__club-info">
-                        <p className="news-card__club-name">{club_name}</p>
+                        <p className="news-card__club-name"><span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>&nbsp;{name}</p>
                         <p className="news-card__date">
                             {`${new Date(create_date).getDate()} ${getLocalizedMonth(new Date(create_date))} ${new Date(create_date).getFullYear()}`}
                         </p>

@@ -92,6 +92,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 />
                             }
                             <NewsComponent
+
                                 alias={alias}
                                 page={page}
                                 setPage={setPage}
