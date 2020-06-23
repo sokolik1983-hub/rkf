@@ -34,8 +34,8 @@ const config = {
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
     },
-    url: '/api/requests/replace_pedigree_request/replacepedigreeownerrequest',
-    get: '/api/requests/replace_pedigree_request/replacepedigreeownerrequest',
+    url: '/api/requests/replace_pedigree_request/nurseryreplacepedigreeownerrequest',
+    get: '/api/requests/replace_pedigree_request/nurseryreplacepedigreeownerrequest',
     initialValues: {
         federation_id: '',
         declarant_id: '',
