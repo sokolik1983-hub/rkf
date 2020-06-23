@@ -11,7 +11,7 @@ import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
 
-// duplicate request
+// replace foreign pedigree request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
@@ -26,7 +26,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 formik.setFieldValue('declarant_id', declarant.id);
             }
             Request({
-                url: '/api/nurseries/nursery/nursery_federation'
+                url: '/api/Club/club_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
@@ -48,7 +48,6 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={update} className="inline-checkbox" fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
         <FormGroup inline>
         <FormField
@@ -79,14 +78,21 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
             />
             <FormFile
-                name={`duplicate_application`}
-                label='Заявление на выдачу дубликата (PDF, JPEG, JPG, PNG)'
-                docId={formik.values.duplicate_application_id}
+                name={`copy_foreign_pedigree_document`}
+                label='Поле загрузки копии иностранной родословной (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.copy_foreign_pedigree_document_id}
                 disabled={view}
-                document_type_id={28}
+                document_type_id={33}
             />
 
         </FormGroup>
+            <FormFile
+                name={`application_verk_statement_document`}
+                label='Поле загрузки заявления на выписку ВЕРК (бланк 14) (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.application_verk_statement_document_id}
+                disabled={view}
+                document_type_id={32}
+            />
 
         <FormGroup>
                 <br/>

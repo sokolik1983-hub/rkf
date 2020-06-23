@@ -6,6 +6,9 @@ import Alert from "components/Alert";
 import ExportOldRequest from "./forms/ExportOldRequest";
 import InnerOldRequest from "./forms/InnerOldRequest";
 import DuplicateRequest from "./forms/DuplicateRequest";
+import ReplacePedigreeOwner from "./forms/ReplacePedigreeOwner";
+import ReplacePedigreeOutRKFFCI from "./forms/ReplacePedigreeOutRKFFCI";
+import ReplacePedigreeForeign from "./forms/ReplacePedigreeForeign";
 import DocHead from "../DocHead";
 
 import './index.scss';
@@ -23,6 +26,19 @@ const forms = {
         form: DuplicateRequest,
         title: "Регистрация заявления на замену родословной по заявлению о выдаче дубликата",
     },
+    "4": {
+        form: ReplacePedigreeOwner,
+        title: "Регистрация заявления на замену родословной по заявлению на смену владельца",
+    },
+    "5": {
+        form: ReplacePedigreeOutRKFFCI,
+        title: "Регистрация заявления на замену родословной по родословной выданной вне системы РКФ/FCI",
+    },
+    "6": {
+        form: ReplacePedigreeForeign,
+        title: "Регистрация иностранной родословной",
+    },
+
 };
 
 const ReplacePedigree = ({ alias, history }) => {
