@@ -70,9 +70,13 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                     ? <Loading />
                     : <>
                         <Card>
-                            <h3 className="ClubGallery__title">Фотогалерея
-                            {canEdit && <Link className="btn btn-primary ClubGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать</Link>}
-                            </h3>
+                            <div className="ClubGallery__back">
+                                <div>
+                                    <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                </div>
+                                {canEdit &&
+                                    <Link className="btn btn-primary ClubGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать</Link>}
+                            </div>
 
                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
                             <Paginator

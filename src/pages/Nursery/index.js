@@ -87,6 +87,7 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
+                            <UserDescription description={nursery.description} />
                             <Card className="nursery-page__gallery-wrap">
                                 <h4 className="nursery-page__gallery-title">
                                     <Link className="nursery-page__gallery-edit" to={`/nursery/${alias}/gallery`}>Фотогалерея</Link>
@@ -103,7 +104,6 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                         : <img className="nursery-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
                                 }
                             </Card>
-                            <UserDescription description={nursery.description} />
                             {canEdit &&
                                 <AddArticle
                                     id={nursery.id}

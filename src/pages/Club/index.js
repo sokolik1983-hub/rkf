@@ -96,6 +96,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                         <div className="club-page__content-wrap">
                             <div className="club-page__content">
+                                <UserDescription description={clubInfo.description} />
                                 <Card className="club-page__gallery-wrap">
                                     <h4 className="club-page__gallery-title">
                                         <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
@@ -112,7 +113,6 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                             : <img className="club-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
                                     }
                                 </Card>
-                                <UserDescription description={clubInfo.description} />
                                 {canEdit &&
                                     <AddArticle
                                         id={clubInfo.id}
