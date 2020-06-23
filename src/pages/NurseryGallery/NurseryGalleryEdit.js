@@ -37,8 +37,8 @@ const NurseryGalleryEdit = () => {
                     id: p.id,
                     src: p.link,
                     thumbnail: p.small_photo.link,
-                    width: p.small_photo.width,
-                    height: p.small_photo.height,
+                    thumbnailWidth: p.small_photo.width,
+                    thumbnailHeight: p.small_photo.height,
                     caption: p.caption
                 }
             }));

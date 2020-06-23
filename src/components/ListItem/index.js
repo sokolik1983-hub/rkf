@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getLocalizedMonth } from "../../utils/datetime";
 import { formatText } from "../../utils";
 import {DEFAULT_IMG} from "../../appConfig";
+import { formatDateTime } from "utils/datetime";
 import "./index.scss";
 
 
 const ListItem = ({ user, id, club_name, city, date, alias, logo_link, photo, text, url, removable, onDelete }) => {
-    const formattedDate = `${new Date(date).getDate()} ${getLocalizedMonth(new Date(date))} ${new Date(date).getFullYear()}`;
 
     return <div className="list-item__wrap">
         {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
@@ -22,7 +21,7 @@ const ListItem = ({ user, id, club_name, city, date, alias, logo_link, photo, te
                         }} />
                         <span className="list-item__club-name">
                             <h4><span>{user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}</span>&nbsp;{club_name}</h4>
-                            <span>{formattedDate}</span>
+                            <span>{formatDateTime(date)}</span>
                         </span>
                     </div>
                     <span className="list-item__city">

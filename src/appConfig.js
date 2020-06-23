@@ -210,14 +210,14 @@ const mainNav = [
             },
             {
                 id: 1.4,
-                title: "Национальные Клубы Пород",
-                to: '/organizations/national-breed-clubs',
+                title: "Питомники",
+                to: '/organizations/nurseries',
                 exact: false
             },
             {
                 id: 1.5,
-                title: "Питомники",
-                to: '/organizations/nurseries',
+                title: "Национальные Клубы Пород",
+                to: '/organizations/national-breed-clubs',
                 exact: false
             }
         ]
