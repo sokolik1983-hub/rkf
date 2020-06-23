@@ -50,7 +50,7 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
 
     const getImages = () => {
         Request({
-            url: `/api/photogallery/gallery`,
+            url: `/api/photogallery/gallery?alias=${alias}&elem_count=10`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
