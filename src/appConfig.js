@@ -129,9 +129,29 @@ const appRoutes = [
         component: LoadableModules.LoadableClient
     },
     {
+        exact: true,
+        path: '/:id/gallery',
+        component: LoadableModules.LoadableClubGallery
+    },
+    {
+        exact: true,
+        path: '/:id/gallery/edit',
+        component: LoadableModules.LoadableClubGalleryEdit
+    },
+    {
         exact: false,
         path: '/nursery/:id/edit',
         component: LoadableModules.LoadableNurseryEdit
+    },
+    {
+        exact: true,
+        path: '/nursery/:id/gallery',
+        component: LoadableModules.LoadableNurseryGallery
+    },
+    {
+        exact: true,
+        path: '/nursery/:id/gallery/edit',
+        component: LoadableModules.LoadableNurseryGalleryEdit
     },
     {
         exact: true,

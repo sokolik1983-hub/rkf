@@ -1,0 +1,47 @@
+.ClubGallery {
+    &__title {
+        margin-bottom: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .btn {
+            font-size: 16px;
+            padding: 3px 24px;
+        }
+    }
+    &__upload {
+        height: 200px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: contain;
+        &:hover {
+            cursor: pointer;
+        }
+        @media (max-width: 560px) {
+            height: 125px;
+        }
+    }
+    &__buttons {
+        text-align: right;
+        margin-top: 24px;
+    }
+    &__delete-button {
+        color: red;
+        border-color: red;
+    }
+    &__back {
+        font-size: 24px;
+        line-height: 32px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid #cbcbcb;
+        a {
+            font-size: 24px;
+            line-height: 32px;
+            text-decoration: none;
+            color: #253c5e;
+            span {
+                font-size: 32px;
+            }
+        }
+    }
+}
