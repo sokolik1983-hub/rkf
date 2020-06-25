@@ -9,7 +9,7 @@ import './index.scss';
 const Footer = () => (
     <footer className="Footer">
         <Container className="Footer__inner">
-            <div className="Footer__inner-wrap">
+            {/*<div className="Footer__inner-wrap">
                 <div className="Footer__company">
                     <h3>Компания</h3>
                     <Link className="link" to="/about">О RKF.Online</Link>
@@ -41,7 +41,7 @@ const Footer = () => (
                     ))}
                 </div>
             </div>
-            <hr />
+            <hr />*/}
             <div className="Footer__bottom">
                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                 <div className="Footer__socials">
