@@ -11,10 +11,17 @@ import Button from 'components/Button';
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import Paginator from "components/Paginator";
+import { connectAuthVisible } from "../Login/connectors";
+import Aside from "components/Layouts/Aside";
+import UserHeader from "components/UserHeader";
+import UserMenu from "pages/Nursery/components/UserMenu";
+import NurseryInfo from "pages/Nursery/components/NurseryInfo";
 import "./styles.scss";
 
-const NurseryGalleryEdit = () => {
+const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id }) => {
+    const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState([]);
+    const [canEdit, setCanEdit] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [pagesCount, setPagesCount] = useState(false);
     const [currentPage, setCurrentPage] = useState(false);
@@ -23,11 +30,11 @@ const NurseryGalleryEdit = () => {
     let params = useParams();
 
     useEffect(() => {
-        getImages()
+        Promise.all([getImages(), getNursery()])
+            .then(() => setLoaded(true));
     }, []);
 
     const getImages = (page = 0) => {
-        setLoaded(false);
         Request({
             url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
             method: 'GET'
@@ -44,9 +51,18 @@ const NurseryGalleryEdit = () => {
             }));
             setPagesCount(data.page_count);
             setCurrentPage(data.page_current);
-            setLoaded(true);
         }, error => handleError(error));
     }
+
+    const getNursery = () => {
+        return Request({
+            url: '/api/nurseries/nursery/public/' + params.id
+        }, data => {
+            setNursery(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+        }, error => handleError(error));
+    }
+
     const onSelectImage = (index, image) => {
         var imgs = images.slice();
         var img = imgs[index];
@@ -89,29 +105,52 @@ const NurseryGalleryEdit = () => {
                     {!loaded
                         ? <Loading />
                         : <>
-                            <Card>
-                                <div className="NurseryGallery__back">
-                                    <div>
-                                        <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                            <UserHeader
+                                user="nursery"
+                                logo={nursery.logo_link}
+                                banner={nursery.headliner_link}
+                                name={nursery.name || 'Имя отсутствует'}
+                                federationName={nursery.federation_name}
+                                federationAlias={nursery.federation_alias}
+                                canEdit={canEdit}
+                                editLink={`/nursery/${params.id}/edit`}
+                            />
+                            <div className="NurseryGallery__content-wrap">
+                                <div className="NurseryGallery__content">
+                                    <Card>
+                                        <div className="NurseryGallery__back">
+                                            <div>
+                                                <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
                                         <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
                                     </div>
+                                        </div>
+                                        <ImageUpload callback={getImages}>
+                                            <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="NurseryGallery__upload" />
+                                        </ImageUpload>
+                                        <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                        {!!selectedImages.length
+                                            && <div className="NurseryGallery__buttons">
+                                                <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
+                                            </div>
+                                        }
+                                        <Paginator
+                                            scrollToTop={false}
+                                            pagesCount={pagesCount}
+                                            currentPage={currentPage}
+                                            setPage={page => getImages(page)}
+                                        />
+                                    </Card>
                                 </div>
-                                <ImageUpload callback={getImages}>
-                                    <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="NurseryGallery__upload" />
-                                </ImageUpload>
-                                <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
-                                {!!selectedImages.length
-                                    && <div className="NurseryGallery__buttons">
-                                        <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
-                                    </div>
-                                }
-                                <Paginator
-                                    scrollToTop={false}
-                                    pagesCount={pagesCount}
-                                    currentPage={currentPage}
-                                    setPage={page => getImages(page)}
-                                />
-                            </Card>
+                                <Aside className="NurseryGallery__info">
+                                    <UserMenu
+                                        alias={params.id}
+                                        name={nursery.name || 'Имя отсутствует'}
+                                    />
+                                    <NurseryInfo
+                                        {...nursery}
+                                    />
+                                </Aside>
+                            </div>
                         </>
                     }
                     {showAlert && <Alert {...showAlert} />}
@@ -121,4 +160,4 @@ const NurseryGalleryEdit = () => {
     )
 };
 
-export default React.memo(NurseryGalleryEdit);
+export default connectAuthVisible(React.memo(NurseryGalleryEdit));

@@ -1,4 +1,30 @@
 .ClubGallery {
+    &__content {
+        width: 100%;
+        margin-left: 24px;
+        order: 1;
+        @media (max-width: 990px) {
+            margin-left: 0;
+        }
+        &-wrap {
+            display: flex;
+            justify-content: space-between;
+            @media (max-width: 990px) {
+                display: block;
+            }
+        }
+        .Card {
+            padding: 12px;
+        }
+    }
+    &__info {
+        width: 300px;
+        min-width: 300px;
+        @media (max-width: 990px) {
+            width: 100%;
+            min-width: unset;
+        }
+    }
     &__upload {
         height: 200px;
         background-repeat: no-repeat;
@@ -28,8 +54,15 @@
         justify-content: space-between;
         .btn {
             font-size: 16px;
-            padding: 3px 24px;
+            padding: 10px 34px;
             color: white;
+            font-size: 16px;
+            line-height: 24px;
+            @media (max-width: 560px) {
+                width: 100%;
+                text-align: center;
+                margin: 12px 0 0;
+            }
         }
 
         a {
@@ -41,5 +74,16 @@
                 font-size: 32px;
             }
         }
+    }
+}
+.NewsPage {
+    &__endMessage {
+        margin: 20px 0;
+        text-align: center;
+        font-weight: normal;
+    }
+    .infinite-scroll-component,
+    .infinite-scroll-component__outerdiv {
+        overflow: visible !important;
     }
 }
