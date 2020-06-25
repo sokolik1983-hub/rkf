@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Layout from "components/Layouts";
 import Container from "components/Layouts/Container";
-import { DEFAULT_IMG } from "appConfig";
 import Loading from "components/Loading";
 import Card from "components/Card";
-import { Gallery, ImageUpload } from "components/Gallery";
+import { Gallery, DndImageUpload } from "components/Gallery";
 import AuthOrLogin from "pages/Login/components/AuthOrLogin";
 import Button from 'components/Button';
 import Alert from "components/Alert";
@@ -125,9 +124,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id }) => 
                                         <Link className="btn-backward" to={`/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
                                     </div>
                                         </div>
-                                        <ImageUpload callback={getImages}>
-                                            <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="ClubGallery__upload" />
-                                        </ImageUpload>
+                                        <DndImageUpload callback={getImages} />
                                         <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
                                         {!!selectedImages.length
                                             && <div className="ClubGallery__buttons">
