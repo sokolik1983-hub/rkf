@@ -42,10 +42,12 @@
   }
   &__gallery {
     &-wrap {
-      padding: 14px 16px;
       margin-bottom: 24px;
       @media (max-width: 560px) {
         margin-bottom: 12px;
+      }
+      &.Card {
+        padding: 12px;
       }
     }
     &-title {
