@@ -19,7 +19,15 @@ const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo
                             : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                     }} />
                     <div className="news-card__club-info">
-                        <p className="news-card__club-name"><span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>&nbsp;{name}</p>
+                        <p className="news-card__club-name">
+                            {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                <>
+                                    <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
+                                    &nbsp;
+                                </>
+                            }
+                            {name}
+                        </p>
                         <p className="news-card__date">
                             {`${new Date(create_date).getDate()} ${getLocalizedMonth(new Date(create_date))} ${new Date(create_date).getFullYear()}`}
                         </p>
