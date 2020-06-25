@@ -11,7 +11,7 @@ import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
 
-// duplicate request
+// change owner request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
@@ -26,7 +26,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 formik.setFieldValue('declarant_id', declarant.id);
             }
             Request({
-                url: '/api/nurseries/nursery/nursery_federation'
+                url: '/api/Club/club_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
@@ -64,26 +64,25 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label={`Ответственное лицо (<a href="/nursery/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
+            label={`Ответственное лицо (<a href="/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." 
         />
         </FormGroup>
 
         <FormGroup inline>
             <FormFile
-                name={`personal_data_document`}
-                label='Соглашение на обработку персональных данных (PDF, JPEG, JPG, PNG)'
-                docId={formik.values.personal_data_document_id}
+                name={`change_owner_application_document`}
+                label='Поле загрузки заявления на смену владельца (бланк 15) (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.change_owner_application_document_id}
                 disabled={view}
-                document_type_id={11}
-                form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
+                document_type_id={29}
             />
             <FormFile
-                name={`duplicate_application`}
-                label='Заявление на выдачу дубликата (PDF, JPEG, JPG, PNG)'
-                docId={formik.values.duplicate_application_id}
+                name={`copy_pedigree_document`}
+                label='Поле загрузки копии родословной (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.copy_pedigree_document_id}
                 disabled={view}
-                document_type_id={28}
+                document_type_id={30}
             />
 
         </FormGroup>

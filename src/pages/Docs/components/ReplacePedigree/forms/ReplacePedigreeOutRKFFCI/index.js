@@ -26,7 +26,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 formik.setFieldValue('declarant_id', declarant.id);
             }
             Request({
-                url: '/api/nurseries/nursery/nursery_federation'
+                url: '/api/Club/club_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
@@ -48,7 +48,6 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         {formik.values.rejected_comment && <div className="alert alert-danger">{formik.values.rejected_comment}</div>}
         <div className="flex-row heading-row">
             <h4 className="caps">Добавление заявки</h4>
-            <FormField disabled={update} className="inline-checkbox" fieldType="customCheckbox" name={`express`} label='Срочное изготовление'/>
         </div>
         <FormGroup inline>
         <FormField
@@ -64,7 +63,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label={`Ответственное лицо (<a href="/nursery/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
+            label={`Ответственное лицо (<a href="/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." 
         />
         </FormGroup>
@@ -79,14 +78,21 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 form={{filename:"privacy.docx", href: privacyHref, linkText: 'Скачать форму соглашения'}}
             />
             <FormFile
-                name={`duplicate_application`}
-                label='Заявление на выдачу дубликата (PDF, JPEG, JPG, PNG)'
-                docId={formik.values.duplicate_application_id}
+                name={`copy_pedigree_document`}
+                label='Поле загрузки копии альтернативной родословной (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.copy_pedigree_document_id}
                 disabled={view}
-                document_type_id={28}
+                document_type_id={30}
             />
 
         </FormGroup>
+            <FormFile
+                name={`truncated_pedigree_application_document`}
+                label='Поле загрузки заявления владельца о согласии на усеченную родословную если не подтвердится происхождение (PDF, JPEG, JPG, PNG)'
+                docId={formik.values.truncated_pedigree_application_document_id}
+                disabled={view}
+                document_type_id={31}
+            />
 
         <FormGroup>
                 <br/>
