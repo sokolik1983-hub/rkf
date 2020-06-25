@@ -101,8 +101,7 @@ const ImageUpload = ({ callback }) => {
             </div>
             <div className="ImageUpload__controls">
                 <Button disabled={loading} onClick={callInputChange}>Обзор</Button>
-                {!!files.length && <Button primary disabled={loading} onClick={onSubmit}>Загрузить </Button>}
-                {loading && <Loading centered={false} inline={true} />}
+                {!!files.length && <Button primary disabled={loading} onClick={onSubmit}>Загрузить {loading && <Loading centered={false} inline={true} />}</Button>}
                 {showAlert && <Alert {...showAlert} />}
             </div>
         </div>

@@ -323,6 +323,7 @@
 
 .widget-login {
   position: relative;
+  display: flex;
   @media (max-width: 990px) {
     margin-left: auto;
   }
@@ -424,10 +425,7 @@
   }
   .login-link,
   .registration-link {
-    padding: 9px 16px;
     text-decoration: none;
-    text-transform: uppercase;
-    background: #ebf0ff;
     border-radius: 4px;
     color: #3366ff;
     font-weight: 600;
@@ -435,21 +433,21 @@
     line-height: 24px;
     letter-spacing: 0.5px;
     white-space: nowrap;
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: url("/static/icons/icon-enter.svg") no-repeat center;
+      background-size: cover;
+      margin: -2px 4px 0 0;
+      vertical-align: middle;
+    }
     @media (max-width: 990px) {
       padding: 0;
       text-transform: none;
       background: none;
       font-size: 16px;
-      &:before {
-        content: "";
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background: url("/static/icons/icon-enter.svg") no-repeat center;
-        background-size: cover;
-        margin: -2px 4px 0 0;
-        vertical-align: middle;
-      }
     }
     @media (max-width: 560px) {
       font-size: 12px;
@@ -470,10 +468,8 @@
     }
   }
   .registration-link {
-    @media (max-width: 990px) {
-      &:before {
-        background: url("/static/icons/icon-registration.svg") no-repeat center;
-      }
+    &:before {
+      background: url("/static/icons/icon-registration.svg") no-repeat center;
     }
   }
   &__modal {

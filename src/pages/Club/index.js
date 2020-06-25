@@ -94,25 +94,25 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             editLink="/client"
                         />
                         <ExhibitionsComponent alias={clubInfo.club_alias} />
-                        <Card className="club-page__gallery-wrap">
-                            <h4 className="club-page__gallery-title">
-                                <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
-                            </h4>
-                            {
-                                images
-                                    ? <Gallery
-                                        items={images}
-                                        backdropClosesModal={true}
-                                        enableImageSelection={false}
-                                        maxRows={1}
-                                        withLoading={false}
-                                    />
-                                    : <img className="club-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
-                            }
-                        </Card>
                         <div className="club-page__content-wrap">
                             <div className="club-page__content">
                                 <UserDescription description={clubInfo.description} />
+                                <Card className="club-page__gallery-wrap">
+                                    <h4 className="club-page__gallery-title">
+                                        <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
+                                    </h4>
+                                    {
+                                        images
+                                            ? <Gallery
+                                                items={images}
+                                                backdropClosesModal={true}
+                                                enableImageSelection={false}
+                                                maxRows={1}
+                                                withLoading={false}
+                                            />
+                                            : <img className="club-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
+                                    }
+                                </Card>
                                 {canEdit &&
                                     <AddArticle
                                         id={clubInfo.id}
