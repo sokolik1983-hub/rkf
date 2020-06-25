@@ -5,7 +5,7 @@ import Button from "components/Button";
 import Card from "components/Card";
 import "./styles.scss";
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, is_public }) => {
 
     return <Card className="Contacts">
         <h3>Контакты</h3>
@@ -36,6 +36,7 @@ const Contacts = ({ contacts }) => {
                             <Button className="btn Contacts__button-delete" onClick={() => arrayHelpers.remove(index)}>Удалить</Button>
                         </FormGroup>
                     ))}
+                    <FormField {...is_public} />
                     <div className="Contacts__buttons-wrap">
                         <Button
                             className="btn-green Contacts__button-add"

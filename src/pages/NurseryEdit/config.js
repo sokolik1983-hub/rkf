@@ -91,6 +91,11 @@ export const editForm = {
             label: "Баннер",
             fieldType: "image"
         },
+        is_public: {
+            name: "is_public",
+            label: "Скрыть личную информацию",
+            fieldType: "customCheckbox"
+        },
         contacts: [],
         documents: [],
         socials: [],
