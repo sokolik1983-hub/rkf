@@ -91,8 +91,11 @@ const NurseryGalleryEdit = () => {
                         : <>
                             <Card>
                                 <div className="NurseryGallery__back">
-                                    <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> <span>&lsaquo;</span> ФОТОГАЛЕРЕЯ</Link> / Редактирование
-                            </div>
+                                    <div>
+                                        <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                                        <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
+                                    </div>
+                                </div>
                                 <ImageUpload callback={getImages}>
                                     <div style={{ backgroundImage: `url(${DEFAULT_IMG.clubAvatar})` }} className="NurseryGallery__upload" />
                                 </ImageUpload>

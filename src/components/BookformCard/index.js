@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Card from "components/Card";
-import { Link } from "react-router-dom";
-import Loading from "components/Loading";
-import Modal from "components/Modal";
-import {Request} from "utils/request";
+import {Link} from "react-router-dom";
+import Loading from "../Loading";
+import Card from "../Card";
+import Modal from "../Modal";
+import Alert from "../Alert";
+import {Request} from "../../utils/request";
 import "./index.scss";
 
 const feds = {
@@ -43,22 +44,10 @@ const feds = {
 const BookformCard = ({url}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [link, setLink] = useState('');
     const [federation, setFederation] = useState('');
     const [color, setColor] = useState('');
-
-    const handleClick = (e, rkf, destination) => {
-        e.preventDefault();
-        setShowModal(true);
-
-        if(!destination) {
-            setColor('');
-            setLink(`https://widget.bookform.ru/${rkf ? 30637 : federation && feds[federation].id}/`);
-        } else {
-            setColor('_blue');
-            setLink(federation && feds[federation][destination]);
-        }
-    };
 
     useEffect(() => {
         (() => Request({url},
@@ -71,6 +60,24 @@ const BookformCard = ({url}) => {
             setLoading(false);
         }))();
     }, []);
+
+    const handleClick = (e, rkf, destination) => {
+        e.preventDefault();
+
+        if(!destination) {
+            setColor('');
+            setLink(`https://widget.bookform.ru/${rkf ? 30637 : federation && feds[federation].id}/`);
+            setShowModal(true);
+        } else {
+            if(federation) {
+                setColor('_blue');
+                setLink(feds[federation][destination]);
+                setShowModal(true);
+            } else {
+                setShowAlert(true);
+            }
+        }
+    };
 
     return loading ?
         <Loading/> :
@@ -85,18 +92,22 @@ const BookformCard = ({url}) => {
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
                 </div>
             </Card>
-            {federation &&
-                <Card>
-                    <div className="documents-page__icon" />
-                    <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
-                    <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации и от взаимодействия с ее службой поддержки. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
-                    <hr />
-                    <div className="Card__links">
-                        <Link to={`/`} onClick={e => handleClick(e, null, 'federation')}>Оценить работу {federation}</Link>
-                        <Link to={`/`} onClick={e => handleClick(e, null, 'support')}>Оценить работу службы поддержки Федерации</Link>
-                    </div>
-                </Card>
-            }
+            <Card>
+                <div className="documents-page__icon" />
+                <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
+                <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации и от взаимодействия с ее службой поддержки. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
+                <hr />
+                <div className="Card__links">
+                    <Link to={`/`}
+                          onClick={e => handleClick(e, null, 'federation')}
+                          className={`Card__link${!federation ? ' _not-active' : ''}`}
+                    >Оценить работу {federation || 'Федерации'}</Link>
+                    <Link to={`/`}
+                          onClick={e => handleClick(e, null, 'support')}
+                          className={`Card__link${!federation ? ' _not-active' : ''}`}
+                    >Оценить работу службы поддержки {federation || 'Федерации'}</Link>
+                </div>
+            </Card>
             <Modal showModal={showModal}
                    handleClose={() => {
                        setLink('');
@@ -106,6 +117,13 @@ const BookformCard = ({url}) => {
             >
                 <iframe src={link}/>
             </Modal>
+            {showAlert &&
+                <Alert
+                    text="Ваша организация не приписана ни к одной федерации. Для уточнения деталей обратитесь в Центр Поддержки."
+                    okButton={true}
+                    onOk={() => setShowAlert(false)}
+                />
+            }
         </div>
 }
 

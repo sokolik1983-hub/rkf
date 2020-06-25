@@ -85,25 +85,25 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         canEdit={canEdit}
                         editLink={`/nursery/${alias}/edit`}
                     />
-                    <Card className="nursery-page__gallery-wrap">
-                        <h4 className="nursery-page__gallery-title">
-                            <Link className="nursery-page__gallery-edit" to={`/nursery/${alias}/gallery`}>Фотогалерея</Link>
-                        </h4>
-                        {
-                            images
-                                ? <Gallery
-                                    items={images}
-                                    backdropClosesModal={true}
-                                    enableImageSelection={false}
-                                    maxRows={1}
-                                    withLoading={false}
-                                />
-                                : <img className="nursery-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
-                        }
-                    </Card>
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
                             <UserDescription description={nursery.description} />
+                            <Card className="nursery-page__gallery-wrap">
+                                <h4 className="nursery-page__gallery-title">
+                                    <Link className="nursery-page__gallery-edit" to={`/nursery/${alias}/gallery`}>Фотогалерея</Link>
+                                </h4>
+                                {
+                                    images
+                                        ? <Gallery
+                                            items={images}
+                                            backdropClosesModal={true}
+                                            enableImageSelection={false}
+                                            maxRows={1}
+                                            withLoading={false}
+                                        />
+                                        : <img className="nursery-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
+                                }
+                            </Card>
                             {canEdit &&
                                 <AddArticle
                                     id={nursery.id}
