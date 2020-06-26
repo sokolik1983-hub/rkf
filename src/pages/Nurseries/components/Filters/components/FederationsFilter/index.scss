@@ -2,11 +2,13 @@
   margin-bottom: 24px;
   &__title {
     font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    margin-bottom: 18px;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.2px;
+    color: #72839C;
+    margin-bottom: 12px;
   }
   &__list {
     list-style: none;

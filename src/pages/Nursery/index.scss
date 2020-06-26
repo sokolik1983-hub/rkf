@@ -64,6 +64,25 @@
       margin-left: 0;
     }
   }
+  &__breeds {
+    width: 300px;
+    min-width: 300px;
+    margin-bottom: 24px;
+    h4 {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    &-list {
+      list-style: none;
+    }
+    &-item {
+      color: #61797c;
+    }
+  }
   &__info {
     width: 300px;
     min-width: 300px;

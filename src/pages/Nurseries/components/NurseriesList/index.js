@@ -8,7 +8,7 @@ import {connectFilters} from "../../connectors";
 import "./index.scss";
 
 
-const NurseriesList = ({ string_filter, federation_ids, city_ids, is_activated, active_member, page, setFilters }) => {
+const NurseriesList = ({ string_filter, federation_ids, breed_ids, city_ids, is_activated, active_member, page, setFilters }) => {
     const [nurseries, setNurseries] = useState(null);
     const [pagesCount, setPagesCount] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const NurseriesList = ({ string_filter, federation_ids, city_ids, is_activated, 
             data: JSON.stringify({
                 string_filter,
                 federation_ids,
+                breed_ids,
                 city_ids,
                 is_activated,
                 active_member,
@@ -38,7 +39,7 @@ const NurseriesList = ({ string_filter, federation_ids, city_ids, is_activated, 
 
     useEffect(() => {
         (() => getClubs())();
-    }, [string_filter, federation_ids, city_ids, is_activated, active_member, page]);
+    }, [string_filter, federation_ids, breed_ids, city_ids, is_activated, active_member, page]);
 
     return loading ?
         <Placeholder /> :
