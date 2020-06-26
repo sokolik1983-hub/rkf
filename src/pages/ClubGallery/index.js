@@ -13,6 +13,8 @@ import Aside from "components/Layouts/Aside";
 import UserHeader from "components/UserHeader";
 import MenuComponent from "components/MenuComponent";
 import ClubInfo from "pages/Club/components/ClubInfo";
+import FloatingMenu from 'pages/Club/components/FloatingMenu';
+import shorten from "utils/shorten";
 import "./styles.scss";
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
@@ -110,13 +112,18 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                             <Aside className="ClubGallery__info">
                                 <MenuComponent
                                     alias={params.id}
-                                    name={club.name || 'Имя отсутствует'}
+                                    name={shorten(club.short_name || club.name || 'Имя отсутствует')}
                                 />
                                 <ClubInfo
                                     {...club}
                                 />
                             </Aside>
                         </div>
+                        <FloatingMenu
+                            alias={club.club_alias}
+                            profileId={club.id}
+                            name={shorten(club.short_name || club.name || 'Название клуба отсутствует')}
+                        />
                     </>
                 }
                 {showAlert && <Alert {...showAlert} />}
