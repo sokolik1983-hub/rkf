@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link,Switch,Route} from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import Modal from "../Modal";
@@ -41,7 +41,7 @@ const feds = {
 };
 
 
-const BookformCard = ({url}) => {
+const BookformCard = ({url,distinction}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -79,10 +79,8 @@ const BookformCard = ({url}) => {
         }
     };
 
-    return loading ?
-        <Loading/> :
-        <div className="documents-page__right">
-            {federation && <Card>
+    const Bookform = <>
+        {federation && <Card>
                 <div className="documents-page__icon" />
                 <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ В ФЕДЕРАЦИЮ</h3>
                 <p>В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
@@ -100,7 +98,9 @@ const BookformCard = ({url}) => {
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
                 </div>
             </Card>
+    </>;
 
+    const Review = <>
             <Card>
                 <div className="documents-page__icon" />
                 <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
@@ -125,7 +125,12 @@ const BookformCard = ({url}) => {
                     >Оценить работу службы поддержки {federation || 'Федерации'}</Link>
                 </div>
             </Card>
+    </>;
 
+    return loading ?
+        <Loading/> :
+        <div className="documents-page__right">
+            { distinction === 'bookform' ? Bookform : Review }
             <Modal showModal={showModal}
                    handleClose={() => {
                        setLink('');

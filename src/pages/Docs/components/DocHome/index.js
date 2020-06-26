@@ -169,13 +169,15 @@ const DocHome = ({ clubAlias, bookform }) => {
                 <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
                 <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
                 <Link to={`/${clubAlias}/documents/bookform`}>Запись на очный прием</Link>
+                <Link to={`/${clubAlias}/documents/review`}>Оценка работы федерации</Link>
                 <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
-            <Route path='/:route/documents/bookform' component={() => <BookformCard url='/api/Club/club_federation' />} />
+            <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
+            <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
             <Route path='/:route/documents' component={() => <DocumentCards clubAlias={clubAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
