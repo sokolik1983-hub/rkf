@@ -123,6 +123,16 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                 alias={alias}
                                 name={nursery.name || 'Имя отсутствует'}
                             />
+                            {nursery.breeds && !!nursery.breeds.length &&
+                                <Card className="nursery-page__breeds">
+                                    <h4>Породы</h4>
+                                    <ul className="nursery-page__breeds-list">
+                                        {nursery.breeds.map(item =>
+                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                        )}
+                                    </ul>
+                                </Card>
+                            }
                             <NurseryInfo
                                 {...nursery}
                             />

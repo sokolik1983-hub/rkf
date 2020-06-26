@@ -52,24 +52,27 @@ const CitiesFilter = ({city_ids, setFilters}) => {
 
     return loading ?
         <Loading/> :
-        <Select
-            id={'cities-filter'}
-            isMulti={true}
-            closeMenuOnSelect={false}
-            options={[...values, ...optionsNotInValues]}
-            defaultMenuIsOpen={true}
-            hideSelectedOptions={false}
-            menuIsOpen={true}
-            controlShouldRenderValue={false}
-            onChange={handleChange}
-            clearable={true}
-            isSearchable
-            classNamePrefix={'cities-filter'}
-            placeholder={'Начните вводить город'}
-            noOptionsMessage={() => 'Город не найден'}
-            value={values}
-            components={{Option}}
-        />
+        <div className="cities-filter">
+            <h5 className="cities-filter__title">Города</h5>
+            <Select
+                id={'cities-filter'}
+                isMulti={true}
+                closeMenuOnSelect={false}
+                options={[...values, ...optionsNotInValues]}
+                defaultMenuIsOpen={true}
+                hideSelectedOptions={false}
+                menuIsOpen={true}
+                controlShouldRenderValue={false}
+                onChange={handleChange}
+                clearable={true}
+                isSearchable
+                classNamePrefix={'cities-filter'}
+                placeholder={'Начните вводить город'}
+                noOptionsMessage={() => 'Город не найден'}
+                value={values}
+                components={{Option}}
+            />
+        </div>
 };
 
 export default connectFilters(React.memo(CitiesFilter));
