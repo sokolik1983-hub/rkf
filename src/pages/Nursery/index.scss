@@ -19,8 +19,9 @@
     &-title {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 12px;
-      a {
+      a:first-child {
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -34,6 +35,25 @@
       width: 100px;
       display: block;
       margin: auto;
+    }
+    &-show-all {
+      text-decoration: none;
+      display: inline-block;
+      padding-right: 12px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 9px;
+        right: 0;
+        height: 10px;
+        width: 6px;
+        background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+      }
     }
   }
   &__content {

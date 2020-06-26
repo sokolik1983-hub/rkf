@@ -100,18 +100,15 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 <Card className="club-page__gallery-wrap">
                                     <h4 className="club-page__gallery-title">
                                         <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
+                                        <Link className="club-page__gallery-show-all" to={`/${clubInfo.club_alias}/gallery`}>Посмотреть все</Link>
                                     </h4>
-                                    {
-                                        images
-                                            ? <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                maxRows={1}
-                                                withLoading={false}
-                                            />
-                                            : <img className="club-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
-                                    }
+                                    <Gallery
+                                        items={images}
+                                        backdropClosesModal={true}
+                                        enableImageSelection={false}
+                                        maxRows={1}
+                                        withLoading={false}
+                                    />
                                 </Card>
                                 {canEdit &&
                                     <AddArticle
