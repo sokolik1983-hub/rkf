@@ -7,7 +7,7 @@ import {setFiltersToUrl, getEmptyFilters} from "../../utils";
 import {getDictElement} from "../../../../dictionaries";
 import {DEFAULT_IMG} from "../../../../appConfig";
 
-const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, dictionary}) => {
+const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, dictionary, user}) => {
     const getRanks = () => ranks.map(r => getDictElement(dictionary, r)).join(', ');
 
     const getDate = () => {
@@ -18,7 +18,7 @@ const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, 
             : formatDateCommon(new Date(`${f.year}/${f.month}/${f.day}`)) + ' - ' + formatDateCommon(new Date(`${l.year}/${l.month}/${l.day}`))
     };
 
-    const handleCityClick = (e) => {
+    const handleCityClick = e => {
         e.preventDefault();
         setFiltersToUrl({
             ...getEmptyFilters(),
@@ -45,7 +45,15 @@ const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, 
                             <div className="ListItem__club-logo" style={{
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <p className="ListItem__club-name">{club_name}</p>
+                            <p className="ListItem__club-name">
+                                {(user === 3 || user === 4 || user === 5) &&
+                                <>
+                                    <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                    &nbsp;
+                                </>
+                                }
+                                {club_name}
+                            </p>
                         </Link>
                     </div>
                     <div className="ListItem__info">

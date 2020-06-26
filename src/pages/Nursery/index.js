@@ -113,7 +113,6 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                 />
                             }
                             <UserNews
-                                user="nursery"
                                 canEdit={canEdit}
                                 alias={alias}
                                 page={page}
