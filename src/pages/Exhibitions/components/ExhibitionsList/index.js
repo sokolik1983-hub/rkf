@@ -32,6 +32,7 @@ const ExhibitionsList = ({exhibitions, loading, pagesCount, PageNumber}) => {
                                         federation_link={item.federation_link}
                                         ranks={item.rank_ids}
                                         dictionary={dictionary}
+                                        user={item.user_type}
                                     />
                                 }
                             </li>

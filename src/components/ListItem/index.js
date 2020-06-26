@@ -21,11 +21,11 @@ const ListItem = ({ user, id, club_name, city, date, alias, logo_link, photo, te
                         }} />
                         <span className="list-item__club-name">
                             <h4>
-                                {(user === 'club' || user === 'nursery') &&
-                                    <>
-                                        <span>{user === 'club' ? 'Клуб ' : user === 'nursery' ? 'Питомник ' : ''}</span>
-                                        &nbsp;
-                                    </>
+                                {(user === 3 || user === 4 || user === 5) &&
+                                <>
+                                    <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                    &nbsp;
+                                </>
                                 }
                                 {club_name}
                             </h4>

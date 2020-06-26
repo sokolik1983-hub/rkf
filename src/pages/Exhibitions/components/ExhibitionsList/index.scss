@@ -135,6 +135,9 @@
     &__club-name {
       max-height: 40px;
       overflow: hidden;
+      span {
+        color: #72839c;
+      }
     }
     &__club-logo {
       display: flex;

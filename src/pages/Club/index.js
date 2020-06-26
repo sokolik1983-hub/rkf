@@ -84,7 +84,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                 <Layout>
                     <Container className="content club-page">
                         <UserHeader
-                            user="club"
+                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
                             logo={clubInfo.logo_link}
                             banner={clubInfo.headliner_link}
                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -122,7 +122,6 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     />
                                 }
                                 <UserNews
-                                    user="club"
                                     canEdit={canEdit}
                                     alias={match.params.route}
                                     page={page}
