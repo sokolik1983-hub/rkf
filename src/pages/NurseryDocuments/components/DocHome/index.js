@@ -169,13 +169,15 @@ const DocHome = ({ nurseryAlias, bookform }) => {
                 {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 {/*<Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>*/}
                 <Link to={`/nursery/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
+                <Link to={`/nursery/${nurseryAlias}/documents/review`}>Оценка работы федерации</Link>
                 <Link to={`/nursery/${nurseryAlias}`} title="Страница питомника">Страница питомника</Link>
             </CustomMenu>
         </aside>
         <Switch>
             <Route path='/nursery/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
             {/*<Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
-            <Route path='/nursery/:route/documents/bookform' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
+            <Route path='/nursery/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
+            <Route path='/nursery/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
