@@ -83,7 +83,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                             user="club"
                             logo={club.logo_link}
                             banner={club.headliner_link}
-                            name={club.name || 'Имя отсутствует'}
+                            name={shorten(club.short_name || club.name || 'Имя отсутствует')}
                             federationName={club.federation_name}
                             federationAlias={club.federation_alias}
                             canEdit={canEdit}
