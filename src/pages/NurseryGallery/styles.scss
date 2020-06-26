@@ -12,6 +12,9 @@
             @media (max-width: 990px) {
                 display: block;
             }
+            p span:last-child {
+                color: #61797c;
+            }
         }
         .Card {
             padding: 12px;

@@ -14,6 +14,8 @@ import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import UserHeader from "components/UserHeader";
 import MenuComponent from "components/MenuComponent";
+import FloatingMenu from 'pages/Club/components/FloatingMenu';
+import shorten from "utils/shorten";
 import ClubInfo from "pages/Club/components/ClubInfo";
 import "./styles.scss";
 
@@ -142,13 +144,18 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id }) => 
                                 <Aside className="ClubGallery__info">
                                     <MenuComponent
                                         alias={params.id}
-                                        name={club.name || 'Имя отсутствует'}
+                                        name={shorten(club.short_name || club.name || 'Имя отсутствует')}
                                     />
                                     <ClubInfo
                                         {...club}
                                     />
                                 </Aside>
                             </div>
+                            <FloatingMenu
+                                alias={club.club_alias}
+                                profileId={club.id}
+                                name={shorten(club.short_name || club.name || 'Название клуба отсутствует')}
+                            />
                         </>
                     }
                     {showAlert && <Alert {...showAlert} />}
