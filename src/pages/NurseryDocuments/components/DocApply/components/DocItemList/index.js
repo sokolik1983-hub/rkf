@@ -156,7 +156,7 @@ const DocItemList = ({formik, view, update, alias, distinction, stampCodes, decl
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
             </HideIf>
-            <Link to={`/nursery/${alias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
+            <Link to={`/kennel/${alias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
         </HideIf>
         </HideIf>
     </>}
