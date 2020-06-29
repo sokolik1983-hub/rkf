@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 import ExhibitionCard from "../ExhibitionCard";
 import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
@@ -8,6 +9,7 @@ import {responsiveSliderConfig} from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
+
 
 const Placeholders = [0, 1, 2];
 
@@ -33,6 +35,10 @@ const ExhibitionsComponent = ({alias}) => {
 
     return (
         <div className="exhibitions-component">
+            <div className="exhibitions-component__header">
+                <h4 className="exhibitions-component__title">Мероприятия</h4>
+                <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
+            </div>
             <Slider
                 arrows={false}
                 infinite={false}

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import List from "../List";
@@ -8,7 +9,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) => {
+const UserNews = ({user, canEdit, alias, page, setPage, needRequest, setNeedRequest}) => {
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [pagesCount, setPagesCount] = useState(1);
@@ -56,27 +57,34 @@ const UserNews = ({canEdit, alias, page, setPage, needRequest, setNeedRequest}) 
 
     return loading ?
         <Loading/> :
-        !news || !news.length ?
-            <Card className="user-news">
-                <div className="user-news__content">
-                    <h4 className="user-news__text">Новости не найдены</h4>
-                    <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
-                </div>
-            </Card> :
-            <List
-                list={news}
-                listNotFound="Новости не найдены"
-                listClass="user-news"
-                isFullDate={true}
-                removable={canEdit}
-                onDelete={deleteArticle}
-                pagesCount={pagesCount}
-                currentPage={page}
-                setPage={page => {
-                    setPage(page);
-                    setNeedRequest(true);
-                }}
-            />
+        <div className="news-component">
+            <div className="news-component__header">
+                <h4 className="news-component__title">Новости</h4>
+                <Link to={`/${user === 'nursery' ? 'kennel/' + alias : alias}/news`}>посмотреть все</Link>
+            </div>
+            {!news || !news.length ?
+                <Card className="user-news">
+                    <div className="user-news__content">
+                        <h4 className="user-news__text">Новости не найдены</h4>
+                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                    </div>
+                </Card> :
+                <List
+                    list={news}
+                    listNotFound="Новости не найдены"
+                    listClass="user-news"
+                    isFullDate={true}
+                    removable={canEdit}
+                    onDelete={deleteArticle}
+                    pagesCount={pagesCount}
+                    currentPage={page}
+                    setPage={page => {
+                        setPage(page);
+                        setNeedRequest(true);
+                    }}
+                />
+            }
+        </div>
 };
 
 export default React.memo(UserNews);
