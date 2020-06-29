@@ -32,8 +32,6 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     const isVisible = personalAccess;
 
-    console.log('isVisible', isVisible)
-
     return !isVisible
         ? <PageNotFound />
         : <Layout>
