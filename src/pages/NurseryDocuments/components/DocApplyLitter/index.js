@@ -164,7 +164,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
                 autoclose={2.5}
                 okButton="true"
-                onOk={() => setRedirect(`/nursery/${nurseryAlias}/documents`)}
+                onOk={() => setRedirect(`/kennel/${nurseryAlias}/documents`)}
             />
         }
         {redirect && <Redirect to={redirect}/>}
@@ -199,7 +199,7 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
             >
                 <Card>
                     <div className="nursery-documents-status__head">
-                        <Link className="btn-backward" to={`/nursery/${nurseryAlias}/documents`}>Личный кабинет</Link>
+                        <Link className="btn-backward" to={`/kennel/${nurseryAlias}/documents`}>Личный кабинет</Link>
                     </div>
                     <h3>{distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление на регистрацию помёта"}</h3>
                     {comment && <div className="alert alert-danger">

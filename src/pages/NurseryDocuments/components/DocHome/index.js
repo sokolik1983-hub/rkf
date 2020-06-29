@@ -35,9 +35,9 @@ const DocumentCards = ({ nurseryAlias }) => {
             </div>
             <hr />
             <div className="Card__links">
-                <Link to={`/nursery/${nurseryAlias}/documents/litter/form`}>Подать заявление</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/litter/form`}>Подать заявление</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -57,9 +57,9 @@ const DocumentCards = ({ nurseryAlias }) => {
             </div>
             <hr />
             <div className="Card__links">
-                <Link to={`/nursery/${nurseryAlias}/documents/pedigree/form`}>Подать заявление</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/form`}>Подать заявление</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
         </Card>
         <Card>
@@ -68,7 +68,7 @@ const DocumentCards = ({ nurseryAlias }) => {
             <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
             <hr />
             <div className="Card__links">
-                <Link to={`/nursery/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
             </div>
         </Card>
         <Card>
@@ -78,20 +78,20 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__link-columns">
                 <div>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
                 </div>
                 <div>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/3/form`} >По заявлению о выдаче дубликата</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/6/form`} >Регистрация иностранной родословной</Link>
                 </div>
             </div>
             <hr />
             <div className="Card__link-columns">
                 <div>
-                    <Link to={`/nursery/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
                 </div>
             </div>
         </Card>
@@ -121,9 +121,9 @@ const StampCards = ({ nurseryAlias }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/nursery/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
             </div>
             {alert &&
                 <Alert
@@ -148,8 +148,8 @@ const ResponsibleCards = ({ nurseryAlias }) => {
             </p>
             <hr />
             <div className="Card__links">
-                <Link to={`/nursery/${nurseryAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
     </div>
@@ -164,21 +164,21 @@ const DocHome = ({ nurseryAlias, bookform }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/nursery/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
+                <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
+                {/*<Link to={`/kennel/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 {/*<Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>*/}
-                <Link to={`/nursery/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
-                <Link to={`/nursery/${nurseryAlias}/documents/review`}>Оценка работы федерации</Link>
-                <Link to={`/nursery/${nurseryAlias}`} title="Страница питомника">Страница питомника</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/review`}>Оценка работы федерации</Link>
+                <Link to={`/kennel/${nurseryAlias}`} title="Страница питомника">Страница питомника</Link>
             </CustomMenu>
         </aside>
         <Switch>
-            <Route path='/nursery/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
-            {/*<Route path='/nursery/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
-            <Route path='/nursery/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
-            <Route path='/nursery/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
-            <Route path='/nursery/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
+            <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
+            {/*<Route path='/kennel/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
+            <Route path='/kennel/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
+            <Route path='/kennel/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
+            <Route path='/kennel/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
         {alert &&

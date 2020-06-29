@@ -111,7 +111,7 @@ const ResponsiblePersonForm = ({nurseryAlias, history}) => {
                     text="Данные ответственного лица сохранены. Вы можете использовать их при подаче документов в личном кабинете."
                     autoclose={2.5}
                     okButton="true"
-                    onOk={() => history.push(`/nursery/${nurseryAlias}/documents`)}
+                    onOk={() => history.push(`/kennel/${nurseryAlias}/documents`)}
                 />
             }
             {errAlert &&

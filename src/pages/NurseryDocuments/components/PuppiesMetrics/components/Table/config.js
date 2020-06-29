@@ -81,7 +81,7 @@ export const getTableColumns = (sortingColumns, sortable, nurseryAlias, setState
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/nursery/${nurseryAlias}/documents/puppy/metrics/${rowData.id}/print`}
+                                        to={`/kennel/${nurseryAlias}/documents/puppy/metrics/${rowData.id}/print`}
                                         className="row-control__link"
                                     >
                                         Распечатать

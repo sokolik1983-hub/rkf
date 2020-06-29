@@ -72,7 +72,7 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
     return loading ?
         <Loading /> :
         error ?
-            error.status === 422 ? <Redirect to="/nursery/activation" /> : <Redirect to="404" /> :
+            error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
             <Layout>
                 <Container className="content nursery-page">
                     <UserHeader
@@ -83,15 +83,15 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         federationName={nursery.federation_name}
                         federationAlias={nursery.federation_alias}
                         canEdit={canEdit}
-                        editLink={`/nursery/${alias}/edit`}
+                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
                             <UserDescription description={nursery.description} />
                             <Card className="nursery-page__gallery-wrap">
                                 <h4 className="nursery-page__gallery-title">
-                                    <Link className="nursery-page__gallery-edit" to={`/nursery/${alias}/gallery`}>Фотогалерея</Link>
-                                    <Link className="nursery-page__gallery-show-all" to={`/nursery/${alias}/gallery`}>Посмотреть все</Link>
+                                    <Link className="nursery-page__gallery-edit" to={`/kennel/${alias}/gallery`}>Фотогалерея</Link>
+                                    <Link className="nursery-page__gallery-show-all" to={`/kennel/${alias}/gallery`}>Посмотреть все</Link>
                                 </h4>
                                 <Gallery
                                     items={images}

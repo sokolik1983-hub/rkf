@@ -70,7 +70,7 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label={`Ответственное лицо (<a href="/nursery/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
+            label={`Ответственное лицо (<a href="/kennel/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
         {/*<FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />*/}
         <FormGroup inline>
@@ -101,7 +101,7 @@ const HeaderFormFields = connect(({formik, update, options, alias, setRedirect, 
         />
 </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/nursery/${alias}/documents/`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/kennel/${alias}/documents/`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",

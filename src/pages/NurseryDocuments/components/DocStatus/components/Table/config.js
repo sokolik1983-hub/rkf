@@ -73,7 +73,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}`}
+                                        to={`/kennel/${nurseryAlias}/documents/${distinction}/${rowData.id}`}
                                         className="row-control__link"
                                     >
                                         Подробнее
@@ -92,7 +92,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                                 {rowData.status_id === 4 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/form`}
+                                            to={`/kennel/${nurseryAlias}/documents/${distinction}/${rowData.id}/form`}
                                             className="row-control__link"
                                         >
                                             Редактировать
@@ -102,7 +102,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/edit`}
+                                            to={`/kennel/${nurseryAlias}/documents/${distinction}/${rowData.id}/edit`}
                                             className="row-control__link"
                                         >
                                             Ответить
@@ -111,7 +111,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                                 }
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/nursery/${nurseryAlias}/documents/${distinction}/${rowData.id}/print`}
+                                        to={`/kennel/${nurseryAlias}/documents/${distinction}/${rowData.id}/print`}
                                         className="row-control__link"
                                     >
                                         Печать
@@ -119,7 +119,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
                                 </li>
                                 {rowData.status_id === 4 &&
                                     <li className="row-control__item">
-                                        <Link to={`/nursery/${nurseryAlias}/documents/`}
+                                        <Link to={`/kennel/${nurseryAlias}/documents/`}
                                             className="row-control__link red"
                                             onClick={e => {
                                                 e.preventDefault();

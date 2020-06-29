@@ -11,7 +11,7 @@ export const editForm = {
             name: "alias",
             label: "Адрес страницы",
             fieldType: "customAliasInput",
-            baseUrl: "rkf.online/nursery/"
+            baseUrl: "rkf.online/kennel/"
         },
         name: {
             name: "name",
