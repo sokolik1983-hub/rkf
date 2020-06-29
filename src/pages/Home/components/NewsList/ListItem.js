@@ -40,7 +40,7 @@ const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage,
                         <span>{formatDateTime(date)}</span>
                     </span>
                 </div>
-                <span className="list-item__city" onClick={handleCityChange}>
+                <span className="list-item__city" title={city} onClick={handleCityChange}>
                     {city}
                 </span>
             </div>

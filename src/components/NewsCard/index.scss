@@ -104,6 +104,7 @@
   }
   &__text {
     height: 80px;
+    max-height: 80px;
     font-weight: normal;
     font-size: 16px;
     line-height: 20px;
@@ -112,7 +113,6 @@
     white-space: pre-wrap;
     @media (max-width: 560px) {
       height: auto;
-      max-height: 80px;
     }
     * {
       max-width: 100% !important;

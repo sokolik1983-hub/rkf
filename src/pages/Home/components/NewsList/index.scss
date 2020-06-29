@@ -186,6 +186,8 @@
       }
     }
     &__city {
+      position: relative;
+      padding-left: 18px;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
@@ -197,6 +199,16 @@
       text-overflow: ellipsis;
       &:hover {
         cursor: pointer;
+      }
+      &:before {
+        content: "";
+        width: 12px;
+        height: 16px;
+        background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
       }
       @media (max-width: 560px) {
         display: block;
@@ -309,6 +321,7 @@
       }
     }
     &__text {
+      height: 80px;
       max-height: 80px;
       font-style: normal;
       font-weight: normal;
@@ -335,7 +348,6 @@
       line-height: 24px;
       letter-spacing: 0.2px;
       position: relative;
-      align-self: flex-end;
       &:after {
         content: "";
         position: absolute;
