@@ -89,10 +89,10 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         <div className="nursery-page__content">
                             <UserDescription description={nursery.description} />
                             <Card className="nursery-page__gallery-wrap">
-                                <h4 className="nursery-page__gallery-title">
-                                    <Link className="nursery-page__gallery-edit" to={`/kennel/${alias}/gallery`}>Фотогалерея</Link>
-                                    <Link className="nursery-page__gallery-show-all" to={`/kennel/${alias}/gallery`}>Посмотреть все</Link>
-                                </h4>
+                                <div className="nursery-page__gallery-header">
+                                    <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
+                                    <Link to={`/kennel/${alias}/gallery`}>посмотреть все</Link>
+                                </div>
                                 <Gallery
                                     items={images}
                                     backdropClosesModal={true}

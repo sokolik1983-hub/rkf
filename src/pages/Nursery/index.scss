@@ -16,44 +16,38 @@
         padding: 12px;
       }
     }
-    &-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    &-header {
       margin-bottom: 12px;
-      a:first-child {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.4px;
-        text-transform: uppercase;
+      a {
         text-decoration: none;
-        color: #253c5e;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #72839c !important;
+        border-bottom: 1px solid transparent;
+        transition: all 0.2s linear;
+        &:hover {
+          color: #3366ff !important;
+          border-bottom-color: #3366ff;
+        }
       }
+    }
+    &-title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #253c5e;
+      display: inline-block;
+      margin-right: 4px;
     }
     &-placeholder {
       width: 100px;
       display: block;
       margin: auto;
-    }
-    &-show-all {
-      text-decoration: none;
-      display: inline-block;
-      padding-right: 12px;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.2px;
-      position: relative;
-      &:after {
-        content: "";
-        position: absolute;
-        top: 9px;
-        right: 0;
-        height: 10px;
-        width: 6px;
-        background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
-      }
     }
   }
   &__content {
