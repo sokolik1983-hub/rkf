@@ -97,10 +97,10 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <div className="club-page__content">
                                 <UserDescription description={clubInfo.description} />
                                 <Card className="club-page__gallery-wrap">
-                                    <h4 className="club-page__gallery-title">
-                                        <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
-                                        <Link className="club-page__gallery-show-all" to={`/${clubInfo.club_alias}/gallery`}>Посмотреть все</Link>
-                                    </h4>
+                                    <div className="club-page__gallery-header">
+                                        <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                        <Link to={`/${clubInfo.club_alias}/gallery`}>посмотреть все</Link>
+                                    </div>
                                     <Gallery
                                         items={images}
                                         backdropClosesModal={true}
