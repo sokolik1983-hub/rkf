@@ -17,6 +17,8 @@ import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetNews } from "./config";
 import "./index.scss";
+import Card from "../../components/Card";
+import {DEFAULT_IMG} from "../../appConfig";
 
 
 const NewsPage = ({ match, profile_id, isAuthenticated }) => {
@@ -89,21 +91,34 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
                     />
                     <div className="club-page__content-wrap">
                         <div className="club-page__content">
-                            <InfiniteScroll
-                                dataLength={news.length}
-                                next={getNews}
-                                hasMore={hasMore}
-                                loader={newsLoading && <Loading centered={false} />}
-                                endMessage={<div className="NewsPage__endMessage">Новостей больше нет</div>}
-                            >
-                                <List
-                                    user="club"
-                                    list={news}
-                                    listNotFound={false}
-                                    listClass="club-page__news"
-                                    isFullDate={true}
-                                />
-                            </InfiniteScroll>
+                            {(!news || !news.length) ?
+                                <Card className="user-news">
+                                    <div className="user-news__content">
+                                        <h4 className="user-news__text">Новости не найдены</h4>
+                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                    </div>
+                                </Card> :
+                                <InfiniteScroll
+                                    dataLength={news.length}
+                                    next={getNews}
+                                    hasMore={hasMore}
+                                    loader={newsLoading && <Loading centered={false}/>}
+                                    endMessage={
+                                        <div className="user-news__content">
+                                            <h4 className="user-news__text">Новостей больше нет</h4>
+                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                        </div>
+                                    }
+                                >
+                                    <List
+                                        user="club"
+                                        list={news}
+                                        listNotFound={false}
+                                        listClass="club-page__news"
+                                        isFullDate={true}
+                                    />
+                                </InfiniteScroll>
+                            }
                         </div>
                         <Aside className="club-page__info">
                             <MenuComponent
