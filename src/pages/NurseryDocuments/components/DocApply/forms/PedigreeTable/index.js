@@ -53,9 +53,9 @@ const TableFormFields = connect(({formik, update, options, alias, setRedirect, s
             </table>    
     </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
             <SubmitError />
-            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
+            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
     </div>
     </>
 )
