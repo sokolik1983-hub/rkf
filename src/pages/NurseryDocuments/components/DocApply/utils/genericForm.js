@@ -96,7 +96,7 @@ const genericForm = (Component, config) => {
                 text="Форма успешно сохранена"
                 autoclose={2.5}
                 okButton="true"
-                //onOk={() => setRedirect(`/nursery/${alias}/documents`)}
+                //onOk={() => setRedirect(`/kennel/${alias}/documents`)}
                 onOk={() => {setOkAlert(false);setRedirect(window.location.pathname);}}
             />
         }
@@ -111,7 +111,7 @@ const genericForm = (Component, config) => {
         }
 
                 {/*<div className="nursery-documents-status__head">
-                    <Link className="btn-backward" to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                 </div>*/}
             {!!options && <Component {...{update, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>

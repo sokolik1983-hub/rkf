@@ -33,8 +33,8 @@ const Bookform = ({history, nurseryAlias, distinction}) => {
     }, []);
 
     return (<>
-        <Link to={`/nursery/${nurseryAlias}/documents`} onClick={e => {setShowModal('request');e.preventDefault();}}>Запись на сдачу документов</Link><br/>
-        <Link to={`/nursery/${nurseryAlias}/documents`} onClick={e => {setShowModal('receive');e.preventDefault();}}>Запись на получение документов</Link>
+        <Link to={`/kennel/${nurseryAlias}/documents`} onClick={e => {setShowModal('request');e.preventDefault();}}>Запись на сдачу документов</Link><br/>
+        <Link to={`/kennel/${nurseryAlias}/documents`} onClick={e => {setShowModal('receive');e.preventDefault();}}>Запись на получение документов</Link>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
             {!loading ? <div ref={ref}>
                 <HideIf cond={showModal !== 'request'}>

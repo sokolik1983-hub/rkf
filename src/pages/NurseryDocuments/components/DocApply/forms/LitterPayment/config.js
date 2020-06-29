@@ -27,7 +27,7 @@ const config = {
             method: "POST",
             data: {id:values.id}
         },
-        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/nursery/${alias}/documents`)},
+        _ => {window.alert("Заявка отправлена на рассмотрение");setRedirect(`/kennel/${alias}/documents`)},
         e => {window.alert(e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.NurseryLitterRequest
             ? e.response.data.errors.NurseryLitterRequest
             : 'Отсутствует соединение с сервером');})

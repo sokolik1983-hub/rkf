@@ -126,8 +126,8 @@ const emptyNurseryPedigreeDeclarant = {
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        save: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/nursery/${alias}/documents/pedigree/${id}/declarant/form`),
-        next: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/nursery/${alias}/documents/pedigree/${id}/table/form`)
+        save: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/kennel/${alias}/documents/pedigree/${id}/declarant/form`),
+        next: (values, setRedirect, alias, id) => values && values.id && setRedirect(`/kennel/${alias}/documents/pedigree/${id}/table/form`)
     },
     options: {
         federations: {

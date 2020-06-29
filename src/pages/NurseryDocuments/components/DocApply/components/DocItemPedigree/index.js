@@ -112,7 +112,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             <input type="hidden" name={`id`} />
             <input type="hidden" name={`declarant_uid`} />
             <FormGroup inline>
-                {/*<FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/nursery/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>*/}
+                {/*<FormField disabled={update || !!everkData} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма (<a href="/kennel/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>*/}
                 <FormField disabled={update || !!everkData || formik.values.foreign_owner} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code_name`} label={`Код клейма`} onChange={e => formik.setFieldValue(`stamp_code_name`, e.toUpperCase())}/>
                 <FormField disabled={update || !!everkData} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
                 <HideIf cond={!!everkData || update}>

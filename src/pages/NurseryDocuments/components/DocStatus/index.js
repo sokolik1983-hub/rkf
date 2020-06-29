@@ -78,7 +78,7 @@ const NurseryDocumentsStatus = ({history, nurseryAlias, distinction}) => {
                     'Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.'
                 }</p>
                 <Link
-                    to={`/nursery/${nurseryAlias}/documents/${distinction}/form`}
+                    to={`/kennel/${nurseryAlias}/documents/${distinction}/form`}
                     className="btn-add"
                     title="Добавить новую заявку"
                 >+</Link>

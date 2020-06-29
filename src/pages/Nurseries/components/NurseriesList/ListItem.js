@@ -25,7 +25,7 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                 <div className="ListItem__content-inner">
                     <div className="ListItem__header">
                         {is_active ?
-                            <Link className="ListItem__author" to={`/nursery/${alias}`}>
+                            <Link className="ListItem__author" to={`/kennel/${alias}`}>
                                 <div className="ListItem__logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
@@ -50,7 +50,7 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                         {is_active &&
                             <div>
                                 <span className="ListItem__subtitle">Контактное лицо</span>
-                                <p>{owner ? <Link to={`/nursery/${alias}`}>{owner}</Link> : 'Отсутствует'}</p>
+                                <p>{owner ? <Link to={`/kennel/${alias}`}>{owner}</Link> : 'Отсутствует'}</p>
                             </div>
                         }
                     </div>
@@ -63,7 +63,7 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                             {city && <a onClick={handleCityClick} className="ListItem__city" href="/" >{city}</a>}
                         </div>
                         {is_active ?
-                            <Link className="ListItemMobile__author" to={`/nursery/${alias}`}>
+                            <Link className="ListItemMobile__author" to={`/kennel/${alias}`}>
                                 <div className="ListItemMobile__author-logo" style={{
                                     backgroundImage: `url(${logo ? logo : DEFAULT_IMG.clubAvatar})`
                                 }} />
@@ -79,13 +79,13 @@ const ListItem = ({ is_active, is_active_member, setFilters, city, cityId, feder
                             </p>
                         }
                         <div className="ListItemMobile__info">
-                            {is_active && <span>{owner ? <Link to={`/nursery/${alias}`}>{owner}</Link> : 'Отсутствует'}</span>}
+                            {is_active && <span>{owner ? <Link to={`/kennel/${alias}`}>{owner}</Link> : 'Отсутствует'}</span>}
                             <span>{federation_name && federation_link ? <Link to={federation_link}>{federation_name}</Link> : 'Отсутствует'}</span>
                         </div>
                         {!is_active && <div className="ListItemMobile__text">Питомник не прошёл регистрацию<br /> в электронной системе РКФ</div>}
                     </div>
                 </div>
-                <Link className="ListItem__show-all" to={`/nursery/${alias}`}>Подробнее</Link>
+                <Link className="ListItem__show-all" to={`/kennel/${alias}`}>Подробнее</Link>
             </div>
         </Card>
     )

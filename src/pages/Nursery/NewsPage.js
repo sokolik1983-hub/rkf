@@ -72,7 +72,7 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
     return loading
         ? <Loading />
         : error ?
-            error.status === 422 ? <Redirect to="/nursery/activation"/> : <Redirect to="404"/>
+            error.status === 422 ? <Redirect to="/kennel/activation"/> : <Redirect to="404"/>
             : <Layout>
                 <Container className="content nursery-page NewsPage">
                     <UserHeader
@@ -83,7 +83,7 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
                         federationName={nurseryInfo.federation_name}
                         federationAlias={nurseryInfo.federation_alias}
                         canEdit={canEdit}
-                        editLink={`/nursery/${alias}/edit`}
+                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
