@@ -10,7 +10,7 @@ import ExhibitionInfo from "./components/ExhibitionInfo";
 import TopComponent from "../../components/TopComponent";
 import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
-import ContactsComponent from "../../components/ContactsComponent";
+import ContactsComponent from "./components/ContactsComponent";
 import Disclaimer from "../../components/Disclaimer";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
@@ -121,18 +121,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     name={shorten(exhibition.club_information.display_name)}
                                     btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
                                 />
-                                <ContactsComponent
-                                    full_name={exhibition.club_information.club_legal_name}
-                                    legal_address={exhibition.club_information.legal_address}
-                                    address={exhibition.club_information.address}
-                                    owner_position={exhibition.club_information.owner_position}
-                                    owner_name={exhibition.club_information.owner_name}
-                                    contacts={exhibition.contacts}
-                                    site={exhibition.club_information.site}
-                                    work_time={exhibition.club_information.work_time}
-                                    ogrn={exhibition.club_information.ogrn}
-                                    regdate={exhibition.club_information.registration_date}
-                                />
+                                <ContactsComponent {...exhibition.club_information} />
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">

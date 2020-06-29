@@ -139,8 +139,11 @@
     line-height: 20px;
     cursor: pointer;
     background: url(/static/icons/client/attach-image.svg) no-repeat;
+    color: #72839c;
     &:hover {
       background: url(/static/icons/client/attach-image-active.svg) no-repeat;
+      color: #3366ff;
+      text-decoration: underline;
     }
   }
   &__length-hint {

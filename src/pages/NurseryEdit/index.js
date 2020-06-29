@@ -32,6 +32,7 @@ const NurseryEdit = () => {
     const getInfo = () => PromiseRequest('/api/nurseries/nursery/nursery_edit_information')
         .then(data => {
             if (data) {
+                data.is_public = !data.is_public; // Backend workaround
                 setInitialValues({
                     ...initialValues,
                     ...data
@@ -53,6 +54,7 @@ const NurseryEdit = () => {
         const newValues = { ...values };
         delete newValues.banner;
         delete newValues.logo;
+        newValues.is_public = !newValues.is_public; // Backend workaround
 
         return newValues;
     };

@@ -109,7 +109,7 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
                 {formik.values.folder_number && (distinction === "pedigree") && <FormField disabled name="folder_number" label='Номер папки' />}
             </FormGroup>
             <FormField disabled={update} options={declarants.map(m => ({value: m.id, label:m.full_name}))} fieldType="reactSelect" name="declarant_id" label='Ответственное лицо' placeholder="Выберите..." onChange={e => setDeclarant(e.value)} />
-            <Link to={`/nursery/${nurseryAlias}/documents/responsible/form`}>Создать заявителя</Link>
+            <Link to={`/kennel/${nurseryAlias}/documents/responsible/form`}>Создать заявителя</Link>
             <ResponsibleContactInfo>
                 <FormField disabled name='full_name' label='ФИО' placeholder='Заполняется автоматически' />
                 <FormField disabled name='phone' label='Телефон' placeholder='Заполняется автоматически' />
@@ -229,7 +229,7 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
             <HideIf cond={update}>
                 <Button className="btn-transparent" type="link" disabled={formik.isSubmitting} onClick={e => formik.setFieldValue('status_id',7) || formik.submitForm()}>Сохранить черновик</Button>
             </HideIf>
-            <Link to={`/nursery/${nurseryAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
+            <Link to={`/kennel/${nurseryAlias}/documents`}><Button className="btn-transparent">Закрыть</Button></Link>
         </HideIf>
     </>}
     />;

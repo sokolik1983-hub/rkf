@@ -52,11 +52,11 @@ const UserMenu = ({alias, name}) => {
                             <Link to={`/exhibitions`} className="user-menu__link">Мероприятия</Link>
                         </li> */}
                         <li className="user-menu__item">
-                            <Link to={`/nursery/${alias}/news`} className="user-menu__link">Новости</Link>
+                            <Link to={`/kennel/${alias}/news`} className="user-menu__link">Новости</Link>
                         </li>
                         <li className="user-menu__item">
                             <Link
-                                to={`/nursery/${alias}`}
+                                to={`/kennel/${alias}`}
                                 className="user-menu__link"
                                 title={`Страница ${name}`}
                             >{`Страница ${name}`}</Link>

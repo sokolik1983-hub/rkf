@@ -75,7 +75,7 @@ const DocApply = ({ nurseryAlias, history }) => {
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
-        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/nursery/${alias}/documents`} history={history}/>
+        <DocHead text={distinction === "pedigree" ? "Регистрация заявления на оформление родословной" : "Оформление заявления на регистрацию помёта"} link={`/kennel/${alias}/documents`} history={history}/>
             </div>
             <StageStrip items={[
                 {
@@ -105,9 +105,9 @@ const DocApply = ({ nurseryAlias, history }) => {
         }
         {/*<aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/nursery/${alias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/kennel/${alias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/nursery/${alias}`} title="Страница клуба">Страница клуба</Link>
+                <Link to={`/kennel/${alias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         */}

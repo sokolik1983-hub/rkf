@@ -11,7 +11,7 @@ export const editForm = {
             name: "alias",
             label: "Адрес страницы",
             fieldType: "customAliasInput",
-            baseUrl: "rkf.online/nursery/"
+            baseUrl: "rkf.online/kennel/"
         },
         name: {
             name: "name",
@@ -90,6 +90,11 @@ export const editForm = {
             name: "banner",
             label: "Баннер",
             fieldType: "image"
+        },
+        is_public: {
+            name: "is_public",
+            label: "Скрыть личную информацию",
+            fieldType: "customCheckbox"
         },
         contacts: [],
         documents: [],

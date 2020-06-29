@@ -43,7 +43,7 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
             </FormGroup>
 </Card>
     <div className="stage-controls flex-row">
-        <Button className="btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/table/form`)}>Назад</Button>
+        <Button className="btn-condensed" onClick={e => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/table/form`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: formik.values.id ? "PUT" : "POST",

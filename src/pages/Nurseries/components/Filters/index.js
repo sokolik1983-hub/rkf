@@ -4,6 +4,7 @@ import Card from "../../../../components/Card";
 import FederationsFilter from "./components/FederationsFilter";
 import IsActivatedFilter from "./components/IsActivatedFilter";
 import IsActiveMember from "./components/IsActiveMember";
+import BreedsFilter from "./components/BreedsFilter";
 import CitiesFilter from "./components/CitiesFilter";
 import {setOverflow} from "../../../../utils";
 import {getEmptyFilters} from "../../utils";
@@ -19,7 +20,7 @@ const Filters = ({isOpenFilters, setFilters}) => {
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    const clearFilters = (e) => {
+    const clearFilters = e => {
         e.preventDefault();
         setFilters(getEmptyFilters());
     };
@@ -30,6 +31,7 @@ const Filters = ({isOpenFilters, setFilters}) => {
                 <FederationsFilter/>
                 <IsActiveMember/>
                 <IsActivatedFilter/>
+                <BreedsFilter/>
                 <CitiesFilter/>
                 <a href="/" className="link" onClick={clearFilters}>Сбросить все параметры</a>
             </Card>

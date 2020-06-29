@@ -54,6 +54,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
                 if (size > 19) {
                     window.alert("Файл слишком большой. Поддерживаются файлы размером не более 20Мб.");
                     formik.setFieldValue(name, '');
+                    formik.setFieldValue(`${name}_id`, null);
                     return;
                 }
                 let fd = new FormData();
@@ -62,6 +63,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
                 fd.append("profile_id", profileId);
                 setLoading(true);
                 formik.setFieldValue(name, '');
+                formik.setFieldValue(`${name}_id`, null);
                 acceptType(file).then(descision => {
                     if (descision) {
                         Request({
@@ -69,11 +71,12 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
                             url: '/api/requests/replace_pedigree_request/nurseryreplacepedigreedocument',
                             method: "POST",
                             data: fd
-                        }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); message(e)})
+                        }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); formik.setFieldValue(`${name}_id`, null); message(e)})
                     } else {
                         window.alert(`Поддерживаются только форматы ${accept}`);
                         setLoading(false);
                         formik.setFieldValue(name, '');
+                        formik.setFieldValue(`${name}_id`, null);
                     }
                 })
             }}

@@ -20,7 +20,6 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { Gallery } from "components/Gallery";
-import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
 
@@ -84,7 +83,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                 <Layout>
                     <Container className="content club-page">
                         <UserHeader
-                            user="club"
+                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
                             logo={clubInfo.logo_link}
                             banner={clubInfo.headliner_link}
                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -98,20 +97,17 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <div className="club-page__content">
                                 <UserDescription description={clubInfo.description} />
                                 <Card className="club-page__gallery-wrap">
-                                    <h4 className="club-page__gallery-title">
-                                        <Link className="club-page__gallery-edit" to={`/${clubInfo.club_alias}/gallery`}>Фотогалерея</Link>
-                                    </h4>
-                                    {
-                                        images
-                                            ? <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                maxRows={1}
-                                                withLoading={false}
-                                            />
-                                            : <img className="club-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
-                                    }
+                                    <div className="club-page__gallery-header">
+                                        <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                        <Link to={`/${clubInfo.club_alias}/gallery`}>посмотреть все</Link>
+                                    </div>
+                                    <Gallery
+                                        items={images}
+                                        backdropClosesModal={true}
+                                        enableImageSelection={false}
+                                        maxRows={1}
+                                        withLoading={false}
+                                    />
                                 </Card>
                                 {canEdit &&
                                     <AddArticle

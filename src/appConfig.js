@@ -105,22 +105,22 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/nursery/activation',
+        path: '/kennel/activation',
         component: LoadableModules.LoadableNurseryActivation
     },
     {
         exact: true,
-        path: '/organizations/nurseries',
+        path: '/organizations/kennels',
         component: LoadableModules.LoadableNurseries
     },
     {
         exact: true,
-        path: '/nursery/:id',
+        path: '/kennel/:id',
         component: LoadableModules.LoadableNurseryPage
     },
     {
         exact: false,
-        path: '/nursery/:id/documents',
+        path: '/kennel/:id/documents',
         component: LoadableModules.LoadableNurseryDocuments
     },
     {
@@ -140,17 +140,17 @@ const appRoutes = [
     },
     {
         exact: false,
-        path: '/nursery/:id/edit',
+        path: '/kennel/:id/edit',
         component: LoadableModules.LoadableNurseryEdit
     },
     {
         exact: true,
-        path: '/nursery/:id/gallery',
+        path: '/kennel/:id/gallery',
         component: LoadableModules.LoadableNurseryGallery
     },
     {
         exact: true,
-        path: '/nursery/:id/gallery/edit',
+        path: '/kennel/:id/gallery/edit',
         component: LoadableModules.LoadableNurseryGalleryEdit
     },
     {
@@ -160,7 +160,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/nursery/:route/news',
+        path: '/kennel/:route/news',
         component: LoadableModules.LoadableNurseryNews
     },
     {
@@ -211,7 +211,7 @@ const mainNav = [
             {
                 id: 1.4,
                 title: "Питомники",
-                to: '/organizations/nurseries',
+                to: '/organizations/kennels',
                 exact: false
             },
             {

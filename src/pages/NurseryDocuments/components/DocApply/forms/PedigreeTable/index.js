@@ -36,7 +36,7 @@ const TableFormFields = connect(({formik, update, options, alias, setRedirect, s
                 <tbody>
                     {formik.values && formik.values.declarants && Object.keys(formik.values.declarants).map(i => <DocTableItem
                         key={i}
-                        activateClick={() => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
+                        activateClick={() => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.declarants[i].id}/declarant/form`)}
                         {...formik.values.declarants[i].declarant}
                         documents={formik.values.declarants[i].documents}
                         statuses={options.statuses}
@@ -47,15 +47,15 @@ const TableFormFields = connect(({formik, update, options, alias, setRedirect, s
                         Request({
                             method: 'DELETE',
                             url: `/api/requests/pedigree_request/NurseryPedigreeDeclarantRequest/header?id=${formik.values.declarants[i].id}`,
-                        },() => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/table/form`))}}}
+                        },() => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/table/form`))}}}
                     />)}
                 </tbody>
             </table>    
     </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/header/form`)}>Назад</Button>
             <SubmitError />
-            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
+            <Button className="btn-green btn-condensed" onClick={e => setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.id}/payment/form`)}>Продолжить</Button>
     </div>
     </>
 )

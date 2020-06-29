@@ -35,7 +35,7 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
     return loading ?
         <Loading/> :
         <div className="federations-filter">
-            <h4 className="federations-filter__title">Федерации</h4>
+            <h5 className="federations-filter__title">Федерации</h5>
             {federations && !!federations.length &&
                 <ul className="federations-filter__list">
                     {federations.map(item => (

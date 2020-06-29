@@ -13,6 +13,8 @@ import {Request} from "../../utils/request";
 import {endpointGetNurseryInfo} from "./config";
 import {connectAuthVisible} from "../Login/connectors";
 import "./index.scss";
+import {DEFAULT_IMG} from "../../appConfig";
+import Card from "../../components/Card";
 
 
 const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => {
@@ -70,7 +72,7 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
     return loading
         ? <Loading />
         : error ?
-            error.status === 422 ? <Redirect to="/nursery/activation"/> : <Redirect to="404"/>
+            error.status === 422 ? <Redirect to="/kennel/activation"/> : <Redirect to="404"/>
             : <Layout>
                 <Container className="content nursery-page NewsPage">
                     <UserHeader
@@ -81,25 +83,38 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
                         federationName={nurseryInfo.federation_name}
                         federationAlias={nurseryInfo.federation_alias}
                         canEdit={canEdit}
-                        editLink={`/nursery/${alias}/edit`}
+                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
-                            <InfiniteScroll
-                                dataLength={news.length}
-                                next={getNews}
-                                hasMore={hasMore}
-                                loader={newsLoading && <Loading centered={false} />}
-                                endMessage={<div className="NewsPage__endMessage">Новостей больше нет</div>}
-                            >
-                                <List
-                                    user="nursery"
-                                    list={news}
-                                    listNotFound={false}
-                                    listClass="nursery-page__news"
-                                    isFullDate={true}
-                                />
-                            </InfiniteScroll>
+                            {(!news || !news.length) ?
+                                <Card className="user-news">
+                                    <div className="user-news__content">
+                                        <h4 className="user-news__text">Новости не найдены</h4>
+                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                    </div>
+                                </Card> :
+                                <InfiniteScroll
+                                    dataLength={news.length}
+                                    next={getNews}
+                                    hasMore={hasMore}
+                                    loader={newsLoading && <Loading centered={false}/>}
+                                    endMessage={
+                                        <div className="user-news__content">
+                                            <h4 className="user-news__text">Новостей больше нет</h4>
+                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                        </div>
+                                    }
+                                >
+                                    <List
+                                        user="nursery"
+                                        list={news}
+                                        listNotFound={false}
+                                        listClass="nursery-page__news"
+                                        isFullDate={true}
+                                    />
+                                </InfiniteScroll>
+                            }
                         </div>
                         <Aside className="nursery-page__info">
                             <UserMenu

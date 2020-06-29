@@ -72,7 +72,7 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
     return loading ?
         <Loading /> :
         error ?
-            error.status === 422 ? <Redirect to="/nursery/activation" /> : <Redirect to="404" /> :
+            error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
             <Layout>
                 <Container className="content nursery-page">
                     <UserHeader
@@ -83,26 +83,23 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         federationName={nursery.federation_name}
                         federationAlias={nursery.federation_alias}
                         canEdit={canEdit}
-                        editLink={`/nursery/${alias}/edit`}
+                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
                             <UserDescription description={nursery.description} />
                             <Card className="nursery-page__gallery-wrap">
-                                <h4 className="nursery-page__gallery-title">
-                                    <Link className="nursery-page__gallery-edit" to={`/nursery/${alias}/gallery`}>Фотогалерея</Link>
-                                </h4>
-                                {
-                                    images
-                                        ? <Gallery
-                                            items={images}
-                                            backdropClosesModal={true}
-                                            enableImageSelection={false}
-                                            maxRows={1}
-                                            withLoading={false}
-                                        />
-                                        : <img className="nursery-page__gallery-placeholder" alt="" src={DEFAULT_IMG.clubAvatar} />
-                                }
+                                <div className="nursery-page__gallery-header">
+                                    <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
+                                    <Link to={`/kennel/${alias}/gallery`}>посмотреть все</Link>
+                                </div>
+                                <Gallery
+                                    items={images}
+                                    backdropClosesModal={true}
+                                    enableImageSelection={false}
+                                    maxRows={1}
+                                    withLoading={false}
+                                />
                             </Card>
                             {canEdit &&
                                 <AddArticle
@@ -127,6 +124,16 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                 alias={alias}
                                 name={nursery.name || 'Имя отсутствует'}
                             />
+                            {nursery.breeds && !!nursery.breeds.length &&
+                                <Card className="nursery-page__breeds">
+                                    <h4>Породы</h4>
+                                    <ul className="nursery-page__breeds-list">
+                                        {nursery.breeds.map(item =>
+                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                        )}
+                                    </ul>
+                                </Card>
+                            }
                             <NurseryInfo
                                 {...nursery}
                             />

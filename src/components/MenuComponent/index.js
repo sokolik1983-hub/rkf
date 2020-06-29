@@ -141,7 +141,7 @@ const MenuComponent = ({ alias, name, profileId }) => {
                     </li>
                 }
                 <li className="menu-component__item">
-                    <Link to={`/${alias}/document-status`} title="Отслеживание статуса документов">Отслеживание статуса документов</Link>
+                    <Link to={`/${alias}/document-status`} title="Статус документов">Статус документов</Link>
                 </li>
                 <li className="menu-component__item">
                     <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>

@@ -9,6 +9,7 @@ import DuplicateRequest from "./forms/DuplicateRequest";
 import ReplacePedigreeOwner from "./forms/ReplacePedigreeOwner";
 import ReplacePedigreeOutRKFFCI from "./forms/ReplacePedigreeOutRKFFCI";
 import ReplacePedigreeForeign from "./forms/ReplacePedigreeForeign";
+import ReplaceDeclarantError from "./forms/DeclarantError";
 import DocHead from "../DocHead";
 
 import './index.scss';
@@ -37,6 +38,10 @@ const forms = {
     "6": {
         form: ReplacePedigreeForeign,
         title: "Регистрация иностранной родословной",
+    },
+    "7": {
+        form: ReplaceDeclarantError,
+        title: "Замена родословной по ошибке заявителя",
     },
 };
 

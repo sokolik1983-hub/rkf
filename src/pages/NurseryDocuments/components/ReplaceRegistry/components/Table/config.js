@@ -93,7 +93,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/nursery/${alias}/documents/replace-pedigree/${rowData.type_id}/view/${rowData.id}`}
+                                        to={`/kennel/${alias}/documents/replace-pedigree/${rowData.type_id}/view/${rowData.id}`}
                                         className="row-control__link"
                                     >
                                         Подробнее
@@ -102,7 +102,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/nursery/${alias}/documents/replace-pedigree/${rowData.type_id}/edit/${rowData.id}`}
+                                            to={`/kennel/${alias}/documents/replace-pedigree/${rowData.type_id}/edit/${rowData.id}`}
                                             className="row-control__link"
                                         >
                                             Ответить

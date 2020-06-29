@@ -20,7 +20,15 @@ const ListItem = ({ user, id, club_name, city, date, alias, logo_link, photo, te
                                 : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                         }} />
                         <span className="list-item__club-name">
-                            <h4><span>{user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}</span>&nbsp;{club_name}</h4>
+                            <h4>
+                                {(user === 3 || user === 4 || user === 5) &&
+                                <>
+                                    <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                    &nbsp;
+                                </>
+                                }
+                                {club_name}
+                            </h4>
                             <span>{formatDateTime(date)}</span>
                         </span>
                     </div>

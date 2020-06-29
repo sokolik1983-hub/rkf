@@ -9,9 +9,14 @@ import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Paginator from "components/Paginator";
+import Aside from "components/Layouts/Aside";
+import UserHeader from "components/UserHeader";
+import UserMenu from "pages/Nursery/components/UserMenu";
+import NurseryInfo from "pages/Nursery/components/NurseryInfo";
 import "./styles.scss";
 
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
+    const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [loaded, setLoaded] = useState(false);
@@ -21,17 +26,12 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     let params = useParams();
 
     useEffect(() => {
-        getImages();
-        Request({
-            url: '/api/nurseries/nursery/public/' + params.id
-        }, data => {
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-        }, error => handleError(error));
+        Promise.all([getImages(), getNursery()])
+            .then(() => setLoaded(true));
     }, []);
 
     const getImages = (page = 0) => {
-        setLoaded(false);
-        Request({
+        return Request({
             url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
             method: 'GET'
         }, data => {
@@ -47,7 +47,15 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
             }));
             setPagesCount(data.page_count);
             setCurrentPage(data.page_current);
-            setLoaded(true);
+        }, error => handleError(error));
+    }
+
+    const getNursery = () => {
+        return Request({
+            url: '/api/nurseries/nursery/public/' + params.id
+        }, data => {
+            setNursery(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => handleError(error));
     }
 
@@ -69,23 +77,46 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                 {!loaded
                     ? <Loading />
                     : <>
-                        <Card>
-                            <div className="NurseryGallery__back">
-                                <div>
-                                    <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                        <UserHeader
+                            user="nursery"
+                            logo={nursery.logo_link}
+                            banner={nursery.headliner_link}
+                            name={nursery.name || 'Имя отсутствует'}
+                            federationName={nursery.federation_name}
+                            federationAlias={nursery.federation_alias}
+                            canEdit={canEdit}
+                            editLink={`/kennel/${params.id}/edit`}
+                        />
+                        <div className="NurseryGallery__content-wrap">
+                            <div className="NurseryGallery__content">
+                                <Card>
+                                    <div className="NurseryGallery__back">
+                                        <div>
+                                            <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
                                 </div>
-                                {canEdit &&
-                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`}>Редактировать</Link>}
-                            </div>
+                                        {canEdit &&
+                                            <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                    </div>
 
-                            <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
-                            <Paginator
-                                scrollToTop={false}
-                                pagesCount={pagesCount}
-                                currentPage={currentPage}
-                                setPage={page => getImages(page)}
-                            />
-                        </Card>
+                                    <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
+                                    <Paginator
+                                        scrollToTop={false}
+                                        pagesCount={pagesCount}
+                                        currentPage={currentPage}
+                                        setPage={page => getImages(page)}
+                                    />
+                                </Card>
+                            </div>
+                            <Aside className="NurseryGallery__info">
+                                <UserMenu
+                                    alias={params.id}
+                                    name={nursery.name || 'Имя отсутствует'}
+                                />
+                                <NurseryInfo
+                                    {...nursery}
+                                />
+                            </Aside>
+                        </div>
                     </>
                 }
                 {showAlert && <Alert {...showAlert} />}

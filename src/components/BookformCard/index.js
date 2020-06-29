@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link,Switch,Route} from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import Modal from "../Modal";
@@ -41,7 +41,7 @@ const feds = {
 };
 
 
-const BookformCard = ({url}) => {
+const BookformCard = ({url,distinction}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -79,35 +79,58 @@ const BookformCard = ({url}) => {
         }
     };
 
-    return loading ?
-        <Loading/> :
-        <div className="documents-page__right">
-            <Card>
+    const Bookform = <>
+        {federation && <Card>
                 <div className="documents-page__icon" />
-                <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ</h3>
-                <p>В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации или РКФ. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность</p>
+                <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ В ФЕДЕРАЦИЮ</h3>
+                <p>В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
                 <hr />
                 <div className="Card__links">
-                    {federation && <Link to={`/`} onClick={e => handleClick(e)}>Запись в {federation}</Link>}
+                    <Link to={`/`} onClick={e => handleClick(e)}>Запись в {federation}</Link>
+                </div>
+            </Card>}
+            <Card>
+                <div className="documents-page__icon" />
+                <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ В РКФ</h3>
+                <p>В данном разделе Вы можете записаться на очный прием в офисе РКФ. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
+                <hr />
+                <div className="Card__links">
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
                 </div>
             </Card>
+    </>;
+
+    const Review = <>
             <Card>
                 <div className="documents-page__icon" />
                 <h3>ОЦЕНКА РАБОТЫ ФЕДЕРАЦИИ</h3>
-                <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации и от взаимодействия с ее службой поддержки. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
+                <p>В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
                 <hr />
                 <div className="Card__links">
                     <Link to={`/`}
                           onClick={e => handleClick(e, null, 'federation')}
                           className={`Card__link${!federation ? ' _not-active' : ''}`}
                     >Оценить работу {federation || 'Федерации'}</Link>
+                </div>
+            </Card>
+            <Card>
+                <div className="documents-page__icon" />
+                <h3>ОЦЕНКА РАБОТЫ СЛУЖБЫ ПОДДЕРЖКИ ФЕДЕРАЦИИ</h3>
+                <p>В данном разделе Вы можете поделиться своими впечатлениями от взаимодействия со службой поддержки федерации.  Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
+                <hr />
+                <div className="Card__links">
                     <Link to={`/`}
                           onClick={e => handleClick(e, null, 'support')}
                           className={`Card__link${!federation ? ' _not-active' : ''}`}
                     >Оценить работу службы поддержки {federation || 'Федерации'}</Link>
                 </div>
             </Card>
+    </>;
+
+    return loading ?
+        <Loading/> :
+        <div className="documents-page__right">
+            { distinction === 'bookform' ? Bookform : Review }
             <Modal showModal={showModal}
                    handleClose={() => {
                        setLink('');

@@ -39,7 +39,8 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         name_lat,
         description,
         web_site,
-        address
+        address,
+        is_public
     } = editForm.fields;
 
     const {
@@ -59,7 +60,8 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         contacts,
         documents,
         socials,
-        work_time } = formik.values;
+        work_time
+    } = formik.values;
 
     return (
         <>
@@ -104,7 +106,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                 </FormGroup>
             </Card>
 
-            <Contacts contacts={contacts} />
+            <Contacts contacts={contacts} is_public={is_public} />
             <Documents documents={documents} />
             <SocialNetworks socials={socials} />
             <Schedule work_time={work_time} />

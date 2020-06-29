@@ -21,7 +21,7 @@ const DeclarantFormFields = connect(({formik, update, options, alias, setRedirec
             />
         </Card>
     <div className="stage-controls flex-row">
-            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/nursery/${alias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
+            <Button className="btn-condensed" onClick={e => window.confirm("Не сохраненные данные будут утеряны, вы уверены что хотите вернуться?") && setRedirect(`/kennel/${alias}/documents/pedigree/${formik.values.pedigree_request_id}/table/form`)}>Назад</Button>
         <SubmitError />
         <Button className="btn-condensed btn-green btn-light" onClick={e => send({
             method: !isNew ? "PUT" : "POST",
