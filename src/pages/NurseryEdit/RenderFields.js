@@ -12,8 +12,7 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import { editForm } from "./config";
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking }) => {
-
+const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
@@ -34,11 +33,16 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
             });
     };
 
-    const { alias,
+    const {
+        alias,
         name,
         name_lat,
         description,
         web_site,
+        co_owner_last_name,
+        co_owner_first_name,
+        co_owner_second_name,
+        co_owner_mail,
         address,
         is_public
     } = editForm.fields;
@@ -63,6 +67,8 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         work_time
     } = formik.values;
 
+    console.log('coOwner', coOwner);
+
     return (
         <>
             <Card>
@@ -73,7 +79,9 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
 
                         <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl={'/'} >
                             <div
-                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }} className="NurseryEdit__main-info-logo" />
+                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
+                                className="NurseryEdit__main-info-logo"
+                            />
                         </ActiveImageWrapper>
 
                     </div>
@@ -83,6 +91,12 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         <FormField {...name_lat} />
                         <FormField {...description} />
                         <FormField {...web_site} />
+                        <FormGroup inline>
+                            <FormField {...co_owner_last_name} disabled={!!coOwner.lastName}/>
+                            <FormField {...co_owner_first_name} disabled={!!coOwner.firstName}/>
+                            <FormField {...co_owner_second_name} disabled={!!coOwner.secondName}/>
+                        </FormGroup>
+                        <FormField {...co_owner_mail} disabled={!!coOwner.mail}/>
                     </div>
                 </div>
             </Card>
