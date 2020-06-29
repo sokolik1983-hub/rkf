@@ -67,8 +67,6 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         work_time
     } = formik.values;
 
-    console.log('coOwner', coOwner);
-
     return (
         <>
             <Card>
