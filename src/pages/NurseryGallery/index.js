@@ -85,17 +85,17 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
                             federationName={nursery.federation_name}
                             federationAlias={nursery.federation_alias}
                             canEdit={canEdit}
-                            editLink={`/nursery/${params.id}/edit`}
+                            editLink={`/kennel/${params.id}/edit`}
                         />
                         <div className="NurseryGallery__content-wrap">
                             <div className="NurseryGallery__content">
                                 <Card>
                                     <div className="NurseryGallery__back">
                                         <div>
-                                            <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                            <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
                                 </div>
                                         {canEdit &&
-                                            <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/nursery/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                            <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
                                     </div>
 
                                     <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />

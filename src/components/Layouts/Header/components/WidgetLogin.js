@@ -64,7 +64,7 @@ const WidgetLogin = forwardRef(
                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                         }
                                         {userType === 4 &&
-                                            <Link to={is_active_profile ? `/nursery/${alias}` : "/nursery/activation"}>{name}</Link>
+                                            <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
                                         }
                                     </li>
                                     {is_active_profile &&
@@ -82,11 +82,11 @@ const WidgetLogin = forwardRef(
                                             {userType === 4 &&
                                                 <>
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/nursery/${alias}/edit`}>Редактировать профиль</Link>
+                                                        <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
                                                     </li>
                                                     {personalAccess &&
                                                         <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/nursery/${alias}/documents`}>Личный кабинет</Link>
+                                                            <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                                                         </li>
                                                     }
                                                 </>
