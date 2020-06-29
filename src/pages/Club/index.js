@@ -20,7 +20,6 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { Gallery } from "components/Gallery";
-import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
 
@@ -119,6 +118,7 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     />
                                 }
                                 <UserNews
+                                    user="club"
                                     canEdit={canEdit}
                                     alias={match.params.route}
                                     page={page}

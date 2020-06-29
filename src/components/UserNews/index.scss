@@ -1,3 +1,32 @@
+.news-component {
+  &__header {
+    margin-bottom: 12px;
+    a {
+      text-decoration: none;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839c !important;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s linear;
+      &:hover {
+        color: #3366ff !important;
+        border-bottom-color: #3366ff;
+      }
+    }
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-right: 4px;
+  }
+}
+
 .user-news {
   margin-bottom: 24px;
   @media (max-width: 560px) {
