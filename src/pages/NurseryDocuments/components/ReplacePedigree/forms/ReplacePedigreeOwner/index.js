@@ -64,7 +64,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             options={options.declarants.map(m => ({value: m.id, label:m.full_name}))}
             fieldType="reactSelect"
             name="declarant_id"
-            label={`Ответственное лицо (<a href="/nursery/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
+            label={`Ответственное лицо (<a href="/kennel/${alias}/documents/responsible/form">Создать ответственное лицо</a>)`}
             placeholder="Выберите..." 
         />
         </FormGroup>
