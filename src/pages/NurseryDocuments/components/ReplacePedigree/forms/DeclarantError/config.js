@@ -1,5 +1,6 @@
 import {number,string,boolean} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
+import { endpointGetFederations } from "pages/Clubs/config";
 
 const validationSchema = {
     id: number(),
@@ -26,7 +27,7 @@ const config = {
     },
     options: {
         federations: {
-            url: '/api/nurseries/nursery/nursery_federation',
+            url: endpointGetFederations,
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
         stampCodes: {
