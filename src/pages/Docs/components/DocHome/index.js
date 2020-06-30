@@ -81,6 +81,7 @@ const DocumentCards = ({ clubAlias }) => {
                     <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
                     <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
                     <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} >Замена родословной по ошибке заявителя</Link>
                 </div>
                 <div>
                     <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
