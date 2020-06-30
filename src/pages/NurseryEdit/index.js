@@ -60,7 +60,6 @@ const NurseryEdit = () => {
     };
 
     const handleSuccess = (data, { alias, logo_link }) => {
-
         setShowAlert({
             title: "Информация сохранена!",
             autoclose: 2,
@@ -112,6 +111,12 @@ const NurseryEdit = () => {
                         working={working}
                         handleError={handleError}
                         setWorking={setWorking}
+                        coOwner={{
+                            lastName: initialValues.co_owner_last_name,
+                            firstName: initialValues.co_owner_first_name,
+                            secondName: initialValues.co_owner_second_name,
+                            mail: initialValues.co_owner_mail
+                        }}
                     />
 
                     <div className={`NurseryEdit__submit${working ? ' working' : ''}`}>

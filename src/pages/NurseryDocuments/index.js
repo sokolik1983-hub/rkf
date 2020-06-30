@@ -44,79 +44,79 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
-                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/registry' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/replace-pedigree/registry' component={() =>
                             <ReplaceRegistry alias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/replace-pedigree/:reqtype/:action/:id' component={() =>
                             <ReplacePedigree alias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
                             <ReplacePedigree alias={nurseryAlias} history={history} />}
                         />
 
-                       <Route exact={true} path='/nursery/:route/documents/litter/status' component={() =>
+                       <Route exact={true} path='/kennel/:route/documents/litter/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/pedigree/status' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/pedigree/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="pedigree" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/litter/requests' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/litter/requests' component={() =>
                             <RequestRegistry nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/pedigree/requests' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/pedigree/requests' component={() =>
                             <RequestRegistry nurseryAlias={nurseryAlias} history={history} distinction="pedigree" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/litter/:id/print' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/litter/:id/print' component={() =>
                             <DocRegistry history={history} distinction="litter" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/pedigree/:id/print' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/pedigree/:id/print' component={() =>
                             <DocRegistry history={history} distinction="pedigree" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/puppy/metrics' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/puppy/metrics' component={() =>
                             <PuppiesMetrics nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/puppy/metrics/:id/print' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/puppy/metrics/:id/print' component={() =>
                             <PuppyMetrics history={history} />}
                         />
-                        {/*<Route exact={true} path='/nursery/:route/documents/stamps/add' component={() =>
+                        {/*<Route exact={true} path='/kennel/:route/documents/stamps/add' component={() =>
                             <AddStamp history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/stamps/registry' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/stamps/registry' component={() =>
                             <Registry history={history} />}
                         />*/}
-                        <Route exact={true} path='/nursery/:route/documents/responsible/form' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/responsible/:id/edit' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/responsible/:id/edit' component={() =>
                             <ResponsiblePersonForm nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/responsible/table' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/responsible/table' component={() =>
                             <ResponsivePersonTable nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/:distinction/form' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/:distinction/form' component={() =>
                             <DocApply nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/:distinction/:id/form' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/:distinction/:id/form' component={() =>
                             <DocApply nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/:distinction/:id/:stage/form' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/:distinction/:id/:stage/form' component={() =>
                             <DocApply nurseryAlias={nurseryAlias} history={history} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/litter/:id' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/litter/:id' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/litter/:id/edit' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/litter/:id/edit' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/pedigree/:id' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/pedigree/:id' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
                         />
-                        <Route exact={true} path='/nursery/:route/documents/pedigree/:id/edit' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/pedigree/:id/edit' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
                         />
 
-                        <Route path='/nursery/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
-                        <Route path='/nursery/:route/documents' component={() => <DocHome nurseryAlias={nurseryAlias} />} />
+                        <Route path='/kennel/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
+                        <Route path='/kennel/:route/documents' component={() => <DocHome nurseryAlias={nurseryAlias} />} />
                         <Route component={LoadableNotFound} />
                     </Switch>
                 </Container>

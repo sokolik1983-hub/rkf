@@ -32,6 +32,23 @@ export const editForm = {
             name: "web_site",
             label: "Адрес сайта",
         },
+        co_owner_last_name: {
+            name: "co_owner_last_name",
+            label: "Фамилия совладельца",
+        },
+        co_owner_first_name: {
+            name: "co_owner_first_name",
+            label: "Имя совладельца",
+        },
+        co_owner_second_name: {
+            name: "co_owner_second_name",
+            label: "Отчество совладельца",
+        },
+        co_owner_mail: {
+            name: "co_owner_mail",
+            label: "E-mail совладельца",
+            type: 'email'
+        },
         address: {
             postcode: {
                 name: "address.postcode",
@@ -111,6 +128,7 @@ export const editForm = {
             .required(emptyFieldMsg),
         web_site: string()
             .url('Адрес сайта должен начинаться с "http://" либо "https://"'),
+        co_owner_mail: string().email('Неверный формат E-mail'),
         address: object().shape({
             city_id: string()
                 .required(emptyFieldMsg),
@@ -169,7 +187,10 @@ export const defaultValues = {
     name_lat: '',
     description: '',
     web_site: '',
-
+    co_owner_last_name: '',
+    co_owner_first_name: '',
+    co_owner_second_name: '',
+    co_owner_mail: '',
     address: {
         postcode: '',
         city_id: '',
@@ -204,7 +225,6 @@ export const defaultValues = {
         time_from: '',
         time_to: ''
     }],
-
     logo: '',
     logo_link: '',
     banner: '',

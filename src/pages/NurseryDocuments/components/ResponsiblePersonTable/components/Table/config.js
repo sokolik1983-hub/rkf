@@ -88,7 +88,7 @@ export const getTableColumns = (sortingColumns, sortable, nurseryAlias, deletePe
                                 </li>
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/nursery/${nurseryAlias}/documents/responsible/${rowData.id}/edit`}
+                                        to={`/kennel/${nurseryAlias}/documents/responsible/${rowData.id}/edit`}
                                         className="row-control__link"
                                     >
                                         Редактировать
