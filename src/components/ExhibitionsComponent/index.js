@@ -19,7 +19,7 @@ const ExhibitionsComponent = ({alias}) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/exhibitions/Exhibition/featured?Alias=${alias}&ElementsCount=3`
+            url: `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true`
         }, data => {
             setExhibitions(data);
             setIsRequestEnd(true);
@@ -40,7 +40,7 @@ const ExhibitionsComponent = ({alias}) => {
                 <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
             </div>
             <Slider
-                arrows={false}
+                arrows={!!exhibitions}
                 infinite={false}
                 speed={500}
                 slidesToShow={3}

@@ -49,7 +49,6 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                     <TopComponent
                         logo={federation.logo}
                         name={federation.name}
-                        canEdit={canEdit}
                         banner_link={federation.header_picture_link}
                     />
                     <ExhibitionsComponent alias={alias} />
