@@ -178,9 +178,9 @@ const DocApply = ({ nurseryAlias, history, distinction }) => {
         }
         {/*<aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/nursery/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                 <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/nursery/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
+                <Link to={`/kennel/${nurseryAlias}`} title="Страница клуба">Страница клуба</Link>
             </CustomMenu>
         </aside>
         */}

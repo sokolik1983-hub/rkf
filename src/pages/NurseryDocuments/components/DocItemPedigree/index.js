@@ -112,7 +112,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                     <Button className="btn-red" onClick={e => clearEverkData()}>Очистить</Button>
                 </HideIf>
             </FormGroup>
-            {/*<Link to={`/nursery/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>*/}
+            {/*<Link to={`/kennel/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>*/}
             
             <FormField disabled={update} fieldType="customCheckbox" name={`declarants[${i}].foreign_owner`} label='Для иностранного владельца'/>
             <FormGroup inline>
