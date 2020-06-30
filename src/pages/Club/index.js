@@ -89,8 +89,6 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                             federationName={clubInfo.federation_name}
                             federationAlias={clubInfo.federation_alias}
-                            canEdit={canEdit}
-                            editLink="/client"
                         />
                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                         <div className="club-page__content-wrap">

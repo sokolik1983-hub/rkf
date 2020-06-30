@@ -82,8 +82,6 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         name={nursery.name || 'Имя отсутствует'}
                         federationName={nursery.federation_name}
                         federationAlias={nursery.federation_alias}
-                        canEdit={canEdit}
-                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">
