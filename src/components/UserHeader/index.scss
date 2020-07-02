@@ -22,9 +22,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 768px) {
-      display: block;
-    }
   }
   &__info {
     width: 100%;
@@ -87,32 +84,11 @@
       letter-spacing: normal;
     }
   }
-  .btn {
+  .btn-share {
     margin-left: 8px;
-    white-space: nowrap;
-    @media (max-width: 768px) {
-      display: inline-block;
-      margin: 12px 0 0;
-    }
-    @media (max-width: 560px) {
-      width: 100%;
-      text-align: center;
-    }
-  }
-  .share-desktop {
-    display: none!important;
-  }
-  .share-mobile {
-    display: inline-block!important;
-    cursor: pointer;
+    width: 20px;
     height: 20px;
-  }
-  @media (min-width: 990px) {
-    .share-desktop {
-      display: inline-block!important;
-    }
-    .share-mobile {
-      display: none!important;
-    }
+    border: none;
+    background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
   }
 }

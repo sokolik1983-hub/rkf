@@ -99,7 +99,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                         <TopComponent
                             logo={exhibition.club_avatar}
                             name={exhibition.club_information.display_name}
-                            canEdit={false}
                         />
                         <div className="exhibition-page__info">
                             <div className="mobile-only">

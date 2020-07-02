@@ -16,10 +16,9 @@ import NurseryInfo from "./components/NurseryInfo";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
-const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
+const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(null);
     const [error, setError] = useState(null);
@@ -33,9 +32,13 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
-            setNursery(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-            setLoading(false);
+            if(data.user_type !== 4) {
+                history.replace(`/${alias}`);
+            } else {
+                setNursery(data);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+                setLoading(false);
+            }
         }, error => {
             console.log(error.response);
             setError(error.response);
@@ -82,8 +85,6 @@ const NurseryPage = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         name={nursery.name || 'Имя отсутствует'}
                         federationName={nursery.federation_name}
                         federationAlias={nursery.federation_alias}
-                        canEdit={canEdit}
-                        editLink={`/kennel/${alias}/edit`}
                     />
                     <div className="nursery-page__content-wrap">
                         <div className="nursery-page__content">

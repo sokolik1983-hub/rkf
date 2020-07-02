@@ -23,7 +23,7 @@ import { Gallery } from "components/Gallery";
 import "./index.scss";
 
 
-const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
+const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [images, setImages] = useState(null);
@@ -37,10 +37,14 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         (() => Request({
             url: endpointGetClubInfo + match.params.route
         }, data => {
-            setClubInfo(data);
-            setNotActiveProfile(isAuthenticated && !is_active_profile);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-            setLoading(false);
+            if(data.user_type === 4) {
+                history.replace(`/kennel/${match.params.route}`);
+            } else {
+                setClubInfo(data);
+                setNotActiveProfile(isAuthenticated && !is_active_profile);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+                setLoading(false);
+            }
         }, error => {
             console.log(error.response);
             setError(error.response);
@@ -89,8 +93,6 @@ const ClubPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                             federationName={clubInfo.federation_name}
                             federationAlias={clubInfo.federation_alias}
-                            canEdit={canEdit}
-                            editLink="/client"
                         />
                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                         <div className="club-page__content-wrap">

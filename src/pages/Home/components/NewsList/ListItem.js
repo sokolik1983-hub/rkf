@@ -28,7 +28,7 @@ const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage,
                         }} />
                     </Link>
                     <span className="list-item__club-name">
-                        <Link to={user === 4 ? `/nursery/${alias}` : `/${alias}`}>
+                        <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
                             {(user === 3 || user === 4 || user === 5) &&
                                 <>
                                     <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>

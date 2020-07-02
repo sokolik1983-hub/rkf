@@ -12,7 +12,7 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
 
     if (isAuthenticated) {
         if (!is_active_profile && user_type === 3) return <Redirect to={'/not-confirmed'} />
-        if (!is_active_profile && user_type === 4) return <Redirect to={'/nursery/activation'} />
+        if (!is_active_profile && user_type === 4) return <Redirect to={'/kennel/activation'} />
         return <Redirect to={'/'} />
     }
 

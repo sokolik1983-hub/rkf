@@ -5,7 +5,7 @@ import Alert from "../Alert";
 import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
-const TopComponent = ({ logo, name, canEdit, withShare = true, banner_link }) => {
+const TopComponent = ({ logo, name, withShare = true, banner_link }) => {
     const [shareAlert, setShareAlert] = useState(false);
     const { userAgent, clipboard } = navigator;
     const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
@@ -60,18 +60,8 @@ const TopComponent = ({ logo, name, canEdit, withShare = true, banner_link }) =>
                     <div className="top-component__title">
                         <h2>{name}</h2>
                     </div>
-                    <div onClick={share} className="share-mobile">
-                        <img width="20" src="/static/icons/icon-share-2.svg" alt="" />
-                    </div>
                 </div>
-                <div className="top-component__controls">
-                    {withShare &&
-                        <button type="button" className="btn__blue share-desktop" onClick={share}>Поделиться</button>
-                    }
-                    {canEdit &&
-                        <Link className="btn__blue" to={typeof (canEdit) === "string" ? canEdit : "/client"}>Редактировать</Link>
-                    }
-                </div>
+                <button type="button" className="btn-share" onClick={share} title="Поделиться" />
             </div>
             {shareAlert &&
                 <Alert

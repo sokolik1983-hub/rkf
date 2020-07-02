@@ -6,7 +6,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
 
-const UserHeader = ({user, logo, banner, name, federationName, federationAlias, canEdit, editLink}) => {
+const UserHeader = ({user, logo, banner, name, federationName, federationAlias}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const share = () => {
@@ -31,14 +31,8 @@ const UserHeader = ({user, logo, banner, name, federationName, federationAlias, 
                             <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
                         }
                     </div>
-                    <div onClick={share} className="share-mobile">
-                        <img width="20" src="/static/icons/icon-share-2.svg" alt=""/>
-                    </div>
                 </div>
-                <button type="button" className="btn btn-primary share-desktop" onClick={share}>Поделиться</button>
-                {canEdit &&
-                    <Link className="btn btn-primary" to={editLink}>Редактировать профиль</Link>
-                }
+                <button type="button" className="btn-share" onClick={share} title="Поделиться" />
             </div>
             {shareAlert &&
                 <Alert

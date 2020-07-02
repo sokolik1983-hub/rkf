@@ -70,18 +70,39 @@ const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, 
                             <p>{getRanks()}</p>
                         </div>
                     </div>
+                </div>
 
-                    <div className="ListItemMobile">
-                        <div className="ListItemMobile__date">
-                            <span>{getDate()}</span>
-                            <span>{federation_name && federation_link ? <Link to={federation_link}>{federation_name}</Link> : 'Отсутствует'}</span>
-                        </div>
-                        <Link className="ListItemMobile__author" to={`/${club_alias}`}>
-                            <div style={{
+                <div className="ListItemMobile">
+                    <Link to={url} title={title} className="ListItemMobile__title">{formatText(title)}</Link>
+                    <div className="ListItemMobile__info">
+                        <Link to="/"
+                              className="ListItemMobile__info-city"
+                              onClick={handleCityClick}
+                              title={city}
+                        >{city}</Link>
+                        <p className="ListItemMobile__info-date">{getDate()}</p>
+                        {getRanks() &&
+                            <p className="ListItemMobile__info-rank">{getRanks()}</p>
+                        }
+                    </div>
+                    <div className="ListItemMobile__about">
+                        <Link to={`/${club_alias}`} className="ListItemMobile__about-organization">
+                            <span className="ListItemMobile__about-logo" style={{
                                 backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <span>{club_name}</span>
+                            <p className="ListItemMobile__about-name" title={club_name}>
+                                {(user === 3 || user === 4 || user === 5) &&
+                                    <>
+                                        <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                        &nbsp;
+                                    </>
+                                }
+                                {club_name}
+                            </p>
                         </Link>
+                        {federation_name && federation_link &&
+                            <Link to={federation_link} className="ListItemMobile__about-federation">{federation_name}</Link>
+                        }
                     </div>
                 </div>
                 <Link className="ListItem__show-all" to={url}>Подробнее</Link>

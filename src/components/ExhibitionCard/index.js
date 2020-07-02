@@ -24,7 +24,7 @@ const ExhibitionCard = ({club_alias, club_name, club_logo, id, city_name, exhibi
                                     ? club_logo
                                     : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                             }} />
-                            <p className="exhibition-card__club-name">{club_name}</p>
+                            <p className="exhibition-card__club-name" title={club_name}>{club_name}</p>
                         </Link> :
                         <p className="exhibition-card__club">
                             <span className="exhibition-card__club-logo" style={{
@@ -32,22 +32,26 @@ const ExhibitionCard = ({club_alias, club_name, club_logo, id, city_name, exhibi
                                     ? club_logo
                                     : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
                             }} />
-                            <span className="exhibition-card__club-name">{club_name}</span>
+                            <span className="exhibition-card__club-name" title={club_name}>{club_name}</span>
                         </p>
                     }
                 </div>
                 <div className="exhibition-card__content-block">
-                    <h5 className="exhibition-card__content-block-date">Дата проведения</h5>
-                    <span className="exhibition-card__content-block-info">
-                        {date === date_end
-                            ? formatDateCommon(new Date(date))
-                            : `${formatDateCommon(new Date(date))} - ${formatDateCommon(new Date(date_end))}`
-                        }
-                    </span>
+                    <p>
+                        <span className="exhibition-card__content-block-date">Дата проведения</span>
+                        <span className="exhibition-card__content-block-info">
+                            {date === date_end
+                                ? formatDateCommon(new Date(date))
+                                : `${formatDateCommon(new Date(date))} - ${formatDateCommon(new Date(date_end))}`
+                            }
+                        </span>
+                    </p>
                 </div>
                 <div className="exhibition-card__content-block">
-                    <h5>Место проведения</h5>
-                    <span className="exhibition-card__content-block-info">{city_name ? city_name : 'Не указано'}</span>
+                    <p>
+                        <span>Место проведения</span>
+                        <span className="exhibition-card__content-block-info">{city_name ? city_name : 'Не указано'}</span>
+                    </p>
                 </div>
             </div>
             <Link className="exhibition-card__button" to={`/exhibitions/${id}`}>Подробнее</Link>
