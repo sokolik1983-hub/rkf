@@ -17,7 +17,7 @@ import {DEFAULT_IMG} from "../../appConfig";
 import Card from "../../components/Card";
 
 
-const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => {
+const NewsPage = ({ history, match, is_active_profile, profile_id, isAuthenticated }) => {
     const [nurseryInfo, setNurseryInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -33,10 +33,14 @@ const NewsPage = ({ match, is_active_profile, profile_id, isAuthenticated }) => 
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
-            setNurseryInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-            !news.length && getNews();
-            setLoading(false);
+            if(data.user_type !== 4) {
+                history.replace(`/${alias}/news`);
+            } else {
+                setNurseryInfo(data);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+                !news.length && getNews();
+                setLoading(false);
+            }
         }, error => {
             console.log(error.response);
             setError(error.response);

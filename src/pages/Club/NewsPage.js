@@ -9,6 +9,7 @@ import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import UserHeader from "../../components/UserHeader";
 import ClubInfo from "./components/ClubInfo";
+import Card from "../../components/Card";
 import List from "../../components/List";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
@@ -16,12 +17,11 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetNews } from "./config";
-import "./index.scss";
-import Card from "../../components/Card";
 import {DEFAULT_IMG} from "../../appConfig";
+import "./index.scss";
 
 
-const NewsPage = ({ match, profile_id, isAuthenticated }) => {
+const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -37,10 +37,14 @@ const NewsPage = ({ match, profile_id, isAuthenticated }) => {
         (() => Request({
             url: endpointGetClubInfo + alias
         }, data => {
-            setClubInfo(data);
-            setCanEdit(isAuthenticated && profile_id === data.id);
-            !news.length && getNews();
-            setLoading(false);
+            if(data.user_type === 4) {
+                history.replace(`/kennel/${match.params.route}/news`);
+            } else {
+                setClubInfo(data);
+                setCanEdit(isAuthenticated && profile_id === data.id);
+                !news.length && getNews();
+                setLoading(false);
+            }
         }, error => {
             console.log(error.response);
             setError(error.response);
