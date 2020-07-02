@@ -123,6 +123,9 @@ const FloatingMenu = ({ alias, name }) => {
             <DropDownItem>
                 <Link to={`/${alias}/news`} className="FloatingMenu__link" title="Новости">Новости</Link>
             </DropDownItem>
+            <DropDownItem>
+                <Link to={`/${alias}/gallery`} className="FloatingMenu__link" title="Фотогалерея">Фотогалерея</Link>
+            </DropDownItem>
             {alias !== 'rkf' &&
                 <DropDownItem>
                     <Link to="/" onClick={handleStampClick} className="FloatingMenu__link" title="Клейма">Клейма</Link>

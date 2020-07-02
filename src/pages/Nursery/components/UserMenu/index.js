@@ -55,11 +55,14 @@ const UserMenu = ({alias, name}) => {
                             <Link to={`/kennel/${alias}/news`} className="user-menu__link">Новости</Link>
                         </li>
                         <li className="user-menu__item">
+                            <Link to={`/kennel/${alias}/gallery`} className="user-menu__link">Фотогалерея</Link>
+                        </li>
+                        <li className="user-menu__item">
                             <Link
                                 to={`/kennel/${alias}`}
                                 className="user-menu__link"
-                                title={`Страница ${name}`}
-                            >{`Страница ${name}`}</Link>
+                                title="Страница питомника"
+                            >Страница питомника</Link>
                         </li>
                     </ul>
                 </CSSTransition>

@@ -135,6 +135,9 @@ const MenuComponent = ({ alias, name, profileId }) => {
                 <li className="menu-component__item">
                     <Link to={`/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
                 </li>
+                <li className="menu-component__item">
+                    <Link to={`/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
+                </li>
                 {alias !== 'rkf' &&
                     <li className="menu-component__item">
                         <Link to="/" onClick={handleStampsClick} className="menu-component__link" title="Клейма">Клейма</Link>
