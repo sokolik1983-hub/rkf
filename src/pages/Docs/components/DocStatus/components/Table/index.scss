@@ -16,7 +16,9 @@
   }
   td, th {
     border-left: 1px solid #cbcbcb;
-    padding: 8px 16px;
+    padding: 6px 12px;
+    font-weight: normal;
+    font-size: 14px;
     &:nth-child(7) {
       min-width: 165px;
     }

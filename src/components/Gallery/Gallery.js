@@ -1,6 +1,8 @@
 import React from 'react';
 import Gallery from 'react-grid-gallery';
 import './styles.scss';
+import {DEFAULT_IMG} from "../../appConfig";
+import Card from "../Card";
 
 const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
     // const [loaded, setLoaded] = useState(false);
@@ -47,12 +49,18 @@ const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
     // };
 
     return <div className="ReactGridGallery__wrap">
-        {
+        {items && !!items.length ?
             <Gallery
                 imageCountSeparator="&nbsp;из&nbsp;"
                 images={items}
                 {...rest}
-            />
+            /> :
+            <Card className="ReactGridGallery__disabled">
+                <div className="ReactGridGallery__disabled-content">
+                    <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
+                    <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.noNews} alt="У вас нет фотографий"/>
+                </div>
+            </Card>
         }
     </div>
 };

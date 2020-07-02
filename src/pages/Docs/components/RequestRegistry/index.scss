@@ -35,6 +35,14 @@
       }
     }
   }
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    @media (max-width: 680px) {
+      display: block;
+    }
+  }
   &__table {
     padding-bottom: 40px;
     overflow-x: auto;
@@ -56,8 +64,8 @@
       }
     }
     td:last-child {
-      width: 50px;
-      min-width: 50px;
+      width: 44px;
+      min-width: 44px;
     }
   }
   &__bottom {
