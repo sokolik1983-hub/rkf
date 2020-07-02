@@ -1,8 +1,8 @@
 import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
-import RowControl from "../RowControl";
-import { Link } from "react-router-dom";
+// import RowControl from "../RowControl";
+// import { Link } from "react-router-dom";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
@@ -14,10 +14,6 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
            property: "date_create",
            label: "Дата создания"
        },
-       //{
-       //    property: "date_change",
-       //    label: "Дата последнего изменения статуса"
-       //},
        {
            property: "owner_full_name",
            label: "ФИО владельца"
@@ -38,10 +34,6 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
            property: "stamp_number",
            label: "Клеймо"
        },
-       //{
-       //    property: "count_of_documents",
-       //    label: "Количество прикрепленных документов"
-       //},
        {
            property: "barcode",
            label: "Трек-номер"
@@ -62,7 +54,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "date_change",
-           label: "Дата последнего изменения статуса"
+           label: "Изменение статуса"
        },
        {
            property: "breeder_full_name",
@@ -70,11 +62,11 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "nursery_name",
-           label: "Наименование питомника"
+           label: "Питомник"
        },
        {
            property: "count_of_litter",
-           label: "Количество щенков"
+           label: "Щенков"
        },
        {
            property: "breed",
@@ -82,11 +74,11 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "stamp_code",
-           label: "Код клейма"
+           label: "Клеймо"
        },
        {
            property: "count_of_documents",
-           label: "Количество прикрепленных документов"
+           label: "Документов"
        },
        {
            property: "barcode",
@@ -99,13 +91,15 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
     ]).map(col => fillProp(col));
 
     cols.map(col => {
-        col.header.formatters = [
-            sort.header({
-                sortable,
-                getSortingColumns: () => sortingColumns,
-                strategy: sort.strategies.byProperty
-            })
-        ];
+        if(['date_create', 'date_change', 'status_name', 'breeder_full_name', 'owner_full_name'].includes(col.property)) {
+            col.header.formatters = [
+                sort.header({
+                    sortable,
+                    getSortingColumns: () => sortingColumns,
+                    strategy: sort.strategies.byProperty
+                })
+            ];
+        }
 
         col.cell = {
             formatters: [
@@ -115,6 +109,14 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
 
         if (['date_create', 'date_change'].includes(col.property)) {
             col.cell.resolve = date => date && moment(date).format('DD.MM.YYYY');
+        }
+
+        if (['barcode', 'count_of_documents', 'count_of_litter'].includes(col.property)) {
+            col.cell.props = {
+                style: {
+                    textAlign: 'center'
+                }
+            }
         }
 
         return col;
