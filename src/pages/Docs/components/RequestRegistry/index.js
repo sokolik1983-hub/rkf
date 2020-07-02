@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
@@ -40,14 +39,17 @@ const RequestRegistry = ({history, clubAlias, distinction}) => {
                     ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
                     : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
             </div>
-            <h3>Фильтры</h3>
-            <div>
-                <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
-                <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
-                <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
-                <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
-                <p></p>
-            </div>
+            {documents && !!documents.length &&
+                <>
+                    <h3>Фильтры</h3>
+                    <div className="club-documents-status__filters">
+                        <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
+                        <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
+                        <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
+                        <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
+                    </div>
+                </>
+            }
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
                     <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} distinction={distinction} clubAlias={clubAlias}/> :
