@@ -9,7 +9,7 @@ import "./index.scss";
 
 const PromiseRequest = (data) => new Promise((resolve, reject) => Request(data, resolve, reject));
 
-const ReplaceRegistry = ({history, alias, distinction}) => {
+const ReplaceRegistry = ({history, alias, distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
     const [checked, setChecked] = useState([1,2,3,4]);
     const [reqTypes, setReqTypes] = useState([]);
@@ -21,7 +21,7 @@ const ReplaceRegistry = ({history, alias, distinction}) => {
     useEffect(() => {
         (() => Promise.all([
             PromiseRequest({
-                url: '/api/requests/dog_health_check_request/doghealthcheckrequest/register_of_requests',
+                url: `/api/requests/dog_health_check_request/${profileType === "kennel" ? 'kennel' : ''}doghealthcheckrequest/register_of_requests`,
                 method: 'POST',
                 data: {type_id:distinction === "dysplasia" ? 1 : 2}
             }),
@@ -65,7 +65,7 @@ const ReplaceRegistry = ({history, alias, distinction}) => {
             </div>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
-                    <StatusTable documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias}/> :
+                    <StatusTable profileType={profileType} documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias}/> :
                     <h2>Документов не найдено</h2>
                 }
             </div>

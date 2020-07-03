@@ -4,7 +4,7 @@ import Modal from "components/Modal";
 import Loading from "components/Loading";
 import "./index.scss";
 
-const DocLink = ({ docId, label, showLabel }) => {
+const DocLink = ({ docId, label, showLabel, profileType }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -12,7 +12,7 @@ const DocLink = ({ docId, label, showLabel }) => {
         if (isNaN(docId) || !docId)
             return;
         setUrl('');
-        fetch('/api/requests/dog_health_check_request/doghealthcheckdocument?id=' + docId, {headers})
+        fetch(`/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' :''}doghealthcheckdocument?id=` + docId, {headers})
         .then(res => res.blob())
         .then(data => URL.createObjectURL(data))
         .then(url => setUrl(url));

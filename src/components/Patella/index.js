@@ -4,7 +4,6 @@ import { Redirect, useParams } from "react-router-dom";
 import Alert from "components/Alert";
 
 import Dysplasia from "./forms/Dysplasia";
-import PatellaForm from "./forms/Dysplasia";
 import DocHeadClub from "pages/Docs/components/DocHead";
 import DocHeadKennel from "pages/NurseryDocuments/components/DocHead";
 
@@ -12,11 +11,9 @@ import './index.scss';
 
 const forms = {
     "dysplasia": {
-        form: Dysplasia,
         title: "Сертификат о проверке на дисплазию",
     },
     "patella": {
-        form: PatellaForm,
         title: "Сертификат клинической оценки коленных суставов (PL) (пателла)",
     }
 };
@@ -37,7 +34,7 @@ const Patella = ({ alias, history, distinction, profileType }) => {
         id = params.id;
     } else (setRedirect('/404'))
 
-    const FormContent = (forms[reqtype] || forms[3]).form;
+    const FormContent = Dysplasia(reqtype, profileType ? profileType : "club");
     const FormTitle = (forms[reqtype] || forms[3]).title;
 
     const Title = props => <div>

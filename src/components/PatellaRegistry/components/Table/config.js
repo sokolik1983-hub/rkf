@@ -4,6 +4,7 @@ import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
 import CustomCheckbox from "components/Form/CustomCheckbox";
+import DocLink from "components/Patella/components/DocLink";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
@@ -18,7 +19,7 @@ const formatCountTime = (str) => {
     return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
 }
 
-export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, alias, profileType, setState) => {
     let cols = [
        {
            property: "date_create",
@@ -43,10 +44,6 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
        {
            property: "status_name",
            label: "Статус"
-       },
-       {
-           property: "express",
-           label: "Срочная"
        },
        {
            property: "type_name",
@@ -77,8 +74,12 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
             col.cell.formatters.push((value,{rowData}) => <CustomCheckbox disabled checked={rowData.express} />)
         }
 
-        if (col.property === 'pedigree_link') {
-            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank">Ссылка</a> : ''))
+        if (col.property === 'certificate_document_id') {
+            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.certificate_document_id ? <DocLink
+                profileType={profileType}
+                docId={rowData.certificate_document_id}
+                showLabel={false}
+            /> : ''))
         }
 
         return col;
@@ -93,7 +94,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
                             <ul className="row-control__list">
                                 <li className="row-control__item">
                                     <Link
-                                        to={`/${alias}/documents/${rowData.type_id === 1 ? "dysplasia" : "patella"}/view/${rowData.id}`}
+                                        to={`${profileType === "kennel" ? '/kennel' : ''}/${alias}/documents/${rowData.type_id === 1 ? "dysplasia" : "patella"}/view/${rowData.id}`}
                                         className="row-control__link"
                                     >
                                         Подробнее
@@ -102,7 +103,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
                                 {rowData.status_id === 1 &&
                                     <li className="row-control__item">
                                         <Link
-                                            to={`/${alias}/documents/${rowData.type_id === 1 ? "dysplasia" : "patella"}/edit/${rowData.id}`}
+                                            to={`${profileType === "kennel" ? '/kennel' : ''}/${alias}/documents/${rowData.type_id === 1 ? "dysplasia" : "patella"}/edit/${rowData.id}`}
                                             className="row-control__link"
                                         >
                                             Ответить

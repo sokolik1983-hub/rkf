@@ -50,6 +50,7 @@ class StatusTable extends PureComponent {
             this.state.sortingColumns,
             sortable,
             this.state.alias,
+            this.props.profileType,
             data => this.setState(data)
         );
     };

@@ -14,7 +14,7 @@ import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
 
 // dysplasia request
-const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
+const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title, config}) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
@@ -54,7 +54,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 formik.setFieldValue('declarant_id', declarant.id);
             }
             Request({
-                url: '/api/Club/club_federation'
+                url: config.profileType === 'kennel' ? '/api/nurseries/nursery/nursery_federation' :'/api/Club/club_federation'
             },
             e => {e && e.id && formik.setFieldValue('federation_id', e.id)},
             e => {})
@@ -99,6 +99,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             docId={formik.values.veterinary_contract_document_id}
             disabled={view}
             document_type_id={31}
+            profileType={config.profileType}
         />
         <FormFile
             name={`roentgenogram_document`}
@@ -106,6 +107,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             docId={formik.values.roentgenogram_document_id}
             disabled={view}
             document_type_id={32}
+            profileType={config.profileType}
         />
         </FormGroup>
 
@@ -132,7 +134,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                             docId={formik.values.payment_document_id}
                             disabled={view}
                             document_type_id={5}
-                            distinction="pedigree"
+                            profileType={config.profileType}
                         />
 
                         <FormField className="special" required={false} disabled={view} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
@@ -147,7 +149,12 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             </FormGroup>
             {formik.values && formik.values.certificate_document_id && <>
                 <h4>Сертификат</h4>
-                <DocLink docId={formik.values.certificate_document_id} label={''} showLabel={false} />
+                <DocLink 
+                    profileType={config.profileType}
+                    docId={formik.values.certificate_document_id}
+                    label={''}
+                    showLabel={false}
+                />
             </>}
     </Card>
     {!view && <div className="stage-controls flex-row">
@@ -161,6 +168,6 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
     </>
 })
 
-const DysplasiaForm = (distinction, profileType) => genericForm(FormFields, config(distinction,profileType))
+const DysplasiaForm = (distinction, profileType) => React.memo(genericForm(FormFields, config(distinction,profileType)))
 
-export default React.memo(DysplasiaForm)
+export default DysplasiaForm

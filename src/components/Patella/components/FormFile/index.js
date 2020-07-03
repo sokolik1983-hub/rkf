@@ -28,7 +28,7 @@ const message = e =>
     ? window.alert(e.response.data.errors.document)
     : window.alert('Отсутствует соединение с сервером');
 
-const FormFile = ({formik, name, label, docId, disabled, form, document_type_id, declarant_uid, wide}) => {
+const FormFile = ({formik, name, label, docId, disabled, form, document_type_id, declarant_uid, wide, profileType}) => {
     const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
     return <div style={{
@@ -68,7 +68,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
                     if (descision) {
                         Request({
                             isMultipart: true,
-                            url: '/api/requests/dog_health_check_request/doghealthcheckdocument',
+                            url: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument`,
                             method: "POST",
                             data: fd
                         }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); formik.setFieldValue(`${name}_id`, null); message(e)})
@@ -87,7 +87,7 @@ const FormFile = ({formik, name, label, docId, disabled, form, document_type_id,
     <HideIf cond={!loading}>
         <Loading inline/>
     </HideIf>
-    <DocLink docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} />
+    <DocLink docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} profileType={profileType}/>
 </FormGroup>
     {!loading && <Error name={`${name}_id`} noTouch/>}
 </FormInput>

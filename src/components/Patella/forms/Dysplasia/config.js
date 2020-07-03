@@ -21,9 +21,9 @@ const validationSchema = {
 const updateSchema = validationSchema;
 
 const config = (distinction, profileType) => ({
-    validationSchema, updateSchema,
+    validationSchema, updateSchema, profileType,
     onSuccess: {
-        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/${alias}/documents/`);}
+        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(profileType === 'kennel' ? `/kennel/${alias}/documents/` : `/${alias}/documents/`);}
     },
     options: {
         federations: {
@@ -31,17 +31,17 @@ const config = (distinction, profileType) => ({
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
         stampCodes: {
-            url: clubId => '/api/clubs/ClubStampCode/club?id=' + clubId,
+            url: id => (profileType === 'kennel' ? '/api/nurseries/nurserystampcode/nursery?id=' : '/api/clubs/ClubStampCode/club?id=') + id,
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
         },
         declarants: {
-            url: '/api/clubs/Declarant/club_declarants',
+            url: profileType === 'kennel' ? '/api/nurseries/nurserydeclarant/nursery_declarants' :'/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         }
     },
-    url: '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest',
-    get: '/api/requests/dog_health_check_request/doghealthcheckdysplasiarequest',
-    responsibleLink: alias => `/${alias}/documents/responsible/form`,
+    url: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheck${distinction}request`,
+    get: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheck${distinction}request`,
+    responsibleLink: alias => profileType === 'kennel' ? `/kennel/${alias}/documents/responsible/form` : `/${alias}/documents/responsible/form`,
     initialValues: {
         federation_id: '',
         declarant_id: '',
