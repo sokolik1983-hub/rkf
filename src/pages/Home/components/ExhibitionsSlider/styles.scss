@@ -297,7 +297,7 @@
       }
       & > span {
         &:first-child {
-          min-width: 145px;
+          min-width: 105px;
           white-space: nowrap;
           color: #72839c;
           padding-right: 4px;
@@ -348,6 +348,7 @@
   &__link {
     display: block;
     max-height: 48px;
+    height: 48px;
     margin-bottom: 16px;
     font-style: normal;
     font-weight: 600;
