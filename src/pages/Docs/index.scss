@@ -271,4 +271,10 @@
       margin: 0 auto;
     }
   }
+  .stage-controls.flex-row > * {
+    margin-left: 1em;
+  }
+  .FormFile {
+    margin-bottom: 2em;
+  }
 }
