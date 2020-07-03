@@ -175,6 +175,28 @@
         width: 100%;
       }
     }
+    &__photo {
+      display: block;
+      min-height: 164px;
+      min-width: 164px;
+      max-height: 164px;
+      max-width: 164px;
+      margin-right: 24px;
+      border-radius: 6px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      @media (max-width: 560px) {
+        width: 100%;
+        min-width: auto;
+        max-width: none;
+        height: 47.8vw;
+        min-height: auto;
+        max-height: none;
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
+    }
     &__head {
       display: flex;
       justify-content: space-between;
@@ -183,56 +205,6 @@
       text-align: right;
       @media (max-width: 560px) {
         display: block;
-      }
-    }
-    &__city {
-      position: relative;
-      padding-left: 18px;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.2px;
-      color: #72839c;
-      white-space: nowrap;
-      margin-left: 8px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &:hover {
-        cursor: pointer;
-      }
-      &:before {
-        content: "";
-        width: 12px;
-        height: 16px;
-        background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      @media (max-width: 560px) {
-        display: block;
-        text-align: left;
-        font-size: 14px;
-        line-height: 20px;
-        margin-left: 0;
-      }
-    }
-    &__about {
-      max-width: 65%;
-    }
-    &__author {
-      font-size: 14px;
-      color: #72839c;
-      margin-right: 10px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      a {
-        text-decoration: none;
-        color: #72839c;
-        &:hover {
-          text-decoration: underline;
-        }
       }
     }
     &__club {
@@ -278,46 +250,37 @@
         }
       }
     }
-    &__body {
-      display: flex;
-      justify-content: space-between;
-      text-decoration: none;
-      color: #253c5e !important;
+    &__city {
+      position: relative;
+      padding-left: 18px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839c;
+      white-space: nowrap;
+      margin-left: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:hover {
+        cursor: pointer;
+      }
+      &:before {
+        content: "";
+        width: 12px;
+        height: 16px;
+        background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
       @media (max-width: 560px) {
         display: block;
-      }
-    }
-    &__photo {
-      display: block;
-      min-height: 164px;
-      min-width: 164px;
-      max-height: 164px;
-      max-width: 164px;
-      margin-right: 24px;
-      border-radius: 6px;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      @media (max-width: 560px) {
-        width: 100%;
-        min-width: auto;
-        max-width: none;
-        height: 47.8vw;
-        min-height: auto;
-        max-height: none;
-        margin-right: 0;
-        margin-bottom: 8px;
-      }
-    }
-    &__info {
-      width: 100%;
-      height: 116px;
-      display: flex;
-      word-break: break-word;
-      flex-direction: column;
-      align-items: flex-start;
-      @media (max-width: 560px) {
-        height: auto;
+        text-align: left;
+        font-size: 14px;
+        line-height: 20px;
+        margin-left: 0;
       }
     }
     &__text {
@@ -338,24 +301,37 @@
         max-width: 100% !important;
       }
     }
-    &__show-all {
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 6px;
+      border-top: 1px solid #36f;
+    }
+    &__show-all, &__share {
       text-decoration: none;
       display: inline-block;
-      margin-top: 12px;
-      padding-right: 12px;
       font-weight: normal;
       font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.2px;
-      position: relative;
+      line-height: 20px;
+      letter-spacing: .2px;
+      color: #36f;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color .2s linear;
+      &:hover {
+        border-bottom-color: #36f;
+      }
+    }
+    &__share {
       &:after {
-        content: "";
-        position: absolute;
-        top: 9px;
-        right: 0;
-        height: 10px;
-        width: 6px;
-        background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+        content: '';
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+        vertical-align: middle;
+        margin-left: 4px;
       }
     }
   }
