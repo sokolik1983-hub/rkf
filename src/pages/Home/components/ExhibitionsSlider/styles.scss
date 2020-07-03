@@ -297,7 +297,6 @@
       }
       & > span {
         &:first-child {
-          //min-width: 105px;
           white-space: nowrap;
           color: #72839c;
           padding-right: 4px;
@@ -313,7 +312,7 @@
     justify-content: space-between;
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px solid #36f;
+    border-top: 1px solid #e8e8e8;
   }
   &__show-all, &__share {
     text-decoration: none;
