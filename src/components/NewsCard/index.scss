@@ -119,24 +119,37 @@
       line-height: 20px;
     }
   }
-  &__show-all {
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 6px;
+    border-top: 1px solid #36f;
+  }
+  &__show-all, &__share {
     text-decoration: none;
     display: inline-block;
-    margin-top: 12px;
-    padding-right: 12px;
     font-weight: normal;
     font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.2px;
-    position: relative;
+    line-height: 20px;
+    letter-spacing: .2px;
+    color: #36f;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color .2s linear;
+    &:hover {
+      border-bottom-color: #36f;
+    }
+  }
+  &__share {
     &:after {
-      content: "";
-      position: absolute;
-      top: 9px;
-      right: 0;
-      height: 10px;
-      width: 6px;
-      background: url("/static/icons/chevron_right-blue.svg") center no-repeat;
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+      vertical-align: middle;
+      margin-left: 4px;
     }
   }
 }

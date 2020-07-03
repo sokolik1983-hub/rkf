@@ -6,7 +6,7 @@ import CustomArrow from "../../../../components/CustomArrow";
 import Placeholder from './Placeholder';
 import ExhibitionCard from "./ExhibitionCard";
 import {Request} from "../../../../utils/request";
-import {responsiveSliderConfig} from "appConfig";
+import {responsiveSliderConfig} from "../../../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles.scss";
