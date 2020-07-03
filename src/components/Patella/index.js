@@ -38,7 +38,7 @@ const Patella = ({ alias, history, distinction, profileType }) => {
     const FormTitle = (forms[reqtype] || forms[3]).title;
 
     const Title = props => <div>
-        <DocHead text={FormTitle} link={`/${alias}/documents`} history={history}/>
+        <DocHead text={FormTitle} link={(profileType === 'kennel' ? '/kennel' : '') + `/${alias}/documents`} history={history}/>
             </div>;
 
 
