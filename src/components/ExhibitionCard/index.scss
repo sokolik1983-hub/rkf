@@ -71,7 +71,7 @@
       }
       & > span {
         &:first-child {
-          min-width: 145px;
+          min-width: 105px;
           white-space: nowrap;
           color: #72839c;
           padding-right: 4px;
@@ -121,6 +121,8 @@
   }
   &__link {
     display: block;
+    max-height: 48px;
+    height: 48px;
     margin-bottom: 16px;
     font-style: normal;
     font-weight: 600;
@@ -128,7 +130,6 @@
     line-height: 24px;
     color: #253c5e;
     text-decoration: none;
-    max-height: 72px;
     overflow: hidden;
     &:visited {
       color: #253c5e;
