@@ -55,12 +55,10 @@ const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
                 images={items}
                 {...rest}
             /> :
-            <Card className="ReactGridGallery__disabled">
-                <div className="ReactGridGallery__disabled-content">
-                    <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
-                    <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.noNews} alt="У вас нет фотографий"/>
-                </div>
-            </Card>
+            <div className="ReactGridGallery__disabled">
+                <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
+                <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.noNews} alt="У вас нет фотографий"/>
+            </div>
         }
     </div>
 };
