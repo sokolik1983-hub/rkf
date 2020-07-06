@@ -285,13 +285,8 @@
         &:not(:last-child) {
           margin-bottom: 4px;
         }
-        & > span {
-          display: block;
-        }
       }
       &:not(._date) > span:last-child {
-        display: block;
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
@@ -300,9 +295,6 @@
           white-space: nowrap;
           color: #72839c;
           padding-right: 4px;
-          @media (max-width: 560px) {
-            min-width: 130px;
-          }
         }
       }
     }
@@ -314,17 +306,18 @@
     padding-top: 12px;
     border-top: 1px solid #e8e8e8;
   }
-  &__show-all, &__share {
+  &__show-all,
+  &__share {
     text-decoration: none;
     display: inline-block;
     font-weight: normal;
     font-size: 16px !important;
     line-height: 20px !important;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #36f !important;
     cursor: pointer;
     border-bottom: 1px solid transparent;
-    transition: border-bottom-color .2s linear;
+    transition: border-bottom-color 0.2s linear;
     &:hover {
       border-bottom-color: #36f;
     }
@@ -335,11 +328,11 @@
   }
   &__share {
     &:after {
-      content: '';
+      content: "";
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+      background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
       vertical-align: middle;
       margin-left: 4px;
     }
