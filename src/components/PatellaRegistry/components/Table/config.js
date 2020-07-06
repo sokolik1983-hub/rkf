@@ -38,7 +38,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
            label: "Трек-номер"
        },
        {
-           property: "pedigree_link",
+           property: "certificate_document_id",
            label: "Ссылка на эл. копию документа"
        },
        {
@@ -75,7 +75,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
         }
 
         if (col.property === 'certificate_document_id') {
-            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.certificate_document_id ? <DocLink
+            col.cell.formatters.push((value,{rowData}) => (rowData.certificate_document_id ? <DocLink
                 profileType={profileType}
                 docId={rowData.certificate_document_id}
                 showLabel={false}
