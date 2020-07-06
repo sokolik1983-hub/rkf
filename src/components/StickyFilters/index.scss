@@ -1,0 +1,9 @@
+.StickyFilters {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 70px;
+    padding: 10px;
+    background: white;
+    z-index: 10;
+    /*box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);*/
+}

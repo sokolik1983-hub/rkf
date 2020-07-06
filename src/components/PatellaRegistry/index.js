@@ -4,6 +4,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
 import CustomCheckbox from "components/Form/CustomCheckbox";
+import StickyFilters from "components/StickyFilters";
 import {Request} from "utils/request";
 import "./index.scss";
 
@@ -48,21 +49,13 @@ const ReplaceRegistry = ({history, alias, distinction, profileType}) => {
                 {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
             </div>
             <h3>Фильтры</h3>
+            <StickyFilters>
             <div className="flex-row heading-row">
-                <div>
                     <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                     <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
                     <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
-                    <p></p>
-                </div>
-                <div>
-                    {
-                        //reqTypes.map(({id, name}) => 
-                    //<CustomCheckbox key={id} id={`custom-checkbox-reqtypes-${id}`} label={name} onChange={e => checkType(id)} checked={checkedTypes.includes(id)} />)
-                    }
-                    <p></p>
-                </div>
             </div>
+            </StickyFilters>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
                     <StatusTable profileType={profileType} documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias}/> :
