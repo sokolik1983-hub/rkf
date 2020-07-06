@@ -41,7 +41,8 @@
     }
     @media (max-width: 560px) {
       img {
-        width: 255px;
+        width: auto;
+        max-height: 150px;
         margin: 0 auto;
       }
     }
@@ -124,7 +125,7 @@
         width: 100%;
       }
       @media (max-width: 560px) {
-        margin: 0 4px;
+        margin: 0;
       }
     }
   }
@@ -172,6 +173,7 @@
     }
     @media (max-width: 560px) {
       min-height: auto;
+      margin: 0 4px;
     }
     &__image {
       width: 100%;
@@ -188,6 +190,7 @@
     &__content {
       margin: 16px 24px;
       @media (max-width: 560px) {
+        height: 250px;
         margin: 0;
         padding: 8px;
       }
@@ -200,6 +203,9 @@
         min-width: 100px;
         opacity: 0.1;
         animation: fading 1.5s infinite;
+        @media (max-width: 560px) {
+          height: 14px;
+        }
         &:first-child {
           margin-top: 0;
         }
@@ -233,6 +239,7 @@
   float: left;
   margin: 0 20px;
   @media (max-width: 1220px) {
+    max-width: calc(100% - 8px);
     width: 100%;
     margin: 0;
     box-shadow: 0 2px 5px rgba(51, 102, 255, 0.05), 0 4px 15px rgba(51, 102, 255, 0.1);
@@ -263,7 +270,7 @@
     @media (max-width: 560px) {
       margin: 0;
       padding: 8px;
-      height: 285px;
+      height: 220px;
     }
     span {
       font-weight: normal;
@@ -285,13 +292,8 @@
         &:not(:last-child) {
           margin-bottom: 4px;
         }
-        & > span {
-          display: block;
-        }
       }
       &:not(._date) > span:last-child {
-        display: block;
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
@@ -300,10 +302,18 @@
           white-space: nowrap;
           color: #72839c;
           padding-right: 4px;
-          @media (max-width: 560px) {
-            min-width: 130px;
-          }
         }
+      }
+    }
+    & > p:first-of-type {
+      @media (max-width: 560px) {
+        display: flex;
+      }
+      & > span:last-child {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: inline-block;
       }
     }
   }
@@ -314,17 +324,18 @@
     padding-top: 12px;
     border-top: 1px solid #e8e8e8;
   }
-  &__show-all, &__share {
+  &__show-all,
+  &__share {
     text-decoration: none;
     display: inline-block;
     font-weight: normal;
     font-size: 16px !important;
     line-height: 20px !important;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #36f !important;
     cursor: pointer;
     border-bottom: 1px solid transparent;
-    transition: border-bottom-color .2s linear;
+    transition: border-bottom-color 0.2s linear;
     &:hover {
       border-bottom-color: #36f;
     }
@@ -335,11 +346,11 @@
   }
   &__share {
     &:after {
-      content: '';
+      content: "";
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+      background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
       vertical-align: middle;
       margin-left: 4px;
     }
