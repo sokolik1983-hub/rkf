@@ -4,6 +4,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
 import CustomCheckbox from "components/Form/CustomCheckbox";
+import StickyFilters from "components/StickyFilters";
 import {Request} from "utils/request";
 import "./index.scss";
 
@@ -59,6 +60,7 @@ const ReplaceRegistry = ({history, alias}) => {
             {documents && !!documents.length &&
                 <>
                     <h3>Фильтры</h3>
+                    <StickyFilters>
                     <div className="flex-row heading-row">
                         <div>
                             <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
@@ -79,6 +81,7 @@ const ReplaceRegistry = ({history, alias}) => {
                             </div>
                         )}
                     </div>
+                    </StickyFilters>
                 </>
             }
             <div className="club-documents-status__table">
