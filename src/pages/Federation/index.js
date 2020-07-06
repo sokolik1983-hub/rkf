@@ -61,6 +61,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         <MenuComponent
                             alias={alias}
                             name={federation.name}
+                            isFederation={true}
                         />
                     </div>
                     <div className="federation-page__info">
@@ -74,6 +75,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 alias={alias}
                                 profileId={federation.id}
                                 name={federation.name}
+                                isFederation={true}
                             />
                             <ContactsComponent {...federation} />
                             {federation.documents && !!federation.documents.length &&
@@ -106,6 +108,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         alias={alias}
                         profileId={federation.id}
                         name={federation.name}
+                        isFederation={true}
                     />
                 </Container>
             </div>

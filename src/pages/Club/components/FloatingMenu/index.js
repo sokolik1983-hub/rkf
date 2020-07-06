@@ -87,7 +87,7 @@ const presidium = {
     }
 };
 
-const FloatingMenu = ({ alias, name, profileId }) => {
+const FloatingMenu = ({ alias, name, profileId, isFederation }) => {
     const [showModal, setShowModal] = useState(false);
     const [stamps, setStamps] = useState(null);
     const [showStampsModal, setShowStampsModal] = useState(false);
@@ -159,7 +159,9 @@ const FloatingMenu = ({ alias, name, profileId }) => {
                 <Link to={`/${alias}/document-status`} title="Статус документов">Статус документов</Link>
             </DropDownItem>
             <DropDownItem>
-                <Link to={`/${alias}`} className="FloatingMenu__link" title={name}>{name}</Link>
+                <Link to={`/${alias}`} className="FloatingMenu__link" title={name}>
+                    {`Cтраница ${isFederation ? 'федерации' : 'клуба'}`}
+                </Link>
             </DropDownItem>
         </Dropdown>
         {showStampsModal &&

@@ -85,7 +85,7 @@ const presidium = {
     }
 };
 
-const MenuComponent = ({ alias, name, profileId }) => {
+const MenuComponent = ({ alias, name, profileId, isFederation }) => {
     const [showModal, setShowModal] = useState(false);
     const [stamps, setStamps] = useState(null);
     const [showStampsModal, setShowStampsModal] = useState(false);
@@ -147,7 +147,9 @@ const MenuComponent = ({ alias, name, profileId }) => {
                     <Link to={`/${alias}/document-status`} title="Статус документов">Статус документов</Link>
                 </li>
                 <li className="menu-component__item">
-                    <Link to={`/${alias}`} className="menu-component__link not-active" title={`Cтраница ${name}`}>{`Cтраница ${name}`}</Link>
+                    <Link to={`/${alias}`} className="menu-component__link not-active" title={name}>
+                        {`Cтраница ${isFederation ? 'федерации' : 'клуба'}`}
+                    </Link>
                 </li>
             </ul>
             {showStampsModal &&
