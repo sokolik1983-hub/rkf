@@ -19,6 +19,8 @@ import Registry from "./components/Stamps/Registry";
 import RequestRegistry from "./components/RequestRegistry";
 import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
+import Patella from "components/Patella";
+import PatellaRegistry from "components/PatellaRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -50,6 +52,26 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
                             <ReplacePedigree alias={clubAlias} history={history} />}
+                        />
+
+                        <Route exact={true} path='/:route/documents/dysplasia/registry' component={() =>
+                            <PatellaRegistry alias={clubAlias} history={history} distinction="dysplasia" />}
+                        />
+                        <Route exact={true} path='/:route/documents/dysplasia/:action/:id' component={() =>
+                            <Patella alias={clubAlias} history={history} distinction="dysplasia" />}
+                        />
+                        <Route exact={true} path='/:route/documents/dysplasia/:action' component={() =>
+                            <Patella alias={clubAlias} history={history} distinction="dysplasia" />}
+                        />
+
+                        <Route exact={true} path='/:route/documents/patella/registry' component={() =>
+                            <PatellaRegistry alias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/patella/:action/:id' component={() =>
+                            <Patella alias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/patella/:action' component={() =>
+                            <Patella alias={clubAlias} history={history} />}
                         />
 
                         <Route exact={true} path='/:route/documents/litter/status' component={() =>

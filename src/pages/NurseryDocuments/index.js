@@ -19,6 +19,8 @@ import PuppyMetrics from "./components/Print/PuppyMetrics";
 import RequestRegistry from "./components/RequestRegistry";
 import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
+import Patella from "components/Patella";
+import PatellaRegistry from "components/PatellaRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -53,6 +55,27 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/kennel/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
                             <ReplacePedigree alias={nurseryAlias} history={history} />}
                         />
+                        
+                        <Route exact={true} path='/kennel/:route/documents/dysplasia/registry' component={() =>
+                            <PatellaRegistry alias={nurseryAlias} history={history} distinction="dysplasia" profileType="kennel" />}
+                        />
+                        <Route exact={true} path='/kennel/:route/documents/dysplasia/:action/:id' component={() =>
+                            <Patella alias={nurseryAlias} history={history} distinction="dysplasia" profileType="kennel" />}
+                        />
+                        <Route exact={true} path='/kennel/:route/documents/dysplasia/:action' component={() =>
+                            <Patella alias={nurseryAlias} history={history} distinction="dysplasia" profileType="kennel" />}
+                        />
+
+                        <Route exact={true} path='/kennel/:route/documents/patella/registry' component={() =>
+                            <PatellaRegistry alias={nurseryAlias} history={history} profileType="kennel" />}
+                        />
+                        <Route exact={true} path='/kennel/:route/documents/patella/:action/:id' component={() =>
+                            <Patella alias={nurseryAlias} history={history} profileType="kennel" />}
+                        />
+                        <Route exact={true} path='/kennel/:route/documents/patella/:action' component={() =>
+                            <Patella alias={nurseryAlias} history={history} profileType="kennel" />}
+                        />
+
 
                        <Route exact={true} path='/kennel/:route/documents/litter/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}

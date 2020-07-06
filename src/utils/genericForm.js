@@ -114,7 +114,7 @@ const genericForm = (Component, config) => {
                 {/*<div className="club-documents-status__head">
                     <Link className="btn-backward" to={`/${clubAlias}/documents`}>Личный кабинет</Link>
                 </div>*/}
-            {!!options && <Component {...{update, view, options, alias, Title, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
+            {!!options && <Component {...{update, view, options, alias, Title, config, setRedirect, send, initial:{...config.initialValues, ...values, id}}}/>}
             </Form>
     }
 }
