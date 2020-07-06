@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
+import StickyFilters from "components/StickyFilters";
 import CustomCheckbox from "components/Form/CustomCheckbox";
 import {Request} from "utils/request";
 import "./index.scss";
@@ -43,12 +44,14 @@ const RequestRegistry = ({history, nurseryAlias, distinction}) => {
             {documents && !!documents.length &&
                 <>
                     <h3>Фильтры</h3>
+                    <StickyFilters>
                     <div className="nursery-documents-status__filters">
                         <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                         <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
                         <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
                         <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
                     </div>
+                    </StickyFilters>
                 </>
             }
             <div className="nursery-documents-status__table">
