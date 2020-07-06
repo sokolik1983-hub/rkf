@@ -79,6 +79,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
                 profileType={profileType}
                 docId={rowData.certificate_document_id}
                 showLabel={false}
+                download
             /> : ''))
         }
 

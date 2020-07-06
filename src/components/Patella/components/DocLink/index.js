@@ -4,7 +4,7 @@ import Modal from "components/Modal";
 import Loading from "components/Loading";
 import "./index.scss";
 
-const DocLink = ({ docId, label, showLabel, profileType }) => {
+const DocLink = ({ docId, label, showLabel, profileType, download }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -20,7 +20,7 @@ const DocLink = ({ docId, label, showLabel, profileType }) => {
 
     return <>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ? <embed src={url}/> : <Loading/>}
+            {url ? <>{download && <a className="modal-download" target="_blank" href={url}>Скачать</a>}<embed src={url}/></> : <Loading/>}
         </Modal>
         {!!docId && <div>
             <label>{showLabel ? label : "\u00a0"}</label>
