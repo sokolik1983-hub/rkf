@@ -3,6 +3,7 @@ import * as sort from "sortabular";
 import * as search from "searchtabular";
 import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
+import { getHeaders } from "utils/request";
 import CustomCheckbox from "components/Form/CustomCheckbox";
 import DocLink from "components/Patella/components/DocLink";
 import moment from "moment";
@@ -51,6 +52,29 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
        }
     ].map(col => fillProp(col));
 
+    const handleClick = async (e, id) => {
+        e.preventDefault();
+        let el = e.target;
+        el.className = 'stamp-loading';
+        el.innerText = 'Загрузка...';
+        await fetch(`/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument?id=${id}`, {
+            method: 'GET',
+            headers: getHeaders()
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob),
+                    a = document.createElement('a');
+                a.href = url;
+                a.download = `Сертификат ${id}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            });
+        el.innerText = 'Скачать файл';
+        el.className = '';
+    };
+
     cols.map(col => {
         col.header.formatters = [
             sort.header({
@@ -75,12 +99,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
         }
 
         if (col.property === 'certificate_document_id') {
-            col.cell.formatters.push((value,{rowData}) => (rowData.certificate_document_id ? <DocLink
-                profileType={profileType}
-                docId={rowData.certificate_document_id}
-                showLabel={false}
-                download
-            /> : ''))
+            col.cell.formatters = [id => id && <a href="/" onClick={e => handleClick(e, id)}>Скачать файл</a>] || 'отсутствует';
         }
 
         return col;
