@@ -73,6 +73,17 @@
         }
       }
     }
+    & > p:first-of-type {
+      @media (max-width: 560px) {
+        display: flex;
+      }
+      & > span:last-child {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: inline-block;
+      }
+    }
   }
   &__controls {
     display: flex;
