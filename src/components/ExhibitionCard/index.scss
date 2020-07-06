@@ -73,7 +73,6 @@
         }
       }
       &:not(._date) > span:last-child {
-        display: block;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
