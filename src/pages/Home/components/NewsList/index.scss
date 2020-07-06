@@ -203,9 +203,9 @@
       align-items: flex-start;
       margin-bottom: 12px;
       text-align: right;
-      @media (max-width: 560px) {
-        display: block;
-      }
+      // @media (max-width: 560px) {
+      //   display: block;
+      // }
     }
     &__club {
       display: flex;
