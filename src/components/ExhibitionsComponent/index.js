@@ -48,17 +48,34 @@ const ExhibitionsComponent = ({ alias }) => {
                 {children}
             </div>
         } else {
-            return <Container>
-                <div className="exhibitions-component exhibitions-homepage">
-                    <h3 className="exhibitions-component__title"><Link to="/exhibitions">Мероприятия</Link></h3>
-                    {children}
+            return <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
+                <div className="exhibitions-component__header">
+                    <h3 className="exhibitions-component__title">
+                        {
+                            alias
+                                ? <><h4 className="exhibitions-component__title">Мероприятия</h4>
+                                    <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>
+                                : <Link to="/exhibitions">Мероприятия</Link>
+                        }
+                    </h3>
                 </div>
-            </Container>
+                {children}
+            </div>
         }
     };
 
     return (
-        <SliderWrap>
+        <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
+            <div className="exhibitions-component__header">
+                <h3 className="exhibitions-component__title">
+                    {
+                        alias
+                            ? <><h4 className="exhibitions-component__title">Мероприятия</h4>
+                                <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>
+                            : <Link to="/exhibitions">Мероприятия</Link>
+                    }
+                </h3>
+            </div>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -70,6 +87,7 @@ const ExhibitionsComponent = ({ alias }) => {
                 touchThreshold={20}
                 responsive={responsiveSliderConfig}
             >
+                {/* {Placeholders.map(item => <Placeholder key={item} />)} */}
                 {exhibitions ?
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
@@ -83,7 +101,7 @@ const ExhibitionsComponent = ({ alias }) => {
                     </div>
                 </div>}
             </Slider>
-        </SliderWrap>
+        </div>
     )
 };
 

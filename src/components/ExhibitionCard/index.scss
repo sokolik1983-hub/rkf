@@ -96,17 +96,18 @@
     padding-top: 12px;
     border-top: 1px solid #e8e8e8;
   }
-  &__show-all, &__share {
+  &__show-all,
+  &__share {
     text-decoration: none;
     display: inline-block;
     font-weight: normal;
     font-size: 16px !important;
     line-height: 20px !important;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #36f !important;
     cursor: pointer;
     border-bottom: 1px solid transparent;
-    transition: border-bottom-color .2s linear;
+    transition: border-bottom-color 0.2s linear;
     &:hover {
       border-bottom-color: #36f;
     }
@@ -117,11 +118,11 @@
   }
   &__share {
     &:after {
-      content: '';
+      content: "";
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+      background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
       vertical-align: middle;
       margin-left: 4px;
     }
@@ -229,20 +230,21 @@
 }
 
 .exhibition-placeholder {
-  min-height: 536px;
+  min-height: auto;
+  height: 447px;
   width: 368px;
   box-shadow: 0 2px 10px rgba(51, 102, 255, 0.05), 0 4px 30px rgba(51, 102, 255, 0.1);
   border-radius: 6px;
   overflow: hidden;
   background-color: #fff;
   @media (max-width: 1220px) {
+    height: 510px;
+    margin: 0 4px 0 0;
     width: 100%;
-    margin: 0;
     box-shadow: 0 2px 5px rgba(51, 102, 255, 0.05), 0 4px 15px rgba(51, 102, 255, 0.1);
   }
   @media (max-width: 560px) {
-    min-height: auto;
-    margin: 0 2px;
+    height: 395px;
   }
   &__image {
     width: 100%;
@@ -266,7 +268,7 @@
     .text {
       display: inline-block;
       background-color: #444;
-      height: 12px;
+      height: 11px;
       border-radius: 100px;
       margin: 5px 0;
       min-width: 100px;

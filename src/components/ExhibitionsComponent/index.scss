@@ -8,6 +8,7 @@
     margin-bottom: 12px;
     a {
       text-decoration: none;
+      text-transform: none;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
@@ -107,7 +108,12 @@
 
   &.exhibitions-homepage {
     padding-top: 0;
-    margin-bottom: 40px;
+    width: 1184px;
+    margin: 0 auto 40px;
+    @media (max-width: 1220px) {
+      width: 100%;
+      padding: 0 24px;
+    }
     @media (max-width: 768px) {
       padding: 0 0 0 24px;
     }
@@ -115,14 +121,17 @@
       padding: 0 0 0 16px;
       margin-bottom: 16px;
     }
+    .exhibitions-component__header {
+      margin: 0;
+    }
     .exhibitions-component__title {
-      font-weight: 700;
-      text-transform: none;
-      font-size: 36px;
-      line-height: 44px;
       a {
-        color: #253c5e;
+        color: #253c5e !important;
         text-decoration: none;
+        font-weight: 700;
+        text-transform: none;
+        font-size: 36px;
+        line-height: 44px;
       }
       margin-bottom: 24px;
       @media (max-width: 768px) {
@@ -197,15 +206,10 @@
         }
       }
     }
-    .exhibition-card {
-      margin: 0 20px;
-    }
-    .exhibition-placeholder {
-      margin: 0 20px;
-      min-height: 450px;
+    .slick-list {
+      padding: 0 100px 0 0 !important;
     }
     .slick-slide {
-      margin: auto;
       & > div {
         display: flex;
         @media (max-width: 1220px) {
