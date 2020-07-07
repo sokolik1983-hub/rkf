@@ -6,9 +6,9 @@ import ls from "local-storage";
 import Modal from "../../../Modal";
 import LoginAsUser from "./LoginAsUser";
 import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig";
-import {connectLogin, connectWidgetLogin} from "../../../../pages/Login/connectors";
+import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "../../../../utils/history";
-import {Request} from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 
 
 const WidgetLogin = forwardRef(
@@ -106,6 +106,9 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
+                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                        <a style={{ color: '#3366ff', backgroundColor: 'whitesmoke' }} href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                                    </li>
                                 </ul>
                             </div>
                         </CSSTransition>
@@ -113,8 +116,8 @@ const WidgetLogin = forwardRef(
                     : <AuthButtons />
                 }
                 <Modal className="widget-login__modal"
-                       showModal={showModal}
-                       handleClose={() => setShowModal(false)}
+                    showModal={showModal}
+                    handleClose={() => setShowModal(false)}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>

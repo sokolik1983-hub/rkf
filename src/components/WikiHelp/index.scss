@@ -3,6 +3,9 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  margin-left: 5px;
+  margin: 0 10px 0 0;
   background: url("/static/icons/icon-question.svg") center/contain no-repeat;
+  @media (max-width: 560px) {
+    margin: 0 0 0 10px;
+  }
 }
