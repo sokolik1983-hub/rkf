@@ -7,7 +7,8 @@ import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
-import ExhibitionsSlider from "./components/ExhibitionsSlider";
+import ExhibitionsComponent from "components/ExhibitionsComponent";
+//import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import Statistics from "./components/Statistics";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
@@ -46,7 +47,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
     return (
         <Layout>
             <HomepageSlider />
-            <ExhibitionsSlider />
+            <ExhibitionsComponent />
             <Container className="home-page__news">
                 <h3 className="Homepage__news-title">Новости</h3>
                 <div className="home-page__news-wrap">

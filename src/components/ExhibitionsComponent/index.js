@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import ExhibitionCard from "../ExhibitionCard";
 import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
 import Placeholder from "../ExhibitionCard/Placeholder";
-import {Request} from "../../utils/request";
-import {responsiveSliderConfig} from "../../appConfig";
+import Container from "components/Layouts/Container";
+import { Request } from "../../utils/request";
+import { responsiveSliderConfig } from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
@@ -13,32 +14,51 @@ import "./index.scss";
 
 const Placeholders = [0, 1, 2];
 
-const ExhibitionsComponent = ({alias}) => {
+const ExhibitionsComponent = ({ alias }) => {
     const [exhibitions, setExhibitions] = useState(null);
     const [isRequestEnd, setIsRequestEnd] = useState(false);
 
+    const endpoint = alias
+        ? `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true`
+        : '/api/exhibitions/Exhibition/featured?ElementsCount=14';
+
     useEffect(() => {
         (() => Request({
-            url: `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true`
+            url: endpoint
         }, data => {
             setExhibitions(data);
             setIsRequestEnd(true);
         },
-        error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setIsRequestEnd(true);
-        }))();
-    }, [alias]);
+            error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setIsRequestEnd(true);
+            }))();
+    }, [alias ? alias : null]);
 
-    if(isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
+    if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
+
+    const SliderWrap = ({ children }) => {
+        if (alias) {
+            return <div className="exhibitions-component">
+                <div className="exhibitions-component__header">
+                    <h4 className="exhibitions-component__title">Мероприятия</h4>
+                    <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
+                </div>
+                {children}
+            </div>
+        } else {
+            return <Container>
+                <div className="exhibitions-component exhibitions-homepage">
+                    <h3 className="exhibitions-component__title"><Link to="/exhibitions">Мероприятия</Link></h3>
+                    {children}
+                </div>
+            </Container>
+        }
+    };
 
     return (
-        <div className="exhibitions-component">
-            <div className="exhibitions-component__header">
-                <h4 className="exhibitions-component__title">Мероприятия</h4>
-                <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
-            </div>
+        <SliderWrap>
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -54,8 +74,16 @@ const ExhibitionsComponent = ({alias}) => {
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
+                {exhibitions && !alias && <div className="exhibition-card exhibitions-homepage__show-more">
+                    <img src="static/images/homepage/show-more.png" alt="" />
+                    <div className="exhibitions-homepage__show-more-wrap">
+                        <h4>У нас много других мероприятий</h4>
+                        <p>Найдите подходящие для себя мероприятия</p>
+                        <Link to={'/exhibitions'}>Смотреть другие мероприятия</Link>
+                    </div>
+                </div>}
             </Slider>
-        </div>
+        </SliderWrap>
     )
 };
 
