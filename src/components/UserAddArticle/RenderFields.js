@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from "react-outside-click-handler";
-import {connect} from 'formik';
-import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
+import { connect } from 'formik';
+import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
-import {useFocus} from "../../shared/hooks";
+import WikiHelp from "../WikiHelp";
+import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
+import { useFocus } from "../../shared/hooks";
 
 
-const RenderFields = ({fields, logo, formik}) => {
+const RenderFields = ({ fields, logo, formik }) => {
     const [src, setSrc] = useState('');
-    const {focus, setFocused, setBlured} = useFocus(false);
-    const {content, file} = formik.values;
+    const { focus, setFocused, setBlured } = useFocus(false);
+    const { content, file } = formik.values;
 
     const handleChange = e => {
         if (e.target.files[0]) {
@@ -33,17 +34,17 @@ const RenderFields = ({fields, logo, formik}) => {
 
     const handleKeyDown = (e) => {
         let text = e.target.value;
-        
+
         const regexp = /http:\/\/[^\s]+/g;
         Array.from(text.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
         text = text.replace(regexp, '');
 
         BAD_SITES
-        .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
-        .forEach(x => {
-            Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
-            text = text.replace(x, '');
-        });
+            .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
+            .forEach(x => {
+                Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
+                text = text.replace(x, '');
+            });
 
         formik.setFieldValue('content', text);
     };
@@ -74,10 +75,14 @@ const RenderFields = ({fields, logo, formik}) => {
                 {!focus &&
                     <>
                         <label htmlFor="file" className="ArticleCreateForm__labelfile" />
+                        <WikiHelp
+                            url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
+                            title="Инструкция по добавлению новости"
+                        />
                         <SubmitButton type="submit"
-                                      className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                            className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
                         >
-                            Добавить новость
+                            Опубликовать
                         </SubmitButton>
                     </>
                 }
@@ -89,9 +94,9 @@ const RenderFields = ({fields, logo, formik}) => {
                             <>
                                 <ImagePreview src={src} />
                                 <img src="/static/icons/file-cross.svg"
-                                     className="ImagePreview__close"
-                                     alt=""
-                                     onClick={handleClose}
+                                    className="ImagePreview__close"
+                                    alt=""
+                                    onClick={handleClose}
                                 />
                             </>
                         }
@@ -101,12 +106,18 @@ const RenderFields = ({fields, logo, formik}) => {
                             <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
                         </div>
                         <div className="ArticleCreateForm__length-hint">
-                        <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>
-                            <SubmitButton type="submit"
-                                          className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                            >
-                                Добавить новость
+                            <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков` : ''}</span>
+                            <div className="ArticleCreateForm__button-wrap">
+                                <WikiHelp
+                                    url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
+                                    title="Инструкция по добавлению новости"
+                                />
+                                <SubmitButton type="submit"
+                                    className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                                >
+                                    Опубликовать
                             </SubmitButton>
+                            </div>
                         </div>
                     </FormControls>
                 </>
