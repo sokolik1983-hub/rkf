@@ -4,7 +4,6 @@ import ExhibitionCard from "../ExhibitionCard";
 import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
 import Placeholder from "../ExhibitionCard/Placeholder";
-import Container from "components/Layouts/Container";
 import { Request } from "../../utils/request";
 import { responsiveSliderConfig } from "../../appConfig";
 import "slick-carousel/slick/slick.css";
@@ -38,44 +37,32 @@ const ExhibitionsComponent = ({ alias }) => {
 
     if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 
-    const SliderWrap = ({ children }) => {
-        if (alias) {
-            return <div className="exhibitions-component">
-                <div className="exhibitions-component__header">
-                    <h4 className="exhibitions-component__title">Мероприятия</h4>
-                    <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
+    const SliderHeader = () => <div className="exhibitions-component__header">
+        <h3 className="exhibitions-component__title">
+            {
+                alias
+                    ? <>Мероприятия <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>
+                    : <Link to="/exhibitions">Мероприятия</Link>
+            }
+        </h3>
+    </div>;
+
+    const ShowMoreSlide = () => {
+        if (!alias && exhibitions) {
+            return <div className="exhibition-card exhibitions-homepage__show-more">
+                <img src="static/images/homepage/show-more.png" alt="" />
+                <div className="exhibitions-homepage__show-more-wrap">
+                    <h4>У нас много других мероприятий</h4>
+                    <p>Найдите подходящие для себя мероприятия</p>
+                    <Link to={'/exhibitions'}>Смотреть другие мероприятия</Link>
                 </div>
-                {children}
             </div>
-        } else {
-            return <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
-                <div className="exhibitions-component__header">
-                    <h3 className="exhibitions-component__title">
-                        {
-                            alias
-                                ? <><h4 className="exhibitions-component__title">Мероприятия</h4>
-                                    <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>
-                                : <Link to="/exhibitions">Мероприятия</Link>
-                        }
-                    </h3>
-                </div>
-                {children}
-            </div>
-        }
+        } else return null
     };
 
     return (
         <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
-            <div className="exhibitions-component__header">
-                <h3 className="exhibitions-component__title">
-                    {
-                        alias
-                            ? <><h4 className="exhibitions-component__title">Мероприятия</h4>
-                                <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>
-                            : <Link to="/exhibitions">Мероприятия</Link>
-                    }
-                </h3>
-            </div>
+            <SliderHeader />
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
@@ -87,19 +74,11 @@ const ExhibitionsComponent = ({ alias }) => {
                 touchThreshold={20}
                 responsive={responsiveSliderConfig}
             >
-                {/* {Placeholders.map(item => <Placeholder key={item} />)} */}
                 {exhibitions ?
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
-                {exhibitions && !alias && <div className="exhibition-card exhibitions-homepage__show-more">
-                    <img src="static/images/homepage/show-more.png" alt="" />
-                    <div className="exhibitions-homepage__show-more-wrap">
-                        <h4>У нас много других мероприятий</h4>
-                        <p>Найдите подходящие для себя мероприятия</p>
-                        <Link to={'/exhibitions'}>Смотреть другие мероприятия</Link>
-                    </div>
-                </div>}
+                <ShowMoreSlide />
             </Slider>
         </div>
     )

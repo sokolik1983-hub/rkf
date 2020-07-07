@@ -8,7 +8,6 @@ import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsComponent from "components/ExhibitionsComponent";
-//import ExhibitionsSlider from "./components/ExhibitionsSlider";
 import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import Statistics from "./components/Statistics";
 import HorizontalSwipe from "../../components/HorozintalSwipe";
