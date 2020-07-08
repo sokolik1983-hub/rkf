@@ -104,7 +104,8 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__links">
                 <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link>
+                    {/* <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link> */}
+                    <span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>
                     <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
@@ -116,7 +117,8 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__links">
                 <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link>
+                    {/* <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link> */}
+                    <span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>
                     <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
                 </div>
             </div>
