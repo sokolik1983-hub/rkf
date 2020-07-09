@@ -18,10 +18,15 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
     const cash_payment = initial.cash_payment;
     const [privacyHref, setPrivacyHref] = useState('');
     const [init, setInit] = useState(false);
+    const {stampCodes} = options;
     useEffect(() => {
         if (!init && !formik.values.id) {
             setInit(true);
             let declarant = options.declarants.find(f => f.is_default);
+            let stamp = stampCodes[0];
+            if (!!stamp) {
+                formik.setFieldValue('stamp_code', stamp.label);
+            }
             if (!!declarant) {
                 formik.setFieldValue('declarant_id', declarant.id);
             }
@@ -68,6 +73,14 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             placeholder="Выберите..." 
         />
         </FormGroup>
+        <FormGroup inline>
+                <FormField disabled={view} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code`} label={`Код клейма (<a href="/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code`, e.toUpperCase())}/>
+                <FormField disabled={view} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
+        </FormGroup>
+        <FormGroup inline>
+            <FormField disabled={update} name={`breed_id`} label='Порода' options={options.breeds} fieldType="reactSelect" placeholder="Выберите..."/>
+            <FormField disabled={view} name='dog_name' label='Кличка' />
+        </FormGroup>
 
         <FormGroup inline>
             <FormFile
@@ -87,6 +100,14 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             />
 
         </FormGroup>
+        <FormFile
+            name={`copy_pedigree_document`}
+            label='Поле загрузки копии родословной (PDF, JPEG, JPG, PNG)'
+            docId={formik.values.copy_pedigree_document_id}
+            disabled={view}
+            document_type_id={30}
+        />
+
 
         <FormGroup>
                 <br/>
@@ -101,17 +122,17 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                             name='payment_document'
                             label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
                             docId={formik.values.payment_document_id}
-                            disabled={view}
+                            disabled={view || formik.values.payment_document_accept}
                             document_type_id={5}
                             distinction="pedigree"
                         />
 
-                        <FormField className="special" required={false} disabled={view} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
+                        <FormField className="special" required={false} disabled={view  || formik.values.payment_document_accept} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <FormField disabled={view || formik.values.payment_document_accept} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>
-                        <FormField disabled={view} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view} name='inn' label='ИНН (для юр. лиц)' />
+                        <FormField disabled={view || formik.values.payment_document_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
+                        <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
                 </HideIf>
                 {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
