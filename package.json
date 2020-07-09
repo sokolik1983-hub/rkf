@@ -79,6 +79,7 @@
     "react-use": "^11.3.2",
     "react-window": "^1.8.4",
     "react-yandex-maps": "^4.2.0",
+    "react-yandex-share": "^1.0.7",
     "reactabular-sticky": "^8.14.0",
     "reactabular-table": "^8.14.0",
     "reactabular-virtualized": "^8.17.0",

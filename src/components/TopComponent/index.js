@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Card from "../Card";
 import Alert from "../Alert";
 import { DEFAULT_IMG } from "../../appConfig";
+import Share from "components/Share";
 import "./index.scss";
 
 const TopComponent = ({ logo, name, withShare = true, banner_link }) => {
@@ -61,7 +62,7 @@ const TopComponent = ({ logo, name, withShare = true, banner_link }) => {
                         <h2>{name}</h2>
                     </div>
                 </div>
-                <button type="button" className="btn-share" onClick={share} title="Поделиться" />
+                <Share />
             </div>
             {shareAlert &&
                 <Alert
