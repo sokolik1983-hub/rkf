@@ -18,7 +18,7 @@ const validation = {
     documents: array().of(object().shape({
         id: number(),
         document_type_id: number().required(reqText).typeError(reqText),
-        document_id: number().required(reqText)
+        document_id: number().required(reqText).typeError(reqText)
     }))
 }
 
