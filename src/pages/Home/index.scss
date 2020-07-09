@@ -32,9 +32,14 @@
       font-weight: normal;
     }
     &-wrap {
+      @media (max-width: 1220px) {
+        margin-top: 0 !important;
+      }
       &--fixed {
-        position: fixed;
-        max-width: 368px;
+        @media (min-width: 1220px) {
+          position: fixed;
+          max-width: 368px;
+        }
       }
     }
     &.side {
@@ -115,10 +120,17 @@
       &-wrap {
         display: flex;
         align-items: center;
-        position: sticky;
-        top: 70px;
-        background: white;
-        z-index: 1;
+        @media (min-width: 1220px) {
+          position: sticky;
+          top: 70px;
+          background: white;
+          z-index: 1;
+        }
+        @media (max-width: 1220px) {
+          overflow-x: scroll;
+          margin-right: -10px;
+        }
+
         .ListFilter {
           display: flex;
           list-style: none;
