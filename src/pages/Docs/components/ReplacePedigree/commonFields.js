@@ -43,6 +43,7 @@ const component = ({formik, view, update}) => <>
                         <FormField disabled={view || formik.values.payment_document_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
                         <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
+                {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
 </>
 
 const Common = { component, validation, initial }

@@ -105,7 +105,6 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <HideIf cond={formik.values.cash_payment}>
                     <Common.component view={view} formik={formik} update={update} />
                 </HideIf>
-                {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
             </FormGroup>
     </Card>
     {!view && <div className="stage-controls flex-row">
