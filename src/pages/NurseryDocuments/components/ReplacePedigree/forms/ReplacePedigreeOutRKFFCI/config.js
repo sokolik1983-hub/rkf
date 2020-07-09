@@ -18,7 +18,7 @@ const updateSchema = validationSchema;
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/nursery/${alias}/documents/`);}
+        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/kennel/${alias}/documents/`);}
     },
     options: {
         federations: {
