@@ -21,7 +21,13 @@
     margin-bottom: 16px;
   }
   &__filter {
-    margin-bottom: 40px;
+    position: sticky;
+    top: 134px;
+    padding-bottom: 5px;
+    background: white;
+    z-index: 1;
+
+    margin-bottom: 35px;
     display: flex;
     justify-content: space-between;
     .Dropdown {
@@ -142,9 +148,10 @@
       a,
       span {
         display: block;
-        padding: 4px 15px;
-        background: #ebf0f2;
-        border-radius: 4px;
+        padding: 4px 5px;
+        margin: 0 10px;
+        //background: #ebf0f2;
+        //border-radius: 4px;
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
@@ -153,9 +160,16 @@
         text-decoration: none;
         white-space: nowrap;
         transition: all 0.2s linear;
+        border-bottom: 2px solid transparent;
         &.active {
-          color: white;
-          background: #3366ff;
+          //color: white;
+          //background: #3366ff;
+          border-bottom: 2px solid #3366ff;
+        }
+      }
+      &:first-child {
+        a {
+          margin-left: 0;
         }
       }
     }
@@ -308,28 +322,29 @@
       padding-top: 6px;
       border-top: 1px solid #e8e8e8;
     }
-    &__show-all, &__share {
+    &__show-all,
+    &__share {
       text-decoration: none;
       display: inline-block;
       font-weight: normal;
       font-size: 16px;
       line-height: 20px;
-      letter-spacing: .2px;
+      letter-spacing: 0.2px;
       color: #36f;
       cursor: pointer;
       border-bottom: 1px solid transparent;
-      transition: border-bottom-color .2s linear;
+      transition: border-bottom-color 0.2s linear;
       &:hover {
         border-bottom-color: #36f;
       }
     }
     &__share {
       &:after {
-        content: '';
+        content: "";
         display: inline-block;
         width: 14px;
         height: 14px;
-        background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
         vertical-align: middle;
         margin-left: 4px;
       }

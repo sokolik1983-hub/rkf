@@ -56,7 +56,8 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                     </p>
                 </div>
                 <div className="exhibition-card__controls">
-                    <Link className="exhibition-card__show-all" to={`/exhibitions/${id}`}>Подробнее...</Link>
+                    <Link className="exhibition-card__button" to={`/exhibitions/${id}`}>Подробнее</Link>
+                    {/* <Link className="exhibition-card__show-all" to={`/exhibitions/${id}`}>Подробнее...</Link> */}
                     {/*<span className="exhibition-card__share" onClick={shareLink}>Поделиться</span>*/}
                 </div>
             </div>
