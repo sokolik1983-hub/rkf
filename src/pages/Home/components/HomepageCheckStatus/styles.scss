@@ -6,7 +6,7 @@
     justify-content: flex-end;
     input {
         flex-grow: 1;
-        border: none;
+        border: 1px solid lightgray;
         border-radius: 6px;
         padding: 7px;
         margin-bottom: 6px;
@@ -14,6 +14,7 @@
     }
     button {
         display: block;
+        color: white;
         margin: 0 0 6px 6px;
         padding: 4px 18px;
         background: white;
@@ -24,7 +25,7 @@
         line-height: 24px;
         border: 1px solid #3366ff;
         letter-spacing: 0.2px;
-        color: #3366ff;
+        background: #3366ff;
         box-sizing: border-box;
         border-radius: 4px;
     }
