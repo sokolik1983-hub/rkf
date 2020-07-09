@@ -1,25 +1,19 @@
 import {number,string,boolean} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
+import Common from "../../commonFields.js";
+import DogInfo from "../../dogInfo.js";
 
 const validationSchema = {
     id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
     express: boolean().required(reqText),
-    stamp_code: string().required(reqText).matches(/^[A-Z]{3}$/, {message:'Введите 3 латинские буквы'}),
-    stamp_number: numbersOnly().required(reqText),
-    dog_name: string().required(reqText),
-    breed_id: number().required(reqText).typeError(reqText),
     personal_data_document_id: number().required(reqText).typeError(reqText),
     duplicate_application_id: number().required(reqText).typeError(reqText),
     copy_pedigree_document_id: number().required(reqText).typeError(reqText),
-    payment_document_id: number().required(reqText).typeError(reqText),
-    payment_date: string().required(reqText),
-    payment_number: string().required(reqText),
-    payment_name: string().required(reqText),
-    inn: string(),
-    comment: string()
+    ...Common.validation,
+    ...DogInfo.validation
 };
 
 const updateSchema = validationSchema;
@@ -34,18 +28,11 @@ const config = {
             url: endpointGetFederations,
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
-        stampCodes: {
-            url: clubId => '/api/clubs/ClubStampCode/club?id=' + clubId,
-            mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
-        },
-        breeds: {
-            url: '/api/dog/Breed',
-            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({value: m.id, label:m.name})),
-        },
         declarants: {
             url: '/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
-        }
+        },
+        ...DogInfo.options
     },
     url: '/api/requests/replace_pedigree_request/replacepedigreeexportoldrequest',
     get: '/api/requests/replace_pedigree_request/replacepedigreeexportoldrequest',
@@ -53,19 +40,10 @@ const config = {
         federation_id: '',
         declarant_id: '',
         express: false,
-        stamp_code: '',
-        stamp_number: '',
-        dog_name: '',
-        breed_id: '',
         personal_data_document_id: '',
         duplicate_application_id: '',
-        payment_document_id: '',
-        copy_pedigree_document_id: '',
-        payment_date: '',
-        payment_number: '',
-        payment_name: '',
-        inn: '',
-        comment: ''
+        ...Common.initial,
+        ...DogInfo.initial
     }
 }
 

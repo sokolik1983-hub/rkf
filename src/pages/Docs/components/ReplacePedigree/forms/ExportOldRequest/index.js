@@ -10,23 +10,20 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
+import Common from "../../commonFields.js";
+import DogInfo from "../../dogInfo.js";
 
-// duplicate request
+// export old request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
     const [privacyHref, setPrivacyHref] = useState('');
     const [init, setInit] = useState(false);
-    const {stampCodes} = options;
     useEffect(() => {
         if (!init && !formik.values.id) {
             setInit(true);
             let declarant = options.declarants.find(f => f.is_default);
-            let stamp = stampCodes[0];
-            if (!!stamp) {
-                formik.setFieldValue('stamp_code', stamp.label);
-            }
             if (!!declarant) {
                 formik.setFieldValue('declarant_id', declarant.id);
             }
@@ -73,15 +70,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             placeholder="Выберите..." 
         />
         </FormGroup>
-        <FormGroup inline>
-                <FormField disabled={view} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code`} label={`Код клейма (<a href="/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code`, e.toUpperCase())}/>
-                <FormField disabled={view} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
-        </FormGroup>
-        <FormGroup inline>
-            <FormField disabled={update} name={`breed_id`} label='Порода' options={options.breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-            <FormField disabled={view} name='dog_name' label='Кличка' />
-        </FormGroup>
-
+        <DogInfo.component {...{options, view, update, formik, alias}}/>
         <FormGroup inline>
             <FormFile
                 name={`personal_data_document`}
@@ -114,26 +103,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки по тарифу {federation} и заполните информацию о платеже.</p>
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
-                <div className="flex-row heading-row">
-                    <h4 className="caps">Информация о платеже</h4>
-                </div>
-                    <FormGroup inline>
-                        <FormFile
-                            name='payment_document'
-                            label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
-                            docId={formik.values.payment_document_id}
-                            disabled={view || formik.values.payment_document_accept}
-                            document_type_id={5}
-                            distinction="pedigree"
-                        />
-
-                        <FormField className="special" required={false} disabled={view  || formik.values.payment_document_accept} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view || formik.values.payment_document_accept} name='payment_number' label='Номер платежного документа' />
-                    </FormGroup>
-                    <FormGroup inline>
-                        <FormField disabled={view || formik.values.payment_document_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
-                    </FormGroup>
+                    <Common.component view={view} formik={formik} update={update} />
                 </HideIf>
                 {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
             </FormGroup>
