@@ -1,6 +1,6 @@
 import React from 'react';
 import {reqText, numbersOnly} from "./config.js";
-import {number,string,boolean} from "yup";
+import {number,string,boolean,object,array,mixed} from "yup";
 import { FormGroup, FormField } from "components/Form";
 import {FieldArray} from "formik";
 import FormFile from "./components/FormFile";
@@ -14,7 +14,16 @@ const validation = {
     payment_number: string().required(reqText),
     payment_name: string().required(reqText),
     inn: string(),
-    comment: string()
+    comment: string(),
+    documents: array().of(object().shape({
+        id: number(),
+        document_type_id: mixed().when('document', {
+            is: '',
+            then: mixed(),
+            otherwise: number().required(reqText).typeError(reqText)
+        }),
+        document: number()
+    }))
 }
 
 const initial = {
