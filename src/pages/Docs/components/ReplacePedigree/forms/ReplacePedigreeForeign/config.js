@@ -28,7 +28,8 @@ const config = {
         declarants: {
             url: '/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
-        }
+        },
+        ...Common.options
     },
     url: '/api/requests/replace_pedigree_request/replacepedigreeforeignrequest',
     get: '/api/requests/replace_pedigree_request/replacepedigreeforeignrequest',

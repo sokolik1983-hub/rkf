@@ -95,7 +95,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки по тарифу {federation} и заполните информацию о платеже.</p>
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
-                    <Common.component view={view} formik={formik} update={update} />
+                    <Common.component {...{view, formik, update, options}} />
                 </HideIf>
             </FormGroup>
     </Card>

@@ -31,6 +31,7 @@ const config = {
             url: '/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         },
+        ...Common.options,
         ...DogInfo.options
     },
     url: '/api/requests/replace_pedigree_request/replacepedigreeduplicaterequest',

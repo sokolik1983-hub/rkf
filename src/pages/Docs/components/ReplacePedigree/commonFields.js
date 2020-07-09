@@ -2,7 +2,11 @@ import React from 'react';
 import {reqText, numbersOnly} from "./config.js";
 import {number,string,boolean} from "yup";
 import { FormGroup, FormField } from "components/Form";
+import {FieldArray} from "formik";
 import FormFile from "./components/FormFile";
+import HideIf from "components/HideIf";
+import DeleteButton from "./components/DeleteButton";
+import Button from "components/Button";
 
 const validation = {
     payment_document_id: number().required(reqText).typeError(reqText),
@@ -19,10 +23,18 @@ const initial = {
     payment_number: '',
     payment_name: '',
     inn: '',
-    comment: ''
+    comment: '',
+    documents: []
 }
 
-const component = ({formik, view, update}) => <>
+const options = {
+    doctypes: {
+        url: '/api/requests/replace_pedigree_request/replacepedigreerequest/additional_document_types',
+        mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})),
+    }
+}
+
+const component = ({formik, view, update, options}) => <>
     <div className="flex-row heading-row">
         <h4 className="caps">Информация о платеже</h4>
     </div>
@@ -33,7 +45,6 @@ const component = ({formik, view, update}) => <>
                             docId={formik.values.payment_document_id}
                             disabled={view || formik.values.payment_document_accept}
                             document_type_id={5}
-                            distinction="pedigree"
                         />
 
                         <FormField className="special" required={false} disabled={view  || formik.values.payment_document_accept} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
@@ -44,10 +55,36 @@ const component = ({formik, view, update}) => <>
                         <FormField disabled={view || formik.values.payment_document_accept} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
                 {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
+            <FieldArray name={`documents`} render={({push, remove}) => (<>
+            {formik.values.documents && formik.values.documents.map((doc,j) => <FormGroup inline key={j}>
+                    <input type="hidden" name={`documents[${j}].id`} />
+                    <FormField disabled={view || doc.document_accept} options={options.doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
+                    <HideIf cond={view || doc.document_accept}>
+                        <FormFile
+                            name={`documents[${j}].document`}
+                            label={`Документ ${j + 1}`}
+                            docId={doc.document_id}
+                            disabled={view || doc.document_accept}
+                            document_type_id={doc.document_type_id}
+                            fieldType="file"
+                        />
+                    </HideIf>
+                    <HideIf cond={view || doc.document_accept}>
+                        <DeleteButton onClick={() => remove(j)} title="Удалить"/>
+                    </HideIf>
+                </FormGroup>)}
+                <HideIf cond={view || (formik.values.documents && formik.values.documents.length > 29)}>
+                    <div className="flex-row">
+                        <Button small className="btn-primary" onClick={() => push({document_type_id:'',document:''})}>Добавить доп. документ</Button>
+                    </div>
+                </HideIf>
+            </>)}
+            />
+
 </>
 
-const Common = { component, validation, initial }
+const Common = { component, validation, initial, options }
 
 export default Common
 
-export { validation, component, initial }
+export { validation, component, initial, options }
