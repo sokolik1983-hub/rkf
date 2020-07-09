@@ -42,6 +42,7 @@ const config = {
         express: false,
         personal_data_document_id: '',
         duplicate_application_id: '',
+        copy_pedigree_document_id: '',
         ...Common.initial,
         ...DogInfo.initial
     }

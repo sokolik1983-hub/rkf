@@ -1,6 +1,8 @@
 import {number,string,boolean} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
+import Common from "../../commonFields.js";
+import DogInfo from "../../dogInfo.js";
 
 const validationSchema = {
     id: number(),
@@ -9,12 +11,9 @@ const validationSchema = {
     express: boolean().required(reqText),
     personal_data_document_id: number().required(reqText).typeError(reqText),
     duplicate_application_id: number().required(reqText).typeError(reqText),
-    payment_document_id: number().required(reqText).typeError(reqText),
-    payment_date: string().required(reqText),
-    payment_number: string().required(reqText),
-    payment_name: string().required(reqText),
-    inn: string(),
-    comment: string()
+    copy_pedigree_document_id: number().required(reqText).typeError(reqText),
+    ...Common.validation,
+    ...DogInfo.validation
 };
 
 const updateSchema = validationSchema;
@@ -32,7 +31,8 @@ const config = {
         declarants: {
             url: '/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
-        }
+        },
+        ...DogInfo.options
     },
     url: '/api/requests/replace_pedigree_request/replacepedigreeoldrequest',
     get: '/api/requests/replace_pedigree_request/replacepedigreeoldrequest',
@@ -42,12 +42,9 @@ const config = {
         express: false,
         personal_data_document_id: '',
         duplicate_application_id: '',
-        payment_document_id: '',
-        payment_date: '',
-        payment_number: '',
-        payment_name: '',
-        inn: '',
-        comment: ''
+        copy_pedigree_document_id: '',
+        ...Common.initial,
+        ...DogInfo.initial
     }
 }
 
