@@ -54,45 +54,56 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
     useEffect(() => {
         const scrollListener = () => {
             let el = sidebarRef.current;
-            var winHeight = window.innerHeight;
-            var elHeight = el.offsetHeight;
-            var winTop = window.scrollY;
-
-            // console.log(`winTop: ${winTop}\nelHeight: ${elHeight}\nwinHeight: ${winHeight}`);
-            // console.log(1100 + sidebarTopMargin + (elHeight - winHeight));
+            let winHeight = window.innerHeight;
+            let elHeight = el.offsetHeight;
+            let winTop = window.scrollY;
 
             if (winTop > prevPosition) { // Scroll down
-                if (winTop >= (elHeight + 1250) - winHeight) { // Fix sidebar
-                    el.classList.add("home-page__right-wrap--fixed");
-                    el.style.bottom = 0;
-                    setPrevPosition(winTop);
-                    el.style.removeProperty('top');
-                    el.style.removeProperty('margin-top');
-                } else {
-                    if (el.classList.contains('home-page__right-wrap--fixed')) { // Unfix sidebar
+                setPrevPosition(winTop);
+                if (winTop >= (elHeight + 1250) - winHeight) {
+                    if (!el.classList.contains('home-page__right-wrap--fixed') && !el.style.top && !el.style.bottom) {
+                        el.classList.add("home-page__right-wrap--fixed");
+                        el.style.bottom = 0;
+                        el.style.removeProperty('margin-top');
+                    } else {
+                        if (el.style.marginTop && (winTop >= (elHeight + 1250) - winHeight + parseInt(el.style.marginTop))) {
+                            el.classList.add("home-page__right-wrap--fixed");
+                            el.style.bottom = 0;
+                            el.style.removeProperty('top');
+                            el.style.removeProperty('margin-top');
+                        } else {
+                            if (el.style.top && el.classList.contains('home-page__right-wrap--fixed')) {
+                                el.classList.remove("home-page__right-wrap--fixed");
+                                el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1100) + (elHeight - winHeight)}px`;
+                            }
+                        }
+                    }
+                    if (winTop >= 2620) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        //el.style.marginTop = `${(winTop - 1100 - (winHeight - elHeight))}px`;
-                        el.style.marginTop = `${(winTop - 1230) - (elHeight - winHeight)}px`;
+                        el.style.marginTop = `910px`;
+                    }
+                } else {
+                    if (el.classList.contains('home-page__right-wrap--fixed') && !el.style.bottom) {
+                        el.classList.remove("home-page__right-wrap--fixed");
+                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1150) + (elHeight - winHeight)}px`;
                     }
                 }
             } else { // Scroll up
+                setPrevPosition(winTop);
                 if (winTop >= 1100) {
                     if (!el.classList.contains("home-page__right-wrap--fixed")) {
-                        if (winTop <= (1180 + parseInt(el.style.marginTop))) { // Fix sidebar
-
+                        if (winTop <= (1180 + parseInt(el.style.marginTop))) {
                             el.classList.add("home-page__right-wrap--fixed");
                             el.style.top = '80px';
                             el.style.removeProperty('bottom');
                             el.style.removeProperty('margin-top');
-                            setPrevPosition(winTop);
                         }
                     }
                     else {
-                        if (el.style.bottom) { // Unfix sidebar
-                            console.log(`winTop: ${winTop}\nelHeight: ${elHeight}\nwinHeight: ${winHeight}\nsidebarTopMargin: ${(winHeight - elHeight) + (winTop - 1230)}`);
+                        if (el.style.bottom) {
                             el.style.removeProperty('top');
                             el.classList.remove("home-page__right-wrap--fixed");
-                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1230)}px`; // GOOD
+                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1230)}px`;
                         }
                     }
 
@@ -110,20 +121,6 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
         window.addEventListener('scroll', scrollListener);
         return () => window.removeEventListener('scroll', scrollListener);
     }, [prevPosition]);
-
-    // window.addEventListener('scroll', function () {
-    //     var el = sidebarRef.current;
-    //     var winHeight = window.innerHeight;
-    //     //var rightHeight = el.offsetHeight;
-    //     var winTop = window.scrollY;
-    //     console.log(winTop + ' ' + '2600' + ' ' + winHeight)
-    //     if (winTop >= 2600 - winHeight) {
-    //         el.classList.add("home-page__right-wrap--fixed");
-    //     } else {
-    //         el.classList.remove("home-page__right-wrap--fixed");
-    //     };
-
-    // });
 
     const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), onSuccess);
 
@@ -146,7 +143,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                         listNotFound="Новости не найдены"
                         listClass="news-list"
                         isFullDate={false}
-                        pagesCount={Math.ceil(articles_count / 4)}
+                        pagesCount={Math.ceil(articles_count / 10)}
                         currentPage={page}
                         setPage={setPage}
                         setNewsFilter={setNewsFilter}
