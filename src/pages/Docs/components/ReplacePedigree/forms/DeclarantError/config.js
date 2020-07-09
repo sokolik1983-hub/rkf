@@ -28,10 +28,6 @@ const config = {
             url: endpointGetFederations,
             mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.short_name}))
         },
-        stampCodes: {
-            url: clubId => '/api/clubs/ClubStampCode/club?id=' + clubId,
-            mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code}))
-        },
         declarants: {
             url: '/api/clubs/Declarant/club_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
