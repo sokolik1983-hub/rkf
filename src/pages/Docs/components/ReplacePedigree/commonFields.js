@@ -63,7 +63,7 @@ const component = ({formik, view, update, options}) => <>
             {formik.values.documents && formik.values.documents.map((doc,j) => <FormGroup inline key={j}>
                     <input type="hidden" name={`documents[${j}].id`} />
                     <FormField disabled={view || doc.document_accept} options={options.doctypes} label={`Документ ${j + 1} - описание`} placeholder="Выберите..." fieldType="reactSelect" name={`documents[${j}].document_type_id`} />
-                    <HideIf cond={view || doc.document_accept}>
+                    <HideIf>
                         <FormFile
                             name={`documents[${j}].document`}
                             label={`Документ ${j + 1}`}
