@@ -17,12 +17,8 @@ const validation = {
     comment: string(),
     documents: array().of(object().shape({
         id: number(),
-        document_type_id: mixed().when('document', {
-            is: '',
-            then: mixed(),
-            otherwise: number().required(reqText).typeError(reqText)
-        }),
-        document: number()
+        document_type_id: number().required(reqText).typeError(reqText),
+        document_id: number().required(reqText)
     }))
 }
 
