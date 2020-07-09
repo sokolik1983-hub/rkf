@@ -38,7 +38,7 @@ const initial = {
 
 const options = {
     doctypes: {
-        url: '/api/requests/replace_pedigree_request/replacepedigreerequest/additional_document_types',
+        url: '/api/requests/replace_pedigree_request/nurseryreplacepedigreerequest/additional_document_types',
         mapping: data => data.sort((a,b) => a.id - b.id).map(m => ({value: m.id, label:m.name_rus})),
     }
 }
