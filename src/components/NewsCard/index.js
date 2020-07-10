@@ -6,6 +6,7 @@ import {getLocalizedMonth} from "../../utils/datetime";
 import {formatText} from "../../utils";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+import Share from "components/Share";
 
 
 const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo_link, picture_link, content, canEdit, onDelete}) => {
@@ -55,7 +56,7 @@ const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo
                     <p className="news-card__text" dangerouslySetInnerHTML={{ __html: formatText(content) }} />
                     <div className="news-card__controls">
                         <Link to={`/news/${id}`} className="news-card__show-all">Подробнее...</Link>
-                        <span className="news-card__share" onClick={shareLink}>Поделиться</span>
+                        <Share />
                     </div>
                 </div>
             </div>

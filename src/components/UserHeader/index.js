@@ -4,6 +4,7 @@ import Card from "../Card";
 import Alert from "../Alert";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+import Share from "components/Share";
 
 
 const UserHeader = ({user, logo, banner, name, federationName, federationAlias}) => {
@@ -32,7 +33,7 @@ const UserHeader = ({user, logo, banner, name, federationName, federationAlias})
                         }
                     </div>
                 </div>
-                <button type="button" className="btn-share" onClick={share} title="Поделиться" />
+                <Share />
             </div>
             {shareAlert &&
                 <Alert
