@@ -1,0 +1,24 @@
+.ya-share2 span:hover {
+    color: #3366ff!important;
+}
+
+.ya-share2__icon_more {
+      border-width: 0!important;
+      box-shadow: none!important;
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+        vertical-align: middle;
+        margin-left: 4px;
+        transform: scale(1.3);
+        position: relative;
+        top: 2px;
+        right: 1px;
+      }
+      &:before {
+        content: ''!important;
+      }
+    }
