@@ -14,6 +14,7 @@
     &__input {
         display: flex;
         flex-grow: 1;
+        border: 1px solid lightgray;
         border-radius: 6px;
         padding: 5px;
         margin-bottom: 6px;
@@ -33,9 +34,9 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 24px;
-            border: 1px solid #3366ff;
             letter-spacing: 0.2px;
-            color: #3366ff;
+            color: white;
+            background: #3366ff;
             box-sizing: border-box;
             border-radius: 4px;
         }

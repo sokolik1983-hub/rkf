@@ -26,11 +26,11 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                 <div className="exhibition-card__info">
                     <Link className="exhibition-card__link" to={`/exhibitions/${id}`}>{exhibition_name}</Link>
                     <p className="exhibition-card__info-item">
-                        <span>Организатор:</span>
-                        <span title={club_name}>
+                        {/* <span>Организатор:</span> */}
+                        <span title={club_name} style={{color: '#253c5e',fontSize:'16px'}}>
                             {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                 <>
-                                    <span style={{color: '#72839c'}}>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
+                                    <span style={{color: '#72839c',fontSize:'18px'}}>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
                                     &nbsp;
                                 </>
                             }
