@@ -12,7 +12,7 @@ const HomepageCheckStatus = () => {
     };
 
     return <Card>
-        <h3 style={{ fontSize: '22px' }}>Статус документов</h3>
+        <h3>Статус документов</h3>
         <form onSubmit={handleSubmit} className="HomepageCheckStatus">
             <input
                 type="text"

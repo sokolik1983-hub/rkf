@@ -72,12 +72,12 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     }
                     if (winTop >= 2480) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `853px`;
+                        el.style.marginTop = `900px`;
                     }
                 } else {
                     if (el.classList.contains('home-page__right-wrap--fixed') && !el.style.bottom) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1080) + (elHeight - winHeight)}px`;
+                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1010) + (elHeight - winHeight)}px`;
                     }
                 }
             } else { // Scroll up
