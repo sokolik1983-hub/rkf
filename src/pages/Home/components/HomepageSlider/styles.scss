@@ -1,8 +1,8 @@
 .HomepageSlider {
-  max-height: 548px;
-  padding: 70px 16px 0;
+  max-height: 528px;
+  padding: 50px 16px 0;
   background: #eaf0fe;
-  margin-bottom: 44px;
+  margin-bottom: 24px;
   @media (max-width: 768px) {
     min-height: auto;
     padding: 50px 0 0;
@@ -13,7 +13,7 @@
     background: none;
   }
   @media (min-width: 1200px){
-    height: 548px;
+    height: 528px;
   }
   .slick-slider {
     max-width: 1184px;

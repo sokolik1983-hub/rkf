@@ -10,6 +10,10 @@
     @media (max-width: 990px) {
       display: block;
     }
+    @media (max-width: 560px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
   h3 {
     margin-bottom: 12px;
@@ -22,14 +26,27 @@
         max-width: 100%;
       }
     }
+    &-wrap {
+      @media (max-width: 560px) {
+        display: none;
+      }
+    }
   }
-  &__map-wrap {
+  &__map {
     height: 300px;
+    &-wrap {
+      @media (max-width: 560px) {
+        display: none;
+      }
+    }
   }
   &__right {
     h3 {
       font-size: 22px;
       font-weight: normal;
+    }
+    h4 {
+      margin: 12px 0 8px;
     }
     &-wrap {
       @media (max-width: 1220px) {
@@ -40,6 +57,29 @@
           position: fixed;
           max-width: 368px;
         }
+      }
+    }
+    &-map {
+      display: none;
+      a {
+        color: #253c5e;
+        text-decoration: none;
+      }
+      @media (max-width: 560px) {
+        display: block;
+      }
+    }
+    &-socials {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      a {
+        width: 20px;
+        height: 20px;
+      }
+      @media (max-width: 768px) {
+        order: -1;
+        margin-bottom: 16px;
       }
     }
     &.side {
@@ -56,6 +96,9 @@
       @media (max-width: 768px) {
         width: 100%;
         margin: 0 0 40px;
+      }
+      @media (max-width: 560px) {
+        margin: 0;
       }
     }
     .Card {
@@ -103,8 +146,8 @@
       padding: 10px 0;
 
       font-weight: bold;
-      font-size: 36px;
-      line-height: 44px;
+      font-size: 26px;
+      line-height: 32px;
       color: #253c5e;
       margin: 0 10px 0 0;
       @media (max-width: 768px) {
@@ -120,9 +163,11 @@
       &-wrap {
         display: flex;
         align-items: center;
+        margin: 0 -10px;
+        padding: 0 10px;
         @media (min-width: 1220px) {
           position: sticky;
-          top: 70px;
+          top: 50px;
           background: white;
           z-index: 1;
         }

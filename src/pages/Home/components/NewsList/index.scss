@@ -14,6 +14,9 @@
     width: 100%;
     min-width: auto;
   }
+  @media (max-width: 560px) {
+    margin: 12px 0;
+  }
   &__content {
     list-style: none;
   }
@@ -23,7 +26,7 @@
   &__filter {
     @media (min-width: 1220px) {
       position: sticky;
-      top: 134px;
+      top: 102px;
       background: white;
       z-index: 1;
       margin: 0 -10px;
