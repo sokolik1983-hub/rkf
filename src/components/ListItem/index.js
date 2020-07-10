@@ -5,6 +5,7 @@ import {formatText} from "../../utils";
 import {formatDateTime} from "../../utils/datetime";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+import Share from "components/Share";
 
 
 const ListItem = ({ user, id, club_name, city, date, logo_link, photo, text, url, removable, onDelete }) => {
@@ -50,7 +51,8 @@ const ListItem = ({ user, id, club_name, city, date, logo_link, photo, text, url
                     <p className="list-item__text" dangerouslySetInnerHTML={{ __html: formatText(text) }} />
                     <div className="list-item__controls">
                         <Link to={url} className="list-item__show-all">Подробнее...</Link>
-                        <span className="list-item__share" onClick={shareLink}>Поделиться</span>
+                        {/*<span className="list-item__share" onClick={shareLink}>Поделиться</span>*/}
+                        <Share />
                     </div>
                 </div>
             </div>
