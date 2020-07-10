@@ -72,7 +72,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     }
                     if (winTop >= 2480) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `900px`;
+                        el.style.marginTop = `1000px`;
                     }
                 } else {
                     if (el.classList.contains('home-page__right-wrap--fixed') && !el.style.bottom) {
@@ -141,8 +141,8 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                             <Card>
                                 <h3>{RKFInfo.aboutTitle}</h3>
                                 <p>{RKFInfo.about}</p>
-                                <h4 className="home-page__right-map"><Link to="/clubs-map">Карта авторизованных клубов</Link></h4>
-                                <h4>РКФ в соцсетях</h4>
+                                <h3 className="home-page__right-map"><Link to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                <h3 style={{marginBottom: '12px'}}>РКФ в соцсетях</h3>
                                 <div className="home-page__right-socials">
                                     <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                     <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
