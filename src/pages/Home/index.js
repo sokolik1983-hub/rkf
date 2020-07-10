@@ -30,15 +30,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
         activeType: current_active_type
     });
     const [page, setPage] = useState(current_page);
-
-    const [activeType, setActiveType] = useState(false);
     const [prevPosition, setPrevPosition] = useState(null);
-    const handleClick = (e) => {
-        e.preventDefault();
-        setActiveType(e.target.name);
-    };
-
-
 
     const buildNewsQuery = () => newsFilter && `${endpointGetNews}?size=10&page=${page ? page : 1}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`;
 
@@ -60,13 +52,13 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
 
             if (winTop > prevPosition) { // Scroll down
                 setPrevPosition(winTop);
-                if (winTop >= (elHeight + 1250) - winHeight) {
+                if (winTop >= (elHeight + 1080) - winHeight) {
                     if (!el.classList.contains('home-page__right-wrap--fixed') && !el.style.top && !el.style.bottom) {
                         el.classList.add("home-page__right-wrap--fixed");
                         el.style.bottom = 0;
                         el.style.removeProperty('margin-top');
                     } else {
-                        if (el.style.marginTop && (winTop >= (elHeight + 1250) - winHeight + parseInt(el.style.marginTop))) {
+                        if (el.style.marginTop && (winTop >= (elHeight + 1080) - winHeight + parseInt(el.style.marginTop))) {
                             el.classList.add("home-page__right-wrap--fixed");
                             el.style.bottom = 0;
                             el.style.removeProperty('top');
@@ -74,27 +66,27 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                         } else {
                             if (el.style.top && el.classList.contains('home-page__right-wrap--fixed')) {
                                 el.classList.remove("home-page__right-wrap--fixed");
-                                el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1100) + (elHeight - winHeight)}px`;
+                                el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1020) + (elHeight - winHeight)}px`;
                             }
                         }
                     }
-                    if (winTop >= 2620) {
+                    if (winTop >= 2480) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `910px`;
+                        el.style.marginTop = `853px`;
                     }
                 } else {
                     if (el.classList.contains('home-page__right-wrap--fixed') && !el.style.bottom) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1150) + (elHeight - winHeight)}px`;
+                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1080) + (elHeight - winHeight)}px`;
                     }
                 }
             } else { // Scroll up
                 setPrevPosition(winTop);
-                if (winTop >= 1100) {
+                if (winTop >= 1020) {
                     if (!el.classList.contains("home-page__right-wrap--fixed")) {
-                        if (winTop <= (1180 + parseInt(el.style.marginTop))) {
+                        if (winTop <= (1000 + parseInt(el.style.marginTop))) {
                             el.classList.add("home-page__right-wrap--fixed");
-                            el.style.top = '80px';
+                            el.style.top = '60px';
                             el.style.removeProperty('bottom');
                             el.style.removeProperty('margin-top');
                         }
@@ -103,7 +95,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                         if (el.style.bottom) {
                             el.style.removeProperty('top');
                             el.classList.remove("home-page__right-wrap--fixed");
-                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1230)}px`;
+                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1050)}px`;
                         }
                     }
 
@@ -129,14 +121,6 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
             <HomepageSlider />
             <ExhibitionsComponent />
             <Container className="home-page__news">
-                <div className="Homepage__news-title-wrap">
-                    <h3 className="Homepage__news-title">Публикации</h3>
-                    <ul className="ListFilter">
-                        <li><a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a></li>
-                        <li><a href="/" onClick={handleClick} name="news" className={activeType === 'news' ? 'active' : undefined}>Новости</a></li>
-                        <li style={{ opacity: '0.5' }}><span>Объявления</span></li>
-                    </ul>
-                </div>
                 <div className="home-page__news-wrap">
                     <NewsList
                         list={articles}
@@ -157,10 +141,21 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                             <Card>
                                 <h3>{RKFInfo.aboutTitle}</h3>
                                 <p>{RKFInfo.about}</p>
+                                <h4 className="home-page__right-map"><Link to="/clubs-map">Карта авторизованных клубов</Link></h4>
+                                <h4>РКФ в соцсетях</h4>
+                                <div className="home-page__right-socials">
+                                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
+                                </div>
                             </Card>
                             {/* <Statistics /> */}
                             <HomepageCheckStatus />
-                            <Card>
+                            <Card className="home-page__projects-wrap">
                                 <h3>Международные мероприятия</h3>
                                 <div className="home-page__projects">
                                     {exhibitions.map(i => (
@@ -170,9 +165,9 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                                     ))}
                                 </div>
                             </Card>
-                            <Card>
+                            <Card className="home-page__map-wrap">
                                 <h3>Карта авторизованных клубов</h3>
-                                <div className="home-page__map-wrap">
+                                <div className="home-page__map">
                                     <ClubsMap />
                                 </div>
                             </Card>
@@ -234,7 +229,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     <ClubsMap />
                 </div>
             </Container> */}
-        </Layout>
+        </Layout >
     )
 };
 
