@@ -59,7 +59,7 @@ const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage,
                     <p className="list-item__text" dangerouslySetInnerHTML={{ __html: formatText(text) }} />
                     <div className="list-item__controls">
                         <Link to={url} className="list-item__show-all">Подробнее...</Link>
-                        <Share />
+                        <Share url={`https://rkf.online${url}`}/>
                     </div>
                 </div>
             </div>

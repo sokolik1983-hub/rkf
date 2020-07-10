@@ -52,7 +52,7 @@ const ListItem = ({ user, id, club_name, city, date, logo_link, photo, text, url
                     <div className="list-item__controls">
                         <Link to={url} className="list-item__show-all">Подробнее...</Link>
                         {/*<span className="list-item__share" onClick={shareLink}>Поделиться</span>*/}
-                        <Share />
+                        <Share url={`https://rkf.online${url}`} />
                     </div>
                 </div>
             </div>

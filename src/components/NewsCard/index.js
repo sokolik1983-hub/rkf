@@ -56,7 +56,7 @@ const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo
                     <p className="news-card__text" dangerouslySetInnerHTML={{ __html: formatText(content) }} />
                     <div className="news-card__controls">
                         <Link to={`/news/${id}`} className="news-card__show-all">Подробнее...</Link>
-                        <Share />
+                        <Share url={`https://rkf.online/news/${id}`} />
                     </div>
                 </div>
             </div>
