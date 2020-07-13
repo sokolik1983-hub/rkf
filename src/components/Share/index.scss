@@ -19,15 +19,13 @@
       &:after {
         content: '';
         display: inline-block;
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 24px;
         background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
         vertical-align: middle;
-        margin-left: 4px;
-        transform: scale(1.3);
         position: absolute;
-        top: 2px;
-        right: 2px;
+        top: 0;
+        right: 0;
       }
       &:before {
         display: none;
