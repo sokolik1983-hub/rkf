@@ -173,6 +173,12 @@
           background: white;
           z-index: 1;
         }
+        @media (max-width: 560px) {
+          position: sticky;
+          top: 48px;
+          background: white;
+          z-index: 1;
+        }
         @media (max-width: 375px) {
           overflow-x: scroll;
           margin-right: -10px;

@@ -36,7 +36,7 @@
     justify-content: space-between;
   }
   .slick-slider {
-    margin: 0 -20px;
+    //margin: 0 -20px;
     @media (max-width: 1220px) {
       margin: 0 -12px;
     }
@@ -60,7 +60,7 @@
   .slick-slide {
     display: flex;
     height: auto;
-    margin: 0 20px;
+    margin: 0 6px;
     padding-bottom: 24px;
     @media (max-width: 1220px) {
       margin: 0 12px;

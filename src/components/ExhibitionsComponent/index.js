@@ -68,7 +68,9 @@ const ExhibitionsComponent = ({ alias }) => {
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
                 touchThreshold={20}
+                variableWidth={true}
                 responsive={responsiveSliderConfig}
+
             >
                 {exhibitions ?
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :

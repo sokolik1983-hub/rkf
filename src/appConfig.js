@@ -372,7 +372,8 @@ const responsiveSliderConfig = [
         settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            touchThreshold: 5
+            touchThreshold: 5,
+            variableWidth: false
         }
     },
     {
@@ -382,7 +383,8 @@ const responsiveSliderConfig = [
             slidesToScroll: 1,
             centerMode: true,
             arrows: false,
-            centerPadding: '100px'
+            centerPadding: '100px',
+            variableWidth: false
         }
     },
     {
@@ -392,7 +394,8 @@ const responsiveSliderConfig = [
             slidesToScroll: 1,
             centerMode: true,
             arrows: false,
-            centerPadding: '25px'
+            centerPadding: '25px',
+            variableWidth: false
         }
     }
 ];
