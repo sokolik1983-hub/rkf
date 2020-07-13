@@ -11,7 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
 
 
-const Placeholders = [0, 1, 2];
+const Placeholders = [0, 1, 2, 3];
 
 const ExhibitionsComponent = ({ alias }) => {
     const [exhibitions, setExhibitions] = useState(null);
