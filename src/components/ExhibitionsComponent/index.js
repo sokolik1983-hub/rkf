@@ -11,7 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
 
 
-const Placeholders = [0, 1, 2];
+const Placeholders = [0, 1, 2, 3];
 
 const ExhibitionsComponent = ({ alias }) => {
     const [exhibitions, setExhibitions] = useState(null);
@@ -68,7 +68,9 @@ const ExhibitionsComponent = ({ alias }) => {
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
                 touchThreshold={20}
+                variableWidth={true}
                 responsive={responsiveSliderConfig}
+
             >
                 {exhibitions ?
                     exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
