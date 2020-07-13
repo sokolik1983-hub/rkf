@@ -38,7 +38,7 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                         </span>
                     </p>
                     <p className="exhibition-card__info-item _date">
-                        <span>Дата:</span>
+                        <span>Дата</span>
                         <span>
                             {date === date_end ?
                                 formatDateCommon(new Date(date)) :
@@ -47,11 +47,11 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                         </span>
                     </p>
                     <p className="exhibition-card__info-item">
-                        <span>Ранг:</span>
+                        <span>Ранг</span>
                         <span title={ranksString}>{ranksString}</span>
                     </p>
                     <p className="exhibition-card__info-item">
-                        <span>Город:</span>
+                        <span>Город</span>
                         <span title={city_name}>{city_name}</span>
                     </p>
                 </div>

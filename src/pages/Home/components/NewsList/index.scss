@@ -277,7 +277,7 @@
     }
     &__city {
       position: relative;
-      padding-left: 18px;
+      padding-left: 22px;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
@@ -292,13 +292,12 @@
       }
       &:before {
         content: "";
-        width: 12px;
-        height: 16px;
-        background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
         position: absolute;
+        width: 14px;
+        height: 20px;
         left: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 2px;
+        background: url("/static/icons/pin-gray.svg") center no-repeat;
       }
       @media (max-width: 560px) {
         display: block;
