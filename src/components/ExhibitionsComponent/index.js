@@ -38,9 +38,9 @@ const ExhibitionsComponent = ({ alias }) => {
     if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
 
     const SliderHeader = () => <div className="exhibitions-component__header">
-        <h3 className="exhibitions-component__title">
-            {alias && <>Мероприятия <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link></>}
-        </h3>
+        {alias && <h3 className="exhibitions-component__title">
+            Мероприятия <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
+        </h3>}
     </div>;
 
     const ShowMoreSlide = () => {

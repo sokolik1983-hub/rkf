@@ -52,13 +52,13 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
 
             if (winTop > prevPosition) { // Scroll down
                 setPrevPosition(winTop);
-                if (winTop >= (elHeight + 1080) - winHeight) {
+                if (winTop >= (elHeight + 1040) - winHeight) {
                     if (!el.classList.contains('home-page__right-wrap--fixed') && !el.style.top && !el.style.bottom) {
                         el.classList.add("home-page__right-wrap--fixed");
                         el.style.bottom = 0;
                         el.style.removeProperty('margin-top');
                     } else {
-                        if (el.style.marginTop && (winTop >= (elHeight + 1080) - winHeight + parseInt(el.style.marginTop))) {
+                        if (el.style.marginTop && (winTop >= (elHeight + 1040) - winHeight + parseInt(el.style.marginTop))) {
                             el.classList.add("home-page__right-wrap--fixed");
                             el.style.bottom = 0;
                             el.style.removeProperty('top');
@@ -66,25 +66,25 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                         } else {
                             if (el.style.top && el.classList.contains('home-page__right-wrap--fixed')) {
                                 el.classList.remove("home-page__right-wrap--fixed");
-                                el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1020) + (elHeight - winHeight)}px`;
+                                el.style.marginTop = `${(winHeight - elHeight) + (winTop - 990) + (elHeight - winHeight)}px`;
                             }
                         }
                     }
-                    if (winTop >= 2480) {
+                    if (winTop >= 2490) {
                         el.classList.remove("home-page__right-wrap--fixed");
                         el.style.marginTop = `1000px`;
                     }
                 } else {
                     if (el.classList.contains('home-page__right-wrap--fixed') && !el.style.bottom) {
                         el.classList.remove("home-page__right-wrap--fixed");
-                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1010) + (elHeight - winHeight)}px`;
+                        el.style.marginTop = `${(winHeight - elHeight) + (winTop - 980) + (elHeight - winHeight)}px`;
                     }
                 }
             } else { // Scroll up
                 setPrevPosition(winTop);
-                if (winTop >= 1020) {
+                if (winTop >= 970) {
                     if (!el.classList.contains("home-page__right-wrap--fixed")) {
-                        if (winTop <= (1000 + parseInt(el.style.marginTop))) {
+                        if (winTop <= (970 + parseInt(el.style.marginTop))) {
                             el.classList.add("home-page__right-wrap--fixed");
                             el.style.top = '60px';
                             el.style.removeProperty('bottom');
@@ -95,7 +95,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                         if (el.style.bottom) {
                             el.style.removeProperty('top');
                             el.classList.remove("home-page__right-wrap--fixed");
-                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1050)}px`;
+                            el.style.marginTop = `${(winHeight - elHeight) + (winTop - 1020)}px`;
                         }
                     }
 
@@ -141,8 +141,9 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                             <Card>
                                 <h3>{RKFInfo.aboutTitle}</h3>
                                 <p>{RKFInfo.about}</p>
-                                <h3 className="home-page__right-map"><Link to="/clubs-map">Карта авторизованных клубов</Link></h3>
-                                <h3 style={{marginBottom: '12px'}}>РКФ в соцсетях</h3>
+                            </Card>
+                            <Card>
+                                <h3 style={{ marginBottom: '12px' }}>РКФ в соцсетях</h3>
                                 <div className="home-page__right-socials">
                                     <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                     <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
