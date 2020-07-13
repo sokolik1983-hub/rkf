@@ -17,7 +17,7 @@ class StatusTable extends PureComponent {
         searchQuery: {},
         searchColumn: 'all',
         sortingColumns: null,
-        pagination: {page: 1, perPage: 20},
+        pagination: {page: 1, perPage: 50},
         distinction: this.props.distinction,
         alias: this.props.alias,
         rows: this.props.documents,
