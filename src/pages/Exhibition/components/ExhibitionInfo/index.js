@@ -16,6 +16,8 @@ const ExhibitionInfo = ({
     rank_types,
     breed_types,
     description,
+    judges,
+    comments,
     documents_links,
     schedule_link,
     catalog_link,
@@ -88,6 +90,16 @@ const ExhibitionInfo = ({
                         <p dangerouslySetInnerHTML={{ __html: description }} /> :
                         <p>Описание отсутствует</p>
                     }
+                </div>
+            </Card>
+            <Card className="exhibition-info two">
+                <div className="exhibition-page__description">
+                    <h4 className="exhibition-page__description-title">Судьи</h4>
+                    {judges && <p>{judges}</p>}
+                </div>
+                <div className="exhibition-page__description">
+                    <h4 className="exhibition-page__description-title">Комментарий</h4>
+                    {comments && <p style={{whiteSpace:'pre'}}>{comments}</p>}
                 </div>
             </Card>
             <Card className="exhibition-info">
