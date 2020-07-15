@@ -265,7 +265,7 @@ const FloatingMenu = ({ alias, name, profileId, isFederation }) => {
                     ? data.fees.map(({ name, price, description }) => {
                         return <tr>
                             <td>{name}</td>
-                            <td dangerouslySetInnerHTML={{ __html: `${price}${description ? '<br/>' + description : ''}` }} />
+                            <td dangerouslySetInnerHTML={{ __html: `${price} руб.${description ? '<br/>' + description : ''}` }} />
                         </tr>
                     })
                     : errorText ? errorText : 'Не найдено'}
@@ -350,10 +350,10 @@ const FloatingMenu = ({ alias, name, profileId, isFederation }) => {
             <p><strong>Фактический адрес:</strong> {actual_address}</p>
             <p><strong>Почтовый адрес:</strong> {mailing_address}</p>
             <p><strong>Реквизиты:</strong><br />
-                {inn}<br />
-                {rs_number}<br />
-                {bic_number}<br />
-                {ks_number}
+                ИНН {inn}<br />
+                Р/с {rs_number}<br />
+                БИК {bic_number}<br />
+                К/с {ks_number}
             </p>
             <p><strong>Телефон:</strong> {phone}</p>
             <p>{work_time}</p>
