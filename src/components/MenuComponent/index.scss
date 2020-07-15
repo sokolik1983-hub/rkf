@@ -1,6 +1,17 @@
 .menu-component {
   padding: 14px 16px 16px !important;
   margin-bottom: 24px;
+  &__modal {
+    .Modal__inner {
+      padding: 0;
+    }
+    .Modal__close {
+      right: 20px !important;
+      @media (max-width: 560px) {
+        right: 12px !important;
+      }
+    }
+  }
   &__title {
     max-height: 40px;
     overflow: hidden;
@@ -9,7 +20,7 @@
     line-height: 20px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 12px
+    margin-bottom: 12px;
   }
   &__list {
     list-style: none;
@@ -19,7 +30,8 @@
       margin-bottom: 8px;
     }
   }
-  &__link, & a {
+  &__link,
+  & a {
     text-decoration: none;
     font-weight: normal;
     font-size: 16px;
@@ -57,13 +69,15 @@
     box-shadow: 0 3px 8px rgba(51, 102, 255, 0.15);
     border-radius: 4px;
   }
-  &__presidium {
+  &__wrap {
     background-color: #fff;
     width: calc(100vw - 32px);
-    max-width: 600px;
+    max-width: 900px;
     padding: 24px 32px;
+    white-space: nowrap;
+    overflow-x: auto;
     @media (max-width: 560px) {
-      padding: 16px 24px;
+      padding: 24px;
     }
     &-title {
       margin-bottom: 16px;
@@ -73,6 +87,36 @@
     }
     &-item:not(:last-child) {
       margin-bottom: 4px;
+    }
+  }
+  &__table {
+    width: 100%;
+    &.fees {
+      white-space: normal;
+      @media (max-width: 560px) {
+        width: 852px;
+      }
+      td {
+        border: 1px solid lightgray;
+        &:first-child {
+          width: 640px;
+          & + td {
+            width: 196px;
+            text-align: center;
+          }
+        }
+      }
+    }
+    td {
+      padding: 6px 18px 6px 6px;
+    }
+  }
+  &__show-blanks {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+    .disabled {
+      pointer-events: none;
     }
   }
 }
