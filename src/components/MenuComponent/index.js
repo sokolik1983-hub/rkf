@@ -300,7 +300,7 @@ const MenuComponent = ({ alias, name, profileId, isFederation }) => {
             {
                 data.blanks
                     ? data.blanks.filter(b => b.category_id === id).map(({ document_name, document_id }) => {
-                        return <p key={document_id}><a href="/" onClick={e => downloadBlank(e, document_id)}>{document_name}</a></p>
+                        return <p key={document_id}><a href="/" onClick={e => downloadBlank(e, document_id, document_name)}>{document_name}</a></p>
                     })
                     : errorText ? errorText : 'Не найдено'
             }
@@ -358,7 +358,7 @@ const MenuComponent = ({ alias, name, profileId, isFederation }) => {
         </>
     };
 
-    const downloadBlank = async (e, id) => {
+    const downloadBlank = async (e, id, name) => {
         e.preventDefault();
         const el = e.target;
         const blankName = e.target.innerText;
