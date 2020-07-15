@@ -115,6 +115,10 @@
     &:not(:last-child) {
       margin-bottom: 24px;
     }
+    a {
+      padding-left: 18px;
+      background: url("/static/icons/icon-doc.svg") left center no-repeat;
+    }
     .disabled {
       pointer-events: none;
     }
