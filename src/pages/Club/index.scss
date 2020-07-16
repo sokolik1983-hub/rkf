@@ -1,5 +1,8 @@
 .club-page {
   word-break: break-word;
+  &.content {
+    padding-top: 55px;
+  }
   .menu-component {
     padding: 14px 16px 16px;
     @media (max-width: 768px) {
@@ -31,6 +34,18 @@
     @media (max-width: 990px) {
       margin-left: 0;
     }
+    &-banner {
+      padding: 0;
+      & > div {
+        height: 250px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+      }
+    }
+    & > .Card {
+      margin-bottom: 12px !important;
+    }
   }
   &__info {
     width: 300px;
@@ -38,6 +53,10 @@
     @media (max-width: 990px) {
       width: 100%;
       min-width: unset;
+    }
+    &-inner {
+      position: sticky;
+      top: 55px;
     }
   }
   &__gallery {
@@ -51,7 +70,10 @@
       }
     }
     &-header {
-      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
       a {
         text-decoration: none;
         font-weight: normal;
@@ -84,6 +106,9 @@
       margin: auto;
     }
   }
+  &__exhibitions {
+    max-width: 860px;
+  }
 }
 .NewsPage {
   &__endMessage {
@@ -104,7 +129,7 @@
       text-align: center;
       padding: 8px;
     }
-    &__text{
+    &__text {
       padding: 8px;
     }
   }
