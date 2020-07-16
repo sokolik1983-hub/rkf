@@ -15,6 +15,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
            label: "Дата создания"
        },
        {
+           property: `${distinction}_request_id`,
+           label: "Номер пакета"
+       },
+       {
            property: "owner_full_name",
            label: "ФИО владельца"
        },
@@ -55,6 +59,10 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        {
            property: "date_change",
            label: "Изменение статуса"
+       },
+       {
+           property: `${distinction}_request_id`,
+           label: "Номер пакета"
        },
        {
            property: "breeder_full_name",
