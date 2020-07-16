@@ -167,7 +167,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                                 </div>
                             </Card>
                             <Card className="home-page__map-wrap">
-                                <h3>Карта авторизованных клубов</h3>
+                                <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                 <div className="home-page__map">
                                     <ClubsMap />
                                 </div>
