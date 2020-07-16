@@ -201,7 +201,7 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, profileId, isFederation }) => {
+const MenuComponent = ({ alias, name, profileId, isFederation, noCard = false }) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
@@ -382,67 +382,70 @@ const MenuComponent = ({ alias, name, profileId, isFederation }) => {
         el.innerText = blankName;
     };
 
-    return (
-        <Card className="menu-component">
-            <h4 className="menu-component__title">Меню</h4>
-            <ul className="menu-component__list">
+    const MenuContent = () => <>
+        <h4 className="menu-component__title">Меню</h4>
+        <ul className="menu-component__list">
+            <li className="menu-component__item">
+                <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
+            </li>
+            {presidium[alias] &&
                 <li className="menu-component__item">
-                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
+                    <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
                 </li>
-                {presidium[alias] &&
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
-                    </li>
-                }
-                <li className="menu-component__item">
-                    <Link to={`/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
-                </li>
-                <li className="menu-component__item">
-                    <Link to={`/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
-                </li>
-                {alias === 'rfls' && <>
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={getFees} className="menu-component__link" title="Размеры членских взносов">
-                            Размеры членских взносов
-                        </Link>
-                    </li>
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={getBlanks} className="menu-component__link" title="Бланки">
-                            Бланки
-                        </Link>
-                    </li>
-                    <li className="menu-component__item">
-                        <Link to="/" onClick={getRequisites} className="menu-component__link" title="Реквизиты">
-                            Реквизиты
-                        </Link>
-                    </li>
-                </>}
-                <li className="menu-component__item">
-                    <Link to={`/${alias}/document-status`} title="Статус документов">Статус документов</Link>
-                </li>
-                <li className="menu-component__item">
-                    <Link to={`/${alias}`} className="menu-component__link not-active" title={name}>
-                        {`Cтраница ${isFederation ? 'федерации' : 'клуба'}`}
-                    </Link>
-                </li>
-            </ul>
-            {showModal &&
-                <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
-                    <div className="menu-component__wrap">
-                        {
-                            loading
-                                ? <Loading centered={false} />
-                                : <>
-                                    {showModal === 'presidium' && showPresidium()}
-                                    {showModal === 'fees' && showFees()}
-                                    {showModal === 'blanks' && showBlanks()}
-                                    {showModal === 'requisites' && showRequisites()}
-                                </>
-                        }
-                    </div>
-                </Modal>
             }
-        </Card>
+            <li className="menu-component__item">
+                <Link to={`/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
+            </li>
+            <li className="menu-component__item">
+                <Link to={`/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
+            </li>
+            {alias === 'rfls' && <>
+                <li className="menu-component__item">
+                    <Link to="/" onClick={getFees} className="menu-component__link" title="Размеры членских взносов">
+                        Размеры членских взносов
+                        </Link>
+                </li>
+                <li className="menu-component__item">
+                    <Link to="/" onClick={getBlanks} className="menu-component__link" title="Бланки">
+                        Бланки
+                        </Link>
+                </li>
+                <li className="menu-component__item">
+                    <Link to="/" onClick={getRequisites} className="menu-component__link" title="Реквизиты">
+                        Реквизиты
+                        </Link>
+                </li>
+            </>}
+            <li className="menu-component__item">
+                <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+            </li>
+            <li className="menu-component__item">
+                <Link to={`/${alias}`} className="menu-component__link not-active" title={name}>
+                    {`Cтраница ${isFederation ? 'федерации' : 'клуба'}`}
+                </Link>
+            </li>
+        </ul>
+        {showModal &&
+            <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
+                <div className="menu-component__wrap">
+                    {
+                        loading
+                            ? <Loading centered={false} />
+                            : <>
+                                {showModal === 'presidium' && showPresidium()}
+                                {showModal === 'fees' && showFees()}
+                                {showModal === 'blanks' && showBlanks()}
+                                {showModal === 'requisites' && showRequisites()}
+                            </>
+                    }
+                </div>
+            </Modal>
+        }
+    </>;
+    return (
+        noCard
+            ? <MenuContent />
+            : <Card className="menu-component"><MenuContent /></Card>
     )
 };
 

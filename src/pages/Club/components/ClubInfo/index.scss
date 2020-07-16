@@ -14,7 +14,9 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
-  .club-page__info-wrap{
+  &-wrap {
+    position: relative;
+    padding: 12px;
     a {
       border: none;
       text-decoration: none;
@@ -34,6 +36,10 @@
           color: #61797c;
         }
       }
+    }
+    .ReactCollapse--collapse {
+      min-height: 92px;
+      transition: height 500ms;
     }
   }
   &-address,
@@ -125,4 +131,13 @@
       }
     }
   }
+}
+.club-page__show-more {
+  display: block;
+  width: 20px;
+  height: 15px;
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  background: url("/static/icons/chevron-down.svg") center center no-repeat;
 }
