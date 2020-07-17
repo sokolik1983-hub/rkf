@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "components/Card";
 import { Collapse } from 'react-collapse';
 import "./index.scss";
@@ -6,6 +6,14 @@ import "./index.scss";
 
 const UserDescription = ({ description }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isHidden, setIsHidden] = useState(true);
+    const CollapseDescrRef = useRef(null);
+
+    useEffect(() => {
+        if (isHidden && CollapseDescrRef && CollapseDescrRef.current) {
+            CollapseDescrRef.current.content.offsetHeight > 72 && setIsHidden(false);
+        }
+    }, [CollapseDescrRef]);
 
     const handleClick = e => {
         e.preventDefault();
@@ -16,8 +24,8 @@ const UserDescription = ({ description }) => {
             title="РКФ не несет ответственности за достоверность данных, размещаемых клубом в данном разделе"
         >Описание</h4>
         <p className="user-description__info">
-            <Collapse isOpened={isOpen}>{description}</Collapse>
-            <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
+            <Collapse isOpened={isOpen} ref={CollapseDescrRef}>{description}</Collapse>
+            {!isHidden && <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </p>
     </Card>
 };

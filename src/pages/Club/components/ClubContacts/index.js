@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import Card from "../../../../components/Card";
 import { formatWorkTime } from "../../../../utils";
 import { timeSecondsCutter } from "../../../../utils/datetime";
@@ -9,7 +9,7 @@ import { Collapse } from 'react-collapse';
 import "./index.scss";
 
 
-const ClubInfo = ({
+const ClubContacts = ({
     id,
     legal_city,
     city,
@@ -32,6 +32,7 @@ const ClubInfo = ({
 }) => {
     const [socials, setSocials] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [isHidden, setIsHidden] = useState(true);
 
     useEffect(() => {
         (() => Request({
@@ -46,6 +47,10 @@ const ClubInfo = ({
         setIsOpen(!isOpen);
     }
 
+    const CollapseRef = useRef(null);
+    if (isHidden && CollapseRef && CollapseRef.current) {
+        CollapseRef.current.content.offsetHeight > 150 && setIsHidden(false);
+    }
     const legal_city_name = legal_city && legal_city.name;
     const city_name = (city && city.name) || legal_city_name;
     const legal_address_or_city = legal_address || legal_city_name;
@@ -53,44 +58,44 @@ const ClubInfo = ({
 
     const mainEmail = contacts && contacts.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
-    const mainWorkTime = work_time && formatWorkTime(work_time)[0];
+    //const mainWorkTime = work_time && formatWorkTime(work_time)[0];
     return (
         <Card className="club-contacts__info-wrap">
-            <Collapse isOpened={isOpen}>
+            <Collapse isOpened={isOpen} ref={CollapseRef}>
                 <h4 className="club-contacts__info-title">Контакты</h4>
-                {owner_name &&
-                    <p className="club-contacts__info-owner">
+                {owner_name
+                    ? <p className="club-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
-                        <span>{owner_name ? owner_name : 'Не указан'}</span>
+                        <span>{owner_name}</span>
+                    </p>
+                    : <p className="club-contacts__info-owner"><span>Руководитель:&nbsp;</span><span>Не указан</span></p>
+                }
+                {mainEmail ?
+                    <div className="club-contacts__info-email">
+                        <p>
+                            <span style={{ color: '#253c5e' }}>{mainEmail.description || 'E-mail'}:&nbsp;</span>
+                            <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
+                        </p>
+                    </div>
+                    : <div className="club-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
+                }
+                {mainPhone
+                    ? <div className="club-contacts__info-phone">
+                        <p>
+                            <span>{mainPhone.description || 'Телефон'}:&nbsp;</span>
+                            <span>{beautify(mainPhone.value)}</span>
+                        </p>
+                    </div>
+                    : <div className="club-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
+                }
+
+                {address_or_city &&
+                    <p className="club-contacts__info-address">
+                        <span>Город</span>:&nbsp;
+                    <span>{city_name ? city_name : 'Не указан'}</span>
                     </p>
                 }
-                {contacts && !!contacts.length &&
-                    <>
-                        <div className="club-contacts__info-email">
-                            <p key={mainEmail.id}>
-                                <span style={{ color: '#253c5e' }}>{mainEmail.description || 'E-mail'}:&nbsp;</span>
-                                {
-                                    mainEmail.value
-                                        ? <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
-                                        : 'Не указан'
-                                }
-                            </p>
-                        </div>
-                        <div className="club-contacts__info-phone">
-                            <p key={mainPhone.id}>
-                                <span>{mainPhone.description || 'Телефон'}:&nbsp;</span>
-                                <span>
-                                    {
-                                        mainPhone.value
-                                            ? beautify(mainPhone.value)
-                                            : 'Не указан'
-                                    }
-                                </span>
-                            </p>
-                        </div>
-                    </>
-                }
-                {work_time && !!work_time.length &&
+                {/* {work_time && !!work_time.length &&
                     <div className="club-contacts__info-work-time">
                         <span>График работы:&nbsp;</span>
                         {
@@ -100,7 +105,7 @@ const ClubInfo = ({
                         }
 
                     </div>
-                }
+                } */}
                 <h4 className="club-contacts__info-title subtitle">Дополнительная информация</h4>
                 <div className="club-contacts__info-email">
                     {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
@@ -215,9 +220,9 @@ const ClubInfo = ({
                         </p>
                     </div>
                 }</Collapse>
-            <a className={`club-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
+            {!isHidden && <a className={`club-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>
     );
 };
 
-export default React.memo(ClubInfo);
+export default React.memo(ClubContacts);
