@@ -7,11 +7,9 @@
     margin-bottom: 12px;
   }
   &-title {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
     margin-bottom: 12px;
   }
   &-wrap {
@@ -38,7 +36,7 @@
       }
     }
     .ReactCollapse--collapse {
-      min-height: 92px;
+      min-height: 95px;
       transition: height 500ms;
     }
   }
