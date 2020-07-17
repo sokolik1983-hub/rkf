@@ -9,7 +9,7 @@ import Loading from "../../components/Loading";
 import Card from "components/Card";
 import ClubUserHeader from "./components/ClubUserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import ClubInfo from "./components/ClubInfo";
+import ClubContacts from "./components/ClubContacts";
 import ClubUserDescription from "./components/ClubUserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
@@ -93,7 +93,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </Card>
                                 }
                                 <ClubUserDescription description={clubInfo.description} />
-                                <ClubInfo {...clubInfo} />
+                                <ClubContacts {...clubInfo} />
                                 <div className="club-page__exhibitions">
                                     <ExhibitionsComponent alias={clubInfo.club_alias} />
                                 </div>

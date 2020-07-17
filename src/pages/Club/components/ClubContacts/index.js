@@ -51,38 +51,76 @@ const ClubInfo = ({
     const legal_address_or_city = legal_address || legal_city_name;
     const address_or_city = address || legal_address || city_name;
 
+    const mainEmail = contacts && contacts.filter(item => item.contact_type_id === 2)[0];
+    const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
+    const mainWorkTime = work_time && formatWorkTime(work_time)[0];
     return (
-        <Card className="club-user__info-wrap">
+        <Card className="club-contacts__info-wrap">
             <Collapse isOpened={isOpen}>
-                <h4 className="club-user__info-title">Контакты</h4>
+                <h4 className="club-contacts__info-title">Контакты</h4>
                 {owner_name &&
-                    <p className="club-user__info-owner">
+                    <p className="club-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
-                        <span>{owner_name}</span>
+                        <span>{owner_name ? owner_name : 'Не указан'}</span>
                     </p>
                 }
                 {contacts && !!contacts.length &&
                     <>
-                        <div className="club-user__info-email">
-                            {contacts.filter(item => item.contact_type_id === 2).map(contact => (
-                                <p key={contact.id}>
-                                    <span>{contact.description || 'E-mail'}:&nbsp;</span>
-                                    <a href={`mailto:${contact.value}`}>{contact.value}</a>
-                                </p>
-                            ))}
+                        <div className="club-contacts__info-email">
+                            <p key={mainEmail.id}>
+                                <span style={{ color: '#253c5e' }}>{mainEmail.description || 'E-mail'}:&nbsp;</span>
+                                {
+                                    mainEmail.value
+                                        ? <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
+                                        : 'Не указан'
+                                }
+                            </p>
                         </div>
-                        <div className="club-user__info-phone">
-                            {contacts.filter(item => item.contact_type_id === 1).map(contact => (
-                                contact.value && <p key={contact.id}>
-                                    <span>{contact.description || 'Телефон'}:&nbsp;</span>
-                                    <span>{beautify(contact.value)}</span>
-                                </p>
-                            ))}
+                        <div className="club-contacts__info-phone">
+                            <p key={mainPhone.id}>
+                                <span>{mainPhone.description || 'Телефон'}:&nbsp;</span>
+                                <span>
+                                    {
+                                        mainPhone.value
+                                            ? beautify(mainPhone.value)
+                                            : 'Не указан'
+                                    }
+                                </span>
+                            </p>
                         </div>
                     </>
                 }
                 {work_time && !!work_time.length &&
-                    <div className="club-user__info-work-time">
+                    <div className="club-contacts__info-work-time">
+                        <span>График работы:&nbsp;</span>
+                        {
+                            mainWorkTime.days
+                                ? <><span>{mainWorkTime.days.join(', ')}</span>&nbsp;c {timeSecondsCutter(mainWorkTime.time_from)} до {timeSecondsCutter(mainWorkTime.time_to)}</>
+                                : 'Не указан'
+                        }
+
+                    </div>
+                }
+                <h4 className="club-contacts__info-title subtitle">Дополнительная информация</h4>
+                <div className="club-contacts__info-email">
+                    {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
+                        <p key={contact.id}>
+                            <span>{contact.description || 'E-mail'}:&nbsp;</span>
+                            <a href={`mailto:${contact.value}`}>{contact.value}</a>
+                        </p>
+                    ))}
+                </div>
+                <div className="club-contacts__info-phone">
+                    {contacts.filter(item => item.contact_type_id === 1).slice(1).map(contact => (
+                        contact.value && <p key={contact.id}>
+                            <span>{contact.description || 'Телефон'}:&nbsp;</span>
+                            <span>{beautify(contact.value)}</span>
+                        </p>
+                    ))}
+                </div>
+
+                {work_time && !!work_time.length &&
+                    <div className="club-contacts__info-work-time">
                         <span>График работы</span>
                         {formatWorkTime(work_time).map((period, i) => (
                             <p key={`work-${i}`}>
@@ -94,26 +132,26 @@ const ClubInfo = ({
                 }
 
                 {name &&
-                    <p className="club-user__info-name">
+                    <p className="club-contacts__info-name">
                         <span>Полное наименование</span>:&nbsp;
                     <span>{name}</span>
                     </p>
                 }
                 {legal_address_or_city &&
-                    <p className="club-user__info-address">
+                    <p className="club-contacts__info-address">
                         <span>Юридический адрес</span>:&nbsp;
                     <span>{legal_address_or_city}</span>
                     </p>
                 }
                 {address_or_city &&
-                    <p className="club-user__info-address">
+                    <p className="club-contacts__info-address">
                         <span>Фактический адрес</span>:&nbsp;
                     <span>{address_or_city}</span>
                     </p>
                 }
 
 
-                <div className="club-user__info-site">
+                <div className="club-contacts__info-site">
                     <p>
                         <span>Сайт</span>:&nbsp;
                     {site ?
@@ -124,7 +162,7 @@ const ClubInfo = ({
                     </p>
                 </div>
                 {socials && !!socials.length &&
-                    <div className="club-user__info-socials">
+                    <div className="club-contacts__info-socials">
                         {socials.map(item => (
                             <Fragment key={item.id}>
                                 <a href={item.site}
@@ -139,8 +177,8 @@ const ClubInfo = ({
                     </div>
                 }
                 {documents && !!documents.length &&
-                    <div className="club-user__info-documents">
-                        <h4 className="club-user__info-title">Документы</h4>
+                    <div className="club-contacts__info-documents">
+                        <h4 className="club-contacts__info-title">Документы</h4>
                         {documents.map(doc => (
                             <Fragment key={doc.id}>
                                 <a href={doc.url}
@@ -155,29 +193,29 @@ const ClubInfo = ({
                     </div>
                 }
                 {!is_active &&
-                    <div className="club-user__info-bank">
-                        <h4 className="club-user__info-title">Реквизиты</h4>
-                        <p className="club-user__info-details">
+                    <div className="club-contacts__info-bank">
+                        <h4 className="club-contacts__info-title">Реквизиты</h4>
+                        <p className="club-contacts__info-details">
                             <span>ИНН: </span> {inn}
                         </p>
-                        <p className="club-user__info-details">
+                        <p className="club-contacts__info-details">
                             <span>КПП: </span> {kpp}
                         </p>
-                        <p className="club-user__info-details">
+                        <p className="club-contacts__info-details">
                             <span>ОГРН: </span> {ogrn}
                         </p>
-                        <p className="club-user__info-details">
+                        <p className="club-contacts__info-details">
                             <span>Банк: </span> {bank_name}
                         </p>
-                        <p className="club-user__info-details">
+                        <p className="club-contacts__info-details">
                             <span>БИК: </span> {bic}
                         </p>
-                        <p className="club-user__info-details">
+                        <p className="club-contacts__info-details">
                             <span>Расчетный счет: </span> {rs_number}
                         </p>
                     </div>
                 }</Collapse>
-            <a className={`club-user__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
+            <a className={`club-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
         </Card>
     );
 };

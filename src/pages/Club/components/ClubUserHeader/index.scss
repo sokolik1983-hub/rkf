@@ -71,10 +71,9 @@
     }
   }
   &__name {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.4px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -109,7 +108,16 @@
     border: none;
     background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
   }
-  .menu-component__item:not(:last-child) {
-    margin-bottom: 3px;
+  .menu-component {
+    &__title {
+      display: none;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      text-transform: none;
+    }
+    &__item:not(:last-child) {
+      margin-bottom: 3px;
+    }
   }
 }
