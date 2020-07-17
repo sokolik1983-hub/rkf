@@ -20,10 +20,9 @@ const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federation
 
     return (
         <Card className="club-user-header">
-            {banner && <div className="club-user-header__img" style={{ backgroundImage: `url(${banner})` }} />}
+            <div className="club-user-header__logo" style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }} />
             <div className="club-user-header__content">
                 <div className="club-user-header__info">
-                    <div className="club-user-header__logo" style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }} />
 
                     <div className="club-user-header__wrap">
                         <div>
