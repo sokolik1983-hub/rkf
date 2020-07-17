@@ -1,4 +1,4 @@
-.club-user__info {
+.club-contacts__info {
   margin-bottom: 24px;
   @media (max-width: 990px) {
     margin-top: 0;
@@ -11,6 +11,9 @@
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 12px;
+    &.subtitle {
+      margin-top: 12px;
+    }
   }
   &-wrap {
     position: relative;
@@ -25,6 +28,7 @@
     p {
       &:not(:first-child) {
         margin-top: 6px;
+        margin-bottom: 6px;
       }
       span {
         &:first-child {
@@ -36,7 +40,7 @@
       }
     }
     .ReactCollapse--collapse {
-      min-height: 95px;
+      min-height: 150px;
       transition: height 500ms;
     }
   }
@@ -50,7 +54,8 @@
   &-work-time {
     position: relative;
     padding-left: 30px;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
+    color: #61797c;
     &:before {
       content: "";
       width: 22px;
@@ -60,6 +65,9 @@
       top: 1px;
       background-repeat: no-repeat;
       background-position: 50%;
+    }
+    span:first-child {
+      color: #253c5e;
     }
   }
   &-address:before {
@@ -103,7 +111,7 @@
     }
   }
   &-documents {
-    margin-top: 36px;
+    margin-top: 12px;
     a {
       &:not(:first-child) {
         margin-top: 6px;
