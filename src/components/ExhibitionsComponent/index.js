@@ -39,7 +39,7 @@ const ExhibitionsComponent = ({ alias }) => {
 
     const SliderHeader = () => <div className="exhibitions-component__header">
         {alias && <h3 className="exhibitions-component__title">
-            Мероприятия <Link to={`/exhibitions?Alias=${alias}`}>посмотреть все</Link>
+            Мероприятия <Link to={`/exhibitions?Alias=${alias}`}>Смотреть все</Link>
         </h3>}
     </div>;
 

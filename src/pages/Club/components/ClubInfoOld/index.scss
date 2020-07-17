@@ -1,4 +1,4 @@
-.club-user__info {
+.club-page__info {
   margin-bottom: 24px;
   @media (max-width: 990px) {
     margin-top: 0;
@@ -14,9 +14,7 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
-  &-wrap {
-    position: relative;
-    padding: 12px;
+  .club-page__info-wrap{
     a {
       border: none;
       text-decoration: none;
@@ -36,10 +34,6 @@
           color: #61797c;
         }
       }
-    }
-    .ReactCollapse--collapse {
-      min-height: 92px;
-      transition: height 500ms;
     }
   }
   &-address,
@@ -80,8 +74,7 @@
     background-image: url("/static/icons/ico-contact-email.svg");
   }
   &-email p,
-  &-phone p,
-  &-site p {
+  &-phone p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -129,19 +122,6 @@
         color: #253c5e !important;
         font-weight: 400 !important;
       }
-    }
-  }
-  &-show-more {
-    display: block;
-    width: 50px;
-    height: 45px;
-    position: absolute;
-    right: calc(50% - 25px);
-    bottom: -25px;
-    background: url("/static/images/slider/slider-button.svg") center center no-repeat;
-    transform: rotate(90deg);
-    &.opened {
-      transform: rotate(-90deg);
     }
   }
 }

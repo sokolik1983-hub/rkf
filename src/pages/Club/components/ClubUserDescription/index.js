@@ -17,7 +17,7 @@ const UserDescription = ({ description }) => {
         >Описание</h4>
         <p className="user-description__info">
             <Collapse isOpened={isOpen}>{description}</Collapse>
-            {!isOpen && <a className="user-description__show-more" href="/" onClick={handleClick}> </a>}
+            <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
         </p>
     </Card>
 };

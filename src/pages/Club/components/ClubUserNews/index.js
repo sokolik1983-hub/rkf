@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import List from "components/List";
@@ -10,7 +9,7 @@ import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
 
-const UserNews = ({ user, name, canEdit, alias, page, setPage, needRequest, setNeedRequest }) => {
+const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedRequest }) => {
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [pagesCount, setPagesCount] = useState(1);
@@ -60,7 +59,7 @@ const UserNews = ({ user, name, canEdit, alias, page, setPage, needRequest, setN
         <Loading /> :
         <div className="news-component">
             <div className="news-component__header">
-                <h4 className="news-component__title">Публикации&nbsp;<span>{name}</span></h4>
+                <h4 className="news-component__title">Публикации</h4>
                 {/* <Link to={`/${user === 'nursery' ? 'kennel/' + alias : alias}/news`}>посмотреть все</Link> */}
                 <ListFilter />
             </div>

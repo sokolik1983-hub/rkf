@@ -8,7 +8,7 @@ import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import UserHeader from "../../components/UserHeader";
-import ClubInfo from "./components/ClubInfo";
+import ClubInfo from "./components/ClubInfoOld";
 import Card from "../../components/Card";
 import List from "../../components/List";
 import FloatingMenu from './components/FloatingMenu';
