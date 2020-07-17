@@ -7,7 +7,7 @@ import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import MenuComponent from "../../components/MenuComponent";
 import UserHeader from "../../components/UserHeader";
-import ClubInfo from "./components/ClubInfo";
+import ClubInfo from "./components/ClubInfoOld";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";

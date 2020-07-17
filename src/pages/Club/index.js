@@ -107,7 +107,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 }
                                 <ClubUserNews
                                     user="club"
-                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                     canEdit={canEdit}
                                     alias={match.params.route}
                                     page={page}

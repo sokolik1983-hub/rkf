@@ -12,7 +12,7 @@ import Paginator from "components/Paginator";
 import Aside from "components/Layouts/Aside";
 import UserHeader from "components/UserHeader";
 import MenuComponent from "components/MenuComponent";
-import ClubInfo from "pages/Club/components/ClubInfo";
+import ClubInfo from "pages/Club/components/ClubInfoOld";
 import FloatingMenu from 'pages/Club/components/FloatingMenu';
 import shorten from "utils/shorten";
 import "./styles.scss";

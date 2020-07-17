@@ -19,20 +19,20 @@ const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federation
     const shareOk = () => setShareAlert(false);
 
     return (
-        <Card className="user-header">
-            {banner && <div className="user-header__img" style={{ backgroundImage: `url(${banner})` }} />}
-            <div className="user-header__content">
-                <div className="user-header__info">
-                    <div className="user-header__logo" style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }} />
+        <Card className="club-user-header">
+            {banner && <div className="club-user-header__img" style={{ backgroundImage: `url(${banner})` }} />}
+            <div className="club-user-header__content">
+                <div className="club-user-header__info">
+                    <div className="club-user-header__logo" style={{ backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})` }} />
 
-                    <div className="user-header__wrap">
+                    <div className="club-user-header__wrap">
                         <div>
-                            <p className="user-header__user">
+                            <p className="club-user-header__user">
                                 {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
                             </p>
-                            <h3 className="user-header__name">{name}</h3>
+                            <h3 className="club-user-header__name">{name}</h3>
                             {federationName && federationAlias &&
-                                <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
+                                <Link to={`/${federationAlias}`} className="club-user-header__federation">{federationName}</Link>
                             }
                         </div>
                         <Share />
