@@ -1,3 +1,7 @@
+.Share {
+  line-height: 1;
+}
+
 .ya-share2 span:hover {
     color: #3366ff!important;
 }
@@ -13,9 +17,6 @@
       box-shadow: none!important;
       width: 18px!important;
       position: relative;
-      &:hover {
-          border-bottom: 1px solid #3366ff!important;
-      }
       &:after {
         content: '';
         display: inline-block;
