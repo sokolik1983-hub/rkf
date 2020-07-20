@@ -56,19 +56,24 @@
   }
   &__content {
     width: 100%;
-    margin-left: 24px;
+    margin-left: 16px;
     order: 1;
     @media (max-width: 990px) {
       margin-left: 0;
     }
     &-banner {
       padding: 0;
+      background-color: #ececec;
+      background-image: url("/static/icons/camera.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow: hidden;
       & > div {
         height: 235px;
         margin: auto;
         object-fit: cover;
         width: 100%;
-        max-width: 848px;
+        max-width: none;
         background-repeat: no-repeat;
         background-position: 50%;
         background-size: cover;
