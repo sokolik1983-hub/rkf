@@ -358,7 +358,8 @@ const DEFAULT_IMG = {
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg',
-    noNews: '/static/images/news/empty_list.png'
+    noNews: '/static/images/news/empty_list.png',
+    emptyGallery: '/static/images/noimg/empty-gallery.png'
 };
 
 const BAD_SITES = [
