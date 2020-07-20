@@ -167,19 +167,18 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 12px;
-    padding-top: 12px;
+    padding-top: 6px;
     border-top: 1px solid #e8e8e8;
     @media (max-width: 560px) {
       padding-top: 8px;
     }
   }
-  &__show-all,
-  &__share {
+  &__show-all {
     text-decoration: none;
     display: inline-block;
     font-weight: normal;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 24px;
     letter-spacing: 0.2px;
     color: #36f;
     cursor: pointer;
@@ -193,20 +192,6 @@
       border-bottom-color: transparent;
       cursor: default;
     }
-  }
-  &__share {
-    &:after {
-      content: "";
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-  }
-  .Share {
-    line-height: 1;
   }
   &__modal {
     & > div {
