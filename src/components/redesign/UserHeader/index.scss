@@ -56,9 +56,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .Share {
-        margin-top: -3px;
-      }
       & > div:first-child {
         max-width: calc(100% - 20px);
       }
