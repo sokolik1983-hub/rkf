@@ -1,28 +1,32 @@
 .list-item {
   &__wrap {
-    display: flex;
-    @media (max-width: 560px) {
-      display: block;
-    }
+    //display: flex;
+    //@media (max-width: 560px) {
+    //  display: block;
+    //}
   }
   &__content {
-    flex-grow: 1;
-    width: calc(100% - 188px);
-    @media (max-width: 560px) {
-      width: 100%;
-    }
+    //flex-grow: 1;
+    //width: calc(100% - 312px);
+    //@media (max-width: 560px) {
+    //  width: 100%;
+    //}
+    overflow: hidden;
   }
   &__photo {
     display: block;
-    min-height: 164px;
-    min-width: 164px;
-    max-height: 164px;
-    max-width: 164px;
+    min-height: 162px;
+    min-width: 288px;
+    max-height: 162px;
+    max-width: 288px;
     margin-right: 24px;
     border-radius: 6px;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-color: #e8e8e8;
+    cursor: pointer;
+    float: left;
     @media (max-width: 560px) {
       width: 100%;
       min-width: auto;
@@ -32,6 +36,7 @@
       max-height: none;
       margin-right: 0;
       margin-bottom: 8px;
+      float: none;
     }
   }
   &__head {
@@ -130,20 +135,28 @@
     line-height: 0;
     background: url("/static/icons/delete.svg") no-repeat center;
   }
+  &__text-wrap {
+    height: 100px;
+    max-height: 100px;
+    overflow: hidden;
+    &._collapsed {
+      height: auto;
+      max-height: none;
+      min-height: 100px;
+    }
+    @media (max-width: 560px) {
+      height: auto;
+      max-height: 100px;
+    }
+  }
   &__text {
-    height: 80px;
-    max-height: 80px;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
     line-height: 20px;
     color: #72839c;
-    overflow: hidden;
     white-space: pre-wrap;
-    @media (max-width: 560px) {
-      height: auto;
-      max-height: 80px;
-    }
+    transition: height .2s linear;
     * {
       max-width: 100% !important;
       line-height: 20px;
@@ -152,8 +165,9 @@
   &__controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 12px;
-    padding-top: 16px;
+    padding-top: 12px;
     border-top: 1px solid #e8e8e8;
     @media (max-width: 560px) {
       padding-top: 8px;
@@ -165,7 +179,7 @@
     display: inline-block;
     font-weight: normal;
     font-size: 16px;
-    line-height: 30px;
+    line-height: 25px;
     letter-spacing: 0.2px;
     color: #36f;
     cursor: pointer;
@@ -173,6 +187,11 @@
     transition: border-bottom-color 0.2s linear;
     &:hover {
       border-bottom-color: #36f;
+    }
+    &._disabled {
+      color: #e8e8e8;
+      border-bottom-color: transparent;
+      cursor: default;
     }
   }
   &__share {
@@ -184,6 +203,28 @@
       background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
       vertical-align: middle;
       margin-left: 4px;
+    }
+  }
+  .Share {
+    line-height: 1;
+  }
+  &__modal {
+    & > div {
+      max-width: 80%;
+      @media (max-width: 560px) {
+        max-width: 92%;
+      }
+    }
+    .Modal__inner {
+      padding: 0;
+    }
+    .Modal__close {
+      right: 20px !important;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
     }
   }
 }

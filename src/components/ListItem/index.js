@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import Alert from "../Alert";
+import Modal from "../Modal";
+import Share from "../Share";
 import { formatText } from "../../utils";
 import { formatDateTime } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
-import Share from "components/Share";
 
 
 const ListItem = ({ user,
@@ -26,11 +27,19 @@ const ListItem = ({ user,
     citiesDict
 }) => {
     const [shareAlert, setShareAlert] = useState(false);
+    const [canCollapse, setCanCollapse] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
+    const [showPhoto, setShowPhoto] = useState(false);
+    const ref = useRef(null);
 
-    const shareLink = () => {
-        navigator.clipboard.writeText(`https://rkf.online${url}`);
-        setShareAlert(true);
-    };
+    // const shareLink = () => {
+    //     navigator.clipboard.writeText(`https://rkf.online${url}`);
+    //     setShareAlert(true);
+    // };
+
+    useEffect(() => {
+        if(ref.current && ref.current.clientHeight > 100) setCanCollapse(true);
+    }, []);
 
     const handleCityChange = () => {
         const cityObj = {
@@ -43,8 +52,8 @@ const ListItem = ({ user,
 
     return (
         <div className="list-item__wrap">
-            {photo && <Link to={url} className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} />}
             <div className="list-item__content">
+                {photo && <div className="list-item__photo" style={{backgroundImage: `url(${photo})`}} onClick={() => setShowPhoto(true)} />}
                 <div className="list-item__head">
                     <div className="list-item__club">
                         <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
@@ -72,15 +81,31 @@ const ListItem = ({ user,
                     </span>}
                     {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить" />}
                 </div>
-                <div className="list-item__body">
-                    <p className="list-item__text" dangerouslySetInnerHTML={{ __html: formatText(text) }} />
-                    <div className="list-item__controls">
-                        <Link to={url} className="list-item__show-all">Подробнее...</Link>
-                        {/*<span className="list-item__share" onClick={shareLink}>Поделиться</span>*/}
-                        <Share url={`https://rkf.online${url}`} />
-                    </div>
+                <div className={!collapsed ? 'list-item__text-wrap' : ''}>
+                    <p className="list-item__text"
+                       ref={ref}
+                       dangerouslySetInnerHTML={{__html: formatText(text) }}
+                    />
                 </div>
             </div>
+            <div className="list-item__controls">
+                <span className={`list-item__show-all${!canCollapse ? ' _disabled' : ''}`}
+                      onClick={() => canCollapse && setCollapsed(!collapsed)}
+                >
+                    {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                </span>
+                <Share url={`https://rkf.online${url}`} />
+            </div>
+            {showPhoto &&
+                <Modal showModal={showPhoto}
+                       handleClose={() => setShowPhoto(false)}
+                       noBackdrop={true}
+                       hideCloseButton={true}
+                       className="list-item__modal"
+                >
+                    <img src={photo} alt=""/>
+                </Modal>
+            }
             {shareAlert &&
                 <Alert
                     title="Поделиться"
