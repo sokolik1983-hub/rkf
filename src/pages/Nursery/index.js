@@ -7,7 +7,7 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "pages/Club/components/ClubUserNews";
-// import ExhibitionsComponent from "components/ExhibitionsComponent";
+import ExhibitionsComponent from "components/ExhibitionsComponent";
 import { Gallery } from "components/Gallery";
 import Card from "components/Card";
 import UserHeader from "components/redesign/UserHeader";
