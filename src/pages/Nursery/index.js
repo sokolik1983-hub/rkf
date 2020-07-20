@@ -7,7 +7,6 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "pages/Club/components/ClubUserNews";
-import ExhibitionsComponent from "components/ExhibitionsComponent";
 import { Gallery } from "components/Gallery";
 import Card from "components/Card";
 import UserHeader from "components/redesign/UserHeader";
@@ -61,7 +60,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     id: p.id,
                     src: p.link,
                     thumbnail: p.small_photo.link,
-                    thumbnailWidth: '88px',
+                    thumbnailWidth: 88,
                     thumbnailHeight: p.small_photo.height,
                     caption: p.caption
                 }

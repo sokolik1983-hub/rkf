@@ -66,7 +66,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     id: p.id,
                     src: p.link,
                     thumbnail: p.small_photo.link,
-                    thumbnailWidth: '88px',
+                    thumbnailWidth: 88,
                     thumbnailHeight: p.small_photo.height,
                     caption: p.caption
                 }
