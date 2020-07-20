@@ -29,7 +29,7 @@ const List = ({
                                 <ListItem
                                     user={item.user_type}
                                     id={item.id}
-                                    club_name={item.name}
+                                    name={item.name}
                                     city={item.fact_city_name}
                                     date={item.create_date}
                                     isFullDate={isFullDate}
