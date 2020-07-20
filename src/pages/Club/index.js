@@ -58,7 +58,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const getImages = () => {
         Request({
-            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=10`,
+            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -66,7 +66,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     id: p.id,
                     src: p.link,
                     thumbnail: p.small_photo.link,
-                    thumbnailWidth: p.small_photo.width,
+                    thumbnailWidth: '88px',
                     thumbnailHeight: p.small_photo.height,
                     caption: p.caption
                 }
@@ -75,6 +75,15 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             error => {
                 //handleError(error);
             });
+    }
+
+    const squareStyle = () => {
+        return {
+            height: '88px',
+            width: '88px',
+            objectFit: 'cover',
+            cursor: 'pointer'
+        };
     }
 
     return loading ?
@@ -88,11 +97,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {clubInfo.headliner_link &&
-                                        <Card className="club-page__content-banner">
-                                            <div style={{ backgroundImage: `url(${clubInfo.headliner_link})` }} />
-                                        </Card>
-                                    }
+                                    <Card className="club-page__content-banner">
+                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                                    </Card>
                                     <UserDescription description={clubInfo.description} />
                                     <UserContacts {...clubInfo} />
                                     <div className="club-page__exhibitions">
@@ -136,9 +143,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 items={images}
                                                 backdropClosesModal={true}
                                                 enableImageSelection={false}
-                                                maxRows={4}
                                                 withLoading={false}
-                                                rowHeight={60}
+                                                rowHeight={88}
+                                                thumbnailStyle={squareStyle}
                                             />
                                         </Card>
                                     </div>

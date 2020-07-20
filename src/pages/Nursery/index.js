@@ -53,7 +53,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
 
     const getImages = () => {
         Request({
-            url: `/api/photogallery/gallery?alias=${alias}&elem_count=10`,
+            url: `/api/photogallery/gallery?alias=${alias}&elem_count=12`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -61,7 +61,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     id: p.id,
                     src: p.link,
                     thumbnail: p.small_photo.link,
-                    thumbnailWidth: p.small_photo.width,
+                    thumbnailWidth: '88px',
                     thumbnailHeight: p.small_photo.height,
                     caption: p.caption
                 }
@@ -70,6 +70,15 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             error => {
                 //handleError(error);
             });
+    }
+
+    const squareStyle = () => {
+        return {
+            height: '88px',
+            width: '88px',
+            objectFit: 'cover',
+            cursor: 'pointer'
+        };
     }
 
     return loading ?
@@ -82,11 +91,9 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
 
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                {nursery.headliner_link &&
-                                    <Card className="nursery-page__content-banner">
-                                        <div style={{ backgroundImage: `url(${nursery.headliner_link})` }} />
-                                    </Card>
-                                }
+                                <Card className="nursery-page__content-banner">
+                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
+                                </Card>
                                 <UserDescription description={nursery.description} />
                                 <UserContacts {...nursery} />
                                 {canEdit &&
@@ -131,15 +138,15 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     <Card className="nursery-page__gallery-wrap">
                                         <div className="nursery-page__gallery-header">
                                             <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
-                                            <Link to={`/${alias}/gallery`}>Смотреть все</Link>
+                                            <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
                                         </div>
                                         <Gallery
                                             items={images}
                                             backdropClosesModal={true}
                                             enableImageSelection={false}
-                                            maxRows={4}
                                             withLoading={false}
-                                            rowHeight={60}
+                                            rowHeight={88}
+                                            thumbnailStyle={squareStyle}
                                         />
                                     </Card>
                                 </div>
