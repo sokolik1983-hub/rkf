@@ -7,10 +7,10 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import Card from "components/Card";
-import ClubUserHeader from "./components/ClubUserHeader";
+import UserHeader from "components/redesign/UserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import ClubContacts from "./components/ClubContacts";
-import ClubUserDescription from "./components/ClubUserDescription";
+import UserContacts from "components/redesign/UserContacts";
+import UserDescription from "components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
 import FloatingMenu from './components/FloatingMenu';
@@ -84,71 +84,73 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             notActiveProfile ?
                 <NotConfirmed /> :
                 <Layout>
-                    <Container className="content club-page">
-                        <div className="club-page__content-wrap">
-                            <div className="club-page__content">
-                                {clubInfo.headliner_link &&
-                                    <Card className="club-page__content-banner">
-                                        <div style={{ backgroundImage: `url(${clubInfo.headliner_link})` }} />
-                                    </Card>
-                                }
-                                <ClubUserDescription description={clubInfo.description} />
-                                <ClubContacts {...clubInfo} />
-                                <div className="club-page__exhibitions">
-                                    <ExhibitionsComponent alias={clubInfo.club_alias} />
-                                </div>
-                                {canEdit &&
-                                    <AddArticle
-                                        id={clubInfo.id}
-                                        logo={clubInfo.logo_link}
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    {clubInfo.headliner_link &&
+                                        <Card className="club-page__content-banner">
+                                            <div style={{ backgroundImage: `url(${clubInfo.headliner_link})` }} />
+                                        </Card>
+                                    }
+                                    <UserDescription description={clubInfo.description} />
+                                    <UserContacts {...clubInfo} />
+                                    <div className="club-page__exhibitions">
+                                        <ExhibitionsComponent alias={clubInfo.club_alias} />
+                                    </div>
+                                    {canEdit &&
+                                        <AddArticle
+                                            id={clubInfo.id}
+                                            logo={clubInfo.logo_link}
+                                            setPage={setPage}
+                                            setNeedRequest={setNeedRequest}
+                                        />
+                                    }
+                                    <ClubUserNews
+                                        user="club"
+                                        canEdit={canEdit}
+                                        alias={match.params.route}
+                                        page={page}
                                         setPage={setPage}
+                                        needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                     />
-                                }
-                                <ClubUserNews
-                                    user="club"
-                                    canEdit={canEdit}
-                                    alias={match.params.route}
-                                    page={page}
-                                    setPage={setPage}
-                                    needRequest={needRequest}
-                                    setNeedRequest={setNeedRequest}
-                                />
-                            </div>
-                            <Aside className="club-page__info">
-                                <div className="club-page__info-inner">
-                                    <ClubUserHeader
-                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                        logo={clubInfo.logo_link}
-                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                        alias={clubInfo.club_alias}
-                                        profileId={clubInfo.id}
-                                        federationName={clubInfo.federation_name}
-                                        federationAlias={clubInfo.federation_alias}
-                                    />
-                                    <Card className="club-page__gallery-wrap">
-                                        <div className="club-page__gallery-header">
-                                            <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                            <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                        </div>
-                                        <Gallery
-                                            items={images}
-                                            backdropClosesModal={true}
-                                            enableImageSelection={false}
-                                            maxRows={4}
-                                            withLoading={false}
-                                            rowHeight={60}
-                                        />
-                                    </Card>
                                 </div>
-                            </Aside>
-                        </div>
-                        <FloatingMenu
-                            alias={clubInfo.club_alias}
-                            profileId={clubInfo.id}
-                            name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                        />
-                    </Container>
+                                <Aside className="club-page__info">
+                                    <div className="club-page__info-inner">
+                                        <UserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                        />
+                                        <Card className="club-page__gallery-wrap">
+                                            <div className="club-page__gallery-header">
+                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
+                                            </div>
+                                            <Gallery
+                                                items={images}
+                                                backdropClosesModal={true}
+                                                enableImageSelection={false}
+                                                maxRows={4}
+                                                withLoading={false}
+                                                rowHeight={60}
+                                            />
+                                        </Card>
+                                    </div>
+                                </Aside>
+                            </div>
+                            <FloatingMenu
+                                alias={clubInfo.club_alias}
+                                profileId={clubInfo.id}
+                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
+                            />
+                        </Container>
+                    </div>
                 </Layout>
 };
 

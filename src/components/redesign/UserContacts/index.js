@@ -1,15 +1,14 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
-import Card from "../../../../components/Card";
-import { formatWorkTime } from "../../../../utils";
-import { timeSecondsCutter } from "../../../../utils/datetime";
-import { Request } from "../../../../utils/request";
-import { beautify } from "../../../../utils/phone";
-import { endpointGetSocials } from "../../config";
+import Card from "components/Card";
+import { formatWorkTime } from "utils";
+import { timeSecondsCutter } from "utils/datetime";
+import { Request } from "utils/request";
+import { beautify } from "utils/phone";
 import { Collapse } from 'react-collapse';
 import "./index.scss";
 
 
-const ClubContacts = ({
+const UserContacts = ({
     id,
     legal_city,
     city,
@@ -36,7 +35,7 @@ const ClubContacts = ({
 
     useEffect(() => {
         (() => Request({
-            url: endpointGetSocials + id
+            url: '/api/clubs/SocialNetwork/list/' + id
         }, data => setSocials(data),
             error => console.log(error.response)
         ))();
@@ -60,43 +59,46 @@ const ClubContacts = ({
     const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
     //const mainWorkTime = work_time && formatWorkTime(work_time)[0];
     return (
-        <Card className="club-contacts__info-wrap">
+        <Card className="user-contacts__info-wrap">
             <Collapse isOpened={isOpen} ref={CollapseRef}>
-                <h4 className="club-contacts__info-title">Контакты</h4>
+                <h4 className="user-contacts__info-title">Контакты</h4>
                 {owner_name
-                    ? <p className="club-contacts__info-owner">
+                    ? <p className="user-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
                         <span>{owner_name}</span>
                     </p>
-                    : <p className="club-contacts__info-owner"><span>Руководитель:&nbsp;</span><span>Не указан</span></p>
+                    : <p className="user-contacts__info-owner"><span>Руководитель:&nbsp;</span><span>Не указан</span></p>
                 }
                 {mainEmail ?
-                    <div className="club-contacts__info-email">
+                    <div className="user-contacts__info-email">
                         <p>
                             <span style={{ color: '#253c5e' }}>{mainEmail.description || 'E-mail'}:&nbsp;</span>
                             <a href={`mailto:${mainEmail.value}`}>{mainEmail.value}</a>
                         </p>
                     </div>
-                    : <div className="club-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
+                    : <div className="user-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
                 }
                 {mainPhone
-                    ? <div className="club-contacts__info-phone">
+                    ? <div className="user-contacts__info-phone">
                         <p>
                             <span>{mainPhone.description || 'Телефон'}:&nbsp;</span>
                             <span>{beautify(mainPhone.value)}</span>
                         </p>
                     </div>
-                    : <div className="club-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
+                    : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
                 }
 
-                {address_or_city &&
-                    <p className="club-contacts__info-address">
+                {address_or_city
+                    ? <p className="user-contacts__info-address">
                         <span>Город</span>:&nbsp;
                     <span>{city_name ? city_name : 'Не указан'}</span>
                     </p>
+                    : <p className="user-contacts__info-address">
+                        <span>Город</span>:&nbsp;<span>Не указан</span>
+                    </p>
                 }
                 {/* {work_time && !!work_time.length &&
-                    <div className="club-contacts__info-work-time">
+                    <div className="user-contacts__info-work-time">
                         <span>График работы:&nbsp;</span>
                         {
                             mainWorkTime.days
@@ -106,8 +108,8 @@ const ClubContacts = ({
 
                     </div>
                 } */}
-                <h4 className="club-contacts__info-title subtitle">Дополнительная информация</h4>
-                <div className="club-contacts__info-email">
+                <h4 className="user-contacts__info-title subtitle">Дополнительная информация</h4>
+                <div className="user-contacts__info-email">
                     {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
                         <p key={contact.id}>
                             <span>{contact.description || 'E-mail'}:&nbsp;</span>
@@ -115,7 +117,7 @@ const ClubContacts = ({
                         </p>
                     ))}
                 </div>
-                <div className="club-contacts__info-phone">
+                <div className="user-contacts__info-phone">
                     {contacts.filter(item => item.contact_type_id === 1).slice(1).map(contact => (
                         contact.value && <p key={contact.id}>
                             <span>{contact.description || 'Телефон'}:&nbsp;</span>
@@ -125,7 +127,7 @@ const ClubContacts = ({
                 </div>
 
                 {work_time && !!work_time.length &&
-                    <div className="club-contacts__info-work-time">
+                    <div className="user-contacts__info-work-time">
                         <span>График работы</span>
                         {formatWorkTime(work_time).map((period, i) => (
                             <p key={`work-${i}`}>
@@ -137,26 +139,26 @@ const ClubContacts = ({
                 }
 
                 {name &&
-                    <p className="club-contacts__info-name">
+                    <p className="user-contacts__info-name">
                         <span>Полное наименование</span>:&nbsp;
                     <span>{name}</span>
                     </p>
                 }
                 {legal_address_or_city &&
-                    <p className="club-contacts__info-address">
+                    <p className="user-contacts__info-address">
                         <span>Юридический адрес</span>:&nbsp;
                     <span>{legal_address_or_city}</span>
                     </p>
                 }
                 {address_or_city &&
-                    <p className="club-contacts__info-address">
+                    <p className="user-contacts__info-address">
                         <span>Фактический адрес</span>:&nbsp;
                     <span>{address_or_city}</span>
                     </p>
                 }
 
 
-                <div className="club-contacts__info-site">
+                <div className="user-contacts__info-site">
                     <p>
                         <span>Сайт</span>:&nbsp;
                     {site ?
@@ -167,7 +169,7 @@ const ClubContacts = ({
                     </p>
                 </div>
                 {socials && !!socials.length &&
-                    <div className="club-contacts__info-socials">
+                    <div className="user-contacts__info-socials">
                         {socials.map(item => (
                             <Fragment key={item.id}>
                                 <a href={item.site}
@@ -182,8 +184,8 @@ const ClubContacts = ({
                     </div>
                 }
                 {documents && !!documents.length &&
-                    <div className="club-contacts__info-documents">
-                        <h4 className="club-contacts__info-title">Документы</h4>
+                    <div className="user-contacts__info-documents">
+                        <h4 className="user-contacts__info-title">Документы</h4>
                         {documents.map(doc => (
                             <Fragment key={doc.id}>
                                 <a href={doc.url}
@@ -198,31 +200,31 @@ const ClubContacts = ({
                     </div>
                 }
                 {!is_active &&
-                    <div className="club-contacts__info-bank">
-                        <h4 className="club-contacts__info-title">Реквизиты</h4>
-                        <p className="club-contacts__info-details">
+                    <div className="user-contacts__info-bank">
+                        <h4 className="user-contacts__info-title">Реквизиты</h4>
+                        <p className="user-contacts__info-details">
                             <span>ИНН: </span> {inn}
                         </p>
-                        <p className="club-contacts__info-details">
+                        <p className="user-contacts__info-details">
                             <span>КПП: </span> {kpp}
                         </p>
-                        <p className="club-contacts__info-details">
+                        <p className="user-contacts__info-details">
                             <span>ОГРН: </span> {ogrn}
                         </p>
-                        <p className="club-contacts__info-details">
+                        <p className="user-contacts__info-details">
                             <span>Банк: </span> {bank_name}
                         </p>
-                        <p className="club-contacts__info-details">
+                        <p className="user-contacts__info-details">
                             <span>БИК: </span> {bic}
                         </p>
-                        <p className="club-contacts__info-details">
+                        <p className="user-contacts__info-details">
                             <span>Расчетный счет: </span> {rs_number}
                         </p>
                     </div>
                 }</Collapse>
-            {!isHidden && <a className={`club-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
+            {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>
     );
 };
 
-export default React.memo(ClubContacts);
+export default React.memo(UserContacts);
