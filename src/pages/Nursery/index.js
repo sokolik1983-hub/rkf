@@ -17,6 +17,17 @@ import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
+
+const getAddressString = addressObj => {
+    let address = '';
+    if(addressObj.postcode) address += `${addressObj.postcode}, `;
+    if(addressObj.city_name) address += `${addressObj.city_name}, `;
+    if(addressObj.street_type_name && addressObj.street_name) address += `${addressObj.street_type_name} ${addressObj.street_name}, `;
+    if(addressObj.house_type_name && addressObj.house_name) address += `${addressObj.house_type_name} ${addressObj.house_name}, `;
+    if(addressObj.flat_type_name && addressObj.flat_name) address += `${addressObj.flat_type_name} ${addressObj.flat_name}`;
+    return address;
+};
+
 const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(null);
@@ -34,7 +45,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             if (data.user_type !== 4) {
                 history.replace(`/${alias}`);
             } else {
-                setNursery(data);
+                const legal_address = data.legal_address ? getAddressString(data.legal_address) : '';
+                const address = data.fact_address ? getAddressString(data.fact_address) : legal_address;
+                const city_name = data.fact_address ? data.fact_address.city_name : data.legal_address ? data.legal_address.city_name : '';
+
+                setNursery({...data, legal_address, address, city: {name: city_name}});
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
                 setLoading(false);
             }

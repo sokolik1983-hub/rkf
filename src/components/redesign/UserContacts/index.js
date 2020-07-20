@@ -87,27 +87,10 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
                 }
-
-                {address_or_city
-                    ? <p className="user-contacts__info-address">
-                        <span>Город</span>:&nbsp;
+                <p className="user-contacts__info-address">
+                    <span>Город</span>:&nbsp;
                     <span>{city_name ? city_name : 'Не указан'}</span>
-                    </p>
-                    : <p className="user-contacts__info-address">
-                        <span>Город</span>:&nbsp;<span>Не указан</span>
-                    </p>
-                }
-                {/* {work_time && !!work_time.length &&
-                    <div className="user-contacts__info-work-time">
-                        <span>График работы:&nbsp;</span>
-                        {
-                            mainWorkTime.days
-                                ? <><span>{mainWorkTime.days.join(', ')}</span>&nbsp;c {timeSecondsCutter(mainWorkTime.time_from)} до {timeSecondsCutter(mainWorkTime.time_to)}</>
-                                : 'Не указан'
-                        }
-
-                    </div>
-                } */}
+                </p>
                 <h4 className="user-contacts__info-title subtitle">Дополнительная информация</h4>
                 <div className="user-contacts__info-email">
                     {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
@@ -125,7 +108,6 @@ const UserContacts = ({
                         </p>
                     ))}
                 </div>
-
                 {work_time && !!work_time.length &&
                     <div className="user-contacts__info-work-time">
                         <span>График работы</span>
@@ -137,11 +119,10 @@ const UserContacts = ({
                         ))}
                     </div>
                 }
-
                 {name &&
                     <p className="user-contacts__info-name">
                         <span>Полное наименование</span>:&nbsp;
-                    <span>{name}</span>
+                        <span>{name}</span>
                     </p>
                 }
                 {legal_address_or_city &&
@@ -161,11 +142,10 @@ const UserContacts = ({
                 <div className="user-contacts__info-site">
                     <p>
                         <span>Сайт</span>:&nbsp;
-                    {site ?
+                        {site ?
                             <a href={site} target="_blank" rel="noopener noreferrer">{site}</a> :
                             <span>-</span>
                         }
-
                     </p>
                 </div>
                 {socials && !!socials.length &&
