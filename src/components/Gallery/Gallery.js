@@ -57,7 +57,7 @@ const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
             /> :
             <div className="ReactGridGallery__disabled">
                 <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
-                <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.noNews} alt="У вас нет фотографий"/>
+                <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий"/>
             </div>
         }
     </div>
