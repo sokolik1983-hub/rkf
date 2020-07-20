@@ -117,11 +117,6 @@
     &__exhibitions {
       max-width: 860px;
     }
-    .exhibitions-component__title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
   }
   .NewsPage {
     &__endMessage {
@@ -257,10 +252,5 @@
   }
   &__exhibitions {
     max-width: 860px;
-  }
-  .exhibitions-component__title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }
