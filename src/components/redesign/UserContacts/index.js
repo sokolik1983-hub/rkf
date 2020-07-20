@@ -108,7 +108,6 @@ const UserContacts = ({
 
                     </div>
                 } */}
-                <h4 className="user-contacts__info-title subtitle">Дополнительная информация</h4>
                 <div className="user-contacts__info-email">
                     {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
                         <p key={contact.id}>
