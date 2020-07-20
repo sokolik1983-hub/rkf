@@ -201,7 +201,7 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, profileId, isFederation, noCard = false }) => {
+const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = false }) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
@@ -385,19 +385,19 @@ const MenuComponent = ({ alias, name, profileId, isFederation, noCard = false })
     const MenuContent = () => <>
         <h4 className="menu-component__title">Меню</h4>
         <ul className="menu-component__list">
-            <li className="menu-component__item">
+            {user !== 'nursery' && <li className="menu-component__item">
                 <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-            </li>
+            </li>}
             {presidium[alias] &&
                 <li className="menu-component__item">
                     <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
                 </li>
             }
             <li className="menu-component__item">
-                <Link to={`/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
+                <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
             </li>
             <li className="menu-component__item">
-                <Link to={`/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
+                <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
             </li>
             {alias === 'rfls' && <>
                 <li className="menu-component__item">
@@ -416,12 +416,13 @@ const MenuComponent = ({ alias, name, profileId, isFederation, noCard = false })
                         </Link>
                 </li>
             </>}
+            {user !== 'nursery' &&
+                <li className="menu-component__item">
+                    <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                </li>}
             <li className="menu-component__item">
-                <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-            </li>
-            <li className="menu-component__item">
-                <Link to={`/${alias}`} className="menu-component__link not-active" title={name}>
-                    {`Cтраница ${isFederation ? 'федерации' : 'клуба'}`}
+                <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
+                    {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
                 </Link>
             </li>
         </ul>

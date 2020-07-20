@@ -64,7 +64,7 @@ const ExhibitionsComponent = ({ alias }) => {
                 infinite={false}
                 speed={500}
                 slidesToShow={3}
-                slidesToScroll={3}
+                slidesToScroll={1}
                 nextArrow={<CustomArrow className="slick-next" alt="next" />}
                 prevArrow={<CustomArrow className="slick-prev" alt="prev" />}
                 touchThreshold={20}

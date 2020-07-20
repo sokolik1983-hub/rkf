@@ -1,4 +1,7 @@
 .nursery-page {
+  &.content {
+    padding-top: 55px;
+  }
   &__content-wrap {
     display: flex;
     justify-content: space-between;
@@ -17,7 +20,10 @@
       }
     }
     &-header {
-      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
       a {
         text-decoration: none;
         font-weight: normal;
@@ -34,11 +40,9 @@
       }
     }
     &-title {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
       text-decoration: none;
       color: #253c5e;
       display: inline-block;
@@ -56,6 +60,22 @@
     order: 1;
     @media (max-width: 990px) {
       margin-left: 0;
+    }
+    &-banner {
+      padding: 0;
+      & > div {
+        height: 235px;
+        margin: auto;
+        object-fit: cover;
+        width: 100%;
+        max-width: 848px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+      }
+    }
+    & > .Card {
+      margin-bottom: 24px !important;
     }
   }
   &__breeds {
@@ -84,6 +104,13 @@
       width: 100%;
       min-width: unset;
     }
+    &-inner {
+      position: sticky;
+      top: 55px;
+    }
+  }
+  &__exhibitions {
+    max-width: 860px;
   }
 }
 
@@ -106,7 +133,7 @@
       text-align: center;
       padding: 8px;
     }
-    &__text{
+    &__text {
       padding: 8px;
     }
   }

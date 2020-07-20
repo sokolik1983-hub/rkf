@@ -5,14 +5,14 @@ import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
-import UserHeader from "../../components/UserHeader";
-import UserDescription from "../../components/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import UserNews from "../../components/UserNews";
-import UserMenu from "./components/UserMenu";
+import UserNews from "pages/Club/components/ClubUserNews";
+import ExhibitionsComponent from "components/ExhibitionsComponent";
 import { Gallery } from "components/Gallery";
 import Card from "components/Card";
-import NurseryInfo from "./components/NurseryInfo";
+import UserHeader from "components/redesign/UserHeader";
+import UserDescription from "components/redesign/UserDescription";
+import UserContacts from "components/redesign/UserContacts";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -32,7 +32,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
-            if(data.user_type !== 4) {
+            if (data.user_type !== 4) {
                 history.replace(`/${alias}`);
             } else {
                 setNursery(data);
@@ -77,70 +77,76 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
             <Layout>
-                <Container className="content nursery-page">
-                    <UserHeader
-                        user="nursery"
-                        logo={nursery.logo_link}
-                        banner={nursery.headliner_link}
-                        name={nursery.name || 'Имя отсутствует'}
-                        federationName={nursery.federation_name}
-                        federationAlias={nursery.federation_alias}
-                    />
-                    <div className="nursery-page__content-wrap">
-                        <div className="nursery-page__content">
-                            <UserDescription description={nursery.description} />
-                            <Card className="nursery-page__gallery-wrap">
-                                <div className="nursery-page__gallery-header">
-                                    <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
-                                    <Link to={`/kennel/${alias}/gallery`}>посмотреть все</Link>
-                                </div>
-                                <Gallery
-                                    items={images}
-                                    backdropClosesModal={true}
-                                    enableImageSelection={false}
-                                    maxRows={1}
-                                    withLoading={false}
-                                />
-                            </Card>
-                            {canEdit &&
-                                <AddArticle
-                                    id={nursery.id}
-                                    logo={nursery.logo_link}
+                <div className="redesign">
+                    <Container className="content nursery-page">
+
+                        <div className="nursery-page__content-wrap">
+                            <div className="nursery-page__content">
+                                {nursery.headliner_link &&
+                                    <Card className="nursery-page__content-banner">
+                                        <div style={{ backgroundImage: `url(${nursery.headliner_link})` }} />
+                                    </Card>
+                                }
+                                <UserDescription description={nursery.description} />
+                                <UserContacts {...nursery} />
+                                {canEdit &&
+                                    <AddArticle
+                                        id={nursery.id}
+                                        logo={nursery.logo_link}
+                                        setPage={setPage}
+                                        setNeedRequest={setNeedRequest}
+                                    />
+                                }
+                                <UserNews
+                                    user="nursery"
+                                    canEdit={canEdit}
+                                    alias={alias}
+                                    page={page}
                                     setPage={setPage}
+                                    needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
                                 />
-                            }
-                            <UserNews
-                                user="nursery"
-                                canEdit={canEdit}
-                                alias={alias}
-                                page={page}
-                                setPage={setPage}
-                                needRequest={needRequest}
-                                setNeedRequest={setNeedRequest}
-                            />
+                            </div>
+                            <Aside className="nursery-page__info">
+                                <div className="nursery-page__info-inner">
+                                    <UserHeader
+                                        user="nursery"
+                                        logo={nursery.logo_link}
+                                        name={nursery.name || 'Имя отсутствует'}
+                                        alias={alias}
+                                        profileId={nursery.id}
+                                        federationName={nursery.federation_name}
+                                        federationAlias={nursery.federation_alias}
+                                    />
+                                    {nursery.breeds && !!nursery.breeds.length &&
+                                        <Card className="nursery-page__breeds">
+                                            <h4>Породы</h4>
+                                            <ul className="nursery-page__breeds-list">
+                                                {nursery.breeds.map(item =>
+                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                )}
+                                            </ul>
+                                        </Card>
+                                    }
+                                    <Card className="nursery-page__gallery-wrap">
+                                        <div className="nursery-page__gallery-header">
+                                            <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
+                                            <Link to={`/${alias}/gallery`}>Смотреть все</Link>
+                                        </div>
+                                        <Gallery
+                                            items={images}
+                                            backdropClosesModal={true}
+                                            enableImageSelection={false}
+                                            maxRows={4}
+                                            withLoading={false}
+                                            rowHeight={60}
+                                        />
+                                    </Card>
+                                </div>
+                            </Aside>
                         </div>
-                        <Aside className="nursery-page__info">
-                            <UserMenu
-                                alias={alias}
-                                name={nursery.name || 'Имя отсутствует'}
-                            />
-                            {nursery.breeds && !!nursery.breeds.length &&
-                                <Card className="nursery-page__breeds">
-                                    <h4>Породы</h4>
-                                    <ul className="nursery-page__breeds-list">
-                                        {nursery.breeds.map(item =>
-                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                        )}
-                                    </ul>
-                                </Card>
-                            }
-                            <NurseryInfo
-                                {...nursery}
-                            />
-                        </Aside>
-                    </div>
-                </Container>
+                    </Container>
+                </div>
             </Layout>
 };
 
