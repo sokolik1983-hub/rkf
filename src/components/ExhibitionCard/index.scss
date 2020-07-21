@@ -124,11 +124,6 @@
     letter-spacing: 0.2px;
     color: #36f !important;
     cursor: pointer;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color 0.2s linear;
-    &:hover {
-      border-bottom-color: #36f;
-    }
     @media (max-width: 560px) {
       font-size: 14px !important;
       line-height: 18px !important;

@@ -14,11 +14,9 @@
       line-height: 24px;
       letter-spacing: 0.2px;
       color: #72839c !important;
-      border-bottom: 1px solid transparent;
       transition: all 0.2s linear;
       &:hover {
         color: #3366ff !important;
-        border-bottom-color: #3366ff;
       }
     }
   }

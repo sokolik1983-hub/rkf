@@ -135,11 +135,6 @@
     letter-spacing: .2px;
     color: #36f;
     cursor: pointer;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color .2s linear;
-    &:hover {
-      border-bottom-color: #36f;
-    }
   }
   &__share {
     &:after {
