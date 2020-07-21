@@ -61,7 +61,10 @@ const UserContacts = ({
     return (
         <Card className="user-contacts__info-wrap">
             <Collapse isOpened={isOpen} ref={CollapseRef}>
-                <h4 className="user-contacts__info-title">Контакты</h4>
+                <div className="user-contacts__info-title-wrap">
+                    <h4 className="user-contacts__info-title">Контакты</h4>
+                    {city_name && <span className="user-contacts__info-city">{city_name}</span>}
+                </div>
                 {owner_name
                     ? <p className="user-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
@@ -87,11 +90,6 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
                 }
-                <p className="user-contacts__info-address">
-                    <span>Город</span>:&nbsp;
-                    <span>{city_name ? city_name : 'Не указан'}</span>
-                </p>
-                <h4 className="user-contacts__info-title subtitle">Дополнительная информация</h4>
                 <div className="user-contacts__info-email">
                     {contacts.filter(item => item.contact_type_id === 2).slice(1).map(contact => (
                         <p key={contact.id}>
