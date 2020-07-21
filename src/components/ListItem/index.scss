@@ -13,7 +13,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: #e8e8e8;
+    border: 1px solid #e8e8e8;
     cursor: pointer;
     float: left;
     @media (max-width: 560px) {
@@ -188,7 +188,6 @@
     letter-spacing: 0.2px;
     color: #36f;
     cursor: pointer;
-    border-bottom: 1px solid transparent;
     transition: all 0.2s linear;
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
@@ -199,7 +198,6 @@
     filter: gray;
     opacity: .5;
     &:hover {
-      border-bottom-color: #36f;
       -webkit-filter: grayscale(0%);
       -moz-filter: grayscale(0%);
       -ms-filter: grayscale(0%);
