@@ -101,6 +101,14 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             document_type_id={31}
             profileType={config.profileType}
         />
+        {(config.distinction !== 'patella') && <FormFile
+            name={`roentgenogram_document`}
+            label='Рентгенограмма (PDF, JPEG, JPG, PNG)'
+            docId={formik.values.roentgenogram_document_id}
+            disabled={view}
+            document_type_id={32}
+            profileType={config.profileType}
+        />}
         </FormGroup>
 
         <FormGroup inline>
