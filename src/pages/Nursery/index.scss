@@ -71,27 +71,6 @@
       display: block;
       margin: auto;
     }
-  }
-  &__content {
-    width: 100%;
-    margin-left: 16px;
-    order: 1;
-    @media (max-width: 990px) {
-      margin-left: 0;
-    }
-    &-banner {
-      padding: 0;
-      background-color: #ececec;
-      background-image: url("/static/icons/camera.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      overflow: hidden;
-      border: 1px solid #e8e8e8;
-      & > div {
-        height: 235px;
-        margin: auto;
-      }
-    }
     &__content {
       width: 100%;
       margin-left: 16px;
@@ -119,6 +98,19 @@
       }
       & > .Card {
         margin-bottom: 24px !important;
+      }
+    }
+    &-banner {
+      padding: 0;
+      background-color: #ececec;
+      background-image: url("/static/icons/camera.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow: hidden;
+      border: 1px solid #e8e8e8;
+      & > div {
+        height: 235px;
+        margin: auto;
       }
     }
     &__breeds {
