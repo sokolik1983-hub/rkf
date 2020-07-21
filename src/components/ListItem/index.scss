@@ -159,23 +159,14 @@
     @media (max-width: 560px) {
       padding-top: 8px;
     }
-    .ya-share2__icon {
-      transition: all 0.2s linear;
-      -webkit-filter: grayscale(100%);
-      -moz-filter: grayscale(100%);
-      -ms-filter: grayscale(100%);
-      -o-filter: grayscale(100%);
-      filter: grayscale(100%);
-      -webkit-filter: gray;
-      filter: gray;
-      opacity: 0.5;
-      &:hover {
-        -webkit-filter: grayscale(0%);
-        -moz-filter: grayscale(0%);
-        -ms-filter: grayscale(0%);
-        -o-filter: grayscale(0%);
-        filter: none;
-        opacity: 1;
+    .Share {
+      .ya-share2__icon_more {
+        &:after {
+          background: url("/static/icons/icon-share-2-gray.svg") no-repeat 50% / contain;
+        }
+        &:hover:after {
+          background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
+        }
       }
     }
   }
@@ -188,21 +179,8 @@
     letter-spacing: 0.2px;
     color: #72839c;
     cursor: pointer;
-    transition: all 0.2s linear;
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-    filter: grayscale(100%);
-    -webkit-filter: gray;
-    filter: gray;
     &:hover {
-      -webkit-filter: grayscale(0%);
-      -moz-filter: grayscale(0%);
-      -ms-filter: grayscale(0%);
-      -o-filter: grayscale(0%);
-      filter: none;
-      opacity: 1;
+      color: #36f;
     }
     &._disabled {
       color: #b9c1ce;
