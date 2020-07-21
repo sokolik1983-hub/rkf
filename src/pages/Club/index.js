@@ -115,10 +115,37 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <Card className="club-page__content-banner">
                                         <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                     </Card>
+                                    <div className="club-page__mobile-only">
+                                        <UserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                        />
+                                    </div>
                                     <UserDescription description={clubInfo.description} />
                                     <UserContacts {...clubInfo} />
                                     <div className="club-page__exhibitions">
                                         <ExhibitionsComponent alias={clubInfo.club_alias} />
+                                    </div>
+                                    <div className="club-page__mobile-only">
+                                        <Card className="club-page__gallery-wrap">
+                                            <div className="club-page__gallery-header">
+                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
+                                            </div>
+                                            <Gallery
+                                                items={images}
+                                                backdropClosesModal={true}
+                                                enableImageSelection={false}
+                                                withLoading={false}
+                                                rowHeight={88}
+                                                thumbnailStyle={squareStyle}
+                                            />
+                                        </Card>
                                     </div>
                                     {canEdit &&
                                         <AddArticle

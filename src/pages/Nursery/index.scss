@@ -1,4 +1,7 @@
 .nursery-page {
+  &__mobile-only {
+    display: none;
+  }
   &.content {
     padding-top: 75px;
   }
@@ -116,6 +119,24 @@
   }
   &__exhibitions {
     max-width: 860px;
+  }
+  @media (max-width: 768px) {
+    .user-header, .nursery-page__gallery-wrap, .nursery-page__breeds {
+      display: none;
+    }
+    &__mobile-only {
+      display: block;
+      .user-header, .nursery-page__gallery-wrap, .nursery-page__breeds {
+        display: block;
+        .menu-component__list, hr {
+          display: none;
+        }
+      }
+      .nursery-page__breeds {
+        width: 100%;
+        padding: 12px;
+      }
+    }
   }
 }
 

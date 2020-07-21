@@ -16,6 +16,7 @@ import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import UserMenu from "./components/UserMenu";
 
 
 const getAddressString = addressObj => {
@@ -117,14 +118,50 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             <Layout>
                 <div className="redesign">
                     <Container className="content nursery-page">
-
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
                                 <Card className="nursery-page__content-banner">
                                     <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
                                 </Card>
+                                <div className="nursery-page__mobile-only">
+                                    <UserHeader
+                                        user="nursery"
+                                        logo={nursery.logo_link}
+                                        name={nursery.name || 'Имя отсутствует'}
+                                        alias={alias}
+                                        profileId={nursery.id}
+                                        federationName={nursery.federation_name}
+                                        federationAlias={nursery.federation_alias}
+                                    />
+                                    {nursery.breeds && !!nursery.breeds.length &&
+                                        <Card className="nursery-page__breeds">
+                                            <h4>Породы</h4>
+                                            <ul className="nursery-page__breeds-list">
+                                                {nursery.breeds.map(item =>
+                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                )}
+                                            </ul>
+                                        </Card>
+                                    }
+                                </div>
                                 <UserDescription description={nursery.description} />
                                 <UserContacts {...nursery} />
+                                <div className="nursery-page__mobile-only">
+                                    <Card className="nursery-page__gallery-wrap">
+                                        <div className="nursery-page__gallery-header">
+                                            <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
+                                            <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
+                                        </div>
+                                        <Gallery
+                                            items={images}
+                                            backdropClosesModal={true}
+                                            enableImageSelection={false}
+                                            withLoading={false}
+                                            rowHeight={88}
+                                            thumbnailStyle={squareStyle}
+                                        />
+                                    </Card>
+                                </div>
                                 {canEdit &&
                                     <AddArticle
                                         id={nursery.id}
@@ -178,6 +215,9 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             thumbnailStyle={squareStyle}
                                         />
                                     </Card>
+                                    <div className="nursery-page__mobile-only">
+                                        <UserMenu alias={alias}/>
+                                    </div>
                                 </div>
                             </Aside>
                         </div>
