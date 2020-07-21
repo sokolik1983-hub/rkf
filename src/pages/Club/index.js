@@ -61,16 +61,31 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
             method: 'GET'
         }, data => {
-            setImages(data.photos.map(p => {
-                return {
-                    id: p.id,
-                    src: p.link,
-                    thumbnail: p.small_photo.link,
-                    thumbnailWidth: 88,
-                    thumbnailHeight: p.small_photo.height,
-                    caption: p.caption
-                }
-            }));
+            if (data.photos.length) {
+                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
+                const { photos } = data;
+                const imagesArray = twelveItemsArray.map(p => {
+                    if (photos[p]) {
+                        return {
+                            id: photos[p].id,
+                            src: photos[p].link,
+                            thumbnail: photos[p].small_photo.link,
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88,
+                            caption: photos[p].caption
+                        }
+                    } else {
+                        return {
+                            id: p,
+                            src: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88
+                        }
+                    }
+                });
+                setImages(imagesArray);
+            }
         },
             error => {
                 //handleError(error);

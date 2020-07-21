@@ -20,11 +20,11 @@ import "./index.scss";
 
 const getAddressString = addressObj => {
     let address = '';
-    if(addressObj.postcode) address += `${addressObj.postcode}, `;
-    if(addressObj.city_name) address += `${addressObj.city_name}, `;
-    if(addressObj.street_type_name && addressObj.street_name) address += `${addressObj.street_type_name} ${addressObj.street_name}, `;
-    if(addressObj.house_type_name && addressObj.house_name) address += `${addressObj.house_type_name} ${addressObj.house_name}, `;
-    if(addressObj.flat_type_name && addressObj.flat_name) address += `${addressObj.flat_type_name} ${addressObj.flat_name}`;
+    if (addressObj.postcode) address += `${addressObj.postcode}, `;
+    if (addressObj.city_name) address += `${addressObj.city_name}, `;
+    if (addressObj.street_type_name && addressObj.street_name) address += `${addressObj.street_type_name} ${addressObj.street_name}, `;
+    if (addressObj.house_type_name && addressObj.house_name) address += `${addressObj.house_type_name} ${addressObj.house_name}, `;
+    if (addressObj.flat_type_name && addressObj.flat_name) address += `${addressObj.flat_type_name} ${addressObj.flat_name}`;
     return address;
 };
 
@@ -49,7 +49,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                 const address = data.fact_address ? getAddressString(data.fact_address) : legal_address;
                 const city_name = data.fact_address ? data.fact_address.city_name : data.legal_address ? data.legal_address.city_name : '';
 
-                setNursery({...data, legal_address, address, city: {name: city_name}});
+                setNursery({ ...data, legal_address, address, city: { name: city_name } });
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
                 setLoading(false);
             }
@@ -70,16 +70,31 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             url: `/api/photogallery/gallery?alias=${alias}&elem_count=12`,
             method: 'GET'
         }, data => {
-            setImages(data.photos.map(p => {
-                return {
-                    id: p.id,
-                    src: p.link,
-                    thumbnail: p.small_photo.link,
-                    thumbnailWidth: 88,
-                    thumbnailHeight: p.small_photo.height,
-                    caption: p.caption
-                }
-            }));
+            if (data.photos.length) {
+                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
+                const { photos } = data;
+                const imagesArray = twelveItemsArray.map(p => {
+                    if (photos[p]) {
+                        return {
+                            id: photos[p].id,
+                            src: photos[p].link,
+                            thumbnail: photos[p].small_photo.link,
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88,
+                            caption: photos[p].caption
+                        }
+                    } else {
+                        return {
+                            id: p,
+                            src: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88
+                        }
+                    }
+                });
+                setImages(imagesArray);
+            }
         },
             error => {
                 //handleError(error);
