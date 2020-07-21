@@ -1,6 +1,9 @@
 .redesign {
   .club-page {
     word-break: break-word;
+    &__mobile-only {
+      display: none;
+    }
     &.content {
       padding-top: 75px;
     }
@@ -116,6 +119,20 @@
     }
     &__exhibitions {
       max-width: 860px;
+    }
+    @media (max-width: 768px) {
+      .user-header, .club-page__gallery-wrap {
+        display: none;
+        .menu-component__list, hr {
+          display: none;
+        }
+      }
+      &__mobile-only {
+        display: block;
+        .user-header, .club-page__gallery-wrap {
+          display: block;
+        }
+      }
     }
   }
   .NewsPage {

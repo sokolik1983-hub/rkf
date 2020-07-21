@@ -1,16 +1,5 @@
 .list-item {
-  &__wrap {
-    //display: flex;
-    //@media (max-width: 560px) {
-    //  display: block;
-    //}
-  }
   &__content {
-    //flex-grow: 1;
-    //width: calc(100% - 312px);
-    //@media (max-width: 560px) {
-    //  width: 100%;
-    //}
     overflow: hidden;
   }
   &__photo {
@@ -71,7 +60,7 @@
         font-size: 14px;
         line-height: 20px;
         text-decoration: none;
-        color: #253c5e;
+        color: #36f;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -170,6 +159,25 @@
     @media (max-width: 560px) {
       padding-top: 8px;
     }
+    .ya-share2__icon {
+      transition: all 0.2s linear;
+      -webkit-filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+      -o-filter: grayscale(100%);
+      filter: grayscale(100%);
+      -webkit-filter: gray;
+      filter: gray;
+      opacity: .5;
+      &:hover {
+        -webkit-filter: grayscale(0%);
+        -moz-filter: grayscale(0%);
+        -ms-filter: grayscale(0%);
+        -o-filter: grayscale(0%);
+        filter: none;
+        opacity: 1;
+      }
+    }
   }
   &__show-all {
     text-decoration: none;
@@ -181,14 +189,29 @@
     color: #36f;
     cursor: pointer;
     border-bottom: 1px solid transparent;
-    transition: border-bottom-color 0.2s linear;
+    transition: all 0.2s linear;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-filter: gray;
+    filter: gray;
+    opacity: .5;
     &:hover {
       border-bottom-color: #36f;
+      -webkit-filter: grayscale(0%);
+      -moz-filter: grayscale(0%);
+      -ms-filter: grayscale(0%);
+      -o-filter: grayscale(0%);
+      filter: none;
+      opacity: 1;
     }
     &._disabled {
       color: #e8e8e8;
       border-bottom-color: transparent;
       cursor: default;
+      opacity: 1;
     }
   }
   &__modal {
@@ -203,6 +226,28 @@
     }
     .Modal__close {
       right: 20px !important;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 1px 1px 2px rgba(0,0,0,.1), -1px -1px 2px rgba(0,0,0,.1),
+                  1px -1px 2px rgba(0,0,0,.1), -1px 1px 2px rgba(0,0,0,.1);
+      opacity: .8;
+      transition: opacity .2s linear;
+      &:before {
+        content: '✕';
+        color: #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      &:hover {
+        opacity: 1;
+      }
+      @media (max-width: 560px) {
+        right: 12px !important;
+      }
     }
     img {
       display: block;
