@@ -80,10 +80,11 @@
       }
       &-banner {
         padding: 0;
-        background-color: #ececec;
-        background-image: url("/static/icons/camera.svg");
+        border: 1px solid #e8e8e8;
+        background-image: url("/static/images/noimg/empty-gallery.png");
         background-repeat: no-repeat;
         background-position: center;
+        background-size: 150px;
         overflow: hidden;
         & > div {
           height: 235px;
