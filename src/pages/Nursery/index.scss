@@ -1,36 +1,53 @@
-.nursery-page {
-  &__mobile-only {
-    display: none;
-  }
-  &.content {
-    padding-top: 75px;
-  }
-  &__content-wrap {
-    display: flex;
-    justify-content: space-between;
-    @media (max-width: 990px) {
-      display: block;
+.redesign {
+  background: #f5f8ff;
+
+  .nursery-page {
+    &__mobile-only {
+      display: none;
     }
-  }
-  &__gallery {
-    &-wrap {
-      margin-bottom: 24px;
-      @media (max-width: 560px) {
-        margin-bottom: 12px;
-      }
-      &.Card {
-        padding: 12px;
-      }
+    &.content {
+      padding-top: 75px;
     }
-    &-header {
+    &__content-wrap {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      a {
-        text-decoration: none;
+      @media (max-width: 990px) {
+        display: block;
+      }
+    }
+    &__gallery {
+      &-wrap {
+        margin-bottom: 24px;
+        @media (max-width: 560px) {
+          margin-bottom: 12px;
+        }
+        &.Card {
+          padding: 12px;
+        }
+      }
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+        a {
+          text-decoration: none;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.2px;
+          color: #72839c !important;
+          border-bottom: 1px solid transparent;
+          transition: all 0.2s linear;
+          &:hover {
+            color: #3366ff !important;
+            border-bottom-color: #3366ff;
+          }
+        }
+      }
+      &-title {
         font-weight: normal;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 24px;
         letter-spacing: 0.2px;
         color: #72839c !important;
@@ -73,67 +90,92 @@
       & > div {
         height: 235px;
         margin: auto;
-        object-fit: cover;
-        width: 100%;
-        max-width: none;
-        background-repeat: no-repeat;
-        background-position: 50%;
-        background-size: cover;
       }
     }
-    & > .Card {
-      margin-bottom: 24px !important;
-    }
-  }
-  &__breeds {
-    width: 300px;
-    min-width: 300px;
-    margin-bottom: 24px;
-    h4 {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    &-list {
-      list-style: none;
-    }
-    &-item {
-      color: #61797c;
-    }
-  }
-  &__info {
-    width: 300px;
-    min-width: 300px;
-    @media (max-width: 990px) {
+    &__content {
       width: 100%;
-      min-width: unset;
-    }
-    &-inner {
-      position: sticky;
-      top: 75px;
-    }
-  }
-  &__exhibitions {
-    max-width: 860px;
-  }
-  @media (max-width: 768px) {
-    .user-header, .nursery-page__gallery-wrap, .nursery-page__breeds {
-      display: none;
-    }
-    &__mobile-only {
-      display: block;
-      .user-header, .nursery-page__gallery-wrap, .nursery-page__breeds {
-        display: block;
-        .menu-component__list, hr {
-          display: none;
+      margin-left: 16px;
+      order: 1;
+      @media (max-width: 990px) {
+        margin-left: 0;
+      }
+      &-banner {
+        padding: 0;
+        background-color: #ececec;
+        background-image: url("/static/icons/camera.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+        & > div {
+          height: 235px;
+          margin: auto;
+          object-fit: cover;
+          width: 100%;
+          max-width: none;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          background-size: cover;
         }
       }
-      .nursery-page__breeds {
+      & > .Card {
+        margin-bottom: 24px !important;
+      }
+    }
+    &__breeds {
+      width: 300px;
+      min-width: 300px;
+      margin-bottom: 24px;
+      h4 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      &-list {
+        list-style: none;
+      }
+      &-item {
+        color: #61797c;
+      }
+    }
+    &__info {
+      width: 300px;
+      min-width: 300px;
+      @media (max-width: 990px) {
         width: 100%;
-        padding: 12px;
+        min-width: unset;
+      }
+      &-inner {
+        position: sticky;
+        top: 75px;
+      }
+    }
+    &__exhibitions {
+      max-width: 860px;
+    }
+    @media (max-width: 768px) {
+      .user-header,
+      .nursery-page__gallery-wrap,
+      .nursery-page__breeds {
+        display: none;
+      }
+      &__mobile-only {
+        display: block;
+        .user-header,
+        .nursery-page__gallery-wrap,
+        .nursery-page__breeds {
+          display: block;
+          .menu-component__list,
+          hr {
+            display: none;
+          }
+        }
+        .nursery-page__breeds {
+          width: 100%;
+          padding: 12px;
+        }
       }
     }
   }

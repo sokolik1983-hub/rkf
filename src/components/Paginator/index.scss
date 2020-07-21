@@ -26,6 +26,9 @@
         -webkit-appearance: none;
         margin: 0;
       }
+      &::placeholder {
+        color: #b9c1ce;
+      }
       @media (max-width: 560px) {
         width: 68px;
         padding: 6px;
@@ -35,7 +38,7 @@
       }
     }
   }
-  &__btn-interval{
+  &__btn-interval {
     height: 40px;
     font-size: 23px;
     padding-right: 4px;
@@ -47,11 +50,12 @@
       font-size: 23px;
     }
   }
-  &__btn-interval p{
+  &__btn-interval p {
     padding-top: 13px;
   }
   .btn-prev,
   .btn-next {
+    color: #72839c;
     @media (max-width: 560px) {
       display: none;
     }
@@ -66,7 +70,7 @@
     margin-right: 8px;
     padding: 0;
     border-color: #ebf0f2;
-    color: #253c5e;
+    color: #72839c;
     transition: all 0.2s linear;
     @media (max-width: 560px) {
       width: 35px;
