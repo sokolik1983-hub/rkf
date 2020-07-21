@@ -110,6 +110,14 @@
       border: none;
       background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
     }
+    .ya-share2__icon_more {
+      &:after {
+        background: url("/static/icons/icon-share-2-gray.svg") no-repeat 50% / contain;
+      }
+      &:hover:after {
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
+      }
+    }
     .menu-component {
       &__title {
         display: none;
