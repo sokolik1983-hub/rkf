@@ -34,7 +34,7 @@
     }
     &__content {
       width: 100%;
-      margin-left: 24px;
+      margin-left: 16px;
       order: 1;
       @media (max-width: 990px) {
         margin-left: 0;
@@ -68,7 +68,7 @@
         }
       }
       & > .Card:not(.club-page__content-banner) {
-        margin-bottom: 24px !important;
+        margin-bottom: 16px !important;
       }
     }
     &__info {
