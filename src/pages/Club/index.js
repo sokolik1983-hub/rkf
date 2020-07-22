@@ -19,6 +19,7 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { Gallery } from "components/Gallery";
+import StickyBox from "react-sticky-box";
 import "./index.scss";
 
 
@@ -166,6 +167,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     />
                                 </div>
                                 <Aside className="club-page__info">
+                                <StickyBox offsetTop={75}>
                                     <div className="club-page__info-inner">
                                         <UserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
@@ -191,6 +193,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             />
                                         </Card>
                                     </div>
+                                    </StickyBox>
                                 </Aside>
                             </div>
                             <FloatingMenu
