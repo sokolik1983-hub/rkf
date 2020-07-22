@@ -84,6 +84,12 @@
         background-position: center;
         background-size: 150px;
         overflow: hidden;
+        &.Card {
+          margin-bottom: 24px;
+          @media (max-width: 560px) {
+            margin-bottom: 12px;
+          }
+        }
         & > div {
           height: 235px;
           margin: auto;
@@ -93,9 +99,12 @@
           background-repeat: no-repeat;
           background-position: 50%;
           background-size: cover;
+          @media (max-width: 560px) {
+            height: 25vw;
+          }
         }
       }
-      & > .Card {
+      & > .Card:not(.nursery-page__content-banner) {
         margin-bottom: 24px !important;
       }
     }
