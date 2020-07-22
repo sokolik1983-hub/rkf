@@ -88,9 +88,7 @@
     color: #72839c;
     white-space: nowrap;
     margin-left: 8px;
-    &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
     &:before {
       content: "";
       position: absolute;
@@ -102,6 +100,12 @@
       @media (max-width: 560px) {
         height: 16px;
         background-size: contain;
+      }
+    }
+    &:hover {
+      color: #3366ff;
+      &:before {
+        background: url("/static/icons/pin.svg") center no-repeat;
       }
     }
     @media (max-width: 560px) {
@@ -143,6 +147,7 @@
     line-height: 20px;
     color: #72839c;
     white-space: pre-wrap;
+    word-wrap: break-word;
     transition: height 0.2s linear;
     * {
       max-width: 100% !important;

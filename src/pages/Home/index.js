@@ -7,7 +7,7 @@ import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
-import ExhibitionsComponent from "components/ExhibitionsComponent";
+import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import ClubsMap from "../../components/ClubsMap";
 import { endpointGetNews, RKFInfo, exhibitions } from "./config";
