@@ -139,8 +139,10 @@
         min-width: unset;
       }
       &-inner {
-        position: sticky;
-        top: 75px;
+        padding-bottom: 24px;
+        .nursery-page__gallery-wrap {
+          margin-bottom: 0;
+        }
       }
     }
     &__exhibitions {

@@ -15,8 +15,9 @@ import UserContacts from "components/redesign/UserContacts";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import "./index.scss";
 import UserMenu from "./components/UserMenu";
+import StickyBox from "react-sticky-box";
+import "./index.scss";
 
 
 const getAddressString = addressObj => {
@@ -181,6 +182,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 />
                             </div>
                             <Aside className="nursery-page__info">
+                            <StickyBox offsetTop={75}>
                                 <div className="nursery-page__info-inner">
                                     <UserHeader
                                         user="nursery"
@@ -219,6 +221,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         <UserMenu alias={alias}/>
                                     </div>
                                 </div>
+                                </StickyBox>
                             </Aside>
                         </div>
                     </Container>
