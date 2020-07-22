@@ -7,10 +7,8 @@ import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
-import ExhibitionsComponent from "components/ExhibitionsComponent";
+import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import HomepageCheckStatus from "./components/HomepageCheckStatus";
-// import Statistics from "./components/Statistics";
-import HorizontalSwipe from "../../components/HorozintalSwipe";
 import ClubsMap from "../../components/ClubsMap";
 import { endpointGetNews, RKFInfo, partners, exhibitions } from "./config";
 import { connectNewsList } from "./connectors";
@@ -43,6 +41,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
     };
 
     const sidebarRef = useRef(null);
+
     useEffect(() => {
         const scrollListener = () => {
             let el = sidebarRef.current;
@@ -147,14 +146,11 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                                 <div className="home-page__right-socials">
                                     <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                     <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                    {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
                                     <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
                                     <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
                                     <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                                 </div>
                             </Card>
-                            {/* <Statistics /> */}
                             <HomepageCheckStatus />
                             <Card className="home-page__projects-wrap">
                                 <h3>Международные мероприятия</h3>
@@ -172,64 +168,10 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                                     <ClubsMap />
                                 </div>
                             </Card>
-                            {/* <Card>
-                            <div className="home-page__projects">
-                                <h3>Наши проекты</h3>
-                                <p>
-                                    <a href="http://rkf.org.ru/" target="_blank" rel="noreferrer noopener">Официальный сайт РКФ</a>
-                                </p>
-                                <p>
-                                    <span className="disabled">Образовательный портал</span>
-                                </p>
-                                <p>
-                                    <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noreferrer noopener">База знаний</a>
-                                </p>
-                                <p>
-                                    <a href="http://rkfshow.ru/" target="_blank" rel="noreferrer noopener">Запись на мероприятия</a>
-                                </p>
-                            </div>
-                        </Card> */}
                         </div>
                     </Aside>
                 </div>
             </Container>
-            {/* <Container className="home-page__partners">
-                <h3 className="Homepage__partners-header">Наши партнеры</h3>
-                <div className="Homepage__partners-wrap">
-                    <HorizontalSwipe id="Homepage__partners-list">
-                        <ul className="Homepage__partners-list">
-                            {partners.map(i => (
-                                <li key={i.id}>
-                                    <a href={i.url} title={i.title} target="_blank" rel="noreferrer noopener">
-                                        <img src={i.img} alt={i.title} />
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </HorizontalSwipe>
-                </div>
-
-                <h3 className="Homepage__exhibitions-header">Международные мероприятия</h3>
-                <div className="Homepage__exhibitions-wrap">
-                    <HorizontalSwipe id="Homepage__exhibitions-list">
-                        <ul className="Homepage__exhibitions-list">
-                            {exhibitions.map(i => (
-                                <li key={i.id}>
-                                    <a href={i.url} title={i.name} target="_blank" rel="noreferrer noopener">
-                                        <img src={i.logo} alt={i.name} />
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </HorizontalSwipe>
-                </div>
-                <h3 className="Homepage__map-header">
-                    <Link className="Homepage__map-title" to="/clubs-map" target="_blank">Карта авторизованных клубов</Link>
-                </h3>
-                <div className="Homepage__map-wrap">
-                    <ClubsMap />
-                </div>
-            </Container> */}
         </Layout >
     )
 };

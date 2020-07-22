@@ -204,7 +204,10 @@
         transform: translateY(-50%);
       }
       &:hover {
-        text-decoration: underline;
+        color: #3366ff;
+        &:before {
+          background: url("/static/icons/pin.svg") center no-repeat;
+        }
       }
     }
     &__show-all {

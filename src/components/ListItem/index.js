@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
-import Alert from "../Alert";
 import Modal from "../Modal";
 import Share from "../Share";
 import { formatText } from "../../utils";
@@ -26,16 +25,10 @@ const ListItem = ({ user,
     currentActiveType,
     citiesDict
 }) => {
-    const [shareAlert, setShareAlert] = useState(false);
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
-
-    // const shareLink = () => {
-    //     navigator.clipboard.writeText(`https://rkf.online${url}`);
-    //     setShareAlert(true);
-    // };
 
     useEffect(() => {
         if(ref.current && ref.current.clientHeight > 100) setCanCollapse(true);
@@ -105,14 +98,6 @@ const ListItem = ({ user,
                 >
                     <img src={photo} alt=""/>
                 </Modal>
-            }
-            {shareAlert &&
-                <Alert
-                    title="Поделиться"
-                    text="Ссылка скопирована в буфер обмена"
-                    autoclose={1.5}
-                    onOk={() => setShareAlert(false)}
-                />
             }
         </div>
     )
