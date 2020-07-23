@@ -58,10 +58,11 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     return loading ?
         <Loading /> :
         <div className="news-component">
-            <div className="news-component__header">
-                <h4 className="news-component__title">Публикации</h4>
-                {/* <Link to={`/${user === 'nursery' ? 'kennel/' + alias : alias}/news`}>посмотреть все</Link> */}
-                <ListFilter />
+            <div className="news-component__header-wrap">
+                <div className="news-component__header">
+                    <h4 className="news-component__title">Публикации</h4>
+                    <ListFilter />
+                </div>
             </div>
             {!news || !news.length ?
                 <Card className="user-news">

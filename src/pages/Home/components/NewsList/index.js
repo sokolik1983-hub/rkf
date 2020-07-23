@@ -26,15 +26,17 @@ const NewsList = ({
     };
 
     return <div className="NewsList">
-        <div className="Homepage__news-title-wrap">
-            <h3 className="Homepage__news-title">Публикации</h3>
-            <ul className="ListFilter">
-                <li><a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a></li>
-                <li><a href="/" onClick={handleClick} name="news" className={activeType === 'news' ? 'active' : undefined}>Новости</a></li>
-                <li style={{ opacity: '0.5' }}><span>Объявления</span></li>
-            </ul>
+        <div className="NewsList__head">
+            <div className="Homepage__news-title-wrap">
+                <h3 className="Homepage__news-title">Публикации</h3>
+                <ul className="ListFilter">
+                    <li><a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a></li>
+                    <li><a href="/" onClick={handleClick} name="news" className={activeType === 'news' ? 'active' : undefined}>Новости</a></li>
+                    <li style={{ opacity: '0.5' }}><span>Объявления</span></li>
+                </ul>
+            </div>
+            <ListFilter setNewsFilter={setNewsFilter} setPage={setPage} currentActiveType={currentActiveType} currentCity={currentCity} />
         </div>
-        <ListFilter setNewsFilter={setNewsFilter} setPage={setPage} currentActiveType={currentActiveType} currentCity={currentCity} />
         {loading
             ? <Placeholder />
             : (list && !!list.length) &&
