@@ -1,6 +1,5 @@
 .redesign {
   background: #f5f8ff;
-
   .nursery-page {
     &__mobile-only {
       display: none;
@@ -85,7 +84,7 @@
         background-size: 150px;
         overflow: hidden;
         &.Card {
-          margin-bottom: 24px;
+          margin-bottom: 16px;
           @media (max-width: 560px) {
             margin-bottom: 12px;
           }

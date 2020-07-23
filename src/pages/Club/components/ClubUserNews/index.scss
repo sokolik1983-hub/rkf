@@ -1,16 +1,10 @@
 .news-component {
-  &__header {
+  &__header-wrap {
     background: #fff;
-    border-bottom: 1px solid #e8e8e8;
     padding: 12px 12px 0;
     position: sticky;
     top: 48px;
     z-index: 2;
-    display: flex;
-    align-items: baseline;
-    @media (max-width: 560px) {
-      display: block;
-    }
     a {
       text-decoration: none;
       font-weight: normal;
@@ -67,6 +61,14 @@
         font-weight: normal;
         text-transform: none;
       }
+    }
+  }
+  &__header {
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: baseline;
+    @media (max-width: 560px) {
+      display: block;
     }
   }
   &__title {
