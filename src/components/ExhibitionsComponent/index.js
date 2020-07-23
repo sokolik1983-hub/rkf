@@ -57,13 +57,6 @@ const ExhibitionsComponent = ({ alias }) => {
 
     return (
         <div className={`exhibitions-component${alias ? '' : ' exhibitions-homepage'}`}>
-            {alias &&
-                <div className="exhibitions-component__header">
-                    <h3 className="exhibitions-component__title">
-                        Мероприятия &nbsp;<Link to={`/exhibitions?Alias=${alias}`}>Смотреть все</Link>
-                    </h3>
-                </div>
-            }
             <Slider
                 arrows={!!exhibitions}
                 infinite={false}
