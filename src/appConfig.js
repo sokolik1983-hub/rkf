@@ -387,14 +387,6 @@ const responsiveSliderConfig = [
             centerPadding: '25px',
             variableWidth: false
         }
-        // settings: {
-        //     slidesToShow: 1,
-        //     slidesToScroll: 1,
-        //     centerMode: true,
-        //     arrows: false,
-        //     centerPadding: '100px',
-        //     variableWidth: false
-        // }
     },
     {
         breakpoint: 561,
