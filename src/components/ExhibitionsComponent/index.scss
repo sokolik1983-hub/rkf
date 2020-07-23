@@ -73,10 +73,10 @@
     }
   }
   .slick-next {
-    width: 55px;
-    height: 55px;
+    width: 44px;
+    height: 40px;
     right: -8px;
-    top: calc(50% - 27px);
+    top: calc(50% - 25px);
     @media (max-width: 1250px) {
       right: 13px;
     }
@@ -85,11 +85,11 @@
     }
   }
   .slick-prev {
-    width: 55px;
-    height: 55px;
+    width: 44px;
+    height: 40px;
     left: -8px;
     z-index: 1;
-    top: calc(50% - 55px);
+    top: calc(50% - 44px);
     transform: rotate(180deg);
     @media (max-width: 1250px) {
       left: 13px;
