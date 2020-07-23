@@ -20,6 +20,7 @@
     margin-bottom: 16px;
   }
   &__filter {
+    overflow: hidden;
     @media (min-width: 1100px) {
       position: sticky;
       top: 82px;
