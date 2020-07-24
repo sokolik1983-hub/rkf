@@ -95,8 +95,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const squareStyle = () => {
         return {
-            height: '88px',
-            width: '88px',
+            height: '92px',
+            width: '92px',
             objectFit: 'cover',
             cursor: 'pointer'
         };
@@ -143,7 +143,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 backdropClosesModal={true}
                                                 enableImageSelection={false}
                                                 withLoading={false}
-                                                rowHeight={88}
+                                                rowHeight={92}
+                                                rowWidth={300}
                                                 thumbnailStyle={squareStyle}
                                             />
                                         </Card>
@@ -167,32 +168,32 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     />
                                 </div>
                                 <Aside className="club-page__info">
-                                <StickyBox offsetTop={75}>
-                                    <div className="club-page__info-inner">
-                                        <UserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                            logo={clubInfo.logo_link}
-                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                            alias={clubInfo.club_alias}
-                                            profileId={clubInfo.id}
-                                            federationName={clubInfo.federation_name}
-                                            federationAlias={clubInfo.federation_alias}
-                                        />
-                                        <Card className="club-page__gallery-wrap">
-                                            <div className="club-page__gallery-header">
-                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                            </div>
-                                            <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                withLoading={false}
-                                                rowHeight={88}
-                                                thumbnailStyle={squareStyle}
+                                    <StickyBox offsetTop={75}>
+                                        <div className="club-page__info-inner">
+                                            <UserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
                                             />
-                                        </Card>
-                                    </div>
+                                            <Card className="club-page__gallery-wrap">
+                                                <div className="club-page__gallery-header">
+                                                    <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                                    <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
+                                                </div>
+                                                <Gallery
+                                                    items={images}
+                                                    backdropClosesModal={true}
+                                                    enableImageSelection={false}
+                                                    withLoading={false}
+                                                    rowHeight={88}
+                                                    thumbnailStyle={squareStyle}
+                                                />
+                                            </Card>
+                                        </div>
                                     </StickyBox>
                                 </Aside>
                             </div>
