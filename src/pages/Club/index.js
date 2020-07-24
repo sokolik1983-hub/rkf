@@ -95,8 +95,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const squareStyle = () => {
         return {
-            height: '92px',
-            width: '92px',
+            height: '89px',
+            width: '89px',
             objectFit: 'cover',
             cursor: 'pointer'
         };
@@ -143,8 +143,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 backdropClosesModal={true}
                                                 enableImageSelection={false}
                                                 withLoading={false}
-                                                rowHeight={92}
-                                                rowWidth={300}
+                                                rowHeight={89}
                                                 thumbnailStyle={squareStyle}
                                             />
                                         </Card>
