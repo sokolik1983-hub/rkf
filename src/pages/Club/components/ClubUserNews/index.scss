@@ -1,7 +1,7 @@
 .news-component {
   &__header-wrap {
     background: #fff;
-    padding: 6px 6px 0;
+    padding: 10px 10px 0;
     border-radius: 6px;
     position: sticky;
     top: 50px;
@@ -26,9 +26,6 @@
       list-style: none;
       &__wrap {
         overflow-x: hidden;
-        @media (max-width: 560px) {
-          margin-right: -16px;
-        }
       }
       li {
         &:not(:last-child) {
@@ -37,7 +34,7 @@
         a,
         span {
           display: block;
-          padding: 0 5px 6px;
+          padding: 0 6px 10px;
           line-height: 20px;
           margin: 0;
           font-weight: 600;
@@ -65,6 +62,9 @@
         font-weight: normal;
         text-transform: none;
       }
+      @media (max-width: 560px) {
+        margin-bottom: 10px;
+      }
     }
   }
   &__header {
@@ -88,7 +88,7 @@
     padding: 0;
     border: none;
     @media (max-width: 560px) {
-      margin-left: -5px;
+      margin-left: -6px;
     }
   }
 }

@@ -141,7 +141,7 @@
       color: #253c5e;
       margin: 0 10px 0 0;
       @media (max-width: 600px) {
-        margin: 0 0 6px;
+        margin: 0 0 10px;
       }
       &-wrap {
         display: flex;
@@ -150,7 +150,7 @@
           display: block;
           .Dropdown {
             display: block;
-            margin: 6px 0 0 5px;
+            margin: 10px 0 0 6px;
           }
         }
         & > div {
@@ -170,7 +170,7 @@
             span {
               display: block;
               margin: 0;
-              padding: 0 6px 6px;
+              padding: 0 6px 10px;
               line-height: 20px;
               font-weight: 600;
               font-size: 16px;
