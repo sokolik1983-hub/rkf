@@ -8,7 +8,7 @@
     min-width: 288px;
     max-height: 162px;
     max-width: 288px;
-    margin-right: 6px;
+    margin-right: 10px;
     border-radius: 6px;
     background-repeat: no-repeat;
     background-size: contain;
@@ -24,7 +24,7 @@
       min-height: auto;
       max-height: none;
       margin-right: 0;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       float: none;
     }
   }
@@ -32,27 +32,24 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     text-align: right;
   }
   &__club {
     display: flex;
     height: 40px;
     overflow: hidden;
-    @media (max-width: 560px) {
-      margin-bottom: 6px;
-    }
     &-logo {
       display: flex;
       flex-shrink: 0;
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      margin: 4px 6px 4px 0;
+      margin: 4px 10px 4px 0;
     }
     &-name {
       display: block;
-      width: calc(100% - 48px);
+      width: calc(100% - 42px);
       text-align: left;
       a {
         font-weight: normal;
@@ -86,7 +83,7 @@
     letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
-    margin-left: 8px;
+    margin-left: 10px;
     cursor: pointer;
     &:before {
       content: "";
@@ -96,15 +93,16 @@
       left: 0;
       top: 2px;
       background: url("/static/icons/pin-gray.svg") center no-repeat;
+      background-size: contain;
       @media (max-width: 560px) {
         height: 16px;
-        background-size: contain;
       }
     }
     &:hover {
       color: #3366ff;
       &:before {
         background: url("/static/icons/pin.svg") center no-repeat;
+        background-size: contain;
       }
     }
     @media (max-width: 560px) {
@@ -157,12 +155,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 6px;
-    padding-top: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid #e8e8e8;
-    @media (max-width: 560px) {
-      padding-top: 8px;
-    }
     .Share {
       .ya-share2__icon_more {
         height: auto;
