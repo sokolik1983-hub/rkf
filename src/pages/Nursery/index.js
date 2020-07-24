@@ -105,8 +105,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
 
     const squareStyle = () => {
         return {
-            height: '88px',
-            width: '88px',
+            height: '96px',
+            width: '96px',
             objectFit: 'cover',
             cursor: 'pointer'
         };
@@ -158,7 +158,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             backdropClosesModal={true}
                                             enableImageSelection={false}
                                             withLoading={false}
-                                            rowHeight={88}
+                                            rowHeight={96}
                                             thumbnailStyle={squareStyle}
                                         />
                                     </Card>

@@ -26,7 +26,7 @@ const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federation
                     : { backgroundImage: `url(${DEFAULT_IMG.clubAvatar})`, borderRadius: '50%', border: '1px solid #c0d3f9', width: '100px' }} />
             </div>
             <div className="user-header__content">
-                <hr style={{marginTop: 0}}/>
+                <hr/>
                 <div className="user-header__info">
 
                     <div className="user-header__wrap">
