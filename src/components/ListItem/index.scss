@@ -8,7 +8,7 @@
     min-width: 288px;
     max-height: 162px;
     max-width: 288px;
-    margin-right: 24px;
+    margin-right: 6px;
     border-radius: 6px;
     background-repeat: no-repeat;
     background-size: contain;
@@ -24,7 +24,7 @@
       min-height: auto;
       max-height: none;
       margin-right: 0;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       float: none;
     }
   }
@@ -32,7 +32,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     text-align: right;
   }
   &__club {
@@ -40,7 +40,7 @@
     height: 40px;
     overflow: hidden;
     @media (max-width: 560px) {
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
     &-logo {
       display: flex;
@@ -48,12 +48,11 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      margin: 4px 8px 4px 0;
+      margin: 4px 6px 4px 0;
     }
     &-name {
       display: block;
       width: calc(100% - 48px);
-      margin-left: 8px;
       text-align: left;
       a {
         font-weight: normal;
@@ -118,9 +117,9 @@
     }
   }
   &__remove {
-    height: 24px;
-    width: 24px;
-    margin-left: 12px;
+    height: 18px;
+    width: 14px;
+    margin-left: 6px;
     border: none;
     padding: 0;
     line-height: 0;
@@ -158,7 +157,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 12px;
+    margin-top: 6px;
     padding-top: 6px;
     border-top: 1px solid #e8e8e8;
     @media (max-width: 560px) {
@@ -166,7 +165,11 @@
     }
     .Share {
       .ya-share2__icon_more {
+        height: auto;
         &:after {
+          width: 16px;
+          height: 16px;
+          top: 0;
           background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
         }
         &:hover:after {
@@ -180,7 +183,7 @@
     display: inline-block;
     font-weight: normal;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 1;
     letter-spacing: 0.2px;
     color: #72839c;
     cursor: pointer;
