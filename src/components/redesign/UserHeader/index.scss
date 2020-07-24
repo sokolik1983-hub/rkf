@@ -19,10 +19,10 @@
       }
     }
     &__content {
-      padding: 0 6px 6px;
+      padding: 0 10px 10px;
       display: block;
       hr {
-        margin: 0 0 6px 0;
+        margin: 0 0 10px 0;
         border-top: 1px solid #e8e8e8;
         border-bottom: none;
       }
@@ -34,12 +34,12 @@
       align-items: normal;
     }
     &__logo-wrap {
-      padding: 6px;
+      padding: 10px;
     }
     &__logo {
       width: 100%;
       min-width: 162px;
-      height: 162px;
+      height: 158px;
       margin: auto;
       background-repeat: no-repeat;
       background-position: 50%;
@@ -83,7 +83,7 @@
       color: #36f;
       font-weight: normal;
       font-size: 18px;
-      line-height: 24px;
+      line-height: 20px!important;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
