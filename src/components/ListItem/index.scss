@@ -167,10 +167,10 @@
       .ya-share2__icon_more {
         height: auto;
         &:after {
-          background: url("/static/icons/icon-share-2-gray.svg") no-repeat 50% / contain;
           width: 16px;
           height: 16px;
           top: 0;
+          background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
         }
         &:hover:after {
           background: url("/static/icons/icon-share-2.svg") no-repeat 50% / contain;
