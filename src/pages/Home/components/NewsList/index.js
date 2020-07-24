@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Card from "components/Card";
-import ListItem from "components/ListItem";
+import Card from "../../../../components/Card";
+import CitySelect from "../../../../components/CitySelect";
 import ListFilter from './ListFilter';
+import ListItem from "../../../../components/ListItem";
 import Placeholder from './Placeholder';
-import Paginator from "components/Paginator";
+import Paginator from "../../../../components/Paginator";
 import './index.scss';
 
 
@@ -27,15 +28,31 @@ const NewsList = ({
 
     return <div className="NewsList">
         <div className="NewsList__head">
-            <div className="Homepage__news-title-wrap">
+            <div className="NewsList__head-wrap">
                 <h3 className="Homepage__news-title">Публикации</h3>
-                <ul className="ListFilter">
-                    <li><a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a></li>
-                    <li><a href="/" onClick={handleClick} name="news" className={activeType === 'news' ? 'active' : undefined}>Новости</a></li>
-                    <li style={{ opacity: '0.5' }}><span>Объявления</span></li>
-                </ul>
+                <div className="NewsList__filters">
+                    <div className="Homepage__news-title-wrap">
+                        <ul className="ListFilter">
+                            <li><a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a></li>
+                            <li><a href="/" onClick={handleClick} name="news" className={activeType === 'news' ? 'active' : undefined}>Новости</a></li>
+                            <li style={{ opacity: '0.5' }}><span>Объявления</span></li>
+                        </ul>
+                        <CitySelect
+                            currentCity={currentCity}
+                            cityFilter={city => {
+                                setNewsFilter({ city: city });
+                                setPage(1);
+                            }}
+                        />
+                    </div>
+                    <ListFilter
+                        setNewsFilter={setNewsFilter}
+                        setPage={setPage}
+                        currentActiveType={currentActiveType}
+                        currentCity={currentCity}
+                    />
+                </div>
             </div>
-            <ListFilter setNewsFilter={setNewsFilter} setPage={setPage} currentActiveType={currentActiveType} currentCity={currentCity} />
         </div>
         {loading
             ? <Placeholder />
