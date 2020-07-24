@@ -14,7 +14,7 @@
   }
   &__head {
     background: #fff;
-    padding: 6px 6px 0;
+    padding: 10px 10px 0;
     border-radius: 6px;
     position: sticky;
     top: 50px;
@@ -22,7 +22,6 @@
     @media (max-width: 560px) {
       display: block;
       top: 48px;
-      padding: 6px 6px 0;
     }
     &-wrap {
       display: flex;
@@ -35,7 +34,7 @@
   &__filters {
     width: 100%;
     @media (max-width: 600px) {
-      margin-left: -5px;
+      margin-left: -6px;
     }
   }
   &__content {
@@ -46,7 +45,7 @@
     margin-bottom: 16px;
   }
   .Card {
-    padding: 6px;
+    padding: 10px;
   }
   .Placeholder {
     height: 200px;
@@ -127,7 +126,7 @@
       a,
       span {
         display: block;
-        padding: 6px 5px;
+        padding: 10px 6px;
         line-height: 20px;
         margin: 0;
         font-weight: 600;
