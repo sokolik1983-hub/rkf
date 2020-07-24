@@ -107,7 +107,7 @@
         }
       }
       & > .Card:not(.nursery-page__content-banner) {
-        margin-bottom: 24px !important;
+        margin-bottom: 16px !important;
       }
     }
     &-banner {
@@ -126,7 +126,7 @@
     &__breeds {
       width: 300px;
       min-width: 300px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       padding: 10px;
       h4 {
         font-weight: normal;
