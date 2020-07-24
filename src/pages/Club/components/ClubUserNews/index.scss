@@ -1,10 +1,14 @@
 .news-component {
   &__header-wrap {
     background: #fff;
-    padding: 6px 12px 0;
+    padding: 6px 6px 0;
+    border-radius: 6px;
     position: sticky;
-    top: 48px;
-    z-index: 2;
+    top: 50px;
+    z-index: 1;
+    @media (max-width: 560px) {
+      top: 48px;
+    }
     a {
       text-decoration: none;
       font-weight: normal;
@@ -75,7 +79,7 @@
     padding-left: 12px;
     font-weight: normal;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 20px;
     display: inline-block;
     margin-right: 10px;
   }

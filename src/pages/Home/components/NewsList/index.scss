@@ -14,14 +14,15 @@
   }
   &__head {
     background: #fff;
-    padding: 6px 12px 0;
+    padding: 6px 6px 0;
+    border-radius: 6px;
     position: sticky;
     top: 50px;
     z-index: 1;
     @media (max-width: 560px) {
       display: block;
       top: 48px;
-      padding: 8px 8px 0;
+      padding: 6px 6px 0;
     }
     &-wrap {
       display: flex;
@@ -45,10 +46,7 @@
     margin-bottom: 16px;
   }
   .Card {
-    padding: 12px 12px 6px;
-    @media (max-width: 560px) {
-      padding: 8px;
-    }
+    padding: 6px;
   }
   .Placeholder {
     height: 200px;

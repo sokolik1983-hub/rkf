@@ -137,7 +137,7 @@
     &-title {
       font-weight: normal;
       font-size: 18px;
-      line-height: 24px;
+      line-height: 1;
       color: #253c5e;
       margin: 0 10px 0 0;
       @media (max-width: 600px) {
@@ -145,7 +145,7 @@
       }
       &-wrap {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         @media (max-width: 560px) {
           display: block;
           .Dropdown {
@@ -170,7 +170,7 @@
             span {
               display: block;
               margin: 0;
-              padding: 2px 5px 6px;
+              padding: 0 6px 6px;
               line-height: 20px;
               font-weight: 600;
               font-size: 16px;
