@@ -29,7 +29,18 @@ const NewsList = ({
     return <div className="NewsList">
         <div className="NewsList__head">
             <div className="NewsList__head-wrap">
-                <h3 className="Homepage__news-title">Публикации</h3>
+                <div className="Homepage__news-title">
+                    <h3>Публикации</h3>
+                    <div className="Homepage__news-mobile-only">
+                        <CitySelect
+                            currentCity={currentCity}
+                            cityFilter={city => {
+                                setNewsFilter({ city: city });
+                                setPage(1);
+                            }}
+                        />
+                    </div>
+                </div>
                 <div className="NewsList__filters">
                     <div className="Homepage__news-title-wrap">
                         <ul className="ListFilter">
@@ -85,8 +96,7 @@ const NewsList = ({
                 ))}
             </ul>}
         {(!list || !list.length) && !loading && <h2 className="list__title">Ничего не найдено</h2>}
-        {
-            pagesCount > 1 &&
+        {pagesCount > 1 &&
             <Paginator
                 pagesCount={pagesCount}
                 currentPage={currentPage}
@@ -94,7 +104,7 @@ const NewsList = ({
                 scrollToTop={false}
             />
         }
-    </div >
+    </div>
 };
 
 export default React.memo(NewsList);
