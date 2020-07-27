@@ -35,8 +35,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [images, setImages] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [page, setPage] = useState(1);
-    const [needRequest, setNeedRequest] = useState(true);
+    const [page, setPage] = useState(0);
+    const [needRequest, setNeedRequest] = useState(false);
     const [loading, setLoading] = useState(true);
     const alias = match.params.id;
 
