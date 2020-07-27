@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import Share from "../Share";
@@ -31,7 +31,7 @@ const ListItem = ({ user,
     const ref = useRef(null);
 
     useEffect(() => {
-        if(ref.current && ref.current.clientHeight > 100) setCanCollapse(true);
+        if (ref.current && ref.current.clientHeight > 100) setCanCollapse(true);
     }, []);
 
     const handleCityChange = () => {
@@ -46,7 +46,7 @@ const ListItem = ({ user,
     return (
         <div className="list-item__wrap">
             <div className="list-item__content">
-                {photo && <div className="list-item__photo" style={{backgroundImage: `url(${photo})`}} onClick={() => setShowPhoto(true)} />}
+                {photo && <div className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} onClick={() => setShowPhoto(true)} />}
                 <div className="list-item__head">
                     <div className="list-item__club">
                         <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
@@ -69,21 +69,23 @@ const ListItem = ({ user,
                             <span>{formatDateTime(date)}</span>
                         </span>
                     </div>
-                    {city && <span className="list-item__city" title={city} onClick={handleCityChange}>
-                        {city}
-                    </span>}
-                    {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить" />}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {city && <span className="list-item__city" title={city} onClick={handleCityChange}>
+                            {city}
+                        </span>}
+                        {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить" />}
+                    </div>
                 </div>
                 <div className={!collapsed ? 'list-item__text-wrap' : ''}>
                     <p className="list-item__text"
-                       ref={ref}
-                       dangerouslySetInnerHTML={{__html: formatText(text) }}
+                        ref={ref}
+                        dangerouslySetInnerHTML={{ __html: formatText(text) }}
                     />
                 </div>
             </div>
             <div className="list-item__controls">
                 <span className={`list-item__show-all${!canCollapse ? ' _disabled' : ''}`}
-                      onClick={() => canCollapse && setCollapsed(!collapsed)}
+                    onClick={() => canCollapse && setCollapsed(!collapsed)}
                 >
                     {!collapsed ? 'Подробнее...' : 'Свернуть'}
                 </span>
@@ -91,12 +93,12 @@ const ListItem = ({ user,
             </div>
             {showPhoto &&
                 <Modal showModal={showPhoto}
-                       handleClose={() => setShowPhoto(false)}
-                       noBackdrop={true}
-                       hideCloseButton={true}
-                       className="list-item__modal"
+                    handleClose={() => setShowPhoto(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="list-item__modal"
                 >
-                    <img src={photo} alt=""/>
+                    <img src={photo} alt="" />
                 </Modal>
             }
         </div>

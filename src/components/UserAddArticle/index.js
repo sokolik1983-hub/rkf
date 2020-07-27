@@ -8,7 +8,7 @@ import './index.scss';
 
 const AddArticle = ({id, logo, setPage, setNeedRequest}) => {
     const onSuccess = () => {
-        setPage(1);
+        setPage(0);
         setNeedRequest(true);
     };
 

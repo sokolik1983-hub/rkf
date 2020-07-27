@@ -5,36 +5,43 @@ import List from "components/List";
 import ListFilter from './ListFilter';
 import { Request } from "utils/request";
 import { endpointGetNews, endpointDeleteArticle } from "./config";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
 
 const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedRequest }) => {
-    const [news, setNews] = useState(null);
+    const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [pagesCount, setPagesCount] = useState(1);
 
-    const getNews = async page => {
-        setLoading(true);
+    const [newsLoading, setNewsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
+    const getNews = async () => {
+        setNewsLoading(true);
         await Request({
-            url: `${endpointGetNews}?alias=${alias}${page > 1 ? '&page=' + page : ''}`
+            url: `${endpointGetNews}?alias=${alias}&start_element=${page}`
         }, data => {
             let modifiedNews = [];
 
             if (data.articles.length) {
-                modifiedNews = data.articles.map(article => {
-                    article.title = article.name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
+                modifiedNews = news.concat(
+                    data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    })
+                );
+                setNews(modifiedNews);
+                setPage(page + 1);
+            } else {
+                setHasMore(false);
             }
-
-            setNews(modifiedNews);
-            setPagesCount(Math.ceil(data.articles_count / 10));
         }, error => {
             console.log(error.response);
         });
         setNeedRequest(false);
+        setNewsLoading(false);
         setLoading(false);
     };
 
@@ -52,8 +59,8 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     };
 
     useEffect(() => {
-        if (needRequest) (() => getNews(page))();
-    }, [needRequest, page]);
+        if (needRequest) (() => getNews())();
+    }, [needRequest]);
 
     return loading ?
         <Loading /> :
@@ -71,20 +78,27 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
                         <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
                     </div>
                 </Card> :
-                <List
-                    list={news}
-                    listNotFound="Новости не найдены"
-                    listClass="user-news"
-                    isFullDate={true}
-                    removable={canEdit}
-                    onDelete={deleteArticle}
-                    pagesCount={pagesCount}
-                    currentPage={page}
-                    setPage={page => {
-                        setPage(page);
-                        setNeedRequest(true);
-                    }}
-                />
+                <InfiniteScroll
+                    dataLength={news.length}
+                    next={getNews}
+                    hasMore={hasMore}
+                    loader={newsLoading && <Loading centered={false} />}
+                    endMessage={
+                        <div className="user-news__content">
+                            <h4 className="user-news__text">Новостей больше нет</h4>
+                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+                        </div>
+                    }
+                >
+                    <List
+                        list={news}
+                        listNotFound="Новости не найдены"
+                        listClass="user-news"
+                        isFullDate={true}
+                        removable={canEdit}
+                        onDelete={deleteArticle}
+                    />
+                </InfiniteScroll>
             }
         </div>
 };

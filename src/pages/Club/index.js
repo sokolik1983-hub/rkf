@@ -29,7 +29,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [images, setImages] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [notActiveProfile, setNotActiveProfile] = useState(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
 
