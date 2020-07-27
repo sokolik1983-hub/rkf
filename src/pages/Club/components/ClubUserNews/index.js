@@ -17,15 +17,16 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     const [newsLoading, setNewsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    const getNews = async () => {
+    const getNews = async (reset = false) => {
         setNewsLoading(true);
         await Request({
             url: `${endpointGetNews}?alias=${alias}&start_element=${page}`
         }, data => {
             let modifiedNews = [];
+            let currentNews = reset ? [] : news;
 
             if (data.articles.length) {
-                modifiedNews = news.concat(
+                modifiedNews = currentNews.concat(
                     data.articles.map(article => {
                         article.title = article.club_name;
                         article.url = `/news/${article.id}`;
@@ -34,6 +35,7 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
                 );
                 setNews(modifiedNews);
                 setPage(page + 10);
+                data.articles.length < 10 && setHasMore(false);
             } else {
                 setHasMore(false);
             }
@@ -59,7 +61,7 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     };
 
     useEffect(() => {
-        if (needRequest) (() => getNews())();
+        if (needRequest) (() => getNews(true))();
     }, [needRequest]);
 
     return loading ?
