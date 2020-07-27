@@ -20,7 +20,7 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     const getNews = async (reset = false) => {
         setNewsLoading(true);
         await Request({
-            url: `${endpointGetNews}?alias=${alias}&start_element=${page}`
+            url: `${endpointGetNews}?alias=${alias}&start_element=${reset ? 0 : page}`
         }, data => {
             let modifiedNews = [];
             let currentNews = reset ? [] : news;
@@ -34,14 +34,15 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
                     })
                 );
                 setNews(modifiedNews);
-                setPage(page + 10);
-                data.articles.length < 10 && setHasMore(false);
+                setPage(reset ? 11 : page + 11);
+                reset ? setHasMore(true) : (data.articles.length < 10 && setHasMore(false));
             } else {
                 setHasMore(false);
             }
         }, error => {
             console.log(error.response);
         });
+
         setNeedRequest(false);
         setNewsLoading(false);
         setLoading(false);
@@ -61,7 +62,11 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
     };
 
     useEffect(() => {
-        if (needRequest) (() => getNews(true))();
+        getNews();
+    }, []);
+
+    useEffect(() => {
+        if (needRequest) (() => { getNews(true); setPage(0) })();
     }, [needRequest]);
 
     return loading ?
