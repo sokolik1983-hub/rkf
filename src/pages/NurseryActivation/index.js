@@ -120,15 +120,17 @@ const NurseryActivation = ({ history, logOutUser }) => {
     };
 
     const handleError = e => {
-        let errorText = e.response.data.errors
-            ? Object.values(e.response.data.errors)
-            : `${e.response.status} ${e.response.statusText}`;
-        setShowAlert({
-            title: `Ошибка: ${errorText}`,
-            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-            autoclose: 7.5,
-            onOk: () => setShowAlert(false)
-        });
+        if(e.response) {
+            let errorText = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+            setShowAlert({
+                title: `Ошибка: ${errorText}`,
+                text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+                autoclose: 7.5,
+                onOk: () => setShowAlert(false)
+            });
+        }
     };
 
     return (

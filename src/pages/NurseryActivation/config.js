@@ -110,10 +110,9 @@ export const activationForm = {
         phone: {
             name: 'phone',
             label: 'Телефон',
-            fieldType: 'masked',
             type: 'text',
             placeholder: DEFAULT_PHONE_INPUT_PLACEHOLDER,
-            mask: DEFAULT_PHONE_INPUT_MASK
+            maxLength: 16
         },
         experience_dog_breeding: {
             name: "experience_dog_breeding",
@@ -209,7 +208,7 @@ export const activationForm = {
     },
     validationSchema: object().shape({
         phone: string()
-            .length(15, 'Номер телефона должен содержать 11 цифр')
+            .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
             .required(emptyFieldMsg),
         postcode: string()
             .required(emptyFieldMsg),
