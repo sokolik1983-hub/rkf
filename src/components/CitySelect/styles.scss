@@ -33,6 +33,11 @@
         left: 0;
         top: 0;
         background: url("/static/icons/pin.svg") center no-repeat;
+        background-size: contain;
+        @media (max-width: 560px) {
+          height: 16px;
+          top: 2px;
+        }
       }
     }
   }

@@ -106,7 +106,7 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
                     </div>
                 </Container>
             </div>
-        </Layout >
+        </Layout>
     )
 };
 
