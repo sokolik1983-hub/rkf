@@ -33,7 +33,7 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
                     })
                 );
                 setNews(modifiedNews);
-                setPage(page + 1);
+                setPage(page + 10);
             } else {
                 setHasMore(false);
             }
