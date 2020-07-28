@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {forwardRef, useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
+import OutsideClickHandler from "react-outside-click-handler";
+import {CSSTransition} from "react-transition-group";
 import Modal from "../Modal";
 import Share from "../Share";
 import { formatText } from "../../utils";
@@ -8,25 +10,27 @@ import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
 
-const ListItem = ({ user,
-    id,
-    name,
-    alias,
-    city,
-    date,
-    logo_link,
-    photo,
-    text,
-    url,
-    removable,
-    onDelete,
-    setNewsFilter,
-    setPage,
-    currentActiveType,
-    citiesDict
+const ListItem = forwardRef(({
+                                 user,
+                                 id,
+                                 name,
+                                 alias,
+                                 city,
+                                 date,
+                                 logo_link,
+                                 photo,
+                                 text,
+                                 url,
+                                 removable,
+                                 onDelete,
+                                 setNewsFilter,
+                                 setPage,
+                                 currentActiveType,
+                                 citiesDict
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
+    const [isOpenControls, setIsOpenControls] = useState(false);
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
 
@@ -73,7 +77,33 @@ const ListItem = ({ user,
                         {city && <span className="list-item__city" title={city} onClick={handleCityChange}>
                             {city}
                         </span>}
-                        {removable && <button className="list-item__remove" onClick={() => onDelete(id)} title="Удалить" />}
+                        {removable &&
+                            <div className="list-item__head-control">
+                                <button
+                                    className={`list-item__head-control-btn${isOpenControls ? ' _open' : ''}`}
+                                    onMouseEnter={() => setIsOpenControls(!isOpenControls)}
+                                />
+                                {isOpenControls &&
+                                    <OutsideClickHandler ref={ref} onOutsideClick={() => setIsOpenControls(false)}>
+                                        <CSSTransition
+                                            in={isOpenControls}
+                                            timeout={350}
+                                            classNames="list-item__transition"
+                                            unmountOnExit
+                                        >
+                                            <ul className="list-item__head-control-list">
+                                                <li className="list-item__head-control-item">
+                                                    <Link to={`${url}/edit`}>Редактировать</Link>
+                                                </li>
+                                                <li className="list-item__head-control-item">
+                                                    <span className="list-item__remove" onClick={() => onDelete(id)}>Удалить</span>
+                                                </li>
+                                            </ul>
+                                        </CSSTransition>
+                                    </OutsideClickHandler>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className={!collapsed ? 'list-item__text-wrap' : ''}>
@@ -103,6 +133,6 @@ const ListItem = ({ user,
             }
         </div>
     )
-};
+});
 
 export default React.memo(ListItem);

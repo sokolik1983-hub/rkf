@@ -17,6 +17,7 @@
       box-shadow: none!important;
       width: 18px!important;
       position: relative;
+      margin-bottom: 8px;
       &:after {
         content: '';
         display: inline-block;
@@ -25,7 +26,7 @@
         background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
         vertical-align: middle;
         position: absolute;
-        top: 2px;
+        top: 0;
         right: 0;
       }
       &:before {

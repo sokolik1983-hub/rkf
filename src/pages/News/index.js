@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link } from "react-router-dom";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Loading from "../../components/Loading";
@@ -22,6 +22,18 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     const [loading, setLoading] = useState(true);
     const id = match.params.id;
     const canEdit = isAuthenticated && news && profile_id === news.profile_id;
+
+    useEffect(() => {
+        const isEditUrl = match.url.split('/')[3] === 'edit';
+
+        if(isEditUrl && canEdit !== null) {
+            if(canEdit) {
+                setIsEdit(true);
+            } else {
+                history.replace(`/news/${id}`);
+            }
+        }
+    }, [canEdit]);
 
     useEffect(() => {
         if (needRequest) {
@@ -57,17 +69,16 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                             <div className="news__buttons">
                                 {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
                                 {canEdit && !isEdit &&
-                                    <button className="edit-button" onClick={() => setIsEdit(true)}>Редактировать</button>
+                                    <button className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
                                 }
                             </div>
                         </div>
                         <div className="news__item-body">
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
-                                    text={news.content}
-                                    img={news.picture_link || ''}
-                                    setIsEdit={setIsEdit}
-                                    setNeedRequest={setNeedRequest}
+                                      text={news.content}
+                                      img={news.picture_link || ''}
+                                      history={history}
                                 /> :
                                 <>
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
@@ -78,7 +89,8 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                         <div className="news__buttons">
                             {!isEdit && <button className="back-button" onClick={() => history.goBack()}>Назад</button>}
                             {canEdit && !isEdit &&
-                                <button className="edit-button" onClick={() => setIsEdit(true)}>Редактировать</button>
+                                <button
+                                    className="edit-button" onClick={() => history.replace(`/news/${id}/edit`)}>Редактировать</button>
                             }
                         </div>
                     </Card>
