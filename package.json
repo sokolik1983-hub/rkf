@@ -177,5 +177,5 @@
     "node-sass": "^4.13.1",
     "prettier": "^1.18.2"
   },
-  "proxy": "http://dc.green.prod.uep24.ru"
+  "proxy": "http://dev.uep24.ru"
 }
