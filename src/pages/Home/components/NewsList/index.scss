@@ -154,6 +154,13 @@
       }
     }
   }
+  .list__title{
+    margin-top: 20px;
+    text-align: center;
+  }
+  &__no-news{
+    text-align: center;
+  }
 }
 
 @keyframes fading {
