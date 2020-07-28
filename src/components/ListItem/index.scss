@@ -83,6 +83,7 @@
         width: 10px;
         height: 24px;
         margin-left: 10px;
+        margin-top: 10px;
         transition: all .2s linear;
         &:hover {
           background: url('/static/icons/chevron-down-blue.svg') no-repeat center;
@@ -205,7 +206,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 20px;
     padding-top: 8px;
     border-top: 1px solid #e8e8e8;
     .Share {
