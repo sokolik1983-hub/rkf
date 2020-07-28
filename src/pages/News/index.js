@@ -79,8 +79,6 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                       text={news.content}
                                       img={news.picture_link || ''}
                                       history={history}
-                                      setIsEdit={setIsEdit}
-                                      setNeedRequest={setNeedRequest}
                                 /> :
                                 <>
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
