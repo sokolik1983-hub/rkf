@@ -1,4 +1,4 @@
-export const endpointGetNews = '/api/Article/public_all';
+export const endpointGetNews = '/api/Article/public_all_v2';
 
 export const partners = [
     {

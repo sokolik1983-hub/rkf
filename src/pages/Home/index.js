@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../components/Layouts";
@@ -10,59 +10,25 @@ import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import ClubsMap from "../../components/ClubsMap";
-import { endpointGetNews, RKFInfo, exhibitions } from "./config";
-import { connectNewsList } from "./connectors";
-import { useResourceAndStoreToRedux } from "../../shared/hooks";
+import { RKFInfo, exhibitions } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
-
-function getCity() {
-    const l = localStorage.getItem('GLOBAL_CITY');
-    return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
-}
-
-const HomePage = ({ homepage, getNewsSuccess, cities }) => {
-    const { articles, articles_count, current_page, current_active_type } = homepage.news;
-    const [newsFilter, setNewsFilter] = useState({
-        city: getCity(),
-        activeType: current_active_type
-    });
-    const [page, setPage] = useState(current_page);
-
-    const buildNewsQuery = () => newsFilter && `${endpointGetNews}?size=10&page=${page ? page : 1}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`;
-
-    const onSuccess = (data) => {
-        getNewsSuccess({
-            ...data,
-            current_page: page,
-            current_active_type: newsFilter.activeType
-        });
-    };
-
-
-    const { loading } = useResourceAndStoreToRedux(buildNewsQuery(), onSuccess);
-
+const HomePage = ({ homepage, cities }) => {
+    const { current_active_type } = homepage.news;
     return (
         <Layout>
             <div className="home-page__wrap">
                 <HomepageSlider />
                 <ExhibitionsComponent />
-                <Container className="home-page__news">
+                <Container className="home-page__news" >
                     <div className="home-page__news-wrap">
                         <NewsList
-                            list={articles}
                             listNotFound="Новости не найдены"
                             listClass="news-list"
                             isFullDate={false}
-                            pagesCount={Math.ceil(articles_count / 10)}
-                            currentPage={page}
-                            setPage={setPage}
-                            setNewsFilter={setNewsFilter}
                             currentActiveType={current_active_type}
-                            currentCity={newsFilter.city}
-                            citiesDict={cities}
-                            loading={loading}
+                            citiesDict={cities.options}
                         />
                         <Aside className="home-page__right">
                             <StickyBox offsetTop={75}>
@@ -110,6 +76,5 @@ const HomePage = ({ homepage, getNewsSuccess, cities }) => {
     )
 };
 
-const mapStateToProps = state => ({ homepage: state.homepage });
-
-export default connect(mapStateToProps)(connectNewsList(HomePage));
+const mapStateToProps = state => ({ homepage: state.homepage, cities: state.dictionaries.cities });
+export default React.memo(connect(mapStateToProps)(HomePage));

@@ -1,6 +1,9 @@
 .home-page {
   &__wrap {
     background: #f5f8ff;
+    .infinite-scroll-component {
+      overflow: visible !important;
+    }
   }
   &__news {
     @media (max-width: 560px) {
