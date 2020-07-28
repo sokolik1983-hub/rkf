@@ -46,6 +46,14 @@
       }
     }
   }
+  &__copy {
+    &-wrap {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #72839c;
+    }
+  }
   &__right {
     h3 {
       font-weight: normal;

@@ -17,7 +17,7 @@ import "./index.scss";
 const HomePage = ({ homepage, cities }) => {
     const { current_active_type } = homepage.news;
     return (
-        <Layout>
+        <Layout showCopyright={false}>
             <div className="home-page__wrap">
                 <HomepageSlider />
                 <ExhibitionsComponent />
@@ -66,6 +66,10 @@ const HomePage = ({ homepage, cities }) => {
                                             <ClubsMap />
                                         </div>
                                     </Card>
+                                    <div className="home-page__copy-wrap">
+                                        <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                        <p>Политика обработки персональных данных</p>
+                                    </div>
                                 </div>
                             </StickyBox>
                         </Aside>
