@@ -5,7 +5,6 @@ import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import ClubsSearch from "./components/Filters/components/Search";
 import ClubsList from "./components/ClubsList";
-import Disclaimer from "components/Disclaimer";
 import ClickGuard from "../../components/ClickGuard";
 import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
@@ -18,11 +17,6 @@ const Clubs = ({ isOpenFilters, setShowFilters }) => (
         <Container className="content clubs-page">
             <Filters />
             <div className="clubs-page__content">
-                <Disclaimer>
-                    <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/35/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                        Инструкция по реестру клубов
-                    </a>
-                </Disclaimer>
                 <ClubsSearch />
                 <ClubsList />
             </div>
