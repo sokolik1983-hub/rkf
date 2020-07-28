@@ -1,7 +1,4 @@
 .list-item {
-  &__content {
-    overflow: hidden;
-  }
   &__photo {
     display: block;
     min-height: 162px;
@@ -34,6 +31,68 @@
     align-items: flex-start;
     margin-bottom: 10px;
     text-align: right;
+    &-control {
+      position: relative;
+      & > div {
+        position: absolute;
+        right: -4px;
+        top: 100%;
+        z-index: 1;
+        margin-top: 6px;
+        min-width: 130px;
+        box-shadow: 0 5px 10px rgba(176, 190, 197, 0.5);
+        background-color: #fff;
+        border-radius: 4px;
+        &:before {
+          content: "";
+          display: block;
+          width: 14px;
+          height: 14px;
+          border-radius: 4px;
+          background-color: #fff;
+          position: absolute;
+          top: -7px;
+          right: 2px;
+          z-index: -1;
+          transform: rotate(45deg);
+          box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
+        }
+      }
+      &-list {
+        list-style: none;
+        padding: 10px;
+        background-color: #fff;
+      }
+      &-item {
+        text-align: left;
+        cursor: pointer;
+        & > * {
+          text-decoration: none;
+          color: #72839c;
+          transition: color .2s linear;
+          &:hover {
+            color: #3366ff;
+          }
+        }
+      }
+      &-btn {
+        border: none;
+        background: url('/static/icons/chevron-down-light.svg') no-repeat center;
+        background-size: contain;
+        padding: 0;
+        width: 10px;
+        height: 24px;
+        margin-left: 10px;
+        transition: all .2s linear;
+        &:hover {
+          background: url('/static/icons/chevron-down-blue.svg') no-repeat center;
+          background-size: contain;
+        }
+        &._open {
+          transform: rotate(-180deg);
+        }
+      }
+    }
   }
   &__club {
     display: flex;
@@ -113,15 +172,6 @@
       padding-left: 18px;
       margin-left: 0;
     }
-  }
-  &__remove {
-    height: 18px;
-    width: 14px;
-    margin-left: 6px;
-    border: none;
-    padding: 0;
-    line-height: 0;
-    background: url("/static/icons/delete.svg") no-repeat center;
   }
   &__text-wrap {
     height: 100px;
@@ -231,6 +281,28 @@
       display: block;
       max-width: 100%;
       margin: 0 auto;
+    }
+  }
+  &__transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
     }
   }
 }

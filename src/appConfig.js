@@ -74,7 +74,12 @@ const appRoutes = [
         component: LoadableModules.LoadableClubs
     },
     {
-        exact: false,
+        exact: true,
+        path: '/news/:id/edit',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
         path: '/news/:id',
         component: LoadableModules.LoadableNews
     },
