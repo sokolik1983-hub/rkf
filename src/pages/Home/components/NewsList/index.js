@@ -160,7 +160,10 @@ const NewsList = ({
                     ))}
                 </ul>
             </InfiniteScroll>}
-        {(!news || !news.length) && !newsLoading && <h2 className="list__title">Ничего не найдено</h2>}
+        {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
+            <h4>Ничего не найдено</h4>
+            <img src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+        </div>}
     </div>
 };
 

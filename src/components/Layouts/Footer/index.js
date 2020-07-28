@@ -6,7 +6,7 @@ import { beautify } from 'utils/phone';
 import './index.scss';
 
 
-const Footer = () => (
+const Footer = ({ showCopyright = true }) => (
     <footer className="Footer">
         <Container className="Footer__inner">
             {/*<div className="Footer__inner-wrap">
@@ -43,7 +43,7 @@ const Footer = () => (
             </div>
             <hr />*/}
             <div className="Footer__bottom">
-                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                <p>{showCopyright && `© 1991—${new Date().getFullYear()} СОКО РКФ.`}</p>
                 <div className="Footer__socials">
                     <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                     <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
@@ -53,7 +53,7 @@ const Footer = () => (
                     <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
                     <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                 </div>
-                <p>Политика обработки персональных данных</p>
+                <p>{showCopyright && 'Политика обработки персональных данных'}</p>
             </div>
         </Container>
     </footer >

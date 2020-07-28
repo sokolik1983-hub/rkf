@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import { CITY_SELECTOR_STYLE } from './config';
-import {useDictionary} from "../../dictionaries";
-import {DICTIONARIES} from "../../dictionaries/config";
+import { useDictionary } from "../../dictionaries";
+import { DICTIONARIES } from "../../dictionaries/config";
 import Dropdown from 'components/Dropdown';
 import './styles.scss';
 
@@ -42,10 +42,11 @@ function CitySelect({ cityFilter, currentCity }) {
 
     const onChange = value => {
         if (!value.value || value.value === 'reset') {
+            console.log(value.value);
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
             storeFilters();
-            cityFilter && cityFilter(null);
+            cityFilter && value.value && cityFilter(null);
             closeSelector();
             return;
         }

@@ -182,7 +182,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 />
                             </div>
                             <Aside className="nursery-page__info">
-                            <StickyBox offsetTop={75}>
+                            <StickyBox offsetTop={65}>
                                 <div className="nursery-page__info-inner">
                                     <UserHeader
                                         user="nursery"
