@@ -31,7 +31,6 @@ const NewsList = ({
     });
 
     useEffect(() => {
-        console.log('from [newsFilter]');
         getNews(true);
         setPage(0);
     }, [newsFilter]);
