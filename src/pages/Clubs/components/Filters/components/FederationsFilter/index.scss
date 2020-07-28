@@ -13,4 +13,12 @@
   &__list {
     list-style: none;
   }
+  &__svg-info:hover {
+    fill: #3366ff;
+  }
+  &__support-link {
+    position: relative;
+    left: 230px;
+    top: 30px;
+  }
 }
