@@ -22,7 +22,7 @@ const NewsList = ({
 }) => {
     const [activeType, setActiveType] = useState(false);
     const [news, setNews] = useState([]);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [newsLoading, setNewsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [newsFilter, setNewsFilter] = useState({
@@ -32,7 +32,7 @@ const NewsList = ({
 
     useEffect(() => {
         getNews(true);
-        setPage(0);
+        setPage(1);
     }, [newsFilter]);
 
     const handleClick = (e) => {
@@ -43,7 +43,7 @@ const NewsList = ({
     const getNews = async (reset = false) => {
         setNewsLoading(true);
         const buildUrl = () => {
-            return `${endpointGetNews}?start_element=${reset ? 0 : page}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`
+            return `${endpointGetNews}?start_element=${reset ? 1 : page}${newsFilter.city && newsFilter.city.value ? `&fact_city_ids=${newsFilter.city.value}` : ''}${newsFilter.activeType ? `&${newsFilter.activeType}=true` : ''}`
         };
         const handleData = data => {
             let modifiedNews = [];
@@ -58,7 +58,7 @@ const NewsList = ({
                     })
                 );
                 setNews(modifiedNews);
-                setPage(reset ? 11 : page + 11);
+                setPage(reset ? 11 : page + 10);
                 reset ? setHasMore(true) : (data.articles.length < 10 && setHasMore(false));
             } else {
                 reset ? setNews([]) : setHasMore(false);
@@ -87,7 +87,7 @@ const NewsList = ({
                             cityFilter={city => {
                                 if (city !== newsFilter.city) {
                                     handleFilterUpdate({ city: city });
-                                    setPage(0);
+                                    setPage(1);
                                 }
                             }}
                         />
@@ -105,7 +105,7 @@ const NewsList = ({
                             cityFilter={city => {
                                 if (city !== newsFilter.city) {
                                     handleFilterUpdate({ city: city });
-                                    setPage(0);
+                                    setPage(1);
                                 }
                             }}
                         />
