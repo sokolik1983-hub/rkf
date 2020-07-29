@@ -89,7 +89,7 @@ export const CITY_SELECTOR_STYLE = {
             fontSize: '16px',
             lineHeight: '24px',
             letterSpacing: '0.2px',
-            padding: '6px 0 6px 24px',
+            padding: '0 0 0 24px',
             '&:hover': {
                 backgroundColor: '#EBF0FF!important',
                 color: '#3366FF'
