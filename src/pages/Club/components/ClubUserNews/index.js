@@ -37,7 +37,7 @@ const UserNews = ({ user, canEdit, alias, page, setPage, needRequest, setNeedReq
                 setPage(reset ? 11 : page + 10);
                 reset ? setHasMore(true) : (data.articles.length < 10 && setHasMore(false));
             } else {
-                setHasMore(false);
+                reset ? setNews([]) : setHasMore(false);
             }
         }, error => {
             console.log(error.response);
