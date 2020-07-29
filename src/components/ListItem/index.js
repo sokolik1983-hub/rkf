@@ -87,10 +87,12 @@ const ListItem = forwardRef(({
                             <div className="list-item__head-control">
                                 <button
                                     className={`list-item__head-control-btn${isOpenControls ? ' _open' : ''}`}
-                                    onMouseEnter={() => setIsOpenControls(!isOpenControls)}
+                                    onClick={() => setIsOpenControls(!isOpenControls)}
                                 />
                                 {isOpenControls &&
-                                    <OutsideClickHandler ref={ref} onOutsideClick={() => setIsOpenControls(false)}>
+                                    <OutsideClickHandler
+                                        ref={ref}
+                                        onOutsideClick={({ target }) => !target.classList.contains('_open') && setIsOpenControls(false)}>
                                         <CSSTransition
                                             in={isOpenControls}
                                             timeout={350}
