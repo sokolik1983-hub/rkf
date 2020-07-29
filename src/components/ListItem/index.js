@@ -1,7 +1,7 @@
-import React, {forwardRef, useEffect, useRef, useState} from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import Modal from "../Modal";
 import Share from "../Share";
 import { formatText } from "../../utils";
@@ -11,22 +11,28 @@ import "./index.scss";
 
 
 const ListItem = forwardRef(({
-                                 user,
-                                 id,
-                                 name,
-                                 alias,
-                                 city,
-                                 date,
-                                 logo_link,
-                                 photo,
-                                 text,
-                                 url,
-                                 removable,
-                                 onDelete,
-                                 setNewsFilter,
-                                 setPage,
-                                 currentActiveType,
-                                 citiesDict
+    user,
+    id,
+    name,
+    alias,
+    city,
+    date,
+    logo_link,
+    photo,
+    text,
+    url,
+    removable,
+    onDelete,
+    setNewsFilter,
+    setPage,
+    currentActiveType,
+    citiesDict,
+    isAd,
+    adBreed,
+    adCode,
+    adPrice,
+    adAmount
+
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -107,6 +113,16 @@ const ListItem = forwardRef(({
                     </div>
                 </div>
                 <div className={!collapsed ? 'list-item__text-wrap' : ''}>
+                    {isAd && <div className="list-item__ad">
+                        <p className="list-item__ad-breed">
+                            <span>Порода: {adBreed}</span>
+                            <span>№{adCode}</span>
+                        </p>
+                        <p className="list-item__ad-price">
+                            <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
+                            <span>Кол-во щенков: {adAmount}</span>
+                        </p>
+                    </div>}
                     <p className="list-item__text"
                         ref={ref}
                         dangerouslySetInnerHTML={{ __html: formatText(text) }}
