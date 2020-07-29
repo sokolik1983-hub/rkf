@@ -29,18 +29,20 @@ const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federation
                 <hr/>
                 <div className="user-header__info">
 
-                    <div className="user-header__wrap">
-                        <div>
-                            <p className="user-header__user">
-                                {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
-                            </p>
+                <div className="user-header__wrap">
+                    <div style={{width: '100%'}}>
+                        <p className="user-header__user">
+                            {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
+                        </p>
+                        <div className="user-header__container">
                             <h3 className="user-header__name">{name}</h3>
-                            {federationName && federationAlias &&
-                                <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
-                            }
+                            <Share />
                         </div>
-                        <Share />
+                        {federationName && federationAlias &&
+                            <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
+                        }
                     </div>
+                </div>
                 </div>
                 <hr />
                 <MenuComponent
