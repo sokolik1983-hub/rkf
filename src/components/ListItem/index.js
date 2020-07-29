@@ -79,7 +79,7 @@ const ListItem = forwardRef(({
                             <span>{formatDateTime(date)}</span>
                         </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'top' }}>
                         {city && <span className="list-item__city" title={city} onClick={handleCityChange}>
                             {city}
                         </span>}
