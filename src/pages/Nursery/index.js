@@ -122,7 +122,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
                                 <Card className="nursery-page__content-banner">
-                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
+                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
                                 </Card>
                                 <div className="nursery-page__mobile-only">
                                     <UserHeader
