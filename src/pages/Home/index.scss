@@ -72,6 +72,9 @@
         margin-top: 0 !important;
         padding-bottom: 1px;
       }
+      @media (max-width: 560px) {
+        margin-bottom: -13px;
+      }
     }
     &-map {
       display: none;
