@@ -72,6 +72,7 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
                 });
         }
     };
+
     const closeAd = async (id, setIsOpenControls) => {
         if (window.confirm('Вы действительно хотите закрыть объявление?')) {
             await Request({
@@ -118,8 +119,8 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
             {!news || !news.length ?
                 <Card className="user-news">
                     <div className="user-news__content">
-                        <h4 className="user-news__text">{`${filters && filters.is_advert ? 'Объявления' : 'Новости'} не найдены`}</h4>
-                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+                        <h4 className="user-news__text">Публикации не найдены</h4>
+                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
                     </div>
                 </Card> :
                 <InfiniteScroll
@@ -129,14 +130,14 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
                     loader={newsLoading && <Loading centered={false} />}
                     endMessage={
                         <div className="user-news__content">
-                            <h4 className="user-news__text">{`${filters && filters.is_advert ? 'Объявлений' : 'Новостей'} больше нет`}</h4>
-                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt={`У вас нет ${filters && filters.is_advert ? 'объявлений' : 'новостей'}`} />
+                            <h4 className="user-news__text">Публикаций больше нет</h4>
+                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
                         </div>
                     }
                 >
                     <List
                         list={news}
-                        listNotFound="Новости не найдены"
+                        listNotFound="Публикации не найдены"
                         listClass="user-news"
                         isFullDate={true}
                         removable={canEdit}
