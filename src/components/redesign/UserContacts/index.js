@@ -180,7 +180,7 @@ const UserContacts = ({
                 {!is_active &&
                     <div className="user-contacts__info-bank">
                         <h4 className="user-contacts__info-title">Реквизиты</h4>
-                        <p className="user-contacts__info-details">
+                        <p className="user-contacts__info-details" style={{ marginTop: '0' }}>
                             <span>ИНН: </span> {inn}
                         </p>
                         <p className="user-contacts__info-details">

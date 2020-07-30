@@ -23,10 +23,10 @@ const UserDescription = ({ description }) => {
         <h4 className="user-description__title"
             title="РКФ не несет ответственности за достоверность данных, размещаемых клубом в данном разделе"
         >Описание</h4>
-        <p className="user-description__info">
+        <section className="user-description__info">
             <Collapse isOpened={isOpen} ref={CollapseDescrRef}>{description}</Collapse>
             {!isHidden && <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
-        </p>
+        </section>
     </Card>
 };
 
