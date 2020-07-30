@@ -169,8 +169,8 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                     loader={newsLoading && <Loading centered={false} />}
                     endMessage={
                         <div className="NewsList__no-news">
-                            <h4>Новостей больше нет</h4>
-                            <img src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+                            <h4>Публикаций больше нет</h4>
+                            <img src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
                         </div>
                     }
                 >
@@ -201,8 +201,8 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                     </ul>
                 </InfiniteScroll>}
             {(!news || !news.length) && !newsLoading && <div className="NewsList__no-news">
-                <h4>Ничего не найдено</h4>
-                <img src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+                <h4>Публикации не найдены</h4>
+                <img src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
             </div>}
         </div>
     )
