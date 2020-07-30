@@ -15,6 +15,7 @@ const List = ({
     currentPage,
     setPage,
     removable,
+    onAdClose,
     onDelete,
     loading
 }) => (
@@ -38,6 +39,7 @@ const List = ({
                                 url={`/news/${item.id}`}
                                 alias={item.alias}
                                 removable={removable}
+                                onAdClose={onAdClose}
                                 onDelete={onDelete}
                                 logo_link={item.logo_link}
                             />
