@@ -1,6 +1,7 @@
 import {number,string,boolean} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
+import Common from "../../commonFields.js";
 
 const validationSchema = {
     id: number(),
@@ -9,12 +10,7 @@ const validationSchema = {
     personal_data_document_id: number().required(reqText).typeError(reqText),
     copy_pedigree_document_id: number().required(reqText).typeError(reqText),
     truncated_pedigree_application_document_id: number().required(reqText).typeError(reqText),
-    payment_document_id: number().required(reqText).typeError(reqText),
-    payment_date: string().required(reqText),
-    payment_number: string().required(reqText),
-    payment_name: string().required(reqText),
-    inn: string(),
-    comment: string()
+    ...Common.validation,
 };
 
 const updateSchema = validationSchema;
@@ -22,7 +18,7 @@ const updateSchema = validationSchema;
 const config = {
     validationSchema, updateSchema,
     onSuccess: {
-        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/nursery/${alias}/documents/`);}
+        next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(`/kennel/${alias}/documents/`);}
     },
     options: {
         federations: {
@@ -32,7 +28,8 @@ const config = {
         declarants: {
             url: '/api/nurseries/nurserydeclarant/nursery_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
-        }
+        },
+        ...Common.options
     },
     url: '/api/requests/replace_pedigree_request/nurseryreplacepedigreeoutrkffcirequest',
     get: '/api/requests/replace_pedigree_request/nurseryreplacepedigreeoutrkffcirequest',
@@ -43,12 +40,7 @@ const config = {
         personal_data_document_id: '',
         copy_pedigree_document_id: '',
         truncated_pedigree_application_document_id: '',
-        payment_document_id: '',
-        payment_date: '',
-        payment_number: '',
-        payment_name: '',
-        inn: '',
-        comment: ''
+        ...Common.initial,
     }
 }
 

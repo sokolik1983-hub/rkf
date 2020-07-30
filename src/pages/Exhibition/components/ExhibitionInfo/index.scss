@@ -1,4 +1,6 @@
 .exhibition-info {
+  &.two { display: flex; flex-direction: row; }
+  &.two >* { width: 50% }
   &:not(:first-child) {
     margin-top: 12px;
   }

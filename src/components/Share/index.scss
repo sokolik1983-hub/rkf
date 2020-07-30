@@ -1,0 +1,40 @@
+.Share {
+  line-height: 1;
+}
+
+.ya-share2 span:hover {
+    color: #3366ff!important;
+}
+
+.ya-share2_inited {
+    display: inline-block!important;
+}
+
+.has-url .ya-share2__popup { transform: translateY(-100%); }
+
+.ya-share2__icon_more {
+      border-width: 0!important;
+      box-shadow: none!important;
+      width: 18px!important;
+      position: relative;
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url("/static/icons/icon-share-2.svg") no-repeat 50%/contain;
+        vertical-align: middle;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      &:before {
+        display: none;
+        content: 'Поделиться'!important;
+        position: relative!important;
+        right: 70px!important;
+        font-size: .9rem!important;
+        color: #3366ff!important;
+        top: -2px;
+      }
+    }

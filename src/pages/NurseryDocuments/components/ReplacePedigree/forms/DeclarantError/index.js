@@ -10,6 +10,8 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import HideIf from "components/HideIf";
 import FormFile from "../../components/FormFile";
+import Common from "../../commonFields.js";
+import DogInfo from "../../dogInfo.js";
 
 // declarant error request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
@@ -72,10 +74,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             placeholder="Выберите..." 
         />
         </FormGroup>
-        <FormGroup inline>
-                <FormField disabled={view} placeholder="XXX" fieldType="reactSelectCreatable" options={stampCodes} name={`stamp_code`} label={`Код клейма (<a href="/kennel/${alias}/documents/stamps/add">Добавить клеймо</a>)`} onChange={e => formik.setFieldValue(`stamp_code`, e.toUpperCase())}/>
-                <FormField disabled={view} name={`stamp_number`} label='Номер клейма' placeholder="0000"/>
-        </FormGroup>
+        <DogInfo.component {...{options, view, update, formik, alias}}/>
 
         <FormGroup inline>
             <FormFile
@@ -101,28 +100,8 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки по тарифу {federation} и заполните информацию о платеже.</p>
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
-                <div className="flex-row heading-row">
-                    <h4 className="caps">Информация о платеже</h4>
-                </div>
-                    <FormGroup inline>
-                        <FormFile
-                            name='payment_document'
-                            label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
-                            docId={formik.values.payment_document_id}
-                            disabled={view}
-                            document_type_id={5}
-                            distinction="pedigree"
-                        />
-
-                        <FormField className="special" required={false} disabled={view} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
-                    </FormGroup>
-                    <FormGroup inline>
-                        <FormField disabled={view} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view} name='inn' label='ИНН (для юр. лиц)' />
-                    </FormGroup>
+                    <Common.component {...{view, formik, update, options}} />
                 </HideIf>
-                {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}
             </FormGroup>
     </Card>
     {!view && <div className="stage-controls flex-row">

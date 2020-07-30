@@ -31,6 +31,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const canEdit = isAuthenticated && is_active_profile && exhibition && profile_id === exhibition.club_id;
     const exhibition_avatar_link = exhibition && exhibition.exhibition_avatar_link;
     const avatarLink = exhibition_avatar_link ? exhibition_avatar_link : DEFAULT_IMG.exhibitionPicture;
+    const comments = exhibition && (typeof exhibition.comments === 'string' ? exhibition.comments.split(';').join('\n') : exhibition.comments);
     const dateStart = exhibition && exhibition.dates && exhibition.dates.length ?
         new Date(
             exhibition.dates[0].year,
@@ -141,6 +142,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     dateEnd={dateEnd}
                                     reportsDateEnd={reportsDateEnd}
                                     {...exhibition}
+                                    comments={comments}
                                 />
                                 <Card className="exhibition-page__address">
                                     <div className="exhibition-page__address-left">

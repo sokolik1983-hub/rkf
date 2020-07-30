@@ -1,5 +1,192 @@
+.redesign {
+  background: #f5f8ff;
+  .club-page {
+    word-break: break-word;
+    .ReactGridGallery_tile-viewport{
+      width: 89px!important;
+    }
+    &__mobile-only {
+      display: none;
+    }
+    &.content {
+      padding-top: 65px;
+    }
+    .menu-component {
+      padding: 14px 16px 16px;
+      @media (max-width: 768px) {
+        display: none;
+      }
+      h4 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      &__title {
+        margin-bottom: 8px;
+      }
+    }
+    &__content-wrap {
+      display: flex;
+      justify-content: space-between;
+      @media (max-width: 990px) {
+        display: block;
+      }
+    }
+    &__content {
+      width: 100%;
+      margin-left: 16px;
+      order: 1;
+      @media (max-width: 990px) {
+        margin-left: 0;
+      }
+      &-banner {
+        padding: 0;
+        border: 1px solid #e8e8e8;
+        background-image: url("/static/images/noimg/empty-gallery.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150px;
+        overflow: hidden;
+        &.Card {
+          margin-bottom: 16px;
+          @media (max-width: 560px) {
+            margin-bottom: 12px;
+          }
+        }
+        & > div {
+          height: 235px;
+          margin: auto;
+          object-fit: cover;
+          width: 100%;
+          max-width: none;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          background-size: cover;
+          @media (max-width: 560px) {
+            height: 25vw;
+          }
+        }
+      }
+      & > .Card:not(.club-page__content-banner) {
+        margin-bottom: 16px !important;
+      }
+    }
+    &__info {
+      width: 300px;
+      min-width: 300px;
+      @media (max-width: 990px) {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+    &__gallery {
+      &-wrap {
+        margin-bottom: 24px;
+        @media (max-width: 560px) {
+          margin-bottom: 12px;
+        }
+        &.Card {
+          padding: 10px;
+        }
+      }
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        a {
+          text-decoration: none;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.2px;
+          color: #72839c !important;
+          transition: all 0.2s linear;
+          &:hover {
+            color: #3366ff !important;
+          }
+        }
+      }
+      &-title {
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 24px;
+        text-decoration: none;
+        color: #253c5e;
+        display: inline-block;
+        margin-right: 4px;
+      }
+      &-placeholder {
+        width: 100px;
+        display: block;
+        margin: auto;
+      }
+    }
+    &__exhibitions {
+      max-width: 860px;
+    }
+    @media (max-width: 768px) {
+      .user-header,
+      .club-page__gallery-wrap {
+        display: none;
+        .menu-component__list,
+        hr {
+          display: none;
+        }
+      }
+      &__mobile-only {
+        display: block;
+        .user-header {
+          display: flex;
+          align-items: center;
+          &__wrap > div:first-child > * {
+            line-height: 1.3;
+          }
+          &__federation {
+            display: block;
+          }
+          &__content {
+            flex-grow: 1;
+            min-width: 0;
+            padding: 12px 12px 12px 0;
+          }
+        }
+        .club-page__gallery-wrap {
+          display: block;
+        }
+      }
+    }
+  }
+}
+.NewsPage {
+  &__endMessage {
+    margin: 20px 0;
+    text-align: center;
+    font-weight: normal;
+  }
+  .infinite-scroll-component,
+  .infinite-scroll-component__outerdiv {
+    overflow: visible !important;
+  }
+  .user-news {
+    margin-bottom: 24px;
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
+    }
+    &__content {
+      text-align: center;
+      padding: 8px;
+    }
+    &__text {
+      padding: 8px;
+      font-weight: normal;
+    }
+  }
+}
 .club-page {
-  word-break: break-word;
   .menu-component {
     padding: 14px 16px 16px;
     @media (max-width: 768px) {
@@ -26,10 +213,23 @@
   }
   &__content {
     width: 100%;
-    margin-left: 24px;
+    margin-left: 16px;
     order: 1;
     @media (max-width: 990px) {
       margin-left: 0;
+    }
+    &-banner {
+      padding: 0;
+      & > div {
+        height: 235px;
+        margin: auto;
+        object-fit: cover;
+        width: 100%;
+        max-width: 848px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+      }
     }
   }
   &__info {
@@ -38,6 +238,12 @@
     @media (max-width: 990px) {
       width: 100%;
       min-width: unset;
+    }
+    &-inner {
+      padding-bottom: 16px;
+      .Card:last-child {
+        margin-bottom: 0;
+      }
     }
   }
   &__gallery {
@@ -51,7 +257,10 @@
       }
     }
     &-header {
-      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
       a {
         text-decoration: none;
         font-weight: normal;
@@ -59,20 +268,16 @@
         line-height: 24px;
         letter-spacing: 0.2px;
         color: #72839c !important;
-        border-bottom: 1px solid transparent;
         transition: all 0.2s linear;
         &:hover {
           color: #3366ff !important;
-          border-bottom-color: #3366ff;
         }
       }
     }
     &-title {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
       text-decoration: none;
       color: #253c5e;
       display: inline-block;
@@ -84,28 +289,7 @@
       margin: auto;
     }
   }
-}
-.NewsPage {
-  &__endMessage {
-    margin: 20px 0;
-    text-align: center;
-    font-weight: normal;
-  }
-  .infinite-scroll-component,
-  .infinite-scroll-component__outerdiv {
-    overflow: visible !important;
-  }
-  .user-news {
-    margin-bottom: 24px;
-    @media (max-width: 560px) {
-      margin-bottom: 12px;
-    }
-    &__content {
-      text-align: center;
-      padding: 8px;
-    }
-    &__text{
-      padding: 8px;
-    }
+  &__exhibitions {
+    max-width: 860px;
   }
 }

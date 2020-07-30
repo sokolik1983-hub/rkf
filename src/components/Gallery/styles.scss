@@ -10,7 +10,11 @@
             margin-bottom: 12px;
         }
         &-text {
+            font-weight: normal;
             padding: 8px;
+        }
+        &-img{
+            width: 150px;
         }
     }
 }

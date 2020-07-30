@@ -7,11 +7,11 @@ import reducer from "./reducer";
 import './index.scss';
 
 
-const Layout = ({ children, withFilters }) => (
+const Layout = ({ children, withFilters, showCopyright }) => (
     <>
         <Header withFilters={withFilters} />
-            {children}
-        <Footer />
+        {children}
+        <Footer showCopyright={showCopyright} />
     </>
 );
 

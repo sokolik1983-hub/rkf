@@ -68,7 +68,8 @@ const DocumentCards = ({ nurseryAlias }) => {
             <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
             <hr />
             <div className="Card__links">
-                <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link>
+                {/* <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
+                <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
             </div>
         </Card>
         <Card>
@@ -103,7 +104,8 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__links">
                 <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link> 
+                    {/*<span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>*/}
                     <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
@@ -115,7 +117,8 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__links">
                 <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/patella/form`}>Подать заявление</Link> 
+                    {/*<span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>*/}
                     <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
                 </div>
             </div>
@@ -207,13 +210,13 @@ const DocHome = ({ nurseryAlias, bookform }) => {
             <Route component={LoadableNotFound} />
         </Switch>
         {alert &&
-                <Alert
-                    title="Внимание!"
-                    text="Раздел находится в разработке."
-                    autoclose={1.5}
-                    onOk={() => seAlert(false)}
-                />
-            }
+            <Alert
+                title="Внимание!"
+                text="Раздел находится в разработке."
+                autoclose={1.5}
+                onOk={() => seAlert(false)}
+            />
+        }
     </div>
 };
 

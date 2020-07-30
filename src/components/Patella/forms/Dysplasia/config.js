@@ -1,13 +1,12 @@
-import {number,string,boolean} from "yup";
+import {number,string,boolean,mixed} from "yup";
 import {reqText, numbersOnly} from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
-const validationSchema = {
+const validationSchema = distinction => ({...{
     id: number(),
     federation_id: number().required(reqText).typeError(reqText),
     declarant_id: number().required(reqText).typeError(reqText),
     veterinary_contract_document_id: number().required(reqText).typeError(reqText),
-    roentgenogram_document_id: number().required(reqText).typeError(reqText),
     pedigree_number: numbersOnly().required(reqText),
     dog_name: string().required(reqText),
     payment_document_id: number().required(reqText).typeError(reqText),
@@ -16,12 +15,14 @@ const validationSchema = {
     payment_name: string().required(reqText),
     inn: string(),
     comment: string()
-};
+}, ...(distinction === 'patella' ? {} : {roentgenogram_document_id: number().required(reqText).typeError(reqText)})});
 
 const updateSchema = validationSchema;
 
 const config = (distinction, profileType) => ({
-    validationSchema, updateSchema, profileType,
+    validationSchema: validationSchema(distinction),
+    updateSchema: updateSchema(distinction),
+    distinction, profileType,
     onSuccess: {
         next: (values, setRedirect, alias) => {window.alert('Заявка отправлена на рассмотрение');setRedirect(profileType === 'kennel' ? `/kennel/${alias}/documents/` : `/${alias}/documents/`);}
     },

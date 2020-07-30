@@ -6,20 +6,20 @@ import { Link } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import MenuComponent from "../../components/MenuComponent";
-import Card from "components/Card";
-import UserHeader from "../../components/UserHeader";
+import Card from "../../components/Card";
+import UserHeader from "../../components/redesign/UserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import ClubInfo from "./components/ClubInfo";
-import UserDescription from "../../components/UserDescription";
+import UserContacts from "../../components/redesign/UserContacts";
+import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import UserNews from "../../components/UserNews";
+import ClubUserNews from "./components/ClubUserNews";
 import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { Gallery } from "components/Gallery";
+import { Gallery } from "../../components/Gallery";
+import StickyBox from "react-sticky-box";
 import "./index.scss";
 
 
@@ -30,14 +30,14 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [canEdit, setCanEdit] = useState(false);
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [page, setPage] = useState(1);
-    const [needRequest, setNeedRequest] = useState(true);
+    const [needRequest, setNeedRequest] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         (() => Request({
             url: endpointGetClubInfo + match.params.route
         }, data => {
-            if(data.user_type === 4) {
+            if (data.user_type === 4) {
                 history.replace(`/kennel/${match.params.route}`);
             } else {
                 setClubInfo(data);
@@ -59,23 +59,47 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const getImages = () => {
         Request({
-            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=10`,
+            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
             method: 'GET'
         }, data => {
-            setImages(data.photos.map(p => {
-                return {
-                    id: p.id,
-                    src: p.link,
-                    thumbnail: p.small_photo.link,
-                    thumbnailWidth: p.small_photo.width,
-                    thumbnailHeight: p.small_photo.height,
-                    caption: p.caption
-                }
-            }));
+            if (data.photos.length) {
+                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
+                const { photos } = data;
+                const imagesArray = twelveItemsArray.map(p => {
+                    if (photos[p]) {
+                        return {
+                            id: photos[p].id,
+                            src: photos[p].link,
+                            thumbnail: photos[p].small_photo.link,
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88,
+                            caption: photos[p].caption
+                        }
+                    } else {
+                        return {
+                            id: p,
+                            src: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
+                            thumbnailWidth: 88,
+                            thumbnailHeight: 88
+                        }
+                    }
+                });
+                setImages(imagesArray);
+            }
         },
             error => {
                 //handleError(error);
             });
+    }
+
+    const squareStyle = () => {
+        return {
+            height: '89px',
+            width: '89px',
+            objectFit: 'cover',
+            cursor: 'pointer'
+        };
     }
 
     return loading ?
@@ -85,65 +109,100 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             notActiveProfile ?
                 <NotConfirmed /> :
                 <Layout>
-                    <Container className="content club-page">
-                        <UserHeader
-                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                            logo={clubInfo.logo_link}
-                            banner={clubInfo.headliner_link}
-                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                            federationName={clubInfo.federation_name}
-                            federationAlias={clubInfo.federation_alias}
-                        />
-                        <ExhibitionsComponent alias={clubInfo.club_alias} />
-                        <div className="club-page__content-wrap">
-                            <div className="club-page__content">
-                                <UserDescription description={clubInfo.description} />
-                                <Card className="club-page__gallery-wrap">
-                                    <div className="club-page__gallery-header">
-                                        <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                        <Link to={`/${clubInfo.club_alias}/gallery`}>посмотреть все</Link>
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    <Card className="club-page__content-banner">
+                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                                    </Card>
+                                    <div className="club-page__mobile-only">
+                                        <UserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                        />
                                     </div>
-                                    <Gallery
-                                        items={images}
-                                        backdropClosesModal={true}
-                                        enableImageSelection={false}
-                                        maxRows={1}
-                                        withLoading={false}
-                                    />
-                                </Card>
-                                {canEdit &&
-                                    <AddArticle
-                                        id={clubInfo.id}
-                                        logo={clubInfo.logo_link}
+                                    <UserDescription description={clubInfo.description} />
+                                    <UserContacts {...clubInfo} />
+                                    <div className="club-page__exhibitions">
+                                        <ExhibitionsComponent alias={clubInfo.club_alias} />
+                                    </div>
+                                    <div className="club-page__mobile-only">
+                                        <Card className="club-page__gallery-wrap">
+                                            <div className="club-page__gallery-header">
+                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
+                                            </div>
+                                            <Gallery
+                                                items={images}
+                                                backdropClosesModal={true}
+                                                enableImageSelection={false}
+                                                withLoading={false}
+                                                rowHeight={89}
+                                                thumbnailStyle={squareStyle}
+                                            />
+                                        </Card>
+                                    </div>
+                                    {canEdit &&
+                                        <AddArticle
+                                            id={clubInfo.id}
+                                            logo={clubInfo.logo_link}
+                                            setPage={setPage}
+                                            setNeedRequest={setNeedRequest}
+                                        />
+                                    }
+                                    <ClubUserNews
+                                        user="club"
+                                        canEdit={canEdit}
+                                        alias={match.params.route}
+                                        page={page}
                                         setPage={setPage}
+                                        needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                     />
-                                }
-                                <UserNews
-                                    user="club"
-                                    canEdit={canEdit}
-                                    alias={match.params.route}
-                                    page={page}
-                                    setPage={setPage}
-                                    needRequest={needRequest}
-                                    setNeedRequest={setNeedRequest}
-                                />
+                                </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="club-page__info-inner">
+                                            <UserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                            />
+                                            <Card className="club-page__gallery-wrap">
+                                                <div className="club-page__gallery-header">
+                                                    <h4 className="club-page__gallery-title">Фотогалерея</h4>
+                                                    <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
+                                                </div>
+                                                <Gallery
+                                                    items={images}
+                                                    backdropClosesModal={true}
+                                                    enableImageSelection={false}
+                                                    withLoading={false}
+                                                    rowHeight={88}
+                                                    thumbnailStyle={squareStyle}
+                                                />
+                                            </Card>
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
                             </div>
-                            <Aside className="club-page__info">
-                                <MenuComponent
-                                    alias={clubInfo.club_alias}
-                                    profileId={clubInfo.id}
-                                    name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                                />
-                                <ClubInfo {...clubInfo} />
-                            </Aside>
-                        </div>
-                        <FloatingMenu
-                            alias={clubInfo.club_alias}
-                            profileId={clubInfo.id}
-                            name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                        />
-                    </Container>
+                            <FloatingMenu
+                                alias={clubInfo.club_alias}
+                                profileId={clubInfo.id}
+                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
+                            />
+                        </Container>
+                    </div>
                 </Layout>
 };
 

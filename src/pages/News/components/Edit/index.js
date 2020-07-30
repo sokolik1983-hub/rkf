@@ -6,7 +6,7 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, setIsEdit, setNeedRequest }) => {
+const Edit = ({ id, text, img, history }) => {
     const onSuccess = async (data, values) => {
         if (img && !values.file) {
             await Request({
@@ -26,8 +26,7 @@ const Edit = ({ id, text, img, setIsEdit, setNeedRequest }) => {
             });
         }
 
-        setNeedRequest(true);
-        setIsEdit(false);
+        history.replace(`/news/${id}`);
     };
 
     const transformValues = values => {
@@ -41,7 +40,7 @@ const Edit = ({ id, text, img, setIsEdit, setNeedRequest }) => {
             {...formConfig}
             className="article-edit"
         >
-            <RenderFields fields={formConfig.fields} text={text} imgSrc={img} onCancel={() => setIsEdit(false)} />
+            <RenderFields fields={formConfig.fields} text={text} imgSrc={img} onCancel={() => history.replace(`/news/${id}`)} />
         </Form>
     )
 };

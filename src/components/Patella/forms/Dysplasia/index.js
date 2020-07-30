@@ -101,14 +101,14 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             document_type_id={31}
             profileType={config.profileType}
         />
-        <FormFile
+        {(config.distinction !== 'patella') && <FormFile
             name={`roentgenogram_document`}
             label='Рентгенограмма (PDF, JPEG, JPG, PNG)'
             docId={formik.values.roentgenogram_document_id}
             disabled={view}
             document_type_id={32}
             profileType={config.profileType}
-        />
+        />}
         </FormGroup>
 
         <FormGroup inline>
@@ -132,17 +132,17 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                             name='payment_document'
                             label='Квитанция об оплате (PDF, JPEG, JPG, PNG)'
                             docId={formik.values.payment_document_id}
-                            disabled={view}
+                            disabled={view || formik.values.payment_accept}
                             document_type_id={5}
                             profileType={config.profileType}
                         />
 
-                        <FormField className="special" required={false} disabled={view} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
-                        <FormField disabled={view} name='payment_number' label='Номер платежного документа' />
+                        <FormField className="special" required={false} disabled={view || formik.values.payment_accept} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <FormField disabled={view || formik.values.payment_accept} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>
-                        <FormField disabled={view} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
-                        <FormField disabled={view} name='inn' label='ИНН (для юр. лиц)' />
+                        <FormField disabled={view || formik.values.payment_accept} name='payment_name' label='ФИО плательщика/наименования юр. лица' />
+                        <FormField disabled={view || formik.values.payment_accept} name='inn' label='ИНН (для юр. лиц)' />
                     </FormGroup>
                 </HideIf>
                 {!view && <FormField disabled={view} name='comment' fieldType='textarea' label='Комментарий' />}

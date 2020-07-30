@@ -1,0 +1,36 @@
+.redesign {
+  .user-description {
+    padding: 10px 10px 24px !important;
+    position: relative;
+    @media (max-width: 560px) {
+      margin-bottom: 12px !important;
+    }
+    &__title {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 2px;
+    }
+    &__info {
+      color: #72839c;
+    }
+    &__show-more {
+      display: block;
+      width: 44px;
+      height: 40px;
+      position: absolute;
+      right: calc(50% - 22px);
+      bottom: -12px;
+      background: url("/static/images/slider/slider-button.svg") center no-repeat;
+      background-size: cover;
+      transform: rotate(90deg);
+      &.opened {
+        transform: rotate(-90deg);
+      }
+    }
+    .ReactCollapse--collapse {
+      min-height: 72px;
+      transition: height 500ms;
+    }
+  }
+}

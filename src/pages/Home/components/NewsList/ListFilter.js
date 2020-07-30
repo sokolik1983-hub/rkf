@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CitySelect from "../../../../components/CitySelect";
+// import CitySelect from "../../../../components/CitySelect";
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 
 const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) => {
@@ -12,10 +12,10 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
         setPage(1);
     };
 
-    const handleCityChange = city => {
-        setNewsFilter({ city: city, activeType });
-        setPage(1);
-    };
+    // const handleCityChange = city => {
+    //     setNewsFilter({ city: city, activeType });
+    //     setPage(1);
+    // };
 
     return (
         <div className="NewsList__filter">
@@ -31,16 +31,16 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
                         <li>
                             <a href="/" name="clubs" onClick={handleClick} className={activeType === 'clubs' ? 'active' : undefined}>Клубы</a>
                         </li>
-                        <li style={{ opacity: 0.5 }}>
-                            <span>НКП</span>
-                        </li>
                         <li>
                             <a href="/" name="nurseries" onClick={handleClick} className={activeType === 'nurseries' ? 'active' : undefined}>Питомники</a>
+                        </li>
+                        <li style={{ opacity: 0.5 }}>
+                            <span>НКП</span>
                         </li>
                     </ul>
                 </HorizontalSwipe>
             </div>
-            <CitySelect cityFilter={city => handleCityChange(city)} currentCity={currentCity} />
+            {/*<CitySelect cityFilter={city => handleCityChange(city)} currentCity={currentCity} />*/}
         </div>
     )
 };

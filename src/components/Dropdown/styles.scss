@@ -83,10 +83,10 @@
   }
   &.left {
     .Dropdown__content--visible {
-      left: 0;
+      left: -152px;
       &:before {
         left: unset;
-        left: 20px;
+        left: 250px;
       }
     }
   }

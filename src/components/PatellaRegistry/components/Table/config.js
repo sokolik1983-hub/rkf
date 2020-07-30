@@ -40,16 +40,12 @@ export const getTableColumns = (sortingColumns, sortable, alias, profileType, se
        },
        {
            property: "certificate_document_id",
-           label: "Ссылка на эл. копию документа"
+           label: "Сертификат"
        },
        {
            property: "status_name",
            label: "Статус"
        },
-       {
-           property: "type_name",
-           label: "Тип"
-       }
     ].map(col => fillProp(col));
 
     const handleClick = async (e, id) => {

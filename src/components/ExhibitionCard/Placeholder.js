@@ -11,11 +11,8 @@ const Placeholder = () => (
             <div className="heading line text" />
             <div className="text" />
             <div className="text line" />
-            <div className="text line" />
             <div className="text longer" /><br />
             <div className="text" /><br />
-            <div className="text longer" /><br />
-            <div className="text" />
             <div className="button line text" />
         </div>
     </div>

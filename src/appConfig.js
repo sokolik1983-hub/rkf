@@ -1,8 +1,8 @@
 import * as LoadableModules from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
-const DEFAULT_PHONE_INPUT_MASK = ['7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-const DEFAULT_PHONE_INPUT_PLACEHOLDER = '7 (   ) ___ __ __';
+const DEFAULT_PHONE_INPUT_MASK = ['+7', '(',/[1-9]/, /\d/, /\d/,')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+const DEFAULT_PHONE_INPUT_PLACEHOLDER = '+7(   )___-__-__';
 const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш Email';
 const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
@@ -74,7 +74,12 @@ const appRoutes = [
         component: LoadableModules.LoadableClubs
     },
     {
-        exact: false,
+        exact: true,
+        path: '/news/:id/edit',
+        component: LoadableModules.LoadableNews
+    },
+    {
+        exact: true,
         path: '/news/:id',
         component: LoadableModules.LoadableNews
     },
@@ -358,7 +363,8 @@ const DEFAULT_IMG = {
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg',
-    noNews: '/static/images/news/empty_list.png'
+    noNews: '/static/images/news/no-news-small.png',
+    emptyGallery: '/static/images/noimg/empty-gallery.png'
 };
 
 const BAD_SITES = [
@@ -372,17 +378,19 @@ const responsiveSliderConfig = [
         settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            touchThreshold: 5
+            touchThreshold: 5,
+            variableWidth: false
         }
     },
     {
-        breakpoint: 769,
+        breakpoint: 768,
         settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
             centerMode: true,
             arrows: false,
-            centerPadding: '100px'
+            centerPadding: '25px',
+            variableWidth: false
         }
     },
     {
@@ -392,7 +400,8 @@ const responsiveSliderConfig = [
             slidesToScroll: 1,
             centerMode: true,
             arrows: false,
-            centerPadding: '25px'
+            centerPadding: '25px',
+            variableWidth: false
         }
     }
 ];

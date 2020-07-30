@@ -16,7 +16,7 @@ import UserHeader from "components/UserHeader";
 import MenuComponent from "components/MenuComponent";
 import FloatingMenu from 'pages/Club/components/FloatingMenu';
 import shorten from "utils/shorten";
-import ClubInfo from "pages/Club/components/ClubInfo";
+import ClubInfo from "pages/Club/components/ClubInfoOld";
 import "./styles.scss";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id }) => {

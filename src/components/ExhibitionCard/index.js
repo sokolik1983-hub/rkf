@@ -26,11 +26,11 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                 <div className="exhibition-card__info">
                     <Link className="exhibition-card__link" to={`/exhibitions/${id}`}>{exhibition_name}</Link>
                     <p className="exhibition-card__info-item">
-                        <span>Организатор:</span>
-                        <span title={club_name}>
+                        {/* <span>Организатор:</span> */}
+                        <span title={club_name} style={{color: '#253c5e',fontSize:'14px'}}>
                             {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                 <>
-                                    <span style={{color: '#72839c'}}>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
+                                    <span style={{color: '#72839c',fontSize:'14px'}}>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
                                     &nbsp;
                                 </>
                             }
@@ -38,7 +38,7 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                         </span>
                     </p>
                     <p className="exhibition-card__info-item _date">
-                        <span>Дата:</span>
+                        <span>Дата</span>
                         <span>
                             {date === date_end ?
                                 formatDateCommon(new Date(date)) :
@@ -47,16 +47,17 @@ const ExhibitionCard = ({club_name, id, city_name, exhibition_name, exhibition_p
                         </span>
                     </p>
                     <p className="exhibition-card__info-item">
-                        <span>Ранг:</span>
+                        <span>Ранг</span>
                         <span title={ranksString}>{ranksString}</span>
                     </p>
                     <p className="exhibition-card__info-item">
-                        <span>Город:</span>
+                        <span>Город</span>
                         <span title={city_name}>{city_name}</span>
                     </p>
                 </div>
                 <div className="exhibition-card__controls">
-                    <Link className="exhibition-card__show-all" to={`/exhibitions/${id}`}>Подробнее...</Link>
+                    <Link className="exhibition-card__button" to={`/exhibitions/${id}`}>Подробнее</Link>
+                    {/* <Link className="exhibition-card__show-all" to={`/exhibitions/${id}`}>Подробнее...</Link> */}
                     {/*<span className="exhibition-card__share" onClick={shareLink}>Поделиться</span>*/}
                 </div>
             </div>

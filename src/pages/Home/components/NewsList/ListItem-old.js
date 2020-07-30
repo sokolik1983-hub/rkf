@@ -5,6 +5,7 @@ import {formatText} from "../../../../utils";
 import {formatDateTime} from "../../../../utils/datetime";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import './index.scss';
+import Share from "components/Share";
 
 
 const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage, name, city, date, alias, logo_link, photo, text, url }) => {
@@ -58,7 +59,7 @@ const ListItem = ({ user, setNewsFilter, citiesDict, currentActiveType, setPage,
                     <p className="list-item__text" dangerouslySetInnerHTML={{ __html: formatText(text) }} />
                     <div className="list-item__controls">
                         <Link to={url} className="list-item__show-all">Подробнее...</Link>
-                        <span className="list-item__share" onClick={shareLink}>Поделиться</span>
+                        <Share url={`https://rkf.online${url}`}/>
                     </div>
                 </div>
             </div>
