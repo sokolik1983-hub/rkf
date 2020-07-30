@@ -123,8 +123,8 @@
       &:not(:last-child) {
         margin-right: 8px;
       }
-      a,
-      span {
+      span, a {
+        cursor: pointer;
         display: block;
         padding: 10px 6px;
         line-height: 20px;
@@ -135,9 +135,9 @@
         color: #72839c;
         text-decoration: none;
         white-space: nowrap;
-        transition: all 0.2s linear;
         border-bottom: 2px solid transparent;
-        &.active {
+        transition: all 0.2s linear;
+        &._active, &.active {
           border-bottom: 2px solid #3366ff;
         }
       }

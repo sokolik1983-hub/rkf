@@ -14,9 +14,25 @@ export const newsArticleFormConfig = {
             fieldType: 'image',
             type: 'file',
             placeholder: 'Загрузить фото...',
+        },
+        advert_breed_id: {
+            name: 'advert_breed_id',
+            label: 'Порода',
+            placeholder: 'Порода',
+            fieldType: 'reactSelectAsync',
+            type: 'select',
+            isMulti: false,
+            closeMenuOnSelect: true,
+            optionsEndpoint: '/api/dog/Breed'
+        },
+        advert_cost: {
+            name: 'advert_cost',
+            label: 'Стоимость (руб.)'
+        },
+        advert_number_of_puppies : {
+            name: 'advert_number_of_puppies',
+            label: 'Кол-во щенков',
+            maxLength: 2
         }
-    },
-    validationSchema: object().shape({
-        content: string().required('Поле не может быть пустым'),
-    })
+    }
 };
