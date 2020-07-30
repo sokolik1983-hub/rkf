@@ -34,7 +34,7 @@ const HomePage = ({ homepage, cities }) => {
                             <StickyBox offsetTop={75}>
                                 <div className="home-page__right-wrap">
                                     <Card>
-                                        <h3 style={{ marginBottom: '0' }}>{RKFInfo.aboutTitle}</h3>
+                                        <h3>{RKFInfo.aboutTitle}</h3>
                                         <p>{RKFInfo.about}</p>
                                     </Card>
                                     <Card>
@@ -51,7 +51,7 @@ const HomePage = ({ homepage, cities }) => {
                                     </Card>
                                     <HomepageCheckStatus />
                                     <Card className="home-page__projects-wrap">
-                                        <h3 style={{ marginBottom: '0' }}>Международные мероприятия</h3>
+                                        <h3>Международные мероприятия</h3>
                                         <div className="home-page__projects">
                                             {exhibitions.map(i => (
                                                 <a key={i.id} href={i.url} title={i.name} target="_blank" rel="noreferrer noopener">

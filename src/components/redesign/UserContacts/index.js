@@ -62,11 +62,11 @@ const UserContacts = ({
         <Card className="user-contacts__info-wrap">
             <Collapse isOpened={isOpen} ref={CollapseRef}>
                 <div className="user-contacts__info-title-wrap">
-                    <h4 className="user-contacts__info-title" style={{ marginBottom: '0' }}>Контакты</h4>
+                    <h4 className="user-contacts__info-title">Контакты</h4>
                     {city_name && <span className="user-contacts__info-city">{city_name}</span>}
                 </div>
                 {owner_name
-                    ? <p className="user-contacts__info-owner" style={{ marginTop: '0' }}>
+                    ? <p className="user-contacts__info-owner">
                         <span>{owner_position || 'Руководитель'}:&nbsp;</span>
                         <span>{owner_name}</span>
                     </p>
