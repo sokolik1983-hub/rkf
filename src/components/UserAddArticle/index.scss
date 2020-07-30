@@ -94,6 +94,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      &__label {
+        color: #72839c;
+      }
+    }
   }
   .FormInput--file {
     margin-bottom: 6px;
@@ -197,5 +204,11 @@
       object-fit: cover;
       border-radius: 6px;
     }
+  }
+}
+
+#advert_breed_id {
+  & > div {
+    z-index: 2;
   }
 }

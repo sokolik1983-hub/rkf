@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import OutsideClickHandler from "react-outside-click-handler";
 import { connect } from 'formik';
 import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
+import CustomCheckbox from "../Form/CustomCheckbox";
+import CustomNumber from "../Form/Field/CustomNumber";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
@@ -9,8 +11,9 @@ import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { useFocus } from "../../shared/hooks";
 
 
-const RenderFields = ({ fields, logo, formik }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const [src, setSrc] = useState('');
+
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, file } = formik.values;
 
@@ -32,7 +35,7 @@ const RenderFields = ({ fields, logo, formik }) => {
         setSrc('');
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
         let text = e.target.value;
 
         const regexp = /http:\/\/[^\s]+/g;
@@ -101,10 +104,24 @@ const RenderFields = ({ fields, logo, formik }) => {
                             </>
                         }
                     </div>
+                    {isAd &&
+                        <FormGroup inline>
+                            <FormField {...fields.advert_breed_id}/>
+                            <CustomNumber {...fields.advert_cost}/>
+                            <CustomNumber {...fields.advert_number_of_puppies}/>
+                        </FormGroup>
+                    }
                     <FormControls>
                         <div className="ArticleCreateForm__attach">
                             <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
                         </div>
+                        <CustomCheckbox
+                            id="ad"
+                            label="Объявление"
+                            className="ArticleCreateForm__ad"
+                            checked={isAd}
+                            onChange={() => setIsAd(!isAd)}
+                        />
                         <div className="ArticleCreateForm__length-hint">
                             <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков` : ''}</span>
                             <div className="ArticleCreateForm__button-wrap">
@@ -116,7 +133,7 @@ const RenderFields = ({ fields, logo, formik }) => {
                                     className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
                                 >
                                     Опубликовать
-                            </SubmitButton>
+                                </SubmitButton>
                             </div>
                         </div>
                     </FormControls>
