@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'formik';
-import {FormControls, FormField} from '../../../../components/Form';
-import {DEFAULT_IMG, BAD_SITES} from "../../../../appConfig";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'formik';
+import { FormControls, FormField, FormGroup } from 'components/Form';
+import { DEFAULT_IMG, BAD_SITES } from "../../../../appConfig";
 
 
-const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
+const RenderFields = ({ fields, breeds, formik, text, imgSrc, onCancel }) => {
     const [src, setSrc] = useState(imgSrc);
-    const {content} = formik.values;
+    const { content, is_advert } = formik.values;
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -15,17 +15,17 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
 
     const handleChangeText = (e) => {
         let text = e.target.value;
-        
+
         const regexp = /http:\/\/[^\s]+/g;
         Array.from(text.matchAll(regexp)).map(item => alert(`${item['0']} - небезопасная ссылка и будет удалена`));
         text = text.replace(regexp, '');
 
         BAD_SITES
-        .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
-        .forEach(x => {
-            Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
-            text = text.replace(x, '');
-        });
+            .map(x => new RegExp(`(https:\\/\\/)?${x}[^\\s]`, "g"))
+            .forEach(x => {
+                Array.from(text.matchAll(x)).map(item => alert(`${item['0']} - ссылка на внешний ресурс заблокирована`));
+                text = text.replace(x, '');
+            });
 
         formik.setFieldValue('content', text);
     };
@@ -49,16 +49,23 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
 
     return (
         <>
+            <FormGroup inline>
+                <FormField {...fields.is_advert} />
+            </FormGroup>
+            <FormGroup inline className={`article-edit__ad${!is_advert ? ' disabled' : ''}`}>
+                <FormField {...fields.advert_breed_id} options={breeds} disabled={!is_advert} />
+                <FormField {...fields.advert_cost} disabled={!is_advert} />
+                <FormField {...fields.advert_number_of_puppies} disabled={!is_advert} />
+            </FormGroup>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
-                    value={formik.values.content || ''}
                     onChange={handleChangeText}
                     maxLength="4096"
                     rows="15"
                 />
             </div>
-            <span className="article-edit__content-length">{content ? `осталось ${4096 - content.length} знаков`:''}</span>
+            <span className="article-edit__content-length">{content ? `осталось ${4096 - content.length} знаков` : ''}</span>
             <div className="article-edit__img">
                 <label className="article-edit__img-label">
                     <input
@@ -69,7 +76,7 @@ const RenderFields = ({fields, formik, text, imgSrc, onCancel}) => {
                         accept=".png, .jpg, .jpeg"
                         onChange={handleChangeImg}
                     />
-                    <img src={src || DEFAULT_IMG.noImage} alt=""/>
+                    <img src={src || DEFAULT_IMG.noImage} alt="" />
                 </label>
                 {src && <button className="article-edit__img-delete" onClick={handleDeleteImg} />}
             </div>

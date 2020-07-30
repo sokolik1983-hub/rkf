@@ -10,7 +10,7 @@ import { formatDateTime } from "../../utils/datetime";
 import { formatText } from "../../utils";
 import { Request } from "../../utils/request";
 import { endpointGetNews } from "./config";
-import {connectAuthVisible} from "../Login/connectors";
+import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
@@ -26,8 +26,8 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
     useEffect(() => {
         const isEditUrl = match.url.split('/')[3] === 'edit';
 
-        if(isEditUrl && canEdit !== null) {
-            if(canEdit) {
+        if (isEditUrl && canEdit !== null) {
+            if (canEdit) {
                 setIsEdit(true);
             } else {
                 history.replace(`/news/${id}`);
@@ -76,9 +76,14 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                         <div className="news__item-body">
                             {isEdit && canEdit ?
                                 <Edit id={news.id}
-                                      text={news.content}
-                                      img={news.picture_link || ''}
-                                      history={history}
+                                    text={news.content}
+                                    img={news.picture_link || ''}
+                                    isAd={news.is_advert}
+                                    adBreedId={news.advert_breed_id}
+                                    adCode={news.advert_code}
+                                    adCost={news.advert_cost}
+                                    adNumberOfPuppies={news.advert_number_of_puppies}
+                                    history={history}
                                 /> :
                                 <>
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />

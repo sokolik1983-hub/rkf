@@ -6,6 +6,20 @@
       }
     }
   }
+  &__ad {
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: normal;
+    }
+    .FormInput:not(:last-child) {
+      @media (max-width: 768px) {
+        margin: 0 0 20px;
+      }
+    }
+    &.disabled {
+      display: none;
+    }
+  }
   textarea {
     resize: vertical;
   }
