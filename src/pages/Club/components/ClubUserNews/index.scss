@@ -31,27 +31,21 @@
         &:not(:last-child) {
           margin-right: 8px;
         }
-        a,
         span {
           display: block;
           padding: 0 6px 10px;
-          line-height: 20px;
-          margin: 0;
+          border-bottom: 2px solid transparent;
           font-weight: 600;
           font-size: 16px;
-          letter-spacing: 0.2px;
+          line-height: 20px;
+          letter-spacing: .2px;
           color: #72839c;
           text-decoration: none;
           white-space: nowrap;
-          transition: all 0.2s linear;
-          border-bottom: 2px solid transparent;
-          &.active {
-            border-bottom: 2px solid #3366ff;
-          }
-        }
-        &:first-child {
-          a {
-            margin-left: 0;
+          cursor: pointer;
+          transition: border-bottom-color .2s linear;
+          &._active {
+            border-bottom-color: #3366ff;
           }
         }
       }

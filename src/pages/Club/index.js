@@ -29,8 +29,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [images, setImages] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [notActiveProfile, setNotActiveProfile] = useState(false);
-    const [page, setPage] = useState(1);
-    const [needRequest, setNeedRequest] = useState(false);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -88,9 +87,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 setImages(imagesArray);
             }
         },
-            error => {
-                //handleError(error);
-            });
+        error => {
+            //handleError(error);
+        });
     }
 
     const squareStyle = () => {
@@ -152,7 +151,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <AddArticle
                                             id={clubInfo.id}
                                             logo={clubInfo.logo_link}
-                                            setPage={setPage}
                                             setNeedRequest={setNeedRequest}
                                         />
                                     }
@@ -160,8 +158,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         user="club"
                                         canEdit={canEdit}
                                         alias={match.params.route}
-                                        page={page}
-                                        setPage={setPage}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                     />
