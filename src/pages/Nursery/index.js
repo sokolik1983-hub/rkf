@@ -35,8 +35,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [images, setImages] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [page, setPage] = useState(1);
-    const [needRequest, setNeedRequest] = useState(false);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
     const alias = match.params.id;
 
@@ -167,7 +166,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     <AddArticle
                                         id={nursery.id}
                                         logo={nursery.logo_link}
-                                        setPage={setPage}
                                         setNeedRequest={setNeedRequest}
                                     />
                                 }
@@ -175,8 +173,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     user="nursery"
                                     canEdit={canEdit}
                                     alias={alias}
-                                    page={page}
-                                    setPage={setPage}
                                     needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
                                 />
