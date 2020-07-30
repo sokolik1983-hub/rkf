@@ -26,10 +26,11 @@ const ListItem = forwardRef(({
     onDelete,
     citiesDict,
     isAd,
-    adBreed,
+    adBreedName,
     adCode,
     adPrice,
     adAmount,
+    isClosedAd,
     changeCityFilter
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
@@ -50,7 +51,7 @@ const ListItem = forwardRef(({
     };
 
     return (
-        <div className="list-item__wrap">
+        <div className={`list-item__wrap${isClosedAd ? ' is_closed' : ''}`}>
             <div className="list-item__content">
                 {photo && <div className="list-item__photo" style={{ backgroundImage: `url(${photo})` }} onClick={() => setShowPhoto(true)} />}
                 <div className="list-item__head">
@@ -96,12 +97,12 @@ const ListItem = forwardRef(({
                                             unmountOnExit
                                         >
                                             <ul className="list-item__head-control-list">
-                                                <li className="list-item__head-control-item">
+                                                {!isClosedAd && <li className="list-item__head-control-item">
                                                     <Link to={`${url}/edit`}>Редактировать</Link>
-                                                </li>
-                                                {isAd &&
-                                                    <li className="list-item__head-control-item">
-                                                        <span className="list-item__remove" onClick={() => onAdClose(id)}>Закрыть объявление</span>
+                                                </li>}
+                                                {isAd && !isClosedAd &&
+                                                    < li className="list-item__head-control-item">
+                                                        <span className="list-item__remove" onClick={() => onAdClose(id, setIsOpenControls)}>Закрыть объявление</span>
                                                     </li>
                                                 }
                                                 <li className="list-item__head-control-item">
@@ -118,12 +119,15 @@ const ListItem = forwardRef(({
                 <div className={!collapsed ? 'list-item__text-wrap' : ''}>
                     {isAd && <div className="list-item__ad">
                         <p className="list-item__ad-breed">
-                            <span>Порода: {adBreed}</span>
+                            <span>Порода: {adBreedName}</span>
                             <span>№{adCode}</span>
                         </p>
                         <p className="list-item__ad-price">
-                            <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
-                            <span>Кол-во щенков: {adAmount}</span>
+                            <div>
+                                <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
+                                <span>Кол-во щенков: {adAmount}</span>
+                            </div>
+                            {isClosedAd && <div className="list-item__ad-inactive" >Объявление не активно</div>}
                         </p>
                     </div>}
                     <p className="list-item__text"
@@ -140,7 +144,8 @@ const ListItem = forwardRef(({
                 </span>
                 <Share url={`https://rkf.online${url}`} />
             </div>
-            {showPhoto &&
+            {
+                showPhoto &&
                 <Modal showModal={showPhoto}
                     handleClose={() => setShowPhoto(false)}
                     noBackdrop={true}
@@ -150,7 +155,7 @@ const ListItem = forwardRef(({
                     <img src={photo} alt="" />
                 </Modal>
             }
-        </div>
+        </div >
     )
 });
 
