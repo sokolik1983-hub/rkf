@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, endpointDeleteNewsPicture, endpointAddNewsPicture } from "../../config";
+import { formConfig, defaultValues, endpointDeleteNewsPicture, endpointAddNewsPicture, apiBreedsEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, history }) => {
+const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
+    const [breeds, setBreeds] = useState([]);
+
+    useEffect(() => {
+        Request({
+            url: apiBreedsEndpoint,
+            method: "GET"
+        }, data => setBreeds(data
+            .filter(f => typeof f.id === 'number' && f.id !== 1)
+            .map(m => ({ value: m.id, label: m.name }))
+        ), e => console.log(e));
+    }, []);
+
     const onSuccess = async (data, values) => {
         if (img && !values.file) {
             await Request({
@@ -30,17 +42,42 @@ const Edit = ({ id, text, img, history }) => {
     };
 
     const transformValues = values => {
-        return { content: values.content.replace(/<[^>]*>/g, ''), /*change_date: new Date(),*/ id }; //Request error if add change_date
+        const { content,
+            is_advert,
+            advert_breed_id,
+            advert_cost,
+            advert_number_of_puppies,
+        } = values;
+        return {
+            content: content.replace(/<[^>]*>/g, ''),
+            id,
+            is_advert,
+            advert_breed_id: is_advert ? advert_breed_id : null,
+            advert_cost: is_advert ? advert_cost : null,
+            advert_number_of_puppies: is_advert ? advert_number_of_puppies : null,
+
+        };
+    };
+
+    const initialValues = {
+        ...defaultValues,
+        is_advert: isAd,
+        advert_breed_id: adBreedId,
+        advert_cost: adCost,
+        advert_number_of_puppies: adNumberOfPuppies,
+        content: text,
+        img: img
     };
 
     return (
         <Form
             onSuccess={onSuccess}
             transformValues={transformValues}
+            initialValues={initialValues}
             {...formConfig}
             className="article-edit"
         >
-            <RenderFields fields={formConfig.fields} text={text} imgSrc={img} onCancel={() => history.replace(`/news/${id}`)} />
+            <RenderFields fields={formConfig.fields} breeds={breeds} text={text} imgSrc={img} onCancel={() => history.replace(`/news/${id}`)} />
         </Form>
     )
 };
