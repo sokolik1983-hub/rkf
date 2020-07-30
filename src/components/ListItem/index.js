@@ -22,6 +22,7 @@ const ListItem = forwardRef(({
     text,
     url,
     removable,
+    onAdClose,
     onDelete,
     citiesDict,
     isAd,
@@ -98,6 +99,11 @@ const ListItem = forwardRef(({
                                                 <li className="list-item__head-control-item">
                                                     <Link to={`${url}/edit`}>Редактировать</Link>
                                                 </li>
+                                                {isAd &&
+                                                    <li className="list-item__head-control-item">
+                                                        <span className="list-item__remove" onClick={() => onAdClose(id)}>Закрыть объявление</span>
+                                                    </li>
+                                                }
                                                 <li className="list-item__head-control-item">
                                                     <span className="list-item__remove" onClick={() => onDelete(id)}>Удалить</span>
                                                 </li>

@@ -73,6 +73,19 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
             });
         }
     };
+    const closeAd = async id => {
+        if (window.confirm('Вы действительно хотите закрыть объявление?')) {
+            await Request({
+                url: endpointDeleteArticle,
+                method: 'PUT',
+                data: JSON.stringify({ "id": id, "is_closed_advert": true })
+            }, () => setNeedRequest(true),
+                error => {
+                    console.log(error);
+                    alert('Объявление не закрыто');
+                });
+        }
+    };
 
     const getNextNews = () => {
         if(hasMore) {
@@ -128,6 +141,7 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
                         listClass="user-news"
                         isFullDate={true}
                         removable={canEdit}
+                        onAdClose={closeAd}
                         onDelete={deleteArticle}
                     />
                 </InfiniteScroll>
