@@ -31,10 +31,6 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
 
     const getNews = async (startElem, filters) => {
         setNewsLoading(true);
-        console.log('startElem', startElem);
-        console.log('filters.city', filters.city.value);
-        console.log('filters.activeType', filters.activeType);
-        console.log('filters.isAdvert', filters.isAdvert);
 
         await Request({
             url: `${endpointGetNews}?start_element=${startElem}${filters.city && filters.city.value ? `&fact_city_ids=${filters.city.value}` : ''}${filters.activeType ? `&${filters.activeType}=true` : ''}${filters.isAdvert !== null ? '&is_advert=' + filters.isAdvert : ''}`
@@ -92,7 +88,6 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
 
         setStartElement(1);
         setNewsFilter(newFilters);
-        console.log('newFilters', newFilters);
         (() => getNews(1, newFilters))();
     };
 
