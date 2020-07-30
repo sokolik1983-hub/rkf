@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-// import CitySelect from "../../../../components/CitySelect";
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 
-const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) => {
-    const [activeType, setActiveType] = useState(currentActiveType);
+const ListFilter = ({ changeFilter }) => {
+    const [activeType, setActiveType] = useState(null);
 
-    const handleClick = (e) => {
+    const handleClick = e => {
         e.preventDefault();
         setActiveType(e.target.name);
-        setNewsFilter({ city: currentCity, activeType: e.target.name });
-        setPage(1);
+        changeFilter(e.target.name);
     };
-
-    // const handleCityChange = city => {
-    //     setNewsFilter({ city: city, activeType });
-    //     setPage(1);
-    // };
 
     return (
         <div className="NewsList__filter">
@@ -34,15 +27,14 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
                         <li>
                             <a href="/" name="nurseries" onClick={handleClick} className={activeType === 'nurseries' ? 'active' : undefined}>Питомники</a>
                         </li>
-                        <li style={{ opacity: 0.5 }}>
-                            <span>НКП</span>
+                        <li>
+                            <span style={{ opacity: 0.5, cursor: 'default' }}>НКП</span>
                         </li>
                     </ul>
                 </HorizontalSwipe>
             </div>
-            {/*<CitySelect cityFilter={city => handleCityChange(city)} currentCity={currentCity} />*/}
         </div>
     )
 };
 
-export default ListFilter;
+export default React.memo(ListFilter);

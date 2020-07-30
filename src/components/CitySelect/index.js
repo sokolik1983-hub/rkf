@@ -42,7 +42,6 @@ function CitySelect({ cityFilter, currentCity }) {
 
     const onChange = value => {
         if (!value.value || value.value === 'reset') {
-            console.log(value.value);
             setCity(selectorInitialState);
             localStorage.removeItem(LS_KEY);
             storeFilters();
@@ -55,7 +54,6 @@ function CitySelect({ cityFilter, currentCity }) {
         cityFilter && cityFilter(value);
         closeSelector();
         setCity(value);
-
     };
 
     const selectOptions = [

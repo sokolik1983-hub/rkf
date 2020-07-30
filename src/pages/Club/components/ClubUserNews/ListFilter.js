@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import HorizontalSwipe from "../../../../components/HorozintalSwipe";
 
-const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) => {
-    const [activeType, setActiveType] = useState(currentActiveType);
+const ListFilter = ({ setFilters, setNeedRequest }) => {
+    const [activeType, setActiveType] = useState('all');
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        setActiveType(e.target.name);
+    const handleClick = type => {
+        setActiveType(type);
+        if(type !== 'all') {
+           setFilters({is_advert: type === 'advert'});
+        } else {
+            setFilters(null);
+        }
+        setNeedRequest(true);
     };
 
     return (
@@ -15,13 +20,22 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
                 <HorizontalSwipe id="news-list-filter">
                     <ul className="ListFilter">
                         <li>
-                            <a href="/" onClick={handleClick} className={!activeType ? 'active' : undefined}>Все</a>
+                            <span
+                                className={`ListFilter__item${activeType === 'all' ? ' _active' : ''}`}
+                                onClick={() => handleClick('all')}
+                            >Все</span>
                         </li>
                         <li>
-                            <a href="/" name="rkf_and_federations" onClick={handleClick} className={activeType === 'rkf_and_federations' ? 'active' : undefined}>Новости</a>
+                            <span
+                                className={`ListFilter__item${activeType === 'news' ? ' _active' : ''}`}
+                                onClick={() => handleClick('news')}
+                            >Новости</span>
                         </li>
-                        <li style={{ opacity: 0.5 }}>
-                            <span>Объявления</span>
+                        <li>
+                            <span
+                                className={`ListFilter__item${activeType === 'advert' ? ' _active' : ''}`}
+                                onClick={() => handleClick('advert')}
+                            >Объявления</span>
                         </li>
                     </ul>
                 </HorizontalSwipe>
@@ -30,4 +44,4 @@ const ListFilter = ({ setNewsFilter, setPage, currentActiveType, currentCity }) 
     )
 };
 
-export default ListFilter;
+export default React.memo(ListFilter);

@@ -24,16 +24,13 @@ const ListItem = forwardRef(({
     removable,
     onAdClose,
     onDelete,
-    setNewsFilter,
-    setPage,
-    currentActiveType,
     citiesDict,
     isAd,
     adBreed,
     adCode,
     adPrice,
-    adAmount
-
+    adAmount,
+    changeCityFilter
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -46,12 +43,10 @@ const ListItem = forwardRef(({
     }, []);
 
     const handleCityChange = () => {
-        const cityObj = {
+        changeCityFilter({
             label: city,
             value: citiesDict.filter(c => c.label === city)[0].value
-        }
-        setNewsFilter({ city: cityObj, activeType: currentActiveType });
-        setPage(1);
+        });
     };
 
     return (
