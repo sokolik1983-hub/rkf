@@ -1,4 +1,13 @@
 .list-item {
+  &__wrap {
+    &.is_closed {
+      opacity: 0.5;
+      pointer-events: none;
+      .list-item__head-control {
+        pointer-events: all;
+      }
+    }
+  }
   &__photo {
     display: block;
     min-height: 162px;
@@ -219,11 +228,25 @@
       flex-wrap: wrap;
       justify-content: space-between;
     }
+    &-breed {
+      span:first-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 130px);
+      }
+    }
     &-price {
-      justify-content: flex-start;
+      & > div:first-child {
+        display: flex;
+        flex-wrap: wrap;
+      }
       span:first-child {
         margin-right: 10px;
       }
+    }
+    &-inactive {
+      color: red;
     }
   }
   &__controls {
