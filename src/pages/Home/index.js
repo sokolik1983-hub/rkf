@@ -38,7 +38,7 @@ const HomePage = ({ homepage, cities }) => {
                                         <p>{RKFInfo.about}</p>
                                     </Card>
                                     <Card>
-                                        <h3 style={{ marginBottom: '12px' }}>РКФ в соцсетях</h3>
+                                        <h3 style={{ marginBottom: '7px' }}>РКФ в соцсетях</h3>
                                         <div className="home-page__right-socials">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                             <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
