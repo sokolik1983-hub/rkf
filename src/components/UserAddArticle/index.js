@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import {number, object, string} from "yup";
 import Card from "../Card";
 import {Form} from "../Form";
 import RenderFields from "./RenderFields";
@@ -6,27 +7,48 @@ import {newsArticleFormConfig} from "./config";
 import './index.scss';
 
 
-const AddArticle = ({id, logo, setPage, setNeedRequest}) => {
-    const onSuccess = () => {
-        setPage(0);
-        setNeedRequest(true);
-    };
+const AddArticle = ({id, logo, setNeedRequest}) => {
+    const [isAd, setIsAd] = useState(false);
 
     const transformValues = values => {
-        return {...values, club_id: id};
+        if(isAd) {
+            return {
+                ...values,
+                advert_number_of_puppies: +values.advert_number_of_puppies,
+                is_advert: true,
+                club_id: id
+            }
+        } else {
+            return {
+                content: values.content,
+                file: values.file,
+                club_id: id
+            }
+        }
     };
 
     return (
         <Card className="add-article">
             <Form
-                isMultipart
-                onSuccess={onSuccess}
-                transformValues={transformValues}
-                resetForm="true"
-                {...newsArticleFormConfig}
                 className="ArticleCreateForm"
+                resetForm="true"
+                isMultipart
+                validationSchema={
+                    object().shape({
+                        content: string().required('Поле не может быть пустым'),
+                        advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
+                        advert_number_of_puppies: isAd ? string().required('Поле не может быть пустым') : ''
+                })}
+                initialValues={{
+                    advert_breed_id: '',
+                    advert_cost: '',
+                    advert_number_of_puppies: ''
+                }}
+                {...newsArticleFormConfig}
+                transformValues={transformValues}
+                onSuccess={() => setNeedRequest(true)}
             >
-                <RenderFields fields={newsArticleFormConfig.fields} logo={logo} />
+                <RenderFields fields={newsArticleFormConfig.fields} logo={logo} isAd={isAd} setIsAd={setIsAd} />
             </Form>
         </Card>
     )
