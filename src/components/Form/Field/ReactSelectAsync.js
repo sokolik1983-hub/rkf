@@ -5,12 +5,29 @@ import {connect, getIn} from "formik";
 import {defaultReactSelectStyles} from '../config'
 import {getHeaders} from "utils/request";
 import {isDevEnv} from "utils/index";
-
 import createFilterOptions from "react-select-fast-filter-options";
 import MenuList from './ReactSelectMenuList'
 
 const NoOptionsMessage = () => {
     return ('Нет опций для выбора');
+};
+
+const Option = (props) => {
+    console.log('props', props);
+
+    return <div
+        className="react-select__menu-option"
+        style={{
+            padding: '4px 10px',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            cursor: 'pointer'
+        }}
+        ref={props.innerRef}
+        {...props.innerProps}
+        title={props.children}
+    >{props.children}</div>
 };
 
 // TODO Implement this: https://github.com/bvaughn/react-virtualized-select
@@ -58,6 +75,7 @@ class ReactSelectAsync extends Component {
 
         this.setState({options})
     };
+
     processErrors = errors => {
         console.log('processRequestErrors', errors)
     };
@@ -96,12 +114,10 @@ class ReactSelectAsync extends Component {
 
     componentDidMount() {
         this.loadOptions()
-    }
+    };
 
     render() {
-        //console.log('ReactSelectAsync.render()', this.props)
         const {
-            //options,
             id,
             name,
             className,
@@ -117,7 +133,7 @@ class ReactSelectAsync extends Component {
         return (
             <Select
                 filterOptions={this.filterOptions}
-                components={{NoOptionsMessage, MenuList}}
+                components={{NoOptionsMessage, MenuList, Option}}
                 id={id}
                 isMulti={isMulti}
                 closeMenuOnSelect={closeMenuOnSelect}
@@ -132,10 +148,6 @@ class ReactSelectAsync extends Component {
                 onBlur={onBlur}
                 clearable={clearable}
                 defaultValue={defaultValue}
-                // menuIsOpen={true}
-                // autoFocus={true}
-                // blurInputOnSelect={false}
-                // closeMenuOnSelect={false}
             />
         )
     }
