@@ -178,45 +178,49 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 />
                             </div>
                             <Aside className="nursery-page__info">
-                            <StickyBox offsetTop={65}>
-                                <div className="nursery-page__info-inner">
-                                    <UserHeader
-                                        user="nursery"
-                                        logo={nursery.logo_link}
-                                        name={nursery.name || 'Имя отсутствует'}
-                                        alias={alias}
-                                        profileId={nursery.id}
-                                        federationName={nursery.federation_name}
-                                        federationAlias={nursery.federation_alias}
-                                    />
-                                    {nursery.breeds && !!nursery.breeds.length &&
-                                        <Card className="nursery-page__breeds">
-                                            <h4>Породы</h4>
-                                            <ul className="nursery-page__breeds-list">
-                                                {nursery.breeds.map(item =>
-                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                )}
-                                            </ul>
-                                        </Card>
-                                    }
-                                    <Card className="nursery-page__gallery-wrap">
-                                        <div className="nursery-page__gallery-header">
-                                            <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
-                                            <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
-                                        </div>
-                                        <Gallery
-                                            items={images}
-                                            backdropClosesModal={true}
-                                            enableImageSelection={false}
-                                            withLoading={false}
-                                            rowHeight={88}
-                                            thumbnailStyle={squareStyle}
+                                <StickyBox offsetTop={65}>
+                                    <div className="nursery-page__info-inner">
+                                        <UserHeader
+                                            user="nursery"
+                                            logo={nursery.logo_link}
+                                            name={nursery.name || 'Имя отсутствует'}
+                                            alias={alias}
+                                            profileId={nursery.id}
+                                            federationName={nursery.federation_name}
+                                            federationAlias={nursery.federation_alias}
                                         />
-                                    </Card>
-                                    <div className="nursery-page__mobile-only">
-                                        <UserMenu alias={alias}/>
+                                        {nursery.breeds && !!nursery.breeds.length &&
+                                            <Card className="nursery-page__breeds">
+                                                <h4>Породы</h4>
+                                                <ul className="nursery-page__breeds-list">
+                                                    {nursery.breeds.map(item =>
+                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                    )}
+                                                </ul>
+                                            </Card>
+                                        }
+                                        <Card className="nursery-page__gallery-wrap">
+                                            <div className="nursery-page__gallery-header">
+                                                <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
+                                                <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
+                                            </div>
+                                            <Gallery
+                                                items={images}
+                                                backdropClosesModal={true}
+                                                enableImageSelection={false}
+                                                withLoading={false}
+                                                rowHeight={88}
+                                                thumbnailStyle={squareStyle}
+                                            />
+                                        </Card>
+                                        <div className="nursery-page__mobile-only">
+                                            <UserMenu alias={alias} />
+                                        </div>
+                                        <div className="nursery-page__copy-wrap">
+                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                            <p>Политика обработки персональных данных</p>
+                                        </div>
                                     </div>
-                                </div>
                                 </StickyBox>
                             </Aside>
                         </div>

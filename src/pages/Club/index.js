@@ -87,9 +87,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 setImages(imagesArray);
             }
         },
-        error => {
-            //handleError(error);
-        });
+            error => {
+                //handleError(error);
+            });
     }
 
     const squareStyle = () => {
@@ -188,6 +188,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     thumbnailStyle={squareStyle}
                                                 />
                                             </Card>
+                                            <div className="club-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
                                         </div>
                                     </StickyBox>
                                 </Aside>
