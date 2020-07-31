@@ -17,7 +17,7 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { endpointGetNews } from "./config";
-import {DEFAULT_IMG} from "../../appConfig";
+import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
 const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
@@ -36,7 +36,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         (() => Request({
             url: endpointGetClubInfo + alias
         }, data => {
-            if(data.user_type === 4) {
+            if (data.user_type === 4) {
                 history.replace(`/kennel/${match.params.route}/news`);
             } else {
                 setClubInfo(data);
@@ -81,7 +81,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         : error ?
             error.status === 422 ? <ClubNotActive /> : <PageNotFound />
             : <Layout>
-            <div className="redesign">
                 <Container className="content club-page NewsPage">
                     <UserHeader
                         user="club"
@@ -99,18 +98,18 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                 <Card className="user-news">
                                     <div className="user-news__content">
                                         <h4 className="user-news__text">Новости не найдены</h4>
-                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
                                     </div>
                                 </Card> :
                                 <InfiniteScroll
                                     dataLength={news.length}
                                     next={getNews}
                                     hasMore={hasMore}
-                                    loader={newsLoading && <Loading centered={false}/>}
+                                    loader={newsLoading && <Loading centered={false} />}
                                     endMessage={
                                         <div className="user-news__content">
                                             <h4 className="user-news__text">Новостей больше нет</h4>
-                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
                                         </div>
                                     }
                                 >
@@ -139,7 +138,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                         name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                     />
                 </Container>
-                </div>
             </Layout>
 };
 
