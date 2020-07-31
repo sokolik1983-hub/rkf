@@ -82,7 +82,8 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         : error ?
             error.status === 422 ? <ClubNotActive /> : <PageNotFound />
             : <Layout>
-                <Container className="content club-page NewsPage">
+                <div className="redesign">
+                    <Container className="content club-page NewsPage">
                     <UserHeader
                         user="club"
                         logo={clubInfo.logo_link}
@@ -139,6 +140,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                         name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                     />
                 </Container>
+                </div>
             </Layout>
 };
 
