@@ -132,6 +132,10 @@ class ReactSelectAsync extends Component {
                 onBlur={onBlur}
                 clearable={clearable}
                 defaultValue={defaultValue}
+                // menuIsOpen={true}
+                // autoFocus={true}
+                // blurInputOnSelect={false}
+                // closeMenuOnSelect={false}
             />
         )
     }

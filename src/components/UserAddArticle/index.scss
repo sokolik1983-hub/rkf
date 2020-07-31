@@ -211,4 +211,17 @@
   & > div {
     z-index: 2;
   }
+  //& > div[class$=menu] > div > div > div {
+  //  height: auto !important;
+  //  position: static !important;
+  //  &:first-child {
+  //    padding-top: 5px;
+  //  }
+  //  &:last-child {
+  //    padding-bottom: 5px;
+  //  }
+  //  & > div {
+  //    padding: 5px 10px;
+  //  }
+  //}
 }
