@@ -1,10 +1,13 @@
 .list-item {
   &__wrap {
     &.is_closed {
-      opacity: 0.5;
-      pointer-events: none;
-      .list-item__head-control {
-        pointer-events: all;
+      .list-item__controls,
+      .list-item__photo,
+      .list-item__text-wrap,
+      .list-item__club,
+      .list-item__city {
+        opacity: 0.5;
+        pointer-events: none;
       }
     }
   }
