@@ -193,6 +193,11 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                                             logo_link={item.logo_link}
                                             changeCityFilter={changeCityFilter}
                                             citiesDict={citiesDict}
+                                            isAd={item.is_advert}
+                                            adBreedName={item.advert_breed_name}
+                                            adCode={item.advert_code}
+                                            adPrice={item.advert_cost}
+                                            adAmount={item.advert_number_of_puppies}
                                         />
                                     </Card>
                                 }
