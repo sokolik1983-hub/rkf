@@ -21,14 +21,13 @@ export const defaultReactSelectStyles = {
             paddingBottom: 6,
             paddingLeft: 4,
             borderRadius: 6,
-
         }),
         menuList: styles => ({
             ...styles,
             backgroundColor: 'white',
             color: 'whitesmoke',
             borderColor: '#333',
-            borderRadius: 8
+            borderRadius: 6
         }),
         option: (styles, {data, isDisabled, isFocused, isSelected}) => {
             return {
@@ -39,6 +38,10 @@ export const defaultReactSelectStyles = {
                         ? '#253C5E'
                         : '#253C5E',
                 backgroundColor: isSelected ? "#F6F7F7" : 'transparent',
+                padding: '4px 10px',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
                 cursor: isDisabled ? 'not-allowed' : 'default',
             };
         },
