@@ -122,13 +122,13 @@ const ListItem = forwardRef(({
                             <span>Порода: {adBreedName}</span>
                             <span>№{adCode}</span>
                         </p>
-                        <p className="list-item__ad-price">
+                        <div className="list-item__ad-price">
                             <div>
                                 <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
                                 <span>Кол-во щенков: {adAmount}</span>
                             </div>
                             {isClosedAd && <div className="list-item__ad-inactive" >Объявление не активно</div>}
-                        </p>
+                        </div>
                     </div>}
                     <p className="list-item__text"
                         ref={ref}
