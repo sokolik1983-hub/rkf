@@ -88,7 +88,7 @@
       color: #36f;
       font-weight: normal;
       font-size: 18px;
-      line-height: 20px!important;
+      line-height: 20px !important;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -129,9 +129,11 @@
       height: 16px;
       &:after {
         background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+        background-color: white;
       }
       &:hover:after {
         background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+        background-color: white;
       }
     }
     .menu-component {
