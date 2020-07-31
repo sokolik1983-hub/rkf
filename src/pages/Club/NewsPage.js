@@ -20,7 +20,6 @@ import { endpointGetNews } from "./config";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
-
 const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
