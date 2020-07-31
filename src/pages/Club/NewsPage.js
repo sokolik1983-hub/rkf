@@ -20,7 +20,6 @@ import { endpointGetNews } from "./config";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
 
-
 const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
@@ -82,6 +81,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         : error ?
             error.status === 422 ? <ClubNotActive /> : <PageNotFound />
             : <Layout>
+            <div className="redesign">
                 <Container className="content club-page NewsPage">
                     <UserHeader
                         user="club"
@@ -139,6 +139,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                         name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                     />
                 </Container>
+                </div>
             </Layout>
 };
 

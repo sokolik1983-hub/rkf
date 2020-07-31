@@ -17,7 +17,7 @@ class ResponsibleTable extends PureComponent {
         searchQuery: {},
         searchColumn: 'all',
         sortingColumns: null,
-        pagination: {page: 1, perPage: 5},
+        pagination: {page: 1, perPage: 50},
         nurseryAlias: this.props.nurseryAlias,
         rows: this.props.declarants,
         columns: null
@@ -91,7 +91,7 @@ class ResponsibleTable extends PureComponent {
                 return row;
             });
 
-            this.setState({rows: [newDefaultPerson, ...otherPerson], pagination: {page: 1, perPage: 5}});
+            this.setState({rows: [newDefaultPerson, ...otherPerson], pagination: {page: 1, perPage: 50}});
         }, error => {
             console.log(error.response);
         });
