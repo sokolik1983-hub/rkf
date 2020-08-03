@@ -1,31 +1,29 @@
 import React, { useEffect, useState } from "react";
-import {Redirect} from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
+import AddArticle from "../../components/UserAddArticle";
+import ClubUserNews from "../Club/components/ClubUserNews";
 import Loading from "../../components/Loading";
-import UserHeader from "../../components/UserHeader";
-import List from "../../components/List";
-import UserMenu from "./components/UserMenu";
-import NurseryInfo from "./components/NurseryInfo";
-import {Request} from "../../utils/request";
-import {endpointGetNurseryInfo} from "./config";
-import {connectAuthVisible} from "../Login/connectors";
-import "./index.scss";
-import {DEFAULT_IMG} from "../../appConfig";
 import Card from "../../components/Card";
+import ClubUserHeader from "../../components/redesign/UserHeader";
+import FloatingMenu from "../Club/components/FloatingMenu";
+import UserGallery from "../../components/redesign/UserGallery";
+import { Request } from "../../utils/request";
+import shorten from "../../utils/shorten";
+import { endpointGetNurseryInfo } from "./config";
+import { connectAuthVisible } from "../Login/connectors";
+import StickyBox from "react-sticky-box";
+import "./index.scss";
 
 
-const NewsPage = ({ history, match, is_active_profile, profile_id, isAuthenticated }) => {
-    const [nurseryInfo, setNurseryInfo] = useState(null);
-    const [error, setError] = useState(null);
+const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+    const [nursery, setNurseryInfo] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [page, setPage] = useState(1);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [news, setNews] = useState([]);
-    const [newsLoading, setNewsLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
+    const [needRequest, setNeedRequest] = useState(true);
 
     const alias = match.params.route;
 
@@ -33,12 +31,11 @@ const NewsPage = ({ history, match, is_active_profile, profile_id, isAuthenticat
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
-            if(data.user_type !== 4) {
-                history.replace(`/${alias}/news`);
+            if (data.user_type === 4) {
+                history.replace(`/kennel/${match.params.route}/news`);
             } else {
                 setNurseryInfo(data);
                 setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
-                !news.length && getNews();
                 setLoading(false);
             }
         }, error => {
@@ -48,90 +45,76 @@ const NewsPage = ({ history, match, is_active_profile, profile_id, isAuthenticat
         }))();
     }, [match]);
 
-    const getNews = async () => {
-        setNewsLoading(true);
-        await Request({
-            url: `/api/Article/public?alias=${alias}${page > 1 ? '&page=' + page : ''}`
-        }, data => {
-            let modifiedNews = [];
-
-            if (data.articles.length) {
-                modifiedNews = news.concat(
-                    data.articles.map(article => {
-                        article.title = article.club_name;
-                        article.url = `/news/${article.id}`;
-                        return article;
-                    })
-                );
-            }
-            setNews(modifiedNews);
-            setPage(page + 1);
-            modifiedNews.length === data.articles_count && setHasMore(false);
-            setNewsLoading(false);
-        }, error => {
-            console.log(error.response);
-        });
-    };
-
-    return loading
-        ? <Loading />
-        : error ?
-            error.status === 422 ? <Redirect to="/kennel/activation"/> : <Redirect to="404"/>
-            : <Layout>
-                <Container className="content nursery-page NewsPage">
-                    <UserHeader
-                        user="nursery"
-                        logo={nurseryInfo.logo_link}
-                        banner={nurseryInfo.headliner_link}
-                        name={nurseryInfo.short_name || nurseryInfo.name || 'Название клуба отсутствует'}
-                        federationName={nurseryInfo.federation_name}
-                        federationAlias={nurseryInfo.federation_alias}
-                        canEdit={canEdit}
-                        editLink={`/kennel/${alias}/edit`}
-                    />
-                    <div className="nursery-page__content-wrap">
-                        <div className="nursery-page__content">
-                            {(!news || !news.length) ?
-                                <Card className="user-news">
-                                    <div className="user-news__content">
-                                        <h4 className="user-news__text">Новости не найдены</h4>
-                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
+    return loading ?
+    <Loading /> :
+        error ?
+            <PageNotFound /> :
+                <Layout>
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    <Card className="club-page__content-banner">
+                                        <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
+                                    </Card>
+                                    <div className="club-page__mobile-only">
+                                        <ClubUserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={nursery.logo_link}
+                                            name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                            alias={nursery.club_alias}
+                                            profileId={nursery.id}
+                                            federationName={nursery.federation_name}
+                                            federationAlias={nursery.federation_alias}
+                                        />
                                     </div>
-                                </Card> :
-                                <InfiniteScroll
-                                    dataLength={news.length}
-                                    next={getNews}
-                                    hasMore={hasMore}
-                                    loader={newsLoading && <Loading centered={false}/>}
-                                    endMessage={
-                                        <div className="user-news__content">
-                                            <h4 className="user-news__text">Новостей больше нет</h4>
-                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
-                                        </div>
+                                    {canEdit &&
+                                        <AddArticle
+                                            id={nursery.id}
+                                            logo={nursery.logo_link}
+                                            setNeedRequest={setNeedRequest}
+                                        />
                                     }
-                                >
-                                    <List
-                                        user="nursery"
-                                        list={news}
-                                        listNotFound={false}
-                                        listClass="nursery-page__news"
-                                        isFullDate={true}
+                                    <ClubUserNews
+                                        user="club"
+                                        canEdit={canEdit}
+                                        alias={match.params.route}
+                                        needRequest={needRequest}
+                                        setNeedRequest={setNeedRequest}
                                     />
-                                </InfiniteScroll>
-                            }
-                        </div>
-                        <Aside className="nursery-page__info">
-                            <UserMenu
-                                alias={alias}
-                                name={nurseryInfo.name || 'Имя отсутствует'}
+                                    <div className="club-page__mobile-only">
+                                            <UserGallery alias={alias} />
+                                    </div>
+                                </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="club-page__info-inner">
+                                            <ClubUserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={nursery.logo_link}
+                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                alias={nursery.club_alias}
+                                                profileId={nursery.id}
+                                                federationName={nursery.federation_name}
+                                                federationAlias={nursery.federation_alias}
+                                            />
+                                            <UserGallery alias={alias} />
+                                            <div className="club-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
+                            </div>
+                            <FloatingMenu
+                                alias={nursery.club_alias}
+                                profileId={nursery.id}
+                                name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
                             />
-                            <NurseryInfo
-                                {...nurseryInfo}
-                            />
-                        </Aside>
+                        </Container>
                     </div>
-                </Container>
-            </Layout>
+                </Layout>
 };
 
 export default React.memo(connectAuthVisible(NewsPage));
