@@ -19,7 +19,7 @@ import StickyBox from "react-sticky-box";
 import "./index.scss";
 
 
-const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [images, setImages] = useState(null);
@@ -191,4 +191,4 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 </Layout>
 };
 
-export default React.memo(connectAuthVisible(ClubPage));
+export default React.memo(connectAuthVisible(NewsPage));
