@@ -1,4 +1,16 @@
 .list-item {
+  &__wrap {
+    &.is_closed {
+      .list-item__controls,
+      .list-item__photo,
+      .list-item__text-wrap,
+      .list-item__club,
+      .list-item__city {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
   &__photo {
     display: block;
     min-height: 162px;
@@ -39,7 +51,7 @@
         top: 100%;
         z-index: 1;
         margin-top: 6px;
-        min-width: 130px;
+        min-width: 170px;
         box-shadow: 0 5px 10px rgba(176, 190, 197, 0.5);
         background-color: #fff;
         border-radius: 4px;
@@ -219,11 +231,25 @@
       flex-wrap: wrap;
       justify-content: space-between;
     }
+    &-breed {
+      span:first-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 130px);
+      }
+    }
     &-price {
-      justify-content: flex-start;
+      & > div:first-child {
+        display: flex;
+        flex-wrap: wrap;
+      }
       span:first-child {
         margin-right: 10px;
       }
+    }
+    &-inactive {
+      color: red;
     }
   }
   &__controls {
@@ -237,14 +263,17 @@
     .Share {
       .ya-share2__icon_more {
         height: 16px;
+        background-color: white;
         &:after {
           width: 16px;
           height: 16px;
           top: 0;
           background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+          background-color: white;
         }
         &:hover:after {
           background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+          background-color: white;
         }
       }
     }

@@ -86,6 +86,15 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     history={history}
                                 /> :
                                 <>
+                                    {news.advert_breed_id &&
+                                        <>
+                                            <h1>Объявление</h1>
+                                            <p>Порода: {news.advert_breed_name}</p>
+                                            <p>Стоимость: {news.advert_cost}</p>
+                                            <p>Кол-во щенков: {news.advert_number_of_puppies}</p>
+                                            <br />
+                                        </>
+                                    }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
                                     {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
                                 </>
