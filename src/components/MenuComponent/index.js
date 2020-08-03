@@ -393,7 +393,7 @@ const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = fa
                 </li>
             }
             <li className="menu-component__item">
-                <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
+                <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
             </li>
             <li className="menu-component__item">
                 <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
