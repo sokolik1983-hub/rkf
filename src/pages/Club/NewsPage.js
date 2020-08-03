@@ -33,7 +33,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         (() => Request({
             url: endpointGetClubInfo + alias
         }, data => {
-            if(data.user_type === 4) {
+            if (data.user_type === 4) {
                 history.replace(`/kennel/${match.params.route}/news`);
             } else {
                 setClubInfo(data);

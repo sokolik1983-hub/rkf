@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import NotConfirmed from "../NotConfirmed";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
-import { Link } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
@@ -11,6 +10,7 @@ import UserHeader from "../../components/redesign/UserHeader";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
+import UserGallery from "../../components/redesign/UserGallery";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
 import FloatingMenu from './components/FloatingMenu';
@@ -18,7 +18,6 @@ import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { Gallery } from "../../components/Gallery";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
@@ -26,7 +25,6 @@ import "./index.scss";
 const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
-    const [images, setImages] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
@@ -51,55 +49,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }))();
         return () => setNeedRequest(true);
     }, [match]);
-
-    useEffect(() => {
-        getImages()
-    }, []);
-
-    const getImages = () => {
-        Request({
-            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
-            method: 'GET'
-        }, data => {
-            if (data.photos.length) {
-                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
-                const { photos } = data;
-                const imagesArray = twelveItemsArray.map(p => {
-                    if (photos[p]) {
-                        return {
-                            id: photos[p].id,
-                            src: photos[p].link,
-                            thumbnail: photos[p].small_photo.link,
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88,
-                            caption: photos[p].caption
-                        }
-                    } else {
-                        return {
-                            id: p,
-                            src: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88
-                        }
-                    }
-                });
-                setImages(imagesArray);
-            }
-        },
-        error => {
-            //handleError(error);
-        });
-    }
-
-    const squareStyle = () => {
-        return {
-            height: '89px',
-            width: '89px',
-            objectFit: 'cover',
-            cursor: 'pointer'
-        };
-    }
 
     return loading ?
         <Loading /> :
@@ -132,20 +81,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                                     </div>
                                     <div className="club-page__mobile-only">
-                                        <Card className="club-page__gallery-wrap">
-                                            <div className="club-page__gallery-header">
-                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                            </div>
-                                            <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                withLoading={false}
-                                                rowHeight={89}
-                                                thumbnailStyle={squareStyle}
-                                            />
-                                        </Card>
+                                    <UserGallery alias={clubInfo.club_alias} />
                                     </div>
                                     {canEdit &&
                                         <AddArticle
@@ -174,20 +110,11 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
                                             />
-                                            <Card className="club-page__gallery-wrap">
-                                                <div className="club-page__gallery-header">
-                                                    <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                                    <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                                </div>
-                                                <Gallery
-                                                    items={images}
-                                                    backdropClosesModal={true}
-                                                    enableImageSelection={false}
-                                                    withLoading={false}
-                                                    rowHeight={88}
-                                                    thumbnailStyle={squareStyle}
-                                                />
-                                            </Card>
+                                            <UserGallery alias={clubInfo.club_alias} />
+                                            <div className="club-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
                                         </div>
                                     </StickyBox>
                                 </Aside>
