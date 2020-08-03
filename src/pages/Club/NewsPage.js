@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import ClubNotActive from "./components/ClubNotActive";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import MenuComponent from "../../components/MenuComponent";
-import UserHeader from "../../components/UserHeader";
-import ClubInfo from "./components/ClubInfoOld";
 import Card from "../../components/Card";
-import List from "../../components/List";
-import FloatingMenu from './components/FloatingMenu';
+import UserHeader from "../../components/redesign/UserHeader";
+import AddArticle from "../../components/UserAddArticle";
+import FloatingMenu from "./components/FloatingMenu";
+import ClubUserNews from "./components/ClubUserNews";
+import UserGallery from "../../components/redesign/UserGallery";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetNews } from "./config";
-import { DEFAULT_IMG } from "../../appConfig";
+import StickyBox from "react-sticky-box";
 import "./index.scss";
+
 
 const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [page, setPage] = useState(1);
+    const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [news, setNews] = useState([]);
-    const [newsLoading, setNewsLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
 
     const alias = match.params.route;
 
@@ -41,7 +36,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
             } else {
                 setClubInfo(data);
                 setCanEdit(isAuthenticated && profile_id === data.id);
-                !news.length && getNews();
                 setLoading(false);
             }
         }, error => {
@@ -51,94 +45,72 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         }))();
     }, [match]);
 
-    const getNews = async () => {
-        setNewsLoading(true);
-        await Request({
-            url: `${endpointGetNews}?alias=${alias}${page > 1 ? '&page=' + page : ''}`
-        }, data => {
-            let modifiedNews = [];
-
-            if (data.articles.length) {
-                modifiedNews = news.concat(
-                    data.articles.map(article => {
-                        article.title = article.club_name;
-                        article.url = `/news/${article.id}`;
-                        return article;
-                    })
-                );
-            }
-            setNews(modifiedNews);
-            setPage(page + 1);
-            modifiedNews.length === data.articles_count && setHasMore(false);
-            setNewsLoading(false);
-        }, error => {
-            console.log(error.response);
-        });
-    };
-
-    return loading
-        ? <Loading />
-        : error ?
-            error.status === 422 ? <ClubNotActive /> : <PageNotFound />
-            : <Layout>
-                <Container className="content club-page NewsPage">
-                    <UserHeader
-                        user="club"
-                        logo={clubInfo.logo_link}
-                        banner={clubInfo.headliner_link}
-                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                        federationName={clubInfo.federation_name}
-                        federationAlias={clubInfo.federation_alias}
-                        canEdit={canEdit}
-                        editLink="/client"
-                    />
-                    <div className="club-page__content-wrap">
-                        <div className="club-page__content">
-                            {(!news || !news.length) ?
-                                <Card className="user-news">
-                                    <div className="user-news__content">
-                                        <h4 className="user-news__text">Новости не найдены</h4>
-                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+    return loading ?
+        <Loading /> :
+        error ?
+            <PageNotFound /> :
+                <Layout>
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    <Card className="club-page__content-banner">
+                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                                    </Card>
+                                    <div className="club-page__mobile-only">
+                                        <UserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                        />
                                     </div>
-                                </Card> :
-                                <InfiniteScroll
-                                    dataLength={news.length}
-                                    next={getNews}
-                                    hasMore={hasMore}
-                                    loader={newsLoading && <Loading centered={false} />}
-                                    endMessage={
-                                        <div className="user-news__content">
-                                            <h4 className="user-news__text">Новостей больше нет</h4>
-                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
-                                        </div>
-                                    }
-                                >
-                                    <List
+                                    <ClubUserNews
                                         user="club"
-                                        list={news}
-                                        listNotFound={false}
-                                        listClass="club-page__news"
-                                        isFullDate={true}
+                                        canEdit={canEdit}
+                                        alias={match.params.route}
+                                        needRequest={needRequest}
+                                        setNeedRequest={setNeedRequest}
                                     />
-                                </InfiniteScroll>
-                            }
-                        </div>
-                        <Aside className="club-page__info">
-                            <MenuComponent
+                                    <div className="club-page__mobile-only">
+                                            <UserGallery alias={alias} />
+                                    </div>
+                                    {canEdit &&
+                                        <AddArticle
+                                            id={clubInfo.id}
+                                            logo={clubInfo.logo_link}
+                                            setNeedRequest={setNeedRequest}
+                                        />
+                                    }
+                                </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="club-page__info-inner">
+                                            <UserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                            />
+                                            <UserGallery alias={alias} />
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
+                            </div>
+                            <FloatingMenu
                                 alias={clubInfo.club_alias}
                                 profileId={clubInfo.id}
                                 name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
                             />
-                            <ClubInfo {...clubInfo} />
-                        </Aside>
+                        </Container>
                     </div>
-                    <FloatingMenu
-                        alias={clubInfo.club_alias}
-                        profileId={clubInfo.id}
-                        name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                    />
-                </Container>
-            </Layout>
+                </Layout>
 };
 
 export default React.memo(connectAuthVisible(NewsPage));
