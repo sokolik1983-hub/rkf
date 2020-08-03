@@ -76,7 +76,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                         setNeedRequest={setNeedRequest}
                                     />
                                     <div className="club-page__mobile-only">
-                                            <UserGallery />
+                                            <UserGallery alias={alias} />
                                     </div>
                                     {canEdit &&
                                         <AddArticle
@@ -98,7 +98,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
                                             />
-                                            <UserGallery />
+                                            <UserGallery alias={alias} />
                                         </div>
                                     </StickyBox>
                                 </Aside>
