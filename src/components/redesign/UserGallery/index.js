@@ -6,7 +6,7 @@ import { Request } from "utils/request";
 import { Gallery } from "components/Gallery";
 import "./index.scss";
 
-const UserGallery = ({ alias }) => {
+const UserGallery = ({ alias, isKennel }) => {
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -44,8 +44,8 @@ const UserGallery = ({ alias }) => {
                     }
                 });
                 setImages(imagesArray);
-                setLoading(false);
             }
+            setLoading(false);
         },
             error => {
                 //handleError(error);
@@ -66,7 +66,7 @@ const UserGallery = ({ alias }) => {
         <Card className="user-gallery__wrap">
             <div className="user-gallery__header">
                 <h4 className="user-gallery__title">Фотогалерея</h4>
-                <Link to={`/${alias}/gallery`}>Смотреть все</Link>
+                <Link to={`/${isKennel ? 'kennel/' + alias : alias}/gallery`}>Смотреть все</Link>
             </div>
             {
                 loading
