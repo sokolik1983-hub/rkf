@@ -12,7 +12,7 @@ import {connectShowFilters} from "../../components/Layouts/connectors";
 import "./index.scss";
 
 
-const Organizations = ({ isOpenFilters, setShowFilters }) => (
+const Organizations = ({isOpenFilters, setShowFilters}) => (
     <Layout withFilters>
         <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})} />
         <Container className="content organizations-page">
