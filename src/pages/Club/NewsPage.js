@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NotConfirmed from "../NotConfirmed";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import { Link } from "react-router-dom";
@@ -7,22 +6,15 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import List from "../../components/List";
-import InfiniteScroll from "react-infinite-scroll-component";
-import {DEFAULT_IMG} from "../../appConfig";
 import UserHeader from "../../components/redesign/UserHeader";
-// import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-// import UserContacts from "../../components/redesign/UserContacts";
-// import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import ListFilter from '../../pages/Club/components/ClubUserNews/ListFilter';
-import FloatingMenu from './components/FloatingMenu';
+import FloatingMenu from "./components/FloatingMenu";
+import ClubUserNews from "./components/ClubUserNews";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { Gallery } from "../../components/Gallery";
-import { endpointGetNews } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
@@ -32,14 +24,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [error, setError] = useState(null);
     const [images, setImages] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [news, setNews] = useState([]);
-    const [page, setPage] = useState(1);
-    const [newsLoading, setNewsLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-    const [filters, setFilters] = useState(null);
 
     const alias = match.params.route;
 
@@ -52,7 +38,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             } else {
                 setClubInfo(data);
                 setCanEdit(isAuthenticated && profile_id === data.id);
-                !news.length && getNews();
                 setLoading(false);
             }
         }, error => {
@@ -103,32 +88,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         });
     }
 
-    const getNews = async () => {
-        setNewsLoading(true);
-        await Request({
-            url: `${endpointGetNews}?alias=${alias}${page > 1 ? '&page=' + page : ''}`
-        }, data => {
-            let modifiedNews = [];
-
-            if (data.articles.length) {
-                modifiedNews = news.concat(
-                    data.articles.map(article => {
-                        article.title = article.club_name;
-                        article.url = `/news/${article.id}`;
-                        return article;
-                    })
-                );
-            }
-            setNews(modifiedNews);
-            setPage(page + 1);
-            modifiedNews.length === data.articles_count && setHasMore(false);
-            setNewsLoading(false);
-        }, error => {
-            console.log(error.response);
-        });
-    };
-
-
     const squareStyle = () => {
         return {
             height: '89px',
@@ -142,8 +101,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         <Loading /> :
         error ?
             <PageNotFound /> :
-            notActiveProfile ?
-                <NotConfirmed /> :
                 <Layout>
                     <div className="redesign">
                         <Container className="content club-page">
@@ -163,50 +120,13 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationAlias={clubInfo.federation_alias}
                                         />
                                     </div>
-                                    {/* <UserDescription description={clubInfo.description} /> */}
-                                    {/* <UserContacts {...clubInfo} /> */}
-                                    {/* <div className="club-page__exhibitions">
-                                        <ExhibitionsComponent alias={clubInfo.club_alias} />
-                                    </div> */}
-                                    {(!news || !news.length) ?
-                                <Card className="user-news">
-                                    <div className="user-news__content">
-                                        <h4 className="user-news__text">Новости не найдены</h4>
-                                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
-                                    </div>
-                                </Card> :
-                                <>
-                                    <div className="news-component__header-wrap">
-                                        <div className="news-component__header">
-                                            <h4 className="news-component__title">Публикации</h4>
-                                            <ListFilter
-                                                setFilters={setFilters}
-                                                setNeedRequest={setNeedRequest}
-                                            />
-                                        </div>
-                                    </div>
-                                    <InfiniteScroll
-                                        dataLength={news.length}
-                                        next={getNews}
-                                        hasMore={hasMore}
-                                        loader={newsLoading && <Loading centered={false}/>}
-                                        endMessage={
-                                            <div className="user-news__content">
-                                                <h4 className="user-news__text">Новостей больше нет</h4>
-                                                <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей"/>
-                                            </div>
-                                        }
-                                    >
-                                        <List
-                                            user="club"
-                                            list={news}
-                                            listNotFound={false}
-                                            listClass="club-page__news"
-                                            isFullDate={true}
-                                        />
-                                    </InfiniteScroll>
-                                </>
-                            }
+                                    <ClubUserNews
+                                        user="club"
+                                        canEdit={canEdit}
+                                        alias={match.params.route}
+                                        needRequest={needRequest}
+                                        setNeedRequest={setNeedRequest}
+                                    />
                                     <div className="club-page__mobile-only">
                                         <Card className="club-page__gallery-wrap">
                                             <div className="club-page__gallery-header">
@@ -230,13 +150,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             setNeedRequest={setNeedRequest}
                                         />
                                     }
-                                    {/* <ClubUserNews
-                                        user="club"
-                                        canEdit={canEdit}
-                                        alias={match.params.route}
-                                        needRequest={needRequest}
-                                        setNeedRequest={setNeedRequest}
-                                    /> */}
                                 </div>
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
