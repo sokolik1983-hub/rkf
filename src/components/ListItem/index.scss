@@ -260,14 +260,17 @@
     .Share {
       .ya-share2__icon_more {
         height: 16px;
+        background-color: white;
         &:after {
           width: 16px;
           height: 16px;
           top: 0;
           background: url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+          background-color: white;
         }
         &:hover:after {
           background: url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+          background-color: white;
         }
       }
     }
