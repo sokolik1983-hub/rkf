@@ -31,7 +31,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         (() => Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
-            if (data.user_type === 4) {
+            if (data.user_type !== 4) {
                 history.replace(`/kennel/${match.params.route}/news`);
             } else {
                 setNurseryInfo(data);
@@ -51,13 +51,13 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             <PageNotFound /> :
                 <Layout>
                     <div className="redesign">
-                        <Container className="content club-page">
-                            <div className="club-page__content-wrap">
-                                <div className="club-page__content">
-                                    <Card className="club-page__content-banner">
+                        <Container className="content nursery-page">
+                            <div className="nursery-page__content-wrap">
+                                <div className="nursery-page__content">
+                                    <Card className="nursery-page__content-banner">
                                         <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
                                     </Card>
-                                    <div className="club-page__mobile-only">
+                                    <div className="nursery-page__mobile-only">
                                         <ClubUserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                             logo={nursery.logo_link}
@@ -82,15 +82,15 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
                                     />
-                                    <div className="club-page__mobile-only">
+                                    <div className="nursery-page__mobile-only">
                                             <UserGallery alias={alias} />
                                     </div>
                                 </div>
-                                <Aside className="club-page__info">
+                                <Aside className="nursery-page__info">
                                     <StickyBox offsetTop={65}>
-                                        <div className="club-page__info-inner">
+                                        <div className="nursery-page__info-inner">
                                             <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                user={match.params.route !== 'rkf-online' ? 'nursery' : ''}
                                                 logo={nursery.logo_link}
                                                 name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
                                                 alias={nursery.club_alias}
@@ -99,7 +99,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 federationAlias={nursery.federation_alias}
                                             />
                                             <UserGallery alias={alias} />
-                                            <div className="club-page__copy-wrap">
+                                            <div className="nursery-page__copy-wrap">
                                                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                                 <p>Политика обработки персональных данных</p>
                                             </div>
