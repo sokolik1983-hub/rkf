@@ -10,11 +10,11 @@ import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import FloatingMenu from "./components/FloatingMenu";
 import ClubUserNews from "./components/ClubUserNews";
+import UserGallery from "../../components/redesign/UserGallery";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { Gallery } from "../../components/Gallery";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
@@ -22,7 +22,7 @@ import "./index.scss";
 const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
-    const [images, setImages] = useState(null);
+    // const [images, setImages] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
@@ -48,54 +48,54 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     }, [match]);
 
 
-    useEffect(() => {
-        getImages()
-    }, []);
+    // useEffect(() => {
+    //     getImages()
+    // }, []);
 
-    const getImages = () => {
-        Request({
-            url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
-            method: 'GET'
-        }, data => {
-            if (data.photos.length) {
-                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
-                const { photos } = data;
-                const imagesArray = twelveItemsArray.map(p => {
-                    if (photos[p]) {
-                        return {
-                            id: photos[p].id,
-                            src: photos[p].link,
-                            thumbnail: photos[p].small_photo.link,
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88,
-                            caption: photos[p].caption
-                        }
-                    } else {
-                        return {
-                            id: p,
-                            src: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88
-                        }
-                    }
-                });
-                setImages(imagesArray);
-            }
-        },
-        error => {
-            //handleError(error);
-        });
-    }
+    // const getImages = () => {
+    //     Request({
+    //         url: `/api/photogallery/gallery?alias=${match.params.route}&elem_count=12`,
+    //         method: 'GET'
+    //     }, data => {
+    //         if (data.photos.length) {
+    //             const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
+    //             const { photos } = data;
+    //             const imagesArray = twelveItemsArray.map(p => {
+    //                 if (photos[p]) {
+    //                     return {
+    //                         id: photos[p].id,
+    //                         src: photos[p].link,
+    //                         thumbnail: photos[p].small_photo.link,
+    //                         thumbnailWidth: 88,
+    //                         thumbnailHeight: 88,
+    //                         caption: photos[p].caption
+    //                     }
+    //                 } else {
+    //                     return {
+    //                         id: p,
+    //                         src: '/static/images/noimg/empty-gallery-item.jpg',
+    //                         thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
+    //                         thumbnailWidth: 88,
+    //                         thumbnailHeight: 88
+    //                     }
+    //                 }
+    //             });
+    //             setImages(imagesArray);
+    //         }
+    //     },
+    //     error => {
+    //         //handleError(error);
+    //     });
+    // }
 
-    const squareStyle = () => {
-        return {
-            height: '89px',
-            width: '89px',
-            objectFit: 'cover',
-            cursor: 'pointer'
-        };
-    }
+    // const squareStyle = () => {
+    //     return {
+    //         height: '89px',
+    //         width: '89px',
+    //         objectFit: 'cover',
+    //         cursor: 'pointer'
+    //     };
+    // }
 
     return loading ?
         <Loading /> :
@@ -128,20 +128,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                         setNeedRequest={setNeedRequest}
                                     />
                                     <div className="club-page__mobile-only">
-                                        <Card className="club-page__gallery-wrap">
-                                            <div className="club-page__gallery-header">
-                                                <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                                <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                            </div>
-                                            <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                withLoading={false}
-                                                rowHeight={89}
-                                                thumbnailStyle={squareStyle}
-                                            />
-                                        </Card>
+                                            <UserGallery />
                                     </div>
                                     {canEdit &&
                                         <AddArticle
@@ -163,20 +150,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
                                             />
-                                            <Card className="club-page__gallery-wrap">
-                                                <div className="club-page__gallery-header">
-                                                    <h4 className="club-page__gallery-title">Фотогалерея</h4>
-                                                    <Link to={`/${clubInfo.club_alias}/gallery`}>Смотреть все</Link>
-                                                </div>
-                                                <Gallery
-                                                    items={images}
-                                                    backdropClosesModal={true}
-                                                    enableImageSelection={false}
-                                                    withLoading={false}
-                                                    rowHeight={88}
-                                                    thumbnailStyle={squareStyle}
-                                                />
-                                            </Card>
+                                            <UserGallery />
                                         </div>
                                     </StickyBox>
                                 </Aside>
