@@ -7,10 +7,7 @@ import Card from "../../components/Card";
 import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
-import TopComponent from "../../components/TopComponent";
-import MenuComponent from "../../components/MenuComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
-import ContactsComponent from "./components/ContactsComponent";
 import Disclaimer from "../../components/Disclaimer";
 import { Request } from "../../utils/request";
 import shorten from "../../utils/shorten";
@@ -18,11 +15,14 @@ import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
 import { DEFAULT_IMG } from "../../appConfig";
+import UserHeader from "../../components/redesign/UserHeader";
+import UserGallery from "../../components/redesign/UserGallery";
+import StickyBox from "react-sticky-box";
 import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
-    const [exhibition, setExhibition] = useState(null);
+    const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
     const exhibitionId = match.params.id;
@@ -84,47 +84,94 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         }))();
     }, []);
 
-    return isError ?
-        <PageNotFound /> :
-        loading ?
-            <Loading /> :
-            <Layout>
-                <div className="exhibition-page">
+    const { club_information,
+        club_avatar,
+        club_id,
+        address,
+        address_additional_info,
+        additional_info,
+        exhibition_map_link } = exhibition;
+    const { club_alias,
+        display_name,
+        club_fact_name,
+        id,
+        federation_name,
+        federation_alias,
+        headliner_link,
+        club_legal_name,
+        inn,
+        kpp,
+        bank_name,
+        bic,
+        account_number } = club_information;
+
+    return isError
+        ? <PageNotFound />
+        : loading
+            ? <Loading />
+            : <Layout>
+                <div className="exhibition-page redesign">
                     <FloatingMenu
-                        alias={exhibition.club_information.club_alias}
-                        profileId={exhibition.club_id}
-                        name={shorten(exhibition.club_information.display_name, 16)}
-                        btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
+                        alias={club_alias}
+                        profileId={club_id}
+                        name={shorten(display_name, 16)}
+                        btnName={shorten("Cтраница " + display_name)}
                     />
                     <Container className="content exhibition-page__content">
-                        <TopComponent
-                            logo={exhibition.club_avatar}
-                            name={exhibition.club_information.display_name}
-                        />
                         <div className="exhibition-page__info">
-                            <div className="mobile-only">
-                                <Disclaimer style={{ marginBottom: '12px' }}>
-                                    <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                                        Инструкция по странице выставки
-                                    </a>
-                                </Disclaimer>
-                                <div className="exhibition-page__title-wrap">
-                                    <h2 className="exhibition-page__title">{exhibition.name}</h2>
-                                    {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
-                                </div>
-                                <img src={avatarLink} alt="" className="exhibition-page__img" />
-                            </div>
                             <aside className="exhibition-page__left">
-                                <MenuComponent
-                                    alias={exhibition.club_information.club_alias}
-                                    profileId={exhibition.club_id}
-                                    name={shorten(exhibition.club_information.display_name)}
-                                    btnName={shorten("Cтраница " + exhibition.club_information.display_name)}
-                                />
-                                <ContactsComponent {...exhibition.club_information} />
+                                <StickyBox offsetTop={65}>
+                                    <div className="exhibition-page__left-inner">
+                                        <div className="mobile-only">
+                                            <Card className="exhibition-page__banner">
+                                                <div style={headliner_link && { backgroundImage: `url(${headliner_link}` }} />
+                                            </Card>
+                                            <UserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={club_avatar}
+                                                name={display_name || club_fact_name || 'Название клуба отсутствует'}
+                                                alias={club_alias}
+                                                profileId={id}
+                                                federationName={federation_name}
+                                                federationAlias={federation_alias}
+                                            />
+                                        </div>
+                                        <UserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={club_avatar}
+                                            name={display_name || club_fact_name || 'Название клуба отсутствует'}
+                                            alias={club_alias}
+                                            profileId={id}
+                                            federationName={federation_name}
+                                            federationAlias={federation_alias}
+                                        />
+                                        <UserGallery alias={club_alias} />
+                                        <div className="exhibition-page__copy-wrap">
+                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                            <p>Политика обработки персональных данных</p>
+                                        </div>
+
+                                        <div className="mobile-only">
+                                            <Disclaimer style={{ marginBottom: '12px' }}>
+                                                <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
+                                                    Инструкция по странице выставки
+                                    </a>
+                                            </Disclaimer>
+                                            <div className="exhibition-page__title-wrap">
+                                                <h2 className="exhibition-page__title">{exhibition.name}</h2>
+                                                {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
+                                            </div>
+                                            <img src={avatarLink} alt="" className="exhibition-page__img" />
+                                        </div>
+
+                                    </div>
+                                </StickyBox>
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
+                                    <Card className="exhibition-page__banner">
+                                        <div style={headliner_link && { backgroundImage: `url(${headliner_link}` }} />
+                                    </Card>
                                     <Disclaimer style={{ marginBottom: '12px' }}>
                                         <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
                                             Инструкция по странице выставки
@@ -134,7 +181,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
                                     </div>
-                                    <img src={exhibition.exhibition_avatar_link} alt="" className="exhibition-page__img" />
+                                    <img src={exhibition_avatar_link} alt="" className="exhibition-page__img" />
                                 </div>
                                 <ExhibitionInfo
                                     city={city}
@@ -148,35 +195,35 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                     <div className="exhibition-page__address-left">
                                         <h4 className="exhibition-page__address-title">Адрес проведения и контакты</h4>
                                         {city && <p>{`г. ${city}`}</p>}
-                                        {exhibition.address && <p>{exhibition.address}</p>}
+                                        {address && <p>{address}</p>}
                                         <br />
                                         <h4 className="exhibition-page__address-title">Дополнительная информация</h4>
-                                        {exhibition.address_additional_info ?
-                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: exhibition.address_additional_info }} /> :
+                                        {address_additional_info ?
+                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: address_additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
                                     </div>
                                     <div className="exhibition-page__address-right">
                                         <div className="exhibition-page__map">
                                             <h4 className="exhibition-page__address-title">Схема проезда</h4>
-                                            <img src={exhibition.exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
+                                            <img src={exhibition_map_link || DEFAULT_IMG.noImage} alt="Схема проезда" />
                                         </div>
                                     </div>
                                 </Card>
                                 <Card className="exhibition-page__payment-info">
                                     <div className="exhibition-page__payment">
                                         <h4 className="exhibition-page__payment-title">Реквизиты для оплаты</h4>
-                                        <PropertyP name="Получатель платежа" value={exhibition.club_information.club_legal_name} />
-                                        <PropertyP name="ИНН" value={exhibition.club_information.inn} />
-                                        <PropertyP name="КПП" value={exhibition.club_information.kpp} />
-                                        <PropertyP name="Банк" value={exhibition.club_information.bank_name} />
-                                        <PropertyP name="БИК" value={exhibition.club_information.bic} />
-                                        <PropertyP name="Расчетный счет" value={exhibition.club_information.account_number} />
+                                        <PropertyP name="Получатель платежа" value={club_legal_name} />
+                                        <PropertyP name="ИНН" value={inn} />
+                                        <PropertyP name="КПП" value={kpp} />
+                                        <PropertyP name="Банк" value={bank_name} />
+                                        <PropertyP name="БИК" value={bic} />
+                                        <PropertyP name="Расчетный счет" value={account_number} />
                                     </div>
                                     <div className="exhibition-page__additional">
                                         <h4 className="exhibition-page__additional-title">Дополнительная информация</h4>
-                                        {exhibition.additional_info ?
-                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: exhibition.additional_info }} /> :
+                                        {additional_info ?
+                                            <p className="exhibition-page__additional-info" dangerouslySetInnerHTML={{ __html: additional_info }} /> :
                                             <p className="exhibition-page__additional-info">Дополнительная информация отсутствует</p>
                                         }
                                     </div>
