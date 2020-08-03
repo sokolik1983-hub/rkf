@@ -383,7 +383,6 @@ const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = fa
     };
 
     const MenuContent = () => <>
-        <h4 className="menu-component__title">Меню</h4>
         <ul className="menu-component__list">
             {user !== 'nursery' && <li className="menu-component__item">
                 <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
@@ -394,7 +393,7 @@ const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = fa
                 </li>
             }
             <li className="menu-component__item">
-                <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Новости">Новости</Link>
+                <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
             </li>
             <li className="menu-component__item">
                 <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>

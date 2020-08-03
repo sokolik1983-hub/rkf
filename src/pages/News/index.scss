@@ -29,6 +29,13 @@
     }
   }
   &__item-body {
+    h1 {
+      text-align: center;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 24px;
+    }
     flex-grow: 1;
     img {
       display: block;

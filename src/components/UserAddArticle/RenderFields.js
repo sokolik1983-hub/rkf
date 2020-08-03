@@ -105,13 +105,13 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                         }
                     </div>
                     {isAd &&
-                        <FormGroup inline>
+                        <FormGroup inline className="ArticleCreateForm__advert">
                             <FormField {...fields.advert_breed_id}/>
                             <CustomNumber {...fields.advert_cost}/>
                             <CustomNumber {...fields.advert_number_of_puppies}/>
                         </FormGroup>
                     }
-                    <FormControls>
+                    <FormControls className="ArticleCreateForm__controls">
                         <div className="ArticleCreateForm__attach">
                             <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
                         </div>

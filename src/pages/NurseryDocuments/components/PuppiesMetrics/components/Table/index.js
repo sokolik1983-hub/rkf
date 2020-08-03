@@ -18,7 +18,7 @@ class PuppiesTable extends PureComponent {
         searchQuery: {},
         searchColumn: 'all',
         sortingColumns: null,
-        pagination: {page: 1, perPage: 5},
+        pagination: {page: 1, perPage: 50},
         nurseryAlias: this.props.nurseryAlias,
         rows: this.props.puppies,
         columns: null,

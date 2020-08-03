@@ -1,0 +1,48 @@
+.user-gallery {
+    &__wrap {
+        margin-bottom: 16px;
+        @media (max-width: 560px) {
+            margin-bottom: 12px;
+        }
+        &.Card {
+            padding: 10px;
+        }
+        .Loading.inline {
+            display: block;
+            margin: 0 auto;
+            max-width: 35px;
+        }
+    }
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        a {
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+            color: #72839c !important;
+            transition: all 0.2s linear;
+            &:hover {
+                color: #3366ff !important;
+            }
+        }
+    }
+    &__title {
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 24px;
+        text-decoration: none;
+        color: #253c5e;
+        display: inline-block;
+        margin-right: 4px;
+    }
+    &__placeholder {
+        width: 100px;
+        display: block;
+        margin: auto;
+    }
+}

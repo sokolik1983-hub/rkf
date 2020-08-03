@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
@@ -26,31 +26,31 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
         await Request({
             url: `${endpointGetNews}?alias=${alias}&start_element=${startElem}${filters ? '&is_advert=' + filters.is_advert : ''}`
         },
-        data => {
-            if (data.articles.length) {
-                const modifiedNews = data.articles.map(article => {
-                    article.title = article.club_name;
-                    article.url = `/news/${article.id}`;
-                    return article;
-                });
+            data => {
+                if (data.articles.length) {
+                    const modifiedNews = data.articles.map(article => {
+                        article.title = article.club_name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    });
 
-                if(data.articles.length < 10) {
-                    setHasMore(false);
+                    if (data.articles.length < 10) {
+                        setHasMore(false);
+                    } else {
+                        setHasMore(true);
+                    }
+
+                    setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
                 } else {
-                    setHasMore(true);
-                }
+                    if (startElem === 1) {
+                        setNews([]);
+                    }
 
-                setNews(startElem === 1 ? modifiedNews : [...news, ...modifiedNews]);
-            } else {
-                if(startElem === 1) {
-                    setNews([]);
+                    setHasMore(false);
                 }
-
-                setHasMore(false);
-            }
-        }, error => {
-            console.log(error.response);
-        });
+            }, error => {
+                console.log(error.response);
+            });
 
         setNeedRequest(false);
         setNewsLoading(false);
@@ -65,17 +65,30 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
             await Request({
                 url: endpointDeleteArticle + id,
                 method: 'DELETE'
-            },
-            () => setNeedRequest(true),
-            error => {
-                console.log(error);
-                alert('Новость не удалена');
-            });
+            }, () => setNeedRequest(true),
+                error => {
+                    console.log(error);
+                    alert('Новость не удалена');
+                });
+        }
+    };
+
+    const closeAd = async (id, setIsOpenControls) => {
+        if (window.confirm('Вы действительно хотите закрыть объявление?')) {
+            await Request({
+                url: endpointDeleteArticle,
+                method: 'PUT',
+                data: JSON.stringify({ "id": id, "is_closed_advert": true })
+            }, () => { setNeedRequest(true); setIsOpenControls(false) },
+                error => {
+                    console.log(error);
+                    alert('Объявление не закрыто');
+                });
         }
     };
 
     const getNextNews = () => {
-        if(hasMore) {
+        if (hasMore) {
             setStartElement(startElement + 10);
             (() => getNews(startElement + 10))();
         }
@@ -106,8 +119,8 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
             {!news || !news.length ?
                 <Card className="user-news">
                     <div className="user-news__content">
-                        <h4 className="user-news__text">{`${filters && filters.is_advert ? 'Объявления' : 'Новости'} не найдены`}</h4>
-                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="У вас нет новостей" />
+                        <h4 className="user-news__text">Публикации не найдены</h4>
+                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
                     </div>
                 </Card> :
                 <InfiniteScroll
@@ -117,17 +130,18 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
                     loader={newsLoading && <Loading centered={false} />}
                     endMessage={
                         <div className="user-news__content">
-                            <h4 className="user-news__text">{`${filters && filters.is_advert ? 'Объявлений' : 'Новостей'} больше нет`}</h4>
-                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt={`У вас нет ${filters && filters.is_advert ? 'объявлений' : 'новостей'}`} />
+                            <h4 className="user-news__text">Публикаций больше нет</h4>
+                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
                         </div>
                     }
                 >
                     <List
                         list={news}
-                        listNotFound="Новости не найдены"
+                        listNotFound="Публикации не найдены"
                         listClass="user-news"
                         isFullDate={true}
                         removable={canEdit}
+                        onAdClose={closeAd}
                         onDelete={deleteArticle}
                     />
                 </InfiniteScroll>
