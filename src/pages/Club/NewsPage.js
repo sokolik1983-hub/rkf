@@ -68,6 +68,13 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                             federationAlias={clubInfo.federation_alias}
                                         />
                                     </div>
+                                    {canEdit &&
+                                        <AddArticle
+                                            id={clubInfo.id}
+                                            logo={clubInfo.logo_link}
+                                            setNeedRequest={setNeedRequest}
+                                        />
+                                    }
                                     <ClubUserNews
                                         user="club"
                                         canEdit={canEdit}
@@ -78,13 +85,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                     <div className="club-page__mobile-only">
                                             <UserGallery alias={alias} />
                                     </div>
-                                    {canEdit &&
-                                        <AddArticle
-                                            id={clubInfo.id}
-                                            logo={clubInfo.logo_link}
-                                            setNeedRequest={setNeedRequest}
-                                        />
-                                    }
                                 </div>
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
@@ -99,6 +99,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                                 federationAlias={clubInfo.federation_alias}
                                             />
                                             <UserGallery alias={alias} />
+                                            <div className="club-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
                                         </div>
                                     </StickyBox>
                                 </Aside>
