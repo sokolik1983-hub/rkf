@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "pages/Club/components/ClubUserNews";
-import { Gallery } from "components/Gallery";
 import Card from "components/Card";
 import UserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
+import UserGallery from "components/redesign/UserGallery";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -32,7 +31,6 @@ const getAddressString = addressObj => {
 
 const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [nursery, setNursery] = useState(null);
-    const [images, setImages] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
@@ -61,55 +59,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         }))();
         return () => setNeedRequest(true);
     }, [alias]);
-
-    useEffect(() => {
-        getImages()
-    }, []);
-
-    const getImages = () => {
-        Request({
-            url: `/api/photogallery/gallery?alias=${alias}&elem_count=12`,
-            method: 'GET'
-        }, data => {
-            if (data.photos.length) {
-                const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
-                const { photos } = data;
-                const imagesArray = twelveItemsArray.map(p => {
-                    if (photos[p]) {
-                        return {
-                            id: photos[p].id,
-                            src: photos[p].link,
-                            thumbnail: photos[p].small_photo.link,
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88,
-                            caption: photos[p].caption
-                        }
-                    } else {
-                        return {
-                            id: p,
-                            src: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnail: '/static/images/noimg/empty-gallery-item.jpg',
-                            thumbnailWidth: 88,
-                            thumbnailHeight: 88
-                        }
-                    }
-                });
-                setImages(imagesArray);
-            }
-        },
-            error => {
-                //handleError(error);
-            });
-    }
-
-    const squareStyle = () => {
-        return {
-            height: '89px',
-            width: '89px',
-            objectFit: 'cover',
-            cursor: 'pointer'
-        };
-    }
 
     return loading ?
         <Loading /> :
@@ -147,20 +96,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 <UserDescription description={nursery.description} />
                                 <UserContacts {...nursery} />
                                 <div className="nursery-page__mobile-only">
-                                    <Card className="nursery-page__gallery-wrap">
-                                        <div className="nursery-page__gallery-header">
-                                            <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
-                                            <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
-                                        </div>
-                                        <Gallery
-                                            items={images}
-                                            backdropClosesModal={true}
-                                            enableImageSelection={false}
-                                            withLoading={false}
-                                            rowHeight={89}
-                                            thumbnailStyle={squareStyle}
-                                        />
-                                    </Card>
+                                    <UserGallery alias={alias} isKennel={true} />
                                 </div>
                                 {canEdit &&
                                     <AddArticle
@@ -199,20 +135,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 </ul>
                                             </Card>
                                         }
-                                        <Card className="nursery-page__gallery-wrap">
-                                            <div className="nursery-page__gallery-header">
-                                                <h4 className="nursery-page__gallery-title">Фотогалерея</h4>
-                                                <Link to={`/kennel/${alias}/gallery`}>Смотреть все</Link>
-                                            </div>
-                                            <Gallery
-                                                items={images}
-                                                backdropClosesModal={true}
-                                                enableImageSelection={false}
-                                                withLoading={false}
-                                                rowHeight={88}
-                                                thumbnailStyle={squareStyle}
-                                            />
-                                        </Card>
+                                        <UserGallery alias={alias} isKennel={true} />
                                         <div className="nursery-page__mobile-only">
                                             <UserMenu alias={alias} />
                                         </div>
