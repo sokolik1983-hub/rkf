@@ -1,0 +1,24 @@
+export const getFiltersFromLS = () => {
+    return JSON.parse(localStorage.getItem('OrganizationsFilters'));
+};
+
+export const setFiltersToLS = filters => {
+    localStorage.setItem('OrganizationsFilters', JSON.stringify(filters));
+};
+
+export const getEmptyFilters = () => ({
+    organization: "federations",
+    string_filter: "",
+    federation_ids: [],
+    city_ids: [],
+    breed_ids: [],
+    is_activated: true,
+    active_member: false
+});
+
+export const getInitialFilters = () => {
+    const emptyFilters = getEmptyFilters();
+    const filtersFromLS = getFiltersFromLS();
+
+    return filtersFromLS ? filtersFromLS : emptyFilters;
+};

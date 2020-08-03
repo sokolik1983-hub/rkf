@@ -1,0 +1,11 @@
+.organizations-page {
+  display: flex;
+  &__left {
+    min-width: 300px;
+    max-width: 300px;
+    margin: 16px 16px 16px 0;
+  }
+  &__content {
+    margin-top: 16px;
+  }
+}
