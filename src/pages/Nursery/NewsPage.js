@@ -59,10 +59,10 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </Card>
                                     <div className="nursery-page__mobile-only">
                                         <ClubUserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            user="nursery"
                                             logo={nursery.logo_link}
                                             name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                            alias={nursery.club_alias}
+                                            alias={alias}
                                             profileId={nursery.id}
                                             federationName={nursery.federation_name}
                                             federationAlias={nursery.federation_alias}
@@ -90,10 +90,10 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <StickyBox offsetTop={65}>
                                         <div className="nursery-page__info-inner">
                                             <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'nursery' : ''}
+                                                user="nursery"
                                                 logo={nursery.logo_link}
                                                 name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                alias={nursery.club_alias}
+                                                alias={alias}
                                                 profileId={nursery.id}
                                                 federationName={nursery.federation_name}
                                                 federationAlias={nursery.federation_alias}
