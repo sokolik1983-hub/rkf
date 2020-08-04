@@ -15,10 +15,9 @@ const Statistics = () => {
         }, data => {
             setStats(data);
             setLoading(false);
-        },
-            error => {
-                console.log(error.response);
-            });
+        }, error => {
+            console.log(error.response);
+        });
     }, []);
 
     const { clubs_total_count, federation_clubs } = stats;

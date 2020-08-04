@@ -13,7 +13,8 @@ export const getEmptyFilters = () => ({
     city_ids: [],
     breed_ids: [],
     is_activated: true,
-    active_member: false
+    active_member: false,
+    start_element: 1
 });
 
 export const getInitialFilters = () => {
