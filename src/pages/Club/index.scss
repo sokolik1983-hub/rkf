@@ -1,5 +1,6 @@
 .redesign {
   background: #f5f8ff;
+  min-height: 100vh;
   & + .Footer {
     display: none;
   }
@@ -147,7 +148,7 @@
   // Temp styles
   word-break: break-word;
   .user-gallery__wrap .ReactGridGallery_tile-viewport {
-    width: 89px !important;
+    width: 88px !important;
   }
   &__mobile-only {
     display: none;
