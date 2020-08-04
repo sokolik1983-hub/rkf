@@ -10,12 +10,14 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Paginator from "components/Paginator";
 import Aside from "components/Layouts/Aside";
-import UserHeader from "components/UserHeader";
-import UserMenu from "pages/Nursery/components/UserMenu";
-import NurseryInfo from "pages/Nursery/components/NurseryInfo";
+import ClubUserHeader from "../../components/redesign/UserHeader";
+import StickyBox from "react-sticky-box";
+import shorten from "../../utils/shorten";
+import FloatingMenu from "../../pages/Club/components/FloatingMenu";
 import "./styles.scss";
+import "../Nursery/index.scss";
 
-const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
+const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match }) => {
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
@@ -24,6 +26,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     const [currentPage, setCurrentPage] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
+    const alias = match.params.id;
 
     useEffect(() => {
         Promise.all([getImages(), getNursery()])
@@ -72,56 +75,79 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     };
 
     return (
-        <Layout>
-            <Container className="content NurseryGallery">
-                {!loaded
-                    ? <Loading />
-                    : <>
-                        <UserHeader
-                            user="nursery"
-                            logo={nursery.logo_link}
-                            banner={nursery.headliner_link}
-                            name={nursery.name || 'Имя отсутствует'}
-                            federationName={nursery.federation_name}
-                            federationAlias={nursery.federation_alias}
-                            canEdit={canEdit}
-                            editLink={`/kennel/${params.id}/edit`}
-                        />
-                        <div className="NurseryGallery__content-wrap">
-                            <div className="NurseryGallery__content">
-                                <Card>
-                                    <div className="NurseryGallery__back">
-                                        <div>
-                                            <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
-                                </div>
-                                        {canEdit &&
-                                            <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+        <>
+            {!loaded
+                ? <Loading />
+                : <Layout>
+                    <div className="redesign">
+                        <Container className="content nursery-page">
+                            <div className="nursery-page__content-wrap">
+                                <div className="nursery-page__content">
+                                    <Card className="nursery-page__content-banner">
+                                        <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
+                                    </Card>
+                                    <div className="nursery-page__mobile-only">
+                                        <ClubUserHeader
+                                            user="nursery"
+                                            logo={nursery.logo_link}
+                                            name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                            alias={alias}
+                                            profileId={nursery.id}
+                                            federationName={nursery.federation_name}
+                                            federationAlias={nursery.federation_alias}
+                                        />
                                     </div>
+                                    <div className="NurseryGallery__content">
+                                        <Card>
+                                            <div className="NurseryGallery__back">
+                                                <div>
+                                                    <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                                            </div>
+                                                {canEdit &&
+                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                            </div>
 
-                                    <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
-                                    <Paginator
-                                        scrollToTop={false}
-                                        pagesCount={pagesCount}
-                                        currentPage={currentPage}
-                                        setPage={page => getImages(page)}
-                                    />
-                                </Card>
+                                            <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
+                                            <Paginator
+                                                scrollToTop={false}
+                                                pagesCount={pagesCount}
+                                                currentPage={currentPage}
+                                                setPage={page => getImages(page)}
+                                            />
+                                        </Card>
+                                    </div>
+                                </div>
+                                <Aside className="nursery-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="nursery-page__info-inner">
+                                            <ClubUserHeader
+                                                user="nursery"
+                                                logo={nursery.logo_link}
+                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                alias={alias}
+                                                profileId={nursery.id}
+                                                federationName={nursery.federation_name}
+                                                federationAlias={nursery.federation_alias}
+                                            />
+                                            <div className="nursery-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
                             </div>
-                            <Aside className="NurseryGallery__info">
-                                <UserMenu
-                                    alias={params.id}
-                                    name={nursery.name || 'Имя отсутствует'}
-                                />
-                                <NurseryInfo
-                                    {...nursery}
-                                />
-                            </Aside>
-                        </div>
-                    </>
-                }
-                {showAlert && <Alert {...showAlert} />}
-            </Container>
-        </Layout>
+                            <FloatingMenu
+                                alias={nursery.club_alias}
+                                profileId={nursery.id}
+                                name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
+                            />
+                        </Container>
+                    </div>
+                </Layout>
+            }
+            {showAlert && <Alert {...showAlert} />}
+        </>
     )
 };
 

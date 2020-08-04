@@ -17,6 +17,9 @@
         height: 200px;
       }
     }
+    .user-gallery__wrap .ReactGridGallery_tile-viewport {
+      width: 88px !important;
+    }
     &__mobile-only {
       display: none;
     }
