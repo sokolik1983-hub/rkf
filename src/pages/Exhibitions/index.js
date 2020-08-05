@@ -100,11 +100,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             <Container className="exhibitions-page content">
                 <Filters filters={filters} clubName={shorten(displayName)} profileId={clubId} />
                 <div className="exhibitions-page__content">
-                    <Disclaimer>
-                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                            Инструкция по календарю мероприятий
-                        </a>
-                    </Disclaimer>
                     <ListFilter categoryId={filters.CategoryId} />
                     <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                     <ExhibitionsList

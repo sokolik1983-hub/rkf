@@ -1,7 +1,7 @@
 .exhibitions-filters {
   .phone-hide {
     @media (max-width: 560px) {
-      display: none!important;
+      display: none !important;
     }
   }
   background-color: #fff;
@@ -37,23 +37,46 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
+    & > div {
+      display: flex;
+      align-items: center;
+    }
   }
   &__clear {
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.2px;
-    color: #253C5E;
+    color: #253c5e;
     padding: 0;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid transparent;
-    transition: border-color .2s linear;
+    transition: border-color 0.2s linear;
     &:hover {
       border-color: #253c5e;
     }
   }
   &__title {
     margin-bottom: 16px;
+  }
+  &__copy {
+    &-wrap {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #72839c;
+      padding-bottom: 16px;
+      @media (max-width: 1100px) {
+        display: none;
+      }
+    }
+  }
+  &__svg-info:hover {
+    fill: #3366ff;
+  }
+  &__support-link {
+    display: flex;
+    margin-left: 10px;
   }
 }
