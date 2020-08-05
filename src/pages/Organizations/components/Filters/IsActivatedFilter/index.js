@@ -4,13 +4,13 @@ import {connectFilters} from "../../../connectors";
 import "./index.scss";
 
 
-const IsActivatedFilter = ({organization, is_activated, setFilters}) => (
+const IsActivatedFilter = ({organization_type, activated, setFilters}) => (
     <div className="is-activated-filter">
         <CustomCheckbox
             id="is-activated-filter"
-            label={`Активированные ${organization === 'clubs' ? 'клубы' : 'питомники'}`}
-            checked={!!is_activated}
-            onChange={() => setFilters({is_activated: !is_activated})}
+            label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
+            checked={!!activated}
+            onChange={() => setFilters({activated: !activated})}
         />
     </div>
 );

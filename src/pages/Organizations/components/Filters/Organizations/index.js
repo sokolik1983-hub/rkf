@@ -5,29 +5,29 @@ import {connectFilters} from "../../../connectors";
 import "./index.scss";
 
 
-const OrganizationsFilter = ({organization, setFilters}) => (
+const OrganizationsFilter = ({organization_type, setFilters}) => (
     <div className="organizations-page__list-filter">
         <HorizontalSwipe id="organizations-page__list-filter">
             <ul className="list-filter">
                 <li className="list-filter__item">
                     <button
-                        className={`list-filter__control${organization === 'federations' ? ' _active' : ''}`}
+                        className={`list-filter__control${organization_type === 5 ? ' _active' : ''}`}
                         type="button"
-                        onClick={() => setFilters({...getEmptyFilters(), organization: 'federations'})}
+                        onClick={() => setFilters({...getEmptyFilters(), organization_type: 5})}
                     >РКФ и Федерации</button>
                 </li>
                 <li className="list-filter__item">
                     <button
-                        className={`list-filter__control${organization === 'clubs' ? ' _active' : ''}`}
+                        className={`list-filter__control${organization_type === 3 ? ' _active' : ''}`}
                         type="button"
-                        onClick={() => setFilters({...getEmptyFilters(), organization: 'clubs'})}
+                        onClick={() => setFilters({...getEmptyFilters(), organization_type: 3})}
                     >Клубы</button>
                 </li>
                 <li className="list-filter__item">
                     <button
-                        className={`list-filter__control${organization === 'kennels' ? ' _active' : ''}`}
+                        className={`list-filter__control${organization_type === 4 ? ' _active' : ''}`}
                         type="button"
-                        onClick={() => setFilters({...getEmptyFilters(), organization: 'kennels'})}
+                        onClick={() => setFilters({...getEmptyFilters(), organization_type: 4})}
                     >Питомники</button>
                 </li>
                 <li className="list-filter__item">

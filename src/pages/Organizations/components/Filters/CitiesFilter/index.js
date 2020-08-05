@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({organization, city_ids, setFilters}) => {
+const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
     const [loading, setLoading] = useState(true);
     const [cities, setCities] = useState([]);
     const [values, setValues] = useState([]);
@@ -27,7 +27,7 @@ const CitiesFilter = ({organization, city_ids, setFilters}) => {
 
     useEffect(() => {
         (() => Request({
-            url: organization === 'clubs' ? endpointGetClubsCities : endpointGetKennelsCities
+            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
         }, data => {
             setCities(data);
             setLoading(false);
@@ -37,7 +37,7 @@ const CitiesFilter = ({organization, city_ids, setFilters}) => {
             if(error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         }))();
-    }, [organization]);
+    }, [organization_type]);
 
     useEffect(() => {
         if(cities.length) {

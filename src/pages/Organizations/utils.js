@@ -7,12 +7,12 @@ export const setFiltersToLS = filters => {
 };
 
 export const getEmptyFilters = () => ({
-    organization: "federations",
+    organization_type: 5,
     string_filter: "",
     federation_ids: [],
     city_ids: [],
     breed_ids: [],
-    is_activated: true,
+    activated: true,
     active_member: false,
     start_element: 1
 });

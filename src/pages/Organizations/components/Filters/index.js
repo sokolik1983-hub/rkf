@@ -15,7 +15,7 @@ import {connectFilters} from "../../connectors";
 import "./index.scss";
 
 
-const Filters = ({organization, setFilters, isOpenFilters}) => {
+const Filters = ({organization_type, setFilters, isOpenFilters}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -26,7 +26,7 @@ const Filters = ({organization, setFilters, isOpenFilters}) => {
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={76}>
                 <div className="organizations-page__filters">
-                    {organization === 'federations' &&
+                    {organization_type === 5 &&
                         <>
                             <div className="organizations-page__about">
                                 <h3>{RKFInfo.aboutTitle}</h3>
@@ -65,12 +65,12 @@ const Filters = ({organization, setFilters, isOpenFilters}) => {
                             <Statistics/>
                         </>
                     }
-                    {(organization === 'clubs' || organization === 'kennels') &&
+                    {(organization_type === 3 || organization_type === 4) &&
                         <>
                             <FederationsFilter/>
                             <IsActiveMember/>
                             <IsActivatedFilter/>
-                            {organization === 'kennels' &&
+                            {organization_type === 4 &&
                                 <BreedsFilter/>
                             }
                             <CitiesFilter/>
