@@ -4,8 +4,8 @@
     display: none;
   }
   .nursery-page {
-    .ReactGridGallery_tile-viewport {
-      width: 89px !important;
+    .user-gallery__wrap .ReactGridGallery_tile-viewport {
+      width: 88px !important;
     }
     &__mobile-only {
       display: none;
