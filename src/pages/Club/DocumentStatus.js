@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -14,13 +14,18 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
+import useWindowSize from "utils/useWindowSize";
 import "./index.scss";
 
 
-const DocumentStatus = ({ history, match}) => {
+const DocumentStatus = ({ history, match }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const windowSize = useWindowSize();
+    const galleryRef = useRef(null);
+    const galleryHolderRef = useRef(null);
+    const mobileGalleryHolderRef = useRef(null);
 
     const alias = match.params.route;
 
@@ -40,6 +45,18 @@ const DocumentStatus = ({ history, match}) => {
             setLoading(false);
         }))();
     }, [match]);
+
+    useEffect(() => appendUserGallery(), [[], windowSize.width]);
+
+    const appendUserGallery = () => {
+        if (windowSize.width <= 990) {
+            const el = mobileGalleryHolderRef.current;
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        } else {
+            const el = galleryHolderRef.current
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        }
+    };
 
     return loading ?
         <Loading /> :
@@ -65,9 +82,7 @@ const DocumentStatus = ({ history, match}) => {
                                     />
                                 </div>
                                 <CheckStatus />
-                                <div className="club-page__mobile-only">
-                                    <UserGallery alias={alias} />
-                                </div>
+                                <div ref={mobileGalleryHolderRef} />
                             </div>
                             <Aside className="club-page__info">
                                 <StickyBox offsetTop={65}>
@@ -81,7 +96,9 @@ const DocumentStatus = ({ history, match}) => {
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
                                         />
-                                        <UserGallery alias={alias} />
+                                        <div ref={galleryHolderRef}>
+                                            <div ref={galleryRef}><UserGallery alias={clubInfo.club_alias} /></div>
+                                        </div>
                                         <div className="club-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                             <p>Политика обработки персональных данных</p>
