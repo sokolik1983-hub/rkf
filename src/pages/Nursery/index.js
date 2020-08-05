@@ -16,7 +16,7 @@ import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import UserMenu from "./components/UserMenu";
 import StickyBox from "react-sticky-box";
-import useWindowSize from "utils/useWindowSize";
+import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 

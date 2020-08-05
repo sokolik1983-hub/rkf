@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -15,6 +15,7 @@ import shorten from "../../utils/shorten";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
+import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 
@@ -24,6 +25,10 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [needRequest, setNeedRequest] = useState(true);
+    const windowSize = useWindowSize();
+    const galleryRef = useRef(null);
+    const galleryHolderRef = useRef(null);
+    const mobileGalleryHolderRef = useRef(null);
 
     const alias = match.params.route;
 
@@ -45,19 +50,60 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }))();
     }, [match]);
 
+    useEffect(() => appendUserGallery(), [[], windowSize.width]);
+
+    const appendUserGallery = () => {
+        if (windowSize.width <= 990) {
+            const el = mobileGalleryHolderRef.current;
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        } else {
+            const el = galleryHolderRef.current
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        }
+    };
+
     return loading ?
-    <Loading /> :
+        <Loading /> :
         error ?
             <PageNotFound /> :
-                <Layout>
-                    <div className="redesign">
-                        <Container className="content nursery-page">
-                            <div className="nursery-page__content-wrap">
-                                <div className="nursery-page__content">
-                                    <Card className="nursery-page__content-banner">
-                                        <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
-                                    </Card>
-                                    <div className="nursery-page__mobile-only">
+            <Layout>
+                <div className="redesign">
+                    <Container className="content nursery-page">
+                        <div className="nursery-page__content-wrap">
+                            <div className="nursery-page__content">
+                                <Card className="nursery-page__content-banner">
+                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
+                                </Card>
+                                <div className="nursery-page__mobile-only">
+                                    <ClubUserHeader
+                                        user="nursery"
+                                        logo={nursery.logo_link}
+                                        name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                        alias={alias}
+                                        profileId={nursery.id}
+                                        federationName={nursery.federation_name}
+                                        federationAlias={nursery.federation_alias}
+                                    />
+                                </div>
+                                <div ref={mobileGalleryHolderRef} />
+                                {canEdit &&
+                                    <AddArticle
+                                        id={nursery.id}
+                                        logo={nursery.logo_link}
+                                        setNeedRequest={setNeedRequest}
+                                    />
+                                }
+                                <ClubUserNews
+                                    user="club"
+                                    canEdit={canEdit}
+                                    alias={match.params.route}
+                                    needRequest={needRequest}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            </div>
+                            <Aside className="nursery-page__info">
+                                <StickyBox offsetTop={65}>
+                                    <div className="nursery-page__info-inner">
                                         <ClubUserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
@@ -67,54 +113,25 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationName={nursery.federation_name}
                                             federationAlias={nursery.federation_alias}
                                         />
-                                    </div>
-                                    {canEdit &&
-                                        <AddArticle
-                                            id={nursery.id}
-                                            logo={nursery.logo_link}
-                                            setNeedRequest={setNeedRequest}
-                                        />
-                                    }
-                                    <ClubUserNews
-                                        user="club"
-                                        canEdit={canEdit}
-                                        alias={match.params.route}
-                                        needRequest={needRequest}
-                                        setNeedRequest={setNeedRequest}
-                                    />
-                                    <div className="nursery-page__mobile-only">
-                                            <UserGallery alias={alias} />
-                                    </div>
-                                </div>
-                                <Aside className="nursery-page__info">
-                                    <StickyBox offsetTop={65}>
-                                        <div className="nursery-page__info-inner">
-                                            <ClubUserHeader
-                                                user="nursery"
-                                                logo={nursery.logo_link}
-                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                alias={alias}
-                                                profileId={nursery.id}
-                                                federationName={nursery.federation_name}
-                                                federationAlias={nursery.federation_alias}
-                                            />
-                                            <UserGallery alias={alias} />
-                                            <div className="nursery-page__copy-wrap">
-                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                <p>Политика обработки персональных данных</p>
-                                            </div>
+                                        <div ref={galleryHolderRef}>
+                                            <div ref={galleryRef}><UserGallery alias={nursery.club_alias} /></div>
                                         </div>
-                                    </StickyBox>
-                                </Aside>
-                            </div>
-                            <FloatingMenu
-                                alias={nursery.club_alias}
-                                profileId={nursery.id}
-                                name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
-                            />
-                        </Container>
-                    </div>
-                </Layout>
+                                        <div className="nursery-page__copy-wrap">
+                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                            <p>Политика обработки персональных данных</p>
+                                        </div>
+                                    </div>
+                                </StickyBox>
+                            </Aside>
+                        </div>
+                        <FloatingMenu
+                            alias={nursery.club_alias}
+                            profileId={nursery.id}
+                            name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
+                        />
+                    </Container>
+                </div>
+            </Layout>
 };
 
 export default React.memo(connectAuthVisible(NewsPage));
