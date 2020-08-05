@@ -89,7 +89,7 @@
     &__exhibitions {
       max-width: 860px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       .user-header {
         display: none;
         .menu-component__list,
@@ -123,7 +123,7 @@
         line-height: 20px;
         color: #72839c;
         padding-bottom: 16px;
-        @media (max-width: 1100px) {
+        @media (max-width: 990px) {
           display: none;
         }
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
@@ -16,6 +16,7 @@ import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import UserMenu from "./components/UserMenu";
 import StickyBox from "react-sticky-box";
+import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 
@@ -35,6 +36,10 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const windowSize = useWindowSize();
+    const galleryRef = useRef(null);
+    const galleryHolderRef = useRef(null);
+    const mobileGalleryHolderRef = useRef(null);
     const alias = match.params.id;
 
     useEffect(() => {
@@ -59,6 +64,18 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         }))();
         return () => setNeedRequest(true);
     }, [alias]);
+
+    useEffect(() => appendUserGallery(), [[], windowSize.width]);
+
+    const appendUserGallery = () => {
+        if (windowSize.width <= 990) {
+            const el = mobileGalleryHolderRef.current;
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        } else {
+            const el = galleryHolderRef.current
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        }
+    };
 
     return loading ?
         <Loading /> :
@@ -95,9 +112,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 </div>
                                 <UserDescription description={nursery.description} />
                                 <UserContacts {...nursery} />
-                                <div className="nursery-page__mobile-only">
-                                    <UserGallery alias={alias} isKennel={true} />
-                                </div>
+                                <div ref={mobileGalleryHolderRef} />
                                 {canEdit &&
                                     <AddArticle
                                         id={nursery.id}
@@ -135,7 +150,9 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 </ul>
                                             </Card>
                                         }
-                                        <UserGallery alias={alias} isKennel={true} />
+                                        <div ref={galleryHolderRef}>
+                                                <div ref={galleryRef}><UserGallery alias={nursery.club_alias} isKennel={true} /></div>
+                                            </div>
                                         <div className="nursery-page__mobile-only">
                                             <UserMenu alias={alias} />
                                         </div>
