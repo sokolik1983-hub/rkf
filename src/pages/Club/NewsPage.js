@@ -85,6 +85,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                         federationAlias={clubInfo.federation_alias}
                                     />
                                 </div>
+                                <div ref={mobileGalleryHolderRef} />
                                 {canEdit &&
                                     <AddArticle
                                         id={clubInfo.id}
@@ -99,7 +100,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                     needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
                                 />
-                                <div ref={mobileGalleryHolderRef} />
                             </div>
                             <Aside className="club-page__info">
                                 <StickyBox offsetTop={65}>
