@@ -1,7 +1,7 @@
 .exhibitions-calendar {
   margin-bottom: 32px;
   &__controls {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
   &__button {
     font-weight: normal;
@@ -28,6 +28,7 @@
   &__legend {
     position: relative;
     padding-left: 18px;
+    color: #72839c;
     &:before {
       content: "";
       display: block;

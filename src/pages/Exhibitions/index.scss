@@ -1,5 +1,11 @@
 .exhibitions-page {
   display: flex;
+  & + .Footer {
+    display: none;
+  }
+  &.content {
+    padding-top: 65px;
+  }
   @media (max-width: 990px) {
     display: block;
   }
@@ -7,8 +13,11 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+  &__wrap {
+    background: #f5f8ff;
+  }
   &__filters {
-    margin: 32px 40px 32px 0;
+    margin: 0 16px 0 0;
     @media (max-width: 990px) {
       margin: 0;
     }
@@ -16,7 +25,6 @@
   &__content {
     width: calc(100% - 314px);
     max-width: 870px;
-    margin: 32px 0;
     @media (max-width: 990px) {
       width: 100%;
       max-width: 100%;
@@ -28,9 +36,13 @@
   &__list-filter {
     width: 100%;
     overflow: hidden;
-    margin-bottom: 24px;
+    padding: 10px 10px 0;
+    position: sticky;
+    top: 50px;
+    background: white;
+    z-index: 1;
     @media (max-width: 560px) {
-      margin-bottom: 12px;
+      top: 48px;
     }
   }
   &__top-wrap {
@@ -46,5 +58,13 @@
     @media (max-width: 768px) {
       display: none;
     }
+  }
+  .exhibitions-calendar,
+  .breeds-filter,
+  .cities-filter {
+    margin-bottom: 24px;
+  }
+  .ranks-filter {
+    margin: 0;
   }
 }
