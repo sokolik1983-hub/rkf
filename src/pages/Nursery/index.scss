@@ -118,7 +118,6 @@
     }
     @media (max-width: 990px) {
       .user-header,
-      .user-gallery__wrap,
       .nursery-page__breeds {
         display: none;
       }
@@ -143,7 +142,6 @@
             display: none;
           }
         }
-        .user-gallery__wrap,
         .nursery-page__breeds {
           display: block;
           .menu-component__list,
@@ -290,14 +288,12 @@
     }
     @media (max-width: 768px) {
       .user-header,
-      .user-gallery__wrap,
       .nursery-page__breeds {
         display: none;
       }
       &__mobile-only {
         display: block;
         .user-header,
-        .user-gallery__wrap,
         .nursery-page__breeds {
           display: block;
           .menu-component__list,
