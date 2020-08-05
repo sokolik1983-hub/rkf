@@ -1,5 +1,6 @@
 .redesign {
   background: #f5f8ff;
+  min-height: 100vh;
   & + .Footer {
     display: none;
   }
