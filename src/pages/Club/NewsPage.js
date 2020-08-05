@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -15,6 +15,7 @@ import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
+import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 
@@ -24,6 +25,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const windowSize = useWindowSize();
+    const galleryRef = useRef(null);
+    const galleryHolderRef = useRef(null);
+    const mobileGalleryHolderRef = useRef(null);
 
     const alias = match.params.route;
 
@@ -45,19 +50,60 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
         }))();
     }, [match]);
 
+    useEffect(() => appendUserGallery(), [[], windowSize.width]);
+
+    const appendUserGallery = () => {
+        if (windowSize.width <= 990) {
+            const el = mobileGalleryHolderRef.current;
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        } else {
+            const el = galleryHolderRef.current
+            el && !el.childElementCount && el.appendChild(galleryRef.current)
+        }
+    };
+
     return loading ?
         <Loading /> :
         error ?
             <PageNotFound /> :
-                <Layout>
-                    <div className="redesign">
-                        <Container className="content club-page">
-                            <div className="club-page__content-wrap">
-                                <div className="club-page__content">
-                                    <Card className="club-page__content-banner">
-                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                    </Card>
-                                    <div className="club-page__mobile-only">
+            <Layout>
+                <div className="redesign">
+                    <Container className="content club-page">
+                        <div className="club-page__content-wrap">
+                            <div className="club-page__content">
+                                <Card className="club-page__content-banner">
+                                    <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                                </Card>
+                                <div className="club-page__mobile-only">
+                                    <UserHeader
+                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                        logo={clubInfo.logo_link}
+                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                        alias={clubInfo.club_alias}
+                                        profileId={clubInfo.id}
+                                        federationName={clubInfo.federation_name}
+                                        federationAlias={clubInfo.federation_alias}
+                                    />
+                                </div>
+                                <div ref={mobileGalleryHolderRef} />
+                                {canEdit &&
+                                    <AddArticle
+                                        id={clubInfo.id}
+                                        logo={clubInfo.logo_link}
+                                        setNeedRequest={setNeedRequest}
+                                    />
+                                }
+                                <ClubUserNews
+                                    user="club"
+                                    canEdit={canEdit}
+                                    alias={match.params.route}
+                                    needRequest={needRequest}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            </div>
+                            <Aside className="club-page__info">
+                                <StickyBox offsetTop={65}>
+                                    <div className="club-page__info-inner">
                                         <UserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                             logo={clubInfo.logo_link}
@@ -67,54 +113,25 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
                                         />
-                                    </div>
-                                    {canEdit &&
-                                        <AddArticle
-                                            id={clubInfo.id}
-                                            logo={clubInfo.logo_link}
-                                            setNeedRequest={setNeedRequest}
-                                        />
-                                    }
-                                    <ClubUserNews
-                                        user="club"
-                                        canEdit={canEdit}
-                                        alias={match.params.route}
-                                        needRequest={needRequest}
-                                        setNeedRequest={setNeedRequest}
-                                    />
-                                    <div className="club-page__mobile-only">
-                                            <UserGallery alias={alias} />
-                                    </div>
-                                </div>
-                                <Aside className="club-page__info">
-                                    <StickyBox offsetTop={65}>
-                                        <div className="club-page__info-inner">
-                                            <UserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
-                                            />
-                                            <UserGallery alias={alias} />
-                                            <div className="club-page__copy-wrap">
-                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                <p>Политика обработки персональных данных</p>
-                                            </div>
+                                        <div ref={galleryHolderRef}>
+                                            <div ref={galleryRef}><UserGallery alias={clubInfo.club_alias} /></div>
                                         </div>
-                                    </StickyBox>
-                                </Aside>
-                            </div>
-                            <FloatingMenu
-                                alias={clubInfo.club_alias}
-                                profileId={clubInfo.id}
-                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                            />
-                        </Container>
-                    </div>
-                </Layout>
+                                        <div className="club-page__copy-wrap">
+                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                            <p>Политика обработки персональных данных</p>
+                                        </div>
+                                    </div>
+                                </StickyBox>
+                            </Aside>
+                        </div>
+                        <FloatingMenu
+                            alias={clubInfo.club_alias}
+                            profileId={clubInfo.id}
+                            name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
+                        />
+                    </Container>
+                </div>
+            </Layout>
 };
 
 export default React.memo(connectAuthVisible(NewsPage));
