@@ -5,16 +5,16 @@ import CustomMenu from "../../../../components/CustomMenu";
 import BookformCard from 'components/BookformCard';
 import { LoadableNotFound } from "appModules";
 import { Route, Switch } from "react-router-dom";
-import Registry from '../Stamps/Registry';
+// import Registry from '../Stamps/Registry';
 import Alert from 'components/Alert';
 import './styles.scss';
 
 const DocumentCards = ({ nurseryAlias }) => {
     const [alert, seAlert] = useState(false);
-    const handleClick = e => {
-        e.preventDefault();
-        seAlert(true);
-    };
+    // const handleClick = e => {
+    //     e.preventDefault();
+    //     seAlert(true);
+    // };
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon" />
@@ -134,37 +134,37 @@ const DocumentCards = ({ nurseryAlias }) => {
     </div>
 };
 
-const StampCards = ({ nurseryAlias }) => {
-    const [alert, seAlert] = useState(false);
-    const handleClick = e => {
-        e.preventDefault();
-        seAlert(true);
-    };
-    return <div className="documents-page__right">
-        <Card>
-            <div className="documents-page__icon" />
-            <h3>КЛЕЙМА</h3>
-            <p>
-                Указанные коды клейма могут быть использованы в формах оформления заявок на изготовление документов. При указании кода клейма клуба должна быть приложена электронная копия свидетельства о регистрации кода клейма или документ его заменяющий.
-            </p>
-            <hr />
-            <div className="Card__links">
-                <Link to={`/kennel/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
-            </div>
-            {alert &&
-                <Alert
-                    title="Внимание!"
-                    text="Раздел находится в разработке."
-                    autoclose={1.5}
-                    onOk={() => seAlert(false)}
-                />
-            }
-        </Card>
-        <Registry />
-    </div>
-};
+// const StampCards = ({ nurseryAlias }) => {
+//     const [alert, seAlert] = useState(false);
+//     const handleClick = e => {
+//         e.preventDefault();
+//         seAlert(true);
+//     };
+//     return <div className="documents-page__right">
+//         <Card>
+//             <div className="documents-page__icon" />
+//             <h3>КЛЕЙМА</h3>
+//             <p>
+//                 Указанные коды клейма могут быть использованы в формах оформления заявок на изготовление документов. При указании кода клейма клуба должна быть приложена электронная копия свидетельства о регистрации кода клейма или документ его заменяющий.
+//             </p>
+//             <hr />
+//             <div className="Card__links">
+//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
+//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
+//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
+//             </div>
+//             {alert &&
+//                 <Alert
+//                     title="Внимание!"
+//                     text="Раздел находится в разработке."
+//                     autoclose={1.5}
+//                     onOk={() => seAlert(false)}
+//                 />
+//             }
+//         </Card>
+//         <Registry />
+//     </div>
+// };
 
 const ResponsibleCards = ({ nurseryAlias }) => {
     return <div className="documents-page__right">
@@ -185,10 +185,10 @@ const ResponsibleCards = ({ nurseryAlias }) => {
 
 const DocHome = ({ nurseryAlias, bookform }) => {
     const [alert, seAlert] = useState(false);
-    const handleClick = e => {
-        e.preventDefault();
-        seAlert(true);
-    };
+    // const handleClick = e => {
+    //     e.preventDefault();
+    //     seAlert(true);
+    // };
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">

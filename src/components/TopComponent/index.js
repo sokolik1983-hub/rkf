@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Card from "../Card";
 import Alert from "../Alert";
 import { DEFAULT_IMG } from "../../appConfig";
@@ -8,8 +7,8 @@ import "./index.scss";
 
 const TopComponent = ({ logo, name, withShare = true, banner_link }) => {
     const [shareAlert, setShareAlert] = useState(false);
-    const { userAgent, clipboard } = navigator;
-    const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
+    // const { userAgent, clipboard } = navigator;
+    // const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
 
     window.Clipboard = ((window, document) => { // Safari fix
         let textArea, copy;
@@ -43,12 +42,12 @@ const TopComponent = ({ logo, name, withShare = true, banner_link }) => {
         return { copy: copy };
     })(window, document);
 
-    const share = () => {
-        isSafari
-            ? window.Clipboard.copy(window.location.href)
-            : clipboard.writeText(window.location.href);
-        setShareAlert(true);
-    };
+    // const share = () => {
+    //     isSafari
+    //         ? window.Clipboard.copy(window.location.href)
+    //         : clipboard.writeText(window.location.href);
+    //     setShareAlert(true);
+    // };
 
     return (
         <Card className="top-component">

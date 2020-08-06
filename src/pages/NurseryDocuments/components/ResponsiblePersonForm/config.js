@@ -34,7 +34,8 @@ export const ResponsibleFormConfig = {
             label: 'Телефон',
             placeholder: DEFAULT_PHONE_INPUT_PLACEHOLDER,
             type: 'tel',
-            fieldType: 'masked',
+            // temporary solution until a permanent mask is agreed
+            // fieldType: 'masked',
             showMask: true,
             mask: DEFAULT_PHONE_INPUT_MASK
         },

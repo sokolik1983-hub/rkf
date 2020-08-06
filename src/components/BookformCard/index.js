@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Link,Switch,Route} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import Card from "../Card";
 import Modal from "../Modal";
@@ -138,7 +138,7 @@ const BookformCard = ({url,distinction}) => {
                    }}
                    className={`documents-page__modal${color ? ' ' + color : ''}`}
             >
-                <iframe src={link}/>
+                <iframe src={link} title="unique_iframe" />
             </Modal>
             {showAlert &&
                 <Alert

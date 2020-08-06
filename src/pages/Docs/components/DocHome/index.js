@@ -11,10 +11,10 @@ import './styles.scss';
 
 const DocumentCards = ({ clubAlias }) => {
     const [alert, seAlert] = useState(false);
-    const handleClick = e => {
-        e.preventDefault();
-        seAlert(true);
-    };
+    // const handleClick = e => {
+    //     e.preventDefault();
+    //     seAlert(true);
+    // };
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon" />

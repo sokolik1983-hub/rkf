@@ -1,8 +1,8 @@
 import React from 'react';
-import {reqText, numbersOnly} from "./config.js";
-import {number,string,boolean,object,array,mixed} from "yup";
+import { reqText } from "./config.js";
+import { number, string, object, array } from "yup";
 import { FormGroup, FormField } from "components/Form";
-import {FieldArray} from "formik";
+import { FieldArray } from "formik";
 import FormFile from "./components/FormFile";
 import HideIf from "components/HideIf";
 import DeleteButton from "./components/DeleteButton";

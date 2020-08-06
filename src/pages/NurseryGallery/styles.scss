@@ -1,7 +1,6 @@
 .NurseryGallery {
     &__content {
         width: 100%;
-        margin-left: 24px;
         order: 1;
         @media (max-width: 990px) {
             margin-left: 0;

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";

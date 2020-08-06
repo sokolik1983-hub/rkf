@@ -9,16 +9,15 @@ import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Paginator from "components/Paginator";
+import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
-import UserHeader from "components/UserHeader";
-import MenuComponent from "components/MenuComponent";
-import ClubInfo from "pages/Club/components/ClubInfoOld";
+import ClubUserHeader from "../../components/redesign/UserHeader";
 import FloatingMenu from 'pages/Club/components/FloatingMenu';
 import shorten from "utils/shorten";
-import "./styles.scss";
+import "../Club/index.scss";
 
-const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
-    const [club, setClub] = useState(null);
+const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match }) => {
+    const [clubInfo, setClubInfo] = useState(null);
     const [images, setImages] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [loaded, setLoaded] = useState(false);
@@ -56,7 +55,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
         return Request({
             url: '/api/Club/public/' + params.id
         }, data => {
-            setClub(data);
+            setClubInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => handleError(error));
     }
@@ -74,61 +73,79 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id }) => {
     };
 
     return (
-        <Layout>
-            <Container className="content ClubGallery">
-                {!loaded
-                    ? <Loading />
-                    : <>
-                        <UserHeader
-                            user="club"
-                            logo={club.logo_link}
-                            banner={club.headliner_link}
-                            name={shorten(club.short_name || club.name || 'Имя отсутствует')}
-                            federationName={club.federation_name}
-                            federationAlias={club.federation_alias}
-                            canEdit={canEdit}
-                            editLink={`/${params.id}/edit`}
-                        />
-                        <div className="ClubGallery__content-wrap">
-                            <div className="ClubGallery__content">
-                                <Card>
-                                    <div className="ClubGallery__back">
-                                        <div>
-                                            <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
-                                </div>
-                                        {canEdit &&
-                                            <Link className="btn btn-primary ClubGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+        <>
+            {!loaded
+                ? <Loading />
+                : <Layout>
+                    <div className="redesign">
+                        <Container className="content club-page">
+                            <div className="club-page__content-wrap">
+                                <div className="club-page__content">
+                                    <Card className="club-page__content-banner">
+                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                                    </Card>
+                                    <div className="club-page__mobile-only">
+                                        <ClubUserHeader
+                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                            logo={clubInfo.logo_link}
+                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                            alias={clubInfo.club_alias}
+                                            profileId={clubInfo.id}
+                                            federationName={clubInfo.federation_name}
+                                            federationAlias={clubInfo.federation_alias}
+                                        />
                                     </div>
+                                    <div className="ClubGallery__content">
+                                        <Card>
+                                            <div className="ClubGallery__back">
+                                                <div>
+                                                    <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                                            </div>
+                                                {canEdit &&
+                                                    <Link className="btn btn-primary ClubGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                            </div>
 
-                                    <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
-                                    <Paginator
-                                        scrollToTop={false}
-                                        pagesCount={pagesCount}
-                                        currentPage={currentPage}
-                                        setPage={page => getImages(page)}
-                                    />
-                                </Card>
+                                            <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
+                                            <Paginator
+                                                scrollToTop={false}
+                                                pagesCount={pagesCount}
+                                                currentPage={currentPage}
+                                                setPage={page => getImages(page)}
+                                            />
+                                        </Card>
+                                    </div>
+                                </div>
+                                <Aside className="club-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="club-page__info-inner">
+                                            <ClubUserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                            />
+                                            <div className="club-page__copy-wrap">
+                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                                                <p>Политика обработки персональных данных</p>
+                                            </div>
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
                             </div>
-                            <Aside className="ClubGallery__info">
-                                <MenuComponent
-                                    alias={params.id}
-                                    name={shorten(club.short_name || club.name || 'Имя отсутствует')}
-                                />
-                                <ClubInfo
-                                    {...club}
-                                />
-                            </Aside>
-                        </div>
-                        <FloatingMenu
-                            alias={club.club_alias}
-                            profileId={club.id}
-                            name={shorten(club.short_name || club.name || 'Название клуба отсутствует')}
-                        />
-                    </>
-                }
-                {showAlert && <Alert {...showAlert} />}
-            </Container>
-        </Layout>
+                            <FloatingMenu
+                                alias={clubInfo.club_alias}
+                                profileId={clubInfo.id}
+                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
+                            />
+                        </Container>
+                    </div>
+                </Layout>
+            }
+            {showAlert && <Alert {...showAlert} />}
+        </>
     )
 };
 

@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
@@ -13,10 +12,10 @@ const PromiseRequest = (data) => new Promise((resolve, reject) => Request(data, 
 const ReplaceRegistry = ({history, alias, distinction, profileType}) => {
     const [loading, setLoading] = useState(true);
     const [checked, setChecked] = useState([1,2,3,4]);
-    const [reqTypes, setReqTypes] = useState([]);
+    // const [reqTypes, setReqTypes] = useState([]);
     const [checkedTypes, setCheckedTypes] = useState([]);
     const check = i => setChecked(checked.includes(i) ? checked.filter(x => x !== i) : checked.concat(i));
-    const checkType = i => setCheckedTypes(checkedTypes.includes(i) ? checkedTypes.filter(x => x !== i) : checkedTypes.concat(i))
+    // const checkType = i => setCheckedTypes(checkedTypes.includes(i) ? checkedTypes.filter(x => x !== i) : checkedTypes.concat(i))
     const [documents, setDocuments] = useState(null);
 
     useEffect(() => {
@@ -30,7 +29,7 @@ const ReplaceRegistry = ({history, alias, distinction, profileType}) => {
         ]).then(
         data => {
             setDocuments(data[0]);
-            setReqTypes(data[1]);
+            // setReqTypes(data[1]);
             setCheckedTypes(data[1].map(({id})=>id));
             setLoading(false);
         }).catch(

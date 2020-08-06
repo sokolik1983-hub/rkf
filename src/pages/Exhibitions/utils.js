@@ -1,6 +1,6 @@
 import history from "../../utils/history";
-import {endpointGetExhibitions} from "./config";
-import {formatDateToString} from "../../utils/datetime";
+import { endpointGetExhibitions } from "./config";
+import { formatDateToString } from "../../utils/datetime";
 
 const buildUrlParams = filter => {
     let params = '';
@@ -49,7 +49,7 @@ export const getFiltersFromUrl = () => {
     const emptyFilters = getEmptyFilters();
     let filters = {};
 
-    if(history.location.search) {
+    if (history.location.search) {
         const searchString = decodeURIComponent(history.location.search);
         let filtersFromUrl = {};
 
@@ -57,7 +57,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if(key === 'CityIds' || key === 'RankIds' || key === 'BreedIds') {
+            if (key === 'CityIds' || key === 'RankIds' || key === 'BreedIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -75,7 +75,7 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = (filters, initial = false) => {
-    const newFilters = getFiltersFromUrl() ? {...getFiltersFromUrl(), ...filters} : filters;
+    const newFilters = getFiltersFromUrl() ? { ...getFiltersFromUrl(), ...filters } : filters;
     const targetUrl = (`/exhibitions${buildUrlParams(newFilters)}`);
     initial ? history.replace(targetUrl) : history.push(targetUrl);
 };
@@ -89,8 +89,7 @@ export const getEmptyFilters = (alias = null) => ({
     CategoryId: 0,
     ExhibitionName: '',
     DateFrom: formatDateToString(new Date()),
-    DateTo: null,
-    PageNumber: 1
+    DateTo: null
 });
 
 export const getInitialFilters = () => {
@@ -99,7 +98,7 @@ export const getInitialFilters = () => {
 
     const filters = filtersFromUrl || emptyFilters;
 
-    if(!filtersFromUrl) setFiltersToUrl(filters, true);
+    if (!filtersFromUrl) setFiltersToUrl(filters, true);
 
     return filters;
 };

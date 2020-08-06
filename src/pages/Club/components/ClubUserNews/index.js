@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import Card from "../../../../components/Card";
 import List from "../../../../components/List";
 import ListFilter from './ListFilter';
 import { Request } from "../../../../utils/request";
@@ -116,14 +115,12 @@ const UserNews = ({ canEdit, alias, needRequest, setNeedRequest }) => {
                     />
                 </div>
             </div>
-            {!news || !news.length ?
-                <Card className="user-news">
-                    <div className="user-news__content">
-                        <h4 className="user-news__text">Публикации не найдены</h4>
-                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
-                    </div>
-                </Card> :
-                <InfiniteScroll
+            {!news || !news.length
+                ? <div className="user-news__content" style={{ paddingTop: '18px' }}>
+                    <h4 className="user-news__text">Публикации не найдены</h4>
+                    <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
+                </div>
+                : <InfiniteScroll
                     dataLength={news.length}
                     next={getNextNews}
                     hasMore={hasMore}

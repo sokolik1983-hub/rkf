@@ -55,8 +55,8 @@ const UserGallery = ({ alias, isKennel }) => {
 
     const squareStyle = () => {
         return {
-            height: '89px',
-            width: '89px',
+            height: '88px',
+            width: '88px',
             objectFit: 'cover',
             cursor: 'pointer'
         };

@@ -7,8 +7,13 @@
     display: flex;
     align-items: flex-end;
     letter-spacing: 0.2px;
-    color: #72839C;
-    margin-bottom: 12px;
+    color: #72839c;
+    &-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
   }
   &__list {
     list-style: none;
@@ -17,8 +22,6 @@
     fill: #3366ff;
   }
   &__support-link {
-    position: relative;
-    left: 230px;
-    top: 30px;
+    display: flex;
   }
 }

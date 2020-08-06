@@ -23,32 +23,28 @@ const ListFilter = ({categoryId}) => {
             <HorizontalSwipe id="exhibitions-list-filter">
                 <ul className="list-filter">
                     <li className="list-filter__item">
-                        <button
+                        <span
                             className={`list-filter__control${activeType === 0 ? ' _active' : ''}`}
-                            type="button"
                             onClick={() => handleClick(0)}
-                        >Все</button>
+                        >Все</span>
                     </li>
                     <li className="list-filter__item">
-                        <button
+                        <span
                             className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
-                            type="button"
                             onClick={() => handleClick(1)}
-                        >Выставочные мероприятия</button>
+                        >Выставочные мероприятия</span>
                     </li>
                     <li className="list-filter__item">
-                        <button
+                        <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
-                            type="button"
                             onClick={() => handleClick(2)}
-                        >Племенные мероприятия</button>
+                        >Племенные мероприятия</span>
                     </li>
                     <li className="list-filter__item">
-                        <button
+                        <span
                             className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
-                            type="button"
                             onClick={() => handleClick(3)}
-                        >Состязания и испытания рабочих качеств</button>
+                        >Состязания и испытания рабочих качеств</span>
                     </li>
                 </ul>
             </HorizontalSwipe>
