@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
-import Disclaimer from "../../components/Disclaimer";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
@@ -97,24 +96,21 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                 </>
             }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
-            <Container className="exhibitions-page content">
-                <Filters filters={filters} clubName={shorten(displayName)} profileId={clubId} />
-                <div className="exhibitions-page__content">
-                    <Disclaimer>
-                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                            Инструкция по календарю мероприятий
-                        </a>
-                    </Disclaimer>
-                    <ListFilter categoryId={filters.CategoryId} />
-                    <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
-                    <ExhibitionsList
-                        exhibitions={exhibitions}
-                        loading={exhibitionsLoading}
-                        pagesCount={pagesCount}
-                        PageNumber={filters.PageNumber}
-                    />
-                </div>
-            </Container>
+            <div className="exhibitions-page__wrap">
+                <Container className="exhibitions-page content">
+                    <Filters filters={filters} clubName={shorten(displayName)} profileId={clubId} />
+                    <div className="exhibitions-page__content">
+                        <ListFilter categoryId={filters.CategoryId} />
+                        <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
+                        <ExhibitionsList
+                            exhibitions={exhibitions}
+                            loading={exhibitionsLoading}
+                            pagesCount={pagesCount}
+                            PageNumber={filters.PageNumber}
+                        />
+                    </div>
+                </Container>
+            </div>
         </Layout>
 };
 

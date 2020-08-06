@@ -31,7 +31,7 @@ const HomePage = ({ homepage, cities }) => {
                             citiesDict={cities.options}
                         />
                         <Aside className="home-page__right">
-                            <StickyBox offsetTop={75}>
+                            <StickyBox offsetTop={65}>
                                 <div className="home-page__right-wrap">
                                     <Card>
                                         <h3>{RKFInfo.aboutTitle}</h3>

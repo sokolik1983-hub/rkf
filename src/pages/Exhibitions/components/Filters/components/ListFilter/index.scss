@@ -1,7 +1,7 @@
 .list-filter {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e8;
   &__item {
     &:not(:last-child) {
       margin-right: 8px;
@@ -9,24 +9,19 @@
   }
   &__control {
     display: block;
-    padding: 4px 15px;
-    background: #ebf0f2;
-    border-radius: 4px;
+    padding: 0 6px 10px;
+    border-bottom: 2px solid transparent;
     font-weight: 600;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
     letter-spacing: 0.2px;
     color: #72839c;
     text-decoration: none;
-    border: none;
     white-space: nowrap;
-    transition: all .2s linear;
+    cursor: pointer;
+    transition: border-bottom-color 0.2s linear;
     &._active {
-      color: #fff;
-      background-color: #3366ff;
-    }
-    &._not-active {
-      opacity: .5;
+      border-bottom-color: #3366ff;
     }
   }
 }
