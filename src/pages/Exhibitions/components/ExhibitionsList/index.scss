@@ -276,7 +276,7 @@
           content: "";
           width: 12px;
           height: 16px;
-          background: url("/static/icons/pin-gray.svg") no-repeat 50%/contain;
+          background: url("/static/icons/pin-gray.svg") no-repeat 50% / contain;
           position: absolute;
           left: 0;
           top: 50%;
@@ -435,6 +435,12 @@
         display: block;
       }
     }
+  }
+  .infinite-scroll-component {
+    overflow: visible !important;
+  }
+  &__no-exhibitions {
+    text-align: center;
   }
 }
 

@@ -23,7 +23,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
     const [exhibitions, setExhibitions] = useState(null);
-    const [pagesCount, setPagesCount] = useState(1);
+    const [startElement, setStartElement] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     const [displayName, setDisplayName] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubId, setClubId] = useState('');
@@ -39,19 +40,34 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         return () => unListen();
     }, []);
 
-    const getExhibitions = async (url) => {
+    const getExhibitions = async (url, startElem) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: url
+            url: `${url}&StartElement=${startElem}`
         }, data => {
-            const modifiedExhibitions = data.exhibitions.map(exhibition => {
-                exhibition.title = exhibition.city;
-                exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
-                exhibition.content = exhibition.exhibition_name;
-                exhibition.url = `/exhibitions/${exhibition.id}`;
-                return exhibition;
-            });
+            if (data.exhibitions.length) {
+                const modifiedExhibitions = data.exhibitions.map(exhibition => {
+                    exhibition.title = exhibition.city;
+                    exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
+                    exhibition.content = exhibition.exhibition_name;
+                    exhibition.url = `/exhibitions/${exhibition.id}`;
+                    return exhibition;
+                });
+
+                if (data.exhibitions.length < 10) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
+                }
+                setExhibitions(startElem === 1 ? modifiedExhibitions : [...exhibitions, ...modifiedExhibitions]);
+            } else {
+                if (startElem === 1) {
+                    setExhibitions([]);
+                }
+                setHasMore(false);
+            }
+
 
             const club = data.searching_club;
 
@@ -61,8 +77,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                 setClubId(club.club_id);
             }
 
-            setExhibitions(modifiedExhibitions);
-            setPagesCount(data.page_count);
             setExhibitionsLoading(false);
             setLoading(false);
         }, error => {
@@ -73,8 +87,18 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         });
     };
 
+    const getNextExhibitions = () => {
+        if (hasMore) {
+            (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
+            setStartElement(startElement + 10);
+        }
+    };
+
     useEffect(() => {
-        if (url) (() => getExhibitions(url))();
+        if (url) {
+            setStartElement(1);
+            (() => getExhibitions(url, 1))();
+        }
     }, [url]);
 
     return loading ?
@@ -104,9 +128,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                         <ExhibitionsList
                             exhibitions={exhibitions}
+                            getNextExhibitions={getNextExhibitions}
+                            hasMore={hasMore}
                             loading={exhibitionsLoading}
-                            pagesCount={pagesCount}
-                            PageNumber={filters.PageNumber}
                         />
                     </div>
                 </Container>

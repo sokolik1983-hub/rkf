@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-// import Card from "../../../../components/Card";
 import List from "../../../../components/List";
 import ListFilter from './ListFilter';
 import { Request } from "../../../../utils/request";
