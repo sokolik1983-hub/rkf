@@ -11,10 +11,10 @@ import MenuComponent from "components/MenuComponent";
 const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federationName, federationAlias }) => {
     const [shareAlert, setShareAlert] = useState(false);
 
-    const share = () => {
-        navigator.clipboard.writeText(window.location.href);
-        setShareAlert(true);
-    };
+    // const share = () => {
+    //     navigator.clipboard.writeText(window.location.href);
+    //     setShareAlert(true);
+    // };
 
     const shareOk = () => setShareAlert(false);
 

@@ -1,4 +1,4 @@
-import { object, string, array, number, boolean, mixed } from "yup";
+import { string, mixed } from "yup";
 
 const reqText = 'Обязательное поле';
 const reqEmail = 'Необходимо ввести email';

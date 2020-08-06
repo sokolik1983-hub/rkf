@@ -54,7 +54,7 @@
   }
   &__form-code {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     margin-top: 24px;
     @media (max-width: 400px) {
       display: block;

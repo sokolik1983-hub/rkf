@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Container from "../Container";
-import { RKFInfo } from "pages/Home/config";
-import { beautify } from 'utils/phone';
+// import { RKFInfo } from "pages/Home/config";
+// import { beautify } from 'utils/phone';
 import './index.scss';
 
 
