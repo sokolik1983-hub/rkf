@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Loading from "../../../../components/Loading";
-import MenuComponent from "../../../../components/MenuComponent";
 import Calendar from "./components/Calendar";
 import BreedsFilter from "./components/BreedsFilter";
 import RanksFilter from "./components/RanksFilter";
 import CitiesFilter from "./components/CitiesFilter";
+import UserHeader from "components/redesign/UserHeader";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
@@ -14,7 +14,7 @@ import { endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibition
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId }) => {
+const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, federationName, federationAlias }) => {
     const [ranks, setRanks] = useState(null);
     const [breeds, setBreeds] = useState(null);
     const [calendarData, setCalendarData] = useState(null);
@@ -89,15 +89,20 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId }) => {
                 {loading ?
                     <Loading centered={false} /> :
                     <>
-                        <div className="exhibitions-filters__wrap">
-                            {clubName && filters.Alias &&
-                                <MenuComponent
+                        {clubName && filters.Alias &&
+                            <div className="phone-hide">
+                                <UserHeader
+                                    user={filters.Alias !== 'rkf-online' ? 'club' : ''}
+                                    logo={logo}
+                                    name={clubName}
                                     alias={filters.Alias}
                                     profileId={profileId}
-                                    name={clubName}
-                                    className="phone-hide"
+                                    federationName={federationName}
+                                    federationAlias={federationAlias}
                                 />
-                            }
+                            </div>
+                        }
+                        <div className="exhibitions-filters__wrap">
                             <div className="exhibitions-filters__head">
                                 <h4>Календарь</h4>
                                 <div>
