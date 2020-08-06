@@ -2,7 +2,6 @@ import React from 'react';
 import Gallery from 'react-grid-gallery';
 import './styles.scss';
 import {DEFAULT_IMG} from "../../appConfig";
-import Card from "../Card";
 
 const GalleryComponent = ({ items, withLoading = true, ...rest }) => {
     // const [loaded, setLoaded] = useState(false);

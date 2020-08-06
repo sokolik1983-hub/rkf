@@ -10,10 +10,10 @@ import Share from "components/Share";
 const UserHeader = ({user, logo, banner, name, federationName, federationAlias}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
-    const share = () => {
-        navigator.clipboard.writeText(window.location.href);
-        setShareAlert(true);
-    };
+    // const share = () => {
+    //     navigator.clipboard.writeText(window.location.href);
+    //     setShareAlert(true);
+    // };
 
     const shareOk = () => setShareAlert(false);
 

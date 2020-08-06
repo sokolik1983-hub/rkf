@@ -1,5 +1,3 @@
-import {object, string} from "yup";
-
 export const newsArticleFormConfig = {
     action: '/api/Article/full',
     format: "multipart/form-data",
