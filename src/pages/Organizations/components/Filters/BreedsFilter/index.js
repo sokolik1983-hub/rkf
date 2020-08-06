@@ -31,11 +31,13 @@ const BreedsFilter = ({breed_ids, setFilters}) => {
             }, data => {
                 setBreeds(data.map(item => ({value: item.id, label: item.name})));
                 setLoading(false);
+                window.scrollTo(0,0);
             },
             error => {
                 console.log(error.response);
                 if(error.response) alert(`Ошибка: ${error.response.status}`);
                 setLoading(false);
+                window.scrollTo(0,0);
             }))();
     }, []);
 

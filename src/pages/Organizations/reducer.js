@@ -10,8 +10,6 @@ const filtersReducer = createReducer(initialFilters, {
             action.data.start_element = 1;
         }
 
-        console.log('action.data', action.data);
-
         const filters = {...state, ...action.data};
         setFiltersToLS({...filters, start_element: 1});
         return filters;

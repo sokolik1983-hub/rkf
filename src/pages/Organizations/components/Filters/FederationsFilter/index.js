@@ -17,10 +17,12 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
         }, data => {
             setFederations(data.sort((a,b) => a.id - b.id));
             setLoading(false);
+            window.scrollTo(0,0);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
+            window.scrollTo(0,0);
         }))();
     }, []);
 

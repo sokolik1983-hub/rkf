@@ -36,6 +36,10 @@ const OrganizationsList = ({organization_type,
                 start_element
             })
         }, data => {
+            if(start_element === 1) {
+                window.scrollTo(0,0);
+            }
+
             if (data.length) {
                 if (data.length < 10) {
                     setHasMore(false);
@@ -45,27 +49,29 @@ const OrganizationsList = ({organization_type,
 
                 setOrg(start_element === 1 ? data : [...org, ...data]);
             } else {
-                // setOrg([]); может быть кол-во орг кратно 10 и след запрос вернёт []
+                if(start_element === 1) setOrg([]);
                 setHasMore(false);
             }
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
-        })
+        });
     };
 
     useEffect(() => {
-        (() => getOrganizations)();
+        console.log('useEffect filters');
+        (() => getOrganizations())();
     }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, start_element]);
 
     const getNextOrganizations = () => {
-
+        console.log('getNextOrganizations');
+        setFilters({start_element: org.length ? start_element + 10 : 1})
     };
 
     return (
         <InfiniteScroll
             dataLength={org.length}
-            next={() => setFilters({start_element: org.length ? start_element + 10 : 1})}
+            next={getNextOrganizations}
             hasMore={hasMore}
             loader={<Loading centered={false} />}
             endMessage={
