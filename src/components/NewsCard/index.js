@@ -12,10 +12,10 @@ import Share from "components/Share";
 const NewsCard = ({user_type, id, name, fact_city_name, create_date, alias, logo_link, picture_link, content, canEdit, onDelete}) => {
     const [shareAlert, setShareAlert] = useState(false);
 
-    const shareLink = () => {
-        navigator.clipboard.writeText(`https://rkf.online/news/${id}`);
-        setShareAlert(true);
-    };
+    // const shareLink = () => {
+    //     navigator.clipboard.writeText(`https://rkf.online/news/${id}`);
+    //     setShareAlert(true);
+    // };
 
     return (
         <Card className="news-card">

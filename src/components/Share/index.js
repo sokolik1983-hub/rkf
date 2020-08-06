@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import YandexShare from 'react-yandex-share';
 import './index.scss';
 

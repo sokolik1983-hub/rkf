@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {reqText, numbersOnly} from "./config.js";
-import {number,string,boolean} from "yup";
+import React, { useEffect, useState } from 'react';
+import { reqText, numbersOnly } from "./config.js";
+import { number, string } from "yup";
 import { FormGroup, FormField } from "components/Form";
 import { Request } from "utils/request";
 import Alert from "components/Alert";
 import Button from "components/Button";
 import HideIf from "components/HideIf";
-import FormFile from "./components/FormFile";
 
 const validation = {
     stamp_code: string().required(reqText).matches(/^[A-Z]{3}$/, {message:'Введите 3 латинские буквы'}),
@@ -51,6 +50,7 @@ const component = ({formik, view, update, options, alias}) => {
     const getEverkData = (stamp_number, stamp_code) =>
         PromiseRequest(`/api/requests/PedigreeRequest/everk_dog_info?stamp_number=${stamp_number}&stamp_code=${stamp_code}`)
         .then(data => {
+            // eslint-disable-next-line
             if (!data.dog_name) throw ":(";
             formik.setFieldValue('dog_name', data.dog_name);
             /*Object.keys(data).forEach(k => {

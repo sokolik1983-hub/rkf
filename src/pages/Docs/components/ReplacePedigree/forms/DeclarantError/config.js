@@ -1,5 +1,5 @@
-import {number,string,boolean} from "yup";
-import {reqText, numbersOnly} from "../../config.js";
+import { number, string } from "yup";
+import { reqText, numbersOnly } from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 import Common from "../../commonFields.js";
 import DogInfo from "../../dogInfo.js";

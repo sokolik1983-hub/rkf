@@ -1,6 +1,5 @@
 import React, {useEffect, useState } from "react";
 import {connect} from "formik";
-import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "utils/genericForm";
 import SubmitError from "../../components/SubmitError";
@@ -16,9 +15,9 @@ import DogInfo from "../../dogInfo.js";
 // change owner request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
-    const cash_payment = initial.cash_payment;
-    const [privacyHref, setPrivacyHref] = useState('');
+    // const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
+    // const cash_payment = initial.cash_payment;
+    // const [privacyHref, setPrivacyHref] = useState('');
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && !formik.values.id) {
@@ -36,7 +35,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         Promise.all([
             fetch('/api/requests/PedigreeRequest/personal_data_document', {headers})
             .then(response => response.blob())
-            .then(data => setPrivacyHref(URL.createObjectURL(data)))
+            // .then(data => setPrivacyHref(URL.createObjectURL(data)))
         ])
 
     }, []);

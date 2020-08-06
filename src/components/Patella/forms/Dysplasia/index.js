@@ -2,7 +2,6 @@ import React, {useEffect, useState } from "react";
 import Alert from "components/Alert";
 import DocLink from "../../components/DocLink";
 import {connect, getIn} from "formik";
-import removeNulls from "utils/removeNulls";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "utils/genericForm";
 import SubmitError from "../../components/SubmitError";
@@ -15,9 +14,9 @@ import FormFile from "../../components/FormFile";
 
 // dysplasia request
 const FormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title, config}) => {
-    const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
-    const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
-    const cash_payment = initial.cash_payment;
+    // const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
+    // const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
+    // const cash_payment = initial.cash_payment;
     const [everkAlert, setEverkAlert] = useState(false);
     const [everk, setEverk] = useState(false);
     const [init, setInit] = useState(false);

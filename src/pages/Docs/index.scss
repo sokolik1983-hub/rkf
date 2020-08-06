@@ -247,7 +247,7 @@
   .flex-row {
     display: flex;
     justify-content: space-between !important;
-    align-items: start;
+    align-items: flex-start;
     flex-wrap: wrap;
     margin: 0 -12px 12px;
     & > div {

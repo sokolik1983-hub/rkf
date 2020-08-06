@@ -1,5 +1,5 @@
 import { object, string, number, mixed, boolean, date } from 'yup';
-import { DEFAULT_PHONE_INPUT_PLACEHOLDER, DEFAULT_PHONE_INPUT_MASK } from "../../appConfig";
+import { DEFAULT_PHONE_INPUT_PLACEHOLDER } from "../../appConfig";
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 

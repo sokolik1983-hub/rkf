@@ -7,7 +7,6 @@ import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
 import {paginate, Paginator} from "../Pagination";
-import Modal from "components/Modal";
 import {getTableColumns} from "./config";
 import "./index.scss";
 

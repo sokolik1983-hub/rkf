@@ -46,7 +46,7 @@ const forms = {
 };
 
 const ReplacePedigree = ({ alias, history }) => {
-    let distinction;
+    // let distinction;
     const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);

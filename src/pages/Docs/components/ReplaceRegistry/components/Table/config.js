@@ -78,7 +78,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
         }
 
         if (col.property === 'pedigree_link') {
-            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank">Ссылка</a> : ''))
+            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank" rel="noopener noreferrer">Ссылка</a> : ''))
         }
 
         return col;
