@@ -59,12 +59,10 @@ const OrganizationsList = ({organization_type,
     };
 
     useEffect(() => {
-        console.log('useEffect filters');
         (() => getOrganizations())();
     }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, start_element]);
 
     const getNextOrganizations = () => {
-        console.log('getNextOrganizations');
         setFilters({start_element: org.length ? start_element + 10 : 1})
     };
 
