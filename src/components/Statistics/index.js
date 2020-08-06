@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Loading from "../Loading";
+import Card from "../Card";
 import {Request} from "../../utils/request";
 import declension from "../../utils/declension";
 import "./index.scss";
@@ -23,7 +24,7 @@ const Statistics = () => {
     }, []);
 
     return (
-        <div className="statistics">
+        <Card className="statistics">
             {loading ?
                 <Loading centered={false} /> :
                 <>
@@ -38,7 +39,7 @@ const Statistics = () => {
                     )}
                 </>
             }
-        </div>
+        </Card>
     )
 };
 

@@ -51,7 +51,7 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
     };
 
     return loading ?
-        <Loading/> :
+        <Loading centered={false}/> :
         <div className="cities-filter">
             <h5 className="cities-filter__title">Города</h5>
             <Select

@@ -51,7 +51,7 @@ const BreedsFilter = ({breed_ids, setFilters}) => {
     };
 
     return loading ?
-        <Loading/> :
+        <Loading centered={false}/> :
         <div className="breeds-filter">
             <h5 className="breeds-filter__title">Породы</h5>
             <Select

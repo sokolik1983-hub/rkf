@@ -33,7 +33,7 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
     };
 
     return loading ?
-        <Loading/> :
+        <Loading centered={false}/> :
         <div className="federations-filter">
             <h5 className="federations-filter__title">Федерации</h5>
             {federations && !!federations.length &&

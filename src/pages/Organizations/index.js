@@ -17,16 +17,18 @@ import "./index.scss";
 const Organizations = ({organization_type, isOpenFilters, setShowFilters}) => (
     <Layout withFilters>
         <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-        <Container className="content organizations-page">
-            <Filters/>
-            <div className="organizations-page__content">
-                <OrganizationsFilter/>
-                {organization_type !== 5 &&
-                    <SearchFilter/>
-                }
-                <OrganizationsList/>
-            </div>
-        </Container>
+        <div className="organizations-page__wrap">
+            <Container className="content organizations-page">
+                <Filters/>
+                <div className="organizations-page__content">
+                    <OrganizationsFilter/>
+                    {organization_type !== 5 &&
+                        <SearchFilter/>
+                    }
+                    <OrganizationsList/>
+                </div>
+            </Container>
+        </div>
     </Layout>
 );
 

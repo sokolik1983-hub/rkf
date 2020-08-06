@@ -31,14 +31,14 @@ const ListItem = ({alias,
                             <span className="item-card__logo" style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <span className="item-card__name">
+                            <span className="item-card__name" title={name || 'Название отсутствует'}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
                                         <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
                                         &nbsp;
                                     </>
                                 }
-                                {name}
+                                <span>{name || 'Название отсутствует'}</span>
                             </span>
                             {!!is_active_member &&
                                 <img
@@ -53,14 +53,14 @@ const ListItem = ({alias,
                             <span className="item-card__logo" style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <span className="item-card__name">
+                            <span className="item-card__name" title={name || 'Название отсутствует'}>
                                 {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
                                         <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
                                         &nbsp;
                                     </>
                                 }
-                                {name}
+                                <span>{name || 'Название отсутствует'}</span>
                             </span>
                             {!!is_active_member &&
                                 <img
@@ -73,7 +73,7 @@ const ListItem = ({alias,
                         </p>
                     }
                     {city_name &&
-                        <span className="item-card__city" onClick={() =>setFilters({city_ids: [city_id]})}>
+                        <span className="item-card__city" title={city_name} onClick={() =>setFilters({city_ids: [city_id]})}>
                             {city_name}
                         </span>
                     }
@@ -87,12 +87,12 @@ const ListItem = ({alias,
                     </div>
                     {is_active &&
                         <div className="item-card__info-item">
-                            <span className="item-card__subtitle">{owner_position || 'Контактное лицо'}</span>
+                            <p className="item-card__subtitle">{owner_position || 'Контактное лицо'}</p>
                             <p>{owner_name ? <Link to={url}>{owner_name}</Link> : 'Отсутствует'}</p>
                         </div>
                     }
                 </div>
-                <p className={`item - card__text${!is_active ? ' centered' : ''}`}>
+                <p className={`item-card__text${!is_active ? ' _centered' : ''}`}>
                     {is_active ? content : 'Организация не прошла регистрацию в электронной системе РКФ'}
                 </p>
             </div>
