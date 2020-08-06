@@ -1,7 +1,5 @@
 import {number, object, string} from "yup";
-import {DEFAULT_PHONE_INPUT_PLACEHOLDER} from "../../../../appConfig";
-// temporary solution until a permanent mask is agreed
-const TEMP_PHONE_INPUT_MASK = ['+7'];
+import {DEFAULT_PHONE_INPUT_MASK, DEFAULT_PHONE_INPUT_PLACEHOLDER} from "../../../../appConfig";
 
 
 export const ResponsibleFormConfig = {
@@ -38,7 +36,7 @@ export const ResponsibleFormConfig = {
             type: 'tel',
             fieldType: 'masked',
             showMask: true,
-            mask: TEMP_PHONE_INPUT_MASK
+            mask: DEFAULT_PHONE_INPUT_MASK
         },
         subscriber_mail: {
             name: 'subscriber_mail',
