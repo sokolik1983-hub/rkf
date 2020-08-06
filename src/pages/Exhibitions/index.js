@@ -7,8 +7,8 @@ import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
-import TopComponent from "../../components/TopComponent";
 import FloatingMenu from "../Club/components/FloatingMenu";
+import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
@@ -23,9 +23,13 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
     const [exhibitions, setExhibitions] = useState(null);
-    const [pagesCount, setPagesCount] = useState(1);
+    const [startElement, setStartElement] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     const [displayName, setDisplayName] = useState('');
+    const [federationName, setFederationName] = useState('');
+    const [federationAlias, setFederationAlias] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
+    const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
 
     useEffect(() => {
@@ -39,30 +43,46 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         return () => unListen();
     }, []);
 
-    const getExhibitions = async (url) => {
+    const getExhibitions = async (url, startElem) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: url
+            url: `${url}&StartElement=${startElem}`
         }, data => {
-            const modifiedExhibitions = data.exhibitions.map(exhibition => {
-                exhibition.title = exhibition.city;
-                exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
-                exhibition.content = exhibition.exhibition_name;
-                exhibition.url = `/exhibitions/${exhibition.id}`;
-                return exhibition;
-            });
+            if (data.exhibitions.length) {
+                const modifiedExhibitions = data.exhibitions.map(exhibition => {
+                    exhibition.title = exhibition.city;
+                    exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
+                    exhibition.content = exhibition.exhibition_name;
+                    exhibition.url = `/exhibitions/${exhibition.id}`;
+                    return exhibition;
+                });
+
+                if (data.exhibitions.length < 10) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
+                }
+                setExhibitions(startElem === 1 ? modifiedExhibitions : [...exhibitions, ...modifiedExhibitions]);
+            } else {
+                if (startElem === 1) {
+                    setExhibitions([]);
+                }
+                setHasMore(false);
+            }
+
 
             const club = data.searching_club;
 
             if (club) {
                 setDisplayName(club.display_name || "Название клуба отсутствует");
                 setClubAvatar(club.club_avatar);
+                setClubHeadliner(club.headliner_link || null);
+                setFederationName(club.federation_name || null);
+                setFederationAlias(club.federation_alias || null);
                 setClubId(club.club_id);
             }
 
-            setExhibitions(modifiedExhibitions);
-            setPagesCount(data.page_count);
             setExhibitionsLoading(false);
             setLoading(false);
         }, error => {
@@ -73,40 +93,55 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         });
     };
 
+    const getNextExhibitions = () => {
+        if (hasMore) {
+            (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
+            setStartElement(startElement + 10);
+        }
+    };
+
     useEffect(() => {
-        if (url) (() => getExhibitions(url))();
+        if (url) {
+            setStartElement(1);
+            (() => getExhibitions(url, 1))();
+        }
     }, [url]);
 
     return loading ?
         <Loading /> :
         <Layout withFilters>
-            {filters.Alias && displayName &&
-                <>
-                    <FloatingMenu
-                        alias={filters.Alias}
-                        profileId={clubId}
-                        name={shorten(displayName, 16)}
-                    />
-                    <div className="exhibitions-page__top-wrap container">
-                        <TopComponent
-                            logo={clubAvatar || DEFAULT_IMG.clubAvatar}
-                            name={displayName}
-                        />
-                    </div>
-                </>
-            }
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
-            <div className="exhibitions-page__wrap">
+            <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
-                    <Filters filters={filters} clubName={shorten(displayName)} profileId={clubId} />
+                    <Filters
+                        history={history}
+                        filters={filters}
+                        clubName={shorten(displayName)}
+                        profileId={clubId}
+                        logo={clubAvatar || DEFAULT_IMG.clubAvatar}
+                        federationName={federationName}
+                        federationAlias={federationAlias}
+                    />
                     <div className="exhibitions-page__content">
+                        {filters.Alias && displayName &&
+                            <>
+                                <Card className="exhibitions-page__club-banner">
+                                    <div style={clubHeadliner && { backgroundImage: `url(${clubHeadliner})` }} />
+                                </Card>
+                                <FloatingMenu
+                                    alias={filters.Alias}
+                                    profileId={clubId}
+                                    name={shorten(displayName, 16)}
+                                />
+                            </>
+                        }
                         <ListFilter categoryId={filters.CategoryId} />
                         <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                         <ExhibitionsList
                             exhibitions={exhibitions}
+                            getNextExhibitions={getNextExhibitions}
+                            hasMore={hasMore}
                             loading={exhibitionsLoading}
-                            pagesCount={pagesCount}
-                            PageNumber={filters.PageNumber}
                         />
                     </div>
                 </Container>

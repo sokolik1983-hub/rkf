@@ -11,7 +11,7 @@ import {Request} from "utils/request";
 import "./index.scss";
 
 const accept = ".pdf, .jpg, .jpeg, .png";
-const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
+// const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
 const mimeWhitelist = [
     "image/png",
     "image/jpeg",

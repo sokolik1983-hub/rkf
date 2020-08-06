@@ -1,5 +1,5 @@
-import {number,string} from "yup";
-import {reqText, numbersOnly} from "../../config.js";
+import { number, string } from "yup";
+import { reqText } from "../../config.js";
 import { endpointGetFederations } from "pages/Clubs/config";
 
 const apiPedigreeEndpoint = '/api/requests/pedigree_request/NurseryPedigreeRequestHeader';

@@ -5,20 +5,19 @@ import RowControl from "../RowControl";
 import { Link } from "react-router-dom";
 import { getHeaders } from "utils/request";
 import CustomCheckbox from "components/Form/CustomCheckbox";
-import DocLink from "components/Patella/components/DocLink";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
-const formatCountTime = (str) => {
-    const dateArray = str.split('.');
-    const i = dateArray.length - 2;
-    const timeArray = dateArray[i].split(':');
-    const days = +dateArray[0];
-    const hours = +timeArray[0];
-    const minutes = +timeArray[1];
+// const formatCountTime = (str) => {
+//     const dateArray = str.split('.');
+//     const i = dateArray.length - 2;
+//     const timeArray = dateArray[i].split(':');
+//     const days = +dateArray[0];
+//     const hours = +timeArray[0];
+//     const minutes = +timeArray[1];
 
-    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
-}
+//     return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+// }
 
 export const getTableColumns = (sortingColumns, sortable, alias, profileType, setState) => {
     let cols = [

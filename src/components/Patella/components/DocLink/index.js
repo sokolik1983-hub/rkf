@@ -20,7 +20,7 @@ const DocLink = ({ docId, label, showLabel, profileType, download }) => {
 
     return <>
         <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
-            {url ? <>{download && <a className="modal-download" target="_blank" href={url}>Скачать</a>}<embed src={url}/></> : <Loading/>}
+            {url ? <>{download && <a className="modal-download" target="_blank" rel="noopener noreferrer" href={url}>Скачать</a>}<embed src={url}/></> : <Loading/>}
         </Modal>
         {!!docId && <div>
             <label>{showLabel ? label : "\u00a0"}</label>

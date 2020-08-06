@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import Alert from "../Alert";
 import {formatDateCommon} from "../../utils/datetime";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
