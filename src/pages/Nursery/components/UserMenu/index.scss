@@ -1,7 +1,7 @@
 .user-menu {
   padding: 14px 16px 16px !important;
   margin-bottom: 24px;
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     background-color: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
@@ -68,13 +68,13 @@
     letter-spacing: 0.4px;
     text-transform: uppercase;
     margin-bottom: 12px;
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       display: none;
     }
   }
   &__list {
     list-style: none;
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       position: fixed;
       right: 19px;
       bottom: 83px;
@@ -127,7 +127,7 @@
         color: #babfc7;
       }
     }
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       display: block;
       text-decoration: none;
       margin: 8px 0;

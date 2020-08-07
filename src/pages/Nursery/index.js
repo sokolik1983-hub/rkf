@@ -7,7 +7,7 @@ import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "pages/Club/components/ClubUserNews";
 import Card from "components/Card";
-import UserHeader from "components/redesign/UserHeader";
+import ClubUserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
 import UserGallery from "components/redesign/UserGallery";
@@ -90,7 +90,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
                                 </Card>
                                 <div className="nursery-page__mobile-only">
-                                    <UserHeader
+                                    <ClubUserHeader
                                         user="nursery"
                                         logo={nursery.logo_link}
                                         name={nursery.name || 'Имя отсутствует'}
@@ -131,7 +131,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                             <Aside className="nursery-page__info">
                                 <StickyBox offsetTop={65}>
                                     <div className="nursery-page__info-inner">
-                                        <UserHeader
+                                        <ClubUserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
                                             name={nursery.name || 'Имя отсутствует'}
@@ -151,8 +151,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             </Card>
                                         }
                                         <div ref={galleryHolderRef}>
-                                                <div ref={galleryRef}><UserGallery alias={nursery.club_alias} isKennel={true} /></div>
-                                            </div>
+                                            <div ref={galleryRef}><UserGallery alias={nursery.club_alias} isKennel={true} /></div>
+                                        </div>
                                         <div className="nursery-page__mobile-only">
                                             <UserMenu alias={alias} />
                                         </div>

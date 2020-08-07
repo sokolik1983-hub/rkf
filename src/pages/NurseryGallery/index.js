@@ -12,8 +12,7 @@ import Paginator from "components/Paginator";
 import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
-import shorten from "../../utils/shorten";
-import FloatingMenu from "../../pages/Club/components/FloatingMenu";
+import UserMenu from "../../pages/Nursery/components/UserMenu";
 import "./styles.scss";
 import "../Nursery/index.scss";
 
@@ -129,6 +128,10 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match 
                                                 federationName={nursery.federation_name}
                                                 federationAlias={nursery.federation_alias}
                                             />
+                                            <div className="nursery-page__mobile-only">
+                                                <UserMenu alias={alias} />
+                                            </div>
+
                                             <div className="nursery-page__copy-wrap">
                                                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                                 <p>Политика обработки персональных данных</p>
@@ -137,11 +140,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match 
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <FloatingMenu
-                                alias={nursery.club_alias}
-                                profileId={nursery.id}
-                                name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
-                            />
                         </Container>
                     </div>
                 </Layout>
