@@ -13,14 +13,14 @@ const UserMenu = ({alias, name}) => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        setIsMobile(window.innerWidth < 769);
+        setIsMobile(window.innerWidth < 990);
 
         window.addEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 769);
+            setIsMobile(window.innerWidth < 990);
         });
 
         return window.removeEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 769);
+            setIsMobile(window.innerWidth < 990);
         });
     }, []);
 
