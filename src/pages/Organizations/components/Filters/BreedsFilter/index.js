@@ -3,7 +3,7 @@ import Select, {components} from "react-select";
 import Loading from "../../../../../components/Loading";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
-import {endpointGetBreeds} from "../../../config";
+import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../config";
 import {connectFilters} from "../../../connectors";
 import "./index.scss";
 
@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breed_ids, setFilters}) => {
+const BreedsFilter = ({organization_type, breed_ids, setFilters}) => {
     const [loading, setLoading] = useState(true);
     const [breeds, setBreeds] = useState([]);
     const [values, setValues] = useState([]);
@@ -27,7 +27,7 @@ const BreedsFilter = ({breed_ids, setFilters}) => {
 
     useEffect(() => {
         (() => Request({
-                url: endpointGetBreeds
+                url: organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
             }, data => {
                 setBreeds(data.map(item => ({value: item.id, label: item.name})));
                 setLoading(false);

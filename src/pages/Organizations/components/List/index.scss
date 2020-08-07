@@ -89,13 +89,14 @@
       display: flex;
       margin-bottom: 10px;
       &-item {
-        &:first-child {
+        &:not(:last-child) {
           margin-right: 64px;
         }
         p, a {
           color: #72839c;
         }
         a {
+          display: block;
           text-decoration: none;
           transition: color .2s linear;
           &:hover {
@@ -128,6 +129,9 @@
       transition: color .2s linear;
       &:hover {
         color: #36f;
+      }
+      &._disabled {
+        color: #b9c1ce !important;
       }
     }
     .Share {

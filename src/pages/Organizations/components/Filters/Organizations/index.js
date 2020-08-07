@@ -32,9 +32,9 @@ const OrganizationsFilter = ({organization_type, setFilters}) => (
                 </li>
                 <li className="list-filter__item">
                     <button
-                        className="list-filter__control _not-active"
+                        className={`list-filter__control${organization_type === 7 ? ' _active' : ''}`}
                         type="button"
-                        onClick={() => null}
+                        onClick={() => setFilters({...getEmptyFilters(), organization_type: 7})}
                     >НКП</button>
                 </li>
                 <li className="list-filter__item">

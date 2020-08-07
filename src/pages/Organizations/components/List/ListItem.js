@@ -19,22 +19,26 @@ const ListItem = ({alias,
                    federation_name,
                    federation_alias,
                    content,
+                   phones,
+                   mails,
                    setFilters}) => {
-    const url = user_type === 4 ? `/kennel/${alias}` : `/${alias}`;
+    const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
 
     return (
         <Card className="item-card">
             <div className="item-card__content">
                 <div className="item-card__header">
-                    {is_active ?
+                    {is_active && url ?
                         <Link className="item-card__author" to={url}>
                             <span className="item-card__logo" style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
                             <span className="item-card__name" title={name || 'Название отсутствует'}>
-                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                     <>
-                                        <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
+                                        <span>
+                                            {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
+                                        </span>
                                         &nbsp;
                                     </>
                                 }
@@ -54,9 +58,11 @@ const ListItem = ({alias,
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
                             <span className="item-card__name" title={name || 'Название отсутствует'}>
-                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                     <>
-                                        <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
+                                        <span>
+                                            {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
+                                        </span>
                                         &nbsp;
                                     </>
                                 }
@@ -79,16 +85,43 @@ const ListItem = ({alias,
                     }
                 </div>
                 <div className="item-card__info">
+                    {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
+                        <div className="item-card__info-item">
+                            <p className="item-card__subtitle">Федерация</p>
+                            <p>
+                                {federation_name && federation_alias ?
+                                    <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
+                                }
+                            </p>
+                        </div>
+                    }
                     <div className="item-card__info-item">
-                        <p className="item-card__subtitle">Федерация</p>
+                        <p className="item-card__subtitle">{owner_position || 'Контактное лицо'}</p>
                         <p>
-                            {federation_name && federation_alias ? <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'}
+                            {owner_name ?
+                                url ?
+                                    <Link to={url}>{owner_name}</Link> :
+                                    owner_name :
+                                'Отсутствует'
+                            }
                         </p>
                     </div>
-                    {is_active &&
+                    {phones && !!phones.length &&
                         <div className="item-card__info-item">
-                            <p className="item-card__subtitle">{owner_position || 'Контактное лицо'}</p>
-                            <p>{owner_name ? <Link to={url}>{owner_name}</Link> : 'Отсутствует'}</p>
+                            <p className="item-card__subtitle">Телефон</p>
+                            {phones.map((item, i) =>
+                                <p key={`phone-${i}`}>{item}</p>
+                            )}
+                        </div>
+                    }
+                    {mails && !!mails.length &&
+                        <div className="item-card__info-item">
+                            <p className="item-card__subtitle">E-mail</p>
+                            {mails.map((item, i) =>
+                                <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
+                                    {item}
+                                </a>
+                            )}
                         </div>
                     }
                 </div>
@@ -97,8 +130,13 @@ const ListItem = ({alias,
                 </p>
             </div>
             <div className="item-card__controls">
-                <Link className="item-card__show-all" to={url}>Подробнее...</Link>
-                <Share url={`https://rkf.online${url}`} />
+                {url ?
+                    <>
+                        <Link className="item-card__show-all" to={url}>Подробнее...</Link>
+                        <Share url={`https://rkf.online${url}`} />
+                    </> :
+                    <span className="item-card__show-all _disabled">Подробнее...</span>
+                }
             </div>
         </Card>
     )

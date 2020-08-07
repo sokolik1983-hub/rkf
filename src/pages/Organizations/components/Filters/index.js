@@ -66,15 +66,21 @@ const Filters = ({organization_type, setFilters, isOpenFilters}) => {
                             <Statistics/>
                         </>
                     }
-                    {(organization_type === 3 || organization_type === 4) &&
+                    {organization_type !== 5 &&
                         <Card>
-                            <FederationsFilter/>
-                            <IsActiveMember/>
-                            <IsActivatedFilter/>
-                            {organization_type === 4 &&
+                            {(organization_type === 3 || organization_type === 4) &&
+                                <>
+                                    <FederationsFilter/>
+                                    <IsActiveMember/>
+                                    <IsActivatedFilter/>
+                                </>
+                            }
+                            {(organization_type === 4 || organization_type === 7) &&
                                 <BreedsFilter/>
                             }
-                            <CitiesFilter/>
+                            {(organization_type === 3 || organization_type === 4) &&
+                                <CitiesFilter/>
+                            }
                             <button
                                 type="button"
                                 className="link"
