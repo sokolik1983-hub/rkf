@@ -1,0 +1,42 @@
+.organizations-page__list-filter {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0 10px;
+  position: sticky;
+  top: 50px;
+  z-index: 1;
+  .list-filter {
+    list-style: none;
+    display: flex;
+    border-bottom: 1px solid #e8e8e8;
+    &__item {
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+      &:first-child {
+        margin-left: -6px;
+      }
+    }
+    &__control {
+      display: block;
+      padding: 10px 6px;
+      line-height: 20px;
+      border: none;
+      border-radius: 0;
+      border-bottom: 2px solid transparent;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: .2px;
+      color: #72839c;
+      white-space: nowrap;
+      transition: all .2s linear;
+      &._active {
+        border-bottom-color: #36f;
+      }
+      &._not-active {
+        opacity: .5;
+        cursor: default;
+      }
+    }
+  }
+}

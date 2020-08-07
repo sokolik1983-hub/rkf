@@ -25,6 +25,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/organizations',
+        component: LoadableModules.LoadableOrganizations
+    },
+    {
+        exact: true,
         path: '/organizations/federations',
         component: LoadableModules.LoadableFederationsPage
     },
