@@ -199,7 +199,7 @@ const mainNav = [
     {
         id: 1,
         title: "Кинологические организации",
-        to: '/organization',
+        to: '/organizations',
         // children: [
         //     {
         //         id: 1.1,
