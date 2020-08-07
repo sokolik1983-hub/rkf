@@ -8,13 +8,12 @@ import ClubUserNews from "../Club/components/ClubUserNews";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import ClubUserHeader from "../../components/redesign/UserHeader";
-import FloatingMenu from "../Club/components/FloatingMenu";
 import UserGallery from "../../components/redesign/UserGallery";
 import { Request } from "../../utils/request";
-import shorten from "../../utils/shorten";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
+import UserMenu from "./components/UserMenu";
 import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
@@ -116,6 +115,9 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         <div ref={galleryHolderRef}>
                                             <div ref={galleryRef}><UserGallery alias={nursery.club_alias} /></div>
                                         </div>
+                                        <div className="nursery-page__mobile-only">
+                                            <UserMenu alias={alias} />
+                                        </div>
                                         <div className="nursery-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                             <p>Политика обработки персональных данных</p>
@@ -124,11 +126,6 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 </StickyBox>
                             </Aside>
                         </div>
-                        <FloatingMenu
-                            alias={nursery.club_alias}
-                            profileId={nursery.id}
-                            name={shorten(nursery.short_name || nursery.name || 'Название питомника отсутствует')}
-                        />
                     </Container>
                 </div>
             </Layout>
