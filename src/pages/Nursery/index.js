@@ -14,7 +14,8 @@ import UserGallery from "components/redesign/UserGallery";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import UserMenu from "./components/UserMenu";
+// import UserMenu from "./components/UserMenu";
+import MenuComponent from "../../components/MenuComponent";
 import StickyBox from "react-sticky-box";
 import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
@@ -30,7 +31,7 @@ const getAddressString = addressObj => {
     return address;
 };
 
-const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [nursery, setNursery] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -154,7 +155,14 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             <div ref={galleryRef}><UserGallery alias={nursery.club_alias} isKennel={true} /></div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
-                                            <UserMenu alias={alias} />
+                                            {/* <UserMenu alias={alias} /> */}
+                                            <MenuComponent 
+                                                alias={alias}
+                                                user={user}
+                                                profileId={nursery.id}
+                                                // name={name}
+                                                noCard={true}
+                                            />
                                         </div>
                                         <div className="nursery-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>

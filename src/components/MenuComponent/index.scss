@@ -14,6 +14,28 @@
   }
   &__list {
     list-style: none;
+    @media (max-width: 990px) {
+      position: fixed;
+      right: 19px;
+      bottom: 83px;
+      z-index: 1;
+      width: 200px;
+      background-color: #fff;
+      box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
+      border-radius: 6px;
+      &:before {
+        content: "";
+        position: absolute;
+        right: 14px;
+        bottom: -8px;
+        z-index: -1;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #fff;
+        transform: rotate(45deg);
+      }
+    }
   }
   &__item {
     &:not(:last-child) {
