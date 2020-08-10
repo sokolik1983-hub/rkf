@@ -93,7 +93,7 @@ const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, f
                             <div className="phone-hide">
                                 <UserHeader
                                     user={filters.Alias !== 'rkf-online' ? 'club' : ''}
-                                    logo={logo}
+                                    logo={filters.logo_link}
                                     name={clubName}
                                     alias={filters.Alias}
                                     profileId={profileId}
