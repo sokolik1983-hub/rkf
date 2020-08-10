@@ -7,11 +7,10 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
-import FloatingMenu from "./components/FloatingMenu";
 import ClubUserNews from "./components/ClubUserNews";
 import UserGallery from "../../components/redesign/UserGallery";
+import MenuComponent from "../../components/MenuComponent";
 import { Request } from "../../utils/request";
-import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
@@ -19,7 +18,7 @@ import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 
-const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
+const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -124,11 +123,12 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated }) => {
                                 </StickyBox>
                             </Aside>
                         </div>
-                        <FloatingMenu
-                            alias={clubInfo.club_alias}
-                            profileId={clubInfo.id}
-                            name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                        />
+                        <MenuComponent
+                                alias={clubInfo.club_alias}
+                                user={user}
+                                profileId={clubInfo.id}
+                                noCard={true}
+                            />
                     </Container>
                 </div>
             </Layout>
