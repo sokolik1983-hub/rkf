@@ -13,12 +13,12 @@ import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
-import UserMenu from "./components/UserMenu";
+import MenuComponent from "../../components/MenuComponent";
 import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
 
 
-const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [nursery, setNurseryInfo] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [error, setError] = useState(null);
@@ -116,7 +116,12 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             <div ref={galleryRef}><UserGallery alias={alias} /></div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
-                                            <UserMenu alias={alias} />
+                                            <MenuComponent 
+                                                alias={alias}
+                                                user={user}
+                                                profileId={nursery.id}
+                                                noCard={true}
+                                            />
                                         </div>
                                         <div className="nursery-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>

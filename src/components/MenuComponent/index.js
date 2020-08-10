@@ -7,7 +7,6 @@ import { Request, getHeaders } from "utils/request";
 import {CSSTransition} from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import "./index.scss";
-import "../../pages/Nursery/components/UserMenu/index.scss";
 
 const presidium = {
     rkf: {
