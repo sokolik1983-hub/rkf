@@ -14,7 +14,6 @@ import UserGallery from "components/redesign/UserGallery";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-// import UserMenu from "./components/UserMenu";
 import MenuComponent from "../../components/MenuComponent";
 import StickyBox from "react-sticky-box";
 import useWindowSize from "../../utils/useWindowSize";
@@ -155,12 +154,10 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             <div ref={galleryRef}><UserGallery alias={alias} isKennel={true} /></div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
-                                            {/* <UserMenu alias={alias} /> */}
                                             <MenuComponent 
                                                 alias={alias}
                                                 user={user}
                                                 profileId={nursery.id}
-                                                // name={name}
                                                 noCard={true}
                                             />
                                         </div>

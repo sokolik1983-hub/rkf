@@ -13,9 +13,7 @@ import UserDescription from "../../components/redesign/UserDescription";
 import UserGallery from "../../components/redesign/UserGallery";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
-// import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
-// import shorten from "../../utils/shorten";
 import MenuComponent from "../../components/MenuComponent";
 import useWindowSize from "utils/useWindowSize";
 import { endpointGetClubInfo } from "./config";
@@ -137,16 +135,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            {/* <FloatingMenu
-                                alias={clubInfo.club_alias}
-                                profileId={clubInfo.id}
-                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                            /> */}
                             <MenuComponent
                                 alias={clubInfo.club_alias}
                                 user={user}
                                 profileId={clubInfo.id}
-                                // name={name}
                                 noCard={true}
                             />
                         </Container>
