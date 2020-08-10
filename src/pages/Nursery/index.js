@@ -152,7 +152,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             </Card>
                                         }
                                         <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}><UserGallery alias={nursery.club_alias} isKennel={true} /></div>
+                                            <div ref={galleryRef}><UserGallery alias={alias} isKennel={true} /></div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
                                             {/* <UserMenu alias={alias} /> */}
