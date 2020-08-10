@@ -134,12 +134,14 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <MenuComponent
-                                alias={clubInfo.club_alias}
-                                user={user}
-                                profileId={clubInfo.id}
-                                noCard={true}
-                            />
+                            <div className="club-page__mobile-only">
+                                <MenuComponent
+                                    alias={clubInfo.club_alias}
+                                    user={user}
+                                    profileId={clubInfo.id}
+                                    noCard={true}
+                                />
+                            </div>
                         </Container>
                     </div>
                 </Layout>

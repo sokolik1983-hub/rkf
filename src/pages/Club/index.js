@@ -135,12 +135,14 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <MenuComponent
-                                alias={clubInfo.club_alias}
-                                user={user}
-                                profileId={clubInfo.id}
-                                noCard={true}
-                            />
+                            <div className="club-page__mobile-only">
+                                <MenuComponent
+                                    alias={clubInfo.club_alias}
+                                    user={user}
+                                    profileId={clubInfo.id}
+                                    noCard={true}
+                                />
+                            </div>
                         </Container>
                     </div>
                 </Layout>

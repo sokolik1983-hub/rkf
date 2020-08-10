@@ -106,12 +106,14 @@ const DocumentStatus = ({ history, match, user }) => {
                                 </StickyBox>
                             </Aside>
                         </div>
-                        <MenuComponent
+                        <div className="club-page__mobile-only">
+                            <MenuComponent
                                 alias={clubInfo.club_alias}
                                 user={user}
                                 profileId={clubInfo.id}
                                 noCard={true}
                             />
+                        </div>
                     </Container>
                 </div>
             </Layout>
