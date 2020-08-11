@@ -6,11 +6,10 @@ import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
-import FloatingMenu from "./components/FloatingMenu";
 import CheckStatus from './components/CheckStatus';
+import MenuComponent from "../../components/MenuComponent";
 import UserGallery from "../../components/redesign/UserGallery";
 import { Request } from "../../utils/request";
-import shorten from "../../utils/shorten";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
@@ -18,7 +17,7 @@ import useWindowSize from "utils/useWindowSize";
 import "./index.scss";
 
 
-const DocumentStatus = ({ history, match }) => {
+const DocumentStatus = ({ history, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -107,11 +106,14 @@ const DocumentStatus = ({ history, match }) => {
                                 </StickyBox>
                             </Aside>
                         </div>
-                        <FloatingMenu
-                            alias={clubInfo.club_alias}
-                            profileId={clubInfo.id}
-                            name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                        />
+                        <div className="club-page__mobile-only">
+                            <MenuComponent
+                                alias={clubInfo.club_alias}
+                                user={user}
+                                profileId={clubInfo.id}
+                                noCard={true}
+                            />
+                        </div>
                     </Container>
                 </div>
             </Layout>

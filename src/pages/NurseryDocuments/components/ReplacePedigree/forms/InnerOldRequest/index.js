@@ -82,7 +82,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             />
             <FormFile
                 name={`duplicate_application`}
-                label='Заявление на выписку из ВЕРК (PDF, JPEG, JPG, PNG)'
+                label='Заявление на выдачу дубликата (PDF, JPEG, JPG, PNG)'
                 docId={formik.values.duplicate_application_id}
                 disabled={view}
                 document_type_id={28}

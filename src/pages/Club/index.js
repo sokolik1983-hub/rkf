@@ -13,9 +13,8 @@ import UserDescription from "../../components/redesign/UserDescription";
 import UserGallery from "../../components/redesign/UserGallery";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
-import FloatingMenu from './components/FloatingMenu';
 import { Request } from "../../utils/request";
-import shorten from "../../utils/shorten";
+import MenuComponent from "../../components/MenuComponent";
 import useWindowSize from "utils/useWindowSize";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -23,7 +22,7 @@ import StickyBox from "react-sticky-box";
 import "./index.scss";
 
 
-const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
@@ -136,11 +135,14 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <FloatingMenu
-                                alias={clubInfo.club_alias}
-                                profileId={clubInfo.id}
-                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                            />
+                            <div className="club-page__mobile-only">
+                                <MenuComponent
+                                    alias={clubInfo.club_alias}
+                                    user={user}
+                                    profileId={clubInfo.id}
+                                    noCard={true}
+                                />
+                            </div>
                         </Container>
                     </div>
                 </Layout>

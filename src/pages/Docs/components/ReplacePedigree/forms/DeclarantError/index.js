@@ -86,7 +86,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
             />
             <FormFile
                 name={`copy_pedigree_document`}
-                label='Поле загрузки копии родословной (PDF, JPEG, JPG, PNG)'
+                label='Поле загрузки копии альтернативной родословной (PDF, JPEG, JPG, PNG)'
                 docId={formik.values.copy_pedigree_document_id}
                 disabled={view}
                 document_type_id={30}
