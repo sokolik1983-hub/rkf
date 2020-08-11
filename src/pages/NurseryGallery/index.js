@@ -100,10 +100,10 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                         <Card>
                                             <div className="NurseryGallery__back">
                                                 <div>
-                                                    <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                                    <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
                                                             </div>
                                                 {canEdit &&
-                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${alias}/gallery/edit`}>Редактировать галерею</Link>}
                                             </div>
 
                                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
