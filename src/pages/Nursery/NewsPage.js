@@ -113,7 +113,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationAlias={nursery.federation_alias}
                                         />
                                         <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}><UserGallery alias={nursery.club_alias} /></div>
+                                            <div ref={galleryRef}><UserGallery alias={alias} /></div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
                                             <UserMenu alias={alias} />
