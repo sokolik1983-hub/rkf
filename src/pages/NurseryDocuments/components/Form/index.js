@@ -3,7 +3,7 @@ import { string } from "yup";
 import FormGroup from "components/Form/FormGroup";
 import classnames from 'classnames';
 import ReactSelect from 'react-select';
-import "components/Form/FormInput/styles.scss";
+import "components/Form/FormInput/index.scss";
 
 const test = (x, f) => {
     try {f(x);return '';}

@@ -25,6 +25,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/organizations',
+        component: LoadableModules.LoadableOrganizations
+    },
+    {
+        exact: true,
         path: '/organizations/federations',
         component: LoadableModules.LoadableFederationsPage
     },
@@ -194,38 +199,39 @@ const mainNav = [
     {
         id: 1,
         title: "Кинологические организации",
-        children: [
-            {
-                id: 1.1,
-                title: "РКФ",
-                to: '/rkf',
-                exact: true
-            },
-            {
-                id: 1.2,
-                title: "Федерации",
-                to: '/organizations/federations',
-                exact: false
-            },
-            {
-                id: 1.3,
-                title: "Клубы",
-                to: '/organizations/clubs',
-                exact: false
-            },
-            {
-                id: 1.4,
-                title: "Питомники",
-                to: '/organizations/kennels',
-                exact: false
-            },
-            {
-                id: 1.5,
-                title: "Национальные Клубы Пород",
-                to: '/organizations/national-breed-clubs',
-                exact: false
-            }
-        ]
+        to: '/organizations',
+        // children: [
+        //     {
+        //         id: 1.1,
+        //         title: "РКФ",
+        //         to: '/rkf',
+        //         exact: true
+        //     },
+        //     {
+        //         id: 1.2,
+        //         title: "Федерации",
+        //         to: '/organizations/federations',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 1.3,
+        //         title: "Клубы",
+        //         to: '/organizations/clubs',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 1.4,
+        //         title: "Питомники",
+        //         to: '/organizations/kennels',
+        //         exact: false
+        //     },
+        //     {
+        //         id: 1.5,
+        //         title: "Национальные Клубы Пород",
+        //         to: '/organizations/national-breed-clubs',
+        //         exact: false
+        //     }
+        // ]
     },
     {
         id: 2,
