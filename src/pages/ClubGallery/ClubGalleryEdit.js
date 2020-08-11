@@ -130,8 +130,12 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         <Link className="btn-backward" to={`/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
                                                     </div>
                                                 </div>
-                                                {canEdit && <DndImageUpload callback={getImages} />}
-                                                <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                {canEdit && 
+                                                <>
+                                                    <DndImageUpload callback={getImages} />
+                                                    <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                </>
+                                                }
                                                 {!!selectedImages.length
                                                     && <div className="ClubGallery__buttons">
                                                         <Button condensed className="ClubGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>

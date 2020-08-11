@@ -131,8 +131,12 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                         <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
                                                     </div>
                                                 </div>
-                                                {canEdit && <DndImageUpload callback={getImages} />}
-                                                <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                {canEdit && 
+                                                <>
+                                                    <DndImageUpload callback={getImages} />
+                                                    <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                </>
+                                                }
                                                 {!!selectedImages.length
                                                     && <div className="NurseryGallery__buttons">
                                                         <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
