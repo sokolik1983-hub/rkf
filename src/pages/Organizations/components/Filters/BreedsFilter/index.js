@@ -39,7 +39,7 @@ const BreedsFilter = ({organization_type, breed_ids, setFilters}) => {
                 setLoading(false);
                 window.scrollTo(0,0);
             }))();
-    }, []);
+    }, [organization_type]);
 
     useEffect(() => {
         if(breeds.length) {
