@@ -1,88 +1,85 @@
-.NurseryGallery,
-.ClubGallery {
-    .DndImageUpload {
-        &__wrap {
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-            border-radius: 4px;
-            margin-bottom: 24px;
-            &:hover {
-                cursor: default;
+.DndImageUpload {
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        border-radius: 4px;
+        margin-bottom: 24px;
+        &:hover {
+            cursor: default;
+        }
+        @media (max-width: 560px) {
+            margin-bottom: 12px;
+        }
+        .Loading {
+            &.inline {
+                margin: 0 0 0 10px;
             }
-            @media (max-width: 560px) {
-                margin-bottom: 12px;
-            }
-            .Loading {
-                &.inline {
-                    margin: 0 0 0 10px;
-                }
-                &__title {
-                    background: white;
-                    width: 4em;
-                    height: 4em;
-                }
-            }
-            h3 {
-                color: #3366ff;
-            }
-            & > div:first-child:hover {
-                cursor: pointer;
+            &__title {
+                background: white;
+                width: 4em;
+                height: 4em;
             }
         }
-        &__preview {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            margin-top: 12px;
+        h3 {
+            color: #3366ff;
+        }
+        & > div:first-child:hover {
+            cursor: pointer;
+        }
+    }
+    &__preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-top: 12px;
+        @media (max-width: 560px) {
+            justify-content: center;
+        }
+        &-item {
+            border: 1px solid #eaefff;
+            box-shadow: 0px 0px 3px #cdd5ff;
+            margin: 6px 3px;
+            height: 174px;
+            width: 150px;
             @media (max-width: 560px) {
-                justify-content: center;
+                height: 144px;
+                width: 144px;
             }
-            &-item {
-                border: 1px solid #eaefff;
-                box-shadow: 0px 0px 3px #cdd5ff;
-                margin: 6px 3px;
-                height: 174px;
-                width: 150px;
+            & > div {
+                width: 100%;
+                height: 150px;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
                 @media (max-width: 560px) {
-                    height: 144px;
-                    width: 144px;
+                    height: 120px;
                 }
-                & > div {
-                    width: 100%;
-                    height: 150px;
-                    background-size: contain;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    @media (max-width: 560px) {
-                        height: 120px;
-                    }
-                }
-                & > input {
-                    width: 100%;
-                    padding: 0 2px;
-                    border: 1px solid #eaefff;
-                }
+            }
+            & > input {
+                width: 100%;
+                padding: 0 2px;
+                border: 1px solid #eaefff;
             }
         }
-        &__controls {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            button {
-                margin-top: 12px;
-                padding: 6px 12px !important;
-                &:hover:not(:disabled) {
-                    box-shadow: 0 2px 2px rgba(37, 60, 94, 0.24);
-                }
-                &.btn-primary {
-                    display: flex;
-                    align-items: center;
-                }
+    }
+    &__controls {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        button {
+            margin-top: 12px;
+            padding: 6px 12px !important;
+            &:hover:not(:disabled) {
+                box-shadow: 0 2px 2px rgba(37, 60, 94, 0.24);
             }
-            .Loading.inline .Loading__title {
-                margin: 0;
+            &.btn-primary {
+                display: flex;
+                align-items: center;
             }
+        }
+        .Loading.inline .Loading__title {
+            margin: 0;
         }
     }
 }

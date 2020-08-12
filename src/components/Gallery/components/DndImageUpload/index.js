@@ -117,12 +117,12 @@ const DndImageUpload = ({ callback }) => {
         <section className="DndImageUpload__wrap">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>
+                <div>
                     <img src="/static/icons/camera.svg" alt="" /><br />
                     <h3>Загрузка изображений</h3>
                     Перетащите файлы в эту область<br />
                     Поддерживаемые форматы: JPG, JPEG, PNG
-                </p>
+                </div>
             </div>
             <div className="DndImageUpload__preview">
                 {
