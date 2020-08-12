@@ -5,6 +5,9 @@
   }
   &__wrap {
     background-color: #f5f8ff;
+    & + .Footer {
+      display: none;
+    }  
   }
   &__left {
     min-width: 300px;
