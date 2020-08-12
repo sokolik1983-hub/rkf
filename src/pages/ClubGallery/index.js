@@ -12,11 +12,10 @@ import Paginator from "components/Paginator";
 import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
-import FloatingMenu from 'pages/Club/components/FloatingMenu';
-import shorten from "utils/shorten";
+import MenuComponent from "../../components/MenuComponent";
 import "../Club/index.scss";
 
-const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match }) => {
+const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [images, setImages] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
@@ -135,11 +134,14 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match }) 
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <FloatingMenu
-                                alias={clubInfo.club_alias}
-                                profileId={clubInfo.id}
-                                name={shorten(clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует')}
-                            />
+                            <div className="club-page__mobile-only">
+                                <MenuComponent
+                                    alias={clubInfo.club_alias}
+                                    user={user}
+                                    profileId={clubInfo.id}
+                                    noCard={true}
+                                />
+                            </div>
                         </Container>
                     </div>
                 </Layout>

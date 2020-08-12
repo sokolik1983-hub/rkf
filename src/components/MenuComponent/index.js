@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
 import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
+import {CSSTransition} from "react-transition-group";
+import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 import "./index.scss";
 
 const presidium = {
@@ -201,12 +203,28 @@ const presidiumRfls = <>
     </table>
 </>;
 
-const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = false }) => {
+const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
     const [showModal, setShowModal] = useState(false);
     const [blankCategories, setBlankCategories] = useState(false);
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 990);
+
+        window.addEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 990);
+        });
+
+        return window.removeEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 990);
+        });
+    }, []);
+
+
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -382,7 +400,46 @@ const MenuComponent = ({ alias, name, user, profileId, isFederation, noCard = fa
         el.innerText = blankName;
     };
 
-    const MenuContent = () => <>
+    const MenuContent = () => isMobile ? <Card className="user-menu">
+    <h4 className="user-menu__title">Меню</h4>
+    <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+        {isMobile &&
+            <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
+                <span/>
+                <span/>
+                <span/>
+                <span/>
+            </button>
+        }
+        <CSSTransition
+            in={!isMobile || (isMobile && open)}
+            timeout={350}
+            classNames="user-menu__transition"
+            unmountOnExit
+        >
+            <ul className="user-menu__list">
+                {user !== 'nursery' && <li className="user-menu__item">
+                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
+                </li>}
+                <li className="user-menu__item">
+                    <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
+                </li>
+                <li className="user-menu__item">
+                    <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
+                </li>
+                {user !== 'nursery' &&
+                <li className="user-menu__item">
+                    <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                </li>}
+                <li className="user-menu__item">
+                    <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
+                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                    </Link>
+                </li>
+            </ul>
+        </CSSTransition>
+    </OutsideClickHandler>
+</Card> : <>
         <ul className="menu-component__list">
             {user !== 'nursery' && <li className="menu-component__item">
                 <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>

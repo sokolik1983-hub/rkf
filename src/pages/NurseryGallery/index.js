@@ -12,11 +12,11 @@ import Paginator from "components/Paginator";
 import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
-import UserMenu from "../../pages/Nursery/components/UserMenu";
+import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
 import "../Nursery/index.scss";
 
-const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match }) => {
+const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
@@ -100,10 +100,10 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match 
                                         <Card>
                                             <div className="NurseryGallery__back">
                                                 <div>
-                                                    <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
+                                                    <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
                                                             </div>
                                                 {canEdit &&
-                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/${params.id}/gallery/edit`}>Редактировать галерею</Link>}
+                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${alias}/gallery/edit`}>Редактировать галерею</Link>}
                                             </div>
 
                                             <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
@@ -129,7 +129,13 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match 
                                                 federationAlias={nursery.federation_alias}
                                             />
                                             <div className="nursery-page__mobile-only">
-                                                <UserMenu alias={alias} />
+                                            <MenuComponent 
+                                                alias={alias}
+                                                user={user}
+                                                profileId={nursery.id}
+                                                noCard={true}
+                                            />
+
                                             </div>
 
                                             <div className="nursery-page__copy-wrap">

@@ -7,7 +7,7 @@ import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
-import FloatingMenu from "../Club/components/FloatingMenu";
+import MenuComponent from "../../components/MenuComponent";
 import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
@@ -17,7 +17,7 @@ import shorten from "../../utils/shorten";
 import './index.scss';
 
 
-const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
+const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [loading, setLoading] = useState(true);
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });
@@ -128,11 +128,14 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                 <Card className="exhibitions-page__club-banner">
                                     <div style={clubHeadliner && { backgroundImage: `url(${clubHeadliner})` }} />
                                 </Card>
-                                <FloatingMenu
-                                    alias={filters.Alias}
-                                    profileId={clubId}
-                                    name={shorten(displayName, 16)}
-                                />
+                                <div className="club-page__mobile-only">
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        user={user}
+                                        profileId={clubId}
+                                        noCard={true}
+                                    />
+                                </div>
                             </>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
