@@ -7,7 +7,7 @@ export const setFiltersToLS = filters => {
 };
 
 export const getEmptyFilters = () => ({
-    organization_type: 5,
+    organization_type: 3,
     string_filter: "",
     federation_ids: [],
     city_ids: [],
