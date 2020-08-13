@@ -96,7 +96,7 @@ const ListItem = ({alias,
                         </div>
                     }
                     <div className="item-card__info-item">
-                        <span className="item-card__subtitle">{owner_position || 'Контактное лицо'}</span>&nbsp;
+                        <span className="item-card__subtitle item-card__subtitle--owner">{owner_position || 'Контактное лицо'}</span>&nbsp;
                         <span>
                             {owner_name ?
                                 url ?
@@ -108,7 +108,7 @@ const ListItem = ({alias,
                     </div>
                     {phones && !!phones.length &&
                         <div className="item-card__info-item">
-                            <p className="item-card__subtitle">Телефон</p>
+                            <p className="item-card__subtitle item-card__subtitle--phone">Телефон</p>
                             {phones.map((item, i) =>
                                 <p key={`phone-${i}`}>{item}</p>
                             )}
@@ -116,7 +116,7 @@ const ListItem = ({alias,
                     }
                     {mails && !!mails.length &&
                         <div className="item-card__info-item">
-                            <p className="item-card__subtitle">E-mail</p>
+                            <p className="item-card__subtitle item-card__subtitle--email">E-mail</p>
                             {mails.map((item, i) =>
                                 <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
                                     {item}
