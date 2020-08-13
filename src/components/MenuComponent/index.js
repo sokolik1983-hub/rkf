@@ -224,8 +224,6 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         });
     }, []);
 
-
-
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
     const getPresidium = e => {

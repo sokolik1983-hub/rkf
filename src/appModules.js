@@ -166,3 +166,8 @@ export const LoadableOrganizations = Loadable({
     loader: () => import('./pages/Organizations'),
     loading: Loading
 });
+
+export const LoadableSearchPage = Loadable({
+    loader: () => import('./pages/Search'),
+    loading: Loading
+});

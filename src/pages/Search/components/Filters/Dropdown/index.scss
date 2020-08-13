@@ -1,0 +1,21 @@
+.dropdown {
+  &__title {
+    display: block;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid transparent;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: .2px;
+    color: #72839c;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      color: #3366ff;
+    }
+  }
+  &._active .dropdown__title {
+    border-bottom-color: #3366ff;
+  }
+}
