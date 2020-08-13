@@ -87,24 +87,24 @@ const ListItem = ({alias,
                 <div className="item-card__info">
                     {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                         <div className="item-card__info-item">
-                            <p className="item-card__subtitle">Федерация</p>
-                            <p>
+                            <span className="item-card__subtitle">Федерация</span>&nbsp;
+                            <span>
                                 {federation_name && federation_alias ?
                                     <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
                                 }
-                            </p>
+                            </span>
                         </div>
                     }
                     <div className="item-card__info-item">
-                        <p className="item-card__subtitle">{owner_position || 'Контактное лицо'}</p>
-                        <p>
+                        <span className="item-card__subtitle">{owner_position || 'Контактное лицо'}</span>&nbsp;
+                        <span>
                             {owner_name ?
                                 url ?
                                     <Link to={url}>{owner_name}</Link> :
                                     owner_name :
                                 'Отсутствует'
                             }
-                        </p>
+                        </span>
                     </div>
                     {phones && !!phones.length &&
                         <div className="item-card__info-item">
