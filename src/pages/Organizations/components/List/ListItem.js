@@ -128,8 +128,8 @@ const ListItem = ({ alias,
                         }
                     </div>
                 </div>
-                <p className={`item-card__text${!is_active ? ' _centered' : ''}`}>
-                    {is_active ? content : 'Организация не прошла регистрацию в электронной системе РКФ'}
+                <p className="item-card__text">
+                    {content}
                 </p>
             </div>
             <div className="item-card__controls">
