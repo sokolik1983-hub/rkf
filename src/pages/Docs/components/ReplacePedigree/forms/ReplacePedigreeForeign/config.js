@@ -1,7 +1,9 @@
 import { number } from "yup";
 import { reqText } from "../../config.js";
-import { endpointGetFederations } from "pages/Clubs/config";
 import Common from "../../commonFields.js";
+
+
+const endpointGetFederations = '/api/clubs/Federation';
 
 const validationSchema = {
     id: number(),

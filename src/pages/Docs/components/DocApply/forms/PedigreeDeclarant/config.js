@@ -1,7 +1,8 @@
 import {number, boolean, string, object, mixed, array} from "yup";
 import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
-import { endpointGetFederations } from "pages/Clubs/config";
 
+
+const endpointGetFederations = '/api/clubs/Federation';
 const apiDoctypeEndpoint = '/api/requests/PedigreeRequest/additional_document_types';
 const apiBreedsEndpoint = '/api/dog/Breed';
 const apiSexTypesEndpoint = '/api/dog/Breed/sex_types';
