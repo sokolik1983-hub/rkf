@@ -12,7 +12,9 @@
   .list-filter {
     list-style: none;
     display: flex;
-    border-bottom: 1px solid #e8e8e8;
+    @media (max-width: 560px) {
+      justify-content: space-between;
+    }
     &__item {
       &:not(:last-child) {
         margin-right: 5px;
