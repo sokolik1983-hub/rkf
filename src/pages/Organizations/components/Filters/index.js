@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
@@ -8,15 +8,15 @@ import IsActiveMember from "./IsActiveMember";
 import IsActivatedFilter from "./IsActivatedFilter";
 import BreedsFilter from "./BreedsFilter";
 import CitiesFilter from "./CitiesFilter";
-import {setOverflow} from "../../../../utils";
-import {getEmptyFilters} from "../../utils";
-import {RKFInfo} from "../../../Home/config";
-import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import {connectFilters} from "../../connectors";
+import { setOverflow } from "../../../../utils";
+import { getEmptyFilters } from "../../utils";
+import { RKFInfo } from "../../../Home/config";
+import { connectShowFilters } from "../../../../components/Layouts/connectors";
+import { connectFilters } from "../../connectors";
 import "./index.scss";
 
 
-const Filters = ({organization_type, setFilters, isOpenFilters}) => {
+const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -63,23 +63,23 @@ const Filters = ({organization_type, setFilters, isOpenFilters}) => {
                                     </li>
                                 </ul>
                             </Card>
-                            <Statistics/>
+                            <Statistics />
                         </>
                     }
                     {organization_type !== 5 &&
                         <Card>
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
-                                    <FederationsFilter/>
-                                    <IsActiveMember/>
-                                    <IsActivatedFilter/>
+                                    <FederationsFilter />
+                                    <IsActiveMember />
+                                    <IsActivatedFilter />
                                 </>
                             }
                             {(organization_type === 4 || organization_type === 7) &&
-                                <BreedsFilter/>
+                                <BreedsFilter />
                             }
                             {(organization_type === 3 || organization_type === 4) &&
-                                <CitiesFilter/>
+                                <CitiesFilter />
                             }
                             <button
                                 type="button"
@@ -90,6 +90,10 @@ const Filters = ({organization_type, setFilters, isOpenFilters}) => {
                             </button>
                         </Card>
                     }
+                </div>
+                <div className="organizations-page__copy-wrap">
+                    <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                    <p>Политика обработки персональных данных</p>
                 </div>
             </StickyBox>
         </Aside>
