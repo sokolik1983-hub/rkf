@@ -125,6 +125,9 @@
     &__info {
       display: flex;
       margin: 0 -5px 10px;
+      &--column {
+        flex-direction: column;
+      }
       @media (max-width: 560px) {
         display: block;
         margin: 0;
@@ -133,6 +136,14 @@
         width: 50%;
         padding: 0 5px;
         margin-left: 25px;
+        &--mobile {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          @media (max-width: 560px) {
+            flex-direction: row;
+          }
+        }
         @media (max-width: 560px) {
           width: 100%;
           padding: 0;
