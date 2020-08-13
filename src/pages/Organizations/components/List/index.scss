@@ -51,9 +51,9 @@
       text-overflow: ellipsis;
       display: block;
       overflow: hidden;
+      font-size: 14px;
       span:first-child {
         color: #72839c;
-        font-size: 14px;
       }
       span:last-child {
         color: #36f;
@@ -71,9 +71,6 @@
       letter-spacing: .2px;
       color: #72839c;
       white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: block;
       cursor: pointer;
       &:before {
         content: "";
