@@ -1,28 +1,29 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
 import Share from "../../../../components/Share";
-import {DEFAULT_IMG} from "../../../../appConfig";
-import {connectFilters} from "../../connectors";
+import { DEFAULT_IMG } from "../../../../appConfig";
+import { connectFilters } from "../../connectors";
 
 
-const ListItem = ({alias,
-                   logo,
-                   name,
-                   user_type,
-                   is_active,
-                   is_active_member,
-                   city_name,
-                   city_id,
-                   owner_name,
-                   owner_position,
-                   federation_name,
-                   federation_alias,
-                   content,
-                   phones,
-                   mails,
-                   setFilters}) => {
+const ListItem = ({ alias,
+    logo,
+    name,
+    user_type,
+    is_active,
+    is_active_member,
+    city_name,
+    city_id,
+    owner_name,
+    owner_position,
+    federation_name,
+    federation_alias,
+    content,
+    phones,
+    mails,
+    setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
+    const infoCardClassName = `item-card__info ${user_type === 3 || user_type === 4 ? `item-card__info--column` : ``}`;
 
     return (
         <Card className="item-card">
@@ -79,12 +80,12 @@ const ListItem = ({alias,
                         </p>
                     }
                     {city_name &&
-                        <span className="item-card__city" title={city_name} onClick={() =>setFilters({city_ids: [city_id]})}>
+                        <span className="item-card__city" title={city_name} onClick={() => setFilters({ city_ids: [city_id] })}>
                             {city_name}
                         </span>
                     }
                 </div>
-                <div className="item-card__info">
+                <div className={infoCardClassName}>
                     {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                         <div className="item-card__info-item">
                             <span className="item-card__subtitle">Федерация</span>&nbsp;
@@ -106,27 +107,29 @@ const ListItem = ({alias,
                             }
                         </span>
                     </div>
-                    {phones && !!phones.length &&
-                        <div className="item-card__info-item">
-                            <p className="item-card__subtitle item-card__subtitle--phone">Телефон</p>
-                            {phones.map((item, i) =>
-                                <p key={`phone-${i}`}>{item}</p>
-                            )}
-                        </div>
-                    }
-                    {mails && !!mails.length &&
-                        <div className="item-card__info-item">
-                            <p className="item-card__subtitle item-card__subtitle--email">E-mail</p>
-                            {mails.map((item, i) =>
-                                <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
-                                    {item}
-                                </a>
-                            )}
-                        </div>
-                    }
+                    <div className="item-card__info-item--mobile">
+                        {phones && !!phones.length &&
+                            <div className="item-card__info-item">
+                                <p className="item-card__subtitle item-card__subtitle--phone">Телефон</p>
+                                {phones.map((item, i) =>
+                                    <p key={`phone-${i}`}>{item}</p>
+                                )}
+                            </div>
+                        }
+                        {mails && !!mails.length &&
+                            <div className="item-card__info-item">
+                                <p className="item-card__subtitle item-card__subtitle--email">E-mail</p>
+                                {mails.map((item, i) =>
+                                    <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
+                                        {item}
+                                    </a>
+                                )}
+                            </div>
+                        }
+                    </div>
                 </div>
-                <p className={`item-card__text${!is_active ? ' _centered' : ''}`}>
-                    {is_active ? content : 'Организация не прошла регистрацию в электронной системе РКФ'}
+                <p className="item-card__text">
+                    {content}
                 </p>
             </div>
             <div className="item-card__controls">
