@@ -107,7 +107,6 @@ const ListItem = ({ alias,
                             }
                         </span>
                     </div>
-                    <div className="item-card__info-item--mobile">
                         {phones && !!phones.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle item-card__subtitle--phone">Телефон</p>
@@ -126,7 +125,6 @@ const ListItem = ({ alias,
                                 )}
                             </div>
                         }
-                    </div>
                 </div>
                 <p className="item-card__text">
                     {content}

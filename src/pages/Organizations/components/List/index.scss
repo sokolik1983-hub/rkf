@@ -133,17 +133,9 @@
         margin: 0;
       }
       &-item {
-        width: 50%;
+        width: 70%;
         padding: 0 5px;
         margin-left: 25px;
-        &--mobile {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          @media (max-width: 560px) {
-            flex-direction: row;
-          }
-        }
         @media (max-width: 560px) {
           width: 100%;
           padding: 0;
