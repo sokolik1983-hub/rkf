@@ -30,11 +30,6 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/organizations/federations',
-        component: LoadableModules.LoadableFederationsPage
-    },
-    {
-        exact: true,
         path: '/rkf',
         component: LoadableModules.LoadableRKFPage
     },
@@ -75,11 +70,6 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/organizations/clubs',
-        component: LoadableModules.LoadableClubs
-    },
-    {
-        exact: true,
         path: '/news/:id/edit',
         component: LoadableModules.LoadableNews
     },
@@ -117,11 +107,6 @@ const appRoutes = [
         exact: true,
         path: '/kennel/activation',
         component: LoadableModules.LoadableNurseryActivation
-    },
-    {
-        exact: true,
-        path: '/organizations/kennels',
-        component: LoadableModules.LoadableNurseries
     },
     {
         exact: true,
@@ -200,38 +185,7 @@ const mainNav = [
         id: 1,
         title: "Кинологические организации",
         to: '/organizations',
-        // children: [
-        //     {
-        //         id: 1.1,
-        //         title: "РКФ",
-        //         to: '/rkf',
-        //         exact: true
-        //     },
-        //     {
-        //         id: 1.2,
-        //         title: "Федерации",
-        //         to: '/organizations/federations',
-        //         exact: false
-        //     },
-        //     {
-        //         id: 1.3,
-        //         title: "Клубы",
-        //         to: '/organizations/clubs',
-        //         exact: false
-        //     },
-        //     {
-        //         id: 1.4,
-        //         title: "Питомники",
-        //         to: '/organizations/kennels',
-        //         exact: false
-        //     },
-        //     {
-        //         id: 1.5,
-        //         title: "Национальные Клубы Пород",
-        //         to: '/organizations/national-breed-clubs',
-        //         exact: false
-        //     }
-        // ]
+        exact: true
     },
     {
         id: 2,

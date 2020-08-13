@@ -48,9 +48,6 @@ const App = ({history}) => {
                     component={route.component}
                 />
             )}
-            <Route exact={true} path='/organizations/national-breed-clubs' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblReestrNKP.aspx" />} />
-            <Route exact={true} path='/organizations/clubs-and-unions' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblKinologClubSojuzy.aspx" />} />
-            <Route exact={true} path='/organizations/kennels' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblPitomniki.aspx" />} />
             <Route exact={true} path='/results/cac' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCAC.aspx" />} />
             <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
             <Route component={LoadableNotFound} />
