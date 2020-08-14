@@ -114,19 +114,21 @@ const ListItem = ({ alias,
                         {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle">Телефон</p>
-                                {phones.slice(0, 4).map((item, i) =>
+                                {/* {phones.slice(0, 4).map((item, i) =>
                                     <p key={`phone-${i}`}>{item}</p>
-                                )}
+                                )} */}
+                                <p>{phones.join(`, `)}</p>
                             </div>
                         }
                         {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle">E-mail</p>
-                                {mails.slice(0, 4).map((item, i) =>
+                                {/* {mails.slice(0, 4).map((item, i) =>
                                     <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
                                         {item}
                                     </a>
-                                )}
+                                )} */}
+                                <p>{mails.join(`, `)}</p>
                             </div>
                         }
                         {user_type === 4 && breeds && !!breeds.length &&
