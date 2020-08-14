@@ -27,9 +27,7 @@
     }
     &__wrap {
       display: flex;
-      @media (max-width: 560px) {
-        flex-direction: column;
-      }
+      flex-direction: column;
     }
     &__author {
       text-decoration: none;
@@ -131,9 +129,6 @@
           width: 100%;
           margin-bottom: 10px;
           padding: 0 5px;
-        }
-        p {
-          width: 30%;
         }
         span, a, p {
           color: #72839c;

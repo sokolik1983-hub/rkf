@@ -114,21 +114,19 @@ const ListItem = ({ alias,
                         {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle">Телефон</p>
-                                <p>{phones.join(`, `)}</p>
+                                <p>{phones.slice(0, 4).join(`, `)}</p>
                             </div>
                         }
                         {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle">E-mail</p>
-                                <p>{mails.join(`, `)}</p>
+                                <p>{mails.slice(0, 4).join(`, `)}</p>
                             </div>
                         }
                         {user_type === 4 && breeds && !!breeds.length &&
                             <div className="item-card__info-item">
                                 <p className="item-card__subtitle">Породы:</p>
-                                {breeds.slice(0, 4).map((item, i) =>
-                                    <p key={`breed-${i}`}>{item}</p>
-                                )}
+                                <p>{breeds.slice(0, 4).join(`, `)}</p>
                             </div>
                         }
                     </div>
