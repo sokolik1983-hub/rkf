@@ -21,6 +21,7 @@ const ListItem = ({ alias,
     content,
     phones,
     mails,
+    breeds,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
     const infoCardClassName = `item-card__info ${user_type === 3 || user_type === 4 ? `item-card__info--column` : ``}`;
@@ -48,7 +49,7 @@ const ListItem = ({ alias,
                                     <span>{name || 'Название отсутствует'}</span>
                                 </span>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
-                                    <div className="item-card__info-item" style={{ display: "flex", flexWrap: "nowrap" }}>
+                                    <div className="item-card__info-item">
                                         <span className="item-card__info-item--federation">
                                             {federation_name && federation_alias ?
                                                 <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
@@ -109,24 +110,26 @@ const ListItem = ({ alias,
                             }
                         </span>
                     </div>
-                    {phones && !!phones.length &&
-                        <div className="item-card__info-item">
-                            <p className="item-card__subtitle">Телефон</p>
-                            {phones.map((item, i) =>
-                                <p key={`phone-${i}`}>{item}</p>
-                            )}
-                        </div>
-                    }
-                    {mails && !!mails.length &&
-                        <div className="item-card__info-item">
-                            <p className="item-card__subtitle">E-mail</p>
-                            {mails.map((item, i) =>
-                                <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
-                                    {item}
-                                </a>
-                            )}
-                        </div>
-                    }
+                    <div className="item-card__wrap">
+                        {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
+                            <div className="item-card__info-item">
+                                <p className="item-card__subtitle">Телефон</p>
+                                <p>{phones.slice(0, 4).join(`, `)}</p>
+                            </div>
+                        }
+                        {user_type !== 0 && user_type !== 5 && mails && !!mails.length &&
+                            <div className="item-card__info-item">
+                                <p className="item-card__subtitle">E-mail</p>
+                                <p>{mails.slice(0, 4).join(`, `)}</p>
+                            </div>
+                        }
+                        {user_type === 4 && breeds && !!breeds.length &&
+                            <div className="item-card__info-item">
+                                <p className="item-card__subtitle">Породы:</p>
+                                <p>{breeds.slice(0, 4).join(`, `)}</p>
+                            </div>
+                        }
+                    </div>
                 </div>
                 <p className="item-card__text">
                     {content}
