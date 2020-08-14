@@ -15,19 +15,22 @@ import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "components/MenuComponent";
 import ClubUserHeader from "../../components/redesign/UserHeader";
+import { EditAlbum } from "components/Gallery";
 import "./styles.scss";
-import "../Club/index.scss";
+import "pages/Club/index.scss";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
+    const [album, setAlbum] = useState(null);
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [pagesCount, setPagesCount] = useState(false);
     const [currentPage, setCurrentPage] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    let params = useParams();
+    const params = useParams();
+    const alias = params.id;
 
     useEffect(() => {
         Promise.all([getImages(), getClub()])
@@ -36,7 +39,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
 
     const getImages = (page = 0) => {
         Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
+            url: `/api/photogallery/gallery?alias=${alias}&elem_count=25${page ? '&page_number=' + page : ''}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -49,6 +52,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                     caption: p.caption
                 }
             }));
+            setAlbum(data.album);
             setPagesCount(data.page_count);
             setCurrentPage(data.page_current);
         }, error => handleError(error));
@@ -56,7 +60,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
 
     const getClub = () => {
         return Request({
-            url: '/api/Club/public/' + params.id
+            url: '/api/Club/public/' + alias
         }, data => {
             setClub(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
@@ -98,6 +102,26 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
         });
     };
 
+    const onAlbumAddSuccess = () => {
+        setShowAlert({
+            title: 'Информация сохранена!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
+        getImages();
+    };
+
+    const Breadcrumbs = () => {
+        return <div className="ClubGallery__breadcrumbs">
+            <div>
+                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                        <Link className="btn-backward" to={`/${alias}/gallery`}> Фотогалерея</Link>
+                {album ? <> / <Link className="btn-backward" to={`/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
+                        &nbsp;/&nbsp;Редактирование
+                </div>
+        </div>
+    }
+
     return (
         <AuthOrLogin>
             <>
@@ -124,17 +148,13 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         </div>
                                         <div className="ClubGallery__content">
                                             <Card>
-                                                <div className="ClubGallery__back">
-                                                    <div>
-                                                        <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                                                        <Link className="btn-backward" to={`/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
-                                                    </div>
-                                                </div>
-                                                {canEdit && 
-                                                <>
-                                                    <DndImageUpload callback={getImages} />
-                                                    <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
-                                                </>
+                                                <Breadcrumbs />
+                                                {album && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {canEdit &&
+                                                    <>
+                                                        <DndImageUpload callback={getImages} album_id={album.id} />
+                                                        <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                    </>
                                                 }
                                                 {!!selectedImages.length
                                                     && <div className="ClubGallery__buttons">

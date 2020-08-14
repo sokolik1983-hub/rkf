@@ -140,13 +140,13 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:id/gallery',
-        component: LoadableModules.LoadableClubGallery
+        path: '/:id/gallery/:album?/edit',
+        component: LoadableModules.LoadableClubGalleryEdit
     },
     {
         exact: true,
-        path: '/:id/gallery/edit',
-        component: LoadableModules.LoadableClubGalleryEdit
+        path: '/:id/gallery/:album?',
+        component: LoadableModules.LoadableClubGallery
     },
     {
         exact: false,

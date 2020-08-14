@@ -17,7 +17,7 @@ import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import { EditAlbum } from "components/Gallery";
 import "./styles.scss";
-import "../Nursery/index.scss";
+import "pages/Nursery/index.scss";
 
 const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -103,6 +103,11 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     };
 
     const onAlbumAddSuccess = () => {
+        setShowAlert({
+            title: 'Информация сохранена!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
         getImages();
     };
 
