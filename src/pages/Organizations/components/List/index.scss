@@ -112,9 +112,6 @@
         margin: 0;
       }
       &-item {
-        @media (max-width: 560px) {
-          margin-bottom: 10px;
-        }
         span, a, p {
           color: #72839c;
         }
