@@ -101,6 +101,7 @@
     &__info {
       display: flex;
       margin: 0 -5px 10px;
+      flex-direction: column;
       &--column {
         flex-direction: column;
       }
@@ -111,6 +112,7 @@
       &-item {
         width: 70%;
         padding: 0 5px;
+        margin-bottom: 10px;
         @media (max-width: 560px) {
           width: 100%;
           padding: 0;
