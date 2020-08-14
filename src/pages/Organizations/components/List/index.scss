@@ -25,6 +25,12 @@
         align-items: flex-start;
       }
     }
+    &__wrap {
+      display: flex;
+      @media (max-width: 560px) {
+        flex-direction: column;
+      }
+    }
     &__author {
       text-decoration: none;
       display: flex;

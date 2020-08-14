@@ -84,7 +84,6 @@ const OrganizationsList = ({organization_type,
                     <li className="organization-list__item" key={item.id}>
                         <ListItem
                             {...item}
-                            breed_ids={breed_ids}
                         />
                     </li>
                 ))}
