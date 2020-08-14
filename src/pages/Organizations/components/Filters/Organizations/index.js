@@ -38,13 +38,6 @@ const OrganizationsFilter = ({ organization_type, setFilters }) => (
                             onClick={() => setFilters({ ...getEmptyFilters(), organization_type: 7 })}
                         >НКП</button>
                     </li>
-                    <li className="list-filter__item">
-                        <button
-                            className="list-filter__control _not-active"
-                            type="button"
-                            onClick={() => null}
-                        >Приюты</button>
-                    </li>
                 </ul>
             </HorizontalSwipe>
         </div>
