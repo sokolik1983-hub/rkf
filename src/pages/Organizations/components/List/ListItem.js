@@ -24,7 +24,6 @@ const ListItem = ({ alias,
     breeds,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
-    const infoCardClassName = `item-card__info ${user_type === 3 || user_type === 4 ? `item-card__info--column` : ``}`;
     const logoClassName = `item-card__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
 
     return (
@@ -50,7 +49,7 @@ const ListItem = ({ alias,
                                 </span>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                                     <div className="item-card__info-item">
-                                        <span className="item-card__info-item--federation">
+                                        <span>
                                             {federation_name && federation_alias ?
                                                 <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
                                             }
@@ -98,7 +97,7 @@ const ListItem = ({ alias,
                         </span>
                     }
                 </div>
-                <div className={infoCardClassName}>
+                <div className="item-card__info">
                     <div className="item-card__info-item">
                         <span className="item-card__subtitle">{owner_position || 'Контактное лицо'}</span>&nbsp;
                         <span>
@@ -110,7 +109,6 @@ const ListItem = ({ alias,
                             }
                         </span>
                     </div>
-                    <div className="item-card__wrap">
                         {user_type !== 0 && user_type !== 5 && phones && !!phones.length &&
                             <div className="item-card__info-item">
                                 <span className="item-card__subtitle">Телефон</span>&nbsp;
@@ -129,7 +127,6 @@ const ListItem = ({ alias,
                                 <span>{breeds.slice(0, 4).join(`, `)}</span>
                             </div>
                         }
-                    </div>
                 </div>
                 <p className="item-card__text">
                     {content}
