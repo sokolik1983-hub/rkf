@@ -30,7 +30,7 @@ const activeStyle = {
     borderColor: '#3366ff'
 };
 
-const DndImageUpload = ({ callback }) => {
+const DndImageUpload = ({ callback, album_id }) => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -62,13 +62,16 @@ const DndImageUpload = ({ callback }) => {
     };
 
     const uploadFile = (file) => {
+        const url = album_id
+            ? `/api/photogallery?album_id=${album_id}`
+            : '/api/photogallery';
         let data = new FormData();
         data.append('photo', file);
         data.append('caption', file.caption || '');
-        data.append('album_id', 0);
+        data.append('album_id', album_id ? album_id : 0);
         data.append('sorted_number', 0);
         return PromiseRequest({
-            url: '/api/photogallery',
+            url: url,
             method: "POST",
             data: data,
             isMultipart: true

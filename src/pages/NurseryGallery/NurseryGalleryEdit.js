@@ -15,6 +15,7 @@ import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
+import { EditAlbum } from "components/Gallery";
 import "./styles.scss";
 import "../Nursery/index.scss";
 
@@ -22,6 +23,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
+    const [album, setAlbum] = useState(null);
     const [selectedImages, setSelectedImages] = useState([]);
     const [pagesCount, setPagesCount] = useState(false);
     const [currentPage, setCurrentPage] = useState(false);
@@ -37,7 +39,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
 
     const getImages = (page = 0) => {
         Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
+            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -50,6 +52,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                     caption: p.caption
                 }
             }));
+            setAlbum(data.album);
             setPagesCount(data.page_count);
             setCurrentPage(data.page_current);
         }, error => handleError(error));
@@ -99,6 +102,21 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         });
     };
 
+    const onAlbumAddSuccess = () => {
+        getImages();
+    };
+
+    const Breadcrumbs = () => {
+        return <div className="NurseryGallery__breadcrumbs">
+            <div>
+                <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
+                {album ? <> / <Link className="btn-backward" to={`/kennel/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
+                &nbsp;/&nbsp;Редактирование
+        </div>
+        </div>
+    }
+
     return (
         <AuthOrLogin>
             <>
@@ -125,17 +143,13 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         </div>
                                         <div className="NurseryGallery__content">
                                             <Card>
-                                                <div className="NurseryGallery__back">
-                                                    <div>
-                                                        <Link className="btn-backward" to={`/nursery/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                                                        <Link className="btn-backward" to={`/nursery/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
-                                                    </div>
-                                                </div>
-                                                {canEdit && 
-                                                <>
-                                                    <DndImageUpload callback={getImages} />
-                                                    <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
-                                                </>
+                                                <Breadcrumbs />
+                                                {album && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {canEdit &&
+                                                    <>
+                                                        <DndImageUpload callback={getImages} album_id={album.id} />
+                                                        <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
+                                                    </>
                                                 }
                                                 {!!selectedImages.length
                                                     && <div className="NurseryGallery__buttons">

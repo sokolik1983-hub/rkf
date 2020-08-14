@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Layout from "components/Layouts";
 import Container from "components/Layouts/Container";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
-import { Gallery } from "components/Gallery";
+import { Gallery, AddAlbum } from "components/Gallery";
 import Alert from "components/Alert";
+import Button from 'components/Button';
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Paginator from "components/Paginator";
@@ -19,22 +20,28 @@ import "../Nursery/index.scss";
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
     const [images, setImages] = useState(false);
+    const [imagesLoading, setImagesLoading] = useState(false);
+    const [albums, setAlbums] = useState(null);
+    const [album, setAlbum] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [pagesCount, setPagesCount] = useState(false);
     const [currentPage, setCurrentPage] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    let params = useParams();
+    const [showModal, setShowModal] = useState(false);
+    const params = useParams();
+    const history = useHistory();
     const alias = match.params.id;
 
     useEffect(() => {
-        Promise.all([getImages(), getNursery()])
+        Promise.all([getImages(), !album && getAlbums(), !nursery && getNursery()])
             .then(() => setLoaded(true));
-    }, []);
+    }, [params]);
 
     const getImages = (page = 0) => {
+        setImagesLoading(true);
         return Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
+            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
             setImages(data.photos.map(p => {
@@ -47,9 +54,24 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                     caption: p.caption
                 }
             }));
+            setAlbum(data.album);
             setPagesCount(data.page_count);
             setCurrentPage(data.page_current);
+            setImagesLoading(false);
         }, error => handleError(error));
+    }
+
+    const getAlbums = (page = 0) => {
+        setImagesLoading(true);
+        return Request({
+            url: `/api/photogallery/albums?alias=${params.id}`,
+            method: 'GET'
+        }, ({ albums }) => {
+            setAlbums(albums);
+            setImagesLoading(false);
+        }, error => handleError(error));
+        // setAlbums([
+        //     { id: 3, name: 'Тестовый альбом', cover: 'https://media.gettyimages.com/photos/woman-lifts-her-arms-in-victory-mount-everest-national-park-picture-id507910624?s=612x612' }]);
     }
 
     const getNursery = () => {
@@ -71,6 +93,45 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
             autoclose: 7.5,
             onOk: () => setShowAlert(false)
         });
+    };
+
+    const onModalClose = () => {
+        if (showModal && window.confirm("Закрыть?")) {
+            setShowModal(false);
+        }
+    };
+
+    const onAlbumAddSuccess = () => {
+        setShowModal(false);
+        getAlbums();
+    };
+
+    const handleAlbumDelete = (id) => {
+        if (window.confirm('Действительно удалить?')) {
+            Request({
+                url: `/api/photogallery/albums`,
+                method: 'DELETE',
+                data: JSON.stringify([id])
+            }, () => history.push(`/kennel/${alias}/gallery`),
+                error => handleError(error));
+        }
+    };
+
+    const Breadcrumbs = () => {
+        return <div className="NurseryGallery__breadcrumbs">
+            <div className="NurseryGallery__breadcrumbs-title">
+                <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
+                {album ? <><Link className="btn-backward" to={`/kennel/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
+            </div>
+            {canEdit && <div className="NurseryGallery__breadcrumbs-buttons">
+                {album
+                    ? <Link className="btn btn-primary" to={`/kennel/${alias}/gallery/${params.album}/edit`}>Редактировать альбом</Link>
+                    : <>
+                        <span className="btn btn-primary" onClick={() => setShowModal(true)}>Создать альбом</span>
+                        <Link className="btn btn-primary" to={`/kennel/${alias}/gallery/edit`}>Редактировать галерею</Link>
+                    </>}
+            </div>}
+        </div>
     };
 
     return (
@@ -98,21 +159,28 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                     </div>
                                     <div className="NurseryGallery__content">
                                         <Card>
-                                            <div className="NurseryGallery__back">
-                                                <div>
-                                                    <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> / Фотогалерея
-                                                            </div>
-                                                {canEdit &&
-                                                    <Link className="btn btn-primary NurseryGallery__gallery-edit" to={`/kennel/${alias}/gallery/edit`}>Редактировать галерею</Link>}
-                                            </div>
-
-                                            <Gallery items={images} backdropClosesModal={true} enableImageSelection={false} />
-                                            <Paginator
-                                                scrollToTop={false}
-                                                pagesCount={pagesCount}
-                                                currentPage={currentPage}
-                                                setPage={page => getImages(page)}
-                                            />
+                                            <Breadcrumbs />
+                                            {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
+                                            {
+                                                imagesLoading
+                                                    ? <Loading centered={false} />
+                                                    : <>
+                                                        <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
+                                                        {album && canEdit &&
+                                                            <div className="NurseryGallery__buttons">
+                                                                <Button
+                                                                    condensed
+                                                                    className="NurseryGallery__delete-button"
+                                                                    onClick={() => handleAlbumDelete(params.album)}>Удалить</Button>
+                                                            </div>}
+                                                        <Paginator
+                                                            scrollToTop={false}
+                                                            pagesCount={pagesCount}
+                                                            currentPage={currentPage}
+                                                            setPage={page => getImages(page)}
+                                                        />
+                                                    </>
+                                            }
                                         </Card>
                                     </div>
                                 </div>
@@ -129,12 +197,12 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                 federationAlias={nursery.federation_alias}
                                             />
                                             <div className="nursery-page__mobile-only">
-                                            <MenuComponent 
-                                                alias={alias}
-                                                user={user}
-                                                profileId={nursery.id}
-                                                noCard={true}
-                                            />
+                                                <MenuComponent
+                                                    alias={alias}
+                                                    user={user}
+                                                    profileId={nursery.id}
+                                                    noCard={true}
+                                                />
 
                                             </div>
 
@@ -151,6 +219,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                 </Layout>
             }
             {showAlert && <Alert {...showAlert} />}
+            {showModal && <AddAlbum showModal={showModal} onModalClose={onModalClose} onSuccess={onAlbumAddSuccess} />}
         </>
     )
 };
