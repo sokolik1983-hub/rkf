@@ -44,6 +44,9 @@
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
+      &--club {
+        margin-bottom: 10px;
+      }
     }
     &__name {
       line-height: 20px;
@@ -57,6 +60,9 @@
       }
       span:last-child {
         color: #36f;
+      }
+      &-wrap {
+        width: 100%;
       }
     }
     &__active-member {
@@ -97,34 +103,11 @@
     &__subtitle {
       color: #253c5e !important;
       position: relative;
-      &--owner,
-      &--phone,
-      &--email {
-        &:before {
-          content: "";
-          width: 22px;
-          height: 22px;
-          position: absolute;
-          background-repeat: no-repeat;
-          background-position: 50%;
-          left: -27px;
-          top: 1px;  
-        }
-      }
-      &--owner:before {
-        background-image: url("/static/icons/owner.svg");
-        top: -2px;
-      }
-      &--phone:not(:empty):before {
-        background-image: url("/static/icons/ico-contact-phone.svg");
-      }
-      &--email:not(:empty):before {
-        background-image: url("/static/icons/ico-contact-email.svg");
-      }
     }
     &__info {
       display: flex;
       margin: 0 -5px 10px;
+      flex-direction: column;
       &--column {
         flex-direction: column;
       }
@@ -135,7 +118,10 @@
       &-item {
         width: 70%;
         padding: 0 5px;
-        margin-left: 25px;
+        margin-bottom: 10px;
+        &--federation {
+          margin-left: -5px;
+        }
         @media (max-width: 560px) {
           width: 100%;
           padding: 0;

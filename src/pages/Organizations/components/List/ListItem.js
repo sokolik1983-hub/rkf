@@ -24,6 +24,7 @@ const ListItem = ({ alias,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
     const infoCardClassName = `item-card__info ${user_type === 3 || user_type === 4 ? `item-card__info--column` : ``}`;
+    const logoClassName = `item-card__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
 
     return (
         <Card className="item-card">
@@ -31,20 +32,31 @@ const ListItem = ({ alias,
                 <div className="item-card__header">
                     {is_active && url ?
                         <Link className="item-card__author" to={url}>
-                            <span className="item-card__logo" style={{
+                            <span className={logoClassName} style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
-                            <span className="item-card__name" title={name || 'Название отсутствует'}>
-                                {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                    <>
-                                        <span>
-                                            {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
-                                        </span>
+                            <div className="item-card__name-wrap">
+                                <span className="item-card__name" title={name || 'Название отсутствует'}>
+                                    {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                        <>
+                                            <span>
+                                                {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
+                                            </span>
                                         &nbsp;
                                     </>
+                                    }
+                                    <span>{name || 'Название отсутствует'}</span>
+                                </span>
+                                {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
+                                    <div className="item-card__info-item" style={{ display: "flex", flexWrap: "nowrap" }}>
+                                        <span className="item-card__info-item--federation">
+                                            {federation_name && federation_alias ?
+                                                <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
+                                            }
+                                        </span>
+                                    </div>
                                 }
-                                <span>{name || 'Название отсутствует'}</span>
-                            </span>
+                            </div>
                             {!!is_active_member &&
                                 <img
                                     className="item-card__active-member"
@@ -86,18 +98,8 @@ const ListItem = ({ alias,
                     }
                 </div>
                 <div className={infoCardClassName}>
-                    {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
-                        <div className="item-card__info-item">
-                            <span className="item-card__subtitle">Федерация</span>&nbsp;
-                            <span>
-                                {federation_name && federation_alias ?
-                                    <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
-                                }
-                            </span>
-                        </div>
-                    }
                     <div className="item-card__info-item">
-                        <span className="item-card__subtitle item-card__subtitle--owner">{owner_position || 'Контактное лицо'}</span>&nbsp;
+                        <span className="item-card__subtitle">{owner_position || 'Контактное лицо'}</span>&nbsp;
                         <span>
                             {owner_name ?
                                 url ?
@@ -107,24 +109,24 @@ const ListItem = ({ alias,
                             }
                         </span>
                     </div>
-                        {phones && !!phones.length &&
-                            <div className="item-card__info-item">
-                                <p className="item-card__subtitle item-card__subtitle--phone">Телефон</p>
-                                {phones.map((item, i) =>
-                                    <p key={`phone-${i}`}>{item}</p>
-                                )}
-                            </div>
-                        }
-                        {mails && !!mails.length &&
-                            <div className="item-card__info-item">
-                                <p className="item-card__subtitle item-card__subtitle--email">E-mail</p>
-                                {mails.map((item, i) =>
-                                    <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
-                                        {item}
-                                    </a>
-                                )}
-                            </div>
-                        }
+                    {phones && !!phones.length &&
+                        <div className="item-card__info-item">
+                            <p className="item-card__subtitle">Телефон</p>
+                            {phones.map((item, i) =>
+                                <p key={`phone-${i}`}>{item}</p>
+                            )}
+                        </div>
+                    }
+                    {mails && !!mails.length &&
+                        <div className="item-card__info-item">
+                            <p className="item-card__subtitle">E-mail</p>
+                            {mails.map((item, i) =>
+                                <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
+                                    {item}
+                                </a>
+                            )}
+                        </div>
+                    }
                 </div>
                 <p className="item-card__text">
                     {content}
