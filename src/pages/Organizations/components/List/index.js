@@ -82,7 +82,10 @@ const OrganizationsList = ({organization_type,
             <ul className="organizations-page__list organization-list">
                 {org.map(item => (
                     <li className="organization-list__item" key={item.id}>
-                        <ListItem {...item}/>
+                        <ListItem
+                            {...item}
+                            breed_ids={breed_ids}
+                        />
                     </li>
                 ))}
             </ul>

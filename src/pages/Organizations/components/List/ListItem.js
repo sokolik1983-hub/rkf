@@ -21,10 +21,12 @@ const ListItem = ({ alias,
     content,
     phones,
     mails,
+    breed_ids,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
     const infoCardClassName = `item-card__info ${user_type === 3 || user_type === 4 ? `item-card__info--column` : ``}`;
     const logoClassName = `item-card__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
+    const breeds = breed_ids.slice(0, 4);
 
     return (
         <Card className="item-card">
@@ -124,6 +126,14 @@ const ListItem = ({ alias,
                                 <a key={`mail-${i}`} href={`mailto:${item}`} target="_blank" rel="noopener noreferrer">
                                     {item}
                                 </a>
+                            )}
+                        </div>
+                    }
+                    {user_type === 4 && breeds && !!breeds.length &&
+                        <div className="item-card__info-item">
+                            <p className="item-card__subtitle">Породы:</p>
+                            {breeds.map((item, i) =>
+                                <p key={`breed-${i}`}>{item}</p>
                             )}
                         </div>
                     }
