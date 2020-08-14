@@ -24,6 +24,7 @@ const ListItem = ({ alias,
     breeds,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
+    const logoClassName = `item-card__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
 
     return (
         <Card className="item-card">
@@ -31,7 +32,7 @@ const ListItem = ({ alias,
                 <div className="item-card__header">
                     {is_active && url ?
                         <Link className="item-card__author" to={url}>
-                            <span className="item-card__logo" style={{
+                            <span className={logoClassName} style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
                             <div className="item-card__name-wrap">
