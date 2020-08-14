@@ -15,7 +15,7 @@ import ClubUserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
-import "../Nursery/index.scss";
+import "pages/Nursery/index.scss";
 
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -70,8 +70,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
             setAlbums(albums);
             setImagesLoading(false);
         }, error => handleError(error));
-        // setAlbums([
-        //     { id: 3, name: 'Тестовый альбом', cover: 'https://media.gettyimages.com/photos/woman-lifts-her-arms-in-victory-mount-everest-national-park-picture-id507910624?s=612x612' }]);
     }
 
     const getNursery = () => {
