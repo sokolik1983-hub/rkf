@@ -25,10 +25,6 @@
         align-items: flex-start;
       }
     }
-    &__wrap {
-      display: flex;
-      flex-direction: column;
-    }
     &__author {
       text-decoration: none;
       display: flex;
@@ -48,9 +44,6 @@
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      &--club {
-        margin-bottom: 10px;
-      }
     }
     &__name {
       line-height: 20px;
@@ -109,26 +102,13 @@
       position: relative;
     }
     &__info {
-      display: flex;
-      margin: 0 -5px 10px;
-      flex-direction: column;
-      &--column {
-        flex-direction: column;
-      }
       @media (max-width: 560px) {
         display: block;
         margin: 0;
       }
       &-item {
-        width: 70%;
-        padding: 0 5px;
-        &--federation {
-          margin-left: -5px;
-        }
         @media (max-width: 560px) {
-          width: 100%;
           margin-bottom: 10px;
-          padding: 0 5px;
         }
         span, a, p {
           color: #72839c;
