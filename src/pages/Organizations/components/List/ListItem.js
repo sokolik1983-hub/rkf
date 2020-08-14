@@ -48,7 +48,7 @@ const ListItem = ({ alias,
                                     <span>{name || 'Название отсутствует'}</span>
                                 </span>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
-                                    <div className="item-card__info-item" style={{ display: "flex", flexWrap: "nowrap" }}>
+                                    <div className="item-card__info-item">
                                         <span className="item-card__info-item--federation">
                                             {federation_name && federation_alias ?
                                                 <Link to={`/${federation_alias}`}>{federation_name}</Link> : 'Отсутствует'
