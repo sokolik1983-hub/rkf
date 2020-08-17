@@ -5,6 +5,9 @@
   }
   &__wrap {
     background-color: #f5f8ff;
+    & + .Footer {
+      display: none;
+    }  
   }
   &__left {
     min-width: 300px;
@@ -43,9 +46,6 @@
     width: calc(100% - 316px);
     @media (max-width: 990px) {
       width: 100%;
-    }
-    @media (max-width: 560px) {
-      margin: 16px 0;
     }
   }
   .infinite-scroll-component {

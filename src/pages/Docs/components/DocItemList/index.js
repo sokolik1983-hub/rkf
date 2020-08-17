@@ -10,7 +10,6 @@ import FormFile from "../../components/FormFile";
 import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import ResponsibleContactInfo from "../../components/ResponsibleContactInfo";
-import { endpointGetFederations } from "pages/Clubs/config";
 import removeNulls from "utils/removeNulls";
 import test from "../../test.json";
 import Loading from "components/Loading";
@@ -28,7 +27,9 @@ import {
     apiLitterDogStatusEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeStatusesEndpoint,
-}from "../../config.js"
+}from "../../config.js";
+
+const endpointGetFederations = '/api/clubs/Federation';
 
 const DocItemList = ({formik, view, update, clubAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate }) => {
     window.test = () => Object.keys(test).forEach(t => {

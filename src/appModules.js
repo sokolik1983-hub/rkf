@@ -37,11 +37,6 @@ export const LoadableFederationPage = Loadable({
     loading: Loading
 });
 
-export const LoadableFederationsPage = Loadable({
-    loader: () => import('./pages/Federations'),
-    loading: Loading
-});
-
 export const LoadableExhibitions = Loadable({
     loader: () => import('./pages/Exhibitions'),
     loading: Loading
@@ -59,11 +54,6 @@ export const LoadableExhibitionEdit = Loadable({
 
 export const LoadableNews = Loadable({
     loader: () => import('./pages/News'),
-    loading: Loading
-});
-
-export const LoadableClubs = Loadable({
-    loader: () => import('./pages/Clubs'),
     loading: Loading
 });
 
@@ -104,11 +94,6 @@ export const LoadableRegistration = Loadable({
 
 export const LoadablePasswordRecovery = Loadable({
     loader: () => import('./pages/Login/components/PasswordRecovery'),
-    loading: Loading
-});
-
-export const LoadableNurseries = Loadable({
-    loader: () => import('./pages/Nurseries'),
     loading: Loading
 });
 
