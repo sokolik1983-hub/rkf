@@ -1,7 +1,8 @@
 import { number, string } from "yup";
 import { reqText } from "../../config.js";
-import { endpointGetFederations } from "pages/Clubs/config";
 
+
+const endpointGetFederations = '/api/clubs/Federation';
 const apiPedigreeEndpoint = '/api/requests/pedigree_request/NurseryPedigreeRequestHeader';
 const apiNurseryDeclarantsEndpoint = '/api/nurseries/NurseryDeclarant/nursery_declarants';
 
