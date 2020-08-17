@@ -43,6 +43,17 @@
         .Card {
             padding: 12px;
         }
+        .infinite-scroll-component {
+            overflow: visible !important;
+        }
+    }
+    &__no-images {
+        text-align: center;
+        margin-top: 16px;
+        padding: 8px;
+        img {
+            width: 150px;
+        }
     }
     &__info {
         width: 300px;

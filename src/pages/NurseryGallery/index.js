@@ -9,57 +9,81 @@ import Alert from "components/Alert";
 import Button from 'components/Button';
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import Paginator from "components/Paginator";
 import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
 
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
-    const [images, setImages] = useState(false);
+    const [images, setImages] = useState([]);
+    const [pageLoaded, setPageLoaded] = useState(false);
     const [imagesLoading, setImagesLoading] = useState(false);
     const [albums, setAlbums] = useState(null);
     const [album, setAlbum] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
-    const [loaded, setLoaded] = useState(false);
-    const [pagesCount, setPagesCount] = useState(false);
-    const [currentPage, setCurrentPage] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [startElement, setStartElement] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     const params = useParams();
     const history = useHistory();
     const alias = match.params.id;
 
     useEffect(() => {
-        Promise.all([getImages(), !album && getAlbums(), !nursery && getNursery()])
-            .then(() => setLoaded(true));
+        setPageLoaded(false);
+        Promise.all([getImages(1), !album && getAlbums(), !nursery && getNursery()])
+            .then(() => {
+                setStartElement(1);
+                setPageLoaded(true);
+            });
     }, [params]);
 
-    const getImages = (page = 0) => {
+    const getImages = async startElem => {
         setImagesLoading(true);
         return Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}${params.album ? '&album_id=' + params.album : ''}`,
+            url: `/api/photogallery/gallery?alias=${params.id}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
-            setImages(data.photos.map(p => {
-                return {
-                    id: p.id,
-                    src: p.link,
-                    thumbnail: p.small_photo.link,
-                    thumbnailWidth: p.small_photo.width,
-                    thumbnailHeight: p.small_photo.height,
-                    caption: p.caption
+            if (data.photos.length) {
+                const modifiedNews = data.photos.map(p => {
+                    return {
+                        id: p.id,
+                        src: p.link,
+                        thumbnail: p.small_photo.link,
+                        thumbnailWidth: p.small_photo.width,
+                        thumbnailHeight: p.small_photo.height,
+                        caption: p.caption
+                    };
+                });
+
+                if (data.photos.length < 25) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
                 }
-            }));
+                setImages(startElem === 1 ? modifiedNews : [...images, ...modifiedNews]);
+            } else {
+                if (startElem === 1) {
+                    setImages([]);
+                }
+                setHasMore(false);
+            }
             setAlbum(data.album);
-            setPagesCount(data.page_count);
-            setCurrentPage(data.page_current);
             setImagesLoading(false);
         }, error => handleError(error));
-    }
+    };
+
+    const getNextImages = () => {
+        if (hasMore) {
+            setStartElement(startElement + 25);
+            (() => getImages(startElement + 25))();
+        }
+    };
 
     const getAlbums = (page = 0) => {
         setImagesLoading(true);
@@ -134,7 +158,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
 
     return (
         <>
-            {!loaded
+            {!pageLoaded && !nursery
                 ? <Loading />
                 : <Layout>
                     <div className="redesign">
@@ -160,10 +184,25 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                             <Breadcrumbs />
                                             {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
                                             {
-                                                imagesLoading
+                                                !pageLoaded
                                                     ? <Loading centered={false} />
                                                     : <>
-                                                        <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
+
+
+                                                        <InfiniteScroll
+                                                            dataLength={images.length}
+                                                            next={getNextImages}
+                                                            hasMore={hasMore}
+                                                            loader={imagesLoading && <Loading centered={false} />}
+                                                            endMessage={
+                                                                <div className="NurseryGallery__no-images">
+                                                                    <h4>Изображений больше нет</h4>
+                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                                </div>
+                                                            }
+                                                        >
+                                                            <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
+                                                        </InfiniteScroll>
                                                         {album && canEdit &&
                                                             <div className="NurseryGallery__buttons">
                                                                 <Button
@@ -171,12 +210,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                                     className="NurseryGallery__delete-button"
                                                                     onClick={() => handleAlbumDelete(params.album)}>Удалить</Button>
                                                             </div>}
-                                                        <Paginator
-                                                            scrollToTop={false}
-                                                            pagesCount={pagesCount}
-                                                            currentPage={currentPage}
-                                                            setPage={page => getImages(page)}
-                                                        />
                                                     </>
                                             }
                                         </Card>
