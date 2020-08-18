@@ -9,54 +9,81 @@ import AuthOrLogin from "pages/Login/components/AuthOrLogin";
 import Button from 'components/Button';
 import Alert from "components/Alert";
 import { Request } from "utils/request";
-import Paginator from "components/Paginator";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "components/MenuComponent";
 import ClubUserHeader from "../../components/redesign/UserHeader";
+import { EditAlbum } from "components/Gallery";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
-import "../Club/index.scss";
+import "pages/Club/index.scss";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
+    const [pageLoaded, setPageLoaded] = useState(false);
+    const [imagesLoading, setImagesLoading] = useState(false);
+    const [startElement, setStartElement] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [album, setAlbum] = useState(null);
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [pagesCount, setPagesCount] = useState(false);
-    const [currentPage, setCurrentPage] = useState(false);
-    const [loaded, setLoaded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    let params = useParams();
+    const params = useParams();
+    const alias = params.id;
 
     useEffect(() => {
-        Promise.all([getImages(), getClub()])
-            .then(() => setLoaded(true));
+        Promise.all([getImages(1), getClub()])
+            .then(() => setPageLoaded(true));
     }, []);
 
-    const getImages = (page = 0) => {
-        Request({
-            url: `/api/photogallery/gallery?alias=${params.id}&elem_count=25${page ? '&page_number=' + page : ''}`,
+    const getImages = async (startElem = 1) => {
+        setImagesLoading(true);
+        return Request({
+            url: `/api/photogallery/gallery?alias=${alias}&start_element=${startElem}${params.album ? '&album_id=' + params.album : ''}`,
             method: 'GET'
         }, data => {
-            setImages(data.photos.map(p => {
-                return {
-                    id: p.id,
-                    src: p.link,
-                    thumbnail: p.small_photo.link,
-                    thumbnailWidth: p.small_photo.width,
-                    thumbnailHeight: p.small_photo.height,
-                    caption: p.caption
+            if (data.photos.length) {
+                const modifiedNews = data.photos.map(p => {
+                    return {
+                        id: p.id,
+                        src: p.link,
+                        thumbnail: p.small_photo.link,
+                        thumbnailWidth: p.small_photo.width,
+                        thumbnailHeight: p.small_photo.height,
+                        caption: p.caption
+                    };
+                });
+
+                if (data.photos.length < 25) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
                 }
-            }));
-            setPagesCount(data.page_count);
-            setCurrentPage(data.page_current);
+                setImages(startElem === 1 ? modifiedNews : [...images, ...modifiedNews]);
+            } else {
+                if (startElem === 1) {
+                    setImages([]);
+                }
+                setHasMore(false);
+            }
+            setAlbum(data.album);
+            setImagesLoading(false);
         }, error => handleError(error));
-    }
+    };
+
+    const getNextImages = () => {
+        if (hasMore) {
+            setStartElement(startElement + 25);
+            (() => getImages(startElement + 25))();
+        }
+    };
 
     const getClub = () => {
         return Request({
-            url: '/api/Club/public/' + params.id
+            url: '/api/Club/public/' + alias
         }, data => {
             setClub(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
@@ -98,10 +125,30 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
         });
     };
 
+    const onAlbumAddSuccess = () => {
+        setShowAlert({
+            title: 'Информация сохранена!',
+            autoclose: 2.5,
+            onOk: () => setShowAlert(false)
+        });
+        getImages(1);
+    };
+
+    const Breadcrumbs = () => {
+        return <div className="ClubGallery__breadcrumbs">
+            <div>
+                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> /
+                        <Link className="btn-backward" to={`/${alias}/gallery`}> Фотогалерея</Link>
+                {album ? <> / <Link className="btn-backward" to={`/${alias}/gallery/${params.album}`}>{album.name}</Link></> : ''}
+                        &nbsp;/&nbsp;Редактирование
+                </div>
+        </div>
+    }
+
     return (
         <AuthOrLogin>
             <>
-                {!loaded
+                {!pageLoaded
                     ? <Loading />
                     : <Layout>
                         <div className="redesign">
@@ -124,29 +171,32 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         </div>
                                         <div className="ClubGallery__content">
                                             <Card>
-                                                <div className="ClubGallery__back">
-                                                    <div>
-                                                        <Link className="btn-backward" to={`/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
-                                                        <Link className="btn-backward" to={`/${params.id}/gallery/`}> Фотогалерея</Link> / Редактирование
-                                                    </div>
-                                                </div>
-                                                {canEdit && 
-                                                <>
-                                                    <DndImageUpload callback={getImages} />
-                                                    <Gallery items={images} onSelectImage={onSelectImage} backdropClosesModal={true} />
-                                                </>
+                                                <Breadcrumbs />
+                                                {album && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {canEdit &&
+                                                    <>
+                                                        <DndImageUpload callback={getImages} album_id={album && album.id} />
+                                                        <InfiniteScroll
+                                                            dataLength={images.length}
+                                                            next={getNextImages}
+                                                            hasMore={hasMore}
+                                                            loader={imagesLoading && <Loading centered={false} />}
+                                                            endMessage={
+                                                                <div className="ClubGallery__no-images">
+                                                                    <h4>Изображений больше нет</h4>
+                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                                </div>
+                                                            }
+                                                        >
+                                                            <Gallery items={images} match={match} backdropClosesModal={true} onSelectImage={onSelectImage} />
+                                                        </InfiniteScroll>
+                                                    </>
                                                 }
                                                 {!!selectedImages.length
                                                     && <div className="ClubGallery__buttons">
                                                         <Button condensed className="ClubGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
                                                     </div>
                                                 }
-                                                <Paginator
-                                                    scrollToTop={false}
-                                                    pagesCount={pagesCount}
-                                                    currentPage={currentPage}
-                                                    setPage={page => getImages(page)}
-                                                />
                                             </Card>
                                         </div>
                                     </div>

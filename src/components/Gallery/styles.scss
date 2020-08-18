@@ -1,6 +1,17 @@
 .ReactGridGallery {
     &__wrap {
         overflow: hidden;
+        a,
+        h4 {
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+            color: #253c5e;
+            text-decoration: none;
+        }
+        h4 {
+            margin-bottom: 5px;
+        }
     }
     &__disabled {
         margin-bottom: 24px;
@@ -13,7 +24,7 @@
             font-weight: normal;
             padding: 8px;
         }
-        &-img{
+        &-img {
             width: 150px;
         }
     }
