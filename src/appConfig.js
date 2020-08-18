@@ -1,7 +1,7 @@
 import * as LoadableModules from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
-const DEFAULT_PHONE_INPUT_MASK = ['+7', '(',/[1-9]/, /\d/, /\d/,')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+const DEFAULT_PHONE_INPUT_MASK = ['+7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '+7(   )___-__-__';
 const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш Email';
 const LOGIN_URL = '/auth/login';
@@ -130,13 +130,13 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/:id/gallery',
-        component: LoadableModules.LoadableClubGallery
+        path: '/:id/gallery/:album?/edit',
+        component: LoadableModules.LoadableClubGalleryEdit
     },
     {
         exact: true,
-        path: '/:id/gallery/edit',
-        component: LoadableModules.LoadableClubGalleryEdit
+        path: '/:id/gallery/:album?',
+        component: LoadableModules.LoadableClubGallery
     },
     {
         exact: false,
@@ -145,14 +145,15 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/kennel/:id/gallery',
-        component: LoadableModules.LoadableNurseryGallery
+        path: '/kennel/:id/gallery/:album?/edit',
+        component: LoadableModules.LoadableNurseryGalleryEdit
     },
     {
         exact: true,
-        path: '/kennel/:id/gallery/edit',
-        component: LoadableModules.LoadableNurseryGalleryEdit
+        path: '/kennel/:id/gallery/:album?',
+        component: LoadableModules.LoadableNurseryGallery
     },
+
     {
         exact: true,
         path: '/:route/news',
