@@ -134,7 +134,10 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                 url: `/api/photogallery/albums`,
                 method: 'DELETE',
                 data: JSON.stringify([id])
-            }, () => history.push(`/${alias}/gallery`),
+            }, () => {
+                history.push(`/${alias}/gallery`)
+                getAlbums();
+            },
                 error => handleError(error));
         }
     };
@@ -192,7 +195,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                             next={getNextImages}
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={
+                                                            endMessage={!!images.length &&
                                                                 <div className="ClubGallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
