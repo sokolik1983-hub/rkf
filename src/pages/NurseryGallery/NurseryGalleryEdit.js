@@ -135,7 +135,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     };
 
     const Breadcrumbs = () => {
-        return <div className="NurseryGallery__breadcrumbs">
+        return <div className="NurseryGallery__breadcrumbs wrap">
             <div>
                 <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
                 <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
@@ -182,7 +182,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             next={getNextImages}
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={
+                                                            endMessage={!!images.length &&
                                                                 <div className="NurseryGallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
