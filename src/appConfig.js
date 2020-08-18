@@ -25,6 +25,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/search',
+        component: LoadableModules.LoadableSearchPage
+    },
+    {
+        exact: true,
         path: '/organizations',
         component: LoadableModules.LoadableOrganizations
     },

@@ -29,6 +29,27 @@
       margin-right: 20px;
     }
   }
+  &__search {
+    position: relative;
+    &-control {
+      width: 260px;
+      padding: 6px 10px 6px 40px;
+      margin-right: 24px;
+      border: 1px solid #ebf0f2;
+      border-radius: 6px;
+      background: #fff url("/static/icons/icon-search-gray.svg") no-repeat left 10px center;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: .2px;
+      color: #90999e;
+      caret-color: #3366ff;
+      transition: all .2s linear;
+      &:focus {
+        border-color: #3366ff;
+      }
+    }
+  }
   &__filters {
     display: none;
     padding: 0;

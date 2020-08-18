@@ -54,6 +54,9 @@
         img {
             width: 150px;
         }
+        h4 {
+            font-weight: normal;
+        }
     }
     &__info {
         width: 300px;
@@ -144,6 +147,9 @@
             span {
                 font-size: 32px;
             }
+        }
+        &.wrap {
+            white-space: initial;
         }
     }
 }

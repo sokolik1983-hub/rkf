@@ -135,7 +135,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     };
 
     const Breadcrumbs = () => {
-        return <div className="NurseryGallery__breadcrumbs">
+        return <div className="NurseryGallery__breadcrumbs wrap">
             <div>
                 <Link className="btn-backward" to={`/kennel/${params.id}/`}> <span>&lsaquo;</span> Личная страница</Link> /
                 <Link className="btn-backward" to={`/kennel/${params.id}/gallery`}> Фотогалерея</Link>
@@ -168,6 +168,16 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                 federationName={nursery.federation_name}
                                                 federationAlias={nursery.federation_alias}
                                             />
+                                            {nursery.breeds && !!nursery.breeds.length &&
+                                                <Card className="nursery-page__breeds">
+                                                    <h4>Породы</h4>
+                                                    <ul className="nursery-page__breeds-list">
+                                                        {nursery.breeds.map(item =>
+                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                        )}
+                                                    </ul>
+                                                </Card>
+                                            }
                                         </div>
                                         <div className="NurseryGallery__content">
                                             <Card>
@@ -182,7 +192,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             next={getNextImages}
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={
+                                                            endMessage={!!images.length &&
                                                                 <div className="NurseryGallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
@@ -213,6 +223,16 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                     federationName={nursery.federation_name}
                                                     federationAlias={nursery.federation_alias}
                                                 />
+                                                {nursery.breeds && !!nursery.breeds.length &&
+                                                    <Card className="nursery-page__breeds">
+                                                        <h4>Породы</h4>
+                                                        <ul className="nursery-page__breeds-list">
+                                                            {nursery.breeds.map(item =>
+                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                            )}
+                                                        </ul>
+                                                    </Card>
+                                                }
                                                 <div className="nursery-page__mobile-only">
                                                     <MenuComponent
                                                         alias={alias}

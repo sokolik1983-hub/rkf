@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Container from "../Container";
+import Search from "./components/Search";
 import Nav from "./components/Nav";
 import WidgetLogin from "./components/WidgetLogin";
 import {connectShowFilters} from "../connectors";
@@ -14,6 +15,7 @@ const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
             {withFilters &&
                 <button className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}/>
             }
+            <Search/>
             <Nav/>
             <WidgetLogin/>
         </Container>

@@ -1,0 +1,81 @@
+.dropdown {
+  &__title {
+    display: block;
+    position: relative;
+    padding: 10px 20px 10px 0;
+    border-bottom: 2px solid transparent;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: .2px;
+    color: #72839c;
+    cursor: pointer;
+    transition: all .2s linear;
+    &:hover {
+      color: #3366ff;
+    }
+    &:after {
+      content: '';
+      width: 12px;
+      height: 20px;
+      background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+      position: absolute;
+      top: 10px;
+      right: 0;
+      transition: all .2s linear;
+    }
+  }
+  &._open .dropdown__title:after {
+    transform: rotate(180deg);
+  }
+  &._active .dropdown__title {
+    border-bottom-color: #3366ff;
+  }
+  &:last-child .dropdown__list {
+    margin-bottom: 0 !important;
+  }
+  &__transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+  }
+  &__list {
+    list-style: none;
+    margin: 10px 0;
+    padding-left: 16px;
+  }
+  &__item {
+    span {
+      letter-spacing: .2px;
+      color: #72839c;
+      cursor: pointer;
+      transition: all .2s linear;
+      &:hover {
+        color: #3366ff;
+      }
+    }
+    &._active span {
+      color: #3366ff;
+    }
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}

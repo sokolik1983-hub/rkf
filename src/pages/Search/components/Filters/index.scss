@@ -1,0 +1,16 @@
+.search-page__filters {
+  &-title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #253c5e;
+    margin-bottom: 10px;
+  }
+  &-value {
+    letter-spacing: .2px;
+    color: #72839c;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;;
+  }
+}

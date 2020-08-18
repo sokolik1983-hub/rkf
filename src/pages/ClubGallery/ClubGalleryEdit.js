@@ -135,7 +135,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     };
 
     const Breadcrumbs = () => {
-        return <div className="ClubGallery__breadcrumbs">
+        return <div className="ClubGallery__breadcrumbs wrap">
             <div>
                 <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link> /
                         <Link className="btn-backward" to={`/${alias}/gallery`}> Фотогалерея</Link>
@@ -181,7 +181,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                             next={getNextImages}
                                                             hasMore={hasMore}
                                                             loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={
+                                                            endMessage={!!images.length &&
                                                                 <div className="ClubGallery__no-images">
                                                                     <h4>Изображений больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
