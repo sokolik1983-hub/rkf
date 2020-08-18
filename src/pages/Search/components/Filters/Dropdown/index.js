@@ -1,14 +1,11 @@
 import React, {useState} from "react";
 import {CSSTransition} from "react-transition-group";
-import {connectShowFilters} from "../../../../../components/Layouts/connectors";
 import {connectFilters} from "../../../connectors";
 import "./index.scss";
 
 
 const Dropdown = ({name, items, setFilters, search_type}) => {
     const [isOpen, setIsOpen] = useState(true);
-
-    console.log('search_type', search_type, !!items.find(item => item.search_type === search_type));
 
     return (
         <div className={`dropdown${isOpen ? ' _open' : ''}${!!items.find(item => item.search_type === search_type) ? ' _active' : ''}`}>
@@ -25,7 +22,7 @@ const Dropdown = ({name, items, setFilters, search_type}) => {
                             key={item.name}
                             onClick={() => setFilters({search_type: item.search_type})}
                         >
-                            {item.name}
+                            <span>{item.name}</span>
                         </li>
                     )}
                 </ul>
@@ -34,4 +31,4 @@ const Dropdown = ({name, items, setFilters, search_type}) => {
     )
 };
 
-export default connectShowFilters(connectFilters(React.memo(Dropdown)));
+export default connectFilters(React.memo(Dropdown));
