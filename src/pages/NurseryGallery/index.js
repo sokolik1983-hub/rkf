@@ -134,7 +134,10 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                 url: `/api/photogallery/albums`,
                 method: 'DELETE',
                 data: JSON.stringify([id])
-            }, () => history.push(`/kennel/${alias}/gallery`),
+            }, () => {
+                history.push(`/kennel/${alias}/gallery`)
+                getAlbums();
+            },
                 error => handleError(error));
         }
     };

@@ -134,7 +134,10 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                 url: `/api/photogallery/albums`,
                 method: 'DELETE',
                 data: JSON.stringify([id])
-            }, () => history.push(`/${alias}/gallery`),
+            }, () => {
+                history.push(`/${alias}/gallery`)
+                getAlbums();
+            },
                 error => handleError(error));
         }
     };
