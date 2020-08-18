@@ -7,6 +7,7 @@ import {setFiltersToUrl, getEmptyFilters} from "../../utils";
 import {getDictElement} from "../../../../dictionaries";
 import {DEFAULT_IMG} from "../../../../appConfig";
 
+
 const ListItem = ({title, city, club_name, club_alias, club_logo, dates, photo, url, ranks, federation_name, federation_link, dictionary, user}) => {
     const getRanks = () => ranks.map(r => getDictElement(dictionary, r)).join(', ');
 

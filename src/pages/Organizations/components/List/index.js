@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import ListItem from "./ListItem";
+import CardOrganization from "../../../../components/CardOrganization";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {connectFilters} from "../../connectors";
 import {Request} from "../../../../utils/request";
@@ -82,9 +82,7 @@ const OrganizationsList = ({organization_type,
             <ul className="organizations-page__list organization-list">
                 {org.map(item => (
                     <li className="organization-list__item" key={item.id}>
-                        <ListItem
-                            {...item}
-                        />
+                        <CardOrganization setFilters={setFilters} {...item}/>
                     </li>
                 ))}
             </ul>

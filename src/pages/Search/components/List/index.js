@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
+import CardOrganization from "../../../../components/CardOrganization";
 
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {connectFilters} from "../../connectors";
@@ -21,8 +22,6 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
                 window.scrollTo(0,0);
             }
 
-            console.log('data', data);
-
             let results = [];
 
             Object.keys(data).forEach(key => {
@@ -30,8 +29,6 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
                     results = [...results, ...data[key].map(item => ({...item, search_type: key}))];
                 }
             });
-
-            console.log('results', results);
 
             if (results.length) {
                 if (results.length < 10) {
@@ -61,28 +58,28 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
 
     return (
         <div className="search-list">
-            {/*<InfiniteScroll
+            <InfiniteScroll
                 dataLength={searchResult.length}
                 next={getNextOrganizations}
                 hasMore={hasMore}
                 loader={<Loading centered={false} />}
                 endMessage={
-                    <div className="organizations-page__list-content">
-                        <h3>{!org.length ? 'Организаций не найдено' : 'Организаций больше нет'}</h3>
-                        <img src={DEFAULT_IMG.noNews} alt={!org.length ? 'Организаций не найдено' : 'Организаций больше нет'} />
+                    <div className="search-list__default-content">
+                        <h3>{!searchResult.length ? 'Организаций не найдено' : 'Организаций больше нет'}</h3>
+                        <img src={DEFAULT_IMG.noNews} alt={!searchResult.length ? 'Организаций не найдено' : 'Организаций больше нет'} />
                     </div>
                 }
             >
-                <ul className="organizations-page__list organization-list">
-                    {org.map(item => (
-                        <li className="organization-list__item" key={item.id}>
-                            <ListItem
-                                {...item}
-                            />
+                <ul className="search-list__content">
+                    {searchResult.map(item => (
+                        <li className="search-list__item" key={item.id}>
+                            {item.search_type === 'organizations' &&
+                                <CardOrganization {...item} />
+                            }
                         </li>
                     ))}
                 </ul>
-            </InfiniteScroll>*/}
+            </InfiniteScroll>
         </div>
     )
 };
