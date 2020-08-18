@@ -83,6 +83,16 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         federationName={nursery.federation_name}
                                         federationAlias={nursery.federation_alias}
                                     />
+                                    {nursery.breeds && !!nursery.breeds.length &&
+                                        <Card className="nursery-page__breeds">
+                                            <h4>Породы</h4>
+                                            <ul className="nursery-page__breeds-list">
+                                                {nursery.breeds.map(item =>
+                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                )}
+                                            </ul>
+                                        </Card>
+                                    }
                                 </div>
                                 <div ref={mobileGalleryHolderRef} />
                                 {canEdit &&
