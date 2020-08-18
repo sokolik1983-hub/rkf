@@ -2,11 +2,11 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 import { CSSTransition } from "react-transition-group";
-import Modal from "../Modal";
 import Share from "../Share";
 import { formatText } from "../../utils";
 import { formatDateTime } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
+import Lightbox from 'react-images';
 import "./index.scss";
 
 
@@ -146,14 +146,13 @@ const ListItem = forwardRef(({
             </div>
             {
                 showPhoto &&
-                <Modal showModal={showPhoto}
-                    handleClose={() => setShowPhoto(false)}
-                    noBackdrop={true}
-                    hideCloseButton={true}
-                    className="list-item__modal"
-                >
-                    <img src={photo} alt="" />
-                </Modal>
+                <Lightbox
+                    images={[{ src: photo }]}
+                    isOpen={showPhoto}
+                    onClose={() => setShowPhoto(false)}
+                    backdropClosesModal={true}
+                    showImageCount={false}
+                />
             }
         </div >
     )
