@@ -14,8 +14,6 @@ export const buildSearchUrl = (string_filter, search_type, start_element) => {
 const getSearchFilter = () => {
     let searchString = ''
 
-    console.log('getSearchFilter history.location', history.location);
-
     if (history.location.search) {
         searchString = decodeURIComponent(history.location.search).replace('?s=', '');
     }

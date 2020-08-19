@@ -7,12 +7,12 @@ import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {connectFilters} from "../../connectors";
 import {Request} from "../../../../utils/request";
-import {buildSearchUrl, getInitialFilters} from "../../utils";
+import {buildSearchUrl} from "../../utils";
 import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 
-const SearchList = ({history, string_filter, search_type, start_element, setFilters}) => {
+const SearchList = ({string_filter, search_type, start_element, setFilters}) => {
     const [searchResult, setSearchResult] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const {dictionary} = useDictionary('rank_type');
@@ -50,10 +50,6 @@ const SearchList = ({history, string_filter, search_type, start_element, setFilt
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         });
     };
-
-    // useEffect(() => {
-    //     setFilters({...getInitialFilters()});
-    // }, []);
 
     useEffect(() => {
         (() => getSearchResults())();
