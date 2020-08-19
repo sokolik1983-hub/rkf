@@ -52,7 +52,12 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
     };
 
     useEffect(() => {
-        (() => getSearchResults())();
+        if(string_filter) {
+            (() => getSearchResults())();
+        } else {
+            setSearchResult([]);
+            setHasMore(false);
+        }
     }, [string_filter, search_type, start_element]);
 
     const getNextOrganizations = () => {
