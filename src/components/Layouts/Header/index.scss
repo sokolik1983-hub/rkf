@@ -31,6 +31,9 @@
   }
   &__search {
     position: relative;
+    @media (max-width: 560px) {
+      display: none;
+    }
     &-control {
       width: 260px;
       padding: 6px 10px 6px 40px;
@@ -48,9 +51,15 @@
       &:focus {
         border-color: #3366ff;
       }
-      @media (max-width: 560px) {
-        width: 40px;
-        border-radius: 50%;
+      &--mobile {
+        display: none;
+        @media (max-width: 560px) {
+          display: block;
+          width: 20px;
+          height: 20px;
+          background: #fff url("/static/icons/icon-search-gray.svg") no-repeat center;
+          border: none;
+        }
       }
     }
   }
