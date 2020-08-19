@@ -45,6 +45,14 @@
       color: #90999e;
       caret-color: #3366ff;
       transition: all .2s linear;
+      @media (max-width: 560px) {
+          width: 40px;
+          border: none;
+          &._open {
+            width: 260px;
+            border: 1px solid #ebf0f2;
+          }    
+      }
       &:focus {
         border-color: #3366ff;
       }
