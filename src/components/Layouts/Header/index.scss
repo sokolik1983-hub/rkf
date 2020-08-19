@@ -144,6 +144,14 @@
     //     top: 48px;
     //   }
     // }
+    &-img {
+      &.active {
+        opacity: 0.5;
+      }
+      &:hover {
+        opacity: 0.5;
+      }
+    }
     &-list {
       list-style: none;
       display: flex;
@@ -200,6 +208,7 @@
         cursor: pointer;
         &.active {
           border-bottom: 2px solid #3366ff;
+          padding-bottom: 7px;
         }
         &.active svg {
           fill: #3366ff;
