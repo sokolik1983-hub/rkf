@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
-import Card from "../../../../components/Card";
 import CitySelect from "../../../../components/CitySelect";
 import ListFilter from './ListFilter';
-import ListItem from "../../../../components/ListItem";
+import CardNews from "../../../../components/CardNews";
 import { endpointGetNews } from "../../config";
 import { Request } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import './index.scss';
+
 
 function getCity() {
     const l = localStorage.getItem('GLOBAL_CITY');
@@ -177,30 +177,26 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                     <ul className="NewsList__content">
                         {news && !!news.length && news.map(item => (
                             <li className="NewsList__item" key={item.id}>
-                                {
-                                    <Card>
-                                        <ListItem
-                                            user={item.user_type}
-                                            id={item.id}
-                                            name={item.name}
-                                            city={item.fact_city_name}
-                                            date={item.create_date}
-                                            isFullDate={isFullDate}
-                                            photo={item.picture_link}
-                                            text={item.content}
-                                            url={`/news/${item.id}`}
-                                            alias={item.alias}
-                                            logo_link={item.logo_link}
-                                            changeCityFilter={changeCityFilter}
-                                            citiesDict={citiesDict}
-                                            isAd={item.is_advert}
-                                            adBreedName={item.advert_breed_name}
-                                            adCode={item.advert_code}
-                                            adPrice={item.advert_cost}
-                                            adAmount={item.advert_number_of_puppies}
-                                        />
-                                    </Card>
-                                }
+                                <CardNews
+                                    user={item.user_type}
+                                    id={item.id}
+                                    name={item.name}
+                                    city={item.fact_city_name}
+                                    date={item.create_date}
+                                    isFullDate={isFullDate}
+                                    photo={item.picture_link}
+                                    text={item.content}
+                                    url={`/news/${item.id}`}
+                                    alias={item.alias}
+                                    logo_link={item.logo_link}
+                                    changeCityFilter={changeCityFilter}
+                                    citiesDict={citiesDict}
+                                    isAd={item.is_advert}
+                                    adBreedName={item.advert_breed_name}
+                                    adCode={item.advert_code}
+                                    adPrice={item.advert_cost}
+                                    adAmount={item.advert_number_of_puppies}
+                                />
                             </li>
                         ))}
                     </ul>

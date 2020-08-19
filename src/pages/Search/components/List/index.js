@@ -2,17 +2,20 @@ import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
-
+import CardExhibition from "../../../../components/CardExhibition";
+import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {connectFilters} from "../../connectors";
 import {Request} from "../../../../utils/request";
-import {buildSearchUrl} from "../../utils";
+import {buildSearchUrl, getInitialFilters} from "../../utils";
+import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 
-const SearchList = ({string_filter, search_type, start_element, setFilters}) => {
+const SearchList = ({history, string_filter, search_type, start_element, setFilters}) => {
     const [searchResult, setSearchResult] = useState([]);
     const [hasMore, setHasMore] = useState(true);
+    const {dictionary} = useDictionary('rank_type');
 
     const getSearchResults = async () => {
         await Request({
@@ -48,6 +51,10 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
         });
     };
 
+    // useEffect(() => {
+    //     setFilters({...getInitialFilters()});
+    // }, []);
+
     useEffect(() => {
         (() => getSearchResults())();
     }, [string_filter, search_type, start_element]);
@@ -65,8 +72,8 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
                 loader={<Loading centered={false} />}
                 endMessage={
                     <div className="search-list__default-content">
-                        <h3>{!searchResult.length ? 'Организаций не найдено' : 'Организаций больше нет'}</h3>
-                        <img src={DEFAULT_IMG.noNews} alt={!searchResult.length ? 'Организаций не найдено' : 'Организаций больше нет'} />
+                        <h3>{!searchResult.length ? 'Ничего не найдено' : 'Больше ничего нет'}</h3>
+                        <img src={DEFAULT_IMG.noNews} alt={!searchResult.length ? 'Ничего не найдено' : 'Больше ничего нет'} />
                     </div>
                 }
             >
@@ -75,6 +82,44 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
                         <li className="search-list__item" key={item.id}>
                             {item.search_type === 'organizations' &&
                                 <CardOrganization {...item} />
+                            }
+                            {item.search_type === 'exhibitions' &&
+                                <CardExhibition
+                                    id={item.id}
+                                    title={item.exhibition_name}
+                                    city={item.city}
+                                    dates={item.dates}
+                                    photo={item.picture_link}
+                                    url={`/exhibitions/${item.id}`}
+                                    club_name={item.club_name}
+                                    club_alias={item.club_alias}
+                                    club_logo={item.club_logo}
+                                    federation_name={item.federation_name}
+                                    federation_link={item.federation_link}
+                                    ranks={item.rank_ids}
+                                    dictionary={dictionary}
+                                    user={item.user_type}
+                                />
+                            }
+                            {item.search_type === 'articles' &&
+                                <CardNews
+                                    user={item.user_type}
+                                    id={item.id}
+                                    name={item.name}
+                                    city={item.fact_city_name}
+                                    date={item.create_date}
+                                    isFullDate={true}
+                                    photo={item.picture_link}
+                                    text={item.content}
+                                    url={`/news/${item.id}`}
+                                    alias={item.alias}
+                                    logo_link={item.logo_link}
+                                    isAd={item.is_advert}
+                                    adBreedName={item.advert_breed_name}
+                                    adCode={item.advert_code}
+                                    adPrice={item.advert_cost}
+                                    adAmount={item.advert_number_of_puppies}
+                                />
                             }
                         </li>
                     ))}

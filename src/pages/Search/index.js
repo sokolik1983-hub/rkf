@@ -18,7 +18,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => (
             <Container className="search-page content">
                 <Filters/>
                 <div className="search-page__content">
-                    <SearchList/>
+                    <SearchList history={history}/>
                 </div>
             </Container>
         </div>

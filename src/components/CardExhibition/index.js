@@ -1,14 +1,15 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Card from "../Card";
+import Share from "../Share";
 import {DEFAULT_IMG} from "../../appConfig";
 import {formatDateCommon} from "../../utils/datetime";
 import {formatText} from "../../utils";
 import {getDictElement} from "../../dictionaries";
+import "./index.scss";
 
 
-const CardExhibition = ({
-                         title,
+const CardExhibition = ({title,
                          city,
                          club_name,
                          club_alias,
@@ -33,23 +34,22 @@ const CardExhibition = ({
             ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
     };
 
-    const handleCityClick = e => {
-        e.preventDefault();
-        setFilters({ExhibitionName: city});
-    };
-
     return (
         <Card className="card-exhibition">
-            {photo && <Link className="card-exhibition__photo-wrap" to={url}>
-                <div className="card-exhibition__photo" style={{ backgroundImage: `url(${photo})` }} />
-            </Link>}
-            <div className="card-exhibition__content">
-                <div className="card-exhibition__content-inner">
+            <div className="card-exhibition__wrap">
+                {photo && url &&
+                    <Link className="card-exhibition__photo" to={url} style={{backgroundImage: `url(${photo})`}}/>
+                }
+                <div className="card-exhibition__content">
                     <div className="card-exhibition__header">
                         <div>
                             <Link className="card-exhibition__title" to={url} title={title}>{formatText(title)}</Link>
                         </div>
-                        <a className="card-exhibition__city" href="/" onClick={handleCityClick} title={city}>{city}</a>
+                        <span
+                            className="card-exhibition__city"
+                            onClick={() => setFilters ? setFilters(city) : null}
+                            title={city}
+                        >{city}</span>
                     </div>
                     <div className="card-exhibition__author">
                         <span className="card-exhibition__subtitle">Организатор</span>
@@ -59,10 +59,10 @@ const CardExhibition = ({
                             }} />
                             <p className="card-exhibition__club-name">
                                 {(user === 3 || user === 4 || user === 5) &&
-                                    <>
-                                        <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
-                                        &nbsp;
-                                    </>
+                                <>
+                                    <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                    &nbsp;
+                                </>
                                 }
                                 {club_name}
                             </p>
@@ -83,41 +83,10 @@ const CardExhibition = ({
                         </div>
                     </div>
                 </div>
-
-                <div className="card-exhibition__mobile">
-                    <Link to={url} title={title} className="card-exhibition__mobile-title">{formatText(title)}</Link>
-                    <div className="card-exhibition__mobile-info">
-                        <Link to="/"
-                              className="card-exhibition__mobile-info-city"
-                              onClick={handleCityClick}
-                              title={city}
-                        >{city}</Link>
-                        <p className="card-exhibition__mobile-info-date">{getDate()}</p>
-                        {getRanks() &&
-                            <p className="card-exhibition__mobile-info-rank">{getRanks()}</p>
-                        }
-                    </div>
-                    <div className="card-exhibition__mobile-about">
-                        <Link to={`/${club_alias}`} className="card-exhibition__mobile-about-organization">
-                            <span className="card-exhibition__mobile-about-logo" style={{
-                                backgroundImage: `url(${club_logo ? club_logo : DEFAULT_IMG.clubAvatar})`
-                            }} />
-                            <p className="card-exhibition__mobile-about-name" title={club_name}>
-                                {(user === 3 || user === 4 || user === 5) &&
-                                    <>
-                                        <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
-                                        &nbsp;
-                                    </>
-                                }
-                                {club_name}
-                            </p>
-                        </Link>
-                        {federation_name && federation_link &&
-                            <Link to={federation_link} className="card-exhibition__mobile-about-federation">{federation_name}</Link>
-                        }
-                    </div>
-                </div>
+            </div>
+            <div className="card-exhibition__controls">
                 <Link className="card-exhibition__show-all" to={url}>Подробнее</Link>
+                <Share url={`https://rkf.online${url}`} />
             </div>
         </Card>
     )

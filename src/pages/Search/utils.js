@@ -1,14 +1,6 @@
 import history from "../../utils/history";
 import {endpointGetSearchResults} from "./config";
 
-export const getFiltersFromLS = () => {
-    return JSON.parse(localStorage.getItem('globalSearchFilters'));
-};
-
-export const setFiltersToLS = filters => {
-    localStorage.setItem('globalSearchFilters', JSON.stringify(filters));
-};
-
 export const buildSearchUrl = (string_filter, search_type, start_element) => {
     let urlParams = '';
 
@@ -22,6 +14,8 @@ export const buildSearchUrl = (string_filter, search_type, start_element) => {
 const getSearchFilter = () => {
     let searchString = ''
 
+    console.log('getSearchFilter history.location', history.location);
+
     if (history.location.search) {
         searchString = decodeURIComponent(history.location.search).replace('?s=', '');
     }
@@ -29,15 +23,8 @@ const getSearchFilter = () => {
     return searchString;
 };
 
-export const getEmptyFilters = () => ({
-    string_filter: getSearchFilter() || '',
-    search_type: null,
+export const getInitialFilters = () => ({
+    string_filter: getSearchFilter(),
+    search_type: 8,
     start_element: 1
 });
-
-export const getInitialFilters = () => {
-    const emptyFilters = getEmptyFilters();
-    const filtersFromLS = getFiltersFromLS();
-
-    return filtersFromLS ? {...filtersFromLS, string_filter: getSearchFilter() || ''} : emptyFilters;
-};
