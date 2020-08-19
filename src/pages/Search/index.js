@@ -11,7 +11,7 @@ import reducer from "./reducer";
 import "./index.scss";
 
 
-const SearchPage = ({history, isOpenFilters, setShowFilters}) => (
+const SearchPage = ({isOpenFilters, setShowFilters}) => (
     <Layout withFilters>
         <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
         <div className="search-page__wrap">
