@@ -31,9 +31,6 @@
   }
   &__search {
     position: relative;
-    @media (max-width: 560px) {
-      display: none;
-    }
     &-control {
       width: 260px;
       padding: 6px 10px 6px 40px;
@@ -50,16 +47,6 @@
       transition: all .2s linear;
       &:focus {
         border-color: #3366ff;
-      }
-      &--mobile {
-        display: none;
-        @media (max-width: 560px) {
-          display: block;
-          width: 20px;
-          height: 20px;
-          background: #fff url("/static/icons/icon-search-gray.svg") no-repeat center;
-          border: none;
-        }
       }
     }
   }
