@@ -109,8 +109,7 @@
       p {
         cursor: pointer;
         &.active {
-          border-bottom: 2px solid #3366ff;
-          padding-bottom: 7px;
+          opacity: 0.5;
         }
         &.active svg {
           fill: #3366ff;
