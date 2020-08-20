@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { process } from '@progress/kendo-data-query';
-import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { Window } from '@progress/kendo-react-dialogs';
 import '@progress/kendo-theme-default/dist/all.css';
@@ -16,6 +16,12 @@ const categories = [
     { "status_id": 3, "StatusName": "Выполненные" },
     { "status_id": 4, "StatusName": "Не отправленные" },
 ];
+
+const ColumnMenu = (props) => {
+    return <div>
+        <GridColumnMenuFilter {...props} expanded={true} />
+    </div>
+};
 
 const Table = ({ documents, distinction }) => {
     const [windowVisible, setWindowVisible] = useState(false);
@@ -82,22 +88,21 @@ const Table = ({ documents, distinction }) => {
                             pageable
                             sortable
                             resizable
-                            filterable
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
                             onRowClick={handleGridRowClick}
                             style={{ height: "700px" }}>
-                            <GridColumn field="date_create" title="Дата создания" width="100px" />
-                            <GridColumn field="date_change" title="Изменение статуса" width="100px" />
-                            <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="100px" />
-                            <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" />
-                            <GridColumn field="nursery_name" title="Питомник" width="150px" />
-                            <GridColumn field="count_of_litter" title="Щенков" width="100px" />
-                            <GridColumn field="breed" title="Порода" width="150px" />
-                            <GridColumn field="stamp_code" title="Клеймо" width="100px" />
-                            <GridColumn field="count_of_documents" title="Документов" width="100px" />
-                            <GridColumn field="barcode" title="Трек-номер" width="150px" />
-                            <GridColumn field="status_name" title="Статус" width="150px" />
+                            <GridColumn field="date_create" title="Дата создания" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="date_change" title="Изменение статуса" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" columnMenu={ColumnMenu} />
+                            <GridColumn field="nursery_name" title="Питомник" width="150px" columnMenu={ColumnMenu} />
+                            <GridColumn field="count_of_litter" title="Щенков" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="breed" title="Порода" width="150px" columnMenu={ColumnMenu} />
+                            <GridColumn field="stamp_code" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="count_of_documents" title="Документов" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="barcode" title="Трек-номер" width="150px" columnMenu={ColumnMenu} />
+                            <GridColumn field="status_name" title="Статус" width="150px" columnMenu={ColumnMenu} />
                         </Grid>
                     }
 
