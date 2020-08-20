@@ -45,6 +45,15 @@ const CardExhibition = ({title,
                         <div>
                             <Link className="card-exhibition__title" to={url} title={title}>{formatText(title)}</Link>
                         </div>
+                        <div className="card-exhibition__header-info _mobile">
+                            <span
+                                className="card-exhibition__city"
+                                onClick={() => setFilters ? setFilters(city) : null}
+                                title={city}
+                            >{city}</span>
+                            <span className="card-exhibition__date">{getDate()}</span>
+                            <span className="card-exhibition__rank">{getRanks()}</span>
+                        </div>
                         <span
                             className="card-exhibition__city"
                             onClick={() => setFilters ? setFilters(city) : null}
@@ -59,14 +68,18 @@ const CardExhibition = ({title,
                             }} />
                             <p className="card-exhibition__club-name">
                                 {(user === 3 || user === 4 || user === 5) &&
-                                <>
-                                    <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
-                                    &nbsp;
-                                </>
+                                    <>
+                                        <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                        &nbsp;
+                                    </>
                                 }
                                 {club_name}
                             </p>
                         </Link>
+                        {federation_name && federation_link ?
+                            <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :
+                            <p className="card-exhibition__federation">Федерация не указана</p>
+                        }
                     </div>
                     <div className="card-exhibition__info">
                         <div>
