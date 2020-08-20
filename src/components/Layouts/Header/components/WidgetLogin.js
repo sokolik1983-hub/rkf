@@ -25,8 +25,8 @@ const WidgetLogin = forwardRef(
         const AuthButtons = () => {
             let path = history.location.pathname;
             return (<>
-                {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход</Link>}
-                {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}>Регистрация</Link>}
+                {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}><span>Вход</span></Link>}
+                {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}><span>Регистрация</span></Link>}
             </>);
         };
 
