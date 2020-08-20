@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { mainNavIcons } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
 import Feedback from "../../../Feedback";
+import { connectAuthVisible } from "../../../../pages/Login/connectors";
 
 export const LightTooltip = withStyles((theme) => ({
     tooltip: {
@@ -17,7 +18,7 @@ export const LightTooltip = withStyles((theme) => ({
     },
 }))(Tooltip);
 
-const Nav = () => {
+const Nav = ({isAuthenticated}) => {
 
     return (
         <nav className="header__nav">
@@ -32,11 +33,11 @@ const Nav = () => {
                     </li>
                 )}
             </ul>
-            <div className="header__nav-item _feedback">
+            {!isAuthenticated ? <div className="header__nav-item _feedback">
                 <Feedback isMainNav={true} />
-            </div>
+            </div> : ``}
         </nav>
     )
 };
 
-export default React.memo(Nav);
+export default React.memo(connectAuthVisible(Nav));
