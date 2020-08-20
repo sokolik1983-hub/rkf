@@ -1,20 +1,20 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import {mainNavIcons} from "../../../../appConfig";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import { mainNavIcons } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const LightTooltip = withStyles((theme) => ({
     tooltip: {
-      backgroundColor: '#fffeff',
-      color: '#72839c',
-      fontSize: 16,
-      fontFamily: 'Source Sans Pro',
-      boxShadow: '0px 4px 25px rgba(51, 102, 255, 0.15)',
-      lineHeight: 1,
-      paddingBottom: 6,
+        backgroundColor: '#fffeff',
+        color: '#72839c',
+        fontSize: 16,
+        fontFamily: 'Source Sans Pro',
+        boxShadow: '0px 4px 25px rgba(51, 102, 255, 0.15)',
+        lineHeight: 1,
+        paddingBottom: 6,
     },
-  }))(Tooltip);
+}))(Tooltip);
 
 const Nav = () => {
 
@@ -25,7 +25,7 @@ const Nav = () => {
                     <li className="header__nav-item" key={icon.id}>
                         <LightTooltip title={icon.title} enterDelay={200} leaveDelay={200}>
                             <NavLink to={icon.to} exact={icon.exact}>
-                                <img className="header__nav-img" src={icon.imageSrc} width="27" height="27" alt=""/>
+                                <img className="header__nav-img" src={icon.imageSrc} width="27" height="27" alt="" />
                             </NavLink>
                         </LightTooltip>
                     </li>
