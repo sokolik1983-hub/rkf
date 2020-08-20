@@ -5,7 +5,7 @@ import { mainNavIcons } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
 import Feedback from "../../../Feedback";
 
-const LightTooltip = withStyles((theme) => ({
+export const LightTooltip = withStyles((theme) => ({
     tooltip: {
         backgroundColor: '#fffeff',
         color: '#72839c',
@@ -32,7 +32,9 @@ const Nav = () => {
                     </li>
                 )}
             </ul>
-            <Feedback />
+            <div className="header__nav-item _feedback">
+                <Feedback isMainNav={true} />
+            </div>
         </nav>
     )
 };

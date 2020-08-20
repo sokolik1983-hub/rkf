@@ -5,10 +5,11 @@ import Alert from 'components/Alert';
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
+import { LightTooltip } from "../../components/Layouts/Header/components/Nav";
 import './styles.scss';
 
 
-const Feedback = ({ className, title, HelpdeskApiKey }) => {
+const Feedback = ({ className, title, HelpdeskApiKey, isMainNav }) => {
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -70,12 +71,22 @@ const Feedback = ({ className, title, HelpdeskApiKey }) => {
 
     return (
         <>
+            {isMainNav ? <LightTooltip title="Центр поддержки" enterDelay={200} leaveDelay={200}>
+                <a className={`feedback-link${className ? ' ' + className : ''}`}
+                    onClick={handleClick}
+                    href="/"
+                >
+                    <svg id="Layer_1" class="header__nav-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path  d="M146.67,163.72H53.28a15.24,15.24,0,0,1-15.23-15.23V55.11A15.25,15.25,0,0,1,53.28,39.87h93.39A15.25,15.25,0,0,1,161.9,55.11v93.38A15.24,15.24,0,0,1,146.67,163.72ZM53.28,47.87a7.24,7.24,0,0,0-7.23,7.24v93.38a7.23,7.23,0,0,0,7.23,7.23h93.39a7.23,7.23,0,0,0,7.23-7.23V55.11a7.24,7.24,0,0,0-7.23-7.24Z"/><path  d="M131.54,146.3H68.41a13,13,0,0,1-12.93-12.94V70.23A12.94,12.94,0,0,1,68.41,57.3h63.13a13,13,0,0,1,12.94,12.93v63.13A13,13,0,0,1,131.54,146.3Zm-63.13-81a4.93,4.93,0,0,0-4.93,4.93v63.13a4.94,4.94,0,0,0,4.93,4.94h63.13a5,5,0,0,0,4.94-4.94V70.23a4.94,4.94,0,0,0-4.94-4.93Z"/><path  d="M110.64,125.36H89.31a12.91,12.91,0,0,1-12.9-12.9V91.13a12.92,12.92,0,0,1,12.9-12.9h21.33a12.91,12.91,0,0,1,12.9,12.9v21.33A12.91,12.91,0,0,1,110.64,125.36ZM89.31,86.23a4.91,4.91,0,0,0-4.9,4.9v21.33a4.9,4.9,0,0,0,4.9,4.9h21.33a4.9,4.9,0,0,0,4.9-4.9V91.13a4.91,4.91,0,0,0-4.9-4.9Z"/><path  d="M29,153.57H14.58a4,4,0,0,1,0-8H29a4,4,0,0,1,0,8Z"/><path  d="M29,134.45H14.58a4,4,0,0,1,0-8H29a4,4,0,1,1,0,8Z"/><path  d="M29,115.33H14.58a4,4,0,1,1,0-8H29a4,4,0,0,1,0,8Z"/><path  d="M29,96.21H14.58a4,4,0,1,1,0-8H29a4,4,0,1,1,0,8Z"/><path  d="M29,77.09H14.58a4,4,0,1,1,0-8H29a4,4,0,0,1,0,8Z"/><path  d="M29,58H14.58a4,4,0,1,1,0-8H29a4,4,0,0,1,0,8Z"/><path  d="M185.42,153.57H171a4,4,0,0,1,0-8h14.4a4,4,0,1,1,0,8Z"/><path  d="M185.42,134.45H171a4,4,0,0,1,0-8h14.4a4,4,0,1,1,0,8Z"/><path  d="M185.42,115.33H171a4,4,0,0,1,0-8h14.4a4,4,0,0,1,0,8Z"/><path  d="M185.42,96.21H171a4,4,0,0,1,0-8h14.4a4,4,0,0,1,0,8Z"/><path  d="M185.42,77.09H171a4,4,0,0,1,0-8h14.4a4,4,0,0,1,0,8Z"/><path  d="M185.42,58H171a4,4,0,0,1,0-8h14.4a4,4,0,0,1,0,8Z"/><path  d="M52.2,34.75a4,4,0,0,1-4-4V16.35a4,4,0,0,1,8,0v14.4A4,4,0,0,1,52.2,34.75Z"/><path  d="M71.32,34.75a4,4,0,0,1-4-4V16.35a4,4,0,1,1,8,0v14.4A4,4,0,0,1,71.32,34.75Z"/><path  d="M90.44,34.75a4,4,0,0,1-4-4V16.35a4,4,0,0,1,8,0v14.4A4,4,0,0,1,90.44,34.75Z"/><path  d="M109.56,34.75a4,4,0,0,1-4-4V16.35a4,4,0,0,1,8,0v14.4A4,4,0,0,1,109.56,34.75Z"/><path  d="M128.68,34.75a4,4,0,0,1-4-4V16.35a4,4,0,1,1,8,0v14.4A4,4,0,0,1,128.68,34.75Z"/><path  d="M147.8,34.75a4,4,0,0,1-4-4V16.35a4,4,0,1,1,8,0v14.4A4,4,0,0,1,147.8,34.75Z"/><path  d="M52.2,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,52.2,191.2Z"/><path  d="M71.32,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,71.32,191.2Z"/><path  d="M90.44,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,90.44,191.2Z"/><path  d="M109.56,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,109.56,191.2Z"/><path  d="M128.68,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,128.68,191.2Z"/><path  d="M147.8,191.2a4,4,0,0,1-4-4V172.79a4,4,0,0,1,8,0V187.2A4,4,0,0,1,147.8,191.2Z"/></svg>
+                </a>
+            </LightTooltip>
+            :
             <a className={`feedback-link${className ? ' ' + className : ''}`}
                 onClick={handleClick}
                 href="/"
             >
-                {title || 'Центр поддержки'}
-            </a>
+                    {title || 'Центр поддержки'}
+                </a>
+            }
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
                     <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
