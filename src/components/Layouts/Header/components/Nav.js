@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { mainNavIcons } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
+import Feedback from "../../../Feedback";
 
 const LightTooltip = withStyles((theme) => ({
     tooltip: {
@@ -31,6 +32,7 @@ const Nav = () => {
                     </li>
                 )}
             </ul>
+            <Feedback />
         </nav>
     )
 };
