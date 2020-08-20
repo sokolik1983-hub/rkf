@@ -24,7 +24,7 @@
     min-width: 40px;
     background: url("/static/images/header/rkf-logo-transparent.svg") no-repeat center;
     background-size: cover;
-    margin-right: 48px;
+    margin-right: 20px;
     @media (max-width: 560px) {
       margin-right: 20px;
     }
@@ -32,7 +32,7 @@
   &__search {
     position: relative;
     &-control {
-      width: 260px;
+      width: 240px;
       padding: 6px 10px 6px 40px;
       margin-right: 24px;
       border: 1px solid #ebf0f2;
