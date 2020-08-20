@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { mainNavIcons } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
+import Feedback from "../../../Feedback";
 
 const LightTooltip = withStyles((theme) => ({
     tooltip: {
@@ -22,15 +23,16 @@ const Nav = () => {
         <nav className="header__nav">
             <ul className="header__nav-list">
                 {mainNavIcons.map(icon =>
-                    <li className="header__nav-item" key={icon.id}>
+                    <li className={`header__nav-item ${icon.disabled ? `disabled` : ``}`} key={icon.id}>
                         <LightTooltip title={icon.title} enterDelay={200} leaveDelay={200}>
-                            <NavLink to={icon.to} exact={icon.exact}>
-                                <img className="header__nav-img" src={icon.imageSrc} width="27" height="27" alt="" />
+                            <NavLink className={icon.disabled ? `_disabled` : ``} to={icon.to} exact={icon.exact}>
+                                {icon.image}
                             </NavLink>
                         </LightTooltip>
                     </li>
                 )}
             </ul>
+            <Feedback />
         </nav>
     )
 };

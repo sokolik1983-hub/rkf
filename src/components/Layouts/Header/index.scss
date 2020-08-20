@@ -88,14 +88,6 @@
     justify-content: center;
     width: 100%;
     margin-right: 25px;
-    &-img {
-      &.active {
-        opacity: 0.5;
-      }
-      &:hover {
-        opacity: 0.5;
-      }
-    }
     &-list {
       list-style: none;
       display: flex;
@@ -109,12 +101,12 @@
       a,
       p {
         cursor: pointer;
-        &.active {
-          opacity: 0.5;
-        }
-        &.active svg {
-          fill: #3366ff;
-        }
+        // &.active {
+        //   opacity: 0.5;
+        // }
+        // &.active svg {
+        //   fill: #3366ff;
+        // }
         @media (max-width: 990px) {
           display: block;
           transition: all 0.2s linear;
@@ -172,24 +164,24 @@
       }
       &.disabled {
         opacity: 0.5;
-        a {
-          cursor: default;
-          &:hover {
-            background-color: transparent;
-            color: #72839c;
-          }
-          @media (max-width: 990px) {
-            &:hover {
-              background-color: transparent;
-              color: #72839c;
-            }
-            &.active {
-              background-color: transparent;
-              border-color: transparent;
-              color: #72839c;
-            }
-          }
-        }
+        // a {
+        //   cursor: default;
+        //   &:hover {
+        //     background-color: transparent;
+        //     color: #72839c;
+        //   }
+        //   @media (max-width: 990px) {
+        //     &:hover {
+        //       background-color: transparent;
+        //       color: #72839c;
+        //     }
+        //     &.active {
+        //       background-color: transparent;
+        //       border-color: transparent;
+        //       color: #72839c;
+        //     }
+        //   }
+        // }
       }
     }
     &-sublist-transition {
@@ -215,7 +207,9 @@
       }
     }
     &-icon {
-      fill: #90999E;
+      fill: #90999e;
+      width: 30px;
+      height: 30px;
     }
     &-icon:hover {
       fill: #3366ff;
@@ -310,10 +304,10 @@
       padding: 8px 16px;
       transition: all 0.2s linear;
       cursor: pointer;
-      &:hover {
-        background-color: whitesmoke;
-        color: #3366ff;
-      }
+      // &:hover {
+      //   background-color: whitesmoke;
+      //   color: #3366ff;
+      // }
     }
   }
   &__edit {
@@ -416,5 +410,12 @@
       transform: translateY(-10px);
       transition: opacity 0.2s, transform 0.2s;
     }
+  }
+}
+._disabled svg {
+  opacity: 0.5;
+  cursor: not-allowed;
+  &:hover {
+    fill: #90999e;
   }
 }
