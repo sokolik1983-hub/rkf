@@ -5,12 +5,11 @@ import Card from "../../../../components/Card";
 import Dropdown from "./Dropdown";
 import {setOverflow} from "../../../../utils";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import {connectFilters} from "../../connectors";
 import {filters} from "../../config";
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, string_filter}) => {
+const Filters = ({isOpenFilters, filtersValue}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -22,9 +21,9 @@ const Filters = ({isOpenFilters, string_filter}) => {
             <StickyBox offsetTop={66}>
                 <Card className="search-page__filters">
                     <h3 className="search-page__filters-title">Результаты поиска для</h3>
-                    <p className="search-page__filters-value">{string_filter}</p>
+                    <p className="search-page__filters-value">{filtersValue.string_filter}</p>
                     {filters.map(filter =>
-                        <Dropdown {...filter} key={filter.name}/>
+                        <Dropdown key={filter.name} {...filter} filtersValue={filtersValue}/>
                     )}
                 </Card>
                 <div className="search-page__copy-wrap">
@@ -36,4 +35,4 @@ const Filters = ({isOpenFilters, string_filter}) => {
     )
 };
 
-export default connectShowFilters(connectFilters(React.memo(Filters)));
+export default connectShowFilters(React.memo(Filters));

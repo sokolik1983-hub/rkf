@@ -5,23 +5,23 @@ import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
 import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import {connectFilters} from "../../connectors";
 import {Request} from "../../../../utils/request";
 import {buildSearchUrl} from "../../utils";
 import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 
-const SearchList = ({string_filter, search_type, start_element, setFilters}) => {
+const SearchList = ({string_filter, search_type}) => {
     const [searchResult, setSearchResult] = useState([]);
     const [hasMore, setHasMore] = useState(true);
+    const [startElement, setStartElement] = useState(1);
     const {dictionary} = useDictionary('rank_type');
 
-    const getSearchResults = async () => {
+    const getSearchResults = async (startElem) => {
         await Request({
-            url: buildSearchUrl(string_filter, search_type, start_element),
+            url: buildSearchUrl(string_filter, search_type, startElem)
         }, data => {
-            if(start_element === 1) {
+            if(startElem === 1) {
                 window.scrollTo(0,0);
             }
 
@@ -40,35 +40,41 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
                     setHasMore(true);
                 }
 
-                setSearchResult(start_element === 1 ? results : [...searchResult, ...results]);
+                setSearchResult(startElem === 1 ? results : [...searchResult, ...results]);
             } else {
-                if(start_element === 1) setSearchResult([]);
+                if(startElem === 1) setSearchResult([]);
                 setHasMore(false);
             }
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setSearchResult([]);
+            setHasMore(false);
         });
     };
 
     useEffect(() => {
-        if(string_filter) {
-            (() => getSearchResults())();
+        if(string_filter && search_type) {
+            (() => getSearchResults(1))();
         } else {
             setSearchResult([]);
             setHasMore(false);
         }
-    }, [string_filter, search_type, start_element]);
+        setStartElement(1);
+    }, [string_filter, search_type]);
 
-    const getNextOrganizations = () => {
-        setFilters({start_element: searchResult.length ? start_element + 10 : 1})
+    const getNextExhibitions = () => {
+        if (searchResult.length) {
+            (() => getSearchResults(startElement + 10))();
+            setStartElement(startElement + 10);
+        }
     };
 
     return (
         <div className="search-list">
             <InfiniteScroll
                 dataLength={searchResult.length}
-                next={getNextOrganizations}
+                next={getNextExhibitions}
                 hasMore={hasMore}
                 loader={<Loading centered={false} />}
                 endMessage={
@@ -130,4 +136,4 @@ const SearchList = ({string_filter, search_type, start_element, setFilters}) => 
     )
 };
 
-export default connectFilters(React.memo(SearchList));
+export default React.memo(SearchList);

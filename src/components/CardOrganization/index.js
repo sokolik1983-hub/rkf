@@ -31,12 +31,12 @@ const CardOrganization = ({alias,
             <div className="card-organization__content">
                 <div className="card-organization__header">
                     {is_active && url ?
-                        <Link className="card-organization__author" to={url}>
-                            <span className={logoClassName} style={{
+                        <div className="card-organization__author">
+                            <Link to={url} className={logoClassName} style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
                             <div className="card-organization__name-wrap">
-                                <span className="card-organization__name" title={name || 'Название отсутствует'}>
+                                <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
                                     {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
                                         <>
                                             <span>
@@ -46,7 +46,7 @@ const CardOrganization = ({alias,
                                         </>
                                     }
                                     <span>{name || 'Название отсутствует'}</span>
-                                </span>
+                                </Link>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                                     <div className="card-organization__info-item">
                                         <span>
@@ -65,7 +65,7 @@ const CardOrganization = ({alias,
                                     alt="Активный пользователь RKF.Online"
                                 />
                             }
-                        </Link> :
+                        </div> :
                         <p className="card-organization__author">
                             <span className="card-organization__logo" style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
