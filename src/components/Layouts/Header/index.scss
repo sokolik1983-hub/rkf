@@ -412,3 +412,10 @@
     }
   }
 }
+._disabled svg {
+  opacity: 0.5;
+  cursor: not-allowed;
+  &:hover {
+    fill: #90999e;
+  }
+}
