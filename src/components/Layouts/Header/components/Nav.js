@@ -25,7 +25,7 @@ const Nav = () => {
                     <li className="header__nav-item" key={icon.id}>
                         <LightTooltip title={icon.title} enterDelay={200} leaveDelay={200}>
                             <NavLink to={icon.to} exact={icon.exact}>
-                                <img className="header__nav-img" src={icon.imageSrc} width="27" height="27" alt="" />
+                                {icon.image}
                             </NavLink>
                         </LightTooltip>
                     </li>
