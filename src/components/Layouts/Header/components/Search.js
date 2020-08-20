@@ -1,17 +1,15 @@
 import React, {useState} from "react";
 import history from "../../../../utils/history";
-import {connectFilters} from "../../../../pages/Search/connectors";
 
 
-const Search = ({setFilters}) => {
+const Search = () => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
         setSearchValue('');
-        setFilters({string_filter: searchValue});
-        history.push(`/search?s=${searchValue}`);
+        history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
     };
 
     return (
@@ -29,4 +27,4 @@ const Search = ({setFilters}) => {
     )
 };
 
-export default connectFilters(React.memo(Search));
+export default React.memo(Search);

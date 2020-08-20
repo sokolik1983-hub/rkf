@@ -71,7 +71,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                 setHasMore(false);
             }
 
-
             const club = data.searching_club;
 
             if (club) {

@@ -20,6 +20,7 @@
     }
   }
   &__logo {
+    text-decoration: none;
     display: flex;
     flex-shrink: 0;
     width: 32px;
@@ -36,6 +37,7 @@
     }
   }
   &__name {
+    text-decoration: none;
     line-height: 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -50,6 +52,7 @@
     }
     &-wrap {
       width: 100%;
+      overflow: hidden;
     }
   }
   &__active-member {
