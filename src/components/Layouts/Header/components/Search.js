@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {connectShowFilters} from "../../connectors";
 import history from "../../../../utils/history";
 
 
@@ -28,4 +27,4 @@ const Search = ({withFilters}) => {
     )
 };
 
-export default connectShowFilters(React.memo(Search));
+export default React.memo(Search);
