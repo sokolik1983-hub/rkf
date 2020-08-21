@@ -244,6 +244,11 @@
             border-color: #3366ff;
             color: #3366ff !important;
           }
+          &._disabled {
+            opacity: .5;
+            background-color: transparent;
+            color: #72839c !important;
+          }
         }
         @media (max-width: 560px) {
           padding: 8px 24px;

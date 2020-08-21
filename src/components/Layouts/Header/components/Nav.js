@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { mainNavIcons, mainNav } from "../../../../appConfig";
+import { mainNav } from "../../../../appConfig";
 import Tooltip from "@material-ui/core/Tooltip";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
@@ -58,7 +58,12 @@ const Nav = ({ isAuthenticated }) => {
                             <li className="header__nav-item" key={navItem.id}>
                                 {navItem.children ?
                                     <NavSublist setIsOpen={setIsOpen} navItem={navItem} /> :
-                                    <NavLink to={navItem.to} exact={navItem.exact} onClick={() => setIsOpen(false)}>
+                                    <NavLink
+                                        to={navItem.to}
+                                        exact={navItem.exact}
+                                        className={navItem.disabled ? '_disabled' : ''}
+                                        onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
+                                    >
                                         {navItem.title}
                                     </NavLink>
                                 }
@@ -72,7 +77,7 @@ const Nav = ({ isAuthenticated }) => {
                 :
                 <>
                     <ul className="header__nav-list">
-                        {mainNavIcons.map(icon =>
+                        {mainNav.map(icon =>
                             <li className={`header__nav-item ${icon.disabled ? `disabled` : ``}`} key={icon.id}>
                                 <LightTooltip title={icon.title} enterDelay={200} leaveDelay={200}>
                                     <NavLink className={icon.disabled ? `_disabled` : ``} to={icon.to} exact={icon.exact}>
