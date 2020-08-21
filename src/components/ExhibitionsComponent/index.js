@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ExhibitionCard from "../ExhibitionCard";
 import Slider from "react-slick";
 import CustomArrow from "../../components/CustomArrow";
@@ -9,6 +9,7 @@ import { responsiveSliderConfig } from "../../appConfig";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss";
+import KendoCard from "../kendo/Card";
 
 
 const Placeholders = [0, 1, 2, 3];
@@ -21,19 +22,21 @@ const ExhibitionsComponent = ({ alias }) => {
         ? `/api/exhibitions/Exhibition/featured?Alias=${alias}&All=true`
         : '/api/exhibitions/Exhibition/featured?ElementsCount=14';
 
+    const history = useHistory();
+
     useEffect(() => {
-        if(window.innerWidth > 1180) {
+        if (window.innerWidth > 1180) {
             setNeedBkock(true);
         }
 
         window.addEventListener("resize", () => {
-            if(window.innerWidth > 1180) {
+            if (window.innerWidth > 1180) {
                 setNeedBkock(true);
             }
         });
 
         return window.removeEventListener("resize", () => {
-            if(window.innerWidth > 1180) {
+            if (window.innerWidth > 1180) {
                 setNeedBkock(true);
             }
         });
@@ -46,11 +49,11 @@ const ExhibitionsComponent = ({ alias }) => {
             setExhibitions(data);
             setIsRequestEnd(true);
         },
-        error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setIsRequestEnd(true);
-        }))();
+            error => {
+                console.log(error.response);
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setIsRequestEnd(true);
+            }))();
     }, [alias ? alias : null]);
 
     if (isRequestEnd && (!exhibitions || !exhibitions.length)) return null;
@@ -71,7 +74,7 @@ const ExhibitionsComponent = ({ alias }) => {
 
             >
                 {exhibitions ?
-                    exhibitions.map(exhibition => <ExhibitionCard key={exhibition.id} {...exhibition} />) :
+                    exhibitions.map(exhibition => history.location.hash === '#kendo' ? <KendoCard key={exhibition.id} {...exhibition} /> : <ExhibitionCard key={exhibition.id} {...exhibition} />) :
                     Placeholders.map(item => <Placeholder key={item} />)
                 }
                 {alias && needBlock &&
