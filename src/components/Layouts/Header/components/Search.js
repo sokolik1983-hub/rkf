@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import history from "../../../../utils/history";
 
 
@@ -13,16 +14,21 @@ const Search = ({withFilters}) => {
     };
 
     return (
-        <form className={`header__search${isClicked ? ' _open' : ''}`} onSubmit={handleSubmit}>
-            <input
-                className={`header__search-control${isClicked ? ' _open' : ''} ${!withFilters ? 'no_filter' : ''}`}
-                type="text"
-                placeholder="Поиск"
-                onChange={({target}) => setSearchValue(target.value)}
-                onClick={() => setIsClicked(true)}
-                value={searchValue}
-                required
-            />
+        <form
+            className={`header__search${isClicked ? ' _open' : ''}${withFilters ? ' _with-filter' : ''}`}
+            onSubmit={handleSubmit}
+        >
+            <OutsideClickHandler onOutsideClick={() => setIsClicked(false)}>
+                <input
+                    className={`header__search-control${isClicked ? ' _open' : ''}`}
+                    type="text"
+                    placeholder="Поиск"
+                    onChange={({target}) => setSearchValue(target.value)}
+                    onClick={() => setIsClicked(true)}
+                    value={searchValue}
+                    required
+                />
+            </OutsideClickHandler>
         </form>
     )
 };

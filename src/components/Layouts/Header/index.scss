@@ -38,7 +38,10 @@
     }
     @media (max-width: 560px) {
       &._open {
-        min-width: calc(100% - 90px);
+        min-width: calc(100% - 56px);
+        &._with-filter {
+          min-width: calc(100% - 90px);
+        }
       }
     }
     &-control {
