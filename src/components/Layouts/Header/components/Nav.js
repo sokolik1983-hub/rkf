@@ -46,8 +46,7 @@ const Nav = ({ isAuthenticated }) => {
 
     return (
         <nav className="header__nav">
-            {
-                isMobile ? 
+            {isMobile ?
                 <>
                     <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
                     <BurgerButton

@@ -13,9 +13,9 @@ const Search = ({withFilters}) => {
     };
 
     return (
-        <form className="header__search" onSubmit={handleSubmit}>
+        <form className={`header__search${isClicked ? ' _open' : ''}`} onSubmit={handleSubmit}>
             <input
-                className={`header__search-control ${isClicked ? '_open' : ''} ${!withFilters ? 'no_filter' : ''}`}
+                className={`header__search-control${isClicked ? ' _open' : ''} ${!withFilters ? 'no_filter' : ''}`}
                 type="text"
                 placeholder="Поиск"
                 onChange={({target}) => setSearchValue(target.value)}
