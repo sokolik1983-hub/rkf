@@ -49,7 +49,6 @@
       caret-color: #3366ff;
       transition: all .2s linear;
       @media (max-width: 768px) {
-        background: #fff url("/static/icons/icon-search-gray.svg") no-repeat center;
         width: 40px;
         border: none;
         margin-left: 40px;
@@ -227,6 +226,10 @@
     border: 1px solid #fff;
     cursor: pointer;
     transition: border-color 0.2s linear;
+    margin-left: 300px;
+    @media (max-width: 990px) {
+      margin-left: auto;
+    }  
     &._active,
     &._no-logo {
       border-color: #3366ff;
