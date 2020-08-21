@@ -15,7 +15,7 @@ const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
             {withFilters &&
                 <button className="header__filters" onClick={() => setShowFilters({isOpenFilters: !isOpenFilters})}/>
             }
-            <Search/>
+            <Search withFilters={withFilters} />
             <Nav/>
             <WidgetLogin/>
         </Container>
