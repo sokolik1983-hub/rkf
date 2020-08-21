@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import history from "../../../../utils/history";
 
 
-const Search = () => {
+const Search = ({withFilters}) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
 
@@ -15,7 +15,7 @@ const Search = () => {
     return (
         <form className="header__search" onSubmit={handleSubmit}>
             <input
-                className={`header__search-control ${isClicked ? '_open' : ''}`}
+                className={`header__search-control ${isClicked ? '_open' : ''} ${!withFilters ? 'no_filter' : ''}`}
                 type="text"
                 placeholder="Поиск"
                 onChange={({target}) => setSearchValue(target.value)}
