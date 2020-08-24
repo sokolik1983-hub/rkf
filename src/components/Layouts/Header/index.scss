@@ -157,6 +157,19 @@
   &__nav {
     width: 100%;
     margin-right: 24px;
+    &-icon {
+      fill: #90999e;
+      &:hover {
+        fill: #3366ff;
+        transition: opacity 0.2s, transform 0.2s;
+      }
+    }
+    &--desktop {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 5px;
+    }
     @media (max-width: 990px) {
       order: 1;
       width: auto;
@@ -176,6 +189,12 @@
     &-list {
       list-style: none;
       display: flex;
+      &--desktop {
+        list-style: none;
+        display: flex;
+        width: 350px;
+        justify-content: space-between;
+      }
       @media (max-width: 990px) {
         display: block;
         visibility: hidden;
@@ -203,6 +222,9 @@
     }
     &-item {
       position: relative;
+      &--feedback {
+        margin-right: 20px;
+      }
       &:not(:last-child) {
         margin-right: 24px;
       }
@@ -568,5 +590,12 @@
       transform: translateY(-10px);
       transition: opacity 0.2s, transform 0.2s;
     }
+  }
+}
+._disabled svg {
+  opacity: 0.5;
+  cursor: not-allowed;
+    &:hover {
+    fill: #90999e;
   }
 }

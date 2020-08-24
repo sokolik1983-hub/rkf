@@ -45,7 +45,7 @@ const Nav = ({ isAuthenticated }) => {
     }, [isOpen]);
 
     return (
-        <nav className="header__nav">
+        <nav className={`header__nav${!isMobile ? `--desktop` : ``}`}>
             {isMobile ?
                 <>
                     <ClickGuard value={isOpen} callback={() => setIsOpen(false)} />
@@ -76,20 +76,25 @@ const Nav = ({ isAuthenticated }) => {
                 </>
                 :
                 <>
-                    <ul className="header__nav-list">
-                        {mainNav.map(icon =>
-                            <li className={`header__nav-item ${icon.disabled ? `disabled` : ``}`} key={icon.id}>
-                                <LightTooltip title={icon.title} enterDelay={200} leaveDelay={200}>
-                                    <NavLink className={icon.disabled ? `_disabled` : ``} to={icon.to} exact={icon.exact}>
-                                        {icon.image}
+                    <ul className="header__nav-list--desktop">
+                        {mainNav.map(navItem =>
+                            <li className="header__nav-item--desktop" key={navItem.id}>
+                                <LightTooltip title={navItem.title} enterDelay={200} leaveDelay={200}>
+                                    <NavLink
+                                        to={navItem.to}
+                                        exact={navItem.exact}
+                                        className={`${navItem.disabled ? `_disabled` : ``}`}
+                                        onClick={e => navItem.disabled ? e.preventDefault() : e}
+                                    >
+                                        {navItem.image}
                                     </NavLink>
                                 </LightTooltip>
                             </li>
                         )}
                     </ul>
-                    {!isAuthenticated ? <div className="header__nav-item _feedback">
+                    {!isAuthenticated ? <div className="header__nav-item--feedback">
                         <Feedback isMainNav={true} />
-                    </div> : ``}
+                        </div> : ``}
                 </>
             }
         </nav>
