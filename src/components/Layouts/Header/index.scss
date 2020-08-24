@@ -159,9 +159,9 @@
     margin-right: 24px;
     &-icon {
       fill: #90999e;
+      transition: fill .2s linear;
       &:hover {
         fill: #3366ff;
-        transition: opacity 0.2s, transform 0.2s;
       }
     }
     &--desktop {
