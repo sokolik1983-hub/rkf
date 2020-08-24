@@ -194,8 +194,8 @@
       &--desktop {
         list-style: none;
         display: flex;
-        width: 350px;
-        justify-content: space-between;
+        width: 100%;
+        justify-content: center;
       }
       @media (max-width: 990px) {
         display: block;
@@ -225,13 +225,10 @@
     &-item {
       position: relative;
       &--feedback {
-        margin-right: 20px;
-      }
-      &:not(:last-child) {
         margin-right: 24px;
       }
-      &:last-child {
-        margin-left: auto;
+      &--desktop {
+        margin-right: 24px;
       }
       @media (max-width: 990px) {
         margin: 0 !important;
