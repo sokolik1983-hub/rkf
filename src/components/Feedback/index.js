@@ -80,7 +80,7 @@ const Feedback = ({ className, title, HelpdeskApiKey, isMainNav }) => {
                 </a>
             </LightTooltip>
             :
-            <a className={`feedback-link${className ? ' ' + className : ''}`}
+            <a style={{ color: '#3366ff', backgroundColor: 'whitesmoke' }} className={`feedback-link${className ? ' ' + className : ''}`}
                 onClick={handleClick}
                 href="/"
             >
