@@ -1,11 +1,12 @@
-.list-item {
+.card-news {
+  padding: 10px !important;
   &__wrap {
     &.is_closed {
-      .list-item__controls,
-      .list-item__photo,
-      .list-item__text-wrap,
-      .list-item__club,
-      .list-item__city {
+      .card-news__controls,
+      .card-news__photo,
+      .card-news__text-wrap,
+      .card-news__club,
+      .card-news__city {
         opacity: 0.5;
         pointer-events: none;
       }
@@ -314,7 +315,7 @@
       background: #fff;
       border-radius: 50%;
       box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1), 1px -1px 2px rgba(0, 0, 0, 0.1),
-        -1px 1px 2px rgba(0, 0, 0, 0.1);
+      -1px 1px 2px rgba(0, 0, 0, 0.1);
       opacity: 0.8;
       transition: opacity 0.2s linear;
       &:before {

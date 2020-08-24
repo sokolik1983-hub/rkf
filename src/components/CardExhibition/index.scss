@@ -1,0 +1,284 @@
+.card-exhibition {
+  padding: 10px !important;
+  ._mobile {
+    @media (min-width: 768px) {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      .card-exhibition__city {
+        display: block;
+        margin-right: 4px;
+      }
+      .card-exhibition__rank {
+        margin-left: 4px;
+        white-space: nowrap;
+      }
+      &.card-exhibition__header-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 18px;
+        color: #72839c;
+      }
+    }
+  }
+  &__wrap {
+    display: flex;
+    @media (max-width: 560px) {
+      flex-direction: column-reverse;
+    }
+  }
+  &__photo {
+    text-decoration: none;
+    display: block;
+    min-height: 162px;
+    min-width: 288px;
+    max-height: 162px;
+    max-width: 288px;
+    margin-right: 10px;
+    border-radius: 6px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    @media (max-width: 560px) {
+      min-height: 154px;
+      min-width: 100%;
+      max-height: 154px;
+      max-width: none;
+    }
+  }
+  &__content {
+    width: calc(100% - 298px);
+    @media (max-width: 560px) {
+      width: 100%;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+    @media (max-width: 767px) {
+      display: block;
+    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+      padding-right: 16px;
+      @media (max-width: 767px) {
+        padding-right: 0;
+      }
+    }
+  }
+  &__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #253c5e;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    transition: color .2s linear;
+    &:hover {
+      color: #3366ff;
+    }
+    @media (max-width: 767px) {
+      font-size: 15px;
+      line-height: 20px;
+      max-height: 40px;
+      margin-bottom: 4px;
+      white-space: initial;
+    }
+  }
+  &__city {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: .2px;
+    color: #72839c;
+    padding-left: 18px;
+    white-space: nowrap;
+    cursor: pointer;
+    &:before {
+      content: "";
+      width: 12px;
+      height: 16px;
+      background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      color: #3366ff;
+      &:before {
+        background: url("/static/icons/pin.svg") center center/contain no-repeat;
+      }
+    }
+    @media (max-width: 767px) {
+      display: none;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+  &__author {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #253c5e;
+    margin-bottom: 10px;
+    & > a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: .2px;
+      color: #253c5e;
+      &.card-exhibition__federation {
+        display: none;
+        color: #72839c;
+        transition: color .2s linear;
+        &:hover {
+          color: #3366ff;
+        }
+      }
+    }
+    @media (max-width: 767px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 18px;
+      .card-exhibition__subtitle {
+        display: none;
+      }
+      & > a {
+        font-size: 14px;
+        line-height: 18px;
+        overflow: hidden;
+        p {
+          display: block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        &.card-exhibition__federation {
+          display: block;
+          overflow: visible;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  &__subtitle {
+    display: block;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #90999e;
+  }
+  &__club-name {
+    max-height: 40px;
+    overflow: hidden;
+    color: #3366ff;
+
+    span {
+      color: #72839c;
+    }
+  }
+  &__club-logo {
+    display: flex;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 4px 8px 4px 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &__info {
+    display: flex;
+    @media (max-width: 767px) {
+      display: none;
+    }
+    & > div {
+      max-width: 125px;
+      margin-right: 64px;
+      white-space: nowrap;
+      a {
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        text-decoration: none;
+        color: #253c5e;
+        transition: color .2s linear;
+        &:hover {
+          color: #3366ff;
+        }
+      }
+      p {
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #90999e;
+      }
+    }
+  }
+  &__controls {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__show-all {
+    text-decoration: none;
+    line-height: 1;
+    letter-spacing: .2px;
+    color: #72839c;
+    transition: color .2s linear;
+    &:hover {
+      color: #36f;
+    }
+    &._disabled {
+      color: #b9c1ce !important;
+    }
+  }
+  .Share {
+    .ya-share2__icon_more {
+      height: 16px;
+      background-color: white;
+      &:after {
+        width: 16px;
+        height: 16px;
+        top: 0;
+        background: #fff url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+      }
+      &:hover:after {
+        background: #fff url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+      }
+    }
+  }
+}

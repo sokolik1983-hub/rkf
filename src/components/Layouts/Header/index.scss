@@ -25,8 +25,57 @@
     background: url("/static/images/header/rkf-logo-transparent.svg") no-repeat center;
     background-size: cover;
     margin-right: 48px;
+    @media (max-width: 700px) {
+      margin-right: 16px;
+    }
+  }
+  &__search {
+    position: relative;
+    width: 200px;
+    min-width: 200px;
+    margin-right: 24px;
+    @media (max-width: 700px) {
+      margin-right: 16px;
+      min-width: auto;
+    }
     @media (max-width: 560px) {
-      margin-right: 20px;
+      &._open {
+        min-width: calc(100% - 56px);
+        &._with-filter {
+          min-width: calc(100% - 90px);
+        }
+      }
+    }
+    &-control {
+      width: 100%;
+      padding: 6px 10px 6px 40px;
+      border: 1px solid #ebf0f2;
+      border-radius: 6px;
+      background: #fff url("/static/icons/icon-search-gray.svg") no-repeat left 10px center;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: .2px;
+      color: #90999e;
+      caret-color: #3366ff;
+      transition: all .2s linear;
+      @media (max-width: 560px) {
+        padding: 6px 0 6px 30px;
+        background-position: left 5px center;
+        width: 30px;
+        min-width: 30px;
+        border-color: transparent !important;
+        cursor: pointer;
+        transition: all .2s linear;
+        &._open {
+          padding: 6px 10px 6px 30px;
+          border-color: #ebf0f2 !important;
+          width: 100%;
+        }
+      }
+      &:focus {
+        border-color: #3366ff;
+      }
     }
   }
   &__filters {
@@ -35,13 +84,19 @@
     border: 0;
     height: 24px;
     width: 24px;
+    min-width: 24px;
     background: url("/static/icons/icon-filters.svg") no-repeat center;
     background-size: cover;
     @media (max-width: 990px) {
       display: block;
+      margin-right: 24px;
+    }
+    @media (max-width: 700px) {
+      margin-right: 16px;
     }
     @media (max-width: 560px) {
       width: 18px;
+      min-width: 18px;
       height: 18px;
     }
   }
@@ -57,8 +112,8 @@
     span {
       width: 28px;
       height: 4px;
-      background-color: #253c5e;
-      transition: all 0.2s linear;
+      background-color: #90999e;
+      transition: all .2s linear;
       @media (max-width: 560px) {
         width: 24px;
         height: 2px;
@@ -103,11 +158,27 @@
   }
   &__nav {
     width: 100%;
-    margin-right: 25px;
+    margin-right: 24px;
+    &-icon {
+      fill: #90999e;
+      transition: fill .2s linear;
+      &:hover {
+        fill: #3366ff;
+      }
+    }
+    &--desktop {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 5px;
+    }
     @media (max-width: 990px) {
       order: 1;
       width: auto;
       margin: 0 0 0 24px;
+    }
+    @media (max-width: 700px) {
+      margin-left: 16px;
     }
     .click-guard {
       top: 50px;
@@ -120,6 +191,12 @@
     &-list {
       list-style: none;
       display: flex;
+      &--desktop {
+        list-style: none;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
       @media (max-width: 990px) {
         display: block;
         visibility: hidden;
@@ -147,11 +224,11 @@
     }
     &-item {
       position: relative;
-      &:not(:last-child) {
-        margin-right: 24px;
+      &--feedback {
+        margin-right: 16px;
       }
-      &:last-child {
-        margin-left: auto;
+      &--desktop {
+        margin-right: 24px;
       }
       @media (max-width: 990px) {
         margin: 0 !important;
@@ -187,6 +264,11 @@
             background-color: #f5f8ff;
             border-color: #3366ff;
             color: #3366ff !important;
+          }
+          &._disabled {
+            opacity: .5;
+            background-color: transparent;
+            color: #72839c !important;
           }
         }
         @media (max-width: 560px) {
@@ -454,6 +536,9 @@
         width: 16px;
         height: 16px;
       }
+      span {
+        display: none;
+      }
     }
   }
   .login-link {
@@ -483,7 +568,6 @@
       top: 8px;
     }
   }
-
   &-transition {
     &-enter,
     &-appear {
@@ -505,5 +589,12 @@
       transform: translateY(-10px);
       transition: opacity 0.2s, transform 0.2s;
     }
+  }
+}
+._disabled svg {
+  opacity: 0.5;
+  cursor: not-allowed;
+    &:hover {
+    fill: #90999e;
   }
 }

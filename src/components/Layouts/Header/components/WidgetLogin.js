@@ -9,6 +9,7 @@ import { LOGIN_URL, REGISTRATION_URL, DEFAULT_IMG } from "../../../../appConfig"
 import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connectors";
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
+import Feedback from "../../../Feedback";
 
 
 const WidgetLogin = forwardRef(
@@ -25,8 +26,8 @@ const WidgetLogin = forwardRef(
         const AuthButtons = () => {
             let path = history.location.pathname;
             return (<>
-                {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>Вход</Link>}
-                {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}>Регистрация</Link>}
+                {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}><span>Вход</span></Link>}
+                {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}><span>Регистрация</span></Link>}
             </>);
         };
 
@@ -108,6 +109,9 @@ const WidgetLogin = forwardRef(
                                     </li>
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <a style={{ color: '#3366ff', backgroundColor: 'whitesmoke' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                                    </li>
+                                    <li className="widget-login__item">
+                                        <Feedback />
                                     </li>
                                 </ul>
                             </div>
