@@ -31,7 +31,7 @@
   }
   &__search {
     position: relative;
-    width: 300px;
+    width: 240px;
     margin-right: 24px;
     @media (max-width: 700px) {
       margin-right: 16px;
@@ -159,8 +159,6 @@
     margin-right: 24px;
     &-icon {
       fill: #90999e;
-      width: 30px;
-      height: 30px;
       &:hover {
         fill: #3366ff;
         transition: opacity 0.2s, transform 0.2s;
@@ -168,7 +166,7 @@
     }
     &--desktop {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       width: 100%;
       margin-top: 5px;
     }
@@ -224,6 +222,9 @@
     }
     &-item {
       position: relative;
+      &--feedback {
+        margin-right: 20px;
+      }
       &:not(:last-child) {
         margin-right: 24px;
       }
@@ -597,4 +598,4 @@
     &:hover {
     fill: #90999e;
   }
-}  
+}
