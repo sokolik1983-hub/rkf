@@ -107,11 +107,11 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
-                                    <li className="widget-login__item">
-                                        <Feedback />
-                                    </li>
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <a style={{ color: '#3366ff', backgroundColor: 'whitesmoke' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
+                                    </li>
+                                    <li className="widget-login__item">
+                                        <Feedback />
                                     </li>
                                 </ul>
                             </div>
