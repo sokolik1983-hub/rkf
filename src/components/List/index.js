@@ -32,6 +32,7 @@ const List = ({
                                 city={item.fact_city_name}
                                 date={item.create_date}
                                 isFullDate={isFullDate}
+                                small_photo={item.picture_short_link}
                                 photo={item.picture_link}
                                 text={item.content}
                                 url={`/news/${item.id}`}
