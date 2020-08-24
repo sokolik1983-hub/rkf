@@ -40,9 +40,9 @@
     }
     @media (max-width: 560px) {
       &._open {
-        min-width: calc(100% - 50px);
+        min-width: calc(100% - 55px);
         &._with-filter {
-          min-width: calc(100% - 90px);
+          min-width: calc(100% - 85px);
         }
       }
     }
@@ -518,6 +518,7 @@
     @media (max-width: 560px) {
       width: 24px;
       height: 24px;
+      left: 0;
     }
   }
   .login-link,
