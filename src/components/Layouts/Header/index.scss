@@ -112,8 +112,8 @@
     span {
       width: 28px;
       height: 4px;
-      background-color: #253c5e;
-      transition: all 0.2s linear;
+      background-color: #90999e;
+      transition: all .2s linear;
       @media (max-width: 560px) {
         width: 24px;
         height: 2px;
@@ -225,7 +225,7 @@
     &-item {
       position: relative;
       &--feedback {
-        margin-right: 24px;
+        margin-right: 16px;
       }
       &--desktop {
         margin-right: 24px;
