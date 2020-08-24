@@ -76,7 +76,7 @@ const Nav = ({ isAuthenticated }) => {
                 </>
                 :
                 <>
-                    <ul className="header__nav-list--desktop">
+                    <ul className={`header__nav-list--desktop ${isAuthenticated ? ` _uthenticated` : ``}`}>
                         {mainNav.map(navItem =>
                             <li className="header__nav-item--desktop" key={navItem.id}>
                                 <LightTooltip title={navItem.title} enterDelay={200} leaveDelay={200}>
