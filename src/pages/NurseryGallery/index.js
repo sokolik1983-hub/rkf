@@ -216,7 +216,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                         >
                                                             <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
                                                         </InfiniteScroll>
-                                                        {album && canEdit &&
+                                                        {album && album.addition && canEdit &&
                                                             <div className="NurseryGallery__buttons">
                                                                 <Button
                                                                     condensed

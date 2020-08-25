@@ -172,10 +172,10 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         <div className="ClubGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
-                                                {album && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
                                                 {canEdit &&
                                                     <>
-                                                        <DndImageUpload callback={getImages} album_id={album && album.id} />
+                                                        {album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
                                                         <InfiniteScroll
                                                             dataLength={images.length}
                                                             next={getNextImages}

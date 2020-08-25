@@ -204,7 +204,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                         >
                                                             <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
                                                         </InfiniteScroll>
-                                                        {album && canEdit &&
+                                                        {album && album.addition && canEdit &&
                                                             <div className="ClubGallery__buttons">
                                                                 <Button
                                                                     condensed

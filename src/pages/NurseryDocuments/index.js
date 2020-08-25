@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import ls from "local-storage";
 import PageNotFound from "../404";
@@ -33,10 +33,17 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     const isVisible = personalAccess;
+    const [withFilters, setWithFilters] = useState(false);
+
+    useEffect(() => {
+        // Show Filters only on Registry pages
+        const x = history.location.pathname.split('/');
+        setWithFilters(x[x.length - 1] === 'registry' || x[x.length - 1] === 'requests' ? true : false);
+    }, [match]);
 
     return !isVisible
         ? <PageNotFound />
-        : <Layout>
+        : <Layout withFilters={withFilters}>
             <div className="documents-page">
                 <Container className="documents-page__content">
                     <TopComponent
@@ -55,7 +62,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/kennel/:route/documents/replace-pedigree/:reqtype/:action' component={() =>
                             <ReplacePedigree alias={nurseryAlias} history={history} />}
                         />
-                        
+
                         <Route exact={true} path='/kennel/:route/documents/dysplasia/registry' component={() =>
                             <PatellaRegistry alias={nurseryAlias} history={history} distinction="dysplasia" profileType="kennel" />}
                         />
@@ -77,7 +84,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
 
 
-                       <Route exact={true} path='/kennel/:route/documents/litter/status' component={() =>
+                        <Route exact={true} path='/kennel/:route/documents/litter/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
                         <Route exact={true} path='/kennel/:route/documents/pedigree/status' component={() =>
