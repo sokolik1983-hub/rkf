@@ -37,9 +37,7 @@ const CardExhibition = ({title,
     return (
         <Card className="card-exhibition">
             <div className="card-exhibition__wrap">
-                {photo && url &&
-                    <Link className="card-exhibition__photo" to={url} style={{backgroundImage: `url(${photo})`}}/>
-                }
+                <Link className="card-exhibition__photo" to={url} style={{backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})`}}/>
                 <div className="card-exhibition__content">
                     <div className="card-exhibition__header">
                         <div>
