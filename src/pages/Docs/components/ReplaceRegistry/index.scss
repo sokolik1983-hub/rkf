@@ -118,6 +118,16 @@
       top: 48px;
       height: calc(100% - 48px);
     }
+    &-wrap {
+      @media (min-width: 990px) {
+        display: flex;
+      }
+      & > div {
+        @media (min-width: 990px) {
+          margin-right: 20px;
+        }
+      }
+    }
   }
   .click-guard {
     top: 0;
