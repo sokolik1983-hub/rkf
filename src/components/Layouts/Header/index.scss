@@ -531,9 +531,12 @@
       &:hover {
         color: #3366ff;
         transition: fill .2s linear;
-        svg {
-          fill: #3366ff;
-          transition: fill .2s linear;
+    //     svg {
+    //       fill: #3366ff;
+    //       transition: fill .2s linear;
+    // }
+    .login-link__icon {
+      stroke: #3366ff;
     }
   }
     font-size: 16px;
