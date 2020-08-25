@@ -4,7 +4,7 @@ import Loading from "../../../../../components/Loading";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetClubsCities, endpointGetKennelsCities} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
+const CitiesFilter = ({filtersValue}) => {
     const [loading, setLoading] = useState(true);
     const [cities, setCities] = useState([]);
     const [values, setValues] = useState([]);
@@ -27,7 +27,7 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
 
     useEffect(() => {
         (() => Request({
-            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
+            url: filtersValue.organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
         }, data => {
             setCities(data);
             setLoading(false);
@@ -39,17 +39,17 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
             setLoading(false);
             window.scrollTo(0,0);
         }))();
-    }, [organization_type]);
+    }, [filtersValue.organization_type]);
 
     useEffect(() => {
         if(cities.length) {
-            setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
-            setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
+            setOptionsNotInValues(cities.filter(option => filtersValue.city_ids.indexOf(option.value) === -1));
+            setValues(cities.filter(option => filtersValue.city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, city_ids]);
+    }, [cities, filtersValue.city_ids]);
 
     const handleChange = options => {
-        setFilters({city_ids: options.map(option => option.value)});
+        setFiltersToUrl({...filtersValue, city_ids: options.map(option => option.value)});
     };
 
     return loading ?
@@ -77,4 +77,4 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
         </div>
 };
 
-export default connectFilters(React.memo(CitiesFilter));
+export default React.memo(CitiesFilter);

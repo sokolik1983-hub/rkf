@@ -9,14 +9,13 @@ import IsActivatedFilter from "./IsActivatedFilter";
 import BreedsFilter from "./BreedsFilter";
 import CitiesFilter from "./CitiesFilter";
 import { setOverflow } from "../../../../utils";
-import { getEmptyFilters } from "../../utils";
+import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import { RKFInfo } from "../../../Home/config";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
-import { connectFilters } from "../../connectors";
 import "./index.scss";
 
 
-const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
+const Filters = ({ filtersValue, isOpenFilters }) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -27,7 +26,7 @@ const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={66}>
                 <div className="organizations-page__filters">
-                    {organization_type === 5 &&
+                    {filtersValue.organization_type === 5 &&
                         <>
                             <Card className="organizations-page__about">
                                 <h3>{RKFInfo.aboutTitle}</h3>
@@ -66,25 +65,25 @@ const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
                             <Statistics />
                         </>
                     }
-                    {organization_type !== 5 &&
+                    {filtersValue.organization_type !== 5 &&
                         <Card>
-                            {(organization_type === 3 || organization_type === 4) &&
+                            {(filtersValue.organization_type === 3 || filtersValue.organization_type === 4) &&
                                 <>
-                                    <FederationsFilter />
-                                    <IsActiveMember />
-                                    <IsActivatedFilter />
+                                    <FederationsFilter filtersValue={filtersValue} />
+                                    <IsActiveMember filtersValue={filtersValue} />
+                                    <IsActivatedFilter filtersValue={filtersValue} />
                                 </>
                             }
-                            {(organization_type === 4 || organization_type === 7) &&
-                                <BreedsFilter />
+                            {(filtersValue.organization_type === 4 || filtersValue.organization_type === 7) &&
+                                <BreedsFilter filtersValue={filtersValue} />
                             }
-                            {(organization_type === 3 || organization_type === 4) &&
-                                <CitiesFilter />
+                            {(filtersValue.organization_type === 3 || filtersValue.organization_type === 4) &&
+                                <CitiesFilter filtersValue={filtersValue} />
                             }
                             <button
                                 type="button"
                                 className="link"
-                                onClick={() => setFilters(getEmptyFilters())}
+                                onClick={() => setFiltersToUrl(getEmptyFilters())}
                             >
                                 Сбросить все параметры
                             </button>
@@ -100,4 +99,4 @@ const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
     )
 };
 
-export default connectShowFilters(connectFilters(React.memo(Filters)));
+export default connectShowFilters(React.memo(Filters));

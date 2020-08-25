@@ -3,11 +3,11 @@ import Loading from "../../../../../components/Loading";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetFederations} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
-const FederationsFilter = ({federation_ids, setFilters}) => {
+const FederationsFilter = ({filtersValue}) => {
     const [federations, setFederations] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -26,12 +26,12 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
         }))();
     }, []);
 
-    const handleChange = (id) => {
-        const federationIds = federation_ids.includes(id) ?
-            federation_ids.filter(item => item !== id) :
-            [...federation_ids, id];
+    const handleChange = id => {
+        const federationIds = filtersValue.federation_ids.includes(id) ?
+            filtersValue.federation_ids.filter(item => item !== id) :
+            [...filtersValue.federation_ids, id];
 
-        setFilters({federation_ids: federationIds});
+        setFiltersToUrl({...filtersValue, federation_ids: federationIds});
     };
 
     return loading ?
@@ -45,7 +45,7 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
                             <CustomCheckbox
                                 id={item.id}
                                 label={item.short_name}
-                                checked={federation_ids.includes(item.id)}
+                                checked={filtersValue.federation_ids.includes(item.id)}
                                 onChange={() => handleChange(item.id)}
                             />
                         </li>
@@ -55,4 +55,4 @@ const FederationsFilter = ({federation_ids, setFilters}) => {
         </div>
 };
 
-export default connectFilters(React.memo(FederationsFilter));
+export default React.memo(FederationsFilter);

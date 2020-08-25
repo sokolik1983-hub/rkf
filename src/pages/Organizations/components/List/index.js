@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import {connectFilters} from "../../connectors";
+import {setFiltersToUrl, buildUrlParams} from "../../utils";
 import {Request} from "../../../../utils/request";
 import {endpointGetOrganizations} from "../../config";
 import "./index.scss";
@@ -15,17 +15,14 @@ const OrganizationsList = ({organization_type,
                             city_ids,
                             breed_ids,
                             activated,
-                            active_member,
-                            start_element,
-                            setFilters}) => {
+                            active_member}) => {
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
+    const [startElement, setStartElement] = useState(1);
 
-    const getOrganizations = async () => {
+    const getOrganizations = async startElem => {
         await Request({
-            url: endpointGetOrganizations,
-            method: 'POST',
-            data: JSON.stringify({
+            url: `${endpointGetOrganizations}${buildUrlParams({
                 organization_type,
                 string_filter,
                 federation_ids,
@@ -33,10 +30,10 @@ const OrganizationsList = ({organization_type,
                 breed_ids,
                 activated,
                 active_member,
-                start_element
-            })
+                start_element: startElem
+            })}`
         }, data => {
-            if(start_element === 1) {
+            if(startElem === 1) {
                 window.scrollTo(0,0);
             }
 
@@ -47,9 +44,9 @@ const OrganizationsList = ({organization_type,
                     setHasMore(true);
                 }
 
-                setOrg(start_element === 1 ? data : [...org, ...data]);
+                setOrg(startElem === 1 ? data : [...org, ...data]);
             } else {
-                if(start_element === 1) setOrg([]);
+                if(startElem === 1) setOrg([]);
                 setHasMore(false);
             }
         }, error => {
@@ -59,11 +56,15 @@ const OrganizationsList = ({organization_type,
     };
 
     useEffect(() => {
-        (() => getOrganizations())();
-    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member, start_element]);
+        (() => getOrganizations(1))();
+        setStartElement(1);
+    }, [organization_type, string_filter, federation_ids, city_ids, breed_ids, activated, active_member]);
 
     const getNextOrganizations = () => {
-        setFilters({start_element: org.length ? start_element + 10 : 1})
+        if(org.length) {
+            (() => getOrganizations(startElement + 10))();
+            setStartElement(startElement + 10);
+        }
     };
 
     return (
@@ -82,7 +83,7 @@ const OrganizationsList = ({organization_type,
             <ul className="organizations-page__list organization-list">
                 {org.map(item => (
                     <li className="organization-list__item" key={item.id}>
-                        <CardOrganization setFilters={setFilters} {...item}/>
+                        <CardOrganization setFilters={setFiltersToUrl} {...item}/>
                     </li>
                 ))}
             </ul>
@@ -90,4 +91,4 @@ const OrganizationsList = ({organization_type,
     )
 };
 
-export default connectFilters(React.memo(OrganizationsList));
+export default React.memo(OrganizationsList);
