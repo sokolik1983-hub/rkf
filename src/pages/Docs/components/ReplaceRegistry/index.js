@@ -5,11 +5,14 @@ import StatusTable from "./components/Table";
 import CustomCheckbox from "components/Form/CustomCheckbox";
 import StickyFilters from "components/StickyFilters";
 import {Request} from "utils/request";
+import { setOverflow } from "utils";
+import ClickGuard from "components/ClickGuard";
+import { connectShowFilters } from "components/Layouts/connectors";
 import "./index.scss";
 
 const PromiseRequest = (data) => new Promise((resolve, reject) => Request(data, resolve, reject));
 
-const ReplaceRegistry = ({history, alias}) => {
+const ReplaceRegistry = ({history, alias, isOpenFilters, setShowFilters}) => {
     const [loading, setLoading] = useState(true);
     const [checked, setChecked] = useState([1,2,3,4]);
     const [reqTypes, setReqTypes] = useState([]);
@@ -17,6 +20,12 @@ const ReplaceRegistry = ({history, alias}) => {
     const check = i => setChecked(checked.includes(i) ? checked.filter(x => x !== i) : checked.concat(i));
     const checkType = i => setCheckedTypes(checkedTypes.includes(i) ? checkedTypes.filter(x => x !== i) : checkedTypes.concat(i))
     const [documents, setDocuments] = useState(null);
+
+    useEffect(() => {
+        setOverflow(isOpenFilters);
+        window.addEventListener('resize', () => setOverflow(isOpenFilters));
+        return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
+    }, [isOpenFilters]);
 
     useEffect(() => {
         (() => Promise.all([
@@ -51,16 +60,17 @@ const ReplaceRegistry = ({history, alias}) => {
     return loading ?
         <Loading/> :
         <Card className="club-documents-status">
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="club-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
             {documents && !!documents.length &&
-                <>
+                <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
                     <h3>Фильтры</h3>
                     <StickyFilters>
-                    <div className="flex-row heading-row">
+                    <div className="flex-row heading-row ">
                         <div>
                             <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                             <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
@@ -81,7 +91,7 @@ const ReplaceRegistry = ({history, alias}) => {
                         )}
                     </div>
                     </StickyFilters>
-                </>
+                </div>
             }
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
@@ -92,4 +102,4 @@ const ReplaceRegistry = ({history, alias}) => {
         </Card>
 };
 
-export default React.memo(ReplaceRegistry);
+export default connectShowFilters(React.memo(ReplaceRegistry));
