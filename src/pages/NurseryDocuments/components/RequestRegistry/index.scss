@@ -35,14 +35,6 @@
       }
     }
   }
-  &__filters {
-    display: flex;
-    justify-content: space-between;
-    //margin-bottom: 24px;
-    @media (max-width: 680px) {
-      display: block;
-    }
-  }
   &__table {
     padding-bottom: 40px;
     overflow-x: auto;
@@ -98,5 +90,52 @@
     font-size: 34px;
     line-height: 40px;
     margin-left: 40px;
+  }
+  &__filters {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 990px) {
+      width: 300px;
+      min-width: 300px;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      z-index: 3;
+      padding: 16px;
+      height: calc(100% - 50px);
+      overflow-y: auto;
+      visibility: hidden;
+      transform: translateX(-100%);
+      transition: all 0.2s ease-out;
+      &._open {
+        visibility: visible;
+        transform: translateX(0);
+        background: white;
+      }
+    }
+    @media (max-width: 560px) {
+      top: 48px;
+      height: calc(100% - 48px);
+    }
+    .StickyFilters {
+      @media (min-width: 990px) {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    &-wrap {
+      @media (min-width: 990px) {
+        display: flex;
+      }
+      & > div {
+        @media (min-width: 990px) {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+  .click-guard {
+    top: 0;
   }
 }

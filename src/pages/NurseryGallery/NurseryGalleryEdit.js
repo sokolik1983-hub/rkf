@@ -182,10 +182,10 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         <div className="NurseryGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
-                                                {album && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
                                                 {canEdit &&
                                                     <>
-                                                        <DndImageUpload callback={getImages} album_id={album && album.id} />
+                                                        {album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
 
                                                         <InfiniteScroll
                                                             dataLength={images.length}
