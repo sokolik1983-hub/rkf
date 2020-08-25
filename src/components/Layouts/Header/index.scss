@@ -164,6 +164,7 @@
       transition: fill .2s linear;
       &:hover {
         fill: #3366ff;
+        stroke: #3366ff;
       }
     }
     &--desktop {
@@ -228,7 +229,7 @@
       &--feedback {
         margin-right: 28px;
         position: relative;
-        top: -3px;
+        top: 0;
       }
       &--desktop {
         margin-right: 24px;
@@ -531,9 +532,12 @@
       &:hover {
         color: #3366ff;
         transition: fill .2s linear;
-        svg {
-          fill: #3366ff;
-          transition: fill .2s linear;
+    //     svg {
+    //       fill: #3366ff;
+    //       transition: fill .2s linear;
+    // }
+    .login-link__icon {
+      stroke: #3366ff;
     }
   }
     font-size: 16px;
