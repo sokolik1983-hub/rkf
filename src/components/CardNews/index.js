@@ -12,28 +12,29 @@ import "./index.scss";
 
 
 const CardNews = forwardRef(({
-                                 user,
-                                 id,
-                                 name,
-                                 alias,
-                                 city,
-                                 date,
-                                 logo_link,
-                                 photo,
-                                 text,
-                                 url,
-                                 removable,
-                                 onAdClose,
-                                 onDelete,
-                                 citiesDict,
-                                 isAd,
-                                 adBreedName,
-                                 adCode,
-                                 adPrice,
-                                 adAmount,
-                                 isClosedAd,
-                                 changeCityFilter
-                             }) => {
+    user,
+    id,
+    name,
+    alias,
+    city,
+    date,
+    logo_link,
+    small_photo,
+    photo,
+    text,
+    url,
+    removable,
+    onAdClose,
+    onDelete,
+    citiesDict,
+    isAd,
+    adBreedName,
+    adCode,
+    adPrice,
+    adAmount,
+    isClosedAd,
+    changeCityFilter
+}) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [isOpenControls, setIsOpenControls] = useState(false);
@@ -54,7 +55,7 @@ const CardNews = forwardRef(({
         <Card className="card-news">
             <div className={`card-news__wrap${isClosedAd ? ' is_closed' : ''}`}>
                 <div className="card-news__content">
-                    {photo && <div className="card-news__photo" style={{ backgroundImage: `url(${photo})` }} onClick={() => setShowPhoto(true)} />}
+                    {small_photo && <div className="card-news__photo" style={{ backgroundImage: `url(${small_photo})` }} onClick={() => setShowPhoto(true)} />}
                     <div className="card-news__head">
                         <div className="card-news__club">
                             <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
@@ -136,17 +137,17 @@ const CardNews = forwardRef(({
                             </div>
                         </div>}
                         <p className="card-news__text"
-                           ref={ref}
-                           dangerouslySetInnerHTML={{ __html: formatText(text) }}
+                            ref={ref}
+                            dangerouslySetInnerHTML={{ __html: formatText(text) }}
                         />
                     </div>
                 </div>
                 <div className="card-news__controls">
-                <span className={`card-news__show-all${!canCollapse ? ' _disabled' : ''}`}
-                      onClick={() => canCollapse && setCollapsed(!collapsed)}
-                >
-                    {!collapsed ? 'Подробнее...' : 'Свернуть'}
-                </span>
+                    <span className={`card-news__show-all${!canCollapse ? ' _disabled' : ''}`}
+                        onClick={() => canCollapse && setCollapsed(!collapsed)}
+                    >
+                        {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                    </span>
                     <Share url={`https://rkf.online${url}`} />
                 </div>
                 {showPhoto &&
