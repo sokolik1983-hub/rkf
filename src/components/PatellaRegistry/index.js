@@ -57,16 +57,16 @@ const ReplaceRegistry = ({ history, alias, distinction, profileType, isOpenFilte
                 &nbsp;/&nbsp;
                 {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
             </div>
-            <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                <h3>Фильтры</h3>
-                <StickyFilters>
-                    <div className="flex-row heading-row">
+            <StickyFilters>
+                <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
+                    <h3>Фильтры</h3>
+                    <div className="club-documents-status__filters-wrap">
                         <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                         <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
                         <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
                     </div>
-                </StickyFilters>
-            </div>
+                </div>
+            </StickyFilters>
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
                     <StatusTable profileType={profileType} documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias} /> :

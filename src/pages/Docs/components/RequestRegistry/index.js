@@ -56,15 +56,17 @@ const RequestRegistry = ({ history, clubAlias, distinction, isOpenFilters, setSh
                 ? documents && !!documents.length ? <KendoTable documents={documents} distinction={distinction} /> : <h2>Документов не найдено</h2>
                 : <>
                     {documents && !!documents.length &&
-                        <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                            <h3>Фильтры</h3>
-                            <StickyFilters>
-                                <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
-                                <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
-                                <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
-                                <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
-                            </StickyFilters>
-                        </div>
+                        <StickyFilters>
+                            <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
+                                <h3>Фильтры</h3>
+                                <div className="club-documents-status__filters-wrap">
+                                    <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
+                                    <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
+                                    <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
+                                    <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
+                                </div>
+                            </div>
+                        </StickyFilters>
                     }
                     <div className="club-documents-status__table">
                         {documents && !!documents.length ?

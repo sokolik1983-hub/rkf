@@ -67,9 +67,9 @@ const ReplaceRegistry = ({ history, alias, isOpenFilters, setShowFilters }) => {
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
             {documents && !!documents.length &&
-                <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                    <h3>Фильтры</h3>
-                    <StickyFilters>
+                <StickyFilters>
+                    <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
+                        <h3>Фильтры</h3>
                         <div className="flex-row heading-row">
                             <div>
                                 <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
@@ -90,8 +90,8 @@ const ReplaceRegistry = ({ history, alias, isOpenFilters, setShowFilters }) => {
                                 </div>
                             )}
                         </div>
-                    </StickyFilters>
-                </div>
+                    </div>
+                </StickyFilters>
             }
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?

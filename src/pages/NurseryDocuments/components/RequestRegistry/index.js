@@ -52,15 +52,17 @@ const RequestRegistry = ({ history, nurseryAlias, distinction, isOpenFilters, se
                     : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
             </div>
             {documents && !!documents.length &&
-                <div className={`nursery-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                    <h3>Фильтры</h3>
-                    <StickyFilters>
+                <StickyFilters>
+                    <div className={`nursery-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
+                        <h3>Фильтры</h3>
+                        <div className="nursery-documents-status__filters-wrap">
                         <CustomCheckbox id="custom-checkbox-1" label="Отклоненные" onChange={e => check(1)} checked={checked.includes(1)} />
                         <CustomCheckbox id="custom-checkbox-2" label="В работе" onChange={e => check(2)} checked={checked.includes(2)} />
                         <CustomCheckbox id="custom-checkbox-3" label="Выполненные" onChange={e => check(3)} checked={checked.includes(3)} />
                         <CustomCheckbox id="custom-checkbox-4" label="Не отправленные" onChange={e => check(4)} checked={checked.includes(4)} />
-                    </StickyFilters>
-                </div>
+                        </div>
+                    </div>
+                </StickyFilters>
             }
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length ?
