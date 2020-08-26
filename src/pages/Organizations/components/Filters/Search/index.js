@@ -3,19 +3,17 @@ import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
-const SearchFilter = ({filtersValue}) => {
-    const [searchValue, setSearchValue] = useState(filtersValue.string_filter);
+const SearchFilter = ({string_filter}) => {
+    const [searchValue, setSearchValue] = useState(string_filter);
 
     const onCancel = () => {
         setSearchValue('');
-        setFiltersToUrl({...filtersValue, string_filter: ''});
+        setFiltersToUrl({string_filter: ''});
     };
 
     const handleKeyDown = e => {
-        if (searchValue && e.key === 'Enter') {
-            setFiltersToUrl({...filtersValue, string_filter: searchValue.trim()});
-        } else if (e.key === 'Enter') {
-            onCancel();
+        if (e.key === 'Enter' && searchValue) {
+            setFiltersToUrl({string_filter: searchValue.trim()});
         }
     };
 

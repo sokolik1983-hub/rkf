@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({filtersValue}) => {
+const BreedsFilter = ({breed_ids, organization_type}) => {
     const [loading, setLoading] = useState(true);
     const [breeds, setBreeds] = useState([]);
     const [values, setValues] = useState([]);
@@ -27,7 +27,7 @@ const BreedsFilter = ({filtersValue}) => {
 
     useEffect(() => {
         (() => Request({
-                url: filtersValue.organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
+                url: organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
             }, data => {
                 setBreeds(data.map(item => ({value: item.id, label: item.name})));
                 setLoading(false);
@@ -39,17 +39,17 @@ const BreedsFilter = ({filtersValue}) => {
                 setLoading(false);
                 window.scrollTo(0,0);
             }))();
-    }, [filtersValue.organization_type]);
+    }, [organization_type]);
 
     useEffect(() => {
         if(breeds.length) {
-            setOptionsNotInValues(breeds.filter(option => filtersValue.breed_ids.indexOf(option.value) === -1));
-            setValues(breeds.filter(option => filtersValue.breed_ids.indexOf(option.value) !== -1));
+            setOptionsNotInValues(breeds.filter(option => breed_ids.indexOf(option.value) === -1));
+            setValues(breeds.filter(option => breed_ids.indexOf(option.value) !== -1));
         }
-    }, [breeds, filtersValue.breed_ids]);
+    }, [breeds, breed_ids]);
 
     const handleChange = options => {
-        setFiltersToUrl({...filtersValue, breed_ids: options.map(option => option.value)});
+        setFiltersToUrl({breed_ids: options.map(option => option.value)});
     };
 
     return loading ?

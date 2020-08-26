@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({filtersValue}) => {
+const CitiesFilter = ({city_ids, organization_type}) => {
     const [loading, setLoading] = useState(true);
     const [cities, setCities] = useState([]);
     const [values, setValues] = useState([]);
@@ -27,7 +27,7 @@ const CitiesFilter = ({filtersValue}) => {
 
     useEffect(() => {
         (() => Request({
-            url: filtersValue.organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
+            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
         }, data => {
             setCities(data);
             setLoading(false);
@@ -39,17 +39,17 @@ const CitiesFilter = ({filtersValue}) => {
             setLoading(false);
             window.scrollTo(0,0);
         }))();
-    }, [filtersValue.organization_type]);
+    }, [organization_type]);
 
     useEffect(() => {
         if(cities.length) {
-            setOptionsNotInValues(cities.filter(option => filtersValue.city_ids.indexOf(option.value) === -1));
-            setValues(cities.filter(option => filtersValue.city_ids.indexOf(option.value) !== -1));
+            setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
+            setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, filtersValue.city_ids]);
+    }, [cities, city_ids]);
 
     const handleChange = options => {
-        setFiltersToUrl({...filtersValue, city_ids: options.map(option => option.value)});
+        setFiltersToUrl({city_ids: options.map(option => option.value)});
     };
 
     return loading ?

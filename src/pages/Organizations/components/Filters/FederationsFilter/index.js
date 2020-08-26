@@ -7,7 +7,7 @@ import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
-const FederationsFilter = ({filtersValue}) => {
+const FederationsFilter = ({federation_ids}) => {
     const [federations, setFederations] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -27,11 +27,11 @@ const FederationsFilter = ({filtersValue}) => {
     }, []);
 
     const handleChange = id => {
-        const federationIds = filtersValue.federation_ids.includes(id) ?
-            filtersValue.federation_ids.filter(item => item !== id) :
-            [...filtersValue.federation_ids, id];
+        const federationIds = federation_ids.includes(id) ?
+            federation_ids.filter(item => item !== id) :
+            [...federation_ids, id];
 
-        setFiltersToUrl({...filtersValue, federation_ids: federationIds});
+        setFiltersToUrl({federation_ids: federationIds});
     };
 
     return loading ?
@@ -45,7 +45,7 @@ const FederationsFilter = ({filtersValue}) => {
                             <CustomCheckbox
                                 id={item.id}
                                 label={item.short_name}
-                                checked={filtersValue.federation_ids.includes(item.id)}
+                                checked={federation_ids.includes(item.id)}
                                 onChange={() => handleChange(item.id)}
                             />
                         </li>

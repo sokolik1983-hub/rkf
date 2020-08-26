@@ -16,7 +16,9 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
 
     useEffect(() => {
         const unListen = history.listen(() => {
-            setFiltersValue(getFiltersFromUrl());
+            if(history.location.pathname === '/organizations') {
+                setFiltersValue(getFiltersFromUrl());
+            }
         });
 
         return () => unListen();
@@ -27,11 +29,11 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
             <div className="organizations-page__wrap">
                 <Container className="content organizations-page">
-                    <Filters filtersValue={filtersValue}/>
+                    <Filters {...filtersValue}/>
                     <div className="organizations-page__content">
-                        <OrganizationsFilter filtersValue={filtersValue}/>
+                        <OrganizationsFilter organization_type={filtersValue.organization_type}/>
                         {filtersValue.organization_type !== 5 &&
-                            <SearchFilter filtersValue={filtersValue}/>
+                            <SearchFilter string_filter={filtersValue.string_filter}/>
                         }
                         <OrganizationsList {...filtersValue}/>
                     </div>

@@ -4,13 +4,13 @@ import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
-const IsActivatedFilter = ({filtersValue}) => (
+const IsActivatedFilter = ({activated, organization_type}) => (
     <div className="is-activated-filter">
         <CustomCheckbox
             id="is-activated-filter"
-            label={`Активированные ${filtersValue.organization_type === 3 ? 'клубы' : 'питомники'}`}
-            checked={!!filtersValue.activated}
-            onChange={() => setFiltersToUrl({...filtersValue, activated: !filtersValue.activated})}
+            label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
+            checked={!!activated}
+            onChange={() => setFiltersToUrl({activated: !activated})}
         />
     </div>
 );
