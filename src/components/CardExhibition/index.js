@@ -1,29 +1,29 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 import Share from "../Share";
-import {DEFAULT_IMG} from "../../appConfig";
-import {formatDateCommon} from "../../utils/datetime";
-import {formatText} from "../../utils";
-import {getDictElement} from "../../dictionaries";
+import { DEFAULT_IMG } from "../../appConfig";
+import { formatDateCommon } from "../../utils/datetime";
+import { formatText } from "../../utils";
+import { getDictElement } from "../../dictionaries";
 import "./index.scss";
 
 
-const CardExhibition = ({title,
-                         city,
-                         club_name,
-                         club_alias,
-                         club_logo,
-                         dates,
-                         photo,
-                         url,
-                         ranks,
-                         federation_name,
-                         federation_link,
-                         dictionary,
-                         user,
-                         setFilters}) => {
-    const getRanks = () => ranks.map(r => getDictElement(dictionary, r)).join(', ');
+const CardExhibition = ({ title,
+    city,
+    club_name,
+    club_alias,
+    club_logo,
+    dates,
+    photo,
+    url,
+    ranks,
+    federation_name,
+    federation_link,
+    dictionary,
+    user,
+    setFilters }) => {
+    const getRanks = () => dictionary ? ranks.map(r => getDictElement(dictionary, r)).join(', ') : ranks;
 
     const getDate = () => {
         const startDate = dates[0];
@@ -37,7 +37,7 @@ const CardExhibition = ({title,
     return (
         <Card className="card-exhibition">
             <div className="card-exhibition__wrap">
-                <Link className="card-exhibition__photo" to={url} style={{backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})`}}/>
+                <Link className="card-exhibition__photo" to={url} style={{ backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})` }} />
                 <div className="card-exhibition__content">
                     <div className="card-exhibition__header">
                         <div>
