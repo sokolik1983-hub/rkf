@@ -10,7 +10,7 @@ import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
 import { Request } from "../../../../utils/request";
 import StickyBox from "react-sticky-box";
-import { endpointExhibitionsRanks, endpointExhibitionsBreeds, endpointExhibitionsDates, endpointExhibitionsFilters } from "../../config";
+import { endpointExhibitionsDates, endpointExhibitionsFilters } from "../../config";
 import "./index.scss";
 
 
@@ -24,7 +24,7 @@ const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, f
     const filtersElement = useRef(null);
 
     useEffect(() => {
-        Promise.all([getRanks(), getBreeds(), getCalendarData(), getCities()])
+        Promise.all([getCalendarData(), getFiltersData()])
             .then(() => {
                 setLoading(false);
                 window.scrollTo(0, 0);
@@ -37,25 +37,6 @@ const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, f
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    const getRanks = () => Request({
-        url: endpointExhibitionsRanks
-    }, data =>
-        setRanks(data)
-        , error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        });
-
-    const getBreeds = () => Request({
-        url: endpointExhibitionsBreeds
-    },
-        data =>
-            setBreeds(data.filter(item => item.id !== 1).map(item => ({ value: item.id, label: item.name })))
-        , error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-        });
-
     const getCalendarData = () => Request({
         url: endpointExhibitionsDates
     }, data =>
@@ -65,10 +46,13 @@ const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, f
             if (error.response) alert(`Ошибка: ${error.response.status}`);
         });
 
-    const getCities = () => Request({
+    const getFiltersData = async () => await Request({
         url: endpointExhibitionsFilters
-    }, data =>
-        setCities(data.cities)
+    }, data => {
+        setCities(data.cities);
+        setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
+        setBreeds(data.breeds.filter(item => item.value !== 1));
+    }
         , error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
