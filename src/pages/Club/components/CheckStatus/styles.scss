@@ -43,18 +43,26 @@
             box-sizing: border-box;
             border-radius: 4px;
         }
-        ._clear-btn {
-            width: 73px;
+    &--clear {
+        button {
+            display: block;
+            width: 74px;
             height: 32px;
             background-color: red;
+            margin-left: 6px;
+            border: none;
+            margin-bottom: 6px;
             span {
+                position: relative;
+                top: -6px;
                 display: inline-block;
                 width: 20px;
                 height: 25px;
                 background: url("/static/icons/icon-trash-bin.svg") center no-repeat;
                 cursor: pointer;
-            }
+             }
         }
+    }
         .Loading__title {
             margin: 0;
             width: 5em;

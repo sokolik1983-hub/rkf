@@ -61,14 +61,15 @@ const CheckStatus = ({ isBaseSearch }) => {
                 disabled={loading}
                 required
             />
-            <div className="check-status__button">
-                <button type="submit" disabled={loading}>Поиск</button>
-            </div>
-            {isBaseSearch && <div className="check-status__button">
-                <button type="button" className="_clear-btn">
-                    <span></span>
+            <div className={`${!!status.length ? `check-status__button--clear` : `check-status__button`}`}>
+                <button
+                    type={`${!!status.length ? `button` : `submit`}`}
+                    disabled={loading}
+                >
+                <span></span>
+                    {`${!!status.length ? `` : `Поиск`}`}
                 </button>
-            </div>}
+            </div>
         </form>
         {
             loading
