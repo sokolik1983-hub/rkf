@@ -23,7 +23,10 @@ const CardExhibition = ({ title,
     dictionary,
     user,
     setFilters }) => {
-    const getRanks = () => dictionary ? ranks.map(r => getDictElement(dictionary, r)).join(', ') : ranks;
+
+    const getRanks = () => dictionary
+        ? ranks.map(r => getDictElement(dictionary, r)).join(', ')
+        : ranks || 'Не указан';
 
     const getDate = () => {
         const startDate = dates[0];
