@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
@@ -8,15 +8,20 @@ import IsActiveMember from "./IsActiveMember";
 import IsActivatedFilter from "./IsActivatedFilter";
 import BreedsFilter from "./BreedsFilter";
 import CitiesFilter from "./CitiesFilter";
-import { setOverflow } from "../../../../utils";
-import { getEmptyFilters } from "../../utils";
-import { RKFInfo } from "../../../Home/config";
-import { connectShowFilters } from "../../../../components/Layouts/connectors";
-import { connectFilters } from "../../connectors";
+import {setOverflow} from "../../../../utils";
+import {getEmptyFilters, setFiltersToUrl} from "../../utils";
+import {RKFInfo} from "../../../Home/config";
+import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import "./index.scss";
 
 
-const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
+const Filters = ({organization_type,
+                  federation_ids,
+                  city_ids,
+                  breed_ids,
+                  activated,
+                  active_member,
+                  isOpenFilters}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -70,21 +75,21 @@ const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
                         <Card>
                             {(organization_type === 3 || organization_type === 4) &&
                                 <>
-                                    <FederationsFilter />
-                                    <IsActiveMember />
-                                    <IsActivatedFilter />
+                                    <FederationsFilter federation_ids={federation_ids} />
+                                    <IsActiveMember active_member={active_member} />
+                                    <IsActivatedFilter activated={activated} organization_type={organization_type} />
                                 </>
                             }
                             {(organization_type === 4 || organization_type === 7) &&
-                                <BreedsFilter />
+                                <BreedsFilter breed_ids={breed_ids} organization_type={organization_type} />
                             }
                             {(organization_type === 3 || organization_type === 4) &&
-                                <CitiesFilter />
+                                <CitiesFilter city_ids={city_ids} organization_type={organization_type} />
                             }
                             <button
                                 type="button"
                                 className="link"
-                                onClick={() => setFilters(getEmptyFilters())}
+                                onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
                             >
                                 Сбросить все параметры
                             </button>
@@ -100,4 +105,4 @@ const Filters = ({ organization_type, setFilters, isOpenFilters }) => {
     )
 };
 
-export default connectShowFilters(connectFilters(React.memo(Filters)));
+export default connectShowFilters(React.memo(Filters));
