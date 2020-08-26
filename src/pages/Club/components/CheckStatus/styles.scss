@@ -11,6 +11,9 @@
     h3 {
         margin-bottom: 20px;
     }
+    p {
+        margin-bottom: 20px;
+    }
     &__input {
         display: flex;
         flex-grow: 1;
@@ -39,6 +42,18 @@
             background: #3366ff;
             box-sizing: border-box;
             border-radius: 4px;
+        }
+        ._clear-btn {
+            width: 73px;
+            height: 32px;
+            background-color: red;
+            span {
+                display: inline-block;
+                width: 20px;
+                height: 25px;
+                background: url("/static/icons/icon-trash-bin.svg") center no-repeat;
+                cursor: pointer;
+            }
         }
         .Loading__title {
             margin: 0;

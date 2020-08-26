@@ -6,7 +6,7 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import './styles.scss';
 
-const CheckStatus = () => {
+const CheckStatus = ({ isBaseSearch }) => {
     const [barcode, setBarcode] = useState('');
     const [status, setStatus] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -46,6 +46,9 @@ const CheckStatus = () => {
 
     return <Card className="check-status">
         <h3>Статус документов</h3>
+        {isBaseSearch && <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
+        родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск". 
+        История изменений статусов будет отображена в таблице ниже.</p>}
         <form onSubmit={handleSubmit}>
             <input
                 className="check-status__input"
@@ -61,6 +64,11 @@ const CheckStatus = () => {
             <div className="check-status__button">
                 <button type="submit" disabled={loading}>Поиск</button>
             </div>
+            {isBaseSearch && <div className="check-status__button">
+                <button type="button" className="_clear-btn">
+                    <span></span>
+                </button>
+            </div>}
         </form>
         {
             loading

@@ -12,7 +12,7 @@ const BaseSearch = () => {
             <div className="base-search__wrap">
                 <Container className="base-search content">
 
-                    <CheckStatus />
+                    <CheckStatus isBaseSearch />
 
                     <Card className="base-search__card">
                         <h3>Регистрационные данные собаки</h3>
