@@ -2,14 +2,12 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardExhibition from "../../../../components/CardExhibition";
-import {getEmptyFilters, setFiltersToUrl} from "../../utils";
-import {useDictionary} from "../../../../dictionaries";
-import {DEFAULT_IMG} from "../../../../appConfig";
+import { getEmptyFilters, setFiltersToUrl } from "../../utils";
+import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 
 const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) => {
-    const { dictionary } = useDictionary('rank_type');
 
     const setFilters = city => {
         setFiltersToUrl({
@@ -52,8 +50,7 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) 
                                     club_logo={item.club_logo}
                                     federation_name={item.federation_name}
                                     federation_link={item.federation_link}
-                                    ranks={item.rank_ids}
-                                    dictionary={dictionary}
+                                    ranks={item.ranks.map(r => r.name).join(', ')}
                                     user={item.user_type}
                                     setFilters={city => setFilters(city)}
                                 />
