@@ -156,3 +156,8 @@ export const LoadableSearchPage = Loadable({
     loader: () => import('./pages/Search'),
     loading: Loading
 });
+
+export const LoadableBaseSearch = Loadable({
+    loader: () => import('./pages/BaseSearch'),
+    loading: Loading
+});
