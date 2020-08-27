@@ -58,7 +58,7 @@ const CheckStatus = ({ isBaseSearch }) => {
                 value={barcode}
                 title="Введите 13-значный номер отслеживания"
                 placeholder="введите трек-номер"
-                disabled={loading}
+                disabled={loading || !!status.length ? true : false}
                 required
             />
            {!status.length ? <div className="check-status__button">

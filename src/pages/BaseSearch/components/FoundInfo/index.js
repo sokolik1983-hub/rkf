@@ -10,7 +10,7 @@ import './index.scss';
 const FoundInfo = () => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
-    const [status, setStatus] = useState([]);
+    const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
     const { query, params } = useParams();
@@ -43,10 +43,10 @@ const FoundInfo = () => {
                 headers: getHeaders(),
             }
         }).then(data => {
-            if (data.result.length) {
+            if (data.result) {
                 setStatus(data.result);
             } else {
-                setStatus([]);
+                setStatus(false);
                 setAlert(true);
             }
             setLoading(false);
@@ -66,7 +66,7 @@ const FoundInfo = () => {
                     value={stamp_code}
                     title="Введите 3-буквенный код клейма в формате ABC"
                     placeholder="код клейма"
-                    disabled={loading}
+                    disabled={loading || status ? true : false}
                     required
                 />
                 <input
@@ -77,19 +77,10 @@ const FoundInfo = () => {
                     value={stamp_number}
                     title="Введите 4-значный номер клейма. Пример: 1234"
                     placeholder="номер клейма"
-                    disabled={loading}
+                    disabled={loading || status ? true : false}
                     required
                 />
-                {!status.length ? <div className="search-form__button">
-                    <button
-                        type="submit"
-                        disabled={loading}
-                    >
-                        Поиск
-                </button>
-                </div>
-                    :
-                    <div className="search-form__button--clear">
+                {status ? <div className="search-form__button--clear">
                         <button
                             type="button"
                             disabled={loading}
@@ -97,12 +88,21 @@ const FoundInfo = () => {
                         >
                             <span></span>
                         </button>
+                    </div>
+                    :
+                    <div className="search-form__button">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                        >
+                            Поиск
+                        </button>
                     </div>}
             </form>
             {
                 loading
                     ? <Loading centered={false} />
-                    : !!status.length && <div className="search-form__result">
+                    : status && <div className="search-form__result">
                         <p>Данная собака зарегистрирована в РКФ</p>
                     </div>
             }
