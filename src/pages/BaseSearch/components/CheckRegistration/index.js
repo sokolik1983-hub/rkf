@@ -4,7 +4,7 @@ import Request, { getHeaders } from "../../../../utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
-import './index.scss';
+import '../FoundInfo/index.scss';
 
 
 const CheckRegistration = () => {
