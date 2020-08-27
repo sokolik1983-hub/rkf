@@ -110,7 +110,8 @@ const FoundInfo = () => {
                 loading
                     ? <Loading centered={false} />
                     : status && <div className="search-form__result">
-                        <p>Данная собака зарегистрирована в РКФ</p>
+                        {status.status === 1 ? <p>Данная собака зарегистрирована в РКФ</p> : ``}
+                        {status.status === 2 ? <p>Данные о регистрации отсутствуют</p> : ``}
                     </div>
             }
             {alert &&
