@@ -4,6 +4,7 @@ import Request, { getHeaders } from "../../../../utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
+import CardOrganization from "../../../../components/CardOrganization";
 import './index.scss';
 
 
@@ -18,14 +19,12 @@ const FoundInfo = () => {
     useEffect(() => {
         if (query && query.length === 4) {
             setStampNumber(query);
-            requestTracking(query);
         }
     }, [query]);
 
     useEffect(() => {
         if (params && params.length === 3) {
             setStampCode(params);
-            requestTracking(params);
         }
     }, [params]);
 
@@ -110,7 +109,29 @@ const FoundInfo = () => {
                 loading
                     ? <Loading centered={false} />
                     : status && <div className="search-form__result">
-                        {status.status === 1 ? <p>Данная собака зарегистрирована в РКФ</p> : ``}
+                    {status.status === 1 ? 
+                            <>
+                                <p>{status.message}</p>
+                                <CardOrganization
+                                    alias={status.alias}
+                                    logo={status.logo}
+                                    name={status.name}
+                                    user_type={status.user_type}
+                                    is_active={status.is_active}
+                                    is_active_member={status.is_active_member}
+                                    city_name={status.city_name}
+                                    city_id={status.city_id}
+                                    owner_name={status.owner_name}
+                                    owner_position={status.owner_position}
+                                    federation_name={status.federation_name}
+                                    federation_alias={status.federation_alias}
+                                    content={status.content}
+                                    phones={status.phones}
+                                    mails={status.mails}
+                                    breeds={status.breeds}
+                                />
+                            </>
+                        : ``}
                         {status.status === 2 ? <p>Данные о регистрации отсутствуют</p> : ``}
                     </div>
             }
