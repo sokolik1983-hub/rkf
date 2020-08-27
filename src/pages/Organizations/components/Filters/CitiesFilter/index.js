@@ -4,7 +4,7 @@ import Loading from "../../../../../components/Loading";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetClubsCities, endpointGetKennelsCities} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
+const CitiesFilter = ({city_ids, organization_type}) => {
     const [loading, setLoading] = useState(true);
     const [cities, setCities] = useState([]);
     const [values, setValues] = useState([]);
@@ -49,7 +49,7 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
     }, [cities, city_ids]);
 
     const handleChange = options => {
-        setFilters({city_ids: options.map(option => option.value)});
+        setFiltersToUrl({city_ids: options.map(option => option.value)});
     };
 
     return loading ?
@@ -77,4 +77,4 @@ const CitiesFilter = ({organization_type, city_ids, setFilters}) => {
         </div>
 };
 
-export default connectFilters(React.memo(CitiesFilter));
+export default React.memo(CitiesFilter);

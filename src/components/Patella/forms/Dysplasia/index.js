@@ -60,8 +60,8 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
         }
     }, []);
 
-    let federation = options.federations.find(f => f.value === formik.values.federation_id);
-    federation = federation ? federation.label : "федерации";
+    // let federation = options.federations.find(f => f.value === formik.values.federation_id);
+    // federation = federation ? federation.label : "федерации";
 
     return <>
     {everkAlert &&
@@ -120,7 +120,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
 
         <FormGroup>
                 <br/>
-                <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки по тарифу {federation} и заполните информацию о платеже.</p>
+                <p className={update ? 'hidden' : ''}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
                 <div className="flex-row heading-row">
