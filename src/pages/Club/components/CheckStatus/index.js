@@ -25,6 +25,12 @@ const CheckStatus = ({ isBaseSearch }) => {
         requestTracking(barcode);
     };
 
+    const handleReset = e => {
+        e.preventDefault();
+        setStatus([]);
+        setBarcode('');
+    };
+
     const requestTracking = barcode => {
         setLoading(true);
         Request({
@@ -74,7 +80,7 @@ const CheckStatus = ({ isBaseSearch }) => {
                 <button
                     type="button"
                     disabled={loading}
-                    // onClick={setStatus([])}
+                    onClick={handleReset}
                 >
                 <span></span>
                 </button>

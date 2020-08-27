@@ -34,6 +34,13 @@ const FoundInfo = () => {
         requestTracking(stamp_number, stamp_code);
     };
 
+    const handleReset = e => {
+        e.preventDefault();
+        setStatus(false);
+        setStampCode('');
+        setStampNumber('');
+    };
+
     const requestTracking = (stamp_number, stamp_code) => {
         setLoading(true);
         Request({
@@ -84,7 +91,7 @@ const FoundInfo = () => {
                         <button
                             type="button"
                             disabled={loading}
-                        // onClick={setStatus([])}
+                            onClick={handleReset}
                         >
                             <span></span>
                         </button>
