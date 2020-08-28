@@ -41,7 +41,7 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
 
     let federation = options.federations.find(f => f.value === formik.values.federation_id);
     federation = federation ? federation.label : "федерации";
-
+    const { chip_number, stamp_code, stamp_number } = formik.values;
     return <>
     <Card>
         <Title/>
@@ -101,6 +101,17 @@ const FormFields = connect(({formik, update, view, options, alias, setRedirect, 
                 <HideIf cond={formik.values.cash_payment}>
                     <Common.component {...{view, formik, update, options}} />
                 </HideIf>
+                <FormGroup inline>
+                    <FormField disabled={view} name='breed_id' label='Порода' options={options.breeds} fieldType="reactSelect" placeholder="Выберите..." />
+                    <FormField disabled={view} name='dog_name' label='Кличка' />
+                    <FormField disabled={view} name='owner_name' label='ФИО владельца' />
+                </FormGroup>
+
+                <FormGroup inline>
+                    <FormField disabled={view || chip_number} name='stamp_code' placeholder="XXX" label='Код клейма' />
+                    <FormField disabled={view || chip_number} name='stamp_number' placeholder="" label='Номер клейма' />
+                    <FormField disabled={view || stamp_code || stamp_number} name='chip_number' placeholder="" label='ЧИП' />
+                </FormGroup>
             </FormGroup>
     </Card>
     {!view && <div className="stage-controls flex-row">
