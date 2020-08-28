@@ -113,7 +113,7 @@ const FoundInfo = () => {
                             <>
                                 <p>{status.message}</p>
                                 <CardOrganization
-                                    alias={status.alias}
+                                    alias={status.everk_information ? `` : status.alias}
                                     logo={status.logo}
                                     name={status.name}
                                     user_type={status.user_type}
