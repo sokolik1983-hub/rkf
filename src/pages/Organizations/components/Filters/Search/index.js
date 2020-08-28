@@ -1,21 +1,19 @@
 import React, {useState} from "react";
-import {connectFilters} from "../../../connectors";
-import './index.scss';
+import {setFiltersToUrl} from "../../../utils";
+import "./index.scss";
 
 
-const SearchFilter = ({string_filter, setFilters}) => {
+const SearchFilter = ({string_filter}) => {
     const [searchValue, setSearchValue] = useState(string_filter);
 
     const onCancel = () => {
         setSearchValue('');
-        setFilters({string_filter: ''});
+        setFiltersToUrl({string_filter: ''});
     };
 
     const handleKeyDown = e => {
-        if (searchValue && e.key === 'Enter') {
-            setFilters({string_filter: searchValue});
-        } else if (e.key === 'Enter') {
-            onCancel();
+        if (e.key === 'Enter' && searchValue) {
+            setFiltersToUrl({string_filter: searchValue.trim()});
         }
     };
 
@@ -36,4 +34,4 @@ const SearchFilter = ({string_filter, setFilters}) => {
     )
 };
 
-export default connectFilters(React.memo(SearchFilter));
+export default React.memo(SearchFilter);

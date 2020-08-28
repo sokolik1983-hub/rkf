@@ -1,5 +1,4 @@
-import React from "react";
-import {compose} from "redux";
+import React, {useEffect, useState} from "react";
 import ClickGuard from "../../components/ClickGuard";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -7,31 +6,41 @@ import Filters from "./components/Filters";
 import OrganizationsFilter from "./components/Filters/Organizations";
 import SearchFilter from "./components/Filters/Search";
 import OrganizationsList from "./components/List";
-import reducer from "./reducer";
-import injectReducer from "../../utils/injectReducer";
+import {getFiltersFromUrl} from "./utils";
 import {connectShowFilters} from "../../components/Layouts/connectors";
-import {connectFilters} from "./connectors";
 import "./index.scss";
 
 
-const Organizations = ({organization_type, isOpenFilters, setShowFilters}) => (
-    <Layout withFilters>
-        <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
-        <div className="organizations-page__wrap">
-            <Container className="content organizations-page">
-                <Filters/>
-                <div className="organizations-page__content">
-                    <OrganizationsFilter/>
-                    {organization_type !== 5 &&
-                        <SearchFilter/>
-                    }
-                    <OrganizationsList/>
-                </div>
-            </Container>
-        </div>
-    </Layout>
-);
+const Organizations = ({history, isOpenFilters, setShowFilters}) => {
+    const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
 
-const withReducer = injectReducer({key: 'organizationsFilters', reducer: reducer});
+    useEffect(() => {
+        const unListen = history.listen(() => {
+            if(history.location.pathname === '/organizations') {
+                setFiltersValue(getFiltersFromUrl());
+            }
+        });
 
-export default compose(withReducer, connectFilters, connectShowFilters)(React.memo(Organizations));
+        return () => unListen();
+    }, []);
+
+    return (
+        <Layout withFilters>
+            <ClickGuard value={isOpenFilters} callback={() => setShowFilters({isOpenFilters: false})}/>
+            <div className="organizations-page__wrap">
+                <Container className="content organizations-page">
+                    <Filters {...filtersValue}/>
+                    <div className="organizations-page__content">
+                        <OrganizationsFilter organization_type={filtersValue.organization_type}/>
+                        {filtersValue.organization_type !== 5 &&
+                            <SearchFilter string_filter={filtersValue.string_filter}/>
+                        }
+                        <OrganizationsList {...filtersValue}/>
+                    </div>
+                </Container>
+            </div>
+        </Layout>
+    )
+};
+
+export default connectShowFilters(React.memo(Organizations));

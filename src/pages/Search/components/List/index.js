@@ -17,7 +17,7 @@ const SearchList = ({string_filter, search_type}) => {
     const [startElement, setStartElement] = useState(1);
     const {dictionary} = useDictionary('rank_type');
 
-    const getSearchResults = async (startElem) => {
+    const getSearchResults = async startElem => {
         await Request({
             url: buildSearchUrl(string_filter, search_type, startElem)
         }, data => {
