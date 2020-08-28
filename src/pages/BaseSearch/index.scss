@@ -1,4 +1,14 @@
 .base-search {
+  h3 {
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+  }
+  p {
+    letter-spacing: 0.2px;
+  }
     margin-top: 16px;
     &__wrap {
       background: #f5f8ff;
