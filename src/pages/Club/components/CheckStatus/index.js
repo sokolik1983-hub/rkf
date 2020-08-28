@@ -51,6 +51,7 @@ const CheckStatus = ({ isBaseSearch }) => {
     };
 
     return <Card className="check-status">
+        {isBaseSearch && <div className="check-status__icon" />}
         <h3>Статус документов</h3>
         {isBaseSearch && <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
         родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск". 
