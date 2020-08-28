@@ -4,7 +4,7 @@ import Loading from "../../../../../components/Loading";
 import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../config";
-import {connectFilters} from "../../../connectors";
+import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
@@ -19,7 +19,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({organization_type, breed_ids, setFilters}) => {
+const BreedsFilter = ({breed_ids, organization_type}) => {
     const [loading, setLoading] = useState(true);
     const [breeds, setBreeds] = useState([]);
     const [values, setValues] = useState([]);
@@ -49,7 +49,7 @@ const BreedsFilter = ({organization_type, breed_ids, setFilters}) => {
     }, [breeds, breed_ids]);
 
     const handleChange = options => {
-        setFilters({breed_ids: options.map(option => option.value)});
+        setFiltersToUrl({breed_ids: options.map(option => option.value)});
     };
 
     return loading ?
@@ -77,4 +77,4 @@ const BreedsFilter = ({organization_type, breed_ids, setFilters}) => {
         </div>
 };
 
-export default connectFilters(React.memo(BreedsFilter));
+export default React.memo(BreedsFilter);
