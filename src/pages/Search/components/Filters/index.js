@@ -15,8 +15,6 @@ const Filters = ({isOpenFilters, filtersValue, filters}) => {
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    console.log('filters inner', filters[2].items[0].count)
-
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={66}>
