@@ -48,16 +48,17 @@
     }
     &-control {
       width: 100%;
-      padding: 6px 10px 6px 40px;
+      padding: 6px 36px 6px 40px;
       border: 1px solid #ebf0f2;
       border-radius: 6px;
-      background: #fff url("/static/icons/icon-search-gray.svg") no-repeat left 10px center;
+      background-color: #fff;
       font-weight: normal;
       font-size: 16px;
       line-height: 1;
       letter-spacing: .2px;
       color: #90999e;
       caret-color: #3366ff;
+      box-shadow: none;
       transition: all .2s linear;
       @media (max-width: 560px) {
         padding: 6px 0 6px 30px;
@@ -68,13 +69,44 @@
         cursor: pointer;
         transition: all .2s linear;
         &._open {
-          padding: 6px 10px 6px 30px;
+          padding: 6px 26px 6px 30px;
           border-color: #ebf0f2 !important;
           width: 100%;
         }
       }
       &:focus {
         border-color: #3366ff;
+      }
+    }
+    button {
+      padding: 0;
+      border: none;
+      line-height: 1;
+      position: absolute;
+    }
+    &-submit {
+      width: 20px;
+      height: 20px;
+      top: 7px;
+      left: 10px;
+      @media (max-width: 560px) {
+        left: 5px;
+      }
+    }
+    &-cancel {
+      width: 16px;
+      height: 16px;
+      top: 9px;
+      right: 10px;
+      @media (max-width: 560px) {
+        right: 5px;
+      }
+    }
+    &-svg {
+      fill: #90999e;
+      transition: fill .2s linear;
+      &:hover {
+        fill: #3366FF;
       }
     }
   }
@@ -627,7 +659,7 @@
 ._disabled svg {
   opacity: 0.5;
   cursor: not-allowed;
-    &:hover {
+  &:hover {
     fill: #90999e;
   }
 }
