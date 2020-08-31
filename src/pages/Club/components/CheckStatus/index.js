@@ -31,6 +31,11 @@ const CheckStatus = ({ isBaseSearch }) => {
         setBarcode('');
     };
 
+    const handleBarcodeClear = e => {
+        e.preventDefault();
+        setBarcode('');
+    };
+
     const requestTracking = barcode => {
         setLoading(true);
         Request({
@@ -57,17 +62,21 @@ const CheckStatus = ({ isBaseSearch }) => {
         родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск". 
         История изменений статусов будет отображена в таблице ниже.</p>}
         <form onSubmit={handleSubmit}>
-            <input
-                className="check-status__input"
-                type="text"
-                pattern="[0-9]{13}"
-                onChange={({ target }) => setBarcode(target.value)}
-                value={barcode}
-                title="Введите 13-значный номер отслеживания"
-                placeholder="введите трек-номер"
-                disabled={loading || !!status.length ? true : false}
-                required
-            />
+            <div className="check-status__wrap">
+                <input
+                    className="check-status__input"
+                    type="text"
+                    pattern="[0-9]{13}"
+                    onChange={({ target }) => setBarcode(target.value)}
+                    value={barcode}
+                    title="Введите 13-значный номер отслеживания"
+                    placeholder="введите трек-номер"
+                    disabled={loading || !!status.length ? true : false}
+                    required
+                />
+                {barcode &&
+                    <button className="check-status__cancel" onClick={handleBarcodeClear}/>}
+            </div>
            {!status.length ? <div className="check-status__button">
                 <button
                     type="submit"
