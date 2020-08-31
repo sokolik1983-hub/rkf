@@ -40,6 +40,16 @@ const CheckRegistration = () => {
         setStampNumber('');
     };
 
+    const handleStampCodeClear = e => {
+        e.preventDefault();
+        setStampCode('');
+    };
+
+    const handleStampNumberClear = e => {
+        e.preventDefault();
+        setStampNumber('');
+    };
+
     const requestTracking = (stamp_number, stamp_code) => {
         setLoading(true);
         Request({
@@ -60,38 +70,46 @@ const CheckRegistration = () => {
     };
 
     return (
-        <Card className="base-search__card">
+        <Card>
             <div className="search-form__icon" />
             <h3>Регистрационные данные собаки</h3>
             <p>В целях получения информации о факте регистрации помета в РКФ, наличии у собаки родословной или возможности ее получения введите код и номер клейма и нажмите кнопку "Поиск". Вся необходимая информация будет отображена ниже. Просим Вас использовать данную форму перед отправкой заявки на изготовление документов.</p>
             <form className="search-form" onSubmit={handleSubmit}>
-                <input
-                    className="search-form__input"
-                    type="text"
-                    pattern="[A-Z]{3}"
-                    onChange={({ target }) => setStampCode(target.value)}
-                    value={stamp_code}
-                    title="Введите 3-буквенный код клейма в формате ABC"
-                    placeholder="код клейма"
-                    disabled={loading || status ? true : false}
-                    required
-                />
-                <input
-                    className="search-form__input"
-                    type="text"
-                    pattern="[0-9]{1,4}"
-                    onChange={({ target }) => setStampNumber(target.value)}
-                    value={stamp_number}
-                    title="Введите 4-значный номер клейма. Пример: 1234"
-                    placeholder="номер клейма"
-                    disabled={loading || status ? true : false}
-                    required
-                />
+                <div className="search-form__wrap">
+                    <input
+                        className="search-form__input"
+                        type="text"
+                        pattern="[A-Za-z]{3}"
+                        onChange={({ target }) => setStampCode(target.value)}
+                        value={stamp_code}
+                        title="Введите 3-буквенный код клейма"
+                        placeholder="код клейма"
+                        disabled={loading || status ? true : false}
+                        required
+                    />
+                    {stamp_code &&
+                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
+                </div>
+                <div className="search-form__wrap">
+                    <input
+                        className="search-form__input"
+                        type="text"
+                        pattern="[0-9]{1,4}"
+                        onChange={({ target }) => setStampNumber(target.value)}
+                        value={stamp_number}
+                        title="Введите 4-значный номер клейма"
+                        placeholder="номер клейма"
+                        disabled={loading || status ? true : false}
+                        required
+                    />
+                    {stamp_number &&
+                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampNumberClear} />}
+                </div>
                 {status ? <div className="search-form__button--clear">
                         <button
                             type="button"
                             disabled={loading}
-                        onClick={handleReset}
+                            onClick={handleReset}
                         >
                             <span></span>
                         </button>
@@ -102,7 +120,7 @@ const CheckRegistration = () => {
                             type="submit"
                             disabled={loading}
                         >
-                            Поиск
+                            <span></span>
                         </button>
                     </div>}
             </form>

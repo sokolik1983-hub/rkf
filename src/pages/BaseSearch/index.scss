@@ -19,9 +19,9 @@
     word-break: break-word;
     &.content {
       padding-top: 65px;
-    }
-    &__card {
-      margin-top: 16px;
+      & .Card:not(:first-child) {
+        margin-top: 16px;
+      }
     }
     &__right-socials {
       display: flex;

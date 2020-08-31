@@ -19,9 +19,9 @@ const BaseSearch = () => {
                 <Container className="content base-search">
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
+                            <FoundInfo />
                             <CheckStatus isBaseSearch />
                             <CheckRegistration />
-                            <FoundInfo />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>

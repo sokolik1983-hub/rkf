@@ -9,18 +9,11 @@ import './index.scss';
 
 
 const FoundInfo = () => {
-    const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
-    const { query, params } = useParams();
-
-    useEffect(() => {
-        if (query && query.length === 4) {
-            setStampNumber(query);
-        }
-    }, [query]);
+    const { params } = useParams();
 
     useEffect(() => {
         if (params && params.length === 3) {
@@ -30,20 +23,24 @@ const FoundInfo = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        requestTracking(stamp_number, stamp_code);
+        requestTracking(stamp_code);
     };
 
     const handleReset = e => {
         e.preventDefault();
         setStatus(false);
         setStampCode('');
-        setStampNumber('');
     };
 
-    const requestTracking = (stamp_number, stamp_code) => {
+    const handleStampCodeClear = e => {
+        e.preventDefault();
+        setStampCode('');
+    };
+
+    const requestTracking = (stamp_code) => {
         setLoading(true);
         Request({
-            url: `/api/requests/commonrequest/found_dog_information?stamp_number=${stamp_number}&stamp_code=${stamp_code}`,
+            url: `/api/requests/commonrequest/found_dog_information?stamp_code=${stamp_code}`,
             options: {
                 method: "GET",
                 headers: getHeaders(),
@@ -60,33 +57,26 @@ const FoundInfo = () => {
     };
 
     return (
-        <Card className="base-search__card">
+        <Card>
             <div className="search-form__icon" />
             <h3>Информация о найденных собаках</h3>
             <p>Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код и номер в поля на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
             <form className="search-form" onSubmit={handleSubmit}>
-                <input
-                    className="search-form__input"
-                    type="text"
-                    pattern="[A-Z]{3}"
-                    onChange={({ target }) => setStampCode(target.value)}
-                    value={stamp_code}
-                    title="Введите 3-буквенный код клейма в формате ABC"
-                    placeholder="код клейма"
-                    disabled={loading || status ? true : false}
-                    required
-                />
-                <input
-                    className="search-form__input"
-                    type="text"
-                    pattern="[0-9]{1,4}"
-                    onChange={({ target }) => setStampNumber(target.value)}
-                    value={stamp_number}
-                    title="Введите 4-значный номер клейма. Пример: 1234"
-                    placeholder="номер клейма"
-                    disabled={loading || status ? true : false}
-                    required
-                />
+                <div className="search-form__wrap">
+                    <input
+                        className="search-form__input"
+                        type="text"
+                        pattern="[A-Za-z]{3}"
+                        onChange={({ target }) => setStampCode(target.value)}
+                        value={stamp_code}
+                        title="Введите 3-буквенный код клейма"
+                        placeholder="код клейма"
+                        disabled={loading || status ? true : false}
+                        required
+                    />
+                    {stamp_code &&
+                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
+                </div>
                 {status ? <div className="search-form__button--clear">
                         <button
                             type="button"
@@ -102,7 +92,7 @@ const FoundInfo = () => {
                             type="submit"
                             disabled={loading}
                         >
-                            Поиск
+                            <span></span>
                         </button>
                     </div>}
             </form>
