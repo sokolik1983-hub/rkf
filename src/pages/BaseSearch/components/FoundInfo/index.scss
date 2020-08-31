@@ -58,19 +58,16 @@
     &--clear {
         button {
             display: block;
-            width: 74px;
-            height: 32px;
-            background-color: red;
+            background-color: #ffffff;
             margin-left: 6px;
             border: none;
-            margin-bottom: 6px;
+            padding: 0;
+
             span {
-                position: relative;
-                top: -6px;
                 display: inline-block;
                 width: 20px;
                 height: 25px;
-                background: url("/static/icons/icon-trash-bin.svg") center no-repeat;
+                background: url("/static/icons/delete-red.svg") center no-repeat;
                 cursor: pointer;
              }
         }
