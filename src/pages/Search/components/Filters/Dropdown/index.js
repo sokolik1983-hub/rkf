@@ -7,8 +7,6 @@ import "./index.scss";
 const Dropdown = ({name, items, filtersValue}) => {
     const [isOpen, setIsOpen] = useState(true);
 
-    console.log('filters inner', name, items[0].count)
-
     return (
         <div className={`dropdown${isOpen ? ' _open' : ''}${!!items.find(item => item.search_type === filtersValue.search_type) ? ' _active' : ''}`}>
             <h3 className="dropdown__title" onClick={() => setIsOpen(!isOpen)}>{name}</h3>
