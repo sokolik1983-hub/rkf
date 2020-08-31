@@ -75,7 +75,7 @@ const CheckStatus = ({ isBaseSearch }) => {
                     required
                 />
                 {barcode &&
-                    <button className="check-status__cancel" onClick={handleBarcodeClear}/>}
+                    <button className={`check-status__cancel ${status.length ? `_hide` : ``}`} onClick={handleBarcodeClear}/>}
             </div>
            {!status.length ? <div className="check-status__button">
                 <button

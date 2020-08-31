@@ -45,7 +45,7 @@ const CheckRegistration = () => {
         setStampCode('');
     };
 
-    const handleStampNumber = e => {
+    const handleStampNumberClear = e => {
         e.preventDefault();
         setStampNumber('');
     };
@@ -88,7 +88,7 @@ const CheckRegistration = () => {
                         required
                     />
                     {stamp_code &&
-                    <button className="search-form__cancel" onClick={handleStampCodeClear}/>}
+                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
                 </div>
                 <div className="search-form__wrap">
                     <input
@@ -102,8 +102,8 @@ const CheckRegistration = () => {
                         disabled={loading || status ? true : false}
                         required
                     />
-                    {stamp_code &&
-                    <button className="search-form__cancel" onClick={handleStampNumber} />}
+                    {stamp_number &&
+                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampNumberClear} />}
                 </div>
                 {status ? <div className="search-form__button--clear">
                         <button
