@@ -9,7 +9,7 @@ const RanksFilter = ({ranks, RankIds}) => {
         const ranksIds = RankIds.includes(id) ?
             RankIds.filter(item => item !== id) :
             [...RankIds, id];
-        setFiltersToUrl({ ExhibitionName: '', CategoryId: 0, RankIds: ranksIds, PageNumber: 1 });
+        setFiltersToUrl({RankIds: ranksIds, PageNumber: 1});
     };
 
     return (

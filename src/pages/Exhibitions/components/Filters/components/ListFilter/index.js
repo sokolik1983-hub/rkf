@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
-import {setFiltersToUrl, getEmptyFilters} from "../../../../utils";
+import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
 
 
@@ -15,7 +15,7 @@ const ListFilter = ({categoryId}) => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl({...getEmptyFilters(), CategoryId: type});
+        setFiltersToUrl({CategoryId: type});
     };
 
     return (
