@@ -91,7 +91,7 @@ const CheckRegistration = () => {
                         <button
                             type="button"
                             disabled={loading}
-                        onClick={handleReset}
+                            onClick={handleReset}
                         >
                             <span></span>
                         </button>
@@ -102,7 +102,7 @@ const CheckRegistration = () => {
                             type="submit"
                             disabled={loading}
                         >
-                            Поиск
+                            <span></span>
                         </button>
                     </div>}
             </form>

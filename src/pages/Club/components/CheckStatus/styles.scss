@@ -38,38 +38,33 @@
         justify-content: flex-end;
         align-items: center;
         word-break: normal;
-        margin-bottom: 6px;
         button {
-            padding: 4px 15px;
             margin-left: 6px;
+            padding: 0;
             display: block;
-            background: white;
             border: none;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-            color: white;
-            background: #3366ff;
+            background: #ffffff;
             box-sizing: border-box;
-            border-radius: 4px;
+            span {
+                display: inline-block;
+                width: 20px;
+                height: 25px;
+                background: url("/static/icons/icon-search-blue.svg") center no-repeat;
+                cursor: pointer;
+             }
         }
     &--clear {
         button {
             display: block;
-            width: 74px;
-            height: 32px;
-            background-color: red;
+            background-color: #ffffff;
             margin-left: 6px;
             border: none;
-            margin-bottom: 6px;
+            padding: 0;
             span {
-                position: relative;
-                top: -6px;
                 display: inline-block;
                 width: 20px;
                 height: 25px;
-                background: url("/static/icons/icon-trash-bin.svg") center no-repeat;
+                background: url("/static/icons/delete-red.svg") center no-repeat;
                 cursor: pointer;
              }
         }

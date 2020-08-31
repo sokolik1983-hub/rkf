@@ -73,7 +73,7 @@ const CheckStatus = ({ isBaseSearch }) => {
                     type="submit"
                     disabled={loading}
                 >
-                    Поиск
+                    <span></span>
                 </button>
             </div>
             :

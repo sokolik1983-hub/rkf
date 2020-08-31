@@ -39,21 +39,20 @@
         justify-content: flex-end;
         align-items: center;
         word-break: normal;
-        margin-bottom: 6px;
         button {
             margin-left: 6px;
-            padding: 4px 15px;
+            padding: 0;
             display: block;
-            background: white;
             border: none;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.2px;
-            color: white;
-            background: #3366ff;
+            background: #ffffff;
             box-sizing: border-box;
-            border-radius: 4px;
+            span {
+                display: inline-block;
+                width: 20px;
+                height: 25px;
+                background: url("/static/icons/icon-search-blue.svg") center no-repeat;
+                cursor: pointer;
+             }
         }
     &--clear {
         button {
@@ -62,7 +61,6 @@
             margin-left: 6px;
             border: none;
             padding: 0;
-
             span {
                 display: inline-block;
                 width: 20px;

@@ -102,7 +102,7 @@ const FoundInfo = () => {
                             type="submit"
                             disabled={loading}
                         >
-                            Поиск
+                            <span></span>
                         </button>
                     </div>}
             </form>
