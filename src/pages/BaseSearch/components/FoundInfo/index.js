@@ -79,7 +79,7 @@ const FoundInfo = () => {
                 <input
                     className="search-form__input"
                     type="text"
-                    pattern="[0-9]{4}"
+                    pattern="[0-9]{1,4}"
                     onChange={({ target }) => setStampNumber(target.value)}
                     value={stamp_number}
                     title="Введите 4-значный номер клейма. Пример: 1234"

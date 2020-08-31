@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CustomCheckbox from "components/Form/CustomCheckbox";
 import moment from "moment";
 
-const fillProp = ({property,label}) => ({property,header:{label}})
+const fillProp = ({ property, label }) => ({ property, header: { label } })
 const formatCountTime = (str) => {
     const dateArray = str.split('.');
     const i = dateArray.length - 2;
@@ -15,43 +15,47 @@ const formatCountTime = (str) => {
     const hours = +timeArray[0];
     const minutes = +timeArray[1];
 
-    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+    return `${days ? days + 'д. ' : ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
 }
 
 export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
     let cols = [
-       {
-           property: "date_create",
-           label: "Дата создания"
-       },
-       {
-           property: "date_change",
-           label: "Дата последнего изменения статуса"
-       },
-       {
-           property: "declarant_full_name",
-           label: "ФИО ответственного лица"
-       },
-       {
-           property: "barcode",
-           label: "Трек-номер"
-       },
-       {
-           property: "pedigree_link",
-           label: "Ссылка на эл. копию документа"
-       },
-       {
-           property: "status_name",
-           label: "Статус"
-       },
-       {
-           property: "express",
-           label: "Срочная"
-       },
-       {
-           property: "type_name",
-           label: "Тип"
-       }
+        {
+            property: "date_create",
+            label: "Дата создания"
+        },
+        {
+            property: "id",
+            label: "Номер заявки"
+        },
+        {
+            property: "owner_name",
+            label: "ФИО владельца"
+        },
+        {
+            property: "dog_name",
+            label: "Кличка"
+        },
+        {
+            property: "breed_name",
+            label: "Порода"
+        },
+        {
+            property: "stamp_code",
+            label: "Чип/Клеймо"
+        },
+        {
+            property: "barcode",
+            label: "Трек-номер"
+        },
+        {
+            property: "status_name",
+            label: "Статус"
+        },
+        {
+            property: "pedigree_link",
+            label: "Ссылка на эл. копию документа"
+        },
     ].map(col => fillProp(col));
 
     cols.map(col => {
@@ -74,11 +78,11 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
         }
 
         if (col.property === 'express') {
-            col.cell.formatters.push((value,{rowData}) => <CustomCheckbox disabled checked={rowData.express} />)
+            col.cell.formatters.push((value, { rowData }) => <CustomCheckbox disabled checked={rowData.express} />)
         }
 
         if (col.property === 'pedigree_link') {
-            col.cell.formatters.push((value,{rowData}) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank" rel="noopener noreferrer">Ссылка</a> : ''))
+            col.cell.formatters.push((value, { rowData }) => rowData.count_time ? formatCountTime(rowData.count_time) : (rowData.pedigree_link ? <a href={rowData.pedigree_link} target="_blank" rel="noopener noreferrer">Ссылка</a> : ''))
         }
 
         return col;

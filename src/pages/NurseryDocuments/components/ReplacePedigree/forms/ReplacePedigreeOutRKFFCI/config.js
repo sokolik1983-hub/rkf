@@ -1,4 +1,4 @@
-import { number } from "yup";
+import { number, string } from "yup";
 import { reqText } from "../../config.js";
 import Common from "../../commonFields.js";
 
@@ -12,6 +12,23 @@ const validationSchema = {
     copy_pedigree_document_id: number().required(reqText).typeError(reqText),
     truncated_pedigree_application_document_id: number().required(reqText).typeError(reqText),
     ...Common.validation,
+    breed_id: number().required(reqText).typeError(reqText),
+    dog_name: string().required(reqText),
+    owner_name: string().required(reqText),
+    stamp_code: string().when('chip_number', {
+        is: value => !value,
+        then: string().matches(/^[a-zA-Z]{3}$/, { message: 'Введите 3 латинские буквы' }).required(reqText)
+    }),
+    stamp_number: string().when('chip_number', {
+        is: value => !value,
+        then: string().matches(/^[0-9.-]*$/, { message: 'Можно использовать только цифры' }).required(reqText)
+    }),
+    chip_number: number().typeError('Можно использовать только цифры').test(function (value) {
+        const { path, parent, createError } = this;
+        const { stamp_code, stamp_number, } = parent;
+        if (!stamp_code && !stamp_number && !value) return createError({ path, message: reqText });
+        return true;
+    })
 };
 
 const updateSchema = validationSchema;
@@ -30,6 +47,10 @@ const config = {
             url: '/api/nurseries/nurserydeclarant/nursery_declarants',
             mapping: data => data.sort((a,b) => Number(b.is_default) - Number(a.is_default))
         },
+        breeds: {
+            url: '/api/dog/Breed',
+            mapping: data => data.filter(f => typeof f.id === 'number' && f.id !== 1).map(m => ({ value: m.id, label: m.name })),
+        },
         ...Common.options
     },
     url: '/api/requests/replace_pedigree_request/nurseryreplacepedigreeoutrkffcirequest',
@@ -42,6 +63,12 @@ const config = {
         copy_pedigree_document_id: '',
         truncated_pedigree_application_document_id: '',
         ...Common.initial,
+        breed_id: '',
+        dog_name: '',
+        owner_name: '',
+        stamp_code: '',
+        stamp_number: '',
+        chip_number: ''
     }
 }
 

@@ -22,6 +22,7 @@ const CardOrganization = ({alias,
                            phones,
                            mails,
                            breeds,
+                           site,
                            setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
     const logoClassName = `card-organization__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
@@ -119,6 +120,12 @@ const CardOrganization = ({alias,
                         <div className="card-organization__info-item">
                             <span className="card-organization__subtitle">E-mail</span>&nbsp;
                             <span>{mails.join(`, `)}</span>
+                        </div>
+                    }
+                    {user_type === 7 && site &&
+                        <div className="card-organization__info-item">
+                            <span className="card-organization__subtitle">Сайт</span>&nbsp;
+                            <a href={site} target="_blank" rel="noopener noreferrer">{site}</a>
                         </div>
                     }
                     {user_type === 4 && breeds && !!breeds.length &&
