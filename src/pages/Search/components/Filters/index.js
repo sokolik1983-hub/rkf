@@ -5,16 +5,17 @@ import Card from "../../../../components/Card";
 import Dropdown from "./Dropdown";
 import {setOverflow} from "../../../../utils";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import {filters} from "../../config";
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filtersValue}) => {
+const Filters = ({isOpenFilters, filtersValue, filters}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
+
+    console.log('filters inner', filters[2].items[0].count)
 
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
@@ -23,7 +24,11 @@ const Filters = ({isOpenFilters, filtersValue}) => {
                     <h3 className="search-page__filters-title">Результаты поиска для</h3>
                     <p className="search-page__filters-value">{filtersValue.string_filter}</p>
                     {filters.map(filter =>
-                        <Dropdown key={filter.name} {...filter} filtersValue={filtersValue}/>
+                        <Dropdown
+                            key={filter.name}
+                            filtersValue={filtersValue}
+                            {...filter}
+                        />
                     )}
                 </Card>
                 <div className="search-page__copy-wrap">
