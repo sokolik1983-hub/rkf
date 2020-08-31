@@ -1,74 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
 import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import {Request} from "../../../../utils/request";
-import {buildSearchUrl} from "../../utils";
 import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 
-const SearchList = ({string_filter, search_type}) => {
-    const [searchResult, setSearchResult] = useState([]);
-    const [hasMore, setHasMore] = useState(true);
-    const [startElement, setStartElement] = useState(1);
+const SearchList = ({searchResult, hasMore, getNextExhibitions}) => {
     const {dictionary} = useDictionary('rank_type');
-
-    const getSearchResults = async startElem => {
-        await Request({
-            url: buildSearchUrl(string_filter, search_type, startElem)
-        }, data => {
-            if(startElem === 1) {
-                window.scrollTo(0,0);
-            }
-
-            let results = [];
-
-            Object.keys(data).forEach(key => {
-                if(data[key] && data[key].length) {
-                    results = [...results, ...data[key].map(item => ({...item, search_type: key}))];
-                }
-            });
-
-            if (results.length) {
-                if (results.length < 10) {
-                    setHasMore(false);
-                } else {
-                    setHasMore(true);
-                }
-
-                setSearchResult(startElem === 1 ? results : [...searchResult, ...results]);
-            } else {
-                if(startElem === 1) setSearchResult([]);
-                setHasMore(false);
-            }
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setSearchResult([]);
-            setHasMore(false);
-        });
-    };
-
-    useEffect(() => {
-        if(string_filter && search_type) {
-            (() => getSearchResults(1))();
-        } else {
-            setSearchResult([]);
-            setHasMore(false);
-        }
-        setStartElement(1);
-    }, [string_filter, search_type]);
-
-    const getNextExhibitions = () => {
-        if (searchResult.length) {
-            (() => getSearchResults(startElement + 10))();
-            setStartElement(startElement + 10);
-        }
-    };
 
     return (
         <div className="search-list">

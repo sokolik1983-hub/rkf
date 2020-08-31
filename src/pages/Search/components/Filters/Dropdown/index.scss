@@ -62,7 +62,22 @@
     padding-left: 16px;
   }
   &__item {
-    span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-count {
+      margin-left: 10px;
+      font-size: 12px;
+      line-height: 1;
+      padding: 3px 7px 5px;
+      border-radius: 12px;
+      color: #fff;
+      background-color: #3366FF;
+      &._disabled {
+        background-color: #e8e8e8;
+      }
+    }
+    &-title {
       letter-spacing: .2px;
       color: #72839c;
       cursor: pointer;
@@ -71,7 +86,7 @@
         color: #3366ff;
       }
     }
-    &._active span {
+    &._active .dropdown__item-title {
       color: #3366ff;
     }
     &:not(:last-child) {

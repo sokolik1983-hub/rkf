@@ -7,6 +7,8 @@ import "./index.scss";
 const Dropdown = ({name, items, filtersValue}) => {
     const [isOpen, setIsOpen] = useState(true);
 
+    console.log('filters inner', name, items[0].count)
+
     return (
         <div className={`dropdown${isOpen ? ' _open' : ''}${!!items.find(item => item.search_type === filtersValue.search_type) ? ' _active' : ''}`}>
             <h3 className="dropdown__title" onClick={() => setIsOpen(!isOpen)}>{name}</h3>
@@ -22,7 +24,10 @@ const Dropdown = ({name, items, filtersValue}) => {
                             key={item.name}
                             onClick={() => setFiltersToUrl({...filtersValue, search_type: item.search_type})}
                         >
-                            <span>{item.name}</span>
+                            <span className="dropdown__item-title">{item.name}</span>
+                            <span className={`dropdown__item-count${!item.count ? ' _disabled' : ''}`} title={item.count}>
+                                {item.count > 99 ? '99+' : item.count}
+                            </span>
                         </li>
                     )}
                 </ul>
@@ -31,4 +36,4 @@ const Dropdown = ({name, items, filtersValue}) => {
     )
 };
 
-export default React.memo(Dropdown);
+export default Dropdown;
