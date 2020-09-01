@@ -23,6 +23,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         const unListen = history.listen(() => {
             const newFiltersValue = getFiltersFromUrl();
 
+            console.log(filtersValue.string_filter, newFiltersValue.string_filter, filtersValue.string_filter !== newFiltersValue.string_filter);
             if(filtersValue.string_filter !== newFiltersValue.string_filter) {
                 setNeedCount(true);
             }
@@ -31,9 +32,12 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         });
 
         return () => unListen();
-    }, []);
+    }, [filtersValue.string_filter]);
+
+    console.log('needCount outer', needCount);
 
     const getSearchResults = async startElem => {
+        console.log('needCount request', needCount);
         await Request({
             url: buildSearchUrl(filtersValue.string_filter, filtersValue.search_type, startElem, needCount)
         }, data => {
@@ -90,6 +94,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
     useEffect(() => {
         if(filtersValue.string_filter && filtersValue.search_type) {
+            console.log('needCount inner', needCount);
             (() => getSearchResults(1))();
         } else {
             setSearchResult([]);
