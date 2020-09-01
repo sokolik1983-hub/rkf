@@ -15,8 +15,8 @@ const buildUrlParams = ({string_filter, search_type, start_element}) => {
     return urlParams;
 }
 
-export const buildSearchUrl = (string_filter, search_type, start_element) => {
-    return `${endpointGetSearchResults}?${buildUrlParams({string_filter, search_type, start_element})}`;
+export const buildSearchUrl = (string_filter, search_type, start_element, need_count) => {
+    return `${endpointGetSearchResults}?${buildUrlParams({string_filter, search_type, start_element})}&need_count=${need_count}`;
 };
 
 export const getFiltersFromUrl = () => {
