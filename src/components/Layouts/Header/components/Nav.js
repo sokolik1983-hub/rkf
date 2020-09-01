@@ -69,9 +69,9 @@ const Nav = ({ isAuthenticated }) => {
                                 }
                             </li>
                         )}
-                        <li className="header__nav-item">
+                        {!isAuthenticated ? <li className="header__nav-item">
                             <Feedback />
-                        </li>
+                        </li> : ``}
                     </ul>
                 </>
                 :
