@@ -34,7 +34,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     }, [filtersValue.string_filter]);
 
     const getSearchResults = async startElem => {
-        console.log('needCount request', needCount);
         await Request({
             url: buildSearchUrl(filtersValue.string_filter, filtersValue.search_type, startElem, needCount)
         }, data => {
