@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import {Link} from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import StatusTable from "./components/Table";
@@ -66,7 +65,7 @@ const RequestRegistry = ({ history, nurseryAlias, distinction, isOpenFilters, se
             }
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length ?
-                    <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} distinction={distinction} nurseryAlias={nurseryAlias} /> :
+                    <StatusTable documents={documents.sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime()).filter(x => x && checked.includes(x.status_id))} distinction={distinction} nurseryAlias={nurseryAlias} /> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
