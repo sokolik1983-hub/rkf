@@ -128,7 +128,7 @@ const CheckRegistration = () => {
                 loading
                     ? <Loading centered={false} />
                     : status && <div className="search-form__result">
-                        {status.status === 1 ? <p>{status.message}</p> : ``}
+                        {status.status === 1 ? <p>Данный помет зарегистрирован в РКФ. Вы можете подать заявку на оформление родословной.</p> : ``}
                         {status.status === 2 ? <p>{status.message}</p> : ``}
                         {status.status === 3 ? 
                             <>

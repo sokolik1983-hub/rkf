@@ -70,7 +70,7 @@ const RequestRegistry = ({ history, clubAlias, distinction, isOpenFilters, setSh
                     }
                     <div className="club-documents-status__table">
                         {documents && !!documents.length ?
-                            <StatusTable documents={documents.filter(x => x && checked.includes(x.status_id))} distinction={distinction} clubAlias={clubAlias} /> :
+                            <StatusTable documents={documents.sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime()).filter(x => x && checked.includes(x.status_id))} distinction={distinction} clubAlias={clubAlias} /> :
                             <h2>Документов не найдено</h2>
                         }
                     </div>
