@@ -127,7 +127,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                 <Card className="exhibitions-page__club-banner">
                                     <div style={clubHeadliner && { backgroundImage: `url(${clubHeadliner})` }} />
                                 </Card>
-                                <div className="club-page__mobile-only">
+                                <div className="exhibitions-page__mobile-only">
                                     <MenuComponent
                                         alias={filters.Alias}
                                         user={user}
