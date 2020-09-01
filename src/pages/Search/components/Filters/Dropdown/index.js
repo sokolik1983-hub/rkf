@@ -22,7 +22,10 @@ const Dropdown = ({name, items, filtersValue}) => {
                             key={item.name}
                             onClick={() => setFiltersToUrl({...filtersValue, search_type: item.search_type})}
                         >
-                            <span>{item.name}</span>
+                            <span className="dropdown__item-title">{item.name}</span>
+                            <span className={`dropdown__item-count${!item.count ? ' _disabled' : ''}`} title={item.count}>
+                                {item.count > 99 ? '99+' : item.count}
+                            </span>
                         </li>
                     )}
                 </ul>
@@ -31,4 +34,4 @@ const Dropdown = ({name, items, filtersValue}) => {
     )
 };
 
-export default React.memo(Dropdown);
+export default Dropdown;
