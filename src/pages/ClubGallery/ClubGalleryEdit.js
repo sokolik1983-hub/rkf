@@ -175,7 +175,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                 {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
                                                 {canEdit &&
                                                     <>
-                                                        {album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
+                                                        {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
                                                         <InfiniteScroll
                                                             dataLength={images.length}
                                                             next={getNextImages}
