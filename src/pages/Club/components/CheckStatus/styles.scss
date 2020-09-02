@@ -60,19 +60,16 @@
             border: none;
             background: #ffffff;
             box-sizing: border-box;
-            span {
-                display: inline-block;
-                width: 20px;
-                height: 25px;
-                background: url("/static/icons/icon-search-blue.svg") center no-repeat;
-                cursor: pointer;
-             }
+            & svg:hover {
+                fill: #3366ff;
+                transition: fill .2s linear;
+            }
         }
     &--clear {
         button {
             display: block;
             background-color: #ffffff;
-            margin-left: 6px;
+            margin-left: 3px;
             border: none;
             padding: 0;
             span {

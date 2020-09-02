@@ -28,7 +28,7 @@ const CitiesFilter = ({cities, CityIds}) => {
     }, [cities, CityIds]);
 
     const handleChange = options => {
-        setFiltersToUrl({CityIds: options.map(option => option.value), ExhibitionName: '', PageNumber: 1});
+        setFiltersToUrl({CityIds: options.map(option => option.value)});
     };
 
     return (

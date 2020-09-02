@@ -11,6 +11,7 @@ import "./index.scss";
 
 const CardExhibition = ({ title,
     city,
+    city_id,
     club_name,
     club_alias,
     club_logo,
@@ -49,7 +50,7 @@ const CardExhibition = ({ title,
                         <div className="card-exhibition__header-info _mobile">
                             <span
                                 className="card-exhibition__city"
-                                onClick={() => setFilters ? setFilters(city) : null}
+                                onClick={() => setFilters ? setFilters(city_id) : null}
                                 title={city}
                             >{city}</span>
                             <span className="card-exhibition__date">{getDate()}</span>
@@ -57,7 +58,7 @@ const CardExhibition = ({ title,
                         </div>
                         <span
                             className="card-exhibition__city"
-                            onClick={() => setFilters ? setFilters(city) : null}
+                            onClick={() => setFilters ? setFilters(city_id) : null}
                             title={city}
                         >{city}</span>
                     </div>
