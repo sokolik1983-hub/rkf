@@ -19,11 +19,6 @@
         margin-bottom: 40px;
       }
       .news-component {
-        &__item {
-          @media (max-width: 560px) {
-            margin-bottom: 8px;
-          }
-        }
         .Paginator {
           padding: 0;
           margin: 32px 0 0;

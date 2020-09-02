@@ -8,10 +8,7 @@
   }
   &__item {
     &:not(:last-child) {
-      margin-bottom: 24px;
-      @media (max-width: 560px) {
-        margin-bottom: 16px;
-      }
+      margin-bottom: 16px;
     }
   }
   .Paginator {
