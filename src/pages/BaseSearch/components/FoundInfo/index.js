@@ -104,7 +104,7 @@ const FoundInfo = () => {
                     : status && <div className="search-form__result">
                     {status.status === 1 ? 
                             <>
-                                <p>{status.message}</p>
+                                <p>Данный код клейма принадлежит клубу</p>
                                 <CardOrganization
                                     alias={status.everk_information ? `` : status.alias}
                                     logo={status.logo}
