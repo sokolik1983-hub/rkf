@@ -88,7 +88,7 @@ const CheckRegistration = () => {
                         required
                     />
                     {stamp_code &&
-                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
+                    <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
                 </div>
                 <div className="search-form__wrap">
                     <input
@@ -103,7 +103,7 @@ const CheckRegistration = () => {
                         required
                     />
                     {stamp_number &&
-                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampNumberClear} />}
+                    <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampNumberClear} />}
                 </div>
                 {status ? <div className="search-form__button--clear">
                         <button

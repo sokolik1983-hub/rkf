@@ -75,7 +75,7 @@ const FoundInfo = () => {
                         required
                     />
                     {stamp_code &&
-                    <button className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
+                    <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear} />}
                 </div>
                 {status ? <div className="search-form__button--clear">
                         <button
