@@ -69,7 +69,7 @@ const FoundInfo = () => {
                         pattern="[A-Za-z]{3}"
                         onChange={({ target }) => setStampCode(target.value)}
                         value={stamp_code}
-                        title="Введите 3-буквенный код клейма"
+                        title="Введите 3 латинских символа"
                         placeholder="код клейма"
                         disabled={loading || status ? true : false}
                         required

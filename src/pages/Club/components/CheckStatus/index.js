@@ -69,7 +69,7 @@ const CheckStatus = ({ isBaseSearch }) => {
                     pattern="[0-9]{13}"
                     onChange={({ target }) => setBarcode(target.value)}
                     value={barcode}
-                    title="Введите 13-значный номер отслеживания"
+                    title="Введите 13-символьный трек-номер"
                     placeholder="введите трек-номер"
                     disabled={loading || !!status.length ? true : false}
                     required

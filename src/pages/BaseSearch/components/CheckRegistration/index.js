@@ -82,7 +82,7 @@ const CheckRegistration = () => {
                         pattern="[A-Za-z]{3}"
                         onChange={({ target }) => setStampCode(target.value)}
                         value={stamp_code}
-                        title="Введите 3-буквенный код клейма"
+                        title="Введите 3 латинских символа"
                         placeholder="код клейма"
                         disabled={loading || status ? true : false}
                         required
@@ -97,7 +97,7 @@ const CheckRegistration = () => {
                         pattern="[0-9]{1,4}"
                         onChange={({ target }) => setStampNumber(target.value)}
                         value={stamp_number}
-                        title="Введите 4-значный номер клейма"
+                        title="Введите числовое значение номера клейма"
                         placeholder="номер клейма"
                         disabled={loading || status ? true : false}
                         required
