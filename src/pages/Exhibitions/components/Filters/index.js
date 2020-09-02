@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Loading from "../../../../components/Loading";
-import Calendar from "./components/Calendar";
+//import Calendar from "./components/Calendar";
+import { Calendar } from '@progress/kendo-react-dateinputs';
+import '@progress/kendo-theme-default/dist/all.css';
 import BreedsFilter from "./components/BreedsFilter";
 import RanksFilter from "./components/RanksFilter";
 import CitiesFilter from "./components/CitiesFilter";
@@ -98,7 +100,8 @@ const Filters = ({ history, isOpenFilters, filters, clubName, profileId, logo, f
                                     </a>
                                 </div>
                             </div>
-                            <Calendar calendarData={calendarData} DateFrom={filters.DateFrom} />
+                            {/* <Calendar calendarData={calendarData} DateFrom={filters.DateFrom} /> */}
+                            <Calendar />
                             {/* <h4 className="exhibitions-filters__title">Фильтры</h4> */}
                             <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} />
                             <CitiesFilter cities={cities} CityIds={filters.CityIds} />
