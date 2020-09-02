@@ -6,11 +6,6 @@ const buildUrlParams = filter => {
     let params = '';
 
     Object.keys(filter).forEach(key => {
-        // if (filter.ExhibitionName) {
-        //     delete filter.DateFrom;
-        //     delete filter.DateTo;
-        // }
-
         if (filter[key]) {
             if (key === 'PageNumber') {
                 if (filter[key] > 1) {
@@ -87,7 +82,6 @@ export const getEmptyFilters = (alias = null) => ({
     RankIds: [],
     BreedIds: [],
     CategoryId: 0,
-    ExhibitionName: '',
     DateFrom: formatDateToString(new Date()),
     DateTo: null
 });
@@ -101,8 +95,4 @@ export const getInitialFilters = () => {
     if (!filtersFromUrl) setFiltersToUrl(filters, true);
 
     return filters;
-};
-
-export const getClubId = () => {
-    return JSON.parse(localStorage.getItem('profile_id'));
 };
