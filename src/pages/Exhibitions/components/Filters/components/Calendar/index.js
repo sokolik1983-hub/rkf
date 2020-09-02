@@ -9,9 +9,8 @@ import "./index.scss";
 import "components/WidgetCalendar/index.scss";
 
 
-const Calendar = ({calendarData, DateFrom}) => {
+const Calendar = ({dates, years, DateFrom}) => {
     const [day, setDay] = useState(new Date(DateFrom));
-    const [years, setYears] = useState([]);
     const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
 
@@ -22,17 +21,17 @@ const Calendar = ({calendarData, DateFrom}) => {
         setDay(date);
         setModifier(modifier.green
             ? { ...modifier, selectedDate: date }
-            : { ...modifier, green: calendarData.dates.map(day => new Date(day)) }
+            : { ...modifier, green: dates.map(day => new Date(day)) }
         );
     };
 
     useEffect(() => {
-        setYears(calendarData.years);
-    }, []);
-
-    useEffect(() => {
         setNewDate(new Date(DateFrom));
     }, [DateFrom]);
+
+    useEffect(() => {
+        setModifier({...modifier, green: dates.map(day => new Date(day))});
+    }, [dates]);
 
     const handleFormChange = (data, date, period) => {
         const month = period === 'month' ? data.value : date.getMonth();
@@ -50,27 +49,21 @@ const Calendar = ({calendarData, DateFrom}) => {
         setActiveButton(null);
 
         setFiltersToUrl({
-            ExhibitionName: '',
             DateFrom: formatDateToString(date),
             DateTo: formatDateToString(date),
-            PageNumber: 1
         });
     };
 
     const handleButtonClick = period => {
         if (period === 'month') {
             setFiltersToUrl({
-                ExhibitionName: '',
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0)),
-                PageNumber: 1
             });
         } else {
             setFiltersToUrl({
-                ExhibitionName: '',
                 DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0)),
-                PageNumber: 1
             });
         }
         setActiveButton(period);
@@ -99,7 +92,9 @@ const Calendar = ({calendarData, DateFrom}) => {
                 firstDayOfWeek={1}
                 captionElement={({ date }) => {
                     const monthsArr = MONTHS.map((month, i) => ({ value: i, label: month }));
-                    const yearsArr = years.map(year => ({ value: year, label: year }));
+                    const yearsArr = years.length ?
+                        years.map(year => ({ value: year, label: year })) :
+                        [{value: new Date().getFullYear(), label: new Date().getFullYear()}];
 
                     return (
                         <form className="DayPickerForm" onChange={handleFormChange}>
