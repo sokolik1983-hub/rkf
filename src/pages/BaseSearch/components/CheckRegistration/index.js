@@ -5,6 +5,7 @@ import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import CardOrganization from "../../../../components/CardOrganization";
+import {DEFAULT_IMG} from "../../../../appConfig";
 import '../FoundInfo/index.scss';
 
 
@@ -134,9 +135,9 @@ const CheckRegistration = () => {
                         {status.status === 2 ? <p>{status.message}</p> : ``}
                         {status.status === 3 ? 
                             <>
-                                <p>{status.message}</p>
+                                <p>Данный помет не зарегистрирован в РКФ. Для уточнения деталей обратитесь в клуб/питомник.</p>
                                 <CardOrganization
-                                    alias={status.everk_information ? `` : status.alias}
+                                    alias={status.alias}
                                     logo={status.logo}
                                     name={status.name}
                                     user_type={status.user_type}
@@ -155,6 +156,10 @@ const CheckRegistration = () => {
                                 />
                             </>
                         : ``}
+                        {status.status === 4 ? <div className="search-form__default-content">
+                        <h3>Ничего не найдено</h3>
+                        <img src={DEFAULT_IMG.noNews} alt="Ничего не найдено" />
+                    </div> : ``}
                     </div>
             }
             {alert &&

@@ -106,7 +106,7 @@ const FoundInfo = () => {
                             <>
                                 <p>Данный код клейма принадлежит клубу</p>
                                 <CardOrganization
-                                    alias={status.everk_information ? `` : status.alias}
+                                    alias={status.alias}
                                     logo={status.logo}
                                     name={status.name}
                                     user_type={status.user_type}
