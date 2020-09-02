@@ -51,6 +51,7 @@
     }
   }
   &__content {
+    overflow: hidden;
     width: calc(100% - 298px);
     @media (max-width: 560px) {
       width: 100%;
