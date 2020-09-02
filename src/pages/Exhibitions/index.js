@@ -30,6 +30,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
+    const [dates, setDates] = useState([]);
+    const [years, setYears] = useState([]);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -48,6 +50,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         await Request({
             url: `${url}&StartElement=${startElem}`
         }, data => {
+            setDates(data.dates);
+            if(data.years.length) setYears(data.years);
+
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
                     exhibition.title = exhibition.city;
@@ -112,8 +117,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
                     <Filters
-                        history={history}
                         filters={filters}
+                        dates={dates}
+                        years={years}
                         clubName={shorten(displayName)}
                         profileId={clubId}
                         logo={clubAvatar || DEFAULT_IMG.clubAvatar}
