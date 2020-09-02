@@ -4,7 +4,6 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
-import ExhibitionsSearch from "./components/Filters/components/Search";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ClickGuard from "../../components/ClickGuard";
 import MenuComponent from "../../components/MenuComponent";
@@ -22,7 +21,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
-    const [exhibitions, setExhibitions] = useState(null);
+    const [exhibitions, setExhibitions] = useState([]);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [displayName, setDisplayName] = useState('');
@@ -138,7 +137,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                             </>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
-                        <ExhibitionsSearch ExhibitionName={filters.ExhibitionName} />
                         <ExhibitionsList
                             exhibitions={exhibitions}
                             getNextExhibitions={getNextExhibitions}

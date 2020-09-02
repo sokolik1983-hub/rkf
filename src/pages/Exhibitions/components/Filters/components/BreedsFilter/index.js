@@ -28,7 +28,7 @@ const BreedsFilter = ({breeds, BreedIds}) => {
     }, [breeds, BreedIds]);
 
     const handleChange = options => {
-        setFiltersToUrl({ExhibitionName: '', BreedIds: options.map(option => option.value), PageNumber: 1});
+        setFiltersToUrl({BreedIds: options.map(option => option.value)});
     };
 
     return (

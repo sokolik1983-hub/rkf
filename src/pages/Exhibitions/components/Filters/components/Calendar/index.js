@@ -41,10 +41,8 @@ const Calendar = ({calendarData, DateFrom}) => {
         setActiveButton(null);
 
         setFiltersToUrl({
-            ExhibitionName: '',
             DateFrom: formatDateToString(new Date(year, month, 1)),
-            DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0)),
-            PageNumber: 1
+            DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
         });
     };
 
