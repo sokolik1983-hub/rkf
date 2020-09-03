@@ -95,7 +95,7 @@ const CheckRegistration = () => {
                     <input
                         className="search-form__input"
                         type="text"
-                        pattern="[0-9]{1,4}"
+                        pattern="^[0-9]+$"
                         onChange={({ target }) => setStampNumber(target.value)}
                         value={stamp_number}
                         title="Введите числовое значение номера клейма"

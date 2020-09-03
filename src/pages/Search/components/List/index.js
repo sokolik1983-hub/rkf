@@ -9,14 +9,14 @@ import {useDictionary} from "../../../../dictionaries";
 import "./index.scss";
 
 
-const SearchList = ({searchResult, hasMore, getNextExhibitions}) => {
+const SearchList = ({searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');
 
     return (
         <div className="search-list">
             <InfiniteScroll
                 dataLength={searchResult.length}
-                next={getNextExhibitions}
+                next={getNextResults}
                 hasMore={hasMore}
                 loader={<Loading centered={false} />}
                 endMessage={

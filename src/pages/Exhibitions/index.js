@@ -30,6 +30,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
+    const [needDates, setNeedDates] = useState(true);
     const [dates, setDates] = useState([]);
     const [years, setYears] = useState([]);
 
@@ -48,10 +49,10 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}`
+            url: `${url}&StartElement=${startElem}&NeedDates=${needDates}`
         }, data => {
-            setDates(data.dates);
-            if(data.years.length) setYears(data.years);
+            if(data.dates) setDates(data.dates);
+            if(data.years) setYears(data.years);
 
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
@@ -120,6 +121,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                         filters={filters}
                         dates={dates}
                         years={years}
+                        setNeedDates={setNeedDates}
                         clubName={shorten(displayName)}
                         profileId={clubId}
                         logo={clubAvatar || DEFAULT_IMG.clubAvatar}
@@ -142,12 +144,13 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                 </div>
                             </>
                         }
-                        <ListFilter categoryId={filters.CategoryId} />
+                        <ListFilter categoryId={filters.CategoryId} setNeedDates={setNeedDates} />
                         <ExhibitionsList
                             exhibitions={exhibitions}
                             getNextExhibitions={getNextExhibitions}
                             hasMore={hasMore}
                             loading={exhibitionsLoading}
+                            setNeedDates={setNeedDates}
                         />
                     </div>
                 </Container>
@@ -155,4 +158,4 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         </Layout>
 };
 
-export default connectShowFilters(React.memo(Exhibitions));
+export default connectShowFilters(Exhibitions);

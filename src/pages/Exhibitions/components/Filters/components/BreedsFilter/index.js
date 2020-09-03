@@ -16,19 +16,28 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breeds, BreedIds}) => {
+const BreedsFilter = ({breeds, BreedIds, setNeedDates}) => {
     const [values, setValues] = useState([]);
-    const [optionsNotInValues, setOptionsNotInValues] = useState([]);
+    const [options, setOptions] = useState([]);
 
     useEffect(() => {
         if(breeds.length) {
-            setValues(breeds.filter(option => BreedIds.indexOf(option.value) !== -1));
-            setOptionsNotInValues(breeds.filter(option => BreedIds.indexOf(option.value) === -1));
+            const optionValues = breeds.filter(option => BreedIds.indexOf(option.value) !== -1);
+            const optionsNotInValues = breeds.filter(option => BreedIds.indexOf(option.value) === -1);
+
+            setValues([...optionValues]);
+            setOptions([...optionValues, ...optionsNotInValues]);
         }
     }, [breeds, BreedIds]);
 
     const handleChange = options => {
+        setNeedDates(true);
         setFiltersToUrl({BreedIds: options.map(option => option.value)});
+    };
+
+    const handleDelete = breedId => {
+        setNeedDates(true);
+        setFiltersToUrl({BreedIds: values.filter(breed => breed.value !== breedId).map(breed => breed.value)});
     };
 
     return (
@@ -38,7 +47,7 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 id="breeds-filter"
                 isMulti={true}
                 closeMenuOnSelect={false}
-                options={[...values, ...optionsNotInValues]}
+                options={options}
                 defaultMenuIsOpen={true}
                 hideSelectedOptions={false}
                 menuIsOpen={true}
@@ -52,6 +61,16 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 value={values}
                 components={{Option}}
             />
+            {!!values.length &&
+                <ul className="breeds-filter__values">
+                    {values.map(item =>
+                        <li className="breeds-filter__values-item" key={item.value}>
+                            <span>{item.label}</span>
+                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                        </li>
+                    )}
+                </ul>
+            }
         </div>
     )
 };
