@@ -98,7 +98,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         setStartElement(1);
     }, [filtersValue.string_filter, filtersValue.search_type]);
 
-    const getNextExhibitions = () => {
+    const getNextResults = () => {
         if (searchResult.length) {
             (() => getSearchResults(startElement + 10))();
             setStartElement(startElement + 10);
@@ -115,7 +115,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                         <SearchList
                             searchResult={searchResult}
                             hasMore={hasMore}
-                            getNextExhibitions={getNextExhibitions}
+                            getNextResults={getNextResults}
                         />
                     </div>
                 </Container>

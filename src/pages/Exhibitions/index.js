@@ -30,6 +30,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
+    const [needDates, setNeedDates] = useState(true);
     const [dates, setDates] = useState([]);
     const [years, setYears] = useState([]);
 
@@ -45,13 +46,21 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     }, []);
 
     const getExhibitions = async (url, startElem) => {
+        console.log('needDates request', needDates);
+
         setExhibitionsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}`
+            url: `${url}&StartElement=${startElem}&NeedDates=${needDates}`
         }, data => {
-            setDates(data.dates);
-            if(data.years.length) setYears(data.years);
+            if(data.dates) {
+                setDates(data.dates);
+                setNeedDates(false);
+            }
+            if(data.years) {
+                setYears(data.years);
+                setNeedDates(false);
+            }
 
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
@@ -98,17 +107,21 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
 
     const getNextExhibitions = () => {
         if (hasMore) {
+            console.log('needDates scroll', needDates);
             (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
             setStartElement(startElement + 10);
         }
     };
 
     useEffect(() => {
+        console.log('needDates filters', needDates);
         if (url) {
             setStartElement(1);
             (() => getExhibitions(url, 1))();
         }
     }, [url]);
+
+    console.log('needDates outer', needDates);
 
     return loading ?
         <Loading /> :
@@ -120,6 +133,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                         filters={filters}
                         dates={dates}
                         years={years}
+                        setNeedDates={setNeedDates}
                         clubName={shorten(displayName)}
                         profileId={clubId}
                         logo={clubAvatar || DEFAULT_IMG.clubAvatar}
@@ -142,12 +156,13 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                 </div>
                             </>
                         }
-                        <ListFilter categoryId={filters.CategoryId} />
+                        <ListFilter categoryId={filters.CategoryId} setNeedDates={setNeedDates} />
                         <ExhibitionsList
                             exhibitions={exhibitions}
                             getNextExhibitions={getNextExhibitions}
                             hasMore={hasMore}
                             loading={exhibitionsLoading}
+                            setNeedDates={setNeedDates}
                         />
                     </div>
                 </Container>
