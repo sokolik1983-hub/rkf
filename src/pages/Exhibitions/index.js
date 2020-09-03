@@ -46,21 +46,13 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     }, []);
 
     const getExhibitions = async (url, startElem) => {
-        console.log('needDates request', needDates);
-
         setExhibitionsLoading(true);
 
         await Request({
             url: `${url}&StartElement=${startElem}&NeedDates=${needDates}`
         }, data => {
-            if(data.dates) {
-                setDates(data.dates);
-                setNeedDates(false);
-            }
-            if(data.years) {
-                setYears(data.years);
-                setNeedDates(false);
-            }
+            if(data.dates) setDates(data.dates);
+            if(data.years) setYears(data.years);
 
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
@@ -107,21 +99,17 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
 
     const getNextExhibitions = () => {
         if (hasMore) {
-            console.log('needDates scroll', needDates);
             (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
             setStartElement(startElement + 10);
         }
     };
 
     useEffect(() => {
-        console.log('needDates filters', needDates);
         if (url) {
             setStartElement(1);
             (() => getExhibitions(url, 1))();
         }
     }, [url]);
-
-    console.log('needDates outer', needDates);
 
     return loading ?
         <Loading /> :
@@ -170,4 +158,4 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         </Layout>
 };
 
-export default connectShowFilters(React.memo(Exhibitions));
+export default connectShowFilters(Exhibitions);
