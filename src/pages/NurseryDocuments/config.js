@@ -100,6 +100,7 @@ const pedigreeDeclarantsUpdateSchema = array().of(object().shape({
     declarant_uid: string(),
     biometric_card_document: file(),
     personal_data_document: file(),
+    comment: string(),
     //request_extract_from_verk_document: file(),
     documents: array().of(object().shape({
         id: number(),
@@ -177,6 +178,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     dog_mating_act: file(),
     father_pedigree_document: file(),
     personal_data_document: file(),
+    comment: string(),
     documents: array().of(object().shape({
         id: number(),
         document_type_id: mixed().when('document', {
