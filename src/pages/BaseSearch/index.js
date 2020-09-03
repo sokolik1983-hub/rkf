@@ -7,6 +7,8 @@ import FoundInfo from "./components/FoundInfo";
 import StickyBox from "react-sticky-box";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
+import { Link } from "react-router-dom";
+import ClubsMap from "../../components/ClubsMap";
 import { RKFInfo } from "../Home/config";
 import Statistics from "../../components/Statistics";
 import "./index.scss";
@@ -41,6 +43,12 @@ const BaseSearch = () => {
                                         </div>
                                     </Card>
                                     <Statistics />
+                                    <Card className="base-search__map-wrap">
+                                        <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                        <div className="base-search__map">
+                                            <ClubsMap />
+                                        </div>
+                                    </Card>
                                     <div className="base-search__copy-wrap">
                                         <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                         <p>Политика обработки персональных данных</p>
