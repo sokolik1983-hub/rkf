@@ -8,6 +8,8 @@ import IsActiveMember from "./IsActiveMember";
 import IsActivatedFilter from "./IsActivatedFilter";
 import BreedsFilter from "./BreedsFilter";
 import CitiesFilter from "./CitiesFilter";
+import ClubsMap from "../../../../components/ClubsMap";
+import { Link } from "react-router-dom";
 import {setOverflow} from "../../../../utils";
 import {getEmptyFilters, setFiltersToUrl} from "../../utils";
 import {RKFInfo} from "../../../Home/config";
@@ -69,6 +71,12 @@ const Filters = ({organization_type,
                                 </ul>
                             </Card>
                             <Statistics />
+                            <Card className="organizations-page__map-wrap">
+                                <h3><Link className="organizations-page__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                <div className="organizations-page__map">
+                                    <ClubsMap />
+                                </div>
+                            </Card>
                         </>
                     }
                     {organization_type !== 5 &&
