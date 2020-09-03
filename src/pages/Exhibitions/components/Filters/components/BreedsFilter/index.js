@@ -16,7 +16,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breeds, BreedIds}) => {
+const BreedsFilter = ({breeds, BreedIds, setNeedDates}) => {
     const [values, setValues] = useState([]);
     const [options, setOptions] = useState([]);
 
@@ -31,10 +31,12 @@ const BreedsFilter = ({breeds, BreedIds}) => {
     }, [breeds, BreedIds]);
 
     const handleChange = options => {
+        setNeedDates(true);
         setFiltersToUrl({BreedIds: options.map(option => option.value)});
     };
 
     const handleDelete = breedId => {
+        setNeedDates(true);
         setFiltersToUrl({BreedIds: values.filter(breed => breed.value !== breedId).map(breed => breed.value)});
     };
 

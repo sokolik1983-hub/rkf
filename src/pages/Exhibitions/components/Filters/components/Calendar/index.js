@@ -9,7 +9,7 @@ import "./index.scss";
 import "components/WidgetCalendar/index.scss";
 
 
-const Calendar = ({dates, years, DateFrom}) => {
+const Calendar = ({dates, years, DateFrom, setNeedDates}) => {
     const [day, setDay] = useState(new Date(DateFrom));
     const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
@@ -40,6 +40,8 @@ const Calendar = ({dates, years, DateFrom}) => {
 
             setActiveButton(null);
 
+            setNeedDates(false);
+
             setFiltersToUrl({
                 DateFrom: formatDateToString(new Date(year, month, 1)),
                 DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
@@ -50,22 +52,26 @@ const Calendar = ({dates, years, DateFrom}) => {
     const handleDateClick = date => {
         setActiveButton(null);
 
+        setNeedDates(false);
+
         setFiltersToUrl({
             DateFrom: formatDateToString(date),
-            DateTo: formatDateToString(date),
+            DateTo: formatDateToString(date)
         });
     };
 
     const handleButtonClick = period => {
+        setNeedDates(false);
+
         if (period === 'month') {
             setFiltersToUrl({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
-                DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0)),
+                DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0))
             });
         } else {
             setFiltersToUrl({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
-                DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0)),
+                DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0))
             });
         }
         setActiveButton(period);

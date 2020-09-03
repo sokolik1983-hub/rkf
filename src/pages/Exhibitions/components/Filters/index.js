@@ -14,7 +14,7 @@ import { endpointExhibitionsFilters } from "../../config";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, dates, years, clubName, profileId, federationName, federationAlias }) => {
+const Filters = ({ isOpenFilters, filters, dates, years, setNeedDates, clubName, profileId, federationName, federationAlias }) => {
     const [ranks, setRanks] = useState(null);
     const [breeds, setBreeds] = useState(null);
     const [cities, setCities] = useState(null);
@@ -46,6 +46,7 @@ const Filters = ({ isOpenFilters, filters, dates, years, clubName, profileId, fe
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
+        setNeedDates(true);
         setFiltersToUrl(getEmptyFilters(filters.Alias));
     };
 
@@ -80,10 +81,10 @@ const Filters = ({ isOpenFilters, filters, dates, years, clubName, profileId, fe
                                     </a>
                                 </div>
                             </div>
-                            <Calendar dates={dates} years={years} DateFrom={filters.DateFrom} />
-                            <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} />
-                            <CitiesFilter cities={cities} CityIds={filters.CityIds} />
-                            <RanksFilter ranks={ranks} RankIds={filters.RankIds} />
+                            <Calendar dates={dates} years={years} DateFrom={filters.DateFrom} setNeedDates={setNeedDates} />
+                            <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} setNeedDates={setNeedDates} />
+                            <CitiesFilter cities={cities} CityIds={filters.CityIds} setNeedDates={setNeedDates} />
+                            <RanksFilter ranks={ranks} RankIds={filters.RankIds} setNeedDates={setNeedDates} />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">
                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
