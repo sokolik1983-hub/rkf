@@ -29,6 +29,24 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
             }
         },
         {
+            property: 'count',
+            header: {
+                label: 'Всего заявок в пакете'
+            }
+        },
+        {
+            property: 'count_done',
+            header: {
+                label: 'Изготовлено'
+            }
+        },
+        {
+            property: 'count_in_work',
+            header: {
+                label: 'В работе'
+            }
+        },
+        {
             property: 'id',
             header: {
                 label: 'Номер документа'
