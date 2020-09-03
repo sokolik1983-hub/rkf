@@ -34,15 +34,17 @@ const Calendar = ({dates, years, DateFrom}) => {
     }, [dates]);
 
     const handleFormChange = (data, date, period) => {
-        const month = period === 'month' ? data.value : date.getMonth();
-        const year = period === 'year' ? data.value : date.getFullYear();
+        if(data.value !== null) {
+            const month = period === 'month' ? data.value : date.getMonth();
+            const year = period === 'year' ? data.value : date.getFullYear();
 
-        setActiveButton(null);
+            setActiveButton(null);
 
-        setFiltersToUrl({
-            DateFrom: formatDateToString(new Date(year, month, 1)),
-            DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
-        });
+            setFiltersToUrl({
+                DateFrom: formatDateToString(new Date(year, month, 1)),
+                DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
+            });
+        }
     };
 
     const handleDateClick = date => {
@@ -91,10 +93,16 @@ const Calendar = ({dates, years, DateFrom}) => {
                 onMonthChange={setNewDate}
                 firstDayOfWeek={1}
                 captionElement={({ date }) => {
-                    const monthsArr = MONTHS.map((month, i) => ({ value: i, label: month }));
+                    let monthsArr = MONTHS.map((month, i) => ({ value: i, label: month }));
                     const yearsArr = years.length ?
                         years.map(year => ({ value: year, label: year })) :
                         [{value: new Date().getFullYear(), label: new Date().getFullYear()}];
+                    let monthValue = monthsArr.filter(item => item.value === date.getMonth())[0];
+
+                    if(activeButton === 'year') {
+                        monthsArr = [{value: null, label: 'Все'}, ...monthsArr];
+                        monthValue = monthsArr[0];
+                    }
 
                     return (
                         <form className="DayPickerForm" onChange={handleFormChange}>
@@ -105,7 +113,7 @@ const Calendar = ({dates, years, DateFrom}) => {
                                     classNamePrefix="DayPickerForm__select"
                                     name="month"
                                     isClearable={false}
-                                    value={monthsArr.filter(item => item.value === date.getMonth())[0]}
+                                    value={monthValue}
                                     options={monthsArr}
                                     onChange={data => handleFormChange(data, date, 'month')}
                                 />
