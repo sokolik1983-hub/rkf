@@ -56,15 +56,15 @@
         }
       }
       &-title {
-            text-decoration: none;
-            color: #253c5e;
-            transition: all 0.2s linear;
-            text-transform: none;
-            font-weight: normal;
-            &:hover {
-              color: #3366ff;
-            }
-          }
+        text-decoration: none;
+        color: #253c5e;
+        transition: all 0.2s linear;
+        text-transform: none;
+        font-weight: normal;
+        &:hover {
+          color: #3366ff;
+        }
+      }
     }  
     &__content {
       width: 100%;
@@ -80,6 +80,12 @@
       @media (max-width: 990px) {
         width: 100%;
         min-width: unset;
+      }
+      &-inner {
+        h3 {
+          text-transform: none;
+          font-weight: normal;
+        }
       }
       &-inner .Card:not(:first-child) {
         margin-top: 16px;
