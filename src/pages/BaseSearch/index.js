@@ -9,7 +9,6 @@ import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import { Link } from "react-router-dom";
 import ClubsMap from "../../components/ClubsMap";
-import { RKFInfo } from "../Home/config";
 import Statistics from "../../components/Statistics";
 import "./index.scss";
 
@@ -28,10 +27,6 @@ const BaseSearch = () => {
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
                                 <div className="base-search__info-inner">
-                                    <Card>
-                                        <h3>{RKFInfo.aboutTitle}</h3>
-                                        <p>{RKFInfo.about}</p>
-                                    </Card>
                                     <Card className="base-search__card">
                                         <h3>РКФ в соцсетях</h3>
                                         <div className="base-search__right-socials">
