@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StatisticsNursery from "../../components/StatisticsNursery";
+import StampSearch from "./components/StampSearch";
 import "./index.scss";
 
 
@@ -24,6 +25,7 @@ const BaseSearch = () => {
                             <FoundInfo />
                             <CheckStatus isBaseSearch />
                             <CheckRegistration />
+                            <StampSearch />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
