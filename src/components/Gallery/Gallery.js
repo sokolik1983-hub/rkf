@@ -14,7 +14,7 @@ const GalleryComponent = ({ items, albums, match, withLoading = true, ...rest })
             && <GalleryAlbums albums={albums} match={match} />}
         {items && !!items.length
             ? <>
-                {albums && !!albums.length && <h4>Фотографии</h4>}
+                {albums && !!albums.length && <h4>Все фотографии</h4>}
                 <Gallery
                     imageCountSeparator="&nbsp;из&nbsp;"
                     images={items}
