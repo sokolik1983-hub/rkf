@@ -4,13 +4,11 @@ import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
 
 
-const RanksFilter = ({ranks, RankIds, setNeedDates}) => {
+const RanksFilter = ({ranks, RankIds}) => {
     const handleChange = id => {
         const ranksIds = RankIds.includes(id) ?
             RankIds.filter(item => item !== id) :
             [...RankIds, id];
-
-        setNeedDates(true);
 
         setFiltersToUrl({RankIds: ranksIds});
     };
