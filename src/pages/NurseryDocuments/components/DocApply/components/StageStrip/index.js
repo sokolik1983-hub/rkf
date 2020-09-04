@@ -23,7 +23,7 @@ const StageStrip = ({items, active}) =>
     ></div>
     {!!items && items.length && items.map((item, index) => { const Stage = index < active ? Passed : stages[index]; return <div 
     style={{zIndex: 1}} 
-    key={index} className={`stage-item ${active === index ? 'active' : ''}`}>
+    key={index} className={`stage-item ${active === index ? '_active' : ''}`}>
         <i className="stage-item__icon"><Stage/></i>
         <span className="stage-item__text">{item.text}</span>
     </div>})}
