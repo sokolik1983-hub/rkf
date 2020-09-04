@@ -105,16 +105,16 @@
 .stage-item__icon svg path {
     fill: white;
 }
-.active svg path {
+._active svg path {
     fill: #3366FF;
 }
-.active .stage-item__icon {
+._active .stage-item__icon {
   background: white;
 }
 .stage-item__text {
     color: #3366ff;
 }
-.active ~ .stage-item {
+._active ~ .stage-item {
     .stage-item__text {
         color: #90999E;
     }
