@@ -104,25 +104,31 @@ const FoundInfo = () => {
                     : status && <div className="search-form__result">
                     {status.status === 1 ? 
                             <>
-                                <p>Данный код клейма принадлежит клубу</p>
-                                <CardOrganization
-                                    alias={status.alias}
-                                    logo={status.logo}
-                                    name={status.name}
-                                    user_type={status.user_type}
-                                    is_active={status.is_active}
-                                    is_active_member={status.is_active_member}
-                                    city_name={status.city_name}
-                                    city_id={status.city_id}
-                                    owner_name={status.owner_name}
-                                    owner_position={status.owner_position}
-                                    federation_name={status.federation_name}
-                                    federation_alias={status.federation_alias}
-                                    content={status.content}
-                                    phones={status.phones}
-                                    mails={status.mails}
-                                    breeds={status.breeds}
-                                />
+                                <p>{status.message}</p>
+                                {status.organizations.map((org, index) => {
+                                    return (
+                                        <CardOrganization
+                                            key={index + org.name}
+                                            alias={org.alias}
+                                            logo={org.logo}
+                                            name={org.name}
+                                            user_type={org.user_type}
+                                            is_active={org.is_active}
+                                            is_active_member={org.is_active_member}
+                                            city_name={org.city_name}
+                                            city_id={org.city_id}
+                                            owner_name={org.owner_name}
+                                            owner_position={org.owner_position}
+                                            federation_name={org.federation_name}
+                                            federation_alias={org.federation_alias}
+                                            content={org.content}
+                                            phones={org.phones}
+                                            mails={org.mails}
+                                            breeds={org.breeds}
+                                        />
+                                    );
+                                })
+                                }
                             </>
                         : ``}
                         {status.status === 2 ? <p>Данные о регистрации отсутствуют</p> : ``}
