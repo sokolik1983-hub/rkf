@@ -24,7 +24,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
 
     useEffect(() => {
         (() => Request({
-            url: endpointExhibitionsFilters
+            url: `${endpointExhibitionsFilters}${filters.Alias ? '?alias=' + filters.Alias : ''}`
         }, data => {
             setCities(data.cities);
             setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
@@ -36,10 +36,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         }))();
-    }, []);
 
-    useEffect(() => {
-        console.log('filters.Alias', filters.Alias);
         (() => Request({
             url: `${endpointExhibitionsDates}${filters.Alias ? '?alias=' + filters.Alias : ''}`
         }, data => {
