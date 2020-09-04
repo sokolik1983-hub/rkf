@@ -10,7 +10,6 @@ import Card from "../../components/Card";
 import { Link } from "react-router-dom";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
-import StatisticsNursery from "../../components/StatisticsNursery";
 import StampSearch from "./components/StampSearch";
 import "./index.scss";
 
@@ -41,7 +40,6 @@ const BaseSearch = () => {
                                         </div>
                                     </Card>
                                     <Statistics />
-                                    <StatisticsNursery />
                                     <Card className="base-search__map-wrap">
                                         <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="base-search__map">
