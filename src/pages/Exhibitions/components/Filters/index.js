@@ -24,7 +24,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
 
     useEffect(() => {
         (() => Request({
-            url: `${endpointExhibitionsFilters}${filters.Alias ? '?alias=' + filters.Alias : ''}`
+            url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
         }, data => {
             setCities(data.cities);
             setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
@@ -38,7 +38,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
         }))();
 
         (() => Request({
-            url: `${endpointExhibitionsDates}${filters.Alias ? '?alias=' + filters.Alias : ''}`
+            url: `${endpointExhibitionsDates}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
         }, data => {
             setDates(data.dates);
             setYears(data.years);
