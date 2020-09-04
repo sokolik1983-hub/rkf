@@ -11,8 +11,10 @@ const GalleryAlbums = ({ albums, match }) => {
             {
                 albums.map(a => <div className="GalleryAlbums__item" key={a.id}>
                     <Link to={`${match.url}/${a.id}`}>
-                        <div className="GalleryAlbums__item-cover" style={{ 'background': `url(${a.cover || DEFAULT_IMG.noImage}) center/cover no-repeat` }}></div>
-                        <div className="GalleryAlbums__item-name">{a.name}</div>
+                        <div className="GalleryAlbums__item-cover" style={{ 'background': `linear-gradient(to top, rgb(0,0,0,0.65), rgb(0,0,0,0.05) 35%), url(${a.cover || DEFAULT_IMG.noImage}) center/cover no-repeat` }}>
+                            <div className="GalleryAlbums__item-name">{a.name}</div>
+                            <div className="GalleryAlbums__item-count">{a.count > 99 ? '99+' : a.count}</div>
+                        </div>
                     </Link>
                 </div>)
             }
