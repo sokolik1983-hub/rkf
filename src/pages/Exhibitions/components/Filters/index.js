@@ -10,19 +10,21 @@ import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
 import { Request } from "../../../../utils/request";
-import { endpointExhibitionsFilters } from "../../config";
+import { endpointExhibitionsFilters, endpointExhibitionsDates } from "../../config";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, dates, years, setNeedDates, clubName, profileId, federationName, federationAlias }) => {
-    const [ranks, setRanks] = useState(null);
-    const [breeds, setBreeds] = useState(null);
-    const [cities, setCities] = useState(null);
+const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, federationAlias }) => {
+    const [dates, setDates] = useState([]);
+    const [years, setYears] = useState([]);
+    const [ranks, setRanks] = useState([]);
+    const [breeds, setBreeds] = useState([]);
+    const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         (() => Request({
-            url: endpointExhibitionsFilters
+            url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
         }, data => {
             setCities(data.cities);
             setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
@@ -34,7 +36,20 @@ const Filters = ({ isOpenFilters, filters, dates, years, setNeedDates, clubName,
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
         }))();
-    }, []);
+
+        (() => Request({
+            url: `${endpointExhibitionsDates}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
+        }, data => {
+            setDates(data.dates);
+            setYears(data.years);
+            setLoading(false);
+            window.scrollTo(0,0);
+        }, error => {
+            console.log(error.response);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
+            setLoading(false);
+        }))();
+    }, [filters.Alias]);
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -46,7 +61,6 @@ const Filters = ({ isOpenFilters, filters, dates, years, setNeedDates, clubName,
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setNeedDates(true);
         setFiltersToUrl(getEmptyFilters(filters.Alias));
     };
 
@@ -81,10 +95,10 @@ const Filters = ({ isOpenFilters, filters, dates, years, setNeedDates, clubName,
                                     </a>
                                 </div>
                             </div>
-                            <Calendar dates={dates} years={years} DateFrom={filters.DateFrom} setNeedDates={setNeedDates} />
-                            <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} setNeedDates={setNeedDates} />
-                            <CitiesFilter cities={cities} CityIds={filters.CityIds} setNeedDates={setNeedDates} />
-                            <RanksFilter ranks={ranks} RankIds={filters.RankIds} setNeedDates={setNeedDates} />
+                            <Calendar dates={dates} years={years} DateFrom={filters.DateFrom} />
+                            <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} />
+                            <CitiesFilter cities={cities} CityIds={filters.CityIds} />
+                            <RanksFilter ranks={ranks} RankIds={filters.RankIds} />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">
                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>

@@ -16,7 +16,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({cities, CityIds, setNeedDates}) => {
+const CitiesFilter = ({cities, CityIds}) => {
     const [values, setValues] = useState([]);
     const [options, setOptions] = useState([]);
 
@@ -31,12 +31,10 @@ const CitiesFilter = ({cities, CityIds, setNeedDates}) => {
     }, [cities, CityIds]);
 
     const handleChange = options => {
-        setNeedDates(true);
         setFiltersToUrl({CityIds: options.map(option => option.value)});
     };
 
     const handleDelete = cityId => {
-        setNeedDates(true);
         setFiltersToUrl({CityIds: values.filter(city => city.value !== cityId).map(city => city.value)});
     };
 

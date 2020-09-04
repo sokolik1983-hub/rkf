@@ -4,7 +4,7 @@ import {setFiltersToUrl} from "../../../../utils";
 import "./index.scss";
 
 
-const ListFilter = ({categoryId, setNeedDates}) => {
+const ListFilter = ({categoryId}) => {
     const [activeType, setActiveType] = useState(0);
 
     useEffect(() => {
@@ -14,8 +14,6 @@ const ListFilter = ({categoryId, setNeedDates}) => {
     const handleClick = type => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
-
-        setNeedDates(true);
 
         setFiltersToUrl({CategoryId: type});
     };

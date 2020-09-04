@@ -7,7 +7,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 
-const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore, setNeedDates }) => (
+const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) => (
     <div className="ExhibitionsList">
         <InfiniteScroll
             dataLength={exhibitions.length}
@@ -37,12 +37,9 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore, se
                             club_logo={item.club_logo}
                             federation_name={item.federation_name}
                             federation_link={item.federation_link}
-                            ranks={item.ranks.map(r => r.name).join(', ')}
+                            ranks={item.ranks.map(rank => rank.name).join(', ')}
                             user={item.user_type}
-                            setFilters={city_id => {
-                                setNeedDates(true);
-                                setFiltersToUrl({CityIds: [city_id]});
-                            }}
+                            setFilters={city_id => setFiltersToUrl({CityIds: [city_id]})}
                         />
                     </li>
                 ))}

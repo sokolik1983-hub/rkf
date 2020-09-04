@@ -9,7 +9,7 @@ import "./index.scss";
 import "components/WidgetCalendar/index.scss";
 
 
-const Calendar = ({dates, years, DateFrom, setNeedDates}) => {
+const Calendar = ({dates, years, DateFrom}) => {
     const [day, setDay] = useState(new Date(DateFrom));
     const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
@@ -40,8 +40,6 @@ const Calendar = ({dates, years, DateFrom, setNeedDates}) => {
 
             setActiveButton(null);
 
-            setNeedDates(false);
-
             setFiltersToUrl({
                 DateFrom: formatDateToString(new Date(year, month, 1)),
                 DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
@@ -52,8 +50,6 @@ const Calendar = ({dates, years, DateFrom, setNeedDates}) => {
     const handleDateClick = date => {
         setActiveButton(null);
 
-        setNeedDates(false);
-
         setFiltersToUrl({
             DateFrom: formatDateToString(date),
             DateTo: formatDateToString(date)
@@ -61,8 +57,6 @@ const Calendar = ({dates, years, DateFrom, setNeedDates}) => {
     };
 
     const handleButtonClick = period => {
-        setNeedDates(false);
-
         if (period === 'month') {
             setFiltersToUrl({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
