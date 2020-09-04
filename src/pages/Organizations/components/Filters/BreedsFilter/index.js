@@ -5,6 +5,7 @@ import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../config";
 import {setFiltersToUrl} from "../../../utils";
+import {customStyles} from "../config.js";
 import "./index.scss";
 
 
@@ -73,6 +74,7 @@ const BreedsFilter = ({breed_ids, organization_type}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
+                styles={customStyles}
             />
         </div>
 };

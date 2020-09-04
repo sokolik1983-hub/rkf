@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 import {setFiltersToUrl} from "../../../../utils";
+import {customStyles} from "../../config.js";
 import "./index.scss";
 
 
@@ -58,6 +59,7 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
+                styles={customStyles}
             />
             {!!values.length &&
                 <ul className="breeds-filter__values">
