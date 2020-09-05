@@ -90,7 +90,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         return Request({
             url: `/api/photogallery/albums?alias=${alias}`,
             method: 'GET'
-        }, ({ albums }) => {
+        }, (albums) => {
             setAlbums(albums);
             setImagesLoading(false);
         }, error => handleError(error));
