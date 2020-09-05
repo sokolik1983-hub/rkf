@@ -6,6 +6,26 @@
         line-height: 24px;
         margin-bottom: 8px;
     }
+    &__federation-logo {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        &--rfls {
+            background-image: url("/static/images/federations/logo/rfls.png");
+        }
+        &--rfss {
+            background-image: url("/static/images/federations/logo/rfss.png");
+        }
+        &--oankoo {
+            background-image: url("/static/images/federations/logo/oankoo.png");
+        }
+        &--rfos {
+            background-image: url("/static/images/federations/logo/rfos.png");
+        }
+    }
     .Loading__title {
         margin: 0 auto;
     }
