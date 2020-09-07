@@ -61,8 +61,8 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         flat: '',
         email: '',
         folder_number: '',
-        declarants: [distinction === "pedigree" ? {...emptyPedigreeDeclarant, stamp_code_name} : {...emptyLitterDeclarant, stamp_code_id}],
-    
+        declarants: [distinction === "pedigree" ? { ...emptyPedigreeDeclarant, stamp_code_name } : { ...emptyLitterDeclarant, stamp_code_id }],
+
         cash_payment: false,
         payment_document: '',
         payment_date: '',
@@ -91,8 +91,23 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         update = true;
         view = x !== 'edit';
     }
-    let initial = {...initialValues, ...removeNulls(values)};
-    values.declarants && (initial = {...initial, declarants: values.declarants && values.declarants.filter(d => !!d.declarant).map(d => ({...d.declarant, status_id: d.status_id, documents: d.documents, barcode: d.barcode, litters: d.litters, rejected_comment:d.rejected_comment}))});
+    let initial = { ...initialValues, ...removeNulls(values) };
+    values.declarants &&
+        (initial = {
+            ...initial,
+            declarants: values.declarants &&
+                values.declarants
+                    .filter(d => !!d.declarant)
+                    .map(d => ({
+                        ...d.declarant,
+                        status_id: d.status_id,
+                        documents: d.documents,
+                        barcode: d.barcode,
+                        litters: d.litters,
+                        rejected_comment: d.rejected_comment,
+                        comment: ''
+                    }))
+        });
     let cash_payment = initial.cash_payment;
     const filterBySchema = (values, fields) => {
         let r = {};
@@ -107,25 +122,25 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     }
     const transformValues = values => {
         //if (update) {
-            setStatusId(values.status_id);
-            let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
-            if (!(r.payment_document instanceof File)) {
-                delete r.payment_document;
-            }
-            r.declarants.forEach(d => {
-                Object.keys(d).forEach(k => {
-                    if (d[k] === '') {
-                        delete d[k];
-                    }
-                });
-                if (!d.documents) return;
-                d.documents.forEach(doc => {
-                    if (!doc.document) {
-                        delete doc.document;
-                    }
-                });
+        setStatusId(values.status_id);
+        let r = filterBySchema(values, (update ? updateSchema : validationSchema).fields);
+        if (!(r.payment_document instanceof File)) {
+            delete r.payment_document;
+        }
+        r.declarants.forEach(d => {
+            Object.keys(d).forEach(k => {
+                if (d[k] === '') {
+                    delete d[k];
+                }
             });
-            return r;
+            if (!d.documents) return;
+            d.documents.forEach(doc => {
+                if (!doc.document) {
+                    delete doc.document;
+                }
+            });
+        });
+        return r;
         //} else {
         //    let r = filterBySchema(values, validationSchema.fields);
         //    return r;
@@ -135,30 +150,30 @@ const DocApply = ({ clubAlias, history, distinction }) => {
     const setFormValues = values => {
         setValues(values);
         setDraft(update && !view && values && values.status_id === 7);
-        setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
+        setStatusAllowsUpdate(values.status_id ? [2, 4, 7].includes(values.status_id) : true);
     }
     draft && (update = false);
-    
-    const PromiseRequest = url => new Promise((res,rej) => Request({url},res,rej));
+
+    const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
     useEffect(() => {
         (() => Promise.all([
             PromiseRequest(apiClubDeclarantsEndpoint)
-            .then(data => setDeclarants(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)))),
+                .then(data => setDeclarants(data.sort((a, b) => Number(b.is_default) - Number(a.is_default)))),
             PromiseRequest(`${apiStampCodesEndpoint}?id=${clubId}`)
-            .then(data => setStampCodes(data.sort((a,b) => Number(b.is_default) - Number(a.is_default)).map(m => ({value: m.stamp_code_id, label:m.stamp_code})))),
+                .then(data => setStampCodes(data.sort((a, b) => Number(b.is_default) - Number(a.is_default)).map(m => ({ value: m.stamp_code_id, label: m.stamp_code })))),
             update ? PromiseRequest(apiEndpoint + '?id=' + id).then(values => values ? setFormValues(values) : setRedirect('/404')) : new Promise(res => res())
         ]).then(() => setLoading(false))
-        .catch(error => {
-            console.log(error.response);
-            setRedirect('/404');
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-        }))();
+            .catch(error => {
+                console.log(error.response);
+                setRedirect('/404');
+                if (error.response) alert(`Ошибка: ${error.response.status}`);
+                setLoading(false);
+            }))();
     }, []);
 
     const comment = initial.rejected_comment && initial.rejected_comment.comment;
 
-    return loading ? <Loading/> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
+    return loading ? <Loading /> : <div className={`documents-page__info DocApply ${okAlert ? 'view' : ''}`}>
         {okAlert &&
             <Alert
                 {...(statusId === 7 ? draftAlertProps : sendAlertProps)}
@@ -167,7 +182,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 onOk={() => setRedirect(`/${clubAlias}/documents`)}
             />
         }
-        {redirect && <Redirect to={redirect}/>}
+        {redirect && <Redirect to={redirect} />}
         {errAlert &&
             <Alert
                 title="Ошибка отправки"
@@ -187,7 +202,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         <div className="documents-page__right">
             <Form
                 onSuccess={e => setOkAlert(true)}
-                onError={e => console.log(e)||setErrAlert(true)}
+                onError={e => console.log(e) || setErrAlert(true)}
                 action={apiEndpoint}
                 method={update || draft ? "PUT" : "POST"}
                 validationSchema={update ? updateSchema : validationSchema}
@@ -207,7 +222,7 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                     </div>}
                     <DocItemList
                         name="declarants"
-                        {...{view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias}}
+                        {...{ view, update, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate, clubAlias }}
                     />
                 </Card>
             </Form>

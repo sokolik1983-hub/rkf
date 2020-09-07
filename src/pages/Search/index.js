@@ -15,20 +15,27 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
     const [searchResult, setSearchResult] = useState([]);
     const [filters, setFilters] = useState([...defaultFilters]);
+    const [needCount, setNeedCount] = useState(true);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
 
     useEffect(() => {
         const unListen = history.listen(() => {
-            setFiltersValue(getFiltersFromUrl());
+            const newFiltersValue = getFiltersFromUrl();
+
+            if(filtersValue.string_filter !== newFiltersValue.string_filter) {
+                setNeedCount(true);
+            }
+
+            setFiltersValue(newFiltersValue);
         });
 
         return () => unListen();
-    }, []);
+    }, [filtersValue.string_filter]);
 
     const getSearchResults = async startElem => {
         await Request({
-            url: buildSearchUrl(filtersValue.string_filter, filtersValue.search_type, startElem)
+            url: buildSearchUrl(filtersValue.string_filter, filtersValue.search_type, startElem, needCount)
         }, data => {
             if(startElem === 1) {
                 window.scrollTo(0,0);
@@ -48,6 +55,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
                     return category;
                 });
+                setNeedCount(false);
             }
 
             setFilters(newFilters);
@@ -90,7 +98,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         setStartElement(1);
     }, [filtersValue.string_filter, filtersValue.search_type]);
 
-    const getNextExhibitions = () => {
+    const getNextResults = () => {
         if (searchResult.length) {
             (() => getSearchResults(startElement + 10))();
             setStartElement(startElement + 10);
@@ -107,7 +115,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                         <SearchList
                             searchResult={searchResult}
                             hasMore={hasMore}
-                            getNextExhibitions={getNextExhibitions}
+                            getNextResults={getNextResults}
                         />
                     </div>
                 </Container>

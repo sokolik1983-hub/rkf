@@ -48,8 +48,10 @@
         "filterBeforeOperator": "Раньше",
         "filterBeforeOrEqualOperator": "Раньше или равно",
         "filterFilterButton": "Фильтр",
-        "filterClearButton": "Очистить фильтры",
+        "filterClearButton": "Очистить",
         "filterAndLogic": "И",
-        "filterOrLogic": "Или"
+        "filterOrLogic": "Или",
+        "filterTitle": "Фильтр",
+        "filterSubmitButton": "Применить"
     }
 }

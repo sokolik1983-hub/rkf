@@ -1,8 +1,5 @@
 .exhibitions-page {
   display: flex;
-  & + .Footer {
-    display: none;
-  }
   &.content {
     padding-top: 65px;
   }
@@ -15,6 +12,15 @@
   }
   &__wrap {
     background: #f5f8ff;
+    & + .Footer {
+      display: none;
+    }  
+  }
+  &__mobile-only {
+    display: none;
+    @media (max-width: 990px) {
+      display: block;
+    }
   }
   &__filters {
     margin: 0 16px 0 0;

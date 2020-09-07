@@ -12,9 +12,6 @@ const RenderFields = ({ fields }) => {
         <FormGroup inline>
             <FormField {...fields.description} />
         </FormGroup>
-        {/* <FormGroup inline>
-            <FormField {...fields.cover} />
-        </FormGroup> */}
     </>
 };
 

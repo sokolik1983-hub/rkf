@@ -73,6 +73,12 @@
             height: 25vw;
           }
         }
+        &-inactive {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: white;
+        }
       }
       & > .Card:not(.club-page__content-banner) {
         margin-bottom: 16px !important;

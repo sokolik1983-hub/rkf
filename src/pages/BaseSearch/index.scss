@@ -11,6 +11,7 @@
     line-height: 26px;
     letter-spacing: 0.4px;
     margin-bottom: 6px;
+    font-weight: normal;
   }
   p {
     letter-spacing: 0.2px;
@@ -19,9 +20,9 @@
     word-break: break-word;
     &.content {
       padding-top: 65px;
-    }
-    &__card {
-      margin-top: 16px;
+      & .Card:not(:first-child) {
+        margin-top: 16px;
+      }
     }
     &__right-socials {
       display: flex;
@@ -47,6 +48,25 @@
         display: block;
       }
     }
+    &__map {
+      height: 300px;
+      margin-top: 8px;
+      &-wrap {
+        @media (max-width: 1100px) {
+          display: none;
+        }
+      }
+      &-title {
+        text-decoration: none;
+        color: #253c5e;
+        transition: all 0.2s linear;
+        text-transform: none;
+        font-weight: normal;
+        &:hover {
+          color: #3366ff;
+        }
+      }
+    }  
     &__content {
       width: 100%;
       margin-left: 16px;
@@ -61,6 +81,12 @@
       @media (max-width: 990px) {
         width: 100%;
         min-width: unset;
+      }
+      &-inner {
+        h3 {
+          text-transform: none;
+          font-weight: normal;
+        }
       }
       &-inner .Card:not(:first-child) {
         margin-top: 16px;

@@ -69,9 +69,7 @@ const Nav = ({ isAuthenticated }) => {
                                 }
                             </li>
                         )}
-                        <li className="header__nav-item">
-                            <Feedback />
-                        </li>
+                        {!isAuthenticated && <li className="header__nav-item"><Feedback /></li>}
                     </ul>
                 </>
                 :
@@ -92,9 +90,9 @@ const Nav = ({ isAuthenticated }) => {
                             </li>
                         )}
                     </ul>
-                    {!isAuthenticated ? <div className="header__nav-item--feedback">
+                    {!isAuthenticated && <div className="header__nav-item--feedback">
                         <Feedback isMainNav={true} />
-                        </div> : ``}
+                        </div>}
                 </>
             }
         </nav>

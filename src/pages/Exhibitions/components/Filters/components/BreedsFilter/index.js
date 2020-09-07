@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 import {setFiltersToUrl} from "../../../../utils";
+import {customStyles} from "../../config.js";
 import "./index.scss";
 
 
@@ -18,17 +19,24 @@ const Option = props => (
 
 const BreedsFilter = ({breeds, BreedIds}) => {
     const [values, setValues] = useState([]);
-    const [optionsNotInValues, setOptionsNotInValues] = useState([]);
+    const [options, setOptions] = useState([]);
 
     useEffect(() => {
         if(breeds.length) {
-            setValues(breeds.filter(option => BreedIds.indexOf(option.value) !== -1));
-            setOptionsNotInValues(breeds.filter(option => BreedIds.indexOf(option.value) === -1));
+            const optionValues = breeds.filter(option => BreedIds.indexOf(option.value) !== -1);
+            const optionsNotInValues = breeds.filter(option => BreedIds.indexOf(option.value) === -1);
+
+            setValues([...optionValues]);
+            setOptions([...optionValues, ...optionsNotInValues]);
         }
     }, [breeds, BreedIds]);
 
     const handleChange = options => {
-        setFiltersToUrl({ExhibitionName: '', BreedIds: options.map(option => option.value), PageNumber: 1});
+        setFiltersToUrl({BreedIds: options.map(option => option.value)});
+    };
+
+    const handleDelete = breedId => {
+        setFiltersToUrl({BreedIds: values.filter(breed => breed.value !== breedId).map(breed => breed.value)});
     };
 
     return (
@@ -38,7 +46,7 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 id="breeds-filter"
                 isMulti={true}
                 closeMenuOnSelect={false}
-                options={[...values, ...optionsNotInValues]}
+                options={options}
                 defaultMenuIsOpen={true}
                 hideSelectedOptions={false}
                 menuIsOpen={true}
@@ -51,7 +59,18 @@ const BreedsFilter = ({breeds, BreedIds}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
+                styles={customStyles}
             />
+            {!!values.length &&
+                <ul className="breeds-filter__values">
+                    {values.map(item =>
+                        <li className="breeds-filter__values-item" key={item.value}>
+                            <span>{item.label}</span>
+                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                        </li>
+                    )}
+                </ul>
+            }
         </div>
     )
 };

@@ -92,15 +92,15 @@ const Table = ({ documents, distinction }) => {
                             onDataStateChange={handleGridDataChange}
                             onRowClick={handleGridRowClick}
                             style={{ height: "700px" }}>
-                            <GridColumn field="date_create" title="Дата создания" width="100px" columnMenu={ColumnMenu} />
-                            <GridColumn field="date_change" title="Изменение статуса" width="100px" columnMenu={ColumnMenu} />
-                            <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} />
+                            <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} />
+                            <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="140px" columnMenu={ColumnMenu} />
                             <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="nursery_name" title="Питомник" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="count_of_litter" title="Щенков" width="100px" columnMenu={ColumnMenu} />
                             <GridColumn field="breed" title="Порода" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="stamp_code" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
-                            <GridColumn field="count_of_documents" title="Документов" width="100px" columnMenu={ColumnMenu} />
+                            <GridColumn field="count_of_documents" title="Документов" width="130px" columnMenu={ColumnMenu} />
                             <GridColumn field="barcode" title="Трек-номер" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="status_name" title="Статус" width="150px" columnMenu={ColumnMenu} />
                         </Grid>

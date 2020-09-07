@@ -89,10 +89,10 @@ const DndImageUpload = ({ callback, album_id }) => {
                         setShowAlert(false);
                         setLoading(false);
                         setFiles([]);
+                        setLoading(false);
+                        callback && callback();
                     }
                 });
-                setLoading(false);
-                callback && callback();
             })
             .catch(e => {
                 handleError(e);
