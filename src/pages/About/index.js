@@ -3,7 +3,7 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import TopBanner from "./components/TopBanner";
 import NewsComponent from "../../components/NewsComponent";
-import Statistics from "../Home/components/Statistics";
+import Statistics from "../../components/Statistics";
 import FeedbackComponent from "./components/Feedback";
 import "./index.scss";
 
