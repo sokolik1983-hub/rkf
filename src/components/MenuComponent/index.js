@@ -470,10 +470,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         </Link>
                 </li>
             </>}
-            {user !== 'nursery' &&
+            
                 <li className="menu-component__item">
                     <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                </li>}
+                </li>
             <li className="menu-component__item">
                 <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
                     {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}

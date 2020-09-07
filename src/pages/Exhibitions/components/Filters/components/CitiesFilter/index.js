@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
 import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
 import {setFiltersToUrl} from "../../../../utils";
+import {customStyles} from "../../config.js";
 import "./index.scss";
 
 
@@ -58,6 +59,7 @@ const CitiesFilter = ({cities, CityIds}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
+                styles={customStyles}
             />
             {!!values.length &&
                 <ul className="cities-filter__values">

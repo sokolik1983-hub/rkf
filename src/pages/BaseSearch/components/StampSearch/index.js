@@ -5,10 +5,10 @@ import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
 import CardOrganization from "../../../../components/CardOrganization";
-import './index.scss';
+import '../FoundInfo/index.scss';
 
 
-const FoundInfo = () => {
+const StampSearch = () => {
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ const FoundInfo = () => {
     const requestTracking = (stamp_code) => {
         setLoading(true);
         Request({
-            url: `/api/requests/commonrequest/found_dog_information?stamp_code=${stamp_code}`,
+            url: `/api/requests/commonrequest/organizations_by_stamp_code?stamp_code=${stamp_code}`,
             options: {
                 method: "GET",
                 headers: getHeaders(),
@@ -59,8 +59,8 @@ const FoundInfo = () => {
     return (
         <Card>
             <div className="search-form__icon" />
-            <h3>Информация о найденных собаках</h3>
-            <p>Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>
+            <h3>Поиск клуба/питомника по клейму</h3>
+            <p>Введите код клейма в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, за которым закреплено указанное Вами клеймо.</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
@@ -145,4 +145,4 @@ const FoundInfo = () => {
     );
 }
 
-export default React.memo(FoundInfo);
+export default React.memo(StampSearch);
