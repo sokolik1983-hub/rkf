@@ -30,11 +30,11 @@ const Statistics = () => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
-    const clubDeclension = count => <>{declension(count, ['Клуб', 'Клуба', 'Клубов'])}<br/>{count}</>;
+    const clubDeclension = count => <>{declension(count, ['Клуб', 'Клуба', 'Клубов'])}<br/><span>{count}</span></>;
 
     const [nurseries, setNurseries] = useState({});
     const { nurseries_total_count, federation_nurseries } = nurseries;
-    const nurseryDeclension = count => <>{declension(count, ['Питомник', 'Питомника', 'Питомников'])}<br/>{count}</>;
+    const nurseryDeclension = count => <>{declension(count, ['Питомник', 'Питомника', 'Питомников'])}<br/><span>{count}</span></>;
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -71,7 +71,8 @@ const Statistics = () => {
                                 {federation_clubs.map((federation, i) =>
                                     <p className="statistics__federations" key={i}>
                                         <span className={setLogoClassName(federation.federation_name)} />
-                                        {`${federation.federation_name} ${federation.federation_clubs_count}`}
+                                        <span>{federation.federation_name}</span>
+                                        <span>{federation.federation_clubs_count}</span>
                                     </p>
                                 )}
                             </div>
@@ -79,7 +80,8 @@ const Statistics = () => {
                                 {federation_nurseries.map((federation, i) =>
                                     <p className="statistics__federations" key={i}>
                                         <span className={setLogoClassName(federation.federation_name)} />
-                                        {`${federation.federation_name} ${federation.federation_nurseries_count}`}
+                                        <span>{federation.federation_name}</span>
+                                        <span>{federation.federation_nurseries_count}</span>
                                     </p>
                                 )}
                             </div>
