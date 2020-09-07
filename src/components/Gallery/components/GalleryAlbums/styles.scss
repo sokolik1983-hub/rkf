@@ -1,4 +1,14 @@
 .GalleryAlbums {
+    &__link {
+        color: #36f;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 20px;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 10px;
+        white-space: nowrap;
+    }
     &__items-wrap {
         display: flex;
         flex-wrap: wrap;
@@ -44,6 +54,9 @@
             color: #fff;
             background-color: #3366ff;
         }
+    }
+    h4 {
+        margin-bottom: 5px;
     }
 }
 .AddAlbum__modal {

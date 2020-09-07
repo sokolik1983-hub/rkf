@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AddAlbum } from "components/Gallery";
 import { Link } from "react-router-dom";
 import { DEFAULT_IMG } from 'appConfig';
 import './styles.scss';
 
-const GalleryAlbums = ({ albums, match }) => {
+const GalleryAlbums = ({ albums, match, getAlbums, canEdit }) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const onModalClose = () => {
+        if (showModal && window.confirm("Закрыть?")) {
+            setShowModal(false);
+        }
+    };
+
+    const onAlbumAddSuccess = () => {
+        setShowModal(false);
+        getAlbums();
+    };
 
     return <div className="GalleryAlbums">
-        <h4>Альбомы</h4>
+        <h4>Альбомы
+            {canEdit && <span className="GalleryAlbums__link" onClick={() => setShowModal(true)}>Создать альбом</span>}
+        </h4>
+
         <div className="GalleryAlbums__items-wrap">
             {
                 albums.map(a => <div className="GalleryAlbums__item" key={a.id}>
@@ -19,6 +35,7 @@ const GalleryAlbums = ({ albums, match }) => {
                 </div>)
             }
         </div>
+        {showModal && <AddAlbum showModal={showModal} onModalClose={onModalClose} onSuccess={onAlbumAddSuccess} />}
     </div>
 };
 

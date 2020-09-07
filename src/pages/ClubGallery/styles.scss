@@ -85,14 +85,17 @@
         }
     }
     &__buttons {
-        text-align: right;
-        margin-top: 24px;
-    }
-    &__delete-button {
-        padding: 5px 15px;
-        color: red;
-        border-color: red;
-        margin-left: 5px;
+        margin-bottom: 10px;
+        &-link {
+            color: #36f;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 20px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
     }
     &__edit-button {
         padding: 5px 15px;

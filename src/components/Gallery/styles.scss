@@ -4,13 +4,32 @@
         a,
         h4 {
             font-weight: normal;
-            font-size: 18px;
-            line-height: 24px;
-            color: #253c5e;
             text-decoration: none;
         }
         h4 {
-            margin-bottom: 5px;
+            color: #253c5e;
+        }
+    }
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        @media (max-width: 560px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        &-link {
+            color: #36f;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 10px;
+            white-space: nowrap;
+            @media (max-width: 560px) {
+                margin: 0;
+            }
         }
     }
     &__disabled {

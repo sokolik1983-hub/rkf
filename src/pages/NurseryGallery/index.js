@@ -4,9 +4,8 @@ import Container from "components/Layouts/Container";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
-import { Gallery, AddAlbum } from "components/Gallery";
+import { Gallery, AddPhotoModal } from "components/Gallery";
 import Alert from "components/Alert";
-import Button from 'components/Button';
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
@@ -117,17 +116,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
         });
     };
 
-    const onModalClose = () => {
-        if (showModal && window.confirm("Закрыть?")) {
-            setShowModal(false);
-        }
-    };
-
-    const onAlbumAddSuccess = () => {
-        setShowModal(false);
-        getAlbums();
-    };
-
     const handleAlbumDelete = (id) => {
         if (window.confirm('Действительно удалить?')) {
             Request({
@@ -142,20 +130,27 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
         }
     };
 
+    const handleAddPhoto = () => {
+        setShowModal(true);
+    }
+
+    const onModalClose = () => {
+        if (showModal && window.confirm("Закрыть?")) {
+            setShowModal(false);
+        }
+    };
+
+    const onImageAddSuccess = () => {
+        setShowModal(false);
+        getImages(1);
+    };
+
     const Breadcrumbs = () => {
         return <div className="NurseryGallery__breadcrumbs">
             <div className="NurseryGallery__breadcrumbs-title">
                 <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
                 {album ? <><Link className="btn-backward" to={`/kennel/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
             </div>
-            {canEdit && <div className="NurseryGallery__breadcrumbs-buttons">
-                {album
-                    ? <Link className="btn btn-primary" to={`/kennel/${alias}/gallery/${params.album}/edit`}>Редактировать альбом</Link>
-                    : <>
-                        <span className="btn btn-primary" onClick={() => setShowModal(true)}>Создать альбом</span>
-                        <Link className="btn btn-primary" to={`/kennel/${alias}/gallery/edit`}>Редактировать галерею</Link>
-                    </>}
-            </div>}
         </div>
     };
 
@@ -196,6 +191,13 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                         <Card>
                                             <Breadcrumbs />
                                             {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
+                                            <div className="NurseryGallery__buttons">
+                                                {album && canEdit && < Link className="NurseryGallery__buttons-link" to={`/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
+                                                {album && canEdit && album.addition && <>
+                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAlbumDelete(params.album)}>Удалить</span>
+                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAddPhoto()}>Добавить фото</span>
+                                                </>}
+                                            </div>
                                             {
                                                 !pageLoaded
                                                     ? <Loading centered={false} />
@@ -214,15 +216,19 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                                 </div>
                                                             }
                                                         >
-                                                            <Gallery items={images} albums={albums} match={match} backdropClosesModal={true} enableImageSelection={false} />
+                                                            <Gallery
+                                                                items={images}
+                                                                albums={albums}
+                                                                album={album}
+                                                                match={match}
+                                                                backdropClosesModal={true}
+                                                                enableImageSelection={false}
+                                                                getAlbums={getAlbums}
+                                                                getImages={getImages}
+                                                                canEdit={canEdit}
+                                                                alias={alias}
+                                                            />
                                                         </InfiniteScroll>
-                                                        {album && album.addition && canEdit &&
-                                                            <div className="NurseryGallery__buttons">
-                                                                <Button
-                                                                    condensed
-                                                                    className="NurseryGallery__delete-button"
-                                                                    onClick={() => handleAlbumDelete(params.album)}>Удалить</Button>
-                                                            </div>}
                                                     </>
                                             }
                                         </Card>
@@ -273,7 +279,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                 </Layout>
             }
             {showAlert && <Alert {...showAlert} />}
-            {showModal && <AddAlbum showModal={showModal} onModalClose={onModalClose} onSuccess={onAlbumAddSuccess} />}
+            {showModal && <AddPhotoModal showModal={showModal} onModalClose={onModalClose} albumId={params.album} onSuccess={onImageAddSuccess} />}
         </>
     )
 };
