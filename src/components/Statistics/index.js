@@ -5,7 +5,7 @@ import { Request } from "../../utils/request";
 import declension from "../../utils/declension";
 import "./index.scss";
 
-const federationLogoClassName = (federation) => {
+const setLogoClassName = (federation) => {
     let modifier;
     switch (federation) {
         case 'РФЛС':
@@ -30,11 +30,11 @@ const Statistics = () => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
-    const clubDeclension = count => count + ' ' + declension(count, ['Клуб', 'Клуба', 'Клубов']);
+    const clubDeclension = count => <>{declension(count, ['Клуб', 'Клуба', 'Клубов'])}<br/>{count}</>;
 
     const [nurseries, setNurseries] = useState({});
     const { nurseries_total_count, federation_nurseries } = nurseries;
-    const nameDeclension = count => count + ' ' + declension(count, ['Питомник', 'Питомника', 'Питомников']);
+    const nurseryDeclension = count => <>{declension(count, ['Питомник', 'Питомника', 'Питомников'])}<br/>{count}</>;
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -62,18 +62,28 @@ const Statistics = () => {
                         На RKF.Online авторизовано<br />
                     </h3>
                     <div className="statistics__wrap">
-                        <span className="statistics__text">{clubDeclension(clubs_total_count)}</span>
-                        {federation_clubs.map((federation, i) =>
-                            <p className="statistics__" key={i}>
-                                <span className={federationLogoClassName(federation.federation_name)} />{`${federation.federation_name} ${federation.federation_clubs_count}`}
-                            </p>
-                        )}
-                        <span className="statistics__text">{nameDeclension(nurseries_total_count)}</span>
-                        {federation_nurseries.map((federation, i) =>
-                            <p className="statistics__" key={i}>
-                                <span className={federationLogoClassName(federation.federation_name)} />{`${federation.federation_name} ${federation.federation_nurseries_count}`}
-                            </p>
-                        )}
+                        <div className="statistics__text-wrap">
+                            <span className="statistics__text">{clubDeclension(clubs_total_count)}</span>
+                            <span className="statistics__text">{nurseryDeclension(nurseries_total_count)}</span>
+                        </div>
+                        <div className="statistics__federations-wrap">
+                            <div>
+                                {federation_clubs.map((federation, i) =>
+                                    <p className="statistics__federations" key={i}>
+                                        <span className={setLogoClassName(federation.federation_name)} />
+                                        {`${federation.federation_name} ${federation.federation_clubs_count}`}
+                                    </p>
+                                )}
+                            </div>
+                            <div>
+                                {federation_nurseries.map((federation, i) =>
+                                    <p className="statistics__federations" key={i}>
+                                        <span className={setLogoClassName(federation.federation_name)} />
+                                        {`${federation.federation_name} ${federation.federation_nurseries_count}`}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </>
             }

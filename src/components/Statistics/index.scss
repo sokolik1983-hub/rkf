@@ -2,9 +2,26 @@
     padding: 10px !important;
     &__title {
         font-weight: normal;
-        font-size: 18px;
         line-height: 24px;
         margin-bottom: 8px;
+        text-align: center;
+    }
+    &__text {
+        text-align: center;
+        &-wrap {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #d1d1d1;
+        }
+    }
+    &__federations {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        &-wrap {
+            display: flex;
+            justify-content: space-around;
+        }
     }
     &__federation-logo {
         width: 30px;
@@ -13,6 +30,8 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        position: relative;
+        top: 9px;
         &--rfls {
             background-image: url("/static/images/federations/logo/rfls.png");
         }
@@ -25,6 +44,10 @@
         &--rfos {
             background-image: url("/static/images/federations/logo/rfos.png");
         }
+    }
+    &__text-wrap {
+        display: flex;
+        justify-content: space-around;
     }
     .Loading__title {
         margin: 0 auto;
