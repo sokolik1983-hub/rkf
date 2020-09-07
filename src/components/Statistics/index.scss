@@ -1,7 +1,6 @@
 .statistics {
     padding: 10px !important;
     &__title {
-        font-size: 14px !important;
         font-weight: normal;
         line-height: 24px;
         margin-bottom: 8px;
@@ -9,7 +8,6 @@
     }
     &__text {
         text-align: center;
-        font-size: 14px;
         & > span {
             font-size: 18px;
         }
