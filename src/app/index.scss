@@ -46,6 +46,10 @@ a.lnkText:active {
   color: currentColor;
 }
 
+input::placeholder {
+  color: #757575;
+}
+
 /* maintenance-message */
 // #maintenance-message {
 //   text-align: center;
