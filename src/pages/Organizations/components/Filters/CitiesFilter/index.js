@@ -5,6 +5,7 @@ import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
 import {Request} from "../../../../../utils/request";
 import {endpointGetClubsCities, endpointGetKennelsCities} from "../../../config";
 import {setFiltersToUrl} from "../../../utils";
+import {customStyles} from "../config.js";
 import "./index.scss";
 
 
@@ -18,6 +19,7 @@ const Option = props => (
         />
     </components.Option>
 );
+
 
 const CitiesFilter = ({city_ids, organization_type}) => {
     const [loading, setLoading] = useState(true);
@@ -73,6 +75,7 @@ const CitiesFilter = ({city_ids, organization_type}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
+                styles={customStyles}
             />
         </div>
 };
