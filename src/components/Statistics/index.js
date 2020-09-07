@@ -26,6 +26,15 @@ const setLogoClassName = (federation) => {
     return `statistics__federation-logo statistics__federation-logo--${modifier}`
 };
 
+const sortFederationName = (array) => {
+    let firstName = array.find(i => i.federation_name === 'РФСС');
+    let secondName = array.find(i => i.federation_name === 'РФЛС');
+    let thirdName = array.find(i => i.federation_name === 'ОАНКОО');
+    let fourthName = array.find(i => i.federation_name === 'РФОС');
+
+    return [firstName, secondName, thirdName, fourthName];
+};
+
 const Statistics = () => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
@@ -68,7 +77,7 @@ const Statistics = () => {
                         </div>
                         <div className="statistics__federations-wrap">
                             <div>
-                                {federation_clubs.map((federation, i) =>
+                                {sortFederationName(federation_clubs).map((federation, i) =>
                                     <p className="statistics__federations" key={i}>
                                         <span className={setLogoClassName(federation.federation_name)} />
                                         <span>{federation.federation_name}</span>
@@ -77,7 +86,7 @@ const Statistics = () => {
                                 )}
                             </div>
                             <div>
-                                {federation_nurseries.map((federation, i) =>
+                                {sortFederationName(federation_nurseries).map((federation, i) =>
                                     <p className="statistics__federations" key={i}>
                                         <span className={setLogoClassName(federation.federation_name)} />
                                         <span>{federation.federation_name}</span>
