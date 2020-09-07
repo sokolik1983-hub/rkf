@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Loading from "../Loading";
 import Card from "../Card";
 import { Request } from "../../utils/request";
-import declension from "../../utils/declension";
 import "./index.scss";
 
 const setLogoClassName = (federation) => {
@@ -39,11 +38,9 @@ const Statistics = () => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
-    const clubDeclension = count => <>{declension(count, ['Клуб', 'Клуба', 'Клубов'])}<br/><span>{count}</span></>;
 
     const [nurseries, setNurseries] = useState({});
     const { nurseries_total_count, federation_nurseries } = nurseries;
-    const nurseryDeclension = count => <>{declension(count, ['Питомник', 'Питомника', 'Питомников'])}<br/><span>{count}</span></>;
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -72,8 +69,8 @@ const Statistics = () => {
                     </h3>
                     <div className="statistics__wrap">
                         <div className="statistics__text-wrap">
-                            <span className="statistics__text">{clubDeclension(clubs_total_count)}</span>
-                            <span className="statistics__text">{nurseryDeclension(nurseries_total_count)}</span>
+                            <span className="statistics__text">Клубов<br/><span>{clubs_total_count}</span></span>
+                            <span className="statistics__text">Питомников<br/><span>{nurseries_total_count}</span></span>
                         </div>
                         <div className="statistics__federations-wrap">
                             <div>
