@@ -154,7 +154,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
             </FormGroup>
             <FormGroup inline>
                 <FormField disabled={update} name={`breed_id`} style={{maxWidth:'50%'}} label='Порода' options={breeds} fieldType="reactSelect" placeholder="Выберите..."/>
-                <Transliteratable disabled={update || filledEverk('dog_name')} name={`dog_name`} label='Кличка собаки'/>
+                <FormField disabled={update || filledEverk('dog_name')} name={`dog_name`} label='Кличка собаки'/>
             </FormGroup>
             <FormGroup inline>
                 <FormField style={{flexGrow:0}} disabled={update} name={`dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />

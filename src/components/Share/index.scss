@@ -11,11 +11,14 @@
 }
 
 .has-url .ya-share2__popup { transform: translateY(-100%); }
-
+.ya-share2__icon {
+  height: 16px !important;
+}
 .ya-share2__icon_more {
       border-width: 0!important;
       box-shadow: none!important;
-      width: 18px!important;
+      width: 16px!important;
+      height: 16px;
       position: relative;
       background-color: white;
       &:after {

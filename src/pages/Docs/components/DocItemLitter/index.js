@@ -272,6 +272,13 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                 </HideIf>
             </>)}
             />
+            <HideIf cond={!update}>
+                <FormField
+                    name={`declarants[${i}].comment`}
+                    label={`Комментарий`}
+                    disabled={![2, 4, 8].includes(declarant.status_id)}
+                />
+            </HideIf>
             <HideIf cond={update}>
                 <Button className="btn-red" onClick={closeClick}>Удалить</Button>
             </HideIf>

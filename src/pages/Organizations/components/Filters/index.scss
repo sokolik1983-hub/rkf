@@ -14,6 +14,26 @@
       margin-bottom: 0;
     }
   }
+  .organizations-page__map {
+    height: 300px;
+    margin-top: 8px;
+    &-wrap {
+      margin-top: 16px;
+      @media (max-width: 1100px) {
+        display: none;
+      }
+    }
+    &-title {
+          text-decoration: none;
+          color: #253c5e;
+          transition: all 0.2s linear;
+          // text-transform: none;
+          // font-weight: normal;
+          &:hover {
+            color: #3366ff;
+          }
+        }
+  }
   .organizations-page__socials {
     margin-bottom: 16px;
     &-list {

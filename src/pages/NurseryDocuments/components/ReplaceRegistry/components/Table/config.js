@@ -18,7 +18,7 @@ const formatCountTime = (str) => {
     return `${days ? days + 'д. ' : ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
 }
 
-export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
+export const getTableColumns = (sortingColumns, sortable, alias, setState, onErrorReport) => {
     let cols = [
         {
             property: "date_create",
@@ -111,6 +111,11 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState) => {
                                         >
                                             Ответить
                                         </Link>
+                                    </li>
+                                }
+                                {rowData.status_id === 3 &&
+                                    <li className="row-control__item">
+                                        <span onClick={() => onErrorReport(rowData.id)} className="row-control__link">Сообщить об ошибке кинолога</span>
                                     </li>
                                 }
                             </ul>

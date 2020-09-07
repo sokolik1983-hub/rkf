@@ -28,7 +28,7 @@ const validationSchema = {
 
     breed_id: number().required(reqText).typeError(reqText),
     dog_name: string().required(reqText),
-    dog_name_lat: lat().required(reqText),
+    dog_name_lat: lat(),
     dog_birth_date: string().required(reqText),
     dog_sex_type: number().required(reqText).typeError(reqText),
     stamp_number: numbersOnly().required(reqText),

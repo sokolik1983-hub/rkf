@@ -8,8 +8,9 @@ import Card from "../../components/Card";
 import NewsList from "./components/NewsList";
 import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
-import HomepageCheckStatus from "./components/HomepageCheckStatus";
+// import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import ClubsMap from "../../components/ClubsMap";
+import Statistics from "../../components/Statistics";
 import { RKFInfo, exhibitions } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
@@ -49,7 +50,7 @@ const HomePage = ({ homepage, cities }) => {
                                             <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                                         </div>
                                     </Card>
-                                    <HomepageCheckStatus />
+                                    {/* <HomepageCheckStatus /> */}
                                     <Card className="home-page__projects-wrap">
                                         <h3>Международные мероприятия</h3>
                                         <div className="home-page__projects">
@@ -60,6 +61,7 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
+                                    <Statistics />
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">

@@ -1,6 +1,5 @@
 import React from "react";
 import { FormField, FormGroup } from "components/Form";
-import Transliteratable from "../../components/Transliteratable";
 import DeleteButton from "../../components/DeleteButton";
 import Button from "components/Button";
 import Modal from "components/Modal";
@@ -30,7 +29,7 @@ const PuppyItem = ({puppy, i, j, activePuppy, activateClick, deleteClick, sexTyp
     handleX={() => activePuppy === j && (activateClick() || (allFielsEmpty(puppy) && deleteClick(true)))}
 >
     <div className="puppy-modal-content">
-        <Transliteratable disabled={cantEdit} name={`litters[${j}].dog_name`} label='Кличка'/>
+        <FormField disabled={cantEdit} name={`litters[${j}].dog_name`} label='Кличка'/>
         <FormField disabled={cantEdit} name={`litters[${j}].dog_name_lat`} label='Кличка латиницей (опционально)'/>
         <FormGroup inline>
             <FormField disabled={cantEdit} name={`litters[${j}].dog_color`} label='Окрас'/>

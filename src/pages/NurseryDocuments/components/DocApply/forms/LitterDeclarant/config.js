@@ -52,7 +52,6 @@ const validationSchema = {
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: lat(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
@@ -92,7 +91,6 @@ const updateSchema = {
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: lat(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),

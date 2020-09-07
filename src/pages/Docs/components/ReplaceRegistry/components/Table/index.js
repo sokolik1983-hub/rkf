@@ -1,13 +1,14 @@
-import React, {PureComponent} from "react";
-import {compose} from "redux";
-import {orderBy} from "lodash";
+import React, { PureComponent } from "react";
+import { compose } from "redux";
+import { orderBy } from "lodash";
 import * as Table from "reactabular-table";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
 import * as resolve from "table-resolver";
 import PrimaryControls from "../PrimaryControls";
-import {paginate, Paginator} from "../Pagination";
-import {getTableColumns} from "./config";
+import { paginate, Paginator } from "../Pagination";
+import { getTableColumns } from "./config";
+import ReportError from '../ReportError';
 import "./index.scss";
 
 
@@ -16,21 +17,22 @@ class StatusTable extends PureComponent {
         searchQuery: {},
         searchColumn: 'all',
         sortingColumns: null,
-        pagination: {page: 1, perPage: 50},
+        pagination: { page: 1, perPage: 50 },
         distinction: this.props.distinction,
         alias: this.props.alias,
         rows: this.props.documents,
         columns: null,
         showModal: false,
-        docId: null
+        docId: null,
+        errorRowId: null
     };
 
     componentDidMount() {
-        this.setState({columns: this.getColumns()});
+        this.setState({ columns: this.getColumns() });
     };
 
     componentWillReceiveProps(nextProps) {
-        this.setState({rows: nextProps.documents});
+        this.setState({ rows: nextProps.documents });
     };
 
     getColumns = () => {
@@ -49,7 +51,8 @@ class StatusTable extends PureComponent {
             this.state.sortingColumns,
             sortable,
             this.state.alias,
-            data => this.setState(data)
+            data => this.setState(data),
+            this.onErrorReport
         );
     };
 
@@ -59,14 +62,16 @@ class StatusTable extends PureComponent {
         this.setState({ pagination: { ...this.state.pagination, page: Math.min(Math.max(page, 1), pages) } });
     };
 
-    onPerPage = value => this.setState({pagination: {...this.state.pagination, perPage: parseInt(value, 10) || 5}});
+    onPerPage = value => this.setState({ pagination: { ...this.state.pagination, perPage: parseInt(value, 10) || 5 } });
 
-    onColumnChange = searchColumn => this.setState({searchColumn});
+    onColumnChange = searchColumn => this.setState({ searchColumn });
 
-    onSearch = query => this.setState({searchQuery: query});
+    onSearch = query => this.setState({ searchQuery: query });
+
+    onErrorReport = id => this.setState({ errorRowId: id });
 
     render() {
-        const {columns, rows, sortingColumns, pagination, searchQuery, searchColumn} = this.state;
+        const { columns, rows, sortingColumns, pagination, searchQuery, searchColumn, errorRowId } = this.state;
 
         if (!columns) return null;
 
@@ -79,8 +84,8 @@ class StatusTable extends PureComponent {
 
         const paginated = compose(
             paginate(pagination),
-            search.highlighter({columns: columns, matches: search.matches, query: searchQuery}),
-            search.multipleColumns({columns: columns, query: searchQuery}),
+            search.highlighter({ columns: columns, matches: search.matches, query: searchQuery }),
+            search.multipleColumns({ columns: columns, query: searchQuery }),
             resolve.resolve({
                 columns: columns,
                 method: (extra) => compose(
@@ -105,9 +110,10 @@ class StatusTable extends PureComponent {
                 />
 
                 <Table.Provider className="request-registry-table__table" columns={columns}>
-                    <Table.Header headerRows={resolve.headerRows({columns: columns})} />
+                    <Table.Header headerRows={resolve.headerRows({ columns: columns })} />
                     <Table.Body rows={paginated.rows} rowKey="id" />
                 </Table.Provider>
+                {errorRowId && <ReportError id={errorRowId} onErrorReport={this.onErrorReport} />}
 
                 <Paginator
                     className="status-table__pagination"

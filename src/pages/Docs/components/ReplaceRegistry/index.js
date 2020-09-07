@@ -95,7 +95,7 @@ const ReplaceRegistry = ({ history, alias, isOpenFilters, setShowFilters }) => {
             }
             <div className="club-documents-status__table">
                 {documents && !!documents.length ?
-                    <StatusTable documents={documents.filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias} /> :
+                    <StatusTable documents={documents.sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime()).filter(x => x && checkedTypes.includes(x.type_id) && checked.includes(x.status_id))} alias={alias} /> :
                     <h2>Документов не найдено</h2>
                 }
             </div>
