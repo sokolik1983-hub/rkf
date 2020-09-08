@@ -51,6 +51,7 @@ const HomePage = ({ homepage, cities }) => {
                                         </div>
                                     </Card>
                                     {/* <HomepageCheckStatus /> */}
+                                    <Statistics />
                                     <Card className="home-page__projects-wrap">
                                         <h3>Международные мероприятия</h3>
                                         <div className="home-page__projects">
@@ -61,7 +62,6 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
-                                    <Statistics />
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">
