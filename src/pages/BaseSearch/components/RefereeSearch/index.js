@@ -79,14 +79,13 @@ const RefereeSearch = () => {
                     <input
                         className="search-form__input"
                         type="text"
-                        pattern="[A-Za-z]{3}"
+                        pattern="^[А-Яа-яЁё\s]+$"
                         onChange={({ target }) => setStampCode(target.value)}
                         value={stamp_code}
-                        title="Введите 3 латинских символа"
+                        title="Введите фамилию"
                         placeholder="фамилия"
                         // disabled={loading || status ? true : false}
                         disabled={true}
-                        required
                     />
                     {stamp_code &&
                     <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
@@ -95,14 +94,13 @@ const RefereeSearch = () => {
                     <input
                         className="search-form__input"
                         type="text"
-                        pattern="^[0-9]+$"
+                        pattern="^[А-Яа-яЁё\s]+$"
                         onChange={({ target }) => setStampNumber(target.value)}
                         value={stamp_number}
-                        title="Введите числовое значение номера клейма"
+                        title="Введите имя"
                         placeholder="имя"
                         // disabled={loading || status ? true : false}
                         disabled={true}
-                        required
                     />
                     {stamp_number &&
                     <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampNumberClear} />}
@@ -111,14 +109,13 @@ const RefereeSearch = () => {
                     <input
                         className="search-form__input"
                         type="text"
-                        pattern="[A-Za-z]{3}"
+                        pattern="^[А-Яа-яЁё\s]+$"
                         onChange={({ target }) => setStampCode(target.value)}
                         value={stamp_code}
-                        title="Введите 3 латинских символа"
+                        title="Введите отчество"
                         placeholder="отчество"
                         // disabled={loading || status ? true : false}
                         disabled={true}
-                        required
                     />
                     {stamp_code &&
                     <button type="button" className={`search-form__cancel ${status ? `_hide` : ``}`} onClick={handleStampCodeClear}/>}
