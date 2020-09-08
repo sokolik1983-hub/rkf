@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import './styles.scss';
 import { DEFAULT_IMG } from "../../appConfig";
 
-const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, ...rest }) => {
+const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, ...rest }) => {
     const [showModal, setShowModal] = useState(false);
     let params = useParams();
     const isAlbum = !!params.album;
@@ -30,21 +30,19 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     return <div className="ReactGridGallery__wrap">
         {albums && !!albums.length && !isAlbum
             && <GalleryAlbums albums={albums} match={match} getAlbums={getAlbums} canEdit={canEdit} />}
+        {albums && !!albums.length && <div className="ReactGridGallery__controls">
+            <h4>Все фотографии</h4>
+            {canEdit && !album && <>
+                {!!items.length && <Link className="ReactGridGallery__controls-link" to={isClub ? `/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}>Редактировать все фото</Link>}
+                <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span></>
+            }
+        </div>}
         {items && !!items.length
-            ? <>
-                {albums && !!albums.length && <div className="ReactGridGallery__controls">
-                    <h4>Все фотографии</h4>
-                    {canEdit && !album && <>
-                        <Link className="ReactGridGallery__controls-link" to={`/${alias}/gallery/edit`}>Редактировать все фото</Link>
-                        <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span></>
-                    }
-                </div>}
-                <Gallery
-                    imageCountSeparator="&nbsp;из&nbsp;"
-                    images={items}
-                    {...rest}
-                />
-            </>
+            ? <Gallery
+                imageCountSeparator="&nbsp;из&nbsp;"
+                images={items}
+                {...rest}
+            />
             : <div className="ReactGridGallery__disabled">
                 <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
                 <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
