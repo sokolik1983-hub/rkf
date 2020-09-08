@@ -182,9 +182,18 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         <div className="NurseryGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
-                                                {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {album && album.addition && <>
+                                                    <div className="NurseryGallery__edit-wrap">
+                                                        <div className="NurseryGallery__edit-cover">
+                                                            <h4>Обложка альбома</h4>
+                                                            <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
+                                                        </div>
+                                                        <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
+                                                    </div>
+                                                </>}
                                                 {canEdit &&
                                                     <>
+                                                    <hr className="NurseryGallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
 
                                                         <InfiniteScroll

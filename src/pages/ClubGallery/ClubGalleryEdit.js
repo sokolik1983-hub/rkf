@@ -172,9 +172,18 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         <div className="ClubGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
-                                                {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {album && album.addition && <>
+                                                    <div className="ClubGallery__edit-wrap">
+                                                        <div className="ClubGallery__edit-cover">
+                                                            <h4>Обложка альбома</h4>
+                                                            <div className="ClubGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
+                                                        </div>
+                                                        <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
+                                                    </div>
+                                                </>}
                                                 {canEdit &&
                                                     <>
+                                                        <hr className="ClubGallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
                                                         <InfiniteScroll
                                                             dataLength={images.length}
