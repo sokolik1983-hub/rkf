@@ -13,6 +13,7 @@ import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
 import BaseSearchMenu from "./components/BaseSearchMenu";
+import PublicationSearch from "./components/PublicationSearch";
 import "./index.scss";
 
 
@@ -28,6 +29,7 @@ const BaseSearch = () => {
                             <CheckRegistration />
                             <StampSearch />
                             <RefereeSearch />
+                            <PublicationSearch />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
