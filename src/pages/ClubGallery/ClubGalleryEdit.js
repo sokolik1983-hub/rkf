@@ -6,7 +6,6 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import { Gallery, DndImageUpload } from "components/Gallery";
 import AuthOrLogin from "pages/Login/components/AuthOrLogin";
-import Button from 'components/Button';
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
@@ -16,6 +15,7 @@ import MenuComponent from "components/MenuComponent";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
+import declension from "utils/declension";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Club/index.scss";
@@ -29,6 +29,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [hasMore, setHasMore] = useState(true);
     const [album, setAlbum] = useState(null);
     const [images, setImages] = useState([]);
+    const [allSelected, setAllSelected] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
     const params = useParams();
@@ -103,14 +104,21 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     }
 
     const handleDelete = () => {
-        Request({
-            url: '/api/photogallery/gallery',
-            method: "DELETE",
-            data: JSON.stringify(selectedImages.map(i => i.id))
-        }, () => {
-            setImages(images.filter(i => !selectedImages.find(s => s.id === i.id)));
-            setSelectedImages([]);
-        }, error => handleError(error));
+        if (window.confirm('Вы уверены?')) {
+            Request({
+                url: '/api/photogallery/gallery',
+                method: "DELETE",
+                data: JSON.stringify(selectedImages.map(i => i.id))
+            }, () => {
+                setShowAlert({
+                    title: 'Успешно удалено!',
+                    autoclose: 1.5,
+                    onOk: () => setShowAlert(false)
+                });
+                setSelectedImages([]);
+                getImages();
+            }, error => handleError(error));
+        }
     };
 
     const handleError = e => {
@@ -133,6 +141,21 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
         });
         getImages(1);
     };
+
+    const onSelectAll = () => {
+        let imgs = images;
+        if (!allSelected) {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = true;
+        }
+        else {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = false;
+        }
+        setImages(imgs);
+        setSelectedImages(imgs.filter(i => i.isSelected === true));
+        setAllSelected(!allSelected);
+    }
 
     const Breadcrumbs = () => {
         return <div className="ClubGallery__breadcrumbs wrap">
@@ -185,6 +208,28 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                     <>
                                                         <hr className="ClubGallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
+                                                        <div className="ClubGallery__count">
+                                                            <h4>
+                                                                {album
+                                                                    ? selectedImages.length
+                                                                        ? <>Выбрано <strong>{selectedImages.length}</strong> из <strong>{album.count}</strong> фотографий</>
+                                                                        : <><strong>{album.count}</strong>&nbsp;{declension(album.count, ['фотография', 'фотографии', 'фотографий'])}</>
+                                                                    : null
+                                                                }
+                                                            </h4>
+                                                            <div className="ClubGallery__count-buttons">
+                                                                {!!selectedImages.length &&
+                                                                    <span onClick={handleDelete}>Удалить</span>
+                                                                }
+                                                                {!!images.length && <span onClick={onSelectAll}>
+                                                                    {
+                                                                        !!selectedImages.length && allSelected
+                                                                            ? 'Снять выделение'
+                                                                            : 'Выбрать все фотографии'
+                                                                    }
+                                                                </span>}
+                                                            </div>
+                                                        </div>
                                                         <InfiniteScroll
                                                             dataLength={images.length}
                                                             next={getNextImages}
@@ -200,11 +245,6 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                             <Gallery items={images} match={match} backdropClosesModal={true} onSelectImage={onSelectImage} />
                                                         </InfiniteScroll>
                                                     </>
-                                                }
-                                                {!!selectedImages.length
-                                                    && <div className="ClubGallery__buttons">
-                                                        <Button condensed className="ClubGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
-                                                    </div>
                                                 }
                                             </Card>
                                         </div>
