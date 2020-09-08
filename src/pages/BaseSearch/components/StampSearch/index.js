@@ -58,7 +58,7 @@ const StampSearch = () => {
 
     return (
         <Card id="stamp-search-anchor">
-            <div className="search-form__icon" />
+            <div className="search-form__icon stamp-search" />
             <h3>Поиск клуба/питомника по клейму</h3>
             <p>Введите код клейма в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, за которым закреплено указанное Вами клеймо.</p>
             <form className="search-form" onSubmit={handleSubmit}>
