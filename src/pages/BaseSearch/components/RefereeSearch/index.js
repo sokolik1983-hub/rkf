@@ -70,7 +70,7 @@ const RefereeSearch = () => {
     };
 
     return (
-        <Card>
+        <Card id="referee-search-anchor">
             <div className="search-form__icon" />
             <h3>Поиск судьи</h3>
             <p>Для уточнения данных о судье, имеющего аккредитацию РКФ, введите его ФИО в поисковые поля на данной карточке, затем нажмите иконку "Поиск".</p>

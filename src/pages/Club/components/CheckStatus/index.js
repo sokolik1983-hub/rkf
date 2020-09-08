@@ -55,7 +55,7 @@ const CheckStatus = () => {
         });
     };
 
-    return <Card className="check-status">
+    return <Card className="check-status" id="check-status-anchor">
         <div className="check-status__icon" />
         <h3>Статус документов</h3>
         <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
