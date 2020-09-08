@@ -22,7 +22,7 @@ const BaseSearch = () => {
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
                             <FoundInfo />
-                            <CheckStatus isBaseSearch />
+                            <CheckStatus />
                             <CheckRegistration />
                             <StampSearch />
                         </div>
