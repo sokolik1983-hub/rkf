@@ -169,7 +169,7 @@ const DocumentCards = ({ nurseryAlias }) => {
 const ResponsibleCards = ({ nurseryAlias }) => {
     return <div className="documents-page__right">
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon declarants-icon" />
             <h3>ЗАЯВИТЕЛИ</h3>
             <p>
                 В данном разделе могут быть добавлены ответственные лица, уполномоченные действовать от имени клуба в части оформления и отслеживания заявок на изготовление документов.
