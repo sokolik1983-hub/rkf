@@ -1,61 +1,41 @@
 import React, {useState, useEffect} from "react";
 import Select, {components} from "react-select";
-import Loading from "../../../../../components/Loading";
-import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
-import {Request} from "../../../../../utils/request";
-import {endpointGetClubsCities, endpointGetKennelsCities} from "../../../config";
-import {setFiltersToUrl} from "../../../utils";
-import {customStyles} from "../config.js";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
 const Option = props => (
     <components.Option {...props}>
         <CustomCheckbox
-            id={props.value}
+            id={`cities-${props.value}`}
             label={props.label}
-            checked={props.isSelected}
+            checked={props.isSelected} //где-то здесь косяк
             onChange={() => null}
         />
     </components.Option>
 );
 
-
-const CitiesFilter = ({city_ids, organization_type}) => {
-    const [loading, setLoading] = useState(true);
-    const [cities, setCities] = useState([]);
+const CitiesFilter = ({cities, city_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
     useEffect(() => {
-        (() => Request({
-            url: organization_type === 3 ? endpointGetClubsCities : endpointGetKennelsCities
-        }, data => {
-            setCities(data);
-            setLoading(false);
-            window.scrollTo(0,0);
-        },
-        error => {
-            console.log(error.response);
-            if(error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-            window.scrollTo(0,0);
-        }))();
-    }, [organization_type]);
-
-    useEffect(() => {
+        console.log('values in', values.map(item => item.value).join(', '));
         if(cities.length) {
+            console.log('opt in', cities.filter(option => city_ids.indexOf(option.value) !== -1).map(item => item.value).join(', '));
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
     }, [cities, city_ids]);
 
+    console.log('values out', values.map(item => item.value).join(', '));
+
     const handleChange = options => {
-        setFiltersToUrl({city_ids: options.map(option => option.value)});
+        console.log('change', options.map(option => option.value).join(', '));
+        onChange(options.map(option => option.value));
     };
 
-    return loading ?
-        <Loading centered={false}/> :
+    return (
         <div className="cities-filter">
             <h5 className="cities-filter__title">Города</h5>
             <Select
@@ -75,9 +55,9 @@ const CitiesFilter = ({city_ids, organization_type}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
-                styles={customStyles}
             />
         </div>
+    )
 };
 
 export default React.memo(CitiesFilter);

@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
-import Loading from "../../../../../components/Loading";
-import CustomCheckbox from "../../../../../components/Form/CustomCheckbox";
-import {Request} from "../../../../../utils/request";
-import {endpointGetKennelBreeds, endpointGetNKPBreeds} from "../../../config";
-import {setFiltersToUrl} from "../../../utils";
-import {customStyles} from "../config.js";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
@@ -20,27 +15,9 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breed_ids, organization_type}) => {
-    const [loading, setLoading] = useState(true);
-    const [breeds, setBreeds] = useState([]);
+const BreedsFilter = ({breeds, breed_ids, onChange}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-
-    useEffect(() => {
-        (() => Request({
-                url: organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
-            }, data => {
-                setBreeds(data.map(item => ({value: item.id, label: item.name})));
-                setLoading(false);
-                window.scrollTo(0,0);
-            },
-            error => {
-                console.log(error.response);
-                if(error.response) alert(`Ошибка: ${error.response.status}`);
-                setLoading(false);
-                window.scrollTo(0,0);
-            }))();
-    }, [organization_type]);
 
     useEffect(() => {
         if(breeds.length) {
@@ -50,11 +27,10 @@ const BreedsFilter = ({breed_ids, organization_type}) => {
     }, [breeds, breed_ids]);
 
     const handleChange = options => {
-        setFiltersToUrl({breed_ids: options.map(option => option.value)});
+        onChange(options.map(option => option.value));
     };
 
-    return loading ?
-        <Loading centered={false}/> :
+    return (
         <div className="breeds-filter">
             <h5 className="breeds-filter__title">Породы</h5>
             <Select
@@ -74,9 +50,9 @@ const BreedsFilter = ({breed_ids, organization_type}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
-                styles={customStyles}
             />
         </div>
+    )
 };
 
 export default React.memo(BreedsFilter);
