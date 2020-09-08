@@ -1,7 +1,8 @@
 import React from "react";
 import Card from "../../../../components/Card";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 import "./index.scss";
+
 
 const BaseSearchMenu = () => {
  return (
