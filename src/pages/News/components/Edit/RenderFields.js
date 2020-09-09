@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'formik';
+import CustomChipList from "components/Form/Field/CustomChipList";
 import { FormControls, FormField, FormGroup } from 'components/Form';
 import { DEFAULT_IMG, BAD_SITES } from "../../../../appConfig";
+import { Request } from "utils/request";
 
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, onCancel }) => {
     const [src, setSrc] = useState(imgSrc);
+    const [advertTypes, setAdvertTypes] = useState([]);
     const { content, is_advert } = formik.values;
 
     useEffect(() => {
         formik.setFieldValue('content', text);
         formik.setFieldValue('file', imgSrc);
+        Request({ url: '/api/article/article_ad_types' },
+            data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
+            error => console.log(error.response)
+        )
     }, []);
 
     const handleChangeText = (e) => {
@@ -56,6 +63,9 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, onCancel }) => {
                 <FormField {...fields.advert_breed_id} options={breeds} disabled={!is_advert} />
                 <FormField {...fields.advert_cost} disabled={!is_advert} />
                 <FormField {...fields.advert_number_of_puppies} disabled={!is_advert} />
+            </FormGroup>
+            <FormGroup inline className={`article-edit__ad${!is_advert ? ' disabled' : ''}`}>
+                <CustomChipList {...fields.advert_type_id} options={advertTypes} disabled={!is_advert} />
             </FormGroup>
             <div className="article-edit__text">
                 <FormField

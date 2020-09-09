@@ -1,16 +1,15 @@
 import React from "react";
-import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
-import {setFiltersToUrl} from "../../../../utils";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
-const RanksFilter = ({ranks, RankIds}) => {
+const RanksFilter = ({ranks, rank_ids, onChange}) => {
     const handleChange = id => {
-        const ranksIds = RankIds.includes(id) ?
-            RankIds.filter(item => item !== id) :
-            [...RankIds, id];
+        const ranksIds = rank_ids.includes(id) ?
+            rank_ids.filter(item => item !== id) :
+            [...rank_ids, id];
 
-        setFiltersToUrl({RankIds: ranksIds});
+        onChange(ranksIds);
     };
 
     return (
@@ -23,7 +22,7 @@ const RanksFilter = ({ranks, RankIds}) => {
                             <CustomCheckbox
                                 id={`ranks-${item.id}`}
                                 label={item.name}
-                                checked={RankIds && RankIds.includes(item.id)}
+                                checked={rank_ids.includes(item.id)}
                                 onChange={() => handleChange(item.id)}
                             />
                         </li>

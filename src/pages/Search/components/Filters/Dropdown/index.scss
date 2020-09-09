@@ -62,9 +62,11 @@
     padding-left: 16px;
   }
   &__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     &-count {
       margin-left: 10px;
       font-size: 12px;
@@ -88,6 +90,10 @@
     }
     &._active .dropdown__item-title {
       color: #3366ff;
+    }
+    &._disabled .dropdown__item-title {
+      cursor: default;
+      opacity: .5;
     }
     &:not(:last-child) {
       margin-bottom: 10px;

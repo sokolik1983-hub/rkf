@@ -50,23 +50,20 @@ const RefereeSearch = () => {
         setStampNumber('');
     };
 
-    const requestTracking = (stamp_number, stamp_code) => {
+    const requestTracking = async () => {
         setLoading(true);
-        Request({
-            url: `/api/requests/commonrequest/dog_registration_information?stamp_number=${stamp_number}&stamp_code=${stamp_code}`,
-            options: {
-                method: "GET",
-                headers: getHeaders(),
-            }
-        }).then(data => {
-            if (data.result) {
-                setStatus(data.result);
-            } else {
-                setStatus(false);
-                setAlert(true);
-            }
-            setLoading(false);
+
+        await Request({
+            url: ``
+        }, data => {
+            setStatus(data);
+        }, error => {
+            console.log(error.response);
+            setStatus(false);
+            setAlert(true);
         });
+
+        setLoading(false);
     };
 
     return (

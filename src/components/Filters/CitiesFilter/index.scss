@@ -1,4 +1,4 @@
-.breeds-filter {
+.cities-filter {
   margin-bottom: 16px;
   &__title {
     font-weight: 600;
@@ -9,13 +9,37 @@
     letter-spacing: 0.2px;
     color: #72839C;
   }
+  &__placeholder {
+    color: #757575 !important;
+  }
+  &__values {
+    list-style: none;
+    &-item {
+      display: inline-block;
+      padding: 4px;
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      font-size: 14px;
+      line-height: 1;
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+      button {
+        padding: 0;
+        margin-left: 4px;
+        border: none;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+  }
   .custom-checkbox{
     pointer-events: none;
   }
 }
 
-#breeds-filter {
-  .breeds-filter {
+#cities-filter {
+  .cities-filter {
     &__control {
       background-color: transparent;
       border-color: hsl(0,0%,80%);
@@ -41,7 +65,7 @@
     }
     &__option {
       padding: 0 12px 0 0;
-      color: #253c5e;;
+      color: #253c5e;
       cursor: pointer;
       background-color: transparent !important;
       transition: background-color .2s linear;
