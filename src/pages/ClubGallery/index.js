@@ -218,6 +218,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                                 getImages={getImages}
                                                                 canEdit={canEdit}
                                                                 alias={alias}
+                                                                isClub={true}
                                                             />
                                                         </InfiniteScroll>
                                                     </>

@@ -45,12 +45,12 @@ export const editAlbumForm = {
         },
         name: {
             name: 'name',
-            label: 'Название альбома',
+            label: 'Название',
             placeholder: 'Введите название'
         },
         description: {
             name: 'description',
-            label: 'Описание альбома',
+            label: 'Описание',
             placeholder: 'Введите описание'
         },
         // cover: {
