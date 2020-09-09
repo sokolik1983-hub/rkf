@@ -8,7 +8,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import '../FoundInfo/index.scss';
 
 
-const RefereeSearch = () => {
+const RefereeSearch = ({referee_clicked}) => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
@@ -67,7 +67,7 @@ const RefereeSearch = () => {
     };
 
     return (
-        <Card id="referee-search-anchor">
+        <Card id="referee-search-anchor" className={referee_clicked ? `_active_card` : ``}>
             <div className="search-form__icon" />
             <h3>Поиск судьи</h3>
             <p>Для уточнения данных о судье, имеющего аккредитацию РКФ, введите его ФИО в поисковые поля на данной карточке, затем нажмите иконку "Поиск".</p>

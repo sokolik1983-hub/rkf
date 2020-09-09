@@ -6,7 +6,7 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import './styles.scss';
 
-const CheckStatus = () => {
+const CheckStatus = ({status_clicked}) => {
     const [barcode, setBarcode] = useState('');
     const [status, setStatus] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const CheckStatus = () => {
         setLoading(false);
     };
 
-    return <Card className="check-status" id="check-status-anchor">
+    return <Card className={`check-status ${status_clicked ? `_active_card` : ``}`} id="check-status-anchor">
         <div className="check-status__icon" />
         <h3>Статус документов</h3>
         <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление
