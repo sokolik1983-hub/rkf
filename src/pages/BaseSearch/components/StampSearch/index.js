@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Request, { getHeaders } from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
@@ -37,27 +37,24 @@ const StampSearch = () => {
         setStampCode('');
     };
 
-    const requestTracking = (stamp_code) => {
+    const requestTracking = async (stamp_code) => {
         setLoading(true);
-        Request({
-            url: `/api/requests/commonrequest/organizations_by_stamp_code?stamp_code=${stamp_code}`,
-            options: {
-                method: "GET",
-                headers: getHeaders(),
-            }
-        }).then(data => {
-            if (data.result) {
-                setStatus(data.result);
-            } else {
-                setStatus(false);
-                setAlert(true);
-            }
-            setLoading(false);
+
+        await Request({
+            url: `/api/requests/commonrequest/organizations_by_stamp_code?stamp_code=${stamp_code}`
+        }, data => {
+            setStatus(data);
+        }, error => {
+            console.log(error.response);
+            setStatus(false);
+            setAlert(true);
         });
+
+        setLoading(false);
     };
 
     return (
-        <Card>
+        <Card id="stamp-search-anchor">
             <div className="search-form__icon stamp-search" />
             <h3>Поиск клуба/питомника по клейму</h3>
             <p>Введите код клейма в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, за которым закреплено указанное Вами клеймо.</p>

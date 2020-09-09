@@ -6,7 +6,7 @@ import Loading from "components/Loading";
 import Alert from "components/Alert";
 import './styles.scss';
 
-const CheckStatus = ({ isBaseSearch }) => {
+const CheckStatus = () => {
     const [barcode, setBarcode] = useState('');
     const [status, setStatus] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -55,12 +55,12 @@ const CheckStatus = ({ isBaseSearch }) => {
         });
     };
 
-    return <Card className="check-status">
-        {isBaseSearch && <div className="check-status__icon" />}
+    return <Card className="check-status" id="check-status-anchor">
+        <div className="check-status__icon" />
         <h3>Статус документов</h3>
-        {isBaseSearch && <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
+        <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
         родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск". 
-        История изменений статусов будет отображена в таблице ниже.</p>}
+        История изменений статусов будет отображена в таблице ниже.</p>
         <form onSubmit={handleSubmit}>
             <div className="check-status__wrap">
                 <input

@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import ClubsMap from "../../components/ClubsMap";
 import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
+import RefereeSearch from "./components/RefereeSearch";
+import BaseSearchMenu from "./components/BaseSearchMenu";
 import "./index.scss";
 
 
@@ -22,13 +24,15 @@ const BaseSearch = () => {
                     <div className="base-search__content-wrap">
                         <div className="base-search__content">
                             <FoundInfo />
-                            <CheckStatus isBaseSearch />
+                            <CheckStatus />
                             <CheckRegistration />
                             <StampSearch />
+                            <RefereeSearch />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
                                 <div className="base-search__info-inner">
+                                    <BaseSearchMenu />
                                     <Card className="base-search__card">
                                         <h3>РКФ в соцсетях</h3>
                                         <div className="base-search__right-socials">
