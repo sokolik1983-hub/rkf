@@ -32,6 +32,7 @@ const CardNews = forwardRef(({
     adCode,
     adPrice,
     adAmount,
+    adCategory,
     isClosedAd,
     changeCityFilter
 }) => {
@@ -132,6 +133,7 @@ const CardNews = forwardRef(({
                                 <div>
                                     <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
                                     <span>Кол-во щенков: {adAmount}</span>
+                                    <span>Категория: {adCategory}</span>
                                 </div>
                                 {isClosedAd && <div className="card-news__ad-inactive" >Объявление не активно</div>}
                             </div>
