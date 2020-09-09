@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
-import Calendar from "./components/Calendar";
-import BreedsFilter from "./components/BreedsFilter";
-import RanksFilter from "./components/RanksFilter";
-import CitiesFilter from "./components/CitiesFilter";
+// import Calendar from "./components/Calendar";
+// import BreedsFilter from "./components/BreedsFilter";
+// import RanksFilter from "./components/RanksFilter";
+// import CitiesFilter from "./components/CitiesFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters, endpointExhibitionsDates } from "../../config";
 import "./index.scss";
-
+import CalendarFilter from "../../../../components/Filters/CalendarFilter";
+import BreedsFilter from "../../../../components/Filters/BreedsFilter";
+import CitiesFilter from "../../../../components/Filters/CitiesFilter";
+import RanksFilter from "../../../../components/Filters/RanksFilter";
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, federationAlias }) => {
     const [dates, setDates] = useState([]);
@@ -95,10 +98,27 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                     </a>
                                 </div>
                             </div>
-                            <Calendar dates={dates} years={years} DateFrom={filters.DateFrom} />
-                            <BreedsFilter breeds={breeds} BreedIds={filters.BreedIds} />
-                            <CitiesFilter cities={cities} CityIds={filters.CityIds} />
-                            <RanksFilter ranks={ranks} RankIds={filters.RankIds} />
+                            <CalendarFilter
+                                dates={dates}
+                                years={years}
+                                date_from={filters.DateFrom}
+                                onChange={filter => setFiltersToUrl(filter)}
+                            />
+                            <BreedsFilter
+                                breeds={breeds}
+                                breed_ids={filters.BreedIds}
+                                onChange={filter => setFiltersToUrl({BreedIds: filter})}
+                            />
+                            <CitiesFilter
+                                cities={cities}
+                                city_ids={filters.CityIds}
+                                onChange={filter => setFiltersToUrl({CityIds: filter})}
+                            />
+                            <RanksFilter
+                                ranks={ranks}
+                                rank_ids={filters.RankIds}
+                                onChange={filter => setFiltersToUrl({RankIds: filter})}
+                            />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">
                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>

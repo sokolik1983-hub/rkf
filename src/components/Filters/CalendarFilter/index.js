@@ -2,16 +2,14 @@ import React, {useEffect, useState, useRef} from "react";
 import DayPicker from "react-day-picker";
 import Select from "react-select";
 import OutsideClickHandler from "react-outside-click-handler";
-import {setFiltersToUrl} from "../../../../utils";
-import {MONTHS, WEEKDAYS_SHORT} from "../../../../../../appConfig";
-import {formatDateToString} from "../../../../../../utils/datetime";
+import {MONTHS, WEEKDAYS_SHORT} from "../../../appConfig";
+import {formatDateToString} from "../../../utils/datetime";
 import "./index.scss";
-import "components/WidgetCalendar/index.scss";
 
 
-const Calendar = ({dates, years, DateFrom}) => {
-    const [day, setDay] = useState(new Date(DateFrom));
-    const [modifier, setModifier] = useState({ selectedDate: day });
+const CalendarFilter = ({dates, years, date_from, onChange}) => {
+    const [day, setDay] = useState(new Date(date_from));
+    const [modifier, setModifier] = useState({selectedDate: day});
     const [activeButton, setActiveButton] = useState(null);
 
     const selectOfYear = useRef(null);
@@ -26,8 +24,8 @@ const Calendar = ({dates, years, DateFrom}) => {
     };
 
     useEffect(() => {
-        setNewDate(new Date(DateFrom));
-    }, [DateFrom]);
+        setNewDate(new Date(date_from));
+    }, [date_from]);
 
     useEffect(() => {
         setModifier({...modifier, green: dates.map(day => new Date(day))});
@@ -40,7 +38,7 @@ const Calendar = ({dates, years, DateFrom}) => {
 
             setActiveButton(null);
 
-            setFiltersToUrl({
+            onChange({
                 DateFrom: formatDateToString(new Date(year, month, 1)),
                 DateTo: formatDateToString(new Date(year, parseInt(month) + 1, 0))
             });
@@ -50,7 +48,7 @@ const Calendar = ({dates, years, DateFrom}) => {
     const handleDateClick = date => {
         setActiveButton(null);
 
-        setFiltersToUrl({
+        onChange({
             DateFrom: formatDateToString(date),
             DateTo: formatDateToString(date)
         });
@@ -58,12 +56,12 @@ const Calendar = ({dates, years, DateFrom}) => {
 
     const handleButtonClick = period => {
         if (period === 'month') {
-            setFiltersToUrl({
+            onChange({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0))
             });
         } else {
-            setFiltersToUrl({
+            onChange({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0))
             });
@@ -80,7 +78,7 @@ const Calendar = ({dates, years, DateFrom}) => {
     };
 
     return (
-        <div className="exhibitions-calendar">
+        <div className="calendar-filter">
             <DayPicker
                 showOutsideDays={true}
                 months={MONTHS}
@@ -105,12 +103,12 @@ const Calendar = ({dates, years, DateFrom}) => {
                     }
 
                     return (
-                        <form className="DayPickerForm" onChange={handleFormChange}>
+                        <form className="calendar-filter__form" onChange={handleFormChange}>
                             <OutsideClickHandler onOutsideClick={closeListOfMonth}>
                                 <Select
                                     ref={selectOfMonth}
-                                    className="DayPickerForm__select"
-                                    classNamePrefix="DayPickerForm__select"
+                                    className="calendar-filter__form-select"
+                                    classNamePrefix="calendar-filter__form-select"
                                     name="month"
                                     isClearable={false}
                                     value={monthValue}
@@ -121,8 +119,8 @@ const Calendar = ({dates, years, DateFrom}) => {
                             <OutsideClickHandler onOutsideClick={closeListOfYear}>
                                 <Select
                                     ref={selectOfYear}
-                                    className="DayPickerForm__select"
-                                    classNamePrefix="DayPickerForm__select"
+                                    className="calendar-filter__form-select"
+                                    classNamePrefix="calendar-filter__form-select"
                                     name="year"
                                     isClearable={false}
                                     value={yearsArr.filter(item => item.value === date.getFullYear())}
@@ -134,19 +132,19 @@ const Calendar = ({dates, years, DateFrom}) => {
                     )
                 }}
             />
-            <div className="exhibitions-calendar__controls">
+            <div className="calendar-filter__controls">
                 <button
-                    className={`exhibitions-calendar__button${activeButton === 'year' ? ' active' : ''}`}
+                    className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
                     onClick={() => handleButtonClick('year')}
                 >Год</button>
                 <button
-                    className={`exhibitions-calendar__button${activeButton === 'month' ? ' active' : ''}`}
+                    className={`calendar-filter__button${activeButton === 'month' ? ' active' : ''}`}
                     onClick={() => handleButtonClick('month')}
                 >Месяц</button>
             </div>
-            <p className="exhibitions-calendar__legend">Доступные мероприятия</p>
+            <p className="calendar-filter__legend">Доступные мероприятия</p>
         </div>
     )
 };
 
-export default React.memo(Calendar);
+export default React.memo(CalendarFilter);
