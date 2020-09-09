@@ -1,0 +1,10 @@
+.k-chip-list {
+    &.k-selection-single {
+        outline: none;
+    }
+    .k-chip-selected.k-chip-filled {
+        border-color: #8da7f3;
+        color: #36f;
+        background-color: #e7ecfd;
+    }
+}

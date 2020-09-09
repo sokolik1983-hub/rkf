@@ -16,7 +16,7 @@
     &__wrap {
         position: relative;
         flex-grow: 1;
-        &:nth-child(2) {
+        &:not(:first-child) {
             margin-left: 6px;
         }
     }
@@ -81,6 +81,10 @@
             & svg:hover {
                 fill: #3366ff;
                 transition: fill 0.2s linear;
+            }
+            &:disabled svg {
+                fill: #90999e;
+                cursor: not-allowed;
             }
         }
         &--clear {

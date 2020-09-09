@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutsideClickHandler from "react-outside-click-handler";
 import { connect } from 'formik';
 import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
+import CustomChipList from "../Form/Field/CustomChipList";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
 import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { useFocus } from "../../shared/hooks";
+import { Request } from "utils/request";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const [src, setSrc] = useState('');
+    const [advertTypes, setAdvertTypes] = useState([]);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, file } = formik.values;
+
+    useEffect(() => {
+        Request({ url: '/api/article/article_ad_types' },
+            data => setAdvertTypes(data.map(d => ({ text: d.name, value: d.id }))),
+            error => console.log(error.response)
+        )
+    }, []);
 
     const handleChange = e => {
         if (e.target.files[0]) {
@@ -104,13 +114,16 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                             </>
                         }
                     </div>
-                    {isAd &&
+                    {isAd && <>
                         <FormGroup inline className="ArticleCreateForm__advert">
-                            <FormField {...fields.advert_breed_id}/>
-                            <CustomNumber {...fields.advert_cost}/>
-                            <CustomNumber {...fields.advert_number_of_puppies}/>
+                            <FormField {...fields.advert_breed_id} />
+                            <CustomNumber {...fields.advert_cost} />
+                            <CustomNumber {...fields.advert_number_of_puppies} />
                         </FormGroup>
-                    }
+                        <FormGroup inline>
+                            <CustomChipList {...fields.advert_type_id} options={advertTypes} />
+                        </FormGroup>
+                    </>}
                     <FormControls className="ArticleCreateForm__controls">
                         <div className="ArticleCreateForm__attach">
                             <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
