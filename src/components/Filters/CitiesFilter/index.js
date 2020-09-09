@@ -9,7 +9,7 @@ const Option = props => (
         <CustomCheckbox
             id={`cities-${props.value}`}
             label={props.label}
-            checked={props.isSelected} //где-то здесь косяк
+            checked={props.isSelected}
             onChange={() => null}
         />
     </components.Option>
@@ -20,26 +20,25 @@ const CitiesFilter = ({cities, city_ids, onChange}) => {
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
     useEffect(() => {
-        console.log('values in', values.map(item => item.value).join(', '));
         if(cities.length) {
-            console.log('opt in', cities.filter(option => city_ids.indexOf(option.value) !== -1).map(item => item.value).join(', '));
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
     }, [cities, city_ids]);
 
-    console.log('values out', values.map(item => item.value).join(', '));
-
     const handleChange = options => {
-        console.log('change', options.map(option => option.value).join(', '));
         onChange(options.map(option => option.value));
+    };
+
+    const handleDelete = cityId => {
+        onChange(values.filter(city => city.value !== cityId).map(city => city.value));
     };
 
     return (
         <div className="cities-filter">
             <h5 className="cities-filter__title">Города</h5>
             <Select
-                id={'cities-filter'}
+                id="cities-filter"
                 isMulti={true}
                 closeMenuOnSelect={false}
                 options={[...values, ...optionsNotInValues]}
@@ -50,12 +49,22 @@ const CitiesFilter = ({cities, city_ids, onChange}) => {
                 onChange={handleChange}
                 clearable={true}
                 isSearchable
-                classNamePrefix={'cities-filter'}
-                placeholder={'Начните вводить город'}
+                classNamePrefix="cities-filter"
+                placeholder="Начните вводить город"
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
             />
+            {!!values.length &&
+                <ul className="cities-filter__values">
+                    {values.map(item =>
+                        <li className="cities-filter__values-item" key={item.value}>
+                            <span>{item.label}</span>
+                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                        </li>
+                    )}
+                </ul>
+            }
         </div>
     )
 };

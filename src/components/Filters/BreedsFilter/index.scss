@@ -9,7 +9,31 @@
     letter-spacing: 0.2px;
     color: #72839C;
   }
-  .custom-checkbox{
+  &__placeholder {
+    color: #757575 !important;
+  }
+  &__values {
+    list-style: none;
+    &-item {
+      display: inline-block;
+      padding: 4px;
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      font-size: 14px;
+      line-height: 1;
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+      button {
+        padding: 0;
+        margin-left: 4px;
+        border: none;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .custom-checkbox {
     pointer-events: none;
   }
 }

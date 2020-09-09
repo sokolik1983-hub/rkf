@@ -9,7 +9,35 @@
     letter-spacing: 0.2px;
     color: #72839C;
   }
+  &__placeholder {
+    color: #757575 !important;
+  }
+  &__values {
+    list-style: none;
+    &-item {
+      display: inline-block;
+      padding: 4px;
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      font-size: 14px;
+      line-height: 1;
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+      button {
+        padding: 0;
+        margin-left: 4px;
+        border: none;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .custom-checkbox{
+    pointer-events: none;
+  }
 }
+
 #cities-filter {
   .cities-filter {
     &__control {
@@ -37,10 +65,12 @@
     }
     &__option {
       padding: 0 12px 0 0;
-      color: #253c5e;;
+      color: #253c5e;
       cursor: pointer;
-      &--is-selected {
-        background-color: transparent;
+      background-color: transparent !important;
+      transition: background-color .2s linear;
+      &:hover {
+        background-color: #DEEBFF !important;
       }
     }
   }

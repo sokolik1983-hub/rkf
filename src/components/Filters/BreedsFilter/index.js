@@ -30,6 +30,10 @@ const BreedsFilter = ({breeds, breed_ids, onChange}) => {
         onChange(options.map(option => option.value));
     };
 
+    const handleDelete = breedId => {
+        onChange(values.filter(breed => breed.value !== breedId).map(breed => breed.value));
+    };
+
     return (
         <div className="breeds-filter">
             <h5 className="breeds-filter__title">Породы</h5>
@@ -51,6 +55,16 @@ const BreedsFilter = ({breeds, breed_ids, onChange}) => {
                 value={values}
                 components={{Option}}
             />
+            {!!values.length &&
+                <ul className="breeds-filter__values">
+                    {values.map(item =>
+                        <li className="breeds-filter__values-item" key={item.value}>
+                            <span>{item.label}</span>
+                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                        </li>
+                    )}
+                </ul>
+            }
         </div>
     )
 };
