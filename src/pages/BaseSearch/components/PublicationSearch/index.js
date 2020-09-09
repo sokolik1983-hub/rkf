@@ -12,7 +12,7 @@ import '../FoundInfo/index.scss';
 const PublicationSearch = () => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
-    const [breedsArray, setBreeds] = useState([]);
+    const [breedsList, setBreeds] = useState([]);
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
@@ -21,7 +21,7 @@ const PublicationSearch = () => {
     useEffect(() => {
         setLoading(true);
         Request({
-            url: `/api/dog/breed`,
+            url: `/api/dog/Breed`,
             options: {
                 method: "GET",
                 headers: getHeaders(),
@@ -32,9 +32,8 @@ const PublicationSearch = () => {
                 data.result.forEach(function(item){
                     breedsList.push(item.name);
                 });                  
-                // data.result.forEach(m => breedsArray.push(Object.values(m.name)))
-                setBreeds(breedsArray);
-                console.log(breedsArray);
+                setBreeds(breedsList);
+                console.log(breedsList);
             } else {
                 setBreeds([]);
                 setAlert(true);
@@ -101,12 +100,9 @@ const PublicationSearch = () => {
             <div className="search-form__icon" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
-            <MultiSelect
-                data={['hey', 'may']}
-            />
             <form className="search-form" onSubmit={handleSubmit}>
                 <MultiSelect
-                    data={['hey', 'may']}
+                    data={breedsList}
                 />
                 <div className="search-form__wrap">
                     <input
