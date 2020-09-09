@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useState, useEffect} from "react";
 import Select, {components} from "react-select";
-import CustomCheckbox from "../../../../../../components/Form/CustomCheckbox";
-import {setFiltersToUrl} from "../../../../utils";
-import {customStyles} from "../../config.js";
+import CustomCheckbox from "../../Form/CustomCheckbox";
 import "./index.scss";
 
 
@@ -17,26 +15,23 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({cities, CityIds}) => {
+const CitiesFilter = ({cities, city_ids, onChange}) => {
     const [values, setValues] = useState([]);
-    const [options, setOptions] = useState([]);
+    const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
     useEffect(() => {
         if(cities.length) {
-            const optionValues = cities.filter(option => CityIds.indexOf(option.value) !== -1);
-            const optionsNotInValues = cities.filter(option => CityIds.indexOf(option.value) === -1);
-
-            setValues([...optionValues]);
-            setOptions([...optionValues, ...optionsNotInValues]);
+            setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
+            setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
-    }, [cities, CityIds]);
+    }, [cities, city_ids]);
 
     const handleChange = options => {
-        setFiltersToUrl({CityIds: options.map(option => option.value)});
+        onChange(options.map(option => option.value));
     };
 
     const handleDelete = cityId => {
-        setFiltersToUrl({CityIds: values.filter(city => city.value !== cityId).map(city => city.value)});
+        onChange(values.filter(city => city.value !== cityId).map(city => city.value));
     };
 
     return (
@@ -46,7 +41,7 @@ const CitiesFilter = ({cities, CityIds}) => {
                 id="cities-filter"
                 isMulti={true}
                 closeMenuOnSelect={false}
-                options={options}
+                options={[...values, ...optionsNotInValues]}
                 defaultMenuIsOpen={true}
                 hideSelectedOptions={false}
                 menuIsOpen={true}
@@ -59,7 +54,6 @@ const CitiesFilter = ({cities, CityIds}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
-                styles={customStyles}
             />
             {!!values.length &&
                 <ul className="cities-filter__values">
