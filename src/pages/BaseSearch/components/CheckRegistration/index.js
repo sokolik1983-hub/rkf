@@ -57,7 +57,7 @@ const CheckRegistration = () => {
         await Request({
             url: `/api/requests/commonrequest/dog_registration_information?stamp_number=${stamp_number}&stamp_code=${stamp_code}`
         }, data => {
-            setStatus(data.result);
+            setStatus(data);
         }, error => {
             console.log(error.response);
             setStatus(false);
@@ -82,7 +82,7 @@ const CheckRegistration = () => {
                         value={stamp_code}
                         title="Введите 3 латинских символа"
                         placeholder="код клейма"
-                        disabled={loading || status ? true : false}
+                        disabled={loading || !!status}
                         required
                     />
                     {stamp_code &&
