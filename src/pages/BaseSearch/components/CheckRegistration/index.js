@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Request from "../../../../utils/request";
+import {Request} from "../../../../utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
@@ -29,9 +29,9 @@ const CheckRegistration = () => {
         }
     }, [params]);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        requestTracking(stamp_number, stamp_code);
+        await requestTracking(stamp_number, stamp_code);
     };
 
     const handleReset = e => {
@@ -51,21 +51,20 @@ const CheckRegistration = () => {
         setStampNumber('');
     };
 
-    const requestTracking = (stamp_number, stamp_code) => {
+    const requestTracking = async (stamp_number, stamp_code) => {
         setLoading(true);
-        Request({
+
+        await Request({
             url: `/api/requests/commonrequest/dog_registration_information?stamp_number=${stamp_number}&stamp_code=${stamp_code}`
         }, data => {
             setStatus(data.result);
-            setLoading(false);
-        },
-            error => {
-                console.log(error.response);
-                setStatus(false);
-                setAlert(true);
-                setLoading(false);
-            }
-        );
+        }, error => {
+            console.log(error.response);
+            setStatus(false);
+            setAlert(true);
+        });
+
+        setLoading(false);
     };
 
     return (
