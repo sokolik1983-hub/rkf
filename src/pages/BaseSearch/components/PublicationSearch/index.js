@@ -1,59 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Request, { getHeaders } from "../../../../utils/request";
+import { PromiseRequest } from "utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
-// import BreedsFilter from "../../../../pages/Exhibitions/components/Filters/components/BreedsFilter";
-// import CitiesFilter from "../../../../pages/Exhibitions/components/Filters/components/CitiesFilter";
+import BreedsFilter from "components/Filters/BreedsFilter";
+import CitiesFilter from "components/Filters/CitiesFilter";
+import InfiniteScroll from "react-infinite-scroll-component";
+import List from "components/List";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import '../FoundInfo/index.scss';
+import './index.scss';
 
 
 const PublicationSearch = () => {
-    const [min_price, setMinPrice] = useState('');
-    const [max_price, setMaxPrice] = useState('');
-    const [breedsList, setBreeds] = useState([]);
+    const [items, setItems] = useState(null);
+    const [min_price, setMinPrice] = useState(undefined);
+    const [max_price, setMaxPrice] = useState(undefined);
+    const [breeds, setBreeds] = useState([]);
+    const [breedIds, setBreedIds] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [cityIds, setCityIds] = useState([]);
     const [status, setStatus] = useState(false);
+    const [startElement, setStartElement] = useState(1);
+    const [newsLoading, setNewsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
-    const { min_amount, max_amount } = useParams();
 
     useEffect(() => {
         setLoading(true);
-        Request({
-            url: `/api/dog/Breed`,
-            options: {
-                method: "GET",
-                headers: getHeaders(),
-            }
-        }).then(data => {
-            if (data) {
-                let breedsList = [];
-                data.result.forEach((item) => {
-                    breedsList.push(item.name);
-                });
-                setBreeds(breedsList);
-                console.log(breedsList);
-            } else {
-                setBreeds([]);
-                setAlert(true);
-            }
-            setLoading(false);
-        });
+        Promise.all([
+            PromiseRequest({ url: '/api/dog/Breed' }),
+            PromiseRequest({ url: '/api/city' })
+        ]).then(
+            data => {
+                setBreeds(data[0].map(d => ({ value: d.id, label: d.name })));
+                setCities(data[1].map(d => ({ value: d.id, label: d.name })));
+                setLoading(false);
+            }).catch(
+                error => {
+                    console.log(error.response);
+                    setLoading(false);
+                })
     }, []);
-
-    useEffect(() => {
-        if (min_amount) {
-            setMinPrice(min_amount);
-        }
-    }, [min_amount]);
-
-    useEffect(() => {
-        if (max_amount) {
-            setMaxPrice(max_amount);
-        }
-    }, [max_amount]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -77,23 +65,49 @@ const PublicationSearch = () => {
         setMaxPrice('');
     };
 
-    const requestPublication = (min_price, max_price) => {
-        setLoading(true);
-        Request({
-            url: ``,
-            options: {
-                method: "GET",
-                headers: getHeaders(),
+    const requestPublication = () => {
+        setNewsLoading(true);
+        PromiseRequest({
+            url: '/api/article/public_all_v2',
+            params: {
+                is_advert: true,
+                article_ad_cost_from: min_price,
+                article_ad_cost_to: max_price,
+                'article_ad_breed_ids': breedIds,
+                'fact_city_ids': cityIds,
+                start_element: startElement
             }
-        }).then(data => {
-            if (data) {
-                setStatus(data);
-            } else {
-                setStatus(false);
-                setAlert(true);
-            }
-            setLoading(false);
-        });
+        })
+            .then(data => {
+                let modifiedNews = [];
+                if (data.articles.length) {
+                    modifiedNews = data.articles.map(article => {
+                        article.title = article.name;
+                        article.url = `/news/${article.id}`;
+                        return article;
+                    });
+                    if (data.articles.length < 10) {
+                        setHasMore(false);
+                    } else {
+                        setHasMore(true);
+                    }
+                } else {
+                    if (startElement === 1) {
+                        setItems([]);
+                    }
+                    setHasMore(false);
+                }
+
+                setItems(modifiedNews);
+                setNewsLoading(false);
+            });
+    };
+
+    const getNextResults = () => {
+        if (hasMore) {
+            setStartElement(startElement + 10);
+            (() => requestPublication(startElement + 10))();
+        }
     };
 
     return (
@@ -102,8 +116,6 @@ const PublicationSearch = () => {
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
             <form className="search-form" onSubmit={handleSubmit}>
-                {/* <BreedsFilter breeds={breedsList} />
-                <CitiesFilter cities={breedsList} /> */}
                 <div className="search-form__wrap">
                     <input
                         className="search-form__input"
@@ -153,17 +165,40 @@ const PublicationSearch = () => {
                         </button>
                     </div>}
             </form>
+            <div className="PublicationSearch__filters">
+                <BreedsFilter breeds={breeds} breed_ids={breedIds} onChange={ids => setBreedIds(ids)} />
+                <CitiesFilter cities={cities} city_ids={cityIds} onChange={ids => setCityIds(ids)} />
+            </div>
             {
                 loading
                     ? <Loading centered={false} />
-                    : status && <div className="search-form__result">
-                        {status.status === 1 ? <></> : ``}
-                        {status.status === 2 ? <></> : ``}
-                        {status.status === 3 ? <></> : ``}
-                        {status.status === 4 ? <div className="search-form__default-content">
-                            <h3>Ничего не найдено</h3>
-                            <img src={DEFAULT_IMG.noNews} alt="Ничего не найдено" />
-                        </div> : ``}
+                    : <div className="search-form__result">
+                        {
+                            items
+                                ? <InfiniteScroll
+                                    dataLength={items.length}
+                                    next={getNextResults}
+                                    hasMore={hasMore}
+                                    loader={newsLoading && <Loading centered={false} />}
+                                    endMessage={
+                                        <div className="user-news__content">
+                                            <h4 className="user-news__text">Публикаций больше нет</h4>
+                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
+                                        </div>
+                                    }
+                                >
+                                    <List
+                                        list={items}
+                                        listNotFound="Публикации не найдены"
+                                        listClass="user-news"
+                                        isFullDate={true}
+                                    />
+                                </InfiniteScroll>
+                                : <div className="search-form__default-content">
+                                    <h3>Ничего не найдено</h3>
+                                    <img src={DEFAULT_IMG.noNews} alt="Ничего не найдено" />
+                                </div>
+                        }
                     </div>
             }
             {alert &&
