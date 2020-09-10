@@ -10,9 +10,8 @@ import List from "components/List";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import './index.scss';
 
-
 const PublicationSearch = () => {
-    const [items, setItems] = useState(null);
+    const [items, setItems] = useState([]);
     const [min_price, setMinPrice] = useState(undefined);
     const [max_price, setMaxPrice] = useState(undefined);
     const [breeds, setBreeds] = useState([]);
@@ -45,6 +44,7 @@ const PublicationSearch = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        setItems([]);
         requestPublication(min_price, max_price);
     };
 
@@ -65,7 +65,7 @@ const PublicationSearch = () => {
         setMaxPrice('');
     };
 
-    const requestPublication = () => {
+    const requestPublication = (startElem = 1) => {
         setNewsLoading(true);
         PromiseRequest({
             url: '/api/article/public_all_v2',
@@ -75,13 +75,13 @@ const PublicationSearch = () => {
                 article_ad_cost_to: max_price,
                 'article_ad_breed_ids': breedIds,
                 'fact_city_ids': cityIds,
-                start_element: startElement
+                start_element: startElem
             }
         })
             .then(data => {
-                let modifiedNews = [];
+                let modifiedItems = [];
                 if (data.articles.length) {
-                    modifiedNews = data.articles.map(article => {
+                    modifiedItems = data.articles.map(article => {
                         article.title = article.name;
                         article.url = `/news/${article.id}`;
                         return article;
@@ -91,14 +91,13 @@ const PublicationSearch = () => {
                     } else {
                         setHasMore(true);
                     }
+                    setItems(startElem === 1 ? modifiedItems : [...items, ...modifiedItems]);
                 } else {
                     if (startElement === 1) {
                         setItems([]);
                     }
                     setHasMore(false);
                 }
-
-                setItems(modifiedNews);
                 setNewsLoading(false);
             });
     };
@@ -111,7 +110,7 @@ const PublicationSearch = () => {
     };
 
     return (
-        <Card>
+        <Card className="PublicationSearch">
             <div className="search-form__icon" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
@@ -170,35 +169,27 @@ const PublicationSearch = () => {
                 <CitiesFilter cities={cities} city_ids={cityIds} onChange={ids => setCityIds(ids)} />
             </div>
             {
-                loading
+                loading || (newsLoading && !items.length)
                     ? <Loading centered={false} />
                     : <div className="search-form__result">
-                        {
-                            items
-                                ? <InfiniteScroll
-                                    dataLength={items.length}
-                                    next={getNextResults}
-                                    hasMore={hasMore}
-                                    loader={newsLoading && <Loading centered={false} />}
-                                    endMessage={
-                                        <div className="user-news__content">
-                                            <h4 className="user-news__text">Публикаций больше нет</h4>
-                                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
-                                        </div>
-                                    }
-                                >
-                                    <List
-                                        list={items}
-                                        listNotFound="Публикации не найдены"
-                                        listClass="user-news"
-                                        isFullDate={true}
-                                    />
-                                </InfiniteScroll>
-                                : <div className="search-form__default-content">
-                                    <h3>Ничего не найдено</h3>
-                                    <img src={DEFAULT_IMG.noNews} alt="Ничего не найдено" />
-                                </div>
-                        }
+                        <InfiniteScroll
+                            dataLength={items.length}
+                            next={items.length && getNextResults}
+                            hasMore={hasMore}
+                            loader={newsLoading && <Loading centered={false} />}
+                            endMessage={!newsLoading && <div className="user-news__content">
+                                <h4 className="user-news__text">Публикаций больше нет</h4>
+                                <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
+                            </div>
+                            }
+                        >
+                            <List
+                                list={items}
+                                listNotFound={false}
+                                listClass="user-news"
+                                isFullDate={true}
+                            />
+                        </InfiniteScroll>
                     </div>
             }
             {alert &&
