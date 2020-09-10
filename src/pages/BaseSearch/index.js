@@ -12,6 +12,7 @@ import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
 import OutsideClickHandler from "react-outside-click-handler";
+import PublicationSearch from "./components/PublicationSearch";
 import { Link } from "react-scroll";
 import "./index.scss";
 
@@ -42,6 +43,7 @@ const BaseSearch = () => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
+                            <PublicationSearch />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
