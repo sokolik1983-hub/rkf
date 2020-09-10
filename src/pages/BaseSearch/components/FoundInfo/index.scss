@@ -56,6 +56,9 @@
         &.check-registration {
             background-image: url("/static/images/base_search/check-registration.svg");
         }
+        &.referee_search {
+            background-image: url("/static/images/base_search/referee_search.svg");
+        }
     }
     &__default-content {
         padding-top: 16px;
@@ -135,7 +138,7 @@
 ._hide {
     display: none;
 }
-._active_card {
+.Card._active_card {
     box-shadow: 0 6px 12px #3366ff;
     transition: all 0.2s linear;
 }

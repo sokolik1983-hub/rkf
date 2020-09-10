@@ -68,7 +68,7 @@ const RefereeSearch = ({referee_clicked}) => {
 
     return (
         <Card id="referee-search-anchor" className={referee_clicked ? `_active_card` : ``}>
-            <div className="search-form__icon" />
+            <div className="search-form__icon referee_search" />
             <h3>Поиск судьи</h3>
             <p>Для уточнения данных о судье, имеющего аккредитацию РКФ, введите его ФИО в поисковые поля на данной карточке, затем нажмите иконку "Поиск".</p>
             <form className="search-form" onSubmit={handleSubmit}>
