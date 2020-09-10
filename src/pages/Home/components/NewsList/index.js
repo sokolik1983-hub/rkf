@@ -117,7 +117,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                             <CitySelect
                                 currentCity={newsFilter.city}
                                 cityFilter={city => {
-                                    if (!city || city.value !== newsFilter.city.value) {
+                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
                                         changeCityFilter(city);
                                     }
                                 }}
@@ -149,7 +149,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                             <CitySelect
                                 currentCity={newsFilter.city}
                                 cityFilter={city => {
-                                    if (!city || city.value !== newsFilter.city.value) {
+                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
                                         changeCityFilter(city);
                                     }
                                 }}

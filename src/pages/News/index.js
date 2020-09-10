@@ -92,6 +92,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                             <p>Порода: {news.advert_breed_name}</p>
                                             <p>Стоимость: {news.advert_cost}</p>
                                             <p>Кол-во щенков: {news.advert_number_of_puppies}</p>
+                                            {news.advert_type_name && <p>Категория: {news.advert_type_name}</p>}
                                             <br />
                                         </>
                                     }

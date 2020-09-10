@@ -135,3 +135,7 @@
 ._hide {
     display: none;
 }
+._active_card {
+    box-shadow: 0 6px 12px #3366ff;
+    transition: all 0.2s linear;
+}

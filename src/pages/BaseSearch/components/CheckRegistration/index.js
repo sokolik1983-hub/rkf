@@ -9,7 +9,7 @@ import { DEFAULT_IMG } from "../../../../appConfig";
 import '../FoundInfo/index.scss';
 
 
-const CheckRegistration = () => {
+const CheckRegistration = ({registration_clicked}) => {
     const [stamp_number, setStampNumber] = useState('');
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
@@ -68,7 +68,7 @@ const CheckRegistration = () => {
     };
 
     return (
-        <Card id="check-registration-anchor">
+        <Card id="check-registration-anchor" className={registration_clicked ? `_active_card` : ``}>
             <div className="search-form__icon check-registration" />
             <h3>Регистрационные данные собаки</h3>
             <p>В целях получения информации о факте регистрации помета в РКФ, наличии у собаки родословной или возможности ее получения введите код и номер клейма и нажмите кнопку "Поиск". Вся необходимая информация будет отображена ниже. Просим Вас использовать данную форму перед отправкой заявки на изготовление документов.</p>
