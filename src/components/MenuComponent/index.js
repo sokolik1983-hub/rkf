@@ -439,7 +439,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
     </OutsideClickHandler>
 </Card> : <>
         <ul className="menu-component__list">
-            {user !== 'nursery' && <li className="menu-component__item">
+            {user !== 'nursery' && <li className="menu-component__item menu-component__item--events">
                 <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
             </li>}
             {presidium[alias] &&
@@ -447,10 +447,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
                 </li>
             }
-            <li className="menu-component__item">
+            <li className="menu-component__item menu-component__item--public">
                 <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
             </li>
-            <li className="menu-component__item">
+            <li className="menu-component__item menu-component__item--gallery">
                 <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
             </li>
             {alias === 'rfls' && <>
@@ -471,10 +471,10 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 </li>
             </>}
             
-                <li className="menu-component__item">
+                <li className="menu-component__item menu-component__item--documents">
                     <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
                 </li>
-            <li className="menu-component__item">
+            <li className="menu-component__item menu-component__item--club">
                 <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
                     {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
                 </Link>
