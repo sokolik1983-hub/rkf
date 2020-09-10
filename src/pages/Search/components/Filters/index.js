@@ -8,7 +8,7 @@ import {connectShowFilters} from "../../../../components/Layouts/connectors";
 import "./index.scss";
 
 
-const Filters = ({isOpenFilters, filtersValue, filters}) => {
+const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
     useEffect(() => {
         setOverflow(isOpenFilters);
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
@@ -26,6 +26,7 @@ const Filters = ({isOpenFilters, filtersValue, filters}) => {
                             key={filter.name}
                             filtersValue={filtersValue}
                             {...filter}
+                            additionalFilters={additionalFilters}
                         />
                     )}
                 </Card>

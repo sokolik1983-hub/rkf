@@ -15,7 +15,9 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
     const [filtersValue, setFiltersValue] = useState({...getFiltersFromUrl()});
     const [searchResult, setSearchResult] = useState([]);
     const [filters, setFilters] = useState([...defaultFilters]);
+    const [additionalFilters, setAdditionalFilters] = useState({});
     const [needCount, setNeedCount] = useState(true);
+    const [needFilter, setNeedFilter] = useState(true);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
 
@@ -23,19 +25,18 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
         const unListen = history.listen(() => {
             const newFiltersValue = getFiltersFromUrl();
 
-            if(filtersValue.string_filter !== newFiltersValue.string_filter) {
-                setNeedCount(true);
-            }
+            if(filtersValue.string_filter !== newFiltersValue.string_filter) setNeedCount(true);
+            if(filtersValue.search_type !== newFiltersValue.search_type) setNeedFilter(true);
 
             setFiltersValue(newFiltersValue);
         });
 
         return () => unListen();
-    }, [filtersValue.string_filter]);
+    }, [filtersValue.string_filter, filtersValue.search_type]);
 
     const getSearchResults = async startElem => {
         await Request({
-            url: buildSearchUrl(filtersValue.string_filter, filtersValue.search_type, startElem, needCount)
+            url: buildSearchUrl(filtersValue, startElem, needCount, needFilter)
         }, data => {
             if(startElem === 1) {
                 window.scrollTo(0,0);
@@ -56,6 +57,19 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                     return category;
                 });
                 setNeedCount(false);
+            }
+
+            if(data.filter) {
+                if(data.filter.ranks) {
+                    data.filter.ranks = data.filter.ranks.map(({value, label}) => ({id: value, name: label}));
+                }
+
+                if(data.filter.federations) {
+                    data.filter.federations = data.filter.federations.map(({value, label}) => ({id: value, short_name: label}));
+                }
+
+                setAdditionalFilters(data.filter);
+                setNeedFilter(false);
             }
 
             setFilters(newFilters);
@@ -96,11 +110,11 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             setHasMore(false);
         }
         setStartElement(1);
-    }, [filtersValue.string_filter, filtersValue.search_type]);
+    }, [filtersValue]);
 
     const getNextResults = () => {
         if (searchResult.length) {
-            (() => getSearchResults(startElement + 10))();
+            (() => getSearchResults(startElement + 10, false))();
             setStartElement(startElement + 10);
         }
     };
@@ -110,7 +124,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="search-page__wrap">
                 <Container className="search-page content">
-                    <Filters filtersValue={filtersValue} filters={filters}/>
+                    <Filters filtersValue={filtersValue} filters={filters} additionalFilters={additionalFilters}/>
                     <div className="search-page__content">
                         <SearchList
                             searchResult={searchResult}

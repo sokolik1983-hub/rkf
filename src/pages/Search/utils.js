@@ -1,37 +1,79 @@
 import history from "../../utils/history";
 import {endpointGetSearchResults} from "./config";
 
-const buildUrlParams = ({string_filter, search_type, start_element}) => {
-    let urlParams = '';
 
-    if(string_filter) urlParams += `string_filter=${string_filter}&`;
-    if(search_type) urlParams += `search_type=${search_type}&`;
-    if(start_element) urlParams += `start_element=${start_element}`;
+export const buildUrlParams = filters => {
+    let params = '';
 
-    if (urlParams.charAt(urlParams.length - 1) === '&') {
-        urlParams = urlParams.slice(0, -1);
+    Object.keys(filters).forEach(key => {
+        if (filters[key]) {
+            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'rank_ids') {
+                if (filters[key].length) {
+                    params += filters[key].map(id => `${key}=${id}&`).join('');
+                }
+            } else {
+                params += `${key}=${filters[key]}&`;
+            }
+        }
+    });
+
+    if (params.charAt(params.length - 1) === '&') {
+        params = params.slice(0, -1);
     }
 
-    return urlParams;
-}
-
-export const buildSearchUrl = (string_filter, search_type, start_element, need_count) => {
-    return `${endpointGetSearchResults}?${buildUrlParams({string_filter, search_type, start_element})}&need_count=${need_count}`;
+    return params ? `?${params}` : '';
 };
 
+export const buildSearchUrl = (filters, start_element, need_count, need_filter) => {
+    return `${endpointGetSearchResults}${buildUrlParams({...filters, start_element, need_count, need_filter})}`;
+};
+
+export const getEmptyFilters = () => ({
+    string_filter: '',
+    search_type: 8,
+    federation_ids: [],
+    breed_ids: [],
+    city_ids: [],
+    rank_ids: [],
+    date_from: '',
+    date_to: '',
+    price_from: '',
+    price_to: '',
+    activated: false,
+    active_member: false
+});
+
 export const getFiltersFromUrl = () => {
-    let filtersFromUrl = {};
+    let filters = {...getEmptyFilters()};
 
     if (history.location.search) {
+        let filtersFromUrl = {};
+
         decodeURIComponent(history.location.search).replace('?', '').split('&').forEach(param => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            filtersFromUrl[key] = key !== 'string_filter' ? +value : value;
+            if (key === 'federation_ids' || key === 'city_ids' || key === 'breed_ids' || key === 'rank_ids') {
+                filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
+            } else if(key === 'activated' || key === 'active_member') {
+                filtersFromUrl[key] = value === 'true';
+            } else {
+                filtersFromUrl[key] = key === 'search_type' ? +value : value;
+            }
+        });
+
+        Object.keys(filters).forEach(key => {
+            if(filtersFromUrl[key] !== undefined) {
+                filters[key] = filtersFromUrl[key];
+            }
         });
     }
 
-    return filtersFromUrl;
+    return filters;
 };
 
-export const setFiltersToUrl = filters => history.push(`/search?${buildUrlParams({...filters})}`);
+export const setFiltersToUrl = filters => {
+    const newFilters = Object.keys(filters).length > 2 ? {...filters} : {...getFiltersFromUrl(), ...filters};
+
+    history.push(`/search${buildUrlParams(newFilters)}`);
+};
