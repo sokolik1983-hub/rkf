@@ -8,7 +8,7 @@ import CardOrganization from "../../../../components/CardOrganization";
 import './index.scss';
 
 
-const FoundInfo = () => {
+const FoundInfo = ({found_info_clicked}) => {
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const FoundInfo = () => {
     };
 
     return (
-        <Card id="found-info-anchor">
+        <Card id="found-info-anchor" className={found_info_clicked ? `_active_card` : ``}>
             <div className="search-form__icon found-info" />
             <h3>Информация о найденных собаках</h3>
             <p>Если Вами была найдена собака, на теле которой проставлено клеймо - введите его код в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, зарегистрировавший собаку, в который Вы можете обратиться для уточнения любой интересующей Вас информации.</p>

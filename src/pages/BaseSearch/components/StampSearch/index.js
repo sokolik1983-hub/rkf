@@ -8,7 +8,7 @@ import CardOrganization from "../../../../components/CardOrganization";
 import '../FoundInfo/index.scss';
 
 
-const StampSearch = () => {
+const StampSearch = ({stamp_clicked}) => {
     const [stamp_code, setStampCode] = useState('');
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const StampSearch = () => {
     };
 
     return (
-        <Card id="stamp-search-anchor">
+        <Card id="stamp-search-anchor" className={stamp_clicked ? `_active_card` : ``}>
             <div className="search-form__icon stamp-search" />
             <h3>Поиск клуба/питомника по клейму</h3>
             <p>Введите код клейма в поле на данной карточке и нажмите кнопку "Поиск". В случае если данные клейма содержатся в Базе РКФ, Вам будет показан клуб/питомник, за которым закреплено указанное Вами клеймо.</p>
