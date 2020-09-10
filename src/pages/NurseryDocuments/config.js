@@ -36,6 +36,7 @@ const idNumber = (name, o = null) => mixed().when(name,{
         otherwise: (o || mixed()).required(reqText)
     })
 const lat = () => string().matches(/^[^а-я]+$/i, {message:'Поле заполняется латиницей'})
+const latOptional = () => string().matches(/^[^а-я]+$/i, {message: 'Поле заполняется латиницей', excludeEmptyString: true})
 const file = () => string()/*() => mixed().test('is-accepted', 'Поддерживаются только форматы png, jpeg, jpg и pdf', 
         (async f => (f instanceof File) && [
             "image/png",
@@ -191,7 +192,7 @@ const litterDeclarantsUpdateSchema = array().of(object().shape({
     litters: array().of(object().shape({
         id: number(),
         dog_name: string().required(reqText),
-        dog_name_lat: lat(),
+        dog_name_lat: latOptional(),
         dog_color: string().required(reqText),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
