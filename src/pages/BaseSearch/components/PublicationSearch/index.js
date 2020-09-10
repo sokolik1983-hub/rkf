@@ -45,7 +45,7 @@ const PublicationSearch = () => {
     const handleSubmit = e => {
         e.preventDefault();
         setItems([]);
-        requestPublication(min_price, max_price);
+        requestPublication();
     };
 
     const handleReset = e => {
