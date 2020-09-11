@@ -21,12 +21,14 @@ import PublicationSearch from "./components/PublicationSearch";
 import "./index.scss";
 
 
-const BaseSearch = ({ clubAlias = false, nurseryAlias = false }) => {
+const BaseSearch = () => {
     const [found_info_clicked, setFoundInfoClicked] = useState(false);
     const [status_clicked, setStatusClicked] = useState(false);
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
+    const [clubAlias, setClubAlias] = useState('');
+    const [nurseryAlias, setNurseryAlias] = useState('');
     const [alert, seAlert] = useState(false);
 
     const handleActiveReset = () => {
@@ -90,7 +92,8 @@ const BaseSearch = ({ clubAlias = false, nurseryAlias = false }) => {
                                             />
                                         }
                                     </>
-                                    : nurseryAlias ? <CustomMenu title="Личный кабинет">
+                                    : 
+                                    nurseryAlias ? <CustomMenu title="Личный кабинет">
                                         <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
                                         <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
                                         <Link to={`/base-search?alias=${nurseryAlias}&type=nursery`}>Поиск по базе РКФ</Link>
