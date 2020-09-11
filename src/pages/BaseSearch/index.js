@@ -12,7 +12,7 @@ import Statistics from "../../components/Statistics";
 import StampSearch from "./components/StampSearch";
 import RefereeSearch from "./components/RefereeSearch";
 import OutsideClickHandler from "react-outside-click-handler";
-import PublicationSearch from "./components/PublicationSearch";
+// import PublicationSearch from "./components/PublicationSearch";
 import { Link } from "react-scroll";
 import "./index.scss";
 
@@ -23,6 +23,7 @@ const BaseSearch = () => {
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
+    // const [publication_clicked, setPublicationClicked] = useState(false);
 
     const handleActiveReset = () => {
         setFoundInfoClicked(false);
@@ -30,6 +31,7 @@ const BaseSearch = () => {
         setRegistrationClicked(false);
         setStampClicked(false);
         setRefereeClicked(false);
+        // setPublicationClicked(false);
     };
 
     return (
@@ -43,7 +45,7 @@ const BaseSearch = () => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
-                            <PublicationSearch />
+                            {/* <PublicationSearch publication_clicked={publication_clicked} /> */}
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
@@ -135,6 +137,24 @@ const BaseSearch = () => {
                                                         }}
                                                     >
                                                         Поиск судьи
+                                                </Link>
+                                                </li>
+                                                <li className="menu-component__item">
+                                                    <Link
+                                                        to="publication-search-anchor"
+                                                        spy={true}
+                                                        smooth={true}
+                                                        offset={-60}
+                                                        duration={500}
+                                                        className="menu-component__link disabled"
+                                                        title="Поиск по объявлениям"
+                                                        // onClick={() => {
+                                                        //     handleActiveReset();
+                                                        //     setPublicationClicked(true);
+                                                        // }}
+                                                        disabled={true}
+                                                    >
+                                                        Поиск по объявлениям
                                                 </Link>
                                                 </li>
                                             </ul>
