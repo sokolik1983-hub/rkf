@@ -471,7 +471,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 </li>
             </>}
             
-                <li className="menu-component__item menu-component__item--documents">
+                <li className="menu-component__item menu-component__item--documents ">
                     <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
                 </li>
             <li className="menu-component__item menu-component__item--club">
