@@ -17,6 +17,7 @@ import Alert from "../../components/Alert";
 import TopComponent from "../../components/TopComponent";
 import { Link as LinkScroll } from "react-scroll";
 import { Link } from "react-router-dom";
+import PublicationSearch from "./components/PublicationSearch";
 import "./index.scss";
 
 
@@ -64,6 +65,7 @@ const BaseSearch = ({ clubAlias = false, nurseryAlias = false }) => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
+                            <PublicationSearch />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
