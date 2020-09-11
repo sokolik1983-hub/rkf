@@ -43,6 +43,7 @@ const List = ({
                                 adCode={item.advert_code}
                                 adPrice={item.advert_cost}
                                 adAmount={item.advert_number_of_puppies}
+                                adCategory={item.advert_type_name}
                                 isClosedAd={item.is_closed_advert}
                                 onAdClose={onAdClose}
                                 onDelete={onDelete}

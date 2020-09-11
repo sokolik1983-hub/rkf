@@ -10,6 +10,7 @@ import HomepageSlider from "./components/HomepageSlider";
 import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 // import HomepageCheckStatus from "./components/HomepageCheckStatus";
 import ClubsMap from "../../components/ClubsMap";
+import Statistics from "../../components/Statistics";
 import { RKFInfo, exhibitions } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
@@ -50,6 +51,7 @@ const HomePage = ({ homepage, cities }) => {
                                         </div>
                                     </Card>
                                     {/* <HomepageCheckStatus /> */}
+                                    <Statistics />
                                     <Card className="home-page__projects-wrap">
                                         <h3>Международные мероприятия</h3>
                                         <div className="home-page__projects">

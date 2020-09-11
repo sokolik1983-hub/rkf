@@ -1,0 +1,47 @@
+.price-filter {
+  &__title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: .2px;
+    color: #72839C;
+    margin-bottom: 6px;
+  }
+  &__form {
+    display: flex;
+    align-items: flex-end;
+    &-field {
+      width: calc(50% - 16px);
+      &:first-child {
+        margin-right: 6px;
+      }
+    }
+    &-label {
+      font-size: 14px;
+      color: #72839c;
+    }
+    &-input {
+      width: 100%;
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      padding: 5px;
+      transition: border-color .2s linear;
+      &:focus {
+        border-color: #3366FF;
+      }
+    }
+    &-submit {
+      border: none;
+      padding: 6px 0 4px;
+      line-height: 1;
+      margin-left: 6px;
+      svg {
+        fill: #72839c;
+        transition: fill .2s linear;
+        &:hover {
+          fill: #3366FF;
+        }
+      }
+    }
+  }
+}
