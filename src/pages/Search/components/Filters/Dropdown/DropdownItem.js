@@ -7,6 +7,7 @@ import ActivatedFilter from "../../../../../components/Filters/ActivatedFilter";
 import BreedsFilter from "../../../../../components/Filters/BreedsFilter";
 import CitiesFilter from "../../../../../components/Filters/CitiesFilter";
 import RanksFilter from "../../../../../components/Filters/RanksFilter";
+import PriceFilter from "../../../../../components/Filters/PriceFilter";
 import {formatDateToString} from "../../../../../utils/datetime";
 import {getEmptyFilters, setFiltersToUrl} from "../../../utils";
 
@@ -97,6 +98,12 @@ const DropdownItem = ({filtersValue,
                                     ranks={ranks}
                                     rank_ids={filtersValue.rank_ids}
                                     onChange={filter => setFiltersToUrl({rank_ids: filter})}
+                                /> :
+                            filter === 'price' ?
+                                <PriceFilter
+                                    price_from={filtersValue.price_from}
+                                    price_to={filtersValue.price_to}
+                                    onChange={filter => setFiltersToUrl(filter)}
                                 /> :
                             null
                         )}

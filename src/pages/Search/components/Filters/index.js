@@ -18,21 +18,23 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
     return (
         <Aside className={`search-page__left${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={66}>
-                <Card className="search-page__filters">
-                    <h3 className="search-page__filters-title">Результаты поиска для</h3>
-                    <p className="search-page__filters-value">{filtersValue.string_filter}</p>
-                    {filters.map(filter =>
-                        <Dropdown
-                            key={filter.name}
-                            filtersValue={filtersValue}
-                            {...filter}
-                            additionalFilters={additionalFilters}
-                        />
-                    )}
-                </Card>
-                <div className="search-page__copy-wrap">
-                    <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                    <p>Политика обработки персональных данных</p>
+                <div className="search-page__filters-wrap">
+                    <Card className="search-page__filters">
+                        <h3 className="search-page__filters-title">Результаты поиска для</h3>
+                        <p className="search-page__filters-value">{filtersValue.string_filter}</p>
+                        {filters.map(filter =>
+                            <Dropdown
+                                key={filter.name}
+                                filtersValue={filtersValue}
+                                {...filter}
+                                additionalFilters={additionalFilters}
+                            />
+                        )}
+                    </Card>
+                    <div className="search-page__copy-wrap">
+                        <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
+                        <p>Политика обработки персональных данных</p>
+                    </div>
                 </div>
             </StickyBox>
         </Aside>
