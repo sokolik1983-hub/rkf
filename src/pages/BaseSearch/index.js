@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
@@ -18,6 +18,7 @@ import TopComponent from "../../components/TopComponent";
 import { Link as LinkScroll } from "react-scroll";
 import { Link } from "react-router-dom";
 import PublicationSearch from "./components/PublicationSearch";
+import { parseLocationSearch } from "./utils.js";
 import "./index.scss";
 
 
@@ -27,9 +28,23 @@ const BaseSearch = () => {
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
+
     const [clubAlias, setClubAlias] = useState('');
     const [nurseryAlias, setNurseryAlias] = useState('');
     const [alert, seAlert] = useState(false);
+
+    useEffect(() => {
+        const organizationData = parseLocationSearch(window.location.search);
+        let [orgDataList] = organizationData;
+        let [orgType, alias] = orgDataList;
+        if (orgType === 'clubAlias') {
+            setClubAlias(alias);
+            window.scrollTo(0, 0);
+        } else if (orgType === 'nurseryAlias') {
+            setNurseryAlias(alias);
+            window.scrollTo(0, 0);
+        }
+    }, [])
 
     const handleActiveReset = () => {
         setFoundInfoClicked(false);
