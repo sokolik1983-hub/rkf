@@ -114,7 +114,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
     const getNextResults = () => {
         if (searchResult.length) {
-            (() => getSearchResults(startElement + 10, false))();
+            (() => getSearchResults(startElement + 10))();
             setStartElement(startElement + 10);
         }
     };
