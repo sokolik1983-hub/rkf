@@ -139,14 +139,14 @@ const BaseSearch = () => {
                                                         Поиск судьи
                                                 </Link>
                                                 </li>
-                                                <li className="menu-component__item _disabled">
+                                                <li className="menu-component__item">
                                                     <Link
                                                         to="publication-search-anchor"
                                                         spy={true}
                                                         smooth={true}
                                                         offset={-60}
                                                         duration={500}
-                                                        className="menu-component__link"
+                                                        className="menu-component__link disabled"
                                                         title="Поиск по объявлениям"
                                                         // onClick={() => {
                                                         //     handleActiveReset();
