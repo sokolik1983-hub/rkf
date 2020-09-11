@@ -6,7 +6,6 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import { Gallery, DndImageUpload } from "components/Gallery";
 import AuthOrLogin from "pages/Login/components/AuthOrLogin";
-import Button from 'components/Button';
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
@@ -16,6 +15,7 @@ import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
+import declension from "utils/declension";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
@@ -27,6 +27,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [images, setImages] = useState([]);
+    const [allSelected, setAllSelected] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [album, setAlbum] = useState(null);
     const [selectedImages, setSelectedImages] = useState([]);
@@ -69,6 +70,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                 }
                 setHasMore(false);
             }
+
             setAlbum(data.album);
             setImagesLoading(false);
         }, error => handleError(error));
@@ -103,14 +105,21 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     }
 
     const handleDelete = () => {
-        Request({
-            url: '/api/photogallery/gallery',
-            method: "DELETE",
-            data: JSON.stringify(selectedImages.map(i => i.id))
-        }, () => {
-            setImages(images.filter(i => !selectedImages.find(s => s.id === i.id)));
-            setSelectedImages([]);
-        }, error => handleError(error));
+        if (window.confirm('Вы уверены?')) {
+            Request({
+                url: '/api/photogallery/gallery',
+                method: "DELETE",
+                data: JSON.stringify(selectedImages.map(i => i.id))
+            }, () => {
+                setShowAlert({
+                    title: 'Успешно удалено!',
+                    autoclose: 1.5,
+                    onOk: () => setShowAlert(false)
+                });
+                setSelectedImages([]);
+                getImages();
+            }, error => handleError(error));
+        }
     };
 
     const handleError = e => {
@@ -133,6 +142,21 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
         });
         getImages();
     };
+
+    const onSelectAll = () => {
+        let imgs = images;
+        if (!allSelected) {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = true;
+        }
+        else {
+            for (let i = 0; i < imgs.length; i++)
+                imgs[i].isSelected = false;
+        }
+        setImages(imgs);
+        setSelectedImages(imgs.filter(i => i.isSelected === true));
+        setAllSelected(!allSelected);
+    }
 
     const Breadcrumbs = () => {
         return <div className="NurseryGallery__breadcrumbs wrap">
@@ -182,11 +206,41 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         <div className="NurseryGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
-                                                {album && album.addition && <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />}
+                                                {album && album.addition && <>
+                                                    <div className="NurseryGallery__edit-wrap">
+                                                        <div className="NurseryGallery__edit-cover">
+                                                            <h4>Обложка альбома</h4>
+                                                            <div className="NurseryGallery__edit-cover-image" style={{ backgroundImage: `url(${album.cover || DEFAULT_IMG.noImage})` }} />
+                                                        </div>
+                                                        <EditAlbum album={album} onSuccess={onAlbumAddSuccess} />
+                                                    </div>
+                                                </>}
                                                 {canEdit &&
                                                     <>
+                                                        <hr className="NurseryGallery__content-divider" />
                                                         {album && album.addition && <DndImageUpload callback={getImages} album_id={album && album.id} />}
-
+                                                        <div className="NurseryGallery__count">
+                                                            <h4>
+                                                                {album
+                                                                    ? selectedImages.length
+                                                                        ? <>Выбрано <strong>{selectedImages.length}</strong> из <strong>{album.count}</strong> фотографий</>
+                                                                        : <><strong>{album.count}</strong>&nbsp;{declension(album.count, ['фотография', 'фотографии', 'фотографий'])}</>
+                                                                    : null
+                                                                }
+                                                            </h4>
+                                                            <div className="NurseryGallery__count-buttons">
+                                                                {!!selectedImages.length &&
+                                                                    <span onClick={handleDelete}>Удалить</span>
+                                                                }
+                                                                {!!images.length && <span onClick={onSelectAll}>
+                                                                    {
+                                                                        !!selectedImages.length && allSelected
+                                                                            ? 'Снять выделение'
+                                                                            : 'Выбрать все фотографии'
+                                                                    }
+                                                                </span>}
+                                                            </div>
+                                                        </div>
                                                         <InfiniteScroll
                                                             dataLength={images.length}
                                                             next={getNextImages}
@@ -202,11 +256,6 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             <Gallery items={images} match={match} backdropClosesModal={true} onSelectImage={onSelectImage} />
                                                         </InfiniteScroll>
                                                     </>
-                                                }
-                                                {!!selectedImages.length
-                                                    && <div className="NurseryGallery__buttons">
-                                                        <Button condensed className="NurseryGallery__delete-button" onClick={handleDelete}>Удалить выбранные</Button>
-                                                    </div>
                                                 }
                                             </Card>
                                         </div>

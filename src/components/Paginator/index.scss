@@ -26,9 +26,9 @@
         -webkit-appearance: none;
         margin: 0;
       }
-      &::placeholder {
-        color: #b9c1ce;
-      }
+      // &::placeholder {
+      //   color: #b9c1ce;
+      // }
       @media (max-width: 560px) {
         width: 68px;
         padding: 6px;

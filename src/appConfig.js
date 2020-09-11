@@ -182,6 +182,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/kennel/:route/document-status',
+        component: LoadableModules.LoadableNurseryDocumentStatus
+    },
+    {
+        exact: true,
         path: '/:route/document-status/:query',
         component: LoadableModules.LoadableDocumentStatus
     },

@@ -47,6 +47,7 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
             advert_breed_id,
             advert_cost,
             advert_number_of_puppies,
+            advert_type_id
         } = values;
         return {
             content: content.replace(/<[^>]*>/g, ''),
@@ -55,7 +56,7 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
             advert_breed_id: is_advert ? advert_breed_id : null,
             advert_cost: is_advert ? advert_cost : null,
             advert_number_of_puppies: is_advert ? advert_number_of_puppies : null,
-
+            advert_type_id: is_advert ? advert_type_id : null
         };
     };
 

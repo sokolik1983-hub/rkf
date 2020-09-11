@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import {number, object, string} from "yup";
+import React, { useState } from "react";
+import { number, object, string } from "yup";
 import Card from "../Card";
-import {Form} from "../Form";
+import { Form } from "../Form";
 import RenderFields from "./RenderFields";
-import {newsArticleFormConfig} from "./config";
+import { newsArticleFormConfig } from "./config";
 import './index.scss';
 
 
-const AddArticle = ({id, logo, setNeedRequest}) => {
+const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isAd, setIsAd] = useState(false);
 
     const transformValues = values => {
-        if(isAd) {
+        if (isAd) {
             return {
                 ...values,
                 advert_number_of_puppies: +values.advert_number_of_puppies,
@@ -37,12 +37,14 @@ const AddArticle = ({id, logo, setNeedRequest}) => {
                     object().shape({
                         content: string().required('Поле не может быть пустым'),
                         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
-                        advert_number_of_puppies: isAd ? string().required('Поле не может быть пустым') : ''
-                })}
+                        advert_number_of_puppies: isAd ? string().required('Поле не может быть пустым') : '',
+                        advert_type_id: isAd ? number().nullable().required('Выберите категорию') : ''
+                    })}
                 initialValues={{
                     advert_breed_id: '',
                     advert_cost: '',
-                    advert_number_of_puppies: ''
+                    advert_number_of_puppies: '',
+                    advert_type_id: ''
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}

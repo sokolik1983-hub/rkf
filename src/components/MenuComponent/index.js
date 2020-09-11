@@ -401,14 +401,12 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
     const MenuContent = () => isMobile ? <Card className="user-menu">
     <h4 className="user-menu__title">Меню</h4>
     <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-        {isMobile &&
             <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
                 <span/>
                 <span/>
                 <span/>
                 <span/>
             </button>
-        }
         <CSSTransition
             in={!isMobile || (isMobile && open)}
             timeout={350}
@@ -425,10 +423,9 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 <li className="user-menu__item">
                     <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
                 </li>
-                {user !== 'nursery' &&
                 <li className="user-menu__item">
-                    <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                </li>}
+                    <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                </li>
                 <li className="user-menu__item">
                     <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
                         {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
@@ -470,9 +467,8 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         </Link>
                 </li>
             </>}
-            
-                <li className="menu-component__item menu-component__item--documents">
-                    <Link to={`/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                <li className="menu-component__item">
+                    <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
                 </li>
             <li className="menu-component__item menu-component__item--club">
                 <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
