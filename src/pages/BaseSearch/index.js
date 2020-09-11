@@ -19,6 +19,7 @@ import { Link as LinkScroll } from "react-scroll";
 import { Link } from "react-router-dom";
 import PublicationSearch from "./components/PublicationSearch";
 import { parseLocationSearch } from "./utils.js";
+import { Request } from "../../utils/request";
 import "./index.scss";
 
 
@@ -32,6 +33,30 @@ const BaseSearch = () => {
     const [clubAlias, setClubAlias] = useState('');
     const [nurseryAlias, setNurseryAlias] = useState('');
     const [alert, seAlert] = useState(false);
+    const [clubData, setClubData] = useState(null);
+    const [nurseryData, setNurseryData] = useState(null);
+
+    const requestInfoClub = async (clubAlias) => {
+        await Request({
+            url: '/api/Club/public/' + clubAlias
+        }, data => {
+            setClubData(data);
+            console.log(data);
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    const requestInfoNursery = async (nurseryAlias) => {
+        await Request({
+            url: '/api/nurseries/nursery/public/' + nurseryAlias
+        }, data => {
+            setNurseryData(data);
+            console.log(data);
+        }, error => {
+            console.log(error.response);
+        });
+    };
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
@@ -39,9 +64,11 @@ const BaseSearch = () => {
         let [orgType, alias] = orgDataList;
         if (orgType === 'clubAlias') {
             setClubAlias(alias);
+            requestInfoClub(alias);
             window.scrollTo(0, 0);
         } else if (orgType === 'nurseryAlias') {
             setNurseryAlias(alias);
+            requestInfoNursery(alias);
             window.scrollTo(0, 0);
         }
     }, [])
