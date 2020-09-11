@@ -152,7 +152,6 @@ const BaseSearch = () => {
                                                         //     handleActiveReset();
                                                         //     setPublicationClicked(true);
                                                         // }}
-                                                        disabled={true}
                                                     >
                                                         Поиск по объявлениям
                                                 </Link>

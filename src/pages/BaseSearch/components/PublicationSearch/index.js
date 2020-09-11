@@ -119,7 +119,7 @@ const PublicationSearch = ({publication_clicked}) => {
 
     return (
         <Card className={`PublicationSearch ${publication_clicked ? `_active_card` : ``}`} id="publication-search-anchor">
-            <div className="search-form__icon" />
+            <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
             <form className="search-form" onSubmit={handleSubmit}>
@@ -202,7 +202,7 @@ const PublicationSearch = ({publication_clicked}) => {
             }
             {alert &&
                 <Alert
-                    text="Судья не найден"
+                    text="Объявления не найдены"
                     autoclose={1.5}
                     onOk={() => setAlert(false)}
                 />

@@ -67,6 +67,9 @@
         &.referee_search {
             background-image: url("/static/images/base_search/referee_search.svg");
         }
+        &.publication-search {
+            background-image: url("/static/images/base_search/publication-search.svg");
+        }
     }
     &__default-content {
         padding-top: 16px;
