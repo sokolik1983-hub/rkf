@@ -95,6 +95,7 @@ const PublicationSearch = () => {
                     });
                     if (data.articles.length < 10) {
                         setHasMore(false);
+                        setStartElement(1);
                     } else {
                         setHasMore(true);
                     }
@@ -111,8 +112,8 @@ const PublicationSearch = () => {
 
     const getNextResults = () => {
         if (hasMore) {
-            setStartElement(startElement + 10);
             (() => requestPublication(startElement + 10))();
+            setStartElement(startElement + 10);
         }
     };
 
