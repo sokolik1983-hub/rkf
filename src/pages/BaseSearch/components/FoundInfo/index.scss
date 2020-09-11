@@ -18,6 +18,14 @@
         flex-grow: 1;
         &:not(:first-child) {
             margin-left: 6px;
+            @media (max-width: 320px) {
+                margin-left: 0;
+            }
+        }
+        &:nth-child(3) {
+            @media (max-width: 768px) {
+                margin-left: 0;
+            }
         }
     }
     &__input {
