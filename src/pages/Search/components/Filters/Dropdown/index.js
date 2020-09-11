@@ -4,7 +4,7 @@ import DropdownItem from "./DropdownItem";
 import "./index.scss";
 
 
-const Dropdown = ({name, items, filtersValue}) => {
+const Dropdown = ({name, items, filtersValue, additionalFilters}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -18,7 +18,7 @@ const Dropdown = ({name, items, filtersValue}) => {
             >
                 <ul className="dropdown__list">
                     {items.map(item =>
-                        <DropdownItem key={item.name} {...item} filtersValue={filtersValue} />
+                        <DropdownItem key={item.name} {...item} filtersValue={filtersValue} {...additionalFilters} />
                     )}
                 </ul>
             </CSSTransition>
