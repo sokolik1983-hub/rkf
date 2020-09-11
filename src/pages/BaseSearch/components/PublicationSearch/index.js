@@ -65,16 +65,23 @@ const PublicationSearch = () => {
         setMaxPrice('');
     };
 
+    const arrToParams = (arr, param) => {
+        return arr ? arr.map(a => `${param}=${a}`).join('') : ''
+    }
+
     const requestPublication = (startElem = 1) => {
         setNewsLoading(true);
+        const url = `/api/article/public_all_v2${(breedIds.length || cityIds.length)
+            ? '?' + arrToParams(breedIds, '&article_ad_breed_ids') + arrToParams(cityIds, '&fact_city_ids')
+            : ''}`
+            .replace('?&', '?');
+
         PromiseRequest({
-            url: '/api/article/public_all_v2',
+            url: url,
             params: {
                 is_advert: true,
                 article_ad_cost_from: min_price,
                 article_ad_cost_to: max_price,
-                'article_ad_breed_ids': breedIds,
-                'fact_city_ids': cityIds,
                 start_element: startElem
             }
         })
@@ -88,6 +95,7 @@ const PublicationSearch = () => {
                     });
                     if (data.articles.length < 10) {
                         setHasMore(false);
+                        setStartElement(1);
                     } else {
                         setHasMore(true);
                     }
@@ -104,8 +112,8 @@ const PublicationSearch = () => {
 
     const getNextResults = () => {
         if (hasMore) {
-            setStartElement(startElement + 10);
             (() => requestPublication(startElement + 10))();
+            setStartElement(startElement + 10);
         }
     };
 
