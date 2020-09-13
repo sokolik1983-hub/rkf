@@ -29,6 +29,7 @@ const BaseSearch = () => {
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
+    const [publication_clicked, setPublicationClicked] = useState(false);
 
     const [alert, seAlert] = useState(false);
     const [clubData, setClubData] = useState(null);
@@ -72,6 +73,7 @@ const BaseSearch = () => {
         setRegistrationClicked(false);
         setStampClicked(false);
         setRefereeClicked(false);
+        setPublicationClicked(false);
     };
 
     const handleBrokenLinkClick = e => {
@@ -102,7 +104,7 @@ const BaseSearch = () => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
-                            <PublicationSearch />
+                            <PublicationSearch publication_clicked={publication_clicked} />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
@@ -131,7 +133,7 @@ const BaseSearch = () => {
                                         nurseryData ? <CustomMenu title="Личный кабинет">
                                             <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
                                             <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                            <Link to={`/base-search?alias=${nurseryData.alias}&type=nursery`}>Поиск по базе РКФ</Link>
+                                            <Link to={`/base-search?alias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
                                             {/*<Link to={`/kennel/${nurseryData.alias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                                             {/*<Link to="/reports" title="Отчеты" onClick={handleBrokenLinkClick}>Отчеты</Link>*/}
                                             <Link to={`/kennel/${nurseryData.alias}/documents/bookform`}>Запись на очный прием</Link>
@@ -227,6 +229,23 @@ const BaseSearch = () => {
                                                                     }}
                                                                 >
                                                                     Поиск судьи
+                                                                </LinkScroll>
+                                                            </li>
+                                                            <li className="menu-component__item">
+                                                                <LinkScroll
+                                                                    to="publication-search-anchor"
+                                                                    spy={true}
+                                                                    smooth={true}
+                                                                    offset={-60}
+                                                                    duration={500}
+                                                                    className="menu-component__link"
+                                                                    title="Поиск по объявлениям"
+                                                                    onClick={() => {
+                                                                        handleActiveReset();
+                                                                        setPublicationClicked(true);
+                                                                    }}
+                                                                >
+                                                                    Поиск по объявлениям
                                                                 </LinkScroll>
                                                             </li>
                                                         </ul>

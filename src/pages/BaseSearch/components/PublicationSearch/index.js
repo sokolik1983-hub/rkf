@@ -10,7 +10,7 @@ import List from "components/List";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import './index.scss';
 
-const PublicationSearch = () => {
+const PublicationSearch = ({publication_clicked}) => {
     const [items, setItems] = useState([]);
     const [min_price, setMinPrice] = useState(undefined);
     const [max_price, setMaxPrice] = useState(undefined);
@@ -118,8 +118,8 @@ const PublicationSearch = () => {
     };
 
     return (
-        <Card className="PublicationSearch">
-            <div className="search-form__icon" />
+        <Card className={`PublicationSearch ${publication_clicked ? `_active_card` : ``}`} id="publication-search-anchor">
+            <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
             <form className="search-form" onSubmit={handleSubmit}>
@@ -202,7 +202,7 @@ const PublicationSearch = () => {
             }
             {alert &&
                 <Alert
-                    text="Судья не найден"
+                    text="Объявления не найдены"
                     autoclose={1.5}
                     onOk={() => setAlert(false)}
                 />
