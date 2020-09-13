@@ -109,14 +109,14 @@ const BaseSearch = () => {
                                 <div className="base-search__info-inner">
                                     {clubData ? <>
                                         <CustomMenu title="Личный кабинет">
-                                            <Link to={`/${clubData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
-                                            <Link to={`/${clubData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                            <Link to={`/${clubData.alias}/documents/stamps`} title="Клейма">Клейма</Link>
+                                            <Link to={`/${clubData.club_alias}/documents`} title="Оформление документов">Оформление документов</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/stamps`} title="Клейма">Клейма</Link>
                                             <Link to="/reports" title="Отчеты" onClick={handleBrokenLinkClick}>Отчеты</Link>
-                                            <Link to={`/base-search?clubAlias=${clubData.alias}`}>Поиск по базе РКФ</Link>
-                                            <Link to={`/${clubData.alias}/documents/bookform`}>Запись на очный прием</Link>
-                                            <Link to={`/${clubData.alias}/documents/review`}>Оценка работы федерации</Link>
-                                            <Link to={`/${clubData.alias}`} title="Страница клуба">Страница клуба</Link>
+                                            <Link to={`/base-search?clubAlias=${clubData.club_alias}`}>Поиск по базе РКФ</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/bookform`}>Запись на очный прием</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/review`}>Оценка работы федерации</Link>
+                                            <Link to={`/${clubData.club_alias}`} title="Страница клуба">Страница клуба</Link>
                                         </CustomMenu>
                                         {alert &&
                                             <Alert
