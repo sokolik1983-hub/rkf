@@ -17,7 +17,7 @@ import Alert from "../../components/Alert";
 import TopComponent from "../../components/TopComponent";
 import { Link as LinkScroll } from "react-scroll";
 import { Link } from "react-router-dom";
-import PublicationSearch from "./components/PublicationSearch";
+// import PublicationSearch from "./components/PublicationSearch";
 import { parseLocationSearch } from "./utils.js";
 import { Request } from "../../utils/request";
 import "./index.scss";
@@ -29,7 +29,7 @@ const BaseSearch = () => {
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
-    const [publication_clicked, setPublicationClicked] = useState(false);
+    // const [publication_clicked, setPublicationClicked] = useState(false);
 
     const [alert, seAlert] = useState(false);
     const [clubData, setClubData] = useState(null);
@@ -37,12 +37,10 @@ const BaseSearch = () => {
 
     useEffect(() => {
         const organizationData = parseLocationSearch(window.location.search);
-        let [orgDataList] = organizationData;
-        let [orgType, alias] = orgDataList;
+        let [orgType, alias] = organizationData[0];
         if (orgType === 'clubAlias') {
 
             let url = `/api/Club/public/${alias}`;
-
             (() => Request({ url },
                 data => {
                     setClubData(data);
@@ -54,7 +52,6 @@ const BaseSearch = () => {
         } else if (orgType === 'nurseryAlias') {
 
             let url = `/api/nurseries/nursery/public/${alias}`;
-
             (() => Request({ url },
                 data => {
                     setNurseryData(data);
@@ -73,7 +70,7 @@ const BaseSearch = () => {
         setRegistrationClicked(false);
         setStampClicked(false);
         setRefereeClicked(false);
-        setPublicationClicked(false);
+        // setPublicationClicked(false);
     };
 
     const handleBrokenLinkClick = e => {
@@ -104,7 +101,7 @@ const BaseSearch = () => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
-                            <PublicationSearch publication_clicked={publication_clicked} />
+                            {/* <PublicationSearch publication_clicked={publication_clicked} /> */}
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
@@ -133,9 +130,7 @@ const BaseSearch = () => {
                                         nurseryData ? <CustomMenu title="Личный кабинет">
                                             <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
                                             <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                            <Link to={`/base-search?alias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
-                                            {/*<Link to={`/kennel/${nurseryData.alias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
-                                            {/*<Link to="/reports" title="Отчеты" onClick={handleBrokenLinkClick}>Отчеты</Link>*/}
+                                            <Link to={`/base-search?nurseryAlias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
                                             <Link to={`/kennel/${nurseryData.alias}/documents/bookform`}>Запись на очный прием</Link>
                                             <Link to={`/kennel/${nurseryData.alias}/documents/review`}>Оценка работы федерации</Link>
                                             <Link to={`/kennel/${nurseryData.alias}`} title="Страница питомника">Страница питомника</Link>
@@ -238,12 +233,12 @@ const BaseSearch = () => {
                                                                     smooth={true}
                                                                     offset={-60}
                                                                     duration={500}
-                                                                    className="menu-component__link"
+                                                                    className="menu-component__link disabled"
                                                                     title="Поиск по объявлениям"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setPublicationClicked(true);
-                                                                    }}
+                                                                    // onClick={() => {
+                                                                    //     handleActiveReset();
+                                                                    //     setPublicationClicked(true);
+                                                                    // }}
                                                                 >
                                                                     Поиск по объявлениям
                                                                 </LinkScroll>
