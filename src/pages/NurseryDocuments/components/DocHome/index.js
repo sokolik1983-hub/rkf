@@ -194,7 +194,7 @@ const DocHome = ({ nurseryAlias, bookform }) => {
             <CustomMenu title="Личный кабинет">
                 <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов" className="menu-component__link--documents">Оформление документов</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация" className="menu-component__link--org">Организационная информация</Link>
-                {/* <Link to={`/base-search`}>Поиск по базе РКФ</Link> */}
+                <Link to={`/base-search?nurseryAlias=${nurseryAlias}`}>Поиск по базе РКФ</Link>
                 {/*<Link to={`/kennel/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 {/*<Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>*/}
                 <Link to={`/kennel/${nurseryAlias}/documents/bookform`} className="menu-component__link--appointment">Запись на очный прием</Link>
