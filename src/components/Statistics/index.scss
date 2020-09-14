@@ -1,9 +1,16 @@
 .statistics {
     padding: 10px !important;
+    h3 {
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e8e8e8;
+      }
+  
     &__title {
         font-weight: normal;
         line-height: 24px;
-        margin-bottom: 8px;
+    }
+    &__wrap {
+        margin-top: 5px;
     }
     &__text {
         text-align: center;
@@ -60,5 +67,12 @@
     }
     .Loading__title {
         margin: 0 auto;
+    }
+}
+._about_page {
+    padding: 32px !important;
+    h3 {
+        font-size: 22px;
+        padding-bottom: 15px;
     }
 }

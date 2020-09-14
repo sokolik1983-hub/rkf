@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTimeOut } from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
@@ -74,6 +75,8 @@ const BaseSearch = () => {
         e.preventDefault();
         seAlert(true);
     };
+
+    useTimeOut(handleActiveReset, 2000);
 
     return (
         <Layout>
