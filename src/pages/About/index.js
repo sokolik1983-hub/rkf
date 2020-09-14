@@ -30,7 +30,7 @@ const AboutPage = () => {
                     </div>
                     <aside className="about-page__info">
                         <FeedbackComponent />
-                        <Statistics />
+                        <Statistics isAboutPage />
                     </aside>
                 </div>
             </Container>

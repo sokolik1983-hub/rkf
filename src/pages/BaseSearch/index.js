@@ -159,7 +159,7 @@ const BaseSearch = () => {
                                             </ul>
                                         </Card>
                                     </OutsideClickHandler>
-                                    <Card className="base-search__card">
+                                    <Card className="base-search__socials">
                                         <h3>РКФ в соцсетях</h3>
                                         <div className="base-search__right-socials">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
