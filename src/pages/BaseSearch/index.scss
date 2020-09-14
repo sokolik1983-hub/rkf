@@ -35,7 +35,7 @@
       align-items: center;
       justify-content: space-between;
       width: 60%;
-      margin-top: 15px;
+      margin-top: 10px;
       a {
         &:first-child {
           width: 10px;
@@ -57,7 +57,7 @@
     }
     &__map {
       height: 300px;
-      margin-top: 14px;
+      margin-top: 12px;
       &-wrap {
         @media (max-width: 1100px) {
           display: none;
