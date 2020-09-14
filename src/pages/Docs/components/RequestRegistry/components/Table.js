@@ -6,9 +6,9 @@ import { Window } from '@progress/kendo-react-dialogs';
 import '@progress/kendo-theme-default/dist/all.css';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
-import ruMessages from './ruMessages.json';
+import kendoMessages from 'kendoMessages.json';
 
-loadMessages(ruMessages, 'ru-RU');
+loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
     { "status_id": 1, "StatusName": "Отклоненные" },
@@ -111,7 +111,7 @@ const Table = ({ documents, distinction }) => {
                         <Window
                             title="Подробности"
                             onClose={() => setWindowVisible(false)}
-                            height={300}>
+                            height={500}>
                             <dl style={{ textAlign: "left" }}>
                                 <dt><strong>Дата создания</strong></dt>
                                 <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_create}</dd>
