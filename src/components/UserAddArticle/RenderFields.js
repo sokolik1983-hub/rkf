@@ -16,6 +16,7 @@ import { Request } from "utils/request";
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
+    const [isMating, setIsMating] = useState(false);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, file } = formik.values;
@@ -118,10 +119,10 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                         <FormGroup inline className="ArticleCreateForm__advert">
                             <FormField {...fields.advert_breed_id} />
                             <CustomNumber {...fields.advert_cost} />
-                            <CustomNumber {...fields.advert_number_of_puppies} />
+                            {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
                         </FormGroup>
                         <FormGroup inline>
-                            <CustomChipList {...fields.advert_type_id} options={advertTypes} />
+                            <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                         </FormGroup>
                     </>}
                     <FormControls className="ArticleCreateForm__controls">

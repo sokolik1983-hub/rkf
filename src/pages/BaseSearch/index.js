@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTimeOut } from "../../shared/hooks.js";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import CheckStatus from "../Club/components/CheckStatus";
@@ -33,6 +34,8 @@ const BaseSearch = () => {
         setRefereeClicked(false);
         // setPublicationClicked(false);
     };
+
+    useTimeOut(handleActiveReset, 2000);
 
     return (
         <Layout>
@@ -159,7 +162,7 @@ const BaseSearch = () => {
                                             </ul>
                                         </Card>
                                     </OutsideClickHandler>
-                                    <Card className="base-search__card">
+                                    <Card className="base-search__socials">
                                         <h3>РКФ в соцсетях</h3>
                                         <div className="base-search__right-socials">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>

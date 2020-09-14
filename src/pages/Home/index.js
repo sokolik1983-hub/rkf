@@ -34,12 +34,12 @@ const HomePage = ({ homepage, cities }) => {
                         <Aside className="home-page__right">
                             <StickyBox offsetTop={65}>
                                 <div className="home-page__right-wrap">
-                                    <Card>
+                                    <Card className="home-page__about">
                                         <h3>{RKFInfo.aboutTitle}</h3>
                                         <p>{RKFInfo.about}</p>
                                     </Card>
-                                    <Card>
-                                        <h3 style={{ marginBottom: '7px' }}>РКФ в соцсетях</h3>
+                                    <Card className="home-page__socials">
+                                        <h3>РКФ в соцсетях</h3>
                                         <div className="home-page__right-socials">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                             <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
@@ -50,7 +50,6 @@ const HomePage = ({ homepage, cities }) => {
                                             <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                                         </div>
                                     </Card>
-                                    {/* <HomepageCheckStatus /> */}
                                     <Statistics />
                                     <Card className="home-page__projects-wrap">
                                         <h3>Международные мероприятия</h3>
