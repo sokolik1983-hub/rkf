@@ -40,18 +40,17 @@ const BaseSearch = () => {
         let [orgType, alias] = organizationData[0];
         if (orgType === 'clubAlias') {
 
-            let url = `/api/Club/public/${alias}`;
-            (() => Request({ url },
+            (() => Request({url: `/api/Club/public/${alias}`},
                 data => {
                     setClubData(data);
+                    console.log(data)
                 },
                 error => {
                     console.log(error.response);
                 }))();
         } else if (orgType === 'nurseryAlias') {
 
-            let url = `/api/nurseries/nursery/public/${alias}`;
-            (() => Request({ url },
+            (() => Request({url: `/api/nurseries/nursery/public/${alias}`},
                 data => {
                     setNurseryData(data);
                 },
