@@ -48,7 +48,6 @@ const BaseSearch = () => {
                 error => {
                     console.log(error.response);
                 }))();
-            window.scrollTo(0, 0);
         } else if (orgType === 'nurseryAlias') {
 
             let url = `/api/nurseries/nursery/public/${alias}`;
@@ -59,9 +58,8 @@ const BaseSearch = () => {
                 error => {
                     console.log(error.response);
                 }))();
-
-            window.scrollTo(0, 0);
         }
+        window.scrollTo(0, 0);
     }, [])
 
     const handleActiveReset = () => {
