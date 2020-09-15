@@ -192,14 +192,14 @@ const DocHome = ({ nurseryAlias, bookform }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов">Оформление документов</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                {/* <Link to={`/base-search`}>Поиск по базе РКФ</Link> */}
+                <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов" className="menu-component__link--documents">Оформление документов</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация" className="menu-component__link--org">Организационная информация</Link>
+                <Link to={`/base-search?nurseryAlias=${nurseryAlias}`}>Поиск по базе РКФ</Link>
                 {/*<Link to={`/kennel/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
                 {/*<Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>*/}
-                <Link to={`/kennel/${nurseryAlias}/documents/bookform`}>Запись на очный прием</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/review`}>Оценка работы федерации</Link>
-                <Link to={`/kennel/${nurseryAlias}`} title="Страница питомника">Страница питомника</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/bookform`} className="menu-component__link--appointment">Запись на очный прием</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/review`} className="menu-component__link--mark">Оценка работы федерации</Link>
+                <Link to={`/kennel/${nurseryAlias}`} title="Страница питомника" className="menu-component__link--club">Страница питомника</Link>
             </CustomMenu>
         </aside>
         <Switch>

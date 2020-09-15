@@ -15,7 +15,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({cities, city_ids, onChange}) => {
+const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
@@ -36,7 +36,7 @@ const CitiesFilter = ({cities, city_ids, onChange}) => {
 
     return (
         <div className="cities-filter">
-            <h5 className="cities-filter__title">Города</h5>
+            <h5 className={`cities-filter__title ${isExhibitions ? `` : `_title_line`}`}>Города</h5>
             <Select
                 id="cities-filter"
                 isMulti={true}
@@ -54,6 +54,7 @@ const CitiesFilter = ({cities, city_ids, onChange}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
+                maxMenuHeight={isExhibitions && 170}
             />
             {!!values.length &&
                 <ul className="cities-filter__values">

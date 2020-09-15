@@ -108,11 +108,13 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                 breeds={breeds}
                                 breed_ids={filters.BreedIds}
                                 onChange={filter => setFiltersToUrl({BreedIds: filter})}
+                                isExhibitions
                             />
                             <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({CityIds: filter})}
+                                isExhibitions
                             />
                             <RanksFilter
                                 ranks={ranks}

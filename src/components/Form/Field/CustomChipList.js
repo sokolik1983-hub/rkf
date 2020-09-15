@@ -5,9 +5,16 @@ import Label from './Label';
 import Error from './Error';
 import './CustomChipList.scss';
 
-const CustomChipList = ({ formik, name, label, options }) => {
+const CustomChipList = ({ formik, name, label, options, setIsMating }) => {
     const { setFieldValue, errors } = formik;
-    const handleChange = ({ value }) => setFieldValue(name, value || '');
+    const handleChange = ({ value }) => {
+        setFieldValue(name, value || '');
+        if (value === 3) {
+            setIsMating(true);
+        } else {
+            setIsMating(false);
+        }
+    };
 
     return (
         <div className={`FormInput${errors[name] ? ' FormInput--error' : ''}`}>
