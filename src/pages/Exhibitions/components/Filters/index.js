@@ -120,6 +120,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                 ranks={ranks}
                                 rank_ids={filters.RankIds}
                                 onChange={filter => setFiltersToUrl({RankIds: filter})}
+                                isExhibitions
                             />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">

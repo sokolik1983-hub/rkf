@@ -54,6 +54,7 @@ const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
                 noOptionsMessage={() => 'Город не найден'}
                 value={values}
                 components={{Option}}
+                maxMenuHeight={isExhibitions && 170}
             />
             {!!values.length &&
                 <ul className="cities-filter__values">

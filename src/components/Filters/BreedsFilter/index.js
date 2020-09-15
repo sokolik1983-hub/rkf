@@ -54,6 +54,7 @@ const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
+                maxMenuHeight={isExhibitions && 170}
             />
             {!!values.length &&
                 <ul className="breeds-filter__values">
