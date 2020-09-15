@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ls from "local-storage";
 import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
@@ -26,24 +26,18 @@ import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
-const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
+const Docs = ({ history }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
     const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
     const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     const isVisible = personalAccess;
-    const [withFilters, setWithFilters] = useState(false);
-
-    useEffect(() => {
-        // Show Filters only on Registry pages
-        const x = history.location.pathname.split('/');
-        setWithFilters(x[x.length - 1] === 'registry' || x[x.length - 1] === 'requests' ? true : false);
-    }, [match]);
+    const isWithFilters = useRouteMatch('/kennel/:route/documents/replace-pedigree/registry') ? true : false;
 
     return !isVisible
         ? <PageNotFound />
-        : <Layout withFilters={withFilters}>
+        : <Layout withFilters={isWithFilters}>
             <div className="documents-page">
                 <Container className="documents-page__content">
                     <TopComponent
