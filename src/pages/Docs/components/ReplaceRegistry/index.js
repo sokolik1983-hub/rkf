@@ -9,13 +9,6 @@ import ReportError from './components/ReportError';
 import { connectShowFilters } from "components/Layouts/connectors";
 import "./index.scss";
 
-const categories = [
-    { "status_id": 1, "StatusName": "Отклоненные" },
-    { "status_id": 2, "StatusName": "В работе" },
-    { "status_id": 3, "StatusName": "Выполненные" },
-    { "status_id": 4, "StatusName": "Не отправленные" },
-];
-
 const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
     const [reqTypes, setReqTypes] = useState([]);
@@ -66,7 +59,6 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                     documents={documents
                         .sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime())
                         .filter(x => x && checkedTypes.includes(x.type_id) && [1, 2, 3, 4].includes(x.status_id))}
-                    categories={categories}
                     reqTypes={reqTypes}
                     checkedTypes={checkedTypes}
                     checkType={checkType}
