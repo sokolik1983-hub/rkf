@@ -41,7 +41,7 @@ const BaseSearch = () => {
         let [orgType, alias] = organizationData[0];
         if (orgType === 'clubAlias') {
 
-            (() => Request({url: `/api/Club/public/${alias}`},
+            (() => Request({ url: `/api/Club/public/${alias}` },
                 data => {
                     setClubData(data);
                     console.log(data)
@@ -51,7 +51,7 @@ const BaseSearch = () => {
                 }))();
         } else if (orgType === 'nurseryAlias') {
 
-            (() => Request({url: `/api/nurseries/nursery/public/${alias}`},
+            (() => Request({ url: `/api/nurseries/nursery/public/${alias}` },
                 data => {
                     setNurseryData(data);
                 },
@@ -126,144 +126,144 @@ const BaseSearch = () => {
                                             />
                                         }
                                     </>
-                                        :
-                                        nurseryData ? <CustomMenu title="Личный кабинет">
-                                            <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
-                                            <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                            <Link to={`/base-search?nurseryAlias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
-                                            <Link to={`/kennel/${nurseryData.alias}/documents/bookform`}>Запись на очный прием</Link>
-                                            <Link to={`/kennel/${nurseryData.alias}/documents/review`}>Оценка работы федерации</Link>
-                                            <Link to={`/kennel/${nurseryData.alias}`} title="Страница питомника">Страница питомника</Link>
-                                        </CustomMenu>
-                                            :
-                                            <>
-                                                <OutsideClickHandler onOutsideClick={handleActiveReset}>
-                                                    <Card>
-                                                        <h3>Поиск</h3>
-                                                        <ul className="menu-component__list">
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="found-info-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Информация о найденных собаках"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setFoundInfoClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Информация о найденных собаках
-                                                                </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="check-status-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Статус документов"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setStatusClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Статус документов
-                                                                </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="check-registration-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Регистационные данные собаки"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setRegistrationClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Регистационные данные собаки
-                                                                </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="stamp-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Поиск клуба/питомника"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setStampClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Поиск клуба/питомника по клейму
-                                                                </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="referee-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link"
-                                                                    title="Поиск судьи"
-                                                                    onClick={() => {
-                                                                        handleActiveReset();
-                                                                        setRefereeClicked(true);
-                                                                    }}
-                                                                >
-                                                                    Поиск судьи
-                                                                </LinkScroll>
-                                                            </li>
-                                                            <li className="menu-component__item">
-                                                                <LinkScroll
-                                                                    to="publication-search-anchor"
-                                                                    spy={true}
-                                                                    smooth={true}
-                                                                    offset={-60}
-                                                                    duration={500}
-                                                                    className="menu-component__link disabled"
-                                                                    title="Поиск по объявлениям"
-                                                                    // onClick={() => {
-                                                                    //     handleActiveReset();
-                                                                    //     setPublicationClicked(true);
-                                                                    // }}
-                                                                >
-                                                                    Поиск по объявлениям
-                                                                </LinkScroll>
-                                                            </li>
-                                                        </ul>
-                                                    </Card>
-                                                </OutsideClickHandler>
-                                                <Card className="base-search__card">
-                                                    <h3>РКФ в соцсетях</h3>
-                                                    <div className="base-search__right-socials">
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
-                                                        <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
-                                                    </div>
-                                                </Card>
-                                                <Statistics />
-                                                <Card className="base-search__map-wrap">
-                                                    <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
-                                                    <div className="base-search__map">
-                                                        <ClubsMap />
-                                                    </div>
-                                                </Card>
-                                            </>
+                                    :
+                                    nurseryData ? <CustomMenu title="Личный кабинет">
+                                        <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
+                                        <Link to={`/base-search?nurseryAlias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/bookform`}>Запись на очный прием</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/review`}>Оценка работы федерации</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}`} title="Страница питомника">Страница питомника</Link>
+                                    </CustomMenu>
+                                    :
+                                    <>
+                                        <OutsideClickHandler onOutsideClick={handleActiveReset}>
+                                            <Card>
+                                                <h3>Поиск</h3>
+                                                <ul className="menu-component__list">
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="found-info-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link"
+                                                            title="Информация о найденных собаках"
+                                                            onClick={() => {
+                                                                handleActiveReset();
+                                                                setFoundInfoClicked(true);
+                                                            }}
+                                                        >
+                                                            Информация о найденных собаках
+                                                        </LinkScroll>
+                                                    </li>
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="check-status-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link"
+                                                            title="Статус документов"
+                                                            onClick={() => {
+                                                                handleActiveReset();
+                                                                setStatusClicked(true);
+                                                            }}
+                                                        >
+                                                            Статус документов
+                                                        </LinkScroll>
+                                                    </li>
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="check-registration-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link"
+                                                            title="Регистационные данные собаки"
+                                                            onClick={() => {
+                                                                handleActiveReset();
+                                                                setRegistrationClicked(true);
+                                                            }}
+                                                        >
+                                                            Регистационные данные собаки
+                                                        </LinkScroll>
+                                                    </li>
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="stamp-search-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link"
+                                                            title="Поиск клуба/питомника"
+                                                            onClick={() => {
+                                                                handleActiveReset();
+                                                                setStampClicked(true);
+                                                            }}
+                                                        >
+                                                            Поиск клуба/питомника по клейму
+                                                        </LinkScroll>
+                                                    </li>
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="referee-search-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link"
+                                                            title="Поиск судьи"
+                                                            onClick={() => {
+                                                                handleActiveReset();
+                                                                setRefereeClicked(true);
+                                                            }}
+                                                        >
+                                                            Поиск судьи
+                                                        </LinkScroll>
+                                                    </li>
+                                                    <li className="menu-component__item">
+                                                        <LinkScroll
+                                                            to="publication-search-anchor"
+                                                            spy={true}
+                                                            smooth={true}
+                                                            offset={-60}
+                                                            duration={500}
+                                                            className="menu-component__link disabled"
+                                                            title="Поиск по объявлениям"
+                                                        // onClick={() => {
+                                                        //     handleActiveReset();
+                                                        //     setPublicationClicked(true);
+                                                        // }}
+                                                        >
+                                                            Поиск по объявлениям
+                                                        </LinkScroll>
+                                                    </li>
+                                                </ul>
+                                            </Card>
+                                        </OutsideClickHandler>
+                                        <Card className="base-search__socials">
+                                            <h3>РКФ в соцсетях</h3>
+                                            <div className="base-search__right-socials">
+                                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
+                                            </div>
+                                        </Card>
+                                        <Statistics />
+                                        <Card className="base-search__map-wrap">
+                                            <h3><Link className="base-search__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
+                                            <div className="base-search__map">
+                                                <ClubsMap />
+                                            </div>
+                                        </Card>
+                                    </>
                                     }
                                     <div className="base-search__copy-wrap">
                                         <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
