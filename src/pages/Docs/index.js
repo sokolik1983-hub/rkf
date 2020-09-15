@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ls from "local-storage";
 import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
@@ -31,10 +31,11 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubName = ls.get('user_info') ? ls.get('user_info').name : '';
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
+    const isWithFilters = useRouteMatch('/:route/documents/replace-pedigree/registry') ? true : false;
 
     return !isVisible
         ? <PageNotFound />
-        : <Layout>
+        : <Layout withFilters={isWithFilters}>
             <div className="documents-page">
                 <Container className="documents-page__content">
                     <TopComponent
