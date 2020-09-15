@@ -3,7 +3,6 @@ import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { Window } from '@progress/kendo-react-dialogs';
-import '@progress/kendo-theme-default/dist/all.css';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';

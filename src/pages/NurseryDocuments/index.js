@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ls from "local-storage";
 import PageNotFound from "../404";
 import Container from "../../components/Layouts/Container";
@@ -33,10 +33,11 @@ const Docs = ({ history }) => {
     const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
     const isVisible = personalAccess;
+    const isWithFilters = useRouteMatch('/kennel/:route/documents/replace-pedigree/registry') ? true : false;
 
     return !isVisible
         ? <PageNotFound />
-        : <Layout>
+        : <Layout withFilters={isWithFilters}>
             <div className="documents-page">
                 <Container className="documents-page__content">
                     <TopComponent
