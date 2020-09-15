@@ -1,4 +1,9 @@
 .organizations-page__filters {
+  &--card {
+    background-color: #f5f8ff;
+    box-shadow: none;
+    padding: 0 !important;
+  }
   h3 {
     font-weight: normal;
     font-size: 18px;

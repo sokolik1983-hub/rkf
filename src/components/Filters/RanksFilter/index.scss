@@ -1,16 +1,31 @@
 .ranks-filter {
-  margin-bottom: 24px;
-  height: 200px;
+  margin-bottom: 16px;
+  max-height: 215px;
   overflow-x: scroll;
   &__title {
-    margin-bottom: 10px;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.2px;
     color: #72839C;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      color: #3366ff;
+    }
+    &:after {
+      content: '';
+      width: 12px;
+      height: 20px;
+      background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+      position: absolute;
+      top: 4px;
+      left: 262px;
+      transition: all .2s linear;
+    }
   }
   &__list {
     list-style: none;
+    margin-top: 10px;
   }
 }

@@ -142,7 +142,7 @@ const Filters = ({organization_type,
                         </>
                         }
                         {organization_type !== 5 &&
-                        <Card>
+                        <Card className="organizations-page__filters--card">
                             {(organization_type === 3 || organization_type === 4) &&
                             <>
                                 <FederationsFilter
@@ -175,13 +175,15 @@ const Filters = ({organization_type,
                                 onChange={filter => setFiltersToUrl({city_ids: filter})}
                             />
                             }
-                            <button
-                                type="button"
-                                className="link"
-                                onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
-                            >
-                                Сбросить все параметры
-                            </button>
+                            <Card>
+                                <button
+                                    type="button"
+                                    className="link"
+                                    onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
+                                >
+                                    Сбросить все параметры
+                                </button>
+                            </Card>
                         </Card>
                         }
                     </div>

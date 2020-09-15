@@ -8,12 +8,27 @@
     align-items: flex-end;
     letter-spacing: 0.2px;
     color: #72839C;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 12px;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      color: #3366ff;
+    }
+    &:after {
+      content: '';
+      width: 12px;
+      height: 20px;
+      background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+      position: absolute;
+      top: 4px;
+      left: 262px;
+      transition: all .2s linear;
+    }
   }
   &__list {
     list-style: none;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 12px;
+    margin-top: 12px;
   }
   &__svg-info:hover {
     fill: #3366ff;

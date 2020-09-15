@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Select, {components} from "react-select";
 import CustomCheckbox from "../../Form/CustomCheckbox";
+import {CSSTransition} from "react-transition-group";
+import Card from "../../Card";
 import "./index.scss";
 
 
@@ -18,6 +20,7 @@ const Option = props => (
 const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
         if(breeds.length) {
@@ -35,38 +38,52 @@ const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
     };
 
     return (
-        <div className="breeds-filter">
-            <h5 className={`breeds-filter__title ${isExhibitions ? `` : `_title_line`}`}>Породы</h5>
-            <Select
-                id="breeds-filter"
-                isMulti={true}
-                closeMenuOnSelect={false}
-                options={[...values, ...optionsNotInValues]}
-                defaultMenuIsOpen={true}
-                hideSelectedOptions={false}
-                menuIsOpen={true}
-                controlShouldRenderValue={false}
-                onChange={handleChange}
-                clearable={true}
-                isSearchable
-                classNamePrefix="breeds-filter"
-                placeholder="Начните вводить породу"
-                noOptionsMessage={() => 'Порода не найдена'}
-                value={values}
-                components={{Option}}
-                maxMenuHeight={isExhibitions && 170}
-            />
-            {!!values.length &&
-                <ul className="breeds-filter__values">
-                    {values.map(item =>
-                        <li className="breeds-filter__values-item" key={item.value}>
-                            <span>{item.label}</span>
-                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
-                        </li>
-                    )}
-                </ul>
-            }
-        </div>
+        <Card className="breeds-filter">
+            <h5
+                className="breeds-filter__title"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                Породы
+            </h5>
+            <CSSTransition
+                in={isOpen}
+                timeout={350}
+                classNames="dropdown__transition"
+                unmountOnExit
+            >
+                <div className={isExhibitions ? `` : `_title_line`}>
+                    <Select
+                        id="breeds-filter"
+                        isMulti={true}
+                        closeMenuOnSelect={false}
+                        options={[...values, ...optionsNotInValues]}
+                        defaultMenuIsOpen={true}
+                        hideSelectedOptions={false}
+                        menuIsOpen={true}
+                        controlShouldRenderValue={false}
+                        onChange={handleChange}
+                        clearable={true}
+                        isSearchable
+                        classNamePrefix="breeds-filter"
+                        placeholder="Начните вводить породу"
+                        noOptionsMessage={() => 'Порода не найдена'}
+                        value={values}
+                        components={{Option}}
+                        maxMenuHeight={isExhibitions && 170}
+                    />
+                    {!!values.length &&
+                        <ul className="breeds-filter__values">
+                            {values.map(item =>
+                                <li className="breeds-filter__values-item" key={item.value}>
+                                    <span>{item.label}</span>
+                                    <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                                </li>
+                            )}
+                        </ul>
+                    }
+                </div>
+            </CSSTransition>
+        </Card>
     )
 };
 

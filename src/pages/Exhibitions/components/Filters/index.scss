@@ -1,4 +1,10 @@
 .exhibitions-filters {
+  &__calendar-title {
+    cursor: pointer;
+    &:hover {
+      color: #3366ff;
+    }
+  }
   .phone-hide {
     @media (max-width: 560px) {
       display: none !important;
@@ -28,12 +34,15 @@
     height: calc(100% - 48px);
   }
   &__wrap {
-    background-color: #fff;
+    background-color: #f5f8ff;
     @media (min-width: 990px) {
-      border-radius: 6px;
-      box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-      padding: 10px;
       margin-bottom: 16px;
+    }
+    & .Card:first-child {
+      margin-bottom: 16px;
+    }
+    & .Card {
+      padding: 10px;
     }
   }
   h4,
@@ -49,7 +58,6 @@
   &__head {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
     & > div {
       display: flex;
       align-items: center;
