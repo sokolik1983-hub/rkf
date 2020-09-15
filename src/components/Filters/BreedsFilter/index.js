@@ -15,7 +15,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breeds, breed_ids, onChange}) => {
+const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
 
@@ -36,7 +36,7 @@ const BreedsFilter = ({breeds, breed_ids, onChange}) => {
 
     return (
         <div className="breeds-filter">
-            <h5 className="breeds-filter__title">Породы</h5>
+            <h5 className={`breeds-filter__title ${isExhibitions ? `` : `_title_line`}`}>Породы</h5>
             <Select
                 id="breeds-filter"
                 isMulti={true}
@@ -54,6 +54,7 @@ const BreedsFilter = ({breeds, breed_ids, onChange}) => {
                 noOptionsMessage={() => 'Порода не найдена'}
                 value={values}
                 components={{Option}}
+                maxMenuHeight={isExhibitions && 170}
             />
             {!!values.length &&
                 <ul className="breeds-filter__values">

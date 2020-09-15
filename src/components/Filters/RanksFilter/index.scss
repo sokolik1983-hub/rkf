@@ -1,5 +1,7 @@
 .ranks-filter {
   margin-bottom: 24px;
+  height: 200px;
+  overflow-x: scroll;
   &__title {
     margin-bottom: 10px;
     font-weight: 600;
