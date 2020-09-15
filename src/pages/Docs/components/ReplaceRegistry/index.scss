@@ -132,4 +132,34 @@
   .click-guard {
     top: 0;
   }
+  &__filters-wrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  &__checkbox-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    @media (max-width: 560px) {
+      flex-direction: column;
+    }
+    & > span {
+      width: 50%;
+      @media (max-width: 560px) {
+        width: auto;
+      }
+    }
+  }
+  &__dropdown-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .pedigree-link {
+    color: #36f;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
