@@ -142,49 +142,49 @@ const Filters = ({organization_type,
                         </>
                         }
                         {organization_type !== 5 &&
-                        <Card className="organizations-page__filters--card">
-                            {(organization_type === 3 || organization_type === 4) &&
                             <>
-                                <FederationsFilter
-                                    federations={federations}
-                                    federation_ids={federation_ids}
-                                    onChange={filter => setFiltersToUrl({federation_ids: filter})}
+                                {(organization_type === 3 || organization_type === 4) &&
+                                <>
+                                    <FederationsFilter
+                                        federations={federations}
+                                        federation_ids={federation_ids}
+                                        onChange={filter => setFiltersToUrl({federation_ids: filter})}
+                                    />
+                                    <ActiveFilter
+                                        active_member={active_member}
+                                        onChange={filter => setFiltersToUrl({active_member: filter})}
+                                    />
+                                    <ActivatedFilter
+                                        activated={activated}
+                                        label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
+                                        onChange={filter => setFiltersToUrl({activated: filter})}
+                                    />
+                                </>
+                                }
+                                {(organization_type === 4 || organization_type === 7) &&
+                                <BreedsFilter
+                                    breeds={breeds}
+                                    breed_ids={breed_ids}
+                                    onChange={filter => setFiltersToUrl({breed_ids: filter})}
                                 />
-                                <ActiveFilter
-                                    active_member={active_member}
-                                    onChange={filter => setFiltersToUrl({active_member: filter})}
+                                }
+                                {(organization_type === 3 || organization_type === 4) &&
+                                <CitiesFilter
+                                    cities={cities}
+                                    city_ids={city_ids}
+                                    onChange={filter => setFiltersToUrl({city_ids: filter})}
                                 />
-                                <ActivatedFilter
-                                    activated={activated}
-                                    label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                    onChange={filter => setFiltersToUrl({activated: filter})}
-                                />
+                                }
+                                <Card>
+                                    <button
+                                        type="button"
+                                        className="link"
+                                        onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
+                                    >
+                                        Сбросить все параметры
+                                    </button>
+                                </Card>
                             </>
-                            }
-                            {(organization_type === 4 || organization_type === 7) &&
-                            <BreedsFilter
-                                breeds={breeds}
-                                breed_ids={breed_ids}
-                                onChange={filter => setFiltersToUrl({breed_ids: filter})}
-                            />
-                            }
-                            {(organization_type === 3 || organization_type === 4) &&
-                            <CitiesFilter
-                                cities={cities}
-                                city_ids={city_ids}
-                                onChange={filter => setFiltersToUrl({city_ids: filter})}
-                            />
-                            }
-                            <Card>
-                                <button
-                                    type="button"
-                                    className="link"
-                                    onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
-                                >
-                                    Сбросить все параметры
-                                </button>
-                            </Card>
-                        </Card>
                         }
                     </div>
                     <div className="organizations-page__copy-wrap">
