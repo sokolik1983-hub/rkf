@@ -1,22 +1,42 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Loading from "../../../../components/Loading";
 import Card from "../../../../components/Card";
-import StatusTable from "./components/Table";
+import Table from "./components/Table";
 import RequestTable from "../RequestRegistry/components/Table";
-import {Request} from "../../../../utils/request";
+import Modal from "components/Modal";
+import { Request } from "utils/request";
+import Declarants from "./components/Declarants";
 import "./index.scss";
 
 
-const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
+const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
-    const rowClick = row => Request({
-            url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/register_of_requests?id=' + row :
-                '/api/requests/LitterRequest/register_of_requests?id=' + row
+
+    useEffect(() => {
+        (() => Request({
+            url: distinction === 'pedigree'
+                ? '/api/requests/PedigreeRequest/headers_base_info'
+                : '/api/requests/LitterRequest/headers_base_info'
         },
+            data => {
+                setDocuments(data);
+                setLoading(false);
+            },
+            error => {
+                console.log(error.response);
+                setLoading(false);
+            }))();
+    }, []);
+
+    const rowClick = id => Request({
+        url: distinction === 'pedigree'
+            ? '/api/requests/PedigreeRequest/register_of_requests?id=' + id
+            : '/api/requests/LitterRequest/register_of_requests?id=' + id
+    },
         data => {
             setInnerDocuments(data);
         },
@@ -25,50 +45,53 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
             setInnerDocuments(null);
         })
 
-    useEffect(() => {
-        (() => Request({
-            url: distinction === 'pedigree' ?
-                '/api/requests/PedigreeRequest/headers_base_info' :
-                '/api/requests/LitterRequest/headers_base_info'
-        },
-        data => {
-            setDocuments(data);
-            setLoading(false);
-        },
-        error => {
-            console.log(error.response);
-            setLoading(false);
-        }))();
-    }, []);
+
+
+    const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
+    const deleteRow = (id) => {
+        if (window.confirm("Удалить черновик?")) {
+            Request({ url: `/api/requests/${up(distinction)}Request`, data: id, method: 'DELETE' },
+                () => {
+                    setDocuments(documents.filter(x => x && x.id !== id));
+                    window.alert('Заявка удалена')
+                },
+                e => {
+                    window.alert('Отсутствует соединение с сервером');
+                    console.log(e)
+                }
+            )
+        }
+    };
+
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         <Card className="club-documents-status">
             <div className="club-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
-                {distinction === 'pedigree' 
+                {distinction === 'pedigree'
                     ? 'Оформление родословной'
                     : 'Заявление на регистрацию помета'}
             </div>
             <div className="club-documents-status__table">
-                {documents && !!documents.length ? <><div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                    <StatusTable
-                        deleteRow={row => setDocuments(documents.filter(x => x && x.id !== row))}
-                        documents={documents} distinction={distinction} clubAlias={clubAlias} rowClick={rowClick}/></> :
-                    <h2>Документов не найдено</h2>
+                {documents && !!documents.length
+                    ? <><div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+                        <Table documents={documents} distinction={distinction} rowClick={rowClick} deleteRow={deleteRow} setShowModal={setShowModal} />
+                    </>
+                    : <h2>Документов не найдено</h2>
                 }
             </div>
-            {innerDocuments && 
+            {innerDocuments &&
                 <div className="club-documents-status__table">
-                    {!!innerDocuments.length ?<><h3>Вложенные заявки</h3>
-                        <RequestTable
-                            documents={innerDocuments}
-                            distinction={distinction}
-                            clubAlias={clubAlias}
-                            hideTop={true}
-                        /></> :
-                        <h2>Вложенных заявок не найдено</h2>
+                    {!!innerDocuments.length
+                        ? <><h3>Вложенные заявки</h3>
+                            <RequestTable
+                                documents={innerDocuments}
+                                distinction={distinction}
+                                height="300px"
+                            /></>
+                        : <h2>Вложенных заявок не найдено</h2>
                     }
                 </div>
             }
@@ -83,6 +106,15 @@ const ClubDocumentsStatus = ({history, clubAlias, distinction}) => {
                     title="Добавить новую заявку"
                 >+</Link>
             </div>
+            {showModal && <Modal
+                showModal={!!showModal}
+                handleClose={() => setShowModal(false)}
+                noBackdrop={true}
+                hideCloseButton={true}
+                className="status-table__modal"
+            >
+                <Declarants id={showModal} />
+            </Modal>}
         </Card>
 };
 

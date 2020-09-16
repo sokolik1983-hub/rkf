@@ -22,7 +22,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const Table = ({ documents, distinction }) => {
+const Table = ({ documents, distinction, height }) => {
     const [windowVisible, setWindowVisible] = useState(false);
     const [gridClickedRow, setGridClickedRow] = useState({});
     const [rows, setRows] = useState(null);
@@ -41,7 +41,7 @@ const Table = ({ documents, distinction }) => {
                 date_change: formatDate(d.date_change)
             }
         }))
-    }, []);
+    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -90,7 +90,7 @@ const Table = ({ documents, distinction }) => {
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
                             onRowClick={handleGridRowClick}
-                            style={{ height: "700px" }}>
+                            style={{ height: height ? height : "700px" }}>
                             <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} />
                             <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="140px" columnMenu={ColumnMenu} />
