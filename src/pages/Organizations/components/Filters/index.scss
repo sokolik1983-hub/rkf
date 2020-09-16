@@ -1,8 +1,7 @@
 .organizations-page__filters {
-  &--card {
-    background-color: #f5f8ff;
-    box-shadow: none;
-    padding: 0 !important;
+  .is-active-member-filter,
+  .is-activated-filter {
+    margin-left: 10px;
   }
   h3 {
     font-weight: normal;
