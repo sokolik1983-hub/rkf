@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from "react";
-import Select, {components} from "react-select";
+import React, { useState, useEffect } from "react";
+import Select, { components } from "react-select";
 import CustomCheckbox from "../../Form/CustomCheckbox";
+import { CSSTransition } from "react-transition-group";
+import Card from "../../Card";
 import "./index.scss";
 
 
@@ -15,12 +17,13 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
+const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if(cities.length) {
+        if (cities.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
@@ -35,38 +38,49 @@ const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
     };
 
     return (
-        <div className="cities-filter">
-            <h5 className={`cities-filter__title ${isExhibitions ? `` : `_title_line`}`}>Города</h5>
-            <Select
-                id="cities-filter"
-                isMulti={true}
-                closeMenuOnSelect={false}
-                options={[...values, ...optionsNotInValues]}
-                defaultMenuIsOpen={true}
-                hideSelectedOptions={false}
-                menuIsOpen={true}
-                controlShouldRenderValue={false}
-                onChange={handleChange}
-                clearable={true}
-                isSearchable
-                classNamePrefix="cities-filter"
-                placeholder="Начните вводить город"
-                noOptionsMessage={() => 'Город не найден'}
-                value={values}
-                components={{Option}}
-                maxMenuHeight={isExhibitions && 170}
-            />
-            {!!values.length &&
-                <ul className="cities-filter__values">
-                    {values.map(item =>
-                        <li className="cities-filter__values-item" key={item.value}>
-                            <span>{item.label}</span>
-                            <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
-                        </li>
-                    )}
-                </ul>
-            }
-        </div>
+        <Card className="cities-filter">
+            <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="cities-filter__title">Города</h5>
+                <span className={`cities-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+            </div>
+            <CSSTransition
+                in={isOpen}
+                timeout={350}
+                unmountOnExit
+            >
+                <div className={isExhibitions ? `` : `_title_line`}>
+                    <Select
+                        id="cities-filter"
+                        isMulti={true}
+                        closeMenuOnSelect={false}
+                        options={[...values, ...optionsNotInValues]}
+                        defaultMenuIsOpen={true}
+                        hideSelectedOptions={false}
+                        menuIsOpen={true}
+                        controlShouldRenderValue={false}
+                        onChange={handleChange}
+                        clearable={true}
+                        isSearchable
+                        classNamePrefix="cities-filter"
+                        placeholder="Начните вводить город"
+                        noOptionsMessage={() => 'Город не найден'}
+                        value={values}
+                        components={{ Option }}
+                        maxMenuHeight={isExhibitions && 170}
+                    />
+                    {!!values.length &&
+                        <ul className="cities-filter__values">
+                            {values.map(item =>
+                                <li className="cities-filter__values-item" key={item.value}>
+                                    <span>{item.label}</span>
+                                    <button type="button" onClick={() => handleDelete(item.value)}>✕</button>
+                                </li>
+                            )}
+                        </ul>
+                    }
+                </div>
+            </CSSTransition>
+        </Card>
     )
 };
 

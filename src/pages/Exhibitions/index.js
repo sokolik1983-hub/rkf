@@ -14,6 +14,8 @@ import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
 import './index.scss';
+import ExhibitionsTable from "./components/ExhibitionsTable";
+import {formatDateCommon} from "../../utils/datetime";
 
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
@@ -22,6 +24,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
     const [exhibitions, setExhibitions] = useState([]);
+    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [displayName, setDisplayName] = useState('');
@@ -30,6 +33,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
+    const [standardView, setStandardView] = useState(true);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -50,9 +55,18 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         }, data => {
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
-                    exhibition.title = exhibition.city;
-                    exhibition.create_date = new Date(exhibition.dates[0].year, exhibition.dates[0].month - 1, exhibition.dates[0].day);
-                    exhibition.content = exhibition.exhibition_name;
+                    exhibition.date = '';
+                    if(exhibition.dates && exhibition.dates.length) {
+                        const startDate = exhibition.dates[0];
+                        const endDate = exhibition.dates[exhibition.dates.length - 1];
+                        exhibition.date = exhibition.dates.length === 1
+                            ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
+                            : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
+                            ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
+                    }
+                    exhibition.club_string = `Клуб ${exhibition.club_name}, ${exhibition.federation_name ? 'Федерация ' + exhibition.federation_name + ', ' : ''}${exhibition.city}`;
+                    exhibition.rank_string = exhibition.ranks && exhibition.ranks.length ? exhibition.ranks.map(rank => rank.name).join(', ') : 'Не указано';
+                    exhibition.breed_string = exhibition.breeds && exhibition.breeds.length ? exhibition.breeds.map(breed => breed.name).join(', ') : 'Не указано';
                     exhibition.url = `/exhibitions/${exhibition.id}`;
                     return exhibition;
                 });
@@ -62,13 +76,17 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                 } else {
                     setHasMore(true);
                 }
+                setExhibitionsForTable(modifiedExhibitions);
                 setExhibitions(startElem === 1 ? modifiedExhibitions : [...exhibitions, ...modifiedExhibitions]);
             } else {
                 if (startElem === 1) {
                     setExhibitions([]);
+                    setExhibitionsForTable([]);
                 }
                 setHasMore(false);
             }
+
+            setCount(data.count);
 
             const club = data.searching_club;
 
@@ -96,6 +114,10 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
             setStartElement(startElement + 10);
         }
+    };
+
+    const getNextExhibitionsForTable = startElem => {
+        (() => getExhibitions(buildUrl({ ...filters }), startElem))();
     };
 
     useEffect(() => {
@@ -136,12 +158,23 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                             </>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
-                        <ExhibitionsList
-                            exhibitions={exhibitions}
-                            getNextExhibitions={getNextExhibitions}
-                            hasMore={hasMore}
-                            loading={exhibitionsLoading}
-                        />
+                        <button className="exhibitions-page__change-view" onClick={() => setStandardView(!standardView)}>
+                            {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
+                        </button>
+                        {standardView ?
+                            <ExhibitionsList
+                                exhibitions={exhibitions}
+                                getNextExhibitions={getNextExhibitions}
+                                hasMore={hasMore}
+                                loading={exhibitionsLoading}
+                            /> :
+                            <ExhibitionsTable
+                                exhibitions={exhibitionsForTable}
+                                count={count}
+                                startElement={startElement - 1}
+                                getNextExhibitions={getNextExhibitionsForTable}
+                            />
+                        }
                     </div>
                 </Container>
             </div>

@@ -1,0 +1,57 @@
+{
+    "datepicker": {
+        "toggleCalendar": "Переключить календарь"
+    },
+    "calendar": {
+        "today": "Cегодня"
+    },
+    "dateinput": {
+        "increment": "Увеличить значение",
+        "decrement": "Уменьшить значение"
+    },
+    "numerictextbox": {
+        "increment": "Увеличить значение",
+        "decrement": "Уменьшить значение"
+    },
+    "grid": {
+        "groupPanelEmpty": "Перетащите заголовок столбца и поместите его сюда, чтобы сгруппировать по этому столбцу",
+        "noRecords": "Нет доступных записей.",
+        "pagerFirstPage": "Перейти на первую страницу",
+        "pagerPreviousPage": "Перейти на предыдущую страницу",
+        "pagerNextPage": "Перейти на следующую страницу",
+        "pagerLastPage": "Перейти на последнюю страницу",
+        "pagerPage": "Страница",
+        "pagerOf": "из",
+        "pagerTotalPages": "{0}",
+        "pagerItems": "элементов",
+        "pagerInfo": "{0} - {1} из {2} элементов",
+        "pagerItemsPerPage": "элементов на страницу",
+        "filterEqOperator": "Равно",
+        "filterNotEqOperator": "Не равно",
+        "filterIsNullOperator": "Равно нулю",
+        "filterIsNotNullOperator": "Не равно нулю",
+        "filterIsEmptyOperator": "Пустой",
+        "filterIsNotEmptyOperator": "Не пустой",
+        "filterStartsWithOperator": "Начинается с",
+        "filterContainsOperator": "Содержит",
+        "filterNotContainsOperator": "Не содержит",
+        "filterEndsWithOperator": "Заканчивается на",
+        "filterGteOperator": "Больше или равно",
+        "filterGtOperator": "Больше чем",
+        "filterLteOperator": "Меньше или равно",
+        "filterLtOperator": "Меньше или равно",
+        "filterIsTrue": "Да",
+        "filterIsFalse": "Нет",
+        "filterBooleanAll": "(Все)",
+        "filterAfterOrEqualOperator": "После или равно",
+        "filterAfterOperator": "После",
+        "filterBeforeOperator": "Раньше",
+        "filterBeforeOrEqualOperator": "Раньше или равно",
+        "filterFilterButton": "Фильтр",
+        "filterClearButton": "Очистить",
+        "filterAndLogic": "И",
+        "filterOrLogic": "Или",
+        "filterTitle": "Фильтр",
+        "filterSubmitButton": "Применить"
+    }
+}

@@ -1,16 +1,33 @@
 .ranks-filter {
-  margin-bottom: 24px;
-  height: 200px;
+  margin-bottom: 16px;
+  max-height: 215px;
   overflow-x: scroll;
   &__title {
-    margin-bottom: 10px;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.2px;
     color: #72839C;
+    flex-grow: 1;
+    border-right: 1px solid #72839C;
+  }
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  &__chevron {
+    width: 24px;
+    height: 24px;
+    background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+    transition: all .2s linear;
+    margin-left: 4px;
+    &._dropdown_open {
+      transform: rotate(180deg);
+    }
   }
   &__list {
     list-style: none;
+    margin-top: 10px;
   }
 }
