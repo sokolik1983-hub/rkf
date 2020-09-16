@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
@@ -23,7 +23,10 @@ const ColumnMenu = (props) => {
     </div>
 };
 
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+
 const isDefaultCell = ({ dataItem }) => <td>{dataItem.is_default ? 'Да' : 'Нет'}</td>;
+
 const LinkCell = ({ dataItem }) => {
     const { document_id } = dataItem;
     return <td>
@@ -71,23 +74,12 @@ const handleClick = async (e, id) => {
 const Table = ({ documents, setDefaultStamp }) => {
     const [windowVisible, setWindowVisible] = useState(false);
     const [gridClickedRow, setGridClickedRow] = useState({});
-    const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
     });
-
-    useEffect(() => {
-        setRows(documents.map(d => {
-            return {
-                ...d,
-                date_create: formatDate(d.date_create),
-                date_change: formatDate(d.date_change)
-            }
-        }))
-    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -129,8 +121,8 @@ const Table = ({ documents, setDefaultStamp }) => {
                     />
                 </div>
                 {
-                    rows && <Grid
-                        data={process(rows, gridData)}
+                    documents && <Grid
+                        data={process(documents, gridData)}
                         pageable
                         sortable
                         resizable
@@ -141,7 +133,7 @@ const Table = ({ documents, setDefaultStamp }) => {
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="140px" columnMenu={ColumnMenu} />
                         <GridColumn field="document_id" title="Свидетельство о регистрации кода клейма" width="225px" columnMenu={ColumnMenu} cell={LinkCell} />
-                        <GridColumn field="date_create" title="Дата добавления клейма" width="150px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата добавления" width="160px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="is_default" title="По умолчанию" width="150px" columnMenu={ColumnMenu} cell={isDefaultCell} />
                         <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultStamp)} />
                     </Grid>

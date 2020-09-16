@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
@@ -22,26 +22,17 @@ const ColumnMenu = (props) => {
     </div>
 };
 
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+
 const Table = ({ documents, distinction, height }) => {
     const [windowVisible, setWindowVisible] = useState(false);
     const [gridClickedRow, setGridClickedRow] = useState({});
-    const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
     });
-
-    useEffect(() => {
-        setRows(documents.map(d => {
-            return {
-                ...d,
-                date_create: formatDate(d.date_create),
-                date_change: formatDate(d.date_change)
-            }
-        }))
-    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -84,8 +75,8 @@ const Table = ({ documents, distinction, height }) => {
                         />
                     </p>
                     {
-                        rows && <Grid
-                            data={process(rows, gridData)}
+                        documents && <Grid
+                            data={process(documents, gridData)}
                             pageable
                             sortable
                             resizable
@@ -93,8 +84,8 @@ const Table = ({ documents, distinction, height }) => {
                             onDataStateChange={handleGridDataChange}
                             onRowClick={handleGridRowClick}
                             style={{ height: height ? height : "700px" }}>
-                            <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} />
-                            <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} />
+                            <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                            <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                             <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="140px" columnMenu={ColumnMenu} />
                             <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="nursery_name" title="Питомник" width="150px" columnMenu={ColumnMenu} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
@@ -24,6 +24,8 @@ const ColumnMenu = (props) => {
     </div>
 };
 
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+
 const LinkCell = ({ dataItem }, profileType) => {
     const { certificate_document_id } = dataItem;
     return <td>
@@ -34,14 +36,21 @@ const LinkCell = ({ dataItem }, profileType) => {
 };
 
 const OptionsCell = ({ dataItem }, profileType) => {
-    const { type_id, id } = dataItem;
+    const { type_id, status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
             to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
             className="row-control__link">{item.text}</Link>
-    }];
+    },
+    {
+        text: 'Ответить',
+        disabled: status_id === 1 ? false : true,
+        render: ({ item }) => <Link
+            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
+            className="row-control__link">{item.text}</Link>
+    }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
@@ -72,23 +81,12 @@ const handleClick = async (e, id, profileType) => {
 const Table = ({ documents, profileType }) => {
     const [windowVisible, setWindowVisible] = useState(false);
     const [gridClickedRow, setGridClickedRow] = useState({});
-    const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
     });
-
-    useEffect(() => {
-        setRows(documents.map(d => {
-            return {
-                ...d,
-                date_create: formatDate(d.date_create),
-                date_change: formatDate(d.date_change)
-            }
-        }))
-    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -130,8 +128,8 @@ const Table = ({ documents, profileType }) => {
                     />
                 </div>
                 {
-                    rows && <Grid
-                        data={process(rows, gridData)}
+                    documents && <Grid
+                        data={process(documents, gridData)}
                         pageable
                         sortable
                         resizable
@@ -139,13 +137,13 @@ const Table = ({ documents, profileType }) => {
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата создания" width="140px" columnMenu={ColumnMenu} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width="275px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width="140px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width="275px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width="210px" columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={(props) => LinkCell(props, profileType)} />
+                        <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                         <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn width="80px" cell={(props) => OptionsCell(props, profileType)} />
+                        <GridColumn width="80px" cell={props => OptionsCell(props, profileType)} />
                     </Grid>
                 }
 

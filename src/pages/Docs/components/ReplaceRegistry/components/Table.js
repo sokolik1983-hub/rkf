@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
@@ -25,6 +25,8 @@ const ColumnMenu = (props) => {
         <GridColumnMenuFilter {...props} expanded={true} />
     </div>
 };
+
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
 
 const LinkCell = (props) => {
     const { dataItem } = props;
@@ -53,7 +55,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
         text: 'Сообщить об ошибке кинолога',
         disabled: status_id === 3 ? false : true,
         render: ({ item }) => <span onClick={() => setErrorReport(id)}>{item.text}</span>
-    }];
+    }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
@@ -61,23 +63,12 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
 const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport }) => {
     const [windowVisible, setWindowVisible] = useState(false);
     const [gridClickedRow, setGridClickedRow] = useState({});
-    const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
     });
-
-    useEffect(() => {
-        setRows(documents.map(d => {
-            return {
-                ...d,
-                date_create: formatDate(d.date_create),
-                date_change: formatDate(d.date_change)
-            }
-        }))
-    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -134,8 +125,8 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                     </div>
                 </StickyFilters>
                 {
-                    rows && <Grid
-                        data={process(rows, gridData)}
+                    documents && <Grid
+                        data={process(documents, gridData)}
                         pageable
                         sortable
                         resizable
@@ -143,7 +134,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="id" title="Номер заявки" width="150px" columnMenu={ColumnMenu} />
                         <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
