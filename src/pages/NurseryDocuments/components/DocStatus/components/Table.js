@@ -55,7 +55,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
             disabled: status_id === 4 ? false : true,
             render: ({ item }) => <span onClick={() => deleteRow(id)}>{item.text}</span>
         }
-    ];
+    ].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };

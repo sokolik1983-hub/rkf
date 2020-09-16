@@ -34,7 +34,7 @@ const LinkCell = ({ dataItem }, profileType) => {
 };
 
 const OptionsCell = ({ dataItem }, profileType) => {
-    const { type_id, id } = dataItem;
+    const { type_id, status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
@@ -44,10 +44,11 @@ const OptionsCell = ({ dataItem }, profileType) => {
     },
     {
         text: 'Ответить',
+        disabled: status_id === 1 ? false : true,
         render: ({ item }) => <Link
-        to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
+            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
             className="row-control__link">{item.text}</Link>
-    }];
+    }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };

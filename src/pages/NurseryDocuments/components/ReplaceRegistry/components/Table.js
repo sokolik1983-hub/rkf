@@ -53,7 +53,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
         text: 'Сообщить об ошибке кинолога',
         disabled: status_id === 3 ? false : true,
         render: ({ item }) => <span onClick={() => setErrorReport(id)}>{item.text}</span>
-    }];
+    }].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
