@@ -45,7 +45,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions }) => {
             </div>
             <CSSTransition
                 in={isOpen}
-                timeout={350}
+                timeout={50}
                 unmountOnExit
                 classNames="dropdown__filters"
             >

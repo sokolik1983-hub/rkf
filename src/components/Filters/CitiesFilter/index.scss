@@ -112,6 +112,7 @@
   &-exit {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.2s, transform 0.2s;
   }
   &-exit-active {
     opacity: 0;

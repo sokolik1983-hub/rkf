@@ -5,17 +5,17 @@ import Container from "../../components/Layouts/Container";
 import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsList from "./components/ExhibitionsList";
+import ExhibitionsTable from "./components/ExhibitionsTable";
 import ClickGuard from "../../components/ClickGuard";
 import MenuComponent from "../../components/MenuComponent";
 import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
+import {formatDateCommon} from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
 import './index.scss';
-import ExhibitionsTable from "./components/ExhibitionsTable";
-import {formatDateCommon} from "../../utils/datetime";
 
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
@@ -35,6 +35,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubId, setClubId] = useState('');
     const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
+    const [needUpdateTable, setNeedUpdateTable] = useState(false);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -87,6 +88,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             }
 
             setCount(data.count);
+            setNeedUpdateTable(false);
 
             const club = data.searching_club;
 
@@ -123,6 +125,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     useEffect(() => {
         if (url) {
             setStartElement(1);
+            setNeedUpdateTable(true);
             (() => getExhibitions(url, 1))();
         }
     }, [url]);
@@ -172,6 +175,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                 exhibitions={exhibitionsForTable}
                                 count={count}
                                 startElement={startElement - 1}
+                                needUpdate={needUpdateTable}
                                 getNextExhibitions={getNextExhibitionsForTable}
                             />
                         }

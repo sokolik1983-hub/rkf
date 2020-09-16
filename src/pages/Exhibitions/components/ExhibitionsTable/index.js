@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Grid, GridColumn, GridDetailRow } from "@progress/kendo-react-grid";
 import {IntlProvider, LocalizationProvider, loadMessages} from "@progress/kendo-react-intl";
@@ -26,10 +26,14 @@ class DetailComponent extends GridDetailRow {
 };
 
 
-const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions}) => {
+const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions, needUpdate}) => {
     const [expanded, setExpanded] = useState({class: 'expanded'});
     const [skip, setSkip] = useState(startElement);
     const [take, setTake] = useState(10);
+
+    useEffect(() => {
+        if(needUpdate) setSkip(0);
+    }, [needUpdate]);
 
     const onExpand = e => {
         e.dataItem.expanded = !e.dataItem.expanded;
