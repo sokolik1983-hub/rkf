@@ -160,4 +160,17 @@
             margin-right: 10px;
         }
     }
+    &--search {
+        position: relative;
+        display: flex;
+        align-items: center;
+        &::before {
+            content: '';
+            display: inline-block;
+            background: url(/static/icons/stain.svg) no-repeat center / cover;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
 }
