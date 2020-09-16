@@ -24,7 +24,7 @@ const RanksFilter = ({ ranks, rank_ids, onChange }) => {
             </div>
             <CSSTransition
                 in={isOpen}
-                timeout={350}
+                timeout={50}
                 unmountOnExit
                 classNames="dropdown__filters"
             >

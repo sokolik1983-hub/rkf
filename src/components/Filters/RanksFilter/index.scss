@@ -27,7 +27,7 @@
   &__list {
     list-style: none;
     margin-top: 10px;
-    overflow-x: scroll;
+    overflow-y: auto;
     max-height: 170px;
   }
 }
