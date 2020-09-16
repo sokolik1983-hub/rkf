@@ -26,6 +26,7 @@ const FederationsFilter = ({ federations, federation_ids, onChange }) => {
                 in={isOpen}
                 timeout={350}
                 unmountOnExit
+                classNames="dropdown__filters"
             >
                 <>
                     {federations && !!federations.length &&
