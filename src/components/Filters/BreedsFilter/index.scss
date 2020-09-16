@@ -8,20 +8,22 @@
     align-items: flex-end;
     letter-spacing: 0.2px;
     color: #72839C;
-    position: relative;
+    flex-grow: 1;
+    border-right: 1px solid #72839C;
+  }
+  &__head {
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
-    &:hover {
-      color: #3366ff;
-    }
-    &:after {
-      content: '';
-      width: 12px;
-      height: 20px;
-      background: url("/static/icons/chevron-down-light.svg") no-repeat center;
-      position: absolute;
-      top: 4px;
-      left: 262px;
-      transition: all .2s linear;
+  }
+  &__chevron {
+    width: 24px;
+    height: 24px;
+    background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+    transition: all .2s linear;
+    margin-left: 4px;
+    &._dropdown_open {
+      transform: rotate(180deg);
     }
   }
   &__placeholder {

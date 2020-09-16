@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import CustomCheckbox from "../../Form/CustomCheckbox";
 import Card from "../../Card";
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import "./index.scss";
 
 
-const RanksFilter = ({ranks, rank_ids, onChange}) => {
+const RanksFilter = ({ ranks, rank_ids, onChange }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const handleChange = id => {
@@ -18,16 +18,13 @@ const RanksFilter = ({ranks, rank_ids, onChange}) => {
 
     return (
         <Card className="ranks-filter">
-            <h5
-                className="ranks-filter__title"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                Ранг мероприятия
-            </h5>
+            <div className="ranks-filter__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="ranks-filter__title">Ранг мероприятия</h5>
+                <span className={`ranks-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+            </div>
             <CSSTransition
                 in={isOpen}
                 timeout={350}
-                classNames="dropdown__transition"
                 unmountOnExit
             >
                 <>

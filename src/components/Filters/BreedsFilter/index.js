@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import Select, {components} from "react-select";
+import React, { useEffect, useState } from "react";
+import Select, { components } from "react-select";
 import CustomCheckbox from "../../Form/CustomCheckbox";
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import "./index.scss";
 
@@ -17,13 +17,13 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
+const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if(breeds.length) {
+        if (breeds.length) {
             setOptionsNotInValues(breeds.filter(option => breed_ids.indexOf(option.value) === -1));
             setValues(breeds.filter(option => breed_ids.indexOf(option.value) !== -1));
         }
@@ -39,16 +39,13 @@ const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
 
     return (
         <Card className="breeds-filter">
-            <h5
-                className="breeds-filter__title"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                Породы
-            </h5>
+            <div className="breeds-filter__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="breeds-filter__title">Породы</h5>
+                <span className={`breeds-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+            </div>
             <CSSTransition
                 in={isOpen}
                 timeout={350}
-                classNames="dropdown__transition"
                 unmountOnExit
             >
                 <div className={isExhibitions ? `` : `_title_line`}>
@@ -68,7 +65,7 @@ const BreedsFilter = ({breeds, breed_ids, onChange, isExhibitions}) => {
                         placeholder="Начните вводить породу"
                         noOptionsMessage={() => 'Порода не найдена'}
                         value={values}
-                        components={{Option}}
+                        components={{ Option }}
                         maxMenuHeight={isExhibitions && 170}
                     />
                     {!!values.length &&

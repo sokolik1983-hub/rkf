@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
-import Select, {components} from "react-select";
+import React, { useState, useEffect } from "react";
+import Select, { components } from "react-select";
 import CustomCheckbox from "../../Form/CustomCheckbox";
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../Card";
 import "./index.scss";
 
@@ -17,13 +17,13 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
+const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
-        if(cities.length) {
+        if (cities.length) {
             setOptionsNotInValues(cities.filter(option => city_ids.indexOf(option.value) === -1));
             setValues(cities.filter(option => city_ids.indexOf(option.value) !== -1));
         }
@@ -39,16 +39,13 @@ const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
 
     return (
         <Card className="cities-filter">
-            <h5 
-                className="cities-filter__title"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                Города
-            </h5>
+            <div className="cities-filter__head" onClick={() => setIsOpen(!isOpen)}>
+                <h5 className="cities-filter__title">Города</h5>
+                <span className={`cities-filter__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
+            </div>
             <CSSTransition
                 in={isOpen}
                 timeout={350}
-                classNames="dropdown__transition"
                 unmountOnExit
             >
                 <div className={isExhibitions ? `` : `_title_line`}>
@@ -68,7 +65,7 @@ const CitiesFilter = ({cities, city_ids, onChange, isExhibitions}) => {
                         placeholder="Начните вводить город"
                         noOptionsMessage={() => 'Город не найден'}
                         value={values}
-                        components={{Option}}
+                        components={{ Option }}
                         maxMenuHeight={isExhibitions && 170}
                     />
                     {!!values.length &&
