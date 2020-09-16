@@ -114,8 +114,6 @@
     transform: translateY(0);
   }
   &-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
     transition: opacity 0.2s, transform 0.2s;
   }
 }
