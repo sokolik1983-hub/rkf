@@ -41,7 +41,7 @@ const Table = ({ documents, distinction }) => {
                 date_change: formatDate(d.date_change)
             }
         }))
-    }, []);
+    }, [documents]);
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
