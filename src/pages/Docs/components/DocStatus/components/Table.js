@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
@@ -14,6 +14,8 @@ const ColumnMenu = (props) => {
         <GridColumnMenuFilter {...props} expanded={true} />
     </div>
 };
+
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
 
 const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     const { id, status_id } = dataItem;
@@ -61,23 +63,12 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
 };
 
 const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) => {
-    const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
     });
-
-    useEffect(() => {
-        setRows(documents.map(d => {
-            return {
-                ...d,
-                date_create: formatDate(d.date_create),
-                date_change: formatDate(d.date_change)
-            }
-        }))
-    }, [documents]);
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -91,8 +82,8 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) =>
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
                 {
-                    rows && <Grid
-                        data={process(rows, gridData)}
+                    documents && <Grid
+                        data={process(documents, gridData)}
                         pageable
                         sortable
                         resizable
@@ -101,10 +92,10 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) =>
                         onRowClick={handleGridRowClick}
                         className="club-documents-status__pointer"
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата регистрации" width="160px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата регистрации" width="160px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="federation_name" title="Федерация" width="120px" columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count" title="Всего заявок в пакете" width="185px" columnMenu={ColumnMenu} />
+                        <GridColumn field="count" title="Всего заявок" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="count_done" title="Изготовлено" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="count_in_work" title="В работе" width="100px" columnMenu={ColumnMenu} />
                         <GridColumn field="id" title="Номер документа" width="160px" columnMenu={ColumnMenu} />
