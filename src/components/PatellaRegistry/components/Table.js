@@ -41,6 +41,12 @@ const OptionsCell = ({ dataItem }, profileType) => {
         render: ({ item }) => <Link
             to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
             className="row-control__link">{item.text}</Link>
+    },
+    {
+        text: 'Ответить',
+        render: ({ item }) => <Link
+        to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
+            className="row-control__link">{item.text}</Link>
     }];
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
