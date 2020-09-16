@@ -52,7 +52,9 @@ const Table = ({ documents, distinction, height }) => {
             }
             newDataState.skip = 0
         } else {
-            newDataState.filter = []
+            newDataState.filter = {
+                filters: []
+            }
             newDataState.skip = 0
         }
         setGridData(newDataState);
