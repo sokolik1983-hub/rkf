@@ -101,4 +101,16 @@
       }
     }
   }
+  &__change-view {
+    display: block;
+    padding: 0;
+    border: none;
+    margin: 10px 0 10px auto;
+    letter-spacing: .2px;
+    color: #72839c;
+    transition: color .2s linear;
+    &:hover {
+      color: #3366FF;
+    }
+  }
 }
