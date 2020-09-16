@@ -26,6 +26,7 @@ const RanksFilter = ({ ranks, rank_ids, onChange }) => {
                 in={isOpen}
                 timeout={350}
                 unmountOnExit
+                classNames="dropdown__filters"
             >
                 <>
                     {ranks && !!ranks.length &&

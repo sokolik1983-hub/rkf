@@ -47,6 +47,7 @@ const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions }) => {
                 in={isOpen}
                 timeout={350}
                 unmountOnExit
+                classNames="dropdown__filters"
             >
                 <div className={isExhibitions ? `` : `_title_line`}>
                     <Select
