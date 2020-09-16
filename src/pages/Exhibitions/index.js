@@ -33,7 +33,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
-    const [standardView, setStandardView] = useState(false);
+    const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
 
     useEffect(() => {
