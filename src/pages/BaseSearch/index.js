@@ -108,14 +108,14 @@ const BaseSearch = () => {
                                 <div className="base-search__info-inner">
                                     {clubData ? <>
                                         <CustomMenu title="Личный кабинет">
-                                            <Link to={`/${clubData.club_alias}/documents`} title="Оформление документов">Оформление документов</Link>
-                                            <Link to={`/${clubData.club_alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                            <Link to={`/${clubData.club_alias}/documents/stamps`} title="Клейма">Клейма</Link>
-                                            <Link to="/reports" title="Отчеты" onClick={handleBrokenLinkClick}>Отчеты</Link>
-                                            <Link to={`/base-search?clubAlias=${clubData.club_alias}`}>Поиск по базе РКФ</Link>
-                                            <Link to={`/${clubData.club_alias}/documents/bookform`}>Запись на очный прием</Link>
-                                            <Link to={`/${clubData.club_alias}/documents/review`}>Оценка работы федерации</Link>
-                                            <Link to={`/${clubData.club_alias}`} title="Страница клуба">Страница клуба</Link>
+                                            <Link to={`/${clubData.club_alias}/documents`} title="Оформление документов" className="menu-component__link menu-component__link--documents">Оформление документов</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/responsible`} title="Организационная информация" className="menu-component__link menu-component__link--org">Организационная информация</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/stamps`} title="Клейма" className="menu-component__link menu-component__link--stain">Клейма</Link>
+                                            <Link to="/reports" title="Отчеты" onClick={handleBrokenLinkClick} className="menu-component__link menu-component__link--report">Отчеты</Link>
+                                            <Link to={`/base-search?clubAlias=${clubData.club_alias}`} className="menu-component__link--search">Поиск по базе РКФ</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/bookform`} className="menu-component__link menu-component__link--appointment">Запись на очный прием</Link>
+                                            <Link to={`/${clubData.club_alias}/documents/review`} className="menu-component__link menu-component__link--mark">Оценка работы федерации</Link>
+                                            <Link to={`/${clubData.club_alias}`} title="Страница клуба" className="menu-component__link menu-component__link--club">Страница клуба</Link>
                                         </CustomMenu>
                                         {alert &&
                                             <Alert
@@ -128,12 +128,12 @@ const BaseSearch = () => {
                                     </>
                                     :
                                     nurseryData ? <CustomMenu title="Личный кабинет">
-                                        <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов">Оформление документов</Link>
-                                        <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                                        <Link to={`/base-search?nurseryAlias=${nurseryData.alias}`}>Поиск по базе РКФ</Link>
-                                        <Link to={`/kennel/${nurseryData.alias}/documents/bookform`}>Запись на очный прием</Link>
-                                        <Link to={`/kennel/${nurseryData.alias}/documents/review`}>Оценка работы федерации</Link>
-                                        <Link to={`/kennel/${nurseryData.alias}`} title="Страница питомника">Страница питомника</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents`} title="Оформление документов" className="menu-component__link menu-component__link--documents">Оформление документов</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/responsible`} title="Организационная информация"  className="menu-component__link menu-component__link--org">Организационная информация</Link>
+                                        <Link to={`/base-search?nurseryAlias=${nurseryData.alias}`} className="menu-component__link--search">Поиск по базе РКФ</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/bookform`} className="menu-component__link menu-component__link--appointment">Запись на очный прием</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}/documents/review`} className="menu-component__link menu-component__link--mark">Оценка работы федерации</Link>
+                                        <Link to={`/kennel/${nurseryData.alias}`} title="Страница питомника" className="menu-component__link menu-component__link--club">Страница питомника</Link>
                                     </CustomMenu>
                                     :
                                     <>
