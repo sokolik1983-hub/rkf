@@ -3,7 +3,7 @@ import {setFiltersToUrl} from "../../../utils";
 import "./index.scss";
 
 
-const SearchFilter = ({string_filter}) => {
+const SearchFilter = ({string_filter, isOrganizations}) => {
     const [searchValue, setSearchValue] = useState(string_filter);
 
     const onCancel = () => {
@@ -22,7 +22,7 @@ const SearchFilter = ({string_filter}) => {
             <input
                 placeholder="Поиск организации по названию или городу"
                 name="search"
-                className="search-filter__control"
+                className={`search-filter__control ${isOrganizations ? `_no_border` : ``}`}
                 onChange={e => setSearchValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 value={searchValue}

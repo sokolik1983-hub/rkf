@@ -20,9 +20,9 @@
       font-size: 15px;
       line-height: 20px;
     }
-    // &:focus {
-    //   border: 1px solid #3366ff;
-    // }
+  }
+  ._no_border {
+    border: none;
   }
   &__cancel {
     background: url("/static/icons/cross-gray.svg") no-repeat center;
