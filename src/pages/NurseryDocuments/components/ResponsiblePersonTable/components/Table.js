@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton } from '@progress/kendo-react-buttons';
-import { Window } from '@progress/kendo-react-dialogs';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
@@ -43,8 +42,6 @@ const OptionsCell = ({ dataItem }, setDefaultPerson, deletePerson) => {
 };
 
 const Table = ({ documents, setDefaultPerson, deletePerson }) => {
-    const [windowVisible, setWindowVisible] = useState(false);
-    const [gridClickedRow, setGridClickedRow] = useState({});
     const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
@@ -67,11 +64,6 @@ const Table = ({ documents, setDefaultPerson, deletePerson }) => {
         setGridData(e.data);
     }
 
-    const handleGridRowClick = (e) => {
-        setWindowVisible(true);
-        setGridClickedRow(e.dataItem);
-    }
-
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
@@ -83,7 +75,6 @@ const Table = ({ documents, setDefaultPerson, deletePerson }) => {
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        onRowClick={handleGridRowClick}
                         style={{ height: "700px" }}>
                         <GridColumn field="full_name" title="ФИО" width="230px" columnMenu={ColumnMenu} />
                         <GridColumn field="phone" title="Телефон" width="120px" columnMenu={ColumnMenu} />
@@ -93,27 +84,6 @@ const Table = ({ documents, setDefaultPerson, deletePerson }) => {
                         <GridColumn field="is_default" title="По умолчанию" width="140px" columnMenu={ColumnMenu} cell={isDefaultCell} />
                         <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultPerson, deletePerson)} />
                     </Grid>
-                }
-                {windowVisible &&
-                    <Window
-                        title="Подробности"
-                        onClose={() => setWindowVisible(false)}
-                        height={400}>
-                        <dl style={{ textAlign: "left" }}>
-                            <dt><strong>ФИО</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.full_name}</dd>
-                            <dt><strong>Телефон</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.phone}</dd>
-                            <dt><strong>Email</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.email}</dd>
-                            <dt><strong>Абонентский ящик</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.subscriber_mail ? gridClickedRow.subscriber_mail : 'Не указан'}</dd>
-                            <dt><strong>Адрес</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.address}</dd>
-                            <dt><strong>По умолчанию</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.is_default ? 'Да' : 'Нет'}</dd>
-                        </dl>
-                    </Window>
                 }
             </IntlProvider>
         </LocalizationProvider>

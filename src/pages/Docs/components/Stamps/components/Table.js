@@ -3,7 +3,6 @@ import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { DropDownButton } from '@progress/kendo-react-buttons';
-import { Window } from '@progress/kendo-react-dialogs';
 import formatDate from 'utils/formatDate';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
@@ -72,8 +71,6 @@ const handleClick = async (e, id) => {
 };
 
 const Table = ({ documents, setDefaultStamp }) => {
-    const [windowVisible, setWindowVisible] = useState(false);
-    const [gridClickedRow, setGridClickedRow] = useState({});
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
@@ -102,11 +99,6 @@ const Table = ({ documents, setDefaultStamp }) => {
         setGridData(e.data);
     }
 
-    const handleGridRowClick = (e) => {
-        setWindowVisible(true);
-        setGridClickedRow(e.dataItem);
-    }
-
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
@@ -128,7 +120,6 @@ const Table = ({ documents, setDefaultStamp }) => {
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        onRowClick={handleGridRowClick}
                         style={{ height: "400px" }}>
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="140px" columnMenu={ColumnMenu} />
@@ -137,31 +128,6 @@ const Table = ({ documents, setDefaultStamp }) => {
                         <GridColumn field="is_default" title="По умолчанию" width="150px" columnMenu={ColumnMenu} cell={isDefaultCell} />
                         <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultStamp)} />
                     </Grid>
-                }
-
-
-                {windowVisible &&
-                    <Window
-                        title="Подробности"
-                        onClose={() => setWindowVisible(false)}
-                        height={350}>
-                        <dl style={{ textAlign: "left" }}>
-                            <dt><strong>Чип/Клеймо</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.stamp_code}</dd>
-                            <dt><strong>Статус</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.status_name}</dd>
-                            <dt><strong>Свидетельство о регистрации кода клейма</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>
-                                {gridClickedRow.document_id &&
-                                    <span className="pedigree-link" onClick={e => handleClick(e, gridClickedRow.document_id)} >Скачать файл</span>
-                                }
-                            </dd>
-                            <dt><strong>Дата добавления клейма</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_create}</dd>
-                            <dt><strong>По умолчанию</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.is_default ? 'Да' : 'Нет'}</dd>
-                        </dl>
-                    </Window>
                 }
             </IntlProvider>
         </LocalizationProvider>
