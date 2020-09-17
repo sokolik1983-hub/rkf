@@ -49,7 +49,7 @@ const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions }) => {
                 unmountOnExit
                 classNames="dropdown__filters"
             >
-                <div className={isExhibitions ? `` : `_title_line`}>
+                <div className="breeds-filter__wrap">
                     <Select
                         id="breeds-filter"
                         isMulti={true}

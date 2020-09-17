@@ -49,7 +49,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions }) => {
                 unmountOnExit
                 classNames="dropdown__filters"
             >
-                <div className={isExhibitions ? `` : `_title_line`}>
+                <div className="cities-filter__wrap">
                     <Select
                         id="cities-filter"
                         isMulti={true}
