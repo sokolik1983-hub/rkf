@@ -25,7 +25,7 @@ const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>
 
 const Table = ({ documents, distinction, height }) => {
     const [gridData, setGridData] = useState({
-        skip: 0, take: 20,
+        skip: 0, take: 50,
         sort: [
             { field: "date_create", dir: "asc" }
         ]

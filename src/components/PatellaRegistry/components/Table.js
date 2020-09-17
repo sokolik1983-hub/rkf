@@ -79,7 +79,7 @@ const handleClick = async (e, id, profileType) => {
 
 const Table = ({ documents, profileType }) => {
     const [gridData, setGridData] = useState({
-        skip: 0, take: 20,
+        skip: 0, take: 50,
         sort: [
             { field: "date_create", dir: "asc" }
         ]

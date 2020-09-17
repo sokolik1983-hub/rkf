@@ -61,7 +61,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
 
 const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport }) => {
     const [gridData, setGridData] = useState({
-        skip: 0, take: 20,
+        skip: 0, take: 50,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
