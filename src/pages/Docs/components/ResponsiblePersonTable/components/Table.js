@@ -44,7 +44,7 @@ const OptionsCell = ({ dataItem }, setDefaultPerson, deletePerson) => {
 const Table = ({ documents, setDefaultPerson, deletePerson }) => {
     const [rows, setRows] = useState(null);
     const [gridData, setGridData] = useState({
-        skip: 0, take: 20,
+        skip: 0, take: 50,
         sort: [
             { field: "date_create", dir: "asc" }
         ]

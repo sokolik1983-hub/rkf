@@ -64,7 +64,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
 
 const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) => {
     const [gridData, setGridData] = useState({
-        skip: 0, take: 20,
+        skip: 0, take: 50,
         sort: [
             { field: "date_create", dir: "asc" }
         ]
