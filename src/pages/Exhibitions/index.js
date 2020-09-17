@@ -36,6 +36,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -161,9 +162,20 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                             </>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
-                        <button className="exhibitions-page__change-view" onClick={() => setStandardView(!standardView)}>
-                            {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
-                        </button>
+                        <div className="exhibitions-page__controls">
+                            {!!exhibitionsForTable.length && !standardView &&
+                                <button
+                                    className="exhibitions-page__control"
+                                    onClick={() => setExporting(true)}
+                                    disabled={exporting}
+                                >
+                                    скачать в PDF
+                                </button>
+                            }
+                            <button className="exhibitions-page__control" onClick={() => setStandardView(!standardView)}>
+                                {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
+                            </button>
+                        </div>
                         {standardView ?
                             <ExhibitionsList
                                 exhibitions={exhibitions}
@@ -177,6 +189,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                 startElement={startElement - 1}
                                 needUpdate={needUpdateTable}
                                 getNextExhibitions={getNextExhibitionsForTable}
+                                exporting={exporting}
+                                setExporting={setExporting}
                             />
                         }
                     </div>
