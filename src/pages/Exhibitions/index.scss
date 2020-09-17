@@ -101,11 +101,16 @@
       }
     }
   }
-  &__change-view {
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__control {
     display: block;
     padding: 0;
     border: none;
-    margin: 10px 0 10px auto;
+    margin: 10px 0 10px 10px;
     letter-spacing: .2px;
     color: #72839c;
     transition: color .2s linear;
