@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { Window } from '@progress/kendo-react-dialogs';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
@@ -25,8 +24,6 @@ const ColumnMenu = (props) => {
 const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
 
 const Table = ({ documents, distinction, height }) => {
-    const [windowVisible, setWindowVisible] = useState(false);
-    const [gridClickedRow, setGridClickedRow] = useState({});
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
@@ -55,11 +52,6 @@ const Table = ({ documents, distinction, height }) => {
         setGridData(e.data);
     }
 
-    const handleGridRowClick = (e) => {
-        setWindowVisible(true);
-        setGridClickedRow(e.dataItem);
-    }
-
     return (
         <div className="App">
             <LocalizationProvider language="ru-RU">
@@ -82,7 +74,6 @@ const Table = ({ documents, distinction, height }) => {
                             resizable
                             {...gridData}
                             onDataStateChange={handleGridDataChange}
-                            onRowClick={handleGridRowClick}
                             style={{ height: height ? height : "700px" }}>
                             <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                             <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
@@ -96,39 +87,6 @@ const Table = ({ documents, distinction, height }) => {
                             <GridColumn field="barcode" title="Трек-номер" width="150px" columnMenu={ColumnMenu} />
                             <GridColumn field="status_name" title="Статус" width="150px" columnMenu={ColumnMenu} />
                         </Grid>
-                    }
-
-
-                    {windowVisible &&
-                        <Window
-                            title="Подробности"
-                            onClose={() => setWindowVisible(false)}
-                            height={500}>
-                            <dl style={{ textAlign: "left" }}>
-                                <dt><strong>Дата создания</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_create}</dd>
-                                <dt><strong>Изменение статуса</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_change}</dd>
-                                <dt><strong>Номер пакета</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow[`${distinction}_request_id`]}</dd>
-                                <dt><strong>ФИО заводчика</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.breeder_full_name}</dd>
-                                <dt><strong>Питомник</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.nursery_name}</dd>
-                                <dt><strong>Щенков</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.count_of_litter}</dd>
-                                <dt><strong>Порода</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.breed}</dd>
-                                <dt><strong>Клеймо</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.stamp_code}</dd>
-                                <dt><strong>Документов</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.count_of_documents}</dd>
-                                <dt><strong>Трек-номер</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.barcode}</dd>
-                                <dt><strong>Статус</strong></dt>
-                                <dd style={{ marginBottom: '10px' }}>{gridClickedRow.status_name}</dd>
-                            </dl>
-                        </Window>
                     }
                 </IntlProvider>
             </LocalizationProvider>

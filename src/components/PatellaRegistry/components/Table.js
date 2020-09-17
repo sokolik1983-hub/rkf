@@ -4,7 +4,6 @@ import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { DropDownButton } from '@progress/kendo-react-buttons';
-import { Window } from '@progress/kendo-react-dialogs';
 import formatDate from 'utils/formatDate';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
@@ -79,8 +78,6 @@ const handleClick = async (e, id, profileType) => {
 };
 
 const Table = ({ documents, profileType }) => {
-    const [windowVisible, setWindowVisible] = useState(false);
-    const [gridClickedRow, setGridClickedRow] = useState({});
     const [gridData, setGridData] = useState({
         skip: 0, take: 20,
         sort: [
@@ -109,11 +106,6 @@ const Table = ({ documents, profileType }) => {
         setGridData(e.data);
     }
 
-    const handleGridRowClick = (e) => {
-        setWindowVisible(true);
-        setGridClickedRow(e.dataItem);
-    }
-
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
@@ -135,7 +127,6 @@ const Table = ({ documents, profileType }) => {
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        onRowClick={handleGridRowClick}
                         style={{ height: "700px" }}>
                         <GridColumn field="date_create" title="Дата создания" width="140px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width="275px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
@@ -145,34 +136,6 @@ const Table = ({ documents, profileType }) => {
                         <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn width="80px" cell={props => OptionsCell(props, profileType)} />
                     </Grid>
-                }
-
-
-                {windowVisible &&
-                    <Window
-                        title="Подробности"
-                        onClose={() => setWindowVisible(false)}
-                        height={500}>
-                        <dl style={{ textAlign: "left" }}>
-                            <dt><strong>Дата создания</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_create}</dd>
-                            <dt><strong>Дата последнего изменения статуса</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.date_change}</dd>
-                            <dt><strong>ФИО ответственного лица</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.declarant_full_name}</dd>
-                            <dt><strong>Трек-номер</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.barcode}</dd>
-                            <dt><strong>Сертификат</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>
-                                {
-                                    gridClickedRow.certificate_document_id &&
-                                    <span className="pedigree-link" onClick={e => handleClick(e, gridClickedRow.certificate_document_id, profileType)} >Скачать файл</span>
-                                }
-                            </dd>
-                            <dt><strong>Статус</strong></dt>
-                            <dd style={{ marginBottom: '10px' }}>{gridClickedRow.status_name}</dd>
-                        </dl>
-                    </Window>
                 }
             </IntlProvider>
         </LocalizationProvider>
