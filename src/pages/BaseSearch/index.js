@@ -138,8 +138,8 @@ const BaseSearch = () => {
                                     :
                                     <>
                                         <OutsideClickHandler onOutsideClick={handleActiveReset}>
-                                            <Card>
-                                                <h3>Поиск</h3>
+                                            <Card className="menu-component__card">
+                                                <h3 className="menu-component__title">Поиск</h3>
                                                 <ul className="menu-component__list">
                                                     <li className="menu-component__item">
                                                         <LinkScroll

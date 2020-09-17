@@ -122,6 +122,13 @@
 
 // base-search menu styles
 .menu-component {
+  &__card {
+    padding-bottom: 10px !important;
+  }
+  &__title {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e8e8e8;
+  }
   &__list {
       list-style: none;
     }
