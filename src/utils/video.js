@@ -1,6 +1,7 @@
-export const getYoutubeVideoId = string => {
-    let videoId = ''
-    const params = string.replace('watch?', '').split('&');
+export const getYoutubeVideoId = link => {
+    let videoId = '';
+    const linkArr = link.split('/');
+    const params = linkArr[linkArr.length - 1].replace('watch?', '').split('&');
 
     if(params.length === 1) {
         videoId = params[0].replace('v=', '');
