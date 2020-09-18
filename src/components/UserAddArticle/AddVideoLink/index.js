@@ -3,7 +3,7 @@ import {getYoutubeVideoId} from "../../../utils/video";
 import "./index.scss";
 
 
-const AddVideoLink = ({setVideoId, showModal}) => {
+const AddVideoLink = ({setVideoLink, setVideoId, showModal}) => {
     const [link, setLink] = useState('');
     const [error, setError] = useState('');
 
@@ -16,7 +16,9 @@ const AddVideoLink = ({setVideoId, showModal}) => {
         e.preventDefault();
         if(link) {
             if(/(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w-_]+)/.test(link)) {
-                setVideoId(getYoutubeVideoId(link));
+                const id = getYoutubeVideoId(link);
+                setVideoLink(`https://www.youtube.com/embed/${id}`);
+                setVideoId(id);
                 showModal(false);
             } else {
                 setError('Для добавления доступны только ссылки с YouTube');

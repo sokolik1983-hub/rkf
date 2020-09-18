@@ -13,6 +13,9 @@ export const newsArticleFormConfig = {
             type: 'file',
             placeholder: 'Загрузить фото...',
         },
+        video_link: {
+            name: 'video_link'
+        },
         advert_breed_id: {
             name: 'advert_breed_id',
             label: 'Порода',

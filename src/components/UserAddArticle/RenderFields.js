@@ -18,6 +18,7 @@ import AddVideoLink from "./AddVideoLink";
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const [src, setSrc] = useState('');
     const [videoId, setVideoId] = useState('');
+    const [videoLink, setVideoLink] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -43,6 +44,17 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
             setSrc('');
         }
         setFocused();
+    };
+
+    const addVideoLink = link => {
+        formik.setFieldValue('video_link', link);
+        setVideoLink(link);
+    };
+
+    const removeVideoLink = () => {
+        formik.setFieldValue('video_link', '');
+        setVideoLink('');
+        setVideoId('');
     };
 
     const handleClose = () => {
@@ -107,18 +119,26 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
             </FormGroup>
             {focus &&
                 <>
-                    <div className="ImagePreview__wrap">
-                        {file &&
-                            <>
-                                <ImagePreview src={src} />
-                                <img src="/static/icons/file-cross.svg"
-                                    className="ImagePreview__close"
-                                    alt=""
-                                    onClick={handleClose}
-                                />
-                            </>
-                        }
-                    </div>
+                    {file &&
+                        <div className="ImagePreview__wrap">
+                            <ImagePreview src={src} />
+                            <img src="/static/icons/file-cross.svg"
+                                className="ImagePreview__close"
+                                alt=""
+                                onClick={handleClose}
+                            />
+                        </div>
+                    }
+                    {videoId &&
+                        <div className="ImagePreview__wrap">
+                            <ImagePreview src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`} />
+                            <img src="/static/icons/file-cross.svg"
+                                className="ImagePreview__close"
+                                alt=""
+                                onClick={removeVideoLink}
+                            />
+                        </div>
+                    }
                     {isAd &&
                         <>
                             <FormGroup inline className="ArticleCreateForm__advert">
@@ -140,11 +160,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                     }
                     <FormControls className="ArticleCreateForm__controls">
                         <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
-                        {!isAd &&
+                        {!isAd && !videoLink &&
                             <button
-                                className={`ArticleCreateForm__attach-video${isAd ? ' _disabled' : ''}`}
+                                className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
                                 type="button"
-                                onClick={() => isAd ? null : setShowModal(true)}>
+                                onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
                                 Добавить ссылку на видео
                             </button>
                         }
@@ -176,7 +196,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
                 >
-                    <AddVideoLink showModal={setShowModal} setVideoId={setVideoId}/>
+                    <AddVideoLink
+                        setVideoLink={addVideoLink}
+                        setVideoId={setVideoId}
+                        showModal={setShowModal}
+                    />
                 </Modal>
             }
         </OutsideClickHandler>

@@ -22,6 +22,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
             return {
                 content: values.content,
                 file: values.file,
+                video_link: values.video_link,
                 club_id: id
             }
         }
