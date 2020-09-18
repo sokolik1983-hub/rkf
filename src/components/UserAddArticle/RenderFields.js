@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import { connect } from 'formik';
-import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
+import {connect} from "formik";
+import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
-import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
-import { useFocus } from "../../shared/hooks";
-import { Request } from "utils/request";
+import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
+import {useFocus} from "../../shared/hooks";
+import {Request} from "../../utils/request";
+import Modal from "../Modal";
+import AddVideoLink from "./AddVideoLink";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const [src, setSrc] = useState('');
+    const [videoId, setVideoId] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [isMating, setIsMating] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const { focus, setFocused, setBlured } = useFocus(false);
     const { content, file } = formik.values;
@@ -77,7 +81,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                 onChange={handleChange}
             />
             <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
-                <ClientAvatar size={60} avatar={logo ? logo : DEFAULT_IMG.clubAvatar} />
+                <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
                 <FormField
                     {...fields.content}
                     onChange={handleKeyDown}
@@ -115,20 +119,35 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                             </>
                         }
                     </div>
-                    {isAd && <>
-                        <FormGroup inline className="ArticleCreateForm__advert">
-                            <FormField {...fields.advert_breed_id} />
-                            <CustomNumber {...fields.advert_cost} />
-                            {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
-                        </FormGroup>
-                        <FormGroup inline>
-                            <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
-                        </FormGroup>
-                    </>}
-                    <FormControls className="ArticleCreateForm__controls">
-                        <div className="ArticleCreateForm__attach">
-                            <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
+                    {isAd &&
+                        <>
+                            <FormGroup inline className="ArticleCreateForm__advert">
+                                <FormField {...fields.advert_breed_id} />
+                                <CustomNumber {...fields.advert_cost} />
+                                {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                            </FormGroup>
+                            <FormGroup inline>
+                                <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                            </FormGroup>
+                        </>
+                    }
+                    {content &&
+                        <div className="ArticleCreateForm__length-hint">
+                            <span className="ArticleCreateForm__content-length">
+                                {`осталось ${4096 - content.length} знаков`}
+                            </span>
                         </div>
+                    }
+                    <FormControls className="ArticleCreateForm__controls">
+                        <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
+                        {!isAd &&
+                            <button
+                                className={`ArticleCreateForm__attach-video${isAd ? ' _disabled' : ''}`}
+                                type="button"
+                                onClick={() => isAd ? null : setShowModal(true)}>
+                                Добавить ссылку на видео
+                            </button>
+                        }
                         <CustomCheckbox
                             id="ad"
                             label="Объявление"
@@ -136,22 +155,29 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                             checked={isAd}
                             onChange={() => setIsAd(!isAd)}
                         />
-                        <div className="ArticleCreateForm__length-hint">
-                            <span className="ArticleCreateForm__content-length">{content ? `осталось ${4096 - content.length} знаков` : ''}</span>
-                            <div className="ArticleCreateForm__button-wrap">
-                                <WikiHelp
-                                    url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
-                                    title="Инструкция по добавлению новости"
-                                />
-                                <SubmitButton type="submit"
-                                    className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                                >
-                                    Опубликовать
-                                </SubmitButton>
-                            </div>
+                        <div className="ArticleCreateForm__button-wrap">
+                            <WikiHelp
+                                url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
+                                title="Инструкция по добавлению новости"
+                            />
+                            <SubmitButton
+                                type="submit"
+                                className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                            >
+                                Опубликовать
+                            </SubmitButton>
                         </div>
                     </FormControls>
                 </>
+            }
+            {showModal &&
+                <Modal
+                    className="ArticleCreateForm__modal"
+                    showModal={showModal}
+                    handleClose={() => setShowModal(false)}
+                >
+                    <AddVideoLink showModal={setShowModal} setVideoId={setVideoId}/>
+                </Modal>
             }
         </OutsideClickHandler>
     )
