@@ -9,6 +9,7 @@ import './index.scss';
 
 const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isAd, setIsAd] = useState(false);
+    const [videoLink, setVideoLink] = useState('');
 
     const transformValues = values => {
         if (isAd) {
@@ -19,9 +20,11 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 club_id: id
             }
         } else {
+            setVideoLink('');
             return {
                 content: values.content,
                 file: values.file,
+                video_link: values.video_link,
                 club_id: id
             }
         }
@@ -50,7 +53,14 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 transformValues={transformValues}
                 onSuccess={() => setNeedRequest(true)}
             >
-                <RenderFields fields={newsArticleFormConfig.fields} logo={logo} isAd={isAd} setIsAd={setIsAd} />
+                <RenderFields
+                    fields={newsArticleFormConfig.fields}
+                    logo={logo}
+                    isAd={isAd}
+                    setIsAd={setIsAd}
+                    videoLink={videoLink}
+                    setVideoLink={setVideoLink}
+                />
             </Form>
         </Card>
     )
