@@ -93,7 +93,6 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 />
                             }
                             <NewsComponent
-
                                 alias={alias}
                                 page={page}
                                 setPage={setPage}
@@ -102,7 +101,6 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                                 canEdit={canEdit}
                             />
                         </div>
-
                     </div>
                     <FloatingMenu
                         alias={alias}
