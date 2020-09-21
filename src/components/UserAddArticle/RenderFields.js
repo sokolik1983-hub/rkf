@@ -13,12 +13,11 @@ import {useFocus} from "../../shared/hooks";
 import {Request} from "../../utils/request";
 import Modal from "../Modal";
 import AddVideoLink from "./AddVideoLink";
+import {getYoutubeVideoId} from "../../utils/video";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink }) => {
     const [src, setSrc] = useState('');
-    const [videoId, setVideoId] = useState('');
-    const [videoLink, setVideoLink] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -49,12 +48,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);
         setVideoLink(link);
+        setFocused();
     };
 
     const removeVideoLink = () => {
         formik.setFieldValue('video_link', '');
         setVideoLink('');
-        setVideoId('');
     };
 
     const handleClose = () => {
@@ -129,9 +128,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                             />
                         </div>
                     }
-                    {videoId &&
+                    {videoLink &&
                         <div className="ImagePreview__wrap">
-                            <ImagePreview src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`} />
+                            <ImagePreview src={`https://img.youtube.com/vi/${getYoutubeVideoId(videoLink)}/mqdefault.jpg`} />
                             <img src="/static/icons/file-cross.svg"
                                 className="ImagePreview__close"
                                 alt=""
@@ -198,7 +197,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                 >
                     <AddVideoLink
                         setVideoLink={addVideoLink}
-                        setVideoId={setVideoId}
                         showModal={setShowModal}
                     />
                 </Modal>
