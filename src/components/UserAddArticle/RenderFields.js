@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import {connect} from "formik";
+import Modal from "../Modal";
 import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
+import AddVideoLink from "./AddVideoLink";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
 import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 import {Request} from "../../utils/request";
-import Modal from "../Modal";
-import AddVideoLink from "./AddVideoLink";
 import {getYoutubeVideoId} from "../../utils/video";
 
 
