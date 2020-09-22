@@ -1,0 +1,43 @@
+import React from "react";
+import {DateRangePicker} from "@progress/kendo-react-dateinputs";
+import {IntlProvider, load, loadMessages, LocalizationProvider} from "@progress/kendo-react-intl";
+import messages from "./translation/messages.json";
+import "@progress/kendo-theme-default/dist/all.css";
+import "./index.scss";
+
+load (
+    require ("cldr-data/supplemental/likelySubtags.json" ),
+    require ("cldr-data/supplemental/weekData.json"),
+    require ("cldr-data/main/ru/numbers.json"),
+    require ("cldr-data/main/ru/currencies.json"),
+    require ("cldr-data/main/ru/ca-gregorian.json"),
+    require ("cldr-data/main/ru/dateFields.json"),
+    require ("cldr-data/main/ru/timeZoneNames.json")
+);
+
+// loadMessages(messages, 'ru');
+
+
+const RangeCalendar = ({value, onChange}) => {
+
+    return (
+        <LocalizationProvider language="ru">
+            <IntlProvider locale="ru">
+                <DateRangePicker
+                    value={value}
+                    onChange={onChange}
+                    format="dd.MM.yyyy"
+                    calendarSettings={{
+                        views: 2
+                    }}
+                    popupSettings={{
+                        popupClass: "range-calendar__popup"
+                    }}
+                    className="range-calendar"
+                />
+            </IntlProvider>
+        </LocalizationProvider>
+    )
+};
+
+export default React.memo(RangeCalendar);
