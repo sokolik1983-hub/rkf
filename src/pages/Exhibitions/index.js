@@ -165,14 +165,14 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                         <div className="exhibitions-page__controls">
                             {!!exhibitionsForTable.length && !standardView &&
                                 <button
-                                    className="exhibitions-page__control"
+                                    className="exhibitions-page__control exhibitions-page__control--downloadIcon"
                                     onClick={() => setExporting(true)}
                                     disabled={exporting}
                                 >
                                     скачать в PDF
                                 </button>
                             }
-                            <button className="exhibitions-page__control" onClick={() => setStandardView(!standardView)}>
+                            <button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>
                                 {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
                             </button>
                         </div>
