@@ -255,7 +255,8 @@
   }
   &__video {
     display: block;
-    margin: 10px auto 0;
+    margin: 0 auto;
+    padding-top: 10px;
     width: 100%;
     max-width: 780px;
     height: 35.40vw;
