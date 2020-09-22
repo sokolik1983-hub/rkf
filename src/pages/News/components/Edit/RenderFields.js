@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
+import getYouTubeID from "get-youtube-id";
 import {connect} from "formik";
 import CustomChipList from "../../../../components/Form/Field/CustomChipList";
 import {FormControls, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
 import AddVideoLink from "../../../../components/UserAddArticle/AddVideoLink";
 import {BAD_SITES} from "../../../../appConfig";
 import {Request} from "../../../../utils/request";
-import {getYoutubeVideoId} from "../../../../utils/video";
 import Modal from "../../../../components/Modal";
 
 
@@ -13,6 +13,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCance
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
+    const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const {content, is_advert} = formik.values;
 
@@ -119,7 +120,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCance
                 }
                 {video &&
                     <div className="article-edit__video">
-                        <img src={`https://img.youtube.com/vi/${getYoutubeVideoId(video)}/mqdefault.jpg`} alt="" />
+                        <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
                         <button className="article-edit__img-delete" onClick={handleDeleteVideoLink} />
                     </div>
                 }
@@ -129,10 +130,10 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCance
                     <FormGroup inline className="article-edit__ad">
                         <FormField {...fields.advert_breed_id} options={breeds}/>
                         <FormField {...fields.advert_cost}/>
-                        <FormField {...fields.advert_number_of_puppies}/>
+                        {!isMating && <FormField {...fields.advert_number_of_puppies}/>}
                     </FormGroup>
                     <FormGroup inline className="article-edit__ad">
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes}/>
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating}/>
                     </FormGroup>
                 </div>
             }
