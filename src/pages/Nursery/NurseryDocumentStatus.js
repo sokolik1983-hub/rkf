@@ -6,10 +6,12 @@ import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import ClubUserHeader from "../../components/redesign/UserHeader";
-import UserGallery from "../../components/redesign/UserGallery";
+import UserGallery from "components/redesign/UserGallery";
+import UserVideoGallery from "components/redesign/UserGallery/UserVideoGallery";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
+import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import useWindowSize from "../../utils/useWindowSize";
@@ -21,6 +23,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
     const [nursery, setNurseryInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const windowSize = useWindowSize();
     const galleryRef = useRef(null);
     const galleryHolderRef = useRef(null);
@@ -116,7 +119,10 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                             </Card>
                                         }
                                         <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}><UserGallery alias={alias} /></div>
+                                            <div ref={galleryRef}>
+                                                <UserGallery alias={alias} isKennel={true} />
+                                                <UserVideoGallery alias={alias} setShowModal={setShowModal} isKennel={true} />
+                                                </div>
                                         </div>
                                         <div className="nursery-page__mobile-only">
                                             <MenuComponent 
@@ -134,6 +140,10 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                 </StickyBox>
                             </Aside>
                         </div>
+                        {showModal &&
+                            <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
+                                <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
+                            </VideoModal>}
                     </Container>
                 </div>
             </Layout>

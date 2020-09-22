@@ -6,7 +6,7 @@ import { Request } from "utils/request";
 import "./index.scss";
 
 const UserVideoGallery = ({ alias, setShowModal, isKennel }) => {
-    const [videos, setVideos] = useState(null);
+    const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -37,16 +37,12 @@ const UserVideoGallery = ({ alias, setShowModal, isKennel }) => {
             {
                 loading
                     ? <Loading inline={true} />
-                    : <>
-                        {
-                            videos.slice(0, 2).map(v => {
-                                return <div key={v.id} className="VideoGallery__item">
-                                    <img src={v.cover_link} onClick={() => setShowModal({ type: 'openVideo', item: v })} alt="" />
-                                    <h5 className="VideoGallery__item-name">{v.name}</h5>
-                                </div>
-                            })
-                        }
-                    </>
+                    : videos.length
+                        ? videos.slice(0, 2).map(v => <div key={v.id} className="VideoGallery__item">
+                            <img src={v.cover_link} onClick={() => setShowModal({ type: 'openVideo', item: v })} alt="" />
+                            <h5 className="VideoGallery__item-name">{v.name}</h5>
+                        </div>)
+                        : <img src="/static/images/noimg/empty-gallery-item.jpg" alt="" style={{ width: '100%' }} />
             }
         </Card>
     );

@@ -8,17 +8,17 @@ import { VideoGallery } from "components/Gallery";
 import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
 import ClubUserHeader from "../../components/redesign/UserHeader";
+import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
-import "pages/Club/index.scss";
+import "pages/Nursery/index.scss";
 
-const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
-    const [clubInfo, setClubInfo] = useState(null);
+const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
+    const [nursery, setNursery] = useState(null);
     const [videos, setVideos] = useState([]);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [videosLoading, setVideosLoading] = useState(false);
@@ -26,12 +26,12 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
-    let params = useParams();
-    const alias = params.id;
+    const params = useParams();
+    const alias = match.params.id;
 
     useEffect(() => {
         setPageLoaded(false);
-        Promise.all([getVideos(1), !clubInfo && getClub()])
+        Promise.all([getVideos(1), !nursery && getNursery()])
             .then(() => {
                 setStartElement(1);
                 setPageLoaded(true);
@@ -68,11 +68,11 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
         }
     };
 
-    const getClub = () => {
+    const getNursery = () => {
         return Request({
-            url: '/api/Club/public/' + alias
+            url: '/api/nurseries/nursery/public/' + params.id
         }, data => {
-            setClubInfo(data);
+            setNursery(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => handleError(error));
     }
@@ -115,50 +115,62 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     }
 
     const Breadcrumbs = () => {
-        return <div className="ClubVideo__breadcrumbs">
-            <div className="ClubVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+        return <div className="NurseryVideo__breadcrumbs">
+            <div className="NurseryVideo__breadcrumbs-title">
+                <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
             </div>
         </div>
     };
 
     return (
         <>
-            {!pageLoaded && !clubInfo
+            {!pageLoaded && !nursery
                 ? <Loading />
                 : <Layout>
                     <div className="redesign">
-                        <Container className="content club-page">
-                            <div className="club-page__content-wrap">
-                                <div className="club-page__content">
-                                    <Card className="club-page__content-banner">
-                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
+                        <Container className="content nursery-page">
+                            <div className="nursery-page__content-wrap">
+                                <div className="nursery-page__content">
+                                    <Card className="nursery-page__content-banner">
+                                        <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
                                     </Card>
-                                    <div className="club-page__mobile-only">
+                                    <div className="nursery-page__mobile-only">
                                         <ClubUserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                            logo={clubInfo.logo_link}
-                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                            alias={clubInfo.club_alias}
-                                            profileId={clubInfo.id}
-                                            federationName={clubInfo.federation_name}
-                                            federationAlias={clubInfo.federation_alias}
+                                            user="nursery"
+                                            logo={nursery.logo_link}
+                                            name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                            alias={alias}
+                                            profileId={nursery.id}
+                                            federationName={nursery.federation_name}
+                                            federationAlias={nursery.federation_alias}
                                         />
+                                        {nursery.breeds && !!nursery.breeds.length &&
+                                            <Card className="nursery-page__breeds">
+                                                <h4>Породы</h4>
+                                                <ul className="nursery-page__breeds-list">
+                                                    {nursery.breeds.map(item =>
+                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                    )}
+                                                </ul>
+                                            </Card>
+                                        }
                                     </div>
-                                    <div className="ClubVideo__content">
+                                    <div className="NurseryVideo__content">
                                         <Card>
                                             <Breadcrumbs />
                                             {
                                                 !pageLoaded
                                                     ? <Loading centered={false} />
                                                     : <>
+
+
                                                         <InfiniteScroll
                                                             dataLength={videos.length}
                                                             next={getNextVideos}
                                                             hasMore={hasMore}
                                                             loader={videosLoading && <Loading centered={false} />}
                                                             endMessage={!!videos.length &&
-                                                                <div className="ClubVideo__no-videos">
+                                                                <div className="NurseryVideo__no-videos">
                                                                     <h4>Видеозаписей больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
                                                                 </div>
@@ -184,33 +196,45 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                         </Card>
                                     </div>
                                 </div>
-                                <Aside className="club-page__info">
+                                <Aside className="nursery-page__info">
                                     <StickyBox offsetTop={65}>
-                                        <div className="club-page__info-inner">
+                                        <div className="nursery-page__info-inner">
                                             <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
+                                                user="nursery"
+                                                logo={nursery.logo_link}
+                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                alias={alias}
+                                                profileId={nursery.id}
+                                                federationName={nursery.federation_name}
+                                                federationAlias={nursery.federation_alias}
                                             />
-                                            <div className="club-page__copy-wrap">
+                                            {nursery.breeds && !!nursery.breeds.length &&
+                                                <Card className="nursery-page__breeds">
+                                                    <h4>Породы</h4>
+                                                    <ul className="nursery-page__breeds-list">
+                                                        {nursery.breeds.map(item =>
+                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                        )}
+                                                    </ul>
+                                                </Card>
+                                            }
+                                            <div className="nursery-page__mobile-only">
+                                                <MenuComponent
+                                                    alias={alias}
+                                                    user={user}
+                                                    profileId={nursery.id}
+                                                    noCard={true}
+                                                />
+
+                                            </div>
+
+                                            <div className="nursery-page__copy-wrap">
                                                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
                                                 <p>Политика обработки персональных данных</p>
                                             </div>
                                         </div>
                                     </StickyBox>
                                 </Aside>
-                            </div>
-                            <div className="club-page__mobile-only">
-                                <MenuComponent
-                                    alias={clubInfo.club_alias}
-                                    user={user}
-                                    profileId={clubInfo.id}
-                                    noCard={true}
-                                />
                             </div>
                         </Container>
                     </div>
@@ -221,4 +245,4 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     )
 };
 
-export default connectAuthVisible(React.memo(ClubVideo));
+export default connectAuthVisible(React.memo(NurseryVideo));
