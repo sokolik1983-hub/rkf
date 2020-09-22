@@ -80,6 +80,30 @@
     max-width: 100%;
     margin: 24px auto;
   }
+  &__video {
+    display: block;
+    margin: 0 auto;
+    padding-top: 24px;
+    width: 100%;
+    max-width: 780px !important;
+    height: 35.40vw;
+    max-height: 438px;
+    &._disabled {
+      display: none;
+    }
+    @media (max-width: 990px) {
+      width: 700px;
+      height: 394px;
+    }
+    @media (max-width: 767px) {
+      width: 493px;
+      height: 277px;
+    }
+    @media (max-width: 560px) {
+      width: 100%;
+      height: 51vw;
+    }
+  }
   &__buttons {
     text-align: right;
     button + button {

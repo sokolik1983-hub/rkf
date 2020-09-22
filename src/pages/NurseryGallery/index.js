@@ -192,7 +192,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                             <Breadcrumbs />
                                             {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
                                             <div className="NurseryGallery__buttons">
-                                                {album && canEdit && < Link className="NurseryGallery__buttons-link" to={`/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
+                                                {album && canEdit && < Link className="NurseryGallery__buttons-link" to={`/kennel/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
                                                 {album && canEdit && album.addition && <>
                                                     <span className="NurseryGallery__buttons-link" onClick={() => handleAlbumDelete(params.album)}>Удалить</span>
                                                     <span className="NurseryGallery__buttons-link" onClick={() => handleAddPhoto()}>Добавить фото</span>

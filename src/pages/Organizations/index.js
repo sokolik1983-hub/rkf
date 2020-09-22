@@ -33,7 +33,7 @@ const Organizations = ({history, isOpenFilters, setShowFilters}) => {
                     <div className="organizations-page__content">
                         <OrganizationsFilter organization_type={filtersValue.organization_type}/>
                         {filtersValue.organization_type !== 5 &&
-                            <SearchFilter string_filter={filtersValue.string_filter}/>
+                            <SearchFilter string_filter={filtersValue.string_filter} isOrganizations />
                         }
                         <OrganizationsList {...filtersValue}/>
                     </div>

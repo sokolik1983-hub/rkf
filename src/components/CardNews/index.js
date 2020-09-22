@@ -32,7 +32,9 @@ const CardNews = forwardRef(({
     adCode,
     adPrice,
     adAmount,
+    adCategory,
     isClosedAd,
+    videoLink,
     changeCityFilter
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
@@ -42,7 +44,7 @@ const CardNews = forwardRef(({
     const ref = useRef(null);
 
     useEffect(() => {
-        if (ref.current && ref.current.clientHeight > 100) setCanCollapse(true);
+        if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
 
     const handleCityChange = () => changeCityFilter ?
@@ -132,6 +134,7 @@ const CardNews = forwardRef(({
                                 <div>
                                     <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
                                     <span>Кол-во щенков: {adAmount}</span>
+                                    {adCategory && <span>Категория: {adCategory}</span>}
                                 </div>
                                 {isClosedAd && <div className="card-news__ad-inactive" >Объявление не активно</div>}
                             </div>
@@ -140,6 +143,15 @@ const CardNews = forwardRef(({
                             ref={ref}
                             dangerouslySetInnerHTML={{ __html: formatText(text) }}
                         />
+                        {videoLink &&
+                            <iframe
+                                className={`card-news__video${!collapsed ? ' _disabled' : ''}`}
+                                src={videoLink}
+                                title={id}
+                                frameBorder="0"
+                                allowFullScreen
+                            />
+                        }
                     </div>
                 </div>
                 <div className="card-news__controls">

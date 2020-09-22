@@ -16,8 +16,16 @@
     &__wrap {
         position: relative;
         flex-grow: 1;
-        &:nth-child(2) {
+        &:not(:first-child) {
             margin-left: 6px;
+            @media (max-width: 320px) {
+                margin-left: 0;
+            }
+        }
+        &:nth-child(3) {
+            @media (max-width: 768px) {
+                margin-left: 0;
+            }
         }
     }
     &__input {
@@ -36,7 +44,7 @@
         top: 15px;
         transform: translateY(-50%);
         z-index: 1;
-      }
+    }
     &__icon {
         float: right;
         width: 145px;
@@ -44,19 +52,34 @@
         margin: 0 0 10px 10px;
         background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
         @media (max-width: 560px) {
-          width: 100px;
-          height: 100px;
+            width: 100px;
+            height: 100px;
         }
-      }
-      &__default-content {
+        &.stamp-search {
+            background-image: url("/static/images/base_search/stamp-search.svg");
+        }
+        &.found-info {
+            background-image: url("/static/images/base_search/found-info.svg");
+        }
+        &.check-registration {
+            background-image: url("/static/images/base_search/check-registration.svg");
+        }
+        &.referee_search {
+            background-image: url("/static/images/base_search/referee_search.svg");
+        }
+        &.publication-search {
+            background-image: url("/static/images/base_search/publication-search.svg");
+        }
+    }
+    &__default-content {
         padding-top: 16px;
         text-align: center;
         h3 {
-          font-weight: 600;
-          font-size: 18px;
-          line-height: 24px;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
         }
-      }
+    }
     &__button {
         display: flex;
         justify-content: flex-end;
@@ -71,25 +94,29 @@
             box-sizing: border-box;
             & svg:hover {
                 fill: #3366ff;
-                transition: fill .2s linear;
+                transition: fill 0.2s linear;
+            }
+            &:disabled svg {
+                fill: #90999e;
+                cursor: not-allowed;
             }
         }
-    &--clear {
-        button {
-            display: block;
-            background-color: #ffffff;
-            margin-left: 3px;
-            border: none;
-            padding: 0;
-            span {
-                display: inline-block;
-                width: 20px;
-                height: 25px;
-                background: url("/static/icons/delete-red.svg") center no-repeat;
-                cursor: pointer;
-             }
+        &--clear {
+            button {
+                display: block;
+                background-color: #ffffff;
+                margin-left: 3px;
+                border: none;
+                padding: 0;
+                span {
+                    display: inline-block;
+                    width: 20px;
+                    height: 25px;
+                    background: url("/static/icons/delete-red.svg") center no-repeat;
+                    cursor: pointer;
+                }
+            }
         }
-    }
         .Loading__title {
             margin: 0;
             width: 5em;
@@ -121,4 +148,8 @@
 }
 ._hide {
     display: none;
+}
+.Card._active_card {
+    box-shadow: 0 6px 12px #3366ff;
+    transition: all 0.2s linear;
 }

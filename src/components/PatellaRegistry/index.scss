@@ -94,4 +94,10 @@
     line-height: 40px;
     margin-left: 40px;
   }
+  .pedigree-link {
+    cursor: pointer;
+  }
+  .stamp-loading {
+    pointer-events: none;
+  }
 }

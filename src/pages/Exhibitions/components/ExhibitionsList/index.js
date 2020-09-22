@@ -26,10 +26,10 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) 
                     <li className="ExhibitionsList__item" key={item.id}>
                         <CardExhibition
                             id={item.id}
-                            title={item.content}
+                            title={item.title}
                             city={item.city}
                             city_id={item.city_id}
-                            dates={item.dates}
+                            date={item.date}
                             photo={item.picture_link}
                             url={item.url}
                             club_name={item.club_name}
@@ -37,7 +37,7 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) 
                             club_logo={item.club_logo}
                             federation_name={item.federation_name}
                             federation_link={item.federation_link}
-                            ranks={item.ranks.map(rank => rank.name).join(', ')}
+                            ranks={item.rank_string}
                             user={item.user_type}
                             setFilters={city_id => setFiltersToUrl({CityIds: [city_id]})}
                         />

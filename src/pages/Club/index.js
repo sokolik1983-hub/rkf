@@ -11,6 +11,7 @@ import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import UserGallery from "../../components/redesign/UserGallery";
+import UserVideoGallery from "../../components/redesign/UserGallery/UserVideoGallery";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
 import { Request } from "../../utils/request";
@@ -18,6 +19,7 @@ import MenuComponent from "../../components/MenuComponent";
 import useWindowSize from "utils/useWindowSize";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
+import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
@@ -29,6 +31,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const windowSize = useWindowSize();
     const galleryRef = useRef(null);
     const galleryHolderRef = useRef(null);
@@ -129,7 +132,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 federationAlias={clubInfo.federation_alias}
                                             />
                                             <div ref={galleryHolderRef}>
-                                                <div ref={galleryRef}><UserGallery alias={clubInfo.club_alias} /></div>
+                                                <div ref={galleryRef}>
+                                                    <UserGallery alias={clubInfo.club_alias} />
+                                                    <UserVideoGallery alias={clubInfo.club_alias} setShowModal={setShowModal} />
+                                                </div>
                                             </div>
                                             <div className="club-page__copy-wrap">
                                                 <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
@@ -147,6 +153,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     noCard={true}
                                 />
                             </div>
+                            {showModal &&
+                                <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
+                                    <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
+                                </VideoModal>}
                         </Container>
                     </div>
                 </Layout>

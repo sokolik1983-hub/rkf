@@ -1,4 +1,14 @@
 .search-page__filters {
+  &-wrap {
+    max-height: calc(100vh - 66px);
+    overflow-y: auto;
+    @media (max-width: 990px) {
+      max-height: calc(100vh - 50px);
+    }
+    @media (max-width: 560px) {
+      max-height: calc(100vh - 48px);
+    }
+  }
   &-title {
     font-weight: normal;
     font-size: 18px;

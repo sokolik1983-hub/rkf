@@ -13,6 +13,9 @@ export const newsArticleFormConfig = {
             type: 'file',
             placeholder: 'Загрузить фото...',
         },
+        video_link: {
+            name: 'video_link'
+        },
         advert_breed_id: {
             name: 'advert_breed_id',
             label: 'Порода',
@@ -27,10 +30,14 @@ export const newsArticleFormConfig = {
             name: 'advert_cost',
             label: 'Стоимость (руб.)'
         },
-        advert_number_of_puppies : {
+        advert_number_of_puppies: {
             name: 'advert_number_of_puppies',
             label: 'Кол-во щенков',
             maxLength: 2
+        },
+        advert_type_id: {
+            name: 'advert_type_id',
+            label: 'Категория объявления'
         }
     }
 };

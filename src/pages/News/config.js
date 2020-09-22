@@ -42,6 +42,13 @@ export const formConfig = {
             type: 'file',
             placeholder: 'Загрузить фото...',
         },
+        video_link: {
+            name: 'video_link'
+        },
+        advert_type_id: {
+            name: 'advert_type_id',
+            label: 'Категория объявления'
+        }
     },
     validationSchema: object().shape({
         content: string().required('Поле не может быть пустым'),
@@ -61,6 +68,12 @@ export const formConfig = {
                     .typeError('Введите число'),
                 otherwise: number().notRequired(),
             }),
+        advert_type_id: number()
+            .when(['is_advert'], {
+                is: true,
+                then: number().nullable().required('Выберите категорию'),
+                otherwise: number().notRequired(),
+            }),
 
     })
 };
@@ -70,6 +83,7 @@ export const defaultValues = {
     advert_breed_id: '',
     advert_cost: '',
     advert_number_of_puppies: '',
+    advert_type_id: '',
     content: '',
     file: '',
 };
