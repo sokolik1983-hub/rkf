@@ -1,3 +1,13 @@
+/*getYoutubeVideoId вытаскивает id из ссылок, оканчивающихся на:
+    /{id}
+    /v={id}
+    /watch?v={id}
+    /watch?v={id}&feature=related
+    /watch?feature=player_embedded&v={id}
+    /watch?v={id}&feature=share&a=9QlmP1yvjcllp0h3l0NwuA
+    /watch?v={id}&feature=em-uploademail
+*/
+
 export const getYoutubeVideoId = link => {
     let videoId = '';
     const linkArr = link.split('/');

@@ -1,23 +1,23 @@
 import React, {useState, useEffect} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import {connect} from "formik";
+import Modal from "../Modal";
 import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
+import AddVideoLink from "./AddVideoLink";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
 import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 import {Request} from "../../utils/request";
-import Modal from "../Modal";
-import AddVideoLink from "./AddVideoLink";
+import {getYoutubeVideoId} from "../../utils/video";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink }) => {
     const [src, setSrc] = useState('');
-    const [videoId, setVideoId] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -43,6 +43,17 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
             setSrc('');
         }
         setFocused();
+    };
+
+    const addVideoLink = link => {
+        formik.setFieldValue('video_link', link);
+        setVideoLink(link);
+        setFocused();
+    };
+
+    const removeVideoLink = () => {
+        formik.setFieldValue('video_link', '');
+        setVideoLink('');
     };
 
     const handleClose = () => {
@@ -107,18 +118,26 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
             </FormGroup>
             {focus &&
                 <>
-                    <div className="ImagePreview__wrap">
-                        {file &&
-                            <>
-                                <ImagePreview src={src} />
-                                <img src="/static/icons/file-cross.svg"
-                                    className="ImagePreview__close"
-                                    alt=""
-                                    onClick={handleClose}
-                                />
-                            </>
-                        }
-                    </div>
+                    {file &&
+                        <div className="ImagePreview__wrap">
+                            <ImagePreview src={src} />
+                            <img src="/static/icons/file-cross.svg"
+                                className="ImagePreview__close"
+                                alt=""
+                                onClick={handleClose}
+                            />
+                        </div>
+                    }
+                    {videoLink &&
+                        <div className="ImagePreview__wrap">
+                            <ImagePreview src={`https://img.youtube.com/vi/${getYoutubeVideoId(videoLink)}/mqdefault.jpg`} />
+                            <img src="/static/icons/file-cross.svg"
+                                className="ImagePreview__close"
+                                alt=""
+                                onClick={removeVideoLink}
+                            />
+                        </div>
+                    }
                     {isAd &&
                         <>
                             <FormGroup inline className="ArticleCreateForm__advert">
@@ -140,11 +159,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                     }
                     <FormControls className="ArticleCreateForm__controls">
                         <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
-                        {!isAd &&
+                        {!isAd && !videoLink &&
                             <button
-                                className={`ArticleCreateForm__attach-video${isAd ? ' _disabled' : ''}`}
+                                className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
                                 type="button"
-                                onClick={() => isAd ? null : setShowModal(true)}>
+                                onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
                                 Добавить ссылку на видео
                             </button>
                         }
@@ -176,7 +195,10 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd }) => {
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
                 >
-                    <AddVideoLink showModal={setShowModal} setVideoId={setVideoId}/>
+                    <AddVideoLink
+                        setVideoLink={addVideoLink}
+                        showModal={setShowModal}
+                    />
                 </Modal>
             }
         </OutsideClickHandler>

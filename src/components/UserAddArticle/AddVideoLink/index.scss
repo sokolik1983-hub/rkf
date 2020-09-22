@@ -2,9 +2,15 @@
   &__form {
     display: flex;
     align-items: flex-start;
+    @media (max-width: 560px) {
+      display: block;
+    }
     &-row {
       width: 100%;
       margin-right: 10px;
+      @media (max-width: 560px) {
+        margin-right: 0;
+      }
     }
     &-label {
       display: block;
@@ -44,6 +50,10 @@
       &:disabled {
         cursor: default;
         opacity: .7;
+      }
+      @media (max-width: 560px) {
+        display: block;
+        margin: 10px 0 0 auto;
       }
     }
   }
