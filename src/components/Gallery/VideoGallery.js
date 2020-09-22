@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import getYoutubeTitle from 'get-youtube-title';
 import { PromiseRequest } from 'utils/request';
 import { DEFAULT_IMG } from "../../appConfig";
+import getYouTubeID from 'get-youtube-id';
 import './styles.scss';
 
 const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, handleDeleteVideo, handleError, canEdit, alias, isClub = false }) => {
@@ -15,7 +16,8 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
         setShowModal({ type: 'addVideo' });
     }
 
-    const onVideoAddSuccess = (id) => {
+    const onVideoAddSuccess = (link) => {
+        const id = getYouTubeID(link);
         getYoutubeTitle(id, function (err, title) {
             if (err) {
                 handleError(err);
