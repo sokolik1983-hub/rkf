@@ -5,6 +5,7 @@ import {Request} from "../utils/request";
 import {appRoutes} from "../appConfig";
 import IframePage from "../pages/Static/IframePage";
 import {LoadableNotFound} from "../appModules";
+import "./kendo.scss";
 import "./index.scss";
 
 

@@ -34,23 +34,23 @@ const HomePage = ({ homepage, cities }) => {
                         <Aside className="home-page__right">
                             <StickyBox offsetTop={65}>
                                 <div className="home-page__right-wrap">
-                                    <Card>
+                                    <Card className="home-page__about">
                                         <h3>{RKFInfo.aboutTitle}</h3>
                                         <p>{RKFInfo.about}</p>
                                     </Card>
-                                    <Card>
-                                        <h3 style={{ marginBottom: '7px' }}>РКФ в соцсетях</h3>
+                                    <Card className="home-page__socials">
+                                        <h3>РКФ в соцсетях</h3>
                                         <div className="home-page__right-socials">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruskynologfed/"><img src="/static/icons/social/facebook.svg" alt="" /></a>
                                             <a target="_blank" rel="noopener noreferrer" href="https://vk.com/ruskynologfed"><img src="/static/icons/social/vk.svg" alt="" /></a>
                                             {/* <a target="_blank" rel="noopener noreferrer" href="https://ok.ru/rkforg"><img src="/static/icons/social/odnoklassniki.svg" alt="" /></a>
-                                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
+                                            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ruskynologfed"><img src="/static/icons/social/twitter.svg" alt="" /></a> */}
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UC1mzNt3TccDxGfA-vkEAQig"><img src="/static/icons/social/youtube.svg" alt="" /></a>
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/russiankynologfed/"><img src="/static/icons/social/instagram.svg" alt="" /></a>
                                             <a target="_blank" rel="noopener noreferrer" href="https://t.me/RkfOnlineOfficial"><img src="/static/icons/social/telegram.svg" alt="" /></a>
                                         </div>
                                     </Card>
-                                    {/* <HomepageCheckStatus /> */}
+                                    <Statistics />
                                     <Card className="home-page__projects-wrap">
                                         <h3>Международные мероприятия</h3>
                                         <div className="home-page__projects">
@@ -61,7 +61,6 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
-                                    <Statistics />
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">

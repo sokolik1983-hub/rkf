@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from "../../../../components/Card";
-import Request, { getHeaders } from "utils/request";
+import { Request } from "utils/request";
 import Loading from "components/Loading";
 import Alert from "components/Alert";
 import './styles.scss';
 
-const CheckStatus = ({ isBaseSearch }) => {
+const CheckStatus = ({status_clicked}) => {
     const [barcode, setBarcode] = useState('');
     const [status, setStatus] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -36,31 +36,30 @@ const CheckStatus = ({ isBaseSearch }) => {
         setBarcode('');
     };
 
-    const requestTracking = barcode => {
+    const requestTracking = async (barcode) => {
         setLoading(true);
-        Request({
-            url: `/api/requests/CommonRequest/request_tracking?barcode=${barcode}`,
-            options: {
-                method: "GET",
-                headers: getHeaders(),
-            }
-        }).then(data => {
-            if (data.result.length) {
-                setStatus(data.result);
-            } else {
-                setStatus([]);
+
+        await Request({
+            url: `/api/requests/CommonRequest/request_tracking?barcode=${barcode}`
+        }, data => {
+            setStatus(data);
+            if (!data.length) {
                 setAlert(true);
             }
-            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setStatus([]);
         });
+
+        setLoading(false);
     };
 
-    return <Card className="check-status">
-        {isBaseSearch && <div className="check-status__icon" />}
+    return <Card className={`check-status ${status_clicked ? `_active_card` : ``}`} id="check-status-anchor">
+        <div className="check-status__icon" />
         <h3>Статус документов</h3>
-        {isBaseSearch && <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление 
-        родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск". 
-        История изменений статусов будет отображена в таблице ниже.</p>}
+        <p>Для отслеживания статуса изготовления документов по заявкам на замену и изготовление
+        родословных, а также  регистрацию помета и др. документов введите 13-значный трек-номер в поле и нажмите кнопку "Поиск".
+        История изменений статусов будет отображена в таблице ниже.</p>
         <form onSubmit={handleSubmit}>
             <div className="check-status__wrap">
                 <input
@@ -75,9 +74,9 @@ const CheckStatus = ({ isBaseSearch }) => {
                     required
                 />
                 {barcode &&
-                    <button type="button" className={`check-status__cancel ${status.length ? `_hide` : ``}`} onClick={handleBarcodeClear}/>}
+                    <button type="button" className={`check-status__cancel ${status.length ? `_hide` : ``}`} onClick={handleBarcodeClear} />}
             </div>
-           {!status.length ? <div className="check-status__button">
+            {!status.length ? <div className="check-status__button">
                 <button
                     type="submit"
                     disabled={loading}
@@ -87,16 +86,16 @@ const CheckStatus = ({ isBaseSearch }) => {
                     </svg>
                 </button>
             </div>
-            :
-            <div className="check-status__button--clear">
-                <button
-                    type="button"
-                    disabled={loading}
-                    onClick={handleReset}
-                >
-                <span></span>
-                </button>
-            </div>}
+                :
+                <div className="check-status__button--clear">
+                    <button
+                        type="button"
+                        disabled={loading}
+                        onClick={handleReset}
+                    >
+                        <span></span>
+                    </button>
+                </div>}
         </form>
         {
             loading

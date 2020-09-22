@@ -245,12 +245,36 @@
         display: flex;
         flex-wrap: wrap;
       }
-      span:first-child {
+      span:not(:last-child) {
         margin-right: 10px;
       }
     }
     &-inactive {
       color: red;
+    }
+  }
+  &__video {
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 100%;
+    max-width: 780px;
+    height: 35.40vw;
+    max-height: 438px;
+    &._disabled {
+      display: none;
+    }
+    @media (max-width: 990px) {
+      width: 700px;
+      height: 394px;
+    }
+    @media (max-width: 767px) {
+      width: 493px;
+      height: 277px;
+    }
+    @media (max-width: 560px) {
+      width: 100%;
+      height: 51vw;
     }
   }
   &__controls {
@@ -315,7 +339,7 @@
       background: #fff;
       border-radius: 50%;
       box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1), 1px -1px 2px rgba(0, 0, 0, 0.1),
-      -1px 1px 2px rgba(0, 0, 0, 0.1);
+        -1px 1px 2px rgba(0, 0, 0, 0.1);
       opacity: 0.8;
       transition: opacity 0.2s linear;
       &:before {

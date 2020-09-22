@@ -58,6 +58,8 @@ export const Request = async (options, onSuccess, onError) => {
     })();
 };
 
+export const PromiseRequest = (data) => new Promise((resolve, reject) => Request(data, resolve, reject));
+
 //Когда перепишем всё на "Request" удалить всё, что ниже
 const getErrors = (error) => {
     try {

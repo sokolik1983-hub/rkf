@@ -77,6 +77,11 @@ export const LoadableClubGalleryEdit = Loadable({
     loading: Loading
 });
 
+export const LoadableClubVideo = Loadable({
+    loader: () => import('./pages/ClubVideo'),
+    loading: Loading
+});
+
 export const LoadableNurseryNews = Loadable({
     loader: () => import('./pages/Nursery/NewsPage'),
     loading: Loading
@@ -117,6 +122,11 @@ export const LoadableNurseryGalleryEdit = Loadable({
     loading: Loading
 });
 
+export const LoadableNurseryVideo = Loadable({
+    loader: () => import('./pages/NurseryVideo'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading
@@ -144,6 +154,11 @@ export const LoadableNotFound = Loadable({
 
 export const LoadableDocumentStatus = Loadable({
     loader: () => import('./pages/Club/DocumentStatus'),
+    loading: Loading
+});
+
+export const LoadableNurseryDocumentStatus = Loadable({
+    loader: () => import('./pages/Nursery/NurseryDocumentStatus'),
     loading: Loading
 });
 

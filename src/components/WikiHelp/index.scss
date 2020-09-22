@@ -4,7 +4,11 @@
   width: 20px;
   height: 20px;
   margin: 0 10px 0 0;
-  background: url("/static/icons/icon-question.svg") center/contain no-repeat;
+  background: url("/static/icons/icon-question.svg") no-repeat center / contain,
+              url("/static/icons/icon-question-blue.svg") no-repeat center / contain;
+  &:hover {
+    background: url("/static/icons/icon-question-blue.svg") no-repeat center / contain;
+  }
   @media (max-width: 560px) {
     margin: 0 0 0 10px;
   }

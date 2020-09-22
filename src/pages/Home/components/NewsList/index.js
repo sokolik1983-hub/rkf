@@ -117,7 +117,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                             <CitySelect
                                 currentCity={newsFilter.city}
                                 cityFilter={city => {
-                                    if (!city || city.value !== newsFilter.city.value) {
+                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
                                         changeCityFilter(city);
                                     }
                                 }}
@@ -149,7 +149,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                             <CitySelect
                                 currentCity={newsFilter.city}
                                 cityFilter={city => {
-                                    if (!city || city.value !== newsFilter.city.value) {
+                                    if (!city || city.value !== (newsFilter.city && newsFilter.city.value)) {
                                         changeCityFilter(city);
                                     }
                                 }}
@@ -197,6 +197,8 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                                     adCode={item.advert_code}
                                     adPrice={item.advert_cost}
                                     adAmount={item.advert_number_of_puppies}
+                                    adCategory={item.advert_type_name}
+                                    videoLink={item.video_link}
                                 />
                             </li>
                         ))}

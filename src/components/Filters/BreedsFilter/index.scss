@@ -1,0 +1,98 @@
+.breeds-filter {
+  margin-bottom: 16px;
+  &__title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.2px;
+    color: #72839C;
+    flex-grow: 1;
+    border-right: 1px solid #72839C;
+  }
+  &__wrap {
+    margin-top: 12px;
+    border-top: 1px solid #e8e8e8;  
+  }
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  &__chevron {
+    width: 24px;
+    height: 24px;
+    background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+    transition: all .2s linear;
+    margin-left: 4px;
+    &._dropdown_open {
+      transform: rotate(180deg);
+    }
+  }
+  &__placeholder {
+    color: #757575 !important;
+  }
+  &__values {
+    list-style: none;
+    &-item {
+      display: inline-block;
+      padding: 4px;
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      font-size: 14px;
+      line-height: 1;
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+      button {
+        padding: 0;
+        margin-left: 4px;
+        border: none;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .custom-checkbox {
+    pointer-events: none;
+  }
+}
+
+#breeds-filter {
+  .breeds-filter {
+    &__control {
+      background-color: transparent;
+      border-color: hsl(0,0%,80%);
+      border-radius: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      box-shadow: none;
+    }
+    &__value-container {
+      padding: 0;
+    }
+    &__indicator-separator,
+    &__dropdown-indicator {
+      display: none;
+    }
+    &__menu {
+      position: static;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    &__option {
+      padding: 0 12px 0 0;
+      color: #253c5e;;
+      cursor: pointer;
+      background-color: transparent !important;
+      transition: background-color .2s linear;
+      &:hover {
+        background-color: #DEEBFF !important;
+      }
+    }
+  }
+}

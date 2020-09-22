@@ -16,6 +16,84 @@
     list-style: none;
   }
   &__item {
+    &--documents {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/documentsIcon.svg) no-repeat center / cover;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--gallery {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/galleryIcon.svg) no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--video {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/videoIcon.svg) no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--events {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/eventsIcon.svg) no-repeat center / cover;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--public {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/publicIcon.svg) no-repeat center / cover;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--club {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/clubIcon.svg) no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
     &:not(:last-child) {
       margin-bottom: 3px;
     }

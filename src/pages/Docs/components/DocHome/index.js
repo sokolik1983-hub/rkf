@@ -17,7 +17,7 @@ const DocumentCards = ({ clubAlias }) => {
     // };
     return <div className="documents-page__right">
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
             <p>
                 В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются:
@@ -41,7 +41,7 @@ const DocumentCards = ({ clubAlias }) => {
             </div>
         </Card>
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon pedigree-icon" />
             <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
             <p>
                 Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
@@ -63,7 +63,7 @@ const DocumentCards = ({ clubAlias }) => {
             </div>
         </Card>
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon puppy-icon" />
             <h3>МЕТРИКА ЩЕНКА</h3>
             <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
             <hr />
@@ -73,7 +73,7 @@ const DocumentCards = ({ clubAlias }) => {
             </div>
         </Card>
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon replace-pedigree-icon" />
             <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
             <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
             <hr />
@@ -98,7 +98,7 @@ const DocumentCards = ({ clubAlias }) => {
             </div>
         </Card>
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon dysplasia-icon" />
             <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
             <p>Для изготовления и получения сертификата о проверке на дисплазию HD и ED необходимо подать заявку, прикрепив договор с печатью ветеринарного учреждения и подписью ветеринарного врача, а также рентгенограмму. Плановый срок изготовления сертификата составляет два месяца со дня подачи документов в РКФ. После изготовления сертификата результаты исследования автоматически вносятся в электронную базу РКФ и в дальнейшем отражаются в родословных потомков собаки.</p>
             <hr />
@@ -111,7 +111,7 @@ const DocumentCards = ({ clubAlias }) => {
             </div>
         </Card>
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon patella-icon" />
             <h3>СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)</h3>
             <p>Для оформления сертфиката клинической оценки коленных суставов необходимо обратиться к любому ветеринарному врачу РКФ, лицензированному в системе FCI в качестве специалиста, имеющего право оценки состояния коленных суставов (PL) с выдачей сертификата установленного образца.</p>
             <hr />
@@ -171,7 +171,7 @@ const StampCards = ({ clubAlias }) => {
 const ResponsibleCards = ({ clubAlias }) => {
     return <div className="documents-page__right">
         <Card>
-            <div className="documents-page__icon" />
+            <div className="documents-page__icon declarants-icon" />
             <h3>ЗАЯВИТЕЛИ</h3>
             <p>
                 В данном разделе могут быть добавлены ответственные лица, уполномоченные действовать от имени клуба в части оформления и отслеживания заявок на изготовление документов.
@@ -194,14 +194,14 @@ const DocHome = ({ clubAlias, bookform }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
             <CustomMenu title="Личный кабинет">
-                <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
-                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация">Организационная информация</Link>
-                <Link to={`/${clubAlias}/documents/stamps`} title="Клейма">Клейма</Link>
-                <Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>
-                {/* <Link to={`/base-search`}>Поиск по базе РКФ</Link> */}
-                <Link to={`/${clubAlias}/documents/bookform`}>Запись на очный прием</Link>
-                <Link to={`/${clubAlias}/documents/review`}>Оценка работы федерации</Link>
-                <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
+                <Link to={`/${clubAlias}/documents`} title="Оформление документов" className="menu-component__link menu-component__link--documents">Оформление документов</Link>
+                <Link to={`/${clubAlias}/documents/responsible`} title="Организационная информация" className="menu-component__link menu-component__link--org">Организационная информация</Link>
+                <Link to={`/${clubAlias}/documents/stamps`} title="Клейма" className="menu-component__link menu-component__link--stain">Клейма</Link>
+                <Link to="/reports" title="Отчеты" onClick={handleClick} className="menu-component__link menu-component__link--report">Отчеты</Link>
+                <Link to={`/base-search?clubAlias=${clubAlias}`} className="menu-component__link--search">Поиск по базе РКФ</Link>
+                <Link to={`/${clubAlias}/documents/bookform`} className="menu-component__link menu-component__link--appointment">Запись на очный прием</Link>
+                <Link to={`/${clubAlias}/documents/review`} className="menu-component__link menu-component__link--mark">Оценка работы федерации</Link>
+                <Link to={`/${clubAlias}`} title="Страница клуба" className="menu-component__link menu-component__link--club">Страница клуба</Link>
             </CustomMenu>
         </aside>
         <Switch>

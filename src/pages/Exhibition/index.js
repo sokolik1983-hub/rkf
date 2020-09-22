@@ -64,11 +64,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                     24,
                     0
                 ).toISOString() : null;
+
+    const dayTimer = exhibition.type_id === 5 ? 5 : 14; // Племенной смотр - 5 дней до подачи отчетов, остальные 14.
+
     const reportsDateEnd = dateEnd ?
         new Date(
             new Date(dateEnd).getFullYear(),
             new Date(dateEnd).getMonth(),
-            new Date(dateEnd).getDate() + 14
+            new Date(dateEnd).getDate() + dayTimer
         ).toISOString() : null;
 
     useEffect(() => {

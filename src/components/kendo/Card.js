@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle, CardBody, CardImage, CardActions } from '@
 import { Button } from '@progress/kendo-react-buttons';
 import { DEFAULT_IMG } from "appConfig";
 import { formatDateCommon } from "utils/datetime";
-import '@progress/kendo-theme-default/dist/all.css';
 import './Card.scss';
 
 const KendoCard = ({ club_name, id, city_name, exhibition_name, exhibition_picture_link, date, date_end, ranks, user_type }) => {

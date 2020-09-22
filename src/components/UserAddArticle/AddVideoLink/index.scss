@@ -1,0 +1,60 @@
+.add-video-link {
+  &__form {
+    display: flex;
+    align-items: flex-start;
+    @media (max-width: 560px) {
+      display: block;
+    }
+    &-row {
+      width: 100%;
+      margin-right: 10px;
+      @media (max-width: 560px) {
+        margin-right: 0;
+      }
+    }
+    &-label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    &-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #EBF0F2;
+      border-radius: 6px;
+      letter-spacing: .2px;
+      transition: border-color .2s linear;
+      &:hover {
+        border-color: #b3b3b3;
+      }
+      &:focus {
+        border-color: #3366FF;
+      }
+      &._error {
+        border-color: #FA5D50;
+      }
+    }
+    &-error {
+      color: #FA5D50;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    &-submit {
+      border: none;
+      border-radius: 6px;
+      background-color: #36f;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: normal;
+      padding: 15px 12px;
+      margin-top: 32px;
+      &:disabled {
+        cursor: default;
+        opacity: .7;
+      }
+      @media (max-width: 560px) {
+        display: block;
+        margin: 10px 0 0 auto;
+      }
+    }
+  }
+}

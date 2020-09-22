@@ -78,6 +78,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                 <Edit id={news.id}
                                     text={news.content}
                                     img={news.picture_link || ''}
+                                    videoLink={news.video_link || ''}
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     adCode={news.advert_code}
@@ -92,11 +93,21 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                             <p>Порода: {news.advert_breed_name}</p>
                                             <p>Стоимость: {news.advert_cost}</p>
                                             <p>Кол-во щенков: {news.advert_number_of_puppies}</p>
+                                            {news.advert_type_name && <p>Категория: {news.advert_type_name}</p>}
                                             <br />
                                         </>
                                     }
                                     <p className="news__text" dangerouslySetInnerHTML={{ __html: formatText(news.content) }} />
                                     {news.picture_link && <img src={news.picture_link} alt="" className="news__img" />}
+                                    {news.video_link &&
+                                        <iframe
+                                            className="news__video"
+                                            src={news.video_link}
+                                            title={news.id}
+                                            frameBorder="0"
+                                            allowFullScreen
+                                        />
+                                    }
                                 </>
                             }
                         </div>

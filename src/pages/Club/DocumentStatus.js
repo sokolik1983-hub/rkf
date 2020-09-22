@@ -9,9 +9,11 @@ import UserHeader from "../../components/redesign/UserHeader";
 import CheckStatus from './components/CheckStatus';
 import MenuComponent from "../../components/MenuComponent";
 import UserGallery from "../../components/redesign/UserGallery";
+import UserVideoGallery from "../../components/redesign/UserGallery/UserVideoGallery";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
+import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
 import useWindowSize from "utils/useWindowSize";
 import "./index.scss";
@@ -21,6 +23,7 @@ const DocumentStatus = ({ history, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const windowSize = useWindowSize();
     const galleryRef = useRef(null);
     const galleryHolderRef = useRef(null);
@@ -96,7 +99,10 @@ const DocumentStatus = ({ history, match, user }) => {
                                             federationAlias={clubInfo.federation_alias}
                                         />
                                         <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}><UserGallery alias={clubInfo.club_alias} /></div>
+                                            <div ref={galleryRef}>
+                                                <UserGallery alias={clubInfo.club_alias} />
+                                                <UserVideoGallery alias={clubInfo.club_alias} setShowModal={setShowModal} />
+                                            </div>
                                         </div>
                                         <div className="club-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
@@ -114,6 +120,10 @@ const DocumentStatus = ({ history, match, user }) => {
                                 noCard={true}
                             />
                         </div>
+                        {showModal &&
+                            <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
+                                <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
+                            </VideoModal>}
                     </Container>
                 </div>
             </Layout>

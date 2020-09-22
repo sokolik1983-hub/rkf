@@ -34,7 +34,7 @@ const sortFederationName = (array) => {
     return [firstName, secondName, thirdName, fourthName];
 };
 
-const Statistics = () => {
+const Statistics = ({isAboutPage}) => {
     const [loading, setLoading] = useState(true);
     const [clubs, setClubs] = useState({});
     const { clubs_total_count, federation_clubs } = clubs;
@@ -60,12 +60,12 @@ const Statistics = () => {
     }, []);
 
     return (
-        <Card className="statistics">
+        <Card className={`statistics ${isAboutPage ? `_about_page` : ``}`}>
             {loading ?
                 <Loading centered={false} /> :
                 <>
                     <h3 className="statistics__title">
-                        На RKF.Online авторизовано<br />
+                        На RKF.Online авторизовано
                     </h3>
                     <div className="statistics__wrap">
                         <div className="statistics__text-wrap">

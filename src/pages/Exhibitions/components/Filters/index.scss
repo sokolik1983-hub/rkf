@@ -1,14 +1,18 @@
 .exhibitions-filters {
+  &__calendar-title {
+    cursor: pointer;
+    &:hover {
+      color: #3366ff;
+    }
+  }
   .phone-hide {
     @media (max-width: 560px) {
       display: none !important;
     }
   }
-  width: 294px;
-  min-width: 294px;
+  width: 300px;
+  min-width: 300px;
   @media (max-width: 990px) {
-    width: 300px;
-    min-width: 300px;
     position: fixed;
     top: 50px;
     left: 0;
@@ -30,12 +34,15 @@
     height: calc(100% - 48px);
   }
   &__wrap {
-    background-color: #fff;
+    background-color: #f5f8ff;
     @media (min-width: 990px) {
-      border-radius: 6px;
-      box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
-      padding: 10px;
       margin-bottom: 16px;
+    }
+    & .Card:first-child {
+      margin-bottom: 16px;
+    }
+    & .Card {
+      padding: 10px;
     }
   }
   h4,
@@ -46,12 +53,10 @@
     text-decoration: none;
     color: #253c5e;
     display: inline-block;
-    margin-right: 4px;
   }
   &__head {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
     & > div {
       display: flex;
       align-items: center;
@@ -67,7 +72,7 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid transparent;
-    transition: all 0.2s linear;
+    transition: all .2s linear;
     &:hover {
       color: #3366ff;
     }
@@ -93,5 +98,17 @@
   &__support-link {
     display: flex;
     margin-left: 10px;
+  }
+  .calendar-filter__range {
+    &-title {
+      margin-top: 10px;
+      display: block;
+    }
+    &-text {
+      font-size: 16px;
+      display: flex;
+      width: 170px;
+      justify-content: space-between;
+    }
   }
 }
