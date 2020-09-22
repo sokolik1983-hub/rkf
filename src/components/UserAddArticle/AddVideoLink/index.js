@@ -1,22 +1,23 @@
-import React, {useState} from "react";
-import {getYoutubeVideoId} from "../../../utils/video";
+import React, { useState } from "react";
+import getYouTubeID from 'get-youtube-id';
 import "./index.scss";
 
 
-const AddVideoLink = ({setVideoLink, showModal}) => {
+const AddVideoLink = ({ setVideoLink, showModal }) => {
     const [link, setLink] = useState('');
     const [error, setError] = useState('');
 
-    const handleChange = ({target}) => {
+    const handleChange = ({ target }) => {
         setLink(target.value);
         setError('');
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        if(link) {
-            if(/(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w-_]+)/.test(link)) {
-                setVideoLink(`https://www.youtube.com/embed/${getYoutubeVideoId(link)}`);
+        if (link) {
+            const id = getYouTubeID(link);
+            if (id) {
+                setVideoLink(`https://www.youtube.com/embed/${id}`);
                 showModal(false);
             } else {
                 setError('Для добавления доступны только ссылки с YouTube');
