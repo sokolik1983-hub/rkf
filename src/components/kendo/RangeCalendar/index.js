@@ -15,8 +15,7 @@ load (
     require ("cldr-data/main/ru/timeZoneNames.json")
 );
 
-// loadMessages(messages, 'ru');
-
+loadMessages(messages, 'ru');
 
 const RangeCalendar = ({value, onChange}) => {
 
