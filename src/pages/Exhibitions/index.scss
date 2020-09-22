@@ -107,15 +107,41 @@
     justify-content: flex-end;
   }
   &__control {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     padding: 0;
     border: none;
     margin: 10px 0 10px 10px;
     letter-spacing: .2px;
     color: #72839c;
     transition: color .2s linear;
+    position: relative;
     &:hover {
       color: #3366FF;
+    }
+    &--tableIcon:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/tableIcon.svg) no-repeat center / cover;
+    }
+    &--backIcon:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/backIcon.svg) no-repeat center / cover;
+    }
+    &--downloadIcon:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
     }
   }
 }
