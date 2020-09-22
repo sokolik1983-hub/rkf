@@ -9,10 +9,12 @@ import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import ClubUserNews from "./components/ClubUserNews";
 import UserGallery from "../../components/redesign/UserGallery";
+import UserVideoGallery from "../../components/redesign/UserGallery/UserVideoGallery";
 import MenuComponent from "../../components/MenuComponent";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
+import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
 import useWindowSize from "../../utils/useWindowSize";
 import "./index.scss";
@@ -24,6 +26,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const windowSize = useWindowSize();
     const galleryRef = useRef(null);
     const galleryHolderRef = useRef(null);
@@ -113,7 +116,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                             federationAlias={clubInfo.federation_alias}
                                         />
                                         <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}><UserGallery alias={clubInfo.club_alias} /></div>
+                                            <div ref={galleryRef}>
+                                                <UserGallery alias={clubInfo.club_alias} />
+                                                <UserVideoGallery alias={clubInfo.club_alias} setShowModal={setShowModal} />
+                                            </div>
                                         </div>
                                         <div className="club-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
@@ -131,6 +137,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                 noCard={true}
                             />
                         </div>
+                        {showModal &&
+                            <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
+                                <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
+                            </VideoModal>}
                     </Container>
                 </div>
             </Layout>
