@@ -145,6 +145,11 @@ const appRoutes = [
         component: LoadableModules.LoadableClubGallery
     },
     {
+        exact: true,
+        path: '/:id/video',
+        component: LoadableModules.LoadableClubVideo
+    },
+    {
         exact: false,
         path: '/kennel/:id/edit',
         component: LoadableModules.LoadableNurseryEdit
@@ -158,6 +163,11 @@ const appRoutes = [
         exact: true,
         path: '/kennel/:id/gallery/:album?',
         component: LoadableModules.LoadableNurseryGallery
+    },
+    {
+        exact: true,
+        path: '/kennel/:id/video',
+        component: LoadableModules.LoadableNurseryVideo
     },
 
     {

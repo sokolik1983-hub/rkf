@@ -42,6 +42,19 @@
         margin-right: 10px;
       }
     }
+    &--video {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(/static/icons/videoIcon.svg) no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
     &--events {
       position: relative;
       display: flex;
