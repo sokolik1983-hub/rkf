@@ -33,6 +33,7 @@
     "caniuse-lite": "^1.0.30001046",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
+    "cldr-data": "^36.0.0",
     "connected-react-router": "^6.4.0",
     "css-loader": "1.0.0",
     "date-fns": "^2.12.0",
