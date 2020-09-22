@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import OutsideClickHandler from "react-outside-click-handler";
+import getYouTubeID from "get-youtube-id";
 import {connect} from "formik";
 import Modal from "../Modal";
 import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
@@ -13,7 +14,6 @@ import WikiHelp from "../WikiHelp";
 import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
 import {useFocus} from "../../shared/hooks";
 import {Request} from "../../utils/request";
-import {getYoutubeVideoId} from "../../utils/video";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink }) => {
@@ -130,7 +130,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     }
                     {videoLink &&
                         <div className="ImagePreview__wrap">
-                            <ImagePreview src={`https://img.youtube.com/vi/${getYoutubeVideoId(videoLink)}/mqdefault.jpg`} />
+                            <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
                             <img src="/static/icons/file-cross.svg"
                                 className="ImagePreview__close"
                                 alt=""
@@ -167,13 +167,15 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                 Добавить ссылку на видео
                             </button>
                         }
-                        <CustomCheckbox
-                            id="ad"
-                            label="Объявление"
-                            className="ArticleCreateForm__ad"
-                            checked={isAd}
-                            onChange={() => setIsAd(!isAd)}
-                        />
+                        {!videoLink &&
+                            <CustomCheckbox
+                                id="ad"
+                                label="Объявление"
+                                className="ArticleCreateForm__ad"
+                                checked={isAd}
+                                onChange={() => setIsAd(!isAd)}
+                            />
+                        }
                         <div className="ArticleCreateForm__button-wrap">
                             <WikiHelp
                                 url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"

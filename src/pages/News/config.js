@@ -42,6 +42,9 @@ export const formConfig = {
             type: 'file',
             placeholder: 'Загрузить фото...',
         },
+        video_link: {
+            name: 'video_link'
+        },
         advert_type_id: {
             name: 'advert_type_id',
             label: 'Категория объявления'
