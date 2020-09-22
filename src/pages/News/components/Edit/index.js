@@ -6,7 +6,7 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
+const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
     const [breeds, setBreeds] = useState([]);
 
     useEffect(() => {
@@ -47,7 +47,8 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
             advert_breed_id,
             advert_cost,
             advert_number_of_puppies,
-            advert_type_id
+            advert_type_id,
+            video_link
         } = values;
         return {
             content: content.replace(/<[^>]*>/g, ''),
@@ -56,7 +57,8 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
             advert_breed_id: is_advert ? advert_breed_id : null,
             advert_cost: is_advert ? advert_cost : null,
             advert_number_of_puppies: is_advert ? advert_number_of_puppies : null,
-            advert_type_id: is_advert ? advert_type_id : null
+            advert_type_id: is_advert ? advert_type_id : null,
+            video_link
         };
     };
 
@@ -67,7 +69,8 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
         advert_cost: adCost,
         advert_number_of_puppies: adNumberOfPuppies,
         content: text,
-        img: img
+        img: img,
+        video_link: videoLink
     };
 
     return (
@@ -78,7 +81,14 @@ const Edit = ({ id, text, img, history, isAd, adBreedId, adCost, adNumberOfPuppi
             {...formConfig}
             className="article-edit"
         >
-            <RenderFields fields={formConfig.fields} breeds={breeds} text={text} imgSrc={img} onCancel={() => history.replace(`/news/${id}`)} />
+            <RenderFields
+                fields={formConfig.fields}
+                breeds={breeds}
+                text={text}
+                imgSrc={img}
+                videoLink={videoLink}
+                onCancel={() => history.replace(`/news/${id}`)}
+            />
         </Form>
     )
 };
