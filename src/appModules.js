@@ -77,6 +77,11 @@ export const LoadableClubGalleryEdit = Loadable({
     loading: Loading
 });
 
+export const LoadableClubVideo = Loadable({
+    loader: () => import('./pages/ClubVideo'),
+    loading: Loading
+});
+
 export const LoadableNurseryNews = Loadable({
     loader: () => import('./pages/Nursery/NewsPage'),
     loading: Loading
@@ -114,6 +119,11 @@ export const LoadableNurseryGallery = Loadable({
 
 export const LoadableNurseryGalleryEdit = Loadable({
     loader: () => import('./pages/NurseryGallery/NurseryGalleryEdit'),
+    loading: Loading
+});
+
+export const LoadableNurseryVideo = Loadable({
+    loader: () => import('./pages/NurseryVideo'),
     loading: Loading
 });
 
