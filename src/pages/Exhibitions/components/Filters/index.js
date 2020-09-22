@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
@@ -24,6 +24,11 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [calendarContainer, setCalendarContainer] = useState(null);
+
+    const dateRangeRef = useCallback(node => {
+        if(node !== null) setCalendarContainer(node);
+    });
 
     useEffect(() => {
         (() => Request({
@@ -115,14 +120,21 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
                                     />
-                                    <h5>Диапазон дат</h5>
-                                    <RangeCalendar
-                                        value={{
-                                            start: new Date(filters.DateFrom),
-                                            end: filters.DateTo ? new Date(filters.DateTo) : null
-                                        }}
-                                        onChange={changeCalendarFilter}
-                                    />
+                                    <h5 className="calendar-filter__range-title">Диапазон дат</h5>
+                                    <div className="calendar-filter__range-text">
+                                        <span>от</span>
+                                        <span>до</span>
+                                    </div>
+                                    <div ref={dateRangeRef}>
+                                        {calendarContainer && <RangeCalendar
+                                            value={{
+                                                start: new Date(filters.DateFrom),
+                                                end: filters.DateTo ? new Date(filters.DateTo) : null
+                                            }}
+                                            onChange={changeCalendarFilter}
+                                            container={calendarContainer}
+                                        />}
+                                    </div>
                                 </div>
                             </Card>
                             <BreedsFilter

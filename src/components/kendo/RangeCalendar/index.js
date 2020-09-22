@@ -1,23 +1,24 @@
 import React from "react";
-import {DateRangePicker} from "@progress/kendo-react-dateinputs";
-import {IntlProvider, load, loadMessages, LocalizationProvider} from "@progress/kendo-react-intl";
-import messages from "./translation/messages.json";
+import { DateRangePicker } from "@progress/kendo-react-dateinputs";
+import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
+// import { loadMessages } from "@progress/kendo-react-intl";
+// import messages from "./translation/messages.json";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./index.scss";
 
-load (
-    require ("cldr-data/supplemental/likelySubtags.json" ),
-    require ("cldr-data/supplemental/weekData.json"),
-    require ("cldr-data/main/ru/numbers.json"),
-    require ("cldr-data/main/ru/currencies.json"),
-    require ("cldr-data/main/ru/ca-gregorian.json"),
-    require ("cldr-data/main/ru/dateFields.json"),
-    require ("cldr-data/main/ru/timeZoneNames.json")
+load(
+    require("cldr-data/supplemental/likelySubtags.json"),
+    require("cldr-data/supplemental/weekData.json"),
+    require("cldr-data/main/ru/numbers.json"),
+    require("cldr-data/main/ru/currencies.json"),
+    require("cldr-data/main/ru/ca-gregorian.json"),
+    require("cldr-data/main/ru/dateFields.json"),
+    require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-loadMessages(messages, 'ru');
+// loadMessages(messages, 'ru');
 
-const RangeCalendar = ({value, onChange}) => {
+const RangeCalendar = ({ value, onChange, container }) => {
 
     return (
         <LocalizationProvider language="ru">
@@ -30,6 +31,7 @@ const RangeCalendar = ({value, onChange}) => {
                         views: 2
                     }}
                     popupSettings={{
+                        appendTo: container,
                         popupClass: "range-calendar__popup"
                     }}
                     className="range-calendar"

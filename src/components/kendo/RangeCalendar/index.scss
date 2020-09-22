@@ -6,15 +6,15 @@
       display: flex !important;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      margin-top: -15px;
     }
     .k-textbox-container {
       width: 132px;
       max-width: 132px;
     }
     .k-label {
-      font-size: 16px;
-      line-height: 18px;
+      display: none;
     }
     &__popup {
       .k-label {
