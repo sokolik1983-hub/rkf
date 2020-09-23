@@ -53,7 +53,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
         setExhibitionsLoading(true);
 
         await Request({
-            url: `${url}&StartElement=${startElem}`
+            url: `${url}&StartElement=${startElem}&ElementCount=50`
         }, data => {
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
@@ -73,7 +73,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                     return exhibition;
                 });
 
-                if (data.exhibitions.length < 10) {
+                if (data.exhibitions.length < 50) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
@@ -114,8 +114,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
 
     const getNextExhibitions = () => {
         if (hasMore) {
-            (() => getExhibitions(buildUrl({ ...filters }), startElement + 10))();
-            setStartElement(startElement + 10);
+            (() => getExhibitions(buildUrl({ ...filters }), startElement + 50))();
+            setStartElement(startElement + 50);
         }
     };
 

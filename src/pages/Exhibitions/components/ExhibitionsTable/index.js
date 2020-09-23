@@ -29,7 +29,7 @@ class DetailComponent extends GridDetailRow {
 
 const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions, needUpdate, exporting, setExporting}) => {
     const [skip, setSkip] = useState(startElement);
-    const [take, setTake] = useState(10);
+    const [take, setTake] = useState(50);
     const [dataItems, setDataItems] = useState([]);
     const gridPDFExport = useRef(null);
 
