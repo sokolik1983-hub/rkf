@@ -9,11 +9,10 @@ import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 
 
-const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCancel }) => {
+const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCancel, isMating, setIsMating }) => {
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
-    const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const {content, is_advert} = formik.values;
 

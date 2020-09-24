@@ -64,7 +64,6 @@ export const formConfig = {
                 is: true,
                 then: number().min(1, 'Значение не может быть меньше 1')
                     .max(99, 'Значение не может быть больше 99')
-                    .required('Поле не может быть пустым')
                     .typeError('Введите число'),
                 otherwise: number().notRequired(),
             }),

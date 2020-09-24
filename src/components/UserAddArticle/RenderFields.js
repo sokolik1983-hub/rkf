@@ -16,10 +16,9 @@ import {useFocus} from "../../shared/hooks";
 import {Request} from "../../utils/request";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, isMating, setIsMating }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
-    const [isMating, setIsMating] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const { focus, setFocused, setBlured } = useFocus(false);
