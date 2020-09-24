@@ -10,10 +10,10 @@
   }
   &__about {
     h3 {
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #e8e8e8;
       & + p {
-        margin-top: 8px;
+        margin-top: 10px;
       }
     }
   }
@@ -40,7 +40,7 @@
     }
   }
   h3 {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   &__projects {
     margin-top: 3px;
@@ -56,7 +56,7 @@
         display: none;
       }
       h3 {
-        padding-bottom: 12px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #e8e8e8;
       }
   
@@ -70,7 +70,7 @@
         display: none;
       }
       h3 {
-        padding-bottom: 12px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #e8e8e8;
       }  
     }
