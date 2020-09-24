@@ -154,6 +154,7 @@ const CardNews = forwardRef(({
                         }
                     </div>
                 </div>
+                {videoLink && <p className={`card-news__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>}
                 <div className="card-news__controls">
                     <span className={`card-news__show-all${!canCollapse ? ' _disabled' : ''}`}
                         onClick={() => canCollapse && setCollapsed(!collapsed)}
