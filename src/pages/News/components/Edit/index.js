@@ -59,7 +59,7 @@ const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNu
             advert_cost: is_advert ? advert_cost : null,
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : null,
             advert_type_id: is_advert ? advert_type_id : null,
-            video_link
+            video_link: video_link || ''
         };
     };
 
