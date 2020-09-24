@@ -23,7 +23,13 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [showModal, setShowModal] = useState(false);
 
     const { focus, setFocused, setBlured } = useFocus(false);
-    const { content, file } = formik.values;
+    const { content, file, advert_number_of_puppies } = formik.values;
+
+    const handleResetPuppies = () => {
+        if (isMating) {
+            formik.setFieldValue(advert_number_of_puppies, '');
+        }
+    };
 
     useEffect(() => {
         Request({ url: '/api/article/article_ad_types' },
@@ -183,6 +189,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             />
                             <SubmitButton
                                 type="submit"
+                                onSubmit={handleResetPuppies}
                                 className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
                             >
                                 Опубликовать

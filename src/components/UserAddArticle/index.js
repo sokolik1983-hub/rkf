@@ -40,7 +40,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     object().shape({
                         content: string().required('Поле не может быть пустым'),
                         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
-                        advert_number_of_puppies: isAd ? string().required('Поле не может быть пустым') : '',
+                        advert_number_of_puppies: isAd ? number().typeError('Поле не может быть пустым') : '',
                         advert_type_id: isAd ? number().nullable().required('Выберите категорию') : ''
                     })}
                 initialValues={{
