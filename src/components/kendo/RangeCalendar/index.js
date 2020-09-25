@@ -3,7 +3,6 @@ import { DateRangePicker } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 // import { loadMessages } from "@progress/kendo-react-intl";
 // import messages from "./translation/messages.json";
-import "@progress/kendo-theme-default/dist/all.css";
 import "./index.scss";
 
 load(

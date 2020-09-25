@@ -8,6 +8,7 @@ import "./index.scss";
 
 const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
     const [breeds, setBreeds] = useState([]);
+    const [isMating, setIsMating] = useState(false);
 
     useEffect(() => {
         Request({
@@ -56,9 +57,9 @@ const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNu
             is_advert,
             advert_breed_id: is_advert ? advert_breed_id : null,
             advert_cost: is_advert ? advert_cost : null,
-            advert_number_of_puppies: is_advert ? advert_number_of_puppies : null,
+            advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : null,
             advert_type_id: is_advert ? advert_type_id : null,
-            video_link
+            video_link: video_link || ''
         };
     };
 
@@ -88,6 +89,8 @@ const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNu
                 imgSrc={img}
                 videoLink={videoLink}
                 onCancel={() => history.replace(`/news/${id}`)}
+                isMating={isMating}
+                setIsMating={setIsMating}
             />
         </Form>
     )

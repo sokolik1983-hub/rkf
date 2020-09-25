@@ -10,12 +10,13 @@ import './index.scss';
 const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isAd, setIsAd] = useState(false);
     const [videoLink, setVideoLink] = useState('');
+    const [isMating, setIsMating] = useState(false);
 
     const transformValues = values => {
         if (isAd) {
             return {
                 ...values,
-                advert_number_of_puppies: +values.advert_number_of_puppies,
+                advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
                 club_id: id
             }
@@ -24,7 +25,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
             return {
                 content: values.content,
                 file: values.file,
-                video_link: values.video_link,
+                video_link: values.video_link || '',
                 club_id: id
             }
         }
@@ -40,7 +41,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     object().shape({
                         content: string().required('Поле не может быть пустым'),
                         advert_breed_id: isAd ? number().required('Укажите породу').typeError('Укажите породу') : '',
-                        advert_number_of_puppies: isAd ? string().required('Поле не может быть пустым') : '',
+                        advert_number_of_puppies: isAd && !isMating ? number().typeError('Поле не может быть пустым') : '',
                         advert_type_id: isAd ? number().nullable().required('Выберите категорию') : ''
                     })}
                 initialValues={{
@@ -60,6 +61,8 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     setIsAd={setIsAd}
                     videoLink={videoLink}
                     setVideoLink={setVideoLink}
+                    isMating={isMating}
+                    setIsMating={setIsMating}
                 />
             </Form>
         </Card>

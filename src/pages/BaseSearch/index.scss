@@ -2,6 +2,9 @@
   background: #f5f8ff;
   min-height: 100vh;
   padding-bottom: 50px;
+  .menu-component__list {
+    margin-top: 10px;
+  }
   & + .Footer {
     display: none;
   }
@@ -10,7 +13,8 @@
     font-size: 18px;
     line-height: 26px;
     letter-spacing: 0.4px;
-    margin-bottom: 6px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
     font-weight: normal;
   }
   p {
@@ -57,13 +61,13 @@
     }
     &__map {
       height: 300px;
-      margin-top: 12px;
+      margin-top: 10px;
       &-wrap {
         @media (max-width: 1100px) {
           display: none;
         }
         h3 {
-          padding-bottom: 12px;
+          padding-bottom: 10px;
           border-bottom: 1px solid #e8e8e8;
         }
     
