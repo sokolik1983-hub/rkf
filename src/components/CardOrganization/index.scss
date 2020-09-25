@@ -53,6 +53,9 @@
     &-wrap {
       width: 100%;
       overflow: hidden;
+      & > div {
+        display: flex;
+      }
     }
   }
   &__active-member {
@@ -64,7 +67,7 @@
     padding-left: 20px;
     margin-left: 10px;
     line-height: 20px;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #72839c;
     white-space: nowrap;
     cursor: pointer;
@@ -100,13 +103,15 @@
       margin: 0;
     }
     &-item {
-      span, a, p {
+      span,
+      a,
+      p {
         color: #72839c;
       }
       a {
         display: inline-block;
         text-decoration: none;
-        transition: color .2s linear;
+        transition: color 0.2s linear;
         &:hover {
           color: #36f;
         }
@@ -114,7 +119,7 @@
     }
   }
   &__text {
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #72839c;
     height: 48px;
     overflow: hidden;
@@ -139,9 +144,9 @@
   &__show-all {
     text-decoration: none;
     line-height: 1;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: #72839c;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
     &:hover {
       color: #36f;
     }

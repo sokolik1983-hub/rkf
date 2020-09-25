@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Loading from "components/Loading";
 import Card from "components/Card";
 import { Request } from "utils/request";
+import { DEFAULT_IMG } from "appConfig";
 import "./index.scss";
 
 const UserVideoGallery = ({ alias, setShowModal, isKennel }) => {
@@ -42,7 +43,10 @@ const UserVideoGallery = ({ alias, setShowModal, isKennel }) => {
                             <img src={v.cover_link} onClick={() => setShowModal({ type: 'openVideo', item: v })} alt="" />
                             <h5 className="VideoGallery__item-name">{v.name}</h5>
                         </div>)
-                        : <img src="/static/images/noimg/empty-gallery-item.jpg" alt="" style={{ width: '100%' }} />
+                        : <div className="ReactGridGallery__disabled">
+                        <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной видеозаписи</h4>
+                        <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет видеозаписей" />
+                    </div>
             }
         </Card>
     );
