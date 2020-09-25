@@ -1,29 +1,29 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "../Card";
 import Share from "../Share";
-import {DEFAULT_IMG} from "../../appConfig";
+import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
 
-const CardOrganization = ({alias,
-                           logo,
-                           name,
-                           user_type,
-                           is_active,
-                           is_active_member,
-                           city_name,
-                           city_id,
-                           owner_name,
-                           owner_position,
-                           federation_name,
-                           federation_alias,
-                           content,
-                           phones,
-                           mails,
-                           breeds,
-                           site,
-                           setFilters }) => {
+const CardOrganization = ({ alias,
+    logo,
+    name,
+    user_type,
+    is_active,
+    is_active_member,
+    city_name,
+    city_id,
+    owner_name,
+    owner_position,
+    federation_name,
+    federation_alias,
+    content,
+    phones,
+    mails,
+    breeds,
+    site,
+    setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
     const logoClassName = `card-organization__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
 
@@ -37,17 +37,27 @@ const CardOrganization = ({alias,
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
                             }} />
                             <div className="card-organization__name-wrap">
-                                <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
-                                    {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
-                                        <>
-                                            <span>
-                                                {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
-                                            </span>
+                                <div>
+                                    <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
+                                        {(user_type === 3 || user_type === 4 || user_type === 5 || user_type === 7) &&
+                                            <>
+                                                <span>
+                                                    {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
+                                                </span>
                                             &nbsp;
                                         </>
+                                        }
+                                        <span>{name || 'Название отсутствует'}</span>
+                                    </Link>
+                                    {!!is_active_member &&
+                                        <img
+                                            className="card-organization__active-member"
+                                            src="/static/icons/footprint.svg"
+                                            title="Активный пользователь RKF.Online"
+                                            alt="Активный пользователь RKF.Online"
+                                        />
                                     }
-                                    <span>{name || 'Название отсутствует'}</span>
-                                </Link>
+                                </div>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
                                     <div className="card-organization__info-item">
                                         <span>
@@ -58,14 +68,6 @@ const CardOrganization = ({alias,
                                     </div>
                                 }
                             </div>
-                            {!!is_active_member &&
-                                <img
-                                    className="card-organization__active-member"
-                                    src="/static/icons/footprint.svg"
-                                    title="Активный пользователь RKF.Online"
-                                    alt="Активный пользователь RKF.Online"
-                                />
-                            }
                         </div> :
                         <p className="card-organization__author">
                             <span className="card-organization__logo" style={{
@@ -93,7 +95,7 @@ const CardOrganization = ({alias,
                         </p>
                     }
                     {city_name &&
-                        <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({city_ids: [city_id]}) : null}>
+                        <span className="card-organization__city" title={city_name} onClick={() => setFilters ? setFilters({ city_ids: [city_id] }) : null}>
                             {city_name}
                         </span>
                     }
