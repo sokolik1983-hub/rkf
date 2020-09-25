@@ -1,66 +1,62 @@
-import { object, string, ref } from 'yup';
+import {object, string, ref} from "yup";
 
 const emptyFieldMsg = 'Поле не может быть пустым';
 
-const config = {
+export const config = {
     method: 'POST',
     action: '/',
     withLoading: true,
     initialValues: {
-        email: '',
-        surname: '',
-        name: '',
-        patronymic: '',
+        last_name: '',
+        first_name: '',
+        second_name: '',
+        city_id: '',
+        mail: '',
         password: '',
         passwordConfirm: ''
     },
-    transformValues: values => {
-        const filtered = { ...values };
-        delete filtered.passwordConfirm;
-        return filtered;
-    },
     validationSchema: object().shape({
-        email: string()
-            .email('Некорректный e-mail')
-            .required(emptyFieldMsg),
-        surname: string()
-            .required(emptyFieldMsg),
-        name: string()
-            .required(emptyFieldMsg),
-        patronymic: string()
-            .required(emptyFieldMsg),
-        password: string()
-            .required(emptyFieldMsg),
-        passwordConfirm: string()
-            .required(emptyFieldMsg)
-            .oneOf([ref('password'), null], 'Пароль не совпадает')
+        last_name: string().required(emptyFieldMsg),
+        first_name: string().required(emptyFieldMsg),
+        city_id: string().required('Укажите город'),
+        mail: string().email('Некорректный e-mail').required(emptyFieldMsg),
+        password: string().required(emptyFieldMsg),
+        passwordConfirm: string().required(emptyFieldMsg).oneOf([ref('password'), null], 'Пароль не совпадает')
     })
 };
 
 export const fields = [
     {
-        name: 'email',
-        type: 'email',
-        label: 'E-mail',
-        placeholder: 'Введите e-mail'
-    },
-    {
-        name: 'surname',
+        name: 'last_name',
         type: 'text',
         label: 'Фамилия',
         placeholder: 'Введите фамилию'
     },
     {
-        name: 'name',
+        name: 'first_name',
         type: 'text',
         label: 'Имя',
         placeholder: 'Введите имя'
     },
     {
-        name: 'patronymic',
+        name: 'second_name',
         type: 'text',
         label: 'Отчество',
         placeholder: 'Введите отчество'
+    },
+    {
+        name: 'city_id',
+        label: 'Город',
+        placeholder: 'Выберите город',
+        fieldType: 'reactSelectAsync',
+        type: 'select',
+        optionsEndpoint: '/api/city'
+    },
+    {
+        name: 'mail',
+        type: 'email',
+        label: 'E-mail',
+        placeholder: 'Введите e-mail'
     },
     {
         name: 'password',
@@ -75,5 +71,3 @@ export const fields = [
         placeholder: 'Введите подтверждение пароля'
     }
 ];
-
-export default config;

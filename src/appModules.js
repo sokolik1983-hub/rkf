@@ -97,6 +97,11 @@ export const LoadableRegistration = Loadable({
     loading: Loading
 });
 
+export const LoadableRegistrationActivate = Loadable({
+    loader: () => import('./pages/Registration/components/IndividualRegistration/confirm'),
+    loading: Loading
+});
+
 export const LoadablePasswordRecovery = Loadable({
     loader: () => import('./pages/Login/components/PasswordRecovery'),
     loading: Loading
