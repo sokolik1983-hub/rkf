@@ -42,6 +42,7 @@
   }
   &__controls {
     margin-bottom: 8px;
+    margin-top: 15px;
   }
   &__button {
     font-weight: normal;
@@ -63,23 +64,6 @@
     }
     &:first-child {
       margin-right: 8px;
-    }
-  }
-  &__legend {
-    position: relative;
-    padding-left: 18px;
-    color: #72839c;
-    &:before {
-      content: "";
-      display: block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #00c48c;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
     }
   }
   .DayPicker {
