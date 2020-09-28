@@ -5,26 +5,17 @@ import { setFiltersToUrl } from "../../../pages/Exhibitions/utils.js";
 import "./index.scss";
 
 
-const CalendarFilter = ({ dates, years, date_from, onChange, value }) => {
+const CalendarFilter = ({ date_from, onChange, value }) => {
     const [day, setDay] = useState(new Date(date_from));
-    const [modifier, setModifier] = useState({ selectedDate: day });
     const [activeButton, setActiveButton] = useState(null);
 
     const setNewDate = date => {
         setDay(date);
-        setModifier(modifier.green
-            ? { ...modifier, selectedDate: date }
-            : { ...modifier, green: dates.map(day => new Date(day)) }
-        );
     };
 
     useEffect(() => {
         setNewDate(new Date(date_from));
     }, [date_from]);
-
-    useEffect(() => {
-        setModifier({ ...modifier, green: dates.map(day => new Date(day)) });
-    }, [dates]);
 
     const handleButtonClick = period => {
         if (period === 'month') {
@@ -45,8 +36,8 @@ const CalendarFilter = ({ dates, years, date_from, onChange, value }) => {
         const value = e.target.value;
 
         setFiltersToUrl({
-            DateFrom: formatDateToString(value.start),
-            DateTo: formatDateToString(value.start)
+            DateFrom: formatDateToString(value),
+            DateTo: formatDateToString(value)
         });
     };
 
