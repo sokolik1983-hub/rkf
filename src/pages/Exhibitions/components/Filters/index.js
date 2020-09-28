@@ -13,13 +13,11 @@ import { setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
 import {formatDateToString} from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
-import { endpointExhibitionsFilters, endpointExhibitionsDates } from "../../config";
+import { endpointExhibitionsFilters } from "../../config";
 import "./index.scss";
 
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, federationAlias }) => {
-    const [dates, setDates] = useState([]);
-    const [years, setYears] = useState([]);
     const [ranks, setRanks] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
@@ -37,19 +35,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
             setCities(data.cities);
             setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
             setBreeds(data.breeds.filter(item => item.value !== 1));
-            setLoading(false);
-            window.scrollTo(0, 0);
-        }, error => {
-            console.log(error.response);
-            if (error.response) alert(`Ошибка: ${error.response.status}`);
-            setLoading(false);
-        }))();
-
-        (() => Request({
-            url: `${endpointExhibitionsDates}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
-        }, data => {
-            setDates(data.dates);
-            setYears(data.years);
             setLoading(false);
             window.scrollTo(0, 0);
         }, error => {
@@ -115,8 +100,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                 </div>
                                 <div className="calendar-filter">
                                     <CalendarFilter
-                                        dates={dates}
-                                        years={years}
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
                                     />
