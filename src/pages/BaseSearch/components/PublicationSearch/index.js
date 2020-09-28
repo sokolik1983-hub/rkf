@@ -122,6 +122,7 @@ const PublicationSearch = ({publication_clicked}) => {
             <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
+            <p>Цена</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
