@@ -13,7 +13,7 @@ import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
-const RegistrationPage = ({ isAuthenticated }) => {
+const RegistrationPage = ({ isAuthenticated, history }) => {
     const [activeTab, setActiveTab] = useState('club');
 
     return isAuthenticated ?
@@ -42,7 +42,7 @@ const RegistrationPage = ({ isAuthenticated }) => {
                         </div>
                         {activeTab === 'club' && <ClubRegistration/>}
                         {activeTab === 'nursery' && <NurseryRegistration/>}
-                        {activeTab === 'individual' && <IndividualRegistration/>}
+                        {activeTab === 'individual' && <IndividualRegistration history={history}/>}
                     </div>
                 </Card>
             </AuthLayout>

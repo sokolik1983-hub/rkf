@@ -5,7 +5,7 @@ import {config, fields} from "./config";
 import "./index.scss";
 
 
-const IndividualRegistration = () => {
+const IndividualRegistration = ({history}) => {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
 
@@ -15,12 +15,17 @@ const IndividualRegistration = () => {
         return newValues;
     };
 
+    const onSuccess = () => {
+        setSuccessAlert(true);
+        setTimeout(() => history.push("/"), 7500);
+    };
+
     return (
         <div className="individual-registration">
             <Form
                 {...config}
                 transformValues={transformValues}
-                onSuccess={() => setSuccessAlert(true)}
+                onSuccess={onSuccess}
                 onError={() => setErrorAlert(true)}
                 className="individual-registration__form"
             >
