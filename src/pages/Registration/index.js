@@ -1,56 +1,50 @@
 import React, { useState } from "react";
-import ClubRegistration from "./components/ClubRegistration";
-import Card from "components/Card";
-import NurseryRegistration from "./components/NurseryRegistration";
-import { compose } from "redux";
 import { Redirect } from "react-router-dom";
+import { compose } from "redux";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
+import Card from "../../components/Card";
+import ClubRegistration from "./components/ClubRegistration";
+import NurseryRegistration from "./components/NurseryRegistration";
+import IndividualRegistration from "./components/IndividualRegistration";
 import reducer from "../Login/reducer";
 import injectReducer from "../../utils/injectReducer";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
 
 
-const Registration = () => {
+const RegistrationPage = ({ isAuthenticated }) => {
     const [activeTab, setActiveTab] = useState('club');
 
-    return (
-        <Card>
-            <h1 className="registration-page__title">Регистрация</h1>
-            <div className="registration-page__tabs">
-                <div className="registration-page__tabs-controls">
-                    <div className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
-                        onClick={() => setActiveTab('club')}
-                    >
-                        Клуб
-                        </div>
-                    <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
-                        onClick={() => setActiveTab('nursery')}
-                    >
-                        Питомник
-                            </div>
-                    <div className={`registration-page__tab${activeTab === 'individual' ? ' _active' : ''}`}
-                        //onClick={() => setActiveTab('individual')}
-                        onClick={() => null}
-                    >
-                        Физическое лицо
-                </div>
-                </div>
-                {activeTab === 'club' && <ClubRegistration />}
-                {activeTab === 'nursery' && <NurseryRegistration />}
-            </div>
-        </Card>
-    )
-};
-
-
-const RegistrationPage = ({ isAuthenticated }) => {
     return isAuthenticated ?
         <Redirect to={'/'} /> :
         <Layout>
             <AuthLayout className="login-page">
-                <Registration />
+                <Card>
+                    <h1 className="registration-page__title">Регистрация</h1>
+                    <div className="registration-page__tabs">
+                        <div className="registration-page__tabs-controls">
+                            <div className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
+                                 onClick={() => setActiveTab('club')}
+                            >
+                                Клуб
+                            </div>
+                            <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
+                                 onClick={() => setActiveTab('nursery')}
+                            >
+                                Питомник
+                            </div>
+                            <div className={`registration-page__tab${activeTab === 'individual' ? ' _active' : ''}`}
+                                 onClick={() => setActiveTab('individual')}
+                            >
+                                Физическое лицо
+                            </div>
+                        </div>
+                        {activeTab === 'club' && <ClubRegistration/>}
+                        {activeTab === 'nursery' && <NurseryRegistration/>}
+                        {activeTab === 'individual' && <IndividualRegistration/>}
+                    </div>
+                </Card>
             </AuthLayout>
         </Layout>
 };
