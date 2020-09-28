@@ -506,6 +506,9 @@
       a {
         text-decoration: none;
         color: inherit;
+        &._disabled {
+          cursor: not-allowed;
+        }
       }
     }
     &:not(:first-child) a,
@@ -523,6 +526,12 @@
       &:hover {
         background-color: whitesmoke;
         color: #3366ff;
+      }
+      &._disabled {
+        opacity: .5;
+        cursor: not-allowed;
+        background-color: transparent;
+        color: #72839c;
       }
     }
   }
