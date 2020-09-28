@@ -100,7 +100,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                 </div>
                                 <div className="calendar-filter">
                                     <CalendarFilter
-                                        value={new Date(filters.DateFrom)}
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
                                     />

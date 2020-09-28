@@ -5,7 +5,7 @@ import { setFiltersToUrl } from "../../../pages/Exhibitions/utils.js";
 import "./index.scss";
 
 
-const CalendarFilter = ({ date_from, onChange, value }) => {
+const CalendarFilter = ({ date_from, onChange }) => {
     const [day, setDay] = useState(new Date(date_from));
     const [activeButton, setActiveButton] = useState(null);
 
@@ -44,7 +44,7 @@ const CalendarFilter = ({ date_from, onChange, value }) => {
     return (
         <div className="calendar-filter">
             <ExhibitionsCalendar
-                value={value}
+                value={new Date(date_from)}
                 onChange={handleDayChoose}
             />
             <div className="calendar-filter__controls">
