@@ -3,7 +3,6 @@ import { Calendar } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 // import { loadMessages } from "@progress/kendo-react-intl";
 // import messages from "./translation/messages.json";
-import "./index.scss";
 
 load(
     require("cldr-data/supplemental/likelySubtags.json"),
