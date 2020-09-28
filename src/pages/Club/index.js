@@ -84,7 +84,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         {
                                             clubInfo.is_active
                                                 ? <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                                : <div className="club-page__content-banner-inactive">Клуб не активирован</div>
+                                                : <div className="club-page__content-banner-inactive"></div>
                                         }
                                     </Card>
                                     <div className="club-page__mobile-only">
