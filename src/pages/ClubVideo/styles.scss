@@ -20,6 +20,9 @@
         }
         .infinite-scroll-component {
             overflow: visible !important;
+            .VideoGallery__items-wrap .ReactGridGallery__disabled{
+                display: none;
+            }
         }
         &-divider {
             border-top: 1px solid #e7e8ec;

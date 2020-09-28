@@ -78,7 +78,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          background: white;
+          background: url('/static/icons/banner-club.svg') no-repeat center , white;
         }
       }
       & > .Card:not(.club-page__content-banner) {

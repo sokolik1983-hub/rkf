@@ -157,7 +157,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                             next={getNextVideos}
                                                             hasMore={hasMore}
                                                             loader={videosLoading && <Loading centered={false} />}
-                                                            endMessage={!!videos.length &&
+                                                            endMessage={!videos.length &&
                                                                 <div className="ClubVideo__no-videos">
                                                                     <h4>Видеозаписей больше нет</h4>
                                                                     <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
