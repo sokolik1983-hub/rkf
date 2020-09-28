@@ -4,7 +4,7 @@ const emptyFieldMsg = 'Поле не может быть пустым';
 
 export const config = {
     method: 'POST',
-    action: '/',
+    action: '/api/registration/owner/create_and_confirm',
     withLoading: true,
     initialValues: {
         last_name: '',
