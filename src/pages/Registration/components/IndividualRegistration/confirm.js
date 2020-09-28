@@ -23,6 +23,7 @@ const ConfirmIndividualRegistration = ({history, location, isAuthenticated}) => 
             }, data => {
                 setMessage('Вы успешно зарегистрировались');
                 setLoading(false);
+                setTimeout(() => history.push("/auth/login"), 7500);
             }, error => {
                 if(error.response && error.response.status === 422) {
                     setMessage(Object.keys(error.response.data.errors).map(key => `${error.response.data.errors[key]}\n`).join(''));
