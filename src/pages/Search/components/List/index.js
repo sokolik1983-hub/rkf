@@ -6,8 +6,8 @@ import CardExhibition from "../../../../components/CardExhibition";
 import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
-import "./index.scss";
 import {formatDateCommon} from "../../../../utils/datetime";
+import "./index.scss";
 
 
 const SearchList = ({searchResult, hasMore, getNextResults}) => {
