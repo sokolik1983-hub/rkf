@@ -117,9 +117,6 @@ const PublicationSearch = ({ publication_clicked }) => {
         }
     };
 
-    console.log(breeds)
-
-
     return (
         <Card className={`PublicationSearch ${publication_clicked ? `_active_card` : ``}`} id="publication-search-anchor">
             <div className="search-form__icon publication-search" />
