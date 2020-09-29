@@ -3,14 +3,14 @@ import { PromiseRequest } from "utils/request";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import Card from "../../../../components/Card";
-import BreedsFilter from "components/Filters/BreedsFilter";
-import CitiesFilter from "components/Filters/CitiesFilter";
 import InfiniteScroll from "react-infinite-scroll-component";
 import List from "components/List";
+import BreedsFilterKendo from "../../../../components/kendo/Filters/BreedsFilter";
+import CitiesFilterKendo from "../../../../components/kendo/Filters/CitiesFilter";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import './index.scss';
 
-const PublicationSearch = ({publication_clicked}) => {
+const PublicationSearch = ({ publication_clicked }) => {
     const [items, setItems] = useState([]);
     const [min_price, setMinPrice] = useState(undefined);
     const [max_price, setMaxPrice] = useState(undefined);
@@ -117,12 +117,15 @@ const PublicationSearch = ({publication_clicked}) => {
         }
     };
 
+    console.log(breeds)
+
+
     return (
         <Card className={`PublicationSearch ${publication_clicked ? `_active_card` : ``}`} id="publication-search-anchor">
             <div className="search-form__icon publication-search" />
             <h3>Поиск по объявлениям</h3>
             <p>Для поиска подходящего Вам объявления о продаже щенков, выберете породу, город и укажите приемлемый диапазон цен.</p>
-            <p>Цена</p>
+            <p className="PublicationSearch__price">Цена</p>
             <form className="search-form" onSubmit={handleSubmit}>
                 <div className="search-form__wrap">
                     <input
@@ -174,8 +177,24 @@ const PublicationSearch = ({publication_clicked}) => {
                     </div>}
             </form>
             <div className="PublicationSearch__filters">
-                <BreedsFilter breeds={breeds} breed_ids={breedIds} onChange={ids => setBreedIds(ids)} />
-                <CitiesFilter cities={cities} city_ids={cityIds} onChange={ids => setCityIds(ids)} />
+                <div>
+                    <p>Породы</p>
+                    <BreedsFilterKendo
+                        data={breeds}
+                        onChange={ids => setBreedIds(ids)}
+                        breed_ids={breedIds}
+                        className="PublicationSearch__breeds-filter"
+                    />
+                </div>
+                <div>
+                    <p>Города</p>
+                    <CitiesFilterKendo
+                        data={cities}
+                        onChange={ids => setCityIds(ids)}
+                        city_ids={cityIds}
+                        className="PublicationSearch__cities-filter"
+                    />
+                </div>
             </div>
             {
                 loading || (newsLoading && !items.length)
