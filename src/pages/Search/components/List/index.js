@@ -28,9 +28,7 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
         return date;
     };
 
-    const getRanks = rank_ids => {
-        return rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
-    };
+    const getRanks = rank_ids => rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
 
     return (
         <div className="search-list">
