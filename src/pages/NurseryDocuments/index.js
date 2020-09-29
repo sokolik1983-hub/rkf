@@ -77,7 +77,6 @@ const Docs = ({ history }) => {
                             <Patella alias={nurseryAlias} history={history} profileType="kennel" />}
                         />
 
-
                         <Route exact={true} path='/kennel/:route/documents/litter/status' component={() =>
                             <NurseryDocumentsStatus nurseryAlias={nurseryAlias} history={history} distinction="litter" />}
                         />
