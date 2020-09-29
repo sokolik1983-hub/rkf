@@ -1,176 +1,19 @@
-.documents-page {
-    &__support-links {
-        font-weight: normal;
-        a {
-            text-decoration: none;
-            margin-bottom: 10px;
-            background: url("/static/icons/registration/info.svg") left center/contain no-repeat;
-            padding-left: 25px;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+.user-documents__info {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    .user-documents__right {
+        order: 2;
+        width: calc(100% - 316px);
+    }
+    .user-documents__left {
+        order: 1;
+        width: 300px;
+        min-width: 300px;
+        margin-right: 16px;
     }
     .Card {
-        margin-bottom: 1em;
-        h3 {
-            font-size: 18px;
-            line-height: 26px;
-            letter-spacing: 0.4px;
-            margin-bottom: 6px;
-            @media (max-width: 560px) {
-            }
-        }
-        p {
-            margin-bottom: 6px;
-            letter-spacing: 0.2px;
-        }
-        hr {
-            border: none;
-            border-bottom: 1px solid #e8e8e8;
-        }
-        &__links {
-            display: flex;
-            flex-wrap: wrap;
-            font-weight: normal;
-            padding: 6px 0 0;
-            a {
-                text-decoration: none;
-                font-weight: 600;
-                &:not(:last-child) {
-                    margin-right: 20px;
-                }
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-        &__link-columns {
-            display: flex;
-            flex-wrap: wrap;
-            font-weight: normal;
-            padding: 6px 0 0;
-            a {
-                text-decoration: none;
-                font-weight: 600;
-                white-space: nowrap;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-            div {
-                display: flex;
-                flex-direction: column;
-                flex-basis: 50%;
-            }
-        }
-    }
-}
-
-.menu-component__link {
-    position: relative;
-    &--documents {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/documentsIcon.svg) no-repeat center / cover;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--club {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/clubIcon.svg) no-repeat center / 16px;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--org {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/orgIcon.svg) no-repeat center / 16px;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--mark {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/markIcon.svg) no-repeat center / 16px;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--appointment {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/appointmentIcon.svg) no-repeat center / cover;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--report {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/report.svg) no-repeat center / cover;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--stain {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/stain.svg) no-repeat center / cover;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    }
-    &--search {
-        position: relative;
-        display: flex;
-        align-items: center;
-        &::before {
-            content: '';
-            display: inline-block;
-            background: url(/static/icons/searchIcon.svg) no-repeat center / cover;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
+        padding: 10px;
+        margin-bottom: 16px;
     }
 }

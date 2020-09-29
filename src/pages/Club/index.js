@@ -156,7 +156,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                             {showModal &&
                                 <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
                                     <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
-                                </VideoModal>}
+                                </VideoModal>
+                            }
                         </Container>
                     </div>
                 </Layout>
