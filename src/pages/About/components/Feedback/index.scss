@@ -13,7 +13,10 @@
     line-height: 32px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e8e8e8;
+    text-transform: capitalize;
     @media (max-width: 560px) {
       line-height: 18px;
       letter-spacing: 0.3px;
