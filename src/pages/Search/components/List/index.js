@@ -5,12 +5,32 @@ import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
 import CardNews from "../../../../components/CardNews";
 import {DEFAULT_IMG} from "../../../../appConfig";
-import {useDictionary} from "../../../../dictionaries";
+import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import "./index.scss";
+import {formatDateCommon} from "../../../../utils/datetime";
 
 
 const SearchList = ({searchResult, hasMore, getNextResults}) => {
     const {dictionary} = useDictionary('rank_type');
+
+    const getDate = dates => {
+        let date = '';
+
+        if(dates && dates.length) {
+            const startDate = dates[0];
+            const endDate = dates[dates.length - 1];
+            date = dates.length === 1
+                ? formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`))
+                : formatDateCommon(new Date(`${startDate.year}/${startDate.month}/${startDate.day}`)) +
+                ' - ' + formatDateCommon(new Date(`${endDate.year}/${endDate.month}/${endDate.day}`));
+        }
+
+        return date;
+    };
+
+    const getRanks = rank_ids => {
+        return rank_ids.length ? getDictElementsArray(dictionary, rank_ids).join(', ') : 'Не указано';
+    };
 
     return (
         <div className="search-list">
@@ -34,19 +54,17 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                             }
                             {item.search_type === 'exhibitions' &&
                                 <CardExhibition
-                                    id={item.id}
                                     title={item.exhibition_name}
                                     city={item.city}
-                                    dates={item.dates}
-                                    photo={item.picture_link}
-                                    url={`/exhibitions/${item.id}`}
                                     club_name={item.club_name}
                                     club_alias={item.club_alias}
                                     club_logo={item.club_logo}
+                                    date={getDate(item.dates)}
+                                    photo={item.picture_link}
+                                    url={`/exhibitions/${item.id}`}
+                                    ranks={getRanks(item.rank_ids)}
                                     federation_name={item.federation_name}
                                     federation_link={item.federation_link}
-                                    ranks={item.rank_ids}
-                                    dictionary={dictionary}
                                     user={item.user_type}
                                 />
                             }
