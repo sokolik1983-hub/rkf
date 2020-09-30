@@ -2,10 +2,8 @@ import React from "react";
 import {Switch, Route} from "react-router-dom";
 import ls from "local-storage";
 import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
 import Home from "./pages/Home";
 import {connectAuthVisible} from "../Login/connectors";
-import "./index.scss";
 
 
 const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => {
@@ -16,14 +14,10 @@ const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => 
 
     return (
         <Layout>
-            <div className="user-documents">
-                <Container className="user-documents__content content">
-                    <Switch>
+            <Switch>
 
-                        <Route component={() => <Home userAlias={userAlias}/>} />
-                    </Switch>
-                </Container>
-            </div>
+                <Route component={() => <Home userAlias={userAlias} history={history}/>} /> {/*Все страницы с меню и баннером*/}
+            </Switch>
         </Layout>
     )
 };

@@ -1,0 +1,45 @@
+.user-nav {
+  &__list {
+    list-style: none;
+    padding: 10px 0 0;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    line-height: 1;
+    letter-spacing: .2px;
+    color: #72839c;
+    transition: color .2s linear;
+    svg {
+      width: 20px;
+      margin-right: 6px;
+      fill: #72839c;
+      vertical-align: middle;
+      opacity: 1 !important;
+      cursor: pointer !important;
+      transition: fill .2s linear;
+    }
+    span {
+      vertical-align: middle;
+    }
+    &:hover, &.active {
+      color: #3366FF;
+      svg {
+        fill: #3366FF;
+      }
+    }
+    &._disabled {
+      color: #72839c !important;
+      cursor: default;
+      opacity: .5;
+      svg {
+        fill: #72839c !important;
+        cursor: default;
+      }
+    }
+  }
+}

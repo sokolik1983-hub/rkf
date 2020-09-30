@@ -1,19 +1,114 @@
-.user-documents__info {
+.user-documents {
+  background: #f5f8ff;
+  & + .Footer {
+    display: none;
+  }
+  &__content {
     display: flex;
     justify-content: space-between;
-    padding-top: 16px;
-    .user-documents__right {
-        order: 2;
-        width: calc(100% - 316px);
+  }
+  &__right {
+    order: 2;
+    width: calc(100% - 316px);
+    margin-top: 16px;
+  }
+  &__left {
+    order: 1;
+    width: 300px;
+    min-width: 300px;
+    margin: 16px 16px 0 0;
+  }
+  .Card {
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+}
+
+.documents-card {
+  padding: 24px 32px !important;
+  &__title {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  &__content {
+    display: flex;
+  }
+  &__about {
+    letter-spacing: .2px;
+    margin-bottom: 6px;
+  }
+  &__icon {
+    width: 145px;
+    min-width: 145px;
+    height: 145px;
+    margin: -32px 0 10px 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    &._judge {
+      background-image: url("/static/images/documents/icon-judge-status.svg");
     }
-    .user-documents__left {
-        order: 1;
-        width: 300px;
-        min-width: 300px;
-        margin-right: 16px;
+    &._specialist {
+      background-image: url("/static/images/documents/icon-specialist-status.svg");
     }
-    .Card {
-        padding: 10px;
-        margin-bottom: 16px;
+    &._registration {
+      background-image: url("/static/images/documents/registration-icon.svg");
     }
+    &._federation-quality {
+      background-image: url("/static/images/documents/federation-quality-icon.svg");
+    }
+    &._federation-support-quality {
+      background-image: url("/static/images/documents/federation-support-quality-icon.svg");
+    }
+  }
+  &__controls {
+    padding-top: 6px;
+    border-top: 1px solid #e8e8e8;
+    &-wrap {
+      width: calc(100% - 180px);
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
+    &._disabled {
+      text-decoration: none;
+      cursor: default;
+      color: #72839c;
+      opacity: .5;
+    }
+  }
+  &__modal {
+    &._blue {
+      & > div {
+        max-width: 600px;
+      }
+      .Modal__inner {
+        background: #f0f2f3;
+      }
+    }
+    & > div {
+      height: 80% !important;
+    }
+    .Modal__inner {
+      height: 100%;
+      max-height: none;
+      overflow-y: unset;
+      padding: 0;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100% - 48px);
+      margin-top: 48px;
+      border: none;
+    }
+  }
 }
