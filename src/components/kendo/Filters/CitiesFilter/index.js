@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { listNoDataRender } from "../config.js";
 import "./index.scss";
 
-const CitiesFilterKendo = ({data, city_ids, onChange, className}) => {
+const CitiesFilterKendo = ({ data, onChange, className }) => {
     const [values, setValues] = useState([]);
 
-    useEffect(() => {
-        if (data.length) {
-            setValues(data.filter(option => city_ids.indexOf(option.value) !== -1));
+    const handleChange = e => {
+        if (e.target.value) {
+            setValues(e.target.value);
+
+            let cityIds = [];
+            e.target.value.forEach(option => {
+                let keys = Object.keys(option);
+                cityIds.push(option[keys[0]])
+            })
+            onChange(cityIds);
+        } else {
+            setValues([]);
+            onChange([]);
         }
-    }, [data, city_ids]);
-
-    const handleChange = options => {
-        onChange(options.map(option => option.value));
-    };
-
-    const handleFilterChange = cityId => {
-        onChange(values.filter(city => city.value !== cityId).map(city => city.value));
     };
 
     return (
-        <MultiSelect 
+        <MultiSelect
             data={data}
             value={values}
             onChange={handleChange}
@@ -29,12 +31,6 @@ const CitiesFilterKendo = ({data, city_ids, onChange, className}) => {
             dataItemKey="value"
             className={className}
             placeholder="все"
-            defaultValue={{
-                value: null,
-                label: "все"
-            }}
-            filterable={true}
-            onFilterChange={handleFilterChange}
             listNoDataRender={listNoDataRender}
         />
     );

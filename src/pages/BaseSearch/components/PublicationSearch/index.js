@@ -179,7 +179,6 @@ const PublicationSearch = ({ publication_clicked }) => {
                     <BreedsFilterKendo
                         data={breeds}
                         onChange={ids => setBreedIds(ids)}
-                        breed_ids={breedIds}
                         className="PublicationSearch__breeds-filter"
                     />
                 </div>
@@ -188,7 +187,6 @@ const PublicationSearch = ({ publication_clicked }) => {
                     <CitiesFilterKendo
                         data={cities}
                         onChange={ids => setCityIds(ids)}
-                        city_ids={cityIds}
                         className="PublicationSearch__cities-filter"
                     />
                 </div>
