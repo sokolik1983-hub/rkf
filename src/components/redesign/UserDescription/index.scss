@@ -30,6 +30,9 @@
     .ReactCollapse--collapse {
       min-height: 72px;
       transition: height 500ms;
+      .ReactCollapse--content {
+        white-space: break-spaces;
+      }
     }
   }
 }

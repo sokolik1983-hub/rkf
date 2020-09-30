@@ -18,7 +18,7 @@ import Alert from "../../components/Alert";
 import TopComponent from "../../components/TopComponent";
 import { Link as LinkScroll } from "react-scroll";
 import { Link } from "react-router-dom";
-// import PublicationSearch from "./components/PublicationSearch";
+import PublicationSearch from "./components/PublicationSearch";
 import { parseLocationSearch } from "./utils.js";
 import { Request } from "../../utils/request";
 import "./index.scss";
@@ -30,7 +30,7 @@ const BaseSearch = () => {
     const [registration_clicked, setRegistrationClicked] = useState(false);
     const [stamp_clicked, setStampClicked] = useState(false);
     const [referee_clicked, setRefereeClicked] = useState(false);
-    // const [publication_clicked, setPublicationClicked] = useState(false);
+    const [publication_clicked, setPublicationClicked] = useState(false);
 
     const [alert, seAlert] = useState(false);
     const [clubData, setClubData] = useState(null);
@@ -68,7 +68,7 @@ const BaseSearch = () => {
         setRegistrationClicked(false);
         setStampClicked(false);
         setRefereeClicked(false);
-        // setPublicationClicked(false);
+        setPublicationClicked(false);
     };
 
     const handleBrokenLinkClick = e => {
@@ -101,7 +101,7 @@ const BaseSearch = () => {
                             <CheckRegistration registration_clicked={registration_clicked} />
                             <StampSearch stamp_clicked={stamp_clicked} />
                             <RefereeSearch referee_clicked={referee_clicked} />
-                            {/* <PublicationSearch publication_clicked={publication_clicked} /> */}
+                            <PublicationSearch publication_clicked={publication_clicked} />
                         </div>
                         <Aside className="base-search__info">
                             <StickyBox offsetTop={65}>
@@ -233,12 +233,12 @@ const BaseSearch = () => {
                                                             smooth={true}
                                                             offset={-60}
                                                             duration={500}
-                                                            className="menu-component__link disabled"
+                                                            className="menu-component__link"
                                                             title="Поиск по объявлениям"
-                                                        // onClick={() => {
-                                                        //     handleActiveReset();
-                                                        //     setPublicationClicked(true);
-                                                        // }}
+                                                            onClick={() => {
+                                                            handleActiveReset();
+                                                            setPublicationClicked(true);
+                                                        }}
                                                         >
                                                             Поиск по объявлениям
                                                         </LinkScroll>
