@@ -50,7 +50,7 @@ const Home = ({userAlias, history}) => {
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
                             <div className="mobile-only">
-                                <UserBanner headliner_link={'https://www.fotovarka.ru/wp-content/uploads/2016/09/zt8abd-1.jpg'} link={userInfo.headliner_link}/>
+                                <UserBanner headliner_link={userInfo.headliner_link}/>
                             </div>
                             <Card>
                                 <UserInfo {...userInfo}/>
@@ -60,7 +60,7 @@ const Home = ({userAlias, history}) => {
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
-                        <UserBanner headliner_link={'https://www.fotovarka.ru/wp-content/uploads/2016/09/zt8abd-1.jpg'} link={userInfo.headliner_link}/>
+                        <UserBanner headliner_link={userInfo.headliner_link}/>
                         <div className="user-documents__cards">
                             <Switch>
                                 <Route
