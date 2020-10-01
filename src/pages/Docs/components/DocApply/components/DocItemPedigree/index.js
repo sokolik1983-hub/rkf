@@ -195,7 +195,7 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         <p className="red">Если вам известны имя и отчество - укажите их в данной форме. В противном случае разнесите инициалы, загруженные из ВЕРК, по соответствующим полям.</p>
                     </HideIf>
                     <FormField disabled={update || filledEverk('owner_address_lat')} name={`owner_address_lat`} label='Адрес владельца латиницей' />
-
+                    <span className="DocItem__pedigree-warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
                     <FormField disabled={update || filledEverk('dog_name_lat')} name={`dog_name_lat`} label='Кличка собаки латиницей' />
 
                     <h4>Файлы должны быть загружены в одном из следующих форматов: PDF, JPEG, JPG, PNG</h4>

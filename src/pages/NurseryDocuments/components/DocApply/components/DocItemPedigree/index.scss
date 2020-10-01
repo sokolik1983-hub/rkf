@@ -39,6 +39,12 @@
         position: relative;
         left: 7.5px;
     }
+    &__pedigree-warning {
+        color: #FA5D50;
+        position: relative;
+        top: 24px;
+        left: 220px;
+    }    
 }
 
 .DocItem.table:hover {
