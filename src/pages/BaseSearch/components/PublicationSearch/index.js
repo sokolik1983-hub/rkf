@@ -175,7 +175,7 @@ const PublicationSearch = ({ publication_clicked }) => {
             </form>
             <div className="PublicationSearch__filters">
                 <div>
-                    <p>Породы</p>
+                    <p className="PublicationSearch__filters-title">Породы</p>
                     <BreedsFilterKendo
                         data={breeds}
                         onChange={ids => setBreedIds(ids)}
@@ -183,7 +183,7 @@ const PublicationSearch = ({ publication_clicked }) => {
                     />
                 </div>
                 <div>
-                    <p>Города</p>
+                    <p className="PublicationSearch__filters-title">Города</p>
                     <CitiesFilterKendo
                         data={cities}
                         onChange={ids => setCityIds(ids)}
