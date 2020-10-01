@@ -136,6 +136,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/user/:id/documents',
+        component: LoadableModules.LoadableUserDocuments
+    },
+    {
+        exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
     },
