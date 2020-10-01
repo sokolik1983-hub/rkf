@@ -21,35 +21,27 @@ const FederationAssessment = () => {
     return (
         <>
             <Card className="documents-card">
+                <div className="documents-card__icon _federation-quality" />
                 <h3 className="documents-card__title">Оценка работы Федерации</h3>
-                <div className="documents-card__content">
-                    <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
-                    <div className="documents-card__icon _federation-quality" />
-                </div>
+                <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от посещения офиса Вашей федерации. Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
                 <div className="documents-card__controls">
-                    <div className="documents-card__controls-wrap">
-                        <Link
-                            to="/"
-                            className="documents-card__link"
-                            onClick={e => handleClick(e, false)}
-                        >Оценить работу Федерации</Link>
-                    </div>
+                    <Link
+                        to="/"
+                        className="documents-card__link"
+                        onClick={e => handleClick(e, false)}
+                    >Оценить работу Федерации</Link>
                 </div>
             </Card>
             <Card className="documents-card">
+                <div className="documents-card__icon _federation-support-quality" />
                 <h3 className="documents-card__title">Оценка работы службы поддержки Федерации</h3>
-                <div className="documents-card__content">
-                    <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от взаимодействия со службой поддержки федерации.  Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
-                    <div className="documents-card__icon _federation-support-quality" />
-                </div>
+                <p className="documents-card__about">В данном разделе Вы можете поделиться своими впечатлениями от взаимодействия со службой поддержки федерации.  Опрос займет всего несколько минут, но пройти его можно не чаще одного раза в месяц, поэтому просим Вас отвечать искренне и быть очень внимательными. Помогите нам стать лучше - нам важно Ваше мнение!</p>
                 <div className="documents-card__controls">
-                    <div className="documents-card__controls-wrap">
-                        <Link
-                            to="/"
-                            className="documents-card__link"
-                            onClick={e => handleClick(e, true)}
-                        >Оценить работу службы поддержки Федерации</Link>
-                    </div>
+                    <Link
+                        to="/"
+                        className="documents-card__link"
+                        onClick={e => handleClick(e, true)}
+                    >Оценить работу службы поддержки Федерации</Link>
                 </div>
             </Card>
             {showModal &&

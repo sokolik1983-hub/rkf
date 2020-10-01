@@ -17,9 +17,9 @@ const UserInfo = ({logo_link, personal_information}) => (
         <div className="user-info__info">
             {personal_information && !!Object.keys(personal_information).length ?
                 <>
-                    {personal_information.last_name && <p>{personal_information.last_name}</p>}
-                    {personal_information.first_name && <p>{personal_information.first_name}</p>}
-                    {personal_information.second_name && <p>{personal_information.second_name}</p>}
+                    {personal_information.last_name && <p title={personal_information.last_name}>{personal_information.last_name}</p>}
+                    {personal_information.first_name && <p title={personal_information.first_name}>{personal_information.first_name}</p>}
+                    {personal_information.second_name && <p title={personal_information.second_name}>{personal_information.second_name}</p>}
                 </> :
                 <p>Аноним</p>
             }

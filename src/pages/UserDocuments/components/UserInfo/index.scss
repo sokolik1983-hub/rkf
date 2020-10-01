@@ -1,7 +1,15 @@
 .user-info {
+  @media (max-width: 990px) {
+    display: flex;
+  }
   &__logo-wrap {
     padding-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
+    @media (max-width: 990px) {
+      padding-bottom: 0;
+      border-bottom: none;
+      margin-right: 10px;
+    }
   }
   &__logo {
     min-width: 162px;
@@ -10,14 +18,29 @@
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: contain;
+    @media (max-width: 990px) {
+      width: 100px;
+      min-width: 100px;
+      height: 100px;
+      margin: 0;
+      border-radius: 50%;
+      background-size: cover;
+    }
   }
   &__info {
     padding: 10px 0;
     border-bottom: 1px solid #e8e8e8;
+    @media (max-width: 990px) {
+      border-bottom: none;
+      width: calc(100% - 110px);
+    }
     p {
       line-height: 1;
       letter-spacing: .2px;
       color: #72839c;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
       &:not(:last-child) {
         margin-bottom: 12px;
       }

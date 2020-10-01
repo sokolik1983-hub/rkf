@@ -1,50 +1,72 @@
 .user-documents {
   background: #f5f8ff;
+  min-height: 100vh;
+  @media (max-width: 990px) {
+    min-height: calc(100vh - 108px);
+    .user-banner {
+      display: none;
+    }
+  }
   & + .Footer {
     display: none;
+    @media (max-width: 990px) {
+      display: block;
+    }
   }
   &__content {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 990px) {
+      display: block;
+    }
   }
   &__right {
-    order: 2;
     width: calc(100% - 316px);
     margin-top: 16px;
+    @media (max-width: 990px) {
+      width: 100%;
+      padding-bottom: 1px;
+    }
   }
   &__left {
-    order: 1;
     width: 300px;
     min-width: 300px;
     margin: 16px 16px 0 0;
+    @media (max-width: 990px) {
+      width: 100%;
+      min-width: auto;
+      margin-right: 0;
+      & > div {
+        position: static !important;
+      }
+    }
   }
   .Card {
     padding: 10px;
     margin-bottom: 16px;
   }
+  .mobile-only {
+    display: none;
+    @media (max-width: 990px) {
+      display: block;
+      .user-banner {
+        display: block;
+      }
+    }
+  }
 }
 
 .documents-card {
   padding: 24px 32px !important;
-  &__title {
-    font-size: 18px;
-    line-height: 26px;
-    letter-spacing: .4px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  &__content {
-    display: flex;
-  }
-  &__about {
-    letter-spacing: .2px;
-    margin-bottom: 6px;
+  @media (max-width: 560px) {
+    padding: 10px !important;
   }
   &__icon {
     width: 145px;
     min-width: 145px;
     height: 145px;
-    margin: -32px 0 10px 35px;
+    float: right;
+    margin: 0 0 10px 35px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -63,14 +85,32 @@
     &._federation-support-quality {
       background-image: url("/static/images/documents/federation-support-quality-icon.svg");
     }
+    @media (max-width: 560px) {
+      width: 100px;
+      min-width: 100px;
+      height: 100px;
+      margin: 0 0 5px 10px;
+    }
+  }
+  &__title {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  &__about {
+    letter-spacing: .2px;
+    margin-bottom: 6px;
   }
   &__controls {
-    padding-top: 6px;
+    padding: 6px 180px 0 0;
     border-top: 1px solid #e8e8e8;
-    &-wrap {
-      width: calc(100% - 180px);
-      display: flex;
-      justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
+    clear: both;
+    @media (max-width: 560px) {
+      padding-right: 0;
     }
   }
   &__link {

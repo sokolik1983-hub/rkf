@@ -1,12 +1,26 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 import Alert from "../../../../components/Alert";
 import {userNav} from "../../config";
 import "./index.scss";
+import {CSSTransition} from "react-transition-group";
+import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 
 
 const UserMenu = ({alias}) => {
     const [alert, setAlert] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 991);
+
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 991);
+        });
+
+        return window.removeEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 991);
+        });
+    }, []);
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -15,7 +29,22 @@ const UserMenu = ({alias}) => {
 
     return (
         <div className="user-nav">
-            <ul className="user-nav__list">
+            <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+                {isMobile &&
+                    <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                    </button>
+                }
+                <CSSTransition
+                    in={!isMobile || (isMobile && open)}
+                    timeout={350}
+                    classNames="user-nav__transition"
+                    unmountOnExit
+                >
+                    <ul className="user-nav__list">
                 {userNav(alias).map(navItem =>
                     <li className="user-nav__item" key={navItem.id}>
                         <NavLink
@@ -30,6 +59,8 @@ const UserMenu = ({alias}) => {
                     </li>
                 )}
             </ul>
+                </CSSTransition>
+            </OutsideClickHandler>
             {alert &&
                 <Alert
                     title="Внимание!"

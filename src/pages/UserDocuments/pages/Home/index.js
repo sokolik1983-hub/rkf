@@ -42,43 +42,49 @@ const Home = ({userAlias, history}) => {
         }))();
     }, [userAlias]);
 
-    return loading ?
-        <Loading/> :
+    return (
         <div className="user-documents">
-            <Container className="user-documents__content content">
-                <div className="user-documents__right">
-                    <UserBanner headliner_link={userInfo.headliner_link}/>
-                    <div className="user-documents__cards">
-                        <Switch>
-                            <Route
-                                exact={true}
-                                path='/user/:id/documents/specialization'
-                                component={() => <Specialization alias={userAlias}/>}
-                            />
-                            <Route
-                                exact={true}
-                                path='/user/:id/documents/meeting-registration'
-                                component={() => <MeetingRegistration/>}
-                            />
-                            <Route
-                                exact={true}
-                                path='/user/:id/documents/federation-assessment'
-                                component={() => <FederationAssessment/>}
-                            />
-                        </Switch>
+            {loading ?
+                <Loading/> :
+                <Container className="user-documents__content content">
+                    <aside className="user-documents__left">
+                        <StickyBox offsetTop={66}>
+                            <div className="mobile-only">
+                                <UserBanner headliner_link={'https://www.fotovarka.ru/wp-content/uploads/2016/09/zt8abd-1.jpg'} link={userInfo.headliner_link}/>
+                            </div>
+                            <Card>
+                                <UserInfo {...userInfo}/>
+                                <UserMenu alias={userAlias}/>
+                            </Card>
+                            <CopyrightInfo/>
+                        </StickyBox>
+                    </aside>
+                    <div className="user-documents__right">
+                        <UserBanner headliner_link={'https://www.fotovarka.ru/wp-content/uploads/2016/09/zt8abd-1.jpg'} link={userInfo.headliner_link}/>
+                        <div className="user-documents__cards">
+                            <Switch>
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/specialization'
+                                    component={() => <Specialization alias={userAlias}/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/meeting-registration'
+                                    component={() => <MeetingRegistration/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/federation-assessment'
+                                    component={() => <FederationAssessment/>}
+                                />
+                            </Switch>
+                        </div>
                     </div>
-                </div>
-                <aside className="user-documents__left">
-                    <StickyBox offsetTop={66}>
-                        <Card>
-                            <UserInfo {...userInfo}/>
-                            <UserMenu alias={userAlias}/>
-                        </Card>
-                        <CopyrightInfo/>
-                    </StickyBox>
-                </aside>
-            </Container>
+                </Container>
+            }
         </div>
+    )
 };
 
 export default React.memo(Home);

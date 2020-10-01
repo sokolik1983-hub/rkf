@@ -2,5 +2,12 @@
   padding: 10px !important;
   &__img {
     height: 235px;
+    @media (max-width: 560px) {
+      height: 25vw;
+    }
+  }
+  @media (max-width: 990px) {
+    padding: 0 !important;
+    overflow: hidden;
   }
 }
