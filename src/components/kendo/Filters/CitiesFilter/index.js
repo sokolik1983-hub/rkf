@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { listNoDataRender } from "../config.js";
-import "./index.scss";
 
 const CitiesFilterKendo = ({ data, onChange, className }) => {
     const [values, setValues] = useState([]);
@@ -32,6 +31,7 @@ const CitiesFilterKendo = ({ data, onChange, className }) => {
             className={className}
             placeholder="все"
             listNoDataRender={listNoDataRender}
+            style={{ fontSize: '16px' }}
         />
     );
 };
