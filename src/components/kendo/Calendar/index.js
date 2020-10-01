@@ -1,6 +1,7 @@
 import React from "react";
 import { Calendar } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
+import "./index.scss";
 // import { loadMessages } from "@progress/kendo-react-intl";
 // import messages from "./translation/messages.json";
 

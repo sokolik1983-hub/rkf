@@ -40,6 +40,7 @@ const PuppyItem = ({ formik, puppy, i, j, activePuppy, activateClick, deleteClic
                         style={{ alignSelf: 'flex-end', padding: '12px' }}
                     >Транслитерировать</Button>
                 </FormGroup>
+                <span className="DocItem__warning">Если данное поле не заполнено, транслитерация клички остается на усмотрение кинолога</span>
                 <FormField disabled={cantEdit} name={`litters[${j}].dog_name_lat`} label='Кличка латиницей (опционально)' />
                 <FormGroup inline>
                     <FormField disabled={cantEdit} name={`litters[${j}].dog_color`} label='Окрас' />

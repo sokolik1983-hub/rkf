@@ -1,0 +1,7 @@
+.k-calendar-infinite,
+.exhibitions-calendar {
+    width: 280px !important;
+    @media (max-width: 990px) {
+        width: 265px !important;
+    }
+}
