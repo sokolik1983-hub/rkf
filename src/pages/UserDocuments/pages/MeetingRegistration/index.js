@@ -10,11 +10,8 @@ const MeetingRegistration = () => {
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
-
-        if(isRKF) {
-            setIframeLink('https://widget.bookform.ru/30637');
-            setShowModal(true);
-        }
+        setIframeLink(`https://widget.bookform.ru/${isRKF ? '38636' : '30788'}`);
+        setShowModal(true);
     };
 
     return (
@@ -26,7 +23,7 @@ const MeetingRegistration = () => {
                 <div className="documents-card__controls">
                     <Link
                         to="/"
-                        className="documents-card__link _disabled"
+                        className="documents-card__link"
                         onClick={e => handleClick(e, false)}
                     >Запись в Федерацию</Link>
                 </div>
