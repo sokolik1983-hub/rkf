@@ -67,6 +67,13 @@ const WidgetLogin = forwardRef(
                             <div className="widget-login__content">
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
+                                        {userType === 1 &&
+                                            <Link
+                                                to={`/user/${alias}`}
+                                                className="_disabled"
+                                                onClick={e => e.preventDefault()}
+                                            >{name}</Link>
+                                        }
                                         {(userType === 3 || userType === 5) &&
                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
                                         }
@@ -76,6 +83,20 @@ const WidgetLogin = forwardRef(
                                     </li>
                                     {is_active_profile &&
                                         <>
+                                            {userType === 1 &&
+                                                <>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link
+                                                            to={`/user/${alias}/edit`}
+                                                            className="_disabled"
+                                                            onClick={e => e.preventDefault()}
+                                                        >Редактировать профиль</Link>
+                                                    </li>
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
+                                                    </li>
+                                                </>
+                                            }
                                             {(userType === 3 || userType === 5) &&
                                                 <>
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>

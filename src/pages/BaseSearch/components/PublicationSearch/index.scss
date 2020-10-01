@@ -24,6 +24,10 @@
             }
         }
     }
+    &__price {
+        position: relative;
+        top: 15px;
+    }
     .user-news {
         margin-bottom: 24px;
         @media (max-width: 560px) {
@@ -45,4 +49,10 @@
 .Card._active_card {
     box-shadow: 0 6px 12px #3366ff;
     transition: all 0.2s linear;
+}
+.k-multiselect-wrap,
+.k-floatwrap {
+    border: 1px solid lightgray !important;
+    border-radius: 6px !important;
+    padding: 1px !important;
 }

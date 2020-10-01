@@ -72,8 +72,7 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.2s linear;
-    transition: all 0.2s linear;
+    transition: all .2s linear;
     &:hover {
       color: #3366ff;
     }
@@ -104,7 +103,7 @@
     &-title {
       margin-top: 10px;
       display: block;
-    }  
+    }
     &-text {
       font-size: 16px;
       display: flex;

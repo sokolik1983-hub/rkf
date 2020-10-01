@@ -12,10 +12,8 @@ const NoOptionsMessage = () => {
     return ('Нет опций для выбора');
 };
 
-const Option = (props) => {
-    console.log('props', props);
-
-    return <div
+const Option = props => (
+    <div
         className="react-select__menu-option"
         style={{
             padding: '4px 10px',
@@ -27,8 +25,10 @@ const Option = (props) => {
         ref={props.innerRef}
         {...props.innerProps}
         title={props.children}
-    >{props.children}</div>
-};
+    >
+        {props.children}
+    </div>
+);
 
 // TODO Implement this: https://github.com/bvaughn/react-virtualized-select
 
