@@ -23,6 +23,9 @@
                 }
             }
         }
+        &-title {
+            margin-bottom: 7px;
+        }
     }
     &__price {
         position: relative;
@@ -54,5 +57,4 @@
 .k-floatwrap {
     border: 1px solid lightgray !important;
     border-radius: 6px !important;
-    padding: 1px !important;
 }
