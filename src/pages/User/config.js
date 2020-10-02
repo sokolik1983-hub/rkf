@@ -15,7 +15,7 @@ export const userNav = (alias) => [
     {
         id: 2,
         title: 'Публикации',
-        to: `/user/${alias}/publications`,
+        to: `/user/${alias}/news`,
         disabled: true,
         icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path d="M116.59.1,53.05,63.63h63.54Z"/>
