@@ -18,17 +18,15 @@ load(
 // loadMessages(messages, 'ru');
 
 const ExhibitionsCalendar = ({ value, onChange }) => {
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 991);
 
     useEffect(() => {
-        setIsMobile(window.innerWidth < 990);
-
         window.addEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 990);
+            setIsMobile(window.innerWidth < 991);
         });
 
         return window.removeEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 990);
+            setIsMobile(window.innerWidth < 991);
         });
     }, []);
 
