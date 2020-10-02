@@ -135,6 +135,11 @@ const appRoutes = [
         component: LoadableModules.LoadableNurseryDocuments
     },
     {
+        exact: true,
+        path: '/user/:id',
+        component: LoadableModules.LoadableUserPage
+    },
+    {
         exact: false,
         path: '/user/:id/documents',
         component: LoadableModules.LoadableUserDocuments
@@ -216,68 +221,6 @@ const appRoutes = [
         component: LoadableModules.LoadableClubPage
     }
 ];
-
-// const mainNav = [
-//     {
-//         id: 1,
-//         title: "Кинологические организации",
-//         to: '/organizations',
-//         exact: true
-//     },
-//     {
-//         id: 2,
-//         title: "Календарь мероприятий",
-//         to: '/exhibitions',
-//         exact: false
-//         // children: [
-//         //     {
-//         //         id: 2.1,
-//         //         title: "Календарь мероприятий",
-//         //         to: '/exhibitions',
-//         //         exact: false
-//         //     },
-//         //     {
-//         //         id: 2.2,
-//         //         title: "Результаты мероприятий CACIB",
-//         //         to: '/results/cacib',
-//         //         exact: false
-//         //     },
-//         //     {
-//         //         id: 2.3,
-//         //         title: "Результаты мероприятий CAC",
-//         //         to: '/results/cac',
-//         //         exact: false
-//         //     },
-//         //     {
-//         //         id: 2.4,
-//         //         title: "Результаты монопородных мероприятий",
-//         //         to: '/',
-//         //         exact: true,
-//         //         disabled: true
-//         //     },
-//         //     {
-//         //         id: 2.5,
-//         //         title: "Племенные мероприятия",
-//         //         to: '/',
-//         //         exact: true,
-//         //         disabled: true
-//         //     },
-//         //     {
-//         //         id: 2.6,
-//         //         title: "Состязания и испытания рабочих качеств",
-//         //         to: '/',
-//         //         exact: true,
-//         //         disabled: true
-//         //     }
-//         // ]
-//     },
-//     {
-//         id: 3,
-//         title: "О RKF.Online",
-//         to: '/about',
-//         exact: false
-//     }
-// ];
 
 const mainNav = [
     {
@@ -396,6 +339,7 @@ const MONTHS = [
 
 const DEFAULT_IMG = {
     clubAvatar: '/static/icons/default/club-avatar.svg',
+    userAvatar: '/static/icons/default/user-avatar.svg',
     exhibitionPicture: '/static/images/exhibitions/default.png',
     authPicture: '/static/images/registration/banner.png',
     noImage: '/static/images/noimg/icon-no-image.svg',
