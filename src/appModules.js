@@ -117,6 +117,11 @@ export const LoadableNurseryDocuments = Loadable({
     loading: Loading
 });
 
+export const LoadableUserDocuments = Loadable({
+    loader: () => import('./pages/UserDocuments'),
+    loading: Loading
+});
+
 export const LoadableNurseryGallery = Loadable({
     loader: () => import('./pages/NurseryGallery'),
     loading: Loading

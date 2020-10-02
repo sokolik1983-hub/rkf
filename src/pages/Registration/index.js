@@ -34,9 +34,8 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
                             >
                                 Питомник
                             </div>
-                            <div className={`registration-page__tab _disabled${activeTab === 'individual' ? ' _active' : ''}`}
-                                 // onClick={() => setActiveTab('individual')}
-                                onClick={() => null}
+                            <div className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
+                                 onClick={() => setActiveTab('individual')}
                             >
                                 Физическое лицо
                             </div>
