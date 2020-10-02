@@ -100,22 +100,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     value={content ? content : ''}
                     rows={content ? "3" : "1"}
                 />
-                {!focus &&
-                    <>
-                        <label htmlFor="file" className="ArticleCreateForm__labelfile" />
-                        <WikiHelp
-                            url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
-                            title="Инструкция по добавлению новости"
-                        />
-                        <SubmitButton type="submit"
-                            className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                        >
-                            Опубликовать
-                        </SubmitButton>
-                    </>
-                }
             </FormGroup>
-            {focus &&
                 <>
                     {file &&
                         <div className="ImagePreview__wrap">
@@ -189,7 +174,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         </div>
                     </FormControls>
                 </>
-            }
             {showModal &&
                 <Modal
                     className="ArticleCreateForm__modal"
