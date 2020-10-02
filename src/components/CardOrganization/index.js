@@ -31,7 +31,7 @@ const CardOrganization = ({ alias,
         <Card className="card-organization">
             <div className="card-organization__content">
                 <div className="card-organization__header">
-                    {is_active && url ?
+                    {url ?
                         <div className="card-organization__author">
                             <Link to={url} className={logoClassName} style={{
                                 backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
@@ -44,8 +44,8 @@ const CardOrganization = ({ alias,
                                                 <span>
                                                     {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : user_type === 7 ? 'НКП' : ''}
                                                 </span>
-                                            &nbsp;
-                                        </>
+                                                &nbsp;
+                                            </>
                                         }
                                         <span>{name || 'Название отсутствует'}</span>
                                     </Link>
