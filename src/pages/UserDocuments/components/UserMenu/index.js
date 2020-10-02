@@ -45,20 +45,20 @@ const UserMenu = ({alias}) => {
                     unmountOnExit
                 >
                     <ul className="user-nav__list">
-                {userNav(alias).map(navItem =>
-                    <li className="user-nav__item" key={navItem.id}>
-                        <NavLink
-                            to={navItem.to}
-                            exact={true}
-                            className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
-                            onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
-                        >
-                            {navItem.icon}
-                            <span>{navItem.title}</span>
-                        </NavLink>
-                    </li>
-                )}
-            </ul>
+                        {userNav(alias).map(navItem =>
+                            <li className="user-nav__item" key={navItem.id}>
+                                <NavLink
+                                    to={navItem.to}
+                                    exact={true}
+                                    className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
+                                    onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
+                                >
+                                    {navItem.icon}
+                                    <span>{navItem.title}</span>
+                                </NavLink>
+                            </li>
+                        )}
+                    </ul>
                 </CSSTransition>
             </OutsideClickHandler>
             {alert &&
