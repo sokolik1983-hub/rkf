@@ -11,6 +11,9 @@
         line-height: 24px;
       }
     }
+    .feedback-component__description {
+      text-align: left; 
+    }
     &-wrap {
       display: flex;
       margin-bottom: 32px;
