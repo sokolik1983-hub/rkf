@@ -1,7 +1,17 @@
 .k-calendar-infinite,
 .exhibitions-calendar {
     width: 278px !important;
+    .k-calendar-infinite,
+    .k-calendar-header {
+        margin-right: -5px;
+    }
     @media (max-width: 990px) {
-        width: 265px !important;
+        width: 247px !important;
+        .k-calendar-infinite,
+        .k-calendar-view,
+        .k-calendar-infinite,
+        .k-calendar-monthview {
+            margin-left: -15px;
+        }
     }
 }
