@@ -1,0 +1,1 @@
+export const endpointGetUserInfo = '/api/owners/owner/public/';
