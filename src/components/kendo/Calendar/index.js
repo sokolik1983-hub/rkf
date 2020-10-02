@@ -1,5 +1,5 @@
-import React from "react";
-import { Calendar } from "@progress/kendo-react-dateinputs";
+import React, { useState, useEffect } from "react";
+import { Calendar, CalendarCell } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 import "./index.scss";
 // import { loadMessages } from "@progress/kendo-react-intl";
@@ -18,6 +18,25 @@ load(
 // loadMessages(messages, 'ru');
 
 const ExhibitionsCalendar = ({ value, onChange }) => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 991);
+
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 991);
+        });
+
+        return window.removeEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 991);
+        });
+    }, []);
+
+    const style = isMobile ? { width: '25px' } : { width: '35px' };
+
+    const customCell = (props) => {
+        return (
+            <CalendarCell {...props} style={style} />
+        );
+    };
 
     return (
         <LocalizationProvider language="ru">
@@ -28,6 +47,7 @@ const ExhibitionsCalendar = ({ value, onChange }) => {
                     format="dd.MM.yyyy"
                     className="exhibitions-calendar"
                     navigation={false}
+                    cell={customCell}
                 />
             </IntlProvider>
         </LocalizationProvider>
