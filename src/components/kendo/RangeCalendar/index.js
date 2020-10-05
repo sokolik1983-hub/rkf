@@ -15,6 +15,7 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
+const min = new Date(2018, 12, 1);
 // loadMessages(messages, 'ru');
 
 const RangeCalendar = ({ value, onChange, container }) => {
@@ -34,6 +35,7 @@ const RangeCalendar = ({ value, onChange, container }) => {
                         popupClass: "range-calendar__popup"
                     }}
                     className="range-calendar"
+                    min={min}
                 />
             </IntlProvider>
         </LocalizationProvider>
