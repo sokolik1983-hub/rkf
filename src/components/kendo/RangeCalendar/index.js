@@ -36,6 +36,12 @@ const RangeCalendar = ({ value, onChange, container }) => {
         }))();
     }, []);
 
+    useEffect(() => {
+        const rangeCalendar = document.querySelector('.range-calendar');
+        rangeCalendar.querySelectorAll('input.k-input')
+            .forEach(input => input.readOnly = true);
+    }, [])
+
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
