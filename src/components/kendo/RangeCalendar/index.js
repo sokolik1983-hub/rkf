@@ -1,9 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
-import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 import { Request } from "../../../utils/request";
-// import { loadMessages } from "@progress/kendo-react-intl";
-// import messages from "./translation/messages.json";
+import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 import "./index.scss";
 
 load(
@@ -16,11 +14,9 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-// loadMessages(messages, 'ru');
-
-const RangeCalendar = ({ startValue, endValue, onChange }) => {
-    const [loading, setLoading] = useState(true);
+const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilterTo }) => {
     const [maxYear, setMaxYear] = useState(null);
+    const [loading, setLoading] = useState(true);
     const minYear = new Date(2018, 12, 1);
 
     useEffect(() => {
@@ -36,47 +32,41 @@ const RangeCalendar = ({ startValue, endValue, onChange }) => {
         }))();
     }, []);
 
-    // useEffect(() => {
-    //     const rangeCalendar = document.querySelector('.range-calendar');
-    //     rangeCalendar.querySelectorAll('input.k-input')
-    //         .forEach(input => input.readOnly = true);
-    // }, [])
+    useEffect(() => {
+        document.querySelector('.calendar-filter__range-wrap')
+            .querySelectorAll('input.k-input')
+            .forEach(input => input.readOnly = true);
+    }, [])
 
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
-                {/* <DateRangePicker
-                    value={value}
-                    onChange={onChange}
-                    format="dd.MM.yyyy"
-                    calendarSettings={{
-                        views: 1
-                    }}
-                    popupSettings={{
-                        appendTo: container,
-                        popupClass: "range-calendar__popup"
-                    }}
-                    className="range-calendar"
-                    min={minYear}
-                    max={loading ? new Date() : new Date(maxYear, 12, 1)}
-                /> */}
-                <DatePicker
-                    onChange={onChange}
-                    value={startValue}
-                    min={minYear}
-                    max={loading ? new Date() : new Date(maxYear, 12, 1)}
-                    format="dd.MM.yyyy"
-                />
-                <DatePicker
-                    onChange={onChange}
-                    value={endValue}
-                    min={startValue}
-                    max={loading ? new Date() : new Date(maxYear, 12, 1)}
-                    format="dd.MM.yyyy"
-                />
+                <h5 className="calendar-filter__range-title">Диапазон дат</h5>
+                <div className="calendar-filter__range-text">
+                    <span>от</span>
+                    <span>до</span>
+                </div>
+                <div className="calendar-filter__range-wrap">
+                    <DatePicker
+                        onChange={changeCalendarFilterFrom}
+                        value={new Date(filters.DateFrom)}
+                        min={minYear}
+                        max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                        format="dd.MM.yyyy"
+                        className="calendar-filter__range-from"
+                    />
+                    <DatePicker
+                        onChange={changeCalendarFilterTo}
+                        value={filters.DateTo ? new Date(filters.DateTo) : null}
+                        min={new Date(filters.DateFrom)}
+                        max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                        format="dd.MM.yyyy"
+                        className="calendar-filter__range-to"
+                        formatPlaceholder={{ year: 'гггг', month: 'мм', day: 'дд' }}
+                    />
+                </div>
             </IntlProvider>
-        </LocalizationProvider>
-    )
-};
+        </LocalizationProvider>);
+}
 
 export default React.memo(RangeCalendar);
