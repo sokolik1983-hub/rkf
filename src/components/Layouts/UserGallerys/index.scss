@@ -1,0 +1,68 @@
+.user-gallery {
+  padding: 10px !important;
+  margin-bottom: 16px;
+  @media (max-width: 560px) {
+    margin-bottom: 12px;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 12px;
+    a {
+      text-decoration: none;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #72839c !important;
+      transition: all 0.2s linear;
+      &:hover {
+        color: #3366ff !important;
+      }
+    }
+  }
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #253c5e;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+    img {
+      width: 100%;
+      cursor: pointer;
+    }
+    &-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+  &__disabled {
+    text-align: center;
+    padding: 8px;
+    &-text {
+      font-weight: normal;
+      padding: 8px;
+    }
+    &-img {
+      width: 150px;
+    }
+  }
+  .Loading.inline {
+    display: block;
+    margin: 0 auto;
+    max-width: 35px;
+  }
+}

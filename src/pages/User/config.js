@@ -53,7 +53,7 @@ export const userNav = (alias) => [
     },
     {
         id: 6,
-        title: 'Моя страница',
+        title: 'Cтраница пользователя',
         to: `/user/${alias}`,
         icon: <svg viewBox="0 0 512 412" xmlns="http://www.w3.org/2000/svg">
             <path transform="translate(0 -50)" d="M497,50H15A15,15,0,0,0,0,65v45H512V65A15,15,0,0,0,497,50Z"/>

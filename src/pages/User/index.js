@@ -7,6 +7,8 @@ import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
@@ -56,6 +58,14 @@ const UserPage = ({history, match, profile_id, is_active_profile, isAuthenticate
                                     />
                                     <UserMenu userNav={userNav(alias)}/>
                                 </Card>
+                                <UserPhotoGallery
+                                    alias={alias}
+                                    pageLink={`/user/${alias}/gallery`}
+                                />
+                                <UserVideoGallery
+                                    alias={alias}
+                                    pageLink={`/user/${alias}/video`}
+                                />
                                 <CopyrightInfo/>
                             </StickyBox>
                         </aside>
