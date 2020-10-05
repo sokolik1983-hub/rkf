@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { DateRangePicker } from "@progress/kendo-react-dateinputs";
+import { DatePicker } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 import { Request } from "../../../utils/request";
 // import { loadMessages } from "@progress/kendo-react-intl";
@@ -18,7 +18,7 @@ load(
 
 // loadMessages(messages, 'ru');
 
-const RangeCalendar = ({ value, onChange, container }) => {
+const RangeCalendar = ({ startValue, endValue, onChange }) => {
     const [loading, setLoading] = useState(true);
     const [maxYear, setMaxYear] = useState(null);
     const minYear = new Date(2018, 12, 1);
@@ -36,16 +36,16 @@ const RangeCalendar = ({ value, onChange, container }) => {
         }))();
     }, []);
 
-    useEffect(() => {
-        const rangeCalendar = document.querySelector('.range-calendar');
-        rangeCalendar.querySelectorAll('input.k-input')
-            .forEach(input => input.readOnly = true);
-    }, [])
+    // useEffect(() => {
+    //     const rangeCalendar = document.querySelector('.range-calendar');
+    //     rangeCalendar.querySelectorAll('input.k-input')
+    //         .forEach(input => input.readOnly = true);
+    // }, [])
 
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
-                <DateRangePicker
+                {/* <DateRangePicker
                     value={value}
                     onChange={onChange}
                     format="dd.MM.yyyy"
@@ -59,6 +59,20 @@ const RangeCalendar = ({ value, onChange, container }) => {
                     className="range-calendar"
                     min={minYear}
                     max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                /> */}
+                <DatePicker
+                    onChange={onChange}
+                    value={startValue}
+                    min={minYear}
+                    max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                    format="dd.MM.yyyy"
+                />
+                <DatePicker
+                    onChange={onChange}
+                    value={endValue}
+                    min={startValue}
+                    max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                    format="dd.MM.yyyy"
                 />
             </IntlProvider>
         </LocalizationProvider>

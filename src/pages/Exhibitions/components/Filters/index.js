@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
@@ -22,11 +22,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [calendarContainer, setCalendarContainer] = useState(null);
-
-    const dateRangeRef = useCallback(node => {
-        if(node !== null) setCalendarContainer(node);
-    });
 
     useEffect(() => {
         (() => Request({
@@ -54,8 +49,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
         const values = e.target.value;
 
         setFiltersToUrl({
-            DateFrom: formatDateToString(values.start),
-            DateTo: values.end ? formatDateToString(values.end) : values.end
+            DateFrom: formatDateToString(values),
+            DateTo: values ? formatDateToString(values) : values
         });
     };
 
@@ -108,14 +103,11 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                         <span>от</span>
                                         <span>до</span>
                                     </div>
-                                    <div ref={dateRangeRef}>
-                                        {calendarContainer && <RangeCalendar
-                                            value={{
-                                                start: new Date(filters.DateFrom),
-                                                end: filters.DateTo ? new Date(filters.DateTo) : null
-                                            }}
+                                    <div>
+                                        {<RangeCalendar
+                                            startValue={new Date(filters.DateFrom)}
+                                            endValue={filters.DateTo ? new Date(filters.DateTo) : null}
                                             onChange={changeCalendarFilter}
-                                            container={calendarContainer}
                                         />}
                                     </div>
                                 </div>
