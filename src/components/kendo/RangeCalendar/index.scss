@@ -28,6 +28,6 @@
 .k-input {
   pointer-events: none;
 }
-// .k-picker-wrap {
-//   outline: 2px solid #36f !important;
-// }
+.k-picker-wrap.k-state-focused {
+  box-shadow: 0 0 0 1pt #36f !important;
+}
