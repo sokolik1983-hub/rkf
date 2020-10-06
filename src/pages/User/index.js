@@ -9,6 +9,9 @@ import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import UserDescription from "../../components/Layouts/UserDescription";
+import AddArticle from "../../components/UserAddArticle";
+import UserNews from "../../components/Layouts/UserNews";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
@@ -17,17 +20,24 @@ import {endpointGetUserInfo, userNav} from "./config";
 import "./index.scss";
 
 
-const UserPage = ({history, match, profile_id, is_active_profile, isAuthenticated}) => {
+const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [userInfo, setUserInfo] = useState({});
+    const [canEdit, setCanEdit] = useState(false);
+    const [needRequest, setNeedRequest] = useState(true);
     const alias = match.params.id;
 
     useEffect(() => {
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
+            data.email = data.emails.length ? data.emails[0].value : '';
+            data.phone = data.phones.length ? data.phones[0].value : '';
+            data.site = data.web_sites.length ? data.web_sites[0].value : '';
+
             setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -71,6 +81,28 @@ const UserPage = ({history, match, profile_id, is_active_profile, isAuthenticate
                         </aside>
                         <div className="user-page__right">
                             <UserBanner link={userInfo.headliner_link}/>
+                            <UserDescription
+                                city_name={userInfo.address.city_name}
+                                birthday_date={userInfo.personal_information.birth_date}
+                                email={userInfo.email}
+                                phone={userInfo.phone}
+                                site={userInfo.site}
+                                socials={userInfo.social_networks}
+                                description={userInfo.personal_information.description}
+                            />
+                            {canEdit &&
+                                <AddArticle
+                                    id={userInfo.profile_id}
+                                    logo={userInfo.logo_link}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            }
+                            <UserNews
+                                canEdit={canEdit}
+                                alias={alias}
+                                needRequest={needRequest}
+                                setNeedRequest={setNeedRequest}
+                            />
                         </div>
                     </Container>
                 </div>

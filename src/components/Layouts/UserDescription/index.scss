@@ -1,0 +1,81 @@
+.user-description {
+  position: relative;
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  &__city {
+    color: #72839c;
+    letter-spacing: .2px;
+    white-space: nowrap;
+    padding-left: 20px;
+    margin-left: 10px;
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 20px;
+      left: 0;
+      top: 2px;
+      background: url("/static/icons/pin-gray.svg") no-repeat center / contain;
+    }
+  }
+  &__item {
+    display: flex;
+    color: #72839c;
+    padding-left: 30px;
+    margin-bottom: 6px;
+    position: relative;
+    &-title {
+      color: #253c5e;
+    }
+    &:before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      left: 0;
+      top: 1px;
+      background-repeat: no-repeat;
+      background-position: 50%;
+    }
+    &._birthday:before {background-image: url("/static/icons/owner.svg")}
+    &._email:before {background-image: url("/static/icons/ico-contact-email.svg")}
+    &._phone:before {background-image: url("/static/icons/ico-contact-phone.svg")}
+    &._site:before {background-image: url("/static/icons/ico-web.svg")}
+    &._socials:before {background-image: url("/static/icons/social/network.svg")}
+    &._describe {
+      display: inline;
+      span:last-child {
+        display: block;
+        padding-left: 30px;
+      }
+    }
+  }
+  &__btn {
+    border: none;
+    padding: 0;
+    width: 44px;
+    height: 40px;
+    position: absolute;
+    right: calc(50% - 22px);
+    bottom: -12px;
+    background: url("/static/images/slider/slider-button.svg") no-repeat center / cover;
+    transform: rotate(90deg);
+    transition: all .2s linear;
+    &._open {
+      transform: rotate(-90deg);
+    }
+  }
+  .ReactCollapse--collapse {
+    transition: height .5s;
+  }
+}

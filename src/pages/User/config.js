@@ -1,6 +1,6 @@
 import React from "react";
 
-export const endpointGetUserInfo = '/api/owners/owner/public/';
+export const endpointGetUserInfo = '/api/owners/owner/public_full/';
 
 export const userNav = (alias) => [
     {

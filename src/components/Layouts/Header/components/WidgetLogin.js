@@ -68,11 +68,7 @@ const WidgetLogin = forwardRef(
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
                                         {userType === 1 &&
-                                            <Link
-                                                to={`/user/${alias}`}
-                                                className="_disabled"
-                                                onClick={e => e.preventDefault()}
-                                            >{name}</Link>
+                                            <Link to={`/user/${alias}`}>{name}</Link>
                                         }
                                         {(userType === 3 || userType === 5) &&
                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
