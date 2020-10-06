@@ -81,6 +81,18 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         setBlured();
     };
 
+    const addRow = () => {
+        let charactersInRow = 90;
+        let maxNumberOfRows = 25;
+        let numberOfRows = Math.round(content.length / charactersInRow);
+
+        if (numberOfRows < maxNumberOfRows) {
+            return numberOfRows;
+        } else {
+            return maxNumberOfRows;
+        }
+    };
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <input
@@ -98,7 +110,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     onFocus={setFocused}
                     maxLength="4096"
                     value={content ? content : ''}
-                    rows={content ? "3" : "1"}
+                    rows={content ? addRow() : "1"}
                 />
             </FormGroup>
                 <>
