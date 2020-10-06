@@ -167,6 +167,9 @@
         }
       }
     }
+    &__item--judge {
+      pointer-events: none;
+    }
 }
 .menu-component__link {
   position: relative;
