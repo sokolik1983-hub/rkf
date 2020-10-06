@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formatDateToString } from "../../../utils/datetime";
-import ExhibitionsCalendar from "../../kendo/Calendar";
-import { setFiltersToUrl } from "../../../pages/Exhibitions/utils.js";
+// import ExhibitionsCalendar from "../../kendo/Calendar";
+// import { setFiltersToUrl } from "../../../pages/Exhibitions/utils.js";
 import "./index.scss";
 
 
@@ -32,21 +32,21 @@ const CalendarFilter = ({ date_from, onChange }) => {
         setActiveButton(period);
     };
 
-    const handleDayChoose = e => {
-        const value = e.target.value;
+    // const handleDayChoose = e => {
+    //     const value = e.target.value;
 
-        setFiltersToUrl({
-            DateFrom: formatDateToString(value),
-            DateTo: formatDateToString(value)
-        });
-    };
+    //     setFiltersToUrl({
+    //         DateFrom: formatDateToString(value),
+    //         DateTo: formatDateToString(value)
+    //     });
+    // };
 
     return (
         <div className="calendar-filter">
-            <ExhibitionsCalendar
+            {/* <ExhibitionsCalendar
                 value={new Date(date_from)}
                 onChange={handleDayChoose}
-            />
+            /> */}
             <div className="calendar-filter__controls">
                 <button
                     className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
