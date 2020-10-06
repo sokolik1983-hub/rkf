@@ -77,7 +77,7 @@
     margin: 10px 0;
   }
   &__content-length {
-    color: #72839c;;
+    color: #72839c;
   }
   &__controls {
     padding-left: 72px;
@@ -88,7 +88,20 @@
     @media (max-width: 700px) {
       padding-left: 0;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: flex-start;
+      position: relative;
+      .ArticleCreateForm__button-wrap {
+        width: inherit;
+        margin-top: 10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+    @media (max-width: 480px) {
+      .ArticleCreateForm__button-wrap {
+        position: static;
+      }
     }
   }
   &__labelfile {

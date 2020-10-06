@@ -81,6 +81,19 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         setBlured();
     };
 
+    const addRow = () => {
+        let charactersInRow =85;
+        let maxNumberOfRows = 25;
+        let reservedRow = 1;
+        let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
+
+        if (numberOfRows < maxNumberOfRows) {
+            return numberOfRows;
+        } else {
+            return maxNumberOfRows;
+        }
+    };
+
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <input
@@ -98,24 +111,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     onFocus={setFocused}
                     maxLength="4096"
                     value={content ? content : ''}
-                    rows={content ? "3" : "1"}
+                    rows={content ? addRow() : "1"}
                 />
-                {!focus &&
-                    <>
-                        <label htmlFor="file" className="ArticleCreateForm__labelfile" />
-                        <WikiHelp
-                            url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
-                            title="Инструкция по добавлению новости"
-                        />
-                        <SubmitButton type="submit"
-                            className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                        >
-                            Опубликовать
-                        </SubmitButton>
-                    </>
-                }
             </FormGroup>
-            {focus &&
                 <>
                     {file &&
                         <div className="ImagePreview__wrap">
@@ -189,7 +187,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         </div>
                     </FormControls>
                 </>
-            }
             {showModal &&
                 <Modal
                     className="ArticleCreateForm__modal"
