@@ -51,7 +51,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                         onChange={changeCalendarFilterFrom}
                         value={new Date(filters.DateFrom)}
                         min={minYear}
-                        max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                        max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
                         className="calendar-filter__range-from"
                     />
@@ -59,7 +59,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                         onChange={changeCalendarFilterTo}
                         value={filters.DateTo ? new Date(filters.DateTo) : null}
                         min={new Date(filters.DateFrom)}
-                        max={loading ? new Date() : new Date(maxYear, 12, 1)}
+                        max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
                         className="calendar-filter__range-to"
                         formatPlaceholder={{ year: 'гггг', month: 'мм', day: 'дд' }}
