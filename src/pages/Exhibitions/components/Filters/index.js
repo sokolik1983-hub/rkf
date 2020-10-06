@@ -90,7 +90,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                         <div className="exhibitions-filters__wrap">
                             <Card>
                                 <div className="exhibitions-filters__head">
-                                    <h4>Календарь</h4>
+                                    <h4>Диапазон дат</h4>
                                     <div>
                                         <button type="button" className="exhibitions-filters__clear" onClick={clearAll}>Сбросить</button>
                                         <a className="exhibitions-filters__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" title="Инструкция по календарю мероприятий" target="_blank" rel="noopener noreferrer">
@@ -101,14 +101,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                     </div>
                                 </div>
                                 <div className="calendar-filter">
-                                    <CalendarFilter
-                                        date_from={filters.DateFrom}
-                                        onChange={filter => setFiltersToUrl(filter)}
-                                    />
                                     <RangeCalendar
                                         changeCalendarFilterFrom={changeCalendarFilterFrom}
                                         changeCalendarFilterTo={changeCalendarFilterTo}
                                         filters={filters}
+                                    />
+                                    <CalendarFilter
+                                        date_from={filters.DateFrom}
+                                        onChange={filter => setFiltersToUrl(filter)}
                                     />
                                 </div>
                             </Card>

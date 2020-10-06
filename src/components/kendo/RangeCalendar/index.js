@@ -41,7 +41,6 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
-                <h5 className="calendar-filter__range-title">Диапазон дат</h5>
                 <div className="calendar-filter__range-text">
                     <span>от</span>
                     <span>до</span>
