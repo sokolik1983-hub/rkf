@@ -61,7 +61,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                         max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
                         className="calendar-filter__range-to"
-                        formatPlaceholder={{ year: 'гггг', month: 'мм', day: 'дд' }}
+                        formatPlaceholder={{ year: new Date().getFullYear(), month: '12', day: '31' }}
                     />
                 </div>
             </IntlProvider>
