@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from "react";
-import OutsideClickHandler from "react-outside-click-handler";
+import React, { useState, useEffect } from "react";
 import getYouTubeID from "get-youtube-id";
-import {connect} from "formik";
+import { connect } from "formik";
 import Modal from "../Modal";
-import {SubmitButton, FormControls, FormGroup, FormField} from '../Form';
+import { SubmitButton, FormControls, FormGroup, FormField } from '../Form';
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
@@ -11,9 +10,8 @@ import AddVideoLink from "./AddVideoLink";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
-import {DEFAULT_IMG, BAD_SITES} from "../../appConfig";
-import {useFocus} from "../../shared/hooks";
-import {Request} from "../../utils/request";
+import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
+import { Request } from "../../utils/request";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, isMating, setIsMating }) => {
@@ -21,7 +19,6 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
-    const { focus, setFocused, setBlured } = useFocus(false);
     const { content, file } = formik.values;
 
     useEffect(() => {
@@ -41,13 +38,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             formik.setFieldValue('file', '');
             setSrc('');
         }
-        setFocused();
     };
 
     const addVideoLink = link => {
         formik.setFieldValue('video_link', link);
         setVideoLink(link);
-        setFocused();
     };
 
     const removeVideoLink = () => {
@@ -77,12 +72,8 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         formik.setFieldValue('content', text);
     };
 
-    const handleOutsideClick = () => {
-        setBlured();
-    };
-
     const addRow = () => {
-        let charactersInRow =85;
+        let charactersInRow = 97;
         let maxNumberOfRows = 25;
         let reservedRow = 1;
         let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
@@ -95,7 +86,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     };
 
     return (
-        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+        <>
             <input
                 type="file"
                 name="file"
@@ -103,90 +94,89 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                 className="ArticleCreateForm__inputfile"
                 onChange={handleChange}
             />
-            <FormGroup className={focus ? 'ArticleCreateForm__wrap' : 'ArticleCreateForm__wrap inactive'}>
+            <FormGroup className="ArticleCreateForm__wrap">
                 <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
                 <FormField
                     {...fields.content}
                     onChange={handleKeyDown}
-                    onFocus={setFocused}
                     maxLength="4096"
                     value={content ? content : ''}
                     rows={content ? addRow() : "1"}
                 />
             </FormGroup>
-                <>
-                    {file &&
-                        <div className="ImagePreview__wrap">
-                            <ImagePreview src={src} />
-                            <img src="/static/icons/file-cross.svg"
-                                className="ImagePreview__close"
-                                alt=""
-                                onClick={handleClose}
-                            />
-                        </div>
-                    }
-                    {videoLink &&
-                        <div className="ImagePreview__wrap">
-                            <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
-                            <img src="/static/icons/file-cross.svg"
-                                className="ImagePreview__close"
-                                alt=""
-                                onClick={removeVideoLink}
-                            />
-                        </div>
-                    }
-                    {isAd &&
-                        <>
-                            <FormGroup inline className="ArticleCreateForm__advert">
-                                <FormField {...fields.advert_breed_id} />
-                                <CustomNumber {...fields.advert_cost} />
-                                {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
-                            </FormGroup>
-                            <FormGroup inline>
-                                <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
-                            </FormGroup>
-                        </>
-                    }
-                    {content &&
-                        <div className="ArticleCreateForm__length-hint">
-                            <span className="ArticleCreateForm__content-length">
-                                {`осталось ${4096 - content.length} знаков`}
-                            </span>
-                        </div>
-                    }
-                    <FormControls className="ArticleCreateForm__controls">
-                        <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
-                        {!isAd && !videoLink &&
-                            <button
-                                className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
-                                type="button"
-                                onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
-                                Добавить ссылку на видео
+            <>
+                {file &&
+                    <div className="ImagePreview__wrap">
+                        <ImagePreview src={src} />
+                        <img src="/static/icons/file-cross.svg"
+                            className="ImagePreview__close"
+                            alt=""
+                            onClick={handleClose}
+                        />
+                    </div>
+                }
+                {videoLink &&
+                    <div className="ImagePreview__wrap">
+                        <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
+                        <img src="/static/icons/file-cross.svg"
+                            className="ImagePreview__close"
+                            alt=""
+                            onClick={removeVideoLink}
+                        />
+                    </div>
+                }
+                {isAd &&
+                    <>
+                        <FormGroup inline className="ArticleCreateForm__advert">
+                            <FormField {...fields.advert_breed_id} />
+                            <CustomNumber {...fields.advert_cost} />
+                            {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                        </FormGroup>
+                        <FormGroup inline>
+                            <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                        </FormGroup>
+                    </>
+                }
+                {content &&
+                    <div className="ArticleCreateForm__length-hint">
+                        <span className="ArticleCreateForm__content-length">
+                            {`осталось ${4096 - content.length} знаков`}
+                        </span>
+                    </div>
+                }
+                <FormControls className="ArticleCreateForm__controls">
+                    <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
+                    {!isAd && !videoLink &&
+                        <button
+                            className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
+                            type="button"
+                            onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
+                            Добавить ссылку на видео
                             </button>
-                        }
-                        {!videoLink &&
-                            <CustomCheckbox
-                                id="ad"
-                                label="Объявление"
-                                className="ArticleCreateForm__ad"
-                                checked={isAd}
-                                onChange={() => setIsAd(!isAd)}
-                            />
-                        }
-                        <div className="ArticleCreateForm__button-wrap">
-                            <WikiHelp
-                                url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
-                                title="Инструкция по добавлению новости"
-                            />
-                            <SubmitButton
-                                type="submit"
-                                className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                            >
-                                Опубликовать
+                    }
+                    {!videoLink &&
+                        <CustomCheckbox
+                            id="ad"
+                            label="Объявление"
+                            className="ArticleCreateForm__ad"
+                            checked={isAd}
+                            onChange={() => setIsAd(!isAd)}
+                        />
+                    }
+                    <div className="ArticleCreateForm__button-wrap">
+                        <WikiHelp
+                            url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
+                            title="Инструкция по добавлению новости"
+                        />
+                        <SubmitButton
+                            type="submit"
+                            className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                        >
+                            Опубликовать
                             </SubmitButton>
-                        </div>
-                    </FormControls>
-                </>
+                    </div>
+                </FormControls>
+            </>
             {showModal &&
                 <Modal
                     className="ArticleCreateForm__modal"
@@ -199,7 +189,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     />
                 </Modal>
             }
-        </OutsideClickHandler>
+        </>
     )
 };
 
