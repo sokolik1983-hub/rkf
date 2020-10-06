@@ -22,3 +22,16 @@
 .k-state-invalid {
   border-color: #ebf0f2 !important;
 }
+.k-calendar-navigation {
+  display: none;
+}
+.k-animation-container::before {
+  content: '';
+  position: relative;
+  left: 1px;
+  display: block;
+  width: 20px;
+  height: 15px;
+  background: url('/static/icons/triangle.svg') no-repeat center;
+  background-size: contain;
+}
