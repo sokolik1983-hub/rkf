@@ -17,7 +17,9 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
 import {endpointGetUserInfo, userNav} from "./config";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+import {DEFAULT_IMG} from "../../appConfig";
 
 
 const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
@@ -27,6 +29,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const alias = match.params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
@@ -34,7 +37,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
         }, data => {
             data.email = data.emails.length ? data.emails[0].value : '';
             data.phone = data.phones.length ? data.phones[0].value : '';
-            data.site = data.web_sites.length ? data.web_sites[0].value : '';
 
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -55,9 +57,9 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
-                                <div className="mobile-only">
+                                {isMobile &&
                                     <UserBanner link={userInfo.headliner_link}/>
-                                </div>
+                                }
                                 <Card>
                                     <UserInfo
                                         logo_link={userInfo.logo_link}
@@ -68,31 +70,49 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                     />
                                     <UserMenu userNav={userNav(alias)}/>
                                 </Card>
-                                <UserPhotoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/gallery`}
-                                />
-                                <UserVideoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/video`}
-                                />
-                                <CopyrightInfo/>
+                                {!isMobile &&
+                                    <>
+                                        <UserPhotoGallery
+                                            alias={alias}
+                                            pageLink={`/user/${alias}/gallery`}
+                                        />
+                                        <UserVideoGallery
+                                            alias={alias}
+                                            pageLink={`/user/${alias}/video`}
+                                        />
+                                        <CopyrightInfo/>
+                                    </>
+                                }
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
-                            <UserBanner link={userInfo.headliner_link}/>
+                            {!isMobile &&
+                                <UserBanner link={userInfo.headliner_link}/>
+                            }
                             <UserDescription
                                 city_name={userInfo.address.city_name}
                                 birthday_date={userInfo.personal_information.birth_date}
                                 email={userInfo.email}
                                 phone={userInfo.phone}
-                                site={userInfo.site}
+                                site={userInfo.web_site}
                                 socials={userInfo.social_networks}
                                 description={userInfo.personal_information.description}
                             />
+                            {isMobile &&
+                                <>
+                                    <UserPhotoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/gallery`}
+                                    />
+                                    <UserVideoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/video`}
+                                    />
+                                </>
+                            }
                             {canEdit &&
                                 <AddArticle
-                                    id={userInfo.profile_id}
+                                    id={userInfo.profile_id || DEFAULT_IMG.userAvatar}
                                     logo={userInfo.logo_link}
                                     setNeedRequest={setNeedRequest}
                                 />

@@ -16,7 +16,7 @@ const UserVideoGallery = ({alias, pageLink}) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/videogallery/gallery?alias=${alias}`,
+            url: `/api/videogallery/gallery?alias=${alias}&element_count=2`,
         }, data => {
             // const defaultVideo = {
             //     "id": 36,
@@ -28,7 +28,7 @@ const UserVideoGallery = ({alias, pageLink}) => {
             // };
             // setVideos([defaultVideo, defaultVideo]);
 
-            setVideos(data.slice(0, 2));
+            setVideos(data);
             setLoading(false);
         },
         error => {

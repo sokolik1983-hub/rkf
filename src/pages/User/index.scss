@@ -2,9 +2,6 @@
   background: #f5f8ff;
   @media (max-width: 990px) {
     min-height: calc(100vh - 108px);
-    .user-banner {
-      display: none;
-    }
   }
   & + .Footer {
     display: none;
@@ -24,6 +21,7 @@
     margin-top: 16px;
     @media (max-width: 990px) {
       width: 100%;
+      margin-top: 0;
       padding-bottom: 1px;
     }
   }
@@ -43,14 +41,8 @@
   .Card {
     padding: 10px;
     margin-bottom: 16px;
-  }
-  .mobile-only {
-    display: none;
-    @media (max-width: 990px) {
-      display: block;
-      .user-banner {
-        display: block;
-      }
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
     }
   }
 }

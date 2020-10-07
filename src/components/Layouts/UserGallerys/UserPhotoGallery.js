@@ -13,7 +13,7 @@ const UserPhotoGallery = ({alias, pageLink}) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/photogallery/gallery?alias=${alias}&elem_count=12`
+            url: `/api/photogallery/gallery?alias=${alias}&element_count=12`
         }, data => {
             if (data.photos.length) {
                 const {photos} = data;
