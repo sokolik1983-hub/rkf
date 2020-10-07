@@ -181,6 +181,8 @@
             height: 125px;
         }
         &-wrap {
+            max-width: 866px;
+            margin: auto;
             .ActiveImageWrapper__controls button {
                 background: #ebf0ff;
                 color: #3366ff !important;
@@ -192,8 +194,6 @@
             }
         }
         &-title {
-            max-width: 866px;
-            margin: auto;
             text-align: right;
         }
         &.no-banner {
