@@ -6,7 +6,10 @@
   }
   .nursery-page {
     .user-gallery__wrap .ReactGridGallery_tile-viewport {
-      width: 88px !important;
+      @media (min-width: 990px) {
+        width: 88px !important;
+        height: 88px !important;
+      }
     }
     &__mobile-only {
       display: none;

@@ -1,4 +1,9 @@
 .ReactGridGallery {
+    &__mobile {
+        @media (max-width: 990px) {
+            display: flex;
+        }
+    }
     &__wrap {
         overflow: hidden;
         a,
