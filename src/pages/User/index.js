@@ -49,7 +49,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     return loading ?
         <Loading/> :
         error ?
-            <Redirect to="404" /> :
+            <Redirect to="/404" /> :
             <Layout>
                 <div className="user-page">
                     <Container className="user-page__content content">

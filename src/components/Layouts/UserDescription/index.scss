@@ -57,6 +57,11 @@
     &._socials:before {background-image: url("/static/icons/social/network.svg")}
     &._describe {
       display: inline;
+      &:before {
+        width: 26px;
+        height: 18px;
+        background: url("/static/icons/icon-about.svg") no-repeat center / contain;
+      }
       span:last-child {
         display: block;
         padding-left: 30px;
