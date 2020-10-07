@@ -93,9 +93,6 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest}) => {
 
     useEffect(() => {
         if (needRequest) {
-            const list = newsListRef.current;
-            if(list) window.scrollTo(0, list.offsetTop);
-
             setStartElement(1);
             (() => getNews(1))();
         }

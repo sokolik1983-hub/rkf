@@ -55,7 +55,7 @@ const WidgetLogin = forwardRef(
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                            style={{ backgroundImage: `url(${logo || userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                            style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                             onClick={() => setOpen(!open)}
                         />
                         <CSSTransition

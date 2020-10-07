@@ -7,50 +7,6 @@ import "./index.scss";
 const UserDescription = ({city_name, birthday_date, email, phone, site, socials, description}) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    // socials = [
-    //     {
-    //         "id": 45,
-    //         "site": "http://elitepet.ru/pages/Zoogostinica.html",
-    //         "description": "rthcvgv xbxv d bbd",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 47,
-    //         "site": "http://vk.com",
-    //         "description": "vk.com",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 49,
-    //         "site": "fdsf",
-    //         "description": "fdsfds",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 50,
-    //         "site": "https://rkf.online/",
-    //         "description": "test",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 51,
-    //         "site": "https://rkf.online/",
-    //         "description": "test2",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 59,
-    //         "site": "http://dev.uep24.ru/",
-    //         "description": "ereryyr",
-    //         "social_network_type_id": 1
-    //     }
-    // ];
-
-    description = 'Банальные, но неопровержимые выводы, а также действия представителей оппозиции, вне зависимости от их уровня, должны быть представлены в исключительно положительном свете. Равным образом, повышение уровня гражданского сознания обеспечивает широкому кругу (специалистов) участие в формировании вывода текущих активов. В рамках спецификации современных стандартов, сторонники тоталитаризма в науке описаны максимально подробно.';
-
-    // birthday_date = 'hidden';
-    // email = '';
-
     return (
         <Card className="user-description">
             <div className="user-description__head">
@@ -84,7 +40,7 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {site &&
                 <p className="user-description__item _site">
                     <span className="user-description__item-title">Сайт:</span>&nbsp;
-                    <span>{site}</span>
+                    <span><a href={site} target="_blank" rel="noopener noreferrer">{site}</a></span>
                 </p>
             }
             {socials && !!socials.length &&
