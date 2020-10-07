@@ -122,6 +122,11 @@ export const LoadableUserDocuments = Loadable({
     loading: Loading
 });
 
+export const LoadableUserEdit = Loadable({
+    loader: () => import('./pages/UserEdit'),
+    loading: Loading
+});
+
 export const LoadableUserPage = Loadable({
     loader: () => import('./pages/User'),
     loading: Loading
