@@ -73,7 +73,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     };
 
     const addRow = () => {
-        let charactersInRow = 97;
+        let charactersInRow = 90;
         let maxNumberOfRows = 25;
         let reservedRow = 1;
         let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
