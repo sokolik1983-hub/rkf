@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../Loading";
-import List from "../../List";
+import List from "./List";
 import ListFilter from './ListFilter';
 import {Request} from "../../../utils/request";
 import {endpointGetNews, endpointDeleteArticle} from "./config";
@@ -14,13 +14,12 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest}) => {
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [newsLoading, setNewsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
     const newsListRef = useRef(null);
 
     const getNews = async startElem => {
-        setNewsLoading(true);
+        setLoading(true);
 
         await Request({
             url: `${endpointGetNews}?alias=${alias}&start_element=${startElem}${filters ? '&is_advert=' + filters.is_advert : ''}`
@@ -52,7 +51,6 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest}) => {
         });
 
         setNeedRequest(false);
-        setNewsLoading(false);
         setLoading(false);
     };
 
@@ -95,16 +93,15 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest}) => {
 
     useEffect(() => {
         if (needRequest) {
-            const el = newsListRef.current;
-            el && window.scrollTo(0, el.offsetTop - 44);
+            const list = newsListRef.current;
+            if(list) window.scrollTo(0, list.offsetTop);
 
             setStartElement(1);
             (() => getNews(1))();
         }
     }, [needRequest]);
 
-    return loading ?
-        <Loading /> :
+    return (
         <div className="news-component" ref={newsListRef}>
             <div className="news-component__header-wrap">
                 <div className="news-component__header">
@@ -115,35 +112,30 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest}) => {
                     />
                 </div>
             </div>
-            {!news || !news.length
-                ? <div className="user-news__content" style={{ paddingTop: '18px' }}>
-                    <h4 className="user-news__text">Публикации не найдены</h4>
-                    <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикации не найдены" />
-                </div>
-                : <InfiniteScroll
-                    dataLength={news.length}
-                    next={getNextNews}
-                    hasMore={hasMore}
-                    loader={newsLoading && <Loading centered={false} />}
-                    endMessage={
-                        <div className="user-news__content">
-                            <h4 className="user-news__text">Публикаций больше нет</h4>
-                            <img className="user-news__img" src={DEFAULT_IMG.noNews} alt="Публикаций больше нет" />
-                        </div>
-                    }
-                >
-                    <List
-                        list={news}
-                        listNotFound="Публикации не найдены"
-                        listClass="user-news"
-                        isFullDate={true}
-                        removable={canEdit}
-                        onAdClose={closeAd}
-                        onDelete={deleteArticle}
-                    />
-                </InfiniteScroll>
-            }
+            <InfiniteScroll
+                dataLength={news.length}
+                next={getNextNews}
+                hasMore={hasMore}
+                loader={loading && <Loading centered={false}/>}
+                endMessage={
+                    <div className="user-news__content">
+                        <h4 className="user-news__text">{news.length ? 'Публикаций больше нет' : 'Публикации не найдены'}</h4>
+                        <img className="user-news__img" src={DEFAULT_IMG.noNews} alt={news.length ? 'Публикаций больше нет' : 'Публикации не найдены'} />
+                    </div>
+                }
+            >
+                <List
+                    list={news}
+                    listNotFound="Публикации не найдены"
+                    listClass="user-news"
+                    isFullDate={true}
+                    removable={canEdit}
+                    onAdClose={closeAd}
+                    onDelete={deleteArticle}
+                />
+            </InfiniteScroll>
         </div>
+    )
 };
 
 export default React.memo(UserNews);

@@ -104,3 +104,18 @@
     font-weight: normal;
   }
 }
+
+.list {
+  &__content {
+    list-style: none;
+  }
+  &__item {
+    margin-bottom: 16px;
+    @media (max-width: 560px) {
+      margin-bottom: 12px;
+    }
+  }
+  .Card {
+    padding: 10px;
+  }
+}

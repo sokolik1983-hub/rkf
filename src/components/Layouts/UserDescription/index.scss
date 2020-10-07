@@ -28,6 +28,9 @@
       background: url("/static/icons/pin-gray.svg") no-repeat center / contain;
     }
   }
+  &__disabled {
+    color: #72839c;
+  }
   &__item {
     display: flex;
     color: #72839c;
