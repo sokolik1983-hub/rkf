@@ -141,6 +141,11 @@ const appRoutes = [
     },
     {
         exact: false,
+        path: '/user/:id/edit',
+        component: LoadableModules.LoadableUserEdit
+    },
+    {
+        exact: false,
         path: '/client',
         component: LoadableModules.LoadableClient
     },

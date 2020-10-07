@@ -1,0 +1,60 @@
+.Contacts {
+    &__button-delete {
+        padding: 7px 14px;
+        border-color: #fa5d50;
+        background: #fa5d50;
+        color: white;
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
+    }
+    &__button-add {
+        padding: 7px 14px;
+        &:hover {
+            box-shadow: 0 4px 8px rgba(37, 60, 94, 0.24);
+        }
+    }
+    &__buttons-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        .btn + .btn {
+            @media (min-width: 768px) {
+                margin: 0 0 0 12px;
+            }
+        }
+        .btn {
+            @media (max-width: 768px) {
+                width: 100%;
+                margin: 0 0 12px;
+            }
+        }
+    }
+    .FormGroup--inline {
+        align-items: flex-end;
+        @media (max-width: 768px) {
+            padding: 8px;
+            box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+        }
+    }
+    &__checkbox-wrap {
+        margin-right: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @media (max-width: 768px) {
+            flex-direction: row;
+            align-items: initial;
+            margin: 0;
+        }
+        & > div {
+            margin: 0 0 16px 0;
+            @media (max-width: 768px) {
+                margin: 0 16px 16px 0;
+            }
+        }
+        .custom-checkbox__label {
+            height: 26px;
+        }
+    }
+}

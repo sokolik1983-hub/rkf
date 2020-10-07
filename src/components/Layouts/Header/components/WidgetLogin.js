@@ -27,11 +27,11 @@ const WidgetLogin = forwardRef(
             let path = history.location.pathname;
             return (<>
                 {path !== '/auth/login' && <Link className="login-link" to={LOGIN_URL}>
-                    <svg id="Layer_1" className="login-link__icon" width="26" height="26" stroke="#90999e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path  fill="none" strokeMiterlimit="10" strokeWidth="8px" strokeLinecap="round" d="M126.1,147.33l42.09-42.09a7.42,7.42,0,0,0,0-10.48L126.1,52.67"/><line  fill="none" strokeMiterlimit="10" strokeLinecap="round" strokeWidth="8px" x1="63.12" y1="100" x2="170.36" y2="100"/><path  fill="none" strokeLinejoin="round" strokeLinecap="round" strokeWidth="8px" d="M170.36,68.82V43.68a14,14,0,0,0-14-14H43.68a14,14,0,0,0-14,14V156.32a14,14,0,0,0,14,14H156.32a14,14,0,0,0,14-14V131.18"/></svg>
+                    <svg id="Layer_1" className="login-link__icon" width="26" height="26" stroke="#90999e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="none" strokeMiterlimit="10" strokeWidth="8px" strokeLinecap="round" d="M126.1,147.33l42.09-42.09a7.42,7.42,0,0,0,0-10.48L126.1,52.67" /><line fill="none" strokeMiterlimit="10" strokeLinecap="round" strokeWidth="8px" x1="63.12" y1="100" x2="170.36" y2="100" /><path fill="none" strokeLinejoin="round" strokeLinecap="round" strokeWidth="8px" d="M170.36,68.82V43.68a14,14,0,0,0-14-14H43.68a14,14,0,0,0-14,14V156.32a14,14,0,0,0,14,14H156.32a14,14,0,0,0,14-14V131.18" /></svg>
                     <span>Вход</span>
                 </Link>}
                 {path !== '/auth/registration' && <Link className="registration-link" to={REGISTRATION_URL}>
-                    <svg id="Layer_1" className="login-link__icon" width="26" height="26" stroke="#90999e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path  fill="none" strokeMiterlimit="10" strokeWidth="8px" d="M154.74,111.62l10.83,10.83a3.62,3.62,0,0,1,0,5.13L116.1,177.05a3.65,3.65,0,0,1-2.18,1l-12.13,1.29a3.64,3.64,0,0,1-4-4l1.29-12.13a3.6,3.6,0,0,1,1-2.18l49.47-49.47A3.62,3.62,0,0,1,154.74,111.62Z"/><line  fill="none" strokeMiterlimit="10" strokeWidth="8px" x1="156.51" y1="136.65" x2="140.54" y2="120.68"/><circle  fill="none" strokeMiterlimit="10" strokeWidth="8px" cx="100" cy="55.48" r="31.63"/><path  fill="none" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="8px" d="M141.35,102.2a39.7,39.7,0,0,0-1.82-4c-8.16-14.85-70.9-14.85-79.06,0s-16.94,70.22-16.94,70.22"/></svg>  
+                    <svg id="Layer_1" className="login-link__icon" width="26" height="26" stroke="#90999e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="none" strokeMiterlimit="10" strokeWidth="8px" d="M154.74,111.62l10.83,10.83a3.62,3.62,0,0,1,0,5.13L116.1,177.05a3.65,3.65,0,0,1-2.18,1l-12.13,1.29a3.64,3.64,0,0,1-4-4l1.29-12.13a3.6,3.6,0,0,1,1-2.18l49.47-49.47A3.62,3.62,0,0,1,154.74,111.62Z" /><line fill="none" strokeMiterlimit="10" strokeWidth="8px" x1="156.51" y1="136.65" x2="140.54" y2="120.68" /><circle fill="none" strokeMiterlimit="10" strokeWidth="8px" cx="100" cy="55.48" r="31.63" /><path fill="none" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="8px" d="M141.35,102.2a39.7,39.7,0,0,0-1.82-4c-8.16-14.85-70.9-14.85-79.06,0s-16.94,70.22-16.94,70.22" /></svg>
                     <span>Регистрация</span>
                 </Link>}
             </>);
@@ -86,11 +86,7 @@ const WidgetLogin = forwardRef(
                                             {userType === 1 &&
                                                 <>
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link
-                                                            to={`/user/${alias}/edit`}
-                                                            className="_disabled"
-                                                            onClick={e => e.preventDefault()}
-                                                        >Редактировать профиль</Link>
+                                                        <Link to={`/user/${alias}/edit`} >Редактировать профиль</Link>
                                                     </li>
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                         <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
