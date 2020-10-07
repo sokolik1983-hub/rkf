@@ -74,6 +74,7 @@ const UserEdit = () => {
     };
 
     const handleSuccess = (data, { alias, logo_link }) => {
+        getInfo();
         setShowAlert({
             title: "Информация сохранена!",
             autoclose: 2,
