@@ -43,6 +43,8 @@
   &__controls {
     margin-bottom: 8px;
     margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
   }
   &__button {
     font-weight: normal;
@@ -61,9 +63,6 @@
       background-color:  #3366ff;
       color: #fff;
       font-weight: 600;
-    }
-    &:first-child {
-      margin-right: 8px;
     }
   }
   .DayPicker {
