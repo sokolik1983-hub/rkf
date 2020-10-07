@@ -38,11 +38,13 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
             }
         </div>}
         {items && !!items.length
-            ? <Gallery
-                imageCountSeparator="&nbsp;из&nbsp;"
-                images={items}
-                {...rest}
-            />
+            ? <div className="ReactGridGallery__mobile">
+                <Gallery
+                    imageCountSeparator="&nbsp;из&nbsp;"
+                    images={items}
+                    {...rest}
+                />
+            </div>
             : <div className="ReactGridGallery__disabled">
                 <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
                 <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />

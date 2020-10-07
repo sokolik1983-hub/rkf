@@ -69,28 +69,37 @@ const Statistics = ({isAboutPage}) => {
                     </h3>
                     <div className="statistics__wrap">
                         <div className="statistics__text-wrap">
-                            <span className="statistics__text">Клубов<br/><span>{clubs_total_count}</span></span>
-                            <span className="statistics__text">Питомников<br/><span>{nurseries_total_count}</span></span>
+                            <span className="statistics__text">Клубов</span>
+                            <span className="statistics__text">Питомников</span>
                         </div>
                         <div className="statistics__federations-wrap">
-                            <div>
+                            <div className="statistics__federations--table">
+                              <div className="statistics__federations--column">
                                 {sortFederationName(federation_clubs).map((federation, i) =>
-                                    <p className="statistics__federations" key={i}>
-                                        <span className={setLogoClassName(federation.federation_name)} />
-                                        <span>{federation.federation_name}</span>
-                                        <span>{federation.federation_clubs_count}</span>
-                                    </p>
+                                    <div className="statistics__federations" key={i}>
+                                        <div className="statistics__federations--head">
+                                            <span className={setLogoClassName(federation.federation_name)} />
+                                            <span>{federation.federation_name}</span>
+                                        </div>
+                                        <span className="federation-count">{federation.federation_clubs_count}</span>
+                                    </div>
                                 )}
-                            </div>
-                            <div>
+                             </div>
+                             <div className="statistics__federations--column statistics__federations--column--last">
                                 {sortFederationName(federation_nurseries).map((federation, i) =>
-                                    <p className="statistics__federations" key={i}>
-                                        <span className={setLogoClassName(federation.federation_name)} />
-                                        <span>{federation.federation_name}</span>
-                                        <span>{federation.federation_nurseries_count}</span>
-                                    </p>
+                                    <div className="statistics__federations" key={i}>
+                                        <span className="federation-count">{federation.federation_nurseries_count}</span>
+                                    </div>
                                 )}
+                              </div>
                             </div>
+                        </div>
+                        <div className="statistics__federations-total">
+                            <span className="statistics-total__name">Всего</span>
+                            <ul className="statistics-list">
+                                <li>{clubs_total_count}</li>
+                                <li>{nurseries_total_count}</li>
+                            </ul>
                         </div>
                     </div>
                 </>

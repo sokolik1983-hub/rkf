@@ -99,16 +99,4 @@
     display: flex;
     margin-left: 10px;
   }
-  .calendar-filter__range {
-    &-title {
-      margin-top: 10px;
-      display: block;
-    }
-    &-text {
-      font-size: 16px;
-      display: flex;
-      width: 170px;
-      justify-content: space-between;
-    }
-  }
 }

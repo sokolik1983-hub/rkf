@@ -13,41 +13,41 @@
         margin-top: 10px;
     }
     &__text {
-        text-align: center;
+        width: 60%;
+        text-align: right;
+        &:last-of-type {
+            text-align: right;
+            padding-left: 0px;
+            padding-right: 15px;
+            width: 40%;
+        }
         & > span {
-            font-size: 18px;
+            font-size: 16px;
         }
         &-wrap {
             padding-bottom: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #e8e8e8;
         }
     }
     &__federations {
         display: flex;
         align-items: center;
-        font-size: 12px;
-        min-width: 120px;
-        & span:nth-child(2) {
-            margin-left: 10px;
-            min-width: 50px;
-        }
-        & span:nth-child(3) {
-            min-width: 30px;
-            text-align: right;
-        }
+        font-size: 16px;
+        justify-content: space-between;
         &-wrap {
             display: flex;
-            justify-content: space-around;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8e8e8;
         }
     }
     &__federation-logo {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         display: inline-block;
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        margin-right: 8px;
         &--rfls {
             background-image: url("/static/images/federations/logo/rfls.png");
         }
@@ -74,5 +74,81 @@
     h3 {
         font-size: 22px;
         padding-bottom: 15px;
+    }
+}
+.statistics__federations-total {
+    display: flex;
+}
+.statistics-total__name {
+    font-size: 18px;
+    flex-basis: 20%;
+}
+.statistics-list {
+    display: flex;
+    width: 100%;
+    li {
+        list-style-type: none;
+        font-size: 18px;
+        width: 60%;
+        text-align: right;
+        padding-right: 40px;
+        &:last-of-type {
+            width: 40%;
+            padding-right: 5px;
+            text-align: center;
+        }
+    }
+}
+.statistics__federations--table {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.statistics__federations--head {
+    display: flex;
+    align-items: center;
+}
+.statistics__federations--column {
+    width: 60%;
+    padding-right: 25px;
+}
+.statistics__federations--column--last {
+    text-align: center;
+    width: 40%;
+    padding-right: 0;
+    padding-left: 15px;
+    .statistics__federations {
+        justify-content: center;
+        height: 40px;
+    }
+}
+.federation-count {
+    font-size: 14px;
+}
+@media screen and (max-width: 1100px) {
+    .statistics__federations--column--last .statistics__federations {
+        justify-content: flex-end;
+    }
+    .statistics__text:last-of-type {
+        text-align: right;
+        padding-left: 0;
+        padding-right: 15px;
+    }
+    .statistics-list li:last-of-type {
+        text-align: center;
+        padding-right: 15px;
+    }
+    .statistics__federations--column--last {
+        padding-right: 50px;
+    }
+}
+@media screen and (max-width: 1100px) { 
+    .statistics-list li:last-of-type {
+        text-align: right;
+        padding-right: 45px;
+        width: 45%;
+    }
+    .statistics-list li {
+        width: 55%;
     }
 }

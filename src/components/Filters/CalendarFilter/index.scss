@@ -43,6 +43,8 @@
   &__controls {
     margin-bottom: 8px;
     margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
   }
   &__button {
     font-weight: normal;
@@ -57,13 +59,10 @@
     transition: all 0.2s linear;
     &.active,
     &:hover {
-      border-color: #00c48c;
-      background-color: #00c48c;
+      border-color:  #3366ff;
+      background-color:  #3366ff;
       color: #fff;
       font-weight: 600;
-    }
-    &:first-child {
-      margin-right: 8px;
     }
   }
   .DayPicker {

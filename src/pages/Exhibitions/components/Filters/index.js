@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import UserHeader from "../../../../components/redesign/UserHeader";
-import RangeCalendar from "../../../../components/kendo/RangeCalendar";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import RanksFilter from "../../../../components/Filters/RanksFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
@@ -11,9 +10,10 @@ import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
-import {formatDateToString} from "../../../../utils/datetime";
+import { formatDateToString } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
+import RangeCalendar from "../../../../components/kendo/RangeCalendar";
 import "./index.scss";
 
 
@@ -22,11 +22,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [calendarContainer, setCalendarContainer] = useState(null);
-
-    const dateRangeRef = useCallback(node => {
-        if(node !== null) setCalendarContainer(node);
-    });
 
     useEffect(() => {
         (() => Request({
@@ -50,12 +45,19 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
 
-    const changeCalendarFilter = e => {
+    const changeCalendarFilterFrom = e => {
         const values = e.target.value;
 
         setFiltersToUrl({
-            DateFrom: formatDateToString(values.start),
-            DateTo: values.end ? formatDateToString(values.end) : values.end
+            DateFrom: formatDateToString(values)
+        });
+    };
+
+    const changeCalendarFilterTo = e => {
+        const values = e.target.value;
+
+        setFiltersToUrl({
+            DateTo: values ? formatDateToString(values) : values
         });
     };
 
@@ -88,7 +90,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                         <div className="exhibitions-filters__wrap">
                             <Card>
                                 <div className="exhibitions-filters__head">
-                                    <h4>Календарь</h4>
+                                    <h4>Диапазон дат</h4>
                                     <div>
                                         <button type="button" className="exhibitions-filters__clear" onClick={clearAll}>Сбросить</button>
                                         <a className="exhibitions-filters__support-link" href="https://help.rkf.online/ru/knowledge_base/art/40/cat/3/#/" title="Инструкция по календарю мероприятий" target="_blank" rel="noopener noreferrer">
@@ -99,25 +101,15 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                     </div>
                                 </div>
                                 <div className="calendar-filter">
+                                    <RangeCalendar
+                                        changeCalendarFilterFrom={changeCalendarFilterFrom}
+                                        changeCalendarFilterTo={changeCalendarFilterTo}
+                                        filters={filters}
+                                    />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
                                     />
-                                    <h5 className="calendar-filter__range-title">Диапазон дат</h5>
-                                    <div className="calendar-filter__range-text">
-                                        <span>от</span>
-                                        <span>до</span>
-                                    </div>
-                                    <div ref={dateRangeRef}>
-                                        {calendarContainer && <RangeCalendar
-                                            value={{
-                                                start: new Date(filters.DateFrom),
-                                                end: filters.DateTo ? new Date(filters.DateTo) : null
-                                            }}
-                                            onChange={changeCalendarFilter}
-                                            container={calendarContainer}
-                                        />}
-                                    </div>
                                 </div>
                             </Card>
                             <BreedsFilter

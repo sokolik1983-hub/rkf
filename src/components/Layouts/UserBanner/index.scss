@@ -1,0 +1,13 @@
+.user-banner {
+  height: 255px;
+  padding: 10px !important;
+  background: #fff url("/static/images/noimg/empty-gallery.png") no-repeat center / contain;
+  @media (max-width: 560px) {
+    height: 25vw;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+  &__img {
+    height: 100%;
+  }
+}
