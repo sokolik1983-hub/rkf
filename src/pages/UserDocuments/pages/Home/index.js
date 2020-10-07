@@ -5,9 +5,9 @@ import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
-import UserBanner from "../../components/UserBanner";
-import UserInfo from "../../components/UserInfo";
-import UserMenu from "../../components/UserMenu";
+import UserBanner from "../../../../components/Layouts/UserBanner";
+import UserInfo from "../../../../components/Layouts/UserInfo";
+import UserMenu from "../../../../components/Layouts/UserMenu";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
@@ -50,17 +50,22 @@ const Home = ({userAlias, history}) => {
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
                             <div className="mobile-only">
-                                <UserBanner headliner_link={userInfo.headliner_link}/>
+                                <UserBanner link={userInfo.headliner_link}/>
                             </div>
                             <Card>
-                                <UserInfo {...userInfo}/>
-                                <UserMenu alias={userAlias}/>
+                                <UserInfo
+                                    logo_link={userInfo.logo_link}
+                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                    second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
+                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                />
+                                <UserMenu userNav={userNav(userAlias)}/>
                             </Card>
                             <CopyrightInfo/>
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
-                        <UserBanner headliner_link={userInfo.headliner_link}/>
+                        <UserBanner link={userInfo.headliner_link}/>
                         <div className="user-documents__cards">
                             <Switch>
                                 <Route
