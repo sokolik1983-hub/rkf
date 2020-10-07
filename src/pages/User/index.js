@@ -17,9 +17,9 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
 import {endpointGetUserInfo, userNav} from "./config";
+import {DEFAULT_IMG} from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
-import {DEFAULT_IMG} from "../../appConfig";
 
 
 const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
@@ -112,8 +112,8 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                             }
                             {canEdit &&
                                 <AddArticle
-                                    id={userInfo.profile_id || DEFAULT_IMG.userAvatar}
-                                    logo={userInfo.logo_link}
+                                    id={userInfo.profile_id}
+                                    logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
                                 />
                             }
