@@ -209,7 +209,7 @@ const BaseSearch = () => {
                                                             Поиск клуба/питомника по клейму
                                                         </LinkScroll>
                                                     </li>
-                                                    <li className="menu-component__item">
+                                                    <li className="menu-component__item menu-component__item--judge">
                                                         <LinkScroll
                                                             to="referee-search-anchor"
                                                             spy={true}
