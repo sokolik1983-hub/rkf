@@ -8,7 +8,7 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserVideoGallery = ({alias, pageLink, disabled}) => {
+const UserVideoGallery = ({alias, pageLink}) => {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -31,7 +31,7 @@ const UserVideoGallery = ({alias, pageLink, disabled}) => {
         <Card className="user-gallery">
             <div className="user-gallery__header">
                 <h4 className="user-gallery__title">Видеозаписи</h4>
-                <Link to={pageLink} onClick={e => disabled ? e.preventDefault() : null}>Смотреть все</Link>
+                {!!videos.length && <Link to={pageLink}>Смотреть все</Link>}
             </div>
             {loading ?
                 <Loading inline={true} /> :
