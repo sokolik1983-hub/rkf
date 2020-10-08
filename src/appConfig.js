@@ -140,6 +140,16 @@ const appRoutes = [
         component: LoadableModules.LoadableUserPage
     },
     {
+        exact: true,
+        path: '/user/:id/gallery',
+        component: LoadableModules.LoadableUserGallery
+    },
+    {
+        exact: true,
+        path: '/user/:id/gallery/edit',
+        component: LoadableModules.LoadableUserGalleryEdit
+    },
+    {
         exact: false,
         path: '/user/:id/documents',
         component: LoadableModules.LoadableUserDocuments
