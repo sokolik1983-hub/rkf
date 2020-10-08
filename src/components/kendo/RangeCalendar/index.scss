@@ -25,7 +25,8 @@
 .k-calendar-navigation {
   display: none;
 }
-.k-input {
+.k-input,
+.k-select {
   pointer-events: none;
 }
 .k-picker-wrap.k-state-focused {
