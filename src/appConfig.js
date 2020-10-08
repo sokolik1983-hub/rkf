@@ -141,6 +141,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/user/:id/video',
+        component: LoadableModules.LoadableUserVideo
+    },
+    {
+        exact: true,
         path: '/user/:id/gallery',
         component: LoadableModules.LoadableUserGallery
     },

@@ -132,6 +132,11 @@ export const LoadableUserPage = Loadable({
     loading: Loading
 });
 
+export const LoadableUserVideo = Loadable({
+    loader: () => import('./pages/UserVideo'),
+    loading: Loading
+});
+
 export const LoadableNurseryGallery = Loadable({
     loader: () => import('./pages/NurseryGallery'),
     loading: Loading
