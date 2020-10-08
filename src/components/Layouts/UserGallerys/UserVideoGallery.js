@@ -7,6 +7,15 @@ import {Request} from "../../../utils/request";
 import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
+const defaultVideo = {
+    "id": 36,
+    "name": "Sony 4K Demo: Another World",
+    "url": "https://www.youtube.com/watch?v=xcJtL7QggTI",
+    "youtube_video_id": "xcJtL7QggTI",
+    "iframe": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/xcJtL7QggTI\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
+    "cover_link": "https://img.youtube.com/vi/xcJtL7QggTI/0.jpg"
+};
+
 
 const UserVideoGallery = ({alias, pageLink}) => {
     const [videos, setVideos] = useState([]);
@@ -18,17 +27,9 @@ const UserVideoGallery = ({alias, pageLink}) => {
         (() => Request({
             url: `/api/videogallery/gallery?alias=${alias}&element_count=2`,
         }, data => {
-            // const defaultVideo = {
-            //     "id": 36,
-            //     "name": "Sony 4K Demo: Another World",
-            //     "url": "https://www.youtube.com/watch?v=xcJtL7QggTI",
-            //     "youtube_video_id": "xcJtL7QggTI",
-            //     "iframe": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/xcJtL7QggTI\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
-            //     "cover_link": "https://img.youtube.com/vi/xcJtL7QggTI/0.jpg"
-            // };
-            // setVideos([defaultVideo, defaultVideo]);
+            setVideos([defaultVideo, defaultVideo]);
 
-            setVideos(data);
+            // setVideos(data);
             setLoading(false);
         },
         error => {

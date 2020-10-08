@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {Collapse} from "react-collapse";
 import Card from "../../Card";
 import "./index.scss";
@@ -6,50 +6,6 @@ import "./index.scss";
 
 const UserDescription = ({city_name, birthday_date, email, phone, site, socials, description}) => {
     const [isOpen, setIsOpen] = useState(false);
-
-    // socials = [
-    //     {
-    //         "id": 45,
-    //         "site": "http://elitepet.ru/pages/Zoogostinica.html",
-    //         "description": "rthcvgv xbxv d bbd",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 47,
-    //         "site": "http://vk.com",
-    //         "description": "vk.com",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 49,
-    //         "site": "fdsf",
-    //         "description": "fdsfds",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 50,
-    //         "site": "https://rkf.online/",
-    //         "description": "test",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 51,
-    //         "site": "https://rkf.online/",
-    //         "description": "test2",
-    //         "social_network_type_id": 1
-    //     },
-    //     {
-    //         "id": 59,
-    //         "site": "http://dev.uep24.ru/",
-    //         "description": "ereryyr",
-    //         "social_network_type_id": 1
-    //     }
-    // ];
-
-    description = 'Банальные, но неопровержимые выводы, а также действия представителей оппозиции, вне зависимости от их уровня, должны быть представлены в исключительно положительном свете. Равным образом, повышение уровня гражданского сознания обеспечивает широкому кругу (специалистов) участие в формировании вывода текущих активов. В рамках спецификации современных стандартов, сторонники тоталитаризма в науке описаны максимально подробно.';
-
-    // birthday_date = 'hidden';
-    // email = '';
 
     return (
         <Card className="user-description">
@@ -72,7 +28,7 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {email &&
                 <p className="user-description__item _email">
                     <span className="user-description__item-title">E-mail:</span>&nbsp;
-                    <span><a href={`mailto:${email}`}>{email}</a></span>
+                    <span><a href={`mailto:${email}`} title={email}>{email}</a></span>
                 </p>
             }
             {phone &&
@@ -84,23 +40,22 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {site &&
                 <p className="user-description__item _site">
                     <span className="user-description__item-title">Сайт:</span>&nbsp;
-                    <span>{site}</span>
+                    <span><a href={site} title={site} target="_blank" rel="noopener noreferrer">{site}</a></span>
                 </p>
             }
             {socials && !!socials.length &&
                 <p className="user-description__item _socials">
-                    <span className="user-description__item-title">Соцсети:</span>&nbsp;
+                    <span className="user-description__item-title">Соцсети:</span>
                     <span>
                         {socials.map(item => (
-                            <Fragment key={item.id}>
-                                <a href={item.site}
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                >
-                                    {item.description}
-                                </a>
-                                <br/>
-                            </Fragment>
+                            <a href={item.site}
+                               key={item.id}
+                               title={item.description}
+                               target="_blank"
+                               rel="noopener noreferrer"
+                            >
+                                {item.description}
+                            </a>
                         ))}
                     </span>
                 </p>

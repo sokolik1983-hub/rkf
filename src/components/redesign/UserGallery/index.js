@@ -47,8 +47,6 @@ const UserGallery = ({ alias, isKennel }) => {
                     }
                 });
 
-                console.log('imagesArray', imagesArray);
-
                 setImages(imagesArray);
             }
             setLoading(false);
