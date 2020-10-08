@@ -2,7 +2,7 @@ import React from 'react';
 import * as LoadableModules from "./appModules";
 
 const SERVER = 'http://dev.uep24.ru';
-const DEFAULT_PHONE_INPUT_MASK = ['+7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+const DEFAULT_PHONE_INPUT_MASK = ['+', '7','(', /[1-9]/, /\d/, /\d/, ')',/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '+7(   )___-__-__';
 const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш Email';
 const LOGIN_URL = '/auth/login';
@@ -143,6 +143,16 @@ const appRoutes = [
         exact: true,
         path: '/user/:id/video',
         component: LoadableModules.LoadableUserVideo
+    },
+    {
+        exact: true,
+        path: '/user/:id/gallery',
+        component: LoadableModules.LoadableUserGallery
+    },
+    {
+        exact: true,
+        path: '/user/:id/gallery/edit',
+        component: LoadableModules.LoadableUserGalleryEdit
     },
     {
         exact: false,

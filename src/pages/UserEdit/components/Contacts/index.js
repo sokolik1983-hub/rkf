@@ -2,6 +2,7 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
+import { DEFAULT_PHONE_INPUT_MASK } from "../../../../appConfig";
 import "./styles.scss";
 
 const Contacts = ({ contacts }) => {
@@ -14,11 +15,22 @@ const Contacts = ({ contacts }) => {
                 <div>
                     {contacts.map(({ contact_type_id }, index) => (
                         <FormGroup inline key={index}>
-                            <FormField
-                                label={contact_type_id === 1 ? 'Номер телефона' : 'E-mail'}
-                                placeholder={contact_type_id === 1 ? 'Введите номер телефона' : 'Введите e-mail'}
-                                name={`contacts[${index}].value`}
-                            />
+                            {
+                                contact_type_id === 1 ? <FormField
+                                    label="Номер телефона"
+                                    placeholder="Введите номер телефона"
+                                    name={`contacts[${index}].value`}
+                                    showMask={true}
+                                    fieldType="masked"
+                                    mask={DEFAULT_PHONE_INPUT_MASK}
+                                />
+                                    :
+                                    <FormField
+                                        label='E-mail'
+                                        placeholder="Введите e-mail"
+                                        name={`contacts[${index}].value`}
+                                    />
+                            }
                             <FormField
                                 label={'Описание'}
                                 placeholder="Введите описание"

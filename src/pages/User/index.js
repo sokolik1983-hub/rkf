@@ -75,7 +75,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
-                                            disabled={true}
                                         />
                                         <UserVideoGallery
                                             alias={alias}
@@ -104,7 +103,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                     <UserPhotoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}
-                                        disabled={true}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
