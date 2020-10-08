@@ -46,7 +46,7 @@ const Contacts = ({ contacts }) => {
                             className="btn-green Contacts__button-add"
                             onClick={() => arrayHelpers.push({
                                 id: null,
-                                value: '',
+                                value: '+7(999)999-99-99',
                                 description: '',
                                 is_main: false,
                                 contact_type_id: 1
