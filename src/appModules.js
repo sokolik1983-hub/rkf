@@ -147,6 +147,16 @@ export const LoadableNurseryVideo = Loadable({
     loading: Loading
 });
 
+export const LoadableUserGallery = Loadable({
+    loader: () => import('./pages/UserPhotos'),
+    loading: Loading
+});
+
+export const LoadableUserGalleryEdit = Loadable({
+    loader: () => import('./pages/UserPhotos/UserPhotosEdit'),
+    loading: Loading
+});
+
 export const LoadableNotConfirmed = Loadable({
     loader: () => import('./pages/NotConfirmed'),
     loading: Loading

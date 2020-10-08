@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import './styles.scss';
 import { DEFAULT_IMG } from "../../appConfig";
 
-const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, ...rest }) => {
+const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, ...rest }) => {
     const [showModal, setShowModal] = useState(false);
     let params = useParams();
     const isAlbum = !!params.album;
@@ -33,7 +33,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
         {albums && !!albums.length && <div className="ReactGridGallery__controls">
             <h4>Все фотографии</h4>
             {canEdit && !album && <>
-                {!!items.length && <Link className="ReactGridGallery__controls-link" to={isClub ? `/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}>Редактировать все фото</Link>}
+                {!!items.length && <Link className="ReactGridGallery__controls-link" to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}>Редактировать все фото</Link>}
                 <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span></>
             }
         </div>}
