@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { formatDateToString } from "../../../utils/datetime";
-import ExhibitionsCalendar from "../../kendo/Calendar";
-import { setFiltersToUrl } from "../../../pages/Exhibitions/utils.js";
 import "./index.scss";
 
 
@@ -18,12 +16,17 @@ const CalendarFilter = ({ date_from, onChange }) => {
     }, [date_from]);
 
     const handleButtonClick = period => {
-        if (period === 'month') {
+        if (period === 'day') {
+            onChange({
+                DateFrom: formatDateToString(new Date()),
+                DateTo: formatDateToString(new Date())
+            });
+        } else if (period === 'month') {
             onChange({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), day.getMonth(), 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear(), day.getMonth() + 1, 0))
             });
-        } else {
+        } else if (period === 'year') {
             onChange({
                 DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
                 DateTo: formatDateToString(new Date(day.getFullYear() + 1, 0, 0))
@@ -32,21 +35,8 @@ const CalendarFilter = ({ date_from, onChange }) => {
         setActiveButton(period);
     };
 
-    const handleDayChoose = e => {
-        const value = e.target.value;
-
-        setFiltersToUrl({
-            DateFrom: formatDateToString(value),
-            DateTo: formatDateToString(value)
-        });
-    };
-
     return (
         <div className="calendar-filter">
-            <ExhibitionsCalendar
-                value={new Date(date_from)}
-                onChange={handleDayChoose}
-            />
             <div className="calendar-filter__controls">
                 <button
                     className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
@@ -56,6 +46,10 @@ const CalendarFilter = ({ date_from, onChange }) => {
                     className={`calendar-filter__button${activeButton === 'month' ? ' active' : ''}`}
                     onClick={() => handleButtonClick('month')}
                 >Месяц</button>
+                <button
+                    className={`calendar-filter__button${activeButton === 'day' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('day')}
+                >День</button>
             </div>
         </div>
     )

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Calendar, CalendarCell } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
 import "./index.scss";
-// import { loadMessages } from "@progress/kendo-react-intl";
-// import messages from "./translation/messages.json";
 
 load(
     require("cldr-data/supplemental/likelySubtags.json"),
@@ -14,8 +12,6 @@ load(
     require("cldr-data/main/ru/dateFields.json"),
     require("cldr-data/main/ru/timeZoneNames.json")
 );
-
-// loadMessages(messages, 'ru');
 
 const ExhibitionsCalendar = ({ value, onChange }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 991);

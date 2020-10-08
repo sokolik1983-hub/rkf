@@ -7,7 +7,10 @@
   .club-page {
     word-break: break-word;
     .user-gallery__wrap .ReactGridGallery_tile-viewport {
-      width: 88px !important;
+      @media (min-width: 991px) {
+        width: 88px !important;
+        height: 88px !important;
+      }
     }
     &__mobile-only {
       display: none;
@@ -142,9 +145,12 @@
   // Temp styles
   word-break: break-word;
   .user-gallery__wrap .ReactGridGallery_tile-viewport {
-    width: 88px !important;
+    @media (min-width: 991px) {
+      width: 88px !important;
+      height: 88px !important;
+    }
   }
-  &__mobile-only {
+&__mobile-only {
     display: none;
   }
   &.content {

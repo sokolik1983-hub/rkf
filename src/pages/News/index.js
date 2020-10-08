@@ -59,8 +59,21 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                 <Container className="content news-page">
                     <Card className="news">
                         <div className="news__wrap-head">
-                            <Link to={`/${news.alias}`} className="news__item-head">
-                                <div className="news__avatar" style={{ backgroundImage: `url(${news.logo_link ? news.logo_link : DEFAULT_IMG.clubAvatar})` }} />
+                            <Link
+                                to={news.user_type === 1 ? `/user/${news.alias}` :
+                                    news.user_type === 4 ? `/kennel/${news.alias}` :
+                                    `/${news.alias}`
+                                }
+                                className="news__item-head"
+                            >
+                                <div
+                                    className="news__avatar"
+                                    style={{backgroundImage: `url(${
+                                        news.logo_link ? news.logo_link : 
+                                        news.user_type === 1 ? DEFAULT_IMG.userAvatar :
+                                        DEFAULT_IMG.clubAvatar
+                                    })`}}
+                                />
                                 <div className="news__about">
                                     <h5 className="news__name">{news.name}</h5>
                                     <p className="news__date">{formatDateTime(news.create_date)}</p>

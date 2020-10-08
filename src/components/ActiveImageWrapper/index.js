@@ -48,7 +48,7 @@ function ActiveImageWrapper({
         try {
             setState({ ...state, loading: true });
             await axios({
-                url: `/api/HeaderPicture/${club_id}`,
+                url: `/api/HeaderPicture`,
                 method: "DELETE",
                 headers: getHeaders(true)
             });

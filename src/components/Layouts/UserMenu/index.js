@@ -1,26 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {NavLink} from "react-router-dom";
-import Alert from "../../../../components/Alert";
-import {userNav} from "../../config";
-import "./index.scss";
+import React, {useState} from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import {CSSTransition} from "react-transition-group";
-import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
+import {NavLink} from "react-router-dom";
+import Alert from "../../Alert";
+import useIsMobile from "../../../utils/useIsMobile";
+import "./index.scss";
 
 
-const UserMenu = ({alias}) => {
+const UserMenu = ({userNav}) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 991);
-
-    useEffect(() => {
-        window.addEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 991);
-        });
-
-        return window.removeEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 991);
-        });
-    }, []);
+    const isMobile = useIsMobile();
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
@@ -45,7 +35,7 @@ const UserMenu = ({alias}) => {
                     unmountOnExit
                 >
                     <ul className="user-nav__list">
-                        {userNav(alias).map(navItem =>
+                        {userNav.map(navItem =>
                             <li className="user-nav__item" key={navItem.id}>
                                 <NavLink
                                     to={navItem.to}

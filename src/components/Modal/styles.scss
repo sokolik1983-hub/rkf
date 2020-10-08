@@ -69,6 +69,7 @@
     }
   }
 }
+
 .VideoModal {
   & > div {
     position: relative;
@@ -81,7 +82,8 @@
     display: block;
     margin: auto;
     @media (max-width: 560px) {
-      width: 100%;
+      width: 90vw;
+      height: 50.625vw;
     }
   }
   &__close {

@@ -60,15 +60,18 @@ const CardNews = forwardRef(({
                     {small_photo && <div className="card-news__photo" style={{ backgroundImage: `url(${small_photo})` }} onClick={() => setShowPhoto(true)} />}
                     <div className="card-news__head">
                         <div className="card-news__club">
-                            <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
+                            <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
                                 <div className="card-news__club-logo" style={{
-                                    background: `url(${logo_link
-                                        ? logo_link
-                                        : DEFAULT_IMG.clubAvatar}) center center/cover no-repeat`
+                                    background: `url(${logo_link ?
+                                        logo_link :
+                                        user === 1 ?
+                                            DEFAULT_IMG.userAvatar :
+                                            DEFAULT_IMG.clubAvatar
+                                    }) center center/cover no-repeat`
                                 }} />
                             </Link>
                             <span className="card-news__club-name">
-                                <Link to={user === 4 ? `/kennel/${alias}` : `/${alias}`}>
+                                <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
                                     {(user === 3 || user === 4 || user === 5) &&
                                         <>
                                             <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>

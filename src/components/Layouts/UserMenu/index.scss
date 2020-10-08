@@ -1,4 +1,10 @@
 .user-nav {
+  @media (max-width: 990px) {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 2;
+  }
   &__button {
     padding: 0;
     border: none;
@@ -7,10 +13,6 @@
     border-radius: 50%;
     background-color: #3366ff;
     box-shadow: 0 0 3px #011f7b;
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 2;
     span {
       display: block;
       position: absolute;
@@ -82,7 +84,7 @@
   }
   &__item {
     &:not(:last-child) {
-      margin-bottom: 4px;
+      margin-bottom: 12px;
     }
   }
   &__link {
