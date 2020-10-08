@@ -17,6 +17,7 @@ import { DEFAULT_IMG } from "../../appConfig";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import Alert from "../../components/Alert";
 import "./index.scss";
 
@@ -157,6 +158,10 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                     />
                                     <UserMenu userNav={userNav(alias)} />
                                 </Card>
+                                {!isMobile && <UserPhotoGallery
+                                    alias={alias}
+                                    pageLink={`/user/${alias}/gallery`}
+                                />}
                                 <CopyrightInfo />
                             </StickyBox>
                         </aside>
@@ -170,8 +175,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                     !pageLoaded
                                         ? <Loading centered={false} />
                                         : <>
-
-
                                             <InfiniteScroll
                                                 dataLength={videos.length}
                                                 next={getNextVideos}
@@ -202,7 +205,12 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         </>
                                 }
                             </Card>
-
+                            {isMobile &&
+                                <UserPhotoGallery
+                                    alias={alias}
+                                    pageLink={`/user/${alias}/gallery`}
+                                />
+                            }
                         </div>
                     </Container>
                 </div>
