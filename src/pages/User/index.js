@@ -22,76 +22,6 @@ import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
-const defaultUserInfo = {
-    "profile_id": 8158,
-    "alias": "277b0dc9ff7a4fc2bcb14794267e50cb",
-    "personal_information": {
-        "first_name": "Василий",
-        "last_name": "Пупкин",
-        "second_name": "Иванович",
-        "sex_type": null,
-        "birth_date": "01.01.1970 г.",
-        "description": "Банальные, но неопровержимые выводы, а также действия представителей оппозиции, вне зависимости от их уровня, должны быть представлены в исключительно положительном свете. Равным образом, повышение уровня гражданского сознания обеспечивает широкому кругу (специалистов) участие в формировании вывода текущих активов. В рамках спецификации современных стандартов, сторонники тоталитаризма в науке описаны максимально подробно."
-    },
-    "address": {
-        "city_id": 1121,
-        "city_name": "Москва"
-    },
-    "logo_link": "/media/YjYwMjQ4ZWMtYWRkOS00MjdjLTk2NmUtNmJhZTk1YmIyMjk1X0F2YXRhcg.gif",
-    "headliner_link": "/media/NDNiOGU5NTItMWUyOS00Y2IwLWJhNWItZTdmOWZhMzUzMmExX0NsdWJIZWFkZXI.jpg",
-    "emails": [
-        {
-            "id": 0,
-            "value": "jomax78791@wpsavy.com"
-        }
-    ],
-    "phones": [{
-        "id": 0,
-        "value": "+7 (999) 999-99-99"
-    }],
-    "web_site": "https://site.com",
-    "social_networks": [
-        {
-            "id": 45,
-            "site": "http://elitepet.ru/pages/Zoogostinica.html",
-            "description": "rthcvgv xbxv d bbd",
-            "social_network_type_id": 1
-        },
-        {
-            "id": 47,
-            "site": "http://vk.com",
-            "description": "vk.com",
-            "social_network_type_id": 1
-        },
-        {
-            "id": 49,
-            "site": "fdsf",
-            "description": "fdsfds",
-            "social_network_type_id": 1
-        },
-        {
-            "id": 50,
-            "site": "https://rkf.online/",
-            "description": "test",
-            "social_network_type_id": 1
-        },
-        {
-            "id": 51,
-            "site": "https://rkf.online/",
-            "description": "test2",
-            "social_network_type_id": 1
-        },
-        {
-            "id": 59,
-            "site": "http://dev.uep24.ru/",
-            "description": "ereryyr",
-            "social_network_type_id": 1
-        }
-    ],
-    "documents": []
-};
-
-
 const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -105,8 +35,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            data = defaultUserInfo;
-
             data.email = data.emails.length ? data.emails[0].value : '';
             data.phone = data.phones.length ? data.phones[0].value : '';
 
@@ -145,13 +73,14 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
-                                            id="user-photo-gallery__desktop"
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
+                                            disabled={true}
                                         />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
+                                            disabled={true}
                                         />
                                         <CopyrightInfo/>
                                     </>
@@ -174,13 +103,14 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                             {isMobile &&
                                 <>
                                     <UserPhotoGallery
-                                        id="user-photo-gallery__mobile"
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}
+                                        disabled={true}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/video`}
+                                        disabled={true}
                                     />
                                 </>
                             }

@@ -65,4 +65,12 @@
     margin: 0 auto;
     max-width: 35px;
   }
+  .ReactGridGallery {
+    overflow: hidden;
+    @media (min-width: 991px) {
+      &_tile-viewport {
+        width: 88px !important;
+      }
+    }
+  }
 }
