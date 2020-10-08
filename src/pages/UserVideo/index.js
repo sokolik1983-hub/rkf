@@ -64,8 +64,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const getVideos = async startElem => {
         setVideosLoading(true);
         return Request({
-            url: `/api/videogallery/gallery?alias=${alias}&start_element=${startElem}`,
-            method: 'GET'
+            url: `/api/videogallery/gallery?alias=${alias}&start_element=${startElem}`
         }, data => {
             if (data.length) {
                 if (data.length < 15) {

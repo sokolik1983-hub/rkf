@@ -80,7 +80,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
-                                            disabled={false}
                                         />
                                         <CopyrightInfo/>
                                     </>
@@ -110,7 +109,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                     <UserVideoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/video`}
-                                        disabled={true}
                                     />
                                 </>
                             }
