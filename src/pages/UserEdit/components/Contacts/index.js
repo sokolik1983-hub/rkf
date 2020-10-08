@@ -18,6 +18,9 @@ const Contacts = ({ contacts }) => {
                                 label={contact_type_id === 1 ? 'Номер телефона' : 'E-mail'}
                                 placeholder={contact_type_id === 1 ? 'Введите номер телефона' : 'Введите e-mail'}
                                 name={`contacts[${index}].value`}
+                                showMask={contact_type_id === 1 ? true : ``}
+                                fieldType={contact_type_id === 1 ? `masked` : ``}
+                                mask={['+7(999)999-99-99']}
                             />
                             <FormField
                                 label={'Описание'}
