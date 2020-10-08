@@ -2,6 +2,7 @@ import React from "react";
 import { connect, FieldArray } from "formik";
 import { FormField, FormGroup } from "components/Form";
 import Button from "components/Button";
+import {DEFAULT_PHONE_INPUT_MASK} from "../../../../appConfig";
 import "./styles.scss";
 
 const Contacts = ({ contacts }) => {
@@ -20,7 +21,7 @@ const Contacts = ({ contacts }) => {
                                 name={`contacts[${index}].value`}
                                 showMask={contact_type_id === 1 ? true : ``}
                                 fieldType={contact_type_id === 1 ? `masked` : ``}
-                                mask={['+7(999)999-99-99']}
+                                mask={DEFAULT_PHONE_INPUT_MASK}
                             />
                             <FormField
                                 label={'Описание'}
