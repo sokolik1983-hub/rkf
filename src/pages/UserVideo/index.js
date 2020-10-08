@@ -169,6 +169,10 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                             {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} />
                             }
+                            {isMobile && <UserPhotoGallery
+                                alias={alias}
+                                pageLink={`/user/${alias}/gallery`}
+                            />}
                             <Card>
                                 <Breadcrumbs />
                                 {
@@ -205,12 +209,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         </>
                                 }
                             </Card>
-                            {isMobile &&
-                                <UserPhotoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/gallery`}
-                                />
-                            }
                         </div>
                     </Container>
                 </div>
