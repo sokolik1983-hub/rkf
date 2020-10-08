@@ -145,6 +145,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
+                                            id="user-photo-gallery__desktop"
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
                                         />
@@ -173,6 +174,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                             {isMobile &&
                                 <>
                                     <UserPhotoGallery
+                                        id="user-photo-gallery__mobile"
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}
                                     />

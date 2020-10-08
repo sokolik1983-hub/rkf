@@ -485,7 +485,7 @@ const defaultPhotos = [
 ];
 
 
-const UserPhotoGallery = ({alias, pageLink}) => {
+const UserPhotoGallery = ({alias, pageLink, id}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -547,6 +547,7 @@ const UserPhotoGallery = ({alias, pageLink}) => {
             {loading ?
                 <Loading inline={true} /> :
                 <Gallery
+                    id={id}
                     items={images}
                     backdropClosesModal={true}
                     enableImageSelection={false}

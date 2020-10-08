@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {Collapse} from "react-collapse";
 import Card from "../../Card";
 import "./index.scss";
@@ -28,7 +28,7 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {email &&
                 <p className="user-description__item _email">
                     <span className="user-description__item-title">E-mail:</span>&nbsp;
-                    <span><a href={`mailto:${email}`}>{email}</a></span>
+                    <span><a href={`mailto:${email}`} title={email}>{email}</a></span>
                 </p>
             }
             {phone &&
@@ -40,23 +40,22 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {site &&
                 <p className="user-description__item _site">
                     <span className="user-description__item-title">Сайт:</span>&nbsp;
-                    <span><a href={site} target="_blank" rel="noopener noreferrer">{site}</a></span>
+                    <span><a href={site} title={site} target="_blank" rel="noopener noreferrer">{site}</a></span>
                 </p>
             }
             {socials && !!socials.length &&
                 <p className="user-description__item _socials">
-                    <span className="user-description__item-title">Соцсети:</span>&nbsp;
+                    <span className="user-description__item-title">Соцсети:</span>
                     <span>
                         {socials.map(item => (
-                            <Fragment key={item.id}>
-                                <a href={item.site}
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                >
-                                    {item.description}
-                                </a>
-                                <br/>
-                            </Fragment>
+                            <a href={item.site}
+                               key={item.id}
+                               title={item.description}
+                               target="_blank"
+                               rel="noopener noreferrer"
+                            >
+                                {item.description}
+                            </a>
                         ))}
                     </span>
                 </p>
