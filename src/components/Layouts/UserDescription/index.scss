@@ -54,7 +54,18 @@
     &._email:before {background-image: url("/static/icons/ico-contact-email.svg")}
     &._phone:before {background-image: url("/static/icons/ico-contact-phone.svg")}
     &._site:before {background-image: url("/static/icons/ico-web.svg")}
-    &._socials:before {background-image: url("/static/icons/social/network.svg")}
+    &._socials {
+      &:before {background-image: url("/static/icons/social/network.svg")}
+      span:first-child {
+        margin-right: 4px;
+      }
+      @media (max-width: 560px) {
+        flex-wrap: wrap;
+        span:first-child {
+          width: 100%;
+        }
+      }
+    }
     &._describe {
       display: inline;
       &:before {
@@ -65,6 +76,15 @@
       span:last-child {
         display: block;
         padding-left: 30px;
+      }
+    }
+    span:last-child {
+      overflow: hidden;
+      & > a {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
       }
     }
   }
