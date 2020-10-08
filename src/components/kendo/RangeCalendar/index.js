@@ -74,6 +74,13 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
 
         calendarFrom.addEventListener('click', firstClickFrom);
         calendarTo.addEventListener('click', firstClickTo);
+        
+        return () => {
+            calendarFrom.removeEventListener('click', firstClickFrom);
+            calendarTo.removeEventListener('click', firstClickTo);
+            calendarFrom.removeEventListener('click', secondClickFrom);
+            calendarTo.removeEventListener('click', secondClickTo);
+        }
     }, []);
 
     const handleClosePopups = () => {
