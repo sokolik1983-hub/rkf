@@ -12,6 +12,8 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
     let params = useParams();
     const isAlbum = !!params.album;
 
+    console.log('rest', rest);
+
     const handleAddPhoto = () => {
         setShowModal(true);
     }
