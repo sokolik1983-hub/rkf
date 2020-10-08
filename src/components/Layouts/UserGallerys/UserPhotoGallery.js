@@ -8,7 +8,7 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserPhotoGallery = ({alias, pageLink, disabled}) => {
+const UserPhotoGallery = ({alias, pageLink}) => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -64,7 +64,7 @@ const UserPhotoGallery = ({alias, pageLink, disabled}) => {
         <Card className="user-gallery">
             <div className="user-gallery__header">
                 <h4 className="user-gallery__title">Фотогалерея</h4>
-                <Link to={pageLink} onClick={e => disabled ? e.preventDefault() : null}>Смотреть все</Link>
+                {!!images.length && <Link to={pageLink}>Смотреть все</Link>}
             </div>
             {loading ?
                 <Loading inline={true} /> :
