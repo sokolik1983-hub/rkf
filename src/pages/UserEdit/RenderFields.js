@@ -13,10 +13,7 @@ import { Request } from "utils/request";
 import { editForm } from "./config";
 
 
-const RenderFields = (props) => {
-    console.log(props);
-    const { formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner } = props;
-
+const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
