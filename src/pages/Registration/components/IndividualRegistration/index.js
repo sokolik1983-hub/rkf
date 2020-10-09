@@ -43,7 +43,7 @@ const IndividualRegistration = ({ history }) => {
                     checked={!!isChecked}
                     onChange={onPrivacyChange}
                 />
-                <SubmitButton className="individual-registration__form-submit btn btn-primary" disabled={isChecked ? false : true}>Отправить</SubmitButton>
+                <SubmitButton className="individual-registration__form-submit btn btn-primary" disabled={!isChecked}>Отправить</SubmitButton>
             </Form>
             {successAlert &&
                 <Alert
