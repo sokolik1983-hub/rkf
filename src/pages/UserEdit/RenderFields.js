@@ -11,6 +11,8 @@ import SocialNetworks from './components/SocialNetworks';
 import Card from "components/Card";
 import { Request } from "utils/request";
 import { editForm } from "./config";
+import UserDatePicker from "../../components/kendo/DatePicker";
+import moment from "moment";
 
 
 const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
@@ -69,6 +71,11 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         social_networks,
         // web_sites
     } = formik.values;
+
+    const handleDateChange = date => {
+        let selectedDate = moment(date).format(`YYYY-MM-DD`)
+        formik.setFieldValue('personal_information.birth_date', selectedDate);
+    }
 
     return (
         <>
@@ -131,8 +138,11 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         </div>
                         <FieldError name="personal_information.sex_type_id" />
                     </div>
-                    <FormField {...birth_date} />
-                    <FormField {...is_hidden} />
+                    <UserDatePicker
+                        onChange={handleDateChange}
+                        value={new Date(getIn(formik.values, 'personal_information.birth_date'))}
+                    />
+                    <FormField className="UserEdit__is-hidden" {...is_hidden} />
                 </div>
                 <Contacts contacts={contacts} />
                 <FormField {...description} />

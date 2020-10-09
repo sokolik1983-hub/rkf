@@ -1,0 +1,28 @@
+.calendar-filter__range {
+  &-title {
+    margin-top: 10px;
+    display: block;
+  }
+  &-text {
+    font-size: 16px;
+    display: flex;
+    width: 165px;
+    justify-content: space-between;
+  }
+}
+// .k-dateinput-wrap,
+// .k-state-invalid {
+//   border-color: #ebf0f2 !important;
+//   height: 50px !important;
+// }
+.k-picker-wrap {
+  height: 40px !important;
+  position: relative;
+  top: 30px;
+}
+.k-calendar-navigation {
+  display: none;
+}
+.k-picker-wrap.k-state-focused {
+  box-shadow: 0 0 0 1pt  #3366ff !important;
+}
