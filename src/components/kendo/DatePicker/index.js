@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
-import OutsideClickHandler from "react-outside-click-handler";
+// import OutsideClickHandler from "react-outside-click-handler";
 import "./index.scss";
 
 load(
@@ -46,12 +46,11 @@ const UserDatePicker = ({onChange, value}) => {
     }, []);
 
 
-    const handleClosePopup = () => {
-        setShow(false);
-    };
+    // const handleClosePopup = () => {
+    //     setShow(false);
+    // };
 
     return (
-        <OutsideClickHandler onOutsideClick={handleClosePopup}>
             <LocalizationProvider language="ru">
                 <IntlProvider locale="ru">
                     <DatePicker
@@ -59,11 +58,10 @@ const UserDatePicker = ({onChange, value}) => {
                         value={value}
                         format="dd.MM.yyyy"
                         className="UserEdit__date-picker"
-                        show={show}
+                        // show={show}
                     />
                 </IntlProvider>
             </LocalizationProvider>
-        </OutsideClickHandler>
     );
 }
 
