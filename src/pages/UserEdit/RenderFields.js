@@ -73,9 +73,9 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
     } = formik.values;
 
     const handleDateChange = date => {
-        let selectedDate = moment(date).format(`YYYY-MM-DD`)
+        const selectedDate = moment(date.value).format(`YYYY-MM-DD`)
         formik.setFieldValue('personal_information.birth_date', selectedDate);
-    }
+    };
 
     return (
         <>
@@ -138,10 +138,17 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         </div>
                         <FieldError name="personal_information.sex_type_id" />
                     </div>
-                    <UserDatePicker
-                        onChange={handleDateChange}
-                        value={new Date(getIn(formik.values, 'personal_information.birth_date'))}
-                    />
+                    <div className="UserEdit__item-wrap">
+                        <div className="UserEdit__label">{birth_date.label}</div>
+                        <UserDatePicker
+                            onChange={handleDateChange}
+                            value={getIn(formik.values, 'personal_information.birth_date') ?
+                                new Date(getIn(formik.values, 'personal_information.birth_date')) :
+                                null
+                            }
+                        />
+                        <FieldError name="personal_information.birth_date" />
+                    </div>
                     <FormField className="UserEdit__is-hidden" {...is_hidden} />
                 </div>
                 <Contacts contacts={contacts} />
