@@ -104,7 +104,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                             max={loading ? new Date() : new Date(maxYear, 11, 31)}
                             format="dd.MM.yyyy"
                             className="calendar-filter__range-from"
-                            show={showFrom}
+                            // show={showFrom}
                         />
                         <DatePicker
                             onChange={changeCalendarFilterTo}
@@ -114,7 +114,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                             format="dd.MM.yyyy"
                             className="calendar-filter__range-to"
                             formatPlaceholder={{ year: `${currentYear}`, month: '12', day: '31' }}
-                            show={showTo}
+                            // show={showTo}
                         />
                     </div>
                 </OutsideClickHandler>
