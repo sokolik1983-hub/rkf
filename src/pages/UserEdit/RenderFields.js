@@ -12,7 +12,10 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import { editForm } from "./config";
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
+
+const RenderFields = (props) => {
+    console.log(props);
+    const { formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner } = props;
 
     const handleUpload = (file, isLogo) => {
         setWorking(true);
@@ -52,9 +55,9 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
 
     const {
         first_name,
-        first_name_lat,
+        // first_name_lat,
         last_name,
-        last_name_lat,
+        // last_name_lat,
         second_name,
         birth_date,
         is_hidden,
@@ -67,7 +70,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         contacts,
         documents,
         social_networks,
-        web_sites
+        // web_sites
     } = formik.values;
 
     return (
@@ -77,15 +80,15 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                     <div className="UserEdit__main-info-left">
                         <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl={'/'} >
                             <div
-                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
+                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.userAvatar})` }}
                                 className="UserEdit__main-info-logo"
                             />
                         </ActiveImageWrapper>
                     </div>
                     <div className="UserEdit__main-info-right">
-                        <div className="UserEdit__support-link-wrap">
-                            <a className="UserEdit__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по редактированию профиля</a>
-                        </div>
+                        {/*<div className="UserEdit__support-link-wrap">*/}
+                        {/*    <a className="UserEdit__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по редактированию профиля</a>*/}
+                        {/*</div>*/}
                         <div className="UserEdit__alias-wrap">
                             <FormField {...alias} />
                         </div>
@@ -101,12 +104,13 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
             <Card>
                 <FormGroup inline>
                     <FormField {...last_name} />
-                    <FormField {...last_name_lat} />
-                </FormGroup>
-                <FormGroup inline>
                     <FormField {...first_name} />
-                    <FormField {...first_name_lat} />
+                    {/*<FormField {...last_name_lat} />*/}
                 </FormGroup>
+                {/*<FormGroup inline>*/}
+                {/*    <FormField {...first_name} />*/}
+                {/*    <FormField {...first_name_lat} />*/}
+                {/*</FormGroup>*/}
                 <FormGroup inline>
                     <FormField {...second_name} />
                     <FormField {...city_id} />
