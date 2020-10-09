@@ -109,16 +109,13 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                 <FormGroup inline>
                     <FormField {...last_name} />
                     <FormField {...first_name} />
+                    <FormField {...second_name} />
                     {/*<FormField {...last_name_lat} />*/}
                 </FormGroup>
                 {/*<FormGroup inline>*/}
                 {/*    <FormField {...first_name} />*/}
                 {/*    <FormField {...first_name_lat} />*/}
                 {/*</FormGroup>*/}
-                <FormGroup inline>
-                    <FormField {...second_name} />
-                    <FormField {...city_id} />
-                </FormGroup>
                 <div className="UserEdit__checkboxes-wrap">
                     <div className="UserEdit__gender-wrap">
                         <div className="UserEdit__label">Пол</div>
@@ -138,6 +135,9 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         </div>
                         <FieldError name="personal_information.sex_type_id" />
                     </div>
+                    <FormGroup inline>
+                        <FormField {...city_id} />
+                    </FormGroup>
                     <div className="UserEdit__item-wrap">
                         <div className="UserEdit__label">{birth_date.label}</div>
                         <UserDatePicker
