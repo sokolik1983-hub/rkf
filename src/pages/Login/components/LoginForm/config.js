@@ -21,7 +21,7 @@ export const loginFormConfig = {
         },
         password: {
             name: 'password',
-            type: 'password',
+            // type: 'password',
             label: 'Пароль',
             placeholder: 'Введите ваш пароль'
         }

@@ -15,7 +15,7 @@ import UserDatePicker from "../../components/kendo/DatePicker";
 import moment from "moment";
 
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
+const RenderFields = ({ formik, working, handleError, setWorking }) => {
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
@@ -152,7 +152,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                     </div>
                     <FormField className="UserEdit__is-hidden" {...is_hidden} />
                 </div>
-                <Contacts contacts={contacts} />
+                <Contacts contacts={contacts} errors={formik.errors} />
                 <FormField {...description} />
             </Card>
 
