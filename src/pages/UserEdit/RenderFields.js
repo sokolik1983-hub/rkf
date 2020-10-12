@@ -146,6 +146,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                                 new Date(getIn(formik.values, 'personal_information.birth_date')) :
                                 null
                             }
+                            className="UserEdit__date-picker"
                         />
                         <FieldError name="personal_information.birth_date" />
                     </div>
