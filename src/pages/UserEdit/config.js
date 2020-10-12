@@ -1,18 +1,17 @@
 import { object, string, number, array, boolean } from 'yup';
 
 const emptyFieldMsg = 'Поле не может быть пустым';
-const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
+// const lat = () => string().matches(/^[^а-я]+$/i, { message: 'Поле заполняется латиницей' })
 
 export const editForm = {
     method: 'PUT',
-    //action: '/',
     action: '/api/owners/owner/update_full',
     fields: {
         alias: {
             name: "alias",
             label: "Адрес страницы",
             fieldType: "customAliasInput",
-            baseUrl: "rkf.online/kennel/"
+            baseUrl: "rkf.online/user/"
         },
         description: {
             name: "description",
@@ -183,7 +182,6 @@ export const editForm = {
 export const defaultValues = {
     alias: '',
     description: '',
-    web_site: '',
     personal_information: {
         first_name: '',
         first_name_lat: '',

@@ -1,13 +1,15 @@
-import React, {useState} from "react";
-import {Form, FormField, SubmitButton} from "../../../../components/Form";
+import React, { useState } from "react";
+import { Form, FormField, SubmitButton } from "../../../../components/Form";
 import Alert from "../../../../components/Alert";
-import {config, fields} from "./config";
+import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
+import { config, fields } from "./config";
 import "./index.scss";
 
 
-const IndividualRegistration = ({history}) => {
+const IndividualRegistration = ({ history }) => {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     const transformValues = values => {
         const newValues = { ...values };
@@ -20,6 +22,11 @@ const IndividualRegistration = ({history}) => {
         setTimeout(() => history.push("/"), 7500);
     };
 
+    const dataPrivacyLabel = 'Я согласен с правилами сервиса и даю согласие на обработку моих персональных данных';
+    const onPrivacyChange = () => {
+        setIsChecked(!isChecked);
+    };
+
     return (
         <div className="individual-registration">
             <Form
@@ -30,7 +37,13 @@ const IndividualRegistration = ({history}) => {
                 className="individual-registration__form"
             >
                 {fields.map(field => <FormField key={field.name} {...field} />)}
-                <SubmitButton className="individual-registration__form-submit btn btn-primary">Отправить</SubmitButton>
+                <CustomCheckbox
+                    id="individual-registration__data-privacy"
+                    label={dataPrivacyLabel}
+                    checked={!!isChecked}
+                    onChange={onPrivacyChange}
+                />
+                <SubmitButton className="individual-registration__form-submit btn btn-primary" disabled={!isChecked}>Отправить</SubmitButton>
             </Form>
             {successAlert &&
                 <Alert

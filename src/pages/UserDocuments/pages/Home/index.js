@@ -5,7 +5,7 @@ import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
-import UserBanner from "../../../../components/Layouts/UserBanner";
+// import UserBanner from "../../../../components/Layouts/UserBanner";
 import UserInfo from "../../../../components/Layouts/UserInfo";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import Specialization from "../Specialization";
@@ -49,9 +49,9 @@ const Home = ({userAlias, history}) => {
                 <Container className="user-documents__content content">
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
-                            <div className="mobile-only">
-                                <UserBanner link={userInfo.headliner_link}/>
-                            </div>
+                            {/*<div className="mobile-only">*/}
+                            {/*    <UserBanner link={userInfo.headliner_link}/>*/}
+                            {/*</div>*/}
                             <Card>
                                 <UserInfo
                                     logo_link={userInfo.logo_link}
@@ -65,7 +65,7 @@ const Home = ({userAlias, history}) => {
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
-                        <UserBanner link={userInfo.headliner_link}/>
+                        {/*<UserBanner link={userInfo.headliner_link}/>*/}
                         <div className="user-documents__cards">
                             <Switch>
                                 <Route

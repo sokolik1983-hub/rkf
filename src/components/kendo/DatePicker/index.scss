@@ -1,8 +1,4 @@
 .calendar-filter__range {
-  &-wrap {
-    display: flex;
-    justify-content: space-between;
-  }
   &-title {
     margin-top: 10px;
     display: block;
@@ -13,22 +9,18 @@
     width: 165px;
     justify-content: space-between;
   }
-  &-from,
-  &-to {
-    width: 135px;
-  }
 }
-.k-dateinput-wrap,
-.k-state-invalid {
-  border-color: #ebf0f2 !important;
-}
-.k-calendar-navigation {
-  display: none;
+.k-picker-wrap {
+  position: relative;
+  top: -3px;
 }
 // .k-input,
 // .k-select {
 //   pointer-events: none;
 // }
+.k-calendar-navigation {
+  display: none;
+}
 // .k-picker-wrap.k-state-focused {
 //   box-shadow: 0 0 0 1pt  #3366ff !important;
 // }

@@ -11,9 +11,11 @@ import SocialNetworks from './components/SocialNetworks';
 import Card from "components/Card";
 import { Request } from "utils/request";
 import { editForm } from "./config";
+import UserDatePicker from "../../components/kendo/DatePicker";
+import moment from "moment";
+
 
 const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
-
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
@@ -52,9 +54,9 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
 
     const {
         first_name,
-        first_name_lat,
+        // first_name_lat,
         last_name,
-        last_name_lat,
+        // last_name_lat,
         second_name,
         birth_date,
         is_hidden,
@@ -67,8 +69,13 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
         contacts,
         documents,
         social_networks,
-        web_sites
+        // web_sites
     } = formik.values;
+
+    const handleDateChange = date => {
+        const selectedDate = moment(date.value).format(`YYYY-MM-DD`)
+        formik.setFieldValue('personal_information.birth_date', selectedDate);
+    };
 
     return (
         <>
@@ -77,15 +84,15 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                     <div className="UserEdit__main-info-left">
                         <ActiveImageWrapper onChangeFunc={file => handleUpload(file, true)} requestUrl={'/'} >
                             <div
-                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.clubAvatar})` }}
+                                style={{ backgroundImage: `url(${logo_link ? logo_link : DEFAULT_IMG.userAvatar})` }}
                                 className="UserEdit__main-info-logo"
                             />
                         </ActiveImageWrapper>
                     </div>
                     <div className="UserEdit__main-info-right">
-                        <div className="UserEdit__support-link-wrap">
-                            <a className="UserEdit__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по редактированию профиля</a>
-                        </div>
+                        {/*<div className="UserEdit__support-link-wrap">*/}
+                        {/*    <a className="UserEdit__support-link" href="https://help.rkf.online/ru/knowledge_base/art/54/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по редактированию профиля</a>*/}
+                        {/*</div>*/}
                         <div className="UserEdit__alias-wrap">
                             <FormField {...alias} />
                         </div>
@@ -101,16 +108,14 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
             <Card>
                 <FormGroup inline>
                     <FormField {...last_name} />
-                    <FormField {...last_name_lat} />
-                </FormGroup>
-                <FormGroup inline>
                     <FormField {...first_name} />
-                    <FormField {...first_name_lat} />
-                </FormGroup>
-                <FormGroup inline>
                     <FormField {...second_name} />
-                    <FormField {...city_id} />
+                    {/*<FormField {...last_name_lat} />*/}
                 </FormGroup>
+                {/*<FormGroup inline>*/}
+                {/*    <FormField {...first_name} />*/}
+                {/*    <FormField {...first_name_lat} />*/}
+                {/*</FormGroup>*/}
                 <div className="UserEdit__checkboxes-wrap">
                     <div className="UserEdit__gender-wrap">
                         <div className="UserEdit__label">Пол</div>
@@ -130,8 +135,21 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         </div>
                         <FieldError name="personal_information.sex_type_id" />
                     </div>
-                    <FormField {...birth_date} />
-                    <FormField {...is_hidden} />
+                    <FormGroup inline>
+                        <FormField {...city_id} />
+                    </FormGroup>
+                    <div className="UserEdit__item-wrap">
+                        <div className="UserEdit__label">{birth_date.label}</div>
+                        <UserDatePicker
+                            onChange={handleDateChange}
+                            value={getIn(formik.values, 'personal_information.birth_date') ?
+                                new Date(getIn(formik.values, 'personal_information.birth_date')) :
+                                null
+                            }
+                        />
+                        <FieldError name="personal_information.birth_date" />
+                    </div>
+                    <FormField className="UserEdit__is-hidden" {...is_hidden} />
                 </div>
                 <Contacts contacts={contacts} />
                 <FormField {...description} />
