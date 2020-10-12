@@ -5,7 +5,24 @@ import Button from "components/Button";
 import { DEFAULT_PHONE_INPUT_MASK } from "../../../../appConfig";
 import "./styles.scss";
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, errors }) => {
+
+    const checkForErrors = (type) => {
+        const { contacts } = errors;
+        if (contacts) {
+            if (type === 1 && contacts
+                .filter(c => c && (c.value === 'Введите номер телефона' || c.value === 'Формат номера: +7(999)999-99-99')).length) {
+                return true
+            } else if (type === 2 && contacts
+                .filter(c => c && (c.value === 'Введите e-mail' || c.value === 'Неверный формат электронного адреса')).length) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    };
 
     return <div className="Contacts">
         <h3>Контакты</h3>
@@ -55,7 +72,7 @@ const Contacts = ({ contacts }) => {
                     ))}
                     <div className="Contacts__buttons-wrap">
                         <Button
-                            className="btn-green Contacts__button-add"
+                            className={`btn-green Contacts__button-add ${checkForErrors(1) ? 'disabled' : ''}`}
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',
@@ -64,7 +81,7 @@ const Contacts = ({ contacts }) => {
                                 contact_type_id: 1
                             })}>Добавить телефон</Button>
                         <Button
-                            className="btn-green Contacts__button-add"
+                            className={`btn-green Contacts__button-add ${checkForErrors(2) ? 'disabled' : ''}`}
                             onClick={() => arrayHelpers.push({
                                 id: null,
                                 value: '',

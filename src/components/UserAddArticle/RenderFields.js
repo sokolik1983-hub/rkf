@@ -151,7 +151,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
                             type="button"
                             onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
-                            Добавить ссылку на видео
+                            Добавить ссылку на youtube
                             </button>
                     }
                     {!videoLink &&

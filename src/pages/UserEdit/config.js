@@ -148,10 +148,10 @@ export const editForm = {
                 is: 1,
                 then: string()
                     .matches(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/, 'Формат номера: +7(999)999-99-99')
-                    .required(emptyFieldMsg),
+                    .required('Введите номер телефона'),
                 otherwise: string()
                     .email('Неверный формат электронного адреса')
-                    .required(emptyFieldMsg)
+                    .required('Введите e-mail')
             }),
             description: string(),
             contact_type_id: number(),
