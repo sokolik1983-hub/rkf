@@ -1,6 +1,7 @@
 .login-page {
   background-color: #f5f8ff;
   &__form {
+    position: relative;
     @media (max-width: 560px) {
       padding: 0 16px;
     }
@@ -17,6 +18,26 @@
     .FormInput__custom-error {
       color: #fa5d50;
       margin: -16px 0 16px;
+    }
+    &-psw {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      display: inline-block;
+      top: 155px;
+      right: 10px;
+      background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
+      background-size: contain;
+      border: none;
+      & {
+        @media (max-width: 560px) {
+          right: 25px;
+        }
+      }
+      &._show-psw {
+        background: url("/static/icons/psw-eye-open.svg") center no-repeat;
+        background-size: contain;
+      }
     }
   }
   &__recovery-link {
