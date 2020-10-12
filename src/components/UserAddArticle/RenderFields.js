@@ -7,17 +7,20 @@ import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
 import AddVideoLink from "./AddVideoLink";
+import AddPDF from "./AddPDF";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
 import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
+import LightTooltip from "../LightTooltip";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, isMating, setIsMating }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [modalType, setModalType] = useState('');
 
     const { content, file } = formik.values;
 
@@ -85,6 +88,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         }
     };
 
+    const closeModal = () => {
+        setModalType('');
+        setShowModal(false);
+    };
+
     return (
         <>
             <input
@@ -145,15 +153,31 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     </div>
                 }
                 <FormControls className="ArticleCreateForm__controls">
-                    <label htmlFor="file" className="ArticleCreateForm__labelfile">Прикрепить изображение</label>
+                    <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
+                        <label htmlFor="file" className="ArticleCreateForm__labelfile"/>
+                    </LightTooltip>
                     {!isAd && !videoLink &&
-                        <button
-                            className={`ArticleCreateForm__attach-video${(isAd || videoLink) ? ' _disabled' : ''}`}
-                            type="button"
-                            onClick={() => (isAd || videoLink) ? null : setShowModal(true)}>
-                            Добавить ссылку на видео
-                            </button>
+                        <LightTooltip title="Добавить ссылку на видео" enterDelay={200} leaveDelay={200}>
+                            <button
+                                className="ArticleCreateForm__attach-video"
+                                type="button"
+                                onClick={() => {
+                                    setModalType('video');
+                                    setShowModal(true);
+                                }}
+                            />
+                        </LightTooltip>
                     }
+                    <LightTooltip title="Добавить pdf" enterDelay={200} leaveDelay={200}>
+                        <button
+                            className="ArticleCreateForm__attach-pdf"
+                            type="button"
+                            onClick={() => {
+                                setModalType('pdf');
+                                setShowModal(true);
+                            }}
+                        />
+                    </LightTooltip>
                     {!videoLink &&
                         <CustomCheckbox
                             id="ad"
@@ -173,7 +197,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
                         >
                             Опубликовать
-                            </SubmitButton>
+                        </SubmitButton>
                     </div>
                 </FormControls>
             </>
@@ -181,12 +205,18 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                 <Modal
                     className="ArticleCreateForm__modal"
                     showModal={showModal}
-                    handleClose={() => setShowModal(false)}
+                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
+                    handleX={closeModal}
                 >
-                    <AddVideoLink
-                        setVideoLink={addVideoLink}
-                        showModal={setShowModal}
-                    />
+                    {modalType && modalType === 'video' &&
+                        <AddVideoLink
+                            setVideoLink={addVideoLink}
+                            closeModal={closeModal}
+                        />
+                    }
+                    {modalType && modalType === 'pdf' &&
+                        <AddPDF closeModal={closeModal}/>
+                    }
                 </Modal>
             }
         </>
