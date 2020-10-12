@@ -11,10 +11,10 @@ import "./index.scss";
 
 const { fields } = loginFormConfig;
 
-
 const LoginForm = ({ loginUserSuccess }) => {
     const [rememberMe, setRememberMe] = useState(false);
-
+    const [showPassword, setShowPassword] = useState(false);
+    
     return (
         <Card>
             <h1 className="login-page__title">Вход</h1>
@@ -32,7 +32,14 @@ const LoginForm = ({ loginUserSuccess }) => {
                     />
                     <FormField
                         {...fields.password}
+                        type={showPassword ? `text` : `password`}
                     />
+                    <button
+                        className={`login-page__form-psw ${showPassword ? `_show-psw` : ``}`}
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                    </button>
                     <Error name="authentication" noTouch={true} />
                 </FormGroup>
                 <FormGroup inline>
@@ -42,7 +49,7 @@ const LoginForm = ({ loginUserSuccess }) => {
                         checked={rememberMe}
                         onChange={() => setRememberMe(!rememberMe)}
                     />
-                    <Link to="/recovery" className="login-page__recovery-link" >Забыли пароль?</Link>
+                    <Link to="/recovery" className="login-page__recovery-link">Забыли пароль?</Link>
                 </FormGroup>
                 <div className="login-page__form-controls">
                     <SubmitButton className="btn-primary btn-lg">Войти</SubmitButton>
