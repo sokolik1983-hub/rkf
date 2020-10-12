@@ -24,8 +24,8 @@
       height: 30px;
       position: absolute;
       display: inline-block;
-      top: 155px;
-      right: 10px;
+      top: 157px;
+      right: 11px;
       background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
       background-size: contain;
       border: none;
@@ -37,6 +37,7 @@
       &._show-psw {
         background: url("/static/icons/psw-eye-open.svg") center no-repeat;
         background-size: contain;
+        top: 156px;
       }
     }
   }
