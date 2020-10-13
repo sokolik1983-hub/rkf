@@ -12,7 +12,7 @@ import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
-import {formatDateCommon} from "../../utils/datetime";
+import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
 import './index.scss';
@@ -58,7 +58,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             if (data.exhibitions.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
                     exhibition.date = '';
-                    if(exhibition.dates && exhibition.dates.length) {
+                    if (exhibition.dates && exhibition.dates.length) {
                         const startDate = exhibition.dates[0];
                         const endDate = exhibition.dates[exhibition.dates.length - 1];
                         exhibition.date = exhibition.dates.length === 1
@@ -68,6 +68,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                     }
                     exhibition.club_string = `Клуб ${exhibition.club_name}, ${exhibition.federation_name ? 'Федерация ' + exhibition.federation_name + ', ' : ''}${exhibition.city}`;
                     exhibition.rank_string = exhibition.ranks && exhibition.ranks.length ? exhibition.ranks.map(rank => rank.name).join(', ') : 'Не указано';
+                    exhibition.club_rank_string = exhibition.club_string + ' / ' + exhibition.rank_string;
                     exhibition.breed_string = exhibition.breeds && exhibition.breeds.length ? exhibition.breeds.map(breed => breed.name).join(', ') : 'Не указано';
                     exhibition.url = `/exhibitions/${exhibition.id}`;
                     return exhibition;
