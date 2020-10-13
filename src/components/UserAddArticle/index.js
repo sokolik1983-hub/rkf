@@ -14,6 +14,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isMating, setIsMating] = useState(false);
 
     const transformValues = values => {
+        console.log('transformValues', values);
         if (isAd) {
             return {
                 ...values,
@@ -23,7 +24,6 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 documents
             }
         } else {
-            setVideoLink('');
             return {
                 content: values.content,
                 file: values.file,
@@ -32,6 +32,12 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 documents
             }
         }
+    };
+
+    const onSuccess = () => {
+        setVideoLink('');
+        setDocuments([]);
+        setNeedRequest(true);
     };
 
     return (
@@ -55,7 +61,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
-                onSuccess={() => setNeedRequest(true)}
+                onSuccess={onSuccess}
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}

@@ -227,13 +227,13 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                     handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
                     handleX={closeModal}
                 >
-                    {modalType && modalType === 'video' &&
+                    {modalType === 'video' &&
                         <AddVideoLink
                             setVideoLink={addVideoLink}
                             closeModal={closeModal}
                         />
                     }
-                    {modalType && modalType === 'pdf' &&
+                    {modalType === 'pdf' &&
                         <AddPDF
                             documents={documents}
                             setDocuments={setDocuments}
