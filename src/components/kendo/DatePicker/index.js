@@ -13,12 +13,11 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-const UserDatePicker = ({ onChange, value, className }) => {
+const UserDatePicker = ({ onChange, value, className, disabled }) => {
 
     useEffect(() => {
-        document.querySelector('.UserEdit__date-picker')
-            .querySelectorAll('input.k-input')
-            .forEach(input => input.readOnly = true);
+        document.querySelector(`.${className}`)
+            .querySelector('input.k-input').readOnly = true;
     }, []);
 
     return (
@@ -29,6 +28,7 @@ const UserDatePicker = ({ onChange, value, className }) => {
                     value={value}
                     format="dd.MM.yyyy"
                     className={className}
+                    disabled={disabled}
                 />
             </IntlProvider>
         </LocalizationProvider>
