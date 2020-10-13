@@ -16,9 +16,8 @@ load(
 const UserDatePicker = ({ onChange, value, className }) => {
 
     useEffect(() => {
-        document.querySelector('.UserEdit__date-picker')
-            .querySelectorAll('input.k-input')
-            .forEach(input => input.readOnly = true);
+        document.querySelector(`.${className}`)
+            .querySelector('input.k-input').readOnly = true;
     }, []);
 
     return (
