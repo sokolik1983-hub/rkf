@@ -44,8 +44,6 @@ const CardNews = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
 
-    console.log('documents', documents);
-
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
@@ -163,11 +161,16 @@ const CardNews = forwardRef(({
                 </div>
                 {documents && !!documents.length &&
                     <div className="card-news__documents">
-                        <h4 className="card-news__documents-title">Прикрепленные файлы</h4>
+                        <h4 className="card-news__documents-title">Прикрепленные файлы:</h4>
                         <ul className="card-news__documents-list">
                             {documents.map(doc =>
                                 <li className="card-news__documents-item" key={doc.id}>
-                                    <Link to={`/documents/${doc.id}`}>{doc.name}</Link>
+                                    <Link
+                                        to={`/documents/${doc.id}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="card-news__documents-link"
+                                    >{doc.name}</Link>
                                 </li>
                             )}
                         </ul>

@@ -199,6 +199,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                                     adAmount={item.advert_number_of_puppies}
                                     adCategory={item.advert_type_name}
                                     videoLink={item.video_link}
+                                    documents={item.documents}
                                 />
                             </li>
                         ))}

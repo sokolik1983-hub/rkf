@@ -247,6 +247,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/documents/:id',
+        component: LoadableModules.LoadableDocumentsPage
+    },
+    {
+        exact: true,
         path: '/:route',
         component: LoadableModules.LoadableClubPage
     }

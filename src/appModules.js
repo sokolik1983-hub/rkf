@@ -207,6 +207,11 @@ export const LoadableSearchPage = Loadable({
     loading: Loading
 });
 
+export const LoadableDocumentsPage = Loadable({
+    loader: () => import('./pages/Documents'),
+    loading: Loading
+});
+
 export const LoadableBaseSearch = Loadable({
     loader: () => import('./pages/BaseSearch'),
     loading: Loading
