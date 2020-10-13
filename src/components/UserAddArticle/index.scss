@@ -251,6 +251,7 @@
       cursor: pointer;
     }
     img {
+      display: block;
       max-height: 680px;
       max-width: 100%;
       width: 100%;
@@ -272,6 +273,36 @@
       height: 16px;
       top: 8px;
       right: 8px;
+    }
+  }
+  &__documents {
+    margin: 16px 0 12px;
+    &-title {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 4px;
+    }
+    &-list {
+      list-style: none;
+    }
+    &-item {
+      span {
+        vertical-align: middle;
+      }
+      button {
+        vertical-align: middle;
+        border: none;
+        padding: 0;
+        width: 14px;
+        height: 18px;
+        margin-left: 10px;
+        background: url("/static/icons/delete.svg") no-repeat center / contain,
+                    url("/static/icons/delete-red.svg") no-repeat center / contain;
+        &:hover {
+          background: url("/static/icons/delete-red.svg") no-repeat center / contain;
+        }
+      }
     }
   }
 }

@@ -10,6 +10,7 @@ import './index.scss';
 const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isAd, setIsAd] = useState(false);
     const [videoLink, setVideoLink] = useState('');
+    const [documents, setDocuments] = useState([]);
     const [isMating, setIsMating] = useState(false);
 
     const transformValues = values => {
@@ -18,7 +19,8 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
-                club_id: id
+                club_id: id,
+                documents
             }
         } else {
             setVideoLink('');
@@ -26,7 +28,8 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 content: values.content,
                 file: values.file,
                 video_link: values.video_link || '',
-                club_id: id
+                club_id: id,
+                documents
             }
         }
     };
@@ -61,6 +64,8 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     setIsAd={setIsAd}
                     videoLink={videoLink}
                     setVideoLink={setVideoLink}
+                    documents={documents}
+                    setDocuments={setDocuments}
                     isMating={isMating}
                     setIsMating={setIsMating}
                 />
