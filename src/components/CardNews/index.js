@@ -44,6 +44,8 @@ const CardNews = forwardRef(({
     const [showPhoto, setShowPhoto] = useState(false);
     const ref = useRef(null);
 
+    console.log('documents', documents);
+
     useEffect(() => {
         if ((ref.current && ref.current.clientHeight > 100) || videoLink) setCanCollapse(true);
     }, []);
@@ -53,6 +55,7 @@ const CardNews = forwardRef(({
             label: city,
             value: citiesDict.filter(c => c.label === city)[0].value
         }) : null;
+
 
     return (
         <Card className="card-news">
@@ -158,6 +161,18 @@ const CardNews = forwardRef(({
                         }
                     </div>
                 </div>
+                {documents && !!documents.length &&
+                    <div className="card-news__documents">
+                        <h4 className="card-news__documents-title">Прикрепленные файлы</h4>
+                        <ul className="card-news__documents-list">
+                            {documents.map(doc =>
+                                <li className="card-news__documents-item" key={doc.id}>
+                                    <Link to={`/documents/${doc.id}`}>{doc.name}</Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                }
                 {videoLink && <p className={`card-news__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>}
                 <div className="card-news__controls">
                     <span className={`card-news__show-all${!canCollapse ? ' _disabled' : ''}`}
