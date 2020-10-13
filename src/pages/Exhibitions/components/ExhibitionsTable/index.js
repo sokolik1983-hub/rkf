@@ -6,7 +6,6 @@ import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kend
 import messages from "./messages.json";
 import "./index.scss";
 
-
 loadMessages(messages, 'ru');
 
 
@@ -76,8 +75,8 @@ const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions
 
         return <td>
             {reports_links && reports_links.length
-                ? reports_links.map(l => <a href={l.link}>Скачать</a>)
-                : <span>{report_status_message}</span>
+                ? reports_links.map(l => <a target="_blank" rel="noopener noreferrer" className="exhibitions-table__report-link" href={l.link}>{l.report_type_name}</a>)
+                : <span>{report_status_message ? report_status_message : 'выставка ещё не проведена'}</span>
             }
         </td>;
     }
@@ -96,8 +95,9 @@ const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions
             onPageChange={onPageChange}
         >
             <GridColumn field="date" title="Дата" width="170px" />
-            <GridColumn field="club_string" title="Клуб" />
-            <GridColumn field="rank_string" title="Ранг" width="130px" />
+            <GridColumn field="club_rank_string" title="Клуб/Ранг" />
+            {/* <GridColumn field="club_string" title="Клуб" />
+            <GridColumn field="rank_string" title="Ранг" width="130px" /> */}
             <GridColumn field="report_string" cell={LinkCell} title="Отчёт" width="170px" />
         </Grid>;
 

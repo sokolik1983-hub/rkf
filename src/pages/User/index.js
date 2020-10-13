@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import {Redirect} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
+import UserInfo from "./components/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
