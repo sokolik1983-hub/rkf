@@ -46,6 +46,8 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        e.stopPropagation();
+
         const newPdfArray = [...pdfArray];
         let valid = !!newPdfArray.length;
 

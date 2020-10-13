@@ -35,6 +35,7 @@ const CardNews = forwardRef(({
     adCategory,
     isClosedAd,
     videoLink,
+    documents,
     changeCityFilter
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
