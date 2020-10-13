@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
 import { mainNav } from "../../../../appConfig";
-import Tooltip from "@material-ui/core/Tooltip";
+import LightTooltip from "../../../LightTooltip";
 import Feedback from "../../../Feedback";
 import ClickGuard from "../../../ClickGuard";
 import BurgerButton from "./BurgerButton";
 import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
 
-export const LightTooltip = withStyles((theme) => ({
-    tooltip: {
-        backgroundColor: '#fffeff',
-        color: '#72839c',
-        fontSize: 16,
-        fontFamily: 'Source Sans Pro',
-        boxShadow: '0px 4px 25px rgba(51, 102, 255, 0.15)',
-        lineHeight: 1,
-        paddingBottom: 6,
-    },
-}))(Tooltip);
 
 const Nav = ({ isAuthenticated }) => {
     const [isOpen, setIsOpen] = useState(false);

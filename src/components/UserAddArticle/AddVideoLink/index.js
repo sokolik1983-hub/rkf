@@ -3,7 +3,7 @@ import getYouTubeID from 'get-youtube-id';
 import "./index.scss";
 
 
-const AddVideoLink = ({ setVideoLink, showModal }) => {
+const AddVideoLink = ({ setVideoLink, closeModal }) => {
     const [link, setLink] = useState('');
     const [error, setError] = useState('');
 
@@ -18,7 +18,7 @@ const AddVideoLink = ({ setVideoLink, showModal }) => {
             const id = getYouTubeID(link);
             if (id) {
                 setVideoLink(`https://www.youtube.com/embed/${id}`);
-                showModal(false);
+                closeModal();
             } else {
                 setError('Для добавления доступны только ссылки с YouTube');
             }

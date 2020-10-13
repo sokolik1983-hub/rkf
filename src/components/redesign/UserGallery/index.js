@@ -23,8 +23,6 @@ const UserGallery = ({ alias, isKennel }) => {
             if (data.photos.length) {
                 const twelveItemsArray = Array.apply(null, Array(12)).map((x, i) => i);
                 const { photos } = data;
-                console.log('twelveItemsArray', twelveItemsArray);
-                console.log('photos', photos);
 
                 const imagesArray = twelveItemsArray.map(p => {
                     if (photos[p]) {
