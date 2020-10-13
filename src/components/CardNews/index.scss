@@ -277,6 +277,8 @@
       height: 51vw;
     }
     &-count {
+      clear: both;
+      margin-top: 20px;
       font-style: normal;
       font-weight: normal;
       font-size: 16px;
@@ -284,6 +286,48 @@
       color: #72839c;
       &._count_collapsed {
         display: none;
+      }
+    }
+  }
+  &__documents {
+    clear: both;
+    margin-top: 20px;
+    &-title {
+      color: #72839c;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 6px;
+    }
+    &-list {
+      list-style: none;
+    }
+    &-item {
+
+    }
+    &-link {
+      position: relative;
+      padding-left: 26px;
+      text-decoration: none;
+      color: #72839c;
+      transition: color .2s linear;
+      &:before {
+        content: '';
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        background: url("/static/icons/icon-pdf.svg") no-repeat center/contain,
+                    url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      &:hover {
+        color: #3366FF;
+        &:before {
+          background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+        }
       }
     }
   }

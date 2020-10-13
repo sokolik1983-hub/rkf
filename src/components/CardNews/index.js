@@ -54,6 +54,7 @@ const CardNews = forwardRef(({
             value: citiesDict.filter(c => c.label === city)[0].value
         }) : null;
 
+
     return (
         <Card className="card-news">
             <div className={`card-news__wrap${isClosedAd ? ' is_closed' : ''}`}>
@@ -158,6 +159,23 @@ const CardNews = forwardRef(({
                         }
                     </div>
                 </div>
+                {documents && !!documents.length &&
+                    <div className="card-news__documents">
+                        <h4 className="card-news__documents-title">Прикрепленные файлы:</h4>
+                        <ul className="card-news__documents-list">
+                            {documents.map(doc =>
+                                <li className="card-news__documents-item" key={doc.id}>
+                                    <Link
+                                        to={`/documents/${doc.id}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="card-news__documents-link"
+                                    >{doc.name}</Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                }
                 {videoLink && <p className={`card-news__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>}
                 <div className="card-news__controls">
                     <span className={`card-news__show-all${!canCollapse ? ' _disabled' : ''}`}
