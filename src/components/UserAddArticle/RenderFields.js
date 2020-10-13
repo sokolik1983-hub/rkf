@@ -16,7 +16,7 @@ import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 
 
-const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, isMating, setIsMating }) => {
+const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating}) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -51,6 +51,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const removeVideoLink = () => {
         formik.setFieldValue('video_link', '');
         setVideoLink('');
+    };
+
+    const deleteDocument = index => {
+        if(window.confirm('Вы действительно хотите удалить этот файл?')) {
+            setDocuments([...documents].filter((item, i) => i !== index));
+        }
     };
 
     const handleClose = () => {
@@ -131,6 +137,19 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             alt=""
                             onClick={removeVideoLink}
                         />
+                    </div>
+                }
+                {!!documents.length &&
+                    <div className="ArticleCreateForm__documents">
+                        <h4 className="ArticleCreateForm__documents-title">Прикреплённые файлы:</h4>
+                        <ul className="ArticleCreateForm__documents-list">
+                            {documents.map((item, i) =>
+                                <li className="ArticleCreateForm__documents-item" key={i}>
+                                    <span>{item.name}</span>
+                                    <button type="button" onClick={() => deleteDocument(i)} />
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 }
                 {isAd &&
@@ -215,7 +234,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         />
                     }
                     {modalType && modalType === 'pdf' &&
-                        <AddPDF closeModal={closeModal}/>
+                        <AddPDF
+                            documents={documents}
+                            setDocuments={setDocuments}
+                            closeModal={closeModal}
+                        />
                     }
                 </Modal>
             }

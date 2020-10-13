@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import "./index.scss";
 
 
-const AddPDF = ({closeModal}) => {
-    const [pdfArray, setPdfArray] = useState([{
+const AddPDF = ({documents, setDocuments, closeModal}) => {
+    const [pdfArray, setPdfArray] = useState(documents.length ? documents : [{
         name: '',
         file: '',
         errorName: '',
@@ -17,7 +17,7 @@ const AddPDF = ({closeModal}) => {
         if(e.target.value) {
             newPdfArray[index].errorName = '';
         } else {
-            newPdfArray[index].errorName = 'Поле не может быть пустым';
+            newPdfArray[index].errorName = 'Укажите название файла';
         }
 
         setPdfArray(newPdfArray);
@@ -27,14 +27,12 @@ const AddPDF = ({closeModal}) => {
         const newPdfArray = [...pdfArray];
 
         const file = e.target.files[0];
-
-        console.log(file);
+        newPdfArray[index].file = file;
 
         if(file) {
-            newPdfArray[index].file = file;
             newPdfArray[index].errorFile = '';
         } else {
-            newPdfArray[index].errorFile = 'Поле не может быть пустым';
+            newPdfArray[index].errorFile = 'Загрузите файл';
         }
 
         setPdfArray(newPdfArray);
@@ -48,7 +46,28 @@ const AddPDF = ({closeModal}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log('pdfArray', pdfArray);
+        const newPdfArray = [...pdfArray];
+        let valid = !!newPdfArray.length;
+
+        newPdfArray.map(item => {
+            if(!item.name) {
+                item.errorName = 'Укажите название файла';
+                valid = false;
+            }
+            if(!item.file) {
+                item.errorFile = 'Загрузите файл';
+                valid = false;
+            }
+
+            return item;
+        });
+
+        if(!valid) {
+            setPdfArray(newPdfArray);
+        } else {
+            setDocuments(newPdfArray.map(item => ({name: item.name, file: item.file})));
+            closeModal();
+        }
     };
 
     return (
@@ -108,7 +127,7 @@ const AddPDF = ({closeModal}) => {
                 }
                 <div className="add-pdf__form-controls">
                     <button type="button" className="btn btn-simple" onClick={closeModal}>Отмена</button>
-                    <button type="submit" className="btn btn-primary">Добавить</button>
+                    <button type="submit" className="btn btn-primary" disabled={!pdfArray.length}>Добавить</button>
                 </div>
             </form>
         </div>
