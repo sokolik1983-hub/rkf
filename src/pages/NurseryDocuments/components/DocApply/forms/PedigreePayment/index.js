@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "formik";
+import {connect, getIn} from "formik";
 import { FormGroup, FormField } from "components/Form";
 import genericForm from "utils/genericForm";
 import SubmitError from "../../components/SubmitError";
@@ -8,11 +8,20 @@ import Button from "components/Button";
 import HideIf from "components/HideIf";
 import Card from "components/Card";
 import FormFile from "../../components/FormFile";
+import UserDatePicker from "../../../../../../components/kendo/DatePicker";
+import moment from "moment";
+import "./index.scss";
 
 // pedigree
 const PaymentFormFields = connect(({formik, update, view, options, alias, setRedirect, send, initial, Title}) => {
     const statusAllowsUpdate = formik.values.status_id ? [2,4,7].includes(formik.values.status_id) : true;
     const cash_payment = initial.cash_payment;
+
+    const handleDateChange = date => {
+        const selectedDate = moment(date.value).format(`YYYY-MM-DD`)
+        formik.setFieldValue('payment_date', selectedDate);
+    };
+
     return <>
 <Card>
 <Title/>
@@ -21,7 +30,6 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                 {/*<FormField disabled={view || formik.values.cash_payment_accept || !statusAllowsUpdate} fieldType="customCheckbox" name='cash_payment' label='Оплата наличными'/>*/}
                 <HideIf cond={formik.values.cash_payment}>
                 <h4 className="caps">Информация о платеже</h4>
-
                     <FormGroup inline>
                         <FormFile
                             name='payment_document'
@@ -31,8 +39,18 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                             document_type_id={5}
                             distinction="pedigree"
                         />
-
-                        <FormField className="special" required={false} disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate} name='payment_date' label='Дата оплаты' readOnly={true} fieldType="formikDatePicker" />
+                        <div className="DocItem__pedigree-nursery-wrap">
+                            <div>Дата оплаты</div>
+                            <UserDatePicker
+                                onChange={handleDateChange}
+                                value={getIn(formik.values, 'payment_date') ?
+                                    new Date(getIn(formik.values, 'payment_date')) :
+                                    null
+                                }
+                                className="DocItem__pedigree-nursery"
+                                disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate}
+                            />
+                        </div>
                         <FormField disabled={view || formik.values.payment_number_accept || !statusAllowsUpdate} name='payment_number' label='Номер платежного документа' />
                     </FormGroup>
                     <FormGroup inline>
