@@ -1,6 +1,4 @@
 .DocItem {
-    //margin-bottom: 1em;
-    //position: relative;
     &.error {
         outline: 1px solid red;
     }
@@ -11,9 +9,6 @@
         margin-bottom: 0!important;
     }
     &__chevron {
-        //position: absolute;
-        //top: 1em;
-        //right: 1em;
         display: inline-block;
         vertical-align: middle;
         width: 1em;
@@ -44,7 +39,18 @@
         position: relative;
         top: 24px;
         left: 220px;
-    }    
+    }
+    &__pedigree-calendar {
+        margin-top: 10px;
+        height: 50px;
+        .k-input {
+            margin-top: 10px;
+            margin-left: 5px;
+        }
+        &-wrap {
+            margin-right: 20px;
+        }
+    }
 }
 
 .DocItem.table:hover {
