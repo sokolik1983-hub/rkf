@@ -66,7 +66,7 @@
       }
     }
   }
-  &__attach-video {
+  &__attach-video, &__attach-pdf {
     border: none;
     padding: 0 0 0 28px;
     position: relative;
@@ -91,6 +91,21 @@
       color: #3366FF;
       &:before {
         background: url("/static/icons/icon-video-blue.svg") no-repeat center / cover;
+      }
+    }
+  }
+  &__attach-pdf {
+    &:before {
+      background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
+      url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      &:before {
+        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
       }
     }
   }

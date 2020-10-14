@@ -92,6 +92,7 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                     text={news.content}
                                     img={news.picture_link || ''}
                                     videoLink={news.video_link || ''}
+                                    documents={news.documents}
                                     isAd={news.is_advert}
                                     adBreedId={news.advert_breed_id}
                                     adCode={news.advert_code}
@@ -120,6 +121,23 @@ const NewsPage = ({ match, history, isAuthenticated, profile_id }) => {
                                             frameBorder="0"
                                             allowFullScreen
                                         />
+                                    }
+                                    {news.documents && !!news.documents.length &&
+                                        <div className="news__documents">
+                                            <h4 className="news__documents-title">Прикрепленные файлы:</h4>
+                                            <ul className="news__documents-list">
+                                                {news.documents.map(doc =>
+                                                    <li className="news__documents-item" key={doc.id}>
+                                                        <Link
+                                                            to={`/documents/${doc.id}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="news__documents-link"
+                                                        >{doc.name}</Link>
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        </div>
                                     }
                                 </>
                             }
