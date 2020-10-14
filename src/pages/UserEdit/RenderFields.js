@@ -13,6 +13,7 @@ import { Request } from "utils/request";
 import { editForm } from "./config";
 import UserDatePicker from "../../components/kendo/DatePicker";
 import moment from "moment";
+import "./styles.scss";
 
 
 const RenderFields = ({ formik, working, handleError, setWorking }) => {
@@ -138,8 +139,8 @@ const RenderFields = ({ formik, working, handleError, setWorking }) => {
                     <FormGroup inline>
                         <FormField {...city_id} />
                     </FormGroup>
-                    <div className="UserEdit__item-wrap">
-                        <div className="UserEdit__label">{birth_date.label}</div>
+                    <div>
+                        <div>{birth_date.label}</div>
                         <UserDatePicker
                             onChange={handleDateChange}
                             value={getIn(formik.values, 'personal_information.birth_date') ?
