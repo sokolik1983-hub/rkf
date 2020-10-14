@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
-import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
+import { IntlProvider, load, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import ruMessages from './ruMessages.json';
 import "./index.scss";
+
+loadMessages(ruMessages, 'ru');
 
 load(
     require("cldr-data/supplemental/likelySubtags.json"),

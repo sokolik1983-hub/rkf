@@ -274,4 +274,12 @@
     &__is-hidden {
         margin-left: 40px;
     }
+    &__date-picker {
+        margin-top: 10px;
+        height: 40px;
+        .k-input {
+            margin-top: 4px;
+            margin-left: 8px;
+        }    
+    }
 }
