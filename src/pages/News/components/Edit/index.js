@@ -6,8 +6,9 @@ import { Request } from "../../../../utils/request";
 import "./index.scss";
 
 
-const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
+const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
     const [breeds, setBreeds] = useState([]);
+    const [docs, setDocs] = useState(documents || []);
     const [isMating, setIsMating] = useState(false);
 
     useEffect(() => {
@@ -51,6 +52,7 @@ const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNu
             advert_type_id,
             video_link
         } = values;
+
         return {
             content: content.replace(/<[^>]*>/g, ''),
             id,
@@ -88,6 +90,8 @@ const Edit = ({ id, text, img, videoLink, history, isAd, adBreedId, adCost, adNu
                 text={text}
                 imgSrc={img}
                 videoLink={videoLink}
+                docs={docs}
+                setDocs={setDocs}
                 onCancel={() => history.replace(`/news/${id}`)}
                 isMating={isMating}
                 setIsMating={setIsMating}

@@ -9,7 +9,7 @@ import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 
 
-const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCancel, isMating, setIsMating }) => {
+const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating}) => {
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -71,6 +71,8 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCance
         setVideo('');
     };
 
+
+
     return (
         <>
             <div className="article-edit__text">
@@ -109,6 +111,14 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, onCance
                     </button>
                 }
                 {!video && <FormField {...fields.is_advert} className="article-edit__advert-control" />}
+                {/*<button*/}
+                {/*    className="article-edit__attach-pdf"*/}
+                {/*    type="button"*/}
+                {/*    onClick={() => {*/}
+                {/*        setModalType('pdf');*/}
+                {/*        setShowModal(true);*/}
+                {/*    }}*/}
+                {/*>Добавить pdf</button>*/}
             </div>
             <div className="article-edit__media">
                 {src &&
