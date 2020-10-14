@@ -2,10 +2,41 @@
   min-height: calc(100vh - 52px);
   padding-top: 50px;
   background-color: #f5f8ff;
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 108px);
+  }
+  @media (max-width: 560px) {
+    padding-top: 48px;
+  }
   .viewer-layout-container {
     border: none;
+    height: calc(100vh - 102px);
+    @media (max-width: 768px) {
+      height: calc(100vh - 158px);
+    }
+    @media (max-width: 560px) {
+      height: calc(100vh - 156px);
+    }
+  }
+  .viewer-layout-toolbar {
+    @media (max-width: 560px) {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  }
+  .viewer-toolbar-left {
+    .viewer-toolbar-item:nth-child(4) {
+      min-width: 74px;
+    }
+  }
+  .viewer-menu-item {
+    cursor: pointer;
   }
   .viewer-layout-main {
     overflow: auto;
+  }
+  .viewer-open-file {
+    display: none;
   }
 }
