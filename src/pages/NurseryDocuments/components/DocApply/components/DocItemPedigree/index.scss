@@ -1,6 +1,4 @@
 .DocItem {
-    //margin-bottom: 1em;
-    //position: relative;
     &.error {
         outline: 1px solid red;
     }
@@ -11,9 +9,6 @@
         margin-bottom: 0!important;
     }
     &__chevron {
-        //position: absolute;
-        //top: 1em;
-        //right: 1em;
         display: inline-block;
         vertical-align: middle;
         width: 1em;
@@ -46,7 +41,7 @@
         left: 220px;
     }
     &__pedigree-nursery-wrap {
-        margin-right: 20px;
+        margin-right: 16px;
     }
     &__pedigree-nursery-calendar {
         margin-top: 10px;

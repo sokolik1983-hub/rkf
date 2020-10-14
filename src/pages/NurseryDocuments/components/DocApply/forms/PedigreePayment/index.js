@@ -39,7 +39,7 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                             document_type_id={5}
                             distinction="pedigree"
                         />
-                        <div className="DocItem__pedigree-nursery-wrap">
+                        <div className="Nursery-pedigree__payment-wrap">
                             <div>Дата оплаты</div>
                             <UserDatePicker
                                 onChange={handleDateChange}
@@ -47,7 +47,7 @@ const PaymentFormFields = connect(({formik, update, view, options, alias, setRed
                                     new Date(getIn(formik.values, 'payment_date')) :
                                     null
                                 }
-                                className="DocItem__pedigree-nursery"
+                                className="Nursery-pedigree__payment"
                                 disabled={view || formik.values.payment_date_accept || !statusAllowsUpdate}
                             />
                         </div>
