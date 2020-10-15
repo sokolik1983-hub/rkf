@@ -30,6 +30,7 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         newPdfArray[index].file = file;
 
         if(file) {
+            if(file.size > 20971520) newPdfArray[index].errorFile = 'Файл не должен превышать 20 мб';
             newPdfArray[index].errorFile = '';
         } else {
             newPdfArray[index].errorFile = 'Загрузите файл';
