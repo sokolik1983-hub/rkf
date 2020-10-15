@@ -13,9 +13,10 @@ import { Request } from "utils/request";
 import { editForm } from "./config";
 import UserDatePicker from "../../components/kendo/DatePicker";
 import moment from "moment";
+import "./styles.scss";
 
 
-const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, handleError, setWorking, coOwner }) => {
+const RenderFields = ({ formik, working, handleError, setWorking }) => {
     const handleUpload = (file, isLogo) => {
         setWorking(true);
         let data = new FormData();
@@ -138,8 +139,8 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                     <FormGroup inline>
                         <FormField {...city_id} />
                     </FormGroup>
-                    <div className="UserEdit__item-wrap">
-                        <div className="UserEdit__label">{birth_date.label}</div>
+                    <div>
+                        <div>{birth_date.label}</div>
                         <UserDatePicker
                             onChange={handleDateChange}
                             value={getIn(formik.values, 'personal_information.birth_date') ?
@@ -152,7 +153,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                     </div>
                     <FormField className="UserEdit__is-hidden" {...is_hidden} />
                 </div>
-                <Contacts contacts={contacts} />
+                <Contacts contacts={contacts} errors={formik.errors} />
                 <FormField {...description} />
             </Card>
 

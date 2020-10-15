@@ -90,11 +90,11 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                         <FormField {...description} />
                         <FormField {...web_site} />
                         <FormGroup inline>
-                            <FormField {...co_owner_last_name} disabled={!!coOwner.lastName}/>
-                            <FormField {...co_owner_first_name} disabled={!!coOwner.firstName}/>
-                            <FormField {...co_owner_second_name} disabled={!!coOwner.secondName}/>
+                            <FormField {...co_owner_last_name} disabled={!!coOwner.lastName} />
+                            <FormField {...co_owner_first_name} disabled={!!coOwner.firstName} />
+                            <FormField {...co_owner_second_name} disabled={!!coOwner.secondName} />
                         </FormGroup>
-                        <FormField {...co_owner_mail} disabled={!!coOwner.mail}/>
+                        <FormField {...co_owner_mail} disabled={!!coOwner.mail} />
                     </div>
                 </div>
             </Card>
@@ -118,7 +118,7 @@ const RenderFields = ({ formik, streetTypes, houseTypes, flatTypes, working, han
                 </FormGroup>
             </Card>
 
-            <Contacts contacts={contacts} is_public={is_public} />
+            <Contacts contacts={contacts} is_public={is_public} errors={formik.errors} />
             <Documents documents={documents} />
             <SocialNetworks socials={socials} />
             <Schedule work_time={work_time} />

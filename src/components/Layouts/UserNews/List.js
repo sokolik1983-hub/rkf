@@ -10,6 +10,7 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                     <CardNews
                         user={item.user_type}
                         id={item.id}
+                        logo_link={item.logo_link}
                         name={item.name}
                         city={item.fact_city_name}
                         date={item.create_date}
@@ -27,10 +28,10 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         adAmount={item.advert_number_of_puppies}
                         adCategory={item.advert_type_name}
                         videoLink={item.video_link}
+                        documents={item.documents}
                         isClosedAd={item.is_closed_advert}
                         onAdClose={onAdClose}
                         onDelete={onDelete}
-                        logo_link={item.logo_link}
                     />
                 </li>
             )}

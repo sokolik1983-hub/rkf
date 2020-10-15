@@ -1,18 +1,17 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
-import {Grid, GridColumn, GridDetailRow } from "@progress/kendo-react-grid";
-import {GridPDFExport} from "@progress/kendo-react-pdf";
-import {IntlProvider, LocalizationProvider, loadMessages} from "@progress/kendo-react-intl";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { Grid, GridColumn, GridDetailRow } from "@progress/kendo-react-grid";
+import { GridPDFExport } from "@progress/kendo-react-pdf";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import messages from "./messages.json";
 import "./index.scss";
-
 
 loadMessages(messages, 'ru');
 
 
 class DetailComponent extends GridDetailRow {
     render() {
-        const {dataItem} = this.props;
+        const { dataItem } = this.props;
         return (
             <div className="exhibitions-table__details">
                 <h3>{dataItem.title}</h3>
@@ -27,23 +26,23 @@ class DetailComponent extends GridDetailRow {
 };
 
 
-const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions, needUpdate, exporting, setExporting}) => {
+const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions, needUpdate, exporting, setExporting }) => {
     const [skip, setSkip] = useState(startElement);
     const [take, setTake] = useState(50);
     const [dataItems, setDataItems] = useState([]);
     const gridPDFExport = useRef(null);
 
     useEffect(() => {
-        if(needUpdate) {
+        if (needUpdate) {
             setSkip(0);
             setDataItems([]);
         }
     }, [needUpdate]);
 
     useEffect(() => {
-        if(exporting) {
+        if (exporting) {
             //костыль, чтобы свернуть все раскрытые ряды таблицы
-            if(dataItems.length) {
+            if (dataItems.length) {
                 setDataItems(dataItems.map(item => {
                     item.expanded = false;
                     return item;
@@ -57,7 +56,7 @@ const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions,
     const onExpand = e => {
         e.dataItem.expanded = !e.dataItem.expanded;
 
-        if(e.value) {
+        if (e.value) {
             setDataItems([...dataItems.filter(item => item !== e.dataItem), e.dataItem]);
         } else {
             setDataItems(dataItems.filter(item => item !== e.dataItem));
@@ -70,6 +69,17 @@ const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions,
         setDataItems([]);
         getNextExhibitions(e.page.skip + 1);
     };
+
+    const LinkCell = ({ dataItem }) => {
+        const { reports_links, report_status_message } = dataItem;
+
+        return <td>
+            {reports_links && reports_links.length
+                ? reports_links.map(l => <a target="_blank" rel="noopener noreferrer" className="exhibitions-table__report-link" href={l.link}>{l.report_type_name}</a>)
+                : <span>{report_status_message ? report_status_message : 'выставка ещё не проведена'}</span>
+            }
+        </td>;
+    }
 
     const grid =
         <Grid
@@ -84,9 +94,11 @@ const ExhibitionsTable = ({exhibitions, count, startElement, getNextExhibitions,
             pageable={true}
             onPageChange={onPageChange}
         >
-            <GridColumn field="date" title="Дата" width="170px"/>
-            <GridColumn field="club_string" title="Клуб" />
-            <GridColumn field="rank_string" title="Ранг" width="170px"/>
+            <GridColumn field="date" title="Дата" width="170px" />
+            <GridColumn field="club_rank_string" title="Клуб/Ранг" />
+            {/* <GridColumn field="club_string" title="Клуб" />
+            <GridColumn field="rank_string" title="Ранг" width="130px" /> */}
+            <GridColumn field="report_string" cell={LinkCell} title="Отчёт" width="170px" />
         </Grid>;
 
     return (

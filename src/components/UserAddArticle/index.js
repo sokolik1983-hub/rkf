@@ -10,25 +10,34 @@ import './index.scss';
 const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isAd, setIsAd] = useState(false);
     const [videoLink, setVideoLink] = useState('');
+    const [documents, setDocuments] = useState([]);
     const [isMating, setIsMating] = useState(false);
 
     const transformValues = values => {
+        console.log('transformValues', values);
         if (isAd) {
             return {
                 ...values,
                 advert_number_of_puppies: isMating ? `` : +values.advert_number_of_puppies,
                 is_advert: true,
-                club_id: id
+                club_id: id,
+                documents
             }
         } else {
-            setVideoLink('');
             return {
                 content: values.content,
                 file: values.file,
                 video_link: values.video_link || '',
-                club_id: id
+                club_id: id,
+                documents
             }
         }
+    };
+
+    const onSuccess = () => {
+        setVideoLink('');
+        setDocuments([]);
+        setNeedRequest(true);
     };
 
     return (
@@ -52,7 +61,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 }}
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
-                onSuccess={() => setNeedRequest(true)}
+                onSuccess={onSuccess}
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}
@@ -61,6 +70,8 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     setIsAd={setIsAd}
                     videoLink={videoLink}
                     setVideoLink={setVideoLink}
+                    documents={documents}
+                    setDocuments={setDocuments}
                     isMating={isMating}
                     setIsMating={setIsMating}
                 />

@@ -5,7 +5,7 @@ import Alert from 'components/Alert';
 // import { Form, SubmitButton, FormGroup, FormField } from '../Form';
 //import FormFile from '../Form/Field/FormFile';
 // import { feedbackFormConfig, reasons } from "./config";
-import { LightTooltip } from "../../components/Layouts/Header/components/Nav";
+import LightTooltip from "../LightTooltip";
 import './styles.scss';
 
 

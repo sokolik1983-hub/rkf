@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import {Redirect} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
+import UserInfo from "./components/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -65,7 +65,6 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         logo_link={userInfo.logo_link}
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                        second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     />
                                     <UserMenu userNav={userNav(alias)}/>

@@ -47,7 +47,6 @@
         align-self: flex-end;
     }
     .red {
-        //color: #FA5D50;
         color: #00c48c!important;
     }
     .hidden {
@@ -106,8 +105,6 @@
         background: transparent;
         color: #00c48c;
     }
-    //margin-bottom: 1em;
-    //position: relative;
     &.error {
         outline: 1px solid red;
     }
@@ -121,9 +118,6 @@
         margin-left: 0!important;
     }
     &__chevron {
-        //position: absolute;
-        //top: 1em;
-        //right: 1em;
         display: inline-block;
         vertical-align: middle;
         width: 1em;
@@ -148,5 +142,18 @@
     .plus-button {
         position: relative;
         left: 7.5px;
+    }
+    &__nursery-payment {
+        &-wrap {
+            margin-left: 10px;
+            margin-right: 16px;
+
+        }
+        margin-top: 10px;
+        height: 50px;
+        .k-input {
+            margin-top: 10px;
+            margin-left: 5px;
+        }
     }
 }

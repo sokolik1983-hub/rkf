@@ -3,7 +3,7 @@ import getYouTubeID from 'get-youtube-id';
 import "./index.scss";
 
 
-const AddVideoLink = ({ setVideoLink, showModal }) => {
+const AddVideoLink = ({ setVideoLink, closeModal }) => {
     const [link, setLink] = useState('');
     const [error, setError] = useState('');
 
@@ -18,7 +18,7 @@ const AddVideoLink = ({ setVideoLink, showModal }) => {
             const id = getYouTubeID(link);
             if (id) {
                 setVideoLink(`https://www.youtube.com/embed/${id}`);
-                showModal(false);
+                closeModal();
             } else {
                 setError('Для добавления доступны только ссылки с YouTube');
             }
@@ -31,10 +31,10 @@ const AddVideoLink = ({ setVideoLink, showModal }) => {
         <div className="add-video-link">
             <form className="add-video-link__form" onSubmit={handleSubmit}>
                 <div className="add-video-link__form-row">
-                    <label className="add-video-link__form-label">Ссылка на видео</label>
+                    <label className="add-video-link__form-label">Ссылка на youtube</label>
                     <input
                         type="text"
-                        placeholder="Ссылка на видео"
+                        placeholder="Ссылка на youtube"
                         className={`add-video-link__form-input${error ? ' _error' : ''}`}
                         value={link}
                         onChange={handleChange}

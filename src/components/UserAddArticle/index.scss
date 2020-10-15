@@ -78,6 +78,7 @@
   }
   &__labelfile {
     padding-left: 24px;
+    min-height: 24px;
     color: #72839c;
     cursor: pointer;
     position: relative;
@@ -104,9 +105,10 @@
       }
     }
   }
-  &__attach-video {
+  &__attach-video, &__attach-pdf {
     border: none;
     padding: 0 0 0 28px;
+    min-height: 24px;
     position: relative;
     letter-spacing: normal;
     line-height: 20px;
@@ -140,6 +142,21 @@
       color: #72839c !important;
       &:before {
         background: url("/static/icons/icon-video.svg") no-repeat center / cover !important;
+      }
+    }
+  }
+  &__attach-pdf {
+    &:before {
+      background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
+                  url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      &:before {
+        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
       }
     }
   }
@@ -234,6 +251,7 @@
       cursor: pointer;
     }
     img {
+      display: block;
       max-height: 680px;
       max-width: 100%;
       width: 100%;
@@ -255,6 +273,36 @@
       height: 16px;
       top: 8px;
       right: 8px;
+    }
+  }
+  &__documents {
+    margin: 16px 0 12px;
+    &-title {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 4px;
+    }
+    &-list {
+      list-style: none;
+    }
+    &-item {
+      span {
+        vertical-align: middle;
+      }
+      button {
+        vertical-align: middle;
+        border: none;
+        padding: 0;
+        width: 14px;
+        height: 18px;
+        margin-left: 10px;
+        background: url("/static/icons/delete.svg") no-repeat center / contain,
+                    url("/static/icons/delete-red.svg") no-repeat center / contain;
+        &:hover {
+          background: url("/static/icons/delete-red.svg") no-repeat center / contain;
+        }
+      }
     }
   }
 }

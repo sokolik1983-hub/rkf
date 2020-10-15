@@ -12,6 +12,8 @@ import { apiPedigreeEverk } from "../../config.js";
 import { Request } from "utils/request";
 import transliterate from "utils/transliterate";
 import HideIf from "components/HideIf";
+import moment from "moment";
+import UserDatePicker from "../../../../../../components/kendo/DatePicker";
 import "./index.scss";
 const apiPrivacyEndpoint = '/api/requests/NurseryPedigreeRequest/personal_data_document';
 
@@ -76,8 +78,14 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
         Object.keys(everkData).forEach(k => everkData[k] && !nurseryData[k] && formik.setFieldValue(`${k}`, ''));
         formik.setFieldValue(`stamp_number`, '');
         setEverkData(null);
-    }
-    const filledEverk = val => !!everkData && !!everkData[val]
+    };
+
+    const filledEverk = val => !!everkData && !!everkData[val];
+
+    const handleDateChange = date => {
+        const selectedDate = moment(date.value).format(`YYYY-MM-DD`)
+        formik.setFieldValue('dog_birth_date', selectedDate);
+    };
 
     return <>
         {everkAlert &&
@@ -162,7 +170,18 @@ const DocItem = ({ closeClick, i, validate, force, active, activateClick, doctyp
                         >Транслитерировать</Button>
                     </FormGroup>
                     <FormGroup inline>
-                        <FormField style={{ flexGrow: 0 }} disabled={update} name={`dog_birth_date`} label='Дата рождения собаки' fieldType="formikDatePicker" readOnly={true} />
+                        <div className="DocItem__pedigree-nursery-wrap">
+                            <div>Дата рождения собаки</div>
+                            <UserDatePicker
+                                onChange={handleDateChange}
+                                value={getIn(declarant, 'dog_birth_date') ?
+                                    new Date(getIn(declarant, 'dog_birth_date')) :
+                                    null
+                                }
+                                className="DocItem__pedigree-nursery-calendar"
+                                disabled={update}
+                            />
+                        </div>
                         <FormField disabled={update || filledEverk('color')} name={`color`} label='Окрас' />
                         <FormField style={{ minWidth: '50%' }} disabled={update} name={`dog_sex_type`} fieldType="reactSelect" options={sexTypes} placeholder="Выберите..." label='Пол собаки' />
                     </FormGroup>

@@ -45,6 +45,7 @@ const List = ({
                                 adAmount={item.advert_number_of_puppies}
                                 adCategory={item.advert_type_name}
                                 videoLink={item.video_link}
+                                documents={item.documents}
                                 isClosedAd={item.is_closed_advert}
                                 onAdClose={onAdClose}
                                 onDelete={onDelete}
