@@ -5,6 +5,7 @@ import { Form } from "../Form";
 import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
 import './index.scss';
+import Alert from "../Alert";
 
 
 const AddArticle = ({ id, logo, setNeedRequest }) => {
@@ -12,6 +13,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [videoLink, setVideoLink] = useState('');
     const [documents, setDocuments] = useState([]);
     const [isMating, setIsMating] = useState(false);
+    const [showAlert, setShowAlert] = useState('');
 
     const transformValues = values => {
         if (isAd) {
@@ -39,6 +41,20 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
         setNeedRequest(true);
     };
 
+    const onError = e => {
+        if (e.response) {
+            let errorText = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+            setShowAlert({
+                title: `Ошибка: ${errorText}`,
+                text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+                autoclose: 7.5,
+                onOk: () => setShowAlert(false)
+            });
+        }
+    };
+
     return (
         <Card className="add-article">
             <Form
@@ -61,6 +77,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                 {...newsArticleFormConfig}
                 transformValues={transformValues}
                 onSuccess={onSuccess}
+                onError={onError}
             >
                 <RenderFields
                     fields={newsArticleFormConfig.fields}
@@ -75,6 +92,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     setIsMating={setIsMating}
                 />
             </Form>
+            {showAlert && <Alert {...showAlert} />}
         </Card>
     )
 };
