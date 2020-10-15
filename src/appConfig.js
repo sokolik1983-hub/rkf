@@ -247,7 +247,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/documents/:id',
+        path: '/docs/:id',
         component: LoadableModules.LoadableDocumentsPage
     },
     {
