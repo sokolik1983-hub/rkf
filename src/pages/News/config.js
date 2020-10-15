@@ -1,14 +1,15 @@
 import { object, string, number, boolean } from "yup";
 
 export const endpointGetNews = '/api/Article'; //GET
-export const endpointEditNewsText = '/api/Article'; //PUT
+export const endpointEditNews = '/api/article/update'; //PUT
 export const endpointAddNewsPicture = '/api/Article/image'; //POST
 export const endpointDeleteNewsPicture = '/api/Article/image/'; // /id DELETE
 export const apiBreedsEndpoint = '/api/dog/Breed'; // GET Breeds
 
 export const formConfig = {
-    action: endpointEditNewsText,
+    action: endpointEditNews,
     method: 'PUT',
+    format: "multipart/form-data",
     fields: {
         is_advert: {
             name: 'is_advert',

@@ -22,36 +22,43 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
     }, []);
 
     const onSuccess = async (data, values) => {
-        if (img && !values.file) {
-            await Request({
-                url: endpointDeleteNewsPicture + id,
-                method: "DELETE"
-            });
-        } else if (img !== values.file) {
-            let data = new FormData();
-            data.append('id', id);
-            data.append('file', values.file);
-
-            await Request({
-                url: endpointAddNewsPicture,
-                method: "POST",
-                data: data,
-                isMultipart: true
-            });
-        }
+        // if (img && !values.file) {
+        //     await Request({
+        //         url: endpointDeleteNewsPicture + id,
+        //         method: "DELETE"
+        //     });
+        // } else if (img !== values.file) {
+        //     let data = new FormData();
+        //     data.append('id', id);
+        //     data.append('file', values.file);
+        //
+        //     await Request({
+        //         url: endpointAddNewsPicture,
+        //         method: "POST",
+        //         data: data,
+        //         isMultipart: true
+        //     });
+        // }
 
         history.replace(`/news/${id}`);
     };
 
     const transformValues = values => {
-        const { content,
+        const {
+            content,
             is_advert,
             advert_breed_id,
             advert_cost,
             advert_number_of_puppies,
             advert_type_id,
-            video_link
+            video_link,
+            file
         } = values;
+
+        const documents = docs.map(item => {
+            if (!item.file) item.file = null;
+            return item;
+        });
 
         return {
             content: content.replace(/<[^>]*>/g, ''),
@@ -61,7 +68,9 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             advert_cost: is_advert ? advert_cost : null,
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : null,
             advert_type_id: is_advert ? advert_type_id : null,
-            video_link: video_link || ''
+            file,
+            video_link: video_link || '',
+            documents
         };
     };
 
