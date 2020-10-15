@@ -39,17 +39,23 @@ const CalendarFilter = ({ date_from, onChange }) => {
         <div className="calendar-filter">
             <div className="calendar-filter__controls">
                 <button
-                    className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('year')}
-                >Год</button>
+                    className={`calendar-filter__button${activeButton === 'day' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('day')}
+                >
+                    День
+                </button>
                 <button
                     className={`calendar-filter__button${activeButton === 'month' ? ' active' : ''}`}
                     onClick={() => handleButtonClick('month')}
-                >Месяц</button>
+                >
+                    Месяц
+                </button>
                 <button
-                    className={`calendar-filter__button${activeButton === 'day' ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('day')}
-                >День</button>
+                    className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('year')}
+                >
+                    Год
+                </button>
             </div>
         </div>
     )
