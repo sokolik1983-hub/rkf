@@ -17,7 +17,7 @@ import RangeCalendar from "../../../../components/kendo/RangeCalendar";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, federationAlias }) => {
+const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federationName, federationAlias }) => {
     const [ranks, setRanks] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
@@ -78,7 +78,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                             <div className="phone-hide">
                                 <UserHeader
                                     user={filters.Alias !== 'rkf-online' ? 'club' : ''}
-                                    logo={filters.logo_link}
+                                    logo={filters.logo_link || logo}
                                     name={clubName}
                                     alias={filters.Alias}
                                     profileId={profileId}
