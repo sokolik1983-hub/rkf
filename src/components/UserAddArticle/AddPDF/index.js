@@ -70,7 +70,7 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
 
             return item;
         });
-        console.log('newPdfArray', newPdfArray.map(item => ({id: item.id || '', name: item.name, file: item.file})));
+
         if(!valid) {
             setPdfArray(newPdfArray);
         } else {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Alert from "../../../../components/Alert";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
 import { formConfig, defaultValues, apiBreedsEndpoint } from "../../config";
@@ -11,6 +12,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
     const [docs, setDocs] = useState(documents || []);
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
+    const [showAlert, setShowAlert] = useState('');
 
     useEffect(() => {
         Request({
@@ -34,8 +36,6 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             file
         } = values;
 
-        console.log('file', file);
-
         const documents = docs.map(item => {
             if (!item.file) item.file = '';
             return item;
@@ -56,39 +56,56 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
         };
     };
 
-    const initialValues = {
-        ...defaultValues,
-        is_advert: isAd,
-        advert_breed_id: adBreedId,
-        advert_cost: adCost,
-        advert_number_of_puppies: adNumberOfPuppies,
-        content: text,
-        img: img,
-        video_link: videoLink
+    const onError = e => {
+        if (e.response) {
+            let errorText = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+            setShowAlert({
+                title: `Ошибка: ${errorText}`,
+                text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+                autoclose: 7.5,
+                onOk: () => setShowAlert(false)
+            });
+        }
     };
 
     return (
-        <Form
-            onSuccess={() => history.replace(`/news/${id}`)}
-            transformValues={transformValues}
-            initialValues={initialValues}
-            {...formConfig}
-            className="article-edit"
-        >
-            <RenderFields
-                fields={formConfig.fields}
-                breeds={breeds}
-                text={text}
-                imgSrc={img}
-                videoLink={videoLink}
-                docs={docs}
-                setDocs={setDocs}
-                onCancel={() => history.replace(`/news/${id}`)}
-                isMating={isMating}
-                setIsMating={setIsMating}
-                setIsImageDelete={setIsImageDelete}
-            />
-        </Form>
+        <>
+            <Form
+                className="article-edit"
+                withLoading={true}
+                onSuccess={() => history.replace(`/news/${id}`)}
+                onError={onError}
+                transformValues={transformValues}
+                initialValues={{
+                    ...defaultValues,
+                    is_advert: isAd,
+                    advert_breed_id: adBreedId,
+                    advert_cost: adCost,
+                    advert_number_of_puppies: adNumberOfPuppies,
+                    content: text,
+                    img: img,
+                    video_link: videoLink
+                }}
+                {...formConfig}
+            >
+                <RenderFields
+                    fields={formConfig.fields}
+                    breeds={breeds}
+                    text={text}
+                    imgSrc={img}
+                    videoLink={videoLink}
+                    docs={docs}
+                    setDocs={setDocs}
+                    onCancel={() => history.replace(`/news/${id}`)}
+                    isMating={isMating}
+                    setIsMating={setIsMating}
+                    setIsImageDelete={setIsImageDelete}
+                />
+            </Form>
+            {showAlert && <Alert {...showAlert} />}
+        </>
     )
 };
 
