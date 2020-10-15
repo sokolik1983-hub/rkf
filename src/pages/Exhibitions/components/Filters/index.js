@@ -10,7 +10,6 @@ import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
-import { formatDateToString } from "../../../../utils/datetime";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
 import RangeCalendar from "../../../../components/kendo/RangeCalendar";
@@ -44,22 +43,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
         window.addEventListener('resize', () => setOverflow(isOpenFilters));
         return () => window.removeEventListener('resize', () => setOverflow(isOpenFilters));
     }, [isOpenFilters]);
-
-    const changeCalendarFilterFrom = e => {
-        const values = e.target.value;
-
-        setFiltersToUrl({
-            DateFrom: formatDateToString(values)
-        });
-    };
-
-    const changeCalendarFilterTo = e => {
-        const values = e.target.value;
-
-        setFiltersToUrl({
-            DateTo: values ? formatDateToString(values) : values
-        });
-    };
 
     const clearAll = () => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
@@ -102,9 +85,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, federationName, 
                                 </div>
                                 <div className="calendar-filter">
                                     <RangeCalendar
-                                        changeCalendarFilterFrom={changeCalendarFilterFrom}
-                                        changeCalendarFilterTo={changeCalendarFilterTo}
-                                        filters={filters}
+                                        date_from={filters.DateFrom}
+                                        date_to={filters.DateTo}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
