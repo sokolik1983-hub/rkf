@@ -14,7 +14,6 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [isMating, setIsMating] = useState(false);
 
     const transformValues = values => {
-        console.log('transformValues', values);
         if (isAd) {
             return {
                 ...values,
