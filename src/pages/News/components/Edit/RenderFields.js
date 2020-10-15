@@ -10,7 +10,7 @@ import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 
 
-const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating}) => {
+const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating, setIsImageDelete}) => {
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
@@ -56,11 +56,13 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             formik.setFieldValue('file', '');
             setSrc('');
         }
+        setIsImageDelete(true);
     };
 
     const handleDeleteImg = () => {
         formik.setFieldValue('file', '');
         setSrc('');
+        setIsImageDelete(true);
     };
 
     const handleAddVideoLink = link => {

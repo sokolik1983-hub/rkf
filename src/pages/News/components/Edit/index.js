@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "../../../../components/Form";
 import RenderFields from "./RenderFields";
-import { formConfig, defaultValues, endpointDeleteNewsPicture, endpointAddNewsPicture, apiBreedsEndpoint } from "../../config";
+import { formConfig, defaultValues, apiBreedsEndpoint } from "../../config";
 import { Request } from "../../../../utils/request";
 import "./index.scss";
 
@@ -10,6 +10,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
     const [breeds, setBreeds] = useState([]);
     const [docs, setDocs] = useState(documents || []);
     const [isMating, setIsMating] = useState(false);
+    const [isImageDelete, setIsImageDelete] = useState(false);
 
     useEffect(() => {
         Request({
@@ -20,28 +21,6 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             .map(m => ({ value: m.id, label: m.name }))
         ), e => console.log(e));
     }, []);
-
-    const onSuccess = async (data, values) => {
-        // if (img && !values.file) {
-        //     await Request({
-        //         url: endpointDeleteNewsPicture + id,
-        //         method: "DELETE"
-        //     });
-        // } else if (img !== values.file) {
-        //     let data = new FormData();
-        //     data.append('id', id);
-        //     data.append('file', values.file);
-        //
-        //     await Request({
-        //         url: endpointAddNewsPicture,
-        //         method: "POST",
-        //         data: data,
-        //         isMultipart: true
-        //     });
-        // }
-
-        history.replace(`/news/${id}`);
-    };
 
     const transformValues = values => {
         const {
@@ -55,8 +34,10 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             file
         } = values;
 
+        console.log('file', file);
+
         const documents = docs.map(item => {
-            if (!item.file) item.file = null;
+            if (!item.file) item.file = '';
             return item;
         });
 
@@ -64,11 +45,12 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             content: content.replace(/<[^>]*>/g, ''),
             id,
             is_advert,
-            advert_breed_id: is_advert ? advert_breed_id : null,
-            advert_cost: is_advert ? advert_cost : null,
-            advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : null,
-            advert_type_id: is_advert ? advert_type_id : null,
-            file,
+            advert_breed_id: is_advert ? advert_breed_id : '',
+            advert_cost: is_advert ? advert_cost : '',
+            advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
+            advert_type_id: is_advert ? advert_type_id : '',
+            file: isImageDelete ? file : '',
+            is_image_delete: isImageDelete,
             video_link: video_link || '',
             documents
         };
@@ -87,7 +69,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
 
     return (
         <Form
-            onSuccess={onSuccess}
+            onSuccess={() => history.replace(`/news/${id}`)}
             transformValues={transformValues}
             initialValues={initialValues}
             {...formConfig}
@@ -104,6 +86,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                 onCancel={() => history.replace(`/news/${id}`)}
                 isMating={isMating}
                 setIsMating={setIsMating}
+                setIsImageDelete={setIsImageDelete}
             />
         </Form>
     )

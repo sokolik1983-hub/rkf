@@ -10,8 +10,6 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         errorFile: ''
     }]);
 
-    console.log('pdfArray', pdfArray);
-
     const handleChangeName = (e, index) => {
         const newPdfArray = [...pdfArray];
         newPdfArray[index].name = e.target.value;
@@ -63,16 +61,16 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                 valid = false;
             }
             if(item.id && item.file) {
-                delete item.id
+                item.id = '';
             }
 
             return item;
         });
-        console.log('newPdfArray', newPdfArray.map(item => ({id: item.id || null, name: item.name, file: item.file})));
+        console.log('newPdfArray', newPdfArray.map(item => ({id: item.id || '', name: item.name, file: item.file})));
         if(!valid) {
             setPdfArray(newPdfArray);
         } else {
-            setDocuments(newPdfArray.map(item => ({id: item.id || null, name: item.name, file: item.file || null})));
+            setDocuments(newPdfArray.map(item => ({id: item.id || '', name: item.name, file: item.file || ''})));
             closeModal();
         }
     };
