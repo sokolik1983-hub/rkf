@@ -10,6 +10,7 @@ import { connectLogin, connectWidgetLogin } from "../../../../pages/Login/connec
 import history from "../../../../utils/history";
 import { Request } from "../../../../utils/request";
 import Feedback from "../../../Feedback";
+import LightTooltip from "../../../LightTooltip";
 
 
 const WidgetLogin = forwardRef(
@@ -54,10 +55,12 @@ const WidgetLogin = forwardRef(
             <div className="widget-login">
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
-                        <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                            style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
-                            onClick={() => setOpen(!open)}
-                        />
+                        <LightTooltip title={'Аккаунт'} enterDelay={200} leaveDelay={200}>
+                            <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                                onClick={() => setOpen(!open)}
+                            />
+                        </LightTooltip>
                         <CSSTransition
                             in={open}
                             timeout={350}
