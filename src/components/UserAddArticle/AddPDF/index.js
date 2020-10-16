@@ -10,8 +10,6 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         errorFile: ''
     }]);
 
-    console.log('pdfArray', pdfArray);
-
     const handleChangeName = (e, index) => {
         const newPdfArray = [...pdfArray];
         newPdfArray[index].name = e.target.value;
@@ -29,10 +27,14 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         const newPdfArray = [...pdfArray];
 
         const file = e.target.files[0];
-        newPdfArray[index].file = file;
 
         if(file) {
-            newPdfArray[index].errorFile = '';
+            if(file.size > 20971520) {
+                newPdfArray[index].errorFile = 'Файл не должен превышать 20 мб';
+            } else {
+                newPdfArray[index].file = file;
+                newPdfArray[index].errorFile = '';
+            }
         } else {
             newPdfArray[index].errorFile = 'Загрузите файл';
         }
@@ -63,16 +65,16 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                 valid = false;
             }
             if(item.id && item.file) {
-                delete item.id
+                item.id = '';
             }
 
             return item;
         });
-        console.log('newPdfArray', newPdfArray.map(item => ({id: item.id || null, name: item.name, file: item.file})));
+
         if(!valid) {
             setPdfArray(newPdfArray);
         } else {
-            setDocuments(newPdfArray.map(item => ({id: item.id || null, name: item.name, file: item.file || null})));
+            setDocuments(newPdfArray.map(item => ({id: item.id || '', name: item.name, file: item.file || ''})));
             closeModal();
         }
     };

@@ -166,7 +166,7 @@ const CardNews = forwardRef(({
                             {documents.map(doc =>
                                 <li className="card-news__documents-item" key={doc.id}>
                                     <Link
-                                        to={`/documents/${doc.id}`}
+                                        to={`/docs/${doc.id}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="card-news__documents-link"
