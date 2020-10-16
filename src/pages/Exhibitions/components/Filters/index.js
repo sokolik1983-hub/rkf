@@ -45,7 +45,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     }, [isOpenFilters]);
 
     const clearAll = () => {
-        const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
+        const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
         setFiltersToUrl(getEmptyFilters(filters.Alias));
