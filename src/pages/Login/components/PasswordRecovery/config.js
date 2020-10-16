@@ -12,7 +12,7 @@ export const PassRecoveryForm = {
         mail: {
             name: 'mail',
             type: 'email',
-            label: 'Email',
+            label: 'E-mail',
             placeholder: 'Введите Ваш E-mail'
         }
     },

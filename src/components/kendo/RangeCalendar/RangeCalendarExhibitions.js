@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
 import { Request } from "../../../utils/request";
 import { IntlProvider, load, LocalizationProvider } from "@progress/kendo-react-intl";
+import { formatDateToString } from "../../../utils/datetime";
+import { setFiltersToUrl } from "../../../pages/Exhibitions/utils";
 import "./index.scss";
 
 load(
@@ -14,7 +16,7 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilterTo }) => {
+const RangeCalendarExhibitions = ({ date_from, date_to }) => {
     const [maxYear, setMaxYear] = useState(null);
     const [loading, setLoading] = useState(true);
     const minYear = new Date(2018, 12, 1);
@@ -39,6 +41,22 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
             .forEach(input => input.readOnly = true);
     }, []);
 
+    const changeCalendarFilterFrom = e => {
+        const values = e.target.value;
+
+        setFiltersToUrl({
+            DateFrom: formatDateToString(values)
+        });
+    };
+
+    const changeCalendarFilterTo = e => {
+        const values = e.target.value;
+
+        setFiltersToUrl({
+            DateTo: values ? formatDateToString(values) : values
+        });
+    };
+
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
@@ -49,7 +67,7 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                 <div className="calendar-filter__range-wrap">
                     <DatePicker
                         onChange={changeCalendarFilterFrom}
-                        value={new Date(filters.DateFrom)}
+                        value={new Date(date_from)}
                         min={minYear}
                         max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
@@ -57,8 +75,8 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
                     />
                     <DatePicker
                         onChange={changeCalendarFilterTo}
-                        value={filters.DateTo ? new Date(filters.DateTo) : null}
-                        min={new Date(filters.DateFrom)}
+                        value={date_to ? new Date(date_to) : null}
+                        min={new Date(date_from)}
                         max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
                         className="calendar-filter__range-to"
@@ -70,4 +88,4 @@ const RangeCalendar = ({ filters, changeCalendarFilterFrom, changeCalendarFilter
     );
 }
 
-export default React.memo(RangeCalendar);
+export default React.memo(RangeCalendarExhibitions);
