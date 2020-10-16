@@ -4,7 +4,7 @@ import * as LoadableModules from "./appModules";
 const SERVER = 'http://dev.uep24.ru';
 const DEFAULT_PHONE_INPUT_MASK = ['+', '7','(', /[1-9]/, /\d/, /\d/, ')',/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 const DEFAULT_PHONE_INPUT_PLACEHOLDER = '+7(   )___-__-__';
-const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш Email';
+const DEFAULT_EMAIL_INPUT_PLACEHOLDER = 'Введите ваш E-mail';
 const LOGIN_URL = '/auth/login';
 const REGISTRATION_URL = '/auth/registration';
 

@@ -31,7 +31,6 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
         }, data => {
             const year = data.years.sort((a, b) => b - a);
             setMaxYear(year[0]);
-            console.log('maxYear', year[0])
             setLoading(false);
         }, error => {
             console.log(error.response);

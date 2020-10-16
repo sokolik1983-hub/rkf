@@ -55,7 +55,7 @@ const DropdownItem = ({ filtersValue,
                     <div className="dropdown__item-body">
                         {filters.map(filter =>
                             filter === 'calendar' && exhibition_dates ?
-                                <>
+                                <div key="calendar-filter">
                                     <RangeCalendarSearch
                                         date_from={filtersValue.date_from}
                                         date_to={filtersValue.date_to}
@@ -69,47 +69,54 @@ const DropdownItem = ({ filtersValue,
                                             date_to: filter.DateTo
                                         })}
                                     />
-                                </> :
+                                </div> :
                                 filter === 'federation' && federations ?
                                     <FederationsFilter
                                         federations={federations}
                                         federation_ids={filtersValue.federation_ids}
                                         onChange={filter => setFiltersToUrl({ federation_ids: filter })}
+                                        key="federations-filter"
                                     /> :
                                     filter === 'active_member' ?
                                         <ActiveFilter
                                             active_member={filtersValue.active_member}
                                             onChange={filter => setFiltersToUrl({ active_member: filter })}
+                                            key="active-filter"
                                         /> :
                                         filter === 'activated' ?
                                             <ActivatedFilter
                                                 activated={filtersValue.activated}
                                                 label={`Активированные ${search_type === 2 ? 'клубы' : 'питомники'}`}
                                                 onChange={filter => setFiltersToUrl({ activated: filter })}
+                                                key="activated-filter"
                                             /> :
                                             filter === 'breed' && breeds && breeds.length ?
                                                 <BreedsFilter
                                                     breeds={breeds}
                                                     breed_ids={filtersValue.breed_ids}
                                                     onChange={filter => setFiltersToUrl({ breed_ids: filter })}
+                                                    key="breeds-filter"
                                                 /> :
                                                 filter === 'city' && cities && cities.length ?
                                                     <CitiesFilter
                                                         cities={cities}
                                                         city_ids={filtersValue.city_ids}
                                                         onChange={filter => setFiltersToUrl({ city_ids: filter })}
+                                                        key="cities-filter"
                                                     /> :
                                                     filter === 'rank' && ranks && ranks.length ?
                                                         <RanksFilter
                                                             ranks={ranks}
                                                             rank_ids={filtersValue.rank_ids}
                                                             onChange={filter => setFiltersToUrl({ rank_ids: filter })}
+                                                            key="ranks-filter"
                                                         /> :
                                                         filter === 'price' ?
                                                             <PriceFilter
                                                                 price_from={filtersValue.price_from}
                                                                 price_to={filtersValue.price_to}
                                                                 onChange={filter => setFiltersToUrl(filter)}
+                                                                key="price-filter"
                                                             /> :
                                                             null
                         )}

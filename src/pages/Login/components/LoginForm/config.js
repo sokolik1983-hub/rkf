@@ -15,7 +15,7 @@ export const loginFormConfig = {
         // },
         email: {
             name: 'email',
-            label: 'Email',
+            label: 'E-mail',
             type: 'text',
             placeholder: DEFAULT_EMAIL_INPUT_PLACEHOLDER,
         },

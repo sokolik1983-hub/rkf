@@ -56,7 +56,7 @@ export const fields = [
         name: 'mail',
         type: 'email',
         label: 'E-mail',
-        placeholder: 'Введите e-mail'
+        placeholder: 'Введите E-mail'
     },
     {
         name: 'password',
