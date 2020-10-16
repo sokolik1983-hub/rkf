@@ -23,7 +23,7 @@ const PasswordRecovery = () => {
                 {!success ?
                     <>
                         <h2 className="password-recovery__title">Забыли пароль?</h2>
-                        <p className="password-recovery__subtitle">Введите адрес электронной почты, на который вы зарегистрировались. Мы вышлем вам инструкции.</p>
+                        <p className="password-recovery__subtitle">Введите E-mail, указанный вами при регистрации. Мы вышлем вам инструкции.</p>
                         <Form
                             className="login-page__form"
                             onSuccess={() => setSuccess(true)}
