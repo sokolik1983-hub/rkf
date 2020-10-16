@@ -80,7 +80,7 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
                     <DatePicker
                         onChange={changeCalendarFilterTo}
                         value={date_to ? new Date(date_to) : null}
-                        min={new Date(date_from)}
+                        min={date_from ? new Date(date_from) : new Date()}
                         max={loading ? new Date() : new Date(maxYear, 11, 31)}
                         format="dd.MM.yyyy"
                         className="calendar-filter__range-to"
