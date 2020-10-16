@@ -12,7 +12,7 @@ import { setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
-import RangeCalendar from "../../../../components/kendo/RangeCalendar";
+import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
 import "./index.scss";
 
 
@@ -84,7 +84,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     </div>
                                 </div>
                                 <div className="calendar-filter">
-                                    <RangeCalendar
+                                    <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
                                     />

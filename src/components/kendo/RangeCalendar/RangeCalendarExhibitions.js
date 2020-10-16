@@ -16,7 +16,7 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-const RangeCalendar = ({ date_from, date_to }) => {
+const RangeCalendarExhibitions = ({ date_from, date_to }) => {
     const [maxYear, setMaxYear] = useState(null);
     const [loading, setLoading] = useState(true);
     const minYear = new Date(2018, 12, 1);
@@ -88,4 +88,4 @@ const RangeCalendar = ({ date_from, date_to }) => {
     );
 }
 
-export default React.memo(RangeCalendar);
+export default React.memo(RangeCalendarExhibitions);
