@@ -64,7 +64,7 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
     return (
         <LocalizationProvider language="ru">
             <IntlProvider locale="ru">
-                <div className="calendar-filter__range-text">
+                <div className="calendar-filter__range-text _search_range">
                     <span>от</span>
                     <span>до</span>
                 </div>

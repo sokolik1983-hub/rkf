@@ -12,6 +12,9 @@
     display: flex;
     width: 165px;
     justify-content: space-between;
+    &._search_range {
+      width: 160px;
+    }
   }
   &-from,
   &-to {
