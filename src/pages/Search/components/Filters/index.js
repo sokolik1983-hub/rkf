@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import StickyBox from "react-sticky-box";
 import Aside from "../../../../components/Layouts/Aside";
 import Card from "../../../../components/Card";
+import CopyrightInfo from "../../../../components/CopyrightInfo";
 import Dropdown from "./Dropdown";
 import {setOverflow} from "../../../../utils";
 import {connectShowFilters} from "../../../../components/Layouts/connectors";
@@ -22,19 +23,17 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
                     <Card className="search-page__filters">
                         <h3 className="search-page__filters-title">Результаты поиска для</h3>
                         <p className="search-page__filters-value">{filtersValue.string_filter}</p>
-                        {filters.map(filter =>
+                    </Card>
+                    {filters.map(filter =>
+                        <Card key={filter.name}>
                             <Dropdown
-                                key={filter.name}
                                 filtersValue={filtersValue}
                                 {...filter}
                                 additionalFilters={additionalFilters}
                             />
-                        )}
-                    </Card>
-                    <div className="search-page__copy-wrap">
-                        <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                        <p>Политика обработки персональных данных</p>
-                    </div>
+                        </Card>
+                    )}
+                    <CopyrightInfo/>
                 </div>
             </StickyBox>
         </Aside>

@@ -37,6 +37,7 @@ const DropdownItem = ({ filtersValue,
             }
         }
     };
+
     return (
         <li className={`dropdown__item${filtersValue.search_type === search_type ? ' _active' : ''}${!count ? ' _disabled' : ''}`}>
             <div className="dropdown__item-head" onClick={handleClick}>
