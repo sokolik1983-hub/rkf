@@ -131,7 +131,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                             setModalType('pdf');
                             setShowModal(true);
                         }}
-                    >Добавить pdf</button>
+                    >Добавить PDF</button>
                 }
                 {!video && <FormField {...fields.is_advert} className="article-edit__advert-control" />}
             </div>

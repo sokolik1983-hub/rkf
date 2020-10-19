@@ -187,7 +187,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                             />
                         </LightTooltip>
                     }
-                    <LightTooltip title="Добавить pdf" enterDelay={200} leaveDelay={200}>
+                    <LightTooltip title="Добавить PDF" enterDelay={200} leaveDelay={200}>
                         <button
                             className="ArticleCreateForm__attach-pdf"
                             type="button"
