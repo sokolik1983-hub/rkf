@@ -8,9 +8,12 @@
     @media (max-width: 560px) {
       max-height: calc(100vh - 48px);
     }
-    .Card {
+    & > .Card {
       padding: 10px;
       margin-bottom: 16px;
+      @media (max-width: 990px) {
+        margin-bottom: 0;
+      }
     }
   }
   &-title {
