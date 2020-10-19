@@ -4,15 +4,17 @@ import {connect} from "formik";
 import CustomChipList from "../../../../components/Form/Field/CustomChipList";
 import {FormControls, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
 import AddVideoLink from "../../../../components/UserAddArticle/AddVideoLink";
+import AddPDF from "../../../../components/UserAddArticle/AddPDF";
 import {BAD_SITES} from "../../../../appConfig";
 import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 
 
-const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating}) => {
+const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating, setIsImageDelete}) => {
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
+    const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
     const {content, is_advert} = formik.values;
 
@@ -54,11 +56,13 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             formik.setFieldValue('file', '');
             setSrc('');
         }
+        setIsImageDelete(true);
     };
 
     const handleDeleteImg = () => {
         formik.setFieldValue('file', '');
         setSrc('');
+        setIsImageDelete(true);
     };
 
     const handleAddVideoLink = link => {
@@ -71,7 +75,14 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
         setVideo('');
     };
 
+    const handleDeleteDocument = index => {
+        setDocs([...docs].filter((item, i) => i !== index));
+    };
 
+    const closeModal = () => {
+        setModalType('');
+        setShowModal(false);
+    };
 
     return (
         <>
@@ -106,19 +117,23 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     <button
                         className="article-edit__attach-video"
                         type="button"
-                        onClick={() => setShowModal(true)}>
-                        Добавить ссылку на youtube
-                    </button>
+                        onClick={() => {
+                            setModalType('video');
+                            setShowModal(true);
+                        }}
+                    >Добавить ссылку на YouTube</button>
+                }
+                {docs.length < 3 &&
+                    <button
+                        className="article-edit__attach-pdf"
+                        type="button"
+                        onClick={() => {
+                            setModalType('pdf');
+                            setShowModal(true);
+                        }}
+                    >Добавить PDF</button>
                 }
                 {!video && <FormField {...fields.is_advert} className="article-edit__advert-control" />}
-                {/*<button*/}
-                {/*    className="article-edit__attach-pdf"*/}
-                {/*    type="button"*/}
-                {/*    onClick={() => {*/}
-                {/*        setModalType('pdf');*/}
-                {/*        setShowModal(true);*/}
-                {/*    }}*/}
-                {/*>Добавить pdf</button>*/}
             </div>
             <div className="article-edit__media">
                 {src &&
@@ -134,6 +149,19 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     </div>
                 }
             </div>
+            {!!docs.length &&
+                <div className="article-edit__documents">
+                    <h4 className="article-edit__documents-title">Прикреплённые файлы:</h4>
+                    <ul className="article-edit__documents-list">
+                        {docs.map((item, i) =>
+                            <li className="article-edit__documents-item" key={i}>
+                                <span>{item.name}</span>
+                                <button type="button" onClick={() => handleDeleteDocument(i)} />
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            }
             {is_advert &&
                 <div className="article-edit__advert">
                     <FormGroup inline className="article-edit__ad">
@@ -159,12 +187,22 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                 <Modal
                     className="article-edit__modal"
                     showModal={showModal}
-                    handleClose={() => setShowModal(false)}
+                    handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
+                    handleX={closeModal}
                 >
-                    <AddVideoLink
-                        setVideoLink={handleAddVideoLink}
-                        showModal={setShowModal}
-                    />
+                    {modalType === 'video' &&
+                        <AddVideoLink
+                            setVideoLink={handleAddVideoLink}
+                            closeModal={closeModal}
+                        />
+                    }
+                    {modalType === 'pdf' &&
+                        <AddPDF
+                            documents={docs}
+                            setDocuments={setDocs}
+                            closeModal={closeModal}
+                        />
+                    }
                 </Modal>
             }
         </>

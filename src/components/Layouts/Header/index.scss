@@ -450,6 +450,9 @@
     border: 1px solid #fff;
     cursor: pointer;
     transition: border-color 0.2s linear;
+    &:hover {
+      border: 1px solid #3366ff;
+    }
     &._active,
     &._no-logo {
       border-color: #3366ff;

@@ -16,7 +16,6 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
     const [showAlert, setShowAlert] = useState('');
 
     const transformValues = values => {
-        console.log('transformValues', values);
         if (isAd) {
             return {
                 ...values,

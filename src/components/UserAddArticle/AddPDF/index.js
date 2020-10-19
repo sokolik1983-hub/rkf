@@ -60,9 +60,12 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                 item.errorName = 'Укажите название файла';
                 valid = false;
             }
-            if(!item.file) {
+            if(!item.id && !item.file) {
                 item.errorFile = 'Загрузите файл';
                 valid = false;
+            }
+            if(item.id && item.file) {
+                item.id = '';
             }
 
             return item;
@@ -71,7 +74,7 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         if(!valid) {
             setPdfArray(newPdfArray);
         } else {
-            setDocuments(newPdfArray.map(item => ({name: item.name, file: item.file})));
+            setDocuments(newPdfArray.map(item => ({id: item.id || '', name: item.name, file: item.file || ''})));
             closeModal();
         }
     };
