@@ -121,7 +121,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                             setModalType('video');
                             setShowModal(true);
                         }}
-                    >Добавить ссылку на youtube</button>
+                    >Добавить ссылку на YouTube</button>
                 }
                 {docs.length < 3 &&
                     <button
