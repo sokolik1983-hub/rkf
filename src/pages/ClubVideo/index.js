@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import StickyBox from "react-sticky-box";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Layout from "components/Layouts";
 import Container from "components/Layouts/Container";
-import { Link, useParams } from "react-router-dom";
+import Aside from "components/Layouts/Aside";
 import Loading from "components/Loading";
 import Card from "components/Card";
-import { VideoGallery } from "components/Gallery";
 import Alert from "components/Alert";
-import { Request } from "utils/request";
-import { connectAuthVisible } from "../Login/connectors";
-import StickyBox from "react-sticky-box";
-import Aside from "components/Layouts/Aside";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import ClubUserHeader from "../../components/redesign/UserHeader";
 import MenuComponent from "../../components/MenuComponent";
-import InfiniteScroll from "react-infinite-scroll-component";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import { VideoGallery } from "components/Gallery";
+import { Request } from "utils/request";
+import { connectAuthVisible } from "../Login/connectors";
+import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Club/index.scss";
+
 
 const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -28,6 +32,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
     const alias = params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         setPageLoaded(false);
@@ -134,17 +139,23 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     <Card className="club-page__content-banner">
                                         <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                     </Card>
-                                    <div className="club-page__mobile-only">
-                                        <ClubUserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                            logo={clubInfo.logo_link}
-                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                            alias={clubInfo.club_alias}
-                                            profileId={clubInfo.id}
-                                            federationName={clubInfo.federation_name}
-                                            federationAlias={clubInfo.federation_alias}
-                                        />
-                                    </div>
+                                    {isMobile &&
+                                        <>
+                                            <ClubUserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                            />
+                                            <UserPhotoGallery
+                                                alias={clubInfo.club_alias}
+                                                pageLink={`/${clubInfo.club_alias}/gallery`}
+                                            />
+                                        </>
+                                    }
                                     <div className="ClubVideo__content">
                                         <Card>
                                             <Breadcrumbs />
@@ -187,19 +198,24 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
-                                            <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
-                                            />
-                                            <div className="club-page__copy-wrap">
-                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                <p>Политика обработки персональных данных</p>
-                                            </div>
+                                            {!isMobile &&
+                                                <>
+                                                    <ClubUserHeader
+                                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                    />
+                                                    <UserPhotoGallery
+                                                        alias={clubInfo.club_alias}
+                                                        pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                    />
+                                                    <CopyrightInfo/>
+                                                </>
+                                            }
                                         </div>
                                     </StickyBox>
                                 </Aside>

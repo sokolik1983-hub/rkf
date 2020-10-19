@@ -15,7 +15,7 @@ import {Gallery, AddPhotoModal} from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "./config";
+import {endpointGetUserInfo, userNav} from "../User/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";

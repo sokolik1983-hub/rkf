@@ -19,6 +19,9 @@ import declension from "utils/declension";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Club/index.scss";
+import useIsMobile from "../../utils/useIsMobile";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
 
 const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClub] = useState(null);
@@ -34,6 +37,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [showAlert, setShowAlert] = useState(false);
     const params = useParams();
     const alias = params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         Promise.all([getImages(1), getClub()])
@@ -181,17 +185,23 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         <Card className="club-page__content-banner">
                                             <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                         </Card>
-                                        <div className="club-page__mobile-only">
-                                            <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
-                                            />
-                                        </div>
+                                        {isMobile &&
+                                            <>
+                                                <ClubUserHeader
+                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    logo={clubInfo.logo_link}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    alias={clubInfo.club_alias}
+                                                    profileId={clubInfo.id}
+                                                    federationName={clubInfo.federation_name}
+                                                    federationAlias={clubInfo.federation_alias}
+                                                />
+                                                <UserVideoGallery
+                                                    alias={clubInfo.club_alias}
+                                                    pageLink={`/${clubInfo.club_alias}/video`}
+                                                />
+                                            </>
+                                        }
                                         <div className="ClubGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
@@ -252,19 +262,24 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                     <Aside className="club-page__info">
                                         <StickyBox offsetTop={65}>
                                             <div className="club-page__info-inner">
-                                                <ClubUserHeader
-                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                    logo={clubInfo.logo_link}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    alias={clubInfo.club_alias}
-                                                    profileId={clubInfo.id}
-                                                    federationName={clubInfo.federation_name}
-                                                    federationAlias={clubInfo.federation_alias}
-                                                />
-                                                <div className="club-page__copy-wrap">
-                                                    <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                    <p>Политика обработки персональных данных</p>
-                                                </div>
+                                                {!isMobile &&
+                                                    <>
+                                                        <ClubUserHeader
+                                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                            logo={clubInfo.logo_link}
+                                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                            alias={clubInfo.club_alias}
+                                                            profileId={clubInfo.id}
+                                                            federationName={clubInfo.federation_name}
+                                                            federationAlias={clubInfo.federation_alias}
+                                                        />
+                                                        <UserVideoGallery
+                                                            alias={clubInfo.club_alias}
+                                                            pageLink={`/${clubInfo.club_alias}/video`}
+                                                        />
+                                                        <CopyrightInfo/>
+                                                    </>
+                                                }
                                             </div>
                                         </StickyBox>
                                     </Aside>
