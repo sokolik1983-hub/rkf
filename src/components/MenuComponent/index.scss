@@ -94,6 +94,58 @@
         margin-right: 10px;
       }
     }
+    &--fees {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url("/static/icons/icon-fees.svg") no-repeat top 0 center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--blanks {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url("/static/icons/icon-blanks.svg") no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--requisites {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url("/static/icons/icon-requisites.svg") no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+    &--presidium {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url("/static/icons/icon-presidium.svg") no-repeat center / 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
     &:not(:last-child) {
       margin-bottom: 3px;
     }

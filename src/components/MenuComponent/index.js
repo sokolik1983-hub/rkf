@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
@@ -6,7 +6,9 @@ import Loading from "../Loading";
 import { Request, getHeaders } from "utils/request";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+
 
 const presidium = {
     rkf: {
@@ -210,19 +212,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
     const [loading, setLoading] = useState(true);
     const [errorText, setErrorText] = useState(null);
     const [open, setOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        setIsMobile(window.innerWidth < 990);
-
-        window.addEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 990);
-        });
-
-        return window.removeEventListener('resize', () => {
-            setIsMobile(window.innerWidth < 990);
-        });
-    }, []);
+    const isMobile = useIsMobile();
 
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
@@ -255,19 +245,18 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         if (!data.fees) {
             setLoading(true);
             Request({
-                url: `/api/federation/membership_fees?alias=${alias}`,
-                method: 'GET'
+                url: `/api/federation/membership_fees?alias=${alias}`
             }, result => {
                 setData({ ...data, fees: [...result] });
                 setLoading(false);
             },
-                error => {
-                    console.log(error.response);
-                    if (error.response) {
-                        setErrorText(`${error.response.status} ${error.response.statusText}`);
-                    }
-                    setLoading(false);
-                });
+            error => {
+                console.log(error.response);
+                if (error.response) {
+                    setErrorText(`${error.response.status} ${error.response.statusText}`);
+                }
+                setLoading(false);
+            });
         }
     };
 
@@ -330,8 +319,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         if (!data.requisites) {
             setLoading(true);
             Request({
-                url: `/api/federation/requisites?alias=${alias}`,
-                method: 'GET'
+                url: `/api/federation/requisites?alias=${alias}`
             }, result => {
                 setData({ ...data, requisites: { ...result } })
                 setLoading(false);
@@ -443,7 +431,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
                 </li>}
                 {presidium[alias] &&
-                    <li className="menu-component__item">
+                    <li className="menu-component__item menu-component__item--presidium">
                         <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
                     </li>
                 }
@@ -457,17 +445,17 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="menu-component__link" title="Фотогалерея">Видеозаписи</Link>
                 </li>
                 {alias === 'rfls' && <>
-                    <li className="menu-component__item">
+                    <li className="menu-component__item menu-component__item--fees">
                         <Link to="/" onClick={getFees} className="menu-component__link" title="Размеры членских взносов">
                             Размеры членских взносов
                         </Link>
                     </li>
-                    <li className="menu-component__item">
+                    <li className="menu-component__item menu-component__item--blanks">
                         <Link to="/" onClick={getBlanks} className="menu-component__link" title="Бланки">
                             Бланки
                         </Link>
                     </li>
-                    <li className="menu-component__item">
+                    <li className="menu-component__item menu-component__item--requisites">
                         <Link to="/" onClick={getRequisites} className="menu-component__link" title="Реквизиты">
                             Реквизиты
                         </Link>
@@ -500,6 +488,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 </Modal>
             }
         </>;
+
     return (
         noCard
             ? <MenuContent />
