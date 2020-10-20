@@ -21,6 +21,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [clear_filter, setClearFilter] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -49,6 +50,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
         if (calendarButton) calendarButton.classList.remove('active');
 
         setFiltersToUrl(getEmptyFilters(filters.Alias));
+        setClearFilter(true);
     };
 
     return (
@@ -91,6 +93,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
+                                        is_club_link={clubName && filters.Alias}
+                                        clear_filter={clear_filter}
                                     />
                                 </div>
                             </Card>
