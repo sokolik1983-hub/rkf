@@ -69,7 +69,6 @@ function CitySelect({ cityFilter, currentCity }) {
             withClear={false}
             clearLabel={() => onChange(selectorInitialState)}
         >
-            <h3 className="CitySelect__heading">Выберите город</h3>
             <Select
                 closeMenuOnSelect={false}
                 styles={CITY_SELECTOR_STYLE}

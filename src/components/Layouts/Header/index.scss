@@ -537,6 +537,9 @@
         color: #72839c;
       }
     }
+    &--logout {
+      border-bottom: 1px solid #e8e8e8;
+    }
   }
   &__edit {
     position: absolute;
@@ -574,10 +577,6 @@
       &:hover {
         color: #3366ff;
         transition: fill .2s linear;
-    //     svg {
-    //       fill: #3366ff;
-    //       transition: fill .2s linear;
-    // }
     .login-link__icon {
       stroke: #3366ff;
     }
@@ -586,16 +585,6 @@
     line-height: 24px;
     letter-spacing: 0.5px;
     white-space: nowrap;
-    // &:before {
-    //   content: "";
-    //   display: inline-block;
-    //   width: 20px;
-    //   height: 20px;
-    //   background: url("/static/icons/icon-enter.svg") no-repeat center;
-    //   background-size: cover;
-    //   margin: -2px 4px 0 0;
-    //   vertical-align: middle;
-    // }
     @media (max-width: 990px) {
       padding: 0;
       text-transform: none;
@@ -606,10 +595,6 @@
       font-size: 12px;
       line-height: 14px;
       letter-spacing: normal;
-      // &:before {
-      //   width: 16px;
-      //   height: 16px;
-      // }
       span {
         display: none;
       }
@@ -618,16 +603,8 @@
   .login-link {
     margin-right: 16px;
     @media (max-width: 990px) {
-      // &:before {
-      //   background: url("/static/icons/icon-enter.svg") no-repeat center;
-      // }
     }
   }
-  // .registration-link {
-    // &:before {
-    //   background: url("/static/icons/icon-registration.svg") no-repeat center;
-    // }
-  // }
   &__modal {
     & > div {
       max-width: 600px;
