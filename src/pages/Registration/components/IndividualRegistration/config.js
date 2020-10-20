@@ -57,17 +57,17 @@ export const fields = [
         type: 'email',
         label: 'E-mail',
         placeholder: 'Введите E-mail'
-    },
-    {
-        name: 'password',
-        type: 'password',
-        label: 'Пароль',
-        placeholder: 'Введите пароль'
-    },
-    {
-        name: 'passwordConfirm',
-        type: 'password',
-        label: 'Подтверждение пароля',
-        placeholder: 'Введите подтверждение пароля'
     }
+    // {
+    //     name: 'password',
+    //     type: 'password',
+    //     label: 'Пароль',
+    //     placeholder: 'Введите пароль'
+    // },
+    // {
+    //     name: 'passwordConfirm',
+    //     type: 'password',
+    //     label: 'Подтверждение пароля',
+    //     placeholder: 'Введите подтверждение пароля'
+    // }
 ];
