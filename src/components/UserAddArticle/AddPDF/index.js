@@ -84,7 +84,21 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
             <form className="add-pdf__form" onSubmit={handleSubmit}>
                 {pdfArray.map((item, index) =>
                     <div className="add-pdf__form-row" key={index}>
-                        <div className="add-pdf__form-item">
+                        {pdfArray.length < 3 &&
+                            <div className="add-pdf__form-add-row">
+                                <button 
+                                    type="button"
+                                    className="add-pdf__form-add-row-btn"
+                                    onClick={() => setPdfArray([...pdfArray, {
+                                        name: '',
+                                        file: '',
+                                        errorName: '',
+                                        errorFile: ''
+                                    }])}
+                                ></button>
+                            </div>
+                        }
+                        <div className="add-pdf__form-item add-pdf__form-item--name">
                             <label className="add-pdf__form-label">Название файла</label>
                             <input
                                 type="text"
@@ -124,20 +138,6 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                         />
                     </div>
                 )}
-                {pdfArray.length < 3 &&
-                    <div className="add-pdf__form-add-row">
-                        <button 
-                            type="button"
-                            className="add-pdf__form-add-row-btn"
-                            onClick={() => setPdfArray([...pdfArray, {
-                                name: '',
-                                file: '',
-                                errorName: '',
-                                errorFile: ''
-                            }])}
-                        >Добавить ещё</button>
-                    </div>
-                }
                 <div className="add-pdf__form-controls">
                     <button type="button" className="btn btn-simple" onClick={closeModal}>Отмена</button>
                     <button type="submit" className="btn btn-primary" disabled={!pdfArray.length}>Добавить</button>
