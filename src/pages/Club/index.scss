@@ -12,9 +12,6 @@
         height: 88px !important;
       }
     }
-    &__mobile-only {
-      display: none;
-    }
     &.content {
       padding-top: 65px;
     }
@@ -101,39 +98,20 @@
     }
     @media (max-width: 990px) {
       .user-header {
-        display: none;
-        .menu-component__list,
-        hr {
-          display: none;
+        display: flex;
+        align-items: center;
+        &__wrap > div:first-child > * {
+          line-height: 1.3;
         }
-      }
-      &__mobile-only {
-        display: block;
-        .user-header {
-          display: flex;
-          align-items: center;
-          &__wrap > div:first-child > * {
-            line-height: 1.3;
-          }
-          &__federation {
-            display: block;
-          }
-          &__content {
-            flex-grow: 1;
-            min-width: 0;
-            padding: 12px 12px 12px 0;
-          }
+        &__federation {
+          display: block;
         }
-      }
-    }
-    &__copy {
-      &-wrap {
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 20px;
-        color: #72839c;
-        padding-bottom: 16px;
-        @media (max-width: 990px) {
+        &__content {
+          flex-grow: 1;
+          min-width: 0;
+          padding: 12px 12px 12px 0;
+        }
+        .menu-component__list, hr {
           display: none;
         }
       }
@@ -149,9 +127,6 @@
       width: 88px !important;
       height: 88px !important;
     }
-  }
-&__mobile-only {
-    display: none;
   }
   &.content {
     padding-top: 65px;
@@ -232,28 +207,21 @@
   }
   @media (max-width: 768px) {
     .user-header {
-      display: none;
-      .menu-component__list,
-      hr {
-        display: none;
+      display: flex;
+      align-items: center;
+      &__wrap > div:first-child > * {
+        line-height: 1.3;
       }
-    }
-    &__mobile-only {
-      display: block;
-      .user-header {
-        display: flex;
-        align-items: center;
-        &__wrap > div:first-child > * {
-          line-height: 1.3;
-        }
-        &__federation {
-          display: block;
-        }
-        &__content {
-          flex-grow: 1;
-          min-width: 0;
-          padding: 12px 12px 12px 0;
-        }
+      &__federation {
+        display: block;
+      }
+      &__content {
+        flex-grow: 1;
+        min-width: 0;
+        padding: 12px 12px 12px 0;
+      }
+      .menu-component__list, hr {
+        display: none;
       }
     }
   }

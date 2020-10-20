@@ -46,8 +46,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const getVideos = async startElem => {
         setVideosLoading(true);
         return Request({
-            url: `/api/videogallery/gallery?alias=${alias}&start_element=${startElem}`,
-            method: 'GET'
+            url: `/api/videogallery/gallery?alias=${alias}&start_element=${startElem}`
         }, data => {
             if (data.length) {
                 if (data.length < 15) {
@@ -159,38 +158,37 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     <div className="ClubVideo__content">
                                         <Card>
                                             <Breadcrumbs />
-                                            {
-                                                !pageLoaded
-                                                    ? <Loading centered={false} />
-                                                    : <>
-                                                        <InfiniteScroll
-                                                            dataLength={videos.length}
-                                                            next={getNextVideos}
-                                                            hasMore={hasMore}
-                                                            loader={videosLoading && <Loading centered={false} />}
-                                                            endMessage={!videos.length &&
-                                                                <div className="ClubVideo__no-videos">
-                                                                    <h4>Видеозаписей больше нет</h4>
-                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <VideoGallery
-                                                                items={videos}
-                                                                match={match}
-                                                                backdropClosesModal={true}
-                                                                enableImageSelection={false}
-                                                                getVideos={getVideos}
-                                                                setStartElement={setStartElement}
-                                                                setShowAlert={setShowAlert}
-                                                                handleDeleteVideo={handleDeleteVideo}
-                                                                handleError={handleError}
-                                                                canEdit={canEdit}
-                                                                alias={alias}
-                                                                isClub={true}
-                                                            />
-                                                        </InfiniteScroll>
-                                                    </>
+                                            {!pageLoaded ?
+                                                <Loading centered={false} /> :
+                                                <>
+                                                    <InfiniteScroll
+                                                        dataLength={videos.length}
+                                                        next={getNextVideos}
+                                                        hasMore={hasMore}
+                                                        loader={videosLoading && <Loading centered={false} />}
+                                                        endMessage={!videos.length &&
+                                                            <div className="ClubVideo__no-videos">
+                                                                <h4>Видеозаписей больше нет</h4>
+                                                                <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
+                                                            </div>
+                                                        }
+                                                    >
+                                                        <VideoGallery
+                                                            items={videos}
+                                                            match={match}
+                                                            backdropClosesModal={true}
+                                                            enableImageSelection={false}
+                                                            getVideos={getVideos}
+                                                            setStartElement={setStartElement}
+                                                            setShowAlert={setShowAlert}
+                                                            handleDeleteVideo={handleDeleteVideo}
+                                                            handleError={handleError}
+                                                            canEdit={canEdit}
+                                                            alias={alias}
+                                                            isClub={true}
+                                                        />
+                                                    </InfiniteScroll>
+                                                </>
                                             }
                                         </Card>
                                     </div>
@@ -220,14 +218,14 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <div className="club-page__mobile-only">
+                            {isMobile &&
                                 <MenuComponent
                                     alias={clubInfo.club_alias}
                                     user={user}
                                     profileId={clubInfo.id}
                                     noCard={true}
                                 />
-                            </div>
+                            }
                         </Container>
                     </div>
                 </Layout>

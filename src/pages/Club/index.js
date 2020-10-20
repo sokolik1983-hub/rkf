@@ -71,7 +71,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 : <div className="club-page__content-banner-inactive"/>
                                         }
                                     </Card>
-                                    <div className="club-page__mobile-only">
+                                    {isMobile &&
                                         <UserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                             logo={clubInfo.logo_link}
@@ -81,7 +81,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
                                         />
-                                    </div>
+                                    }
                                     <UserDescription description={clubInfo.description} />
                                     <UserContacts {...clubInfo} />
                                     <div className="club-page__exhibitions">
@@ -117,17 +117,17 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
-                                            <UserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
-                                            />
                                             {!isMobile &&
                                                 <>
+                                                    <UserHeader
+                                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                    />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}
@@ -143,14 +143,14 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <div className="club-page__mobile-only">
+                            {isMobile &&
                                 <MenuComponent
                                     alias={clubInfo.club_alias}
                                     user={user}
                                     profileId={clubInfo.id}
                                     noCard={true}
                                 />
-                            </div>
+                            }
                         </Container>
                     </div>
                 </Layout>

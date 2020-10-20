@@ -284,14 +284,14 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         </StickyBox>
                                     </Aside>
                                 </div>
-                                <div className="club-page__mobile-only">
+                                {isMobile &&
                                     <MenuComponent
                                         alias={clubInfo.club_alias}
                                         user={user}
                                         profileId={clubInfo.id}
                                         noCard={true}
                                     />
-                                </div>
+                                }
                             </Container>
                         </div>
                     </Layout>
