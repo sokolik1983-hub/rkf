@@ -149,7 +149,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationAlias={federation_alias}
                                         />
                                         <div className="exhibition-page__publication">
-                                            <a href="https://www.royalcanin.com/ru" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
+                                            <a href="https://www.royal-canin.ru/breeders/unique-products-pro/for-dogs/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
                                                 <img src="/static/images/publications/royal-canin.jpg" alt="" width="" height="" />
                                             </a>
                                         </div>
