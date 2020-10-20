@@ -200,37 +200,34 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                 </>}
                                             </div>
 
-                                            {
-                                                !pageLoaded
-                                                    ? <Loading centered={false} />
-                                                    : <>
-                                                        <InfiniteScroll
-                                                            dataLength={images.length}
-                                                            next={getNextImages}
-                                                            hasMore={hasMore}
-                                                            loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={!images.length &&
-                                                                <div className="ClubGallery__no-images">
-                                                                    <h4>Изображений больше нет</h4>
-                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <Gallery
-                                                                items={images}
-                                                                albums={albums}
-                                                                album={album}
-                                                                match={match}
-                                                                backdropClosesModal={true}
-                                                                enableImageSelection={false}
-                                                                getAlbums={getAlbums}
-                                                                getImages={getImages}
-                                                                canEdit={canEdit}
-                                                                alias={alias}
-                                                                isClub={true}
-                                                            />
-                                                        </InfiniteScroll>
-                                                    </>
+                                            {!pageLoaded ?
+                                                <Loading centered={false} /> :
+                                                <InfiniteScroll
+                                                    dataLength={images.length}
+                                                    next={getNextImages}
+                                                    hasMore={hasMore}
+                                                    loader={imagesLoading && <Loading centered={false} />}
+                                                    endMessage={!images.length &&
+                                                        <div className="ClubGallery__no-images">
+                                                            <h4>Изображений больше нет</h4>
+                                                            <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Gallery
+                                                        items={images}
+                                                        albums={albums}
+                                                        album={album}
+                                                        match={match}
+                                                        backdropClosesModal={true}
+                                                        enableImageSelection={false}
+                                                        getAlbums={getAlbums}
+                                                        getImages={getImages}
+                                                        canEdit={canEdit}
+                                                        alias={alias}
+                                                        isClub={true}
+                                                    />
+                                                </InfiniteScroll>
                                             }
                                         </Card>
                                     </div>
