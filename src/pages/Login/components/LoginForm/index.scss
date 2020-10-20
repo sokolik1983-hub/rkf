@@ -29,10 +29,8 @@
       background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
       background-size: contain;
       border: none;
-      & {
-        @media (max-width: 560px) {
-          right: 25px;
-        }
+      @media (max-width: 560px) {
+        right: 25px;
       }
       &._show-psw {
         background: url("/static/icons/psw-eye-open.svg") center no-repeat;
