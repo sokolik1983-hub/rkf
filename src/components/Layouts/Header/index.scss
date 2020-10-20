@@ -436,7 +436,6 @@
 .widget-login {
   position: relative;
   display: flex;
-  top: 2px;
   @media (max-width: 990px) {
     margin-left: auto;
   }
@@ -450,12 +449,41 @@
     border: 1px solid #fff;
     cursor: pointer;
     transition: border-color 0.2s linear;
-    &:hover {
-      border: 1px solid #3366ff;
-    }
+    position: relative;
+    top: 5px;
+    left: 10px;
     &._active,
     &._no-logo {
       border-color: #3366ff;
+    }
+  }
+  &__wrap {
+    width: 80px;
+    height: 50px;
+    cursor: pointer;
+    &:hover {
+      transition: all 0.2s linear;
+      background-color: #eeeeee;
+    }
+    &._login_open {
+      background-color: #d8d8d8;
+    }
+  }
+  &__arrow {
+    width: 24px;
+    height: 24px;
+    background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+    transition: all .2s linear;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    position: relative;
+    top: -28px;
+    left: 53px;
+    &._widget_open {
+      background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
+      transform: rotate(180deg);
+      top: -29px;
     }
   }
   &__content {
