@@ -234,17 +234,17 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                         alias={alias}
                                                         pageLink={`/kennel/${alias}/gallery`}
                                                     />
+                                                    <CopyrightInfo/>
                                                 </>
                                             }
-                                            <div className="nursery-page__mobile-only">
+                                            {isMobile &&
                                                 <MenuComponent
                                                     alias={alias}
                                                     user={user}
                                                     profileId={nursery.id}
                                                     noCard={true}
                                                 />
-                                            </div>
-                                            <CopyrightInfo/>
+                                            }
                                         </div>
                                     </StickyBox>
                                 </Aside>

@@ -299,17 +299,17 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             alias={alias}
                                                             pageLink={`/kennel/${alias}/video`}
                                                         />
+                                                        <CopyrightInfo/>
                                                     </>
                                                 }
-                                                <div className="nursery-page__mobile-only">
+                                                {isMobile &&
                                                     <MenuComponent
                                                         alias={alias}
                                                         user={user}
                                                         profileId={nursery.id}
                                                         noCard={true}
                                                     />
-                                                </div>
-                                                <CopyrightInfo/>
+                                                }
                                             </div>
                                         </StickyBox>
                                     </Aside>
