@@ -29,8 +29,8 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         const file = e.target.files[0];
 
         if(file) {
-            if(file.size > 20971520) {
-                newPdfArray[index].errorFile = 'Файл не должен превышать 20 мб';
+            if(file.size > 15728640) {
+                newPdfArray[index].errorFile = 'Файл не должен превышать 15 мб';
             } else {
                 newPdfArray[index].file = file;
                 newPdfArray[index].errorFile = '';
@@ -99,9 +99,13 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                             <span className="add-pdf__form-label">Файл PDF</span>
                             <label
                                 htmlFor={`file-${index}`}
-                                className={item.file ? 'add-pdf__form-attached' : 'btn btn-primary'}
+                                className={(item.file || item.id) ? 'add-pdf__form-attached' : 'btn btn-primary'}
                             >
-                                {item.file ? `Загружено: ${item.file.name}` : 'Загрузить'}
+                                {item.file ?
+                                    `Загружено: ${item.file.name}` :
+                                    item.id ? `Загружено: ${item.name}.pdf` :
+                                    'Загрузить'
+                                }
                             </label>
                             <input
                                 id={`file-${index}`}
