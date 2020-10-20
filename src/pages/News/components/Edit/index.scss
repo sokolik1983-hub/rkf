@@ -24,14 +24,11 @@
     justify-content: flex-end;
     margin-bottom: 16px;
     & > *:not(:last-child) {
-      margin-right: 16px;
+      margin-right: 33px;
     }
     @media (max-width: 680px) {
-      flex-direction: column;
-      align-items: flex-end;
       & > *:not(:last-child) {
         margin-right: 0;
-        margin-bottom: 10px;
       }
     }
   }
