@@ -175,18 +175,6 @@
       padding: 0;
     }
   }
-  &__publication{
-    margin-bottom: 16px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 370px;
-    @media (max-width: 990px) {
-      display: none !important;
-    }
-    & img {
-      border-radius: 6px;
-    }
-  }
 }
 .Homepage {
   &__news {

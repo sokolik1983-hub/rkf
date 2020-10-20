@@ -61,11 +61,6 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
-                                    <div className="home-page__publication">
-                                        <a href="https://www.eukanuba.ru" title="Eukanuba" target="_blank" rel="noopener noreferrer">
-                                            <img src="/static/images/publications/eukanuba-162x237.jpg" alt="" width="" height="" />
-                                        </a>
-                                    </div>
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">
