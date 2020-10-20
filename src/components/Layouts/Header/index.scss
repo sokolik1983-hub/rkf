@@ -221,6 +221,12 @@
     &-list {
       list-style: none;
       display: flex;
+      .header__nav-icon {
+        width: 24px;
+        margin-right: 6px;
+        margin-top: -4px;
+        vertical-align: middle;
+      }
       &--desktop {
         list-style: none;
         display: flex;
@@ -292,6 +298,9 @@
           &:hover {
             background-color: #f5f8ff;
             color: #3366ff !important;
+            .header__nav-icon {
+              fill: #3366FF;
+            }
           }
           &.active {
             background-color: #f5f8ff;
@@ -309,6 +318,9 @@
         }
       }
       p {
+        span {
+          vertical-align: middle;
+        }
         i {
           display: inline-block;
           font-size: 9px;
