@@ -56,10 +56,15 @@ const WidgetLogin = forwardRef(
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title={'Аккаунт'} enterDelay={200} leaveDelay={200}>
-                            <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
-                                style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                            <div
+                                className={`widget-login__wrap ${open ? `_login_open` : ``}`}
                                 onClick={() => setOpen(!open)}
-                            />
+                            >
+                                <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                    style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                                />
+                                <button className={`widget-login__arrow ${open ? `_widget_open` : ``}`}></button>
+                            </div>
                         </LightTooltip>
                         <CSSTransition
                             in={open}
