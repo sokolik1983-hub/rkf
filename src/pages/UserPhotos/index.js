@@ -209,7 +209,12 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                     </div>
                                     {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
                                     <div className="NurseryGallery__buttons">
-                                        {album && canEdit && <Link className="NurseryGallery__buttons-link" to={`/user/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
+                                        {album && canEdit &&
+                                            <Link
+                                                className="NurseryGallery__buttons-link"
+                                                to={`/user/${alias}/gallery/${params.album}/edit`}
+                                            >Редактировать</Link>
+                                        }
                                         {album && canEdit && album.addition &&
                                             <>
                                                 <span
