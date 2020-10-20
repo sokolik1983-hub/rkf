@@ -326,5 +326,18 @@
   }
   .ReactGridGallery_tile-viewport {
     width: 88px !important;
-}
+  }
+  &__publication {
+    height: 340px;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width: 990px) {
+      display: none !important;
+    }
+    & img {
+      border-radius: 6px;
+
+    }
+  }
 }

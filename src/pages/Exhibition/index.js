@@ -148,6 +148,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={federation_name}
                                             federationAlias={federation_alias}
                                         />
+                                        <div className="exhibition-page__publication">
+                                            <a href="https://www.royalcanin.com/ru" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
+                                                <img src="/static/images/publications/royal-canin.jpg" alt="" width="" height="" />
+                                            </a>
+                                        </div>
                                         <UserGallery alias={club_alias} />
                                         <div className="exhibition-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
@@ -158,7 +163,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             <Disclaimer style={{ marginBottom: '12px' }}>
                                                 <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
                                                     Инструкция по странице выставки
-                                    </a>
+                                                </a>
                                             </Disclaimer>
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>

@@ -22,6 +22,9 @@ const HomepageSlider = () => (
             <img src="/static/images/slider/1.jpg" alt="" />
             <img src="/static/images/slider/4.jpg" alt="" />
             <img src="/static/images/slider/3.jpg" alt="" />
+            {/* <a href=" https://www.royalcanin.com/ru" title="Royal-Canin" target="_blank" rel="noopener noreferrer"> */}
+                <img src="/static/images/slider/4.jpg" alt="" />
+            {/* </a> */}
         </Slider>
     </div>
 );
