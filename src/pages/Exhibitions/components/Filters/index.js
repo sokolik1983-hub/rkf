@@ -22,6 +22,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
+    const [range_clicked, setRangeClicked] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -51,6 +52,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
 
         setFiltersToUrl(getEmptyFilters(filters.Alias));
         setClearFilter(true);
+    };
+
+    const handleRangeClick = () => {
+        setRangeClicked(true);
+    };
+
+    const handleRangeReset = () => {
+        setRangeClicked(false);
     };
 
     return (
@@ -89,12 +98,15 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
+                                        handleRangeClick={handleRangeClick}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
+                                        range_clicked={range_clicked}
+                                        handleRangeReset={handleRangeReset}
                                     />
                                 </div>
                             </Card>

@@ -3,13 +3,15 @@ import { formatDateToString } from "../../../utils/datetime";
 import "./index.scss";
 
 
-const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter }) => {
+const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range_clicked, handleRangeReset }) => {
     const [day, setDay] = useState(new Date(date_from));
     const [activeButton, setActiveButton] = useState(is_club_link && !clear_filter ? 'year' : null);
 
     const setNewDate = date => {
         setDay(date);
     };
+
+    console.log("range_clicked", range_clicked);
 
     const setInitialClubLinkFilter = () => {
         onChange({
@@ -44,21 +46,21 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter }) => 
 
     return (
         <div className="calendar-filter">
-            <div className="calendar-filter__controls">
+            <div className="calendar-filter__controls" onClick={handleRangeReset}>
                 <button
-                    className={`calendar-filter__button${activeButton === 'day' ? ' active' : ''}`}
+                    className={`calendar-filter__button${activeButton === 'day' && !range_clicked ? ' active' : ''}`}
                     onClick={() => handleButtonClick('day')}
                 >
                     День
                 </button>
                 <button
-                    className={`calendar-filter__button${activeButton === 'month' ? ' active' : ''}`}
+                    className={`calendar-filter__button${activeButton === 'month' && !range_clicked ? ' active' : ''}`}
                     onClick={() => handleButtonClick('month')}
                 >
                     Месяц
                 </button>
                 <button
-                    className={`calendar-filter__button${activeButton === 'year' ? ' active' : ''}`}
+                    className={`calendar-filter__button${activeButton === 'year' && !range_clicked ? ' active' : ''}`}
                     onClick={() => handleButtonClick('year')}
                 >
                     Год
