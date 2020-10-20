@@ -11,9 +11,6 @@
         height: 88px !important;
       }
     }
-    &__mobile-only {
-      display: none;
-    }
     &.content {
       padding-top: 65px;
     }
@@ -120,52 +117,29 @@
       max-width: 860px;
     }
     @media (max-width: 990px) {
-      .user-header,
-      .nursery-page__breeds {
-        display: none;
-      }
-      &__mobile-only {
-        display: block;
-        .user-header {
-          display: flex;
-          align-items: center;
-          &__wrap > div:first-child > * {
-            line-height: 1.3;
-          }
-          &__federation {
-            display: block;
-          }
-          &__content {
-            flex-grow: 1;
-            min-width: 0;
-            padding: 12px 12px 12px 0;
-          }
-          .menu-component__list,
-          hr {
-            display: none;
-          }
+      .user-header {
+        display: flex;
+        align-items: center;
+        &__wrap > div:first-child > * {
+          line-height: 1.3;
         }
-        .nursery-page__breeds {
+        &__federation {
           display: block;
-          .menu-component__list,
-          hr {
-            display: none;
-          }
         }
-        .nursery-page__breeds {
-          width: 100%;
-          padding: 12px;
+        &__content {
+          flex-grow: 1;
+          min-width: 0;
+          padding: 12px 12px 12px 0;
+        }
+        .menu-component__list, hr {
+          display: none;
         }
       }
-    }
-    &__copy {
-      &-wrap {
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 20px;
-        color: #72839c;
-        padding-bottom: 16px;
-        @media (max-width: 990px) {
+      .nursery-page__breeds {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        .menu-component__list, hr {
           display: none;
         }
       }

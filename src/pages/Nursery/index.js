@@ -1,24 +1,24 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState} from "react";
 import { Redirect } from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
+import Card from "../../components/Card";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "pages/Club/components/ClubUserNews";
-import Card from "components/Card";
+import MenuComponent from "../../components/MenuComponent";
 import ClubUserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
-import UserGallery from "components/redesign/UserGallery";
-import UserVideoGallery from "components/redesign/UserGallery/UserVideoGallery";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
-import { VideoModal } from "components/Modal";
-import MenuComponent from "../../components/MenuComponent";
-import StickyBox from "react-sticky-box";
-import useWindowSize from "../../utils/useWindowSize";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
@@ -32,18 +32,15 @@ const getAddressString = addressObj => {
     return address;
 };
 
+
 const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [nursery, setNursery] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    const windowSize = useWindowSize();
-    const galleryRef = useRef(null);
-    const galleryHolderRef = useRef(null);
-    const mobileGalleryHolderRef = useRef(null);
     const alias = match.params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => Request({
@@ -68,18 +65,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
         return () => setNeedRequest(true);
     }, [alias]);
 
-    useEffect(() => appendUserGallery(), [[], windowSize.width]);
-
-    const appendUserGallery = () => {
-        if (windowSize.width <= 990) {
-            const el = mobileGalleryHolderRef.current;
-            el && !el.childElementCount && el.appendChild(galleryRef.current)
-        } else {
-            const el = galleryHolderRef.current
-            el && !el.childElementCount && el.appendChild(galleryRef.current)
-        }
-    };
-
     return loading ?
         <Loading /> :
         error ?
@@ -92,48 +77,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 <Card className="nursery-page__content-banner">
                                     <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
                                 </Card>
-                                <div className="nursery-page__mobile-only">
-                                    <ClubUserHeader
-                                        user="nursery"
-                                        logo={nursery.logo_link}
-                                        name={nursery.name || 'Имя отсутствует'}
-                                        alias={alias}
-                                        profileId={nursery.id}
-                                        federationName={nursery.federation_name}
-                                        federationAlias={nursery.federation_alias}
-                                    />
-                                    {nursery.breeds && !!nursery.breeds.length &&
-                                        <Card className="nursery-page__breeds">
-                                            <h4>Породы</h4>
-                                            <ul className="nursery-page__breeds-list">
-                                                {nursery.breeds.map(item =>
-                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                )}
-                                            </ul>
-                                        </Card>
-                                    }
-                                </div>
-                                <UserDescription description={nursery.description} />
-                                <UserContacts {...nursery} />
-                                <div ref={mobileGalleryHolderRef} />
-                                {canEdit &&
-                                    <AddArticle
-                                        id={nursery.id}
-                                        logo={nursery.logo_link}
-                                        setNeedRequest={setNeedRequest}
-                                    />
-                                }
-                                <UserNews
-                                    user="nursery"
-                                    canEdit={canEdit}
-                                    alias={alias}
-                                    needRequest={needRequest}
-                                    setNeedRequest={setNeedRequest}
-                                />
-                            </div>
-                            <Aside className="nursery-page__info">
-                                <StickyBox offsetTop={65}>
-                                    <div className="nursery-page__info-inner">
+                                {isMobile &&
+                                    <>
                                         <ClubUserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
@@ -153,32 +98,84 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 </ul>
                                             </Card>
                                         }
-                                        <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}>
-                                                <UserGallery alias={alias} isKennel={true} />
-                                                <UserVideoGallery alias={alias} setShowModal={setShowModal} isKennel={true} />
-                                            </div>
-                                        </div>
-                                        <div className="nursery-page__mobile-only">
+                                    </>
+                                }
+                                <UserDescription description={nursery.description} />
+                                <UserContacts {...nursery} />
+                                {isMobile &&
+                                    <>
+                                        <UserPhotoGallery
+                                            alias={alias}
+                                            pageLink={`/kennel/${alias}/gallery`}
+                                        />
+                                        <UserVideoGallery
+                                            alias={alias}
+                                            pageLink={`/kennel/${alias}/video`}
+                                        />
+                                    </>
+                                }
+                                {canEdit &&
+                                    <AddArticle
+                                        id={nursery.id}
+                                        logo={nursery.logo_link}
+                                        setNeedRequest={setNeedRequest}
+                                    />
+                                }
+                                <UserNews
+                                    user="nursery"
+                                    canEdit={canEdit}
+                                    alias={alias}
+                                    needRequest={needRequest}
+                                    setNeedRequest={setNeedRequest}
+                                />
+                            </div>
+                            <Aside className="nursery-page__info">
+                                <StickyBox offsetTop={65}>
+                                    <div className="nursery-page__info-inner">
+                                        {!isMobile &&
+                                            <>
+                                                <ClubUserHeader
+                                                    user="nursery"
+                                                    logo={nursery.logo_link}
+                                                    name={nursery.name || 'Имя отсутствует'}
+                                                    alias={alias}
+                                                    profileId={nursery.id}
+                                                    federationName={nursery.federation_name}
+                                                    federationAlias={nursery.federation_alias}
+                                                />
+                                                {nursery.breeds && !!nursery.breeds.length &&
+                                                    <Card className="nursery-page__breeds">
+                                                        <h4>Породы</h4>
+                                                        <ul className="nursery-page__breeds-list">
+                                                            {nursery.breeds.map(item =>
+                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                            )}
+                                                        </ul>
+                                                    </Card>
+                                                }
+                                                <UserPhotoGallery
+                                                    alias={alias}
+                                                    pageLink={`/kennel/${alias}/gallery`}
+                                                />
+                                                <UserVideoGallery
+                                                    alias={alias}
+                                                    pageLink={`/kennel/${alias}/video`}
+                                                />
+                                                <CopyrightInfo/>
+                                            </>
+                                        }
+                                        {isMobile &&
                                             <MenuComponent
                                                 alias={alias}
                                                 user={user}
                                                 profileId={nursery.id}
                                                 noCard={true}
                                             />
-                                        </div>
-                                        <div className="nursery-page__copy-wrap">
-                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                            <p>Политика обработки персональных данных</p>
-                                        </div>
+                                        }
                                     </div>
                                 </StickyBox>
                             </Aside>
                         </div>
-                        {showModal &&
-                            <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
-                                <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
-                            </VideoModal>}
                     </Container>
                 </div>
             </Layout>

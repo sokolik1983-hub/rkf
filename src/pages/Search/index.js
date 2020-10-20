@@ -62,7 +62,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                     category.count = summaryCount;
 
                     return category;
-                }).sort((a, b) => b.count - a.count);
+                });
                 setNeedCount(false);
             }
 
@@ -79,7 +79,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                 setNeedFilter(false);
             }
 
-            setFilters(newFilters);
+            setFilters(newFilters.sort((a, b) => b.count - a.count));
 
             let results = [];
 

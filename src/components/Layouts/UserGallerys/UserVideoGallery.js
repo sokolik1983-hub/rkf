@@ -31,7 +31,7 @@ const UserVideoGallery = ({alias, pageLink}) => {
         <Card className="user-gallery">
             <div className="user-gallery__header">
                 <h4 className="user-gallery__title">Видеозаписи</h4>
-                {!!videos.length && <Link to={pageLink}>Смотреть все</Link>}
+                <Link to={pageLink}>Смотреть все</Link>
             </div>
             {loading ?
                 <Loading inline={true} /> :
