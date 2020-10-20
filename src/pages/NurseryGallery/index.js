@@ -203,44 +203,52 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                             <Breadcrumbs />
                                             {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
                                             <div className="NurseryGallery__buttons">
-                                                {album && canEdit && < Link className="NurseryGallery__buttons-link" to={`/kennel/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
-                                                {album && canEdit && album.addition && <>
-                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAlbumDelete(params.album)}>Удалить</span>
-                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAddPhoto()}>Добавить фото</span>
-                                                </>}
-                                            </div>
-                                            {
-                                                !pageLoaded
-                                                    ? <Loading centered={false} />
-                                                    : <>
-
-
-                                                        <InfiniteScroll
-                                                            dataLength={images.length}
-                                                            next={getNextImages}
-                                                            hasMore={hasMore}
-                                                            loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={!images.length &&
-                                                                <div className="NurseryGallery__no-images">
-                                                                    <h4>Изображений больше нет</h4>
-                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <Gallery
-                                                                items={images}
-                                                                albums={albums}
-                                                                album={album}
-                                                                match={match}
-                                                                backdropClosesModal={true}
-                                                                enableImageSelection={false}
-                                                                getAlbums={getAlbums}
-                                                                getImages={getImages}
-                                                                canEdit={canEdit}
-                                                                alias={alias}
-                                                            />
-                                                        </InfiniteScroll>
+                                                {album && canEdit &&
+                                                    <Link
+                                                        className="NurseryGallery__buttons-link"
+                                                        to={`/kennel/${alias}/gallery/${params.album}/edit`}
+                                                    >Редактировать</Link>
+                                                }
+                                                {album && canEdit && album.addition &&
+                                                    <>
+                                                        <span
+                                                            className="NurseryGallery__buttons-link"
+                                                            onClick={() => handleAlbumDelete(params.album)}
+                                                        >Удалить</span>
+                                                        <span
+                                                            className="NurseryGallery__buttons-link"
+                                                            onClick={() => handleAddPhoto()}
+                                                        >Добавить фото</span>
                                                     </>
+                                                }
+                                            </div>
+                                            {!pageLoaded ?
+                                                <Loading centered={false} /> :
+                                                <InfiniteScroll
+                                                    dataLength={images.length}
+                                                    next={getNextImages}
+                                                    hasMore={hasMore}
+                                                    loader={imagesLoading && <Loading centered={false} />}
+                                                    endMessage={!images.length &&
+                                                        <div className="NurseryGallery__no-images">
+                                                            <h4>Изображений больше нет</h4>
+                                                            <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Gallery
+                                                        items={images}
+                                                        albums={albums}
+                                                        album={album}
+                                                        match={match}
+                                                        backdropClosesModal={true}
+                                                        enableImageSelection={false}
+                                                        getAlbums={getAlbums}
+                                                        getImages={getImages}
+                                                        canEdit={canEdit}
+                                                        alias={alias}
+                                                    />
+                                                </InfiniteScroll>
                                             }
                                         </Card>
                                     </div>
