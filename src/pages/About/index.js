@@ -31,6 +31,9 @@ const AboutPage = () => {
                     <aside className="about-page__info">
                         <FeedbackComponent />
                         <Statistics isAboutPage />
+                        <div className="about-page__publication">
+                            <img src="/static/images/publications/online-webinars.jpg" alt="Онлайн вебинары" width="" height="" />
+                        </div>
                     </aside>
                 </div>
             </Container>
