@@ -50,6 +50,7 @@ const RangeCalendarSearch = ({ date_from, date_to, handleRangeClick }) => {
         setFiltersToUrl({
             date_from: formatDateToString(values)
         });
+        handleRangeClick();
     };
 
     const changeCalendarFilterTo = e => {
@@ -58,6 +59,7 @@ const RangeCalendarSearch = ({ date_from, date_to, handleRangeClick }) => {
         setFiltersToUrl({
             date_to: values ? formatDateToString(values) : values
         });
+        handleRangeClick();
     };
 
     return (
@@ -67,7 +69,7 @@ const RangeCalendarSearch = ({ date_from, date_to, handleRangeClick }) => {
                     <span>от</span>
                     <span>до</span>
                 </div>
-                <div className="calendar-filter__range-wrap" onClick={handleRangeClick}>
+                <div className="calendar-filter__range-wrap">
                     <DatePicker
                         onChange={changeCalendarFilterFrom}
                         value={date_from ? new Date(date_from) : new Date()}
