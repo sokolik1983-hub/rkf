@@ -24,6 +24,7 @@ const DropdownItem = ({ filtersValue,
     ranks,
     exhibition_dates }) => {
     const [isOpen, setIsOpen] = useState(search_type === filtersValue.search_type);
+    const [range_clicked, setRangeClicked] = useState(false);
 
     useEffect(() => {
         setIsOpen(search_type === filtersValue.search_type);
@@ -36,6 +37,14 @@ const DropdownItem = ({ filtersValue,
                 setFiltersToUrl({ ...getEmptyFilters(), string_filter: filtersValue.string_filter, search_type });
             }
         }
+    };
+
+    const handleRangeClick = () => {
+        setRangeClicked(true);
+    };
+
+    const handleRangeReset = () => {
+        setRangeClicked(false);
     };
 
     return (
@@ -60,6 +69,7 @@ const DropdownItem = ({ filtersValue,
                                     <RangeCalendarSearch
                                         date_from={filtersValue.date_from}
                                         date_to={filtersValue.date_to}
+                                        handleRangeClick={handleRangeClick}
                                     />
                                     <CalendarFilter
                                         dates={exhibition_dates.dates}
@@ -69,6 +79,8 @@ const DropdownItem = ({ filtersValue,
                                             date_from: filter.DateFrom,
                                             date_to: filter.DateTo
                                         })}
+                                        range_clicked={range_clicked}
+                                        handleRangeReset={handleRangeReset}
                                     />
                                 </div> :
                                 filter === 'federation' && federations ?
