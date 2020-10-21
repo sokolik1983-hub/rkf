@@ -1,10 +1,16 @@
 .user-info {
   @media (max-width: 990px) {
     display: flex;
+    .Share {
+      position: relative;
+      top: 15px;
+    }
   }
   &__logo-wrap {
     padding-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
+    max-height: 500px;
+    overflow: hidden;
     @media (max-width: 990px) {
       padding-bottom: 0;
       border-bottom: none;
@@ -12,12 +18,7 @@
     }
   }
   &__logo {
-    min-width: 162px;
-    height: 158px;
-    margin: 0 auto;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: contain;
+    width: 100%;
     @media (max-width: 990px) {
       width: 100px;
       min-width: 100px;
@@ -33,10 +34,11 @@
     @media (max-width: 990px) {
       border-bottom: none;
       width: calc(100% - 110px);
+      padding: 30px 0;
     }
     p {
       line-height: 1;
-      letter-spacing: .2px;
+      letter-spacing: 0.2px;
       color: #3366ff;
       font-size: 18px;
       text-overflow: ellipsis;
