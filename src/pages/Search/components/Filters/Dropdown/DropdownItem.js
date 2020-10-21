@@ -39,14 +39,6 @@ const DropdownItem = ({ filtersValue,
         }
     };
 
-    const handleRangeClick = () => {
-        setRangeClicked(true);
-    };
-
-    const handleRangeReset = () => {
-        setRangeClicked(false);
-    };
-
     return (
         <li className={`dropdown__item${filtersValue.search_type === search_type ? ' _active' : ''}${!count ? ' _disabled' : ''}`}>
             <div className="dropdown__item-head" onClick={handleClick}>
@@ -69,7 +61,7 @@ const DropdownItem = ({ filtersValue,
                                     <RangeCalendarSearch
                                         date_from={filtersValue.date_from}
                                         date_to={filtersValue.date_to}
-                                        handleRangeClick={handleRangeClick}
+                                        handleRangeClick={() => setRangeClicked(true)}
                                     />
                                     <CalendarFilter
                                         dates={exhibition_dates.dates}
@@ -80,7 +72,7 @@ const DropdownItem = ({ filtersValue,
                                             date_to: filter.DateTo
                                         })}
                                         range_clicked={range_clicked}
-                                        handleRangeReset={handleRangeReset}
+                                        handleRangeReset={() => setRangeClicked(false)}
                                     />
                                 </div> :
                                 filter === 'federation' && federations ?

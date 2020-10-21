@@ -54,14 +54,6 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
         setClearFilter(true);
     };
 
-    const handleRangeClick = () => {
-        setRangeClicked(true);
-    };
-
-    const handleRangeReset = () => {
-        setRangeClicked(false);
-    };
-
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={65}>
@@ -98,7 +90,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
-                                        handleRangeClick={handleRangeClick}
+                                        handleRangeClick={() => setRangeClicked(true)}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
@@ -106,7 +98,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                         is_club_link={clubName && filters.Alias}
                                         clear_filter={clear_filter}
                                         range_clicked={range_clicked}
-                                        handleRangeReset={handleRangeReset}
+                                        handleRangeReset={() => setRangeClicked(false)}
                                     />
                                 </div>
                             </Card>

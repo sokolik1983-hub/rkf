@@ -11,8 +11,6 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
         setDay(date);
     };
 
-    console.log("range_clicked", range_clicked);
-
     const setInitialClubLinkFilter = () => {
         onChange({
             DateFrom: formatDateToString(new Date(day.getFullYear(), 0, 1)),
