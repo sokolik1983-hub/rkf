@@ -24,6 +24,7 @@ const DropdownItem = ({ filtersValue,
     ranks,
     exhibition_dates }) => {
     const [isOpen, setIsOpen] = useState(search_type === filtersValue.search_type);
+    const [range_clicked, setRangeClicked] = useState(false);
 
     useEffect(() => {
         setIsOpen(search_type === filtersValue.search_type);
@@ -60,6 +61,7 @@ const DropdownItem = ({ filtersValue,
                                     <RangeCalendarSearch
                                         date_from={filtersValue.date_from}
                                         date_to={filtersValue.date_to}
+                                        handleRangeClick={() => setRangeClicked(true)}
                                     />
                                     <CalendarFilter
                                         dates={exhibition_dates.dates}
@@ -69,6 +71,8 @@ const DropdownItem = ({ filtersValue,
                                             date_from: filter.DateFrom,
                                             date_to: filter.DateTo
                                         })}
+                                        range_clicked={range_clicked}
+                                        handleRangeReset={() => setRangeClicked(false)}
                                     />
                                 </div> :
                                 filter === 'federation' && federations ?

@@ -19,7 +19,7 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-const RangeCalendarSearch = ({ date_from, date_to }) => {
+const RangeCalendarSearch = ({ date_from, date_to, handleRangeClick }) => {
     const [maxYear, setMaxYear] = useState(null);
     const [loading, setLoading] = useState(true);
     const minYear = new Date(2018, 12, 1);
@@ -67,7 +67,7 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
                     <span>от</span>
                     <span>до</span>
                 </div>
-                <div className="calendar-filter__range-wrap">
+                <div className="calendar-filter__range-wrap" onClick={handleRangeClick}>
                     <DatePicker
                         onChange={changeCalendarFilterFrom}
                         value={date_from ? new Date(date_from) : new Date()}
