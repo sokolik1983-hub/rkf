@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { number, object, string } from "yup";
 import Card from "../Card";
+import Alert from "../Alert";
 import { Form } from "../Form";
 import RenderFields from "./RenderFields";
 import { newsArticleFormConfig } from "./config";
-import './index.scss';
-import Alert from "../Alert";
+import "./index.scss";
 
 
 const AddArticle = ({ id, logo, setNeedRequest }) => {

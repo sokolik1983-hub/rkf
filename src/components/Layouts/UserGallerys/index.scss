@@ -63,6 +63,16 @@
       width: 150px;
     }
   }
+  &__add-btn {
+    border: none;
+    padding: 0;
+    font-size: 32px;
+    color: #72839c;
+    transition: color .2s linear;
+    &:hover {
+      color: #3366FF;
+    }
+  }
   .Loading.inline {
     display: block;
     margin: 0 auto;
