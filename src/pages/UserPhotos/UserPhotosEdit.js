@@ -9,7 +9,7 @@ import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import UserBanner from "../../components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
+import UserInfo from "../User/components/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import {Gallery, EditAlbum, DndImageUpload} from "../../components/Gallery";
