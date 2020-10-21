@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
-import UserInfo from "../User/components/UserInfo";
+import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
