@@ -107,10 +107,12 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/kennel/${alias}/gallery`}
+                                            canEdit={canEdit}
                                         />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/kennel/${alias}/video`}
+                                            canEdit={canEdit}
                                         />
                                     </>
                                 }
@@ -156,10 +158,12 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 <UserPhotoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/gallery`}
+                                                    canEdit={canEdit}
                                                 />
                                                 <UserVideoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
+                                                    canEdit={canEdit}
                                                 />
                                                 <CopyrightInfo/>
                                             </>

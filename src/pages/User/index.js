@@ -74,10 +74,12 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
+                                            canEdit={canEdit}
                                         />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
+                                            canEdit={canEdit}
                                         />
                                         <CopyrightInfo/>
                                     </>
@@ -102,10 +104,12 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                     <UserPhotoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}
+                                        canEdit={canEdit}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/video`}
+                                        canEdit={canEdit}
                                     />
                                 </>
                             }
