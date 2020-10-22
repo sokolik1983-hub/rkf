@@ -1,12 +1,15 @@
 const emailRegex = new RegExp(/\S+@\S+\.\S+/);
 const phoneRegex = new RegExp(/^[0-9 ()+-]+$/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
+const aliasRegex = new RegExp(/^\w+$/);
 const requiredMessage = 'Обязательное поле';
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
 export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.test(value) ? "" : "Только цифры";
 export const emailValidator = (value) => !value ? requiredMessage : (emailRegex.test(value) ? "" : "Неверный формат");
-
+export const aliasValidator = value => !value ?
+    requiredMessage :
+    aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
 
 
 export const nameValidator = (value) => !value ?

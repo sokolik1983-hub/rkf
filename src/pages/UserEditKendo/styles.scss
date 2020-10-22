@@ -33,7 +33,7 @@
         }
         &-left {
             width: 550px;
-            margin-right: 20px;
+            margin-right: 16px;
             @media (max-width: 560px) {
                 width: auto;
                 margin: 0;
@@ -55,6 +55,11 @@
         font-weight: 600;
         font-size: 26px;
         line-height: 34px;
+        &.k-form-legend {
+            text-align: left;
+            font-weight: normal;
+            line-height: 1.5;
+        }
     }
     h3 {
         font-weight: 600;

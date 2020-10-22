@@ -43,7 +43,7 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
     useEffect(() => {
         Promise.all([getUser(), getInfo(), getCities()])
             .then(() => setLoaded(true))
-            .catch(e => { handleError(e); setError(error.response); });
+            .catch(e => { handleError(e); setError(error && error.response ? error.response : null) });
     }, []);
 
     const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
@@ -141,7 +141,7 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             case 2:
                 return <About setFormTouched={setFormTouched} />;
             case 3:
-                return <Security setFormTouched={setFormTouched} />;
+                return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} />;
             case 4:
                 return <DeletePage />;
             default:
