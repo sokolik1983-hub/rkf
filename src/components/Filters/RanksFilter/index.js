@@ -43,6 +43,11 @@ const RanksFilter = ({ ranks, rank_ids, onChange }) => {
                             ))}
                         </ul>
                     }
+                    {ranks && <div className="ranks-filter__empty">
+                        <p>Ранг не найден</p>
+                    </div>
+
+                    }
                 </>
             </CSSTransition>
         </Card>
