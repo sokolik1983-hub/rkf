@@ -57,19 +57,20 @@
     @media (max-width: 1220px) {
       padding-left: 62px;
     }
-    @media (max-width: 700px) {
-      padding-left: 0;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
-      .ArticleCreateForm__button-wrap {
-        width: inherit;
-        margin-top: 10px;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-    }
+    // @media (max-width: 700px) {
+    //   margin-top: 50px;
+    //   padding-left: 0;
+    //   flex-direction: row;
+    //   align-items: flex-start;
+    //   position: relative;
+    //   .ArticleCreateForm__button-wrap {
+    //     width: inherit;
+    //     margin-top: 10px;
+    //     position: absolute;
+    //     right: 0;
+    //     top: 0;
+    //   }
+    // }
     @media (max-width: 480px) {
       .ArticleCreateForm__button-wrap {
         position: static;
