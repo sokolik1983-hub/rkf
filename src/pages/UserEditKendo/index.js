@@ -24,7 +24,7 @@ import DeletePage from './sections/DeletePage';
 import useIsMobile from "utils/useIsMobile";
 import './styles.scss';
 
-const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
+const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [cities, setCities] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -141,7 +141,7 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             case 2:
                 return <About setFormTouched={setFormTouched} />;
             case 3:
-                return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} />;
+                return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} history={history} />;
             case 4:
                 return <DeletePage />;
             default:

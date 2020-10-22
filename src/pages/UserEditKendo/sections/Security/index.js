@@ -6,14 +6,18 @@ import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import FormInput from "../../components/FormInput";
-import {aliasValidator} from "../../validators";
+import {aliasValidator, emailValidator} from "../../validators";
 import {Request} from "../../../../utils/request";
 import "./index.scss";
+import ModalConfirmEmail from "../../components/ModalConfirmEmail";
 
 
-const Security = ({alias, login, setFormTouched, getInfo}) => {
+const Security = ({alias, login, setFormTouched, getInfo, history}) => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
+    const [aliasError, setAliasError] = useState('');
+    const [newLogin, setNewLogin] = useState('');
+    const [modalType, setModalType] = useState('');
 
     const handleError = e => {
         if (e.response) {
@@ -32,7 +36,7 @@ const Security = ({alias, login, setFormTouched, getInfo}) => {
 
     const submitAliasForm = async data => {
         setLoading(true);
-        console.log(data);
+
         await Request({
             url: '/api/owners/owner/alias',
             method: 'PUT',
@@ -40,6 +44,7 @@ const Security = ({alias, login, setFormTouched, getInfo}) => {
         }, () => {
             ls.set('user_info', {...ls.get('user_info'), alias: data.alias});
             getInfo().then(() => {
+                history.replace(`/user/${data.alias}/edit`);
                 setLoading(false);
                 setAlert({
                     title: "Информация сохранена!",
@@ -49,12 +54,29 @@ const Security = ({alias, login, setFormTouched, getInfo}) => {
             });
         }, error => {
             handleError(error);
+
+            if(error.response && error.response.data.errors && error.response.data.errors.alias) {
+                setAliasError(error.response.data.errors.alias);
+            }
+
             setLoading(false);
         });
     };
 
-    const submitLoginForm = data => {
-        console.log('submitAliasForm', data);
+    const submitLoginForm = async data => {
+        setLoading(true);
+        console.log('submitLoginForm', data);
+        await Request({
+            url: '/api/registration/change_user_mail',
+            method: 'POST',
+            data: JSON.stringify(data.login)
+        }, () => {
+            setNewLogin(data.login);
+            setModalType('confirmLogin');
+        }, error => {
+            handleError(error);
+            setLoading(false);
+        });
     };
 
     const submitPasswordForm = data => {
@@ -131,7 +153,7 @@ const Security = ({alias, login, setFormTouched, getInfo}) => {
                                         name="login"
                                         placeholder="Введите новый логин"
                                         component={FormInput}
-                                        // validator={requiredValidator}
+                                        validator={emailValidator}
                                     />
                                 </div>
                             </div>
@@ -201,6 +223,12 @@ const Security = ({alias, login, setFormTouched, getInfo}) => {
                         </FormElement>
                     )}}
             />
+            {modalType && modalType === 'confirmLogin' &&
+                <ModalConfirmEmail
+                    email={newLogin}
+                    closeModal={() => setModalType('')}
+                />
+            }
             {alert && <Alert {...alert} />}
         </div>
 };

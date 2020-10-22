@@ -6,7 +6,9 @@ const requiredMessage = 'Обязательное поле';
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
 export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.test(value) ? "" : "Только цифры";
-export const emailValidator = (value) => !value ? requiredMessage : (emailRegex.test(value) ? "" : "Неверный формат");
+export const emailValidator = value => !value ?
+    requiredMessage :
+    emailRegex.test(value) ? "" : "Неверный формат E-mail";
 export const aliasValidator = value => !value ?
     requiredMessage :
     aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
