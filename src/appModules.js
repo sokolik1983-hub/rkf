@@ -123,8 +123,7 @@ export const LoadableUserDocuments = Loadable({
 });
 
 export const LoadableUserEdit = Loadable({
-    loader: () => import('./pages/UserEdit'),
-    //loader: () => import('./pages/UserEditKendo'),
+    loader: () => import('./pages/UserEditKendo'),
     loading: Loading
 });
 
