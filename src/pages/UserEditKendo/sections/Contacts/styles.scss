@@ -1,0 +1,14 @@
+.UserEdit {
+    .Contacts {
+        .form-row {
+            .k-form-field {
+                margin-top: 0;
+            }
+        }
+        &__custom-label {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+    }
+}
