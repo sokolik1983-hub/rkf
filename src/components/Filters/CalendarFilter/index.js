@@ -19,7 +19,7 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
     };
 
     useEffect(() => {
-        activeButton === 'year' && !clear_filter ? setInitialClubLinkFilter() : setNewDate(new Date(date_from));
+        activeButton === 'year' && !clear_filter && !range_clicked ? setInitialClubLinkFilter() : setNewDate(new Date(date_from));
     }, [date_from]);
 
     const handleButtonClick = period => {
