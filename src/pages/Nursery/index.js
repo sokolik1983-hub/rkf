@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
@@ -155,6 +155,11 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                         </ul>
                                                     </Card>
                                                 }
+                                                <div className="nursery-page__publication">
+                                                    <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
+                                                        <img src="/static/images/publications/breeder-club.png" alt="" />
+                                                    </a>
+                                                </div>
                                                 <UserPhotoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/gallery`}
@@ -165,7 +170,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                     pageLink={`/kennel/${alias}/video`}
                                                     canEdit={canEdit}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                         {isMobile &&
