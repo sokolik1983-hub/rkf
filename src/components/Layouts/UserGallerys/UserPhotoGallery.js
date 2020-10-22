@@ -94,7 +94,7 @@ const UserPhotoGallery = ({alias, pageLink, canEdit}) => {
     return (
         <Card className="user-gallery">
             <div className="user-gallery__header">
-                <h4 className="user-gallery__title">Фотогалерея</h4>
+            <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
                 {!images.length && canEdit ?
                     <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
                         <button
