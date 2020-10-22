@@ -71,12 +71,7 @@
         div {
             font-weight: normal;
         }
-        input:not([type="checkbox"]) {
-            font-weight: normal;
-            width: 100%;
-            border-radius: 3px;
-            padding: 6px 7px;
-        }
+        
         @media (max-width: 560px) {
             padding: 16px;
         }

@@ -10,5 +10,40 @@
             align-items: center;
             height: 100%;
         }
+        &__custom-plus {
+            display: flex;
+            align-items: flex-start;
+            padding-top: 10px;
+            justify-content: center;
+            button {
+                padding: 2px;
+                border-radius: 50%;
+            }
+        }
+        &__custom-checkbox {
+            display: flex;
+            align-items: flex-start;
+            padding-top: 4px;
+            justify-content: center;
+            &-label {
+                margin-top: -24px;
+                @media (max-width: 560px) {
+                    display: none;
+                }
+            }
+        }
+        &__custom-trash {
+            padding-top: 4px;
+            text-align: center;
+            & > span {
+                color: red;
+                font-size: 24px;
+                opacity: 0.8;
+                &:hover {
+                    opacity: 1;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }
