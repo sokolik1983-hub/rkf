@@ -5,8 +5,8 @@ import { CSSTransition } from "react-transition-group";
 import "./index.scss";
 
 
-const RanksFilter = ({ ranks, rank_ids, onChange }) => {
-    const [isOpen, setIsOpen] = useState(true);
+const RanksFilter = ({ ranks, rank_ids, onChange, is_club_link }) => {
+    const [isOpen, setIsOpen] = useState(is_club_link && !ranks.length ? false : true);
 
     const handleChange = id => {
         const ranksIds = rank_ids.includes(id) ?
@@ -43,7 +43,7 @@ const RanksFilter = ({ ranks, rank_ids, onChange }) => {
                             ))}
                         </ul>
                     }
-                    {ranks && <div className="ranks-filter__empty">
+                    {!ranks.length && <div className="ranks-filter__empty">
                         <p>Ранг не найден</p>
                     </div>
 
