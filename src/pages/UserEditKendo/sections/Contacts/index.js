@@ -8,106 +8,57 @@ import { numbersOnlyValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 import { Error } from '@progress/kendo-react-labels';
-import { Input } from '@progress/kendo-react-inputs';
 import { Checkbox } from '@progress/kendo-react-inputs';
-import { Grid, GridColumn, GridToolbar } from '@progress/kendo-react-grid';
-
 import { FieldWrapper } from '@progress/kendo-react-form';
-import { Label } from '@progress/kendo-react-labels';
 
+const FormCheckbox = (fieldRenderProps) => {
 
+    const { validationMessage, touched, id, valid, disabled, hint, optional, label, visited, modified, onChange, ...others } = fieldRenderProps;
+    const showValidationMessage = touched && validationMessage;
+    const errorId = showValidationMessage ? `${id}_error` : '';
 
-const commandCell = (onRemove) => (props) => {
-    const onClick = React.useCallback(
-        (e) => {
-            e.preventDefault();
-            onRemove(props);
-        },
-        [onRemove]
-    );
+    const handleChange = () => {
+        console.log(onChange);
+    }
     return (
-        <td>
-            <button
-                className="k-button k-grid-remove-command"
-                onClick={onClick}
-            >
-                Remove
-            </button>
-        </td>
+        <FieldWrapper>
+            <Checkbox
+                ariaDescribedBy={`${errorId}`}
+                label={label}
+                labelOptional={optional}
+                valid={valid}
+                id={id}
+                disabled={disabled}
+                onChange={handleChange}
+                {...others}
+            />
+            {
+                showValidationMessage &&
+                <Error id={errorId}>{validationMessage}</Error>
+            }
+        </FieldWrapper>
     );
 };
 
-const FormGrid = (fieldArrayRenderProps) => {
-    const { validationMessage, visited } = fieldArrayRenderProps;
-    const onAdd = React.useCallback(
-        (e) => {
-            e.preventDefault();
-            fieldArrayRenderProps.onUnshift({ value: { name: '' } });
-        },
-        [fieldArrayRenderProps.onUnshift]
-    );
-    const onRemove = React.useCallback(
-        (cellProps) => fieldArrayRenderProps.onRemove({ index: cellProps.dataIndex }),
-        [fieldArrayRenderProps.onRemove]
-    );
+const FormPhonesFieldArray = (fieldArrayRenderProps) => {
+    const { validationMessage, visited, value, onRemove, onUnshift, onChange } = fieldArrayRenderProps;
 
-    const handleChange = React.useCallback(
-        (cellProps) => {
-            console.log(cellProps);
-            return fieldArrayRenderProps.onChange({ name: cellProps.name, value: cellProps.value })
-        },
-        [fieldArrayRenderProps.onRemove]
-    );
+    const handleRemove = (index) => {
+        onRemove({ index: index });
+        value.length === 1 && onUnshift({ value: { value: '' } });
+    }
 
-    const nameCell = (props) => {
-        return (
-            <td>
-                <Field
-                    component={Input}
-                    name={`users[${props.dataIndex}].${props.field}`}
-                />
-            </td>
-        );
-    };
-
-
-    const FormCheckbox = (fieldRenderProps) => {
-        const { validationMessage, touched, id, valid, disabled, hint, optional, label, visited, modified, ...others } = fieldRenderProps;
-
-        const showValidationMessage = touched && validationMessage;
-        const errorId = showValidationMessage ? `${id}_error` : '';
-
-        return (
-            <FieldWrapper>
-                <Checkbox
-                    ariaDescribedBy={`${errorId}`}
-                    label={label}
-                    labelOptional={optional}
-                    valid={valid}
-                    id={id}
-                    disabled={disabled}
-                    {...others}
-                />
-                {
-                    showValidationMessage &&
-                    <Error id={errorId}>{validationMessage}</Error>
-                }
-            </FieldWrapper>
-        );
-    };
-
-
-
-    return (<>
+    return <>
         {
             visited && validationMessage &&
             (<Error>{validationMessage}</Error>)
         }
         {
-            fieldArrayRenderProps.value && fieldArrayRenderProps.value.map((v, i) => {
-                return <div className="form-row" key={i}>
+            value && value.map((val, i) => <div className="form-row" key={i}>
                     <div className="form-group col-md-1 Contacts__custom-plus">
-                        {i === fieldArrayRenderProps.value.length - 1 && <button className="k-button k-grid-remove-command" onClick={onAdd}>
+                        {i === value.length - 1 && <button
+                            className="k-button k-grid-remove-command"
+                            onClick={() => onUnshift({ value: { value: '' } })}>
                             <span className="k-icon k-i-plus"></span>
                         </button>}
                     </div>
@@ -124,20 +75,17 @@ const FormGrid = (fieldArrayRenderProps) => {
                                 id={`contacts[${i}]`}
                                 name={`contacts[${i}].is_main`}
                                 component={FormCheckbox}
+                                onChange={onChange}
                             />
                         </div>
                     </div>
                     <div className="form-group col-md-1 Contacts__custom-trash">
-                        <span onClick={onRemove} className="k-icon k-i-trash" />
+                        <span onClick={() => handleRemove(i)} className="k-icon k-i-trash" />
                     </div>
-                </div>
-            })
+                </div>)
         }
-    </>
-    );
+    </>;
 };
-
-
 
 const Contacts = ({ initialValues, cities, setFormTouched }) => {
     const handleSubmit = (dataItem) => console.log((JSON.stringify(dataItem, null, 2)));
@@ -228,7 +176,7 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                             </div>
                             <FieldArray
                                 name="contacts"
-                                component={FormGrid}
+                                component={FormPhonesFieldArray}
                                 onChange={formRenderProps.onChange}
                             //validator={arrayLengthValidator}
                             />
@@ -251,12 +199,12 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                     </div>
                                 </div>
                             </div>
-                            <FieldArray
+                            {/* <FieldArray
                                 name="contacts"
                                 component={FormGrid}
                                 onChange={formRenderProps.onChange}
-                            //validator={arrayLengthValidator}
-                            />
+                            validator={arrayLengthValidator}
+                            /> */}
 
                         </fieldset>
                         <div className="k-form-buttons text-center">
