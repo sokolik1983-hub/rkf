@@ -79,7 +79,7 @@ const UserVideoGallery = ({alias, pageLink, canEdit}) => {
     return (
         <Card className="user-gallery">
             <div className="user-gallery__header">
-                <h4 className="user-gallery__title">Видеозаписи</h4>
+                <Link to={pageLink}><h4 className="user-gallery__title">Видеозаписи</h4></Link>
                 {!videos.length && canEdit ?
                     <LightTooltip title="Добавить видео" enterDelay={200} leaveDelay={200}>
                         <button
