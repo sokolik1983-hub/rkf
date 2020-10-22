@@ -46,14 +46,6 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         if(window.confirm('Вы действительно хотите удалить эту строку?')) {
             setPdfArray([...pdfArray].filter((item, i) => i !== index));
         }
-        if (index === 0) {
-            setPdfArray([{
-                name: '',
-                file: '',
-                errorName: '',
-                errorFile: ''
-            }])
-        }
     };
 
     const handleSubmit = e => {
