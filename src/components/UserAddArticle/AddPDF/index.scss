@@ -2,6 +2,9 @@
   @media (max-width: 560px) {
     padding-bottom: 24px;
   }
+  ._disabled {
+    pointer-events: none !important;
+  }
   &__form {
     &-row {
       display: flex;
