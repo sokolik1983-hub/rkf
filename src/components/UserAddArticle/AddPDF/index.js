@@ -88,7 +88,7 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                             <div className="add-pdf__form-add-row">
                                 <button 
                                     type="button"
-                                    className="add-pdf__form-add-row-btn"
+                                    className={`add-pdf__form-add-row-btn ${item.name && item.file ? `` : `_disabled`}`}
                                     onClick={() => setPdfArray([...pdfArray, {
                                         name: '',
                                         file: '',
