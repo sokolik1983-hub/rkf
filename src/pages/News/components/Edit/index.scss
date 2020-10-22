@@ -28,7 +28,12 @@
     }
     @media (max-width: 680px) {
       & > *:not(:last-child) {
-        margin-right: 0;
+        margin-right: 32px;
+      }
+    }
+    @media (max-width: 561px) {
+      & > *:not(:last-child) {
+        margin-right: 24px;
       }
     }
   }
