@@ -53,5 +53,11 @@
         "filterOrLogic": "Или",
         "filterTitle": "Фильтр",
         "filterSubmitButton": "Применить"
+    },
+    "editor": {
+        "bold": "Жирный",
+        "italic": "Наклонный",
+        "underline": "Подчёркнутый",
+        "strikethrough": "Перечёркнутый"
     }
 }

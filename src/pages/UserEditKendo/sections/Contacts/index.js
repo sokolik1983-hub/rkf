@@ -1,14 +1,16 @@
 import React from "react";
 import { Prompt } from "react-router-dom";
-import { Form, Field, FormElement } from '@progress/kendo-react-form';
+import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
-import { numbersOnlyValidator } from 'pages/UserEditKendo/validators';
-
+import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
+import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormTouched }) => {
+
+
+const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses }) => {
     const handleSubmit = (dataItem) => console.log((JSON.stringify(dataItem, null, 2)));
     return <div className="Contacts">
         <Form
@@ -29,11 +31,11 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'is_hidden'}
-                                                name={'personal_information.is_hidden'}
+                                                id={'address_visibility_status_id'}
+                                                name={'personal_information.address_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
-                                                data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
                                         </div>
                                     </div>
@@ -85,16 +87,49 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'is_hidden'}
-                                                name={'personal_information.is_hidden'}
+                                                id={'phones_visibility_status_id'}
+                                                name={'personal_information.phones_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
-                                                data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <FieldArray
+                                id="phones"
+                                name="phones"
+                                component={FormContactsFieldArray}
+                                formRenderProps={formRenderProps}
+                                valueValidator={phoneValidator}
+                            />
+
+                            <div className="form-row mt-3">
+                                <div className="form-group col-md-6">
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <div className="Contacts__custom-label">E-mail</div>
+                                        </div>
+                                        <div className="col-md-8">
+                                            <Field
+                                                id={'mails_visibility_status_id'}
+                                                name={'personal_information.mails_visibility_status_id'}
+                                                label={''}
+                                                component={FormDropDownList}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <FieldArray
+                                id="mails"
+                                name="mails"
+                                component={FormContactsFieldArray}
+                                formRenderProps={formRenderProps}
+                                valueValidator={emailValidator}
+                            />
 
                         </fieldset>
                         <div className="k-form-buttons text-center">
