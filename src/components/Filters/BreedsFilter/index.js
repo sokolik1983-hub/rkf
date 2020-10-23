@@ -17,10 +17,10 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions }) => {
+const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions, is_club_link }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(is_club_link && !breeds.length ? false : true);
 
     useEffect(() => {
         if (breeds.length) {

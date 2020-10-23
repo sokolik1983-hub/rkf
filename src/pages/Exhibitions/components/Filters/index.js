@@ -107,17 +107,20 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                 breed_ids={filters.BreedIds}
                                 onChange={filter => setFiltersToUrl({ BreedIds: filter })}
                                 isExhibitions
+                                is_club_link={clubName && filters.Alias}
                             />
                             <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 isExhibitions
+                                is_club_link={clubName && filters.Alias}
                             />
                             <RanksFilter
                                 ranks={ranks}
                                 rank_ids={filters.RankIds}
                                 onChange={filter => setFiltersToUrl({ RankIds: filter })}
+                                is_club_link={clubName && filters.Alias}
                             />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">
