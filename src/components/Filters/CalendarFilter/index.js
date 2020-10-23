@@ -49,7 +49,7 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
                     className={`calendar-filter__button${activeButton === 'day' && !range_clicked ? ' active' : ''}`}
                     onClick={() => handleButtonClick('day')}
                 >
-                    День
+                    Сегодня
                 </button>
                 <button
                     className={`calendar-filter__button${activeButton === 'month' && !range_clicked ? ' active' : ''}`}
