@@ -21,7 +21,7 @@ const Filters = ({isOpenFilters, filtersValue, filters, additionalFilters}) => {
             <StickyBox offsetTop={66}>
                 <div className="search-page__filters-wrap">
                     <Card className="search-page__filters">
-                        <h3 className="search-page__filters-title">Результаты поиска для</h3>
+                        <h3 className="search-page__filters-title">Результаты поиска по запросу:</h3>
                         <p className="search-page__filters-value">{filtersValue.string_filter}</p>
                     </Card>
                     {filters.map(filter =>
