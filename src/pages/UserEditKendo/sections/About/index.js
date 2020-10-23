@@ -1,11 +1,11 @@
 import React from "react";
 import { Prompt } from "react-router-dom";
 import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form';
-import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
-import FormInput from 'pages/UserEditKendo/components/FormInput';
+//import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
+//import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormEditorTextarea from 'pages/UserEditKendo/components/FormEditorTextarea';
-import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
+//import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
+//import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 
@@ -27,6 +27,7 @@ const About = ({ initialValues, cities, setFormTouched, visibilityStatuses }) =>
                             <Field
                                 id="description"
                                 name="personal_information.description"
+                                label="Описание"
                                 component={FormEditorTextarea}
                             />
                             {/* <FieldArray

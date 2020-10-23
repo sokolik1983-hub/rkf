@@ -1,5 +1,7 @@
 import React from 'react';
 import { Editor, EditorTools, ProseMirror } from '@progress/kendo-react-editor';
+import { FieldWrapper } from '@progress/kendo-react-form';
+import { Label } from '@progress/kendo-react-labels';
 import { loadMessages, IntlProvider, LocalizationProvider } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
 
@@ -31,7 +33,7 @@ const Placeholder = (emptyMessage) => {
     });
 }
 
-export const PlaceholderStyles =
+const PlaceholderStyles =
     `p.placeholder:first-child:before {
         content: attr(data-placeholder);
         float: left;
@@ -44,22 +46,10 @@ export const PlaceholderStyles =
 
 
 const FormEditorTextarea = (fieldRenderProps) => {
-    const { Bold,
-        Italic,
-        Underline,
-        Strikethrough,
-        Link,
-        Unlink,
-        AlignLeft,
-        AlignCenter,
-        AlignRight,
-        AlignJustify,
-        ForeColor,
-        BackColor,
-        CleanFormatting } = EditorTools;
+    const { Bold, Italic, Underline } = EditorTools;
 
-    const { validationMessage, touched, label, id, valid, disabled, type, optional, ...others } = fieldRenderProps;
-    const editorTools = [[Bold, Italic, Underline, Strikethrough], [AlignLeft, AlignCenter, AlignRight, AlignJustify], ForeColor, BackColor, [CleanFormatting], [Link, Unlink]];
+    const { validationMessage, touched, label, id, valid, disabled, type, optional, onChange, ...others } = fieldRenderProps;
+    const editorTools = [[Bold, Italic, Underline]];
 
     const onMount = (event) => {
         const state = event.viewProps.state;
@@ -78,16 +68,26 @@ const FormEditorTextarea = (fieldRenderProps) => {
         );
     }
 
+    const handleChange = (event) => {
+        onChange({ value: event.html });
+    }
+
     return <LocalizationProvider language="ru-RU">
         <IntlProvider locale={'ru'}>
-            <Editor
-                tools={editorTools}
-                contentStyle={{ height: 200 }}
-                className={"FormEditorTextarea"}
-                defaultEditMode="div"
-                onMount={onMount}
-                {...others}
-            />
+            <FieldWrapper>
+                <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
+                <div className={'k-form-field-wrap'}>
+                    <Editor
+                        tools={editorTools}
+                        contentStyle={{ height: 200 }}
+                        className={"FormEditorTextarea"}
+                        defaultEditMode="div"
+                        onMount={onMount}
+                        onChange={handleChange}
+                        {...others}
+                    />
+                </div>
+            </FieldWrapper>
         </IntlProvider>
     </LocalizationProvider>;
 }

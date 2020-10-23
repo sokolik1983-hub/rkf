@@ -147,7 +147,7 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             case 1:
                 return <Contacts initialValues={initialValues} cities={cities} setFormTouched={setFormTouched} visibilityStatuses={visibilityStatuses} />;
             case 2:
-                return <About setFormTouched={setFormTouched} />;
+                return <About initialValues={initialValues} setFormTouched={setFormTouched} />;
             case 3:
                 return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} />;
             case 4:
