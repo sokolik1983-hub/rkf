@@ -2,6 +2,7 @@ const emailRegex = new RegExp(/\S+@\S+\.\S+/);
 const phoneRegex = new RegExp(/^[0-9 ()+-]+$/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
+const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
 const requiredMessage = 'Обязательное поле';
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
@@ -12,6 +13,15 @@ export const emailValidator = value => !value ?
 export const aliasValidator = value => !value ?
     requiredMessage :
     aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
+export const codeValidator = value => !value ?
+    requiredMessage :
+    value.length !== 5 ? "Неверный код" :
+    numbersOnlyRegex.test(value) ? "" : "Неверный код";
+export const passwordValidator = value => !value ?
+    requiredMessage :
+    passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
+
+
 
 
 export const nameValidator = (value) => !value ?
@@ -23,6 +33,3 @@ export const userNameValidator = (value) => !value ?
 export const phoneValidator = (value) => !value ?
     "Phone number is required." :
     phoneRegex.test(value) ? "" : "Not a valid phone number.";
-
-
-export const passwordValidator = (value) => value && value.length > 8 ? '' : 'Password must be at least 8 symbols.';

@@ -12,7 +12,7 @@ import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
 import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "pages/User/components/UserInfo";
+import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "components/Layouts/UserMenu"
 import { endpointGetUserInfo, userNav } from "pages/User/config";
 import CopyrightInfo from "components/CopyrightInfo";

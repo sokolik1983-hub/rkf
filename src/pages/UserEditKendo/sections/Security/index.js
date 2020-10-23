@@ -2,14 +2,15 @@ import React, {useState} from "react";
 import {Prompt} from "react-router-dom";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Button} from "@progress/kendo-react-buttons";
+import { getter } from '@progress/kendo-react-common';
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import FormInput from "../../components/FormInput";
-import {aliasValidator, emailValidator} from "../../validators";
+import ModalConfirmEmail from "../../components/ModalConfirmEmail";
+import {aliasValidator, emailValidator, passwordValidator, requiredValidator} from "../../validators";
 import {Request} from "../../../../utils/request";
 import "./index.scss";
-import ModalConfirmEmail from "../../components/ModalConfirmEmail";
 
 
 const Security = ({alias, login, setFormTouched, getInfo, history}) => {
@@ -65,7 +66,7 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
 
     const submitLoginForm = async data => {
         setLoading(true);
-        console.log('submitLoginForm', data);
+
         await Request({
             url: '/api/registration/change_user_mail',
             method: 'POST',
@@ -73,17 +74,48 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
         }, () => {
             setNewLogin(data.login);
             setModalType('confirmLogin');
+            setLoading(false);
         }, error => {
             handleError(error);
             setLoading(false);
         });
     };
 
-    const submitPasswordForm = data => {
-        console.log('submitAliasForm', data);
+    const submitPasswordForm = async data => {
+        console.log('submitPasswordForm', data);
+        setLoading(true);
+
+        await Request({
+            url: '/api/registration/change_user_password',
+            method: 'POST',
+            data: JSON.stringify({
+                old_password: data.old_password,
+                new_password: data.new_password
+            })
+        }, () => {
+            //тут возможно надо будет показать модалку
+            setLoading(false);
+        }, error => {
+            handleError(error);
+            //тут записать все ошибки и занести их в форму
+            setLoading(false);
+        });
     };
 
     const secureLogin = login => login.split('@')[0].slice(0, 2) + '***@' + login.split('@')[1];
+
+    const validateConfirmPassword = values => {
+        const newPassword = getter('new_password');
+        const confirmPassword = getter('confirm_password');
+
+        if (newPassword(values) && confirmPassword(values) && newPassword(values) === confirmPassword(values)) {
+            return {};
+        }
+
+        return {
+            ['confirm_password']: 'Пароль не совпадает'
+        };
+    };
 
     return loading ?
         <Loading centered={false}/> :
@@ -171,6 +203,7 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
             />
             <Form
                 onSubmit={submitPasswordForm}
+                validator={validateConfirmPassword}
                 render={formRenderProps => {
                     setFormTouched(formRenderProps.touched);
                     return (
@@ -187,8 +220,9 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                                             id="old_password"
                                             name="old_password"
                                             placeholder="Старый пароль"
+                                            type="password"
                                             component={FormInput}
-                                            // validator={requiredValidator}
+                                            validator={requiredValidator}
                                         />
                                     </div>
                                     <div className="col-md-4">
@@ -196,8 +230,9 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                                             id="new_password"
                                             name="new_password"
                                             placeholder="Новый пароль"
+                                            type="password"
                                             component={FormInput}
-                                            // validator={requiredValidator}
+                                            validator={passwordValidator}
                                         />
                                     </div>
                                     <div className="col-md-4">
@@ -205,8 +240,9 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                                             id="confirm_password"
                                             name="confirm_password"
                                             placeholder="Повторите пароль"
+                                            type="password"
                                             component={FormInput}
-                                            // validator={requiredValidator}
+                                            validator={passwordValidator}
                                         />
                                     </div>
                                 </div>
@@ -227,6 +263,7 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                 <ModalConfirmEmail
                     email={newLogin}
                     closeModal={() => setModalType('')}
+                    updateInfo={getInfo}
                 />
             }
             {alert && <Alert {...alert} />}

@@ -1,0 +1,52 @@
+.confirm-email-modal {
+  & > div {
+    max-width: 600px;
+  }
+  .Modal__inner {
+    padding: 13px 20px 20px;
+    box-shadow: 0 4px 4px rgba(120, 153, 255, 0.1);
+  }
+  .Modal__close {
+    display: none;
+  }
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 8px;
+  }
+  &__describe {
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    @media (max-width: 560px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    b {
+      color: #72839c;
+    }
+  }
+  .k-form-field {
+    max-width: 238px;
+    margin: 0 auto;
+  }
+  .k-form-buttons {
+    justify-content: center;
+  }
+  .btn-light {
+    border: 1px solid #ced4da;
+  }
+  #code {
+    text-align: center;
+  }
+  &__img {
+    display: block;
+    margin: 17px auto 37px;
+  }
+  &__buttons {
+    margin-top: 85px;
+  }
+}
