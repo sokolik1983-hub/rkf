@@ -6,7 +6,7 @@ import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 // import UserBanner from "../../../../components/Layouts/UserBanner";
-import UserInfo from "pages/User/components/UserInfo";
+import UserInfo from "../../../../components/Layouts/UserInfo";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";

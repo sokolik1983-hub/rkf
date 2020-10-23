@@ -6,4 +6,41 @@
       margin-top: 32px;
     }
   }
+  &__psw {
+    &-wrap {
+      position: relative;
+    }
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    display: inline-block;
+    top: 43px;
+    right: 10px;
+    background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
+    background-size: contain;
+    border: none;
+    @media (min-width: 320px) {
+    }
+    &._show-password {
+      background: url("/static/icons/psw-eye-open.svg") center no-repeat;
+      background-size: contain;
+    }
+  }
+  &__psw-confirm {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    display: inline-block;
+    top: 157px;
+    right: 10px;
+    background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
+    background-size: contain;
+    border: none;
+    @media (max-width: 320px) {
+    }
+    &._show-confirm {
+      background: url("/static/icons/psw-eye-open.svg") center no-repeat;
+      background-size: contain;
+    }
+  }
 }

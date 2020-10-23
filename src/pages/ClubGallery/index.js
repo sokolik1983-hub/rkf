@@ -16,6 +16,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Club/index.scss";
+import useIsMobile from "../../utils/useIsMobile";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
 
 const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -32,6 +35,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
     let params = useParams();
     const history = useHistory();
     const alias = params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         setPageLoaded(false);
@@ -145,7 +149,6 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         getImages(1);
     };
 
-
     const Breadcrumbs = () => {
         return <div className="ClubGallery__breadcrumbs">
             <div className="ClubGallery__breadcrumbs-title">
@@ -167,17 +170,23 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                     <Card className="club-page__content-banner">
                                         <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                     </Card>
-                                    <div className="club-page__mobile-only">
-                                        <ClubUserHeader
-                                            user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                            logo={clubInfo.logo_link}
-                                            name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                            alias={clubInfo.club_alias}
-                                            profileId={clubInfo.id}
-                                            federationName={clubInfo.federation_name}
-                                            federationAlias={clubInfo.federation_alias}
-                                        />
-                                    </div>
+                                    {isMobile &&
+                                        <>
+                                            <ClubUserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                            />
+                                            <UserVideoGallery
+                                                alias={clubInfo.club_alias}
+                                                pageLink={`/${clubInfo.club_alias}/video`}
+                                            />
+                                        </>
+                                    }
                                     <div className="ClubGallery__content">
                                         <Card>
                                             <Breadcrumbs />
@@ -191,37 +200,34 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                 </>}
                                             </div>
 
-                                            {
-                                                !pageLoaded
-                                                    ? <Loading centered={false} />
-                                                    : <>
-                                                        <InfiniteScroll
-                                                            dataLength={images.length}
-                                                            next={getNextImages}
-                                                            hasMore={hasMore}
-                                                            loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={!images.length &&
-                                                                <div className="ClubGallery__no-images">
-                                                                    <h4>Изображений больше нет</h4>
-                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <Gallery
-                                                                items={images}
-                                                                albums={albums}
-                                                                album={album}
-                                                                match={match}
-                                                                backdropClosesModal={true}
-                                                                enableImageSelection={false}
-                                                                getAlbums={getAlbums}
-                                                                getImages={getImages}
-                                                                canEdit={canEdit}
-                                                                alias={alias}
-                                                                isClub={true}
-                                                            />
-                                                        </InfiniteScroll>
-                                                    </>
+                                            {!pageLoaded ?
+                                                <Loading centered={false} /> :
+                                                <InfiniteScroll
+                                                    dataLength={images.length}
+                                                    next={getNextImages}
+                                                    hasMore={hasMore}
+                                                    loader={imagesLoading && <Loading centered={false} />}
+                                                    endMessage={!images.length &&
+                                                        <div className="ClubGallery__no-images">
+                                                            <h4>Изображений больше нет</h4>
+                                                            <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Gallery
+                                                        items={images}
+                                                        albums={albums}
+                                                        album={album}
+                                                        match={match}
+                                                        backdropClosesModal={true}
+                                                        enableImageSelection={false}
+                                                        getAlbums={getAlbums}
+                                                        getImages={getImages}
+                                                        canEdit={canEdit}
+                                                        alias={alias}
+                                                        isClub={true}
+                                                    />
+                                                </InfiniteScroll>
                                             }
                                         </Card>
                                     </div>
@@ -229,31 +235,36 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                 <Aside className="club-page__info">
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
-                                            <ClubUserHeader
-                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                logo={clubInfo.logo_link}
-                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                alias={clubInfo.club_alias}
-                                                profileId={clubInfo.id}
-                                                federationName={clubInfo.federation_name}
-                                                federationAlias={clubInfo.federation_alias}
-                                            />
-                                            <div className="club-page__copy-wrap">
-                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                <p>Политика обработки персональных данных</p>
-                                            </div>
+                                            {!isMobile &&
+                                                <>
+                                                    <ClubUserHeader
+                                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                        logo={clubInfo.logo_link}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        alias={clubInfo.club_alias}
+                                                        profileId={clubInfo.id}
+                                                        federationName={clubInfo.federation_name}
+                                                        federationAlias={clubInfo.federation_alias}
+                                                    />
+                                                    <UserVideoGallery
+                                                        alias={clubInfo.club_alias}
+                                                        pageLink={`/${clubInfo.club_alias}/video`}
+                                                    />
+                                                    <CopyrightInfo/>
+                                                </>
+                                            }
                                         </div>
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            <div className="club-page__mobile-only">
+                            {isMobile &&
                                 <MenuComponent
                                     alias={clubInfo.club_alias}
                                     user={user}
                                     profileId={clubInfo.id}
                                     noCard={true}
                                 />
-                            </div>
+                            }
                         </Container>
                     </div>
                 </Layout>

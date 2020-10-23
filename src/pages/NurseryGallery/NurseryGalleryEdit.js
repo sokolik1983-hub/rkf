@@ -19,6 +19,10 @@ import declension from "utils/declension";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
+import useIsMobile from "../../utils/useIsMobile";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
+
 
 const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -34,6 +38,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
     const [showAlert, setShowAlert] = useState(false);
     let params = useParams();
     const alias = match.params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         Promise.all([getImages(1), getNursery()])
@@ -182,27 +187,33 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         <Card className="nursery-page__content-banner">
                                             <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
                                         </Card>
-                                        <div className="nursery-page__mobile-only">
-                                            <ClubUserHeader
-                                                user="nursery"
-                                                logo={nursery.logo_link}
-                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                alias={alias}
-                                                profileId={nursery.id}
-                                                federationName={nursery.federation_name}
-                                                federationAlias={nursery.federation_alias}
-                                            />
-                                            {nursery.breeds && !!nursery.breeds.length &&
-                                                <Card className="nursery-page__breeds">
-                                                    <h4>Породы</h4>
-                                                    <ul className="nursery-page__breeds-list">
-                                                        {nursery.breeds.map(item =>
-                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                        )}
-                                                    </ul>
-                                                </Card>
-                                            }
-                                        </div>
+                                        {isMobile &&
+                                            <>
+                                                <ClubUserHeader
+                                                    user="nursery"
+                                                    logo={nursery.logo_link}
+                                                    name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                    alias={alias}
+                                                    profileId={nursery.id}
+                                                    federationName={nursery.federation_name}
+                                                    federationAlias={nursery.federation_alias}
+                                                />
+                                                {nursery.breeds && !!nursery.breeds.length &&
+                                                    <Card className="nursery-page__breeds">
+                                                        <h4>Породы</h4>
+                                                        <ul className="nursery-page__breeds-list">
+                                                            {nursery.breeds.map(item =>
+                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                            )}
+                                                        </ul>
+                                                    </Card>
+                                                }
+                                                <UserVideoGallery
+                                                    alias={alias}
+                                                    pageLink={`/kennel/${alias}/video`}
+                                                />
+                                            </>
+                                        }
                                         <div className="NurseryGallery__content">
                                             <Card>
                                                 <Breadcrumbs />
@@ -263,37 +274,42 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                     <Aside className="nursery-page__info">
                                         <StickyBox offsetTop={65}>
                                             <div className="nursery-page__info-inner">
-                                                <ClubUserHeader
-                                                    user="nursery"
-                                                    logo={nursery.logo_link}
-                                                    name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                    alias={alias}
-                                                    profileId={nursery.id}
-                                                    federationName={nursery.federation_name}
-                                                    federationAlias={nursery.federation_alias}
-                                                />
-                                                {nursery.breeds && !!nursery.breeds.length &&
-                                                    <Card className="nursery-page__breeds">
-                                                        <h4>Породы</h4>
-                                                        <ul className="nursery-page__breeds-list">
-                                                            {nursery.breeds.map(item =>
-                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                            )}
-                                                        </ul>
-                                                    </Card>
+                                                {!isMobile &&
+                                                    <>
+                                                        <ClubUserHeader
+                                                            user="nursery"
+                                                            logo={nursery.logo_link}
+                                                            name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                            alias={alias}
+                                                            profileId={nursery.id}
+                                                            federationName={nursery.federation_name}
+                                                            federationAlias={nursery.federation_alias}
+                                                        />
+                                                        {nursery.breeds && !!nursery.breeds.length &&
+                                                            <Card className="nursery-page__breeds">
+                                                                <h4>Породы</h4>
+                                                                <ul className="nursery-page__breeds-list">
+                                                                    {nursery.breeds.map(item =>
+                                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                                    )}
+                                                                </ul>
+                                                            </Card>
+                                                        }
+                                                        <UserVideoGallery
+                                                            alias={alias}
+                                                            pageLink={`/kennel/${alias}/video`}
+                                                        />
+                                                        <CopyrightInfo/>
+                                                    </>
                                                 }
-                                                <div className="nursery-page__mobile-only">
+                                                {isMobile &&
                                                     <MenuComponent
                                                         alias={alias}
                                                         user={user}
                                                         profileId={nursery.id}
                                                         noCard={true}
                                                     />
-                                                </div>
-                                                <div className="nursery-page__copy-wrap">
-                                                    <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                    <p>Политика обработки персональных данных</p>
-                                                </div>
+                                                }
                                             </div>
                                         </StickyBox>
                                     </Aside>

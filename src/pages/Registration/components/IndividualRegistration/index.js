@@ -10,6 +10,8 @@ const IndividualRegistration = ({ history }) => {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
     const transformValues = values => {
         const newValues = { ...values };
@@ -37,6 +39,32 @@ const IndividualRegistration = ({ history }) => {
                 className="individual-registration__form"
             >
                 {fields.map(field => <FormField key={field.name} {...field} />)}
+                <div className="individual-registration__psw-wrap">
+                    <FormField
+                        name="password"
+                        type={showPassword ? `text` : `password`}
+                        label="Пароль"
+                        placeholder="Введите пароль"
+                    />
+                    <button
+                        className={`individual-registration__psw ${showPassword ? `_show-password` : ``}`}
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                    </button>
+                    <FormField
+                        name="passwordConfirm"
+                        type={showPasswordConfirm ? `text` : `password`}
+                        label="Подтверждение пароля"
+                        placeholder="Введите подтверждение пароля"
+                    />
+                    <button
+                        className={`individual-registration__psw-confirm ${showPasswordConfirm ? `_show-confirm` : ``}`}
+                        type="button"
+                        onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                    >
+                    </button>
+                </div>
                 <CustomCheckbox
                     id="individual-registration__data-privacy"
                     label={dataPrivacyLabel}

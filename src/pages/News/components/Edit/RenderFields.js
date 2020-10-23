@@ -8,6 +8,7 @@ import AddPDF from "../../../../components/UserAddArticle/AddPDF";
 import {BAD_SITES} from "../../../../appConfig";
 import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
+import LightTooltip from "../../../../components/LightTooltip";
 
 
 const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating, setIsImageDelete}) => {
@@ -101,6 +102,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             </div>
             <div className="article-edit__controls">
                 {!src &&
+                    <LightTooltip title={'Прикрепить изображение'} enterDelay={200} leaveDelay={200}>
                     <div className="article-edit__attach-img">
                         <input
                             type="file"
@@ -110,10 +112,12 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                             accept=".png, .jpg, .jpeg"
                             onChange={handleChangeImg}
                         />
-                        <label htmlFor="file" className="article-edit__attach-img-label">Прикрепить изображение</label>
+                        <label htmlFor="file" className="article-edit__attach-img-label"></label>
                     </div>
+                    </LightTooltip>
                 }
                 {!is_advert && !video &&
+                    <LightTooltip title={'Добавить ссылку на YouTube'} enterDelay={200} leaveDelay={200}>
                     <button
                         className="article-edit__attach-video"
                         type="button"
@@ -121,9 +125,11 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                             setModalType('video');
                             setShowModal(true);
                         }}
-                    >Добавить ссылку на youtube</button>
+                    ></button>
+                    </LightTooltip>
                 }
                 {docs.length < 3 &&
+                    <LightTooltip title={'Добавить PDF'} enterDelay={200} leaveDelay={200}>
                     <button
                         className="article-edit__attach-pdf"
                         type="button"
@@ -131,9 +137,9 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                             setModalType('pdf');
                             setShowModal(true);
                         }}
-                    >Добавить pdf</button>
+                    ></button>
+                    </LightTooltip>
                 }
-                {!video && <FormField {...fields.is_advert} className="article-edit__advert-control" />}
             </div>
             <div className="article-edit__media">
                 {src &&

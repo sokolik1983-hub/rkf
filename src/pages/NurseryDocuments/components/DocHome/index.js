@@ -201,6 +201,11 @@ const DocHome = ({ nurseryAlias, bookform }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/review`} className="menu-component__link--mark">Оценка работы федерации</Link>
                 <Link to={`/kennel/${nurseryAlias}`} title="Страница питомника" className="menu-component__link--club">Страница питомника</Link>
             </CustomMenu>
+            <div className="documents-page__publication">
+                <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
+                    <img src="/static/images/publications/breeder-club.png" alt="" />
+                </a>
+            </div>
         </aside>
         <Switch>
             <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />

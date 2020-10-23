@@ -30,6 +30,9 @@
         visibility: visible;
         transform: translateX(0);
       }
+      & > div {
+        position: static !important;
+      }
     }
     @media (max-width: 560px) {
       top: 48px;

@@ -49,7 +49,7 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
             advert_cost: is_advert ? advert_cost : '',
             advert_number_of_puppies: is_advert && !isMating ? advert_number_of_puppies : '',
             advert_type_id: is_advert ? advert_type_id : '',
-            file: isImageDelete ? file : '',
+            image: isImageDelete ? file : '',
             is_image_delete: isImageDelete,
             video_link: video_link || '',
             documents

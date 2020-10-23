@@ -15,7 +15,7 @@ import {Gallery, AddPhotoModal} from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "./config";
+import {endpointGetUserInfo, userNav} from "../User/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
@@ -209,7 +209,12 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                     </div>
                                     {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
                                     <div className="NurseryGallery__buttons">
-                                        {album && canEdit && <Link className="NurseryGallery__buttons-link" to={`/user/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
+                                        {album && canEdit &&
+                                            <Link
+                                                className="NurseryGallery__buttons-link"
+                                                to={`/user/${alias}/gallery/${params.album}/edit`}
+                                            >Редактировать</Link>
+                                        }
                                         {album && canEdit && album.addition &&
                                             <>
                                                 <span

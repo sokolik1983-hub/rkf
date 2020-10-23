@@ -19,7 +19,7 @@ load(
     require("cldr-data/main/ru/timeZoneNames.json")
 );
 
-const RangeCalendarSearch = ({ date_from, date_to }) => {
+const RangeCalendarSearch = ({ date_from, date_to, handleRangeClick }) => {
     const [maxYear, setMaxYear] = useState(null);
     const [loading, setLoading] = useState(true);
     const minYear = new Date(2018, 12, 1);
@@ -31,7 +31,6 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
         }, data => {
             const year = data.years.sort((a, b) => b - a);
             setMaxYear(year[0]);
-            console.log('maxYear', year[0])
             setLoading(false);
         }, error => {
             console.log(error.response);
@@ -51,6 +50,7 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
         setFiltersToUrl({
             date_from: formatDateToString(values)
         });
+        handleRangeClick();
     };
 
     const changeCalendarFilterTo = e => {
@@ -59,6 +59,7 @@ const RangeCalendarSearch = ({ date_from, date_to }) => {
         setFiltersToUrl({
             date_to: values ? formatDateToString(values) : values
         });
+        handleRangeClick();
     };
 
     return (

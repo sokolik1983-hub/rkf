@@ -16,7 +16,7 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
         setShowModal({ type: 'addVideo' });
     }
 
-    const onVideoAddSuccess = (link) => {
+    const onVideoAddSuccess = link => {
         const id = getYouTubeID(link);
         getYoutubeTitle(id, function (err, title) {
             if (err) {
@@ -69,11 +69,13 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
             }
         </div>
         {showModal && showModal.type === 'addVideo' &&
-            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} />}
+            <AddVideoModal showModal={showModal} setShowModal={setShowModal} onSuccess={onVideoAddSuccess} />
+        }
         {showModal && showModal.type === 'openVideo' &&
             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
                 <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />
-            </VideoModal>}
+            </VideoModal>
+        }
     </div>
 };
 
