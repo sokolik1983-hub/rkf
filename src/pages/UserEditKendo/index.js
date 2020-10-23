@@ -27,6 +27,7 @@ import './styles.scss';
 const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [initialValues, setInitialValues] = useState(defaultValues);
     const [cities, setCities] = useState([]);
+    const [visibilityStatuses, setVisibilityStatuses] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
@@ -41,7 +42,7 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
     useEffect(() => {
-        Promise.all([getUser(), getInfo(), getCities()])
+        Promise.all([getUser(), getInfo(), getCities(), getVisibilityStatuses()])
             .then(() => setLoaded(true))
             .catch(e => { handleError(e); setError(error && error.response ? error.response : null) });
     }, []);
@@ -83,6 +84,13 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         .then(data => {
             if (data) {
                 setCities(data);
+            }
+        });
+
+    const getVisibilityStatuses = () => PromiseRequest('/api/owners/owner/visibility_statuses')
+        .then(data => {
+            if (data) {
+                setVisibilityStatuses(data);
             }
         });
 
@@ -135,9 +143,9 @@ const UserEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
     const renderSection = (section) => {
         switch (section) {
             case 0:
-                return <MainInfo initialValues={initialValues} setFormTouched={setFormTouched} />;
+                return <MainInfo initialValues={initialValues} setFormTouched={setFormTouched} visibilityStatuses={visibilityStatuses} />;
             case 1:
-                return <Contacts initialValues={initialValues} cities={cities} setFormTouched={setFormTouched} />;
+                return <Contacts initialValues={initialValues} cities={cities} setFormTouched={setFormTouched} visibilityStatuses={visibilityStatuses} />;
             case 2:
                 return <About setFormTouched={setFormTouched} />;
             case 3:

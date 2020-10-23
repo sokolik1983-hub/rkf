@@ -7,7 +7,7 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { requiredValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched }) => {
+const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses }) => {
     const handleSubmit = (dataItem) => console.log(JSON.stringify(dataItem, null, 2));
     return <div className="MainInfo">
         <Form
@@ -50,10 +50,10 @@ const MainInfo = ({ initialValues, setFormTouched }) => {
                                 </div>
                                 <div className="form-group col-md-6 no-label-field">
                                     <Field
-                                        id={'is_hidden'}
-                                        name={'personal_information.is_hidden'}
+                                        id={'birth_date_visibility_status_id'}
+                                        name={'personal_information.birth_date_visibility_status_id'}
                                         component={FormDropDownList}
-                                        data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                        data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                     />
                                 </div>
                             </div>

@@ -4,90 +4,13 @@ import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
-import { numbersOnlyValidator } from 'pages/UserEditKendo/validators';
+import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
+import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-import { Error } from '@progress/kendo-react-labels';
-import { Checkbox } from '@progress/kendo-react-inputs';
-import { FieldWrapper } from '@progress/kendo-react-form';
 
-const FormCheckbox = (fieldRenderProps) => {
 
-    const { validationMessage, touched, id, valid, disabled, hint, optional, label, visited, modified, onChange, ...others } = fieldRenderProps;
-    const showValidationMessage = touched && validationMessage;
-    const errorId = showValidationMessage ? `${id}_error` : '';
-
-    const handleChange = () => {
-        console.log(onChange);
-    }
-    return (
-        <FieldWrapper>
-            <Checkbox
-                ariaDescribedBy={`${errorId}`}
-                label={label}
-                labelOptional={optional}
-                valid={valid}
-                id={id}
-                disabled={disabled}
-                onChange={handleChange}
-                {...others}
-            />
-            {
-                showValidationMessage &&
-                <Error id={errorId}>{validationMessage}</Error>
-            }
-        </FieldWrapper>
-    );
-};
-
-const FormPhonesFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, value, onRemove, onUnshift, onChange } = fieldArrayRenderProps;
-
-    const handleRemove = (index) => {
-        onRemove({ index: index });
-        value.length === 1 && onUnshift({ value: { value: '' } });
-    }
-
-    return <>
-        {
-            visited && validationMessage &&
-            (<Error>{validationMessage}</Error>)
-        }
-        {
-            value && value.map((val, i) => <div className="form-row" key={i}>
-                    <div className="form-group col-md-1 Contacts__custom-plus">
-                        {i === value.length - 1 && <button
-                            className="k-button k-grid-remove-command"
-                            onClick={() => onUnshift({ value: { value: '' } })}>
-                            <span className="k-icon k-i-plus"></span>
-                        </button>}
-                    </div>
-                    <div className="form-group col-md-4">
-                        <Field name={`contacts[${i}].value`} component={FormInput} validator={numbersOnlyValidator} />
-                    </div>
-                    <div className="form-group col-md-4">
-                        <Field name={`contacts[${i}].description`} component={FormInput} />
-                    </div>
-                    <div className="form-group col-md-2">
-                        {i === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
-                        <div className="Contacts__custom-checkbox">
-                            <Field
-                                id={`contacts[${i}]`}
-                                name={`contacts[${i}].is_main`}
-                                component={FormCheckbox}
-                                onChange={onChange}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-md-1 Contacts__custom-trash">
-                        <span onClick={() => handleRemove(i)} className="k-icon k-i-trash" />
-                    </div>
-                </div>)
-        }
-    </>;
-};
-
-const Contacts = ({ initialValues, cities, setFormTouched }) => {
+const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses }) => {
     const handleSubmit = (dataItem) => console.log((JSON.stringify(dataItem, null, 2)));
     return <div className="Contacts">
         <Form
@@ -108,11 +31,11 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'is_hidden'}
-                                                name={'personal_information.is_hidden'}
+                                                id={'address_visibility_status_id'}
+                                                name={'personal_information.address_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
-                                                data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
                                         </div>
                                     </div>
@@ -164,21 +87,22 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'is_hidden'}
-                                                name={'personal_information.is_hidden'}
+                                                id={'phones_visibility_status_id'}
+                                                name={'personal_information.phones_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
-                                                data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <FieldArray
-                                name="contacts"
-                                component={FormPhonesFieldArray}
-                                onChange={formRenderProps.onChange}
-                            //validator={arrayLengthValidator}
+                                id="phones"
+                                name="phones"
+                                component={FormContactsFieldArray}
+                                formRenderProps={formRenderProps}
+                                valueValidator={phoneValidator}
                             />
 
                             <div className="form-row mt-3">
@@ -189,22 +113,23 @@ const Contacts = ({ initialValues, cities, setFormTouched }) => {
                                         </div>
                                         <div className="col-md-8">
                                             <Field
-                                                id={'is_hidden'}
-                                                name={'personal_information.is_hidden'}
+                                                id={'mails_visibility_status_id'}
+                                                name={'personal_information.mails_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
-                                                data={[{ text: 'Показать всем', value: false, id: 1 }, { text: 'Скрыть от всех', value: true, id: 2 },]}
+                                                data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                             />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {/* <FieldArray
-                                name="contacts"
-                                component={FormGrid}
-                                onChange={formRenderProps.onChange}
-                            validator={arrayLengthValidator}
-                            /> */}
+                            <FieldArray
+                                id="mails"
+                                name="mails"
+                                component={FormContactsFieldArray}
+                                formRenderProps={formRenderProps}
+                                valueValidator={emailValidator}
+                            />
 
                         </fieldset>
                         <div className="k-form-buttons text-center">
