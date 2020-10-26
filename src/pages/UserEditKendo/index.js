@@ -21,6 +21,7 @@ import About from './sections/About';
 import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
 import useIsMobile from "utils/useIsMobile";
+import moment from "moment";
 import './styles.scss';
 
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
@@ -144,6 +145,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const handleSubmit = async (data, type) => {
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
+        if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
+
         await Request({
             url: sections[type].url,
             method: 'PUT',
