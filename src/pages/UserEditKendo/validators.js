@@ -17,7 +17,7 @@ export const aliasValidator = value => !value ?
 export const codeValidator = value => !value ?
     requiredMessage :
     value.length !== 5 ? "Неверный код" :
-    numbersOnlyRegex.test(value) ? "" : "Неверный код";
+        numbersOnlyRegex.test(value) ? "" : "Неверный код";
 export const passwordValidator = value => !value ?
     requiredMessage :
     passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
