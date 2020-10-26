@@ -10,7 +10,7 @@ import "./index.scss";
 
 const ModalDeletePage = ({closeModal, updateInfo}) => {
     const [loading, setLoading] = useState(false);
-    const [isAnswer, setIsAnswer] = useState(false);
+    const [isAnswer, setIsAnswer] = useState(true);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const [date, setDate] = useState('');
     const [alert, setAlert] = useState(null);
@@ -108,7 +108,7 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                             <>
                                 <p className="delete-page-modal__describe">
                                     Ваша страница будет удалена <br/>
-                                    <b>23.11.2020 в 12:00</b>
+                                    <b>{date}</b>
                                 </p>
                                 <div className="k-form-buttons">
                                     <button
