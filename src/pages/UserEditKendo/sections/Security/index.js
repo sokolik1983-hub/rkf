@@ -104,7 +104,6 @@ const Security = ({setFormTouched, history}) => {
     };
 
     const submitPasswordForm = async data => {
-        console.log('submitPasswordForm', data);
         setLoading(true);
 
         await Request({
