@@ -152,6 +152,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                             <UserPhotoGallery
                                                 alias={clubInfo.club_alias}
                                                 pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                canEdit={canEdit}
                                             />
                                         </>
                                     }
@@ -168,8 +169,8 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                         loader={videosLoading && <Loading centered={false} />}
                                                         endMessage={!videos.length &&
                                                             <div className="ClubVideo__no-videos">
-                                                                <h4>Видеозаписей больше нет</h4>
-                                                                <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
+                                                                <h4>Не добавлено ни одной видеозаписи</h4>
+                                                                <img src={DEFAULT_IMG.emptyGallery} alt="Не добавлено ни одной видеозаписи" />
                                                             </div>
                                                         }
                                                     >
@@ -210,6 +211,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                        canEdit={canEdit}
                                                     />
                                                     <CopyrightInfo/>
                                                 </>

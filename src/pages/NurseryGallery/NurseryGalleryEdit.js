@@ -211,6 +211,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                 <UserVideoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
+                                                    canEdit={canEdit}
                                                 />
                                             </>
                                         }
@@ -298,6 +299,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                         <UserVideoGallery
                                                             alias={alias}
                                                             pageLink={`/kennel/${alias}/video`}
+                                                            canEdit={canEdit}
                                                         />
                                                         <CopyrightInfo/>
                                                     </>

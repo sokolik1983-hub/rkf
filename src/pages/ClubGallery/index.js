@@ -184,6 +184,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                             <UserVideoGallery
                                                 alias={clubInfo.club_alias}
                                                 pageLink={`/${clubInfo.club_alias}/video`}
+                                                canEdit={canEdit}
                                             />
                                         </>
                                     }
@@ -249,6 +250,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     <UserVideoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/video`}
+                                                        canEdit={canEdit}
                                                     />
                                                     <CopyrightInfo/>
                                                 </>

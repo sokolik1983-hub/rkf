@@ -183,6 +183,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
+                                            canEdit={canEdit}
                                         />
                                         <CopyrightInfo/>
                                     </>
@@ -197,6 +198,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                 <UserVideoGallery
                                     alias={alias}
                                     pageLink={`/user/${alias}/video`}
+                                    canEdit={canEdit}
                                 />
                             }
                             <div className="NurseryGallery__content">
