@@ -36,6 +36,7 @@ export const FormComboBox = (fieldRenderProps) => {
                 value={dropdownValue}
                 data={data}
                 onChange={onValueChange}
+                validationMessage={validationMessage}
                 {...others}
             />
             {

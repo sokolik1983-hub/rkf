@@ -12,6 +12,13 @@ export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.te
 export const emailValidator = value => !value ?
     requiredMessage :
     emailRegex.test(value) ? "" : "Неверный формат E-mail";
+export const postcodeValidator = (value) => !value
+    ? ""
+    : numbersOnlyRegex.test(value)
+        ? value.length > 7
+            ? "Максимум 7 цифр"
+            : ""
+        : "Только цифры";
 export const phoneValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
 export const aliasValidator = value => !value ?
     requiredMessage :
