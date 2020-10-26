@@ -22,6 +22,8 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
             return <Redirect to={`/kennel/${alias}`} />
         } else if (user_type === 1) {
             return <Redirect to={`/user/${alias}`} />
+        } else {
+            return <Redirect to={'/'} />
         }
     }
 
