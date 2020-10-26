@@ -63,10 +63,10 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
             {description &&
                 <>
                     <Collapse isOpened={isOpen}>
-                        <p className="user-description__item _describe">
+                        <div className="user-description__item _describe">
                             <span className="user-description__item-title">Описание:</span>
-                            <span>{description}</span>
-                        </p>
+                            <div dangerouslySetInnerHTML={{__html: description}} />
+                        </div>
                     </Collapse>
                     <button
                         className={`user-description__btn${isOpen ? ' _open' : ''}`}
