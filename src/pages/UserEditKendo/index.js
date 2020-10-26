@@ -143,7 +143,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     };
 
     const handleSubmit = async (data, type) => {
-        data.social_networks && data.social_networks.filter(i => i.site !== '');
+        if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
         await Request({
             url: sections[type].url,
             method: 'PUT',
