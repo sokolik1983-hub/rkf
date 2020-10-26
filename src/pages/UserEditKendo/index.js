@@ -106,7 +106,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             setShowAlert({
                 title: `Ошибка: ${errorText}`,
                 //text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-                autoclose: 7.5,
+                autoclose: 5,
                 onOk: () => setShowAlert(false)
             });
         }
@@ -120,7 +120,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             method: 'PUT',
             data: JSON.stringify(d)
         }, () => {
-            window.alert("Информация сохранена!");
+            setShowAlert({
+                title: "Информация сохранена!",
+                autoclose: 1,
+                onOk: () => setShowAlert(false)
+            });
         }, error => {
             handleError(error)
         });
