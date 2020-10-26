@@ -55,7 +55,7 @@ const WidgetLogin = forwardRef(
             <div className="widget-login">
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
-                        <LightTooltip title={'Аккаунт'} enterDelay={200} leaveDelay={200}>
+                        <LightTooltip title="Аккаунт" enterDelay={200} leaveDelay={200}>
                             <div
                                 className={`widget-login__wrap ${open ? `_login_open` : ``}`}
                                 onClick={() => setOpen(!open)}

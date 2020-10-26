@@ -32,6 +32,10 @@
     color: #253c5e;
     display: inline-block;
     margin-right: 4px;
+    &:hover {
+      color: #3366ff;
+      transition: all 0.2s linear;
+    }
   }
   &__item {
     &:not(:last-child) {

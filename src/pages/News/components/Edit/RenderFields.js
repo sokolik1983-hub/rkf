@@ -102,7 +102,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             </div>
             <div className="article-edit__controls">
                 {!src &&
-                    <LightTooltip title={'Прикрепить изображение'} enterDelay={200} leaveDelay={200}>
+                    <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
                     <div className="article-edit__attach-img">
                         <input
                             type="file"
@@ -117,7 +117,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     </LightTooltip>
                 }
                 {!is_advert && !video &&
-                    <LightTooltip title={'Добавить ссылку на YouTube'} enterDelay={200} leaveDelay={200}>
+                    <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                     <button
                         className="article-edit__attach-video"
                         type="button"
@@ -129,7 +129,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     </LightTooltip>
                 }
                 {docs.length < 3 &&
-                    <LightTooltip title={'Добавить PDF'} enterDelay={200} leaveDelay={200}>
+                    <LightTooltip title="Прикрепить PDF" enterDelay={200} leaveDelay={200}>
                     <button
                         className="article-edit__attach-pdf"
                         type="button"
