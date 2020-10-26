@@ -16,6 +16,16 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/confirm-password-success',
+        component: LoadableModules.LoadableConfirmPasswordSuccess
+    },
+    {
+        exact: true,
+        path: '/confirm-password-failed',
+        component: LoadableModules.LoadableConfirmPasswordFailed
+    },
+    {
+        exact: true,
         path: '/clubs-map',
         component: LoadableModules.LoadableMapPage
     },
