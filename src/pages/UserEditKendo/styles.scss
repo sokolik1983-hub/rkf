@@ -1,4 +1,5 @@
 .UserEdit {
+    @import "~bootstrap/scss/bootstrap.scss";
     display: flex;
     justify-content: space-between;
     @media (max-width: 990px) {
@@ -35,7 +36,7 @@
             cursor: pointer;
             display: flex;
             align-items: baseline;
-            color: #72839C;
+            color: #72839c;
             .k-icon-32 {
                 font-size: 20px;
             }
