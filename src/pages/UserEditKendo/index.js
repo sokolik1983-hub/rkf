@@ -37,11 +37,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const [activeSection, setActiveSection] = useState(0);
     const sections = [
-        { name: 'Основная информация', id: 0 },
-        { name: 'Контакты', id: 1 },
-        { name: 'О себе', id: 2 },
-        { name: 'Безопасность', id: 3 },
-        { name: 'Удаление страницы', id: 4 }
+        { name: 'Основная информация', id: 0, icon: 'k-i-information'},
+        { name: 'Контакты', id: 1, icon: 'k-i-track-changes' },
+        { name: 'О себе', id: 2, icon: 'k-i-user' },
+        { name: 'Безопасность', id: 3, icon: 'k-i-lock' },
+        { name: 'Удаление страницы', id: 4, icon: 'k-i-trash'}
     ];
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
@@ -200,12 +200,16 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 </div>
                                 <div className="UserEdit__inner-right">
                                     <Card>
-                                        <ul style={{ paddingLeft: '20px' }}>
-                                            {sections.map(({ name, id }, key) => <li
+                                        <ul className="UserEdit__inner-list">
+                                            {sections.map(({ name, id, icon }, key) => <div className="UserEdit__inner-item">
+                                                <span className={`k-icon k-icon-32 ${icon}`}></span>
+                                                <li
                                                 key={key}
                                                 onClick={() => activeSection !== id && handleSectionSwitch(id)}>
                                                 {name}
-                                            </li>)}
+                                            </li>
+                                            </div>
+                                            )}
                                         </ul>
                                     </Card>
                                 </div>
