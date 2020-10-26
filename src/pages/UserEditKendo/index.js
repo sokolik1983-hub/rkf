@@ -151,7 +151,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             case 3:
                 return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} history={history} />;
             case 4:
-                return <DeletePage />;
+                return <DeletePage updateInfo={getInfo} />;
             default:
                 return <div>Not Found</div>;
         }
