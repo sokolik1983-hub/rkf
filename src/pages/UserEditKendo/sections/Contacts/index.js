@@ -5,7 +5,7 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, postcodeValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
+import { phoneValidator, emailValidator, postcodeValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {

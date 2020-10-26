@@ -5,7 +5,6 @@ import FormEditorTextarea from 'pages/UserEditKendo/components/FormEditorTextare
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
-import { Request } from "utils/request";
 import './styles.scss';
 
 const About = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
