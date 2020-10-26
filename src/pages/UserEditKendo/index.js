@@ -37,11 +37,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     const [activeSection, setActiveSection] = useState(0);
     const sections = [
-        { name: 'Основная информация', id: 0, icon: 'k-i-information'},
+        { name: 'Основная информация', id: 0, icon: 'k-i-information' },
         { name: 'Контакты', id: 1, icon: 'k-i-track-changes' },
         { name: 'О себе', id: 2, icon: 'k-i-user' },
         { name: 'Безопасность', id: 3, icon: 'k-i-lock' },
-        { name: 'Удаление страницы', id: 4, icon: 'k-i-trash'}
+        { name: 'Удаление страницы', id: 4, icon: 'k-i-trash' }
     ];
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
@@ -120,6 +120,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             method: 'PUT',
             data: JSON.stringify(d)
         }, () => {
+            getInfo();
             setShowAlert({
                 title: "Информация сохранена!",
                 autoclose: 1,
@@ -201,13 +202,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {sections.map(({ name, id, icon }, key) => <div className="UserEdit__inner-item">
+                                            {sections.map(({ name, id, icon }, key) => <div className="UserEdit__inner-item" key={key}>
                                                 <span className={`k-icon k-icon-32 ${icon}`}></span>
-                                                <li
-                                                key={key}
-                                                onClick={() => activeSection !== id && handleSectionSwitch(id)}>
-                                                {name}
-                                            </li>
+                                                <li onClick={() => activeSection !== id && handleSectionSwitch(id)}>
+                                                    {name}
+                                                </li>
                                             </div>
                                             )}
                                         </ul>

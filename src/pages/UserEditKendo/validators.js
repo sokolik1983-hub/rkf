@@ -3,7 +3,7 @@ const phoneRegex = new RegExp(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
-const urlRegexp = new RegExp(/((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/);
+const urlRegexp = new RegExp(/^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 const requiredMessage = 'Обязательное поле';
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;

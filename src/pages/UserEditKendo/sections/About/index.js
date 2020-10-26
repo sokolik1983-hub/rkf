@@ -5,7 +5,6 @@ import FormEditorTextarea from 'pages/UserEditKendo/components/FormEditorTextare
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
-import { Request } from "utils/request";
 import './styles.scss';
 
 const About = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
@@ -50,7 +49,7 @@ const About = ({ initialValues, cities, setFormTouched, visibilityStatuses, hand
                         <div className="k-form-buttons text-center">
                             <button
                                 type={'submit'}
-                                className="k-button mx-auto"
+                                className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.allowSubmit}
                             >Сохранить</button>
                         </div>
