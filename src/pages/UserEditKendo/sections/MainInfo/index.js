@@ -10,7 +10,7 @@ import './styles.scss';
 const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="MainInfo">
         <Form
-            onSubmit={handleSubmit}
+            onSubmit={data => handleSubmit(data, 'general')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormTouched(formRenderProps.touched);
@@ -21,19 +21,19 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <legend className={'k-form-legend'}>Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name={'personal_information.first_name'} label={'Имя'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} validator={requiredValidator} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name={'personal_information.last_name'} label={'Фамилия'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} validator={requiredValidator} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name={'personal_information.second_name'} label={'Отчество'} component={FormInput} />
+                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} />
                                 </div>
                             </div>
 
@@ -41,7 +41,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                 <div className="form-group col-md-6">
                                     <Field
                                         id="birth_date"
-                                        name={'personal_information.birth_date'}
+                                        name={'birth_date'}
                                         label={'Дата рождения'}
                                         component={FormDatePicker}
                                         validator={requiredValidator}
@@ -50,7 +50,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                 <div className="form-group col-md-6 no-label-field">
                                     <Field
                                         id={'birth_date_visibility_status_id'}
-                                        name={'personal_information.birth_date_visibility_status_id'}
+                                        name={'birth_date_visibility_status_id'}
                                         component={FormDropDownList}
                                         data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
                                     />
@@ -60,7 +60,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                 <div className="form-group col-md-6">
                                     <Field
                                         id={'sex_type_id'}
-                                        name={'personal_information.sex_type_id'}
+                                        name={'sex_type_id'}
                                         label={'Пол'}
                                         component={FormDropDownList}
                                         data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
