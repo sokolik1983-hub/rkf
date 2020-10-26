@@ -8,6 +8,7 @@ import Loading from "../../../../components/Loading";
 import Alert from "../../../../components/Alert";
 import FormInput from "../../components/FormInput";
 import ModalConfirmEmail from "../../components/ModalConfirmEmail";
+import ModalPasswordSuccess from "../../components/ModalPasswordSucces";
 import {aliasValidator, emailValidator, passwordValidator, requiredValidator} from "../../validators";
 import {Request} from "../../../../utils/request";
 import "./index.scss";
@@ -93,7 +94,7 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                 new_password: data.new_password
             })
         }, () => {
-            //тут возможно надо будет показать модалку
+            setModalType('passwordSuccess');
             setLoading(false);
         }, error => {
             handleError(error);
@@ -264,6 +265,11 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                     email={newLogin}
                     closeModal={() => setModalType('')}
                     updateInfo={getInfo}
+                />
+            }
+            {modalType && modalType === 'passwordSuccess' &&
+                <ModalPasswordSuccess
+                    closeModal={() => setModalType('')}
                 />
             }
             {alert && <Alert {...alert} />}

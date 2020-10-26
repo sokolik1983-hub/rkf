@@ -216,3 +216,13 @@ export const LoadableBaseSearch = Loadable({
     loader: () => import('./pages/BaseSearch'),
     loading: Loading
 });
+
+export const LoadableConfirmPasswordSuccess = Loadable({
+    loader: () => import('./pages/ConfirmPassword/ConfirmSuccess'),
+    loading: Loading
+});
+
+export const LoadableConfirmPasswordFailed = Loadable({
+    loader: () => import('./pages/ConfirmPassword/ConfirmFailed'),
+    loading: Loading
+});

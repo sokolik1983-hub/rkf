@@ -1,0 +1,25 @@
+.confirm-page {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__img {
+    display: block;
+    margin: 50px auto 50px;
+    @media (max-width: 560px) {
+      width: 80%;
+    }
+  }
+  &__title {
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+    padding-bottom: 50px;
+    @media (max-width: 560px) {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+}
