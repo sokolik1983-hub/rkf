@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
@@ -14,15 +14,15 @@ import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "./config";
-import {DEFAULT_IMG} from "../../appConfig";
+import { Request } from "../../utils/request";
+import { connectAuthVisible } from "../Login/connectors";
+import { endpointGetUserInfo, userNav } from "./config";
+import { DEFAULT_IMG } from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
+const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [userInfo, setUserInfo] = useState({});
@@ -35,8 +35,8 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            data.email = data.emails.length ? data.emails[0].value : '';
-            data.phone = data.phones.length ? data.phones[0].value : '';
+            data.email = data.emails && data.emails.length ? data.emails[0].value : '';
+            data.phone = data.phones && data.phones.length ? data.phones[0].value : '';
 
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -49,7 +49,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
     }, [alias]);
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         error ?
             <Redirect to="/404" /> :
             <Layout>
@@ -58,7 +58,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link}/>
+                                    <UserBanner link={userInfo.headliner_link} />
                                 }
                                 <Card>
                                     <UserInfo
@@ -67,7 +67,7 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     />
-                                    <UserMenu userNav={userNav(alias)}/>
+                                    <UserMenu userNav={userNav(alias)} />
                                 </Card>
                                 {!isMobile &&
                                     <>
@@ -81,14 +81,14 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                             pageLink={`/user/${alias}/video`}
                                             canEdit={canEdit}
                                         />
-                                        <CopyrightInfo/>
+                                        <CopyrightInfo />
                                     </>
                                 }
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link}/>
+                                <UserBanner link={userInfo.headliner_link} />
                             }
                             <UserDescription
                                 city_name={userInfo.address.city_name}

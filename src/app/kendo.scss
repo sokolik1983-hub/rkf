@@ -1,5 +1,14 @@
-$primary: #36f;
-$secondary: #8da7f3;
+// $primary: #36f;
+// $secondary: #8da7f3;
+// $button-hovered-bg: $primary;
 
 @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
 @import "~bootstrap/scss/bootstrap.scss";
+
+a {
+    &.k-select {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

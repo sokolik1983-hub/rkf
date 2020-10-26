@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import ls from 'local-storage';
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Card from "components/Card";
@@ -33,11 +32,17 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [showAlert, setShowAlert] = useState(false);
     const [formTouched, setFormTouched] = useState(false);
     const [userInfo, setUserInfo] = useState({});
-    //const [canEdit, setCanEdit] = useState(false);
     const alias = match.params.id;
     const isMobile = useIsMobile();
 
     const [activeSection, setActiveSection] = useState(0);
+    const sections = [
+        { name: 'Основная информация', id: 0, icon: 'k-i-information' },
+        { name: 'Контакты', id: 1, icon: 'k-i-track-changes' },
+        { name: 'О себе', id: 2, icon: 'k-i-user' },
+        { name: 'Безопасность', id: 3, icon: 'k-i-lock' },
+        { name: 'Удаление страницы', id: 4, icon: 'k-i-trash' }
+    ];
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -50,10 +55,9 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
         .then(data => {
             if (data) {
-                data.email = data.emails.length ? data.emails[0].value : '';
-                data.phone = data.phones.length ? data.phones[0].value : '';
+                data.email = data.emails && data.emails.length ? data.emails[0].value : '';
+                data.phone = data.phones && data.phones.length ? data.phones[0].value : '';
                 setUserInfo(data);
-                //setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             }
         });
 
@@ -94,30 +98,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
-    const transformValues = values => {
-        const newValues = { ...values };
-        delete newValues.banner;
-        delete newValues.logo;
-        newValues.is_public = !newValues.is_public; // Backend workaround
-
-        return newValues;
-    };
-
-    const handleSuccess = (data, { alias, logo_link }) => {
-        getInfo();
-        setShowAlert({
-            title: "Информация сохранена!",
-            autoclose: 2,
-            onOk: () => setShowAlert(false)
-        });
-        let updatedUserInfo = {
-            ...ls.get('user_info'),
-            alias,
-            logo_link
-        };
-        ls.set('user_info', updatedUserInfo);
-    };
-
     const handleError = e => {
         if (e.response) {
             let errorText = e.response.data.errors
@@ -125,29 +105,51 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 : `${e.response.status} ${e.response.statusText}`;
             setShowAlert({
                 title: `Ошибка: ${errorText}`,
-                text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-                autoclose: 7.5,
+                //text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+                autoclose: 5,
                 onOk: () => setShowAlert(false)
             });
         }
     };
 
-    const sections = [
-        { name: 'Основная информация', id: 0 },
-        { name: 'Контакты', id: 1 },
-        { name: 'О себе', id: 2 },
-        { name: 'Безопасность', id: 3 },
-        { name: 'Удаление страницы', id: 4 }
-    ];
+    const handleSubmit = async data => {
+        var d = data;
+        d.social_networks = d.social_networks.filter(i => i.value !== '');
+        await Request({
+            url: '/api/owners/owner/update_full',
+            method: 'PUT',
+            data: JSON.stringify(d)
+        }, () => {
+            getInfo();
+            setShowAlert({
+                title: "Информация сохранена!",
+                autoclose: 1,
+                onOk: () => setShowAlert(false)
+            });
+        }, error => {
+            handleError(error)
+        });
+    };
 
     const renderSection = (section) => {
         switch (section) {
             case 0:
-                return <MainInfo initialValues={initialValues} setFormTouched={setFormTouched} visibilityStatuses={visibilityStatuses} />;
+                return <MainInfo
+                    initialValues={initialValues}
+                    setFormTouched={setFormTouched}
+                    visibilityStatuses={visibilityStatuses}
+                    handleSubmit={handleSubmit}
+                />;
             case 1:
-                return <Contacts initialValues={initialValues} cities={cities} setFormTouched={setFormTouched} visibilityStatuses={visibilityStatuses} />;
+                return <Contacts
+                    initialValues={initialValues}
+                    cities={cities}
+                    setFormTouched={setFormTouched}
+                    visibilityStatuses={visibilityStatuses}
+                    handleSubmit={handleSubmit}
+                />;
             case 2:
-                return <About initialValues={initialValues} setFormTouched={setFormTouched} />;
+                return <About initialValues={initialValues} setFormTouched={setFormTouched} handleSubmit={handleSubmit} />;
             case 3:
                 return <Security {...initialValues} setFormTouched={setFormTouched} getInfo={getInfo} history={history} />;
             case 4:
@@ -199,8 +201,14 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 </div>
                                 <div className="UserEdit__inner-right">
                                     <Card>
-                                        <ul style={{ paddingLeft: '20px' }}>
-                                            {sections.map(({ name, id }, key) => <li key={key} onClick={() => handleSectionSwitch(id)}>{name}</li>)}
+                                        <ul className="UserEdit__inner-list">
+                                            {sections.map(({ name, id, icon }, key) => <div className="UserEdit__inner-item" key={key}>
+                                                <span className={`k-icon k-icon-32 ${icon}`}></span>
+                                                <li onClick={() => activeSection !== id && handleSectionSwitch(id)}>
+                                                    {name}
+                                                </li>
+                                            </div>
+                                            )}
                                         </ul>
                                     </Card>
                                 </div>

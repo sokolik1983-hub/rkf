@@ -31,6 +31,31 @@
         @media (max-width: 560px) {
             flex-direction: column-reverse;
         }
+        &-item {
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            color: #72839C;
+            .k-icon-32 {
+                font-size: 20px;
+            }
+            .k-icon {
+                position: relative;
+                top: 2px;
+            }
+            &:hover {
+                color: #3366ff;
+                transition: all 0.2s linear;
+            }
+        }
+        &-list {
+            list-style: none;
+            margin-bottom: 0;
+            & li {
+                margin-left: 6px;
+                margin-top: 10px;
+            }
+        }
         &-left {
             width: 550px;
             margin-right: 16px;
@@ -41,10 +66,6 @@
         }
         &-right {
             flex-grow: 1;
-            li:hover {
-                // Temp
-                cursor: pointer;
-            }
         }
         .Card {
             padding: 12px !important;
@@ -76,82 +97,10 @@
         div {
             font-weight: normal;
         }
-        
+
         @media (max-width: 560px) {
             padding: 16px;
         }
-    }
-    &__form {
-        .nursery-activation__group {
-            align-items: center;
-            .custom-checkbox {
-                margin-top: 32px;
-            }
-        }
-        .RSInput__control {
-            padding: 0 !important;
-            min-height: auto !important;
-            border-radius: 4px !important;
-            border-width: 2px !important;
-        }
-        .RSInput__value-container {
-            padding: 0 5px !important;
-        }
-        .RSInput__menu {
-            margin-top: 0 !important;
-        }
-        .FormInput__input {
-            border-radius: 4px !important;
-            & > div {
-                border: none !important;
-                padding: 0 !important;
-                min-height: auto !important;
-                margin-top: 0 !important;
-                & > div {
-                    padding: 0 5px !important;
-                }
-            }
-        }
-    }
-    .FormField {
-        margin-bottom: 15px;
-        word-break: break-all;
-        &__comment {
-            color: red;
-            font-size: smaller;
-        }
-    }
-    .FormInput {
-        margin-bottom: 24px;
-        &__input,
-        &__input:disabled {
-            border-width: 2px;
-        }
-        label {
-            white-space: nowrap;
-            @media (max-width: 768px) {
-                white-space: normal;
-            }
-        }
-    }
-    .FormGroup {
-        margin-bottom: 24px;
-        .FormInput {
-            margin-bottom: 0;
-            @media (max-width: 768px) {
-                width: 100%;
-                margin: 0 0 18px;
-            }
-        }
-        @media (max-width: 768px) {
-            margin-bottom: 12px;
-            flex-flow: column;
-        }
-    }
-    fieldset {
-        padding: 0;
-        margin: 0;
-        border: none;
     }
     &__submit {
         display: flex;
@@ -167,7 +116,6 @@
         text-align: right;
         color: red;
     }
-
     &__main-info {
         display: flex;
         align-items: flex-start;

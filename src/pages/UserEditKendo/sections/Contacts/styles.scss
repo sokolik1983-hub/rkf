@@ -13,11 +13,14 @@
         &__custom-plus {
             display: flex;
             align-items: flex-start;
-            padding-top: 10px;
             justify-content: center;
-            button {
-                padding: 2px;
-                border-radius: 50%;
+            padding-top: 7px;
+            span.k-i-plus-circle {
+                font-size: 24px;
+                color: #007bff;
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
         &__custom-checkbox {

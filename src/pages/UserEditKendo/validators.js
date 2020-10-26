@@ -3,13 +3,22 @@ const phoneRegex = new RegExp(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
+const urlRegexp = new RegExp(/^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 const requiredMessage = 'Обязательное поле';
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
+export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите корректную ссылку";
 export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.test(value) ? "" : "Только цифры";
 export const emailValidator = value => !value ?
     requiredMessage :
     emailRegex.test(value) ? "" : "Неверный формат E-mail";
+export const postcodeValidator = (value) => !value
+    ? ""
+    : numbersOnlyRegex.test(value)
+        ? value.length > 7
+            ? "Максимум 7 цифр"
+            : ""
+        : "Только цифры";
 export const phoneValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
 export const aliasValidator = value => !value ?
     requiredMessage :

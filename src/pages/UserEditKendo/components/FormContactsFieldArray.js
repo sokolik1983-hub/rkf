@@ -8,6 +8,8 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "" };
 
+    !value.length && value.push(newItem);
+
     const handleAdd = () => {
         const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
         isArrayValid && onUnshift({ value: newItem });
@@ -28,17 +30,15 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === value.length - 1 && <button
-                        className="k-button k-grid-remove-command"
-                        onClick={handleAdd}>
-                        <span className="k-icon k-i-plus"></span>
-                    </button>}
+                    {index === value.length - 1 && <div onClick={handleAdd}>
+                        <span className="k-icon k-i-plus-circle"></span>
+                    </div>}
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].value`} component={FormInput} validator={valueValidator} />
+                    <Field name={`${id}[${index}].value`} placeholder={id === 'phones' ? '+7(999)999-99-99' : ''} component={FormInput} validator={valueValidator} />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} component={FormInput} />
+                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} />
                 </div>
                 <div className="form-group col-md-2">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}

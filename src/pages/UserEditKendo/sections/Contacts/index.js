@@ -5,13 +5,10 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
+import { phoneValidator, emailValidator, postcodeValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-
-
-const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses }) => {
-    const handleSubmit = (dataItem) => console.log((JSON.stringify(dataItem, null, 2)));
+const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="Contacts">
         <Form
             onSubmit={handleSubmit}
@@ -53,11 +50,12 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses })
                                         data={cities}
                                         value={formRenderProps.valueGetter('address.city_id')}
                                         onChange={formRenderProps.onChange}
+                                        validationMessage="Обязательное поле"
                                         required={true}
                                     />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="postcode" name={'address.postcode'} label={'Индекс'} component={FormInput} validator={numbersOnlyValidator} />
+                                    <Field id="postcode" name={'address.postcode'} label={'Индекс'} component={FormInput} validator={postcodeValidator} />
                                 </div>
                             </div>
 
@@ -135,7 +133,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses })
                         <div className="k-form-buttons text-center">
                             <button
                                 type={'submit'}
-                                className="k-button mx-auto"
+                                className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.allowSubmit}
                             >Сохранить</button>
                         </div>

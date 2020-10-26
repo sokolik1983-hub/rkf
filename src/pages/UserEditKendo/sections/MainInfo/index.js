@@ -7,8 +7,7 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { requiredValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses }) => {
-    const handleSubmit = (dataItem) => console.log(JSON.stringify(dataItem, null, 2));
+const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="MainInfo">
         <Form
             onSubmit={handleSubmit}
@@ -64,7 +63,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses }) => {
                                         name={'personal_information.sex_type_id'}
                                         label={'Пол'}
                                         component={FormDropDownList}
-                                        data={[{ text: 'Не выбран', value: null, id: 0 }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
+                                        data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
                                     />
                                 </div>
                             </div>
@@ -72,7 +71,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses }) => {
                         <div className="k-form-buttons text-center">
                             <button
                                 type={'submit'}
-                                className="k-button mx-auto"
+                                className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.allowSubmit}
                             >Сохранить</button>
                         </div>
