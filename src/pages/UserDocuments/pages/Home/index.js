@@ -58,6 +58,7 @@ const Home = ({userAlias, history}) => {
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    share_link={`https://rkf.online/user/${userAlias}`}
                                 />
                                 <UserMenu userNav={userNav(userAlias)}/>
                             </Card>

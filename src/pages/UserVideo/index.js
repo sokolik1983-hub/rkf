@@ -163,6 +163,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
+                                            canEdit={canEdit}
                                         />
                                         <CopyrightInfo />
                                     </>
@@ -177,6 +178,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                 <UserPhotoGallery
                                     alias={alias}
                                     pageLink={`/user/${alias}/gallery`}
+                                    canEdit={canEdit}
                                 />
                             }
                             <Card>
