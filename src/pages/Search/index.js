@@ -46,13 +46,20 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
 
             if(data.counts && data.counts.length) {
                 newFilters.map(category => {
+                    let summaryCount = 0;
+
                     category.items.map(item => {
                         const count = data.counts.find(i => i.type_id === item.search_type);
 
-                        if(count) item.count = count.count;
+                        if(count) {
+                            item.count = count.count;
+                            summaryCount += count.count;
+                        }
 
                         return item;
                     });
+
+                    category.count = summaryCount;
 
                     return category;
                 });
@@ -72,7 +79,7 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
                 setNeedFilter(false);
             }
 
-            setFilters(newFilters);
+            setFilters(newFilters.sort((a, b) => b.count - a.count));
 
             let results = [];
 

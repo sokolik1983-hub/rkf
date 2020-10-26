@@ -23,7 +23,7 @@
     transition: all .2s linear;
     margin-left: 4px;
     &:hover {
-      background: url("/static/icons/chevron-down-dark.svg") no-repeat center;
+      background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
     }
     &._dropdown_open {
       transform: rotate(180deg);

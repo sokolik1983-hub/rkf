@@ -28,3 +28,7 @@
 .k-calendar-navigation {
   display: none;
 }
+.k-picker-wrap.k-state-focused {
+  border-color: #80bdff !important;
+  box-shadow: 0 0 5px 2px #80bdff !important;
+}

@@ -67,7 +67,9 @@
         }
     }
     &__buttons {
+        padding-bottom: 10px;
         margin-bottom: 10px;
+        border-bottom: 1px solid #e8e8e8;
         &-link {
             color: #36f;
             font-weight: normal;
@@ -77,6 +79,12 @@
             cursor: pointer;
             margin-right: 10px;
             white-space: nowrap;
+            @media (max-width: 380px) {
+                display: block;
+                &:not(:last-child) {
+                    margin-bottom: 6px;
+                }
+            }
         }
     }
     &__edit {

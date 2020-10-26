@@ -1,12 +1,19 @@
 .search-page__filters {
   &-wrap {
-    max-height: calc(100vh - 66px);
-    overflow-y: auto;
+    //max-height: calc(100vh - 66px);
+    //overflow-y: auto;
     @media (max-width: 990px) {
       max-height: calc(100vh - 50px);
     }
     @media (max-width: 560px) {
       max-height: calc(100vh - 48px);
+    }
+    & > .Card {
+      padding: 10px;
+      margin-bottom: 16px;
+      @media (max-width: 990px) {
+        margin-bottom: 0;
+      }
     }
   }
   &-title {
@@ -20,7 +27,7 @@
   &-value {
     letter-spacing: .2px;
     color: #72839c;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e8e8e8;;
+    //padding-bottom: 10px;
+    //border-bottom: 1px solid #e8e8e8;
   }
 }

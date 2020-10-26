@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Gallery from 'react-grid-gallery';
-import { AddPhotoModal } from "components/Gallery";
+import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Gallery from "react-grid-gallery";
+import { AddPhotoModal } from "./components/ImageUpload/AddPhotoModal";
 import GalleryAlbums from './components/GalleryAlbums';
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import './styles.scss';
 import { DEFAULT_IMG } from "../../appConfig";
+import './styles.scss';
+
 
 const GalleryComponent = ({ items, albums, album, match, withLoading = true, getAlbums, getImages, canEdit, alias, isClub = false, isUser = false, ...rest }) => {
     const [showModal, setShowModal] = useState(false);
@@ -14,7 +14,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
 
     const handleAddPhoto = () => {
         setShowModal(true);
-    }
+    };
 
     const onModalClose = () => {
         if (showModal && window.confirm("Закрыть?")) {
@@ -27,31 +27,48 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
         getImages(1);
     };
 
-    return <div className="ReactGridGallery__wrap">
-        {albums && !!albums.length && !isAlbum
-            && <GalleryAlbums albums={albums} match={match} getAlbums={getAlbums} canEdit={canEdit} />}
-        {albums && !!albums.length && <div className="ReactGridGallery__controls">
-            <h4>Все фотографии</h4>
-            {canEdit && !album && <>
-                {!!items.length && <Link className="ReactGridGallery__controls-link" to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}>Редактировать все фото</Link>}
-                <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span></>
+    return (
+        <div className="ReactGridGallery__wrap">
+            {albums && !!albums.length && !isAlbum &&
+                <GalleryAlbums albums={albums} match={match} getAlbums={getAlbums} canEdit={canEdit} />
             }
-        </div>}
-        {items && !!items.length
-            ? <div className="ReactGridGallery__mobile">
+            {albums && !!albums.length &&
+                <div className="ReactGridGallery__controls">
+                    <h4>Все фотографии</h4>
+                    {canEdit && !album &&
+                        <>
+                            {!!items.length &&
+                                <Link
+                                    className="ReactGridGallery__controls-link"
+                                    to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}
+                                >Редактировать все фото</Link>
+                            }
+                            <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span>
+                        </>
+                    }
+                </div>
+            }
+            {items && !!items.length ?
                 <Gallery
                     imageCountSeparator="&nbsp;из&nbsp;"
                     images={items}
                     {...rest}
+                /> :
+                <div className="ReactGridGallery__disabled">
+                    <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
+                    <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
+                </div>
+            }
+            {showModal &&
+                <AddPhotoModal
+                    showModal={showModal}
+                    onModalClose={onModalClose}
+                    albumId={params.album}
+                    onSuccess={onImageAddSuccess}
                 />
-            </div>
-            : <div className="ReactGridGallery__disabled">
-                <h4 className="ReactGridGallery__disabled-text">Не добавлено ни одной фотографии</h4>
-                <img className="ReactGridGallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
-            </div>
-        }
-        {showModal && <AddPhotoModal showModal={showModal} onModalClose={onModalClose} albumId={params.album} onSuccess={onImageAddSuccess} />}
-    </div>
+            }
+        </div>
+    )
 };
 
 export default GalleryComponent;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import PageNotFound from "../404";
 import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
@@ -8,14 +8,15 @@ import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import CheckStatus from './components/CheckStatus';
 import MenuComponent from "../../components/MenuComponent";
-import UserGallery from "../../components/redesign/UserGallery";
-import UserVideoGallery from "../../components/redesign/UserGallery/UserVideoGallery";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
-import useWindowSize from "utils/useWindowSize";
+import useIsMobile from "../../utils/useIsMobile";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import "./index.scss";
 
 
@@ -24,11 +25,7 @@ const DocumentStatus = ({ history, match, user }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const windowSize = useWindowSize();
-    const galleryRef = useRef(null);
-    const galleryHolderRef = useRef(null);
-    const mobileGalleryHolderRef = useRef(null);
-
+    const isMobile = useIsMobile();
     const alias = match.params.route;
 
     useEffect(() => {
@@ -48,18 +45,6 @@ const DocumentStatus = ({ history, match, user }) => {
         }))();
     }, [match]);
 
-    useEffect(() => appendUserGallery(), [[], windowSize.width]);
-
-    const appendUserGallery = () => {
-        if (windowSize.width <= 990) {
-            const el = mobileGalleryHolderRef.current;
-            el && !el.childElementCount && el.appendChild(galleryRef.current)
-        } else {
-            const el = galleryHolderRef.current
-            el && !el.childElementCount && el.appendChild(galleryRef.current)
-        }
-    };
-
     return loading ?
         <Loading /> :
         error ?
@@ -72,23 +57,8 @@ const DocumentStatus = ({ history, match, user }) => {
                                 <Card className="club-page__content-banner">
                                     <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                 </Card>
-                                <div className="club-page__mobile-only">
-                                    <UserHeader
-                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                        logo={clubInfo.logo_link}
-                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                        alias={clubInfo.club_alias}
-                                        profileId={clubInfo.id}
-                                        federationName={clubInfo.federation_name}
-                                        federationAlias={clubInfo.federation_alias}
-                                    />
-                                </div>
-                                <CheckStatus />
-                                <div ref={mobileGalleryHolderRef} />
-                            </div>
-                            <Aside className="club-page__info">
-                                <StickyBox offsetTop={65}>
-                                    <div className="club-page__info-inner">
+                                {isMobile &&
+                                    <>
                                         <UserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                             logo={clubInfo.logo_link}
@@ -98,28 +68,55 @@ const DocumentStatus = ({ history, match, user }) => {
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
                                         />
-                                        <div ref={galleryHolderRef}>
-                                            <div ref={galleryRef}>
-                                                <UserGallery alias={clubInfo.club_alias} />
-                                                <UserVideoGallery alias={clubInfo.club_alias} setShowModal={setShowModal} />
-                                            </div>
-                                        </div>
-                                        <div className="club-page__copy-wrap">
-                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                            <p>Политика обработки персональных данных</p>
-                                        </div>
+                                        <UserPhotoGallery
+                                            alias={clubInfo.club_alias}
+                                            pageLink={`/${clubInfo.club_alias}/gallery`}
+                                        />
+                                        <UserVideoGallery
+                                            alias={clubInfo.club_alias}
+                                            pageLink={`/${clubInfo.club_alias}/video`}
+                                        />
+                                    </>
+                                }
+                                <CheckStatus />
+                            </div>
+                            <Aside className="club-page__info">
+                                <StickyBox offsetTop={65}>
+                                    <div className="club-page__info-inner">
+                                        {!isMobile &&
+                                            <>
+                                                <UserHeader
+                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    logo={clubInfo.logo_link}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    alias={clubInfo.club_alias}
+                                                    profileId={clubInfo.id}
+                                                    federationName={clubInfo.federation_name}
+                                                    federationAlias={clubInfo.federation_alias}
+                                                />
+                                                <UserPhotoGallery
+                                                    alias={clubInfo.club_alias}
+                                                    pageLink={`/${clubInfo.club_alias}/gallery`}
+                                                />
+                                                <UserVideoGallery
+                                                    alias={clubInfo.club_alias}
+                                                    pageLink={`/${clubInfo.club_alias}/video`}
+                                                />
+                                                <CopyrightInfo/>
+                                            </>
+                                        }
                                     </div>
                                 </StickyBox>
                             </Aside>
                         </div>
-                        <div className="club-page__mobile-only">
+                        {isMobile &&
                             <MenuComponent
                                 alias={clubInfo.club_alias}
                                 user={user}
                                 profileId={clubInfo.id}
                                 noCard={true}
                             />
-                        </div>
+                        }
                         {showModal &&
                             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
                                 <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />

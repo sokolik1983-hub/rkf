@@ -7,16 +7,12 @@ import ClickGuard from "../../../ClickGuard";
 import BurgerButton from "./BurgerButton";
 import NavSublist from "./NavSublist";
 import { connectAuthVisible } from "../../../../pages/Login/connectors";
+import useIsMobile from "../../../../utils/useIsMobile";
 
 
 const Nav = ({ isAuthenticated }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 990);
-
-    useEffect(() => {
-        window.addEventListener('resize', () => setIsMobile(window.innerWidth <= 990));
-        return window.removeEventListener('resize', () => setIsMobile(window.innerWidth <= 990));
-    }, []);
+    const isMobile = useIsMobile();
 
     const setOverflow = (isOpen) => {
         if (window.innerWidth <= 990) {
@@ -52,7 +48,8 @@ const Nav = ({ isAuthenticated }) => {
                                         className={navItem.disabled ? '_disabled' : ''}
                                         onClick={e => navItem.disabled ? e.preventDefault() : setIsOpen(false)}
                                     >
-                                        {navItem.title}
+                                        {navItem.image}
+                                        <span>{navItem.title}</span>
                                     </NavLink>
                                 }
                             </li>
@@ -78,9 +75,11 @@ const Nav = ({ isAuthenticated }) => {
                             </li>
                         )}
                     </ul>
-                    {!isAuthenticated && <div className="header__nav-item--feedback">
-                        <Feedback isMainNav={true} />
-                        </div>}
+                    {!isAuthenticated &&
+                        <div className="header__nav-item--feedback">
+                            <Feedback isMainNav={true} />
+                        </div>
+                    }
                 </>
             }
         </nav>

@@ -56,18 +56,18 @@ export const fields = [
         name: 'mail',
         type: 'email',
         label: 'E-mail',
-        placeholder: 'Введите e-mail'
-    },
-    {
-        name: 'password',
-        type: 'password',
-        label: 'Пароль',
-        placeholder: 'Введите пароль'
-    },
-    {
-        name: 'passwordConfirm',
-        type: 'password',
-        label: 'Подтверждение пароля',
-        placeholder: 'Введите подтверждение пароля'
+        placeholder: 'Введите E-mail'
     }
+    // {
+    //     name: 'password',
+    //     type: 'password',
+    //     label: 'Пароль',
+    //     placeholder: 'Введите пароль'
+    // },
+    // {
+    //     name: 'passwordConfirm',
+    //     type: 'password',
+    //     label: 'Подтверждение пароля',
+    //     placeholder: 'Введите подтверждение пароля'
+    // }
 ];

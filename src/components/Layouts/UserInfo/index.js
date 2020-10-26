@@ -7,13 +7,7 @@ import "./index.scss";
 const UserInfo = ({ logo_link, share_link, first_name, last_name }) => (
     <div className="user-info">
         <div className="user-info__logo-wrap">
-            <div
-                className="user-info__logo"
-                style={logo_link ?
-                    { backgroundImage: `url(${logo_link})` } :
-                    { backgroundImage: `url(${DEFAULT_IMG.userAvatar})`, width: '100px', minWidth: '100px' }
-                }
-            />
+            <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />
         </div>
         <div className="user-info__info">
             {share_link ?

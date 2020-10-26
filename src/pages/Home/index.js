@@ -61,6 +61,9 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
+                                    <a style={{ display: 'block', marginBottom: '10px', textAlign: 'center' }} href="https://www.eukanuba.ru/" target="_blank" rel="noreferrer noopener">
+                                        <img style={{ width: '368px', maxWidth: '100%' }} src="static/images/homepage/eukanuba.jpg" alt="" />
+                                    </a>
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">

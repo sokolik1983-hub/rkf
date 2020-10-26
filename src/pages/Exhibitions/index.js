@@ -170,7 +170,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                                     onClick={() => setExporting(true)}
                                     disabled={exporting}
                                 >
-                                    скачать в PDF
+                                    Скачать PDF
                                 </button>
                             }
                             <button className={"exhibitions-page__control " + (standardView ? 'exhibitions-page__control--tableIcon' : 'exhibitions-page__control--backIcon')} onClick={() => setStandardView(!standardView)}>

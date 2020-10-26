@@ -1,0 +1,26 @@
+.ue-security {
+  &__row {
+    display: flex;
+    align-items: top;
+    .k-form-field {
+      margin-top: 0;
+    }
+  }
+  &__label {
+    line-height: 20px;
+    margin: 9px 0 0;
+    &-second {
+      line-height: 20px;
+      margin: 9px 0 0;
+      color: #b9b9b9;
+    }
+  }
+  .k-form:not(:last-child) {
+    margin-bottom: 32px;
+  }
+  .k-form:last-child {
+    .ue-security__label {
+      margin-right: 10px;
+    }
+  }
+}

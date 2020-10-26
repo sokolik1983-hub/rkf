@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import {Redirect} from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserBanner from "../../components/Layouts/UserBanner";
-import UserInfo from "./components/UserInfo";
+import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -74,10 +74,12 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                         <UserPhotoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/gallery`}
+                                            canEdit={canEdit}
                                         />
                                         <UserVideoGallery
                                             alias={alias}
                                             pageLink={`/user/${alias}/video`}
+                                            canEdit={canEdit}
                                         />
                                         <CopyrightInfo/>
                                     </>
@@ -102,10 +104,12 @@ const UserPage = ({match, profile_id, is_active_profile, isAuthenticated}) => {
                                     <UserPhotoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/gallery`}
+                                        canEdit={canEdit}
                                     />
                                     <UserVideoGallery
                                         alias={alias}
                                         pageLink={`/user/${alias}/video`}
+                                        canEdit={canEdit}
                                     />
                                 </>
                             }

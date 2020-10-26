@@ -3,6 +3,7 @@ export const endpointGetSearchResults = '/api/club/elastic_search_full';
 export const defaultFilters = [
     {
         name: 'Кинологические организации',
+        count: 0,
         items: [
             {name: 'РКФ и Федерации', search_type: 1, count: 0, filters: []},
             {name: 'Клубы', search_type: 2, count: 0, filters: ['federation', 'active_member', 'activated', 'city']},
@@ -12,6 +13,7 @@ export const defaultFilters = [
     },
     {
         name: 'Мероприятия',
+        count: 0,
         items: [
             {name: 'Выставочные мероприятия', search_type: 5, count: 0, filters: ['calendar', 'breed', 'city', 'rank']},
             {name: 'Племенные мероприятия', search_type: 6, count: 0, filters: ['calendar', 'breed', 'city', 'rank']},
@@ -20,6 +22,7 @@ export const defaultFilters = [
     },
     {
         name: 'Публикации',
+        count: 0,
         items: [
             {name: 'Новости', search_type: 8, count: 0, filters: []},
             {name: 'Объявления', search_type: 9, count: 0, filters: ['breed', 'city', 'price']}

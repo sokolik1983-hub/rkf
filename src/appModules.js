@@ -123,7 +123,7 @@ export const LoadableUserDocuments = Loadable({
 });
 
 export const LoadableUserEdit = Loadable({
-    loader: () => import('./pages/UserEdit'),
+    loader: () => import('./pages/UserEditKendo'),
     loading: Loading
 });
 
@@ -214,5 +214,15 @@ export const LoadableDocumentsPage = Loadable({
 
 export const LoadableBaseSearch = Loadable({
     loader: () => import('./pages/BaseSearch'),
+    loading: Loading
+});
+
+export const LoadableConfirmPasswordSuccess = Loadable({
+    loader: () => import('./pages/ConfirmPassword/ConfirmSuccess'),
+    loading: Loading
+});
+
+export const LoadableConfirmPasswordFailed = Loadable({
+    loader: () => import('./pages/ConfirmPassword/ConfirmFailed'),
     loading: Loading
 });

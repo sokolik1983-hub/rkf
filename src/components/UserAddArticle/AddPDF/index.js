@@ -29,8 +29,8 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
         const file = e.target.files[0];
 
         if(file) {
-            if(file.size > 20971520) {
-                newPdfArray[index].errorFile = 'Файл не должен превышать 20 мб';
+            if(file.size > 15728640) {
+                newPdfArray[index].errorFile = 'Файл не должен превышать 15 мб';
             } else {
                 newPdfArray[index].file = file;
                 newPdfArray[index].errorFile = '';
@@ -45,6 +45,14 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
     const handleDeleteRow = index => {
         if(window.confirm('Вы действительно хотите удалить эту строку?')) {
             setPdfArray([...pdfArray].filter((item, i) => i !== index));
+        }
+        if (index === 0 && pdfArray.length === 1 ) {
+            setPdfArray([{
+                name: '',
+                file: '',
+                errorName: '',
+                errorFile: ''
+            }])
         }
     };
 
@@ -84,7 +92,21 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
             <form className="add-pdf__form" onSubmit={handleSubmit}>
                 {pdfArray.map((item, index) =>
                     <div className="add-pdf__form-row" key={index}>
-                        <div className="add-pdf__form-item">
+                        {pdfArray.length < 3 &&
+                            <div className="add-pdf__form-add-row">
+                                <button 
+                                    type="button"
+                                    className={`add-pdf__form-add-row-btn ${item.name && item.file ? `` : `_disabled`}`}
+                                    onClick={() => setPdfArray([...pdfArray, {
+                                        name: '',
+                                        file: '',
+                                        errorName: '',
+                                        errorFile: ''
+                                    }])}
+                                ></button>
+                            </div>
+                        }
+                        <div className="add-pdf__form-item add-pdf__form-item--name">
                             <label className="add-pdf__form-label">Название файла</label>
                             <input
                                 type="text"
@@ -99,9 +121,13 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                             <span className="add-pdf__form-label">Файл PDF</span>
                             <label
                                 htmlFor={`file-${index}`}
-                                className={item.file ? 'add-pdf__form-attached' : 'btn btn-primary'}
+                                className={(item.file || item.id) ? 'add-pdf__form-attached' : 'btn btn-primary'}
                             >
-                                {item.file ? `Загружено: ${item.file.name}` : 'Загрузить'}
+                                {item.file ?
+                                    `Загружено: ${item.file.name}` :
+                                    item.id ? `Загружено: ${item.name}.pdf` :
+                                    'Загрузить'
+                                }
                             </label>
                             <input
                                 id={`file-${index}`}
@@ -120,20 +146,6 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                         />
                     </div>
                 )}
-                {pdfArray.length < 3 &&
-                    <div className="add-pdf__form-add-row">
-                        <button 
-                            type="button"
-                            className="add-pdf__form-add-row-btn"
-                            onClick={() => setPdfArray([...pdfArray, {
-                                name: '',
-                                file: '',
-                                errorName: '',
-                                errorFile: ''
-                            }])}
-                        >Добавить ещё</button>
-                    </div>
-                }
                 <div className="add-pdf__form-controls">
                     <button type="button" className="btn btn-simple" onClick={closeModal}>Отмена</button>
                     <button type="submit" className="btn btn-primary" disabled={!pdfArray.length}>Добавить</button>

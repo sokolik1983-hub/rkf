@@ -12,7 +12,7 @@ import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "./config";
+import {endpointGetUserInfo, userNav} from "../User/config";
 import { DEFAULT_IMG } from "../../appConfig";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
@@ -20,6 +20,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import Alert from "../../components/Alert";
 import "./index.scss";
+
 
 const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
@@ -158,21 +159,27 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                     />
                                     <UserMenu userNav={userNav(alias)} />
                                 </Card>
-                                {!isMobile && <UserPhotoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/gallery`}
-                                />}
-                                <CopyrightInfo />
+                                {!isMobile &&
+                                    <>
+                                        <UserPhotoGallery
+                                            alias={alias}
+                                            pageLink={`/user/${alias}/gallery`}
+                                        />
+                                        <CopyrightInfo />
+                                    </>
+                                }
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} />
                             }
-                            {isMobile && <UserPhotoGallery
-                                alias={alias}
-                                pageLink={`/user/${alias}/gallery`}
-                            />}
+                            {isMobile &&
+                                <UserPhotoGallery
+                                    alias={alias}
+                                    pageLink={`/user/${alias}/gallery`}
+                                />
+                            }
                             <Card>
                                 <Breadcrumbs />
                                 {

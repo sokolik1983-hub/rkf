@@ -65,6 +65,20 @@
             }
         }
     }
+    &__publication {
+        height: 340px;
+        margin-bottom: 16px;
+        margin-left: auto;
+        margin-right: auto;
+        @media (max-width: 990px) {
+          display: none !important;
+        }
+        & img {
+        width: 296px;
+          border-radius: 6px;
+          box-shadow: 0 6px 12px rgba(51, 102, 255, 0.08);
+        }
+      }    
 }
 
 .menu-component__link {

@@ -21,7 +21,7 @@
     transition: all .2s linear;
     margin-left: 4px;
     &:hover {
-      background: url("/static/icons/chevron-down-dark.svg") no-repeat center;
+      background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
     }
     &._dropdown_open {
       transform: rotate(180deg);
@@ -34,5 +34,15 @@
     max-height: 180px;
     border-top: 1px solid #e8e8e8;
     padding-top: 12px;
+  }
+  &__empty {
+    margin-top: 13px;
+    padding-top: 23px;
+    padding-bottom: 20px;
+    color: #999999;
+    border-top: 1px solid #e8e8e8;
+    & p {
+      text-align: center;
+    }
   }
 }

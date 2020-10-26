@@ -101,6 +101,10 @@
     &-body {
       padding-top: 16px;
       margin-left: -16px;
+      .Card {
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
     }
   }
 }

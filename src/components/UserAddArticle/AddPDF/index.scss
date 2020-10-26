@@ -2,10 +2,13 @@
   @media (max-width: 560px) {
     padding-bottom: 24px;
   }
+  ._disabled {
+    pointer-events: none !important;
+  }
   &__form {
     &-row {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
       margin-bottom: 16px;
       @media (max-width: 560px) {
         display: block;
@@ -13,6 +16,9 @@
     }
     &-item {
       margin-right: 16px;
+      &--name {
+        flex: 1;
+      }
       @media (max-width: 560px) {
         margin: 0 0 16px;
       }
@@ -62,6 +68,7 @@
       width: 14px;
       height: 18px;
       margin: 46px 0 0 auto;
+      margin-bottom: 10px;
       background: url("/static/icons/delete.svg") no-repeat center / contain,
                   url("/static/icons/delete-red.svg") no-repeat center / contain;
       &:hover {
@@ -73,14 +80,21 @@
     }
     &-add-row {
       text-align: right;
-      margin-bottom: 16px;
+      margin-right: 10px;
+      margin-bottom: 10px;
       &-btn {
         border: none;
         padding: 0;
+        width: 16px;
+        height: 16px;
         letter-spacing: normal;
+        cursor: pointer;
         color: #72839c;
         transition: color .2s linear;
+        background: url("/static/icons/add-grey.svg") no-repeat center / contain,
+                  url("/static/icons/add-blue.svg") no-repeat center / contain;
         &:hover {
+          background: url("/static/icons/add-blue.svg") no-repeat center / contain;
           color: #3366FF;
         }
       }

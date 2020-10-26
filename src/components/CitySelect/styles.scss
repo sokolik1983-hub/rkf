@@ -1,16 +1,10 @@
 .CitySelect {
   justify-content: flex-end;
-  &__heading {
-    margin: 0;
-    margin-left: 24px;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 24px;
-  }
   .Dropdown {
     &__content--visible {
-      height: 360px;
+      height: 308px;
       width: 290px;
+      padding-top: 0;
     }
     &__button,
     &__button--visible {

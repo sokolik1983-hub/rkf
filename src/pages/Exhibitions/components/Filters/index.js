@@ -21,6 +21,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [clear_filter, setClearFilter] = useState(false);
+    const [range_clicked, setRangeClicked] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -45,10 +47,11 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     }, [isOpenFilters]);
 
     const clearAll = () => {
-        const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
+        const calendarButton = document.getElementsByClassName('calendar-filter__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
         setFiltersToUrl(getEmptyFilters(filters.Alias));
+        setClearFilter(true);
     };
 
     return (
@@ -87,10 +90,15 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     <RangeCalendarExhibitions
                                         date_from={filters.DateFrom}
                                         date_to={filters.DateTo}
+                                        handleRangeClick={() => setRangeClicked(true)}
                                     />
                                     <CalendarFilter
                                         date_from={filters.DateFrom}
                                         onChange={filter => setFiltersToUrl(filter)}
+                                        is_club_link={clubName && filters.Alias}
+                                        clear_filter={clear_filter}
+                                        range_clicked={range_clicked}
+                                        handleRangeReset={() => setRangeClicked(false)}
                                     />
                                 </div>
                             </Card>
@@ -99,17 +107,20 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                 breed_ids={filters.BreedIds}
                                 onChange={filter => setFiltersToUrl({ BreedIds: filter })}
                                 isExhibitions
+                                is_club_link={clubName && filters.Alias}
                             />
                             <CitiesFilter
                                 cities={cities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 isExhibitions
+                                is_club_link={clubName && filters.Alias}
                             />
                             <RanksFilter
                                 ranks={ranks}
                                 rank_ids={filters.RankIds}
                                 onChange={filter => setFiltersToUrl({ RankIds: filter })}
+                                is_club_link={clubName && filters.Alias}
                             />
                         </div>
                         <div className="exhibitions-filters__copy-wrap">

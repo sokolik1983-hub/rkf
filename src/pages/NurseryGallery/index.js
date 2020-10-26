@@ -16,6 +16,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
+import useIsMobile from "../../utils/useIsMobile";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "../../components/CopyrightInfo";
+
 
 const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -32,6 +36,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     const params = useParams();
     const history = useHistory();
     const alias = match.params.id;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         setPageLoaded(false);
@@ -166,77 +171,8 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                     <Card className="nursery-page__content-banner">
                                         <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
                                     </Card>
-                                    <div className="nursery-page__mobile-only">
-                                        <ClubUserHeader
-                                            user="nursery"
-                                            logo={nursery.logo_link}
-                                            name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                            alias={alias}
-                                            profileId={nursery.id}
-                                            federationName={nursery.federation_name}
-                                            federationAlias={nursery.federation_alias}
-                                        />
-                                        {nursery.breeds && !!nursery.breeds.length &&
-                                            <Card className="nursery-page__breeds">
-                                                <h4>Породы</h4>
-                                                <ul className="nursery-page__breeds-list">
-                                                    {nursery.breeds.map(item =>
-                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                    )}
-                                                </ul>
-                                            </Card>
-                                        }
-                                    </div>
-                                    <div className="NurseryGallery__content">
-                                        <Card>
-                                            <Breadcrumbs />
-                                            {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
-                                            <div className="NurseryGallery__buttons">
-                                                {album && canEdit && < Link className="NurseryGallery__buttons-link" to={`/kennel/${alias}/gallery/${params.album}/edit`}>Редактировать</Link>}
-                                                {album && canEdit && album.addition && <>
-                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAlbumDelete(params.album)}>Удалить</span>
-                                                    <span className="NurseryGallery__buttons-link" onClick={() => handleAddPhoto()}>Добавить фото</span>
-                                                </>}
-                                            </div>
-                                            {
-                                                !pageLoaded
-                                                    ? <Loading centered={false} />
-                                                    : <>
-
-
-                                                        <InfiniteScroll
-                                                            dataLength={images.length}
-                                                            next={getNextImages}
-                                                            hasMore={hasMore}
-                                                            loader={imagesLoading && <Loading centered={false} />}
-                                                            endMessage={!images.length &&
-                                                                <div className="NurseryGallery__no-images">
-                                                                    <h4>Изображений больше нет</h4>
-                                                                    <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
-                                                                </div>
-                                                            }
-                                                        >
-                                                            <Gallery
-                                                                items={images}
-                                                                albums={albums}
-                                                                album={album}
-                                                                match={match}
-                                                                backdropClosesModal={true}
-                                                                enableImageSelection={false}
-                                                                getAlbums={getAlbums}
-                                                                getImages={getImages}
-                                                                canEdit={canEdit}
-                                                                alias={alias}
-                                                            />
-                                                        </InfiniteScroll>
-                                                    </>
-                                            }
-                                        </Card>
-                                    </div>
-                                </div>
-                                <Aside className="nursery-page__info">
-                                    <StickyBox offsetTop={65}>
-                                        <div className="nursery-page__info-inner">
+                                    {isMobile &&
+                                        <>
                                             <ClubUserHeader
                                                 user="nursery"
                                                 logo={nursery.logo_link}
@@ -256,20 +192,106 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                     </ul>
                                                 </Card>
                                             }
-                                            <div className="nursery-page__mobile-only">
+                                            <UserVideoGallery
+                                                alias={alias}
+                                                pageLink={`/kennel/${alias}/video`}
+                                            />
+                                        </>
+                                    }
+                                    <div className="NurseryGallery__content">
+                                        <Card>
+                                            <Breadcrumbs />
+                                            {album && <h4 className="NurseryGallery__description">{album.description}</h4>}
+                                            <div className="NurseryGallery__buttons">
+                                                {album && canEdit &&
+                                                    <Link
+                                                        className="NurseryGallery__buttons-link"
+                                                        to={`/kennel/${alias}/gallery/${params.album}/edit`}
+                                                    >Редактировать</Link>
+                                                }
+                                                {album && canEdit && album.addition &&
+                                                    <>
+                                                        <span
+                                                            className="NurseryGallery__buttons-link"
+                                                            onClick={() => handleAlbumDelete(params.album)}
+                                                        >Удалить</span>
+                                                        <span
+                                                            className="NurseryGallery__buttons-link"
+                                                            onClick={() => handleAddPhoto()}
+                                                        >Добавить фото</span>
+                                                    </>
+                                                }
+                                            </div>
+                                            {!pageLoaded ?
+                                                <Loading centered={false} /> :
+                                                <InfiniteScroll
+                                                    dataLength={images.length}
+                                                    next={getNextImages}
+                                                    hasMore={hasMore}
+                                                    loader={imagesLoading && <Loading centered={false} />}
+                                                    endMessage={!images.length &&
+                                                        <div className="NurseryGallery__no-images">
+                                                            <h4>Изображений больше нет</h4>
+                                                            <img src={DEFAULT_IMG.emptyGallery} alt="Изображений больше нет" />
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Gallery
+                                                        items={images}
+                                                        albums={albums}
+                                                        album={album}
+                                                        match={match}
+                                                        backdropClosesModal={true}
+                                                        enableImageSelection={false}
+                                                        getAlbums={getAlbums}
+                                                        getImages={getImages}
+                                                        canEdit={canEdit}
+                                                        alias={alias}
+                                                    />
+                                                </InfiniteScroll>
+                                            }
+                                        </Card>
+                                    </div>
+                                </div>
+                                <Aside className="nursery-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="nursery-page__info-inner">
+                                            {!isMobile &&
+                                                <>
+                                                    <ClubUserHeader
+                                                        user="nursery"
+                                                        logo={nursery.logo_link}
+                                                        name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                        alias={alias}
+                                                        profileId={nursery.id}
+                                                        federationName={nursery.federation_name}
+                                                        federationAlias={nursery.federation_alias}
+                                                    />
+                                                    {nursery.breeds && !!nursery.breeds.length &&
+                                                        <Card className="nursery-page__breeds">
+                                                            <h4>Породы</h4>
+                                                            <ul className="nursery-page__breeds-list">
+                                                                {nursery.breeds.map(item =>
+                                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                                )}
+                                                            </ul>
+                                                        </Card>
+                                                    }
+                                                    <UserVideoGallery
+                                                        alias={alias}
+                                                        pageLink={`/kennel/${alias}/video`}
+                                                    />
+                                                    <CopyrightInfo/>
+                                                </>
+                                            }
+                                            {isMobile &&
                                                 <MenuComponent
                                                     alias={alias}
                                                     user={user}
                                                     profileId={nursery.id}
                                                     noCard={true}
                                                 />
-
-                                            </div>
-
-                                            <div className="nursery-page__copy-wrap">
-                                                <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                                <p>Политика обработки персональных данных</p>
-                                            </div>
+                                            }
                                         </div>
                                     </StickyBox>
                                 </Aside>

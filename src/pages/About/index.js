@@ -31,6 +31,11 @@ const AboutPage = () => {
                     <aside className="about-page__info">
                         <FeedbackComponent />
                         <Statistics isAboutPage />
+                        <div className="about-page__publication">
+                            <a href="https://www.royal-canin.ru/college-pro/webinars/" title="Вебинары" target="_blank" rel="noopener noreferrer">
+                                <img src="/static/images/publications/online-webinars.jpg" alt="Онлайн вебинары" width="" height="" />
+                            </a>
+                        </div>
                     </aside>
                 </div>
             </Container>
