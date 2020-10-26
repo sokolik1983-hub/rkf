@@ -63,7 +63,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                         name={'personal_information.sex_type_id'}
                                         label={'Пол'}
                                         component={FormDropDownList}
-                                        data={[{ text: 'Не выбран', value: null, id: 0 }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
+                                        data={[{ text: 'Не выбран', value: '', id: null }, { text: 'Мужской', value: 1, id: 1 }, { text: 'Женский', value: 2, id: 2 },]}
                                     />
                                 </div>
                             </div>
@@ -71,7 +71,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                         <div className="k-form-buttons text-center">
                             <button
                                 type={'submit'}
-                                className="k-button mx-auto"
+                                className="k-button k-primary mx-auto"
                                 disabled={!formRenderProps.allowSubmit}
                             >Сохранить</button>
                         </div>
