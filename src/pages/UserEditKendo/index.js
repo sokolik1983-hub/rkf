@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
 import Alert from "../../components/Alert";
-import { Request } from "../../utils/request";
+import { Request } from "utils/request";
 import { defaultValues } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
@@ -34,20 +34,46 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [userInfo, setUserInfo] = useState({});
     const alias = match.params.id;
     const isMobile = useIsMobile();
-
     const [activeSection, setActiveSection] = useState(0);
-    const sections = [
-        { name: 'Основная информация', id: 0, icon: 'k-i-information' },
-        { name: 'Контакты', id: 1, icon: 'k-i-track-changes' },
-        { name: 'О себе', id: 2, icon: 'k-i-user' },
-        { name: 'Безопасность', id: 3, icon: 'k-i-lock' },
-        { name: 'Удаление страницы', id: 4, icon: 'k-i-trash' }
-    ];
+
+    const sections = {
+        general: {
+            name: 'Основная информация',
+            id: 0,
+            url: '/api/owners/owner/owner_edit_general_information',
+            icon: 'k-i-information'
+        },
+        contacts: {
+            name: 'Контакты',
+            id: 1,
+            url: '/api/owners/owner/owner_edit_contact_information',
+            icon: 'k-i-track-changes'
+        },
+        about: {
+            name: 'О себе',
+            id: 2,
+            url: '/api/owners/owner/owner_edit_about_information',
+            icon: 'k-i-user'
+        },
+        security: {
+            name: 'Безопасность',
+            id: 3,
+            //url: '/api/owners/owner/owner_edit_safety_information',
+            icon: 'k-i-lock'
+        },
+        delete: {
+            name: 'Удаление страницы',
+            id: 4,
+            icon: 'k-i-trash'
+        }
+    };
 
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
     useEffect(() => {
-        Promise.all([getUser(), getInfo(), getCities(), getVisibilityStatuses()])
+        Promise.all([
+            Object.keys(sections).map(type => sections[type].url && getInfo(type)),
+            getUser(), getCities(), getVisibilityStatuses()])
             .then(() => setLoaded(true))
             .catch(e => { handleError(e); setError(error && error.response ? error.response : null) });
     }, []);
@@ -61,28 +87,32 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
-    const getInfo = () => PromiseRequest('/api/owners/owner/owner_edit_information')
-        .then(data => {
-            if (data) {
-                if (data.contacts && data.contacts.length) {
-                    data.contacts.map(item => {
-                        if (item.contact_type_id === 1 && !/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/.test(item.value)) {
-                            const valueArr = item.value.split(' ');
-                            item.value = '+' + valueArr[0] + valueArr[1].slice(0, 6) + '-' + valueArr[1].slice(-2);
-                        }
-                        return item;
-                    });
-                }
-                data.is_public = !data.is_public; // Backend workaround
-                const birthDate = data.personal_information.birth_date;
-                if (birthDate) data.personal_information.birth_date = birthDate.split('T')[0];
+    function getInfo(type) {
+        PromiseRequest(sections[type].url)
+            .then(data => {
+                if (data) {
+                    if (data.contacts && data.contacts.length) {
+                        data.contacts.map(item => {
+                            if (item.contact_type_id === 1 && !/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/.test(item.value)) {
+                                const valueArr = item.value.split(' ');
+                                item.value = '+' + valueArr[0] + valueArr[1].slice(0, 6) + '-' + valueArr[1].slice(-2);
+                            }
+                            return item;
+                        });
+                    }
+                    if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
 
-                setInitialValues({
-                    ...initialValues,
-                    ...removeNulls(data)
-                });
-            }
-        });
+                    let obj = initialValues;
+                    obj[type] = removeNulls(data);
+
+                    // TO FIX!
+                    // setInitialValues({
+                    //     ...initialValues
+                    // });
+
+                }
+            });
+    };
 
     const getCities = () => PromiseRequest('/api/city')
         .then(data => {
@@ -112,15 +142,14 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }
     };
 
-    const handleSubmit = async data => {
-        var d = data;
-        d.social_networks = d.social_networks.filter(i => i.value !== '');
+    const handleSubmit = async (data, type) => {
+        data.social_networks && data.social_networks.filter(i => i.site !== '');
         await Request({
-            url: '/api/owners/owner/update_full',
+            url: sections[type].url,
             method: 'PUT',
-            data: JSON.stringify(d)
+            data: JSON.stringify(data)
         }, () => {
-            getInfo();
+            getInfo(type);
             setShowAlert({
                 title: "Информация сохранена!",
                 autoclose: 1,
@@ -135,21 +164,26 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         switch (section) {
             case 0:
                 return <MainInfo
-                    initialValues={initialValues}
+                    initialValues={initialValues.general}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                 />;
             case 1:
                 return <Contacts
-                    initialValues={initialValues}
+                    initialValues={initialValues.contacts}
                     cities={cities}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                 />;
             case 2:
-                return <About initialValues={initialValues} setFormTouched={setFormTouched} handleSubmit={handleSubmit} />;
+                return <About
+                    initialValues={initialValues.about}
+                    setFormTouched={setFormTouched}
+                    handleSubmit={handleSubmit}
+                    handleError={handleError}
+                />;
             case 3:
                 return <Security setFormTouched={setFormTouched} history={history} />;
             case 4:
@@ -202,10 +236,10 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {sections.map(({ name, id, icon }, key) => <div className="UserEdit__inner-item" key={key}>
-                                                <span className={`k-icon k-icon-32 ${icon}`}></span>
-                                                <li onClick={() => activeSection !== id && handleSectionSwitch(id)}>
-                                                    {name}
+                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}>
+                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
+                                                <li onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}>
+                                                    {sections[type].name}
                                                 </li>
                                             </div>
                                             )}

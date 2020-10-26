@@ -11,7 +11,7 @@ import './styles.scss';
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="Contacts">
         <Form
-            onSubmit={handleSubmit}
+            onSubmit={data => handleSubmit(data, 'contacts')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormTouched(formRenderProps.touched);
@@ -29,7 +29,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                         <div className="col-md-8">
                                             <Field
                                                 id={'address_visibility_status_id'}
-                                                name={'personal_information.address_visibility_status_id'}
+                                                name={'address_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
@@ -86,7 +86,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                         <div className="col-md-8">
                                             <Field
                                                 id={'phones_visibility_status_id'}
-                                                name={'personal_information.phones_visibility_status_id'}
+                                                name={'phones_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
@@ -112,7 +112,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                         <div className="col-md-8">
                                             <Field
                                                 id={'mails_visibility_status_id'}
-                                                name={'personal_information.mails_visibility_status_id'}
+                                                name={'mails_visibility_status_id'}
                                                 label={''}
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}

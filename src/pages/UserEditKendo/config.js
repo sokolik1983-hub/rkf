@@ -180,56 +180,56 @@ export const editForm = {
 };
 
 export const defaultValues = {
-    alias: '',
-    description: '',
-    personal_information: {
+    about: {
+        web_site: '',
+        description: '',
+        social_networks: [{
+            id: null,
+            site: '',
+            description: '',
+            social_network_type_id: 1
+        }]
+    },
+    general: {
         first_name: '',
-        first_name_lat: '',
         last_name: '',
-        last_name_lat: '',
         second_name: '',
         birth_date: '',
         sex_type_id: '',
-        is_hidden: true,
-        description: '',
+        sex_type_name: '',
+        birth_date_visibility_status_id: '',
+        birth_date_visibility_status_name: ''
     },
-    address: {
-        postcode: '',
-        city_id: '',
-        street_type_id: '',
-        street_name: '',
-        house_type_id: '',
-        house_name: '',
-        flat_type_id: '',
-        flat_name: null,
+    contacts: {
+        address_visibility_status_id: 1,
+        address_visibility_status_name: '',
+        address: {
+            postcode: '',
+            city_id: '',
+            street_type_id: '',
+            street_name: '',
+            house_type_id: '',
+            house_name: '',
+            flat_type_id: '',
+            flat_name: null,
+        },
+        phones: [{
+            id: null,
+            value: '',
+            is_main: true,
+            description: '',
+            contact_type_id: 1
+        }],
+        mails: [{
+            id: null,
+            value: '',
+            is_main: true,
+            description: '',
+            contact_type_id: 0
+        }]
     },
-    contacts: [{
-        id: null,
-        value: '',
-        description: '',
-        is_main: false,
-        contact_type_id: 1
-    }],
-    documents: [{
-        id: null,
-        name: '',
-        url: ''
-    }],
-    social_networks: [{
-        id: null,
-        site: '',
-        description: '',
-        social_network_type_id: 1
-    }],
-    // web_sites: [{
-    //     id: null,
-    //     value: '',
-    //     description: '',
-    //     is_main: false,
-    //     contact_type_id: 1
-    // }],
-    web_site: '',
-    logo: '',
-    logo_link: '',
-    banner: '',
+    security: {
+        alias: '',
+        login: ''
+    }
 };

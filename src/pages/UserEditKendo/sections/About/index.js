@@ -7,11 +7,11 @@ import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
 import './styles.scss';
 
-const About = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
-    
+const About = ({ initialValues, setFormTouched, handleSubmit }) => {
+
     return <div className="About">
         <Form
-            onSubmit={handleSubmit}
+            onSubmit={data => handleSubmit(data, 'about')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormTouched(formRenderProps.touched);
@@ -22,7 +22,7 @@ const About = ({ initialValues, cities, setFormTouched, visibilityStatuses, hand
                             <legend className={'k-form-legend'}>О себе</legend>
                             <Field
                                 id="description"
-                                name="personal_information.description"
+                                name="description"
                                 label="Описание"
                                 component={FormEditorTextarea}
                             />
