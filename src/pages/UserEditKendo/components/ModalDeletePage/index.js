@@ -34,7 +34,7 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
         await Request({
             url: '/api/registration/date_deactivated'
         }, data => {
-            setDate(formatDateTime(data));
+            setDate(data ? formatDateTime(data) : null);
         }, error => {
             handleError(error);
         });
