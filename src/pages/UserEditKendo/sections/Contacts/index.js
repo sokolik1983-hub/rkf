@@ -8,10 +8,7 @@ import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsF
 import { phoneValidator, emailValidator, numbersOnlyValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-
-
-const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses }) => {
-    const handleSubmit = (dataItem) => console.log((JSON.stringify(dataItem, null, 2)));
+const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="Contacts">
         <Form
             onSubmit={handleSubmit}

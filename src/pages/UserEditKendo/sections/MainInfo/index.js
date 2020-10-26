@@ -7,8 +7,7 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { requiredValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses }) => {
-    const handleSubmit = (dataItem) => console.log(JSON.stringify(dataItem, null, 2));
+const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
     return <div className="MainInfo">
         <Form
             onSubmit={handleSubmit}
