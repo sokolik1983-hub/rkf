@@ -12,12 +12,14 @@
         }
         &__custom-plus {
             display: flex;
-            align-items: flex-start;
-            padding-top: 10px;
+            align-items: center;
             justify-content: center;
-            button {
-                padding: 2px;
-                border-radius: 50%;
+            span.k-i-plus-circle {
+                font-size: 24px;
+                color: #36f;
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
         &__custom-checkbox {

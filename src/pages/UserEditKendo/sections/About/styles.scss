@@ -1,3 +1,41 @@
-.FormEditorTextarea {
-    border-radius: 6px;
+.About {
+    .form-row {
+        .k-form-field {
+            margin-top: 0;
+        }
+    }
+    &__custom-label {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    &__custom-plus {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span.k-i-plus-circle {
+            font-size: 24px;
+            color: #36f;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    &__custom-trash {
+        padding-top: 4px;
+        text-align: center;
+        & > span {
+            color: red;
+            font-size: 24px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .FormEditorTextarea {
+        border-radius: 6px;
+        &__counter {
+            color: #72839c;
+        }
+    }
 }

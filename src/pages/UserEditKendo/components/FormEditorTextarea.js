@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Editor, EditorTools, ProseMirror } from '@progress/kendo-react-editor';
 import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label } from '@progress/kendo-react-labels';
@@ -47,11 +47,12 @@ const PlaceholderStyles =
 
 const FormEditorTextarea = (fieldRenderProps) => {
     const { Bold, Italic, Underline } = EditorTools;
-
+    const [contentLength, setContentLength] = useState(0);
     const { validationMessage, touched, label, id, valid, disabled, type, optional, onChange, ...others } = fieldRenderProps;
     const editorTools = [[Bold, Italic, Underline]];
 
     const onMount = (event) => {
+        event.target.value && setContentLength(event.target.value.length);
         const state = event.viewProps.state;
         const plugins = [
             ...state.plugins,
@@ -68,8 +69,9 @@ const FormEditorTextarea = (fieldRenderProps) => {
         );
     }
 
-    const handleChange = (event) => {
-        onChange({ value: event.html });
+    const handleChange = ({ html }) => {
+        onChange({ value: html });
+        setContentLength(html.length);
     }
 
     return <LocalizationProvider language="ru-RU">
@@ -79,13 +81,14 @@ const FormEditorTextarea = (fieldRenderProps) => {
                 <div className={'k-form-field-wrap'}>
                     <Editor
                         tools={editorTools}
-                        contentStyle={{ height: 200 }}
+                        contentStyle={{ height: 115, resize: 'vertical' }}
                         className={"FormEditorTextarea"}
                         defaultEditMode="div"
                         onMount={onMount}
                         onChange={handleChange}
                         {...others}
                     />
+                    <div className="FormEditorTextarea__counter mt-1 text-right">{`осталось ${4096 - contentLength} знаков`}</div>
                 </div>
             </FieldWrapper>
         </IntlProvider>
