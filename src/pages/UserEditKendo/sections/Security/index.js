@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Prompt} from "react-router-dom";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Button} from "@progress/kendo-react-buttons";
@@ -14,12 +14,18 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const Security = ({alias, login, setFormTouched, getInfo, history}) => {
-    const [loading, setLoading] = useState(false);
+const Security = ({setFormTouched, history}) => {
+    const [loading, setLoading] = useState(true);
+    const [alias, setAlias] = useState('');
+    const [login, setLogin] = useState('');
     const [alert, setAlert] = useState(null);
     const [aliasError, setAliasError] = useState('');
     const [newLogin, setNewLogin] = useState('');
     const [modalType, setModalType] = useState('');
+
+    useEffect(() => {
+        (() => getInfo())();
+    }, []);
 
     const handleError = e => {
         if (e.response) {
@@ -34,6 +40,21 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                 onOk: () => setAlert(null)
             });
         }
+    };
+
+    const getInfo = async () => {
+        setLoading(true);
+
+        await Request({
+            url: '/api/owners/owner/owner_edit_safety_information'
+        }, data => {
+            setAlias(data.alias);
+            setLogin(data.login);
+            setLoading(false);
+        }, error => {
+            handleError(error);
+            setLoading(false);
+        });
     };
 
     const submitAliasForm = async data => {
@@ -177,7 +198,7 @@ const Security = ({alias, login, setFormTouched, getInfo, history}) => {
                                 </div>
                                 <div className="col-md-4">
                                     <p className="ue-security__label-second">
-                                        {secureLogin(login)}
+                                        {login ? secureLogin(login) : ''}
                                     </p>
                                 </div>
                                 <div className="col-md-5">
