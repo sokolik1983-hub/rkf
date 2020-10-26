@@ -67,15 +67,14 @@
       }
     }
     &._describe {
-      display: inline;
+      display: block;
       &:before {
         width: 26px;
         height: 18px;
         background: url("/static/icons/icon-about.svg") no-repeat center / contain;
       }
-      span:last-child {
+      & > *:last-child {
         display: block;
-        padding-left: 30px;
       }
     }
     span:last-child {
