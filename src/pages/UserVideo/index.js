@@ -13,7 +13,6 @@ import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import {endpointGetUserInfo, userNav} from "../User/config";
-import { DEFAULT_IMG } from "../../appConfig";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -191,12 +190,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                                 next={getNextVideos}
                                                 hasMore={hasMore}
                                                 loader={videosLoading && <Loading centered={false} />}
-                                                endMessage={!!videos.length &&
-                                                    <div className="NurseryVideo__no-videos">
-                                                        <h4>Видеозаписей больше нет</h4>
-                                                        <img src={DEFAULT_IMG.emptyGallery} alt="Видеозаписей больше нет" />
-                                                    </div>
-                                                }
                                             >
                                                 <VideoGallery
                                                     items={videos}
