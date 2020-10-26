@@ -58,7 +58,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         security: {
             name: 'Безопасность',
             id: 3,
-            url: '/api/owners/owner/owner_edit_safety_information',
+            //url: '/api/owners/owner/owner_edit_safety_information',
             icon: 'k-i-lock'
         },
         delete: {
