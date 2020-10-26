@@ -15,8 +15,8 @@ export const emailValidator = value => !value ?
 export const postcodeValidator = (value) => !value
     ? ""
     : numbersOnlyRegex.test(value)
-        ? value.length > 7
-            ? "Максимум 7 цифр"
+        ? (value.length < 6 || value.length > 7)
+            ? "Введите 6 или 7 цифр"
             : ""
         : "Только цифры";
 export const phoneValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
@@ -26,7 +26,7 @@ export const aliasValidator = value => !value ?
 export const codeValidator = value => !value ?
     requiredMessage :
     value.length !== 5 ? "Неверный код" :
-    numbersOnlyRegex.test(value) ? "" : "Неверный код";
+        numbersOnlyRegex.test(value) ? "" : "Неверный код";
 export const passwordValidator = value => !value ?
     requiredMessage :
     passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
