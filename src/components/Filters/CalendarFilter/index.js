@@ -46,10 +46,10 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
         <div className="calendar-filter">
             <div className="calendar-filter__controls" onClick={handleRangeReset}>
                 <button
-                    className={`calendar-filter__button${activeButton === 'year' && !range_clicked ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('year')}
+                    className={`calendar-filter__button${activeButton === 'day' && !range_clicked ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('day')}
                 >
-                    Год
+                    Сегодня
                 </button>
                 <button
                     className={`calendar-filter__button${activeButton === 'month' && !range_clicked ? ' active' : ''}`}
@@ -58,10 +58,10 @@ const CalendarFilter = ({ date_from, onChange, is_club_link, clear_filter, range
                     Месяц
                 </button>
                 <button
-                    className={`calendar-filter__button${activeButton === 'day' && !range_clicked ? ' active' : ''}`}
-                    onClick={() => handleButtonClick('day')}
+                    className={`calendar-filter__button${activeButton === 'year' && !range_clicked ? ' active' : ''}`}
+                    onClick={() => handleButtonClick('year')}
                 >
-                    Сегодня
+                    Год
                 </button>
             </div>
         </div>
