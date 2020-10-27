@@ -35,7 +35,7 @@ export const passwordValidator = value => !value ?
 export const lengthRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
     value.length > maxLength ? `Допускается не более ${maxLength} символов` : '';
-export const lengthValidator = (value, maxLength) => value.length > maxLength ?
+export const lengthValidator = (value, maxLength) => value && value.length > maxLength ?
     `Допускается не более ${maxLength} символов` : '';
 
 
