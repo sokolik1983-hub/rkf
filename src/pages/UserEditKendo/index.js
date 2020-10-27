@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
@@ -6,7 +6,7 @@ import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
 import Alert from "../../components/Alert";
 import { Request } from "utils/request";
-import { defaultValues } from './config';
+import { sections, defaultValues } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
@@ -25,7 +25,8 @@ import moment from "moment";
 import './styles.scss';
 
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
-    const [initialValues, setInitialValues] = useState(defaultValues);
+    const [values, setValues] = useState(defaultValues);
+    const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
     const [visibilityStatuses, setVisibilityStatuses] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -36,39 +37,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const alias = match.params.id;
     const isMobile = useIsMobile();
     const [activeSection, setActiveSection] = useState(0);
-
-    const sections = {
-        general: {
-            name: 'Основная информация',
-            id: 0,
-            url: '/api/owners/owner/owner_edit_general_information',
-            icon: 'k-i-information'
-        },
-        contacts: {
-            name: 'Контакты',
-            id: 1,
-            url: '/api/owners/owner/owner_edit_contact_information',
-            icon: 'k-i-track-changes'
-        },
-        about: {
-            name: 'О себе',
-            id: 2,
-            url: '/api/owners/owner/owner_edit_about_information',
-            icon: 'k-i-user'
-        },
-        security: {
-            name: 'Безопасность',
-            id: 3,
-            //url: '/api/owners/owner/owner_edit_safety_information',
-            icon: 'k-i-lock'
-        },
-        delete: {
-            name: 'Удаление страницы',
-            id: 4,
-            icon: 'k-i-trash'
-        }
-    };
-
+    const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
     useEffect(() => {
@@ -79,6 +48,16 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             .catch(e => { handleError(e); setError(error && error.response ? error.response : null) });
     }, []);
 
+    useEffect(() => {
+        if (prevRequestData.current !== requestData) {
+            setValues({
+                ...values,
+                ...requestData
+            })
+            prevRequestData.current = requestData;
+        }
+    }, [requestData]);
+
     const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
         .then(data => {
             if (data) {
@@ -88,7 +67,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
-    function getInfo(type) {
+    const getInfo = (type) => {
         PromiseRequest(sections[type].url)
             .then(data => {
                 if (data) {
@@ -102,15 +81,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         });
                     }
                     if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
-
-                    let obj = initialValues;
-                    obj[type] = removeNulls(data);
-
-                    // TO FIX!
-                    // setInitialValues({
-                    //     ...initialValues
-                    // });
-
+                    setRequestData({ [type]: removeNulls(data) });
                 }
             });
     };
@@ -167,14 +138,14 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         switch (section) {
             case 0:
                 return <MainInfo
-                    initialValues={initialValues.general}
+                    initialValues={values.general}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                 />;
             case 1:
                 return <Contacts
-                    initialValues={initialValues.contacts}
+                    initialValues={values.contacts}
                     cities={cities}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
@@ -182,7 +153,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 />;
             case 2:
                 return <About
-                    initialValues={initialValues.about}
+                    initialValues={values.about}
                     setFormTouched={setFormTouched}
                     handleSubmit={handleSubmit}
                     handleError={handleError}
