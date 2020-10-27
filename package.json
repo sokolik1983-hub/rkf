@@ -37,7 +37,7 @@
     "babel-preset-react-app": "^7.0.2",
     "bfj": "6.1.1",
     "bootstrap": "^4.5.3",
-    "caniuse-lite": "^1.0.30001046",
+    "caniuse-lite": "^1.0.30001151",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
     "cldr-data": "^36.0.0",

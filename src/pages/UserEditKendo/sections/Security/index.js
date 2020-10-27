@@ -134,14 +134,14 @@ const Security = ({setFormTouched, history}) => {
         }
 
         return {
-            ['confirm_password']: 'Пароль не совпадает'
+            confirm_password: 'Пароль не совпадает'
         };
     };
 
     return loading ?
         <Loading centered={false}/> :
         <div className="ue-security k-form">
-            <h2 className="k-form-legend">Безопасность</h2>
+            <legend className={'k-form-legend'}>Безопасность</legend>
             <Form
                 onSubmit={submitAliasForm}
                 initialValues={{alias}}
