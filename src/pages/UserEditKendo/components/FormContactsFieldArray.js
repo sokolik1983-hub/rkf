@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
+import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
 import { Error } from '@progress/kendo-react-labels';
 
@@ -35,7 +36,12 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                     </div>}
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].value`} placeholder={id === 'phones' ? '+7(999)999-99-99' : ''} component={FormInput} validator={valueValidator} />
+                    <Field
+                        name={`${id}[${index}].value`}
+                        mask={id === 'phones' ? '+7(000)000-00-00' : ''}
+                        component={id === 'phones' ? FormMaskedInput : FormInput}
+                        validator={valueValidator}
+                    />
                 </div>
                 <div className="form-group col-md-4">
                     <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} />
