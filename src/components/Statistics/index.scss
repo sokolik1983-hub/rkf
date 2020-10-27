@@ -70,7 +70,6 @@
     }
 }
 ._about_page {
-    padding: 32px !important;
     h3 {
         font-size: 22px;
         padding-bottom: 15px;
@@ -95,6 +94,7 @@
         &:last-of-type {
             width: 40%;
             padding-right: 5px;
+            padding-left: 10px;
             text-align: center;
         }
     }
@@ -110,13 +110,13 @@
 }
 .statistics__federations--column {
     width: 60%;
-    padding-right: 25px;
+    padding-right: 20px;
 }
 .statistics__federations--column--last {
     text-align: center;
     width: 40%;
     padding-right: 0;
-    padding-left: 15px;
+    padding-left: 30px;
     .statistics__federations {
         justify-content: center;
         height: 40px;
