@@ -38,3 +38,9 @@ export const nameValidator = (value) => !value ?
 export const userNameValidator = (value) => !value ?
     "User Name is required" :
     value.length < 5 ? "User name should be at least 3 characters long." : "";
+export const streetNameValidator = (value) => !value ?
+    "Обязательное поле" :
+    value.length > 50 ? "Название не должно содержать более 50 знаков" : "";
+export const housingNumberValidator = (value) => !value ?
+    "Обязательное поле" :
+    value.length > 20 ? "Название не должно содержать более 50 знаков" : "";

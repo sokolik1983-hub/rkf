@@ -5,7 +5,7 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, postcodeValidator } from 'pages/UserEditKendo/validators';
+import { phoneValidator, emailValidator, postcodeValidator, streetNameValidator, housingNumberValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
@@ -61,19 +61,19 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
-                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} />
+                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} validator={streetNameValidator} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-4">
-                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} />
+                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} validator={housingNumberValidator} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} />
+                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} validator={housingNumberValidator} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} />
+                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} validator={housingNumberValidator} />
                                 </div>
                             </div>
 
