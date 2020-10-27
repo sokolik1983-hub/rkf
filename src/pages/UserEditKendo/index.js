@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
-import Alert from "../../components/Alert";
 import { Request } from "utils/request";
-import { defaultValues } from './config';
+import { sections, defaultValues } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
@@ -21,54 +20,28 @@ import About from './sections/About';
 import Security from './sections/Security';
 import DeletePage from './sections/DeletePage';
 import useIsMobile from "utils/useIsMobile";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
 import './styles.scss';
 
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
-    const [initialValues, setInitialValues] = useState(defaultValues);
+    const [values, setValues] = useState(defaultValues);
+    const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
     const [visibilityStatuses, setVisibilityStatuses] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const [error, setError] = useState(null);
-    const [showAlert, setShowAlert] = useState(false);
     const [formTouched, setFormTouched] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const alias = match.params.id;
     const isMobile = useIsMobile();
     const [activeSection, setActiveSection] = useState(0);
-
-    const sections = {
-        general: {
-            name: 'Основная информация',
-            id: 0,
-            url: '/api/owners/owner/owner_edit_general_information',
-            icon: 'k-i-information'
-        },
-        contacts: {
-            name: 'Контакты',
-            id: 1,
-            url: '/api/owners/owner/owner_edit_contact_information',
-            icon: 'k-i-track-changes'
-        },
-        about: {
-            name: 'О себе',
-            id: 2,
-            url: '/api/owners/owner/owner_edit_about_information',
-            icon: 'k-i-user'
-        },
-        security: {
-            name: 'Безопасность',
-            id: 3,
-            //url: '/api/owners/owner/owner_edit_safety_information',
-            icon: 'k-i-lock'
-        },
-        delete: {
-            name: 'Удаление страницы',
-            id: 4,
-            icon: 'k-i-trash'
-        }
-    };
-
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [errorRedirect, setErrorRedirect] = useState(false);
+    const [formBusy, setFormBusy] = useState(false);
+    const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
     useEffect(() => {
@@ -76,8 +49,18 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             Object.keys(sections).map(type => sections[type].url && getInfo(type)),
             getUser(), getCities(), getVisibilityStatuses()])
             .then(() => setLoaded(true))
-            .catch(e => { handleError(e); setError(error && error.response ? error.response : null) });
+            .catch(e => { handleError(e); setErrorRedirect(error && error.response ? error.response : null) });
     }, []);
+
+    useEffect(() => {
+        if (prevRequestData.current !== requestData) {
+            setValues({
+                ...values,
+                ...requestData
+            })
+            prevRequestData.current = requestData;
+        }
+    }, [requestData]);
 
     const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
         .then(data => {
@@ -88,7 +71,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
-    function getInfo(type) {
+    const getInfo = (type) => {
         PromiseRequest(sections[type].url)
             .then(data => {
                 if (data) {
@@ -102,15 +85,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         });
                     }
                     if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
-
-                    let obj = initialValues;
-                    obj[type] = removeNulls(data);
-
-                    // TO FIX!
-                    // setInitialValues({
-                    //     ...initialValues
-                    // });
-
+                    setRequestData({ [type]: removeNulls(data) });
                 }
             });
     };
@@ -129,21 +104,28 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             }
         });
 
+    const handleSuccess = () => {
+        setSuccess(true);
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+
     const handleError = e => {
         if (e.response) {
-            let errorText = e.response.data.errors
+            let message = e.response.data.errors
                 ? Object.values(e.response.data.errors)
                 : `${e.response.status} ${e.response.statusText}`;
-            setShowAlert({
-                title: `Ошибка: ${errorText}`,
-                //text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
-                autoclose: 5,
-                onOk: () => setShowAlert(false)
-            });
+            setErrorMessage(message);
+            setError(true);
+            !error && setTimeout(() => {
+                setError(false);
+            }, 5000);
         }
     };
 
     const handleSubmit = async (data, type) => {
+        setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
@@ -153,13 +135,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             data: JSON.stringify(data)
         }, () => {
             getInfo(type);
-            setShowAlert({
-                title: "Информация сохранена!",
-                autoclose: 1,
-                onOk: () => setShowAlert(false)
-            });
+            handleSuccess();
+            setFormBusy(false);
         }, error => {
-            handleError(error)
+            handleError(error);
+            setFormBusy(false);
         });
     };
 
@@ -167,25 +147,28 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         switch (section) {
             case 0:
                 return <MainInfo
-                    initialValues={initialValues.general}
+                    initialValues={values.general}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
+                    formBusy={formBusy}
                 />;
             case 1:
                 return <Contacts
-                    initialValues={initialValues.contacts}
+                    initialValues={values.contacts}
                     cities={cities}
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
+                    formBusy={formBusy}
                 />;
             case 2:
                 return <About
-                    initialValues={initialValues.about}
+                    initialValues={values.about}
                     setFormTouched={setFormTouched}
                     handleSubmit={handleSubmit}
                     handleError={handleError}
+                    formBusy={formBusy}
                 />;
             case 3:
                 return <Security setFormTouched={setFormTouched} history={history} />;
@@ -206,7 +189,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
 
     return (!loaded
         ? <Loading />
-        : error
+        : errorRedirect
             ? <Redirect to="/404" />
             : <Layout>
                 <Container className="UserEdit content">
@@ -252,7 +235,31 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                             </div>
                         }
                     </div>
-                    {showAlert && <Alert {...showAlert} />}
+                    <NotificationGroup
+                        style={{
+                            alignItems: 'flex-start',
+                            flexWrap: 'wrap-reverse'
+                        }}
+                    >
+                        <Fade enter={true} exit={true}>
+                            {success && <Notification
+                                type={{ style: 'success', icon: true }}
+                                closable={true}
+                                onClose={() => setSuccess(false)}
+                            >
+                                <span>Информация сохранена!</span>
+                            </Notification>}
+                        </Fade>
+                        <Fade enter={true} exit={true}>
+                            {error && <Notification
+                                type={{ style: 'error', icon: true }}
+                                closable={true}
+                                onClose={() => setError(false)}
+                            >
+                                <span>{errorMessage}</span>
+                            </Notification>}
+                        </Fade>
+                    </NotificationGroup>
                 </Container>
             </Layout>
     )
