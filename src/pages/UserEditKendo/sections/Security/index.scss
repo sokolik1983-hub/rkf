@@ -8,10 +8,10 @@
   }
   &__label {
     line-height: 20px;
-    margin: 9px 0 0;
+    margin: 9px 0 0 !important;
     &-second {
       line-height: 20px;
-      margin: 9px 0 0;
+      margin: 9px 0 0 !important;
       color: #b9b9b9;
     }
   }
@@ -20,7 +20,8 @@
   }
   .k-form:last-child {
     .ue-security__label {
-      margin-right: 10px;
+      margin-right: 10px !important;
+      margin-bottom: 0 !important;
     }
   }
 }
