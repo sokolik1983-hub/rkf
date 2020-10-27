@@ -30,7 +30,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === value.length - 1 && <div onClick={handleAdd}>
+                    {index === value.length - 1 && index < 2 && <div onClick={handleAdd}>
                         <span className="k-icon k-i-plus-circle"></span>
                     </div>}
                 </div>
