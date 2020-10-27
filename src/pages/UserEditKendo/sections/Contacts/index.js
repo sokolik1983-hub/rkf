@@ -134,7 +134,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

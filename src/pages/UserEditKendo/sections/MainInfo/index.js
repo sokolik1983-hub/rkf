@@ -73,7 +73,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>
