@@ -224,9 +224,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}>
+                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}
+                                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                            >
                                                 <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
-                                                <li onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}>
+                                                <li>
                                                     {sections[type].name}
                                                 </li>
                                             </div>
