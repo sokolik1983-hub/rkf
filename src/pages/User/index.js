@@ -35,9 +35,6 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            data.email = data.emails && data.emails.length ? data.emails[0].value : '';
-            data.phone = data.phones && data.phones.length ? data.phones[0].value : '';
-
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);
@@ -91,10 +88,10 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 <UserBanner link={userInfo.headliner_link} />
                             }
                             <UserDescription
-                                city_name={userInfo.address.city_name}
+                                city_name={userInfo.address ? userInfo.address.city_name : ''}
                                 birthday_date={userInfo.personal_information.birth_date}
-                                email={userInfo.email}
-                                phone={userInfo.phone}
+                                emails={userInfo.emails}
+                                phones={userInfo.phones}
                                 site={userInfo.web_site}
                                 socials={userInfo.social_networks}
                                 description={userInfo.personal_information.description}
