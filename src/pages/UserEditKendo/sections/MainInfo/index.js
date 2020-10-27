@@ -7,7 +7,7 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { requiredValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
+const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
     return <div className="MainInfo">
         <Form
             onSubmit={data => handleSubmit(data, 'general')}
@@ -72,7 +72,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={!formRenderProps.allowSubmit}
+                                disabled={formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

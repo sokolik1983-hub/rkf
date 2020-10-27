@@ -8,7 +8,7 @@ import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsF
 import { phoneValidator, emailValidator, postcodeValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
+const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
     return <div className="Contacts">
         <Form
             onSubmit={data => handleSubmit(data, 'contacts')}
@@ -134,7 +134,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={!formRenderProps.allowSubmit}
+                                disabled={formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>
