@@ -6,7 +6,7 @@ import {lengthValidator} from "../validators";
 
 const FormSocialsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, formRenderProps } = fieldArrayRenderProps;
-    const newItem = { "social_network_type_id": 1, "site": "" };
+    const newItem = { "social_network_type_id": 1, "site": "", "description": "" };
 
     !value.length && value.push(newItem);
 

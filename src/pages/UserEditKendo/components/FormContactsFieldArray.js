@@ -8,7 +8,7 @@ import {lengthValidator} from "../validators";
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
-    const newItem = { "is_main": false, "value": "" };
+    const newItem = { "is_main": false, "value": "", "description": "" };
 
     !value.length && value.push(newItem);
 
