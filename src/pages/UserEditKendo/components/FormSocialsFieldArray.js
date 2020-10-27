@@ -2,6 +2,7 @@ import React from "react";
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { Error } from '@progress/kendo-react-labels';
+import {lengthValidator} from "../validators";
 
 const FormSocialsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, formRenderProps } = fieldArrayRenderProps;
@@ -31,7 +32,7 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
                     <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} validator={valueValidator} />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Введите название" component={FormInput} />
+                    <Field name={`${id}[${index}].description`} placeholder="Введите название" component={FormInput} validator={value => lengthValidator(value, 50)}/>
                 </div>
                 <div className="form-group col-md-1 About__custom-trash">
                     <span onClick={() => handleRemove(item, index)} className="k-icon k-i-trash" />

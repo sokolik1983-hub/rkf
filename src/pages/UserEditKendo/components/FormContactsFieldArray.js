@@ -4,6 +4,7 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
 import { Error } from '@progress/kendo-react-labels';
+import {lengthValidator} from "../validators";
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
@@ -45,7 +46,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                     />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} />
+                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} validator={value => lengthValidator(value, 50)}/>
                 </div>
                 <div className="form-group col-md-2">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}

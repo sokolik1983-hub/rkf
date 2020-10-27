@@ -32,6 +32,12 @@ export const codeValidator = value => !value ?
 export const passwordValidator = value => !value ?
     requiredMessage :
     passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
+export const lengthRequiredValidator = (value, maxLength) => !value ?
+    requiredMessage :
+    value.length > maxLength ? `Допускается не более ${maxLength} символов` : '';
+export const lengthValidator = (value, maxLength) => value.length > maxLength ?
+    `Допускается не более ${maxLength} символов` : '';
+
 
 
 export const nameValidator = (value) => !value ?
