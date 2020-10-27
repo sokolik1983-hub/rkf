@@ -43,6 +43,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                         id="birth_date"
                                         name={'birth_date'}
                                         label={'Дата рождения'}
+                                        min={new Date('1900')}
                                         component={FormDatePicker}
                                         validator={requiredValidator}
                                     />
