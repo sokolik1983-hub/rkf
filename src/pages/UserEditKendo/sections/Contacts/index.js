@@ -101,7 +101,6 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
                                 valueValidator={phoneValidator}
-                                valueRequiredValidator={phoneRequiredValidator}
                             />
 
                             <div className="form-row mt-3">
@@ -128,7 +127,6 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
                                 valueValidator={emailValidator}
-                                valueRequiredValidator={emailRequiredValidator}
                             />
 
                         </fieldset>
