@@ -35,6 +35,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
+
+
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);

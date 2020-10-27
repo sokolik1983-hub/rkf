@@ -7,6 +7,14 @@ import "./index.scss";
 const UserDescription = ({city_name, birthday_date, emails, phones, site, socials, description}) => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const normalizeLink = link => {
+        if(!link.includes('https://') || !link.includes('http://')) {
+            return 'https://' + link;
+        }
+
+        return link;
+    };
+
     return (
         <Card className="user-description">
             <div className="user-description__head">
@@ -68,13 +76,13 @@ const UserDescription = ({city_name, birthday_date, emails, phones, site, social
                     <span className="user-description__item-title">Соцсети:</span>
                     <span>
                         {socials.map(item => (
-                            <a href={item.site}
+                            <a href={normalizeLink(item.site)}
                                key={item.id}
-                               title={item.description}
+                               title={item.description || item.site}
                                target="_blank"
                                rel="noopener noreferrer"
                             >
-                                {item.description}
+                                {item.description || item.site}
                             </a>
                         ))}
                     </span>
