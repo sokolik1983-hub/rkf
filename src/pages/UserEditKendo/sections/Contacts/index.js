@@ -5,7 +5,7 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, postcodeValidator, streetNameValidator, housingNumberValidator } from 'pages/UserEditKendo/validators';
+import { phoneRequiredValidator, phoneValidator, emailRequiredValidator, emailValidator, postcodeValidator, streetNameValidator, housingNumberValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
@@ -101,6 +101,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
                                 valueValidator={phoneValidator}
+                                valueRequiredValidator={phoneRequiredValidator}
                             />
 
                             <div className="form-row mt-3">
@@ -127,6 +128,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
                                 valueValidator={emailValidator}
+                                valueRequiredValidator={emailRequiredValidator}
                             />
 
                         </fieldset>
@@ -134,7 +136,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

@@ -97,4 +97,16 @@
     p {
         margin: 0;
     }
+    a {
+        &.k-select {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    button {
+        &:focus {
+            outline: none;
+        }
+    }
 }

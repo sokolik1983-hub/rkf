@@ -3,16 +3,3 @@
 // $button-hovered-bg: $primary;
 
 @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
-
-a {
-    &.k-select {
-        &:hover {
-            text-decoration: none;
-        }
-    }
-}
-button {
-    &:focus {
-        outline: none;
-    }
-}

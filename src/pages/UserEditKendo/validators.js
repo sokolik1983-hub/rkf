@@ -9,9 +9,10 @@ const requiredMessage = 'Обязательное поле';
 export const requiredValidator = (value) => value ? "" : requiredMessage;
 export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите корректную ссылку";
 export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.test(value) ? "" : "Только цифры";
-export const emailValidator = value => !value ?
+export const emailRequiredValidator = value => !value ?
     requiredMessage :
     emailRegex.test(value) ? "" : "Неверный формат E-mail";
+export const emailValidator = value => value ? emailRegex.test(value) ? "" : "Неверный формат E-mail" : "";
 export const postcodeValidator = (value) => !value
     ? ""
     : numbersOnlyRegex.test(value)
@@ -19,7 +20,8 @@ export const postcodeValidator = (value) => !value
             ? "Введите 6 или 7 цифр"
             : ""
         : "Только цифры";
-export const phoneValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
+export const phoneRequiredValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
+export const phoneValidator = (value) => value ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
 export const aliasValidator = value => !value ?
     requiredMessage :
     aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
