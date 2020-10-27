@@ -4,7 +4,7 @@ import Card from "../../Card";
 import "./index.scss";
 
 
-const UserDescription = ({city_name, birthday_date, email, phone, site, socials, description}) => {
+const UserDescription = ({city_name, birthday_date, emails, phones, site, socials, description}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -13,28 +13,48 @@ const UserDescription = ({city_name, birthday_date, email, phone, site, socials,
                 <h4 className="user-description__title">О себе</h4>
                 {city_name && <span className="user-description__city">{city_name}</span>}
             </div>
-            {(!birthday_date || birthday_date === 'hidden') &&
-            !email && !phone && !site &&
+            {!birthday_date &&
+            (!emails || !emails.length) &&
+            (!phones || !phones.length) &&
+            !site &&
             (!socials || !socials.length) &&
             !description &&
                 <p className="user-description__disabled">Пользователь еще не опубликовал данные о себе</p>
             }
-            {birthday_date && birthday_date !== 'hidden' &&
+            {birthday_date &&
                 <p className="user-description__item _birthday">
                     <span className="user-description__item-title">Дата рождения:</span>&nbsp;
                     <span>{birthday_date}</span>
                 </p>
             }
-            {email &&
+            {emails && !!emails.length &&
                 <p className="user-description__item _email">
                     <span className="user-description__item-title">E-mail:</span>&nbsp;
-                    <span><a href={`mailto:${email}`} title={email}>{email}</a></span>
+                    <span>
+                        {emails.map(item => (
+                            <a href={`mailto:${item.value}`}
+                               key={item.id}
+                               title={item.value}
+                            >
+                                {item.value}
+                            </a>
+                        ))}
+                    </span>
                 </p>
             }
-            {phone &&
+            {phones && !!phones.length &&
                 <p className="user-description__item _phone">
                     <span className="user-description__item-title">Телефон:</span>&nbsp;
-                    <span>{phone}</span>
+                    <span>
+                        {phones.map(item => (
+                            <span
+                               key={item.id}
+                               title={item.value}
+                            >
+                                {item.value}
+                            </span>
+                        ))}
+                    </span>
                 </p>
             }
             {site &&
