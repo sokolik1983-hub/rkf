@@ -7,7 +7,7 @@ import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
 import './styles.scss';
 
-const About = ({ initialValues, setFormTouched, handleSubmit }) => {
+const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
 
     return <div className="About">
         <Form
@@ -50,7 +50,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit }) => {
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={!formRenderProps.allowSubmit}
+                                disabled={formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>
