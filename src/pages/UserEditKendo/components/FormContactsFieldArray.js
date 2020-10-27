@@ -6,7 +6,7 @@ import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsChe
 import { Error } from '@progress/kendo-react-labels';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, formRenderProps } = fieldArrayRenderProps;
+    const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "" };
 
     !value.length && value.push(newItem);
@@ -17,8 +17,8 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
     }
 
     const handleRemove = (item, index) => {
-        !item.is_main && onRemove({ index: index });
-        !item.is_main && value.length === 1 && onUnshift({ value: newItem });
+        onRemove({ index: index });
+        value.length === 1 && onUnshift({ value: newItem });
     }
 
     const handleChange = (name) => {
@@ -40,7 +40,8 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         name={`${id}[${index}].value`}
                         mask={id === 'phones' ? '+7(000)000-00-00' : ''}
                         component={id === 'phones' ? FormMaskedInput : FormInput}
-                        validator={valueValidator}
+                        //validator={valueRequiredValidator}
+                        validator={value.length > 1 ? valueRequiredValidator : valueValidator}
                     />
                 </div>
                 <div className="form-group col-md-4">

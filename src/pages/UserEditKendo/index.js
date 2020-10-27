@@ -127,6 +127,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const handleSubmit = async (data, type) => {
         setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
+        if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
+        if (data.phones) data.phones = data.phones.filter(i => i.value !== '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
         await Request({
