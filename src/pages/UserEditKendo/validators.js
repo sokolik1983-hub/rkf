@@ -15,7 +15,7 @@ export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.te
 export const emailRequiredValidator = value => !value ?
     requiredMessage :
     emailRegex.test(value) ? "" : "Неверный формат E-mail";
-export const emailValidator = value => value ? emailRegex.test(value) ? "" : "Неверный формат E-mail" : "";
+    export const emailValidator = (value, maxLength) => value ? emailRegex.test(value) && value.length < maxLength ? "" : "Неверный формат E-mail" : "";
 export const postcodeValidator = (value) => !noUnderscore(value)
     ? ""
     : (noUnderscore(value).length < 6 || noUnderscore(value).length > 7)
@@ -23,16 +23,16 @@ export const postcodeValidator = (value) => !noUnderscore(value)
         : "";
 export const phoneRequiredValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
 export const phoneValidator = (value) => value && value !== phoneMask ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
-export const aliasValidator = value => !value ?
+export const aliasValidator = (value, maxLength) => !value ?
     requiredMessage :
-    aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
+    aliasRegex.test(value) && value.length < maxLength ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание. Не более 40 символов";
 export const codeValidator = value => !value ?
     requiredMessage :
     value.length !== 5 ? "Неверный код" :
         numbersOnlyRegex.test(value) ? "" : "Неверный код";
-export const passwordValidator = value => !value ?
+export const passwordValidator = (value, maxLength) => !value ?
     requiredMessage :
-    passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
+    passwordRegexp.test(value) && value.length < maxLength ? "" : "Пароль должен содержать от 6 до 20 символов, не менее 1 заглавной буквы и не менее 1 цифры";
 export const lengthRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
     value.length > maxLength ? `Макс. кол-во символов: ${maxLength}` : '';

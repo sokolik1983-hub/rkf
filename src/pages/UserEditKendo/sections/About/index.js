@@ -39,7 +39,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                             <label className="k-label">Ссылка на сайт</label>
                             <div className="form-row" >
                                 <div className="form-group col-md-7">
-                                    <Field id="web_site" name={'web_site'} placeholder="Введите ссылку на сайт" component={FormInput} validator={urlValidator} />
+                                    <Field id="web_site" name={'web_site'} placeholder="Введите ссылку на сайт" component={FormInput} maxLength="150" validator={urlValidator} />
                                 </div>
                             </div>
                         </fieldset>

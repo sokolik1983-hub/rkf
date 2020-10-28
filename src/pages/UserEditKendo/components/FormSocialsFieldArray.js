@@ -29,10 +29,10 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
                     </div>}
                 </div>
                 <div className="form-group col-md-6">
-                    <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} validator={valueValidator} />
+                    <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} maxLength="150" validator={valueValidator} />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Введите название" component={FormInput} validator={value => lengthValidator(value, 50)} />
+                    <Field name={`${id}[${index}].description`} placeholder="Введите название" component={FormInput} maxLength="50" validator={value => lengthValidator(value, 50)} />
                 </div>
                 {index > 0 && <div className="form-group col-md-1 About__custom-trash">
                     <span onClick={() => handleRemove(item, index)} className="k-icon k-i-trash" />
