@@ -21,19 +21,19 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <legend className={'k-form-legend'}>Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} validator={value => lengthRequiredValidator(value, 100)} />
+                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} maxLength="100" validator={value => lengthRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} validator={value => lengthRequiredValidator(value, 100)} />
+                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} maxLength="100" validator={value => lengthRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} validator={value => lengthValidator(value, 100)} />
+                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} maxLength="100" validator={value => lengthValidator(value, 100)} />
                                 </div>
                             </div>
 
