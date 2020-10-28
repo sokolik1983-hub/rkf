@@ -49,7 +49,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                     />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} validator={value => lengthValidator(value, 50)} />
+                    <Field name={`${id}[${index}].description`} placeholder="Описание" maxLength="50" component={FormInput} validator={value => lengthValidator(value, 50)} />
                 </div>
                 <div className="form-group col-md-2">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}

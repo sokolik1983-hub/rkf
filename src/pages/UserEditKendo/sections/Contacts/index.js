@@ -133,7 +133,6 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                                 label={''}
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
-                                                maxLength=""
                                             />
                                         </div>
                                     </div>
