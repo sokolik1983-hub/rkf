@@ -18,14 +18,17 @@
     &__left {
         width: 300px;
         min-width: 300px;
-        margin: 16px 16px 0 0;
+        margin: 16px 16px 16px 0;
         @media (max-width: 990px) {
             width: 100%;
             min-width: auto;
-            margin-right: 0;
+            margin: 16px 0 0;
             & > div {
                 position: static !important;
             }
+        }
+        .Card {
+            padding: 10px !important;
         }
     }
     &__inner {
@@ -94,7 +97,7 @@
             bottom: auto;
         }
     }
-    p {
+    p, ul {
         margin: 0;
     }
     a {
