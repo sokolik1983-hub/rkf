@@ -4,7 +4,7 @@ import Card from "../../Card";
 import "./index.scss";
 
 
-const UserDescription = ({city_name, birthday_date, emails, phones, site, socials, description}) => {
+const UserDescription = ({city_name, address, birthday_date, emails, phones, site, socials, description}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const normalizeLink = link => {
@@ -24,7 +24,7 @@ const UserDescription = ({city_name, birthday_date, emails, phones, site, social
             {!birthday_date &&
             (!emails || !emails.length) &&
             (!phones || !phones.length) &&
-            !site &&
+            !site && !address &&
             (!socials || !socials.length) &&
             !description &&
                 <p className="user-description__disabled">Пользователь еще не опубликовал данные о себе</p>
@@ -63,6 +63,12 @@ const UserDescription = ({city_name, birthday_date, emails, phones, site, social
                             </span>
                         ))}
                     </span>
+                </p>
+            }
+            {address &&
+                <p className="user-description__item _address">
+                    <span className="user-description__item-title">Адрес:</span>&nbsp;
+                    <span>{address}</span>
                 </p>
             }
             {site &&
