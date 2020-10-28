@@ -10,7 +10,7 @@ import {
     phoneRequiredValidator,
     phoneValidator,
     emailRequiredValidator,
-    emailValidator, 
+    emailValidator,
     postcodeValidator,
     lengthValidator
 } from 'pages/UserEditKendo/validators';
@@ -143,7 +143,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 name="mails"
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
-                                valueValidator={emailValidator}
+                                valueValidator={value => emailValidator(value, 100)}
                                 valueRequiredValidator={emailRequiredValidator}
                             />
 

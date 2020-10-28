@@ -15,7 +15,7 @@ export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.te
 export const emailRequiredValidator = value => !value ?
     requiredMessage :
     emailRegex.test(value) ? "" : "Неверный формат E-mail";
-    export const emailValidator = (value, maxLength) => value ? emailRegex.test(value) && value.length < maxLength ? "" : "Неверный формат E-mail" : "";
+export const emailValidator = (value, maxLength) => value ? emailRegex.test(value) && value.length < maxLength ? "" : "Неверный формат E-mail" : "";
 export const postcodeValidator = (value) => !noUnderscore(value)
     ? ""
     : (noUnderscore(value).length < 6 || noUnderscore(value).length > 7)
