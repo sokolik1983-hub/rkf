@@ -51,4 +51,4 @@ export const streetNameValidator = (value) => !value ?
     value.length > 50 ? "Название не должно содержать более 50 знаков" : "";
 export const housingNumberValidator = (value) => !value ?
     "" :
-    value.length > 20 ? "Название не должно содержать более 50 знаков" : "";
+    value.length > 20 ? "Название не должно содержать более 20 знаков" : "";
