@@ -5,7 +5,7 @@ const phoneRegex = new RegExp(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
-const urlRegexp = new RegExp(/^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
+const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 const requiredMessage = 'Обязательное поле';
 const noUnderscore = (value) => value.replaceAll('_', '');
 
@@ -37,8 +37,8 @@ export const lengthRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
     value.length > maxLength ? `Макс. кол-во символов: ${maxLength}` : '';
 
-export const lengthValidator = (value, maxLength) => value && value.length > maxLength ? 
-`Макс. кол-во символов: ${maxLength}` : '';
+export const lengthValidator = (value, maxLength) => value && value.length > maxLength ?
+    `Макс. кол-во символов: ${maxLength}` : '';
 
 export const nameValidator = (value) => !value ?
     "Full Name is required" :
