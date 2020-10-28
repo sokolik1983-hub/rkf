@@ -1,3 +1,5 @@
+import { phoneMask } from './config';
+
 const emailRegex = new RegExp(/\S+@\S+\.\S+/);
 const phoneRegex = new RegExp(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
@@ -21,7 +23,7 @@ export const postcodeValidator = (value) => !value
             : ""
         : "Только цифры";
 export const phoneRequiredValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
-export const phoneValidator = (value) => value ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
+export const phoneValidator = (value) => value && value !== phoneMask ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
 export const aliasValidator = value => !value ?
     requiredMessage :
     aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";

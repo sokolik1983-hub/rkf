@@ -7,15 +7,15 @@ import { Error } from '@progress/kendo-react-labels';
 import { lengthValidator } from "../validators";
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
+    const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "", "description": "" };
     const valuesArray = formRenderProps.valueGetter(id);
 
-    !value.length && value.push(newItem);
+    !value.length && value.push({ "is_main": true, "value": "", "description": "" });
 
     const handleAdd = () => {
         const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
-        isArrayValid && onUnshift({ value: newItem });
+        isArrayValid && onPush({ value: newItem });
     }
 
     const handleRemove = (item, id, index) => {
@@ -24,7 +24,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
             valuesArray.map(v => v.is_main = false);
             formRenderProps.onChange(`${id}[0].is_main`, { value: true })
         }
-        value.length === 1 && onUnshift({ value: newItem });
+        value.length === 1 && onPush({ value: newItem });
     }
 
     const handleChange = (name) => {
@@ -36,7 +36,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === 0 && valuesArray.length < 3 && <div onClick={handleAdd}>
+                    {index === value.length - 1 && valuesArray.length < 3 && <div onClick={handleAdd}>
                         <span className="k-icon k-i-plus-circle"></span>
                     </div>}
                 </div>
