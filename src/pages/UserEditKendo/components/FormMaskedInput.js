@@ -1,13 +1,15 @@
 import React from "react";
 import { FieldWrapper } from '@progress/kendo-react-form';
-import { Label, Error } from '@progress/kendo-react-labels';
+import { Label, Error, Hint } from '@progress/kendo-react-labels';
 import { MaskedTextBox } from '@progress/kendo-react-inputs';
 
 
 const FormMaskedInput = (fieldRenderProps) => {
-    const { validationMessage, touched, label, id, valid, disabled, type, optional, ...others } = fieldRenderProps;
+    const { validationMessage, touched, label, id, valid, disabled, hint, type, optional, ...others } = fieldRenderProps;
 
     const showValidationMessage = touched && validationMessage;
+    const showHint = !showValidationMessage && hint;
+    const hintId = showHint ? `${id}_hint` : '';
     const errorId = showValidationMessage ? `${id}_error` : '';
 
     return (
@@ -20,6 +22,10 @@ const FormMaskedInput = (fieldRenderProps) => {
                     id={id}
                     {...others}
                 />
+                {
+                    showHint &&
+                    <Hint id={hintId}>{hint}</Hint>
+                }
                 {
                     showValidationMessage &&
                     <Error id={errorId}>{validationMessage}</Error>

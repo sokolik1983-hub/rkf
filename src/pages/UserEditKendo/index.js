@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
 import { Request } from "utils/request";
-import { sections, defaultValues } from './config';
+import { sections, defaultValues, phoneMask } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
@@ -128,7 +128,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
         if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
-        if (data.phones) data.phones = data.phones.filter(i => i.value !== '');
+        if (data.phones) data.phones = data.phones.filter(i => i.value !== '' && i.value !== phoneMask);
+        if (data.address && data.address.postcode) data.address.postcode = data.address.postcode.replaceAll('_', '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
         await Request({

@@ -41,9 +41,6 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                                 <div className="form-group col-md-7">
                                     <Field id="web_site" name={'web_site'} placeholder="Введите ссылку на сайт" component={FormInput} validator={urlValidator} />
                                 </div>
-                                <div className="form-group col-md-1 About__custom-trash">
-                                    <span onClick={() => formRenderProps.onChange("web_site", { value: "" })} className="k-icon k-i-trash" />
-                                </div>
                             </div>
                         </fieldset>
                         <div className="k-form-buttons text-center">

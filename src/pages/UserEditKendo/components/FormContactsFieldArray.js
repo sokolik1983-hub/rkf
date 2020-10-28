@@ -4,27 +4,31 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
 import { Error } from '@progress/kendo-react-labels';
-import {lengthValidator} from "../validators";
+import { lengthValidator } from "../validators";
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
+    const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "is_main": false, "value": "", "description": "" };
+    const valuesArray = formRenderProps.valueGetter(id);
 
-    !value.length && value.push(newItem);
+    !value.length && value.push({ "is_main": true, "value": "", "description": "" });
 
     const handleAdd = () => {
         const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
-        isArrayValid && onUnshift({ value: newItem });
+        isArrayValid && onPush({ value: newItem });
     }
 
-    const handleRemove = (item, index) => {
+    const handleRemove = (item, id, index) => {
         onRemove({ index: index });
-        value.length === 1 && onUnshift({ value: newItem });
+        if (item.is_main && valuesArray.length) {
+            valuesArray.map(v => v.is_main = false);
+            formRenderProps.onChange(`${id}[0].is_main`, { value: true })
+        }
+        value.length === 1 && onPush({ value: newItem });
     }
 
     const handleChange = (name) => {
-        const values = formRenderProps.valueGetter(id);
-        values.map(v => v.is_main = false);
+        valuesArray.map(v => v.is_main = false);
         formRenderProps.onChange(name, { value: true })
     }
 
@@ -32,7 +36,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === value.length - 1 && index < 2 && <div onClick={handleAdd}>
+                    {index === value.length - 1 && valuesArray.length < 3 && <div onClick={handleAdd}>
                         <span className="k-icon k-i-plus-circle"></span>
                     </div>}
                 </div>
@@ -41,12 +45,11 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         name={`${id}[${index}].value`}
                         mask={id === 'phones' ? '+7(000)000-00-00' : ''}
                         component={id === 'phones' ? FormMaskedInput : FormInput}
-                        //validator={valueRequiredValidator}
                         validator={value.length > 1 ? valueRequiredValidator : valueValidator}
                     />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} validator={value => lengthValidator(value, 50)}/>
+                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} validator={value => lengthValidator(value, 50)} />
                 </div>
                 <div className="form-group col-md-2">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
@@ -60,9 +63,10 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         />
                     </div>
                 </div>
-                <div className="form-group col-md-1 Contacts__custom-trash">
-                    <span onClick={() => handleRemove(item, index)} className="k-icon k-i-trash" />
+                {index > 0 && <div className="form-group col-md-1 Contacts__custom-trash">
+                    <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
                 </div>
+                }
             </div>)
         }
         {
