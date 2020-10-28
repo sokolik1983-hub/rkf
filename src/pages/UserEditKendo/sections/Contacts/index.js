@@ -5,7 +5,15 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneRequiredValidator, phoneValidator, emailRequiredValidator, emailValidator, postcodeValidator, streetNameValidator, housingNumberValidator } from 'pages/UserEditKendo/validators';
+import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
+import {
+    phoneRequiredValidator,
+    phoneValidator,
+    emailRequiredValidator,
+    emailValidator, postcodeValidator,
+    streetNameValidator,
+    housingNumberValidator
+} from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
@@ -55,7 +63,15 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                     />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="postcode" name={'address.postcode'} label={'Индекс'} component={FormInput} validator={postcodeValidator} />
+                                    <Field
+                                        id="postcode"
+                                        name={'address.postcode'}
+                                        label={'Индекс'}
+                                        hint={'Кол-во цифр: 6-7'}
+                                        mask="0000000"
+                                        component={FormMaskedInput}
+                                        validator={postcodeValidator}
+                                    />
                                 </div>
                             </div>
 
