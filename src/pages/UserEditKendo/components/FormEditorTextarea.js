@@ -88,7 +88,7 @@ const FormEditorTextarea = (fieldRenderProps) => {
                         onChange={handleChange}
                         {...others}
                     />
-                    <div className="FormEditorTextarea__counter mt-1 text-right">{`осталось ${4096 - contentLength} знаков`}</div>
+                    <div className="k-form-hint k-text-end">{`осталось ${5000 - contentLength} знаков`}</div>
                 </div>
             </FieldWrapper>
         </IntlProvider>
