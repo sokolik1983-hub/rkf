@@ -11,7 +11,8 @@ import {
     phoneValidator,
     emailRequiredValidator,
     emailValidator, 
-    postcodeValidator
+    postcodeValidator,
+    lengthValidator
 } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
