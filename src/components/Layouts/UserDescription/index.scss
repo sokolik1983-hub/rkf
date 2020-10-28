@@ -53,18 +53,11 @@
     &._birthday:before {background-image: url("/static/icons/owner.svg")}
     &._email:before {background-image: url("/static/icons/ico-contact-email.svg")}
     &._phone:before {background-image: url("/static/icons/ico-contact-phone.svg")}
+    &._address:before {background-image: url("/static/icons/ico-pointer.svg")}
     &._site:before {background-image: url("/static/icons/ico-web.svg")}
     &._socials {
+      display: block;
       &:before {background-image: url("/static/icons/social/network.svg")}
-      span:first-child {
-        margin-right: 4px;
-      }
-      @media (max-width: 560px) {
-        flex-wrap: wrap;
-        span:first-child {
-          width: 100%;
-        }
-      }
     }
     &._describe {
       display: block;

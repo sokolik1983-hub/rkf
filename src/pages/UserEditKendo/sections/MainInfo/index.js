@@ -4,7 +4,7 @@ import { Form, Field, FormElement } from '@progress/kendo-react-form';
 import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
-import { requiredValidator } from 'pages/UserEditKendo/validators';
+import {requiredValidator, lengthRequiredValidator, lengthValidator} from "../../validators";
 import './styles.scss';
 
 const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
@@ -21,19 +21,19 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <legend className={'k-form-legend'}>Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} maxLength="100" validator={value => lengthRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} maxLength="100" validator={value => lengthRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} />
+                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} maxLength="100" validator={value => lengthValidator(value, 100)} />
                                 </div>
                             </div>
 
@@ -43,6 +43,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                         id="birth_date"
                                         name={'birth_date'}
                                         label={'Дата рождения'}
+                                        min={new Date('1900')}
                                         component={FormDatePicker}
                                         validator={requiredValidator}
                                     />
@@ -72,7 +73,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

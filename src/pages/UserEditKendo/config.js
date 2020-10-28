@@ -1,3 +1,5 @@
+export const phoneMask = '+7(___)___-__-__';
+
 export const sections = {
     general: {
         name: 'Основная информация',

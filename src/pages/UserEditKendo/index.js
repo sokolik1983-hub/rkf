@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
 import { Request } from "utils/request";
-import { sections, defaultValues } from './config';
+import { sections, defaultValues, phoneMask } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
@@ -127,6 +127,9 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const handleSubmit = async (data, type) => {
         setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
+        if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
+        if (data.phones) data.phones = data.phones.filter(i => i.value !== '' && i.value !== phoneMask);
+        if (data.address && data.address.postcode) data.address.postcode = data.address.postcode.replaceAll('_', '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
         await Request({
@@ -207,7 +210,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 />
                                 <UserMenu userNav={userNav(alias)} />
                             </Card>
-                            {!isMobile && <CopyrightInfo />}
                         </StickyBox>
                     </aside>
                     <div className="UserEdit__right">
@@ -222,9 +224,11 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}>
+                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}
+                                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                            >
                                                 <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
-                                                <li onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}>
+                                                <li>
                                                     {sections[type].name}
                                                 </li>
                                             </div>

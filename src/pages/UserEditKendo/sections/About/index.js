@@ -19,7 +19,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
-                            <legend className={'k-form-legend'}>О себе</legend>
+                            <legend className={'k-form-legend mb-0'}>О себе</legend>
                             <Field
                                 id="description"
                                 name="description"
@@ -39,10 +39,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                             <label className="k-label">Ссылка на сайт</label>
                             <div className="form-row" >
                                 <div className="form-group col-md-7">
-                                    <Field id="web_site" name={'web_site'} placeholder="Введите ссылку на сайт" component={FormInput} validator={urlValidator} />
-                                </div>
-                                <div className="form-group col-md-1 About__custom-trash">
-                                    <span onClick={() => formRenderProps.onChange("web_site", { value: "" })} className="k-icon k-i-trash" />
+                                    <Field id="web_site" name={'web_site'} placeholder="Введите ссылку на сайт" component={FormInput} maxLength="150" validator={urlValidator} />
                                 </div>
                             </div>
                         </fieldset>
@@ -50,7 +47,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

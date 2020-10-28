@@ -12,14 +12,16 @@
     }
     &__info {
       color: #72839c;
+      text-indent: 20px;
+      white-space: break-spaces;
     }
     &__show-more {
       display: block;
-      width: 44px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       position: absolute;
-      right: calc(50% - 22px);
-      bottom: -12px;
+      right: calc(50% - 16px);
+      bottom: -15px;
       background: url("/static/images/slider/slider-button.svg") center no-repeat;
       background-size: cover;
       transform: rotate(90deg);

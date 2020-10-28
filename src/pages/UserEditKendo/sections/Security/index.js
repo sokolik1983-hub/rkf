@@ -165,7 +165,8 @@ const Security = ({setFormTouched, history}) => {
                                         id="alias"
                                         name="alias"
                                         component={FormInput}
-                                        validator={aliasValidator}
+                                        validator={value => aliasValidator(value, 40)}
+                                        maxLength="40"
                                     />
                                 </div>
                             </div>
@@ -206,7 +207,8 @@ const Security = ({setFormTouched, history}) => {
                                         name="login"
                                         placeholder="Введите новый логин"
                                         component={FormInput}
-                                        validator={emailValidator}
+                                        validator={value => emailValidator(value, 40)}
+                                        maxLength="40"
                                     />
                                 </div>
                             </div>
@@ -253,7 +255,9 @@ const Security = ({setFormTouched, history}) => {
                                             placeholder="Новый пароль"
                                             type="password"
                                             component={FormInput}
-                                            validator={passwordValidator}
+                                            validator={value => passwordValidator(value, 20)}
+                                            maxLength="20"
+                                            passwordField
                                         />
                                     </div>
                                     <div className="col-md-4">
@@ -263,7 +267,9 @@ const Security = ({setFormTouched, history}) => {
                                             placeholder="Повторите пароль"
                                             type="password"
                                             component={FormInput}
-                                            validator={passwordValidator}
+                                            validator={value => passwordValidator(value, 20)}
+                                            maxLength="20"
+                                            passwordField
                                         />
                                     </div>
                                 </div>
