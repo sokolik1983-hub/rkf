@@ -40,7 +40,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
-    const [formBusy, setFormBusy] = useState(false);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -125,7 +124,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     };
 
     const handleSubmit = async (data, type) => {
-        setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
         if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
         if (data.phones) data.phones = data.phones.filter(i => i.value !== '' && i.value !== phoneMask);
@@ -139,10 +137,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }, () => {
             getInfo(type);
             handleSuccess();
-            setFormBusy(false);
         }, error => {
             handleError(error);
-            setFormBusy(false);
         });
     };
 
@@ -154,7 +150,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
-                    formBusy={formBusy}
                 />;
             case 1:
                 return <Contacts
@@ -163,7 +158,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     setFormTouched={setFormTouched}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
-                    formBusy={formBusy}
                 />;
             case 2:
                 return <About
@@ -171,7 +165,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     setFormTouched={setFormTouched}
                     handleSubmit={handleSubmit}
                     handleError={handleError}
-                    formBusy={formBusy}
                 />;
             case 3:
                 return <Security setFormTouched={setFormTouched} history={history} />;
