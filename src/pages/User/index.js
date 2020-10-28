@@ -35,8 +35,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            const addressString = data.address ? getAddressString(data.address) : '';
-            setUserInfo({...data, addressString});
+            // const addressString = data.address ? getAddressString(data.address) : '';
+            setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);
         }, error => {
@@ -45,17 +45,6 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             setLoading(false);
         }))();
     }, [alias]);
-
-    const getAddressString = addressObj => {
-        let address = '';
-        if (addressObj.postcode) address += `${addressObj.postcode}, `;
-        if (addressObj.city_name) address += `${addressObj.city_name}, `;
-        if (addressObj.street_name) address += `${addressObj.street_name}, `;
-        if (addressObj.house_name) address += `д. ${addressObj.house_name}, `;
-        if (addressObj.building_name) address += `стр. ${addressObj.building_name}, `;
-        if (addressObj.flat_name) address += `кв. ${addressObj.flat_name}`;
-        return address;
-    };
 
     return loading ?
         <Loading /> :
@@ -101,14 +90,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} />
                             }
                             <UserDescription
-                                city_name={userInfo.address ? userInfo.address.city_name : ''}
-                                address={userInfo.addressString}
-                                birthday_date={userInfo.personal_information.birth_date}
-                                emails={userInfo.emails}
-                                phones={userInfo.phones}
-                                site={userInfo.web_site}
-                                socials={userInfo.social_networks}
-                                description={userInfo.personal_information.description}
+                                mainInfo={userInfo.main_information}
+                                additionalInfo={userInfo.additional_information}
                             />
                             {isMobile &&
                                 <>
