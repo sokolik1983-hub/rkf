@@ -120,12 +120,12 @@ const Table = ({ documents, setDefaultStamp }) => {
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "400px" }}>
+                        style={{ height: "400px", fontSize: "14px" }}>
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="status_name" title="Статус" width="140px" columnMenu={ColumnMenu} />
-                        <GridColumn field="document_id" title="Свидетельство о регистрации кода клейма" width="225px" columnMenu={ColumnMenu} cell={LinkCell} />
-                        <GridColumn field="date_create" title="Дата добавления" width="160px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="is_default" title="По умолчанию" width="150px" columnMenu={ColumnMenu} cell={isDefaultCell} />
+                        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
+                        <GridColumn field="document_id" title="Свидетельство" width="170px" columnMenu={ColumnMenu} cell={LinkCell} />
+                        <GridColumn field="date_create" title="Дата добавления" width="180px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="is_default" title="По умолчанию" width="132px" columnMenu={ColumnMenu} cell={isDefaultCell} />
                         <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultStamp)} />
                     </Grid>
                 }
