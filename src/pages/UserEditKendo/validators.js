@@ -1,3 +1,5 @@
+import { phoneMask } from './config';
+
 const emailRegex = new RegExp(/\S+@\S+\.\S+/);
 const phoneRegex = new RegExp(/[+][7]{1}[(]\d{3}[)]\d{3}[-]\d{2}[-]\d{2}/);
 const numbersOnlyRegex = new RegExp(/^\d+$/);
@@ -5,6 +7,7 @@ const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
 const urlRegexp = new RegExp(/^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 const requiredMessage = 'Обязательное поле';
+const noUnderscore = (value) => value.replaceAll('_', '');
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
 export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите корректную ссылку";
@@ -15,13 +18,11 @@ export const emailRequiredValidator = value => !value ?
 export const emailValidator = value => value ? emailRegex.test(value) ? "" : "Неверный формат E-mail" : "";
 export const postcodeValidator = (value) => !value
     ? ""
-    : numbersOnlyRegex.test(value)
-        ? (value.length < 6 || value.length > 7)
-            ? "Введите 6 или 7 цифр"
-            : ""
-        : "Только цифры";
+    : (noUnderscore(value).length < 6 || noUnderscore(value).length > 7)
+        ? "Кол-во цифр: 6-7"
+        : "";
 export const phoneRequiredValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
-export const phoneValidator = (value) => value ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
+export const phoneValidator = (value) => value && value !== phoneMask ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
 export const aliasValidator = value => !value ?
     requiredMessage :
     aliasRegex.test(value) ? "" : "Допускаются цифры, латинские буквы и нижнее подчеркивание";
