@@ -34,11 +34,10 @@ export const passwordValidator = value => !value ?
     passwordRegexp.test(value) ? "" : "Пароль должен содержать не менее 6 символов, не менее 1 заглавной буквы и не менее 1 цифры";
 export const lengthRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
-    value.length > maxLength ? `Допускается не более ${maxLength} символов` : '';
-export const lengthValidator = (value, maxLength) => value && value.length > maxLength ?
-    `Допускается не более ${maxLength} символов` : '';
+    value.length > maxLength ? `Макс. кол-во символов: ${maxLength}` : '';
 
-
+export const lengthValidator = (value, maxLength) => value && value.length > maxLength ? 
+`Макс. кол-во символов: ${maxLength}` : '';
 
 export const nameValidator = (value) => !value ?
     "Full Name is required" :
@@ -46,9 +45,3 @@ export const nameValidator = (value) => !value ?
 export const userNameValidator = (value) => !value ?
     "User Name is required" :
     value.length < 5 ? "User name should be at least 3 characters long." : "";
-export const streetNameValidator = (value) => !value ?
-    "" :
-    value.length > 50 ? "Название не должно содержать более 50 знаков" : "";
-export const housingNumberValidator = (value) => !value ?
-    "" :
-    value.length > 20 ? "Название не должно содержать более 20 знаков" : "";

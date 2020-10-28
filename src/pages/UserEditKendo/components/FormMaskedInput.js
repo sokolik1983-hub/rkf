@@ -22,7 +22,7 @@ const FormMaskedInput = (fieldRenderProps) => {
                 />
                 {
                     showValidationMessage &&
-                    <Error id={errorId}>{validationMessage}</Error>
+                    <Error id={errorId} direction={'end'}>{validationMessage}</Error>
                 }
             </div>
         </FieldWrapper>

@@ -5,7 +5,7 @@ import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneRequiredValidator, phoneValidator, emailRequiredValidator, emailValidator, postcodeValidator, streetNameValidator, housingNumberValidator } from 'pages/UserEditKendo/validators';
+import { phoneRequiredValidator, phoneValidator, emailRequiredValidator, emailValidator, postcodeValidator, lengthValidator } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
 const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
@@ -61,19 +61,19 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
-                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} validator={streetNameValidator} />
+                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} validator={value => lengthValidator(value, 50)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-4">
-                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} validator={housingNumberValidator} />
+                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} validator={housingNumberValidator} />
+                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} validator={housingNumberValidator} />
+                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} validator={value => lengthValidator(value, 20)} />
                                 </div>
                             </div>
 
