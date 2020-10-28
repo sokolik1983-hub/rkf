@@ -19,7 +19,7 @@ const About = ({ initialValues, setFormTouched, handleSubmit, formBusy }) => {
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
-                            <legend className={'k-form-legend'}>О себе</legend>
+                            <legend className={'k-form-legend mb-0'}>О себе</legend>
                             <Field
                                 id="description"
                                 name="description"
