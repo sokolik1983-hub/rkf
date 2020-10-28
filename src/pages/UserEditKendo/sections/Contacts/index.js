@@ -61,19 +61,19 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
-                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} validator={value => lengthValidator(value, 50)} />
+                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} maxLength="50" validator={value => lengthValidator(value, 50)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-4">
-                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} validator={value => lengthValidator(value, 20)} />
+                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} validator={value => lengthValidator(value, 20)} />
+                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} validator={value => lengthValidator(value, 20)} />
+                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                             </div>
 
@@ -117,6 +117,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                                 label={''}
                                                 component={FormDropDownList}
                                                 data={visibilityStatuses.map(s => ({ text: s.name, value: s.id }))}
+                                                maxLength=""
                                             />
                                         </div>
                                     </div>
