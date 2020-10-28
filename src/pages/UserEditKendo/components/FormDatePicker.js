@@ -49,7 +49,7 @@ const FormDatePicker = (fieldRenderProps) => {
                 </LocalizationProvider>
                 {
                     showValidationMessage &&
-                    <Error id={errorId} direction={'end'}>{validationMessage}</Error>
+                    <Error id={errorId}>{validationMessage}</Error>
                 }
             </div>
         </FieldWrapper>
