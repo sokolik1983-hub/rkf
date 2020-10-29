@@ -86,7 +86,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
                     setRequestData({ [type]: removeNulls(data) });
                 }
-            });
+            })
+            .catch(() => setErrorRedirect(true));
     };
 
     const getCities = () => PromiseRequest('/api/city')
