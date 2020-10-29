@@ -22,7 +22,9 @@ import useIsMobile from "utils/useIsMobile";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
+import ls from "local-storage";
 import './styles.scss';
+
 
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [values, setValues] = useState(defaultValues);
@@ -32,6 +34,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [loaded, setLoaded] = useState(false);
     const [formTouched, setFormTouched] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [canEdit, setCanEdit] = useState(false);
     const alias = match.params.id;
     const isMobile = useIsMobile();
     const [activeSection, setActiveSection] = useState(0);
@@ -60,14 +63,20 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }
     }, [requestData]);
 
-    const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
-        .then(data => {
-            if (data) {
-                data.email = data.emails && data.emails.length ? data.emails[0].value : '';
-                data.phone = data.phones && data.phones.length ? data.phones[0].value : '';
-                setUserInfo(data);
+    const getUser = async needUpdateAvatar => {
+        await Request({
+            url: endpointGetUserInfo + alias
+        }, data => {
+            if(needUpdateAvatar) {
+                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
             }
+            setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
         });
+    };
 
     const getInfo = (type) => {
         PromiseRequest(sections[type].url)
@@ -192,15 +201,17 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <aside className="UserEdit__left">
                         <StickyBox offsetTop={66}>
                             {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} />
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser}/>
                             }
                             <Card>
                                 <UserInfo
+                                    canEdit={canEdit}
                                     logo_link={userInfo.logo_link}
                                     share_link={`https://rkf.online/user/${alias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     alias={alias}
+                                    updateInfo={getUser}
                                 />
                             </Card>
                             {!isMobile && <Card>
@@ -225,7 +236,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 key={key}
                                                 onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                             >
-                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
+                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`}/>
                                                 <li>{sections[type].name}</li>
                                             </div>
                                             )}
