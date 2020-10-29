@@ -21,6 +21,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import declension from "../../utils/declension";
 import "./index.scss";
+import ls from "local-storage";
 
 
 const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
@@ -45,13 +46,13 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
             .then(() => setLoading(false));
     }, []);
 
-    const getUserInfo = async () => {
+    const getUserInfo = async needUpdateAvatar => {
         return Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            // data.email = data.emails.length ? data.emails[0].value : '';
-            // data.phone = data.phones.length ? data.phones[0].value : '';
-
+            if(needUpdateAvatar) {
+                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
@@ -179,7 +180,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                 <aside className="user-page__left">
                                     <StickyBox offsetTop={66}>
                                         {isMobile &&
-                                            <UserBanner link={userInfo.headliner_link} />
+                                            <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
                                         }
                                         <Card>
                                             <UserInfo
@@ -189,6 +190,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                                 last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                                 alias={alias}
+                                                updateInfo={getUserInfo}
                                             />
                                         </Card>
                                         {!isMobile && <Card>
@@ -207,7 +209,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                 </aside>
                                 <div className="user-page__right">
                                     {!isMobile &&
-                                        <UserBanner link={userInfo.headliner_link} />
+                                        <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
                                     }
                                     {isMobile &&
                                         <UserVideoGallery
