@@ -1,10 +1,30 @@
 .user-info {
+  .Share {
+    position: relative;
+    top: 15px;
+  }
+  ._no_share_name {
+    top: 0;
+  }
+  &__edit-profile {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 11px;
+    text-decoration: none;
+    background-color: #DFE9FB;
+    color: #72839c;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 6px;
+    &:hover {
+      opacity: 0.8;
+      transition: all 0.2s linear;
+    }
+  }
   @media (max-width: 990px) {
     display: flex;
-    .Share {
-      position: relative;
-      top: 15px;
-    }
   }
   &__logo-wrap {
     padding-bottom: 10px;

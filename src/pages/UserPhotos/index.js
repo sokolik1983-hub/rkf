@@ -43,9 +43,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            data.email = data.emails.length ? data.emails[0].value : '';
-            data.phone = data.phones.length ? data.phones[0].value : '';
-
+            // const addressString = data.address ? getAddressString(data.address) : '';
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);
@@ -170,14 +168,17 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                 }
                                 <Card>
                                     <UserInfo
+                                        canEdit={canEdit}
                                         logo_link={userInfo.logo_link}
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                        second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
                                     />
-                                    <UserMenu userNav={userNav(alias)}/>
                                 </Card>
+                                {!isMobile && <Card>
+                                    <UserMenu userNav={userNav(alias)} />
+                                </Card>}
                                 {!isMobile &&
                                     <>
                                         <UserVideoGallery

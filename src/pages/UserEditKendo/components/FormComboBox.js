@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error } from '@progress/kendo-react-labels';
 import { ComboBox } from '@progress/kendo-react-dropdowns';
+import { filterBy } from '@progress/kendo-data-query';
 
 export const FormComboBox = (fieldRenderProps) => {
     const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, ...others } = fieldRenderProps;
-
-    const [dropdownValue, setDropdownValue] = useState(data.filter(d => d.id === value)[0]);
+    const [filteredData, setFilteredData] = useState(data);
+    const [dropdownValue, setDropdownValue] = useState(filteredData.filter(d => d.id === value)[0]);
     const editorRef = React.useRef(null);
 
     const showValidationMessage = touched && validationMessage;
@@ -21,6 +22,15 @@ export const FormComboBox = (fieldRenderProps) => {
         [onChange, value]
     );
 
+    const filterData = (filter) => {
+        data.slice();
+        return filterBy(data, filter);
+    }
+
+    const handleFilterChange = (event) => {
+        setFilteredData(filterData(event.filter));
+    };
+
     return (
         <FieldWrapper style={wrapperStyle}>
             <Label id={labelId} editorRef={editorRef} editorId={id} editorValid={valid} editorDisabled={disabled}>
@@ -34,9 +44,11 @@ export const FormComboBox = (fieldRenderProps) => {
                 id={id}
                 disabled={disabled}
                 value={dropdownValue}
-                data={data}
+                data={filteredData}
                 onChange={onValueChange}
                 validationMessage={validationMessage}
+                filterable={true}
+                onFilterChange={handleFilterChange}
                 {...others}
             />
             {

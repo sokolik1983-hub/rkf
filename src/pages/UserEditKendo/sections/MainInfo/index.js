@@ -4,7 +4,7 @@ import { Form, Field, FormElement } from '@progress/kendo-react-form';
 import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
-import { requiredValidator, lengthRequiredValidator, lengthValidator } from "../../validators";
+import { lengthRequiredValidator, lengthValidator } from "../../validators";
 import './styles.scss';
 
 const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
@@ -54,7 +54,6 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                         label={'Дата рождения'}
                                         min={new Date('1900')}
                                         component={FormDatePicker}
-                                        validator={requiredValidator}
                                     />
                                 </div>
                                 <div className="form-group col-md-6 no-label-field">

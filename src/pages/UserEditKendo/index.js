@@ -13,7 +13,6 @@ import UserBanner from "components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "components/Layouts/UserMenu"
 import { endpointGetUserInfo, userNav } from "pages/User/config";
-import CopyrightInfo from "components/CopyrightInfo";
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
 import About from './sections/About';
@@ -201,8 +200,9 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     share_link={`https://rkf.online/user/${alias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    userEditPage
                                 />
-                                <UserMenu userNav={userNav(alias)} />
+                                <UserMenu userNav={userNav(alias)} userEditPage />
                             </Card>
                         </StickyBox>
                     </aside>

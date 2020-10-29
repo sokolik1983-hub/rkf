@@ -57,7 +57,6 @@
   }
   &__list {
     list-style: none;
-    padding: 10px 0 0;
     @media (max-width: 990px) {
       position: fixed;
       right: 19px;
@@ -91,7 +90,7 @@
     text-decoration: none;
     line-height: 1;
     letter-spacing: .2px;
-    color: #72839c;
+    color: #72839c !important;
     transition: color .2s linear;
     svg {
       width: 20px;
@@ -106,7 +105,7 @@
       vertical-align: middle;
     }
     &:hover, &.active {
-      color: #3366FF;
+      color: #3366FF !important;
       svg {
         fill: #3366FF;
       }
@@ -143,4 +142,7 @@
       transition: opacity .2s, transform .2s;
     }
   }
+}
+._edit_page_nav {
+  padding-top: 10px;
 }

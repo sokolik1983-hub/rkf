@@ -75,10 +75,13 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
                                         updateInfo={getUserInfo}
                                     />
-                                    <UserMenu userNav={userNav(alias)} />
                                 </Card>
+                                {!isMobile && <Card>
+                                    <UserMenu userNav={userNav(alias)} />
+                                </Card>}
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
