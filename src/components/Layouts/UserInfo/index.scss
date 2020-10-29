@@ -6,7 +6,7 @@
   ._no_share_name {
     top: 0;
   }
-  &__edit-btn {
+  &__edit-profile {
     display: inline-block;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -31,6 +31,7 @@
     border-bottom: 1px solid #e8e8e8;
     max-height: 500px;
     overflow: hidden;
+    position: relative;
     @media (max-width: 990px) {
       padding-bottom: 0;
       border-bottom: none;
@@ -48,6 +49,20 @@
       background-size: cover;
       object-fit: cover;
     }
+  }
+  &__edit-btn {
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #e4e6eb;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   &__info {
     padding: 10px 0;
@@ -74,5 +89,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  &__transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
   }
 }

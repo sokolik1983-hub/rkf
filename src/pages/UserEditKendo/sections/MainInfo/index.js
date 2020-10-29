@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
 import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
-import {lengthRequiredValidator, lengthValidator} from "../../validators";
+import { lengthRequiredValidator, lengthValidator } from "../../validators";
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
+const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit }) => {
+    const [formProps, setFormProps] = useState(null);
+    const [formBusy, setFormBusy] = useState(false);
+
+    useEffect(() => {
+        formProps && formProps.onFormReset();
+        setFormBusy(false);
+    }, [initialValues]);
+
     return <div className="MainInfo">
         <Form
-            onSubmit={data => handleSubmit(data, 'general')}
+            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'general') }}
             initialValues={initialValues}
             render={(formRenderProps) => {
-                setFormTouched(formRenderProps.touched);
+                setFormTouched(formRenderProps.touched)
+                if (!formProps) setFormProps(formRenderProps);
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
                         <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
