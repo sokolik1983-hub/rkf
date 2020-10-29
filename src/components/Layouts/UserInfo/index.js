@@ -13,7 +13,7 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name }) => (
             {share_link ?
                 <div className="user-info__with-share">
                     <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
-                    <Share url={share_link} />
+                    <Share url={share_link} className={!first_name && !last_name ? `_no_share_name` : ``} />
                 </div> :
                 <p title={first_name || 'Аноним'}>{first_name || 'Аноним'}</p>
             }

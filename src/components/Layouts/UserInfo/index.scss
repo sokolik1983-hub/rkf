@@ -3,6 +3,9 @@
     position: relative;
     top: 15px;
   }
+  ._no_share_name {
+    top: 0;
+  }
   @media (max-width: 990px) {
     display: flex;
   }
