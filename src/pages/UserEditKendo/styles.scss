@@ -52,6 +52,9 @@
                 color: #3366ff;
                 transition: all 0.2s linear;
             }
+            &.active {
+                color: #3366ff;
+            }
         }
         &-list {
             list-style: none;
@@ -97,7 +100,11 @@
             bottom: auto;
         }
     }
-    p, ul {
+    .k-icon-disabled {
+        opacity: 0.6;
+    }
+    p,
+    ul {
         margin: 0;
     }
     a {
