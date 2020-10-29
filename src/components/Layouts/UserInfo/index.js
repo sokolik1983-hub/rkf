@@ -8,9 +8,9 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserInfo = ({logo_link, share_link, first_name, last_name, canEdit}) => {
+const UserInfo = ({logo_link, share_link, first_name, last_name, canEdit, updateInfo}) => {
     const [hover, setHover] = useState(false);
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <div className="user-info">
@@ -45,7 +45,7 @@ const UserInfo = ({logo_link, share_link, first_name, last_name, canEdit}) => {
                 {last_name && <p title={last_name}>{last_name}</p>}
             </div>
             {showModal &&
-                <ModalEditAvatar closeModal={() => setShowModal(false)} />
+                <ModalEditAvatar closeModal={() => setShowModal(false)} updateInfo={updateInfo} />
             }
         </div>
     )

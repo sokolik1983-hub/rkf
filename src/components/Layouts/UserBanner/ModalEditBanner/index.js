@@ -11,7 +11,7 @@ import "./index.scss";
 loadMessages(ruMessages, 'ru-RU');
 
 
-const ModalEditAvatar = ({closeModal, updateInfo}) => {
+const ModalEditBanner = ({closeModal, updateInfo}) => {
     const [isChanged, setIsChanged] = useState(false);
 
     const onBeforeUpload = event => {
@@ -25,10 +25,10 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="edit-avatar-modal" showModal={true} handleClose={() => null}>
-            <div className="edit-avatar-modal__content">
-                <h3 className="edit-avatar-modal__title">Редактирование фото</h3>
-                <div className="edit-avatar-modal__content">
+        <Modal className="edit-banner-modal" showModal={true} handleClose={() => null}>
+            <div className="edit-banner-modal__content">
+                <h3 className="edit-banner-modal__title">Редактирование фото</h3>
+                <div className="edit-banner-modal__content">
                     <LocalizationProvider language="ru-RU">
                         <IntlProvider locale="ru" >
                             <Upload
@@ -42,8 +42,8 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
                                 defaultFiles={[]}
                                 onBeforeUpload={onBeforeUpload}
                                 onBeforeRemove={onBeforeRemove}
-                                saveUrl="/api/avatar/full_v2"
-                                removeUrl="/api/avatar/delete_v2"
+                                saveUrl="/api/headerpicture/full_v2"
+                                removeUrl="/api/headerpicture/delete_v2"
                             />
                         </IntlProvider>
                     </LocalizationProvider>
@@ -53,7 +53,7 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
                             type="button"
                             onClick={() => {
                                 closeModal();
-                                if(isChanged) updateInfo(true);
+                                if(isChanged) updateInfo();
                             }}
                         >
                             Закрыть
@@ -65,4 +65,4 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
     )
 };
 
-export default React.memo(ModalEditAvatar);
+export default React.memo(ModalEditBanner);
