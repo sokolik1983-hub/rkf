@@ -40,9 +40,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
         (() => Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            data.email = data.emails.length ? data.emails[0].value : '';
-            data.phone = data.phones.length ? data.phones[0].value : '';
-
+            // const addressString = data.address ? getAddressString(data.address) : '';
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
             setLoading(false);
