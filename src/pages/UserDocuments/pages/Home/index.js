@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Route, Switch} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
@@ -11,22 +11,22 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
-import {Request} from "../../../../utils/request";
-import {userNav} from "../../config";
+import { Request } from "../../../../utils/request";
+import { userNav } from "../../config";
 import "./index.scss";
 
 
-const Home = ({userAlias, history}) => {
+const Home = ({ userAlias, history }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const linksArray = userNav(userAlias).map(item => item.to);
 
     //Костыль, пока нет раздела Оформление документов (потом убрать)
-    if(history.location.pathname === `/user/${userAlias}/documents`) {
+    if (history.location.pathname === `/user/${userAlias}/documents`) {
         history.replace(`/user/${userAlias}/documents/specialization`);
     }
 
-    if(!linksArray.includes(history.location.pathname)) {
+    if (!linksArray.includes(history.location.pathname)) {
         history.replace('/404');
     }
 
@@ -45,7 +45,7 @@ const Home = ({userAlias, history}) => {
     return (
         <div className="user-documents">
             {loading ?
-                <Loading/> :
+                <Loading /> :
                 <Container className="user-documents__content content">
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
@@ -55,14 +55,16 @@ const Home = ({userAlias, history}) => {
                             <Card>
                                 <UserInfo
                                     logo_link={userInfo.logo_link}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     share_link={`https://rkf.online/user/${userAlias}`}
+                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    alias={userAlias}
                                 />
-                                <UserMenu userNav={userNav(userAlias)}/>
                             </Card>
-                            <CopyrightInfo/>
+                            <Card className="user-documents__desktop-only">
+                                <UserMenu userNav={userNav(userAlias)} />
+                            </Card>
+                            <CopyrightInfo />
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
@@ -72,17 +74,17 @@ const Home = ({userAlias, history}) => {
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/specialization'
-                                    component={() => <Specialization alias={userAlias}/>}
+                                    component={() => <Specialization alias={userAlias} />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/meeting-registration'
-                                    component={() => <MeetingRegistration/>}
+                                    component={() => <MeetingRegistration />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/federation-assessment'
-                                    component={() => <FederationAssessment/>}
+                                    component={() => <FederationAssessment />}
                                 />
                             </Switch>
                         </div>
