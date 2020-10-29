@@ -1,5 +1,6 @@
 .user-description {
   position: relative;
+  padding: 10px 10px 24px !important;
   &__head {
     display: flex;
     justify-content: space-between;
@@ -83,11 +84,11 @@
   &__btn {
     border: none;
     padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 40px;
     position: absolute;
-    right: calc(50% - 16px);
-    bottom: -15px;
+    right: calc(50% - 22px);
+    bottom: -12px;
     background: url("/static/images/slider/slider-button.svg") no-repeat center / cover;
     transform: rotate(90deg);
     transition: all .2s linear;
