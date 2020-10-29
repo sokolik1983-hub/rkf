@@ -54,11 +54,6 @@
       }
     }
   }
-  &__desktop-only {
-    @media (max-width: 990px) {
-      display: none;
-    }
-  }
 }
 
 .documents-card {

@@ -13,6 +13,7 @@ import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
+import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
 
 
@@ -20,6 +21,7 @@ const Home = ({ userAlias, history }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const linksArray = userNav(userAlias).map(item => item.to);
+    const isMobile = useIsMobile();
 
     //Костыль, пока нет раздела Оформление документов (потом убрать)
     if (history.location.pathname === `/user/${userAlias}/documents`) {
@@ -53,17 +55,22 @@ const Home = ({ userAlias, history }) => {
                             {/*    <UserBanner link={userInfo.headliner_link}/>*/}
                             {/*</div>*/}
                             <Card>
-                                <UserInfo
-                                    logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${userAlias}`}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    alias={userAlias}
-                                />
-                            </Card>
-                            <Card className="user-documents__desktop-only">
-                                <UserMenu userNav={userNav(userAlias)} />
-                            </Card>
+                                    <UserInfo
+                                        // canEdit={canEdit}
+                                        logo_link={userInfo.logo_link}
+                                        share_link={`https://rkf.online/user/${userAlias}`}
+                                        first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                        last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={userAlias}
+                                        // updateInfo={getUserInfo}
+                                    />
+                                </Card>
+                                {!isMobile && 
+                                <Card>
+                                    <UserMenu userNav={userNav(userAlias)} />
+                                </Card>
+                                }
+                                {isMobile && <UserMenu userNav={userNav(userAlias)} />}
                             <CopyrightInfo />
                         </StickyBox>
                     </aside>
