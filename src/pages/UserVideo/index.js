@@ -169,6 +169,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                 {!isMobile && <Card>
                                     <UserMenu userNav={userNav(alias)} />
                                 </Card>}
+                                {isMobile && <UserMenu userNav={userNav(alias)} />}
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery

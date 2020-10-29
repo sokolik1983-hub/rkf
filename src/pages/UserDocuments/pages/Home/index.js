@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Route, Switch} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
@@ -11,26 +11,28 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
-import {Request} from "../../../../utils/request";
-import {userNav} from "../../config";
+import { Request } from "../../../../utils/request";
+import { userNav } from "../../config";
+import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
-import {connectAuthVisible} from "../../../Login/connectors";
-import {endpointGetUserInfo} from "../../../User/config";
+import { connectAuthVisible } from "../../../Login/connectors";
+import { endpointGetUserInfo } from "../../../User/config";
 import ls from "local-storage";
 
 
-const Home = ({userAlias, history, profile_id, is_active_profile, isAuthenticated}) => {
+const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const linksArray = userNav(userAlias).map(item => item.to);
     const [canEdit, setCanEdit] = useState(false);
+    const isMobile = useIsMobile();
 
     //Костыль, пока нет раздела Оформление документов (потом убрать)
-    if(history.location.pathname === `/user/${userAlias}/documents`) {
+    if (history.location.pathname === `/user/${userAlias}/documents`) {
         history.replace(`/user/${userAlias}/documents/specialization`);
     }
 
-    if(!linksArray.includes(history.location.pathname)) {
+    if (!linksArray.includes(history.location.pathname)) {
         history.replace('/404');
     }
 
@@ -44,8 +46,8 @@ const Home = ({userAlias, history, profile_id, is_active_profile, isAuthenticate
         await Request({
             url: endpointGetUserInfo + userAlias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
 
             setUserInfo(data);
@@ -60,7 +62,7 @@ const Home = ({userAlias, history, profile_id, is_active_profile, isAuthenticate
     return (
         <div className="user-documents">
             {loading ?
-                <Loading/> :
+                <Loading /> :
                 <Container className="user-documents__content content">
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
@@ -71,15 +73,20 @@ const Home = ({userAlias, history, profile_id, is_active_profile, isAuthenticate
                                 <UserInfo
                                     canEdit={canEdit}
                                     logo_link={userInfo.logo_link}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     share_link={`https://rkf.online/user/${userAlias}`}
+                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    alias={userAlias}
                                     updateInfo={getUserInfo}
                                 />
-                                <UserMenu userNav={userNav(userAlias)}/>
                             </Card>
-                            <CopyrightInfo/>
+                            {!isMobile &&
+                                <Card>
+                                    <UserMenu userNav={userNav(userAlias)} />
+                                </Card>
+                            }
+                            {isMobile && <UserMenu userNav={userNav(userAlias)} />}
+                            <CopyrightInfo />
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
@@ -89,17 +96,17 @@ const Home = ({userAlias, history, profile_id, is_active_profile, isAuthenticate
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/specialization'
-                                    component={() => <Specialization alias={userAlias}/>}
+                                    component={() => <Specialization alias={userAlias} />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/meeting-registration'
-                                    component={() => <MeetingRegistration/>}
+                                    component={() => <MeetingRegistration />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/federation-assessment'
-                                    component={() => <FederationAssessment/>}
+                                    component={() => <FederationAssessment />}
                                 />
                             </Switch>
                         </div>

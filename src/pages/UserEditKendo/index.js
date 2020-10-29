@@ -217,6 +217,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                             {!isMobile && <Card>
                                 <UserMenu userNav={userNav(alias)} />
                             </Card>}
+                            {isMobile && <UserMenu userNav={userNav(alias)} />}
                         </StickyBox>
                     </aside>
                     <div className="UserEdit__right">
