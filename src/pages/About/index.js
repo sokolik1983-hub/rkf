@@ -5,6 +5,8 @@ import TopBanner from "./components/TopBanner";
 import NewsComponent from "../../components/NewsComponent";
 import Statistics from "../../components/Statistics";
 import FeedbackComponent from "./components/Feedback";
+import { BANNER_TYPES } from "../../appConfig";
+import Banner from "../../components/Banner";
 import "./index.scss";
 
 
@@ -31,11 +33,7 @@ const AboutPage = () => {
                     <aside className="about-page__info">
                         <FeedbackComponent />
                         <Statistics isAboutPage />
-                        <div className="about-page__publication">
-                            <a href="https://www.royal-canin.ru/college-pro/webinars/" title="Вебинары" target="_blank" rel="noopener noreferrer">
-                                <img src="/static/images/publications/online-webinars.jpg" alt="Онлайн вебинары" width="" height="" />
-                            </a>
-                        </div>
+                        <Banner type = {BANNER_TYPES.aboutRkfOnlineRightSiteBar}/>
                     </aside>
                 </div>
             </Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../components/Layouts";
@@ -14,13 +14,40 @@ import Statistics from "../../components/Statistics";
 import { RKFInfo, exhibitions } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
+import { BANNER_TYPES } from "../../appConfig";
+import Banner from "../../components/Banner";
+import { Request } from "utils/request";
+import Loading from "../../components/Loading";
 
 const HomePage = ({ homepage, cities }) => {
     const { current_active_type } = homepage.news;
+
+    const [banners, setBanners] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        (() => Request({
+            url: `/api/banner?ids=${BANNER_TYPES.homePageSlider}
+            &ids=${BANNER_TYPES.homePageRightSiteBar}
+            &ids=${BANNER_TYPES.homePageArticle}`
+        }, data => 
+        {
+            setBanners({
+                homePageSlider: data.filter(banner => banner.banner_type === BANNER_TYPES.homePageSlider),
+                homePageRightSiteBar: data.find(banner => banner.banner_type === BANNER_TYPES.homePageRightSiteBar),
+                homePageArticle: data.find(banner => banner.banner_type === BANNER_TYPES.homePageArticle)
+            });
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+        }))()
+    }, []);
+
     return (
+        loading ? <Loading/> :
         <Layout showCopyright={false}>
             <div className="home-page__wrap">
-                <HomepageSlider />
+                <HomepageSlider inputBanners={banners.homePageSlider}/>
                 <ExhibitionsComponent />
                 <Container className="home-page__news" >
                     <div className="home-page__news-wrap">
@@ -30,6 +57,7 @@ const HomePage = ({ homepage, cities }) => {
                             isFullDate={false}
                             currentActiveType={current_active_type}
                             citiesDict={cities.options}
+                            banner = {banners.homePageArticle}
                         />
                         <Aside className="home-page__right">
                             <StickyBox offsetTop={65}>
@@ -61,9 +89,7 @@ const HomePage = ({ homepage, cities }) => {
                                             ))}
                                         </div>
                                     </Card>
-                                    <a style={{ display: 'block', marginBottom: '10px', textAlign: 'center' }} href="https://www.eukanuba.ru/" target="_blank" rel="noreferrer noopener">
-                                        <img style={{ width: '368px', maxWidth: '100%' }} src="static/images/homepage/eukanuba.jpg" alt="" />
-                                    </a>
+                                    <Banner inputBanner={banners.homePageRightSiteBar}/>
                                     <Card className="home-page__map-wrap">
                                         <h3><Link className="Homepage__map-title" to="/clubs-map">Карта авторизованных клубов</Link></h3>
                                         <div className="home-page__map">

@@ -21,6 +21,8 @@ import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
+import { BANNER_TYPES } from "../../appConfig";
+import Banner from "../../components/Banner";
 import "./index.scss";
 
 
@@ -130,6 +132,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         federationName={clubInfo.federation_name}
                                                         federationAlias={clubInfo.federation_alias}
                                                     />
+                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos}/>
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}

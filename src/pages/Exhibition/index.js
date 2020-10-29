@@ -14,10 +14,11 @@ import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
-import { DEFAULT_IMG } from "../../appConfig";
+import { DEFAULT_IMG,BANNER_TYPES } from "../../appConfig";
 import UserHeader from "../../components/redesign/UserHeader";
 import UserGallery from "../../components/redesign/UserGallery";
 import StickyBox from "react-sticky-box";
+import Banner from "../../components/Banner";
 import "./index.scss";
 
 
@@ -148,11 +149,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             federationName={federation_name}
                                             federationAlias={federation_alias}
                                         />
-                                        <div className="exhibition-page__publication">
-                                            <a href="https://www.royal-canin.ru/breeders/unique-products-pro/for-dogs/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
-                                                <img src="/static/images/publications/royal-canin.jpg" alt="" width="" height="" />
-                                            </a>
-                                        </div>
+                                        <Banner type = {BANNER_TYPES.exhibitionPageLeftSiteBar}/>
                                         <UserGallery alias={club_alias} />
                                         <div className="exhibition-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
