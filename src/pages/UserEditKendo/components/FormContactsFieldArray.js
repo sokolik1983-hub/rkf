@@ -5,6 +5,7 @@ import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
 import { Error } from '@progress/kendo-react-labels';
 import { lengthValidator } from "../validators";
+import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
@@ -13,9 +14,10 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
 
     !value.length && value.push({ "is_main": true, "value": "", "description": "" });
 
-    const handleAdd = () => {
-        const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
-        isArrayValid && onPush({ value: newItem });
+    const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
+
+    const handleAdd = (index) => {
+        valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid && onPush({ value: newItem });
     }
 
     const handleRemove = (item, id, index) => {
@@ -36,8 +38,12 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === value.length - 1 && valuesArray.length < 3 && <div onClick={handleAdd}>
-                        <span className="k-icon k-i-plus-circle"></span>
+                    {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
+                        <span
+                            className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
+                                ? "k-icon k-i-plus-circle"
+                                : "k-icon k-i-plus-circle k-icon-disabled"}
+                        />
                     </div>}
                 </div>
                 <div className="form-group col-md-4">
@@ -45,7 +51,12 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         name={`${id}[${index}].value`}
                         mask={id === 'phones' ? '+7(000)000-00-00' : ''}
                         component={id === 'phones' ? FormMaskedInput : FormInput}
-                        validator={value.length > 1 ? valueRequiredValidator : valueValidator}
+                        validator={value.length > 1
+                            ? valueRequiredValidator
+                            : valuesArray[index].value
+                                ? valueValidator
+                                : ""}
+                    // : id === 'phones' ? valueRequiredValidator : ""}
                     />
                 </div>
                 <div className="form-group col-md-4">

@@ -86,7 +86,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
                     setRequestData({ [type]: removeNulls(data) });
                 }
-            });
+            })
+            .catch(() => setErrorRedirect(true));
     };
 
     const getCities = () => PromiseRequest('/api/city')
@@ -217,13 +218,13 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}
+                                            {Object.keys(sections).map((type, key) => <div
+                                                className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}
+                                                key={key}
                                                 onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                             >
                                                 <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
-                                                <li>
-                                                    {sections[type].name}
-                                                </li>
+                                                <li>{sections[type].name}</li>
                                             </div>
                                             )}
                                         </ul>
