@@ -19,6 +19,7 @@ import {endpointGetUserInfo, userNav} from "../User/config";
 import useIsMobile from "../../utils/useIsMobile";
 import {DEFAULT_IMG} from "../../appConfig";
 import "./index.scss";
+import ls from "local-storage";
 
 
 const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthenticated}) => {
@@ -40,18 +41,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
     const params = useParams();
 
     useEffect(() => {
-        (() => Request({
-            url: endpointGetUserInfo + alias
-        }, data => {
-            // const addressString = data.address ? getAddressString(data.address) : '';
-            setUserInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            setError(error.response);
-            setLoading(false);
-        }))();
+        (() => getUserInfo())();
     }, [alias]);
 
     useEffect(() => {
@@ -62,6 +52,25 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                 setPageLoaded(true);
             });
     }, [params]);
+
+    const getUserInfo = async needUpdateAvatar => {
+        setLoading(true);
+
+        await Request({
+            url: endpointGetUserInfo + alias
+        }, data => {
+            if(needUpdateAvatar) {
+                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            }
+            setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+        })
+
+        setLoading(false);
+    };
 
     const getImages = async startElem => {
         setImagesLoading(true);
@@ -164,7 +173,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link}/>
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
                                 }
                                 <Card>
                                     <UserInfo
@@ -174,6 +183,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
+                                        updateInfo={getUserInfo}
                                     />
                                 </Card>
                                 {!isMobile && <Card>
@@ -194,7 +204,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link}/>
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
                             }
                             {isMobile &&
                                 <UserVideoGallery
