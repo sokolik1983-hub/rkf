@@ -46,12 +46,12 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                     }
                     {last_name && <p title={last_name}>{last_name}</p>}
                 </div>
-                    {!userEditPage && <Link
-                    to={`/user/${alias}/edit`}
-                    className="user-info__edit-profile"
-                >Редактировать профиль
-                </Link>}
             </div>
+            {!userEditPage && <Link
+                to={`/user/${alias}/edit`}
+                className="user-info__edit-profile"
+            >Редактировать профиль
+                </Link>}
             {showModal &&
                 <ModalEditAvatar closeModal={() => setShowModal(false)} updateInfo={updateInfo} />
             }
