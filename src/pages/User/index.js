@@ -53,6 +53,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             setError(error.response);
         });
 
+        setNeedRequest(true);
         setLoading(false);
     };
 
