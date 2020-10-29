@@ -27,9 +27,7 @@ const HomePage = ({ homepage, cities }) => {
 
     useEffect(() => {
         (() => Request({
-            url: `/api/banner?ids=${BANNER_TYPES.homePageSlider}
-            &ids=${BANNER_TYPES.homePageRightSiteBar}
-            &ids=${BANNER_TYPES.homePageArticle}`
+            url: `/api/banner?ids=${BANNER_TYPES.homePageSlider}&ids=${BANNER_TYPES.homePageRightSiteBar}&ids=${BANNER_TYPES.homePageArticle}`
         }, data => 
         {
             setBanners({
