@@ -57,7 +57,6 @@
   }
   &__list {
     list-style: none;
-    padding: 10px 0 0;
     @media (max-width: 990px) {
       position: fixed;
       right: 19px;
@@ -143,4 +142,7 @@
       transition: opacity .2s, transform .2s;
     }
   }
+}
+._edit_page_nav {
+  padding-top: 10px;
 }

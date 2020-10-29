@@ -148,14 +148,17 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                 }
                                 <Card>
                                     <UserInfo
+                                        canEdit={canEdit}
                                         logo_link={userInfo.logo_link}
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                        second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
                                     />
-                                    <UserMenu userNav={userNav(alias)} />
                                 </Card>
+                                {!isMobile && <Card>
+                                    <UserMenu userNav={userNav(alias)} />
+                                </Card>}
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
