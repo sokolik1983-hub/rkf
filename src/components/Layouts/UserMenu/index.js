@@ -7,7 +7,7 @@ import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserMenu = ({userNav, userEditPage}) => {
+const UserMenu = ({userNav}) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const isMobile = useIsMobile();
@@ -34,7 +34,7 @@ const UserMenu = ({userNav, userEditPage}) => {
                     classNames="user-nav__transition"
                     unmountOnExit
                 >
-                    <ul className={`user-nav__list ${userEditPage ? `_edit_page_nav` : ``}`}>
+                    <ul className="user-nav__list">
                         {userNav.map(navItem =>
                             <li className="user-nav__item" key={navItem.id}>
                                 <NavLink

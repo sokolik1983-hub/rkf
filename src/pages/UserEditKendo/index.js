@@ -200,10 +200,12 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     share_link={`https://rkf.online/user/${alias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    userEditPage
+                                    alias={alias}
                                 />
-                                <UserMenu userNav={userNav(alias)} userEditPage />
                             </Card>
+                            {!isMobile && <Card>
+                                <UserMenu userNav={userNav(alias)} />
+                            </Card>}
                         </StickyBox>
                     </aside>
                     <div className="UserEdit__right">

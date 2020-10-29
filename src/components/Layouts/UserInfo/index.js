@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 
 
-const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updateInfo, alias, userEditPage }) => {
+const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updateInfo, alias }) => {
     const [hover, setHover] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -47,11 +47,11 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                     {last_name && <p title={last_name}>{last_name}</p>}
                 </div>
             </div>
-            {!userEditPage && <Link
+            <Link
                 to={`/user/${alias}/edit`}
                 className="user-info__edit-profile"
             >Редактировать профиль
-                </Link>}
+                </Link>
             {showModal &&
                 <ModalEditAvatar closeModal={() => setShowModal(false)} updateInfo={updateInfo} />
             }
