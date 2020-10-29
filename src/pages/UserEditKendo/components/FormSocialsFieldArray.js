@@ -7,12 +7,12 @@ import { lengthValidator } from "../validators";
 const FormSocialsFieldArray = (fieldArrayRenderProps) => {
     const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, formRenderProps } = fieldArrayRenderProps;
     const newItem = { "social_network_type_id": 1, "site": "", "description": "" };
+    const valuesArray = formRenderProps.valueGetter(id);
+    const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].site`]).length;
 
     !value.length && value.push(newItem);
-
-    const handleAdd = () => {
-        const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
-        isArrayValid && onPush({ value: newItem });
+    const handleAdd = (index) => {
+        valuesArray[index].site && isArrayValid && onPush({ value: newItem });
     }
 
     const handleRemove = (item, index) => {
@@ -24,8 +24,12 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 About__custom-plus">
-                    {index === value.length - 1 && index < 4 && <div onClick={handleAdd}>
-                        <span className="k-icon k-i-plus-circle"></span>
+                    {index === value.length - 1 && index < 4 && <div onClick={() => handleAdd(index)}>
+                        <span
+                            className={valuesArray[index].site && isArrayValid
+                                ? "k-icon k-i-plus-circle"
+                                : "k-icon k-i-plus-circle k-icon-disabled"}
+                        />
                     </div>}
                 </div>
                 <div className="form-group col-md-6">
