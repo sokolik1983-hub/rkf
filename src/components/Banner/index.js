@@ -23,7 +23,7 @@ const Banner =({type, inputBanner}) =>{
     }, []);
 
     return (
-        banner &&
+        !!banner &&
         <div className = "banner_component">
             <a className = "banner_component__a" href={banner.url} target="_blank" rel="noreferrer noopener">
                 <img className = "banner_component__img" style ={{ width: banner.width > 0 ? banner.width : '', height: banner.height > 0 ? banner.height : '' }} src={banner.banner_link} alt=""/>
