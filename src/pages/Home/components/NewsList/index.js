@@ -7,7 +7,7 @@ import CardNews from "../../../../components/CardNews";
 import { endpointGetNews } from "../../config";
 import { Request } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
-import Banner from "../../../../components/Banner";
+// import Banner from "../../../../components/Banner";
 import './index.scss';
 
 
@@ -202,9 +202,9 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                                     videoLink={item.video_link}
                                     documents={item.documents}
                                 />
-                                {
+                                {/* {
                                     banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
-                                }
+                                } */}
                             </li>
                         ))}
                     </ul>
