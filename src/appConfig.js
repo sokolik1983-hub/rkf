@@ -397,6 +397,16 @@ const BAD_SITES = [
     'kinolog.org'
 ];
 
+const BANNER_TYPES = {
+    homePageSlider: 1,
+    homePageRightSiteBar: 2,
+    homePageArticle: 3,
+    exhibitionPageLeftSiteBar: 4,
+    aboutRkfOnlineRightSiteBar: 5,
+    clubPageUnderPhotos: 6,
+    kennelPageUnderPhotos: 7
+};
+
 const responsiveSliderConfig = [
     {
         breakpoint: 1181,
@@ -445,5 +455,6 @@ export {
     LOGIN_URL,
     REGISTRATION_URL,
     DEFAULT_IMG,
-    BAD_SITES
+    BAD_SITES,
+    BANNER_TYPES
 }
