@@ -16,7 +16,7 @@ import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 
 
-const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating}) => {
+const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating, userPage}) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -207,10 +207,10 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                         />
                     }
                     <div className="ArticleCreateForm__button-wrap">
-                        <WikiHelp
+                        {!userPage && <WikiHelp
                             url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
                             title="Инструкция по добавлению новости"
-                        />
+                        />}
                         <SubmitButton
                             type="submit"
                             className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}

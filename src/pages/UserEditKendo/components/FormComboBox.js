@@ -3,6 +3,10 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label, Error } from '@progress/kendo-react-labels';
 import { ComboBox } from '@progress/kendo-react-dropdowns';
 import { filterBy } from '@progress/kendo-data-query';
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import kendoMessages from "../../../kendoMessages.json";
+
+loadMessages(kendoMessages, 'ru');
 
 export const FormComboBox = (fieldRenderProps) => {
     const { validationMessage, touched, label, id, name, valid, disabled, wrapperStyle, data, value, onChange, ...others } = fieldRenderProps;
@@ -36,21 +40,26 @@ export const FormComboBox = (fieldRenderProps) => {
             <Label id={labelId} editorRef={editorRef} editorId={id} editorValid={valid} editorDisabled={disabled}>
                 {label}
             </Label>
-            <ComboBox
-                ariaLabelledBy={labelId}
-                ariaDescribedBy={`${errorId}`}
-                ref={editorRef}
-                valid={valid}
-                id={id}
-                disabled={disabled}
-                value={dropdownValue}
-                data={filteredData}
-                onChange={onValueChange}
-                validationMessage={validationMessage}
-                filterable={true}
-                onFilterChange={handleFilterChange}
-                {...others}
-            />
+            <LocalizationProvider language="ru">
+                <IntlProvider locale="ru">
+                    <ComboBox
+                        ariaLabelledBy={labelId}
+                        ariaDescribedBy={`${errorId}`}
+                        ref={editorRef}
+                        valid={valid}
+                        id={id}
+                        disabled={disabled}
+                        value={dropdownValue}
+                        data={filteredData}
+                        onChange={onValueChange}
+                        validationMessage={validationMessage}
+                        filterable={true}
+                        onFilterChange={handleFilterChange}
+                        {...others}
+                    />
+                </IntlProvider>
+            </LocalizationProvider>
+
             {
                 showValidationMessage &&
                 <Error id={errorId}>{validationMessage}</Error>
