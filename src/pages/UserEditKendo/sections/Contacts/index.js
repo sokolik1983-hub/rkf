@@ -1,23 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
 import { Form, Field, FieldArray, FormElement } from '@progress/kendo-react-form';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormComboBox from 'pages/UserEditKendo/components/FormComboBox';
 import FormContactsFieldArray from 'pages/UserEditKendo/components/FormContactsFieldArray';
-import { phoneValidator, emailValidator, postcodeValidator } from 'pages/UserEditKendo/validators';
+import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
+import {
+    phoneRequiredValidator,
+    phoneValidator,
+    emailRequiredValidator,
+    emailValidator,
+    postcodeValidator,
+    lengthValidator
+} from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
+const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit }) => {
+    const [formProps, setFormProps] = useState(null);
+    const [formBusy, setFormBusy] = useState(false);
+
+    useEffect(() => {
+        formProps && formProps.onFormReset();
+        setFormBusy(false);
+    }, [initialValues]);
+
     return <div className="Contacts">
         <Form
-            onSubmit={data => handleSubmit(data, 'contacts')}
+            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'contacts') }}
             initialValues={initialValues}
             render={(formRenderProps) => {
-                setFormTouched(formRenderProps.touched);
+                setFormModified(formRenderProps.modified);
+                if (!formProps) setFormProps(formRenderProps);
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
-                        <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
+                        <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend'}>Контакты</legend>
                             <div className="form-row">
@@ -55,25 +72,33 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                     />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="postcode" name={'address.postcode'} label={'Индекс'} component={FormInput} validator={postcodeValidator} />
+                                    <Field
+                                        id="postcode"
+                                        name={'address.postcode'}
+                                        label={'Индекс'}
+                                        hint={'Кол-во цифр: 6-7'}
+                                        mask="0000000"
+                                        component={FormMaskedInput}
+                                        validator={postcodeValidator}
+                                    />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-8">
-                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} />
+                                    <Field id="street_name" name={'address.street_name'} label={'Улица'} component={FormInput} maxLength="50" validator={value => lengthValidator(value, 50)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-4">
-                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} />
+                                    <Field id="house_name" name={'address.house_name'} label={'Дом'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} />
+                                    <Field id="building_name" name={'address.building_name'} label={'Строение'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} />
+                                    <Field id="flat_name" name={'address.flat_name'} label={'Квартира'} component={FormInput} maxLength="20" validator={value => lengthValidator(value, 20)} />
                                 </div>
                             </div>
 
@@ -101,6 +126,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
                                 valueValidator={phoneValidator}
+                                valueRequiredValidator={phoneRequiredValidator}
                             />
 
                             <div className="form-row mt-3">
@@ -126,7 +152,8 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                                 name="mails"
                                 component={FormContactsFieldArray}
                                 formRenderProps={formRenderProps}
-                                valueValidator={emailValidator}
+                                valueValidator={value => emailValidator(value, 100)}
+                                valueRequiredValidator={emailRequiredValidator}
                             />
 
                         </fieldset>
@@ -134,7 +161,7 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.allowSubmit || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

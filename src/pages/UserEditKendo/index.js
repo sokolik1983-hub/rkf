@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 import Card from "components/Card";
 import Container from "../../components/Layouts/Container";
 import { Request } from "utils/request";
-import { sections, defaultValues } from './config';
+import { sections, defaultValues, phoneMask } from './config';
 import { connectAuthVisible } from "pages/Login/connectors";
 import removeNulls from "utils/removeNulls";
 import StickyBox from "react-sticky-box";
@@ -13,7 +13,6 @@ import UserBanner from "components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "components/Layouts/UserMenu"
 import { endpointGetUserInfo, userNav } from "pages/User/config";
-import CopyrightInfo from "components/CopyrightInfo";
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
 import About from './sections/About';
@@ -23,7 +22,9 @@ import useIsMobile from "utils/useIsMobile";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
+import ls from "local-storage";
 import './styles.scss';
+
 
 const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [values, setValues] = useState(defaultValues);
@@ -31,8 +32,9 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [cities, setCities] = useState([]);
     const [visibilityStatuses, setVisibilityStatuses] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const [formTouched, setFormTouched] = useState(false);
+    const [formModified, setFormModified] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [canEdit, setCanEdit] = useState(false);
     const alias = match.params.id;
     const isMobile = useIsMobile();
     const [activeSection, setActiveSection] = useState(0);
@@ -40,7 +42,6 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
-    const [formBusy, setFormBusy] = useState(false);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -62,14 +63,20 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }
     }, [requestData]);
 
-    const getUser = () => PromiseRequest(endpointGetUserInfo + alias)
-        .then(data => {
-            if (data) {
-                data.email = data.emails && data.emails.length ? data.emails[0].value : '';
-                data.phone = data.phones && data.phones.length ? data.phones[0].value : '';
-                setUserInfo(data);
+    const getUser = async needUpdateAvatar => {
+        await Request({
+            url: endpointGetUserInfo + alias
+        }, data => {
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
+            setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
         });
+    };
 
     const getInfo = (type) => {
         PromiseRequest(sections[type].url)
@@ -87,7 +94,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     if (data.birth_date) data.birth_date = data.birth_date.split('T')[0];
                     setRequestData({ [type]: removeNulls(data) });
                 }
-            });
+            })
+            .catch(() => setErrorRedirect(true));
     };
 
     const getCities = () => PromiseRequest('/api/city')
@@ -125,8 +133,10 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     };
 
     const handleSubmit = async (data, type) => {
-        setFormBusy(true);
         if (data.social_networks) data.social_networks = data.social_networks.filter(i => i.site !== '');
+        if (data.mails) data.mails = data.mails.filter(i => i.value !== '');
+        if (data.phones) data.phones = data.phones.filter(i => i.value !== '' && i.value !== phoneMask);
+        if (data.address && data.address.postcode) data.address.postcode = data.address.postcode.replaceAll('_', '');
         if (data.birth_date) data.birth_date = moment(data.birth_date).format("YYYY-MM-DD");
 
         await Request({
@@ -136,10 +146,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         }, () => {
             getInfo(type);
             handleSuccess();
-            setFormBusy(false);
         }, error => {
             handleError(error);
-            setFormBusy(false);
         });
     };
 
@@ -148,30 +156,27 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             case 0:
                 return <MainInfo
                     initialValues={values.general}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
-                    formBusy={formBusy}
                 />;
             case 1:
                 return <Contacts
                     initialValues={values.contacts}
                     cities={cities}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
-                    formBusy={formBusy}
                 />;
             case 2:
                 return <About
                     initialValues={values.about}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     handleSubmit={handleSubmit}
                     handleError={handleError}
-                    formBusy={formBusy}
                 />;
             case 3:
-                return <Security setFormTouched={setFormTouched} history={history} />;
+                return <Security setFormModified={setFormModified} history={history} />;
             case 4:
                 return <DeletePage updateInfo={getInfo} />;
             default:
@@ -180,7 +185,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     }
 
     const handleSectionSwitch = (id) => {
-        if (formTouched) {
+        if (formModified) {
             window.confirm('Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны.') && setActiveSection(id);
         } else {
             setActiveSection(id);
@@ -196,18 +201,20 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <aside className="UserEdit__left">
                         <StickyBox offsetTop={66}>
                             {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} />
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
                             }
                             <Card>
                                 <UserInfo
+                                    canEdit={canEdit}
                                     logo_link={userInfo.logo_link}
                                     share_link={`https://rkf.online/user/${alias}`}
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                    alias={alias}
+                                    updateInfo={getUser}
                                 />
-                                <UserMenu userNav={userNav(alias)} />
                             </Card>
-                            {!isMobile && <CopyrightInfo />}
+                            <UserMenu userNav={userNav(alias)} />
                         </StickyBox>
                     </aside>
                     <div className="UserEdit__right">
@@ -222,11 +229,13 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                 <div className="UserEdit__inner-right">
                                     <Card>
                                         <ul className="UserEdit__inner-list">
-                                            {Object.keys(sections).map((type, key) => <div className="UserEdit__inner-item" key={key}>
-                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`}></span>
-                                                <li onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}>
-                                                    {sections[type].name}
-                                                </li>
+                                            {Object.keys(sections).map((type, key) => <div
+                                                className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}
+                                                key={key}
+                                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                            >
+                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`} />
+                                                <li>{sections[type].name}</li>
                                             </div>
                                             )}
                                         </ul>

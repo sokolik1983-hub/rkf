@@ -2,6 +2,7 @@
   height: 255px;
   padding: 10px !important;
   background: #fff url("/static/images/noimg/empty-gallery.png") no-repeat center / contain;
+  position: relative;
   @media (max-width: 560px) {
     height: 25vw;
     padding: 0 !important;
@@ -9,5 +10,49 @@
   }
   &__img {
     height: 100%;
+  }
+  &__edit-btn, &__delete-btn {
+    padding: 0;
+    border: none;
+    border-radius: 50% !important;
+    background-color: #e4e6eb;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+  }
+  &__edit-btn {
+    left: 15px;
+  }
+  &__delete-btn {
+    right: 15px;
+    svg {
+      fill: red !important;
+    }
+  }
+  &__transition {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
   }
 }

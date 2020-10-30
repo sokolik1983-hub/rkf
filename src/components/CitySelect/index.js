@@ -7,7 +7,7 @@ import Dropdown from 'components/Dropdown';
 import './styles.scss';
 
 const LS_KEY = 'GLOBAL_CITY';
-const noOptionsMessage = () => 'Город не найден';
+const noOptionsMessage = () => 'ГОРОДОВ НЕ НАЙДЕНО';
 const selectorInitialState = { label: 'Выберите город', value: null };
 const storeFilters = city => {
     let filters = JSON.parse(localStorage.getItem('FiltersValues')) || {};

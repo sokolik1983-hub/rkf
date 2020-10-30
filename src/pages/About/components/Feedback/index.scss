@@ -1,12 +1,12 @@
 .feedback-component {
-  padding: 32px;
+  padding: 10px;
   margin-bottom: 16px;
-  @media (max-width: 990px) {
-    padding: 16px;
-  }
-  @media (max-width: 560px) {
-    padding: 12px;
-  }
+  // @media (max-width: 990px) {
+  //   padding: 16px;
+  // }
+  // @media (max-width: 560px) {
+  //   padding: 12px;
+  // }
   &__title {
     font-weight: normal;
     font-size: 22px;
@@ -49,6 +49,7 @@
     text-align: center;
     letter-spacing: 0.2px;
     color: #3366FF !important;
+    margin-bottom: 5px;
     @media (max-width: 560px) {
       font-size: 14px;
       line-height: 18px;
