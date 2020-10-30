@@ -21,7 +21,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-
 const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -96,6 +95,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 site={userInfo.web_site}
                                 socials={userInfo.social_networks}
                                 description={userInfo.personal_information.description}
+                                counters = {userInfo.counters}
                             />
                             {isMobile &&
                                 <>

@@ -5,6 +5,7 @@ import { timeSecondsCutter } from "utils/datetime";
 import { Request } from "utils/request";
 import { beautify } from "utils/phone";
 import { Collapse } from 'react-collapse';
+import Counter from "../../CounterComponent";
 import "./index.scss";
 
 
@@ -27,7 +28,8 @@ const UserContacts = ({
     rs_number,
     bic,
     is_active,
-    name
+    name,
+    counters
 }) => {
     const [socials, setSocials] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -135,8 +137,6 @@ const UserContacts = ({
                     <span>{address_or_city}</span>
                     </p>
                 }
-
-
                 <div className="user-contacts__info-site">
                     <p>
                         <span>Сайт</span>:&nbsp;
@@ -200,6 +200,7 @@ const UserContacts = ({
                         </p>
                     </div>
                 }</Collapse>
+                <Counter counters={counters}/>
             {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>
     );

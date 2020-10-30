@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Collapse} from "react-collapse";
 import Card from "../../Card";
+import Counter from "../../CounterComponent";
 import "./index.scss";
 
 
-const UserDescription = ({city_name, birthday_date, emails, phones, site, socials, description}) => {
+const UserDescription = ({city_name, birthday_date, emails, phones, site, socials, description,counters}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -93,6 +94,9 @@ const UserDescription = ({city_name, birthday_date, emails, phones, site, social
                         onClick={() => setIsOpen(!isOpen)}
                     />
                 </>
+            }
+            {
+                !!counters && <Counter counters = {counters}/>
             }
         </Card>
     )
