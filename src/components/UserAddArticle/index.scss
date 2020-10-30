@@ -211,8 +211,9 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.2px;
-    padding: 10px 16px;
-    cursor: default;
+    padding: 6px 16px;
+    cursor: pointer;
+    height: 38px;
     &.active {
       background: #3366ff;
       box-shadow: 0 4px 8px rgba(51, 102, 255, .3);

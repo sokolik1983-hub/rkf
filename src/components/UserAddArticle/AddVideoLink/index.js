@@ -41,7 +41,7 @@ const AddVideoLink = ({ setVideoLink, closeModal }) => {
                     />
                     {error && <p className="add-video-link__form-error">{error}</p>}
                 </div>
-                <button className="add-video-link__form-submit" type="submit" disabled={!link}>Сохранить</button>
+                <button className="add-video-link__form-submit" type="submit" disabled={!link}>Прикрепить</button>
             </form>
         </div>
     )

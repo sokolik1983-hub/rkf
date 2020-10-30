@@ -151,7 +151,7 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                 )}
                 <div className="add-pdf__form-controls">
                     <button type="button" className="btn btn-simple" onClick={closeModal}>Отмена</button>
-                    <button type="submit" className="btn btn-primary" disabled={!pdfArray.length}>Добавить</button>
+                    <button type="submit" className="btn btn-primary" disabled={!pdfArray.length}>Прикрепить</button>
                 </div>
             </form>
         </div>

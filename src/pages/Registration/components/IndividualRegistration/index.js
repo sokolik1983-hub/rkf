@@ -75,7 +75,7 @@ const IndividualRegistration = ({ history }) => {
             </Form>
             {successAlert &&
                 <Alert
-                    title="Регистрация прошла успешно! =)"
+                    title="Регистрация прошла успешно!"
                     text={'На указанный e-mail отправлено письмо.'}
                     autoclose={7.5}
                     onOk={() => setSuccessAlert(false)}

@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -17,6 +17,8 @@ const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
+        const [userInfo, setUserInfo] = useState({});
+
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
@@ -36,6 +38,20 @@ const WidgetLogin = forwardRef(
                     <span>Регистрация</span>
                 </Link>}
             </>);
+        };
+
+        useEffect(() => {
+            (() => getUserInfo())();
+        }, []);
+    
+        const getUserInfo = async () => {
+            await Request({
+                url: '/api/owners/owner/public_full/' + alias
+            }, data => {
+                setUserInfo(data);
+            }, error => {
+                console.log(error.response);
+            });
         };
 
         const logoutAsUser = async () => {
@@ -76,7 +92,7 @@ const WidgetLogin = forwardRef(
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
                                         {userType === 1 &&
-                                            <Link to={`/user/${alias}`}>{name}</Link>
+                                            <Link to={`/user/${alias}`}>{userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}{userInfo.personal_information ? ' ' + userInfo.personal_information.last_name : ''}</Link>
                                         }
                                         {(userType === 3 || userType === 5) &&
                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>

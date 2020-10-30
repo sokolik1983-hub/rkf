@@ -2,7 +2,7 @@ import React from "react";
 import CardNews from "../../CardNews";
 
 
-const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete}) => (
+const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name}) => (
     <div className={`list${className ? ' ' + className : ''}`}>
         <ul className="list__content">
             {list && !!list.length && list.map(item =>
@@ -32,6 +32,8 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         isClosedAd={item.is_closed_advert}
                         onAdClose={onAdClose}
                         onDelete={onDelete}
+                        first_name={first_name}
+                        last_name={last_name}
                     />
                 </li>
             )}
