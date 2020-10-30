@@ -96,8 +96,7 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                                     Отменить
                                 </button>
                                 <Button
-                                    className="k-form-buttons__delete"
-                                    primary={true}
+                                    className="btn btn-danger"
                                     type="button"
                                     onClick={deletePage}
                                 >

@@ -76,7 +76,7 @@ const DeletePage = () => {
                             Все размещенные Вами данные будут утеряны.
                         </p>
                         <div className="k-form-buttons">
-                            <Button className="k-form-buttons__delete" primary={true} type="button" onClick={() => setShowModal(true)}>
+                            <Button className="btn btn-danger" type="button" onClick={() => setShowModal(true)}>
                                 Удалить
                             </Button>
                         </div>
