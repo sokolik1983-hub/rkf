@@ -30,7 +30,7 @@
   &__delete-btn {
     right: 15px;
     svg {
-      fill: red;
+      fill: red !important;
     }
   }
   &__transition {
