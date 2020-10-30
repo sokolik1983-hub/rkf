@@ -54,7 +54,7 @@ const About = ({ initialValues, setFormModified, handleSubmit }) => {
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={!formRenderProps.allowSubmit || formBusy}
+                                disabled={!formRenderProps.modified || !formRenderProps.valid || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>
