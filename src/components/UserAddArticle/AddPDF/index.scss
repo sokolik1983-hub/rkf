@@ -8,7 +8,7 @@
   &__form {
     &-row {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       margin-bottom: 16px;
       @media (max-width: 560px) {
         display: block;

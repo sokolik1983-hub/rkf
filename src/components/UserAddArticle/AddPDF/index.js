@@ -44,15 +44,18 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
 
     const handleDeleteRow = index => {
         if(window.confirm('Вы действительно хотите удалить эту строку?')) {
-            setPdfArray([...pdfArray].filter((item, i) => i !== index));
-        }
-        if (index === 0 && pdfArray.length === 1 ) {
-            setPdfArray([{
-                name: '',
-                file: '',
-                errorName: '',
-                errorFile: ''
-            }])
+            let newPDFArray = [...pdfArray].filter((item, i) => i !== index);
+
+            if(!newPDFArray.length) {
+                newPDFArray = [{
+                    name: '',
+                    file: '',
+                    errorName: '',
+                    errorFile: ''
+                }]
+            }
+
+            setPdfArray(newPDFArray);
         }
     };
 
@@ -96,14 +99,14 @@ const AddPDF = ({documents, setDocuments, closeModal}) => {
                             <div className="add-pdf__form-add-row">
                                 <button 
                                     type="button"
-                                    className={`add-pdf__form-add-row-btn ${item.name && item.file ? `` : `_disabled`}`}
+                                    className="add-pdf__form-add-row-btn"
                                     onClick={() => setPdfArray([...pdfArray, {
                                         name: '',
                                         file: '',
                                         errorName: '',
                                         errorFile: ''
                                     }])}
-                                ></button>
+                                />
                             </div>
                         }
                         <div className="add-pdf__form-item add-pdf__form-item--name">
