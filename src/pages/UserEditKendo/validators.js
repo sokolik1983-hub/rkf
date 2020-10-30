@@ -40,14 +40,14 @@ export const lengthValidator = (value, maxLength) => value && value.length > max
 
 export const nameValidator = (value, maxLength) => !value ? "" : value.length > maxLength
     ? `Макс. кол-во символов: ${maxLength}`
-    : nameRegexp.test(value) ? "" : "Допускаются только буквы";
+    : nameRegexp.test(value) ? "" : "Допускается ввод только буквенных символов";
 export const nameRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
     value.length > maxLength
         ? `Макс. кол-во символов: ${maxLength}`
         : nameRegexp.test(value)
             ? ""
-            : "Допускаются только буквы";
+            : "Допускается ввод только буквенных символов";
 export const userNameValidator = (value) => !value ?
     "User Name is required" :
     value.length < 5 ? "User name should be at least 3 characters long." : "";
