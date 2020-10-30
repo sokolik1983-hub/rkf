@@ -7,7 +7,7 @@ import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
 import './styles.scss';
 
-const About = ({ initialValues, setFormTouched, handleSubmit }) => {
+const About = ({ initialValues, setFormModified, handleSubmit }) => {
     const [formProps, setFormProps] = useState(null);
     const [formBusy, setFormBusy] = useState(false);
 
@@ -20,11 +20,11 @@ const About = ({ initialValues, setFormTouched, handleSubmit }) => {
             onSubmit={data => { setFormBusy(true); handleSubmit(data, 'about') }}
             initialValues={initialValues}
             render={(formRenderProps) => {
-                setFormTouched(formRenderProps.touched);
+                setFormModified(formRenderProps.modified);
                 if (!formProps) setFormProps(formRenderProps);
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
-                        <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
+                        <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend mb-0'}>О себе</legend>
                             <Field
