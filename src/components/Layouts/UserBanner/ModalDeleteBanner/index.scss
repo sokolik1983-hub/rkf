@@ -1,4 +1,4 @@
-.delete-page-modal {
+.delete-banner-modal {
   & > div {
     max-width: 600px;
   }
@@ -21,11 +21,10 @@
     font-size: 18px;
     line-height: 23px;
     text-align: center;
-    margin: 110px 0;
+    margin: 50px 0;
     @media (max-width: 560px) {
       font-size: 16px;
       line-height: 20px;
-      margin: 50px 0;
       br {
         display: none;
       }
@@ -37,19 +36,16 @@
   .k-form-buttons {
     justify-content: center;
   }
-  .btn-light {
-    border: 1px solid #ced4da;
-  }
-  &__img {
-    display: block;
-    margin: 17px auto 37px;
-  }
-  &__buttons {
-    margin-top: 85px;
-  }
   .btn {
     padding: .375rem .75rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out;
+  }
+  .btn-light {
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    &:hover {
+      background-color: #e2e6ea;
+    }
   }
   .btn-danger {
     color: #fff;

@@ -96,7 +96,7 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                                     Отменить
                                 </button>
                                 <Button
-                                    primary={true}
+                                    className="btn btn-danger"
                                     type="button"
                                     onClick={deletePage}
                                 >

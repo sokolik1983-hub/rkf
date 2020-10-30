@@ -11,10 +11,10 @@
   &__img {
     height: 100%;
   }
-  &__edit-btn {
+  &__edit-btn, &__delete-btn {
     padding: 0;
     border: none;
-    border-radius: 50%;
+    border-radius: 50% !important;
     background-color: #e4e6eb;
     display: flex;
     width: 24px;
@@ -22,14 +22,22 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    bottom: 15px;
+  }
+  &__edit-btn {
+    left: 15px;
+  }
+  &__delete-btn {
+    right: 15px;
+    svg {
+      fill: red !important;
+    }
   }
   &__transition {
     &-enter,
     &-appear {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(10px);
     }
     &-enter-active,
     &-appear-active {
@@ -43,7 +51,7 @@
     }
     &-exit-active {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(10px);
       transition: opacity 0.2s, transform 0.2s;
     }
   }
