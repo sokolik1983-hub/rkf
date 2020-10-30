@@ -18,7 +18,7 @@ const UserMenu = ({userNav}) => {
     };
 
     return (
-        <div className="user-nav">
+        <div className={`user-nav ${isMobile ? `` : `_desktop_card`}`}>
             <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
                 {isMobile &&
                     <button className={`user-nav__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
