@@ -8,7 +8,7 @@ import { newsArticleFormConfig } from "./config";
 import "./index.scss";
 
 
-const AddArticle = ({ id, logo, setNeedRequest }) => {
+const AddArticle = ({ id, logo, setNeedRequest, userPage }) => {
     const [isAd, setIsAd] = useState(false);
     const [videoLink, setVideoLink] = useState('');
     const [documents, setDocuments] = useState([]);
@@ -91,6 +91,7 @@ const AddArticle = ({ id, logo, setNeedRequest }) => {
                     setDocuments={setDocuments}
                     isMating={isMating}
                     setIsMating={setIsMating}
+                    userPage={userPage}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

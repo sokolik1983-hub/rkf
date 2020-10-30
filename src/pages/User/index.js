@@ -130,6 +130,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     id={userInfo.profile_id}
                                     logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
+                                    userPage
                                 />
                             }
                             <UserNews
