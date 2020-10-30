@@ -1,28 +1,36 @@
 import React from "react";
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
+import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
 import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
 import { Error } from '@progress/kendo-react-labels';
+import { lengthValidator } from "../validators";
+import { phoneMask } from 'pages/UserEditKendo/config';
 
 const FormContactsFieldArray = (fieldArrayRenderProps) => {
-    const { validationMessage, visited, id, value, onRemove, onUnshift, valueValidator, formRenderProps } = fieldArrayRenderProps;
-    const newItem = { "is_main": false, "value": "" };
+    const { validationMessage, visited, id, value, onRemove, onPush, valueValidator, valueRequiredValidator, formRenderProps } = fieldArrayRenderProps;
+    const newItem = { "is_main": false, "value": "", "description": "" };
+    const valuesArray = formRenderProps.valueGetter(id);
 
-    !value.length && value.push(newItem);
+    !value.length && value.push({ "is_main": true, "value": "", "description": "" });
 
-    const handleAdd = () => {
-        const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
-        isArrayValid && onUnshift({ value: newItem });
+    const isArrayValid = !value.filter((v, index) => formRenderProps.errors[`${id}[${index}].value`]).length;
+
+    const handleAdd = (index) => {
+        valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid && onPush({ value: newItem });
     }
 
-    const handleRemove = (item, index) => {
-        !item.is_main && onRemove({ index: index });
-        !item.is_main && value.length === 1 && onUnshift({ value: newItem });
+    const handleRemove = (item, id, index) => {
+        onRemove({ index: index });
+        if (item.is_main && valuesArray.length) {
+            valuesArray.map(v => v.is_main = false);
+            formRenderProps.onChange(`${id}[0].is_main`, { value: true })
+        }
+        value.length === 1 && onPush({ value: newItem });
     }
 
     const handleChange = (name) => {
-        const values = formRenderProps.valueGetter(id);
-        values.map(v => v.is_main = false);
+        valuesArray.map(v => v.is_main = false);
         formRenderProps.onChange(name, { value: true })
     }
 
@@ -30,15 +38,29 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
         {
             value.map((item, index) => <div className="form-row" key={index}>
                 <div className="form-group col-md-1 Contacts__custom-plus">
-                    {index === value.length - 1 && <div onClick={handleAdd}>
-                        <span className="k-icon k-i-plus-circle"></span>
+                    {index === value.length - 1 && valuesArray.length < 3 && <div onClick={() => handleAdd(index)}>
+                        <span
+                            className={valuesArray[index].value && valuesArray[index].value !== phoneMask && isArrayValid
+                                ? "k-icon k-i-plus-circle"
+                                : "k-icon k-i-plus-circle k-icon-disabled"}
+                        />
                     </div>}
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].value`} placeholder={id === 'phones' ? '+7(999)999-99-99' : ''} component={FormInput} validator={valueValidator} />
+                    <Field
+                        name={`${id}[${index}].value`}
+                        mask={id === 'phones' ? '+7(000)000-00-00' : ''}
+                        component={id === 'phones' ? FormMaskedInput : FormInput}
+                        validator={value.length > 1
+                            ? valueRequiredValidator
+                            : valuesArray[index].value
+                                ? valueValidator
+                                : ""}
+                    // : id === 'phones' ? valueRequiredValidator : ""}
+                    />
                 </div>
                 <div className="form-group col-md-4">
-                    <Field name={`${id}[${index}].description`} placeholder="Описание" component={FormInput} />
+                    <Field name={`${id}[${index}].description`} placeholder="Описание" maxLength="50" component={FormInput} validator={value => lengthValidator(value, 50)} />
                 </div>
                 <div className="form-group col-md-2">
                     {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
@@ -52,9 +74,10 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         />
                     </div>
                 </div>
-                <div className="form-group col-md-1 Contacts__custom-trash">
-                    <span onClick={() => handleRemove(item, index)} className="k-icon k-i-trash" />
+                {index > 0 && <div className="form-group col-md-1 Contacts__custom-trash">
+                    <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
                 </div>
+                }
             </div>)
         }
         {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ls from "local-storage";
 import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
@@ -21,7 +22,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-
 const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -32,18 +32,29 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        (() => Request({
+        (() => getUserInfo())();
+    }, []);
+
+    const getUserInfo = async needUpdateAvatar => {
+        setLoading(true);
+
+        await Request({
             url: endpointGetUserInfo + alias
         }, data => {
+            if(needUpdateAvatar) {
+                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            }
+
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-            setLoading(false);
         }, error => {
             console.log(error.response);
             setError(error.response);
-            setLoading(false);
-        }))();
-    }, [alias]);
+        });
+
+        setNeedRequest(true);
+        setLoading(false);
+    };
 
     return loading ?
         <Loading /> :
@@ -55,7 +66,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} />
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
                                 }
                                 <Card>
                                     <UserInfo
@@ -64,9 +75,11 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
+                                        updateInfo={getUserInfo}
                                     />
-                                    <UserMenu userNav={userNav(alias)} />
                                 </Card>
+                                <UserMenu userNav={userNav(alias)} />
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
@@ -86,16 +99,12 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} />
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
                             <UserDescription
-                                city_name={userInfo.address ? userInfo.address.city_name : ''}
-                                birthday_date={userInfo.personal_information.birth_date}
-                                emails={userInfo.emails}
-                                phones={userInfo.phones}
-                                site={userInfo.web_site}
-                                socials={userInfo.social_networks}
-                                description={userInfo.personal_information.description}
+                                mainInfo={userInfo.main_information}
+                                additionalInfo={userInfo.additional_information}
+								counters = {userInfo.counters}
                             />
                             {isMobile &&
                                 <>
@@ -116,6 +125,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     id={userInfo.profile_id}
                                     logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
+                                    userPage
                                 />
                             }
                             <UserNews

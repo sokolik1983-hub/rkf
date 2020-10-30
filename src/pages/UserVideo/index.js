@@ -12,13 +12,14 @@ import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "../User/config";
+import { endpointGetUserInfo, userNav } from "../User/config";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import Alert from "../../components/Alert";
 import "./index.scss";
+import ls from "local-storage";
 
 
 const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
@@ -37,20 +38,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        (() => Request({
-            url: endpointGetUserInfo + alias
-        }, data => {
-            data.email = data.emails.length ? data.emails[0].value : '';
-            data.phone = data.phones.length ? data.phones[0].value : '';
-
-            setUserInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            setError(error.response);
-            setLoading(false);
-        }))();
+        (() => getUserInfo())();
     }, [alias]);
 
     useEffect(() => {
@@ -61,6 +49,25 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                 setPageLoaded(true);
             });
     }, [params]);
+
+    const getUserInfo = async needUpdateAvatar => {
+        setLoading(true);
+
+        await Request({
+            url: endpointGetUserInfo + alias
+        }, data => {
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
+            }
+            setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+            setError(error.response);
+        })
+
+        setLoading(false);
+    };
 
     const getVideos = async startElem => {
         setVideosLoading(true);
@@ -146,18 +153,20 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} />
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                 }
                                 <Card>
                                     <UserInfo
+                                        canEdit={canEdit}
                                         logo_link={userInfo.logo_link}
                                         share_link={`https://rkf.online/user/${alias}`}
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                        second_name={userInfo.personal_information ? userInfo.personal_information.second_name : ''}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
+                                        updateInfo={getUserInfo}
                                     />
-                                    <UserMenu userNav={userNav(alias)} />
                                 </Card>
+                                <UserMenu userNav={userNav(alias)} />
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
@@ -172,7 +181,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link} />
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
                             {isMobile &&
                                 <UserPhotoGallery

@@ -25,7 +25,7 @@ const UserDescription = ({ description }) => {
         >Описание</h4>
         <section className="user-description__info">
             <Collapse isOpened={isOpen} ref={CollapseDescrRef}>{description}</Collapse>
-            {!isHidden && <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
+            {!isHidden && <a className={`user-description__show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}></a>}
         </section>
     </Card>
 };

@@ -1,6 +1,9 @@
 .UserEdit {
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
+    a:hover {
+        text-decoration: none;
+    }
     display: flex;
     justify-content: space-between;
     @media (max-width: 990px) {
@@ -18,14 +21,17 @@
     &__left {
         width: 300px;
         min-width: 300px;
-        margin: 16px 16px 0 0;
+        margin: 16px 16px 16px 0;
         @media (max-width: 990px) {
             width: 100%;
             min-width: auto;
-            margin-right: 0;
+            margin: 16px 0 0;
             & > div {
                 position: static !important;
             }
+        }
+        .Card {
+            padding: 10px !important;
         }
     }
     &__inner {
@@ -48,6 +54,9 @@
             &:hover {
                 color: #3366ff;
                 transition: all 0.2s linear;
+            }
+            &.active {
+                color: #3366ff;
             }
         }
         &-list {
@@ -74,7 +83,7 @@
         }
     }
     .Card {
-        margin: 10px 0;
+        margin: 10px 0 16px 0;
         padding: 25px;
         div {
             font-weight: normal;
@@ -92,6 +101,25 @@
             right: 5px;
             top: 48px;
             bottom: auto;
+        }
+    }
+    .k-icon-disabled {
+        opacity: 0.6;
+    }
+    p,
+    ul {
+        margin: 0;
+    }
+    a {
+        &.k-select {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    button {
+        &:focus {
+            outline: none;
         }
     }
 }

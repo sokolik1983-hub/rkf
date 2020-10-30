@@ -1,39 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
 import FormDatePicker from 'pages/UserEditKendo/components/FormDatePicker';
 import FormDropDownList from 'pages/UserEditKendo/components/FormDropDownList';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
-import { requiredValidator } from 'pages/UserEditKendo/validators';
+import { nameRequiredValidator, nameValidator } from "../../validators";
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSubmit, formBusy }) => {
+const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit }) => {
+    const [formProps, setFormProps] = useState(null);
+    const [formBusy, setFormBusy] = useState(false);
+    const today = new Date();
+
+    useEffect(() => {
+        document.querySelector('.FormDatePicker')
+            .querySelector('input.k-input').readOnly = true;
+    }, []);
+
+    useEffect(() => {
+        formProps && formProps.onFormReset();
+        setFormBusy(false);
+    }, [initialValues]);
+
     return <div className="MainInfo">
         <Form
-            onSubmit={data => handleSubmit(data, 'general')}
+            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'general') }}
             initialValues={initialValues}
             render={(formRenderProps) => {
-                setFormTouched(formRenderProps.touched);
+                setFormModified(formRenderProps.modified)
+                if (!formProps) setFormProps(formRenderProps);
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
-                        <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
+                        <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend'}>Основная информация</legend>
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="first_name" name={'first_name'} label={'Имя'} component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} validator={requiredValidator} />
+                                    <Field id="last_name" name={'last_name'} label={'Фамилия'} component={FormInput} maxLength="100" validator={value => nameRequiredValidator(value, 100)} />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-12">
-                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} />
+                                    <Field id="second_name" name={'second_name'} label={'Отчество'} component={FormInput} maxLength="100" validator={value => nameValidator(value, 100)} />
                                 </div>
                             </div>
 
@@ -43,8 +58,9 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                                         id="birth_date"
                                         name={'birth_date'}
                                         label={'Дата рождения'}
+                                        min={new Date('1900')}
+                                        max={today}
                                         component={FormDatePicker}
-                                        validator={requiredValidator}
                                     />
                                 </div>
                                 <div className="form-group col-md-6 no-label-field">
@@ -72,7 +88,7 @@ const MainInfo = ({ initialValues, setFormTouched, visibilityStatuses, handleSub
                             <button
                                 type={'submit'}
                                 className="k-button k-primary mx-auto"
-                                disabled={formBusy}
+                                disabled={!formRenderProps.modified || !formRenderProps.valid || formBusy}
                             >Сохранить</button>
                         </div>
                     </FormElement>

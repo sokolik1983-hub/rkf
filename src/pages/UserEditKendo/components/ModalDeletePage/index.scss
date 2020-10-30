@@ -39,6 +39,10 @@
   }
   .btn-light {
     border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    &:hover {
+      background-color: #e2e6ea;
+    }
   }
   &__img {
     display: block;
@@ -46,5 +50,18 @@
   }
   &__buttons {
     margin-top: 85px;
+  }
+  .btn {
+    padding: .375rem .75rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out;
+  }
+  .btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    &:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
   }
 }

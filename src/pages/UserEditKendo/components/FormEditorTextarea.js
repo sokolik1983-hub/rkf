@@ -4,6 +4,7 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label } from '@progress/kendo-react-labels';
 import { loadMessages, IntlProvider, LocalizationProvider } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -88,7 +89,7 @@ const FormEditorTextarea = (fieldRenderProps) => {
                         onChange={handleChange}
                         {...others}
                     />
-                    <div className="FormEditorTextarea__counter mt-1 text-right">{`осталось ${4096 - contentLength} знаков`}</div>
+                    <div className="k-form-hint k-text-end">{`осталось ${5000 - contentLength} знаков`}</div>
                 </div>
             </FieldWrapper>
         </IntlProvider>

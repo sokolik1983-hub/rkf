@@ -41,6 +41,7 @@ const FormDropDownList = (fieldRenderProps) => {
                 data={data}
                 onChange={onValueChange}
                 disabled={disabled}
+                dataItemKey="value"
                 {...others}
             />
             {
