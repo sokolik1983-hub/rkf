@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import StickyBox from "react-sticky-box";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
-import {Link, Redirect, useParams} from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import Card from "../../components/Card";
 import Alert from "../../components/Alert";
@@ -11,18 +11,18 @@ import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
-import {Gallery, AddPhotoModal} from "../../components/Gallery";
+import { Gallery, AddPhotoModal } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {Request} from "../../utils/request";
-import {connectAuthVisible} from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "../User/config";
+import { Request } from "../../utils/request";
+import { connectAuthVisible } from "../Login/connectors";
+import { endpointGetUserInfo, userNav } from "../User/config";
 import useIsMobile from "../../utils/useIsMobile";
-import {DEFAULT_IMG} from "../../appConfig";
+import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 import ls from "local-storage";
 
 
-const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthenticated}) => {
+const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [userInfo, setUserInfo] = useState({});
@@ -59,8 +59,8 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
         await Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -164,7 +164,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
     };
 
     return loading ?
-        <Loading/> :
+        <Loading /> :
         error ?
             <Redirect to="/404" /> :
             <Layout>
@@ -173,7 +173,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                 }
                                 <Card>
                                     <UserInfo
@@ -186,10 +186,7 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
-                                {!isMobile && <Card>
-                                    <UserMenu userNav={userNav(alias)} />
-                                </Card>}
-                                {isMobile && <UserMenu userNav={userNav(alias)} />}
+                                <UserMenu userNav={userNav(alias)} />
                                 {!isMobile &&
                                     <>
                                         <UserVideoGallery
@@ -197,14 +194,14 @@ const UserPhotosPage = ({history, match, profile_id, is_active_profile, isAuthen
                                             pageLink={`/user/${alias}/video`}
                                             canEdit={canEdit}
                                         />
-                                        <CopyrightInfo/>
+                                        <CopyrightInfo />
                                     </>
                                 }
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
                             {isMobile &&
                                 <UserVideoGallery

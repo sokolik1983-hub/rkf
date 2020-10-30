@@ -67,8 +67,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         await Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -201,7 +201,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <aside className="UserEdit__left">
                         <StickyBox offsetTop={66}>
                             {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser}/>
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
                             }
                             <Card>
                                 <UserInfo
@@ -214,10 +214,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     updateInfo={getUser}
                                 />
                             </Card>
-                            {!isMobile && <Card>
-                                <UserMenu userNav={userNav(alias)} />
-                            </Card>}
-                            {isMobile && <UserMenu userNav={userNav(alias)} />}
+                            <UserMenu userNav={userNav(alias)} />
                         </StickyBox>
                     </aside>
                     <div className="UserEdit__right">
@@ -237,7 +234,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                 key={key}
                                                 onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                             >
-                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`}/>
+                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`} />
                                                 <li>{sections[type].name}</li>
                                             </div>
                                             )}
