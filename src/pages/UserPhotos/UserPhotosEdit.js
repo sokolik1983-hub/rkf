@@ -50,8 +50,8 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
         return Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -180,7 +180,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                 <aside className="user-page__left">
                                     <StickyBox offsetTop={66}>
                                         {isMobile &&
-                                            <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                            <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                         }
                                         <Card>
                                             <UserInfo
@@ -193,10 +193,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        {!isMobile && <Card>
-                                            <UserMenu userNav={userNav(alias)} />
-                                        </Card>}
-                                        {isMobile && <UserMenu userNav={userNav(alias)} />}
+                                        <UserMenu userNav={userNav(alias)} />
                                         {!isMobile &&
                                             <>
                                                 <UserVideoGallery
@@ -210,7 +207,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                 </aside>
                                 <div className="user-page__right">
                                     {!isMobile &&
-                                        <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                        <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                     }
                                     {isMobile &&
                                         <UserVideoGallery

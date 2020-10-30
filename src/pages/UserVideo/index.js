@@ -12,7 +12,7 @@ import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import {endpointGetUserInfo, userNav} from "../User/config";
+import { endpointGetUserInfo, userNav } from "../User/config";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -56,8 +56,8 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
         await Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
@@ -153,7 +153,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                 }
                                 <Card>
                                     <UserInfo
@@ -166,10 +166,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
-                                {!isMobile && <Card>
-                                    <UserMenu userNav={userNav(alias)} />
-                                </Card>}
-                                {isMobile && <UserMenu userNav={userNav(alias)} />}
+                                <UserMenu userNav={userNav(alias)} />
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery
@@ -184,7 +181,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                         </aside>
                         <div className="user-page__right">
                             {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link}  canEdit={canEdit} updateInfo={getUserInfo}/>
+                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
                             {isMobile &&
                                 <UserPhotoGallery

@@ -4,6 +4,7 @@ import { FieldWrapper } from '@progress/kendo-react-form';
 import { Label } from '@progress/kendo-react-labels';
 import { loadMessages, IntlProvider, LocalizationProvider } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 

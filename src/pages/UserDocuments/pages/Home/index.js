@@ -13,7 +13,6 @@ import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
-import useIsMobile from "../../../../utils/useIsMobile";
 import "./index.scss";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "../../../User/config";
@@ -25,7 +24,6 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [userInfo, setUserInfo] = useState({});
     const linksArray = userNav(userAlias).map(item => item.to);
     const [canEdit, setCanEdit] = useState(false);
-    const isMobile = useIsMobile();
 
     //Костыль, пока нет раздела Оформление документов (потом убрать)
     if (history.location.pathname === `/user/${userAlias}/documents`) {
@@ -80,12 +78,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     updateInfo={getUserInfo}
                                 />
                             </Card>
-                            {!isMobile &&
-                                <Card>
-                                    <UserMenu userNav={userNav(userAlias)} />
-                                </Card>
-                            }
-                            {isMobile && <UserMenu userNav={userNav(userAlias)} />}
+                            <UserMenu userNav={userNav(userAlias)} />
                             <CopyrightInfo />
                         </StickyBox>
                     </aside>
