@@ -6,7 +6,7 @@ const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
-const nameRegexp = new RegExp(/^[-а-яА-ЯёЁa-zA-Z]+$/);
+const nameRegexp = new RegExp(/^[-а-яА-ЯёЁ]+$/);
 const requiredMessage = 'Обязательное поле';
 const noUnderscore = (value) => value.replaceAll('_', '');
 
@@ -40,14 +40,14 @@ export const lengthValidator = (value, maxLength) => value && value.length > max
 
 export const nameValidator = (value, maxLength) => !value ? "" : value.length > maxLength
     ? `Макс. кол-во символов: ${maxLength}`
-    : nameRegexp.test(value) ? "" : "Допускаются только буквы";
+    : nameRegexp.test(value) ? "" : "Допускается ввод только буквенных символов";
 export const nameRequiredValidator = (value, maxLength) => !value ?
     requiredMessage :
     value.length > maxLength
         ? `Макс. кол-во символов: ${maxLength}`
         : nameRegexp.test(value)
             ? ""
-            : "Допускаются только буквы";
+            : "Допускается ввод только буквенных символов";
 export const userNameValidator = (value) => !value ?
     "User Name is required" :
     value.length < 5 ? "User name should be at least 3 characters long." : "";

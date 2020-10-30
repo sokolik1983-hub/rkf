@@ -43,6 +43,7 @@ const FormDatePicker = (fieldRenderProps) => {
                             id={id}
                             disabled={disabled}
                             value={value ? new Date(value) : null}
+                            className="FormDatePicker"
                             {...others}
                         />
                     </IntlProvider>

@@ -10,6 +10,12 @@ import './styles.scss';
 const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit }) => {
     const [formProps, setFormProps] = useState(null);
     const [formBusy, setFormBusy] = useState(false);
+    const today = new Date();
+
+    useEffect(() => {
+        document.querySelector('.FormDatePicker')
+            .querySelector('input.k-input').readOnly = true;
+    }, []);
 
     useEffect(() => {
         formProps && formProps.onFormReset();
@@ -53,7 +59,7 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                         name={'birth_date'}
                                         label={'Дата рождения'}
                                         min={new Date('1900')}
-                                        max={new Date()}
+                                        max={today}
                                         component={FormDatePicker}
                                     />
                                 </div>
