@@ -40,6 +40,7 @@
   }
   &__logo {
     width: 100%;
+    display: block;
     @media (max-width: 990px) {
       width: 100px;
       min-width: 100px;
@@ -50,7 +51,7 @@
       object-fit: cover;
     }
   }
-  &__edit-btn {
+  &__edit-btn, &__delete-btn {
     padding: 0;
     border: none;
     border-radius: 50% !important;
@@ -61,8 +62,16 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 15px;
+  }
+  &__edit-btn {
+    left: 5px;
+  }
+  &__delete-btn {
+    right: 5px;
+    svg {
+      fill: red;
+    }
   }
   &__info {
     padding: 10px 0;
@@ -94,7 +103,7 @@
     &-enter,
     &-appear {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(10px);
     }
     &-enter-active,
     &-appear-active {
@@ -108,7 +117,7 @@
     }
     &-exit-active {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(10px);
       transition: opacity 0.2s, transform 0.2s;
     }
   }
