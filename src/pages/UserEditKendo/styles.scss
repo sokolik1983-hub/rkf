@@ -1,11 +1,9 @@
 .UserEdit {
+    $font-family: "Source Sans Pro", Helvetica, sans-serif;
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
     a:hover {
         text-decoration: none;
-    }
-    .k-button {
-        font-family: 'Source Sans Pro';
     }
     display: flex;
     justify-content: space-between;

@@ -41,8 +41,8 @@ const PlaceholderStyles =
         color: rgb(0, 0, 0, 0.6);
         cursor: text;
         height: 0;
-        font-size: 16px;
-        line-height: 18px;
+        font-size: 1rem;
+        line-height: 1.5;
     }`;
 
 
