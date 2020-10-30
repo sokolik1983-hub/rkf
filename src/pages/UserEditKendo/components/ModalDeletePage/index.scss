@@ -36,6 +36,15 @@
   }
   .k-form-buttons {
     justify-content: center;
+    &__delete {
+      background-color: red !important;
+      border-color: red !important;
+      opacity: 0.8;
+      &:hover {
+        opacity: 2;
+        transition: all 0.2s linear;
+      }
+    }
   }
   .btn-light {
     border: 1px solid #ced4da;
