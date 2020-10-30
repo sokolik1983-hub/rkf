@@ -4,6 +4,9 @@
     a:hover {
         text-decoration: none;
     }
+    .k-button {
+        font-family: 'Source Sans Pro';
+    }
     display: flex;
     justify-content: space-between;
     @media (max-width: 990px) {
