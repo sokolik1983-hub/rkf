@@ -16,7 +16,7 @@ import {
 } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, handleSubmit }) => {
+const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit }) => {
     const [formProps, setFormProps] = useState(null);
     const [formBusy, setFormBusy] = useState(false);
 
@@ -30,11 +30,11 @@ const Contacts = ({ initialValues, cities, setFormTouched, visibilityStatuses, h
             onSubmit={data => { setFormBusy(true); handleSubmit(data, 'contacts') }}
             initialValues={initialValues}
             render={(formRenderProps) => {
-                setFormTouched(formRenderProps.touched);
+                setFormModified(formRenderProps.modified);
                 if (!formProps) setFormProps(formRenderProps);
                 return (
                     <FormElement style={{ maxWidth: 550 }} >
-                        <Prompt when={formRenderProps.touched} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
+                        <Prompt when={formRenderProps.modified} message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны." />
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend'}>Контакты</legend>
                             <div className="form-row">

@@ -32,7 +32,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [cities, setCities] = useState([]);
     const [visibilityStatuses, setVisibilityStatuses] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const [formTouched, setFormTouched] = useState(false);
+    const [formModified, setFormModified] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
     const alias = match.params.id;
@@ -156,7 +156,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
             case 0:
                 return <MainInfo
                     initialValues={values.general}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                 />;
@@ -164,19 +164,19 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                 return <Contacts
                     initialValues={values.contacts}
                     cities={cities}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     visibilityStatuses={visibilityStatuses}
                     handleSubmit={handleSubmit}
                 />;
             case 2:
                 return <About
                     initialValues={values.about}
-                    setFormTouched={setFormTouched}
+                    setFormModified={setFormModified}
                     handleSubmit={handleSubmit}
                     handleError={handleError}
                 />;
             case 3:
-                return <Security setFormTouched={setFormTouched} history={history} />;
+                return <Security setFormModified={setFormModified} history={history} />;
             case 4:
                 return <DeletePage updateInfo={getInfo} />;
             default:
@@ -185,7 +185,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     }
 
     const handleSectionSwitch = (id) => {
-        if (formTouched) {
+        if (formModified) {
             window.confirm('Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны.') && setActiveSection(id);
         } else {
             setActiveSection(id);

@@ -11,12 +11,12 @@ const requiredMessage = 'Обязательное поле';
 const noUnderscore = (value) => value.replaceAll('_', '');
 
 export const requiredValidator = (value) => value ? "" : requiredMessage;
-export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите корректную ссылку";
+export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите ссылку в формате: http://example.com";
 export const numbersOnlyValidator = (value) => !value ? "" : numbersOnlyRegex.test(value) ? "" : "Только цифры";
 export const emailRequiredValidator = value => !value ?
     requiredMessage :
-    emailRegex.test(value) ? "" : "Неверный формат E-mail";
-export const emailValidator = (value, maxLength) => value ? emailRegex.test(value) && value.length < maxLength ? "" : "Неверный формат E-mail" : "";
+    emailRegex.test(value) ? "" : "Введите E-mail в формате: example@email.com";
+export const emailValidator = (value, maxLength) => value ? emailRegex.test(value) && value.length < maxLength ? "" : "Введите E-mail в формате: example@email.com" : "";
 export const postcodeValidator = (value) => !noUnderscore(value)
     ? ""
     : (noUnderscore(value).length < 6 || noUnderscore(value).length > 7)

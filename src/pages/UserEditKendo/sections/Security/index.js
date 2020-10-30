@@ -14,7 +14,7 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const Security = ({setFormTouched, history}) => {
+const Security = ({setFormModified, history}) => {
     const [loading, setLoading] = useState(true);
     const [alias, setAlias] = useState('');
     const [login, setLogin] = useState('');
@@ -146,11 +146,11 @@ const Security = ({setFormTouched, history}) => {
                 onSubmit={submitAliasForm}
                 initialValues={{alias}}
                 render={formRenderProps => {
-                    setFormTouched(formRenderProps.touched);
+                    setFormModified(formRenderProps.modified);
                     return (
                         <FormElement>
                             <Prompt
-                                when={formRenderProps.touched}
+                                when={formRenderProps.modified}
                                 message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны."
                             />
                             <div className="ue-security__row form-row">
@@ -185,11 +185,11 @@ const Security = ({setFormTouched, history}) => {
             <Form
                 onSubmit={submitLoginForm}
                 render={formRenderProps => {
-                    setFormTouched(formRenderProps.touched);
+                    setFormModified(formRenderProps.modified);
                     return (
                         <FormElement>
                             <Prompt
-                                when={formRenderProps.touched}
+                                when={formRenderProps.modified}
                                 message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны."
                             />
                             <div className="ue-security__row form-row">
@@ -228,11 +228,11 @@ const Security = ({setFormTouched, history}) => {
                 onSubmit={submitPasswordForm}
                 validator={validateConfirmPassword}
                 render={formRenderProps => {
-                    setFormTouched(formRenderProps.touched);
+                    setFormModified(formRenderProps.modified);
                     return (
                         <FormElement>
                             <Prompt
-                                when={formRenderProps.touched}
+                                when={formRenderProps.modified}
                                 message="Вы уверены, что хотите покинуть эту страницу? Все несохраненные изменения будут потеряны."
                             />
                             <div className="ue-security__row">
