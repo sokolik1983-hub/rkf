@@ -200,7 +200,9 @@ const UserContacts = ({
                         </p>
                     </div>
                 }</Collapse>
-                <Counter counters={counters}/>
+                {
+                    !!counters && <Counter counters = {counters}/>
+                }
             {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>
     );
