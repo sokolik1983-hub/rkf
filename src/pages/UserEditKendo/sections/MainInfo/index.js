@@ -53,6 +53,7 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
                                         name={'birth_date'}
                                         label={'Дата рождения'}
                                         min={new Date('1900')}
+                                        max={new Date()}
                                         component={FormDatePicker}
                                     />
                                 </div>
