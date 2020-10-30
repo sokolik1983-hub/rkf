@@ -25,7 +25,15 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="edit-banner-modal" showModal={true} handleClose={() => null}>
+        <Modal
+            className="edit-banner-modal"
+            showModal={true}
+            handleClose={() => null}
+            handleX={() => {
+                closeModal();
+                if(isChanged) updateInfo();
+            }}
+        >
             <div className="edit-banner-modal__content">
                 <h3 className="edit-banner-modal__title">Редактирование фото</h3>
                 <div className="edit-banner-modal__content">
