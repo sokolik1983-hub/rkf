@@ -1,0 +1,59 @@
+.delete-banner-modal {
+  & > div {
+    max-width: 600px;
+  }
+  .Modal__inner {
+    padding: 13px 20px 20px;
+    box-shadow: 0 4px 4px rgba(120, 153, 255, 0.1);
+  }
+  .Modal__close {
+    display: none;
+  }
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 8px;
+  }
+  &__describe {
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    margin: 50px 0;
+    @media (max-width: 560px) {
+      font-size: 16px;
+      line-height: 20px;
+      br {
+        display: none;
+      }
+    }
+    b {
+      color: #72839c;
+    }
+  }
+  .k-form-buttons {
+    justify-content: center;
+  }
+  .btn {
+    padding: .375rem .75rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out;
+  }
+  .btn-light {
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    &:hover {
+      background-color: #e2e6ea;
+    }
+  }
+  .btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    &:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  }
+}
