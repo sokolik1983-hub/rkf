@@ -6,7 +6,7 @@ const numbersOnlyRegex = new RegExp(/^\d+$/);
 const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
-const nameRegexp = new RegExp(/^[-а-яА-ЯёЁ]+$/);
+const nameRegexp = new RegExp(/^[-а-яА-ЯёЁa-zA-Z]+$/);
 const requiredMessage = 'Обязательное поле';
 const noUnderscore = (value) => value.replaceAll('_', '');
 
