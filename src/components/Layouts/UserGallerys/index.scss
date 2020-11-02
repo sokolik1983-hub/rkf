@@ -72,9 +72,9 @@
     padding: 0;
     font-size: 32px;
     color: #72839c;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
     &:hover {
-      color: #3366FF;
+      color: #3366ff;
     }
   }
   .Loading.inline {
@@ -84,9 +84,34 @@
   }
   .ReactGridGallery {
     overflow: hidden;
-    @media (min-width: 991px) {
-      &_tile-viewport {
-        width: 88px !important;
+    &_tile-viewport {
+      width: 88px !important;
+      @media (max-width: 330px) {
+        width: 83px !important;
+      }
+    }
+    &__wrap {
+      position: relative;
+      min-height: 372px;
+      max-width: 280px;
+      margin: auto;
+    }
+    &__placeholder {
+      position: absolute;
+      top: 0;
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+        margin: 2px;
+        height: 88px;
+        img {
+          height: 88px;
+          width: 88px;
+          object-fit: cover;
+          @media (max-width: 330px) {
+            width: 83px !important;
+          }
+        }
       }
     }
   }
