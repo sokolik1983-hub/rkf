@@ -23,7 +23,7 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
     return <>
         {
             value.map((item, index) => <div className="form-row" key={index}>
-                <div className="form-group col-md-1 About__custom-plus">
+                <div className="form-group col-md-1 d-none d-sm-block About__custom-plus">
                     {index === value.length - 1 && index < 4 && <div onClick={() => handleAdd(index)}>
                         <span
                             className={valuesArray[index].site && isArrayValid
@@ -32,13 +32,30 @@ const FormSocialsFieldArray = (fieldArrayRenderProps) => {
                         />
                     </div>}
                 </div>
-                <div className="form-group col-md-6">
-                    <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} maxLength="150" validator={valueValidator} />
+                <div className="form-group col-12 col-md-6">
+                    <div className="form-row">
+                        <div className="form-group col-1 d-block d-sm-none About__custom-plus">
+                            {index === value.length - 1 && index < 4 && <div onClick={() => handleAdd(index)}>
+                                <span
+                                    className={valuesArray[index].site && isArrayValid
+                                        ? "k-icon k-i-plus-circle"
+                                        : "k-icon k-i-plus-circle k-icon-disabled"}
+                                />
+                            </div>}
+                        </div>
+                        <div className="col-10 col-md-12">
+                            <Field name={`${id}[${index}].site`} placeholder="Введите ссылку на страницу" component={FormInput} maxLength="150" validator={valueValidator} />
+                        </div>
+                        {index > 0 && <div className="form-group col-1 d-block d-sm-none About__custom-trash">
+                            <span onClick={() => handleRemove(item, id, index)} className="k-icon k-i-trash" />
+                        </div>
+                        }
+                    </div>
                 </div>
                 <div className="form-group col-md-4">
                     <Field name={`${id}[${index}].description`} placeholder="Введите название" component={FormInput} maxLength="50" validator={value => lengthValidator(value, 50)} />
                 </div>
-                {index > 0 && <div className="form-group col-md-1 About__custom-trash">
+                {index > 0 && <div className="form-group col-md-1 d-none d-sm-block About__custom-trash">
                     <span onClick={() => handleRemove(item, index)} className="k-icon k-i-trash" />
                 </div>}
             </div>)
