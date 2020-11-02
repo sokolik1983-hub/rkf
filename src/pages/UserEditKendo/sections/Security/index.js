@@ -5,7 +5,6 @@ import {Button} from "@progress/kendo-react-buttons";
 import { getter } from '@progress/kendo-react-common';
 import ls from "local-storage";
 import Loading from "../../../../components/Loading";
-import Alert from "../../../../components/Alert";
 import FormInput from "../../components/FormInput";
 import ModalConfirmEmail from "../../components/ModalConfirmEmail";
 import ModalPasswordSuccess from "../../components/ModalPasswordSucces";
@@ -14,11 +13,10 @@ import {Request} from "../../../../utils/request";
 import "./index.scss";
 
 
-const Security = ({setFormModified, history}) => {
+const Security = ({setFormModified, history, handleSuccess, handleError}) => {
     const [loading, setLoading] = useState(true);
     const [alias, setAlias] = useState('');
     const [login, setLogin] = useState('');
-    const [alert, setAlert] = useState(null);
     const [aliasError, setAliasError] = useState('');
     const [newLogin, setNewLogin] = useState('');
     const [modalType, setModalType] = useState('');
@@ -26,21 +24,6 @@ const Security = ({setFormModified, history}) => {
     useEffect(() => {
         (() => getInfo())();
     }, []);
-
-    const handleError = e => {
-        if (e.response) {
-            const errorText = e.response.data.errors ?
-                Object.values(e.response.data.errors) :
-                `${e.response.status} ${e.response.statusText}`;
-
-            setAlert({
-                title: `Ошибка!`,
-                text: errorText,
-                autoclose: 7.5,
-                onOk: () => setAlert(null)
-            });
-        }
-    };
 
     const getInfo = async () => {
         setLoading(true);
@@ -69,11 +52,7 @@ const Security = ({setFormModified, history}) => {
             getInfo().then(() => {
                 history.replace(`/user/${data.alias}/edit`);
                 setLoading(false);
-                setAlert({
-                    title: "Информация сохранена!",
-                    autoclose: 2,
-                    onOk: () => setAlert(null)
-                });
+                handleSuccess();
             });
         }, error => {
             handleError(error);
@@ -298,7 +277,6 @@ const Security = ({setFormModified, history}) => {
                     closeModal={() => setModalType('')}
                 />
             }
-            {alert && <Alert {...alert} />}
         </div>
 };
 
