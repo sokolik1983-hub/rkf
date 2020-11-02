@@ -16,18 +16,16 @@ import {
 } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit }) => {
+const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit, formBusy }) => {
     const [formProps, setFormProps] = useState(null);
-    const [formBusy, setFormBusy] = useState(false);
 
     useEffect(() => {
         formProps && formProps.onFormReset();
-        setFormBusy(false);
     }, [initialValues]);
 
     return <div className="Contacts">
         <Form
-            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'contacts') }}
+            onSubmit={data => handleSubmit(data, 'contacts')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormModified(formRenderProps.modified);
