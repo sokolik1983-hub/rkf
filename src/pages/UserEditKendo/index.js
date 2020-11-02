@@ -176,7 +176,12 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     handleError={handleError}
                 />;
             case 3:
-                return <Security setFormModified={setFormModified} history={history} />;
+                return <Security
+                    setFormModified={setFormModified}
+                    history={history}
+                    handleSuccess={handleSuccess}
+                    handleError={handleError}
+                />;
             case 4:
                 return <DeletePage updateInfo={getInfo} />;
             default:
