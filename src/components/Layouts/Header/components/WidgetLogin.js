@@ -41,9 +41,11 @@ const WidgetLogin = forwardRef(
         };
 
         useEffect(() => {
-            (() => getUserInfo())();
+            if (userType === 1) {
+                (() => getUserInfo())();
+            }
         }, []);
-    
+
         const getUserInfo = async () => {
             await Request({
                 url: '/api/owners/owner/public_full/' + alias
