@@ -5,7 +5,6 @@ const Counter =({counters}) =>{
     return (
         !!counters &&
         <div className = "counter_component">
-            <hr></hr>
             <div className = "counter_component__body">
                 <div className = "counter_component__block">
                     <div className = "counter_component__count">

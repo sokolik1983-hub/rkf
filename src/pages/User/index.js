@@ -126,6 +126,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
                                     userPage
+                                    profileInfo = {userInfo}
+                                    setProfileInfo = {setUserInfo}
                                 />
                             }
                             <UserNews
@@ -133,6 +135,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 alias={alias}
                                 needRequest={needRequest}
                                 setNeedRequest={setNeedRequest}
+                                profileInfo = {userInfo}
+                                setProfileInfo = {setUserInfo}
                             />
                         </div>
                     </Container>
