@@ -38,7 +38,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend'}>Контакты</legend>
                             <div className="form-row">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">Адрес</div>
@@ -103,7 +103,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                             </div>
 
                             <div className="form-row mt-3">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">Телефон</div>
@@ -130,7 +130,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                             />
 
                             <div className="form-row mt-3">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">E-mail</div>
