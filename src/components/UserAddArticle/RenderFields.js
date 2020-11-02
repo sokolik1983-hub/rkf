@@ -16,7 +16,7 @@ import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 
 
-const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating, userPage}) => {
+const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating, userPage, setLoadFile }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -37,9 +37,11 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
+            setLoadFile(true);
         } else {
             formik.setFieldValue('file', '');
             setSrc('');
+            setLoadFile(false);
         }
     };
 
@@ -62,6 +64,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
     const handleClose = () => {
         formik.setFieldValue('file', '');
         setSrc('');
+        setLoadFile(false);
     };
 
     const handleKeyDown = e => {

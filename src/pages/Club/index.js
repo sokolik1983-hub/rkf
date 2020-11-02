@@ -108,6 +108,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             id={clubInfo.id}
                                             logo={clubInfo.logo_link}
                                             setNeedRequest={setNeedRequest}
+                                            profileInfo = {clubInfo}
+                                            setProfileInfo = {setClubInfo}
                                         />
                                     }
                                     <ClubUserNews
@@ -116,6 +118,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         alias={match.params.route}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
+                                        profileInfo = {clubInfo}
+                                        setProfileInfo = {setClubInfo}
                                     />
                                 </div>
                                 <Aside className="club-page__info">

@@ -123,6 +123,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         id={nursery.id}
                                         logo={nursery.logo_link}
                                         setNeedRequest={setNeedRequest}
+                                        profileInfo = {nursery}
+                                        setProfileInfo = {setNursery}
                                     />
                                 }
                                 <UserNews
@@ -131,6 +133,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     alias={alias}
                                     needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
+                                    profileInfo = {nursery}
+                                    setProfileInfo = {setNursery}
                                 />
                             </div>
                             <Aside className="nursery-page__info">
