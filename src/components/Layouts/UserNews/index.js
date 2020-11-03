@@ -9,7 +9,7 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, needRequest, setNeedRequest, first_name, last_name}) => {
+const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, profileInfo, first_name, last_name}) => {
     const [filters, setFilters] = useState(null);
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
