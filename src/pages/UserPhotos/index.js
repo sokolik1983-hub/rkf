@@ -203,13 +203,6 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                             {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
-                            {isMobile &&
-                                <UserVideoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/video`}
-                                    canEdit={canEdit}
-                                />
-                            }
                             <div className="NurseryGallery__content">
                                 <Card>
                                     <div className="NurseryGallery__breadcrumbs">

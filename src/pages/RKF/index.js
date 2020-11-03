@@ -75,6 +75,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             <MenuComponent
                                 alias="rkf"
                                 name={info.name}
+                                isFederation
                             />
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
