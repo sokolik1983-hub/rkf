@@ -8,7 +8,7 @@
   &__form {
     &-row {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       margin-bottom: 16px;
       @media (max-width: 560px) {
         display: block;
@@ -80,8 +80,7 @@
     }
     &-add-row {
       text-align: right;
-      margin-right: 10px;
-      margin-bottom: 10px;
+      margin: 39px 10px 10px 0;
       &-btn {
         border: none;
         padding: 0;

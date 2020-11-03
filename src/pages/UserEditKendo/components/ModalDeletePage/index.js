@@ -75,7 +75,18 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-page-modal" showModal={true} handleClose={() => null}>
+        <Modal
+            className="delete-page-modal"
+            showModal={true}
+            handleClose={() => null}
+            handleX={isAnswer ?
+                closeModal :
+                () => {
+                    updateInfo();
+                    closeModal();
+                }
+            }
+        >
             <div className="delete-page-modal__content">
                 <h3 className="delete-page-modal__title">Удаление страницы</h3>
                 {loading ?

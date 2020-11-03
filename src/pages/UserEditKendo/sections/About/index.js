@@ -7,9 +7,8 @@ import { urlValidator } from 'pages/UserEditKendo/validators';
 import FormSocialsFieldArray from 'pages/UserEditKendo/components/FormSocialsFieldArray';
 import './styles.scss';
 
-const About = ({ initialValues, setFormModified, handleSubmit }) => {
+const About = ({ initialValues, setFormModified, handleSubmit, formBusy }) => {
     const [formProps, setFormProps] = useState(null);
-    const [formBusy, setFormBusy] = useState(false);
 
     useEffect(() => {
         formProps && formProps.onFormReset();
@@ -17,7 +16,7 @@ const About = ({ initialValues, setFormModified, handleSubmit }) => {
 
     return <div className="About">
         <Form
-            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'about') }}
+            onSubmit={data => handleSubmit(data, 'about')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormModified(formRenderProps.modified);

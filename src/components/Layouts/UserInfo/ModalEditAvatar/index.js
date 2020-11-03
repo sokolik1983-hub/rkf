@@ -25,7 +25,15 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="edit-avatar-modal" showModal={true} handleClose={() => null}>
+        <Modal
+            className="edit-avatar-modal"
+            showModal={true}
+            handleClose={() => null}
+            handleX={() => {
+                closeModal();
+                if(isChanged) updateInfo();
+            }}
+        >
             <div className="edit-avatar-modal__content">
                 <h3 className="edit-avatar-modal__title">Редактирование фото</h3>
                 <div className="edit-avatar-modal__content">

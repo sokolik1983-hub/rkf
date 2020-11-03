@@ -14,7 +14,20 @@
         background-position: center;
         background-repeat: no-repeat;
     }
+    .k-state-active.k-button-icon {
+        background-image: url('/static/icons/icon-italic-white.svg');
+    }
+    .k-state-active.k-group-start {
+        background-image: url('/static/icons/icon-bold-white.svg');
+    }
+    .k-state-active.k-group-end {
+        background-image: url('/static/icons/icon-underline-white.svg');
+    }
     .k-icon {
         display: none !important;
+    }
+    .k-state-active {
+        border-color: #3366ff !important;
+        background-color: #3366ff !important;
     }
 }

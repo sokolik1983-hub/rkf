@@ -135,8 +135,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 alias={alias}
                                 needRequest={needRequest}
                                 setNeedRequest={setNeedRequest}
-                                profileInfo = {userInfo}
-                                setProfileInfo = {setUserInfo}
+                                first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                             />
                         </div>
                     </Container>

@@ -9,7 +9,7 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, needRequest, setNeedRequest, profileInfo, setProfileInfo }) => {
+const UserNews = ({canEdit, alias, needRequest, setNeedRequest, first_name, last_name}) => {
     const [filters, setFilters] = useState(null);
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -136,6 +136,8 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, profileInfo, set
                     removable={canEdit}
                     onAdClose={closeAd}
                     onDelete={deleteArticle}
+                    first_name={first_name}
+                    last_name={last_name}
                 />
             </InfiniteScroll>
         </div>

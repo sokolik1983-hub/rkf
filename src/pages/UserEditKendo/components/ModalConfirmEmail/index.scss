@@ -7,7 +7,10 @@
     box-shadow: 0 4px 4px rgba(120, 153, 255, 0.1);
   }
   .Modal__close {
-    display: none;
+    width: 16px;
+    height: 16px;
+    top: 8px;
+    right: 8px;
   }
   &__title {
     font-weight: normal;

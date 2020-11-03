@@ -53,7 +53,18 @@ const ModalConfirmEmail = ({email, closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="confirm-email-modal" showModal={true} handleClose={() => null}>
+        <Modal
+            className="confirm-email-modal"
+            showModal={true}
+            handleClose={() => null}
+            handleX={!isSuccess ?
+                closeModal :
+                () => {
+                    updateInfo();
+                    closeModal();
+                }
+            }
+        >
             <div className="confirm-email-modal__content">
                 <h3 className="confirm-email-modal__title">Изменение логина</h3>
                 {loading ?

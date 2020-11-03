@@ -149,11 +149,6 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
                                             />
-                                            <UserPhotoGallery
-                                                alias={clubInfo.club_alias}
-                                                pageLink={`/${clubInfo.club_alias}/gallery`}
-                                                canEdit={canEdit}
-                                            />
                                         </>
                                     }
                                     <div className="ClubVideo__content">

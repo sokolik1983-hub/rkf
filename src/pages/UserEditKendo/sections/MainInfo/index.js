@@ -7,9 +7,8 @@ import FormInput from 'pages/UserEditKendo/components/FormInput';
 import { nameRequiredValidator, nameValidator } from "../../validators";
 import './styles.scss';
 
-const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit }) => {
+const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSubmit, formBusy }) => {
     const [formProps, setFormProps] = useState(null);
-    const [formBusy, setFormBusy] = useState(false);
     const today = new Date();
 
     useEffect(() => {
@@ -19,12 +18,11 @@ const MainInfo = ({ initialValues, setFormModified, visibilityStatuses, handleSu
 
     useEffect(() => {
         formProps && formProps.onFormReset();
-        setFormBusy(false);
     }, [initialValues]);
 
     return <div className="MainInfo">
         <Form
-            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'general') }}
+            onSubmit={data => handleSubmit(data, 'general')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormModified(formRenderProps.modified)

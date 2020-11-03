@@ -31,21 +31,23 @@ const UserBanner = ({link, canEdit, updateInfo}) => {
                             <SvgIcon icon={pencil} size="default" />
                         </button>
                     </CSSTransition>
-                    <CSSTransition
-                        in={hover}
-                        timeout={350}
-                        classNames="user-banner__transition"
-                        unmountOnExit
-                    >
-                        <button
-                            className="user-banner__delete-btn"
-                            type="button"
-                            title="Удалить"
-                            onClick={() => setModalType('delete')}
+                    {link &&
+                        <CSSTransition
+                            in={hover}
+                            timeout={350}
+                            classNames="user-banner__transition"
+                            unmountOnExit
                         >
-                            <SvgIcon icon={trash} size="default" />
-                        </button>
-                    </CSSTransition>
+                            <button
+                                className="user-banner__delete-btn"
+                                type="button"
+                                title="Удалить"
+                                onClick={() => setModalType('delete')}
+                            >
+                                <SvgIcon icon={trash} size="default"/>
+                            </button>
+                        </CSSTransition>
+                    }
                 </>
             }
             {link &&

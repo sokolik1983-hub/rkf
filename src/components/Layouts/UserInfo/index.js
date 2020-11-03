@@ -35,21 +35,23 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                                     <SvgIcon icon={pencil} size="default" />
                                 </button>
                             </CSSTransition>
-                            <CSSTransition
-                                in={hover}
-                                timeout={350}
-                                classNames="user-info__transition"
-                                unmountOnExit
-                            >
-                                <button
-                                    className="user-info__delete-btn"
-                                    type="button"
-                                    title="Удалить"
-                                    onClick={() => setModalType('delete')}
+                            {logo_link &&
+                                <CSSTransition
+                                    in={hover}
+                                    timeout={350}
+                                    classNames="user-info__transition"
+                                    unmountOnExit
                                 >
-                                    <SvgIcon icon={trash} size="default" />
-                                </button>
-                            </CSSTransition>
+                                    <button
+                                        className="user-info__delete-btn"
+                                        type="button"
+                                        title="Удалить"
+                                        onClick={() => setModalType('delete')}
+                                    >
+                                        <SvgIcon icon={trash} size="default"/>
+                                    </button>
+                                </CSSTransition>
+                            }
                         </>
                     }
                     <img className="user-info__logo" src={logo_link ? logo_link : DEFAULT_IMG.userAvatar} alt="" />

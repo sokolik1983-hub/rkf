@@ -19,10 +19,10 @@ const UserDescription = ({mainInfo, additionalInfo, counters}) => {
 
         if(addressObj) {
             if (addressObj.postcode) address += `${addressObj.postcode}, `;
-            if (addressObj.city_name) address += `${addressObj.city_name}, `;
-            if (addressObj.street_name) address += `${addressObj.street_name}, `;
-            if (addressObj.house_name) address += `д. ${addressObj.house_name}, `;
-            if (addressObj.building_name) address += `стр. ${addressObj.building_name}, `;
+            if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name && `, `}`;
+            if (addressObj.street_name) address += `${addressObj.street_name}${addressObj.house_name && `, `}`;
+            if (addressObj.house_name) address += `д. ${addressObj.house_name}${addressObj.building_name && `, `}`;
+            if (addressObj.building_name) address += `стр. ${addressObj.building_name}${addressObj.flat_name && `, `}`;
             if (addressObj.flat_name) address += `кв. ${addressObj.flat_name}`;
         }
 

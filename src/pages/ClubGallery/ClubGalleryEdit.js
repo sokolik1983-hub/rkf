@@ -196,11 +196,6 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                     federationName={clubInfo.federation_name}
                                                     federationAlias={clubInfo.federation_alias}
                                                 />
-                                                <UserVideoGallery
-                                                    alias={clubInfo.club_alias}
-                                                    pageLink={`/${clubInfo.club_alias}/video`}
-                                                    canEdit={canEdit}
-                                                />
                                             </>
                                         }
                                         <div className="ClubGallery__content">

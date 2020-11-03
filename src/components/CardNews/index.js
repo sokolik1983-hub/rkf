@@ -36,7 +36,9 @@ const CardNews = forwardRef(({
     isClosedAd,
     videoLink,
     documents,
-    changeCityFilter
+    changeCityFilter,
+    first_name,
+    last_name
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -80,7 +82,7 @@ const CardNews = forwardRef(({
                                             &nbsp;
                                         </>
                                     }
-                                    {name}
+                                    {user === 1 ? first_name + ' ' + last_name : name}
                                 </Link>
                                 <span>{formatDateTime(date)}</span>
                             </span>

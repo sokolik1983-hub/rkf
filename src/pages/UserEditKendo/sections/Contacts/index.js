@@ -16,18 +16,16 @@ import {
 } from 'pages/UserEditKendo/validators';
 import './styles.scss';
 
-const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit }) => {
+const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, handleSubmit, formBusy }) => {
     const [formProps, setFormProps] = useState(null);
-    const [formBusy, setFormBusy] = useState(false);
 
     useEffect(() => {
         formProps && formProps.onFormReset();
-        setFormBusy(false);
     }, [initialValues]);
 
     return <div className="Contacts">
         <Form
-            onSubmit={data => { setFormBusy(true); handleSubmit(data, 'contacts') }}
+            onSubmit={data => handleSubmit(data, 'contacts')}
             initialValues={initialValues}
             render={(formRenderProps) => {
                 setFormModified(formRenderProps.modified);
@@ -38,7 +36,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                         <fieldset className={'k-form-fieldset'}>
                             <legend className={'k-form-legend'}>Контакты</legend>
                             <div className="form-row">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">Адрес</div>
@@ -103,7 +101,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                             </div>
 
                             <div className="form-row mt-3">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">Телефон</div>
@@ -130,7 +128,7 @@ const Contacts = ({ initialValues, cities, setFormModified, visibilityStatuses, 
                             />
 
                             <div className="form-row mt-3">
-                                <div className="form-group col-md-6">
+                                <div className="form-group col-md-8">
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="Contacts__custom-label">E-mail</div>

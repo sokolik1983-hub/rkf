@@ -5,7 +5,7 @@ import "./index.scss";
 
 
 const ModalPasswordSuccess = ({closeModal}) => (
-    <Modal className="password-success-modal" showModal={true} handleClose={() => null}>
+    <Modal className="password-success-modal" showModal={true} handleClose={() => null} handleX={closeModal}>
         <div className="password-success-modal__content">
             <h3 className="password-success-modal__title">Изменение пароля</h3>
             <img src="/static/images/edit/dog-left.svg" className="password-success-modal__img" alt="собака"/>

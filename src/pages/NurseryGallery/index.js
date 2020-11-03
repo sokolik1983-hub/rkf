@@ -192,11 +192,6 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                                                     </ul>
                                                 </Card>
                                             }
-                                            <UserVideoGallery
-                                                alias={alias}
-                                                pageLink={`/kennel/${alias}/video`}
-                                                canEdit={canEdit}
-                                            />
                                         </>
                                     }
                                     <div className="NurseryGallery__content">
