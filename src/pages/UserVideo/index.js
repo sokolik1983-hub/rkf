@@ -183,13 +183,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                             {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                             }
-                            {isMobile &&
-                                <UserPhotoGallery
-                                    alias={alias}
-                                    pageLink={`/user/${alias}/gallery`}
-                                    canEdit={canEdit}
-                                />
-                            }
                             <Card>
                                 <Breadcrumbs />
                                 {
