@@ -226,3 +226,8 @@ export const LoadableConfirmPasswordFailed = Loadable({
     loader: () => import('./pages/ConfirmPassword/ConfirmFailed'),
     loading: Loading
 });
+
+export const LoadableUploadedDocuments = Loadable({
+    loader: () => import('./pages/UploadedDocuments'),
+    loading: Loading
+});

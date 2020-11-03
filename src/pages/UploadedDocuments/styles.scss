@@ -1,0 +1,129 @@
+.UserEdit {
+    $font-family: "Source Sans Pro", Helvetica, sans-serif;
+    @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
+    @import "~bootstrap/scss/bootstrap.scss";
+    a:hover {
+        text-decoration: none;
+    }
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 990px) {
+        display: block;
+    }
+    &__right {
+        width: calc(100% - 316px);
+        margin-top: 16px;
+        @media (max-width: 990px) {
+            width: 100%;
+            margin-top: 0;
+            padding-bottom: 1px;
+        }
+    }
+    &__left {
+        width: 300px;
+        min-width: 300px;
+        margin: 16px 16px 16px 0;
+        @media (max-width: 990px) {
+            width: 100%;
+            min-width: auto;
+            margin: 16px 0 0;
+            & > div {
+                position: static !important;
+            }
+        }
+        .Card {
+            padding: 10px !important;
+        }
+    }
+    &__inner {
+        display: flex;
+        @media (max-width: 560px) {
+            flex-direction: column-reverse;
+        }
+        &-item {
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            color: #72839c;
+            .k-icon-32 {
+                font-size: 20px;
+            }
+            .k-icon {
+                position: relative;
+                top: 2px;
+            }
+            &:hover {
+                color: #3366ff;
+                transition: all 0.2s linear;
+            }
+            &.active {
+                color: #3366ff;
+            }
+        }
+        &-list {
+            list-style: none;
+            margin-bottom: 0;
+            & li {
+                margin-left: 6px;
+                margin-top: 10px;
+            }
+        }
+        &-left {
+            width: 550px;
+            margin-right: 16px;
+            @media (max-width: 560px) {
+                width: auto;
+                margin: 0;
+            }
+        }
+        &-right {
+            flex-grow: 1;
+        }
+        .Card {
+            padding: 12px !important;
+        }
+    }
+    .Card {
+        margin: 10px 0 16px 0;
+        padding: 25px;
+        div {
+            font-weight: normal;
+        }
+
+        @media (max-width: 560px) {
+            padding: 16px;
+        }
+    }
+    .k-notification-group {
+        right: 8px;
+        bottom: 55px;
+        @media (max-width: 560px) {
+            left: 5px;
+            right: 5px;
+            top: 48px;
+            bottom: auto;
+        }
+    }
+    .k-icon-disabled {
+        opacity: 0.6;
+    }
+    p,
+    ul {
+        margin: 0;
+    }
+    a {
+        &.k-select {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    button {
+        &:focus {
+            outline: none;
+        }
+    }
+    .user-nav__button {
+        border-radius: 50%;
+    }
+}
