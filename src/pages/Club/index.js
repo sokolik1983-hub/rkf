@@ -23,7 +23,6 @@ import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-
 const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
