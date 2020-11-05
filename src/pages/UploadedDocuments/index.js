@@ -26,7 +26,7 @@ import ls from "local-storage";
 import './styles.scss';
 
 
-const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const UploadedDocuments = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
@@ -209,8 +209,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         : errorRedirect
             ? <Redirect to="/404" />
             : <Layout>
-                <Container className="UserEdit content">
-                    <aside className="UserEdit__left">
+                <Container className="UploadedDocuments content">
+                    <aside className="UploadedDocuments__left">
                         <StickyBox offsetTop={66}>
                             {isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
@@ -229,20 +229,20 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                             <UserMenu userNav={userNav(alias)} />
                         </StickyBox>
                     </aside>
-                    <div className="UserEdit__right">
+                    <div className="UploadedDocuments__right">
                         {!loaded
                             ? <Loading />
-                            : <div className="UserEdit__inner">
-                                <div className="UserEdit__inner-left">
+                            : <div className="UploadedDocuments__inner">
+                                <div className="UploadedDocuments__inner-left">
                                     <Card>
                                         {renderSection(activeSection)}
                                     </Card>
                                 </div>
-                                <div className="UserEdit__inner-right">
+                                <div className="UploadedDocuments__inner-right">
                                     <Card>
-                                        <ul className="UserEdit__inner-list">
+                                        <ul className="UploadedDocuments__inner-list">
                                             {Object.keys(sections).map((type, key) => <div
-                                                className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}
+                                                className={sections[type].id === activeSection ? "UploadedDocuments__inner-item active" : "UploadedDocuments__inner-item"}
                                                 key={key}
                                                 onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
                                             >
@@ -286,4 +286,4 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     )
 };
 
-export default React.memo(connectAuthVisible(UserEdit));
+export default React.memo(connectAuthVisible(UploadedDocuments));
