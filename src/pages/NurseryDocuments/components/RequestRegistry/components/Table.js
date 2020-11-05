@@ -78,7 +78,7 @@ const Table = ({ documents, distinction, height }) => {
                                 style={{ height: height ? height : "700px" }}>
                                 <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field="date_change" title="Изменение статуса" width="170px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                                <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="140px" columnMenu={ColumnMenu} />
+                                <GridColumn field={`${distinction}_request_id`} title="№ пакета" width="140px" columnMenu={ColumnMenu} />
                                 <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" columnMenu={ColumnMenu} />
                                 <GridColumn field="nursery_name" title="Питомник" width="150px" columnMenu={ColumnMenu} />
                                 <GridColumn field="count_of_litter" title="Щенков" width="100px" columnMenu={ColumnMenu} />
@@ -97,7 +97,7 @@ const Table = ({ documents, distinction, height }) => {
                                 onDataStateChange={handleGridDataChange}
                                 style={{ height: height ? height : "700px" }}>
                                 <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                                <GridColumn field={`${distinction}_request_id`} title="Номер пакета" width="140px" columnMenu={ColumnMenu} />
+                                <GridColumn field={`${distinction}_request_id`} title="№ пакета" width="140px" columnMenu={ColumnMenu} />
                                 <GridColumn field="owner_full_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
                                 <GridColumn field="breeder_full_name" title="ФИО заводчика" width="150px" columnMenu={ColumnMenu} />
                                 <GridColumn field="dog_name" title="Кличка" width="150px" columnMenu={ColumnMenu} />
