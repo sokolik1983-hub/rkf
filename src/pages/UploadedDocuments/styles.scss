@@ -60,27 +60,60 @@
                 color: #3366ff;
             }
         }
-        &-list {
-            list-style: none;
-            margin-bottom: 0;
-            & li {
-                margin-left: 6px;
-                margin-top: 10px;
-            }
-        }
         &-left {
             width: 550px;
             margin-right: 16px;
+            flex-shrink: 0;
             @media (max-width: 560px) {
                 width: auto;
                 margin: 0;
             }
+            .Card {
+                word-break: break-all;
+            }
         }
         &-right {
             flex-grow: 1;
+            @media (min-width: 560px) {
+                max-width: 302px;
+            }
         }
         .Card {
             padding: 12px !important;
+        }
+    }
+    &__category {
+        &-item {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            & > a {
+                display: block;
+                cursor: pointer;
+                align-items: baseline;
+                color: #72839c;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:hover {
+                    color: #3366ff;
+                    transition: all 0.2s linear;
+                }
+            }
+            &.active {
+                & > a {
+                    color: #3366ff;
+                }
+            }
+            &:hover {
+                & > .UploadedDocuments__category-controls {
+                    display: block;
+                }
+            }
+        }
+        &-controls {
+            display: none;
+            flex-shrink: 0;
         }
     }
     .Card {
@@ -125,5 +158,28 @@
     }
     .user-nav__button {
         border-radius: 50%;
+    }
+    h3.UploadedDocuments__category-form-title {
+        line-height: 1;
+        letter-spacing: 0.2px;
+        color: #3366ff;
+        font-size: 16px;
+    }
+    &__edit-btn,
+    &__delete-btn {
+        padding: 0;
+        border: none;
+        width: 24px;
+        height: 24px;
+    }
+    &__edit-btn {
+        svg {
+            fill: #72839c !important;
+        }
+    }
+    &__delete-btn {
+        svg {
+            fill: red !important;
+        }
     }
 }
