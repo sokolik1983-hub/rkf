@@ -68,7 +68,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         {
                                             clubInfo.is_active
                                                 ? <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                                : <div className="club-page__content-banner-inactive"/>
+                                                : <div className="club-page__content-banner-inactive" />
                                         }
                                     </Card>
                                     {isMobile &&
@@ -140,7 +140,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         pageLink={`/${clubInfo.club_alias}/video`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo/>
+                                                    <CopyrightInfo />
                                                 </>
                                             }
                                         </div>
