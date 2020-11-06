@@ -5,7 +5,7 @@ import { pencil, trash } from "@progress/kendo-svg-icons";
 import ModalDeleteCategory from './ModalDeleteCategory';
 import ModalEditCategory from './ModalEditCategory';
 
-const CategoriesList = ({ categories, handleError, handleSuccess, getCategories, activeCategoryId, startPage }) => {
+const CategoriesList = ({ canEdit, categories, handleError, handleSuccess, getCategories, activeCategoryId, startPage }) => {
     const [modal, setModal] = useState({});
     const isActive = (value) => activeCategoryId === value ? "UploadedDocuments__category-item active" : "UploadedDocuments__category-item";
 
@@ -22,7 +22,7 @@ const CategoriesList = ({ categories, handleError, handleSuccess, getCategories,
                 key={key} >
                 <Link to={`${id}`}>{name}</Link>
                 {
-                    id > 0 && <div className="UploadedDocuments__category-controls">
+                    canEdit && id > 0 && <div className="UploadedDocuments__category-controls">
                         <button
                             className="UploadedDocuments__edit-btn"
                             type="button"

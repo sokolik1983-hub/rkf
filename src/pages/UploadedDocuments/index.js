@@ -126,39 +126,39 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                             ? <Loading />
                             : <div className="UploadedDocuments__inner">
                                 <div className="UploadedDocuments__inner-left">
-                                    <Card>
-                                        <Switch>
-                                            <Route
-                                                exact={true}
-                                                path={'/:user?/:route/uploaded-documents/'}
-                                                component={({ match }) =>
-                                                    <AllCategories
-                                                        match={match}
-                                                        setActiveCategoryId={setActiveCategoryId}
-                                                        documents={documents}
-                                                    />}
-                                            />
-                                            <Route
-                                                exact={true}
-                                                path={'/:user?/:route/uploaded-documents/:id'}
-                                                component={({ match }) =>
-                                                    <Category
-                                                        match={match}
-                                                        setActiveCategoryId={setActiveCategoryId}
-                                                        categories={categories}
-                                                        documents={documents}
-                                                    />}
-                                            />
-                                        </Switch>
-
-                                    </Card>
+                                    <Switch>
+                                        <Route
+                                            exact={true}
+                                            path={'/:user?/:route/uploaded-documents/'}
+                                            component={({ match }) =>
+                                                <AllCategories
+                                                    match={match}
+                                                    setActiveCategoryId={setActiveCategoryId}
+                                                    documents={documents}
+                                                />}
+                                        />
+                                        <Route
+                                            exact={true}
+                                            path={'/:user?/:route/uploaded-documents/:id'}
+                                            component={({ match }) =>
+                                                <Category
+                                                    match={match}
+                                                    setActiveCategoryId={setActiveCategoryId}
+                                                    categories={categories}
+                                                    documents={documents}
+                                                />}
+                                        />
+                                    </Switch>
                                 </div>
                                 <div className="UploadedDocuments__inner-right">
                                     <Card>
-                                        <h3 className="UploadedDocuments__category-form-title">Создать категорию</h3>
-                                        <CreateCategoryForm getCategories={getCategories} handleSuccess={handleSuccess} handleError={handleError} />
-                                        <hr />
+                                        {canEdit && <>
+                                            <h3 className="UploadedDocuments__category-form-title">Создать категорию</h3>
+                                            <CreateCategoryForm getCategories={getCategories} handleSuccess={handleSuccess} handleError={handleError} />
+                                            <hr />
+                                        </>}
                                         <CategoriesList
+                                            canEdit={canEdit}
                                             categories={categories}
                                             handleError={handleError}
                                             handleSuccess={handleSuccess}
