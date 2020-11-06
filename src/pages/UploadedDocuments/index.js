@@ -17,9 +17,12 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import AllCategories from './components/AllCategories';
 import CreateCategoryForm from './components/CreateCategoryForm';
 import CategoriesList from './components/CategoriesList';
-import Category from './components/Category';
+import CategoryPage from './CategoryPage';
 import { Route, Switch } from "react-router-dom";
 import { Fade } from '@progress/kendo-react-animation';
+import ModalEditCategory from './components/ModalEditCategory';
+import ModalDeleteCategory from './components/ModalDeleteCategory';
+import ModalDeleteDocument from './components/ModalDeleteDocument';
 import ls from "local-storage";
 import './styles.scss';
 
@@ -39,6 +42,8 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
     const [categories, setCategories] = useState([]);
     const [documents, setDocuments] = useState([]);
     const [activeCategoryId, setActiveCategoryId] = useState(null);
+    const [modal, setModal] = useState({});
+    const homePage = location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1);
 
     useEffect(() => {
         Promise.all([getUser(), getCategories(), getDocuments()])
@@ -84,9 +89,18 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
 
     const handleError = e => {
         if (e.response) {
-            let message = e.response.data.errors
-                ? Object.values(e.response.data.errors)
-                : `${e.response.status} ${e.response.statusText}`;
+            let message;
+            if (e.response.data) {
+                message = e.response.data.errors
+                    ? Object.values(e.response.data.errors)
+                    : `${e.response.status} ${e.response.statusText}`;
+            } else if (e.response.errors) {
+                message = e.response.errors
+                    ? Object.values(e.response.errors)
+                    : `${e.response.status} ${e.response.statusText}`;
+            } else {
+                message = 'Произошла ошибка';
+            }
             setErrorMessage(message);
             setError(true);
             !error && setTimeout(() => {
@@ -133,19 +147,33 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                                             component={({ match }) =>
                                                 <AllCategories
                                                     match={match}
+                                                    canEdit={canEdit}
+                                                    activeCategoryId={activeCategoryId}
                                                     setActiveCategoryId={setActiveCategoryId}
+                                                    categories={categories}
                                                     documents={documents}
+                                                    setModal={setModal}
+                                                    getDocuments={getDocuments}
+                                                    handleError={handleError}
+                                                    handleSuccess={handleSuccess}
+                                                    homePage={homePage}
                                                 />}
                                         />
                                         <Route
                                             exact={true}
                                             path={'/:user?/:route/uploaded-documents/:id'}
                                             component={({ match }) =>
-                                                <Category
+                                                <CategoryPage
                                                     match={match}
+                                                    canEdit={canEdit}
                                                     setActiveCategoryId={setActiveCategoryId}
                                                     categories={categories}
                                                     documents={documents}
+                                                    setModal={setModal}
+                                                    getDocuments={getDocuments}
+                                                    handleError={handleError}
+                                                    handleSuccess={handleSuccess}
+                                                    homePage={homePage}
                                                 />}
                                         />
                                     </Switch>
@@ -159,12 +187,13 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                                         </>}
                                         <CategoriesList
                                             canEdit={canEdit}
+                                            setModal={setModal}
                                             categories={categories}
                                             handleError={handleError}
                                             handleSuccess={handleSuccess}
                                             getCategories={getCategories}
                                             activeCategoryId={activeCategoryId}
-                                            startPage={location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1)}
+                                            homePage={homePage}
                                         />
                                     </Card>
                                 </div>
@@ -196,6 +225,32 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                             </Notification>}
                         </Fade>
                     </NotificationGroup>
+                    {modal.type === 'editCategory' &&
+                        <ModalEditCategory
+                            handleError={handleError}
+                            handleSuccess={handleSuccess}
+                            getCategories={getCategories}
+                            categoryId={modal.categoryId}
+                            categoryName={modal.categoryName}
+                            closeModal={() => setModal({})}
+                        />
+                    }
+                    {modal.type === 'deleteCategory' &&
+                        <ModalDeleteCategory handleError={handleError}
+                            handleSuccess={handleSuccess}
+                            getCategories={getCategories}
+                            categoryId={modal.categoryId}
+                            closeModal={() => setModal({})}
+                        />
+                    }
+                    {modal.type === 'deleteDocument' &&
+                        <ModalDeleteDocument handleError={handleError}
+                            handleSuccess={handleSuccess}
+                            getDocuments={getDocuments}
+                            documentId={modal.documentId}
+                            closeModal={() => setModal({})}
+                        />
+                    }
                 </Container>
             </Layout>
     )

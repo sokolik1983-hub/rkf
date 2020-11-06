@@ -25,6 +25,15 @@ export const userNav = (alias) => [
     },
     {
         id: 3,
+        title: 'Документы',
+        to: `/user/${alias}/uploaded-documents/`,
+        icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z"/>
+            <path d="M17.8,89.1h52.7V22.7H17.8V89.1z M29.2,36.4H59V41H29.2V36.4z M29.2,47.9H59v4.6H29.2V47.9z M29.2,59.3H59v4.6H29.2V59.3z M29.2,70.8H59v4.6H29.2V70.8z"/>
+        </svg>
+    },
+    {
+        id: 4,
         title: 'Фотогалерея',
         to: `/user/${alias}/gallery`,
         icon: <svg viewBox="0 0 36.174 36.174" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +41,7 @@ export const userNav = (alias) => [
         </svg>
     },
     {
-        id: 4,
+        id: 5,
         title: 'Видеозаписи',
         to: `/user/${alias}/video`,
         icon: <svg fill="#6E7F8F" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -41,7 +50,7 @@ export const userNav = (alias) => [
         </svg>
     },
     {
-        id: 5,
+        id: 6,
         title: 'Статус документов',
         to: `/user/${alias}/documents-status`,
         disabled: true,
@@ -51,7 +60,7 @@ export const userNav = (alias) => [
         </svg>
     },
     {
-        id: 6,
+        id: 7,
         title: 'Cтраница пользователя',
         to: `/user/${alias}`,
         icon: <svg viewBox="0 0 512 412" xmlns="http://www.w3.org/2000/svg">

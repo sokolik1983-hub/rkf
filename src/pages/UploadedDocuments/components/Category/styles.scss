@@ -1,0 +1,22 @@
+.UploadedDocuments {
+    &__category {
+        h1.UploadedDocuments__category-title {
+            font-size: 18px;
+            line-height: 24px;
+        }
+        button.UploadedDocuments__category-btn {
+            padding: 0;
+            border: none;
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            .k-svg-i-pencil {
+                width: 16px;
+                height: 16px;
+                svg {
+                    fill: #72839c !important;
+                }
+            }
+        }
+    }
+}

@@ -61,7 +61,7 @@
             }
         }
         &-left {
-            width: 550px;
+            width: 600px;
             margin-right: 16px;
             flex-shrink: 0;
             @media (max-width: 560px) {
@@ -75,7 +75,7 @@
         &-right {
             flex-grow: 1;
             @media (min-width: 560px) {
-                max-width: 302px;
+                max-width: 250px;
             }
         }
         .Card {
@@ -114,6 +114,17 @@
         &-controls {
             display: none;
             flex-shrink: 0;
+        }
+        .k-upload-button {
+            color: #72839c;
+            background-color: #dfe9fb;
+            border: none;
+            &:hover {
+                color: #72839c;
+                background-color: #dfe9fb;
+                opacity: 0.8;
+                transition: all 0.2s linear;
+            }
         }
     }
     .Card {

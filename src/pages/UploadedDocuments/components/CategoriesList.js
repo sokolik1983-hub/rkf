@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { pencil, trash } from "@progress/kendo-svg-icons";
-import ModalDeleteCategory from './ModalDeleteCategory';
-import ModalEditCategory from './ModalEditCategory';
 
-const CategoriesList = ({ canEdit, categories, handleError, handleSuccess, getCategories, activeCategoryId, startPage }) => {
-    const [modal, setModal] = useState({});
+
+const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homePage }) => {
     const isActive = (value) => activeCategoryId === value ? "UploadedDocuments__category-item active" : "UploadedDocuments__category-item";
 
     return <>
         <ul className="UploadedDocuments__inner-list">
             <li className={isActive(null)}>
-                <Link to={startPage}>Все категории</Link>
+                <Link to={homePage}>Все категории</Link>
             </li>
             <li className={isActive(0)}>
                 <Link to="0">Неотсортированные</Link>
@@ -27,7 +25,7 @@ const CategoriesList = ({ canEdit, categories, handleError, handleSuccess, getCa
                             className="UploadedDocuments__edit-btn"
                             type="button"
                             title="Редактировать"
-                            onClick={() => setModal({ type: 'edit', categoryId: id, categoryName: name })}
+                            onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: name })}
                         >
                             <SvgIcon icon={pencil} size="default" />
                         </button>
@@ -35,7 +33,7 @@ const CategoriesList = ({ canEdit, categories, handleError, handleSuccess, getCa
                             className="UploadedDocuments__delete-btn"
                             type="button"
                             title="Удалить"
-                            onClick={() => setModal({ type: 'delete', categoryId: id })}
+                            onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                         >
                             <SvgIcon icon={trash} size="default" />
                         </button>
@@ -44,24 +42,7 @@ const CategoriesList = ({ canEdit, categories, handleError, handleSuccess, getCa
             </li>
             )}
         </ul>
-        {modal.type === 'edit' &&
-            <ModalEditCategory
-                handleError={handleError}
-                handleSuccess={handleSuccess}
-                getCategories={getCategories}
-                categoryId={modal.categoryId}
-                categoryName={modal.categoryName}
-                closeModal={() => setModal({})}
-            />
-        }
-        {modal.type === 'delete' &&
-            <ModalDeleteCategory handleError={handleError}
-                handleSuccess={handleSuccess}
-                getCategories={getCategories}
-                categoryId={modal.categoryId}
-                closeModal={() => setModal({})}
-            />
-        }
+
     </>
 };
 
