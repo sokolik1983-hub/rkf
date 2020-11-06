@@ -15,13 +15,14 @@ import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import ClubUserNews from "./components/ClubUserNews";
+import UserNews from "../../components/Layouts/UserNews";
 import MenuComponent from "../../components/MenuComponent";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
+
 
 const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
     const [clubInfo, setClubInfo] = useState(null);
@@ -107,8 +108,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             setNeedRequest={setNeedRequest}
                                         />
                                     }
-                                    <ClubUserNews
-                                        user="club"
+                                    <UserNews
                                         canEdit={canEdit}
                                         alias={match.params.route}
                                         needRequest={needRequest}

@@ -5,6 +5,7 @@ import { CSSTransition } from "react-transition-group";
 import Lightbox from "react-images";
 import Card from "../Card";
 import Share from "../Share";
+import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { formatText } from "../../utils";
 import { formatDateTime } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
@@ -38,7 +39,9 @@ const CardNews = forwardRef(({
     documents,
     changeCityFilter,
     first_name,
-    last_name
+    last_name,
+    is_active_member,
+    active_rkf_user
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -75,15 +78,23 @@ const CardNews = forwardRef(({
                                 }} />
                             </Link>
                             <span className="card-news__club-name">
-                                <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
-                                    {(user === 3 || user === 4 || user === 5) &&
-                                        <>
-                                            <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
-                                            &nbsp;
-                                        </>
+                                <span style={{display: 'flex'}}>
+                                    <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
+                                        {(user === 3 || user === 4 || user === 5) &&
+                                            <>
+                                                <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                                &nbsp;
+                                            </>
+                                        }
+                                        {user === 1 ? first_name + ' ' + last_name : name}
+                                    </Link>
+                                    {active_rkf_user &&
+                                        <ActiveUserMark/>
                                     }
-                                    {user === 1 ? first_name + ' ' + last_name : name}
-                                </Link>
+                                    {is_active_member &&
+                                        <FederationChoiceMark/>
+                                    }
+                                </span>
                                 <span>{formatDateTime(date)}</span>
                             </span>
                         </div>
