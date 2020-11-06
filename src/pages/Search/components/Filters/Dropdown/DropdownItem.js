@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import CalendarFilter from "../../../../../components/Filters/CalendarFilter";
 import FederationsFilter from "../../../../../components/Filters/FederationsFilter";
-import ActiveFilter from "../../../../../components/Filters/ActiveFilter";
+import ActiveFilter from "../../../../../components/Filters/FederationChoiceFilter";
 import ActivatedFilter from "../../../../../components/Filters/ActivatedFilter";
 import BreedsFilter from "../../../../../components/Filters/BreedsFilter";
 import CitiesFilter from "../../../../../components/Filters/CitiesFilter";
