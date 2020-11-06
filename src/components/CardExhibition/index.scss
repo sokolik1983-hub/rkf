@@ -131,7 +131,36 @@
       line-height: 18px;
     }
   }
+  &__reports {
+    display: none;
+    @media (max-width: 767px) {
+      display: block;
+    } 
+    & > span{
+      font-size: 14px;
+    }
+    &_block{
+      display: flex;
+      text-align: left;
+    }
+    &_link{
+      padding-right: 8px;
+      a{
+        background: url(/static/icons/icon-pdf.svg) no-repeat center/contain, 
+        url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+      }
+      a:hover{
+        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+      }
+    }
+  }
   &__author {
+    @media (max-width: 767px) {
+      margin-bottom: 2px;
+    }
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -194,6 +223,19 @@
     letter-spacing: 0.2px;
     color: #90999e;
   }
+  &__subtitle_link{
+    a{
+      background: url(/static/icons/icon-pdf.svg) no-repeat center/contain, 
+      url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      padding-right: 23px;
+    }
+    a:hover{
+      background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+    }
+  }
   &__club-name {
     max-height: 40px;
     overflow: hidden;
@@ -221,7 +263,7 @@
     }
     & > div {
       max-width: 125px;
-      margin-right: 64px;
+      margin-right: 55px;
       white-space: nowrap;
       a {
         margin: 0;
@@ -243,6 +285,20 @@
         line-height: 24px;
         letter-spacing: 0.2px;
         color: #90999e;
+      }
+    }
+    @media (max-width: 1200px) {
+      & > div:first-child{
+        margin-right: 52px;
+      }
+      & > div:nth-child(2){
+        margin-right: 27px;
+      }
+      & > div:nth-child(3){
+        margin-right: 20px;
+      }
+      & > div:last-child{
+        margin-right: 0px;
       }
     }
   }

@@ -40,6 +40,7 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) 
                             ranks={item.rank_string}
                             user={item.user_type}
                             setFilters={city_id => setFiltersToUrl({CityIds: [city_id]})}
+                            reports = {item.reports_links}
                         />
                     </li>
                 ))}
