@@ -11,16 +11,16 @@ const Declarants = ({id}) => {
 
     useEffect(() => {
         (() => Request({
-                url: `/api/requests/PedigreeRequest/header_main_info?id=${id}`
-            },
-            data => {
-                setDeclarants(data);
-                setLoading(false);
-            },
-            error => {
-                console.log(error.response);
-                setLoading(false);
-            }))();
+            url: `/api/requests/PedigreeRequest/header_main_info?id=${id}`
+        },
+        data => {
+            setDeclarants(data);
+            setLoading(false);
+        },
+        error => {
+            console.log(error.response);
+            setLoading(false);
+        }))();
     }, []);
 
     return loading ?
