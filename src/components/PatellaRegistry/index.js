@@ -8,6 +8,9 @@ import "./index.scss";
 const ReplaceRegistry = ({ history, distinction, profileType }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
+    const [standardView, setStandardView] = useState(true);
+    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         (() => PromiseRequest({
@@ -17,6 +20,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
         }).then(
             data => {
                 setDocuments(data);
+                setExhibitionsForTable(data);
                 setLoading(false);
             }).catch(
                 error => {
@@ -25,8 +29,21 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                 }))();
     }, []);
 
-    return loading ?
-        <Loading /> :
+    return loading ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
+        <button
+            onClick={() => setStandardView(true)}
+            className="club-documents-status__popup-close"
+        >
+        </button>
+        <Table
+            documents={documents}
+            profileType={profileType}
+            exporting={exporting}
+            setExporting={setExporting}
+            fullScreen
+        />
+    </Card>
+        :
         <Card className="club-documents-status">
             <div className="club-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
@@ -34,7 +51,28 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                 {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
             </div>
             {documents && !!documents.length
-                ? <Table documents={documents} profileType={profileType} />
+                ? <>
+                    <div className="club-documents-status__controls">
+                        {!!exhibitionsForTable.length && standardView &&
+                            <button
+                                className="club-documents-status__control club-documents-status__control--downloadIcon"
+                                onClick={() => setExporting(true)}
+                                disabled={exporting}
+                            >
+                                Скачать PDF
+                            </button>
+                        }
+                        <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            Открыть на всю ширину окна
+                        </button>
+                    </div>
+                    <Table
+                        documents={documents}
+                        profileType={profileType}
+                        exporting={exporting}
+                        setExporting={setExporting}
+                    />
+                </>
                 : <h2>Документов не найдено</h2>}
         </Card>
 };

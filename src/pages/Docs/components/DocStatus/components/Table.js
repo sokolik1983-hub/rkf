@@ -62,7 +62,7 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) => {
+const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, fullScreen }) => {
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -92,15 +92,15 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal }) =>
                         onRowClick={handleGridRowClick}
                         className="club-documents-status__pointer"
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата регистрации" width="160px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="federation_name" title="Федерация" width="120px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '195px' : '160px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count" title="Всего заявок" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count_done" title="Изготовлено" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count_in_work" title="В работе" width="100px" columnMenu={ColumnMenu} />
-                        <GridColumn field="id" title="Номер документа" width="160px" columnMenu={ColumnMenu} />
+                        <GridColumn field="count" title="Всего заявок" width={fullScreen ? '140px' : '130px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '140px' : '130px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="id" title="Номер документа" width={fullScreen ? '180px' : '160px'} columnMenu={ColumnMenu} />
                         <GridColumn field="name" title="ФИО заявителя" width="160px" columnMenu={ColumnMenu} />
-                        <GridColumn width="60px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                        <GridColumn width="80px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
                     </Grid>
                 }
             </IntlProvider>

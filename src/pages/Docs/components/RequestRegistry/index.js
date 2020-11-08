@@ -9,6 +9,9 @@ import "./index.scss";
 const RequestRegistry = ({ history, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
+    const [standardView, setStandardView] = useState(true);
+    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -18,6 +21,7 @@ const RequestRegistry = ({ history, distinction }) => {
         },
             data => {
                 setDocuments(data);
+                setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
@@ -27,17 +31,41 @@ const RequestRegistry = ({ history, distinction }) => {
     }, []);
 
     return loading ?
-        <Loading /> :
-        <Card className="club-documents-status">
-            <div className="club-documents-status__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+        <Loading /> : !standardView ? <Card className="club-documents-status__popup">
+            <button
+                onClick={() => setStandardView(true)}
+                className="club-documents-status__popup-close"
+            >
+            </button>
+            <Table documents={documents} distinction={distinction} fullScreen />
+        </Card> :
+            <Card className="club-documents-status">
+                <div className="club-documents-status__head">
+                    <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree'
-                    ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
-                    : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
-            </div>
-            {documents && !!documents.length ? <Table documents={documents} distinction={distinction} /> : <h2>Документов не найдено</h2>}
-        </Card>
+                        ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
+                        : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
+                </div>
+                {documents && !!documents.length ? <>
+                    <div className="club-documents-status__controls">
+                        {!!exhibitionsForTable.length && standardView &&
+                            <button
+                                className="club-documents-status__control club-documents-status__control--downloadIcon"
+                                onClick={() => setExporting(true)}
+                                disabled={exporting}
+                            >
+                                Скачать PDF
+                            </button>
+                        }
+                        <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                            Открыть на всю ширину окна
+                        </button>
+                    </div>
+                    <Table documents={documents} distinction={distinction} />
+                </>
+                    : <h2>Документов не найдено</h2>}
+            </Card>
 };
 
 export default connectShowFilters(React.memo(RequestRegistry));
