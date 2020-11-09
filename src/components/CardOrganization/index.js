@@ -11,7 +11,7 @@ const CardOrganization = ({ alias,
     logo,
     name,
     user_type,
-    is_active_member,
+    active_member,
     active_rkf_user,
     city_name,
     city_id,
@@ -56,7 +56,7 @@ const CardOrganization = ({ alias,
                                     {active_rkf_user &&
                                         <ActiveUserMark/>
                                     }
-                                    {is_active_member &&
+                                    {active_member &&
                                         <FederationChoiceMark/>
                                     }
                                 </div>
@@ -89,7 +89,7 @@ const CardOrganization = ({ alias,
                             {active_rkf_user &&
                                 <ActiveUserMark/>
                             }
-                            {is_active_member &&
+                            {active_member &&
                                 <FederationChoiceMark/>
                             }
                         </p>

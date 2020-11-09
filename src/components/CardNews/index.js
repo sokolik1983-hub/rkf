@@ -40,7 +40,7 @@ const CardNews = forwardRef(({
     changeCityFilter,
     first_name,
     last_name,
-    is_active_member,
+    active_member,
     active_rkf_user
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
@@ -91,7 +91,7 @@ const CardNews = forwardRef(({
                                     {active_rkf_user &&
                                         <ActiveUserMark/>
                                     }
-                                    {is_active_member &&
+                                    {active_member &&
                                         <FederationChoiceMark/>
                                     }
                                 </span>

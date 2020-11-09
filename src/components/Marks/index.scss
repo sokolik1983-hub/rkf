@@ -1,5 +1,10 @@
 .mark {
   display: block;
   width: 14px;
+  min-width: 14px;
   margin-left: 6px;
+  &.active-user-mark {
+    width: 17px;
+    min-width: 17px;
+  }
 }
