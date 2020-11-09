@@ -19,7 +19,7 @@ const HomepageSlider = () => (
             rows={1}
             slidesPerRow={1}
         >
-            <img src="/static/images/slider/1.png" alt="" />
+            <img src="/static/images/slider/1_compressed.jpg" alt="" />
             <img src="/static/images/slider/4.jpg" alt="" />
             <img src="/static/images/slider/3.jpg" alt="" />
             <img src="/static/images/slider/5.jpg" alt="" />

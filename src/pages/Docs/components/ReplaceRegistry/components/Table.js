@@ -59,7 +59,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport }) => {
+const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, fullScreen }) => {
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -125,16 +125,16 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="id" title="Номер заявки" width="150px" columnMenu={ColumnMenu} />
-                        <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '150px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
+                        <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? '160px' : '150px'} columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
                         <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
-                        <GridColumn width="60px" cell={(props) => OptionsCell(props, setErrorReport)} />
+                        <GridColumn width="80px" cell={(props) => OptionsCell(props, setErrorReport)} />
 
                     </Grid>
                 }

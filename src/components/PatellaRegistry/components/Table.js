@@ -77,7 +77,7 @@ const handleClick = async (e, id, profileType) => {
     el.className = 'pedigree-link';
 };
 
-const Table = ({ documents, profileType }) => {
+const Table = ({ documents, profileType, fullScreen }) => {
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -128,10 +128,10 @@ const Table = ({ documents, profileType }) => {
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата создания" width="140px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width="275px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width="210px" columnMenu={ColumnMenu} />
-                        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '140px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '320px' : '275px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '235px' : '210px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '170px' : '130px'} columnMenu={ColumnMenu} />
                         <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                         <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
                         <GridColumn width="80px" cell={props => OptionsCell(props, profileType)} />
