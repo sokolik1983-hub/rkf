@@ -102,7 +102,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                 images.length
                     ? <div className="ReactGridGallery__wrap" >
                         <div className="ReactGridGallery__placeholder">
-                            {[...Array(12)].map(() => <div><img alt="" src="/static/images/noimg/empty-gallery-item.jpg" /></div>)}
+                            {[...Array(12)].map((item, key) => <div key={key}><img alt="" src="/static/images/noimg/empty-gallery-item.jpg" /></div>)}
                         </div>
                         <Gallery
                             images={images}
