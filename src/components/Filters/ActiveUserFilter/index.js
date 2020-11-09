@@ -7,7 +7,7 @@ const ActiveUserFilter = ({active_rkf_user, onChange}) => (
     <div className="active-user-filter">
         <CustomCheckbox
             id="active-user-filter"
-            label="Активный пользователь rkf.online"
+            label="Активный пользователь RKF.Online"
             checked={!!active_rkf_user}
             onChange={() => onChange(!active_rkf_user)}
         />
