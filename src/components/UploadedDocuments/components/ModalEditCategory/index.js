@@ -3,8 +3,8 @@ import { Button } from "@progress/kendo-react-buttons";
 import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
-import FormInput from 'pages/UploadedDocuments/components/FormInput';
-import { categoryNameValidator } from 'pages/UploadedDocuments/validators';
+import FormInput from '../FormInput';
+import { categoryNameValidator } from '../../validators';
 import { Request } from "utils/request";
 import "./index.scss";
 

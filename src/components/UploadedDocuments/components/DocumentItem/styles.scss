@@ -32,6 +32,9 @@
             width: 100%;
         }
         &__delete-btn {
+            .k-svg-i-trash{
+                flex-shrink: 0;
+            }
             svg {
                 fill: red !important;
             }

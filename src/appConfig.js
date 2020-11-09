@@ -268,17 +268,17 @@ const appRoutes = [
     {
         exact: false,
         path: '/:route/uploaded-documents/',
-        component: LoadableModules.LoadableUploadedDocuments
+        component: LoadableModules.LoadableClubUploadedDocuments
     },
     {
         exact: false,
         path: '/kennel/:route/uploaded-documents/',
-        component: LoadableModules.LoadableUploadedDocuments
+        component: LoadableModules.LoadableNurseryUploadedDocuments
     },
     {
         exact: false,
         path: '/user/:route/uploaded-documents/',
-        component: LoadableModules.LoadableUploadedDocuments
+        component: LoadableModules.LoadableUserUploadedDocuments
     },
 ];
 
