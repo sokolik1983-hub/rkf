@@ -126,7 +126,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px" }}>
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '150px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="id" title="Номер заявки" width="150px" columnMenu={ColumnMenu} />
+                        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
                         <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? '160px' : '150px'} columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
                         <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />

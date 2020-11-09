@@ -27,7 +27,7 @@ export const getTableColumns = (sortingColumns, sortable, alias, setState, onErr
         },
         {
             property: "id",
-            label: "Номер заявки"
+            label: "№ заявки"
         },
         {
             property: "owner_name",
