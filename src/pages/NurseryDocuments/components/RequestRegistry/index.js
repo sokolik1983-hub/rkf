@@ -10,8 +10,8 @@ const RequestRegistry = ({ history, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    const [exporting, setExporting] = useState(false);
+    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    // const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -21,7 +21,7 @@ const RequestRegistry = ({ history, distinction }) => {
         },
             data => {
                 setDocuments(data);
-                setExhibitionsForTable(data);
+                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {

@@ -9,7 +9,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
     const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
         }).then(
             data => {
                 setDocuments(data);
-                setExhibitionsForTable(data);
+                // setExhibitionsForTable(data);
                 setLoading(false);
             }).catch(
                 error => {

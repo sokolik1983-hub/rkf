@@ -16,8 +16,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
     const [documents, setDocuments] = useState([]);
     const [errorReport, setErrorReport] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    const [exporting, setExporting] = useState(false);
+    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    // const [exporting, setExporting] = useState(false);
 
     const checkType = i => setCheckedTypes(checkedTypes.includes(i)
         ? checkedTypes.filter(x => x !== i)
@@ -41,7 +41,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             setDocuments(data[0]);
             setReqTypes(data[1]);
             setCheckedTypes(data[1].map(({ id }) => id));
-            setExhibitionsForTable(data);
+            // setExhibitionsForTable(data);
             setLoading(false);
         }).catch(
             error => {

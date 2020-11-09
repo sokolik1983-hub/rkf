@@ -15,8 +15,8 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    const [exporting, setExporting] = useState(false);
+    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    // const [exporting, setExporting] = useState(false);
 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
         },
             data => {
                 setDocuments(data);
-                setExhibitionsForTable(data);
+                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
