@@ -98,7 +98,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, full
                         <GridColumn field="count" title="Всего заявок" width={fullScreen ? '140px' : '130px'} columnMenu={ColumnMenu} />
                         <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '140px' : '130px'} columnMenu={ColumnMenu} />
                         <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="id" title="Номер документа" width={fullScreen ? '180px' : '160px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="id" title="№ документа" width={fullScreen ? '180px' : '160px'} columnMenu={ColumnMenu} />
                         <GridColumn field="name" title="ФИО заявителя" width="160px" columnMenu={ColumnMenu} />
                         <GridColumn width="80px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
                     </Grid>
