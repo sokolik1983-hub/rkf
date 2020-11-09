@@ -1,135 +1,163 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import Card from "components/Card";
-import Container from "../../components/Layouts/Container";
-import { Request } from "utils/request";
-import { connectAuthVisible } from "pages/Login/connectors";
+import { useParams } from "react-router-dom";
 import StickyBox from "react-sticky-box";
-import UserBanner from "components/Layouts/UserBanner";
-import UserInfo from "../../components/Layouts/UserInfo";
-import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "pages/User/config";
-import useIsMobile from "utils/useIsMobile";
-import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
-import CopyrightInfo from "components/CopyrightInfo";
-import ls from "local-storage";
-
+import Layout from "components/Layouts";
+import Container from "components/Layouts/Container";
+import Aside from "components/Layouts/Aside";
+import Loading from "components/Loading";
+import Card from "components/Card";
+import Alert from "components/Alert";
+import CopyrightInfo from "../../components/CopyrightInfo";
+import ClubUserHeader from "../../components/redesign/UserHeader";
+import MenuComponent from "../../components/MenuComponent";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
+import { Request } from "utils/request";
+import { connectAuthVisible } from "../Login/connectors";
+import useIsMobile from "../../utils/useIsMobile";
 import UploadedDocuments from "components/UploadedDocuments";
+import "./styles.scss";
+import "pages/Nursery/index.scss";
 
-
-const UserUploadedDocuments = ({ history, location, match, profile_id, is_active_profile, isAuthenticated }) => {
-    const [loaded, setLoaded] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
+const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
+    const [nursery, setNursery] = useState(null);
+    const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const params = useParams();
     const alias = match.params.route;
     const isMobile = useIsMobile();
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorRedirect, setErrorRedirect] = useState(false);
 
     useEffect(() => {
-        Promise.all([getUser()])
-            .then(() => setLoaded(true))
-            .catch(e => { handleError(e); setErrorRedirect(error && error.response ? error.response : null) });
+        setPageLoaded(false);
+        Promise.all([!nursery && getNursery()])
+            .then(() => {
+                setPageLoaded(true);
+            });
     }, []);
 
-    const getUser = async needUpdateAvatar => {
-        await Request({
-            url: endpointGetUserInfo + alias
+    const getNursery = () => {
+        return Request({
+            url: '/api/nurseries/nursery/public/' + params.route
         }, data => {
-            if (needUpdateAvatar) {
-                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
-            }
-            setUserInfo(data);
-            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-        }, error => {
-            console.log(error.response);
-            setError(error.response);
-        });
-    };
-
-
-    const handleSuccess = (message) => {
-        setSuccess({ status: true, message: message });
-        !success && setTimeout(() => {
-            setSuccess(false);
-        }, 3000);
+            setNursery(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
+        }, error => handleError(error));
     };
 
     const handleError = e => {
+        let errorText;
         if (e.response) {
-            let message;
-            if (e.response.data) {
-                message = e.response.data.errors
-                    ? Object.values(e.response.data.errors)
-                    : `${e.response.status} ${e.response.statusText}`;
-            } else if (e.response.errors) {
-                message = e.response.errors
-                    ? Object.values(e.response.errors)
-                    : `${e.response.status} ${e.response.statusText}`;
-            } else {
-                message = 'Произошла ошибка';
-            }
-            setError(true);
-            !error && setTimeout(() => {
-                setError(false);
-            }, 5000);
+            errorText = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+        } else {
+            errorText = 'запрос не выполнен'
         }
+        setShowAlert({
+            title: `Ошибка: ${errorText}`,
+            text: 'Попробуйте повторить попытку позже, либо воспользуйтесь формой обратной связи.',
+            autoclose: 7.5,
+            onOk: () => setShowAlert(false)
+        });
     };
 
-
-    return (!loaded
-        ? <Loading />
-        : errorRedirect
-            ? <Redirect to="/404" />
-            : <Layout>
-                <Container className="UploadedDocuments content">
-                    <aside className="UploadedDocuments__left">
-                        <StickyBox offsetTop={66}>
-                            {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
-                            }
-                            <Card>
-                                <UserInfo
-                                    canEdit={canEdit}
-                                    logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${alias}`}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    alias={alias}
-                                    updateInfo={getUser}
-                                />
-                            </Card>
-                            <UserMenu userNav={userNav(alias)} />
-                            {!isMobile &&
-                                <>
-                                    <UserPhotoGallery
-                                        alias={alias}
-                                        pageLink={`/user/${alias}/gallery`}
-                                        canEdit={canEdit}
-                                    />
-                                    <UserVideoGallery
-                                        alias={alias}
-                                        pageLink={`/user/${alias}/video`}
-                                        canEdit={canEdit}
-                                    />
-                                    <CopyrightInfo />
-                                </>
-                            }
-                        </StickyBox>
-                    </aside>
-                    <div className="UploadedDocuments__right">
-                        {!loaded
-                            ? <Loading />
-                            : <UploadedDocuments location={location} match={match} />
-                        }
+    return (
+        <>
+            {!pageLoaded && !nursery
+                ? <Loading />
+                : <Layout>
+                    <div className="redesign">
+                        <Container className="content nursery-page">
+                            <div className="nursery-page__content-wrap">
+                                <div className="nursery-page__content">
+                                    {isMobile &&
+                                        <>
+                                            <ClubUserHeader
+                                                user="nursery"
+                                                logo={nursery.logo_link}
+                                                name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                alias={alias}
+                                                profileId={nursery.id}
+                                                federationName={nursery.federation_name}
+                                                federationAlias={nursery.federation_alias}
+                                            />
+                                            {nursery.breeds && !!nursery.breeds.length &&
+                                                <Card className="nursery-page__breeds">
+                                                    <h4>Породы</h4>
+                                                    <ul className="nursery-page__breeds-list">
+                                                        {nursery.breeds.map(item =>
+                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                        )}
+                                                    </ul>
+                                                </Card>
+                                            }
+                                        </>
+                                    }
+                                    <div className="UploadedDocuments">
+                                        {
+                                            !pageLoaded
+                                                ? <Loading centered={false} />
+                                                : <UploadedDocuments location={location} match={match} canEdit={canEdit} />
+                                        }
+                                    </div>
+                                </div>
+                                <Aside className="nursery-page__info">
+                                    <StickyBox offsetTop={65}>
+                                        <div className="nursery-page__info-inner">
+                                            {!isMobile &&
+                                                <>
+                                                    <ClubUserHeader
+                                                        user="nursery"
+                                                        logo={nursery.logo_link}
+                                                        name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                        alias={alias}
+                                                        profileId={nursery.id}
+                                                        federationName={nursery.federation_name}
+                                                        federationAlias={nursery.federation_alias}
+                                                    />
+                                                    {nursery.breeds && !!nursery.breeds.length &&
+                                                        <Card className="nursery-page__breeds">
+                                                            <h4>Породы</h4>
+                                                            <ul className="nursery-page__breeds-list">
+                                                                {nursery.breeds.map(item =>
+                                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                                )}
+                                                            </ul>
+                                                        </Card>
+                                                    }
+                                                    <UserPhotoGallery
+                                                        alias={alias}
+                                                        pageLink={`/kennel/${alias}/gallery`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <UserVideoGallery
+                                                        alias={alias}
+                                                        pageLink={`/kennel/${alias}/video`}
+                                                        canEdit={canEdit}
+                                                    />
+                                                    <CopyrightInfo />
+                                                </>
+                                            }
+                                            {isMobile &&
+                                                <MenuComponent
+                                                    alias={alias}
+                                                    user={user}
+                                                    profileId={nursery.id}
+                                                    noCard={true}
+                                                />
+                                            }
+                                        </div>
+                                    </StickyBox>
+                                </Aside>
+                            </div>
+                        </Container>
                     </div>
-                </Container>
-            </Layout>
+                </Layout>
+            }
+            {showAlert && <Alert {...showAlert} />}
+        </>
     )
 };
 
-export default React.memo(connectAuthVisible(UserUploadedDocuments));
+export default connectAuthVisible(React.memo(NurseryUploadedDocuments));
