@@ -158,11 +158,11 @@
     }
     &--tableIcon:before {
       content: '';
-      width: 20px;
-      height: 20px;
+      width: 17px;
+      height: 17px;
       display: inline-block;
       margin-right: 10px;
-      background: url(/static/icons/tableIcon.svg) no-repeat center / cover;
+      background: url(/static/icons/full-screen.svg) no-repeat center / cover;
     }
     &--downloadIcon:before {
       content: '';
