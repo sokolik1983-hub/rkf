@@ -1,11 +1,12 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
 import FormInput from './FormInput';
 import { categoryNameValidator } from '../validators';
 import { Request } from "utils/request";
 
 const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
+    const [formProps, setFormProps] = useState(null);
 
     const handleSubmit = async ({ name }) => {
         await Request({
@@ -14,8 +15,10 @@ const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
         }, () => {
             handleSuccess('Категория добавлена!');
             getCategories();
+            formProps && formProps.onFormReset();
         }, error => {
             handleError(error);
+            formProps && formProps.onFormReset();
         });
     };
 
@@ -23,6 +26,7 @@ const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
         onSubmit={data => handleSubmit(data)}
         initialValues={{ name: "" }}
         render={(formRenderProps) => {
+            if (!formProps) setFormProps(formRenderProps);
             return (
                 <FormElement style={{ maxWidth: 550 }} >
                     <Field
@@ -32,6 +36,7 @@ const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
                         maxLength="50"
                         component={FormInput}
                         validator={value => categoryNameValidator(value, 50)}
+                        formRenderProps={formRenderProps}
                     />
                     <div className="k-form-buttons">
                         <button
