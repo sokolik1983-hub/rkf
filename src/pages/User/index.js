@@ -22,7 +22,6 @@ import { DEFAULT_IMG } from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-
 const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -105,6 +104,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <UserDescription
                                 mainInfo={userInfo.main_information}
                                 additionalInfo={userInfo.additional_information}
+								counters = {userInfo.counters}
                             />
                             {isMobile &&
                                 <>
@@ -126,6 +126,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
                                     userPage
+                                    profileInfo = {userInfo}
+                                    setProfileInfo = {setUserInfo}
                                 />
                             }
                             <UserNews

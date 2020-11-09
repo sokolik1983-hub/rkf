@@ -42,6 +42,9 @@
     width: 100%;
     max-width: 416px;
     margin-left: 24px;
+    .statistics{
+      margin-bottom: 16px;
+    }
     @media (max-width: 990px) {
       margin: 0;
       display: flex;

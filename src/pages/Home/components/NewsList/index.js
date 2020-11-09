@@ -7,6 +7,7 @@ import CardNews from "../../../../components/CardNews";
 import { endpointGetNews } from "../../config";
 import { Request } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
+// import Banner from "../../../../components/Banner";
 import './index.scss';
 
 
@@ -15,7 +16,7 @@ function getCity() {
     return l ? JSON.parse(l) : { label: 'Выберите город', value: null };
 };
 
-const NewsList = ({ isFullDate = true, citiesDict }) => {
+const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
     const [activeType, setActiveType] = useState('all');
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -175,7 +176,7 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                     }
                 >
                     <ul className="NewsList__content">
-                        {news && !!news.length && news.map(item => (
+                        {news && !!news.length && news.map((item,index) => (
                             <li className="NewsList__item" key={item.id}>
                                 <CardNews
                                     {...item}
@@ -197,6 +198,9 @@ const NewsList = ({ isFullDate = true, citiesDict }) => {
                                     adCategory={item.advert_type_name}
                                     videoLink={item.video_link}
                                 />
+                                {/* {
+                                    banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 
+                                } */}
                             </li>
                         ))}
                     </ul>

@@ -8,12 +8,13 @@ import { newsArticleFormConfig } from "./config";
 import "./index.scss";
 
 
-const AddArticle = ({ id, logo, setNeedRequest, userPage }) => {
+const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfileInfo }) => {
     const [isAd, setIsAd] = useState(false);
     const [videoLink, setVideoLink] = useState('');
     const [documents, setDocuments] = useState([]);
     const [isMating, setIsMating] = useState(false);
     const [showAlert, setShowAlert] = useState('');
+    const [loadFile, setLoadFile] = useState(false);
 
     const transformValues = values => {
         if (isAd) {
@@ -36,8 +37,20 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage }) => {
     };
 
     const onSuccess = () => {
+        console.log(newsArticleFormConfig.fields);
+        console.log(transformValues.values);
+        console.log(documents);
+        if(!!setProfileInfo){
+            setProfileInfo({...profileInfo, 
+                counters: {
+                    ...profileInfo.counters,
+                    publications_count: profileInfo.counters.publications_count + 1,
+                    photos_count: loadFile ? profileInfo.counters.photos_count + 1 : profileInfo.counters.photos_count
+                }});
+        }
         setVideoLink('');
         setDocuments([]);
+        setLoadFile(false);
         setNeedRequest(true);
     };
 
@@ -92,6 +105,7 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage }) => {
                     isMating={isMating}
                     setIsMating={setIsMating}
                     userPage={userPage}
+                    setLoadFile = {setLoadFile}
                 />
             </Form>
             {showAlert && <Alert {...showAlert} />}

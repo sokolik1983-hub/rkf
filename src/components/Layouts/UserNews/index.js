@@ -9,7 +9,7 @@ import {DEFAULT_IMG} from "../../../appConfig";
 import "./index.scss";
 
 
-const UserNews = ({canEdit, alias, needRequest, setNeedRequest, first_name, last_name}) => {
+const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, profileInfo, first_name, last_name}) => {
     const [filters, setFilters] = useState(null);
     const [news, setNews] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -62,7 +62,14 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, first_name, last
             await Request({
                 url: endpointDeleteArticle + id,
                 method: 'DELETE'
-            }, () => setNeedRequest(true),
+            }, () => {
+                setNeedRequest(true);
+                setProfileInfo({...profileInfo, 
+                    counters: {
+                        ...profileInfo.counters,
+                        publications_count: profileInfo.counters.publications_count - 1
+                    }});
+            },
             error => {
                 console.log(error);
                 alert('Новость не удалена');

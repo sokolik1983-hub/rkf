@@ -19,6 +19,8 @@ import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
+import { BANNER_TYPES } from "../../appConfig";
+import Banner from "../../components/Banner";
 import "./index.scss";
 
 
@@ -121,6 +123,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         id={nursery.id}
                                         logo={nursery.logo_link}
                                         setNeedRequest={setNeedRequest}
+                                        profileInfo = {nursery}
+                                        setProfileInfo = {setNursery}
                                     />
                                 }
                                 <UserNews
@@ -128,6 +132,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     alias={alias}
                                     needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
+                                    profileInfo = {nursery}
+                                    setProfileInfo = {setNursery}
                                 />
                             </div>
                             <Aside className="nursery-page__info">
@@ -154,11 +160,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                         </ul>
                                                     </Card>
                                                 }
-                                                <div className="nursery-page__publication">
-                                                    <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
-                                                        <img src="/static/images/publications/breeder-club.png" alt="" />
-                                                    </a>
-                                                </div>
+                                                <Banner type={BANNER_TYPES.kennelPageUnderPhotos}/>
                                                 <UserPhotoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/gallery`}

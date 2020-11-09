@@ -1,10 +1,10 @@
 import React, {Fragment, useState} from "react";
 import {Collapse} from "react-collapse";
 import Card from "../../Card";
+import Counter from "../../CounterComponent";
 import "./index.scss";
 
-
-const UserDescription = ({mainInfo, additionalInfo}) => {
+const UserDescription = ({mainInfo, additionalInfo, counters}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const normalizeLink = link => {
@@ -135,6 +135,9 @@ const UserDescription = ({mainInfo, additionalInfo}) => {
                         onClick={() => setIsOpen(!isOpen)}
                     />
                 </>
+            }
+            {
+                !!counters && <Counter counters = {counters}/>
             }
         </Card>
     )

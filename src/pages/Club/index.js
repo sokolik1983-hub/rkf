@@ -21,6 +21,8 @@ import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
+import { BANNER_TYPES } from "../../appConfig";
+import Banner from "../../components/Banner";
 import "./index.scss";
 
 
@@ -106,6 +108,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             id={clubInfo.id}
                                             logo={clubInfo.logo_link}
                                             setNeedRequest={setNeedRequest}
+                                            profileInfo = {clubInfo}
+                                            setProfileInfo = {setClubInfo}
                                         />
                                     }
                                     <UserNews
@@ -113,6 +117,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         alias={match.params.route}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
+                                        profileInfo = {clubInfo}
+                                        setProfileInfo = {setClubInfo}
                                     />
                                 </div>
                                 <Aside className="club-page__info">
@@ -129,6 +135,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         federationName={clubInfo.federation_name}
                                                         federationAlias={clubInfo.federation_alias}
                                                     />
+                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos}/>
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}

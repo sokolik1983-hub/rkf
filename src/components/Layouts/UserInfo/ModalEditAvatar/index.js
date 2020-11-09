@@ -4,11 +4,11 @@ import {IntlProvider, LocalizationProvider, loadMessages} from "@progress/kendo-
 import {Button} from "@progress/kendo-react-buttons";
 import Modal from "../../../../components/Modal";
 import {getHeaders} from "../../../../utils/request";
-import ruMessages from "./ru.json";
+import kendoMessages from 'kendoMessages.json';
 import "./index.scss";
 
 
-loadMessages(ruMessages, 'ru-RU');
+loadMessages(kendoMessages, 'ru-RU');
 
 
 const ModalEditAvatar = ({closeModal, updateInfo}) => {
