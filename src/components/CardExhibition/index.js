@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Card from "../Card";
 import Share from "../Share";
+import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import {DEFAULT_IMG} from "../../appConfig";
 import {formatText} from "../../utils";
 import "./index.scss";
@@ -20,6 +21,8 @@ const CardExhibition = ({title,
                          federation_name,
                          federation_link,
                          user,
+                         active_rkf_user,
+                         active_member,
                          setFilters}) => (
     <Card className="card-exhibition">
         <div className="card-exhibition__wrap">
@@ -59,6 +62,12 @@ const CardExhibition = ({title,
                             }
                             {club_name}
                         </p>
+                        {active_rkf_user &&
+                            <ActiveUserMark/>
+                        }
+                        {active_member &&
+                            <FederationChoiceMark/>
+                        }
                     </Link>
                     {federation_name && federation_link ?
                         <Link to={federation_link} className="card-exhibition__federation">{federation_name}</Link> :

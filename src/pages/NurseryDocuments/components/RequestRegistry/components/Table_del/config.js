@@ -16,7 +16,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: `${distinction}_request_id`,
-           label: "Номер пакета"
+           label: "№ пакета"
        },
        {
            property: "owner_full_name",
@@ -62,7 +62,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: `${distinction}_request_id`,
-           label: "Номер пакета"
+           label: "№ пакета"
        },
        {
            property: "breeder_full_name",

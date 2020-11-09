@@ -49,7 +49,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
         {
             property: 'id',
             header: {
-                label: 'Номер документа'
+                label: '№ документа'
             }
         },
         {

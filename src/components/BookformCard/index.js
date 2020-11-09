@@ -84,6 +84,7 @@ const BookformCard = ({url,distinction}) => {
                 <div className="documents-page__icon registration-icon" />
                 <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ В ФЕДЕРАЦИЮ</h3>
                 <p>В данном разделе Вы можете записаться на очный прием в офисе Вашей федерации. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
+                <p>Отменить запись в Федерацию Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
                 <hr />
                 <div className="Card__links">
                     <Link to={`/`} onClick={e => handleClick(e)}>Запись в {federation}</Link>
@@ -93,6 +94,7 @@ const BookformCard = ({url,distinction}) => {
                 <div className="documents-page__icon registration-icon" />
                 <h3>ЗАПИСЬ НА ОЧНЫЙ ПРИЕМ В РКФ</h3>
                 <p>В данном разделе Вы можете записаться на очный прием в офисе РКФ. Для этого выберете дату и время посещения, а также тип услуги, которая Вас интересует. После подтверждения записи на Ваш e-mail будет отправлено письмо с датой и временем Вашей записи, которое необходимо будет предъявить на входе. При посещении офиса необходимо иметь с собой документ, удостоверяющий личность.</p>
+                <p>Отменить запись в РКФ Вы можете в группе в Telegram по ссылке <a href="https://t.me/EntryRKFOnline" target="_blank" rel="noopener noreferrer">https://t.me/EntryRKFOnline</a></p>
                 <hr />
                 <div className="Card__links">
                     <Link to={`/`} onClick={e => handleClick(e, true)}>Запись в РКФ</Link>
