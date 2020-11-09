@@ -8,10 +8,8 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
             {list && !!list.length && list.map(item =>
                 <li className="list__item" key={item.id}>
                     <CardNews
+                        {...item}
                         user={item.user_type}
-                        id={item.id}
-                        logo_link={item.logo_link}
-                        name={item.name}
                         city={item.fact_city_name}
                         date={item.create_date}
                         isFullDate={isFullDate}
@@ -19,7 +17,6 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         photo={item.picture_link}
                         text={item.content}
                         url={`/news/${item.id}`}
-                        alias={item.alias}
                         removable={removable}
                         isAd={item.is_advert}
                         adBreedName={item.advert_breed_name}
@@ -28,7 +25,6 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
                         adAmount={item.advert_number_of_puppies}
                         adCategory={item.advert_type_name}
                         videoLink={item.video_link}
-                        documents={item.documents}
                         isClosedAd={item.is_closed_advert}
                         onAdClose={onAdClose}
                         onDelete={onDelete}

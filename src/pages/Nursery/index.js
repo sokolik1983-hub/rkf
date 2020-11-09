@@ -7,7 +7,7 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import AddArticle from "../../components/UserAddArticle";
-import UserNews from "pages/Club/components/ClubUserNews";
+import UserNews from "../../components/Layouts/UserNews";
 import MenuComponent from "../../components/MenuComponent";
 import ClubUserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
@@ -124,7 +124,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     />
                                 }
                                 <UserNews
-                                    user="nursery"
                                     canEdit={canEdit}
                                     alias={alias}
                                     needRequest={needRequest}
