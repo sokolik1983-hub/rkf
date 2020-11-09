@@ -50,7 +50,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
             {canEdit && id > 0 && <button
                 className="UploadedDocuments__category-btn"
                 type="button"
-                title="Редактировать"
+                //title="Редактировать"
                 onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: currentCategory.name })}
             >
                 <SvgIcon icon={pencil} size="default" />

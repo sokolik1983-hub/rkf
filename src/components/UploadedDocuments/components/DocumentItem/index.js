@@ -72,7 +72,7 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
                 <button
                     className="DocumentItem__delete-btn"
                     type="button"
-                    title="Удалить"
+                    //title="Удалить"
                     onClick={() => setModal({ type: 'deleteDocument', documentId: id })}
                 >
                     <SvgIcon icon={trash} size="default" />

@@ -24,7 +24,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                         <button
                             className="UploadedDocuments__edit-btn"
                             type="button"
-                            title="Редактировать"
+                            //title="Редактировать"
                             onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: name })}
                         >
                             <SvgIcon icon={pencil} size="default" />
@@ -32,7 +32,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                         <button
                             className="UploadedDocuments__delete-btn"
                             type="button"
-                            title="Удалить"
+                            //title="Удалить"
                             onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
                         >
                             <SvgIcon icon={trash} size="default" />
