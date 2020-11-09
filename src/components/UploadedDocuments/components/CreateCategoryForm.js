@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Form, Field, FormElement } from '@progress/kendo-react-form';
-import FormInput from 'pages/UploadedDocuments/components/FormInput';
+import FormInput from './FormInput';
 import { categoryNameValidator } from '../validators';
 import { Request } from "utils/request";
 
