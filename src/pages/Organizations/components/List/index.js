@@ -15,7 +15,9 @@ const OrganizationsList = ({organization_type,
                             city_ids,
                             breed_ids,
                             activated,
-                            active_member}) => {
+                            not_activated,
+                            active_member,
+                            active_rkf_user}) => {
     const [org, setOrg] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [startElement, setStartElement] = useState(1);
@@ -29,7 +31,9 @@ const OrganizationsList = ({organization_type,
                 city_ids,
                 breed_ids,
                 activated,
+                not_activated,
                 active_member,
+                active_rkf_user,
                 start_element: startElem
             })}`
         }, data => {
