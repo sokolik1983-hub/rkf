@@ -193,7 +193,10 @@
       right: 35px;
       z-index: 100;
       &:hover {
-        opacity: 0.5;
+        width: 20px;
+        height: 20px;  
+        background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
+        background-size: contain;
       }
       @media (max-width: 560px) {
         right: 23px;
