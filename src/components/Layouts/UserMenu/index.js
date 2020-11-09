@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import {CSSTransition} from "react-transition-group";
-import {NavLink} from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import { NavLink } from "react-router-dom";
 import Alert from "../../Alert";
 import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserMenu = ({userNav}) => {
+const UserMenu = ({ userNav }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const isMobile = useIsMobile();
@@ -39,7 +39,7 @@ const UserMenu = ({userNav}) => {
                             <li className="user-nav__item" key={navItem.id}>
                                 <NavLink
                                     to={navItem.to}
-                                    exact={true}
+                                    exact={navItem.exact}
                                     className={`user-nav__link${navItem.disabled ? ' _disabled' : ''}`}
                                     onClick={e => navItem.disabled ? clickOnDisabledLink(e) : null}
                                 >
