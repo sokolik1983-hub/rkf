@@ -5,8 +5,8 @@ const AllCategories = ({ match, canEdit, setActiveCategoryId, categories, docume
     useEffect(() => {
         setActiveCategoryId(null);
     }, []);
-
-    const updatedCategories = [{ id: 0 }, ...categories];
+    const unsortedCategory = { id: 0, name: "Неотсортированные" };
+    const updatedCategories = [unsortedCategory, ...categories];
 
     return <>
         {updatedCategories.map((c, i) => {
@@ -15,7 +15,8 @@ const AllCategories = ({ match, canEdit, setActiveCategoryId, categories, docume
                 match={match}
                 canEdit={canEdit}
                 setActiveCategoryId={setActiveCategoryId}
-                categories={categories}
+                categories={updatedCategories}
+                unsortedCategory={unsortedCategory}
                 currentCategory={categories.filter(cat => cat.id === c.id)[0]}
                 documents={documents.filter(d => d.category_id === c.id)}
                 setModal={setModal}

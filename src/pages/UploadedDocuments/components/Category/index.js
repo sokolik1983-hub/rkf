@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import DocumentItem from "../DocumentItem";
 import DocumentItemReadOnly from "../DocumentItemReadOnly";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { pencil } from "@progress/kendo-svg-icons";
 import { Upload } from "@progress/kendo-react-upload";
 import Card from "components/Card";
+import { Button } from "@progress/kendo-react-buttons";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import { getHeaders } from "utils/request";
+import { Request, getHeaders } from "utils/request";
 import kendoMessages from 'kendoMessages.json';
 import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
 
-const Category = ({ match, canEdit, setActiveCategoryId, id, currentCategory, categories, documents, setModal, getDocuments, handleError, handleSuccess, homePage }) => {
-
+const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, documents, setModal, getDocuments, handleError, handleSuccess }) => {
+    const [documentsToUpdate, setDocumentsToUpdate] = useState([]);
 
     const onBeforeUpload = event => {
         event.headers = getHeaders(true);
@@ -28,6 +29,19 @@ const Category = ({ match, canEdit, setActiveCategoryId, id, currentCategory, ca
         } else {
             handleError(request);
         }
+    };
+
+    const handleDocumentsUpdate = async () => {
+        setDocumentsToUpdate([]);
+        await Request({
+            url: '/api/document/publicdocument/documents_category',
+            method: 'POST',
+            data: JSON.stringify({ "documents": documentsToUpdate })
+        }, () => {
+            getDocuments(true);
+        }, error => {
+            handleError(error);
+        });
     };
 
     return <Card className="UploadedDocuments__category">
@@ -46,7 +60,15 @@ const Category = ({ match, canEdit, setActiveCategoryId, id, currentCategory, ca
         {
             canEdit
                 ? documents.filter(d => d.category_id === id)
-                    .map((d, i) => <DocumentItem key={i} {...d} categories={categories} setModal={setModal} />)
+                    .map((d, i) => <DocumentItem
+                        {...d}
+                        key={i}
+                        categories={categories}
+                        unsortedCategory={unsortedCategory}
+                        setModal={setModal}
+                        documentsToUpdate={documentsToUpdate}
+                        setDocumentsToUpdate={setDocumentsToUpdate}
+                    />)
                 : <div className="DocumentItem container p-0">
                     <div className="row d-flex align-items-center">
                         {
@@ -55,6 +77,17 @@ const Category = ({ match, canEdit, setActiveCategoryId, id, currentCategory, ca
                         }
                     </div>
                 </div>
+        }
+        {
+            !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
+                <div className="row d-flex align-items-center">
+                    <div className="col-8">
+                    </div>
+                    <div className="col-3 text-right">
+                        <Button type="button" className="k-primary" onClick={handleDocumentsUpdate}>Применить</Button>
+                    </div>
+                </div>
+            </div>
         }
         {canEdit && <LocalizationProvider language="ru-RU">
             <IntlProvider locale="ru" >

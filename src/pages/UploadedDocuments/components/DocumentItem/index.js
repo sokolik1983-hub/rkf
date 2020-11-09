@@ -10,17 +10,38 @@ import './styles.scss';
 
 moment.locale('ru');
 
-const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, setModal }) => {
-    const [value, setValue] = useState({});
-    const defaultValue = { id: 0, name: "Неотсортированные" };
+const DocumentItem = ({ category_id, category_name, id, name, date_create, categories, unsortedCategory, setModal, documentsToUpdate, setDocumentsToUpdate }) => {
+    const [category, setCategory] = useState({});
+    const initialCategory = category_id ? { id: category_id, name: category_name } : unsortedCategory;
 
     useEffect(() => {
-        setValue(category_id ? { id: category_id, name: category_name } : defaultValue);
+        setCategory(initialCategory);
     }, []);
+
+    const handleCategoryChange = ({ target }) => {
+        const { value } = target;
+        setCategory(value);
+        if (value === initialCategory) {
+            setDocumentsToUpdate(documentsToUpdate.filter(d => d.id !== id));
+        } else {
+            const updatedDocument = { id: id, category_id: value.id };
+            setDocumentsToUpdate([
+                ...documentsToUpdate.filter(d => d.id !== id),
+                updatedDocument
+            ]);
+        }
+    };
+
+    const itemRender = (li) => {
+        const itemChildren = <div style={{ textOverflow: 'ellipsis', display: 'block', overflow: 'hidden' }}>
+            {li.props.children}
+        </div >;
+        return React.cloneElement(li, li.props, itemChildren);
+    }
 
     return <div className="DocumentItem container p-0 mb-4">
         <div className="row d-flex align-items-center">
-            <div className="col-6">
+            <div className="col-5">
                 <Link
                     to={`/docs/${id}`}
                     target="_blank"
@@ -37,14 +58,14 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             <div className="col-1">
                 <Share url={`//${window.location.host}/docs/${id}`} />
             </div>
-            <div className="col-4">
+            <div className="col-5">
                 <DropDownList
                     data={categories}
                     dataItemKey="id"
                     textField="name"
-                    defaultItem={defaultValue}
-                    value={value}
-                    onChange={({ target }) => setValue(target.value)}
+                    value={category}
+                    itemRender={itemRender}
+                    onChange={handleCategoryChange}
                 />
             </div>
             <div className="col-1">

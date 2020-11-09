@@ -13,6 +13,9 @@ import UserMenu from "components/Layouts/UserMenu"
 import { endpointGetUserInfo, userNav } from "pages/User/config";
 import useIsMobile from "utils/useIsMobile";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "components/CopyrightInfo";
 
 import AllCategories from './components/AllCategories';
 import CreateCategoryForm from './components/CreateCategoryForm';
@@ -73,10 +76,11 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                 setCategories(data);
             }
         });
-    const getDocuments = () => PromiseRequest(`/api/document/publicdocument/public?alias=${alias}`)
+    const getDocuments = (withSuccess) => PromiseRequest(`/api/document/publicdocument/public?alias=${alias}`)
         .then(data => {
             if (data) {
                 setDocuments(data);
+                withSuccess && handleSuccess();
             }
         });
 
@@ -133,6 +137,21 @@ const UploadedDocuments = ({ history, location, match, profile_id, is_active_pro
                                 />
                             </Card>
                             <UserMenu userNav={userNav(alias)} />
+                            {!isMobile &&
+                                <>
+                                    <UserPhotoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/gallery`}
+                                        canEdit={canEdit}
+                                    />
+                                    <UserVideoGallery
+                                        alias={alias}
+                                        pageLink={`/user/${alias}/video`}
+                                        canEdit={canEdit}
+                                    />
+                                    <CopyrightInfo />
+                                </>
+                            }
                         </StickyBox>
                     </aside>
                     <div className="UploadedDocuments__right">

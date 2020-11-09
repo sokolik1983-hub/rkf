@@ -8,7 +8,9 @@ const CategoryPage = (props) => {
     const { match, categories, setActiveCategoryId, homePage } = props;
 
     let id = parseInt(match.params.id, 10);
-    const currentCategory = categories.filter(c => c.id === id)[0];
+    const unsortedCategory = { id: 0, name: "Неотсортированные" };
+    const updatedCategories = [unsortedCategory, ...categories];
+    const currentCategory = updatedCategories.filter(c => c.id === id)[0];
 
     useEffect(() => {
         if (id === 0 || currentCategory) {
@@ -20,7 +22,13 @@ const CategoryPage = (props) => {
 
     return <>
         {redirect && <Redirect to={homePage} />}
-        <Category {...props} id={id} currentCategory={currentCategory} />
+        <Category
+            {...props}
+            id={id}
+            categories={updatedCategories}
+            currentCategory={currentCategory}
+            unsortedCategory={unsortedCategory}
+        />
     </>;
 };
 
