@@ -15,8 +15,9 @@ import { RKFInfo, exhibitions } from "./config";
 import StickyBox from "react-sticky-box";
 import "./index.scss";
 
+
 const HomePage = ({ homepage, cities }) => {
-    const { current_active_type } = homepage.news;
+
     return (
         <Layout showCopyright={false}>
             <div className="home-page__wrap">
@@ -25,10 +26,7 @@ const HomePage = ({ homepage, cities }) => {
                 <Container className="home-page__news" >
                     <div className="home-page__news-wrap">
                         <NewsList
-                            listNotFound="Новости не найдены"
-                            listClass="news-list"
                             isFullDate={false}
-                            currentActiveType={current_active_type}
                             citiesDict={cities.options}
                         />
                         <Aside className="home-page__right">

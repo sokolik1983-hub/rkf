@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import Share from "../Share";
+import {ActiveUserMark, FederationChoiceMark} from "../Marks";
 import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
@@ -10,8 +11,8 @@ const CardOrganization = ({ alias,
     logo,
     name,
     user_type,
-    is_active,
-    is_active_member,
+    active_member,
+    active_rkf_user,
     city_name,
     city_id,
     owner_name,
@@ -25,7 +26,6 @@ const CardOrganization = ({ alias,
     site,
     setFilters }) => {
     const url = user_type === 4 ? `/kennel/${alias}` : user_type === 7 ? null : `/${alias}`;
-    const logoClassName = `card-organization__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`;
 
     return (
         <Card className="card-organization">
@@ -33,9 +33,13 @@ const CardOrganization = ({ alias,
                 <div className="card-organization__header">
                     {url ?
                         <div className="card-organization__author">
-                            <Link to={url} className={logoClassName} style={{
-                                backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
-                            }} />
+                            <Link
+                                to={url}
+                                className={`card-organization__logo ${user_type === 3 || user_type === 4 ? `item-card__logo--club` : ``}`}
+                                style={{
+                                    backgroundImage: `url(${logo || DEFAULT_IMG.clubAvatar})`
+                                }}
+                            />
                             <div className="card-organization__name-wrap">
                                 <div>
                                     <Link to={url} className="card-organization__name" title={name || 'Название отсутствует'}>
@@ -49,13 +53,11 @@ const CardOrganization = ({ alias,
                                         }
                                         <span>{name || 'Название отсутствует'}</span>
                                     </Link>
-                                    {!!is_active_member &&
-                                        <img
-                                            className="card-organization__active-member"
-                                            src="/static/icons/footprint.svg"
-                                            title="Активный пользователь RKF.Online"
-                                            alt="Активный пользователь RKF.Online"
-                                        />
+                                    {active_rkf_user &&
+                                        <ActiveUserMark/>
+                                    }
+                                    {active_member &&
+                                        <FederationChoiceMark/>
                                     }
                                 </div>
                                 {(user_type !== 0 && user_type !== 5 && user_type !== 7) &&
@@ -84,13 +86,11 @@ const CardOrganization = ({ alias,
                                 }
                                 <span>{name || 'Название отсутствует'}</span>
                             </span>
-                            {!!is_active_member &&
-                                <img
-                                    className="card-organization__active-member"
-                                    src="/static/icons/footprint.svg"
-                                    title="Активный пользователь RKF.Online"
-                                    alt="Активный пользователь RKF.Online"
-                                />
+                            {active_rkf_user &&
+                                <ActiveUserMark/>
+                            }
+                            {active_member &&
+                                <FederationChoiceMark/>
                             }
                         </p>
                     }

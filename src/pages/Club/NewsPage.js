@@ -7,7 +7,7 @@ import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
-import ClubUserNews from "./components/ClubUserNews";
+import UserNews from "../../components/Layouts/UserNews";
 import MenuComponent from "../../components/MenuComponent";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
@@ -89,8 +89,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                         setNeedRequest={setNeedRequest}
                                     />
                                 }
-                                <ClubUserNews
-                                    user="club"
+                                <UserNews
                                     canEdit={canEdit}
                                     alias={match.params.route}
                                     needRequest={needRequest}
