@@ -79,7 +79,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 {documents && !!documents.length
                     ? <>
                         <div className="club-documents-status__controls">
-                            {!!exhibitionsForTable.length && standardView &&
+                            {/* {!!exhibitionsForTable.length && standardView &&
                                 <button
                                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                                     onClick={() => setExporting(true)}
@@ -87,7 +87,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                                 >
                                     Скачать PDF
                             </button>
-                            }
+                            } */}
                             <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                 Открыть на всю ширину окна
                         </button>

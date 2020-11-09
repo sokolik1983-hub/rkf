@@ -90,7 +90,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                     {documents && !!documents.length
                         ? <>
                             <div className="club-documents-status__controls">
-                                {!!exhibitionsForTable.length && standardView &&
+                                {/* {!!exhibitionsForTable.length && standardView &&
                                     <button
                                         className="club-documents-status__control club-documents-status__control--downloadIcon"
                                         onClick={() => setExporting(true)}
@@ -98,7 +98,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                     >
                                         Скачать PDF
                             </button>
-                                }
+                                } */}
                                 <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                     Открыть на всю ширину окна
                         </button>
