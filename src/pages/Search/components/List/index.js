@@ -59,6 +59,7 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                     url={`/exhibitions/${item.id}`}
                                     ranks={getRanks(item.rank_ids)}
                                     user={item.user_type}
+                                    reports = {item.reports_links}
                                 />
                             }
                             {item.search_type === 'articles' &&

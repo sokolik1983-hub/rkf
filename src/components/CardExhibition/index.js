@@ -23,7 +23,8 @@ const CardExhibition = ({title,
                          user,
                          active_rkf_user,
                          active_member,
-                         setFilters}) => (
+                         setFilters,
+                         reports}) => (
     <Card className="card-exhibition">
         <div className="card-exhibition__wrap">
             <Link className="card-exhibition__photo" to={url} style={{ backgroundImage: `url(${photo || DEFAULT_IMG.exhibitionPicture})` }} />
@@ -74,6 +75,18 @@ const CardExhibition = ({title,
                         <p className="card-exhibition__federation">Федерация не указана</p>
                     }
                 </div>
+                {	reports && reports.length > 0 &&
+                    <div className = "card-exhibition__reports">
+                    	<span>Отчет</span>
+                    	<div className="card-exhibition__reports_block">
+                        	{reports.map((rep,index) =>
+                            	<div className="card-exhibition__reports_link" key={index}>
+                                	<a target="_blank" rel="noopener noreferrer" href={rep.link} title = {rep.report_type_name}/>
+                           		 </div>
+                        	)}
+                    	</div>
+                    </div>
+                }
                 <div className="card-exhibition__info">
                     <div>
                         <span className="card-exhibition__subtitle">Дата проведения</span>
@@ -87,6 +100,16 @@ const CardExhibition = ({title,
                         <span className="card-exhibition__subtitle">Ранг</span>
                         <p>{ranks}</p>
                     </div>
+                    {   reports && reports.length > 0 &&
+                        <div>
+                        	<span className="card-exhibition__subtitle">Отчет</span>
+                        	<div className="card-exhibition__subtitle_link">
+                            	{reports.map((rep,index) =>
+                                	<a target="_blank" rel="noopener noreferrer" key={index} href={rep.link} title = {rep.report_type_name}/>
+                            	)}
+                        	</div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
