@@ -67,7 +67,7 @@
     "upload": {
         "cancel": "Отмена",
         "clearSelectedFiles": "Удалить",
-        "dropFilesHere": "Перетащите сюда файлы для загрузки",
+        "dropFilesHere": "Перетащите сюда файл для загрузки",
         "headerStatusUploaded": "Готово",
         "headerStatusUploading": "Загрузка...",
         "invalidFileExtension": "Тип файла не поддерживается",
