@@ -92,6 +92,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     </div>
                 </div>
         }
+        {!documents.length && <h4 className="UploadedDocuments__category-placeholder">Не добавлено ни одного документа</h4>}
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
                 <div className="row d-flex align-items-center">
