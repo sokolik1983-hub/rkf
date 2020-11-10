@@ -209,79 +209,81 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         : errorRedirect
             ? <Redirect to="/404" />
             : <Layout>
-                <Container className="UserEdit content">
-                    <aside className="UserEdit__left">
-                        <StickyBox offsetTop={66}>
-                            {isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
+                <div className="UserEdit__wrap">
+                    <Container className="UserEdit content">
+                        <aside className="UserEdit__left">
+                            <StickyBox offsetTop={66}>
+                                {isMobile &&
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
+                                }
+                                <Card>
+                                    <UserInfo
+                                        canEdit={canEdit}
+                                        logo_link={userInfo.logo_link}
+                                        share_link={`https://rkf.online/user/${alias}`}
+                                        first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
+                                        last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
+                                        alias={alias}
+                                        updateInfo={getUser}
+                                    />
+                                </Card>
+                                <UserMenu userNav={userNav(alias)} />
+                            </StickyBox>
+                        </aside>
+                        <div className="UserEdit__right">
+                            {!loaded
+                                ? <Loading />
+                                : <div className="UserEdit__inner">
+                                    <div className="UserEdit__inner-left">
+                                        <Card>
+                                            {renderSection(activeSection)}
+                                        </Card>
+                                    </div>
+                                    <div className="UserEdit__inner-right">
+                                        <Card>
+                                            <ul className="UserEdit__inner-list">
+                                                {Object.keys(sections).map((type, key) => <div
+                                                    className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}
+                                                    key={key}
+                                                    onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
+                                                >
+                                                    <span className={`k-icon k-icon-32 ${sections[type].icon}`} />
+                                                    <li>{sections[type].name}</li>
+                                                </div>
+                                                )}
+                                            </ul>
+                                        </Card>
+                                    </div>
+                                </div>
                             }
-                            <Card>
-                                <UserInfo
-                                    canEdit={canEdit}
-                                    logo_link={userInfo.logo_link}
-                                    share_link={`https://rkf.online/user/${alias}`}
-                                    first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
-                                    last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                    alias={alias}
-                                    updateInfo={getUser}
-                                />
-                            </Card>
-                            <UserMenu userNav={userNav(alias)} />
-                        </StickyBox>
-                    </aside>
-                    <div className="UserEdit__right">
-                        {!loaded
-                            ? <Loading />
-                            : <div className="UserEdit__inner">
-                                <div className="UserEdit__inner-left">
-                                    <Card>
-                                        {renderSection(activeSection)}
-                                    </Card>
-                                </div>
-                                <div className="UserEdit__inner-right">
-                                    <Card>
-                                        <ul className="UserEdit__inner-list">
-                                            {Object.keys(sections).map((type, key) => <div
-                                                className={sections[type].id === activeSection ? "UserEdit__inner-item active" : "UserEdit__inner-item"}
-                                                key={key}
-                                                onClick={() => activeSection !== sections[type].id && handleSectionSwitch(sections[type].id)}
-                                            >
-                                                <span className={`k-icon k-icon-32 ${sections[type].icon}`} />
-                                                <li>{sections[type].name}</li>
-                                            </div>
-                                            )}
-                                        </ul>
-                                    </Card>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <NotificationGroup
-                        style={{
-                            alignItems: 'flex-start',
-                            flexWrap: 'wrap-reverse'
-                        }}
-                    >
-                        <Fade enter={true} exit={true}>
-                            {success && <Notification
-                                type={{ style: 'success', icon: true }}
-                                closable={true}
-                                onClose={() => setSuccess(false)}
-                            >
-                                <span>Информация сохранена!</span>
-                            </Notification>}
-                        </Fade>
-                        <Fade enter={true} exit={true}>
-                            {error && <Notification
-                                type={{ style: 'error', icon: true }}
-                                closable={true}
-                                onClose={() => setError(false)}
-                            >
-                                <span>{errorMessage}</span>
-                            </Notification>}
-                        </Fade>
-                    </NotificationGroup>
-                </Container>
+                        </div>
+                        <NotificationGroup
+                            style={{
+                                alignItems: 'flex-start',
+                                flexWrap: 'wrap-reverse'
+                            }}
+                        >
+                            <Fade enter={true} exit={true}>
+                                {success && <Notification
+                                    type={{ style: 'success', icon: true }}
+                                    closable={true}
+                                    onClose={() => setSuccess(false)}
+                                >
+                                    <span>Информация сохранена!</span>
+                                </Notification>}
+                            </Fade>
+                            <Fade enter={true} exit={true}>
+                                {error && <Notification
+                                    type={{ style: 'error', icon: true }}
+                                    closable={true}
+                                    onClose={() => setError(false)}
+                                >
+                                    <span>{errorMessage}</span>
+                                </Notification>}
+                            </Fade>
+                        </NotificationGroup>
+                    </Container>
+                </div>
             </Layout>
     )
 };

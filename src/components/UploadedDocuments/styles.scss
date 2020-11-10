@@ -116,12 +116,14 @@
             flex-shrink: 0;
         }
         .k-upload-button {
-            color: #72839c;
-            background-color: #dfe9fb;
-            border: none;
+            border-color: #007bff;
+            color: #ffffff;
+            background-color: #007bff;
+            opacity: 0.65;
             &:hover {
-                color: #72839c;
-                background-color: #dfe9fb;
+                border-color: #007bff;
+                color: #ffffff;
+                background-color: #007bff;
                 opacity: 0.8;
                 transition: all 0.2s linear;
             }
