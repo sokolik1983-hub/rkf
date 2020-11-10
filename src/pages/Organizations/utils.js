@@ -67,7 +67,7 @@ export const getFiltersFromUrl = () => {
 };
 
 export const setFiltersToUrl = filters => {
-    const newFilters = Object.keys(filters).length > 1 ? {...filters} : {...getFiltersFromUrl(), ...filters};
+    const newFilters = Object.keys(filters).length > 2 ? {...filters} : {...getFiltersFromUrl(), ...filters};
 
     history.push(`/organizations${buildUrlParams(newFilters)}`);
 };

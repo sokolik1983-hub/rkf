@@ -156,16 +156,16 @@ const Filters = ({organization_type,
                                         <Card className="organizations-page__other-filters">
                                             <ActiveUserFilter
                                                 active_rkf_user={active_rkf_user}
-                                                onChange={filter => setFiltersToUrl({active_rkf_user: filter})}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, active_rkf_user: filter})}
                                             />
                                             <FederationChoiceFilter
                                                 active_member={active_member}
-                                                onChange={filter => setFiltersToUrl({active_member: filter})}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, active_member: filter})}
                                             />
                                             <ActivatedFilter
                                                 activated={activated}
                                                 label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                                onChange={filter => setFiltersToUrl({activated: filter})}
+                                                onChange={filter => setFiltersToUrl({not_activated: false, activated: filter})}
                                             />
                                             <NotActivatedFilter
                                                 not_activated={not_activated}
