@@ -1,0 +1,48 @@
+.UploadedDocuments {
+    .DocumentItem {
+        &__date {
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            color: #b9b9b9;
+        }
+        &__link {
+            display: block;
+        }
+        &__delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0;
+            border: none;
+            width: 24px;
+            height: 24px;
+            max-width: 100%;
+        }
+        .k-svg-i-file-pdf {
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            svg {
+                fill: #3366ff !important;
+            }
+        }
+        .k-dropdown {
+            width: 100%;
+        }
+        &__delete-btn {
+            .k-svg-i-trash{
+                flex-shrink: 0;
+            }
+            svg {
+                fill: red !important;
+            }
+        }
+        &__dropdown {
+            text-overflow: ellipsis;
+            display: block;
+            overflow: hidden;
+        }
+    }
+}

@@ -179,9 +179,8 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                         {news && !!news.length && news.map((item,index) => (
                             <li className="NewsList__item" key={item.id}>
                                 <CardNews
+                                    {...item}
                                     user={item.user_type}
-                                    id={item.id}
-                                    name={item.name}
                                     city={item.fact_city_name}
                                     date={item.create_date}
                                     isFullDate={isFullDate}
@@ -189,8 +188,6 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                                     photo={item.picture_link}
                                     text={item.content}
                                     url={`/news/${item.id}`}
-                                    alias={item.alias}
-                                    logo_link={item.logo_link}
                                     changeCityFilter={changeCityFilter}
                                     citiesDict={citiesDict}
                                     isAd={item.is_advert}
@@ -200,7 +197,6 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                                     adAmount={item.advert_number_of_puppies}
                                     adCategory={item.advert_type_name}
                                     videoLink={item.video_link}
-                                    documents={item.documents}
                                 />
                                 {/* {
                                     banner!=null && (index + 1) % 20 === 0 ? <Banner inputBanner = {banner}/> : '' 

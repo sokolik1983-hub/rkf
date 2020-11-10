@@ -1,8 +1,4 @@
 .organizations-page__filters {
-  .is-active-member-filter,
-  .is-activated-filter {
-    margin-left: 10px;
-  }
   h3 {
     font-weight: normal;
     font-size: 18px;
@@ -61,6 +57,9 @@
       height: 20px;
     }
   }
+  .organizations-page__other-filters {
+    margin-bottom: 16px;
+  }
   .statistic {
     margin-bottom: 16px;
   }
@@ -77,15 +76,7 @@
       color: #36f;
     }
   }
-}
-.organizations-page__copy-wrap {
-  margin-top: 16px;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  color: #72839c;
-  padding-bottom: 16px;
-  @media (max-width: 990px) {
-    display: none;
+  .copyright-info {
+    margin-top: 16px;
   }
 }

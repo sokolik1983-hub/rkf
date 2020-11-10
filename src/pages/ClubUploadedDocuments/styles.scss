@@ -1,0 +1,13 @@
+.club-page {
+    .UploadedDocuments {
+        &__inner {
+            width: 100%;
+            &-left,
+            &-right {
+                .Card:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

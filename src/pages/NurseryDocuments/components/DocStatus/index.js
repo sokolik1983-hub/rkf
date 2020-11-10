@@ -14,6 +14,10 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     const [showModal, setShowModal] = useState(false);
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
+    const [standardView, setStandardView] = useState(true);
+    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
+    // const [exporting, setExporting] = useState(false);
+
 
     useEffect(() => {
         (() => Request({
@@ -23,6 +27,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
         },
             data => {
                 setDocuments(data);
+                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
@@ -61,7 +66,22 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     };
 
     return loading ?
-        <Loading /> :
+        <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
+        <button
+            onClick={() => setStandardView(true)}
+            className="nursery-documents-status__popup-close"
+        >
+        </button>
+        <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+        <Table
+            documents={documents}
+            distinction={distinction}
+            rowClick={rowClick}
+            deleteRow={deleteRow}
+            setShowModal={setShowModal}
+            fullScreen
+        />
+    </Card> :
         <Card className="nursery-documents-status">
             <div className="nursery-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
@@ -72,7 +92,22 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             </div>
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length
-                    ? <><div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+                    ? <>
+                    <div className="nursery-documents-status__controls">
+                    {/* {!!exhibitionsForTable.length && standardView &&
+                        <button
+                            className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                            onClick={() => setExporting(true)}
+                            disabled={exporting}
+                        >
+                            Скачать PDF
+                        </button>
+                    } */}
+                    <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                        Открыть на всю ширину окна
+                    </button>
+                </div>
+                        <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
                         <Table documents={documents} distinction={distinction} rowClick={rowClick} deleteRow={deleteRow} setShowModal={setShowModal} />
                     </>
                     : <h2>Документов не найдено</h2>

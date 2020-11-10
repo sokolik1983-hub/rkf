@@ -15,7 +15,7 @@ import ExhibitionsComponent from "../../components/ExhibitionsComponent";
 import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
-import ClubUserNews from "./components/ClubUserNews";
+import UserNews from "../../components/Layouts/UserNews";
 import MenuComponent from "../../components/MenuComponent";
 import { Request } from "../../utils/request";
 import { endpointGetClubInfo } from "./config";
@@ -70,7 +70,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         {
                                             clubInfo.is_active
                                                 ? <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                                : <div className="club-page__content-banner-inactive"/>
+                                                : <div className="club-page__content-banner-inactive" />
                                         }
                                     </Card>
                                     {isMobile &&
@@ -112,8 +112,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             setProfileInfo = {setClubInfo}
                                         />
                                     }
-                                    <ClubUserNews
-                                        user="club"
+                                    <UserNews
                                         canEdit={canEdit}
                                         alias={match.params.route}
                                         needRequest={needRequest}
@@ -147,7 +146,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         pageLink={`/${clubInfo.club_alias}/video`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo/>
+                                                    <CopyrightInfo />
                                                 </>
                                             }
                                         </div>

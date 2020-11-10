@@ -100,4 +100,70 @@
   .stamp-loading {
     pointer-events: none;
   }
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__control {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    margin: 10px 0 10px 10px;
+    letter-spacing: .2px;
+    color: #72839c;
+    transition: color .2s linear;
+    position: relative;
+    &:hover {
+      color: #3366FF;
+    }
+    &--tableIcon:before {
+      content: '';
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/full-screen.svg) no-repeat center / cover;
+    }
+    &--downloadIcon:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
+    }
+  }
+  &__popup {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    &-close {
+      width: 20px;
+      height: 20px;
+      display: block;
+      border: none;
+      background: url("/static/icons/cross-gray.svg") no-repeat center;
+      background-size: contain;
+      padding: 0;
+      transition: all 0.2s linear;
+      position: absolute;
+      top: 33px;
+      right: 35px;
+      z-index: 100;
+      &:hover {
+        width: 20px;
+        height: 20px;  
+        background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
+        background-size: contain;
+      }
+      @media (max-width: 560px) {
+        right: 23px;
+        top: 23px;
+      }
+    }
+  }
 }

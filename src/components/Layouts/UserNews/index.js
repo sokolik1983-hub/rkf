@@ -130,8 +130,7 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
             >
                 <List
                     list={news}
-                    listNotFound="Публикации не найдены"
-                    listClass="user-news"
+                    className="user-news"
                     isFullDate={true}
                     removable={canEdit}
                     onAdClose={closeAd}

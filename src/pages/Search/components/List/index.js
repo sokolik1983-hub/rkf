@@ -52,26 +52,20 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                             }
                             {item.search_type === 'exhibitions' &&
                                 <CardExhibition
+                                    {...item}
                                     title={item.exhibition_name}
-                                    city={item.city}
-                                    club_name={item.club_name}
-                                    club_alias={item.club_alias}
-                                    club_logo={item.club_logo}
                                     date={getDate(item.dates)}
                                     photo={item.picture_link}
                                     url={`/exhibitions/${item.id}`}
                                     ranks={getRanks(item.rank_ids)}
-                                    federation_name={item.federation_name}
-                                    federation_link={item.federation_link}
                                     user={item.user_type}
                                     reports = {item.reports_links}
                                 />
                             }
                             {item.search_type === 'articles' &&
                                 <CardNews
+                                    {...item}
                                     user={item.user_type}
-                                    id={item.id}
-                                    name={item.name}
                                     city={item.fact_city_name}
                                     date={item.create_date}
                                     isFullDate={true}
@@ -79,8 +73,6 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                     photo={item.picture_link}
                                     text={item.content}
                                     url={`/news/${item.id}`}
-                                    alias={item.alias}
-                                    logo_link={item.logo_link}
                                     isAd={item.is_advert}
                                     adBreedName={item.advert_breed_name}
                                     adCode={item.advert_code}

@@ -250,13 +250,13 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 setData({ ...data, fees: [...result] });
                 setLoading(false);
             },
-            error => {
-                console.log(error.response);
-                if (error.response) {
-                    setErrorText(`${error.response.status} ${error.response.statusText}`);
-                }
-                setLoading(false);
-            });
+                error => {
+                    console.log(error.response);
+                    if (error.response) {
+                        setErrorText(`${error.response.status} ${error.response.statusText}`);
+                    }
+                    setLoading(false);
+                });
         }
     };
 
@@ -409,6 +409,9 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
                     </li>
                     <li className="user-menu__item">
+                        <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="menu-component__link" title="Документы">Документы</Link>
+                    </li>
+                    <li className="user-menu__item">
                         <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
                     </li>
                     <li className="user-menu__item">
@@ -437,6 +440,9 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 }
                 <li className="menu-component__item menu-component__item--public">
                     <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
+                </li>
+                <li className="menu-component__item menu-component__item--documents">
+                    <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="menu-component__link" title="Документы">Документы</Link>
                 </li>
                 <li className="menu-component__item menu-component__item--gallery">
                     <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>

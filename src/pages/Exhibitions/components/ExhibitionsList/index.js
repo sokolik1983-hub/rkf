@@ -25,18 +25,8 @@ const ExhibitionsList = ({ exhibitions, loading, getNextExhibitions, hasMore }) 
                 {exhibitions.map(item => (
                     <li className="ExhibitionsList__item" key={item.id}>
                         <CardExhibition
-                            id={item.id}
-                            title={item.title}
-                            city={item.city}
-                            city_id={item.city_id}
-                            date={item.date}
+                            {...item}
                             photo={item.picture_link}
-                            url={item.url}
-                            club_name={item.club_name}
-                            club_alias={item.club_alias}
-                            club_logo={item.club_logo}
-                            federation_name={item.federation_name}
-                            federation_link={item.federation_link}
                             ranks={item.rank_string}
                             user={item.user_type}
                             setFilters={city_id => setFiltersToUrl({CityIds: [city_id]})}

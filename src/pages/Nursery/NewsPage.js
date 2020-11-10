@@ -4,7 +4,7 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
-import ClubUserNews from "../Club/components/ClubUserNews";
+import UserNews from "../../components/Layouts/UserNews";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import ClubUserHeader from "../../components/redesign/UserHeader";
@@ -99,8 +99,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         setNeedRequest={setNeedRequest}
                                     />
                                 }
-                                <ClubUserNews
-                                    user="club"
+                                <UserNews
                                     canEdit={canEdit}
                                     alias={match.params.route}
                                     needRequest={needRequest}

@@ -19,6 +19,7 @@ import Banner from "../../components/Banner";
 import { Request } from "utils/request";
 import Loading from "../../components/Loading";
 
+
 const HomePage = ({ homepage, cities }) => {
     const { current_active_type } = homepage.news;
 
@@ -50,10 +51,7 @@ const HomePage = ({ homepage, cities }) => {
                 <Container className="home-page__news" >
                     <div className="home-page__news-wrap">
                         <NewsList
-                            listNotFound="Новости не найдены"
-                            listClass="news-list"
                             isFullDate={false}
-                            currentActiveType={current_active_type}
                             citiesDict={cities.options}
                             banner = {banners.homePageArticle}
                         />
