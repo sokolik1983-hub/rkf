@@ -173,7 +173,7 @@
     h3.UploadedDocuments__category-form-title {
         line-height: 1;
         letter-spacing: 0.2px;
-        color: #3366ff;
+        color: #72839c;
         font-size: 16px;
     }
     &__edit-btn,
@@ -192,5 +192,8 @@
         svg {
             fill: red !important;
         }
+    }
+    .k-textbox {
+        font-size: 15px;
     }
 }
