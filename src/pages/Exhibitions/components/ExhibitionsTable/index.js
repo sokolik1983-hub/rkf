@@ -114,6 +114,7 @@ const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions
                     >
                         {grid}
                     </GridPDFExport>
+                    
                 </IntlProvider>
             </LocalizationProvider>
         </div>
