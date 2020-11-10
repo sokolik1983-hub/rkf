@@ -137,7 +137,7 @@ const UserDescription = ({mainInfo, additionalInfo, counters}) => {
                 </>
             }
             {
-                !!counters && <Counter counters = {counters} is_personal = {true}/>
+                !!counters && <Counter counters = {counters}/>
             }
         </Card>
     )
