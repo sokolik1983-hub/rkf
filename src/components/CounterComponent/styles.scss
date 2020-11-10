@@ -6,13 +6,25 @@
       text-align: center;
       padding-top: 10px;
       padding-bottom: 15px;
+      @media (max-width: 414px){
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
     &__block{
       width: 110px;
       display: inline-block;
       vertical-align: middle;
-      @media (max-width: 768px) {
-        width: 100px;
+      @media (max-width: 768px){
+        width: 97px;
+      }
+    }
+    &__block_small{
+      width: 110px;
+      display: inline-block;
+      vertical-align: middle;
+      @media (max-width: 768px){
+        width: 85px;
       }
     }
     &__count{
@@ -20,7 +32,11 @@
         padding-top: 10px;
         color:#36f;;
         font-size: 36px;
-        @media (max-width: 768px) {
+        @media (max-width: 414px){
+          font-size: 28px;
+        }
+        @media (max-width: 768px) 
+              and (min-width: 415px){
           font-size: 30px;
         }
       }
