@@ -9,7 +9,6 @@
             border: none;
             width: 24px;
             height: 24px;
-            margin-left: 8px;
             .k-svg-i-pencil {
                 width: 16px;
                 height: 16px;
@@ -17,6 +16,15 @@
                     fill: #72839c !important;
                 }
             }
+        }
+        h4.UploadedDocuments__category-placeholder {
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            text-decoration: none;
+            color: #253c5e;
+            margin-bottom: 16px;
         }
     }
 }
