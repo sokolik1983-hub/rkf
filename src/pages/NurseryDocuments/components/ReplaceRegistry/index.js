@@ -16,8 +16,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
     const [documents, setDocuments] = useState([]);
     const [errorReport, setErrorReport] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    // const [exporting, setExporting] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
     const checkType = i => setCheckedTypes(checkedTypes.includes(i)
         ? checkedTypes.filter(x => x !== i)
@@ -41,7 +40,6 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             setDocuments(data[0]);
             setReqTypes(data[1]);
             setCheckedTypes(data[1].map(({ id }) => id));
-            // setExhibitionsForTable(data);
             setLoading(false);
         }).catch(
             error => {
@@ -67,8 +65,9 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 isOpenFilters={isOpenFilters}
                 setErrorReport={setErrorReport}
             />
-        </Card>
-            : <Card className="club-documents-status">
+            </Card>
+            : 
+            <Card className="club-documents-status">
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="club-documents-status__head">
                     <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
@@ -78,7 +77,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 {documents && !!documents.length
                     ? <>
                         <div className="nursery-documents-status__controls">
-                            {/* {!!exhibitionsForTable.length && standardView &&
+                            {standardView &&
                                 <button
                                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                                     onClick={() => setExporting(true)}
@@ -86,7 +85,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                                 >
                                     Скачать PDF
                         </button>
-                            } */}
+                            }
                             <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                 Открыть на всю ширину окна
                     </button>
@@ -100,6 +99,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             checkType={checkType}
                             isOpenFilters={isOpenFilters}
                             setErrorReport={setErrorReport}
+                            exporting={exporting}
+                            setExporting={setExporting}
                         />
                     </>
                     : <h2>Документов не найдено</h2>}

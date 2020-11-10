@@ -16,8 +16,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    // const [exporting, setExporting] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -27,7 +26,6 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
         },
             data => {
                 setDocuments(data);
-                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
@@ -76,7 +74,14 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
             >
             </button>
             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-            <Table documents={documents} distinction={distinction} rowClick={rowClick} deleteRow={deleteRow} setShowModal={setShowModal} fullScreen />
+            <Table 
+                documents={documents} 
+                distinction={distinction} 
+                rowClick={rowClick} 
+                deleteRow={deleteRow} 
+                setShowModal={setShowModal} 
+                fullScreen
+            />
         </Card> :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">
@@ -90,7 +95,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                     {documents && !!documents.length
                         ? <>
                             <div className="club-documents-status__controls">
-                                {/* {!!exhibitionsForTable.length && standardView &&
+                                {standardView &&
                                     <button
                                         className="club-documents-status__control club-documents-status__control--downloadIcon"
                                         onClick={() => setExporting(true)}
@@ -98,13 +103,21 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                     >
                                         Скачать PDF
                             </button>
-                                } */}
+                                }
                                 <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                     Открыть на всю ширину окна
                         </button>
                             </div>
                             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                            <Table documents={documents} distinction={distinction} rowClick={rowClick} deleteRow={deleteRow} setShowModal={setShowModal} />
+                            <Table 
+                                documents={documents} 
+                                distinction={distinction} 
+                                rowClick={rowClick} 
+                                deleteRow={deleteRow} 
+                                setShowModal={setShowModal}
+                                exporting={exporting}
+                                setExporting={setExporting}
+                            />
                         </>
                         : <h2>Документов не найдено</h2>
                     }
