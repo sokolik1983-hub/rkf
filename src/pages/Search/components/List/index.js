@@ -64,6 +64,7 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                     federation_name={item.federation_name}
                                     federation_link={item.federation_link}
                                     user={item.user_type}
+                                    reports = {item.reports_links}
                                 />
                             }
                             {item.search_type === 'articles' &&
