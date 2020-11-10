@@ -201,7 +201,7 @@ const UserContacts = ({
                     </div>
                 }</Collapse>
                 {
-                    !!counters && <Counter counters = {counters}/>
+                    !!counters && <Counter counters = {counters} is_personal = {false}/>
                 }
             {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>

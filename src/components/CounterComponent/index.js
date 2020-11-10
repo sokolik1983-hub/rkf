@@ -1,12 +1,12 @@
 import React from "react";
 import "./styles.scss";
 
-const Counter =({counters}) =>{
+const Counter =({counters, is_personal}) =>{
     return (
         !!counters &&
         <div className = "counter_component">
             <div className = "counter_component__body">
-                <div className = "counter_component__block">
+                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
                     <div className = "counter_component__count">
                         <p>{counters.publications_count}</p>
                     </div>
@@ -14,7 +14,7 @@ const Counter =({counters}) =>{
                         публикаций
                     </div>
                 </div>
-                <div className = "counter_component__block">
+                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
                     <div className = "counter_component__count">
                         <p>{counters.photos_count}</p>
                     </div>
@@ -22,7 +22,7 @@ const Counter =({counters}) =>{
                         фото
                     </div>
                 </div>
-                <div className = "counter_component__block">
+                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
                     <div className = "counter_component__count">
                         <p>{counters.videos_count}</p>
                     </div>
