@@ -92,7 +92,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, full
                         onRowClick={handleGridRowClick}
                         className="club-documents-status__pointer"
                         style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '195px' : '160px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '195px' : '170px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
                         <GridColumn field="count" title="Всего заявок" width={fullScreen ? '140px' : '130px'} columnMenu={ColumnMenu} />
