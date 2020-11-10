@@ -13,7 +13,7 @@ const CategoriesList = ({ canEdit, categories, setModal, activeCategoryId, homeP
                 <Link to={homePage}>Все категории</Link>
             </li>
             <li className={isActive(0)}>
-                <Link to="0">Неотсортированные</Link>
+                <Link to="0">Документы</Link>
             </li>
             {categories.map(({ id, name }, key) => <li
                 className={isActive(id)}

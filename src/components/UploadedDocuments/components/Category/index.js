@@ -48,7 +48,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
         <div className="row d-flex align-items-center">
             <div className="col-11">
                 <h1 className="UploadedDocuments__category-title">
-                    {currentCategory ? currentCategory.name : 'Неотсортированные'}
+                    {currentCategory ? currentCategory.name : 'Документы'}
                     {canEdit && id > 0 && <button
                         className="UploadedDocuments__category-btn"
                         type="button"
