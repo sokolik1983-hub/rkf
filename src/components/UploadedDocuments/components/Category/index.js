@@ -48,7 +48,6 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
         <div className="row d-flex align-items-center">
             <div className="col-11">
                 <h1 className="UploadedDocuments__category-title">
-                    {currentCategory ? currentCategory.name : 'Неотсортированные'}
                     {canEdit && id > 0 && <button
                         className="UploadedDocuments__category-btn"
                         type="button"
@@ -57,6 +56,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     >
                         <SvgIcon icon={pencil} size="default" />
                     </button>}
+                    {currentCategory ? currentCategory.name : 'Документы'}
                 </h1>
             </div>
             <div className="col-1">
@@ -92,6 +92,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     </div>
                 </div>
         }
+        {!documents.length && <h4 className="UploadedDocuments__category-placeholder">Не добавлено ни одного документа</h4>}
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
                 <div className="row d-flex align-items-center">

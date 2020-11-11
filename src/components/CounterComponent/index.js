@@ -1,12 +1,12 @@
 import React from "react";
 import "./styles.scss";
 
-const Counter =({counters, is_personal}) =>{
+const Counter =({counters}) =>{
     return (
         !!counters &&
         <div className = "counter_component">
             <div className = "counter_component__body">
-                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
+                <div className = "counter_component__block">
                     <div className = "counter_component__count">
                         <p>{counters.publications_count}</p>
                     </div>
@@ -14,7 +14,7 @@ const Counter =({counters, is_personal}) =>{
                         публикаций
                     </div>
                 </div>
-                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
+                <div className = "counter_component__block">
                     <div className = "counter_component__count">
                         <p>{counters.photos_count}</p>
                     </div>
@@ -22,7 +22,15 @@ const Counter =({counters, is_personal}) =>{
                         фото
                     </div>
                 </div>
-                <div className = {`counter_component__block${is_personal ? '_small' : ''}`}>
+                <div className = "counter_component__block">
+                    <div className = "counter_component__count">
+                        <p>{counters.documents_count}</p>
+                    </div>
+                    <div className = "counter_component__name">
+                        документов
+                    </div>
+                </div>
+                <div className = "counter_component__block">
                     <div className = "counter_component__count">
                         <p>{counters.videos_count}</p>
                     </div>
@@ -31,17 +39,6 @@ const Counter =({counters, is_personal}) =>{
                     </div>
                 </div>
                 {
-                    (!!counters.exhibitions_count || counters.exhibitions_count === 0) && 
-                    <div className = "counter_component__block">
-                        <div className = "counter_component__count">
-                            <p>{counters.exhibitions_count}</p>
-                        </div>
-                        <div className = "counter_component__name">
-                            мероприятий
-                        </div>
-                    </div>
-                }
-                {
                     (!!counters.breeds_count || counters.breeds_count === 0) &&
                     <div className = "counter_component__block">
                         <div className = "counter_component__count">
@@ -49,6 +46,17 @@ const Counter =({counters, is_personal}) =>{
                         </div>
                         <div className = "counter_component__name">
                             пород
+                        </div>
+                    </div>
+                }
+                {
+                    (!!counters.exhibitions_count || counters.exhibitions_count === 0) && 
+                    <div className = "counter_component__block">
+                        <div className = "counter_component__count">
+                            <p>{counters.exhibitions_count}</p>
+                        </div>
+                        <div className = "counter_component__name">
+                            мероприятий
                         </div>
                     </div>
                 }

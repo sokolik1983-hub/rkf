@@ -5,7 +5,7 @@ const AllCategories = ({ match, canEdit, setActiveCategoryId, categories, docume
     useEffect(() => {
         setActiveCategoryId(null);
     }, []);
-    const unsortedCategory = { id: 0, name: "Неотсортированные" };
+    const unsortedCategory = { id: 0, name: "Документы" };
     const updatedCategories = [unsortedCategory, ...categories];
 
     return <>
