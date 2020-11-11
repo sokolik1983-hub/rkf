@@ -7,6 +7,7 @@
   }
   .Card {
     padding: 10px;
+    margin-bottom: 16px;
   }
   .organizations-page__about {
     margin-bottom: 16px;
@@ -59,6 +60,17 @@
   }
   .organizations-page__other-filters {
     margin-bottom: 16px;
+    h5 {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      text-decoration: none;
+      color: #253c5e;
+      letter-spacing: 0.2px;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
   }
   .statistic {
     margin-bottom: 16px;

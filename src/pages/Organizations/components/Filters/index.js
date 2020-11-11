@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Loading from "../../../../components/Loading";
 import Aside from "../../../../components/Layouts/Aside";
@@ -12,11 +12,11 @@ import ActivatedFilter from "../../../../components/Filters/ActivatedFilter";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import ClubsMap from "../../../../components/ClubsMap";
-import {setOverflow} from "../../../../utils";
-import {getEmptyFilters, setFiltersToUrl} from "../../utils";
-import {RKFInfo} from "../../../Home/config";
-import {connectShowFilters} from "../../../../components/Layouts/connectors";
-import {Request} from "../../../../utils/request";
+import { setOverflow } from "../../../../utils";
+import { getEmptyFilters, setFiltersToUrl } from "../../utils";
+import { RKFInfo } from "../../../Home/config";
+import { connectShowFilters } from "../../../../components/Layouts/connectors";
+import { Request } from "../../../../utils/request";
 import {
     endpointGetClubsCities,
     endpointGetFederations,
@@ -29,15 +29,15 @@ import NotActivatedFilter from "../../../../components/Filters/NotActivatedFilte
 import ActiveUserFilter from "../../../../components/Filters/ActiveUserFilter";
 
 
-const Filters = ({organization_type,
-                  federation_ids,
-                  city_ids,
-                  breed_ids,
-                  activated,
-                  not_activated,
-                  active_member,
-                  active_rkf_user,
-                  isOpenFilters}) => {
+const Filters = ({ organization_type,
+    federation_ids,
+    city_ids,
+    breed_ids,
+    activated,
+    not_activated,
+    active_member,
+    active_rkf_user,
+    isOpenFilters }) => {
     const [loading, setLoading] = useState(true);
     const [federations, setFederations] = useState([]);
     const [cities, setCities] = useState([]);
@@ -47,10 +47,10 @@ const Filters = ({organization_type,
         await Request({
             url: organization_type === 4 ? endpointGetKennelBreeds : endpointGetNKPBreeds
         }, data => {
-            setBreeds(data.map(item => ({value: item.id, label: item.name})));
+            setBreeds(data.map(item => ({ value: item.id, label: item.name })));
         }, error => {
             console.log(error.response);
-            if(error.response) alert(`Ошибка: ${error.response.status}`);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
         });
     };
 
@@ -61,7 +61,7 @@ const Filters = ({organization_type,
             setCities(data);
         }, error => {
             console.log(error.response);
-            if(error.response) alert(`Ошибка: ${error.response.status}`);
+            if (error.response) alert(`Ошибка: ${error.response.status}`);
         });
     };
 
@@ -69,7 +69,7 @@ const Filters = ({organization_type,
         await Request({
             url: endpointGetFederations
         }, data => {
-            setFederations(data.sort((a,b) => a.id - b.id));
+            setFederations(data.sort((a, b) => a.id - b.id));
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -85,18 +85,18 @@ const Filters = ({organization_type,
     useEffect(() => {
         (async () => {
             setLoading(true);
-            if(organization_type === 3 || organization_type === 4) await getFederations();
-            if(organization_type === 4 || organization_type === 7) await getBreeds();
-            if(organization_type === 3 || organization_type === 4) await getCities();
+            if (organization_type === 3 || organization_type === 4) await getFederations();
+            if (organization_type === 4 || organization_type === 7) await getBreeds();
+            if (organization_type === 3 || organization_type === 4) await getCities();
             setLoading(false);
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         })();
     }, [organization_type]);
 
     return (
         <Aside className={`organizations-page__left${isOpenFilters ? ' _open' : ''}`}>
             {loading ?
-                <Loading centered={false}/> :
+                <Loading centered={false} /> :
                 <StickyBox offsetTop={66}>
                     <div className="organizations-page__filters">
                         {organization_type === 5 &&
@@ -146,38 +146,49 @@ const Filters = ({organization_type,
                         }
                         {organization_type !== 5 &&
                             <>
+                                <Card>
+                                    <button
+                                        type="button"
+                                        className="link"
+                                        onClick={() => setFiltersToUrl({ ...getEmptyFilters(), organization_type })}
+                                    >
+                                        Сбросить все параметры
+                                    </button>
+                                </Card>
                                 {(organization_type === 3 || organization_type === 4) &&
                                     <>
                                         <FederationsFilter
                                             federations={federations}
                                             federation_ids={federation_ids}
-                                            onChange={filter => setFiltersToUrl({federation_ids: filter})}
+                                            onChange={filter => setFiltersToUrl({ federation_ids: filter })}
                                         />
                                         <Card className="organizations-page__other-filters">
+                                            <h5>Статус</h5>
                                             <ActiveUserFilter
                                                 active_rkf_user={active_rkf_user}
-                                                onChange={filter => setFiltersToUrl({not_activated: false, active_rkf_user: filter})}
+                                                onChange={filter => setFiltersToUrl({ not_activated: false, active_rkf_user: filter })}
                                             />
                                             <FederationChoiceFilter
                                                 active_member={active_member}
-                                                onChange={filter => setFiltersToUrl({not_activated: false, active_member: filter})}
+                                                onChange={filter => setFiltersToUrl({ not_activated: false, active_member: filter })}
                                             />
                                             <ActivatedFilter
                                                 activated={activated}
                                                 label={`Активированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
-                                                onChange={filter => setFiltersToUrl({not_activated: false, activated: filter})}
+                                                onChange={filter => setFiltersToUrl({ not_activated: false, activated: filter })}
                                             />
                                             <NotActivatedFilter
                                                 not_activated={not_activated}
                                                 label={`Неактивированные ${organization_type === 3 ? 'клубы' : 'питомники'}`}
                                                 onChange={filter => setFiltersToUrl(filter ?
-                                                    {...getEmptyFilters(),
+                                                    {
+                                                        ...getEmptyFilters(),
                                                         organization_type,
                                                         active_rkf_user: false,
                                                         activated: false,
                                                         not_activated: filter
                                                     } :
-                                                    {not_activated: filter}
+                                                    { not_activated: filter }
                                                 )}
                                             />
                                         </Card>
@@ -187,28 +198,19 @@ const Filters = ({organization_type,
                                     <BreedsFilter
                                         breeds={breeds}
                                         breed_ids={breed_ids}
-                                        onChange={filter => setFiltersToUrl({breed_ids: filter})}
+                                        onChange={filter => setFiltersToUrl({ breed_ids: filter })}
                                     />
                                 }
                                 {(organization_type === 3 || organization_type === 4) &&
                                     <CitiesFilter
                                         cities={cities}
                                         city_ids={city_ids}
-                                        onChange={filter => setFiltersToUrl({city_ids: filter})}
+                                        onChange={filter => setFiltersToUrl({ city_ids: filter })}
                                     />
                                 }
-                                <Card>
-                                    <button
-                                        type="button"
-                                        className="link"
-                                        onClick={() => setFiltersToUrl({...getEmptyFilters(), organization_type})}
-                                    >
-                                        Сбросить все параметры
-                                    </button>
-                                </Card>
                             </>
                         }
-                        <CopyrightInfo/>
+                        <CopyrightInfo />
                     </div>
                 </StickyBox>
             }
