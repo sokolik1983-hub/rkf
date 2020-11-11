@@ -58,18 +58,29 @@
       height: 20px;
     }
   }
-  .organizations-page__other-filters {
+  .organizations-page__other {
     margin-bottom: 16px;
-    h5 {
+    &-info-wrap {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    &-title {
       font-weight: normal;
       font-size: 18px;
       line-height: 24px;
       text-decoration: none;
       color: #253c5e;
       letter-spacing: 0.2px;
-      border-bottom: 1px solid #e8e8e8;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
+    }
+    &-info {
+      position: relative;
+      top: 3px;
+    }
+    &-svg:hover {
+      fill: #3366ff;
     }
   }
   .statistic {

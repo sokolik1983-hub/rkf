@@ -121,7 +121,8 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const Breadcrumbs = () => {
         return <div className="ClubVideo__breadcrumbs">
             <div className="ClubVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/${alias}/`}><span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };

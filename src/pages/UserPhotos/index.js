@@ -207,7 +207,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                 <Card>
                                     <div className="NurseryGallery__breadcrumbs">
                                         <div className="NurseryGallery__breadcrumbs-title">
-                                            <Link className="btn-backward" to={`/user/${alias}`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
+                                            {/* <Link className="btn-backward" to={`/user/${alias}`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                                             {album ? <><Link className="btn-backward" to={`/user/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
                                         </div>
                                     </div>
