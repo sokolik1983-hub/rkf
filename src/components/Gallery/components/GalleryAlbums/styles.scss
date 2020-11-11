@@ -1,6 +1,6 @@
 .GalleryAlbums {
     &__link {
-        color: #36f;
+        color: #253c5e;
         font-weight: normal;
         font-size: 18px;
         line-height: 20px;
@@ -8,6 +8,9 @@
         cursor: pointer;
         margin-left: 10px;
         white-space: nowrap;
+        &:hover {
+            color: #3366ff;
+        }
     }
     &__items-wrap {
         display: flex;
