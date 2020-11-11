@@ -9,6 +9,7 @@ import { Button } from "@progress/kendo-react-buttons";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import { Request, getHeaders } from "utils/request";
 import kendoMessages from 'kendoMessages.json';
+import { DEFAULT_IMG } from "appConfig";
 import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -48,6 +49,7 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
         <div className="row d-flex align-items-center">
             <div className="col-11">
                 <h1 className="UploadedDocuments__category-title">
+                    {currentCategory ? currentCategory.name : 'Документы'}
                     {canEdit && id > 0 && <button
                         className="UploadedDocuments__category-btn"
                         type="button"
@@ -56,7 +58,6 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     >
                         <SvgIcon icon={pencil} size="default" />
                     </button>}
-                    {currentCategory ? currentCategory.name : 'Документы'}
                 </h1>
             </div>
             <div className="col-1">
@@ -92,7 +93,11 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     </div>
                 </div>
         }
-        {!documents.length && <h4 className="UploadedDocuments__category-placeholder">Не добавлено ни одного документа</h4>}
+        {!documents.length && <div className="UploadedDocuments__category-placeholder">
+            <h4>Не добавлено ни одного документа</h4>
+            <img src={DEFAULT_IMG.noNews} alt="" />
+        </div>
+        }
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
                 <div className="row d-flex align-items-center">

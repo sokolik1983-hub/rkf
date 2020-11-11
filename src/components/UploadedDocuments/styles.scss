@@ -2,85 +2,50 @@
     $font-family: "Source Sans Pro", Helvetica, sans-serif;
     @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
     @import "~bootstrap/scss/bootstrap.scss";
-    a:hover {
-        text-decoration: none;
-    }
     display: flex;
-    justify-content: space-between;
-    @media (max-width: 990px) {
-        display: block;
+    @media (max-width: 560px) {
+        flex-direction: column-reverse;
     }
-    &__right {
-        width: calc(100% - 316px);
-        margin-top: 16px;
-        @media (max-width: 990px) {
-            width: 100%;
-            margin-top: 0;
-            padding-bottom: 1px;
-        }
-    }
-    &__left {
-        width: 300px;
-        min-width: 300px;
-        margin: 16px 16px 16px 0;
-        @media (max-width: 990px) {
-            width: 100%;
-            min-width: auto;
-            margin: 16px 0 0;
-            & > div {
-                position: static !important;
-            }
-        }
-        .Card {
-            padding: 10px !important;
-        }
-    }
-    &__inner {
+    &-item {
+        cursor: pointer;
         display: flex;
+        align-items: baseline;
+        color: #72839c;
+        .k-icon-32 {
+            font-size: 20px;
+        }
+        .k-icon {
+            position: relative;
+            top: 2px;
+        }
+        &:hover {
+            color: #3366ff;
+            transition: all 0.2s linear;
+        }
+        &.active {
+            color: #3366ff;
+        }
+    }
+    &-left {
+        width: 600px;
+        margin-right: 16px;
+        flex-shrink: 0;
         @media (max-width: 560px) {
-            flex-direction: column-reverse;
-        }
-        &-item {
-            cursor: pointer;
-            display: flex;
-            align-items: baseline;
-            color: #72839c;
-            .k-icon-32 {
-                font-size: 20px;
-            }
-            .k-icon {
-                position: relative;
-                top: 2px;
-            }
-            &:hover {
-                color: #3366ff;
-                transition: all 0.2s linear;
-            }
-            &.active {
-                color: #3366ff;
-            }
-        }
-        &-left {
-            width: 600px;
-            margin-right: 16px;
-            flex-shrink: 0;
-            @media (max-width: 560px) {
-                width: auto;
-                margin: 0;
-            }
-            .Card {
-                word-break: break-all;
-            }
-        }
-        &-right {
-            flex-grow: 1;
-            @media (min-width: 560px) {
-                max-width: 250px;
-            }
+            width: auto;
+            margin: 0;
         }
         .Card {
-            padding: 12px !important;
+            word-break: break-all;
         }
+    }
+    &-right {
+        flex-grow: 1;
+        @media (min-width: 560px) {
+            max-width: 250px;
+        }
+    }
+    .Card {
+        padding: 12px !important;
     }
     &__category {
         &-item {
@@ -172,12 +137,35 @@
     .user-nav__button {
         border-radius: 50%;
     }
-    h3.UploadedDocuments__category-form-title {
-        line-height: 1;
-        letter-spacing: 0.2px;
-        color: #72839c;
-        font-size: 16px;
+
+    .UploadedDocuments__category {
+        &-add {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &:hover {
+                cursor: pointer;
+                h3 {
+                    color: #3366ff;
+                    transition: all 0.2s linear;
+                }
+            }
+            h3 {
+                line-height: 1;
+                letter-spacing: 0.2px;
+                color: #72839c;
+                font-size: 16px;
+                margin-bottom: 0;
+            }
+            svg {
+                fill: #3366ff !important;
+            }
+        }
+        &-devider {
+            margin: 0.5rem 0;
+        }
     }
+    &__add-btn,
     &__edit-btn,
     &__delete-btn {
         padding: 0;

@@ -9,6 +9,7 @@
             border: none;
             width: 24px;
             height: 24px;
+            margin-left: 4px;
             .k-svg-i-pencil {
                 width: 16px;
                 height: 16px;
@@ -17,14 +18,17 @@
                 }
             }
         }
-        h4.UploadedDocuments__category-placeholder {
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 24px;
+        .UploadedDocuments__category-placeholder {
             text-align: center;
-            text-decoration: none;
-            color: #253c5e;
-            margin-bottom: 16px;
+            h4 {
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 24px;
+                text-align: center;
+                text-decoration: none;
+                color: #253c5e;
+                margin-bottom: 0;
+            }
         }
     }
 }
