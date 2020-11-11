@@ -9,8 +9,8 @@ loadMessages(kendoMessages, 'ru-RU');
 
 
 const FormUpload = fieldRenderProps => {
-    const { valid, value, id, optional, label, hint, validationMessage, touched, formatFiles, ...others } = fieldRenderProps;
-    console.log('fieldRenderProps', fieldRenderProps);
+    const { valid, value, id, optional, label, hint, validationMessage, touched, fileFormats, ...others } = fieldRenderProps;
+
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && hint;
     const hintId = showHint ? `${id}_hint` : '';
@@ -45,7 +45,7 @@ const FormUpload = fieldRenderProps => {
                         ariaLabelledBy={labelId}
                         maxFileSize={10485760}
                         restrictions={{
-                            allowedExtensions: formatFiles || []
+                            allowedExtensions: fileFormats || []
                         }}
                         {...others}
                     />

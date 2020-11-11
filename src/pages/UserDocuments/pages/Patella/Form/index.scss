@@ -1,4 +1,29 @@
 .patella-form {
+  &__content {
+    margin-top: 40px;
+  }
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  &__row {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    & > div {
+      flex: 1 1;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+    & > .btn {
+      margin-top: 40px;
+      margin-right: 16px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+  }
   .Card {
     padding: 24px 32px !important;
   }
