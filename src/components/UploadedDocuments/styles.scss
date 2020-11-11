@@ -44,9 +44,6 @@
             max-width: 250px;
         }
     }
-    .Card {
-        padding: 12px !important;
-    }
     &__category {
         &-item {
             display: flex;
@@ -75,6 +72,9 @@
                     display: block;
                 }
             }
+            &:first-child {
+                margin-top: 0;
+            }
         }
         &-controls {
             display: none;
@@ -96,7 +96,7 @@
     }
     .Card {
         margin: 10px 0 16px 0;
-        padding: 25px;
+        padding: 12px !important;
         div {
             font-weight: normal;
         }
@@ -185,5 +185,8 @@
     }
     .k-textbox {
         font-size: 15px;
+    }
+    a:hover {
+        text-decoration: none;
     }
 }

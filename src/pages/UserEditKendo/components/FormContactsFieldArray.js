@@ -2,7 +2,7 @@ import React from "react";
 import { Field } from '@progress/kendo-react-form';
 import FormInput from 'pages/UserEditKendo/components/FormInput';
 import FormMaskedInput from 'pages/UserEditKendo/components/FormMaskedInput';
-import FormContactsCheckbox from 'pages/UserEditKendo/components/FormContactsCheckbox';
+import FormContactsRadioButton from 'pages/UserEditKendo/components/FormContactsRadioButton';
 import { Error } from '@progress/kendo-react-labels';
 import { lengthValidator } from "../validators";
 import { phoneMask } from 'pages/UserEditKendo/config';
@@ -73,9 +73,9 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                             {index === 0 && <div className="Contacts__custom-checkbox-label">Основной</div>}
                             <div className="Contacts__custom-checkbox">
                                 <Field
-                                    id={`${id}[${index}]`}
+                                    id={`m-${id}[${index}]`}
                                     name={`${id}[${index}].is_main`}
-                                    component={FormContactsCheckbox}
+                                    component={FormContactsRadioButton}
                                     onChange={handleChange}
                                     formRenderProps={formRenderProps}
                                 />
@@ -96,7 +96,7 @@ const FormContactsFieldArray = (fieldArrayRenderProps) => {
                         <Field
                             id={`${id}[${index}]`}
                             name={`${id}[${index}].is_main`}
-                            component={FormContactsCheckbox}
+                            component={FormContactsRadioButton}
                             onChange={handleChange}
                             formRenderProps={formRenderProps}
                         />
