@@ -17,7 +17,10 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
     return (
         <>
             <div className="user-info">
-                <div className="user-info__logo-wrap" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                <div
+                    className={logo_link ? 'user-info__logo-wrap' : 'user-info__logo-wrap empty'}
+                    onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+                >
                     {canEdit &&
                         <>
                             <CSSTransition
@@ -48,7 +51,7 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                                         title="Удалить"
                                         onClick={() => setModalType('delete')}
                                     >
-                                        <SvgIcon icon={trash} size="default"/>
+                                        <SvgIcon icon={trash} size="default" />
                                     </button>
                                 </CSSTransition>
                             }
