@@ -1,7 +1,5 @@
 .UploadedDocuments {
     $font-family: "Source Sans Pro", Helvetica, sans-serif;
-    @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
-    @import "~bootstrap/scss/bootstrap.scss";
     a:hover {
         text-decoration: none;
     }
@@ -11,12 +9,17 @@
         display: block;
     }
     &__right {
+        @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
+        @import "~bootstrap/scss/bootstrap.scss";
         width: calc(100% - 316px);
         margin-top: 16px;
         @media (max-width: 990px) {
             width: 100%;
             margin-top: 0;
             padding-bottom: 1px;
+        }
+        a:hover {
+            text-decoration: none;
         }
     }
     &__left {
@@ -172,12 +175,35 @@
     .user-nav__button {
         border-radius: 50%;
     }
-    h3.UploadedDocuments__category-form-title {
-        line-height: 1;
-        letter-spacing: 0.2px;
-        color: #72839c;
-        font-size: 16px;
+
+    .UploadedDocuments__category {
+        &-add {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &:hover {
+                cursor: pointer;
+                h3 {
+                    color: #3366ff;
+                    transition: all 0.2s linear;
+                }
+            }
+            h3 {
+                line-height: 1;
+                letter-spacing: 0.2px;
+                color: #72839c;
+                font-size: 16px;
+                margin-bottom: 0;
+            }
+            svg {
+                fill: #3366ff !important;
+            }
+        }
+        &-devider {
+            margin: 0.5rem 0;
+        }
     }
+    &__add-btn,
     &__edit-btn,
     &__delete-btn {
         padding: 0;

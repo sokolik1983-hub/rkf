@@ -4,26 +4,23 @@ import Loading from "../../components/Loading";
 import Card from "components/Card";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "pages/Login/connectors";
-import useIsMobile from "utils/useIsMobile";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
-
 import AllCategories from './components/AllCategories';
-import CreateCategoryForm from './components/CreateCategoryForm';
 import CategoriesList from './components/CategoriesList';
 import CategoryPage from './CategoryPage';
 import { Route, Switch } from "react-router-dom";
 import { Fade } from '@progress/kendo-react-animation';
+import ModalAddCategory from './components/ModalAddCategory';
 import ModalEditCategory from './components/ModalEditCategory';
 import ModalDeleteCategory from './components/ModalDeleteCategory';
 import ModalDeleteDocument from './components/ModalDeleteDocument';
+import { SvgIcon } from "@progress/kendo-react-common";
+import { plus } from "@progress/kendo-svg-icons";
 import './styles.scss';
 
-
-
-const UploadedDocuments = ({ history, canEdit, location, match, profile_id, is_active_profile, isAuthenticated }) => {
+const UploadedDocuments = ({ canEdit, location, match }) => {
     const [loaded, setLoaded] = useState(false);
     const alias = match.params.route;
-    const isMobile = useIsMobile();
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
@@ -84,7 +81,6 @@ const UploadedDocuments = ({ history, canEdit, location, match, profile_id, is_a
         }
     };
 
-
     return (!loaded
         ? <Loading />
         : errorRedirect
@@ -134,11 +130,6 @@ const UploadedDocuments = ({ history, canEdit, location, match, profile_id, is_a
                         </div>
                         <div className="UploadedDocuments__inner-right">
                             <Card>
-                                {canEdit && <>
-                                    <h3 className="UploadedDocuments__category-form-title">Создать категорию</h3>
-                                    <CreateCategoryForm getCategories={getCategories} handleSuccess={handleSuccess} handleError={handleError} />
-                                    <hr />
-                                </>}
                                 <CategoriesList
                                     canEdit={canEdit}
                                     setModal={setModal}
@@ -149,6 +140,18 @@ const UploadedDocuments = ({ history, canEdit, location, match, profile_id, is_a
                                     activeCategoryId={activeCategoryId}
                                     homePage={homePage}
                                 />
+                                {canEdit && <>
+                                    <hr className="UploadedDocuments__category-devider" />
+                                    <div
+                                        className="UploadedDocuments__category-add"
+                                        onClick={() => setModal({ type: 'addCategory' })}
+                                    >
+                                        <h3>Добавить категорию</h3>
+                                        <button className="UploadedDocuments__add-btn" type="button" >
+                                            <SvgIcon icon={plus} size="default" />
+                                        </button>
+                                    </div>
+                                </>}
                             </Card>
                         </div>
                     </div>
@@ -178,6 +181,15 @@ const UploadedDocuments = ({ history, canEdit, location, match, profile_id, is_a
                         </Notification>}
                     </Fade>
                 </NotificationGroup>
+                {
+                    modal.type === 'addCategory' &&
+                    <ModalAddCategory
+                        handleError={handleError}
+                        handleSuccess={handleSuccess}
+                        getCategories={getCategories}
+                        closeModal={() => setModal({})}
+                    />
+                }
                 {
                     modal.type === 'editCategory' &&
                     <ModalEditCategory
