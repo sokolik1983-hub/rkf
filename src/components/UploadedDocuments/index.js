@@ -88,8 +88,8 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
             : <>
                 {!loaded
                     ? <Loading />
-                    : <div className="UploadedDocuments__inner">
-                        <div className="UploadedDocuments__inner-left">
+                    : <div className="UploadedDocuments">
+                        <div className="UploadedDocuments-left">
                             <Switch>
                                 <Route
                                     exact={true}
@@ -128,7 +128,7 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
                                 />
                             </Switch>
                         </div>
-                        <div className="UploadedDocuments__inner-right">
+                        <div className="UploadedDocuments-right">
                             <Card>
                                 <CategoriesList
                                     canEdit={canEdit}
