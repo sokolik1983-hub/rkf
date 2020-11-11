@@ -64,11 +64,13 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
                 method: 'DELETE'
             }, () => {
                 setNeedRequest(true);
-                setProfileInfo({...profileInfo, 
-                    counters: {
-                        ...profileInfo.counters,
-                        publications_count: profileInfo.counters.publications_count - 1
-                    }});
+                if(!!profileInfo){
+                    setProfileInfo({...profileInfo, 
+                        counters: {
+                            ...profileInfo.counters,
+                            publications_count: profileInfo.counters.publications_count - 1
+                        }});
+                }
             },
             error => {
                 console.log(error);
