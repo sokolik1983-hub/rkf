@@ -9,6 +9,7 @@ import { Button } from "@progress/kendo-react-buttons";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import { Request, getHeaders } from "utils/request";
 import kendoMessages from 'kendoMessages.json';
+import { DEFAULT_IMG } from "appConfig";
 import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -92,7 +93,11 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                     </div>
                 </div>
         }
-        {!documents.length && <h4 className="UploadedDocuments__category-placeholder">Не добавлено ни одного документа</h4>}
+        {!documents.length && <div className="UploadedDocuments__category-placeholder">
+            <h4>Не добавлено ни одного документа</h4>
+            <img src={DEFAULT_IMG.noNews} alt="" />
+        </div>
+        }
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">
                 <div className="row d-flex align-items-center">
