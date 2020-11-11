@@ -2,16 +2,21 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import ls from "local-storage";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
+import {Fade} from "@progress/kendo-react-animation";
+import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
 import Card from "../../../../../components/Card";
 import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormUpload from "../../../../../components/kendo/Form/FormUpload";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormEditorTextarea from "../../../../../components/kendo/Form/FormEditorTextarea";
 import {requiredValidator} from "../../../../../components/kendo/Form/validators";
+import {Request} from "../../../../../utils/request";
 import "./index.scss";
 
 
 const PatellaForm = ({alias}) => {
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
     const [initialValues, setInitialValues] = useState({
         declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
         veterinary_contract_document: [],
@@ -23,6 +28,34 @@ const PatellaForm = ({alias}) => {
         payment_name: '',
         comment: ''
     });
+
+    const handleError = e => {
+        if (e.response) {
+            const message = e.response.data.errors
+                ? Object.values(e.response.data.errors)
+                : `${e.response.status} ${e.response.statusText}`;
+            setError(message);
+            !error && setTimeout(() => {
+                setError('');
+            }, 5000);
+        }
+    };
+
+    const getDogName = async pedigreeNumber => {
+        await Request({
+            url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
+        }, data => {
+            if(data) {
+                setInitialValues({...initialValues, dog_name: data.name});
+            } else {
+                setError('Номер родословной не найден в базе ВЕРК');
+            }
+        }, error => {
+            handleError(error);
+        });
+    };
+
+    console.log('initialValues', initialValues.dog_name);
 
     const handleSubmit = data => {
         const newData = {
@@ -47,8 +80,8 @@ const PatellaForm = ({alias}) => {
                 <Form
                     onSubmit={handleSubmit}
                     initialValues={initialValues}
-                    render={formRenderProps =>
-                        <FormElement>
+                    render={formRenderProps => {
+                        return <FormElement>
                             <div className="patella-form__content">
                                 <h4 className="patella-form__title" style={{marginBottom: 0}}>Добавление заявки</h4>
                                 <div className="patella-form__row">
@@ -76,15 +109,23 @@ const PatellaForm = ({alias}) => {
                                         name="pedigree_number"
                                         label="№ родословной собаки"
                                         hint="Допускается ввод только цифр"
-                                        maxLength="30"
+                                        maxLength={30}
+                                        onlyNumbers={true}
                                         component={FormInput}
+                                        validator={requiredValidator}
                                     />
-                                    <button type="button" className="btn btn-primary" onClick={() => null}>Поиск</button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => getDogName(formRenderProps.valueGetter('pedigree_number'))}
+                                        disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                    >Поиск</button>
                                     <Field
                                         id="dog_name"
                                         name="dog_name"
                                         label="Кличка собаки"
                                         component={FormInput}
+                                        validator={requiredValidator}
                                     />
                                 </div>
                             </div>
@@ -139,8 +180,37 @@ const PatellaForm = ({alias}) => {
                                 >Отправить</button>
                             </div>
                         </FormElement>
-                    }
+                    }}
                 />
+                <NotificationGroup
+                    style={{
+                        alignItems: 'flex-start',
+                        flexWrap: 'wrap-reverse'
+                    }}
+                >
+                    <Fade enter={true} exit={true}>
+                        {success &&
+                            <Notification
+                                type={{style: 'success', icon: true}}
+                                closable={true}
+                                onClose={() => setSuccess('')}
+                            >
+                                <span>{success}</span>
+                            </Notification>
+                        }
+                    </Fade>
+                    <Fade enter={true} exit={true}>
+                        {error &&
+                            <Notification
+                                type={{style: 'error', icon: true}}
+                                closable={true}
+                                onClose={() => setError('')}
+                            >
+                                <span>{error}</span>
+                            </Notification>
+                        }
+                    </Fade>
+                </NotificationGroup>
             </Card>
         </div>
     )

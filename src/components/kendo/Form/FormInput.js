@@ -4,29 +4,58 @@ import { Label, Error, Hint } from "@progress/kendo-react-labels";
 import { Input } from "@progress/kendo-react-inputs";
 
 
-const FormInput = (fieldRenderProps) => {
-    const { validationMessage, touched, label, id, valid, disabled, type, optional, maxLength, passwordField, ...others } = fieldRenderProps;
+const FormInput = fieldRenderProps => {
+    const {
+        validationMessage,
+        touched,
+        label,
+        id,
+        valid,
+        disabled,
+        type,
+        optional,
+        maxLength,
+        passwordField,
+        hint,
+        value,
+        onlyNumbers,
+        ...others
+    } = fieldRenderProps;
 
     const showValidationMessage = touched && validationMessage;
+    const showHint = !showValidationMessage && (hint || maxLength);
     const errorId = showValidationMessage ? `${id}_error` : '';
+
+    const allowOnlyNumbers = str => {
+        let newStr = str.replace(/\D/g, '');
+        if(maxLength) newStr = newStr.slice(0, maxLength);
+
+        return newStr;
+    };
 
     return (
         <FieldWrapper>
             <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
-            <div className={'k-form-field-wrap'}>
+            <div className="k-form-field-wrap">
                 <Input
                     valid={valid}
                     type={type}
                     id={id}
+                    value={onlyNumbers ? allowOnlyNumbers(value) : value}
                     disabled={disabled}
                     ariaDescribedBy={`${errorId}`}
                     {...others}
                 />
-                {
-                    showValidationMessage ? <Error id={errorId}>{validationMessage}</Error> 
-                    : 
-                    maxLength ? <Hint ariaDescribedBy={`${errorId}`}>{passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`}</Hint> 
-                    : ''
+                {showValidationMessage &&
+                    <Error id={errorId}>{validationMessage}</Error>
+                }
+                {showHint &&
+                    <Hint ariaDescribedBy={`${errorId}`}>
+                        {hint ?
+                            hint :
+                            passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`
+                        }
+                    </Hint>
                 }
             </div>
         </FieldWrapper>
