@@ -154,33 +154,33 @@ const UploadedDocuments = ({ canEdit, location, match }) => {
                                 </>}
                             </Card>
                         </div>
+                        <NotificationGroup
+                            style={{
+                                alignItems: 'flex-start',
+                                flexWrap: 'wrap-reverse'
+                            }}
+                        >
+                            <Fade enter={true} exit={true}>
+                                {success.status && <Notification
+                                    type={{ style: 'success', icon: true }}
+                                    closable={true}
+                                    onClose={() => setSuccess(false)}
+                                >
+                                    <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                                </Notification>}
+                            </Fade>
+                            <Fade enter={true} exit={true}>
+                                {error && <Notification
+                                    type={{ style: 'error', icon: true }}
+                                    closable={true}
+                                    onClose={() => setError(false)}
+                                >
+                                    <span>{errorMessage}</span>
+                                </Notification>}
+                            </Fade>
+                        </NotificationGroup>
                     </div>
                 }
-                <NotificationGroup
-                    style={{
-                        alignItems: 'flex-start',
-                        flexWrap: 'wrap-reverse'
-                    }}
-                >
-                    <Fade enter={true} exit={true}>
-                        {success.status && <Notification
-                            type={{ style: 'success', icon: true }}
-                            closable={true}
-                            onClose={() => setSuccess(false)}
-                        >
-                            <span>{success.message ? success.message : 'Информация сохранена!'}</span>
-                        </Notification>}
-                    </Fade>
-                    <Fade enter={true} exit={true}>
-                        {error && <Notification
-                            type={{ style: 'error', icon: true }}
-                            closable={true}
-                            onClose={() => setError(false)}
-                        >
-                            <span>{errorMessage}</span>
-                        </Notification>}
-                    </Fade>
-                </NotificationGroup>
                 {
                     modal.type === 'addCategory' &&
                     <ModalAddCategory
