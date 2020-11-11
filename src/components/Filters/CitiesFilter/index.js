@@ -17,7 +17,7 @@ const Option = props => (
     </components.Option>
 );
 
-const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions, is_club_link }) => {
+const CitiesFilter = ({ cities, city_ids, onChange, is_club_link }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(is_club_link && !cities.length ? false : true);
@@ -67,7 +67,7 @@ const CitiesFilter = ({ cities, city_ids, onChange, isExhibitions, is_club_link 
                         noOptionsMessage={() => 'Город не найден'}
                         value={values}
                         components={{ Option }}
-                        maxMenuHeight={isExhibitions && 170}
+                        maxMenuHeight={170}
                     />
                     {!!values.length &&
                         <ul className="cities-filter__values">

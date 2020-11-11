@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 import * as sort from "sortabular";
 import * as search from "searchtabular";
-import RowControl from "../RowControl";
-import { Link } from "react-router-dom";
+// import RowControl from "../RowControl";
+// import { Link } from "react-router-dom";
 import moment from "moment";
 
 const fillProp = ({property,label}) => ({property,header:{label}})
@@ -24,7 +24,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
        },
        {
            property: "breeder_full_name",
-           label: "ФИО заводчика"
+           label: "Заводчик"
        },
        {
            property: "dog_name",
@@ -66,7 +66,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, clubAlias
        },
        {
            property: "breeder_full_name",
-           label: "ФИО заводчика"
+           label: "Заводчик"
        },
        {
            property: "nursery_name",

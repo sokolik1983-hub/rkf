@@ -12,7 +12,7 @@
       font-size: 16px;
       line-height: 20px;
       letter-spacing: 0.2px;
-      color: #3366ff;
+      color: #72839c;
       padding: 0 0 0 20px;
       white-space: nowrap;
       &:after {
@@ -25,13 +25,21 @@
         height: 20px;
         left: 0;
         top: 0;
-        background: url("/static/icons/pin.svg") center no-repeat;
+        background: url("/static/icons/pin-gray.svg") center no-repeat;
         background-size: contain;
         @media (max-width: 560px) {
           height: 16px;
           top: 2px;
         }
       }
+      &:hover {
+        color: #3366ff;
+        transition: all .2s linear;
+        &:before {
+          transition: all .2s linear;
+          background: url("/static/icons/pin.svg") center center/contain no-repeat;
+        }
+      }    
     }
   }
 }

@@ -7,6 +7,7 @@
   }
   .Card {
     padding: 10px;
+    margin-bottom: 16px;
   }
   .organizations-page__about {
     margin-bottom: 16px;
@@ -57,8 +58,30 @@
       height: 20px;
     }
   }
-  .organizations-page__other-filters {
+  .organizations-page__other {
     margin-bottom: 16px;
+    &-info-wrap {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    &-title {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      text-decoration: none;
+      color: #253c5e;
+      letter-spacing: 0.2px;
+    }
+    &-info {
+      position: relative;
+      top: 3px;
+    }
+    &-svg:hover {
+      fill: #3366ff;
+    }
   }
   .statistic {
     margin-bottom: 16px;

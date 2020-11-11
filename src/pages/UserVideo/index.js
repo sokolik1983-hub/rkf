@@ -138,7 +138,8 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const Breadcrumbs = () => {
         return <div className="UserVideo__breadcrumbs">
             <div className="UserVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/user/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/user/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };

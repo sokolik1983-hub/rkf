@@ -43,7 +43,7 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
                                     to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}
                                 >Редактировать все фото</Link>
                             }
-                            <span className="ReactGridGallery__controls-link" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span>
+                            <span className="ReactGridGallery__controls-link ReactGridGallery__controls-link--add-photo" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span>
                         </>
                     }
                 </div>

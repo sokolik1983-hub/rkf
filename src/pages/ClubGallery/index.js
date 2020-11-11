@@ -152,7 +152,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
     const Breadcrumbs = () => {
         return <div className="ClubGallery__breadcrumbs">
             <div className="ClubGallery__breadcrumbs-title">
-                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
+                {/* <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                 {album ? <><Link className="btn-backward" to={`/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
             </div>
         </div>

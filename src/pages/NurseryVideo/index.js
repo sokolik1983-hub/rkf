@@ -120,7 +120,8 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const Breadcrumbs = () => {
         return <div className="NurseryVideo__breadcrumbs">
             <div className="NurseryVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };

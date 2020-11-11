@@ -59,10 +59,6 @@
     justify-content: space-between;
     padding-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
-    & > div {
-      display: flex;
-      align-items: center;
-    }
   }
   &__clear {
     font-weight: normal;
@@ -93,12 +89,5 @@
         display: none;
       }
     }
-  }
-  &__svg-info:hover {
-    fill: #3366ff;
-  }
-  &__support-link {
-    display: flex;
-    margin-left: 10px;
   }
 }
