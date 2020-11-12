@@ -100,7 +100,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
             setSuccess(false);
         }, 3000);
     };
-    
+
     useEffect(() => {
         if (exporting) {
             gridPDFExport.current.save(documents, () => setExporting(false));
@@ -114,17 +114,17 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}
-        style={{ height: "700px" }}>
-        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
-        <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
-        <GridColumn width="80px" cell={(props) => OptionsCell(props, setErrorReport)} />
+        style={{ height: "700px", maxWidth: "810px", margin: "0 auto" }}>
+        <GridColumn field="date_create" title="Дата создания" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="id" title="№ заявки" width="50px" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_name" title="ФИО владельца" width="110px" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" width="80px" columnMenu={ColumnMenu} />
+        <GridColumn field="breed_name" title="Порода" width="80px" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Чип/Клеймо" width="100px" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
+        <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="50px" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
+        <GridColumn width="70px" cell={(props) => OptionsCell(props, setErrorReport)} />
     </Grid>;
 
     const gridForExport = <Grid
@@ -183,26 +183,26 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                 >
                     {gridForExport}
                 </GridPDFExport>
-                
+
             </IntlProvider>
         </LocalizationProvider>
         <NotificationGroup
-                style={{
-                    alignItems: 'flex-start',
-                    flexWrap: 'wrap-reverse'
-                }}
-            >
-                <Fade enter={true} exit={true}>
-                    {success.status && <Notification
-                        type={{ style: 'success', icon: true }}
-                        closable={true}
-                        onClose={() => setSuccess(false)}
-                    >
-                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
-                    </Notification>}
-                </Fade>
-            </NotificationGroup>
-            </>
+            style={{
+                alignItems: 'flex-start',
+                flexWrap: 'wrap-reverse'
+            }}
+        >
+            <Fade enter={true} exit={true}>
+                {success.status && <Notification
+                    type={{ style: 'success', icon: true }}
+                    closable={true}
+                    onClose={() => setSuccess(false)}
+                >
+                    <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                </Notification>}
+            </Fade>
+        </NotificationGroup>
+    </>
     )
 };
 

@@ -38,7 +38,6 @@ const RequestRegistry = ({ history, distinction }) => {
             <Table
                 documents={documents}
                 distinction={distinction}
-                fullScreen
             />
         </Card> :
             <Card className="nursery-documents-status">

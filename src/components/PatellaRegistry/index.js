@@ -36,7 +36,6 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
         <Table
             documents={documents}
             profileType={profileType}
-            fullScreen
         />
     </Card>
         :
