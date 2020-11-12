@@ -50,7 +50,7 @@ const ShareCell = ({ dataItem }, callback) => {
             : alert('Ссылка скопирована');
     };
 
-    return <td>
+    return <td style={{ padding: '0.75rem 5px' }}>
         {dataItem.pedigree_link && <div className="ShareCell">
             <LightTooltip title="Перейти по ссылке" enterDelay={200} leaveDelay={200}>
                 <a className="ShareCell__link" href={dataItem.pedigree_link} target="_blank" rel="noopener noreferrer">
