@@ -74,13 +74,12 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
             >
             </button>
             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-            <Table 
-                documents={documents} 
-                distinction={distinction} 
-                rowClick={rowClick} 
-                deleteRow={deleteRow} 
-                setShowModal={setShowModal} 
-                fullScreen
+            <Table
+                documents={documents}
+                distinction={distinction}
+                rowClick={rowClick}
+                deleteRow={deleteRow}
+                setShowModal={setShowModal}
             />
         </Card> :
             <Card className="club-documents-status">

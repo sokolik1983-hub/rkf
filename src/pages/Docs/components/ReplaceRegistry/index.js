@@ -64,7 +64,6 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 checkType={checkType}
                 isOpenFilters={isOpenFilters}
                 setErrorReport={setErrorReport}
-                fullScreen
             />
         </Card>
             : <Card className="club-documents-status">
