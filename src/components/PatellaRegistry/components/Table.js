@@ -167,7 +167,6 @@ const Table = ({ documents, profileType, exporting, setExporting }) => {
                 >
                     {gridForExport}
                 </GridPDFExport>
-                
             </IntlProvider>
         </LocalizationProvider>
     )

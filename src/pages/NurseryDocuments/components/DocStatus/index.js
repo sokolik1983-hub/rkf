@@ -77,7 +77,6 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             rowClick={rowClick}
             deleteRow={deleteRow}
             setShowModal={setShowModal}
-            fullScreen
         />
     </Card> :
         <Card className="nursery-documents-status">
