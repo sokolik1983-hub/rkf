@@ -110,7 +110,7 @@
     align-items: center;
     padding: 0;
     border: none;
-    margin: 10px 0 10px 10px;
+    margin: 10px 0 10px 20px;
     letter-spacing: .2px;
     color: #72839c;
     transition: color .2s linear;
@@ -141,6 +141,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    .k-grid {
+      font-size: 10px;
+    }  
     &-close {
       width: 20px;
       height: 20px;
@@ -153,7 +156,7 @@
       position: absolute;
       top: 33px;
       right: 35px;
-      z-index: 100;
+      z-index: 9;
       &:hover {
         width: 20px;
         height: 20px;  
@@ -167,6 +170,6 @@
     }
   }
   .k-grid {
-    font-size: 12px;
+    font-size: 10px;
   }
 }

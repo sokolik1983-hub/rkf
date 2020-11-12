@@ -37,8 +37,7 @@ const RequestRegistry = ({ history, distinction }) => {
             </button>
             <Table 
                 documents={documents} 
-                distinction={distinction} 
-                fullScreen
+                distinction={distinction}
             />
         </Card> :
             <Card className="club-documents-status">
