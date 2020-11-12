@@ -11,6 +11,39 @@
     flex-flow: row;
     align-items: flex-start;
     justify-content: flex-start;
+    @media (max-width: 1090px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 990px) {
+      &._payment-info {
+        display: flex;
+        & > div:not(:last-child) {
+          margin-right: 16px;
+        }
+      }
+    }
+    @media (max-width: 730px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      display: block;
+      & > div:not(:last-child) {
+        margin-right: 0 !important;
+      }
+      & > .btn {
+        margin-top: 16px !important;
+      }
+    }
     & > div {
       flex: 1 1;
       &:not(:last-child) {
@@ -22,10 +55,16 @@
       margin-right: 16px;
       padding-top: 6px;
       padding-bottom: 6px;
+      &.btn-red {
+        margin-right: 0;
+      }
     }
   }
   .Card {
     padding: 24px 32px !important;
+    @media (max-width: 990px) {
+      padding: 10px !important;
+    }
   }
   .k-notification-group {
     right: 8px;

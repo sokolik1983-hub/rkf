@@ -22,6 +22,7 @@ import "./index.scss";
 
 const PatellaForm = ({alias}) => {
     const [loading, setLoading] = useState(false);
+    const [disableFilds, setDisableFields] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [initialValues, setInitialValues] = useState({
@@ -48,12 +49,14 @@ const PatellaForm = ({alias}) => {
         }
     };
 
-    const getDogName = async pedigreeNumber => {
+    const getDogName = async (pedigreeNumber, changeDogName) => {
         await Request({
             url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
         }, data => {
             if(data) {
-                setInitialValues({...initialValues, dog_name: data.name});
+                setDisableFields(true);
+                setError('');
+                changeDogName('dog_name', {value: data.name});
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -135,23 +138,42 @@ const PatellaForm = ({alias}) => {
                                             hint="Допускается ввод только цифр"
                                             maxLength={30}
                                             onlyNumbers={true}
+                                            disabled={disableFilds}
                                             component={FormInput}
                                             validator={requiredValidator}
                                         />
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={() => getDogName(formRenderProps.valueGetter('pedigree_number'))}
-                                            disabled={!formRenderProps.valueGetter('pedigree_number')}
-                                        >Поиск
-                                        </button>
+                                        {!disableFilds &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => getDogName(
+                                                    formRenderProps.valueGetter('pedigree_number'),
+                                                    formRenderProps.onChange
+                                                )}
+                                                disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                            >Поиск
+                                            </button>
+                                        }
                                         <Field
                                             id="dog_name"
                                             name="dog_name"
                                             label="Кличка собаки"
+                                            disabled={disableFilds}
                                             component={FormInput}
                                             validator={requiredValidator}
                                         />
+                                        {disableFilds &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-red"
+                                                onClick={() => {
+                                                    formRenderProps.onChange('pedigree_number', {value: ''});
+                                                    formRenderProps.onChange('dog_name', {value: ''});
+                                                    setDisableFields(false);
+                                                }}
+                                            >Удалить
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                                 <div className="patella-form__content">
@@ -167,7 +189,7 @@ const PatellaForm = ({alias}) => {
                                             validator={requiredValidator}
                                         />
                                     </div>
-                                    <div className="patella-form__row">
+                                    <div className="patella-form__row _payment-info">
                                         <Field
                                             id="payment_date"
                                             name="payment_date"

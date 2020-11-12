@@ -64,7 +64,13 @@
         }
       }
     }
-
+    @media (max-width: 560px) {
+      font-size: 16px;
+      line-height: 20px;
+      &-link:first-child:before {
+        top: -9px;
+      }
+    }
   }
   .Card {
     padding: 10px;
