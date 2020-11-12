@@ -58,9 +58,6 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                <Card className="nursery-page__content-banner">
-                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
-                                </Card>
                                 {isMobile &&
                                     <>
                                         <ClubUserHeader
@@ -138,7 +135,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                         {isMobile &&
