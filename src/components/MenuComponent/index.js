@@ -417,9 +417,11 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     <li className="user-menu__item">
                         <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="menu-component__link" title="Фотогалерея">Видеозаписи</Link>
                     </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                    </li>
+                    {
+                        isFederation && <li className="user-menu__item">
+                            <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                        </li>
+                    }
                     <li className="user-menu__item">
                         <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
                             {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
@@ -467,10 +469,11 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                         </Link>
                     </li>
                 </>}
-
-                <li className="menu-component__item menu-component__item--documents">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                </li>
+                {
+                    isFederation && <li className="menu-component__item menu-component__item--documents">
+                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
+                    </li>
+                }
                 <li className="menu-component__item menu-component__item--club">
                     <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
                         {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
