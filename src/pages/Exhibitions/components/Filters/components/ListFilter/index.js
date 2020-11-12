@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import HorizontalSwipe from "../../../../../../components/HorozintalSwipe";
-import {setFiltersToUrl} from "../../../../utils";
+import { setFiltersToUrl } from "../../../../utils";
 import "./index.scss";
 
 
-const ListFilter = ({categoryId}) => {
+const ListFilter = ({ categoryId }) => {
     const [activeType, setActiveType] = useState(0);
 
     useEffect(() => {
@@ -15,11 +15,12 @@ const ListFilter = ({categoryId}) => {
         const calendarButton = document.getElementsByClassName('exhibitions-calendar__button active')[0];
         if (calendarButton) calendarButton.classList.remove('active');
 
-        setFiltersToUrl({CategoryId: type});
+        setFiltersToUrl({ CategoryId: type });
     };
 
     return (
         <div className="exhibitions-page__list-filter">
+            <h4 className="list-filter__title">Мероприятия</h4>
             <HorizontalSwipe id="exhibitions-list-filter">
                 <ul className="list-filter">
                     <li className="list-filter__item">
