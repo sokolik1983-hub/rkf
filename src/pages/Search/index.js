@@ -67,10 +67,6 @@ const SearchPage = ({history, isOpenFilters, setShowFilters}) => {
             }
 
             if(data.filter) {
-                if(data.filter.ranks) {
-                    data.filter.ranks = data.filter.ranks.map(({value, label}) => ({id: value, name: label}));
-                }
-
                 if(data.filter.federations) {
                     data.filter.federations = data.filter.federations.map(({value, label}) => ({id: value, short_name: label}));
                 }
