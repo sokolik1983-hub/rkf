@@ -1,0 +1,28 @@
+.ShareCell {
+    text-align: center;
+    &__link {
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: #72839c !important;
+            &:hover {
+                fill: #3366ff !important;
+            }
+        }
+    }
+    &__btn {
+        margin-left: 8px;
+        padding: 0;
+        border: none;
+        width: 16px;
+        height: 16px;
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: #72839c !important;
+            &:hover {
+                fill: #3366ff !important;
+            }
+        }
+    }
+}

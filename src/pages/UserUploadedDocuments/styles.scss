@@ -33,6 +33,15 @@
         }
         .Card {
             padding: 10px !important;
+            margin-bottom: 16px;
+        }
+    }
+    .UploadedDocuments {
+        &-left,
+        &-right {
+            .Card:first-child {
+                margin-top: 0;
+            }
         }
     }
 }
