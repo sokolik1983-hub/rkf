@@ -6,6 +6,9 @@ import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
+import ShareCell from '../../ShareCell';
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -26,6 +29,7 @@ const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>
 
 const Table = ({ documents, distinction, height, fullScreen, exporting, setExporting }) => {
     const gridPDFExport = useRef(null);
+    const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -53,6 +57,13 @@ const Table = ({ documents, distinction, height, fullScreen, exporting, setExpor
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
+
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
 
     useEffect(() => {
         if (exporting) {
@@ -98,7 +109,7 @@ const Table = ({ documents, distinction, height, fullScreen, exporting, setExpor
         <GridColumn field="stamp_number" title="Клеймо" width="120px" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" width="150px" columnMenu={ColumnMenu} />
         <GridColumn field="status_name" title="Статус" width={fullScreen ? '150px' : '140px'} columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="150px" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="150px" cell={(props) => ShareCell(props, handleSuccess)} />
     </Grid>;
 
     return (
@@ -127,7 +138,7 @@ const Table = ({ documents, distinction, height, fullScreen, exporting, setExpor
                                 >
                                     {litterGrid}
                                 </GridPDFExport>
-                                
+
                             </>
                             : <>
                                 {breedGreed}
@@ -139,11 +150,27 @@ const Table = ({ documents, distinction, height, fullScreen, exporting, setExpor
                                 >
                                     {breedGreed}
                                 </GridPDFExport>
-                                
+
                             </>
                     }
                 </IntlProvider>
             </LocalizationProvider>
+            <NotificationGroup
+                style={{
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse'
+                }}
+            >
+                <Fade enter={true} exit={true}>
+                    {success.status && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
         </div>
     )
 };

@@ -10,6 +10,9 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import kendoMessages from 'kendoMessages.json';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import StickyFilters from "components/StickyFilters";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
+import ShareCell from '../../ShareCell';
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -62,6 +65,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
 
 const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting }) => {
     const gridPDFExport = useRef(null);
+    const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -90,6 +94,13 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         setGridData(e.data);
     }
 
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+    
     useEffect(() => {
         if (exporting) {
             gridPDFExport.current.save(documents, () => setExporting(false));
@@ -112,7 +123,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
         <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
         <GridColumn width="80px" cell={(props) => OptionsCell(props, setErrorReport)} />
     </Grid>;
 
@@ -135,7 +146,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
     </Grid>;
 
-    return (
+    return (<>
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
                 <StickyFilters>
@@ -175,6 +186,23 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                 
             </IntlProvider>
         </LocalizationProvider>
+        <NotificationGroup
+                style={{
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse'
+                }}
+            >
+                <Fade enter={true} exit={true}>
+                    {success.status && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
+            </>
     )
 };
 
