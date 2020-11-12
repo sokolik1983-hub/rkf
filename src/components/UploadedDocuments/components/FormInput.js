@@ -5,7 +5,7 @@ import { Input } from '@progress/kendo-react-inputs';
 
 
 const FormInput = (fieldRenderProps) => {
-    const { validationMessage, touched, label, id, valid, disabled, type, optional, maxLength, passwordField, ...others } = fieldRenderProps;
+    const { validationMessage, touched, label, id, valid, disabled, type, optional, maxLength, passwordField, value, formRenderProps, ...others } = fieldRenderProps;
 
     const showValidationMessage = touched && validationMessage;
     const errorId = showValidationMessage ? `${id}_error` : '';
@@ -20,13 +20,15 @@ const FormInput = (fieldRenderProps) => {
                     id={id}
                     disabled={disabled}
                     ariaDescribedBy={`${errorId}`}
+                    value={value}
                     {...others}
+                    onBlur={() => !value && formRenderProps.onFormReset()}
                 />
                 {
-                    showValidationMessage ? <Error id={errorId}>{validationMessage}</Error> 
-                    : 
-                    maxLength ? <Hint ariaDescribedBy={`${errorId}`}>{passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`}</Hint> 
-                    : ''
+                    showValidationMessage ? <Error id={errorId}>{validationMessage}</Error>
+                        :
+                        maxLength ? <Hint ariaDescribedBy={`${errorId}`}>{passwordField ? `От 6 до 20 символов` : `Макс. кол-во символов: ${maxLength}`}</Hint>
+                            : ''
                 }
             </div>
         </FieldWrapper>

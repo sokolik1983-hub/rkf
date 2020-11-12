@@ -17,7 +17,7 @@ const Option = props => (
     </components.Option>
 );
 
-const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions, is_club_link }) => {
+const BreedsFilter = ({ breeds, breed_ids, onChange, is_club_link }) => {
     const [values, setValues] = useState([]);
     const [optionsNotInValues, setOptionsNotInValues] = useState([]);
     const [isOpen, setIsOpen] = useState(is_club_link && !breeds.length ? false : true);
@@ -67,7 +67,7 @@ const BreedsFilter = ({ breeds, breed_ids, onChange, isExhibitions, is_club_link
                         noOptionsMessage={() => 'Порода не найдена'}
                         value={values}
                         components={{ Option }}
-                        maxMenuHeight={isExhibitions && 170}
+                        maxMenuHeight={170}
                     />
                     {!!values.length &&
                         <ul className="breeds-filter__values">

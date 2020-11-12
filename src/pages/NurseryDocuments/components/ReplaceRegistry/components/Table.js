@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
@@ -8,6 +8,7 @@ import { DropDownButton } from '@progress/kendo-react-buttons';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
+import { GridPDFExport } from "@progress/kendo-react-pdf";
 import StickyFilters from "components/StickyFilters";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -59,7 +60,8 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport }) => {
+const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting }) => {
+    const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -87,6 +89,51 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
+
+    useEffect(() => {
+        if (exporting) {
+            gridPDFExport.current.save(documents, () => setExporting(false));
+        }
+    }, [exporting]);
+
+    const grid = <Grid
+        data={process(documents, gridData)}
+        pageable
+        sortable
+        resizable
+        {...gridData}
+        onDataStateChange={handleGridDataChange}
+        style={{ height: "700px" }}>
+        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
+        <GridColumn width="80px" cell={(props) => OptionsCell(props, setErrorReport)} />
+    </Grid>;
+
+    const gridForExport = <Grid
+        data={process(documents, gridData)}
+        pageable
+        sortable
+        resizable
+        {...gridData}
+        onDataStateChange={handleGridDataChange}
+        style={{ height: "700px" }}>
+        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
+    </Grid>;
 
     return (
         <LocalizationProvider language="ru-RU">
@@ -116,28 +163,16 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         </div>
                     </div>
                 </StickyFilters>
-                {
-                    documents && <Grid
-                        data={process(documents, gridData)}
-                        pageable
-                        sortable
-                        resizable
-                        {...gridData}
-                        onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата создания" width="150px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
-                        <GridColumn field="owner_name" title="ФИО владельца" width="150px" columnMenu={ColumnMenu} />
-                        <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
-                        <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
-                        <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
-                        <GridColumn width="80px" cell={(props) => OptionsCell(props, setErrorReport)} />
-
-                    </Grid>
-                }
+                {documents && grid}
+                <GridPDFExport
+                    ref={gridPDFExport}
+                    scale={0.3}
+                    margin="1cm"
+                    paperSize="A4"
+                >
+                    {gridForExport}
+                </GridPDFExport>
+                
             </IntlProvider>
         </LocalizationProvider>
     )

@@ -10,8 +10,7 @@ const RequestRegistry = ({ history, distinction }) => {
     const [loading, setLoading] = useState(true);
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    // const [exporting, setExporting] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         (() => Request({
@@ -21,7 +20,6 @@ const RequestRegistry = ({ history, distinction }) => {
         },
             data => {
                 setDocuments(data);
-                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
@@ -37,7 +35,11 @@ const RequestRegistry = ({ history, distinction }) => {
                 className="club-documents-status__popup-close"
             >
             </button>
-            <Table documents={documents} distinction={distinction} fullScreen />
+            <Table 
+                documents={documents} 
+                distinction={distinction} 
+                fullScreen
+            />
         </Card> :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">
@@ -49,7 +51,7 @@ const RequestRegistry = ({ history, distinction }) => {
                 </div>
                 {documents && !!documents.length ? <>
                     <div className="club-documents-status__controls">
-                        {/* {!!exhibitionsForTable.length && standardView &&
+                        {standardView &&
                             <button
                                 className="club-documents-status__control club-documents-status__control--downloadIcon"
                                 onClick={() => setExporting(true)}
@@ -57,12 +59,17 @@ const RequestRegistry = ({ history, distinction }) => {
                             >
                                 Скачать PDF
                             </button>
-                        } */}
+                        }
                         <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                             Открыть на всю ширину окна
                         </button>
                     </div>
-                    <Table documents={documents} distinction={distinction} />
+                    <Table 
+                        documents={documents} 
+                        distinction={distinction}
+                        exporting={exporting}
+                        setExporting={setExporting}
+                    />
                 </>
                     : <h2>Документов не найдено</h2>}
             </Card>

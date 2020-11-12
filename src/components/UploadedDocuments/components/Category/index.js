@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import DocumentItem from "../DocumentItem";
 import DocumentItemReadOnly from "../DocumentItemReadOnly";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { pencil } from "@progress/kendo-svg-icons";
+import { pencil, trash } from "@progress/kendo-svg-icons";
 import { Upload } from "@progress/kendo-react-upload";
 import Card from "components/Card";
 import { Button } from "@progress/kendo-react-buttons";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import { Request, getHeaders } from "utils/request";
 import kendoMessages from 'kendoMessages.json';
+import { DEFAULT_IMG } from "appConfig";
 import './styles.scss';
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -45,17 +46,31 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
     };
 
     return <Card className="UploadedDocuments__category">
-        <h1 className="UploadedDocuments__category-title">
-            {currentCategory ? currentCategory.name : 'Неотсортированные'}
-            {canEdit && id > 0 && <button
-                className="UploadedDocuments__category-btn"
-                type="button"
-                //title="Редактировать"
-                onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: currentCategory.name })}
-            >
-                <SvgIcon icon={pencil} size="default" />
-            </button>}
-        </h1>
+        <div className="row d-flex align-items-center">
+            <div className="col-11">
+                <h1 className="UploadedDocuments__category-title">
+                    {currentCategory ? currentCategory.name : 'Документы'}
+                    {canEdit && id > 0 && <button
+                        className="UploadedDocuments__category-btn"
+                        type="button"
+                        //title="Редактировать"
+                        onClick={() => setModal({ type: 'editCategory', categoryId: id, categoryName: currentCategory.name })}
+                    >
+                        <SvgIcon icon={pencil} size="default" />
+                    </button>}
+                </h1>
+            </div>
+            <div className="col-1">
+                {canEdit && id > 0 && <button
+                    className="DocumentItem__delete-btn"
+                    type="button"
+                    //title="Удалить"
+                    onClick={() => setModal({ type: 'deleteCategory', categoryId: id })}
+                >
+                    <SvgIcon icon={trash} size="default" />
+                </button>}
+            </div>
+        </div>
         <hr className="mt-0" />
         {
             canEdit
@@ -77,6 +92,11 @@ const Category = ({ canEdit, id, currentCategory, categories, unsortedCategory, 
                         }
                     </div>
                 </div>
+        }
+        {!documents.length && <div className="UploadedDocuments__category-placeholder">
+            <h4>Не добавлено ни одного документа</h4>
+            <img src={DEFAULT_IMG.noNews} alt="" />
+        </div>
         }
         {
             !!documentsToUpdate.length && <div className="DocumentItem container p-0 mb-4">

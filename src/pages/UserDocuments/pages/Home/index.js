@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
+import ls from "local-storage";
 import Loading from "../../../../components/Loading";
 import Container from "../../../../components/Layouts/Container";
 import Card from "../../../../components/Card";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
-// import UserBanner from "../../../../components/Layouts/UserBanner";
 import UserInfo from "../../../../components/Layouts/UserInfo";
 import UserMenu from "../../../../components/Layouts/UserMenu";
+import Documents from "../Documents";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
-import "./index.scss";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "../../../User/config";
-import ls from "local-storage";
+import "./index.scss";
+import PatellaForm from "../Patella/Form";
 
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
-    const linksArray = userNav(userAlias).map(item => item.to);
     const [canEdit, setCanEdit] = useState(false);
-
-    //Костыль, пока нет раздела Оформление документов (потом убрать)
-    if (history.location.pathname === `/user/${userAlias}/documents`) {
-        history.replace(`/user/${userAlias}/documents/specialization`);
-    }
+    const linksArray = [
+        ...userNav(userAlias).map(item => item.to),
+        `/user/${userAlias}/documents/patella/form`
+    ];
 
     if (!linksArray.includes(history.location.pathname)) {
         history.replace('/404');
@@ -64,9 +63,6 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                 <Container className="user-documents__content content">
                     <aside className="user-documents__left">
                         <StickyBox offsetTop={66}>
-                            {/*<div className="mobile-only">*/}
-                            {/*    <UserBanner link={userInfo.headliner_link}/>*/}
-                            {/*</div>*/}
                             <Card>
                                 <UserInfo
                                     canEdit={canEdit}
@@ -83,9 +79,13 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">
-                        {/*<UserBanner link={userInfo.headliner_link}/>*/}
                         <div className="user-documents__cards">
                             <Switch>
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents'
+                                    component={() => <Documents alias={userAlias}/>}
+                                />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/specialization'
@@ -100,6 +100,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:id/documents/federation-assessment'
                                     component={() => <FederationAssessment />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/patella/form'
+                                    component={() => <PatellaForm alias={userAlias} />}
                                 />
                             </Switch>
                         </div>

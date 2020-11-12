@@ -120,7 +120,8 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const Breadcrumbs = () => {
         return <div className="NurseryVideo__breadcrumbs">
             <div className="NurseryVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };
@@ -134,9 +135,9 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
                                 <div className="nursery-page__content">
-                                    <Card className="nursery-page__content-banner">
+                                    {/* <Card className="nursery-page__content-banner">
                                         <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
-                                    </Card>
+                                    </Card> */}
                                     {isMobile &&
                                         <>
                                             <ClubUserHeader

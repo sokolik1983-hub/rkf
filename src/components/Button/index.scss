@@ -3,7 +3,6 @@ $primary-color--disabled: transparentize($primary-color, 0.3);
 
 button {
     font-family: Helvetica, sans-serif;
-    letter-spacing: 1px;
     background-color: transparent;
     padding: 10px;
     color: $primary-color;

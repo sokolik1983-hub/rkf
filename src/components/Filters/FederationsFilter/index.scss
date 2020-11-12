@@ -1,15 +1,16 @@
 .federations-filter {
   margin-bottom: 16px;
   &__title {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
     display: flex;
     align-items: flex-end;
-    letter-spacing: 0.2px;
-    color: #72839C;
     flex-grow: 1;
     border-right: 1px solid #72839C;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #253c5e;
+    letter-spacing: 0.2px;
   }
   &__head {
     display: flex;

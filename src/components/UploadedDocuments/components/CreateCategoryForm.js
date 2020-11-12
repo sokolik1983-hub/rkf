@@ -5,16 +5,18 @@ import FormInput from './FormInput';
 import { categoryNameValidator } from '../validators';
 import { Request } from "utils/request";
 
-const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
+const CreateCategoryForm = ({ getCategories, handleSuccess, handleError, closeModal }) => {
 
     const handleSubmit = async ({ name }) => {
         await Request({
             url: `/api/document/publicdocument/category?name=${name}`,
             method: 'POST',
         }, () => {
+            closeModal();
             handleSuccess('Категория добавлена!');
             getCategories();
         }, error => {
+            closeModal();
             handleError(error);
         });
     };
@@ -32,13 +34,14 @@ const CreateCategoryForm = ({ getCategories, handleSuccess, handleError }) => {
                         maxLength="50"
                         component={FormInput}
                         validator={value => categoryNameValidator(value, 50)}
+                        formRenderProps={formRenderProps}
                     />
                     <div className="k-form-buttons">
                         <button
                             type={'submit'}
                             className="k-button k-primary"
                             disabled={!formRenderProps.modified || !formRenderProps.valid}
-                        >Создать</button>
+                        >Добавить</button>
                     </div>
                 </FormElement>
             )

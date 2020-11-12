@@ -10,6 +10,9 @@
     @media (max-width: 990px) {
         display: block;
     }
+    &__wrap {
+        background: #f5f8ff;
+    }
     &__right {
         width: calc(100% - 316px);
         margin-top: 16px;
@@ -125,5 +128,17 @@
     }
     .user-nav__button {
         border-radius: 50%;
+    }
+    .k-radio {
+        @media (max-width: 560px) {
+            &[aria-checked="true"] {
+                background-color: #007bff;
+                &:before {
+                    border-radius: 50%;
+                    transform: scale(1) translate(-50%, -50%);
+                    background-color: white;
+                }
+            }
+        }
     }
 }

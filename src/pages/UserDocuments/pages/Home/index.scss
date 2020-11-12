@@ -41,18 +41,40 @@
       }
     }
   }
+  &__breadcrumbs {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #cbcbcb;
+    &-link {
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #253c5e;
+      &:first-child {
+        position: relative;
+        padding-left: 14px;
+        &:before {
+          content: "\2039";
+          font-size: 32px;
+          line-height: 1;
+          position: absolute;
+          left: 0;
+          top: -6px;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      font-size: 16px;
+      line-height: 20px;
+      &-link:first-child:before {
+        top: -9px;
+      }
+    }
+  }
   .Card {
     padding: 10px;
     margin-bottom: 16px;
-  }
-  .mobile-only {
-    display: none;
-    @media (max-width: 990px) {
-      display: block;
-      .user-banner {
-        display: block;
-      }
-    }
   }
 }
 
@@ -84,6 +106,12 @@
     }
     &._federation-support-quality {
       background-image: url("/static/images/documents/federation-support-quality-icon.svg");
+    }
+    &._dysplasia {
+      background-image: url("/static/images/documents/dysplasia-icon.svg");
+    }
+    &._patella {
+      background-image: url("/static/images/documents/patella-icon.svg");
     }
     @media (max-width: 560px) {
       width: 100px;

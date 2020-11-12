@@ -15,8 +15,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
     const [documents, setDocuments] = useState(null);
     const [innerDocuments, setInnerDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
-    // const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
-    // const [exporting, setExporting] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
 
     useEffect(() => {
@@ -27,7 +26,6 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
         },
             data => {
                 setDocuments(data);
-                // setExhibitionsForTable(data);
                 setLoading(false);
             },
             error => {
@@ -94,7 +92,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 {documents && !!documents.length
                     ? <>
                     <div className="nursery-documents-status__controls">
-                    {/* {!!exhibitionsForTable.length && standardView &&
+                    {standardView &&
                         <button
                             className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                             onClick={() => setExporting(true)}
@@ -102,13 +100,21 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                         >
                             Скачать PDF
                         </button>
-                    } */}
+                    }
                     <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                         Открыть на всю ширину окна
                     </button>
                 </div>
                         <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                        <Table documents={documents} distinction={distinction} rowClick={rowClick} deleteRow={deleteRow} setShowModal={setShowModal} />
+                        <Table 
+                            documents={documents} 
+                            distinction={distinction} 
+                            rowClick={rowClick} 
+                            deleteRow={deleteRow} 
+                            setShowModal={setShowModal}
+                            exporting={exporting}
+                            setExporting={setExporting}
+                        />
                     </>
                     : <h2>Документов не найдено</h2>
                 }

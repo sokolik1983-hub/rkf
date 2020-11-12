@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton } from '@progress/kendo-react-buttons';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
+import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -62,7 +63,8 @@ const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, fullScreen }) => {
+const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, fullScreen, exporting, setExporting }) => {
+    const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -78,31 +80,66 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, full
         rowClick(dataItem.id);
     }
 
+    useEffect(() => {
+        if (exporting) {
+            gridPDFExport.current.save(documents, () => setExporting(false));
+        }
+    }, [exporting]);
+
+    const grid = <Grid
+        data={process(documents, gridData)}
+        pageable
+        sortable
+        resizable
+        {...gridData}
+        onDataStateChange={handleGridDataChange}
+        onRowClick={handleGridRowClick}
+        className="club-documents-status__pointer"
+        style={{ height: "700px" }}>
+        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '195px' : '170px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="federation_name" title="Федерация" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
+        <GridColumn field="count" title="Всего заявок" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="count_done" title="Изготовлено" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="count_in_work" title="В работе" width="100px" columnMenu={ColumnMenu} />
+        <GridColumn field="id" title="№ документа" width={fullScreen ? '190px' : '160px'} columnMenu={ColumnMenu} />
+        <GridColumn field="name" title="ФИО заявителя" width="160px" columnMenu={ColumnMenu} />
+        <GridColumn width="80px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+    </Grid>;
+
+    const gridForExport = <Grid
+        data={process(documents, gridData)}
+        pageable
+        sortable
+        resizable
+        {...gridData}
+        onDataStateChange={handleGridDataChange}
+        onRowClick={handleGridRowClick}
+        className="club-documents-status__pointer"
+        style={{ height: "700px" }}>
+        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '195px' : '170px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="federation_name" title="Федерация" width="120px" columnMenu={ColumnMenu} />
+        <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
+        <GridColumn field="count" title="Всего заявок" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="count_done" title="Изготовлено" width="130px" columnMenu={ColumnMenu} />
+        <GridColumn field="count_in_work" title="В работе" width="100px" columnMenu={ColumnMenu} />
+        <GridColumn field="id" title="№ документа" width={fullScreen ? '190px' : '160px'} columnMenu={ColumnMenu} />
+        <GridColumn field="name" title="ФИО заявителя" width="160px" columnMenu={ColumnMenu} />
+    </Grid>;
+
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
-                {
-                    documents && <Grid
-                        data={process(documents, gridData)}
-                        pageable
-                        sortable
-                        resizable
-                        {...gridData}
-                        onDataStateChange={handleGridDataChange}
-                        onRowClick={handleGridRowClick}
-                        className="club-documents-status__pointer"
-                        style={{ height: "700px" }}>
-                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '190px' : '110px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="federation_name" title="Федерация" width="120px" columnMenu={ColumnMenu} />
-                        <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count" title="Всего заявок" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count_done" title="Изготовлено" width="130px" columnMenu={ColumnMenu} />
-                        <GridColumn field="count_in_work" title="В работе" width="100px" columnMenu={ColumnMenu} />
-                        <GridColumn field="id" title="№ документа" width={fullScreen ? '190px' : '160px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="name" title="ФИО заявителя" width="160px" columnMenu={ColumnMenu} />
-                        <GridColumn width="80px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
-                    </Grid>
-                }
+                {documents && grid}
+                <GridPDFExport
+                    ref={gridPDFExport}
+                    scale={0.3}
+                    margin="1cm"
+                    paperSize="A4"
+                >
+                    {gridForExport}
+                </GridPDFExport>
+                
             </IntlProvider>
         </LocalizationProvider>
     )

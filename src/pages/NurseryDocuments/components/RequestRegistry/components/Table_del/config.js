@@ -24,7 +24,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "breeder_full_name",
-           label: "ФИО заводчика"
+           label: "Заводчик"
        },
        {
            property: "dog_name",
@@ -66,7 +66,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "breeder_full_name",
-           label: "ФИО заводчика"
+           label: "Заводчик"
        },
        {
            property: "nursery_name",
@@ -86,7 +86,7 @@ export const getTableColumns = (sortingColumns, sortable, distinction, nurseryAl
        },
        {
            property: "count_of_documents",
-           label: "Документов"
+           label: "Док-в"
        },
        {
            property: "barcode",
