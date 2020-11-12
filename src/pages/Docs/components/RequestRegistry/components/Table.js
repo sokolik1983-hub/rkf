@@ -5,6 +5,9 @@ import { DropDownList } from '@progress/kendo-react-dropdowns';
 import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
+import ShareCell from '../../ShareCell';
 import kendoMessages from 'kendoMessages.json';
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -26,6 +29,7 @@ const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>
 
 const Table = ({ documents, distinction, height, exporting, setExporting }) => {
     const gridPDFExport = useRef(null);
+    const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
@@ -53,6 +57,13 @@ const Table = ({ documents, distinction, height, exporting, setExporting }) => {
     const handleGridDataChange = (e) => {
         setGridData(e.data);
     }
+
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
 
     useEffect(() => {
         if (exporting) {
@@ -145,7 +156,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting }) => {
                                 >
                                     {litterGrid}
                                 </GridPDFExport>
-                                
+
                             </>
                             :
                             <><Grid
@@ -165,7 +176,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting }) => {
                                 <GridColumn field="stamp_number" title="Клеймо" width="90px" columnMenu={ColumnMenu} />
                                 <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
                                 <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
-                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="50px" columnMenu={ColumnMenu} />
+                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="50px" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
                                     ref={gridPDFExport}
@@ -175,10 +186,26 @@ const Table = ({ documents, distinction, height, exporting, setExporting }) => {
                                 >
                                     {breedGrid}
                                 </GridPDFExport>
-                                </>
+                            </>
                     }
                 </IntlProvider>
             </LocalizationProvider>
+            <NotificationGroup
+                style={{
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse'
+                }}
+            >
+                <Fade enter={true} exit={true}>
+                    {success.status && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
         </div>
     )
 };

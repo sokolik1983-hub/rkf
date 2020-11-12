@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import {formatDateWithTime} from "../../../../../../utils";
+import { formatDateWithTime } from "../../../../../../utils";
 import ReportError from './components/ReportError';
+import ShareButtons from "./ShareButtons";
 
 const formatCountTime = (str) => {
     const dateArray = str.split('.');
@@ -10,7 +11,7 @@ const formatCountTime = (str) => {
     const hours = +timeArray[0];
     const minutes = +timeArray[1];
 
-    return `${days ? days + 'д. ': ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
+    return `${days ? days + 'д. ' : ''}${hours ? hours + 'ч. ' : ''}${minutes ? minutes + 'м.' : ''}`;
 }
 
 
@@ -53,7 +54,7 @@ const AccardionItem = ({ barcode, breed, date_changed, date_created, dog_name, f
                         </div>
                     </div>}
                     {count_time && <p><span>До получения родословной осталось: </span>{formatCountTime(count_time)}</p>}
-                    {pedigree_link && <p><a target="_blank" rel="noopener noreferrer" href={pedigree_link}>Ссылка на электронную копию родословной</a></p>}
+                    {pedigree_link && <ShareButtons link={pedigree_link} />}
                 </div>
             </div>
         </div>

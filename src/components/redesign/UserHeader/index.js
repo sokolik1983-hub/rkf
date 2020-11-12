@@ -8,7 +8,7 @@ import Share from "components/Share";
 import MenuComponent from "components/MenuComponent";
 
 
-const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federationName, federationAlias }) => {
+const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federationName, federationAlias, isFederation = false }) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     // const share = () => {
@@ -51,6 +51,7 @@ const ClubUserHeader = ({ user, logo, banner, name, alias, profileId, federation
                     profileId={profileId}
                     name={name}
                     noCard={true}
+                    isFederation={isFederation}
                 />
             </div>
             {shareAlert &&

@@ -53,12 +53,14 @@
     & > .btn {
       margin-top: 40px;
       margin-right: 16px;
-      padding-top: 6px;
-      padding-bottom: 6px;
       &.btn-red {
         margin-right: 0;
       }
     }
+  }
+  .btn {
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
   .Card {
     padding: 24px 32px !important;

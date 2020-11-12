@@ -116,7 +116,9 @@
     &__breadcrumbs {
         font-size: 24px;
         line-height: 32px;
-        margin-bottom: 10px;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
         display: flex;
         white-space: nowrap;
         justify-content: space-between;
@@ -127,6 +129,8 @@
             max-width: 644px;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 18px;
+            line-height: 24px;
         }
         &-buttons {
             display: flex;
@@ -155,8 +159,8 @@
         }
 
         a {
-            font-size: 24px;
-            line-height: 32px;
+            font-size: 18px;
+            line-height: 24px;
             text-decoration: none;
             color: #253c5e;
             span {
