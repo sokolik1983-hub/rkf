@@ -3,9 +3,9 @@ import React from "react";
 export const userNav = (alias) => [
     {
         id: 1,
+        exact: true,
         title: 'Оформление документов',
         to: `/user/${alias}/documents`,
-        disabled: true,
         icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="m24.7 10.9v7.2h50.3v64.1h7.2v-71.3h-57.5z"/>
                 <path d="M17.8,89.1h52.7V22.7H17.8V89.1z M29.2,36.4H59V41H29.2V36.4z M29.2,47.9H59v4.6H29.2V47.9z M29.2,59.3H59v4.6H29.2V59.3z M29.2,70.8H59v4.6H29.2V70.8z"/>
@@ -13,6 +13,7 @@ export const userNav = (alias) => [
     },
     {
         id: 2,
+        exact: true,
         title: 'Специализация',
         to: `/user/${alias}/documents/specialization`,
         icon: <svg viewBox="0 0 99.2 99.2" xmlns="http://www.w3.org/2000/svg">
@@ -22,6 +23,7 @@ export const userNav = (alias) => [
     },
     {
         id: 3,
+        exact: true,
         title: 'Мои собаки',
         to: `/user/${alias}/documents/dogs`,
         disabled: true,
@@ -31,6 +33,7 @@ export const userNav = (alias) => [
     },
     {
         id: 4,
+        exact: true,
         title: 'Запись на мероприятия',
         to: `/user/${alias}/documents/exhibitions-registration`,
         disabled: true,
@@ -40,6 +43,7 @@ export const userNav = (alias) => [
     },
     {
         id: 5,
+        exact: true,
         title: 'Запись на очный прием',
         to: `/user/${alias}/documents/meeting-registration`,
         icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -50,6 +54,7 @@ export const userNav = (alias) => [
 
     }, {
         id: 6,
+        exact: true,
         title: 'Оценка Федерации',
         to: `/user/${alias}/documents/federation-assessment`,
         icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -59,9 +64,9 @@ export const userNav = (alias) => [
             </svg>
     }, {
         id: 7,
+        exact: true,
         title: 'Моя страница',
         to: `/user/${alias}`,
-        disabled: true,
         icon: <svg viewBox="0 0 512 412" xmlns="http://www.w3.org/2000/svg">
                 <path transform="translate(0 -50)" d="M497,50H15A15,15,0,0,0,0,65v45H512V65A15,15,0,0,0,497,50Z"/>
                 <path transform="translate(0 -50)" d="m0 140v307a15 15 0 0 0 15 15h482a15 15 0 0 0 15-15v-307zm116 58.5a20 20 0 1 1-20 20 20 20 0 0 1 20-20zm-20 90h160a15 15 0 0 1 0 30h-160a15 15 0 0 1 0-30zm320 115h-320a15 15 0 0 1 0-30h320a15 15 0 0 1 0 30zm-110-100a20 20 0 1 1 20 20 20 20 0 0 1-20-20zm70 0a20 20 0 1 1 20 20 20 20 0 0 1-20-20zm40-70h-230a15 15 0 0 1 0-30h230a15 15 0 0 1 0 30z"/>
