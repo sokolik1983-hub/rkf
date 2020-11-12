@@ -27,4 +27,14 @@
   .Card {
     padding: 24px 32px !important;
   }
+  .k-notification-group {
+    right: 8px;
+    bottom: 55px;
+    @media (max-width: 560px) {
+      left: 5px;
+      right: 5px;
+      top: 48px;
+      bottom: auto;
+    }
+  }
 }

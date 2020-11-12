@@ -19,12 +19,15 @@ const FormInput = fieldRenderProps => {
         hint,
         value,
         onlyNumbers,
+        cutValue,
         ...others
     } = fieldRenderProps;
 
     const showValidationMessage = touched && validationMessage;
     const showHint = !showValidationMessage && (hint || maxLength);
     const errorId = showValidationMessage ? `${id}_error` : '';
+
+    const allowMaxLength = str => str.slice(0, cutValue);
 
     const allowOnlyNumbers = str => {
         let newStr = str.replace(/\D/g, '');
@@ -41,7 +44,7 @@ const FormInput = fieldRenderProps => {
                     valid={valid}
                     type={type}
                     id={id}
-                    value={onlyNumbers ? allowOnlyNumbers(value) : value}
+                    value={onlyNumbers ? allowOnlyNumbers(value) : cutValue ? allowMaxLength(value) : value}
                     disabled={disabled}
                     ariaDescribedBy={`${errorId}`}
                     {...others}

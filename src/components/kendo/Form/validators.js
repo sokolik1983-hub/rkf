@@ -6,12 +6,19 @@ const aliasRegex = new RegExp(/^\w+$/);
 const passwordRegexp = new RegExp(/^(?=.*[A-ZА-ЯЁ])(?=.*[0-9])[\w\S].{6,}/);
 const urlRegexp = new RegExp(/^((http|https):\/\/?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
 const nameRegexp = new RegExp(/^[A-Za-zа-яА-ЯёЁ]+((-[A-Za-zа-яА-ЯёЁ]+)|( [A-Za-zа-яА-ЯёЁ]+))*$/);
+const trimRegexp = new RegExp(/^\s+|\s{2,}|\s+?$/);
 const requiredMessage = 'Обязательное поле';
+const requiredTrimMessage = 'Не должно начинаться и/или заканчиваться пробелом. В середине не должно быть 2 и более пробелов подряд';
 const noUnderscore = value => value.replaceAll('_', '');
 
 
 
-export const requiredValidator = (value) => value ? "" : requiredMessage;
+export const requiredValidator = value => value ? "" : requiredMessage;
+
+export const requiredWithTrimValidator = value => !value ?
+    requiredMessage :
+    trimRegexp.test(value) ?
+        requiredTrimMessage : "";
 
 export const urlValidator = (value) => !value ? "" : urlRegexp.test(value) ? "" : "Введите ссылку в формате: http://example.com";
 
@@ -60,3 +67,7 @@ export const nameRequiredValidator = (value, maxLength) => !value ?
         : nameRegexp.test(value)
             ? ""
             : "Допускается ввод только буквенных символов";
+
+export const dateRequiredValidator = value => !value ?
+    requiredMessage :
+    +value > +new Date() ? "Некорректная дата" : ""

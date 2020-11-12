@@ -46,18 +46,32 @@ const PlaceholderStyles =
     }`;
 
 
-const FormEditorTextarea = (fieldRenderProps) => {
-    const { Bold, Italic, Underline } = EditorTools;
+const FormEditorTextarea = fieldRenderProps => {
     const [contentLength, setContentLength] = useState(0);
-    const { validationMessage, touched, label, id, valid, disabled, type, optional, onChange, ...others } = fieldRenderProps;
+    const { Bold, Italic, Underline } = EditorTools;
     const editorTools = [[Bold, Italic, Underline]];
+    const {
+        validationMessage,
+        touched,
+        label,
+        id,
+        valid,
+        disabled,
+        type,
+        optional,
+        onChange,
+        maxLength = 5000,
+        withPlaceholder = true,
+        ...others
+    } = fieldRenderProps;
 
-    const onMount = (event) => {
+    const onMount = event => {
         event.target.value && setContentLength(event.target.value.length);
+
         const state = event.viewProps.state;
         const plugins = [
             ...state.plugins,
-            Placeholder('Напишите что-нибудь ...')
+            Placeholder(withPlaceholder ? 'Напишите что-нибудь...' : '')
         ];
         const documnt = event.dom.ownerDocument;
         documnt.querySelector('style').appendChild(documnt.createTextNode(PlaceholderStyles));
@@ -76,20 +90,22 @@ const FormEditorTextarea = (fieldRenderProps) => {
     }
 
     return <LocalizationProvider language="ru-RU">
-        <IntlProvider locale={'ru'}>
+        <IntlProvider locale="ru">
             <FieldWrapper>
                 <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
-                <div className={'k-form-field-wrap'}>
+                <div className="k-form-field-wrap">
                     <Editor
                         tools={editorTools}
                         contentStyle={{ height: 115, resize: 'vertical' }}
-                        className={"FormEditorTextarea"}
+                        className="FormEditorTextarea"
                         defaultEditMode="div"
                         onMount={onMount}
                         onChange={handleChange}
                         {...others}
                     />
-                    <div className="k-form-hint k-text-end">{`осталось ${5000 - contentLength} знаков`}</div>
+                    <div className="k-form-hint k-text-end">
+                        {`осталось ${maxLength - contentLength} знаков`}
+                    </div>
                 </div>
             </FieldWrapper>
         </IntlProvider>
