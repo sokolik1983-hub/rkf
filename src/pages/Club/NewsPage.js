@@ -4,7 +4,6 @@ import Layout from "../../components/Layouts";
 import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
-import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
@@ -58,9 +57,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                     <Container className="content club-page">
                         <div className="club-page__content-wrap">
                             <div className="club-page__content">
-                                <Card className="club-page__content-banner">
-                                    <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                </Card>
                                 {isMobile &&
                                     <>
                                         <UserHeader
@@ -118,7 +114,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/video`}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                     </div>

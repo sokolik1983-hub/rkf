@@ -8,7 +8,6 @@ import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
 import ClickGuard from "../../components/ClickGuard";
 import MenuComponent from "../../components/MenuComponent";
-import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
@@ -31,7 +30,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [federationName, setFederationName] = useState('');
     const [federationAlias, setFederationAlias] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
-    const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
     const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
@@ -97,7 +95,6 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             if (club) {
                 setDisplayName(club.display_name || "Название клуба отсутствует");
                 setClubAvatar(club.club_avatar);
-                setClubHeadliner(club.headliner_link || null);
                 setFederationName(club.federation_name || null);
                 setFederationAlias(club.federation_alias || null);
                 setClubId(club.club_id);
@@ -148,19 +145,14 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
-                            <>
-                                <Card className="exhibitions-page__club-banner">
-                                    <div style={clubHeadliner && { backgroundImage: `url(${clubHeadliner})` }} />
-                                </Card>
-                                <div className="exhibitions-page__mobile-only">
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        user={user}
-                                        profileId={clubId}
-                                        noCard={true}
-                                    />
-                                </div>
-                            </>
+                            <div className="exhibitions-page__mobile-only">
+                                <MenuComponent
+                                    alias={filters.Alias}
+                                    user={user}
+                                    profileId={clubId}
+                                    noCard={true}
+                                />
+                            </div>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
                         <div className="exhibitions-page__controls">
