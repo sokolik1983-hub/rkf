@@ -172,9 +172,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
-                                {isMobile &&
+                                {/* {isMobile &&
                                     <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                                }
+                                } */}
                                 <Card>
                                     <UserInfo
                                         canEdit={canEdit}
@@ -200,14 +200,14 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
-                            {!isMobile &&
+                            {/* {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                            }
+                            } */}
                             <div className="NurseryGallery__content">
                                 <Card>
                                     <div className="NurseryGallery__breadcrumbs">
                                         <div className="NurseryGallery__breadcrumbs-title">
-                                            <Link className="btn-backward" to={`/user/${alias}`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
+                                            {/* <Link className="btn-backward" to={`/user/${alias}`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                                             {album ? <><Link className="btn-backward" to={`/user/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
                                         </div>
                                     </div>

@@ -20,6 +20,7 @@
       display: inline-block;
       text-align: center;
       vertical-align: middle;
+      white-space: nowrap;
       @media (max-width: 768px){
         width: 86px;
       }
@@ -30,9 +31,6 @@
       @media (max-width: 310px){
         width: 90px;
       }
-    }
-    &__block:last-child{
-      white-space: nowrap;
     }
     &__count{
       p{

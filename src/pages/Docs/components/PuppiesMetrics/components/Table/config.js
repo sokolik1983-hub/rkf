@@ -29,7 +29,7 @@ export const getTableColumns = (sortingColumns, sortable, clubAlias, setState) =
         {
             property: 'owner_name',
             header: {
-                label: 'ФИО заводчика'
+                label: 'Заводчик'
             }
         },
         {

@@ -215,10 +215,13 @@
         }
         &-buttons {
             span {
-                color: #36f;
+                color: #253c5e;
                 font-weight: normal;
                 font-size: 18px;
                 cursor: pointer;
+                &:hover {
+                    color: #36f;
+                }
             }
             span + span {
                 margin-left: 10px;

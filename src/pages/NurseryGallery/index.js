@@ -153,7 +153,7 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
     const Breadcrumbs = () => {
         return <div className="NurseryGallery__breadcrumbs">
             <div className="NurseryGallery__breadcrumbs-title">
-                <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;
+                {/* <Link className="btn-backward" to={`/kennel/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                 {album ? <><Link className="btn-backward" to={`/kennel/${alias}/gallery`}>Фотогалерея</Link> / {album.name}</> : 'Фотогалерея'}
             </div>
         </div>
@@ -168,9 +168,9 @@ const NurseryGallery = ({ isAuthenticated, is_active_profile, profile_id, match,
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
                                 <div className="nursery-page__content">
-                                    <Card className="nursery-page__content-banner">
+                                    {/* <Card className="nursery-page__content-banner">
                                         <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
-                                    </Card>
+                                    </Card> */}
                                     {isMobile &&
                                         <>
                                             <ClubUserHeader

@@ -121,7 +121,8 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const Breadcrumbs = () => {
         return <div className="ClubVideo__breadcrumbs">
             <div className="ClubVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/${alias}/`}><span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };
@@ -135,9 +136,9 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    <Card className="club-page__content-banner">
+                                    {/* <Card className="club-page__content-banner">
                                         <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                    </Card>
+                                    </Card> */}
                                     {isMobile &&
                                         <>
                                             <ClubUserHeader

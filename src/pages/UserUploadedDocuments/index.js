@@ -16,6 +16,7 @@ import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "components/CopyrightInfo";
 import ls from "local-storage";
+import "./styles.scss";
 
 import UploadedDocuments from "components/UploadedDocuments";
 
@@ -55,8 +56,8 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
         : errorRedirect
             ? <Redirect to="/404" />
             : <Layout>
-                <Container className="UploadedDocuments content">
-                    <aside className="UploadedDocuments__left">
+                <Container className="UserUploadedDocuments content">
+                    <aside className="UserUploadedDocuments__left">
                         <StickyBox offsetTop={66}>
                             {isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUser} />
@@ -90,7 +91,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                             }
                         </StickyBox>
                     </aside>
-                    <div className="UploadedDocuments__right">
+                    <div className="UserUploadedDocuments__right">
                         {!loaded
                             ? <Loading />
                             : <UploadedDocuments location={location} match={match} canEdit={canEdit} />

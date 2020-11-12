@@ -19,7 +19,7 @@
             align-items: flex-start;
         }
         &-link {
-            color: #36f;
+            color: #253c5e;
             font-weight: normal;
             font-size: 18px;
             line-height: 24px;
@@ -27,8 +27,15 @@
             cursor: pointer;
             margin-left: 10px;
             white-space: nowrap;
+            border-bottom: 1px solid #ffffff;
+            &:hover {
+                color: #3366ff;
+            }
             @media (max-width: 560px) {
                 margin: 0;
+            }
+            &--add-photo:hover {
+                border-bottom: 1px solid #3366ff;
             }
         }
     }

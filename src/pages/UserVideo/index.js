@@ -138,7 +138,8 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const Breadcrumbs = () => {
         return <div className="UserVideo__breadcrumbs">
             <div className="UserVideo__breadcrumbs-title">
-                <Link className="btn-backward" to={`/user/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp;Видеозаписи
+                {/* <Link className="btn-backward" to={`/user/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
+                Видеозаписи
             </div>
         </div>
     };
@@ -152,9 +153,9 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
-                                {isMobile &&
+                                {/* {isMobile &&
                                     <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                                }
+                                } */}
                                 <Card>
                                     <UserInfo
                                         canEdit={canEdit}
@@ -180,9 +181,9 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
-                            {!isMobile &&
+                            {/* {!isMobile &&
                                 <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                            }
+                            } */}
                             <Card>
                                 <Breadcrumbs />
                                 {
