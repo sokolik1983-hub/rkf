@@ -20,22 +20,22 @@
       margin: -16px 0 16px;
     }
     &-psw {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       position: absolute;
       display: inline-block;
-      top: 157px;
+      top: 158px;
       right: 11px;
-      background: url("/static/icons/psw-eye-closed_new.svg") center no-repeat;
+      background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
       background-size: contain;
       border: none;
       @media (max-width: 560px) {
         right: 25px;
       }
       &._show-psw {
-        background: url("/static/icons/psw-eye-open_new.svg") center no-repeat;
+        background: url("/static/icons/psw-eye-open.svg") center no-repeat;
         background-size: contain;
-        top: 157px;
+        top: 158px;
       }
     }
   }
