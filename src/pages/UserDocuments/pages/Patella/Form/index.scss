@@ -58,6 +58,15 @@
       }
     }
   }
+  &__danger {
+    display: block;
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: .75rem 1.25rem;
+    border: 1px solid #f5c6cb;
+    border-radius: .25rem;
+    margin-bottom: 40px;
+  }
   .btn {
     padding-top: 6px;
     padding-bottom: 6px;
@@ -67,6 +76,14 @@
     @media (max-width: 990px) {
       padding: 10px !important;
     }
+  }
+  p.k-label {
+    margin-top: 16px;
+    opacity: .65;
+    filter: grayscale(.1);
+  }
+  .k-form-field + .nomargin {
+    margin-top: 8px;
   }
   .k-notification-group {
     right: 8px;

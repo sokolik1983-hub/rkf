@@ -12,26 +12,26 @@ import Documents from "../Documents";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
+import PatellaForm from "../Patella/Form";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "../../../User/config";
 import "./index.scss";
-import PatellaForm from "../Patella/Form";
 
 
 const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    const linksArray = [
-        ...userNav(userAlias).map(item => item.to),
-        `/user/${userAlias}/documents/patella/form`
-    ];
+    // const linksArray = [
+    //     ...userNav(userAlias).map(item => item.to),
+    //     `/user/${userAlias}/documents/patella/form`
+    // ];
 
-    if (!linksArray.includes(history.location.pathname)) {
-        history.replace('/404');
-    }
+    // if (!linksArray.includes(history.location.pathname)) {
+    //     history.replace('/404');
+    // }
 
     useEffect(() => {
         (() => getUserInfo())();
@@ -105,6 +105,16 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
                                     component={() => <PatellaForm alias={userAlias} />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/patella/view/:docId'
+                                    component={() => <PatellaForm alias={userAlias} history={history} status="view"/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/patella/edit/:docId'
+                                    component={() => <PatellaForm alias={userAlias} history={history} status="edit"/>}
                                 />
                             </Switch>
                         </div>
