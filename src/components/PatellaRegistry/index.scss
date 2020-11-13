@@ -104,6 +104,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    &-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  ._patella_controls {
+    position: relative;
+    top: 65px;
   }
   &__control {
     display: inline-flex;
@@ -142,7 +150,7 @@
     width: 100vw;
     height: 100vh;
     .k-grid {
-      font-size: 10px;
+      font-size: 14px;
     }  
     &-close {
       width: 20px;
@@ -170,6 +178,9 @@
     }
   }
   .k-grid {
+    font-size: 12px;
+  }
+  .k-grid-header {
     font-size: 10px;
   }
 }

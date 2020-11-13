@@ -123,8 +123,6 @@
     top: 0;
   }
   &__filters-wrap {
-    display: flex;
-    align-items: center;
     margin-bottom: 6px;
   }
   &__checkbox-wrap {
@@ -161,5 +159,9 @@
       top: 48px;
       bottom: auto;
     }
+  }
+  ._replace_registry_wrap {
+    max-width: 810px;
+    margin: 0 auto;
   }
 }
