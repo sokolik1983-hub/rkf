@@ -80,6 +80,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 rowClick={rowClick}
                 deleteRow={deleteRow}
                 setShowModal={setShowModal}
+                fullScreen
             />
         </Card> :
             <Card className="club-documents-status">
@@ -92,7 +93,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 <div className="club-documents-status__table">
                     {documents && !!documents.length
-                        ? <>
+                        ? <div className="club-documents-status__controls-wrap">
                             <div className="club-documents-status__controls">
                                 {standardView &&
                                     <button
@@ -117,7 +118,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                 exporting={exporting}
                                 setExporting={setExporting}
                             />
-                        </>
+                        </div>
                         : <h2>Документов не найдено</h2>
                     }
                 </div>

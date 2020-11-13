@@ -9,6 +9,7 @@ import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -78,7 +79,7 @@ const handleClick = async (e, id, profileType) => {
     el.className = 'pedigree-link';
 };
 
-const Table = ({ documents, profileType, exporting, setExporting }) => {
+const Table = ({ documents, profileType, exporting, setExporting, fullScreen }) => {
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
@@ -133,8 +134,8 @@ const Table = ({ documents, profileType, exporting, setExporting }) => {
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
-                <div className={'club-documents-status__filters-wrap'}>
-                    <strong>Фильтры: </strong>&nbsp;
+                <div className="club-documents-status__filters-wrap">
+                    <strong>Фильтры: </strong>
                     <DropDownList
                         data={categories}
                         dataItemKey="status_id"
@@ -150,12 +151,12 @@ const Table = ({ documents, profileType, exporting, setExporting }) => {
                     resizable
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px", maxWidth: "630px", margin: "0 auto" }}>
-                    <GridColumn field="date_create" title="Дата создания" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width="110px" columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
-                    <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `1100px` : `600px`}`, margin: "0 auto" }}>
+                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '270px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '200px' : '80px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '150px' : '105px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                     <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
                     <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
                 </Grid>}
