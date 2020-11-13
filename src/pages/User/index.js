@@ -104,7 +104,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <UserDescription
                                 mainInfo={userInfo.main_information}
                                 additionalInfo={userInfo.additional_information}
-								counters = {userInfo.counters}
+                                counters = {userInfo.counters}
+                                profileAlias = {`/user/${alias}`}
                             />
                             {isMobile &&
                                 <>
