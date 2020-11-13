@@ -63,7 +63,7 @@ const OptionsCell = ({ dataItem }, setErrorReport) => {
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting }) => {
+const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, setErrorReport, exporting, setExporting, fullScreen }) => {
     const gridPDFExport = useRef(null);
     const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
@@ -114,16 +114,16 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}
-        style={{ height: "700px", maxWidth: "810px", margin: "0 auto" }}>
-        <GridColumn field="date_create" title="Дата создания" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="id" title="№ заявки" width="50px" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_name" title="ФИО владельца" width="110px" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="breed_name" title="Порода" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_code" title="Чип/Клеймо" width="100px" columnMenu={ColumnMenu} />
+        style={{ height: "700px", maxWidth: `${fullScreen ? `1135px` : `810px`}`, margin: "0 auto" }}>
+        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '145px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
+        <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? '130px' : '110px'} columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
+        <GridColumn field="breed_name" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
         <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="50px" columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '50px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
         <GridColumn width="70px" cell={(props) => OptionsCell(props, setErrorReport)} />
     </Grid>;
 
