@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import "./styles.scss";
 
-const Counter =({counters}) =>{
+const Counter =({counters, profileAlias}) =>{
+
+
     return (
         !!counters &&
         <div className = "counter_component">
@@ -14,14 +17,16 @@ const Counter =({counters}) =>{
                         публикаций
                     </div>
                 </div>
-                <div className = "counter_component__block">
-                    <div className = "counter_component__count">
-                        <p>{counters.photos_count}</p>
+                <Link to={`${profileAlias}/gallery`}>
+                    <div className = "counter_component__block">
+                        <div className = "counter_component__count">
+                            <p>{counters.photos_count}</p>
+                        </div>
+                        <div className = "counter_component__name">
+                            фото
+                        </div>
                     </div>
-                    <div className = "counter_component__name">
-                        фото
-                    </div>
-                </div>
+                </Link>
                 <div className = "counter_component__block">
                     <div className = "counter_component__count">
                         <p>{counters.documents_count}</p>
@@ -30,14 +35,16 @@ const Counter =({counters}) =>{
                         документов
                     </div>
                 </div>
-                <div className = "counter_component__block">
-                    <div className = "counter_component__count">
-                        <p>{counters.videos_count}</p>
+                <Link to={`${profileAlias}/video`}>
+                    <div className = "counter_component__block">
+                        <div className = "counter_component__count">
+                            <p>{counters.videos_count}</p>
+                        </div>
+                        <div className = "counter_component__name">
+                            видео
+                        </div>
                     </div>
-                    <div className = "counter_component__name">
-                        видео
-                    </div>
-                </div>
+                </Link>
                 {
                     (!!counters.breeds_count || counters.breeds_count === 0) &&
                     <div className = "counter_component__block">

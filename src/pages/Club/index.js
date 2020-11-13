@@ -84,8 +84,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationAlias={clubInfo.federation_alias}
                                         />
                                     }
-                                    <UserDescription description={clubInfo.description} />
-                                    <UserContacts {...clubInfo} />
+                                    <UserDescription description={clubInfo.description}/>
+                                    <UserContacts {...clubInfo} profileAlias = {clubInfo.club_alias} />
                                     <div className="club-page__exhibitions">
                                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                                     </div>

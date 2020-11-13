@@ -102,8 +102,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         }
                                     </>
                                 }
-                                <UserDescription description={nursery.description} />
-                                <UserContacts {...nursery} />
+                                <UserDescription description={nursery.description}/>
+                                <UserContacts {...nursery} profileAlias = {`/kennel/${alias}`} />
                                 {isMobile &&
                                     <>
                                         <UserPhotoGallery
