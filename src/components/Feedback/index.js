@@ -89,6 +89,7 @@ const Feedback = ({ className, title, HelpdeskApiKey, isMainNav }) => {
             }
             <Modal showModal={showModal} handleClose={onModalClose} noBackdrop={true} hideCloseButton={true} className="feedback__modal">
                 <div className="feedback">
+                    <h3 className="feedback__modal__title">Центр поддержки</h3>
                     <p>В случае возникновения вопросов просим Вас ознакомиться с <a href="https://help.rkf.online/ru/knowledge_base/" target="_blank" rel="noopener noreferrer">Базой знаний РКФ</a></p>
                     <br />
                     <p>Если Вы не нашли интересующей Вас информации - напишите обращение в соответствующую кинологическую организацию:</p>

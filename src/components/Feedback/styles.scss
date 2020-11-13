@@ -7,7 +7,7 @@
   box-shadow: 2px 2px 10px black;
   border-radius: 6px;
   position: relative;
-  padding: 24px;
+  padding: 13px 20px 20px;
   @media (max-width: 560px) {
     padding: 12px;
     font-size: 15px;
@@ -135,7 +135,11 @@
   }
   &__modal {
     .Modal__close {
-      display: none;
+      width: 16px;
+      height: 16px;
+      top: 7px;
+      right: 31px !important;
+      z-index: 1;
     }
     .Modal__inner {
       max-height: none;
@@ -145,5 +149,14 @@
     td {
       white-space: nowrap;
     }
+  }
+
+  &__modal__title{
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 8px;
   }
 }
