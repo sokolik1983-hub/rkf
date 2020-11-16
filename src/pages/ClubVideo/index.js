@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Layout from "components/Layouts";
@@ -9,7 +9,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import MenuComponent from "../../components/MenuComponent";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import { VideoGallery } from "components/Gallery";
@@ -121,7 +121,6 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
     const Breadcrumbs = () => {
         return <div className="ClubVideo__breadcrumbs">
             <div className="ClubVideo__breadcrumbs-title">
-                {/* <Link className="btn-backward" to={`/${alias}/`}><span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                 Видеозаписи
             </div>
         </div>
@@ -136,12 +135,9 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    {/* <Card className="club-page__content-banner">
-                                        <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
-                                    </Card> */}
                                     {isMobile &&
                                         <>
-                                            <ClubUserHeader
+                                            <UserHeader
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                 logo={clubInfo.logo_link}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -149,6 +145,8 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                 profileId={clubInfo.id}
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
+                                                active_rkf_user={clubInfo.active_rkf_user}
+                                                active_member={clubInfo.active_member}
                                             />
                                         </>
                                     }
@@ -195,7 +193,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <>
-                                                    <ClubUserHeader
+                                                    <UserHeader
                                                         user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                         logo={clubInfo.logo_link}
                                                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -203,13 +201,15 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                         profileId={clubInfo.id}
                                                         federationName={clubInfo.federation_name}
                                                         federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
                                                     />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo/>
+                                                    <CopyrightInfo />
                                                 </>
                                             }
                                         </div>

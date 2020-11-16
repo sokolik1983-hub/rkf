@@ -31,6 +31,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [federationAlias, setFederationAlias] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
     const [clubId, setClubId] = useState('');
+    const [active_member, setActiveMember] = useState(null);
+    const [active_rkf_user, setActiveRkfUser] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
@@ -98,6 +100,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                 setFederationName(club.federation_name || null);
                 setFederationAlias(club.federation_alias || null);
                 setClubId(club.club_id);
+                setActiveMember(club.active_member);
+                setActiveRkfUser(club.active_rkf_user);
             }
 
             setExhibitionsLoading(false);
@@ -140,6 +144,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                         clubName={shorten(displayName)}
                         profileId={clubId}
                         logo={clubAvatar || DEFAULT_IMG.clubAvatar}
+                        active_member={active_member}
+                        active_rkf_user={active_rkf_user}
                         federationName={federationName}
                         federationAlias={federationAlias}
                     />
