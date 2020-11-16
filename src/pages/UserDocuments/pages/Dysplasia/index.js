@@ -119,7 +119,6 @@ const DysplasiaForm = ({alias, history, status}) => {
             data: formData,
             isMultipart: true
         }, () => {
-            setSuccess('Заявка отправлена на рассмотрение');
             history.push(`/user/${alias}/documents`);
         }, error => {
             handleError(error);
@@ -157,7 +156,7 @@ const DysplasiaForm = ({alias, history, status}) => {
                                         disabled={true}
                                     />
                                 </div>
-                                <div className="dysplasia-form__row">
+                                <div className="dysplasia-form__row _files">
                                     {disableAllFields && values &&
                                         <>
                                             <div className="dysplasia-form__file">

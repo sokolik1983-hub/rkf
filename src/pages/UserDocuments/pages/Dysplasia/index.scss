@@ -57,6 +57,14 @@
         margin-right: 0;
       }
     }
+    &._files {
+      .dysplasia-form__file {
+        max-width: calc(50% - 8px);
+        &:last-child {
+          margin-top: 48px;
+        }
+      }
+    }
   }
   &__danger {
     display: block;
