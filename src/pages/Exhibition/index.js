@@ -14,7 +14,7 @@ import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
-import { DEFAULT_IMG,BANNER_TYPES } from "../../appConfig";
+import { DEFAULT_IMG, BANNER_TYPES } from "../../appConfig";
 import UserHeader from "../../components/redesign/UserHeader";
 import UserGallery from "../../components/redesign/UserGallery";
 import StickyBox from "react-sticky-box";
@@ -107,7 +107,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         kpp,
         bank_name,
         bic,
-        account_number } = club_information;
+        account_number,
+        active_member,
+        active_rkf_user } = club_information;
 
     return isError
         ? <PageNotFound />
@@ -138,6 +140,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 profileId={id}
                                                 federationName={federation_name}
                                                 federationAlias={federation_alias}
+                                                active_member={active_member}
+                                                active_rkf_user={active_rkf_user}
                                             />
                                         </div>
                                         <UserHeader
@@ -148,8 +152,10 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             profileId={id}
                                             federationName={federation_name}
                                             federationAlias={federation_alias}
+                                            active_member={active_member}
+                                            active_rkf_user={active_rkf_user}
                                         />
-                                        <Banner type = {BANNER_TYPES.exhibitionPageLeftSiteBar}/>
+                                        <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserGallery alias={club_alias} />
                                         <div className="exhibition-page__copy-wrap">
                                             <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>

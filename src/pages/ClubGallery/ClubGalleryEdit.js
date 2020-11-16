@@ -12,7 +12,7 @@ import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "components/MenuComponent";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import { EditAlbum } from "components/Gallery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import declension from "utils/declension";
@@ -187,7 +187,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                         </Card>
                                         {isMobile &&
                                             <>
-                                                <ClubUserHeader
+                                                <UserHeader
                                                     user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                     logo={clubInfo.logo_link}
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -195,6 +195,8 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                     profileId={clubInfo.id}
                                                     federationName={clubInfo.federation_name}
                                                     federationAlias={clubInfo.federation_alias}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
                                                 />
                                             </>
                                         }
@@ -260,7 +262,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                             <div className="club-page__info-inner">
                                                 {!isMobile &&
                                                     <>
-                                                        <ClubUserHeader
+                                                        <UserHeader
                                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                             logo={clubInfo.logo_link}
                                                             name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -268,13 +270,15 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                             profileId={clubInfo.id}
                                                             federationName={clubInfo.federation_name}
                                                             federationAlias={clubInfo.federation_alias}
+                                                            active_rkf_user={clubInfo.active_rkf_user}
+                                                            active_member={clubInfo.active_member}
                                                         />
                                                         <UserVideoGallery
                                                             alias={clubInfo.club_alias}
                                                             pageLink={`/${clubInfo.club_alias}/video`}
                                                             canEdit={canEdit}
                                                         />
-                                                        <CopyrightInfo/>
+                                                        <CopyrightInfo />
                                                     </>
                                                 }
                                             </div>

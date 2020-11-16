@@ -67,6 +67,8 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                             profileId={clubInfo.id}
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
+                                            active_rkf_user={clubInfo.active_rkf_user}
+                                            active_member={clubInfo.active_member}
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
@@ -105,6 +107,8 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                     profileId={clubInfo.id}
                                                     federationName={clubInfo.federation_name}
                                                     federationAlias={clubInfo.federation_alias}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
                                                 />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
