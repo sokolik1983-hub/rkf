@@ -150,14 +150,14 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                     resizable
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px" }}>
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '140px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '320px' : '275px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '235px' : '210px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '170px' : '130px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                    <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-                    <GridColumn width="80px" cell={props => OptionsCell(props, profileType)} />
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `1150px` : `840px`}` }}>
+                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '110px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '320px' : '135px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '235px' : '170px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '170px' : '110px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                    <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
+                    <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
                 </Grid>}
                 <GridPDFExport
                     ref={gridPDFExport}

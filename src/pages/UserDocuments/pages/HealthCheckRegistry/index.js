@@ -58,7 +58,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                             </button>
                         }
                         <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                            Открыть на всю ширину окна
+                            Увеличить таблицу
                         </button>
                     </div>
                     <Table
