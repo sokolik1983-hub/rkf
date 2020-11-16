@@ -135,7 +135,7 @@ const DysplasiaForm = ({alias, history, status}) => {
                     <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный
                         кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)</span>
+                    <span className="user-documents__breadcrumbs-item">Сертификат о проверке на дисплазию</span>
                 </div>
                 <Form
                     onSubmit={handleSubmit}

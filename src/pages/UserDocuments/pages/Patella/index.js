@@ -116,7 +116,6 @@ const PatellaForm = ({alias, history, status}) => {
             data: formData,
             isMultipart: true
         }, () => {
-            setSuccess('Заявка отправлена на рассмотрение');
             history.push(`/user/${alias}/documents`);
         }, error => {
             handleError(error);

@@ -99,7 +99,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
-                                    component={() => <PatellaForm alias={userAlias} />}
+                                    component={() => <PatellaForm alias={userAlias} history={history} />}
                                 />
                                 <Route
                                     exact={true}

@@ -17,8 +17,7 @@ const Documents = ({ alias }) => (
                     >Подать заявку</Link>
                     <Link
                         to={`/user/${alias}/documents/dysplasia/registry`}
-                        className="documents-card__link _disabled"
-                        onClick={e => e.preventDefault()}
+                        className="documents-card__link"
                     >Реестр</Link>
                 </div>
                 <Link
