@@ -105,7 +105,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                             </button>
                                 }
                                 <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                                    Открыть на всю ширину окна
+                                    Увеличить таблицу
                         </button>
                             </div>
                             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
