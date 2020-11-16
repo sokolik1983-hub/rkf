@@ -64,12 +64,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       & > div:first-child {
         & > * {
           line-height: 1;
           margin-bottom: 12px;
         }
+      }
+      & > div > div {
+        display: flex;
       }
     }
     &__user {

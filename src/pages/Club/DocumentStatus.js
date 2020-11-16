@@ -67,6 +67,8 @@ const DocumentStatus = ({ history, match, user }) => {
                                             profileId={clubInfo.id}
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
+                                            active_rkf_user={clubInfo.active_rkf_user}
+                                            active_member={clubInfo.active_member}
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
@@ -94,6 +96,8 @@ const DocumentStatus = ({ history, match, user }) => {
                                                     federationName={clubInfo.federation_name}
                                                     federationAlias={clubInfo.federation_alias}
                                                     isFederation={clubInfo.user_type === 5 ? true : false}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
                                                 />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}

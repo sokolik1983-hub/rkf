@@ -8,7 +8,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import MenuComponent from "../../components/MenuComponent";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
@@ -73,7 +73,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                 <div className="nursery-page__content">
                                     {isMobile &&
                                         <>
-                                            <ClubUserHeader
+                                            <UserHeader
                                                 user="nursery"
                                                 logo={nursery.logo_link}
                                                 name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -81,6 +81,8 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                 profileId={nursery.id}
                                                 federationName={nursery.federation_name}
                                                 federationAlias={nursery.federation_alias}
+                                                active_rkf_user={nursery.active_rkf_user}
+                                                active_member={nursery.active_member}
                                             />
                                             {nursery.breeds && !!nursery.breeds.length &&
                                                 <Card className="nursery-page__breeds">
@@ -107,7 +109,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                         <div className="nursery-page__info-inner">
                                             {!isMobile &&
                                                 <>
-                                                    <ClubUserHeader
+                                                    <UserHeader
                                                         user="nursery"
                                                         logo={nursery.logo_link}
                                                         name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -115,6 +117,8 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                         profileId={nursery.id}
                                                         federationName={nursery.federation_name}
                                                         federationAlias={nursery.federation_alias}
+                                                        active_rkf_user={nursery.active_rkf_user}
+                                                        active_member={nursery.active_member}
                                                     />
                                                     {nursery.breeds && !!nursery.breeds.length &&
                                                         <Card className="nursery-page__breeds">

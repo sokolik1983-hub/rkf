@@ -5,7 +5,7 @@ import Container from "../../components/Layouts/Container";
 import Aside from "../../components/Layouts/Aside";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -59,7 +59,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                 </Card>
                                 {isMobile &&
                                     <>
-                                        <ClubUserHeader
+                                        <UserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
                                             name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -67,6 +67,8 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                             profileId={nursery.id}
                                             federationName={nursery.federation_name}
                                             federationAlias={nursery.federation_alias}
+                                            active_rkf_user={nursery.active_rkf_user}
+                                            active_member={nursery.active_member}
                                         />
                                         {nursery.breeds && !!nursery.breeds.length &&
                                             <Card className="nursery-page__breeds">
@@ -95,7 +97,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <>
-                                                <ClubUserHeader
+                                                <UserHeader
                                                     user="nursery"
                                                     logo={nursery.logo_link}
                                                     name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -103,16 +105,18 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                     profileId={nursery.id}
                                                     federationName={nursery.federation_name}
                                                     federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
                                                 />
                                                 {nursery.breeds && !!nursery.breeds.length &&
-                                                <Card className="nursery-page__breeds">
-                                                    <h4>Породы</h4>
-                                                    <ul className="nursery-page__breeds-list">
-                                                        {nursery.breeds.map(item =>
-                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                        )}
-                                                    </ul>
-                                                </Card>
+                                                    <Card className="nursery-page__breeds">
+                                                        <h4>Породы</h4>
+                                                        <ul className="nursery-page__breeds-list">
+                                                            {nursery.breeds.map(item =>
+                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
+                                                            )}
+                                                        </ul>
+                                                    </Card>
                                                 }
                                                 <UserPhotoGallery
                                                     alias={alias}
@@ -122,7 +126,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                         {isMobile &&
