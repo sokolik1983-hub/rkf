@@ -4,6 +4,7 @@ import {Label, Error, Hint} from "@progress/kendo-react-labels";
 import {Upload} from "@progress/kendo-react-upload";
 import {IntlProvider, LocalizationProvider, loadMessages} from "@progress/kendo-react-intl";
 import kendoMessages from "../../../kendoMessages.json";
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -26,7 +27,7 @@ const FormUpload = fieldRenderProps => {
     };
 
     return (
-        <FieldWrapper>
+        <FieldWrapper className="kendo-form-upload">
             <Label id={labelId} editorId={id} editorValid={valid} optional={optional}>
                 {label}
             </Label>
