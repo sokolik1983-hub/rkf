@@ -14,6 +14,7 @@ import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
 import PatellaForm from "../Patella/Form";
+import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
@@ -25,16 +26,6 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    const linksArray = [
-        ...userNav(userAlias).map(item => item.to),
-        `/user/${userAlias}/documents/patella/form`,
-        `/user/${userAlias}/documents/patella/registry`,
-        `/user/${userAlias}/documents/dysplasia/registry`
-    ];
-
-    // if (!linksArray.includes(history.location.pathname)) {
-    //     history.replace('/404');
-    // }
 
     useEffect(() => {
         (() => getUserInfo())();
@@ -128,6 +119,9 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:route/documents/dysplasia/registry'
                                     component={() => <HealthCheckRegistry history={history} distinction="dysplasia" />}
+                                />
+                                <Route
+                                    component={() => <PageNotFound />}
                                 />
                             </Switch>
                         </div>
