@@ -142,7 +142,10 @@
     max-width: 905px;
     margin: 0 auto;
     .k-grid {
-      font-size: 14px !important;
+      font-size: 14px;
+    }
+    .k-grid-header {
+      font-size: 12px;
     }
   }
   ._request_registry {
@@ -150,3 +153,8 @@
     top: 40px;
   }
 }
+._popup-request_registry {
+  .k-grid {
+    font-size: 16px !important;
+    }
+  }
