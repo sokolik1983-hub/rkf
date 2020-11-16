@@ -69,7 +69,9 @@
             }
             &:hover {
                 & > .UploadedDocuments__category-controls {
-                    display: block;
+                    display: flex;
+                    flex-grow: 1;
+                    justify-content: space-between;
                 }
             }
             &:first-child {
@@ -79,19 +81,6 @@
         &-controls {
             display: none;
             flex-shrink: 0;
-        }
-        .k-upload-button {
-            border-color: #007bff;
-            color: #ffffff;
-            background-color: #007bff;
-            opacity: 0.65;
-            &:hover {
-                border-color: #007bff;
-                color: #ffffff;
-                background-color: #007bff;
-                opacity: 0.8;
-                transition: all 0.2s linear;
-            }
         }
     }
     .Card {
@@ -188,5 +177,22 @@
     }
     a:hover {
         text-decoration: none;
+    }
+    .col-11 {
+        @media (max-width: 385px) {
+            max-width: 91%;
+        }
+        & + .col-1 {
+            @media (max-width: 385px) {
+                padding: 0px 5px;
+                max-width: 5%;
+            }
+        }
+    }
+    .col-1 {
+        @media (max-width: 385px) {
+            padding: 0px 5px;
+            max-width: 6.5%;
+        }
     }
 }

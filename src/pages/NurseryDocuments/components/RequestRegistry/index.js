@@ -50,8 +50,8 @@ const RequestRegistry = ({ history, distinction }) => {
                         : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
                 </div>
                 {documents && !!documents.length ?
-                    <>
-                        <div className="nursery-documents-status__controls">
+                    <div className="_nursery_request_registry">
+                        <div className="nursery-documents-status__controls _nursery_request_controls">
                             {standardView &&
                                 <button
                                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
@@ -71,7 +71,7 @@ const RequestRegistry = ({ history, distinction }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                         />
-                    </>
+                    </div>
                     : <h2>Документов не найдено</h2>}
             </Card>
 };

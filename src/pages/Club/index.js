@@ -82,10 +82,12 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             profileId={clubInfo.id}
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
+                                            active_rkf_user={clubInfo.active_rkf_user}
+                                            active_member={clubInfo.active_member}
                                         />
                                     }
                                     <UserDescription description={clubInfo.description} />
-                                    <UserContacts {...clubInfo} />
+                                    <UserContacts {...clubInfo} profileAlias={clubInfo.club_alias} />
                                     <div className="club-page__exhibitions">
                                         <ExhibitionsComponent alias={clubInfo.club_alias} />
                                     </div>
@@ -108,8 +110,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             id={clubInfo.id}
                                             logo={clubInfo.logo_link}
                                             setNeedRequest={setNeedRequest}
-                                            profileInfo = {clubInfo}
-                                            setProfileInfo = {setClubInfo}
+                                            profileInfo={clubInfo}
+                                            setProfileInfo={setClubInfo}
                                         />
                                     }
                                     <UserNews
@@ -117,8 +119,8 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         alias={match.params.route}
                                         needRequest={needRequest}
                                         setNeedRequest={setNeedRequest}
-                                        profileInfo = {clubInfo}
-                                        setProfileInfo = {setClubInfo}
+                                        profileInfo={clubInfo}
+                                        setProfileInfo={setClubInfo}
                                     />
                                 </div>
                                 <Aside className="club-page__info">
@@ -134,8 +136,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         profileId={clubInfo.id}
                                                         federationName={clubInfo.federation_name}
                                                         federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
                                                     />
-                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos}/>
+                                                    <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}

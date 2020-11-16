@@ -7,7 +7,7 @@ import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
 import { endpointGetNurseryInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
@@ -58,12 +58,9 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                <Card className="nursery-page__content-banner">
-                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}` }} />
-                                </Card>
                                 {isMobile &&
                                     <>
-                                        <ClubUserHeader
+                                        <UserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
                                             name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -71,6 +68,8 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             profileId={nursery.id}
                                             federationName={nursery.federation_name}
                                             federationAlias={nursery.federation_alias}
+                                            active_rkf_user={nursery.active_rkf_user}
+                                            active_member={nursery.active_member}
                                         />
                                         {nursery.breeds && !!nursery.breeds.length &&
                                             <Card className="nursery-page__breeds">
@@ -111,7 +110,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <>
-                                                <ClubUserHeader
+                                                <UserHeader
                                                     user="nursery"
                                                     logo={nursery.logo_link}
                                                     name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -119,6 +118,8 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     profileId={nursery.id}
                                                     federationName={nursery.federation_name}
                                                     federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
                                                 />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <Card className="nursery-page__breeds">
@@ -138,7 +139,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                         {isMobile &&

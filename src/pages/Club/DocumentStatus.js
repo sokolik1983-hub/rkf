@@ -67,6 +67,8 @@ const DocumentStatus = ({ history, match, user }) => {
                                             profileId={clubInfo.id}
                                             federationName={clubInfo.federation_name}
                                             federationAlias={clubInfo.federation_alias}
+                                            active_rkf_user={clubInfo.active_rkf_user}
+                                            active_member={clubInfo.active_member}
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
@@ -93,6 +95,9 @@ const DocumentStatus = ({ history, match, user }) => {
                                                     profileId={clubInfo.id}
                                                     federationName={clubInfo.federation_name}
                                                     federationAlias={clubInfo.federation_alias}
+                                                    isFederation={clubInfo.user_type === 5 ? true : false}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
                                                 />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
@@ -102,7 +107,7 @@ const DocumentStatus = ({ history, match, user }) => {
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/video`}
                                                 />
-                                                <CopyrightInfo/>
+                                                <CopyrightInfo />
                                             </>
                                         }
                                     </div>
@@ -115,6 +120,7 @@ const DocumentStatus = ({ history, match, user }) => {
                                 user={user}
                                 profileId={clubInfo.id}
                                 noCard={true}
+                                isFederation={clubInfo.user_type === 5 ? true : false}
                             />
                         }
                         {showModal &&

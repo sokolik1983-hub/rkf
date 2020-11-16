@@ -4,7 +4,7 @@ import Card from "../../Card";
 import Counter from "../../CounterComponent";
 import "./index.scss";
 
-const UserDescription = ({mainInfo, additionalInfo, counters}) => {
+const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const normalizeLink = link => {
@@ -137,7 +137,8 @@ const UserDescription = ({mainInfo, additionalInfo, counters}) => {
                 </>
             }
             {
-                !!counters && <Counter counters = {counters}/>
+                !!counters && 
+                <Counter counters = {counters} profileAlias = {profileAlias}/>
             }
         </Card>
     )

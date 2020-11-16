@@ -10,7 +10,7 @@ import Alert from "components/Alert";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import Aside from "components/Layouts/Aside";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import StickyBox from "react-sticky-box";
 import MenuComponent from "../../components/MenuComponent";
 import { EditAlbum } from "components/Gallery";
@@ -189,7 +189,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                         </Card>
                                         {isMobile &&
                                             <>
-                                                <ClubUserHeader
+                                                <UserHeader
                                                     user="nursery"
                                                     logo={nursery.logo_link}
                                                     name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -197,6 +197,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                     profileId={nursery.id}
                                                     federationName={nursery.federation_name}
                                                     federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
                                                 />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <Card className="nursery-page__breeds">
@@ -272,7 +274,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                             <div className="nursery-page__info-inner">
                                                 {!isMobile &&
                                                     <>
-                                                        <ClubUserHeader
+                                                        <UserHeader
                                                             user="nursery"
                                                             logo={nursery.logo_link}
                                                             name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
@@ -280,6 +282,8 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             profileId={nursery.id}
                                                             federationName={nursery.federation_name}
                                                             federationAlias={nursery.federation_alias}
+                                                            active_rkf_user={nursery.active_rkf_user}
+                                                            active_member={nursery.active_member}
                                                         />
                                                         {nursery.breeds && !!nursery.breeds.length &&
                                                             <Card className="nursery-page__breeds">
@@ -296,7 +300,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             pageLink={`/kennel/${alias}/video`}
                                                             canEdit={canEdit}
                                                         />
-                                                        <CopyrightInfo/>
+                                                        <CopyrightInfo />
                                                     </>
                                                 }
                                                 {isMobile &&

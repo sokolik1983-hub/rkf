@@ -8,7 +8,6 @@ import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
 import ClickGuard from "../../components/ClickGuard";
 import MenuComponent from "../../components/MenuComponent";
-import Card from "../../components/Card";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
@@ -31,8 +30,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
     const [federationName, setFederationName] = useState('');
     const [federationAlias, setFederationAlias] = useState('');
     const [clubAvatar, setClubAvatar] = useState('');
-    const [clubHeadliner, setClubHeadliner] = useState('');
     const [clubId, setClubId] = useState('');
+    const [active_member, setActiveMember] = useState(null);
+    const [active_rkf_user, setActiveRkfUser] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [count, setCount] = useState(0);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
@@ -97,10 +97,11 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
             if (club) {
                 setDisplayName(club.display_name || "Название клуба отсутствует");
                 setClubAvatar(club.club_avatar);
-                setClubHeadliner(club.headliner_link || null);
                 setFederationName(club.federation_name || null);
                 setFederationAlias(club.federation_alias || null);
                 setClubId(club.club_id);
+                setActiveMember(club.active_member);
+                setActiveRkfUser(club.active_rkf_user);
             }
 
             setExhibitionsLoading(false);
@@ -143,24 +144,21 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                         clubName={shorten(displayName)}
                         profileId={clubId}
                         logo={clubAvatar || DEFAULT_IMG.clubAvatar}
+                        active_member={active_member}
+                        active_rkf_user={active_rkf_user}
                         federationName={federationName}
                         federationAlias={federationAlias}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
-                            <>
-                                <Card className="exhibitions-page__club-banner">
-                                    <div style={clubHeadliner && { backgroundImage: `url(${clubHeadliner})` }} />
-                                </Card>
-                                <div className="exhibitions-page__mobile-only">
-                                    <MenuComponent
-                                        alias={filters.Alias}
-                                        user={user}
-                                        profileId={clubId}
-                                        noCard={true}
-                                    />
-                                </div>
-                            </>
+                            <div className="exhibitions-page__mobile-only">
+                                <MenuComponent
+                                    alias={filters.Alias}
+                                    user={user}
+                                    profileId={clubId}
+                                    noCard={true}
+                                />
+                            </div>
                         }
                         <ListFilter categoryId={filters.CategoryId} />
                         <div className="exhibitions-page__controls">

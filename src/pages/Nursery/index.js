@@ -9,7 +9,7 @@ import Card from "../../components/Card";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import MenuComponent from "../../components/MenuComponent";
-import ClubUserHeader from "components/redesign/UserHeader";
+import UserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
@@ -81,7 +81,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 </Card>
                                 {isMobile &&
                                     <>
-                                        <ClubUserHeader
+                                        <UserHeader
                                             user="nursery"
                                             logo={nursery.logo_link}
                                             name={nursery.name || 'Имя отсутствует'}
@@ -89,6 +89,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             profileId={nursery.id}
                                             federationName={nursery.federation_name}
                                             federationAlias={nursery.federation_alias}
+                                            active_rkf_user={nursery.active_rkf_user}
+                                            active_member={nursery.active_member}
                                         />
                                         {nursery.breeds && !!nursery.breeds.length &&
                                             <Card className="nursery-page__breeds">
@@ -103,7 +105,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     </>
                                 }
                                 <UserDescription description={nursery.description} />
-                                <UserContacts {...nursery} />
+                                <UserContacts {...nursery} profileAlias={`/kennel/${alias}`} />
                                 {isMobile &&
                                     <>
                                         <UserPhotoGallery
@@ -123,8 +125,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         id={nursery.id}
                                         logo={nursery.logo_link}
                                         setNeedRequest={setNeedRequest}
-                                        profileInfo = {nursery}
-                                        setProfileInfo = {setNursery}
+                                        profileInfo={nursery}
+                                        setProfileInfo={setNursery}
                                     />
                                 }
                                 <UserNews
@@ -132,8 +134,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     alias={alias}
                                     needRequest={needRequest}
                                     setNeedRequest={setNeedRequest}
-                                    profileInfo = {nursery}
-                                    setProfileInfo = {setNursery}
+                                    profileInfo={nursery}
+                                    setProfileInfo={setNursery}
                                 />
                             </div>
                             <Aside className="nursery-page__info">
@@ -141,7 +143,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
                                             <>
-                                                <ClubUserHeader
+                                                <UserHeader
                                                     user="nursery"
                                                     logo={nursery.logo_link}
                                                     name={nursery.name || 'Имя отсутствует'}
@@ -149,6 +151,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                     profileId={nursery.id}
                                                     federationName={nursery.federation_name}
                                                     federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
                                                 />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <Card className="nursery-page__breeds">
@@ -160,7 +164,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                         </ul>
                                                     </Card>
                                                 }
-                                                <Banner type={BANNER_TYPES.kennelPageUnderPhotos}/>
+                                                <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
                                                 <UserPhotoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/gallery`}

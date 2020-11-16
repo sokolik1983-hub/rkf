@@ -47,8 +47,8 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                 {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
             </div>
             {documents && !!documents.length
-                ? <>
-                    <div className="club-documents-status__controls">
+                ? <div className="club-documents-status__controls-wrap">
+                    <div className="club-documents-status__controls _patella_controls">
                         {standardView &&
                             <button
                                 className="club-documents-status__control club-documents-status__control--downloadIcon"
@@ -68,7 +68,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                         exporting={exporting}
                         setExporting={setExporting}
                     />
-                </>
+                </div>
                 : <h2>Документов не найдено</h2>}
         </Card>
 };

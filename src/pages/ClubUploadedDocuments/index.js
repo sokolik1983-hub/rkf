@@ -7,7 +7,7 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import StickyBox from "react-sticky-box";
 import Aside from "components/Layouts/Aside";
-import ClubUserHeader from "../../components/redesign/UserHeader";
+import UserHeader from "../../components/redesign/UserHeader";
 import MenuComponent from "../../components/MenuComponent";
 import "pages/Club/index.scss";
 import useIsMobile from "../../utils/useIsMobile";
@@ -53,7 +53,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                 <div className="club-page__content">
                                     {isMobile &&
                                         <>
-                                            <ClubUserHeader
+                                            <UserHeader
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                 logo={clubInfo.logo_link}
                                                 name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -61,6 +61,8 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                 profileId={clubInfo.id}
                                                 federationName={clubInfo.federation_name}
                                                 federationAlias={clubInfo.federation_alias}
+                                                active_rkf_user={clubInfo.active_rkf_user}
+                                                active_member={clubInfo.active_member}
                                             />
                                         </>
                                     }
@@ -76,7 +78,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
                                                 <>
-                                                    <ClubUserHeader
+                                                    <UserHeader
                                                         user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                         logo={clubInfo.logo_link}
                                                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
@@ -84,6 +86,8 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                         profileId={clubInfo.id}
                                                         federationName={clubInfo.federation_name}
                                                         federationAlias={clubInfo.federation_alias}
+                                                        active_rkf_user={clubInfo.active_rkf_user}
+                                                        active_member={clubInfo.active_member}
                                                     />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}

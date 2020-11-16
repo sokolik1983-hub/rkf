@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
+import { filterBy } from '@progress/kendo-data-query';
 import { listNoDataRender } from "../config.js";
 
 const CitiesFilterKendo = ({ data, onChange, className }) => {
     const [values, setValues] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    useEffect(() => {
+        setCities(data);
+    }, [data]);
+
+    const filterChange = (event) => {
+        setCities(filterBy(data.slice(), event.filter));
+    }
 
     const handleChange = e => {
         if (e.target.value) {
@@ -23,7 +33,7 @@ const CitiesFilterKendo = ({ data, onChange, className }) => {
 
     return (
         <MultiSelect
-            data={data}
+            data={cities}
             value={values}
             onChange={handleChange}
             textField="label"
@@ -32,6 +42,8 @@ const CitiesFilterKendo = ({ data, onChange, className }) => {
             placeholder="все"
             listNoDataRender={listNoDataRender}
             style={{ fontSize: '16px' }}
+            filterable={true}
+            onFilterChange={filterChange}
         />
     );
 };
