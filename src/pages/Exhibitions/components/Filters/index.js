@@ -29,7 +29,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
             url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
         }, data => {
             setCities(data.cities);
-            setRanks(data.ranks.map(({ value, label }) => ({ id: value, name: label })));
+            setRanks(data.ranks);
             setBreeds(data.breeds.filter(item => item.value !== 1));
             setLoading(false);
             window.scrollTo(0, 0);

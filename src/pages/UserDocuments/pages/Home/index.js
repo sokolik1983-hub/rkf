@@ -9,6 +9,7 @@ import CopyrightInfo from "../../../../components/CopyrightInfo";
 import UserInfo from "../../../../components/Layouts/UserInfo";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import Documents from "../Documents";
+import HealthCheckRegistry from "../HealthCheckRegistry";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
@@ -24,10 +25,12 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
-    // const linksArray = [
-    //     ...userNav(userAlias).map(item => item.to),
-    //     `/user/${userAlias}/documents/patella/form`
-    // ];
+    const linksArray = [
+        ...userNav(userAlias).map(item => item.to),
+        `/user/${userAlias}/documents/patella/form`,
+        `/user/${userAlias}/documents/patella/registry`,
+        `/user/${userAlias}/documents/dysplasia/registry`
+    ];
 
     // if (!linksArray.includes(history.location.pathname)) {
     //     history.replace('/404');
@@ -115,6 +118,16 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:id/documents/patella/edit/:docId'
                                     component={() => <PatellaForm alias={userAlias} history={history} status="edit"/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:route/documents/patella/registry'
+                                    component={() => <HealthCheckRegistry history={history} distinction="patella" />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:route/documents/dysplasia/registry'
+                                    component={() => <HealthCheckRegistry history={history} distinction="dysplasia" />}
                                 />
                             </Switch>
                         </div>
