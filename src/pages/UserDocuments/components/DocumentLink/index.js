@@ -21,7 +21,7 @@ const DocumentLink = ({docId}) => {
 
     return (
         <>
-            {!!docId &&
+            {docId &&
                 <button
                     className="btn nomargin"
                     onClick={() => {
@@ -30,9 +30,9 @@ const DocumentLink = ({docId}) => {
                     }}
                 >Посмотреть</button>
             }
-            <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
+            <Modal className="document-link__modal" showModal={showModal} handleClose={() => setShowModal(false)}>
                 {url ?
-                    <embed src={url}/> :
+                    <embed src={url} className="document-link__embed"/> :
                     <Loading/>
                 }
             </Modal>

@@ -4,7 +4,6 @@ import ls from "local-storage";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Fade} from "@progress/kendo-react-animation";
 import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
-// import Loading from "../../../../../components/Loading";
 import Card from "../../../../../components/Card";
 import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormUpload from "../../../../../components/kendo/Form/FormUpload";
@@ -99,6 +98,13 @@ const PatellaForm = ({alias, history, status}) => {
 
         let newData = {...data, veterinary_contract_document, payment_document};
         delete newData.declarant_name;
+
+        if(status === 'edit') {
+            newData.id = values.id;
+            if(!payment_document) newData.payment_document_id = values.payment_document_id;
+            if(!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
+        }
+
         newData = flatten(newData);
 
         const formData = new FormData();
@@ -106,7 +112,7 @@ const PatellaForm = ({alias, history, status}) => {
 
         await Request({
             url: '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest',
-            method: 'POST',
+            method: status === 'edit' ? 'PUT' : 'POST',
             data: formData,
             isMultipart: true
         }, () => {
