@@ -20,11 +20,11 @@
       margin: -16px 0 16px;
     }
     &-psw {
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
       position: absolute;
       display: inline-block;
-      top: 157px;
+      top: 158px;
       right: 11px;
       background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
       background-size: contain;
@@ -35,7 +35,7 @@
       &._show-psw {
         background: url("/static/icons/psw-eye-open.svg") center no-repeat;
         background-size: contain;
-        top: 156px;
+        top: 158px;
       }
     }
   }

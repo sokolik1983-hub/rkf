@@ -37,7 +37,7 @@ const RequestRegistry = ({ history, distinction }) => {
             </button>
             <Table 
                 documents={documents} 
-                distinction={distinction} 
+                distinction={distinction}
                 fullScreen
             />
         </Card> :
@@ -49,8 +49,8 @@ const RequestRegistry = ({ history, distinction }) => {
                         ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
                         : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
                 </div>
-                {documents && !!documents.length ? <>
-                    <div className="club-documents-status__controls">
+                {documents && !!documents.length ? <div className="_request_registry_wrap">
+                    <div className="club-documents-status__controls _request_registry">
                         {standardView &&
                             <button
                                 className="club-documents-status__control club-documents-status__control--downloadIcon"
@@ -70,7 +70,7 @@ const RequestRegistry = ({ history, distinction }) => {
                         exporting={exporting}
                         setExporting={setExporting}
                     />
-                </>
+                </div>
                     : <h2>Документов не найдено</h2>}
             </Card>
 };

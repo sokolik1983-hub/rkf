@@ -10,11 +10,11 @@
     &-wrap {
       position: relative;
     }
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     position: absolute;
     display: inline-block;
-    top: 43px;
+    top: 45px;
     right: 10px;
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
@@ -27,11 +27,11 @@
     }
   }
   &__psw-confirm {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     position: absolute;
     display: inline-block;
-    top: 157px;
+    top: 158px;
     right: 10px;
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
@@ -39,6 +39,7 @@
     @media (max-width: 320px) {
     }
     &._show-confirm {
+      top: 157px;
       background: url("/static/icons/psw-eye-open.svg") center no-repeat;
       background-size: contain;
     }

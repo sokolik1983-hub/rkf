@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { listNoDataRender } from "../config.js";
+import { filterBy } from '@progress/kendo-data-query';
 
 const BreedsFilterKendo = ({ data, onChange, className }) => {
     const [values, setValues] = useState([]);
+    const [breeds, setBreeds] = useState([]);
+
+    useEffect(() => {
+        setBreeds(data);
+    }, [data]);
+
+    const filterChange = (event) => {
+        setBreeds(filterBy(data.slice(), event.filter));
+    }
 
     const handleChange = e => {
         if (e.target.value) {
@@ -23,7 +33,7 @@ const BreedsFilterKendo = ({ data, onChange, className }) => {
 
     return (
         <MultiSelect
-            data={data}
+            data={breeds}
             value={values}
             onChange={handleChange}
             textField="label"
@@ -32,6 +42,8 @@ const BreedsFilterKendo = ({ data, onChange, className }) => {
             placeholder="все"
             listNoDataRender={listNoDataRender}
             style={{ fontSize: '16px' }}
+            filterable={true}
+            onFilterChange={filterChange}
         />
     );
 };

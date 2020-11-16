@@ -29,7 +29,8 @@ const UserContacts = ({
     bic,
     is_active,
     name,
-    counters
+    counters,
+    profileAlias
 }) => {
     const [socials, setSocials] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -201,7 +202,7 @@ const UserContacts = ({
                     </div>
                 }</Collapse>
                 {
-                    !!counters && <Counter counters = {counters}/>
+                    !!counters && <Counter counters = {counters} profileAlias = {profileAlias}/>
                 }
             {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
         </Card>

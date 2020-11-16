@@ -117,4 +117,33 @@
       cursor: pointer;
     }
   }
+  .ShareButtons {
+    text-align: center;
+    &__link {
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: #72839c !important;
+            &:hover {
+                fill: #3366ff !important;
+            }
+        }
+    }
+    &__btn {
+        margin-left: 20px;
+        padding: 0;
+        border: none;
+        width: 24px;
+        height: 24px;
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: #72839c !important;
+            &:hover {
+                fill: #3366ff !important;
+            }
+        }
+    }
+}
+
 }

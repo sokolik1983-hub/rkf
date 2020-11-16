@@ -64,6 +64,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 checkType={checkType}
                 isOpenFilters={isOpenFilters}
                 setErrorReport={setErrorReport}
+                fullScreen
             />
             </Card>
             : 
@@ -75,7 +76,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
                 {documents && !!documents.length
-                    ? <>
+                    ? <div className="_replace_registry_wrap">
                         <div className="nursery-documents-status__controls">
                             {standardView &&
                                 <button
@@ -102,7 +103,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                         />
-                    </>
+                    </div>
                     : <h2>Документов не найдено</h2>}
                 {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>

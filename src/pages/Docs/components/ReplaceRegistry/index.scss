@@ -133,8 +133,6 @@
     top: 0;
   }
   &__filters-wrap {
-    display: flex;
-    align-items: center;
     margin-bottom: 6px;
   }
   &__checkbox-wrap {
@@ -161,5 +159,19 @@
     &:hover {
       text-decoration: none;
     }
+  }
+  .k-notification-group {
+    right: 8px;
+    bottom: 55px;
+    @media (max-width: 560px) {
+      left: 5px;
+      right: 5px;
+      top: 48px;
+      bottom: auto;
+    }
+  }
+  ._replace_registry_wrap {
+    max-width: 810px;
+    margin: 0 auto;
   }
 }

@@ -6,7 +6,7 @@
     line-height: 22px;
     margin: 20px 0;
     margin-top: 0;
-    padding: 12px 16px;
+    padding: 12px 16px 12px 0;
   }
   &__head {
     font-size: 24px;
@@ -101,6 +101,10 @@
   }
   &__pointer {
     cursor: pointer;
+  }
+  &__controls-wrap {
+    max-width: 650px;
+    margin: 0 auto;
   }
 }
 .status-table__modal {

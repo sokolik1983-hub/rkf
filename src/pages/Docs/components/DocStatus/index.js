@@ -74,12 +74,12 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
             >
             </button>
             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-            <Table 
-                documents={documents} 
-                distinction={distinction} 
-                rowClick={rowClick} 
-                deleteRow={deleteRow} 
-                setShowModal={setShowModal} 
+            <Table
+                documents={documents}
+                distinction={distinction}
+                rowClick={rowClick}
+                deleteRow={deleteRow}
+                setShowModal={setShowModal}
                 fullScreen
             />
         </Card> :
@@ -93,7 +93,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 <div className="club-documents-status__table">
                     {documents && !!documents.length
-                        ? <>
+                        ? <div className="club-documents-status__controls-wrap">
                             <div className="club-documents-status__controls">
                                 {standardView &&
                                     <button
@@ -118,7 +118,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                 exporting={exporting}
                                 setExporting={setExporting}
                             />
-                        </>
+                        </div>
                         : <h2>Документов не найдено</h2>
                     }
                 </div>

@@ -90,7 +90,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             </div>
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length
-                    ? <>
+                    ? <div className="nursery-documents-status__controls-wrap">
                     <div className="nursery-documents-status__controls">
                     {standardView &&
                         <button
@@ -115,7 +115,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                             exporting={exporting}
                             setExporting={setExporting}
                         />
-                    </>
+                    </div>
                     : <h2>Документов не найдено</h2>
                 }
             </div>
