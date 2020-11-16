@@ -4,19 +4,19 @@ import ls from "local-storage";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Fade} from "@progress/kendo-react-animation";
 import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
-import Card from "../../../../../components/Card";
-import FormInput from "../../../../../components/kendo/Form/FormInput";
-import FormUpload from "../../../../../components/kendo/Form/FormUpload";
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
-import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../../components/DocumentLink";
+import Card from "../../../../components/Card";
+import FormInput from "../../../../components/kendo/Form/FormInput";
+import FormUpload from "../../../../components/kendo/Form/FormUpload";
+import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
+import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
+import DocumentLink from "../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
     requiredValidator,
     requiredWithTrimValidator
-} from "../../../../../components/kendo/Form/validators";
-import {Request} from "../../../../../utils/request";
-import flatten from "../../../../../utils/flatten";
+} from "../../../../components/kendo/Form/validators";
+import {Request} from "../../../../utils/request";
+import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
 

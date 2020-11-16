@@ -120,6 +120,7 @@ const DysplasiaForm = ({alias, history, status}) => {
             isMultipart: true
         }, () => {
             setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/user/${alias}/documents`);
         }, error => {
             handleError(error);
         });
@@ -188,17 +189,17 @@ const DysplasiaForm = ({alias, history, status}) => {
                                             </div>
                                             <div className="dysplasia-form__file">
                                                 <Field
-                                                    id="veterinary_contract_document"
-                                                    name="veterinary_contract_document"
+                                                    id="roentgenogram_document"
+                                                    name="roentgenogram_document"
                                                     label="Рентгенограмма (PDF, JPEG, JPG, PNG)"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                     component={FormUpload}
                                                     validator={requiredValidator}
                                                 />
                                                 {values &&
-                                                values.veterinary_contract_document_id &&
-                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                values.roentgenogram_document_id &&
+                                                !formRenderProps.valueGetter('roentgenogram_document').length &&
+                                                    <DocumentLink docId={values.roentgenogram_document_id} />
                                                 }
                                             </div>
                                         </>
@@ -309,16 +310,17 @@ const DysplasiaForm = ({alias, history, status}) => {
                                         disabled={disableAllFields}
                                     />
                                 </div>
-                                <div className="dysplasia-form__row">
-                                    <Field
-                                        id="comment"
-                                        name="comment"
-                                        label="Комментарий к заявке"
-                                        maxLength={500}
-                                        component={FormTextArea}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
+                                {!disableAllFields &&
+                                    <div className="dysplasia-form__row">
+                                        <Field
+                                            id="comment"
+                                            name="comment"
+                                            label="Комментарий к заявке"
+                                            maxLength={500}
+                                            component={FormTextArea}
+                                        />
+                                    </div>
+                                }
                             </div>
                             <div className="dysplasia-form__controls">
                                 {!disableAllFields &&
