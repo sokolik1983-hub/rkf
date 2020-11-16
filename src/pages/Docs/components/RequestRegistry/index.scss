@@ -139,8 +139,11 @@
     }
   }
   ._request_registry_wrap {
-    max-width: 840px;
+    max-width: 905px;
     margin: 0 auto;
+    .k-grid {
+      font-size: 14px !important;
+    }
   }
   ._request_registry {
     position: relative;
