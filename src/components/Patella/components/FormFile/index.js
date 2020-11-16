@@ -31,67 +31,70 @@ const message = e =>
 const FormFile = ({formik, name, label, docId, disabled, form, document_type_id, declarant_uid, wide, profileType}) => {
     const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
     const [loading, setLoading] = useState(false);
-    return <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: '16px',
-    width: wide ? '100%' : 'calc(50% - 16px)'
-}}>
-    <FormInput className="FormFile" name={`${name}_id`}>
-            <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
-<FormGroup inline>
-    <HideIf cond={disabled || loading}>
-                <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn nomargin btn-primary ${!document_type_id ? 'disabled' : ''}`}>
-<input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} accept={accept} type="file"
-            onChange={e => {
-                formik.setTouched(`${name}_id`);
-                let file =  e.target.files[0]
-                if (!file) {
-                    formik.setFieldValue(`${name}_id`, null);
-                    return;
-                }
-                let size = file.size >> 20;
-                if (size > 19) {
-                    window.alert("Файл слишком большой. Поддерживаются файлы размером не более 20Мб.");
-                    formik.setFieldValue(name, '');
-                    formik.setFieldValue(`${name}_id`, null);
-                    return;
-                }
-                let fd = new FormData();
-                fd.append("document", file);
-                fd.append("document_type_id", document_type_id);
-                fd.append("profile_id", profileId);
-                setLoading(true);
-                formik.setFieldValue(name, '');
-                formik.setFieldValue(`${name}_id`, null);
-                acceptType(file).then(descision => {
-                    if (descision) {
-                        Request({
-                            isMultipart: true,
-                            url: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument`,
-                            method: "POST",
-                            data: fd
-                        }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); formik.setFieldValue(`${name}_id`, null); message(e)})
-                    } else {
-                        window.alert(`Поддерживаются только форматы ${accept}`);
-                        setLoading(false);
-                        formik.setFieldValue(name, '');
-                        formik.setFieldValue(`${name}_id`, null);
-                    }
-                })
-            }}
-        />
 
-        Загрузить</label>
-    </HideIf>
-    <HideIf cond={!loading}>
-        <Loading inline/>
-    </HideIf>
-    <DocLink docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} profileType={profileType}/>
-</FormGroup>
-    {!loading && <Error name={`${name}_id`} noTouch/>}
-</FormInput>
-</div>
-}
+    return (
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            marginRight: '16px',
+            width: wide ? '100%' : 'calc(50% - 16px)'
+        }}>
+            <FormInput className="FormFile" name={`${name}_id`}>
+                <label>{!!label ? label : "\u00a0"} {form && "("}{form && <a download={form.filename} href={form.href}>{form.linkText}</a>}{form && ")"}</label>
+                <FormGroup inline>
+                    <HideIf cond={disabled || loading}>
+                        <label htmlFor={`${name}_id`} disabled={!document_type_id} className={`btn nomargin btn-primary ${!document_type_id ? 'disabled' : ''}`}>
+                            <input className="hidden-file" id={`${name}_id`} name={name} disabled={!document_type_id} accept={accept} type="file"
+                                   onChange={e => {
+                                       formik.setTouched(`${name}_id`);
+                                       let file =  e.target.files[0]
+                                       if (!file) {
+                                           formik.setFieldValue(`${name}_id`, null);
+                                           return;
+                                       }
+                                       let size = file.size >> 20;
+                                       if (size > 19) {
+                                           window.alert("Файл слишком большой. Поддерживаются файлы размером не более 20Мб.");
+                                           formik.setFieldValue(name, '');
+                                           formik.setFieldValue(`${name}_id`, null);
+                                           return;
+                                       }
+                                       let fd = new FormData();
+                                       fd.append("document", file);
+                                       fd.append("document_type_id", document_type_id);
+                                       fd.append("profile_id", profileId);
+                                       setLoading(true);
+                                       formik.setFieldValue(name, '');
+                                       formik.setFieldValue(`${name}_id`, null);
+                                       acceptType(file).then(descision => {
+                                           if (descision) {
+                                               Request({
+                                                   isMultipart: true,
+                                                   url: `/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument`,
+                                                   method: "POST",
+                                                   data: fd
+                                               }, id => {setLoading(false);formik.setFieldValue(`${name}_id`, id)}, e => {setLoading(false);formik.setFieldValue(name, ''); formik.setFieldValue(`${name}_id`, null); message(e)})
+                                           } else {
+                                               window.alert(`Поддерживаются только форматы ${accept}`);
+                                               setLoading(false);
+                                               formik.setFieldValue(name, '');
+                                               formik.setFieldValue(`${name}_id`, null);
+                                           }
+                                       })
+                                   }}
+                            />
+
+                            Загрузить</label>
+                    </HideIf>
+                    <HideIf cond={!loading}>
+                        <Loading inline/>
+                    </HideIf>
+                    <DocLink docId={docId || getIn(formik.values, `${name}_id`)} label={label} showLabel={false} profileType={profileType}/>
+                </FormGroup>
+                {!loading && <Error name={`${name}_id`} noTouch/>}
+            </FormInput>
+        </div>
+    )
+};
 
 export default React.memo(connect(FormFile));

@@ -123,12 +123,12 @@
   &__title {
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: .4px;
+    letter-spacing: 0.4px;
     text-transform: uppercase;
     margin-bottom: 6px;
   }
   &__about {
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     margin-bottom: 6px;
     padding-right: 180px;
     @media (max-width: 560px) {
@@ -144,6 +144,13 @@
     @media (max-width: 560px) {
       padding-right: 0;
     }
+    &-links {
+      a {
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
   }
   &__link {
     text-decoration: none;
@@ -155,7 +162,7 @@
       text-decoration: none;
       cursor: default;
       color: #72839c;
-      opacity: .5;
+      opacity: 0.5;
     }
   }
   &__modal {
