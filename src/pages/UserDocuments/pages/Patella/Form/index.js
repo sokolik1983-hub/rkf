@@ -117,6 +117,7 @@ const PatellaForm = ({alias, history, status}) => {
             isMultipart: true
         }, () => {
             setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/user/${alias}/documents`);
         }, error => {
             handleError(error);
         });
@@ -283,16 +284,17 @@ const PatellaForm = ({alias, history, status}) => {
                                         disabled={disableAllFields}
                                     />
                                 </div>
-                                <div className="patella-form__row">
-                                    <Field
-                                        id="comment"
-                                        name="comment"
-                                        label="Комментарий к заявке"
-                                        maxLength={500}
-                                        component={FormTextArea}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
+                                {!disableAllFields &&
+                                    <div className="patella-form__row">
+                                        <Field
+                                            id="comment"
+                                            name="comment"
+                                            label="Комментарий к заявке"
+                                            maxLength={500}
+                                            component={FormTextArea}
+                                        />
+                                    </div>
+                                }
                             </div>
                             <div className="patella-form__controls">
                                 {!disableAllFields &&
