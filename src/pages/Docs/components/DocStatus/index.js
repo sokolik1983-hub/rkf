@@ -93,7 +93,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 <div className="club-documents-status__table">
                     {documents && !!documents.length
-                        ? <div className="club-documents-status__controls-wrap">
+                        ? <div className="club-documents-status__controls-wrap _club_pedigree_wrap">
                             <div className="club-documents-status__controls">
                                 {standardView &&
                                     <button
