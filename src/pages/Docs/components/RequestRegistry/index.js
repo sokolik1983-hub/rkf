@@ -29,7 +29,7 @@ const RequestRegistry = ({ history, distinction }) => {
     }, []);
 
     return loading ?
-        <Loading /> : !standardView ? <Card className="club-documents-status__popup _popup-request_registry">
+        <Loading /> : !standardView ? <Card className="club-documents-status__popup">
             <button
                 onClick={() => setStandardView(true)}
                 className="club-documents-status__popup-close"
