@@ -19,8 +19,6 @@ const DocumentLink = ({docId}) => {
             .then(url => setUrl(url));
     };
 
-    console.log(docId);
-
     return (
         <>
             {!!docId &&
