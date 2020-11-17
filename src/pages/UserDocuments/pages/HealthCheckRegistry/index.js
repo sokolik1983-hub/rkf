@@ -65,6 +65,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                         documents={documents}
                         exporting={exporting}
                         setExporting={setExporting}
+                        distinction={distinction}
                     />
                 </>
                 : <h2>Документов не найдено</h2>}
