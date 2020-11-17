@@ -8,8 +8,7 @@ import Registry from "../Stamps/Registry";
 import Alert from "../../../../components/Alert";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import {userNav} from "../../config";
-import './styles.scss';
-
+import "./styles.scss";
 
 
 const DocumentCards = ({ clubAlias }) => {
@@ -188,8 +187,8 @@ const ResponsibleCards = ({ clubAlias }) => {
     </div>
 };
 
-const DocHome = ({ clubAlias, bookform }) => {
-    return <div className="documents-page__info">
+const DocHome = ({ clubAlias }) => (
+    <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
                 <UserMenu userNav={userNav(clubAlias)} />
@@ -204,6 +203,6 @@ const DocHome = ({ clubAlias, bookform }) => {
             <Route component={LoadableNotFound} />
         </Switch>
     </div>
-};
+);
 
 export default React.memo(DocHome);
