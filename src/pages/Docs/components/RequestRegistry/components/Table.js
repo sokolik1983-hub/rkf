@@ -166,16 +166,16 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 resizable
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
-                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1130px` : `905px`}`, margin: "0 auto" }}>
+                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1175px` : `905px`}`, margin: "0 auto" }}>
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '145px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '110px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '100px' : '70px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '95px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="stamp_number" title="Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
-                                <GridColumn field="status_name" title="Статус" width="90px" columnMenu={ColumnMenu} />
+                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '70px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
