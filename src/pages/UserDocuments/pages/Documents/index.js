@@ -12,14 +12,12 @@ const Documents = ({ alias }) => (
             <div className="documents-card__controls">
                 <div className="documents-card__controls-links">
                     <Link
-                        to="/"
-                        className="documents-card__link _disabled"
-                        onClick={e => e.preventDefault()}
+                        to={`/user/${alias}/documents/dysplasia/form`}
+                        className="documents-card__link"
                     >Подать заявку</Link>
                     <Link
                         to={`/user/${alias}/documents/dysplasia/registry`}
-                        className="documents-card__link _disabled"
-                        onClick={e => e.preventDefault()}
+                        className="documents-card__link"
                     >Реестр</Link>
                 </div>
                 <Link

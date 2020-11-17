@@ -46,7 +46,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                 {distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
             </div>
             {documents && !!documents.length
-                ? <>
+                ? <div className="user-documents-status__controls-wrap">
                     <div className="user-documents-status__controls">
                         {standardView &&
                             <button
@@ -58,7 +58,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                             </button>
                         }
                         <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                            Открыть на всю ширину окна
+                            Увеличить таблицу
                         </button>
                     </div>
                     <Table
@@ -67,7 +67,7 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                         setExporting={setExporting}
                         distinction={distinction}
                     />
-                </>
+                </div>
                 : <h2>Документов не найдено</h2>}
         </Card>
 };
