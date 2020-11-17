@@ -15,8 +15,8 @@ const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => 
     return (
         <Layout>
             <Switch>
-                {/*Здесь страницы без меню и баннера*/}
-                <Route component={() => <Home userAlias={userAlias} history={history}/>} /> {/*Все страницы с меню и баннером*/}
+                {/*Здесь страницы без меню*/}
+                <Route component={() => <Home userAlias={userAlias} history={history}/>} /> {/*Все страницы с меню*/}
             </Switch>
         </Layout>
     )

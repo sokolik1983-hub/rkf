@@ -4,23 +4,23 @@ import ls from "local-storage";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Fade} from "@progress/kendo-react-animation";
 import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
-import Card from "../../../../../components/Card";
-import FormInput from "../../../../../components/kendo/Form/FormInput";
-import FormUpload from "../../../../../components/kendo/Form/FormUpload";
-import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
-import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../../components/DocumentLink";
+import Card from "../../../../components/Card";
+import FormInput from "../../../../components/kendo/Form/FormInput";
+import FormUpload from "../../../../components/kendo/Form/FormUpload";
+import FormDatePicker from "../../../../components/kendo/Form/FormDatePicker";
+import FormTextArea from "../../../../components/kendo/Form/FormTextArea";
+import DocumentLink from "../../components/DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
     requiredValidator,
     requiredWithTrimValidator
-} from "../../../../../components/kendo/Form/validators";
-import {Request} from "../../../../../utils/request";
-import flatten from "../../../../../utils/flatten";
+} from "../../../../components/kendo/Form/validators";
+import {Request} from "../../../../utils/request";
+import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
 
-const PatellaForm = ({alias, history, status}) => {
+const DysplasiaForm = ({alias, history, status}) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [disableFields, setDisableFields] = useState(false);
@@ -32,6 +32,7 @@ const PatellaForm = ({alias, history, status}) => {
         veterinary_contract_document: [],
         pedigree_number: '',
         dog_name: '',
+        roentgenogram_document: [],
         payment_document: [],
         payment_date: '',
         payment_number: '',
@@ -45,7 +46,7 @@ const PatellaForm = ({alias, history, status}) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest?id=${id}`
+                url: `/api/requests/dog_health_check_request/ownerdoghealthcheckdysplasiarequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
@@ -94,14 +95,16 @@ const PatellaForm = ({alias, history, status}) => {
         setDisableFields(false);
 
         const payment_document = data.payment_document.length ? data.payment_document[0].getRawFile() : null;
+        const roentgenogram_document = data.roentgenogram_document.length ? data.roentgenogram_document[0].getRawFile() : null;
         const veterinary_contract_document = data.veterinary_contract_document.length ? data.veterinary_contract_document[0].getRawFile() : null;
 
-        let newData = {...data, veterinary_contract_document, payment_document};
+        let newData = {...data, veterinary_contract_document, roentgenogram_document, payment_document};
         delete newData.declarant_name;
 
         if(status === 'edit') {
             newData.id = values.id;
             if(!payment_document) newData.payment_document_id = values.payment_document_id;
+            if(!roentgenogram_document) newData.roentgenogram_document_id = values.roentgenogram_document_id;
             if(!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
         }
 
@@ -111,12 +114,12 @@ const PatellaForm = ({alias, history, status}) => {
         Object.keys(newData).forEach(key => formData.append(key, newData[key]));
 
         await Request({
-            url: '/api/requests/dog_health_check_request/ownerdoghealthcheckpatellarequest',
+            url: '/api/requests/dog_health_check_request/ownerdoghealthcheckdysplasiarequest',
             method: status === 'edit' ? 'PUT' : 'POST',
             data: formData,
             isMultipart: true
         }, () => {
-            setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/user/${alias}/documents`);
         }, error => {
             handleError(error);
         });
@@ -125,13 +128,13 @@ const PatellaForm = ({alias, history, status}) => {
     };
 
     return (
-        <div className="patella-form">
+        <div className="dysplasia-form">
             <Card>
                 <div className="user-documents__breadcrumbs">
                     <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный
                         кабинет</Link>
                     &nbsp;/&nbsp;
-                    <span className="user-documents__breadcrumbs-item">Сертификат клинической оценки коленных суставов (PL) (Пателла)</span>
+                    <span className="user-documents__breadcrumbs-item">Сертификат о проверке на дисплазию</span>
                 </div>
                 <Form
                     onSubmit={handleSubmit}
@@ -139,12 +142,12 @@ const PatellaForm = ({alias, history, status}) => {
                     key={JSON.stringify(initialValues)}
                     render={formRenderProps =>
                         <FormElement>
-                            <div className="patella-form__content">
+                            <div className="dysplasia-form__content">
                                 {values && values.rejected_comment &&
-                                    <p className="patella-form__danger">{values.rejected_comment}</p>
+                                    <p className="dysplasia-form__danger">{values.rejected_comment}</p>
                                 }
-                                <h4 className="patella-form__title" style={{marginBottom: 0}}>Добавление заявки</h4>
-                                <div className="patella-form__row">
+                                <h4 className="dysplasia-form__title" style={{marginBottom: 0}}>Добавление заявки</h4>
+                                <div className="dysplasia-form__row">
                                     <Field
                                         id="declarant_name"
                                         name="declarant_name"
@@ -153,32 +156,55 @@ const PatellaForm = ({alias, history, status}) => {
                                         disabled={true}
                                     />
                                 </div>
-                                <div className="patella-form__row">
+                                <div className="dysplasia-form__row _files">
                                     {disableAllFields && values &&
-                                        <div className="patella-form__file">
-                                            <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
-                                            <DocumentLink docId={values.veterinary_contract_document_id}/>
-                                        </div>
+                                        <>
+                                            <div className="dysplasia-form__file">
+                                                <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
+                                                <DocumentLink docId={values.veterinary_contract_document_id}/>
+                                            </div>
+                                            <div className="dysplasia-form__file">
+                                                <p className="k-label">Рентгенограмма (PDF, JPEG, JPG, PNG)</p>
+                                                <DocumentLink docId={values.roentgenogram_document_id}/>
+                                            </div>
+                                        </>
                                     }
                                     {!disableAllFields &&
-                                        <div className="patella-form__file">
-                                            <Field
-                                                id="veterinary_contract_document"
-                                                name="veterinary_contract_document"
-                                                label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
-                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                component={FormUpload}
-                                                validator={requiredValidator}
-                                            />
-                                            {values &&
-                                            values.veterinary_contract_document_id &&
-                                            !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                <DocumentLink docId={values.veterinary_contract_document_id} />
-                                            }
-                                        </div>
+                                        <>
+                                            <div className="dysplasia-form__file">
+                                                <Field
+                                                    id="veterinary_contract_document"
+                                                    name="veterinary_contract_document"
+                                                    label="Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    component={FormUpload}
+                                                    validator={requiredValidator}
+                                                />
+                                                {values &&
+                                                values.veterinary_contract_document_id &&
+                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
+                                                }
+                                            </div>
+                                            <div className="dysplasia-form__file">
+                                                <Field
+                                                    id="roentgenogram_document"
+                                                    name="roentgenogram_document"
+                                                    label="Рентгенограмма (PDF, JPEG, JPG, PNG)"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    component={FormUpload}
+                                                    validator={requiredValidator}
+                                                />
+                                                {values &&
+                                                values.roentgenogram_document_id &&
+                                                !formRenderProps.valueGetter('roentgenogram_document').length &&
+                                                    <DocumentLink docId={values.roentgenogram_document_id} />
+                                                }
+                                            </div>
+                                        </>
                                     }
                                 </div>
-                                <div className="patella-form__row">
+                                <div className="dysplasia-form__row">
                                     <Field
                                         id="pedigree_number"
                                         name="pedigree_number"
@@ -224,20 +250,20 @@ const PatellaForm = ({alias, history, status}) => {
                                     }
                                 </div>
                             </div>
-                            <div className="patella-form__content">
-                                <h4 className="patella-form__title">Информация о платеже</h4>
+                            <div className="dysplasia-form__content">
+                                <h4 className="dysplasia-form__title">Информация о платеже</h4>
                                 {!disableAllFields &&
                                     <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
                                 }
-                                <div className="patella-form__row">
+                                <div className="dysplasia-form__row">
                                     {disableAllFields && values &&
-                                        <div className="patella-form__file">
+                                        <div className="dysplasia-form__file">
                                             <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
                                             <DocumentLink docId={values.payment_document_id}/>
                                         </div>
                                     }
                                     {!disableAllFields &&
-                                        <div className="patella-form__file">
+                                        <div className="dysplasia-form__file">
                                             <Field
                                                 id="payment_document"
                                                 name="payment_document"
@@ -254,7 +280,7 @@ const PatellaForm = ({alias, history, status}) => {
                                         </div>
                                     }
                                 </div>
-                                <div className="patella-form__row _payment-info">
+                                <div className="dysplasia-form__row _payment-info">
                                     <Field
                                         id="payment_date"
                                         name="payment_date"
@@ -283,18 +309,19 @@ const PatellaForm = ({alias, history, status}) => {
                                         disabled={disableAllFields}
                                     />
                                 </div>
-                                <div className="patella-form__row">
-                                    <Field
-                                        id="comment"
-                                        name="comment"
-                                        label="Комментарий к заявке"
-                                        maxLength={500}
-                                        component={FormTextArea}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
+                                {!disableAllFields &&
+                                    <div className="dysplasia-form__row">
+                                        <Field
+                                            id="comment"
+                                            name="comment"
+                                            label="Комментарий к заявке"
+                                            maxLength={500}
+                                            component={FormTextArea}
+                                        />
+                                    </div>
+                                }
                             </div>
-                            <div className="patella-form__controls">
+                            <div className="dysplasia-form__controls">
                                 {!disableAllFields &&
                                     <button
                                         type="submit"
@@ -341,4 +368,4 @@ const PatellaForm = ({alias, history, status}) => {
     )
 };
 
-export default React.memo(PatellaForm);
+export default React.memo(DysplasiaForm);

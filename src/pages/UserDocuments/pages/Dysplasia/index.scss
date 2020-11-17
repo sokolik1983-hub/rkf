@@ -1,0 +1,142 @@
+.dysplasia-form {
+  &__content {
+    margin-top: 40px;
+  }
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  &__row {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @media (max-width: 1090px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 990px) {
+      &._payment-info {
+        display: flex;
+        & > div:not(:last-child) {
+          margin-right: 16px;
+        }
+      }
+    }
+    @media (max-width: 730px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 560px) {
+      display: block;
+      & > div:not(:last-child) {
+        margin-right: 0 !important;
+      }
+      & > .btn {
+        margin-top: 16px !important;
+      }
+    }
+    & > div {
+      flex: 1 1;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+    & > .btn {
+      margin-top: 40px;
+      margin-right: 16px;
+      &.btn-red {
+        margin-right: 0;
+      }
+    }
+    &._files {
+      @media (max-width: 1050px) {
+        display: block;
+        .dysplasia-form__file {
+          max-width: 100% !important;
+          &:first-child {
+            margin-right: 0 !important;
+          }
+          &:last-child {
+            margin-top: 0 !important;
+          }
+        }
+      }
+      @media (max-width: 990px) {
+        display: flex;
+        .dysplasia-form__file {
+          max-width: calc(50% - 8px) !important;
+          &:first-child {
+            margin-right: 16px !important;
+          }
+          &:last-child {
+            margin-top: 48px !important;
+          }
+        }
+      }
+      @media (max-width: 700px) {
+        display: block;
+        .dysplasia-form__file {
+          max-width: 100% !important;
+          &:first-child {
+            margin-right: 0 !important;
+          }
+          &:last-child {
+            margin-top: 0 !important;
+          }
+        }
+      }
+      .dysplasia-form__file {
+        max-width: calc(50% - 8px);
+        &:last-child {
+          margin-top: 48px;
+        }
+      }
+    }
+  }
+  &__danger {
+    display: block;
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: .75rem 1.25rem;
+    border: 1px solid #f5c6cb;
+    border-radius: .25rem;
+    margin-bottom: 40px;
+  }
+  .btn {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .Card {
+    padding: 24px 32px !important;
+    @media (max-width: 990px) {
+      padding: 10px !important;
+    }
+  }
+  p.k-label {
+    margin-top: 16px;
+    opacity: .65;
+    filter: grayscale(.1);
+  }
+  .k-form-field + .nomargin {
+    margin-top: 8px;
+  }
+  .k-notification-group {
+    right: 8px;
+    bottom: 55px;
+    @media (max-width: 560px) {
+      left: 5px;
+      right: 5px;
+      top: 48px;
+      bottom: auto;
+    }
+  }
+}

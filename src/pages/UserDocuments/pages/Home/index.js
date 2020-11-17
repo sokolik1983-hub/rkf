@@ -13,7 +13,8 @@ import HealthCheckRegistry from "../HealthCheckRegistry";
 import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
-import PatellaForm from "../Patella/Form";
+import PatellaForm from "../Patella";
+import DysplasiaForm from "../Dysplasia";
 import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
@@ -98,7 +99,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
-                                    component={() => <PatellaForm alias={userAlias} />}
+                                    component={() => <PatellaForm alias={userAlias} history={history}/>}
                                 />
                                 <Route
                                     exact={true}
@@ -113,7 +114,22 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:route/documents/patella/registry'
-                                    component={() => <HealthCheckRegistry history={history} distinction="patella" />}
+                                    component={() => <HealthCheckRegistry history={history} distinction="patella"/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/dysplasia/form'
+                                    component={() => <DysplasiaForm alias={userAlias} history={history}/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/dysplasia/view/:docId'
+                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="view"/>}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/dysplasia/edit/:docId'
+                                    component={() => <DysplasiaForm alias={userAlias} history={history} status="edit"/>}
                                 />
                                 <Route
                                     exact={true}
