@@ -19,11 +19,14 @@ const DocumentLink = ({docId}) => {
             .then(url => setUrl(url));
     };
 
+    console.log(docId);
+
     return (
         <>
-            {docId &&
+            {!!docId &&
                 <button
                     className="btn nomargin"
+                    type="button"
                     onClick={() => {
                         setShowModal(true);
                         getDocument();
