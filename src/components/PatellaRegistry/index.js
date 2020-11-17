@@ -67,6 +67,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                         profileType={profileType}
                         exporting={exporting}
                         setExporting={setExporting}
+                        distinction={distinction}
                     />
                 </div>
                 : <h2>Документов не найдено</h2>}

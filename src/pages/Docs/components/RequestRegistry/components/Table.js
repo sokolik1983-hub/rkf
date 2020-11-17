@@ -9,6 +9,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import kendoMessages from 'kendoMessages.json';
+import moment from "moment";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -149,6 +150,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                             </Grid>
                                 <GridPDFExport
+                                    fileName={`Реестр_помёт_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"
@@ -179,6 +181,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '70px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
+                                    fileName={`Реестр_родословная_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"

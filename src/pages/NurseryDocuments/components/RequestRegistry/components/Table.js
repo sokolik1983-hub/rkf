@@ -9,6 +9,7 @@ import kendoMessages from 'kendoMessages.json';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
+import moment from "moment";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -131,6 +132,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             ? <>
                                 {litterGrid}
                                 <GridPDFExport
+                                    fileName={`Реестр_помёт_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"
@@ -143,6 +145,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             : <>
                                 {breedGreed}
                                 <GridPDFExport
+                                    fileName={`Реестр_родословная_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"
