@@ -58,6 +58,42 @@
       }
     }
     &._files {
+      @media (max-width: 1050px) {
+        display: block;
+        .dysplasia-form__file {
+          max-width: 100% !important;
+          &:first-child {
+            margin-right: 0 !important;
+          }
+          &:last-child {
+            margin-top: 0 !important;
+          }
+        }
+      }
+      @media (max-width: 990px) {
+        display: flex;
+        .dysplasia-form__file {
+          max-width: calc(50% - 8px) !important;
+          &:first-child {
+            margin-right: 16px !important;
+          }
+          &:last-child {
+            margin-top: 48px !important;
+          }
+        }
+      }
+      @media (max-width: 700px) {
+        display: block;
+        .dysplasia-form__file {
+          max-width: 100% !important;
+          &:first-child {
+            margin-right: 0 !important;
+          }
+          &:last-child {
+            margin-top: 0 !important;
+          }
+        }
+      }
       .dysplasia-form__file {
         max-width: calc(50% - 8px);
         &:last-child {
