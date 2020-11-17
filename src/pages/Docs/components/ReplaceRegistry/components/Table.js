@@ -13,6 +13,7 @@ import StickyFilters from "components/StickyFilters";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
+import moment from "moment";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -175,6 +176,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         <GridColumn width="70px" cell={(props) => OptionsCell(props, setErrorReport)} />
                     </Grid>
                         <GridPDFExport
+                            fileName={`Реестр_замены_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                             ref={gridPDFExport}
                             scale={0.3}
                             margin="1cm"
