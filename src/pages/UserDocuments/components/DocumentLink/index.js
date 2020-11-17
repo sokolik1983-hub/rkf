@@ -21,9 +21,10 @@ const DocumentLink = ({docId}) => {
 
     return (
         <>
-            {docId &&
+            {!!docId &&
                 <button
                     className="btn nomargin"
+                    type="button"
                     onClick={() => {
                         setShowModal(true);
                         getDocument();
