@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import Card from "../../../../components/Card";
-import BookformCard from "components/BookformCard";
-import { LoadableNotFound } from "appModules";
-import { Route, Switch } from "react-router-dom";
-import Registry from '../Stamps/Registry';
-import Alert from 'components/Alert';
+import BookformCard from "../../../../components/BookformCard";
+import {LoadableNotFound} from "../../../../appModules";
+import Registry from "../Stamps/Registry";
+import Alert from "../../../../components/Alert";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import {userNav} from "../../config";
 import './styles.scss';
+
 
 
 const DocumentCards = ({ clubAlias }) => {
@@ -190,7 +191,9 @@ const ResponsibleCards = ({ clubAlias }) => {
 const DocHome = ({ clubAlias, bookform }) => {
     return <div className="documents-page__info">
         <aside className="documents-page__left">
-            <UserMenu userNav={userNav(clubAlias)} />
+            <StickyBox offsetTop={65}>
+                <UserMenu userNav={userNav(clubAlias)} />
+            </StickyBox>
         </aside>
         <Switch>
             <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
