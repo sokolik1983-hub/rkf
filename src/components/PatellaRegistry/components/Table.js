@@ -161,6 +161,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen }) 
                     <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
                 </Grid>}
                 <GridPDFExport
+                    fileName={type_id === 1 ? `Report for ${new Date().getFullYear()}` : ``}
                     ref={gridPDFExport}
                     scale={0.3}
                     margin="1cm"
