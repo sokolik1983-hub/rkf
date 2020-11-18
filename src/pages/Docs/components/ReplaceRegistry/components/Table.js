@@ -128,7 +128,6 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
     </Grid>;
 
 const rowRender = (trElement, props) => {
-    console.log('props', props)
     const status = props.dataItem.status_id;
     const green = { backgroundColor: "#D8FDE4" };
     const red = { backgroundColor: "#FFD6D9" };
