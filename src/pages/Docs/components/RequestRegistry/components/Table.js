@@ -11,6 +11,7 @@ import ShareCell from '../../ShareCell';
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -112,15 +113,25 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />
     </Grid>;
 
-const rowRender = (trElement, props) => {
-    const status = props.dataItem.status_id;
-    const green = { backgroundColor: "#D8FDE4" };
-    const red = { backgroundColor: "#FFD6D9" };
-    const grey = { backgroundColor: "#E9EDE9" };
-    const draft = { backgroundColor: "#D4DAED" };
-    const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
-    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-};
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#D8FDE4" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#E9EDE9" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
+
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
 
     return (
         <div className="App">
@@ -147,7 +158,7 @@ const rowRender = (trElement, props) => {
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
                                 style={{ height: height ? height : "750px", maxWidth: `${fullScreen ? `1035px` : `835px`}`, margin: "0 auto" }}>
-                                <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
+                                <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field="date_change" title="Изменение статуса" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                                 <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
@@ -181,7 +192,7 @@ const rowRender = (trElement, props) => {
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
                                 style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1090px` : `835px`}`, margin: "0 auto" }}>
-                                <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
+                                <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '145px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '100px'} columnMenu={ColumnMenu} />
