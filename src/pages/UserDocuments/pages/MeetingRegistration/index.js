@@ -7,10 +7,12 @@ import Modal from "../../../../components/Modal";
 const MeetingRegistration = () => {
     const [showModal, setShowModal] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
+    const [isRKF, setIsRKF] = useState(false);
 
     const handleClick = (e, isRKF) => {
         e.preventDefault();
         setIframeLink(`https://widget.bookform.ru/${isRKF ? '38636' : '30788'}`);
+        setIsRKF(isRKF);
         setShowModal(true);
     };
 
@@ -49,6 +51,7 @@ const MeetingRegistration = () => {
                            setShowModal(false);
                        }}
                        className="documents-card__modal"
+                       headerName = {`Запись в ${isRKF ? "РКФ" : "Федерацию"}`}
                 >
                     <iframe src={iframeLink} title="unique_iframe" />
                 </Modal>

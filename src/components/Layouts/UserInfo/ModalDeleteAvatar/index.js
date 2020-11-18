@@ -42,9 +42,8 @@ const ModalDeleteAvatar = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-avatar-modal" showModal={true} handleClose={() => null} handleX={closeModal}>
+        <Modal className="delete-avatar-modal" showModal={true} handleClose={() => null} handleX={closeModal} headerName={"Удаление аватара"}>
             <div className="delete-avatar-modal__content">
-                <h3 className="delete-avatar-modal__title">Удаление аватара</h3>
                 {loading ?
                     <Loading centered={false}/> :
                     <>

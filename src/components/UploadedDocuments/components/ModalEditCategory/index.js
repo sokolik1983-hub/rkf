@@ -38,9 +38,9 @@ const ModalEditCategory = ({ handleSuccess, handleError, getCategories, category
             className="edit-category-modal"
             showModal={true}
             handleClose={closeModal}
+            headerName = {'Редактирование категории'}
         >
             <div className="edit-category-modal__content">
-                <h3 className="edit-category-modal__title">Редактирование категории</h3>
                 {loading ?
                     <Loading centered={false} /> :
                     <Form

@@ -31,9 +31,9 @@ const ModalDeleteCategory = ({ handleSuccess, handleError, getCategories, catego
             className="delete-category-modal"
             showModal={true}
             handleClose={closeModal}
+            headerName = {'Удаление категории'}
         >
             <div className="delete-category-modal__content">
-                <h3 className="delete-category-modal__title">Удаление категории</h3>
                 {loading ?
                     <Loading centered={false} /> :
                     <>

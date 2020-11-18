@@ -7,6 +7,7 @@ import Modal from "../../../../components/Modal";
 const FederationAssessment = () => {
     const [showModal, setShowModal] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
+    const [isSupport, setIsSupport] = useState(false);
 
     const handleClick = (e, isSupport) => {
         e.preventDefault();
@@ -15,6 +16,7 @@ const FederationAssessment = () => {
             'https://yandex.ru/poll/enter/WPB2sD4yTqfL1wXY6XaQD6' :
             'https://yandex.ru/poll/enter/RetoLApC8GeRETL4v8BGwE'
         );
+        setIsSupport(isSupport);
         setShowModal(true);
     };
 
@@ -51,6 +53,7 @@ const FederationAssessment = () => {
                            setShowModal(false);
                        }}
                        className="documents-card__modal _blue"
+                       headerName = {`Оценка работы ${isSupport ? "службы поддержки Федерации" : "Федерации"}`}
                 >
                     <iframe src={iframeLink} title="unique_iframe" />
                 </Modal>
