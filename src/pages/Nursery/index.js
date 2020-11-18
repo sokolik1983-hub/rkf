@@ -16,12 +16,14 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
-import { endpointGetNurseryInfo } from "./config";
+import {endpointGetNurseryInfo, kennelNav} from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import "./index.scss";
+import {userNav} from "../User/config";
+import UserMenu from "../../components/Layouts/UserMenu";
 
 
 const getAddressString = addressObj => {
@@ -142,18 +144,21 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                 <StickyBox offsetTop={65}>
                                     <div className="nursery-page__info-inner">
                                         {!isMobile &&
+                                            <UserHeader
+                                                user="nursery"
+                                                logo={nursery.logo_link}
+                                                name={nursery.name || 'Имя отсутствует'}
+                                                alias={alias}
+                                                profileId={nursery.id}
+                                                federationName={nursery.federation_name}
+                                                federationAlias={nursery.federation_alias}
+                                                active_rkf_user={nursery.active_rkf_user}
+                                                active_member={nursery.active_member}
+                                            />
+                                        }
+                                        <UserMenu userNav={kennelNav(alias)} />
+                                        {!isMobile &&
                                             <>
-                                                <UserHeader
-                                                    user="nursery"
-                                                    logo={nursery.logo_link}
-                                                    name={nursery.name || 'Имя отсутствует'}
-                                                    alias={alias}
-                                                    profileId={nursery.id}
-                                                    federationName={nursery.federation_name}
-                                                    federationAlias={nursery.federation_alias}
-                                                    active_rkf_user={nursery.active_rkf_user}
-                                                    active_member={nursery.active_member}
-                                                />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <Card className="nursery-page__breeds">
                                                         <h4>Породы</h4>
@@ -177,14 +182,6 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 />
                                                 <CopyrightInfo />
                                             </>
-                                        }
-                                        {isMobile &&
-                                            <MenuComponent
-                                                alias={alias}
-                                                user={user}
-                                                profileId={nursery.id}
-                                                noCard={true}
-                                            />
                                         }
                                     </div>
                                 </StickyBox>

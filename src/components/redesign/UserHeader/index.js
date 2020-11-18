@@ -4,9 +4,8 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import { DEFAULT_IMG } from "appConfig";
 import { ActiveUserMark, FederationChoiceMark } from "../../Marks";
-import "./index.scss";
 import Share from "components/Share";
-import MenuComponent from "components/MenuComponent";
+import "./index.scss";
 
 
 const UserHeader = ({ user, logo, name, alias, profileId, federationName, federationAlias, isFederation = false, active_rkf_user, active_member }) => {
@@ -48,14 +47,6 @@ const UserHeader = ({ user, logo, name, alias, profileId, federationName, federa
                     </div>
                 </div>
                 <hr />
-                <MenuComponent
-                    alias={alias}
-                    user={user}
-                    profileId={profileId}
-                    name={name}
-                    noCard={true}
-                    isFederation={isFederation}
-                />
             </div>
             {shareAlert &&
                 <Alert
