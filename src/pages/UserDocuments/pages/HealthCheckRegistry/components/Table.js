@@ -9,6 +9,7 @@ import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
+import moment from "moment";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -78,7 +79,7 @@ const handleClick = async (e, id) => {
     el.className = 'pedigree-link';
 };
 
-const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting, distinction }) => {
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
@@ -150,16 +151,17 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                     resizable
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px" }}>
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '140px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '320px' : '275px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '235px' : '210px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '170px' : '130px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                    <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-                    <GridColumn width="80px" cell={props => OptionsCell(props, profileType)} />
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `740px` : `680px`}`, margin: '0 auto' }}>
+                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                    <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
+                    <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
                 </Grid>}
                 <GridPDFExport
+                    fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
                     scale={0.3}
                     margin="1cm"

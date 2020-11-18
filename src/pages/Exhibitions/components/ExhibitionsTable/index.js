@@ -107,6 +107,7 @@ const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions
                 <IntlProvider locale="ru">
                     {grid}
                     <GridPDFExport
+                        fileName="Список мероприятий"
                         ref={gridPDFExport}
                         scale={0.6}
                         margin="1cm"

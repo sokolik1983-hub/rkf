@@ -106,6 +106,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: relative;
+    top: 40px;
+    &-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
   }
   &__control {
     display: inline-flex;
@@ -139,10 +145,13 @@
   }
   &__popup {
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 0;
     width: 100vw;
     height: 100vh;
+    .k-grid {
+      font-size: 16px;
+    }  
     &-close {
       width: 20px;
       height: 20px;
@@ -153,7 +162,7 @@
       padding: 0;
       transition: all 0.2s linear;
       position: absolute;
-      top: 33px;
+      top: 20px;
       right: 35px;
       z-index: 100;
       &:hover {
@@ -169,7 +178,13 @@
     }
   }
   .k-grid {
+    font-size: 14px;
+  }
+  .k-grid-header {
     font-size: 12px;
+  }
+  &__filters-wrap {
+    margin-bottom: 6px;
   }
 }
 
