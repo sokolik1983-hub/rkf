@@ -3,8 +3,6 @@ import {Form, FormField, SubmitButton} from "../../../../Form";
 import Alert from "../../../../Alert";
 import {loginForm} from "./config";
 import {connectLogin} from "../../../../../pages/Login/connectors";
-import "./index.scss";
-
 
 const LoginAsUser = ({loginUserSuccess, history, closeModal}) => {
     const [alert, setAlert] = useState(false);
@@ -22,7 +20,6 @@ const LoginAsUser = ({loginUserSuccess, history, closeModal}) => {
 
     return (
         <>
-            <h2 className="login-as-user__title">Войти как клуб</h2>
             <Form
                 {...loginForm}
                 className="login-as-user__form"

@@ -10,7 +10,7 @@ import "./index.scss";
 
 const presidium = {
     rkf: {
-        title: 'Состав Президиума РКФ:',
+        title: 'Состав Президиума РКФ',
         members: [
             'В.С. Голубев (ОАНКОО)',
             'В.А. Александров (РФСС)',
@@ -27,7 +27,7 @@ const presidium = {
         ]
     },
     rfls: {
-        title: 'Состав Президиума СОКО РФЛС:',
+        title: 'Состав Президиума СОКО РФЛС',
         members: [
             'Голубев Владимир Семенович',
             'Бычкова Елена Ивановна',
@@ -45,7 +45,7 @@ const presidium = {
         ]
     },
     rfss: {
-        title: 'Состав Президиума РФСС:',
+        title: 'Состав Президиума РФСС',
         members: [
             'Александров Владимир Аркадьевич - президент',
             'Галиаскарова Лариса Викторовна - вице-президент, член бюро',
@@ -65,7 +65,7 @@ const presidium = {
         ]
     },
     rfos: {
-        title: 'Состав Президиума РФОС:',
+        title: 'Состав Президиума РФОС',
         members: [
             'Домогацкая Екатерина Григорьевна - президент',
             'Солдатов Алексей Андреевич - Председатель Попечительского совета',
@@ -224,7 +224,6 @@ const FloatingMenu = ({ alias, name, profileId, isFederation }) => {
             return presidiumRfls
         } else {
             return <>
-                <h4 className="menu-component__wrap-title">{presidium[alias].title}</h4>
                 <ol className="menu-component__wrap-list">
                     {presidium[alias].members.map((member, i) =>
                         <li className="menu-component__wrap-item" key={i}>{member}</li>
@@ -439,7 +438,7 @@ const FloatingMenu = ({ alias, name, profileId, isFederation }) => {
             </DropDownItem>
         </Dropdown>
         {showModal &&
-            <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
+            <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} headerName = {presidium[alias].title}>
                 <div className="menu-component__wrap">
                     {
                         loading

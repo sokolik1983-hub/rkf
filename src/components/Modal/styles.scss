@@ -17,13 +17,9 @@
     max-width: 100%;
     background: white;
     border-radius: 4px;
-    padding: 0 24px;
     box-shadow: 2px 2px 10px black;
     max-height: calc(100vh - 80px);
     overflow-y: auto;
-    @media (max-width: 560px) {
-      padding: 0 12px;
-    }
   }
   & > div {
     width: 80%;
@@ -31,12 +27,31 @@
       width: 92%;
     }
   }
+  &__body{
+    height: 100%;
+    padding: 13px 20px 20px;
+    &.pad-top{
+      padding-top: 30px;
+    }
+    @media (max-width: 560px) {
+      padding: 13px 10px 10px;
+    }
+  }
+  &__header{
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 8px;
+    width: 100%;
+  }
   &__close {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 8px;
+    top: 8px;
     background: url(/static/icons/cross-gray.svg) center no-repeat;
     background-size: contain;
     cursor: pointer;

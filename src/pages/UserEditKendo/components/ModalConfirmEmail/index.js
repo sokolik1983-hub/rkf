@@ -64,9 +64,9 @@ const ModalConfirmEmail = ({email, closeModal, updateInfo}) => {
                     closeModal();
                 }
             }
+            headerName = {"Изменение логина"}
         >
             <div className="confirm-email-modal__content">
-                <h3 className="confirm-email-modal__title">Изменение логина</h3>
                 {loading ?
                     <Loading centered={false}/> :
                     !isSuccess ?

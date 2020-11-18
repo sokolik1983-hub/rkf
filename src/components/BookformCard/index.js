@@ -48,6 +48,7 @@ const BookformCard = ({url,distinction}) => {
     const [link, setLink] = useState('');
     const [federation, setFederation] = useState('');
     const [color, setColor] = useState('');
+    const [headerName, setHeaderName] = useState('');
 
     useEffect(() => {
         (() => Request({url},
@@ -63,15 +64,16 @@ const BookformCard = ({url,distinction}) => {
 
     const handleClick = (e, rkf, destination) => {
         e.preventDefault();
-
         if(!destination) {
             setColor('');
             setLink(`https://widget.bookform.ru/${rkf ? 30637 : federation && feds[federation].id}/`);
+            setHeaderName(`Запись в ${rkf ? 'РКФ' : federation}`);
             setShowModal(true);
         } else {
             if(federation) {
                 setColor('_blue');
                 setLink(feds[federation][destination]);
+                setHeaderName(`Оценка работы ${destination === "support" ? `службы поддержки ${federation}` : federation}`);
                 setShowModal(true);
             } else {
                 setShowAlert(true);
@@ -139,6 +141,7 @@ const BookformCard = ({url,distinction}) => {
                        setShowModal(false);
                    }}
                    className={`documents-page__modal${color ? ' ' + color : ''}`}
+                   headerName = {headerName}
             >
                 <iframe src={link} title="unique_iframe" />
             </Modal>

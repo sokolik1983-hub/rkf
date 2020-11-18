@@ -33,9 +33,9 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
                 closeModal();
                 if(isChanged) updateInfo();
             }}
+            headerName = {"Редактирование фото"}
         >
             <div className="edit-avatar-modal__content">
-                <h3 className="edit-avatar-modal__title">Редактирование фото</h3>
                 <div className="edit-avatar-modal__content">
                     <LocalizationProvider language="ru-RU">
                         <IntlProvider locale="ru" >

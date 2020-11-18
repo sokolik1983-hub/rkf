@@ -195,6 +195,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     showModal={showModal}
                     handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
                     handleX={closeModal}
+                    headerName = {modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
                 >
                     {modalType === 'video' &&
                         <AddVideoLink

@@ -12,16 +12,12 @@
     padding: 8px 5px;
   }
   &__title {
-    font-size: 20px;
-    line-height: 1.2;
-    padding: 0 25px 5px 0;
-    border-bottom: 1px solid #dcd3de;
-    @media (max-width: 560px) {
-      padding: 5px 10px;
-    }
-    @media (max-width: 320px) {
-      padding: 5px;
-    }
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 8px;
   }
   .FormInput {
     margin-bottom: 8px;
