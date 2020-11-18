@@ -8,6 +8,7 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -138,6 +139,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     scale={0.3}
                     margin="1cm"
                     paperSize="A4"
+                    pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}
                 </GridPDFExport>

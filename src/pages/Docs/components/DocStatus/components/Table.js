@@ -7,6 +7,7 @@ import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 import moment from "moment";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -138,6 +139,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     scale={0.3}
                     margin="1cm"
                     paperSize="A4"
+                    pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}
                 </GridPDFExport>

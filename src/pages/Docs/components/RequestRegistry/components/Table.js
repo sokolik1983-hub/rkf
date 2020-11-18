@@ -10,6 +10,7 @@ import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -155,6 +156,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     scale={0.3}
                                     margin="1cm"
                                     paperSize="A4"
+                                    pageTemplate={PdfPageTemplate}
                                 >
                                     {litterGrid}
                                 </GridPDFExport>
@@ -186,6 +188,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     scale={0.3}
                                     margin="1cm"
                                     paperSize="A4"
+                                    pageTemplate={PdfPageTemplate}
                                 >
                                     {breedGrid}
                                 </GridPDFExport>

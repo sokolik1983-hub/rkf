@@ -14,6 +14,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -181,6 +182,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             scale={0.3}
                             margin="1cm"
                             paperSize="A4"
+                            pageTemplate={PdfPageTemplate}
                         >
                             {gridForExport}
                         </GridPDFExport>
