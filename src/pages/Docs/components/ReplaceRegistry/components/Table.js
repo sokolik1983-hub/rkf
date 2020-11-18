@@ -14,14 +14,15 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "Отклоненные" },
-    { "status_id": 2, "StatusName": "В работе" },
-    { "status_id": 3, "StatusName": "Выполненные" },
-    { "status_id": 4, "StatusName": "Не отправленные" },
+    { "status_id": 1, "StatusName": "- Отклоненные" },
+    { "status_id": 2, "StatusName": "* В работе" },
+    { "status_id": 3, "StatusName": "+ Выполненные" },
+    { "status_id": 4, "StatusName": "? Не отправленные" },
 ];
 
 const ColumnMenu = (props) => {
@@ -114,18 +115,27 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         sortable
         resizable
         {...gridData}
-        onDataStateChange={handleGridDataChange}
-        style={{ height: "700px" }}>
-        <GridColumn field="date_create" title="Дата создания" width="120px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="id" title="№ заявки" width="150px" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_name" title="ФИО владельца" width="120px" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" width="120px" columnMenu={ColumnMenu} />
-        <GridColumn field="breed_name" title="Порода" width="120px" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_code" title="Чип/Клеймо" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="165px" columnMenu={ColumnMenu} cell={LinkCell} />
+        onDataStateChange={handleGridDataChange}>
+        <GridColumn field="status_value" title=" " />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="id" title="№ заявки" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_name" title="ФИО владельца" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="breed_name" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Чип/Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} cell={LinkCell} />
     </Grid>;
+
+const rowRender = (trElement, props) => {
+    const status = props.dataItem.status_id;
+    const green = { backgroundColor: "#D8FDE4" };
+    const red = { backgroundColor: "#FFD6D9" };
+    const grey = { backgroundColor: "#E9EDE9" };
+    const draft = { backgroundColor: "#D4DAED" };
+    const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+};
 
     return (<>
         <LocalizationProvider language="ru-RU">
@@ -158,12 +168,14 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                 {
                     documents && <><Grid
                         data={process(documents, gridData)}
+                        rowRender={rowRender}
                         pageable
                         sortable
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `1135px` : `845px`}`, margin: "0 auto" }}>
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `1070px` : `793px`}`, margin: "0 auto" }}>
+                        <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                         <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? '130px' : '110px'} columnMenu={ColumnMenu} />
@@ -171,7 +183,6 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         <GridColumn field="breed_name" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="status_name" title="Статус" width={fullScreen ? '90px' : '80px'} columnMenu={ColumnMenu} />
                         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '50px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                         <GridColumn width="70px" cell={(props) => OptionsCell(props, setErrorReport)} />
                     </Grid>
@@ -181,6 +192,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             scale={0.3}
                             margin="1cm"
                             paperSize="A4"
+                            pageTemplate={PdfPageTemplate}
                         >
                             {gridForExport}
                         </GridPDFExport>

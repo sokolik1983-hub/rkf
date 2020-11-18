@@ -8,6 +8,7 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -87,27 +88,6 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         }
     }, [exporting]);
 
-    const grid = <Grid
-        data={process(documents, gridData)}
-        pageable
-        sortable
-        resizable
-        {...gridData}
-        onDataStateChange={handleGridDataChange}
-        onRowClick={handleGridRowClick}
-        className="club-documents-status__pointer"
-        style={{ height: "700px", maxWidth: `${fullScreen ? `1010px` : `630px`}`, margin: "0 auto" }}>
-        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} />
-        <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-        <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-        <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-        <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-        <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-        <GridColumn width="70px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
-    </Grid>;
-
     const gridForExport = <Grid
         data={process(documents, gridData)}
         pageable
@@ -116,32 +96,61 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         {...gridData}
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
-        className="club-documents-status__pointer"
-        style={{ height: "700px", maxWidth: "650px", margin: "0 auto" }}>
-        <GridColumn field="date_create" title="Дата регистрации" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="federation_name" title="Федерация" width="100px" columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
-        <GridColumn field="count" title="Всего заявок" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="count_done" title="Изготовлено" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="count_in_work" title="В работе" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="id" title="№ документа" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="name" title="ФИО заявителя" width="110px" columnMenu={ColumnMenu} />
+        className="club-documents-status__pointer">
+        <GridColumn field="status_value" title=" " />
+        <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
+        <GridColumn field="count" title="Всего заявок" columnMenu={ColumnMenu} />
+        <GridColumn field="count_done" title="Изготовлено" columnMenu={ColumnMenu} />
+        <GridColumn field="count_in_work" title="В работе" columnMenu={ColumnMenu} />
+        <GridColumn field="id" title="№ документа" columnMenu={ColumnMenu} />
+        <GridColumn field="name" title="ФИО заявителя" columnMenu={ColumnMenu} />
     </Grid>;
+
+const rowRender = (trElement, props) => {
+    const status = props.dataItem.status_id;
+    const green = { backgroundColor: "#D8FDE4" };
+    const red = { backgroundColor: "#FFD6D9" };
+    const grey = { backgroundColor: "#E9EDE9" };
+    const draft = { backgroundColor: "#D4DAED" };
+    const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+};
 
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
-                {documents && grid}
+                {documents && <Grid
+                    data={process(documents, gridData)}
+                    rowRender={rowRender}
+                    pageable
+                    sortable
+                    resizable
+                    {...gridData}
+                    onDataStateChange={handleGridDataChange}
+                    onRowClick={handleGridRowClick}
+                    className="club-documents-status__pointer"
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `934px` : `574px`}`, margin: "0 auto" }}>
+                    <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
+                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                    <GridColumn width="70px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                </Grid>}
                 <GridPDFExport
                     fileName={distinction === 'pedigree' ? `Статус_оформления_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Статус_регистрации_помёта_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
                     scale={0.3}
                     margin="1cm"
                     paperSize="A4"
+                    pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}
                 </GridPDFExport>
-                
             </IntlProvider>
         </LocalizationProvider>
     )
