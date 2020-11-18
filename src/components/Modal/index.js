@@ -11,7 +11,7 @@ const Modal = ({ showModal, handleClose, handleX, children, noBackdrop = false, 
                 <OutsideClickHandler onOutsideClick={handleClose}>
                     <div className="Modal__inner">
                         <div className="Modal__close" onClick={handleX ? handleX : handleClose} />
-                        <div className={'Modal__body' + (headerName ? '' : ' pad-top')}>
+                        <div className={'Modal__body' + (headerName ? '' : ' noheader')}>
                             {!!headerName && <h3 className="Modal__header">{headerName}</h3>}
                             {children}
                         </div>
