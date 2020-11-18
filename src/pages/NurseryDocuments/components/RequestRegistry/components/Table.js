@@ -15,10 +15,10 @@ import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "Отклоненные" },
-    { "status_id": 2, "StatusName": "В работе" },
-    { "status_id": 3, "StatusName": "Выполненные" },
-    { "status_id": 4, "StatusName": "Не отправленные" },
+    { "status_id": 1, "StatusName": "- Отклоненные" },
+    { "status_id": 2, "StatusName": "* В работе" },
+    { "status_id": 3, "StatusName": "+ Выполненные" },
+    { "status_id": 4, "StatusName": "? Не отправленные" },
 ];
 
 const ColumnMenu = (props) => {
@@ -73,14 +73,27 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         }
     }, [exporting]);
 
+    const rowRender = (trElement, props) => {
+        console.log('props', props)
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#D8FDE4" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#E9EDE9" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };    
+
     const litterGrid = <Grid
         data={process(documents, gridData)}
+        rowRender={rowRender}
         pageable
         sortable
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}
-        style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1125px` : `915px`}`, margin: "0 auto" }}>
+        style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1035px` : `843px`}`, margin: "0 auto" }}>
+        <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Изменение статуса" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
@@ -91,17 +104,18 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="stamp_code" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
         <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '70px' : '50px'} columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
     </Grid>;
 
     const breedGreed = <Grid
         data={process(documents, gridData)}
+        rowRender={rowRender}
         pageable
         sortable
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}
-        style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1120px` : `915px`}`, margin: "0 auto" }}>
+        style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1035px` : `843px`}`, margin: "0 auto" }}>
+        <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
         <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '110px'} columnMenu={ColumnMenu} />
@@ -110,8 +124,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
         <GridColumn field="stamp_number" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '89px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
     </Grid>;
 
     return (
@@ -142,7 +155,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 >
                                     {litterGrid}
                                 </GridPDFExport>
-
                             </>
                             : <>
                                 {breedGreed}
@@ -156,7 +168,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 >
                                     {breedGreed}
                                 </GridPDFExport>
-
                             </>
                     }
                 </IntlProvider>
