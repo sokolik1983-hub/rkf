@@ -1,7 +1,5 @@
 import { object, string, array, number, boolean, mixed } from "yup";
 import React from "react";
-import {Link} from "react-router-dom";
-import CustomMenu from "../../components/CustomMenu";
 
 const apiPedigreeEndpoint = '/api/requests/PedigreeRequest';
 const apiLitterEndpoint = '/api/requests/LitterRequest';
@@ -373,7 +371,7 @@ export {
     apiClubDeclarantsEndpoint
 };
 
-export const userNav = alias => [
+export const clubNav = alias => [
     {
         id: 1,
         exact: true,
@@ -399,11 +397,11 @@ export const userNav = alias => [
         title: 'Клейма',
         to: `/${alias}/documents/stamps`,
         icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect class="st0" x="8.11" y="16.76" width="10.25" height="66.49"/>
-            <rect class="st0" x="38.61" y="16.76" width="13.59" height="66.49"/>
-            <rect class="st0" x="78.3" y="16.76" width="13.59" height="66.49"/>
-            <rect class="st0" x="22.84" y="16.76" width="5.14" height="66.49"/>
-            <rect class="st0" x="65.03" y="16.76" width="5.14" height="66.49"/>
+            <rect x="8.11" y="16.76" width="10.25" height="66.49"/>
+            <rect x="38.61" y="16.76" width="13.59" height="66.49"/>
+            <rect x="78.3" y="16.76" width="13.59" height="66.49"/>
+            <rect x="22.84" y="16.76" width="5.14" height="66.49"/>
+            <rect x="65.03" y="16.76" width="5.14" height="66.49"/>
         </svg>
     },
     {

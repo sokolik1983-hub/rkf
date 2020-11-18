@@ -3,11 +3,11 @@ import { Link, Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Card from "../../../../components/Card";
 import BookformCard from "../../../../components/BookformCard";
-import {LoadableNotFound} from "../../../../appModules";
+import { LoadableNotFound } from "../../../../appModules";
 import Registry from "../Stamps/Registry";
 import Alert from "../../../../components/Alert";
 import UserMenu from "../../../../components/Layouts/UserMenu";
-import {userNav} from "../../config";
+import { clubNav } from "../../config";
 import "./styles.scss";
 
 
@@ -191,7 +191,7 @@ const DocHome = ({ clubAlias }) => (
     <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
-                <UserMenu userNav={userNav(clubAlias)} />
+                <UserMenu userNav={clubNav(clubAlias)} />
             </StickyBox>
         </aside>
         <Switch>

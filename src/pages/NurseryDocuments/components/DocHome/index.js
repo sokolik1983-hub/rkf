@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import Card from "../../../../components/Card";
-import CustomMenu from "../../../../components/CustomMenu";
-import BookformCard from 'components/BookformCard';
-import { LoadableNotFound } from "appModules";
-import { Route, Switch } from "react-router-dom";
-// import Registry from '../Stamps/Registry';
-import Alert from 'components/Alert';
-import './styles.scss';
+import BookformCard from "../../../../components/BookformCard";
+import { LoadableNotFound } from "../../../../appModules";
+import Alert from "../../../../components/Alert";
+import UserMenu from "../../../../components/Layouts/UserMenu";
+import { kennelNav } from "../../config";
+import "./styles.scss";
+
 
 const DocumentCards = ({ nurseryAlias }) => {
     const [alert, seAlert] = useState(false);
@@ -134,38 +135,6 @@ const DocumentCards = ({ nurseryAlias }) => {
     </div>
 };
 
-// const StampCards = ({ nurseryAlias }) => {
-//     const [alert, seAlert] = useState(false);
-//     const handleClick = e => {
-//         e.preventDefault();
-//         seAlert(true);
-//     };
-//     return <div className="documents-page__right">
-//         <Card>
-//             <div className="documents-page__icon" />
-//             <h3>КЛЕЙМА</h3>
-//             <p>
-//                 Указанные коды клейма могут быть использованы в формах оформления заявок на изготовление документов. При указании кода клейма клуба должна быть приложена электронная копия свидетельства о регистрации кода клейма или документ его заменяющий.
-//             </p>
-//             <hr />
-//             <div className="Card__links">
-//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/add`}>Добавить клеймо</Link>
-//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Подать заявку на регистрацию кода клейма</Link>
-//                 <Link to={`/kennel/${nurseryAlias}/documents/stamps/registry`} onClick={handleClick}>Реестр заявок</Link>
-//             </div>
-//             {alert &&
-//                 <Alert
-//                     title="Внимание!"
-//                     text="Раздел находится в разработке."
-//                     autoclose={1.5}
-//                     onOk={() => seAlert(false)}
-//                 />
-//             }
-//         </Card>
-//         <Registry />
-//     </div>
-// };
-
 const ResponsibleCards = ({ nurseryAlias }) => {
     return <div className="documents-page__right">
         <Card>
@@ -183,47 +152,26 @@ const ResponsibleCards = ({ nurseryAlias }) => {
     </div>
 };
 
-const DocHome = ({ nurseryAlias, bookform }) => {
-    const [alert, seAlert] = useState(false);
-    // const handleClick = e => {
-    //     e.preventDefault();
-    //     seAlert(true);
-    // };
-    return <div className="documents-page__info">
+const DocHome = ({ nurseryAlias }) => (
+    <div className="documents-page__info">
         <aside className="documents-page__left">
-            <CustomMenu title="Личный кабинет">
-                <Link to={`/kennel/${nurseryAlias}/documents`} title="Оформление документов" className="menu-component__link--documents">Оформление документов</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/responsible`} title="Организационная информация" className="menu-component__link--org">Организационная информация</Link>
-                <Link to={`/base-search?nurseryAlias=${nurseryAlias}`} className="menu-component__link--search">Поиск по базе РКФ</Link>
-                {/*<Link to={`/kennel/${nurseryAlias}/documents/stamps`} title="Клейма">Клейма</Link>*/}
-                {/*<Link to="/reports" title="Отчеты" onClick={handleClick}>Отчеты</Link>*/}
-                <Link to={`/kennel/${nurseryAlias}/documents/bookform`} className="menu-component__link--appointment">Запись на очный прием</Link>
-                <Link to={`/kennel/${nurseryAlias}/documents/review`} className="menu-component__link--mark">Оценка работы федерации</Link>
-                <Link to={`/kennel/${nurseryAlias}`} title="Страница питомника" className="menu-component__link--club">Страница питомника</Link>
-            </CustomMenu>
-            <div className="documents-page__publication">
-                <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
-                    <img src="/static/images/publications/breeder-club.png" alt="" />
-                </a>
-            </div>
+            <StickyBox offsetTop={65}>
+                <UserMenu userNav={kennelNav(nurseryAlias)} />
+                <div className="documents-page__publication">
+                    <a href="https://www.royal-canin.ru/breeders/partner/" title="Royal-Canin" target="_blank" rel="noopener noreferrer">
+                        <img src="/static/images/publications/breeder-club.png" alt="" />
+                    </a>
+                </div>
+            </StickyBox>
         </aside>
         <Switch>
             <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
-            {/*<Route path='/kennel/:route/documents/stamps' component={() => <StampCards nurseryAlias={nurseryAlias} />} />*/}
             <Route path='/kennel/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
-        {alert &&
-            <Alert
-                title="Внимание!"
-                text="Раздел находится в разработке."
-                autoclose={1.5}
-                onOk={() => seAlert(false)}
-            />
-        }
     </div>
-};
+);
 
 export default React.memo(DocHome);
