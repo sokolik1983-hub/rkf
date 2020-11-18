@@ -117,6 +117,9 @@
       max-width: 860px;
     }
     @media (max-width: 990px) {
+      &__info > div {
+        position: static !important;
+      }
       .user-header {
         display: flex;
         align-items: center;

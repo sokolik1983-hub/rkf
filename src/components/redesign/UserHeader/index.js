@@ -46,7 +46,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, federationName, federa
                         </div>
                     </div>
                 </div>
-                <hr />
+                {/*<hr />*/}
             </div>
             {shareAlert &&
                 <Alert

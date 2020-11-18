@@ -10,13 +10,14 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import { VideoGallery } from "components/Gallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "appConfig";
+import {clubNav} from "../Club/config";
 import "./styles.scss";
 import "pages/Club/index.scss";
 
@@ -192,18 +193,21 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
+                                                <UserHeader
+                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    logo={clubInfo.logo_link}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    alias={clubInfo.club_alias}
+                                                    profileId={clubInfo.id}
+                                                    federationName={clubInfo.federation_name}
+                                                    federationAlias={clubInfo.federation_alias}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
+                                                />
+                                            }
+                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            {!isMobile &&
                                                 <>
-                                                    <UserHeader
-                                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                        logo={clubInfo.logo_link}
-                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                        alias={clubInfo.club_alias}
-                                                        profileId={clubInfo.id}
-                                                        federationName={clubInfo.federation_name}
-                                                        federationAlias={clubInfo.federation_alias}
-                                                        active_rkf_user={clubInfo.active_rkf_user}
-                                                        active_member={clubInfo.active_member}
-                                                    />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
                                                         pageLink={`/${clubInfo.club_alias}/gallery`}
@@ -216,14 +220,6 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            {isMobile &&
-                                <MenuComponent
-                                    alias={clubInfo.club_alias}
-                                    user={user}
-                                    profileId={clubInfo.id}
-                                    noCard={true}
-                                />
-                            }
                         </Container>
                     </div>
                 </Layout>

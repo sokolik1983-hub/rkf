@@ -8,7 +8,7 @@ import Aside from "../../components/Layouts/Aside";
 import Card from "../../components/Card";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import UserHeader from "components/redesign/UserHeader";
 import UserDescription from "components/redesign/UserDescription";
 import UserContacts from "components/redesign/UserContacts";
@@ -22,8 +22,6 @@ import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import "./index.scss";
-import {userNav} from "../User/config";
-import UserMenu from "../../components/Layouts/UserMenu";
 
 
 const getAddressString = addressObj => {

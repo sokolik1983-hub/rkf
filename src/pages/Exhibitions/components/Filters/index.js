@@ -13,6 +13,9 @@ import Card from "../../../../components/Card";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
+import CopyrightInfo from "../../../../components/CopyrightInfo";
+import {clubNav} from "../../../Club/config";
+import UserMenu from "../../../../components/Layouts/UserMenu";
 import "./index.scss";
 
 
@@ -73,6 +76,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     active_member={active_member}
                                     active_rkf_user={active_rkf_user}
                                 />
+                                <UserMenu userNav={clubNav(filters.Alias)} />
                             </div>
                         }
                         <div className="exhibitions-filters__wrap">
@@ -116,10 +120,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                 is_club_link={clubName && filters.Alias}
                             />
                         </div>
-                        <div className="exhibitions-filters__copy-wrap">
-                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                            <p>Политика обработки персональных данных</p>
-                        </div>
+                        <CopyrightInfo/>
                     </>
                 }
             </StickyBox>

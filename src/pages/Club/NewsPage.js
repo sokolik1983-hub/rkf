@@ -7,9 +7,9 @@ import Loading from "../../components/Loading";
 import UserHeader from "../../components/redesign/UserHeader";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { endpointGetClubInfo } from "./config";
+import {clubNav, endpointGetClubInfo} from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -98,18 +98,21 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                 <StickyBox offsetTop={65}>
                                     <div className="club-page__info-inner">
                                         {!isMobile &&
+                                            <UserHeader
+                                                user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                logo={clubInfo.logo_link}
+                                                name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                alias={clubInfo.club_alias}
+                                                profileId={clubInfo.id}
+                                                federationName={clubInfo.federation_name}
+                                                federationAlias={clubInfo.federation_alias}
+                                                active_rkf_user={clubInfo.active_rkf_user}
+                                                active_member={clubInfo.active_member}
+                                            />
+                                        }
+                                        <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                        {!isMobile &&
                                             <>
-                                                <UserHeader
-                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                    logo={clubInfo.logo_link}
-                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                    alias={clubInfo.club_alias}
-                                                    profileId={clubInfo.id}
-                                                    federationName={clubInfo.federation_name}
-                                                    federationAlias={clubInfo.federation_alias}
-                                                    active_rkf_user={clubInfo.active_rkf_user}
-                                                    active_member={clubInfo.active_member}
-                                                />
                                                 <UserPhotoGallery
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/gallery`}
@@ -125,14 +128,6 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                 </StickyBox>
                             </Aside>
                         </div>
-                        {isMobile &&
-                            <MenuComponent
-                                alias={clubInfo.club_alias}
-                                user={user}
-                                profileId={clubInfo.id}
-                                noCard={true}
-                            />
-                        }
                         {showModal &&
                             <VideoModal showModal={showModal} handleClose={() => setShowModal(false)} className="VideoGallery__modal">
                                 <div dangerouslySetInnerHTML={{ __html: showModal.item.iframe }} />

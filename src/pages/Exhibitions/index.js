@@ -7,13 +7,14 @@ import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
 import ClickGuard from "../../components/ClickGuard";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
 import { connectShowFilters } from "../../components/Layouts/connectors";
 import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
+import {clubNav} from "../Club/config";
 import './index.scss';
 
 
@@ -152,12 +153,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
                             <div className="exhibitions-page__mobile-only">
-                                <MenuComponent
-                                    alias={filters.Alias}
-                                    user={user}
-                                    profileId={clubId}
-                                    noCard={true}
-                                />
+                                <UserMenu userNav={clubNav(filters.Alias)} />
                             </div>
                         }
                         <ListFilter categoryId={filters.CategoryId} />

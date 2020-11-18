@@ -15,7 +15,7 @@ export const kennelNav = alias => [
         </svg>
     },
     {
-        id: 3,
+        id: 2,
         title: 'Документы',
         to: `/kennel/${alias}/uploaded-documents/`,
         exact: false,
@@ -25,7 +25,7 @@ export const kennelNav = alias => [
         </svg>
     },
     {
-        id: 4,
+        id: 3,
         title: 'Фотогалерея',
         to: `/kennel/${alias}/gallery`,
         exact: false,
@@ -34,7 +34,7 @@ export const kennelNav = alias => [
         </svg>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Видеозаписи',
         to: `/kennel/${alias}/video`,
         exact: true,
@@ -44,7 +44,7 @@ export const kennelNav = alias => [
         </svg>
     },
     {
-        id: 6,
+        id: 5,
         title: 'Cтраница питомника',
         to: `/kennel/${alias}`,
         exact: true,
