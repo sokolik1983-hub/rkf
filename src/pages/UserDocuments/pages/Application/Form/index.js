@@ -14,6 +14,7 @@ import FormTextArea from "components/kendo/Form/FormTextArea";
 import DocumentLink from "../../../components/DocumentLink";
 import DocumentLinksArray from "../../../components/DocumentLinksArray";
 import LightTooltip from "components/LightTooltip";
+import Loading from "components/Loading";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator,
@@ -36,9 +37,10 @@ const Application = ({ alias, history, status }) => {
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
-    const [documents, setDocuments] = useState([]);
+    const [documentTypeIds, setDocumentTypeIds] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
         declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
         is_foreign_owner: false,
@@ -56,7 +58,10 @@ const Application = ({ alias, history, status }) => {
     const editable = !status || status === 'edit';
 
     useEffect(() => {
-        getDocumentTypes();
+        if (!status) {
+            getDocumentTypes();
+            setLoaded(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -71,8 +76,12 @@ const Application = ({ alias, history, status }) => {
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
                 });
+                if (data.documents?.find(d => !d.accept)) {
+                    values.documents = [];
+                }
                 setValues(data);
                 setInitialValues(values);
+                setLoaded(true);
             }, error => {
                 history.replace('/404');
             }))();
@@ -112,7 +121,6 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        console.log(data);
         const { payment_document_id } = data;
         setDisableSubmit(true);
         setDisableFields(false);
@@ -127,6 +135,12 @@ const Application = ({ alias, history, status }) => {
 
         if (status === 'edit') {
             newData.id = values.id;
+            if (values.documents) {
+                newData.documents = [
+                    ...values.documents,
+                    ...formProps.valueGetter('documents')
+                ];
+            }
             //if (!payment_document) newData.payment_document_id = values.payment_document_id;
             //if (!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
         }
@@ -149,13 +163,18 @@ const Application = ({ alias, history, status }) => {
 
     const onAdd = (event) => {
         const { newState } = event;
-        newState.length > 20
-            ? setDocumentsOverflow(true)
-            : formProps.onChange('documents', { value: newState })
+        if (status === 'edit') {
+            (values.documents?.length + newState.length) > 20
+                ? setDocumentsOverflow(true)
+                : formProps.onChange('documents', { value: newState })
+        } else {
+            newState.length > 20
+                ? setDocumentsOverflow(true)
+                : formProps.onChange('documents', { value: newState })
+        }
     }
 
     const onRemove = (event) => {
-        console.log(event);
         const { newState } = event;
         newState.length <= 20 && setDocumentsOverflow(false);
         formProps.onChange('documents', { value: newState })
@@ -172,7 +191,6 @@ const Application = ({ alias, history, status }) => {
         const { newState, affectedFiles, response } = event;
         if (response) {
             const updatedNewState = newState.map(d => d.uid === affectedFiles[0].uid ? ({ ...d, id: response?.response?.result?.id }) : d);
-            console.log(updatedNewState);
             formProps.onChange(name, { value: updatedNewState });
         } else {
             formProps.onChange(name, { value: newState });
@@ -181,9 +199,17 @@ const Application = ({ alias, history, status }) => {
 
     const handleDocTypeChange = (docType) => {
         const { value } = docType;
-        setDocuments(documentTypes.documents.filter(d => d.document_type_id === value));
+        setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
+    }
+
+    const handleDocumentRemove = (id) => {
+        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
+        setValues({
+            ...values,
+            documents: values.documents.filter(d => d.id !== id)
+        })
     }
 
     return (
@@ -195,219 +221,233 @@ const Application = ({ alias, history, status }) => {
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>
-                <Form
-                    onSubmit={handleSubmit}
-                    initialValues={initialValues}
-                    key={JSON.stringify(initialValues)}
-                    render={formRenderProps => {
-                        if (!formProps) setFormProps(formRenderProps);
-                        return (<FormElement>
-                            <div className="application-form__content">
-                                {values && values.rejected_comment &&
-                                    <p className="application-form__danger">{values.rejected_comment}</p>
-                                }
-                                <h4 className="application-form__title" style={{ marginBottom: 0 }}>Добавление заявки</h4>
-                                <div className="application-form__row-is-foreign">
-                                    <div>
-                                        <Field
-                                            id="declarant_name"
-                                            name="declarant_name"
-                                            label="Ответственное лицо"
-                                            component={FormInput}
-                                            disabled={true}
-                                        />
+                {!loaded
+                    ? <Loading centered={false} />
+                    : <Form
+                        onSubmit={handleSubmit}
+                        initialValues={initialValues}
+                        key={JSON.stringify(initialValues)}
+                        render={formRenderProps => {
+                            if (!formProps) setFormProps(formRenderProps);
+                            return (<FormElement>
+                                <div className="application-form__content">
+                                    {values && values.rejected_comment &&
+                                        <p className="application-form__danger">{values.rejected_comment}</p>
+                                    }
+                                    <h4 className="application-form__title" style={{ marginBottom: 0 }}>Добавление заявки</h4>
+                                    <div className="application-form__row-is-foreign">
+                                        <div>
+                                            <Field
+                                                id="declarant_name"
+                                                name="declarant_name"
+                                                label="Ответственное лицо"
+                                                component={FormInput}
+                                                disabled={true}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                id="is_foreign_owner"
+                                                name="is_foreign_owner"
+                                                label="Владелец является иностранным гражданином"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={!editable}
+                                            />
+                                        </div>
                                     </div>
-                                    <div>
+                                    <div className="application-form__row row">
                                         <Field
-                                            id="is_foreign_owner"
-                                            name="is_foreign_owner"
-                                            label="Владелец является иностранным гражданином"
+                                            id="express"
+                                            name="express"
+                                            label="Срочное изготовление"
                                             component={FormContactsCheckbox}
                                             onChange={handleChange}
                                             disabled={disableAllFields}
                                         />
                                     </div>
-                                </div>
-                                <div className="application-form__row row">
-                                    <Field
-                                        id="express"
-                                        name="express"
-                                        label="Срочное изготовление"
-                                        component={FormContactsCheckbox}
-                                        onChange={handleChange}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
-                                <div className="application-form__row row">
-                                    <div>
-                                        <Field
-                                            id="document_type_id"
-                                            name="document_type_id"
-                                            label="Выберите тип документа"
-                                            component={FormDropDownList}
-                                            onChange={handleDocTypeChange}
-                                            data={documentTypes.id}
-                                            defaultItem={{ text: "Не выбран", value: 0 }}
-                                            validator={disableAllFields ? '' : documentTypeRequired}
-                                            disabled={disableAllFields}
-                                        />
-                                    </div>
-                                    <div className="application-form__doc-type-id">
-                                        <LocalizationProvider language="ru">
-                                            <IntlProvider locale="ru">
-                                                <Field
-                                                    id="rkf_document_type_id"
-                                                    name="rkf_document_type_id"
-                                                    label="Документ"
-                                                    component={FormDropDownList}
-                                                    data={documents}
-                                                    defaultItem={{ text: "Не выбран", value: 0 }}
-                                                    validator={documentTypeRequired}
-                                                    disabled={disableAllFields}
-                                                />
-                                            </IntlProvider>
-                                        </LocalizationProvider>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="application-form__content">
-                                <h4 className="application-form__title">Документы</h4>
-                                {!!status && <DocumentLinksArray documents={formRenderProps.valueGetter('documents')} editable={editable} />}
-                                {editable &&
-                                    <div>
-                                        При загрузке файлов постарайтесь&nbsp;
-                                    <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
-                                            <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="application-form__how-to-link"
-                                            >объединить их в один файл</a>
-                                        </LightTooltip>.
-                                </div>
-                                }
-
-                                {editable &&
-                                    <div className="application-form__file">
-                                        <Field
-                                            id="documents"
-                                            name="documents"
-                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                            component={FormUpload}
-                                            saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
-                                            saveField="document"
-                                            multiple={true}
-                                            showActionButtons={documentsOverflow ? false : true}
-                                            onAdd={onAdd}
-                                            onRemove={onRemove}
-                                            onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                            onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                            onProgress={(e) => onProgress(e, 'documents')}
-                                            validator={() => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))}
-                                        />
-                                        {values &&
-                                            values.veterinary_contract_document_id &&
-                                            !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                            <DocumentLink docId={values.veterinary_contract_document_id} />
-                                        }
-                                        {documentsOverflow && <div id="documents_error" role="alert" class="k-form-error k-text-start">
-                                            Вы не можете добавить больше 20 документов
-                                            </div>}
-                                    </div>
-                                }
-                            </div>
-
-                            <div className="application-form__content">
-                                <h4 className="application-form__title">Информация о платеже</h4>
-                                {!disableAllFields &&
-                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
-                                }
-                                <div className="application-form__row">
-                                    {disableAllFields && values &&
-                                        <div className="application-form__file">
-                                            <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                            <DocumentLink docId={values.payment_document_id} />
+                                    <div className="application-form__row row">
+                                        <div>
+                                            <Field
+                                                id="document_type_id"
+                                                name="document_type_id"
+                                                label="Выберите тип документа"
+                                                component={FormDropDownList}
+                                                onChange={handleDocTypeChange}
+                                                data={documentTypes.id}
+                                                defaultItem={values?.document_type_name
+                                                    ? { text: values.document_type_name, value: values.document_type_id }
+                                                    : { text: "Не выбран", value: 0 }
+                                                }
+                                                validator={disableAllFields ? '' : documentTypeRequired}
+                                                disabled={disableAllFields}
+                                            />
                                         </div>
+                                        <div className="application-form__doc-type-id">
+                                            <LocalizationProvider language="ru">
+                                                <IntlProvider locale="ru">
+                                                    <Field
+                                                        id="rkf_document_type_id"
+                                                        name="rkf_document_type_id"
+                                                        label="Документ"
+                                                        component={FormDropDownList}
+                                                        data={documentTypeIds}
+                                                        defaultItem={values?.rkf_document_type_name
+                                                            ? { text: values.rkf_document_type_name, value: values.rkf_document_type_id }
+                                                            : { text: "Не выбран", value: 0 }
+                                                        }
+                                                        validator={documentTypeRequired}
+                                                        disabled={disableAllFields}
+                                                    />
+                                                </IntlProvider>
+                                            </LocalizationProvider>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="application-form__content">
+                                    <h4 className="application-form__title">Документы</h4>
+                                    {!!status && values && <DocumentLinksArray
+                                        documents={values.documents}
+                                        editable={editable}
+                                        onRemove={handleDocumentRemove}
+                                    />}
+                                    {editable &&
+                                        <div>
+                                            При загрузке файлов постарайтесь&nbsp;
+                                    <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
+                                                <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="application-form__how-to-link"
+                                                >объединить их в один файл</a>
+                                            </LightTooltip>.
+                                </div>
                                     }
-                                    {!disableAllFields &&
+
+                                    {editable &&
                                         <div className="application-form__file">
                                             <Field
-                                                id="payment_document"
-                                                name="payment_document"
+                                                id="documents"
+                                                name="documents"
                                                 fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                 component={FormUpload}
                                                 saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
                                                 saveField="document"
-                                                multiple={false}
-                                                showActionButtons={true}
-                                                onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                onStatusChange={(e) => onStatusChange(e, 'payment_document')}
-                                                onProgress={(e) => onProgress(e, 'payment_document')}
-                                                validator={() => documentRequiredValidator(formProps?.valueGetter('payment_document').find(d => d.id))}
+                                                multiple={true}
+                                                showActionButtons={documentsOverflow ? false : true}
+                                                onAdd={onAdd}
+                                                onRemove={onRemove}
+                                                onBeforeUpload={e => onBeforeUpload(e, 27)}
+                                                onStatusChange={(e) => onStatusChange(e, 'documents')}
+                                                onProgress={(e) => onProgress(e, 'documents')}
+                                                validator={values?.documents.length
+                                                    ? ''
+                                                    : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
+                                                }
                                             />
                                             {values &&
-                                                values.payment_document_id &&
-                                                !formRenderProps.valueGetter('payment_document').length &&
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                values.veterinary_contract_document_id &&
+                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                <DocumentLink docId={values.veterinary_contract_document_id} />
                                             }
+                                            {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
+                                                Вы не можете добавить больше 20 документов
+                                            </div>}
                                         </div>
                                     }
                                 </div>
-                                <div className="application-form__row _payment-info">
-                                    <Field
-                                        id="payment_date"
-                                        name="payment_date"
-                                        label="Дата оплаты"
-                                        max={new Date()}
-                                        component={FormDatePicker}
-                                        validator={dateRequiredValidator}
-                                        disabled={disableAllFields}
-                                    />
-                                    <Field
-                                        id="payment_number"
-                                        name="payment_number"
-                                        label="Номер платежного документа"
-                                        cutValue={30}
-                                        component={FormInput}
-                                        validator={requiredWithTrimValidator}
-                                        disabled={disableAllFields}
-                                    />
-                                    <Field
-                                        id="payment_name"
-                                        name="payment_name"
-                                        label="ФИО плательщика"
-                                        cutValue={150}
-                                        component={FormInput}
-                                        validator={value => nameRequiredValidator(value, 150)}
-                                        disabled={disableAllFields}
-                                    />
-                                </div>
-                                <div className="application-form__row">
-                                    <Field
-                                        id="comment"
-                                        name="comment"
-                                        label="Комментарий к заявке"
-                                        maxLength={500}
-                                        component={FormTextArea}
-                                        disabled={!editable}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="application-form__controls">
-                                {editable &&
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
-                                    >Отправить
+                                <div className="application-form__content">
+                                    <h4 className="application-form__title">Информация о платеже</h4>
+                                    {!disableAllFields &&
+                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                    }
+                                    <div className="application-form__row">
+                                        {editable
+                                            ? <div className="application-form__file">
+                                                <Field
+                                                    id="payment_document"
+                                                    name="payment_document"
+                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                    component={FormUpload}
+                                                    saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                    saveField="document"
+                                                    multiple={false}
+                                                    showActionButtons={true}
+                                                    onBeforeUpload={e => onBeforeUpload(e, 5)}
+                                                    onStatusChange={(e) => onStatusChange(e, 'payment_document')}
+                                                    onProgress={(e) => onProgress(e, 'payment_document')}
+                                                    validator={editable ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document').find(d => d.id))}
+                                                />
+                                                {values &&
+                                                    values.payment_document_id &&
+                                                    !formRenderProps.valueGetter('payment_document').length &&
+                                                    <DocumentLink docId={values.payment_document_id} />
+                                                }
+                                            </div>
+                                            : <div className="application-form__file">
+                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
+                                                <DocumentLink docId={values.payment_document_id} />
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="application-form__row _payment-info">
+                                        <Field
+                                            id="payment_date"
+                                            name="payment_date"
+                                            label="Дата оплаты"
+                                            max={new Date()}
+                                            component={FormDatePicker}
+                                            validator={dateRequiredValidator}
+                                            disabled={!editable}
+                                        />
+                                        <Field
+                                            id="payment_number"
+                                            name="payment_number"
+                                            label="Номер платежного документа"
+                                            cutValue={30}
+                                            component={FormInput}
+                                            validator={requiredWithTrimValidator}
+                                            disabled={!editable}
+                                        />
+                                        <Field
+                                            id="payment_name"
+                                            name="payment_name"
+                                            label="ФИО плательщика"
+                                            cutValue={150}
+                                            component={FormInput}
+                                            validator={value => nameRequiredValidator(value, 150)}
+                                            disabled={!editable}
+                                        />
+                                    </div>
+                                    <div className="application-form__row">
+                                        <Field
+                                            id="comment"
+                                            name="comment"
+                                            label="Комментарий к заявке"
+                                            maxLength={500}
+                                            component={FormTextArea}
+                                            disabled={!editable}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="application-form__controls">
+                                    {editable &&
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary"
+                                            disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                        >Отправить
                                     </button>
-                                }
-                            </div>
-                        </FormElement>)
-                    }
-                    }
-                />
+                                    }
+                                </div>
+                            </FormElement>)
+                        }
+                        }
+                    />}
             </Card>
             <NotificationGroup
                 style={{
