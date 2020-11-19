@@ -52,7 +52,7 @@ const Documents = ({ alias }) => (
         <Card className="documents-card">
             <div className="documents-card__icon _litter" />
             <h3 className="documents-card__title">Заявка на получение документов РКФ</h3>
-            <p className="documents-card__about">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, odio repellat, reiciendis incidunt nemo vitae neque assumenda alias reprehenderit quos quia quod eaque quidem non in quae inventore iure dolorem expedita tempore voluptates quis. Itaque magni natus necessitatibus rem nam mollitia, sint sit nulla quia vero, ab quam et! Ratione.</p>
+            <p className="documents-card__about">В данном разделе Вы можете оформить заявки на получение следующих документов: дипломы чемпионов, дипломы победителей, племенные сертификаты, рабочие сертификаты. После изготовления диплома/сертификата данные автоматически заносятся в электронную базу РКФ.</p>
             <div className="documents-card__controls">
                 <div className="documents-card__controls-links">
                     <Link
