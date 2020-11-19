@@ -9,6 +9,7 @@ import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -107,15 +108,25 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         <GridColumn field="name" title="ФИО заявителя" columnMenu={ColumnMenu} />
     </Grid>;
 
-const rowRender = (trElement, props) => {
-    const status = props.dataItem.status_id;
-    const green = { backgroundColor: "#D8FDE4" };
-    const red = { backgroundColor: "#FFD6D9" };
-    const grey = { backgroundColor: "#E9EDE9" };
-    const draft = { backgroundColor: "#D4DAED" };
-    const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
-    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-};
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#D8FDE4" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#E9EDE9" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
+
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
 
     return (
         <LocalizationProvider language="ru-RU">
@@ -131,7 +142,7 @@ const rowRender = (trElement, props) => {
                     onRowClick={handleGridRowClick}
                     className="club-documents-status__pointer"
                     style={{ height: "700px", maxWidth: `${fullScreen ? `934px` : `574px`}`, margin: "0 auto" }}>
-                    <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
+                    <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                     <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                     <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />

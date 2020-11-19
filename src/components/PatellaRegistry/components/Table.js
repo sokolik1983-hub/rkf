@@ -11,6 +11,7 @@ import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../PdfTemplatePage";
+import LightTooltip from "../../LightTooltip";
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -142,6 +143,16 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
+
     return (
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
@@ -164,7 +175,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
                     style={{ height: "700px", maxWidth: `${fullScreen ? `775px` : `644px`}`, margin: "0 auto" }}>
-                    <GridColumn field="status_value" title=" " width={fullScreen ? '32px' : '31px'} />
+                    <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                     <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                     <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                     <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} />
