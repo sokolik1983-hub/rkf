@@ -386,122 +386,199 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         el.innerText = blankName;
     };
 
-    const MenuContent = () => isMobile ? <Card className="user-menu">
-        <h4 className="user-menu__title">Меню</h4>
-        <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-            <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
-                <span />
-                <span />
-                <span />
-                <span />
-            </button>
-            <CSSTransition
-                in={!isMobile || (isMobile && open)}
-                timeout={350}
-                classNames="user-menu__transition"
-                unmountOnExit
-            >
-                <ul className="user-menu__list">
-                    {user !== 'nursery' && <li className="user-menu__item">
-                        <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-                    </li>}
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
+    return (
+        <Card className="menu-component">
+            {isMobile ?
+                <Card className="user-menu">
+                    <h4 className="user-menu__title">Меню</h4>
+                    <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+                        <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
+                            <span />
+                            <span />
+                            <span />
+                            <span />
+                        </button>
+                        <CSSTransition
+                            in={open}
+                            timeout={350}
+                            classNames="user-menu__transition"
+                            unmountOnExit
+                        >
+                            <ul className="user-menu__list">
+                                {user !== 'nursery' &&
+                                <li className="user-menu__item">
+                                    <Link to={`/exhibitions?Alias=${alias}`} className="user-menu__link" title="Мероприятия">Мероприятия</Link>
+                                </li>
+                                }
+                                {presidium[alias] &&
+                                <li className="user-menu__item">
+                                    <Link to="/" onClick={getPresidium} className="user-menu__link" title="Президиум">Президиум</Link>
+                                </li>
+                                }
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="user-menu__link" title="Публикации">Публикации</Link>
+                                </li>
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="user-menu__link" title="Документы">Документы</Link>
+                                </li>
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="user-menu__link" title="Фотогалерея">Фотогалерея</Link>
+                                </li>
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="user-menu__link" title="Фотогалерея">Видеозаписи</Link>
+                                </li>
+                                {alias === 'rfls' &&
+                                <>
+                                    <li className="user-menu__item">
+                                        <Link to="/" onClick={getFees} className="user-menu__link" title="Размеры членских взносов">
+                                            Размеры членских взносов
+                                        </Link>
+                                    </li>
+                                    <li className="user-menu__item">
+                                        <Link to="/" onClick={getBlanks} className="user-menu__link" title="Бланки">
+                                            Бланки
+                                        </Link>
+                                    </li>
+                                    <li className="user-menu__item">
+                                        <Link to="/" onClick={getRequisites} className="user-menu__link" title="Реквизиты">
+                                            Реквизиты
+                                        </Link>
+                                    </li>
+                                </>
+                                }
+                                {isFederation &&
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="user-menu__link" title="Статус документов">Статус документов</Link>
+                                </li>
+                                }
+                                <li className="user-menu__item">
+                                    <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="user-menu__link" title={name}>
+                                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </CSSTransition>
+                    </OutsideClickHandler>
+                </Card> :
+                <ul className="menu-component__list">
+                    {user !== 'nursery' &&
+                    <li className="menu-component__item">
+                        <Link
+                            to={`/exhibitions?Alias=${alias}`}
+                            className="menu-component__link _events"
+                            title="Мероприятия"
+                        >Мероприятия</Link>
                     </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="menu-component__link" title="Документы">Документы</Link>
-                    </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
-                    </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="menu-component__link" title="Фотогалерея">Видеозаписи</Link>
-                    </li>
-                    {
-                        isFederation && <li className="user-menu__item">
-                            <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                        </li>
                     }
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
+                    {presidium[alias] &&
+                    <li className="menu-component__item">
+                        <Link
+                            to="/"
+                            onClick={getPresidium}
+                            className="menu-component__link _presidium"
+                            title="Президиум"
+                        >Президиум</Link>
+                    </li>
+                    }
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`}
+                            className="menu-component__link _public"
+                            title="Публикации"
+                        >Публикации</Link>
+                    </li>
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`}
+                            className="menu-component__link _documents"
+                            title="Документы"
+                        >Документы</Link>
+                    </li>
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`}
+                            className="menu-component__link _gallery"
+                            title="Фотогалерея"
+                        >Фотогалерея</Link>
+                    </li>
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`}
+                            className="menu-component__link _video"
+                            title="Фотогалерея"
+                        >Видеозаписи</Link>
+                    </li>
+                    {alias === 'rfls' &&
+                    <>
+                        <li className="menu-component__item">
+                            <Link
+                                to="/"
+                                onClick={getFees}
+                                className="menu-component__link _fees"
+                                title="Размеры членских взносов"
+                            >
+                                Размеры членских взносов
+                            </Link>
+                        </li>
+                        <li className="menu-component__item">
+                            <Link
+                                to="/"
+                                onClick={getBlanks}
+                                className="menu-component__link _blanks"
+                                title="Бланки"
+                            >
+                                Бланки
+                            </Link>
+                        </li>
+                        <li className="menu-component__item">
+                            <Link
+                                to="/"
+                                onClick={getRequisites}
+                                className="menu-component__link _requisites"
+                                title="Реквизиты"
+                            >
+                                Реквизиты
+                            </Link>
+                        </li>
+                    </>
+                    }
+                    {isFederation &&
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`}
+                            className="menu-component__link _documents"
+                            title="Статус документов"
+                        >Статус документов</Link>
+                    </li>
+                    }
+                    <li className="menu-component__item">
+                        <Link
+                            to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`}
+                            className="menu-component__link _club"
+                            title={name}
+                        >
                             {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
                         </Link>
                     </li>
                 </ul>
-            </CSSTransition>
-        </OutsideClickHandler>
-    </Card> : <>
-            <ul className="menu-component__list">
-                {user !== 'nursery' && <li className="menu-component__item menu-component__item--events">
-                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-                </li>}
-                {presidium[alias] &&
-                    <li className="menu-component__item menu-component__item--presidium">
-                        <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
-                    </li>
-                }
-                <li className="menu-component__item menu-component__item--public">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
-                </li>
-                <li className="menu-component__item menu-component__item--documents">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="menu-component__link" title="Документы">Документы</Link>
-                </li>
-                <li className="menu-component__item menu-component__item--gallery">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
-                </li>
-                <li className="menu-component__item menu-component__item--video">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="menu-component__link" title="Фотогалерея">Видеозаписи</Link>
-                </li>
-                {alias === 'rfls' && <>
-                    <li className="menu-component__item menu-component__item--fees">
-                        <Link to="/" onClick={getFees} className="menu-component__link" title="Размеры членских взносов">
-                            Размеры членских взносов
-                        </Link>
-                    </li>
-                    <li className="menu-component__item menu-component__item--blanks">
-                        <Link to="/" onClick={getBlanks} className="menu-component__link" title="Бланки">
-                            Бланки
-                        </Link>
-                    </li>
-                    <li className="menu-component__item menu-component__item--requisites">
-                        <Link to="/" onClick={getRequisites} className="menu-component__link" title="Реквизиты">
-                            Реквизиты
-                        </Link>
-                    </li>
-                </>}
-                {
-                    isFederation && <li className="menu-component__item menu-component__item--documents">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                    </li>
-                }
-                <li className="menu-component__item menu-component__item--club">
-                    <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
-                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
-                    </Link>
-                </li>
-            </ul>
+            }
             {showModal &&
                 <Modal className="menu-component__modal" showModal={showModal} handleClose={() => setShowModal(false)} noBackdrop={true}>
-                    <div className="menu-component__wrap">
-                        {
-                            loading
-                                ? <Loading centered={false} />
-                                : <>
-                                    {showModal === 'presidium' && showPresidium()}
-                                    {showModal === 'fees' && showFees()}
-                                    {showModal === 'blanks' && showBlanks()}
-                                    {showModal === 'requisites' && showRequisites()}
-                                </>
-                        }
-                    </div>
-                </Modal>
+                <div className="menu-component__wrap">
+                    {
+                        loading
+                            ? <Loading centered={false} />
+                            : <>
+                                {showModal === 'presidium' && showPresidium()}
+                                {showModal === 'fees' && showFees()}
+                                {showModal === 'blanks' && showBlanks()}
+                                {showModal === 'requisites' && showRequisites()}
+                            </>
+                    }
+                </div>
+            </Modal>
             }
-        </>;
-
-    return (
-        noCard
-            ? <MenuContent />
-            : <Card className="menu-component"><MenuContent /></Card>
+        </Card>
     )
 };
 

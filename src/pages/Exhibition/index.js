@@ -7,10 +7,11 @@ import Card from "../../components/Card";
 import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
-import FloatingMenu from "../Club/components/FloatingMenu";
+import CopyrightInfo from "../../components/CopyrightInfo";
+import {clubNav} from "../Club/config";
+import UserMenu from "../../components/Layouts/UserMenu";
 import Disclaimer from "../../components/Disclaimer";
 import { Request } from "../../utils/request";
-import shorten from "../../utils/shorten";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
@@ -19,6 +20,8 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserGallery from "../../components/redesign/UserGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import "./index.scss";
 
 
@@ -90,7 +93,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
 
     const { club_information,
         club_avatar,
-        club_id,
         address,
         address_additional_info,
         additional_info,
@@ -117,12 +119,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
             ? <Loading />
             : <Layout>
                 <div className="exhibition-page redesign">
-                    <FloatingMenu
-                        alias={club_alias}
-                        profileId={club_id}
-                        name={shorten(display_name, 16)}
-                        btnName={shorten("Cтраница " + display_name)}
-                    />
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
                             <aside className="exhibition-page__left">
@@ -155,13 +151,17 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             active_member={active_member}
                                             active_rkf_user={active_rkf_user}
                                         />
+                                        {isFederationAlias(club_alias) ?
+                                            <MenuComponent
+                                                alias={club_alias}
+                                                name={display_name || club_fact_name || ''}
+                                                isFederation={true}
+                                            /> :
+                                            <UserMenu userNav={clubNav(club_alias)} />
+                                        }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserGallery alias={club_alias} />
-                                        <div className="exhibition-page__copy-wrap">
-                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                            <p>Политика обработки персональных данных</p>
-                                        </div>
-
+                                        <CopyrightInfo/>
                                         <div className="mobile-only">
                                             <Disclaimer style={{ marginBottom: '12px' }}>
                                                 <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
@@ -174,7 +174,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             </div>
                                             <img src={avatarLink} alt="" className="exhibition-page__img" />
                                         </div>
-
                                     </div>
                                 </StickyBox>
                             </aside>

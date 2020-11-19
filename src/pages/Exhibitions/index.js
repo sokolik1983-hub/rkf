@@ -15,6 +15,8 @@ import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
 import {clubNav} from "../Club/config";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import './index.scss';
 
 
@@ -153,7 +155,14 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
                             <div className="exhibitions-page__mobile-only">
-                                <UserMenu userNav={clubNav(filters.Alias)} />
+                                {isFederationAlias(filters.Alias) ?
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={shorten(displayName)}
+                                        isFederation={true}
+                                    /> :
+                                    <UserMenu userNav={clubNav(filters.Alias)} />
+                                }
                             </div>
                         }
                         <ListFilter categoryId={filters.CategoryId} />

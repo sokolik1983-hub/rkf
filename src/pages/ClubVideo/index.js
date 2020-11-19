@@ -18,6 +18,8 @@ import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "appConfig";
 import {clubNav} from "../Club/config";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
 import "pages/Club/index.scss";
 
@@ -80,7 +82,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
             setClubInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => handleError(error));
-    }
+    };
 
     const handleError = e => {
         let errorText;
@@ -117,7 +119,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                 });
             }, error => handleError(error));
         }
-    }
+    };
 
     const Breadcrumbs = () => {
         return <div className="ClubVideo__breadcrumbs">
@@ -205,7 +207,14 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            {isFederationAlias(clubInfo.club_alias) ?
+                                                <MenuComponent
+                                                    alias={clubInfo.club_alias}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    isFederation={true}
+                                                /> :
+                                                <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            }
                                             {!isMobile &&
                                                 <>
                                                     <UserPhotoGallery

@@ -8,7 +8,7 @@ import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import CalendarFilter from "../../../../components/Filters/CalendarFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
-import { setOverflow } from "../../../../utils";
+import {isFederationAlias, setOverflow} from "../../../../utils";
 import Card from "../../../../components/Card";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
@@ -17,6 +17,8 @@ import CopyrightInfo from "../../../../components/CopyrightInfo";
 import {clubNav} from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import "./index.scss";
+import MenuComponent from "../../../../components/MenuComponent";
+import shorten from "../../../../utils/shorten";
 
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federationName, federationAlias, active_member, active_rkf_user }) => {
@@ -76,7 +78,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     active_member={active_member}
                                     active_rkf_user={active_rkf_user}
                                 />
-                                <UserMenu userNav={clubNav(filters.Alias)} />
+                                {isFederationAlias(filters.Alias) ?
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={clubName}
+                                        isFederation={true}
+                                    /> :
+                                    <UserMenu userNav={clubNav(filters.Alias)} />
+                                }
                             </div>
                         }
                         <div className="exhibitions-filters__wrap">

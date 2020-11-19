@@ -18,6 +18,8 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {clubNav} from "../Club/config";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
 import "pages/Club/index.scss";
 
@@ -138,7 +140,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
 
     const handleAddPhoto = () => {
         setShowModal(true);
-    }
+    };
 
     const onModalClose = () => {
         if (showModal && window.confirm("Закрыть?")) {
@@ -244,7 +246,14 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            {isFederationAlias(clubInfo.club_alias) ?
+                                                <MenuComponent
+                                                    alias={clubInfo.club_alias}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    isFederation={true}
+                                                /> :
+                                                <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            }
                                             {!isMobile &&
                                                 <>
                                                     <UserVideoGallery

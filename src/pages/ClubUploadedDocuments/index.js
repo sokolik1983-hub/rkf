@@ -15,6 +15,8 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UploadedDocuments from "components/UploadedDocuments";
 import {clubNav} from "../Club/config";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import "pages/Club/index.scss";
 import './styles.scss';
 
@@ -91,7 +93,14 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            {isFederationAlias(clubInfo.club_alias) ?
+                                                <MenuComponent
+                                                    alias={clubInfo.club_alias}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    isFederation={true}
+                                                /> :
+                                                <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            }
                                             {!isMobile &&
                                                 <>
                                                     <UserPhotoGallery

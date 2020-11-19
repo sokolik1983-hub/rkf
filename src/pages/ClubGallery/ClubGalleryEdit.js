@@ -21,6 +21,8 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import {clubNav} from "../Club/config";
+import {isFederationAlias} from "../../utils";
+import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
 import "pages/Club/index.scss";
 
@@ -95,7 +97,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
             setClub(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
         }, error => handleError(error));
-    }
+    };
 
     const onSelectImage = (index, image) => {
         var imgs = images.slice();
@@ -107,7 +109,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
         }
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
-    }
+    };
 
     const handleDelete = () => {
         if (window.confirm('Вы уверены?')) {
@@ -161,7 +163,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
         setImages(imgs);
         setSelectedImages(imgs.filter(i => i.isSelected === true));
         setAllSelected(!allSelected);
-    }
+    };
 
     const Breadcrumbs = () => {
         return <div className="ClubGallery__breadcrumbs wrap">
@@ -172,7 +174,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                         &nbsp;/&nbsp;Редактирование
                 </div>
         </div>
-    }
+    };
 
     return (
         <AuthOrLogin>
@@ -275,7 +277,14 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         active_member={clubInfo.active_member}
                                                     />
                                                 }
-                                                <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                                {isFederationAlias(clubInfo.club_alias) ?
+                                                    <MenuComponent
+                                                        alias={clubInfo.club_alias}
+                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                        isFederation={true}
+                                                    /> :
+                                                    <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                                }
                                                 {!isMobile &&
                                                     <>
                                                         <UserVideoGallery
