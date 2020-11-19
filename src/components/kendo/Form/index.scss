@@ -31,3 +31,10 @@
         background-color: #3366ff !important;
     }
 }
+
+.kendo-form-upload {
+    .k-i-x:before {
+        content: "\E10C";
+        color: red;
+    }
+}

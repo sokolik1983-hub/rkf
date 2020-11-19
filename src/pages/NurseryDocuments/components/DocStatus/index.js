@@ -102,7 +102,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                         </button>
                     }
                     <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                        Открыть на всю ширину окна
+                        Увеличить таблицу
                     </button>
                 </div>
                         <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>

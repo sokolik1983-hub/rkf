@@ -59,7 +59,7 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                             </button>
                         }
                         <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                            Открыть на всю ширину окна
+                            Увеличить таблицу
                         </button>
                     </div>
                     <Table

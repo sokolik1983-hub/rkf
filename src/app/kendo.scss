@@ -4,7 +4,7 @@
 
 @import "~@progress/kendo-theme-bootstrap/dist/all.scss";
 
-.k-grid {
+.k-grid, .k-input, .k-textbox {
     font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
 .k-dateinput input {

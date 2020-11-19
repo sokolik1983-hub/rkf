@@ -119,10 +119,10 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                         onDataStateChange={handleGridDataChange}
                         onRowClick={handleGridRowClick}
                         className="club-documents-status__pointer"
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `1060px` : `650px`}`, margin: "0 auto" }}>
-                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '170px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `1010px` : `630px`}`, margin: "0 auto" }}>
+                        <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="status_name" title="Статус" width={fullScreen ? '90px' : '70px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="status_name" title="Статус" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} />
                         <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                         <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                         <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
