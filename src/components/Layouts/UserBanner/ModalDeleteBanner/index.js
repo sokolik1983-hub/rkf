@@ -42,9 +42,8 @@ const ModalDeleteBanner = ({closeModal, updateInfo}) => {
     };
 
     return (
-        <Modal className="delete-banner-modal" showModal={true} handleClose={() => null} handleX={closeModal}>
+        <Modal className="delete-banner-modal" showModal={true} handleClose={() => null} handleX={closeModal} headerName = {"Удаление баннера"}>
             <div className="delete-banner-modal__content">
-                <h3 className="delete-banner-modal__title">Удаление баннера</h3>
                 {loading ?
                     <Loading centered={false}/> :
                     <>

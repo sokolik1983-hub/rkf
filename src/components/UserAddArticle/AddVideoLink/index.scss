@@ -1,6 +1,7 @@
 .add-video-link {
   &__form {
     display: flex;
+    padding-top: 15px;
     align-items: flex-start;
     @media (max-width: 560px) {
       display: block;

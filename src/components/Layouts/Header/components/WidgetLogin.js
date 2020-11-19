@@ -167,6 +167,7 @@ const WidgetLogin = forwardRef(
                 <Modal className="widget-login__modal"
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
+                    headerName = {"Войти как клуб"}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>

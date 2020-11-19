@@ -3,13 +3,8 @@
   margin-bottom: 24px;
   &__modal {
     .Modal__inner {
-      padding: 0;
-    }
-    .Modal__close {
-      right: 20px !important;
-      @media (max-width: 560px) {
-        right: 12px !important;
-      }
+      margin: 0 auto;
+      max-width: 900px;
     }
   }
   &__list {
@@ -138,16 +133,23 @@
   }
   &__wrap {
     background-color: #fff;
-    width: calc(100vw - 32px);
-    max-width: 900px;
-    padding: 24px 32px;
+    // width: calc(100vw - 32px);
+    // max-width: 900px;
     white-space: nowrap;
-    overflow-x: auto;
+    // overflow-x: auto;
     @media (max-width: 560px) {
       padding: 24px;
     }
     &-title {
-      margin-bottom: 16px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 23px;
+      padding-bottom: 11px;
+      border-bottom: 1px solid #E5E5E5;
+      margin-bottom: 8px;
+    }
+    &-title:first-child{
+      margin-top: -17px;
     }
     &-list {
       list-style-position: inside;
@@ -180,7 +182,7 @@
   }
   &__show-blanks {
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 35px;
     }
     a {
       padding-left: 18px;

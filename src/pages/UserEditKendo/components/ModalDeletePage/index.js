@@ -86,9 +86,9 @@ const ModalDeletePage = ({closeModal, updateInfo}) => {
                     closeModal();
                 }
             }
+            headerName = {"Удаление страницы"}
         >
             <div className="delete-page-modal__content">
-                <h3 className="delete-page-modal__title">Удаление страницы</h3>
                 {loading ?
                     <Loading centered={false}/> :
                     isAnswer ?

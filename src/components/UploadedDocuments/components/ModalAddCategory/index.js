@@ -10,9 +10,9 @@ const ModalAddCategory = ({ handleSuccess, handleError, getCategories, closeModa
             className="edit-category-modal"
             showModal={true}
             handleClose={closeModal}
+            headerName = {'Добавление категории'}
         >
             <div className="edit-category-modal__content">
-                <h3 className="edit-category-modal__title">Добавление категории</h3>
                 <CreateCategoryForm
                     getCategories={getCategories}
                     handleSuccess={handleSuccess}

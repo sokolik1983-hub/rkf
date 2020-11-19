@@ -3,6 +3,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import Table from './components/Table';
 import { PromiseRequest } from "utils/request";
+import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 const HealthCheckRegistry = ({ history, distinction }) => {
@@ -67,8 +68,12 @@ const HealthCheckRegistry = ({ history, distinction }) => {
                         setExporting={setExporting}
                         distinction={distinction}
                     />
+                </div> : 
+                <div className = "user-documents-status__plug">
+                    <h4 className="user-documents-status__text">Заявок не найдено</h4>
+                    <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                 </div>
-                : <h2>Документов не найдено</h2>}
+            }
         </Card>
 };
 
