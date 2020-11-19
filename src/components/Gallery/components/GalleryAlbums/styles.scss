@@ -10,6 +10,11 @@
         white-space: nowrap;
         &:hover {
             color: #3366ff;
+            transition: all 0.2s linear;
+            svg {
+                fill: #3366ff;
+                transition: all 0.2s linear;
+            }
         }
     }
     &__items-wrap {

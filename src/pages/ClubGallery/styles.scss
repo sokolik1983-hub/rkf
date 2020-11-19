@@ -224,6 +224,11 @@
                 cursor: pointer;
                 &:hover {
                     color: #36f;
+                    transition: all 0.2s linear;
+                    & svg {
+                        fill: #36f;
+                        transition: all 0.2s linear;
+                    }
                 }
             }
             span + span {

@@ -115,9 +115,9 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
 
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
-        const green = { backgroundColor: "#D8FDE4" };
+        const green = { backgroundColor: "#E9EDE9" };
         const red = { backgroundColor: "#FFD6D9" };
-        const grey = { backgroundColor: "#E9EDE9" };
+        const grey = { backgroundColor: "#D8FDE4" };
         const draft = { backgroundColor: "#D4DAED" };
         const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
