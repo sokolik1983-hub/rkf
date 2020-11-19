@@ -21,6 +21,7 @@ import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
 import { endpointGetUserInfo } from "../../../User/config";
+import ApplicationRegistry from "../Application/ApplicationRegistry"
 import "./index.scss";
 
 
@@ -151,6 +152,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:id/documents/application/edit/:docId'
                                     component={() => <Application alias={userAlias} history={history} status="edit" />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:route/documents/application/registry'
+                                    component={() => <ApplicationRegistry history={history}/>}
                                 />
                                 <Route
                                     component={() => <PageNotFound />}

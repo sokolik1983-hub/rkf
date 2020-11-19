@@ -1,0 +1,31 @@
+.pagify-pagination {
+    margin: 24px 0;
+    padding: 0;
+    div {
+        display: inline;
+    }
+    span {
+        margin: 0 1em 0 0;
+        padding: 0.5em;
+        cursor: pointer;
+        background: #ddd;
+    }
+    a {
+        text-decoration: none;
+    }
+    .disabled span {
+        opacity: .4;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+    .ellipsis {
+        margin-right: 1em;
+        background: inherit;
+        cursor: default;
+    }
+    .selected span {
+        background: #222;
+        color: #eee;
+        cursor: default;
+    }
+}
