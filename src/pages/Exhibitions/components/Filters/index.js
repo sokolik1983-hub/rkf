@@ -16,9 +16,8 @@ import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import {clubNav} from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
-import "./index.scss";
 import MenuComponent from "../../../../components/MenuComponent";
-import shorten from "../../../../utils/shorten";
+import "./index.scss";
 
 
 const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federationName, federationAlias, active_member, active_rkf_user }) => {

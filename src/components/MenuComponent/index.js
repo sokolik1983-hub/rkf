@@ -385,58 +385,6 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         el.innerText = blankName;
     };
 
-    const MenuContent = () => isMobile ? <Card className="user-menu">
-        <h4 className="user-menu__title">Меню</h4>
-        <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-            <button className={`user-menu__button${open ? ' _open' : ''}`} onClick={() => setOpen(!open)}>
-                <span />
-                <span />
-                <span />
-                <span />
-            </button>
-            <CSSTransition
-                in={!isMobile || (isMobile && open)}
-                timeout={350}
-                classNames="user-menu__transition"
-                unmountOnExit
-            >
-                <ul className="user-menu__list">
-                    {user !== 'nursery' && <li className="user-menu__item">
-                        <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-                    </li>}
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/news` : `/${alias}/news`} className="menu-component__link" title="Публикации">Публикации</Link>
-                    </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/uploaded-documents/` : `/${alias}/uploaded-documents/`} className="menu-component__link" title="Документы">Документы</Link>
-                    </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/gallery` : `/${alias}/gallery`} className="menu-component__link" title="Фотогалерея">Фотогалерея</Link>
-                    </li>
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}/video` : `/${alias}/video`} className="menu-component__link" title="Фотогалерея">Видеозаписи</Link>
-                    </li>
-                    {
-                        isFederation && <li className="user-menu__item">
-                            <Link to={user === 'nursery' ? `/kennel/${alias}/document-status` : `/${alias}/document-status`} className="menu-component__link" title="Статус документов">Статус документов</Link>
-                        </li>
-                    }
-                    <li className="user-menu__item">
-                        <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
-                            {`Cтраница ${setUserType(user, alias)}`}
-                        </Link>
-                    </li>
-                </ul>
-            </CSSTransition>
-        </OutsideClickHandler>
-    </Card> : <>
-            <ul className="menu-component__list">
-                {user !== 'nursery' && <li className="menu-component__item menu-component__item--events">
-                    <Link to={`/exhibitions?Alias=${alias}`} className="menu-component__link" title="Мероприятия">Мероприятия</Link>
-                </li>}
-                {presidium[alias] &&
-                    <li className="menu-component__item menu-component__item--presidium">
-                        <Link to="/" onClick={getPresidium} className="menu-component__link" title="Президиум">Президиум</Link>
     return (
         <Card className="menu-component">
             {isMobile ?
