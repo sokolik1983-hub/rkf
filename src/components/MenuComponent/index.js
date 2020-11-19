@@ -385,6 +385,16 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
         el.innerText = blankName;
     };
 
+    const setUserType = (user, alias) => {
+        if (alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo') {
+            return 'федерации';
+        } else if (user === 'nursery') {
+            return 'питомника';
+        } else {
+            return 'клуба';
+        }
+    };
+
     const MenuContent = () => isMobile ? <Card className="user-menu">
         <h4 className="user-menu__title">Меню</h4>
         <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
@@ -423,7 +433,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                     }
                     <li className="user-menu__item">
                         <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
-                            {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                            {`Cтраница ${setUserType(user, alias)}`}
                         </Link>
                     </li>
                 </ul>
@@ -475,7 +485,7 @@ const MenuComponent = ({ alias, name, user, isFederation, noCard = false }) => {
                 }
                 <li className="menu-component__item menu-component__item--club">
                     <Link to={user === 'nursery' ? `/kennel/${alias}` : `/${alias}`} className="menu-component__link not-active" title={name}>
-                        {`Cтраница ${isFederation ? 'федерации' : (user === 'nursery' ? 'питомника' : 'клуба')}`}
+                        {`Cтраница ${setUserType(user, alias)}`}
                     </Link>
                 </li>
             </ul>
