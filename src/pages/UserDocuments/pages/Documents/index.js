@@ -49,6 +49,29 @@ const Documents = ({ alias }) => (
                 >Подробнее...</Link>
             </div>
         </Card>
+        <Card className="documents-card">
+            <div className="documents-card__icon _litter" />
+            <h3 className="documents-card__title">Заявка на получение документов РКФ</h3>
+            <p className="documents-card__about">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, odio repellat, reiciendis incidunt nemo vitae neque assumenda alias reprehenderit quos quia quod eaque quidem non in quae inventore iure dolorem expedita tempore voluptates quis. Itaque magni natus necessitatibus rem nam mollitia, sint sit nulla quia vero, ab quam et! Ratione.</p>
+            <div className="documents-card__controls">
+                <div className="documents-card__controls-links">
+                    <Link
+                        to={`/user/${alias}/documents/application/form`}
+                        className="documents-card__link"
+                    >Подать заявку</Link>
+                    <Link
+                        to={`/user/${alias}/documents/application/registry`}
+                        className="documents-card__link _disabled"
+                        onClick={e => e.preventDefault()}
+                    >Реестр</Link>
+                </div>
+                <Link
+                    to="/"
+                    className="documents-card__link _disabled"
+                    onClick={e => e.preventDefault()}
+                >Подробнее...</Link>
+            </div>
+        </Card>
     </>
 );
 
