@@ -71,3 +71,6 @@ export const nameRequiredValidator = (value, maxLength) => !value ?
 export const dateRequiredValidator = value => !value ?
     requiredMessage :
     +value > +new Date() ? "Некорректная дата" : ""
+
+export const documentRequiredValidator = value => value ? "" : "Должен быть загружен хотя бы один документ";
+export const documentTypeRequired = value => value === 0 ? requiredMessage : "";

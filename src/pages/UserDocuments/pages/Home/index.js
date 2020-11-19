@@ -14,6 +14,7 @@ import Specialization from "../Specialization";
 import MeetingRegistration from "../MeetingRegistration";
 import FederationAssessment from "../FederationAssessment";
 import PatellaForm from "../Patella/Form";
+import Application from "../Application/Form";
 import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
@@ -78,7 +79,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents'
-                                    component={() => <Documents alias={userAlias}/>}
+                                    component={() => <Documents alias={userAlias} />}
                                 />
                                 <Route
                                     exact={true}
@@ -103,12 +104,12 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/view/:docId'
-                                    component={() => <PatellaForm alias={userAlias} history={history} status="view"/>}
+                                    component={() => <PatellaForm alias={userAlias} history={history} status="view" />}
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/edit/:docId'
-                                    component={() => <PatellaForm alias={userAlias} history={history} status="edit"/>}
+                                    component={() => <PatellaForm alias={userAlias} history={history} status="edit" />}
                                 />
                                 <Route
                                     exact={true}
@@ -119,6 +120,21 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                     exact={true}
                                     path='/user/:route/documents/dysplasia/registry'
                                     component={() => <HealthCheckRegistry history={history} distinction="dysplasia" />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:route/documents/application/form'
+                                    component={() => <Application alias={userAlias} history={history} />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/application/view/:docId'
+                                    component={() => <Application alias={userAlias} history={history} status="view" />}
+                                />
+                                <Route
+                                    exact={true}
+                                    path='/user/:id/documents/application/edit/:docId'
+                                    component={() => <Application alias={userAlias} history={history} status="edit" />}
                                 />
                                 <Route
                                     component={() => <PageNotFound />}
