@@ -9,7 +9,6 @@ import AboutComponent from "../../components/AboutComponent";
 import NewsComponent from "../../components/NewsComponent";
 import PhotoComponent from "../../components/PhotoComponent";
 import MenuComponent from "../../components/MenuComponent";
-import FloatingMenu from './components/FloatingMenu';
 import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
@@ -63,6 +62,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                         <MenuComponent
                             alias="rkf"
                             name={info.name}
+                            isFederation
                         />
                     </div>
                     <div className="rkf-page__info">
@@ -93,10 +93,6 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             />
                         </div>
                     </div>
-                    <FloatingMenu
-                        alias="rkf"
-                        name={info.name}
-                    />
                 </Container>
             </div>
         </Layout>

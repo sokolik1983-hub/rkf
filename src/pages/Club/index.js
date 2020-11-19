@@ -16,9 +16,9 @@ import UserContacts from "../../components/redesign/UserContacts";
 import UserDescription from "../../components/redesign/UserDescription";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import { endpointGetClubInfo } from "./config";
+import {clubNav, endpointGetClubInfo} from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
@@ -127,18 +127,21 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     <StickyBox offsetTop={65}>
                                         <div className="club-page__info-inner">
                                             {!isMobile &&
+                                                <UserHeader
+                                                    user={match.params.route !== 'rkf-online' ? 'club' : ''}
+                                                    logo={clubInfo.logo_link}
+                                                    name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
+                                                    alias={clubInfo.club_alias}
+                                                    profileId={clubInfo.id}
+                                                    federationName={clubInfo.federation_name}
+                                                    federationAlias={clubInfo.federation_alias}
+                                                    active_rkf_user={clubInfo.active_rkf_user}
+                                                    active_member={clubInfo.active_member}
+                                                />
+                                            }
+                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            {!isMobile &&
                                                 <>
-                                                    <UserHeader
-                                                        user={match.params.route !== 'rkf-online' ? 'club' : ''}
-                                                        logo={clubInfo.logo_link}
-                                                        name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
-                                                        alias={clubInfo.club_alias}
-                                                        profileId={clubInfo.id}
-                                                        federationName={clubInfo.federation_name}
-                                                        federationAlias={clubInfo.federation_alias}
-                                                        active_rkf_user={clubInfo.active_rkf_user}
-                                                        active_member={clubInfo.active_member}
-                                                    />
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />
                                                     <UserPhotoGallery
                                                         alias={clubInfo.club_alias}
@@ -157,14 +160,6 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     </StickyBox>
                                 </Aside>
                             </div>
-                            {isMobile &&
-                                <MenuComponent
-                                    alias={clubInfo.club_alias}
-                                    user={user}
-                                    profileId={clubInfo.id}
-                                    noCard={true}
-                                />
-                            }
                         </Container>
                     </div>
                 </Layout>

@@ -11,7 +11,6 @@ import DocItemPedigree from "../../components/DocItemPedigree";
 import DocItemLitter from "../../components/DocItemLitter";
 import ResponsibleContactInfo from "../../components/ResponsibleContactInfo";
 import removeNulls from "utils/removeNulls";
-import test from "../../test.json";
 import Loading from "components/Loading";
 import {
     emptyNurseryPedigreeDeclarant,
@@ -23,7 +22,6 @@ import {
     apiPedigreePrivacyEndpoint,
     apiLitterPrivacyEndpoint,
     apiStatusesEndpoint,
-    //apiCitiesEndpoint,
     apiLitterDogStatusEndpoint,
     apiLitterEmptyDocument,
     apiPedigreeStatusesEndpoint,
@@ -32,11 +30,6 @@ import {
 const endpointGetFederations = '/api/clubs/Federation';
 
 const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCodes, declarants, cash_payment, statusAllowsUpdate }) => {
-    window.test = () => Object.keys(test).forEach(t => {
-        formik.setFieldValue(t, test[t]);
-    });
-    formik.errors && Object.keys(formik.errors).length && console.log("errors",formik.errors);
-    //formik.values && Object.keys(formik.values).length && console.log("values",formik.values);
     const DocItem = distinction === "pedigree" ? DocItemPedigree : DocItemLitter;
     const [active, setActive] = useState(-1);
     const [federations, setFederations] = useState([]);
@@ -44,7 +37,6 @@ const DocItemList = ({formik, view, update, nurseryAlias, distinction, stampCode
     const [statuses, setStatuses] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [sexTypes, setSexTypes] = useState([]);
-    //const [cities, setCities] = useState([]);
     const [litterStatuses, setLitterStatuses] = useState([]);
     const [privacyHref, setPrivacyHref] = useState('');
     const [litterHref, setLitterHref] = useState('');

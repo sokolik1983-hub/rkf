@@ -25,6 +25,9 @@
         margin: 0 0 10px 0;
         border-top: 1px solid #e8e8e8;
         border-bottom: none;
+        @media (max-width: 990px) {
+          display: none;
+        }
       }
     }
     &__container {
@@ -105,6 +108,7 @@
     }
     &__federation {
       display: block;
+      margin-bottom: 0 !important;
       text-decoration: none;
       font-weight: normal;
       font-size: 16px;

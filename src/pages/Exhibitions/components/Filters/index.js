@@ -8,11 +8,15 @@ import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import CalendarFilter from "../../../../components/Filters/CalendarFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
-import { setOverflow } from "../../../../utils";
+import {isFederationAlias, setOverflow} from "../../../../utils";
 import Card from "../../../../components/Card";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
+import CopyrightInfo from "../../../../components/CopyrightInfo";
+import {clubNav} from "../../../Club/config";
+import UserMenu from "../../../../components/Layouts/UserMenu";
+import MenuComponent from "../../../../components/MenuComponent";
 import "./index.scss";
 
 
@@ -73,6 +77,14 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     active_member={active_member}
                                     active_rkf_user={active_rkf_user}
                                 />
+                                {isFederationAlias(filters.Alias) ?
+                                    <MenuComponent
+                                        alias={filters.Alias}
+                                        name={clubName}
+                                        isFederation={true}
+                                    /> :
+                                    <UserMenu userNav={clubNav(filters.Alias)} />
+                                }
                             </div>
                         }
                         <div className="exhibitions-filters__wrap">
@@ -116,10 +128,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                 is_club_link={clubName && filters.Alias}
                             />
                         </div>
-                        <div className="exhibitions-filters__copy-wrap">
-                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                            <p>Политика обработки персональных данных</p>
-                        </div>
+                        <CopyrightInfo/>
                     </>
                 }
             </StickyBox>

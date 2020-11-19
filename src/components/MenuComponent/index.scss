@@ -1,5 +1,5 @@
 .menu-component {
-  padding: 3px 10px 6px 10px!important;
+  padding: 10px !important;
   margin-bottom: 24px;
   &__modal {
     .Modal__inner {
@@ -11,151 +11,21 @@
     list-style: none;
   }
   &__item {
-    &--documents {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/documentsIcon.svg) no-repeat center / cover;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--gallery {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/galleryIcon.svg) no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--video {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/icon-youtube.svg) no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--events {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/eventsIcon.svg) no-repeat center / cover;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--public {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/publicIcon.svg) no-repeat center / cover;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--club {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url(/static/icons/clubIcon.svg) no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--fees {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url("/static/icons/icon-fees.svg") no-repeat top 0 center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--blanks {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url("/static/icons/icon-blanks.svg") no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--requisites {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url("/static/icons/icon-requisites.svg") no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
-    &--presidium {
-      position: relative;
-      display: flex;
-      align-items: center;
-      &::before {
-        content: '';
-        display: inline-block;
-        background: url("/static/icons/icon-presidium.svg") no-repeat center / 16px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-      }
-    }
     &:not(:last-child) {
-      margin-bottom: 3px;
+      margin-bottom: 12px;
     }
   }
-  &__link,
-  & a {
+  &__link {
+    position: relative;
+    padding-left: 30px;
     text-decoration: none;
     font-weight: normal;
     font-size: 16px;
     line-height: 1;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #72839c;
-    transition: all 0.2s linear;
-    &:visited,
-    &:active {
+    transition: color .2s linear;
+    &:visited, &:active {
       color: #72839c;
     }
     &:hover {
@@ -169,6 +39,85 @@
         color: #babfc7;
       }
     }
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &._documents:before {
+      background: url("/static/icons/documentsIcon.svg") no-repeat center / contain,
+      url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+    }
+    &._documents:hover:before {
+      background: url("/static/icons/documentsIcon-blue.svg") no-repeat center / contain;
+    }
+    &._gallery:before {
+      background: url("/static/icons/galleryIcon.svg") no-repeat center / contain,
+      url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+    }
+    &._gallery:hover:before {
+      background: url("/static/icons/galleryIcon-blue.svg") no-repeat center / contain;
+    }
+    &._video:before {
+      background: url("/static/icons/icon-youtube.svg") no-repeat center / contain,
+      url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+    }
+    &._video:hover:before {
+      background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / contain;
+    }
+    &._events:before {
+      background: url("/static/icons/eventsIcon.svg") no-repeat center / contain,
+      url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+    }
+    &._events:hover:before {
+      background: url("/static/icons/eventsIcon-blue.svg") no-repeat center / contain;
+    }
+    &._public:before {
+      background: url("/static/icons/publicIcon.svg") no-repeat center / contain,
+      url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+    }
+    &._public:hover:before {
+      background: url("/static/icons/publicIcon-blue.svg") no-repeat center / contain;
+    }
+    &._club:before {
+      background: url("/static/icons/clubIcon.svg") no-repeat center / contain,
+      url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+    }
+    &._club:hover:before {
+      background: url("/static/icons/clubIcon-blue.svg") no-repeat center / contain;
+    }
+    &._fees:before {
+      background: url("/static/icons/icon-fees.svg") no-repeat top -2px center / contain,
+      url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+    }
+    &._fees:hover:before {
+      background: url("/static/icons/icon-fees-blue.svg") no-repeat top -2px center / contain;
+    }
+    &._blanks:before {
+      background: url("/static/icons/icon-blanks.svg") no-repeat center / contain,
+      url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+    &._blanks:hover:before {
+      background: url("/static/icons/icon-blanks-blue.svg") no-repeat center / contain;
+    }
+    &._requisites:before {
+      background: url("/static/icons/icon-requisites.svg") no-repeat center / contain,
+      url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+    }
+    &._requisites:hover:before {
+      background: url("/static/icons/icon-requisites-blue.svg") no-repeat center / contain;
+    }
+    &._presidium:before {
+      background: url("/static/icons/icon-presidium.svg") no-repeat center / contain,
+      url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+    }
+    &._presidium:hover:before {
+      background: url("/static/icons/icon-presidium-blue.svg") no-repeat center / contain;
+    }
   }
   &__button {
     text-decoration: none;
@@ -177,7 +126,7 @@
     font-size: 16px;
     line-height: 24px;
     text-align: center;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     padding: 12px;
     box-shadow: 0 3px 8px rgba(51, 102, 255, 0.15);
     border-radius: 4px;
@@ -326,7 +275,7 @@
       right: 19px;
       bottom: 83px;
       z-index: 2;
-      width: 200px;
+      width: 250px;
       background-color: #fff;
       box-shadow: 0 8px 25px rgba(51, 102, 255, 0.2);
       border-radius: 6px;
@@ -349,12 +298,12 @@
       margin-bottom: 8px;
     }
   }
-  &__link, & a {
+  &__link {
     text-decoration: none;
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #72839c;
     border-bottom: 1px solid transparent;
     transition: all .2s linear;
