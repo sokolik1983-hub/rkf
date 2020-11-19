@@ -98,6 +98,11 @@
       }
     }
   }
+  &__doc-type-id {
+    @media (min-width: 560px) {
+      max-width: calc(50% - 8px);
+    }
+  }
   &__danger {
     display: block;
     color: #721c24;

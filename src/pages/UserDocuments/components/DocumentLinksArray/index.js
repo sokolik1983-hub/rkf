@@ -8,7 +8,7 @@ import LightTooltip from "components/LightTooltip";
 import "./index.scss";
 
 
-const DocumentLinksArray = ({ documents, status }) => {
+const DocumentLinksArray = ({ documents, editable }) => {
     const headers = getHeaders();
     const [showModal, setShowModal] = useState(false);
     const [url, setUrl] = useState('');
@@ -30,15 +30,15 @@ const DocumentLinksArray = ({ documents, status }) => {
     return (
         <div className="DocumentLinksArray">
             {!!documents.length &&
-                documents.map(d => {
-                    return <div className="DocumentLinksArray__item">
+                documents.map((d, key) => {
+                    return <div className="DocumentLinksArray__item" key={key}>
                         <div onClick={() => handleClick(d.id)}>
                             <SvgIcon icon={filePdf} size="default" />
                             <LightTooltip title={d.name} enterDelay={200} leaveDelay={200}>
                                 <div className="DocumentLinksArray__item-name" >{d.name}</div>
                             </LightTooltip>
                         </div>
-                        {status === 'edit' && <button
+                        {editable && !d.accept && <button
                             className="DocumentLinksArray__delete-btn"
                             type="button"
                             onClick={() => { }}

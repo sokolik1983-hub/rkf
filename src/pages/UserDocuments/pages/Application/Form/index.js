@@ -22,7 +22,11 @@ import {
 } from "components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "utils/request";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import ruMessages from 'kendoMessages.json';
 import "./index.scss";
+
+loadMessages(ruMessages, 'ru');
 
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
@@ -32,6 +36,7 @@ const Application = ({ alias, history, status }) => {
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
+    const [documents, setDocuments] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [initialValues, setInitialValues] = useState({
@@ -48,6 +53,7 @@ const Application = ({ alias, history, status }) => {
         payment_document: [],
         documents: []
     });
+    const editable = !status || status === 'edit';
 
     useEffect(() => {
         getDocumentTypes();
@@ -71,7 +77,7 @@ const Application = ({ alias, history, status }) => {
                 history.replace('/404');
             }))();
 
-            if (status === 'view') setDisableAllFields(true);
+            setDisableAllFields(true);
         }
     }, [status]);
 
@@ -93,8 +99,9 @@ const Application = ({ alias, history, status }) => {
         }, data => {
             if (data) {
                 setDocumentTypes({
+                    ...documentTypes,
                     id: data.id.map(d => ({ text: d.name, value: d.id })),
-                    documents: data.documents.map(d => ({ text: d.name, value: d.id }))
+                    documents: data.documents.map(d => ({ text: d.name, value: d.id, document_type_id: d.document_type_id }))
                 });
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
@@ -105,11 +112,13 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleSubmit = async data => {
+        console.log(data);
+        const { payment_document_id } = data;
         setDisableSubmit(true);
         setDisableFields(false);
         let newData = {
             ...data,
-            payment_document_id: formProps.valueGetter('payment_document')[0].id
+            payment_document_id: payment_document_id ? payment_document_id : formProps.valueGetter('payment_document')[0].id
         };
 
         delete newData.declarant_name;
@@ -146,6 +155,7 @@ const Application = ({ alias, history, status }) => {
     }
 
     const onRemove = (event) => {
+        console.log(event);
         const { newState } = event;
         newState.length <= 20 && setDocumentsOverflow(false);
         formProps.onChange('documents', { value: newState })
@@ -167,6 +177,13 @@ const Application = ({ alias, history, status }) => {
         } else {
             formProps.onChange(name, { value: newState });
         }
+    }
+
+    const handleDocTypeChange = (docType) => {
+        const { value } = docType;
+        setDocuments(documentTypes.documents.filter(d => d.document_type_id === value));
+        formProps.onChange('document_type_id', { value: docType });
+        formProps.onChange('rkf_document_type_id', { value: 0 });
     }
 
     return (
@@ -222,37 +239,42 @@ const Application = ({ alias, history, status }) => {
                                     />
                                 </div>
                                 <div className="application-form__row row">
-                                    <div className="col-6">
+                                    <div>
                                         <Field
                                             id="document_type_id"
                                             name="document_type_id"
                                             label="Выберите тип документа"
                                             component={FormDropDownList}
+                                            onChange={handleDocTypeChange}
                                             data={documentTypes.id}
                                             defaultItem={{ text: "Не выбран", value: 0 }}
                                             validator={disableAllFields ? '' : documentTypeRequired}
                                             disabled={disableAllFields}
                                         />
                                     </div>
-                                    <div className="col-6">
-                                        <Field
-                                            id="rkf_document_type_id"
-                                            name="rkf_document_type_id"
-                                            label="Документ"
-                                            component={FormDropDownList}
-                                            data={documentTypes.documents}
-                                            defaultItem={{ text: "Не выбран", value: 0 }}
-                                            validator={documentTypeRequired}
-                                            disabled={disableAllFields}
-                                        />
+                                    <div className="application-form__doc-type-id">
+                                        <LocalizationProvider language="ru">
+                                            <IntlProvider locale="ru">
+                                                <Field
+                                                    id="rkf_document_type_id"
+                                                    name="rkf_document_type_id"
+                                                    label="Документ"
+                                                    component={FormDropDownList}
+                                                    data={documents}
+                                                    defaultItem={{ text: "Не выбран", value: 0 }}
+                                                    validator={documentTypeRequired}
+                                                    disabled={disableAllFields}
+                                                />
+                                            </IntlProvider>
+                                        </LocalizationProvider>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="application-form__content">
                                 <h4 className="application-form__title">Документы</h4>
-                                {!!status && <DocumentLinksArray documents={formRenderProps.valueGetter('documents')} status={status} />}
-                                {!disableAllFields &&
+                                {!!status && <DocumentLinksArray documents={formRenderProps.valueGetter('documents')} editable={editable} />}
+                                {editable &&
                                     <div>
                                         При загрузке файлов постарайтесь&nbsp;
                                     <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
@@ -265,7 +287,7 @@ const Application = ({ alias, history, status }) => {
                                 </div>
                                 }
 
-                                {!disableAllFields &&
+                                {editable &&
                                     <div className="application-form__file">
                                         <Field
                                             id="documents"
@@ -367,13 +389,13 @@ const Application = ({ alias, history, status }) => {
                                         label="Комментарий к заявке"
                                         maxLength={500}
                                         component={FormTextArea}
-                                        disabled={disableAllFields}
+                                        disabled={!editable}
                                     />
                                 </div>
                             </div>
 
                             <div className="application-form__controls">
-                                {!disableAllFields &&
+                                {editable &&
                                     <button
                                         type="submit"
                                         className="btn btn-primary"
