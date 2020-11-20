@@ -26,7 +26,6 @@ export const formatDateWithTime = date => {
         '0' + newDate.getHours() : newDate.getHours()}:${newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes()}`
 };
 
-
 export const formatWorkTime = workTime => {
     let newWorkTime = [];
     workTime.forEach(day => {
@@ -172,5 +171,10 @@ export function debounce(func, wait, immediate) {
 }
 
 export const getIdFromMatch = match => match.params.id;
+
 export const getIdFromRouterParams = props => getIdFromMatch(props.match);
+
 export const getPathFromRouterParams = props => props.match.path;
+
+export const isFederationAlias = alias => alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' ||
+    alias === 'oankoo';

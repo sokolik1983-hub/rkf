@@ -9,15 +9,17 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
-import MenuComponent from "../../components/MenuComponent";
+import UserMenu from "../../components/Layouts/UserMenu";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import UploadedDocuments from "components/UploadedDocuments";
+import {kennelNav} from "../Nursery/config";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
+
 
 const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile, profile_id, match, user }) => {
     const [nursery, setNursery] = useState(null);
@@ -108,18 +110,21 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                     <StickyBox offsetTop={65}>
                                         <div className="nursery-page__info-inner">
                                             {!isMobile &&
+                                                <UserHeader
+                                                    user="nursery"
+                                                    logo={nursery.logo_link}
+                                                    name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
+                                                    alias={alias}
+                                                    profileId={nursery.id}
+                                                    federationName={nursery.federation_name}
+                                                    federationAlias={nursery.federation_alias}
+                                                    active_rkf_user={nursery.active_rkf_user}
+                                                    active_member={nursery.active_member}
+                                                />
+                                            }
+                                            <UserMenu userNav={kennelNav(alias)} />
+                                            {!isMobile &&
                                                 <>
-                                                    <UserHeader
-                                                        user="nursery"
-                                                        logo={nursery.logo_link}
-                                                        name={nursery.short_name || nursery.name || 'Название питомника отсутствует'}
-                                                        alias={alias}
-                                                        profileId={nursery.id}
-                                                        federationName={nursery.federation_name}
-                                                        federationAlias={nursery.federation_alias}
-                                                        active_rkf_user={nursery.active_rkf_user}
-                                                        active_member={nursery.active_member}
-                                                    />
                                                     {nursery.breeds && !!nursery.breeds.length &&
                                                         <Card className="nursery-page__breeds">
                                                             <h4>Породы</h4>
@@ -142,14 +147,6 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                     />
                                                     <CopyrightInfo />
                                                 </>
-                                            }
-                                            {isMobile &&
-                                                <MenuComponent
-                                                    alias={alias}
-                                                    user={user}
-                                                    profileId={nursery.id}
-                                                    noCard={true}
-                                                />
                                             }
                                         </div>
                                     </StickyBox>

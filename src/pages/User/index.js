@@ -22,6 +22,7 @@ import { DEFAULT_IMG } from "../../appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
+
 const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

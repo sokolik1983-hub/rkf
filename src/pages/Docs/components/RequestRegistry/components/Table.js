@@ -9,14 +9,17 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import kendoMessages from 'kendoMessages.json';
+import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "Отклоненные" },
-    { "status_id": 2, "StatusName": "В работе" },
-    { "status_id": 3, "StatusName": "Выполненные" },
-    { "status_id": 4, "StatusName": "Не отправленные" },
+    { "status_id": 1, "StatusName": "- Отклоненные" },
+    { "status_id": 2, "StatusName": "* В работе" },
+    { "status_id": 3, "StatusName": "+ Выполненные" },
+    { "status_id": 4, "StatusName": "? Не отправленные" },
 ];
 
 const ColumnMenu = (props) => {
@@ -71,46 +74,64 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         }
     }, [exporting]);
 
-    const litterGrid = <Grid
+    const litterGridForExport = <Grid
         data={process(documents, gridData)}
         pageable
         sortable
         resizable
         {...gridData}
-        onDataStateChange={handleGridDataChange}
-        style={{ height: height ? height : "700px", maxWidth: "700px", margin: "0 auto" }}>
-        <GridColumn field="date_create" title="Дата создания" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="date_change" title="Изменение статуса" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-        <GridColumn field={`${distinction}_request_id`} title="№ пакета" width="50px" columnMenu={ColumnMenu} />
-        <GridColumn field="breeder_full_name" title="Заводчик" width="90px" columnMenu={ColumnMenu} />
-        <GridColumn field="nursery_name" title="Питомник" width="90px" columnMenu={ColumnMenu} />
-        <GridColumn field="count_of_litter" title="Щенков" width="50px" columnMenu={ColumnMenu} />
-        <GridColumn field="breed" title="Порода" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_code" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
-        <GridColumn field="count_of_documents" title="Док-в" width="50px" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
+        onDataStateChange={handleGridDataChange}>
+        <GridColumn field="status_value" title=" " />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="date_change" title="Изменение статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+        <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
+        <GridColumn field="breeder_full_name" title="Заводчик" columnMenu={ColumnMenu} />
+        <GridColumn field="nursery_name" title="Питомник" columnMenu={ColumnMenu} />
+        <GridColumn field="count_of_litter" title="Щенков" columnMenu={ColumnMenu} />
+        <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_code" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="count_of_documents" title="Док-в" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
     </Grid>;
 
-    const breedGrid = <Grid
+    const breedGridForExport = <Grid
         data={process(documents, gridData)}
         pageable
         sortable
         resizable
         {...gridData}
-        onDataStateChange={handleGridDataChange}
-        style={{ height: height ? height : "700px", maxWidth: "700px", margin: "0 auto" }}>
-        <GridColumn field="date_create" title="Дата создания" width="80px" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field={`${distinction}_request_id`} title="№ пакета" width="50px" columnMenu={ColumnMenu} />
-        <GridColumn field="owner_full_name" title="ФИО владельца" width="110px" columnMenu={ColumnMenu} />
-        <GridColumn field="breeder_full_name" title="Заводчик" width="90px" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="breed" title="Порода" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="stamp_number" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" width="105px" columnMenu={ColumnMenu} />
-        <GridColumn field="status_name" title="Статус" width="80px" columnMenu={ColumnMenu} />
-        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width="80px" columnMenu={ColumnMenu} />
+        onDataStateChange={handleGridDataChange}>
+        <GridColumn field="status_value" title=" " />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
+        <GridColumn field="owner_full_name" title="ФИО владельца" columnMenu={ColumnMenu} />
+        <GridColumn field="breeder_full_name" title="Заводчик" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
+        <GridColumn field="stamp_number" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />
     </Grid>;
+
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#E9EDE9" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#D8FDE4" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
+
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
 
     return (
         <div className="App">
@@ -130,12 +151,14 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                         documents && distinction === 'litter'
                             ? <><Grid
                                 data={process(documents, gridData)}
+                                rowRender={rowRender}
                                 pageable
                                 sortable
                                 resizable
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
-                                style={{ height: height ? height : "750px", maxWidth: `${fullScreen ? `1120px` : `905px`}`, margin: "0 auto" }}>
+                                style={{ height: height ? height : "750px", maxWidth: `${fullScreen ? `1035px` : `835px`}`, margin: "0 auto" }}>
+                                <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field="date_change" title="Изменение статуса" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                                 <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
@@ -145,28 +168,31 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="count_of_litter" title="Щенков" width={fullScreen ? '80px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '70px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '70px' : '51px'} columnMenu={ColumnMenu} />
                             </Grid>
                                 <GridPDFExport
+                                    fileName={`Реестр_помёт_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"
                                     paperSize="A4"
+                                    pageTemplate={PdfPageTemplate}
                                 >
-                                    {litterGrid}
+                                    {litterGridForExport}
                                 </GridPDFExport>
 
                             </>
                             :
                             <><Grid
                                 data={process(documents, gridData)}
+                                rowRender={rowRender}
                                 pageable
                                 sortable
                                 resizable
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
-                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1175px` : `905px`}`, margin: "0 auto" }}>
+                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1090px` : `835px`}`, margin: "0 auto" }}>
+                                <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '145px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '100px'} columnMenu={ColumnMenu} />
@@ -175,16 +201,17 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '95px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="stamp_number" title="Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="status_name" title="Статус" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '70px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
+                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '76px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
+                                    fileName={`Реестр_родословная_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
                                     scale={0.3}
                                     margin="1cm"
                                     paperSize="A4"
+                                    pageTemplate={PdfPageTemplate}
                                 >
-                                    {breedGrid}
+                                    {breedGridForExport}
                                 </GridPDFExport>
                             </>
                     }

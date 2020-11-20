@@ -41,9 +41,19 @@ const GalleryComponent = ({ items, albums, album, match, withLoading = true, get
                                 <Link
                                     className="ReactGridGallery__controls-link"
                                     to={isClub ? `/${alias}/gallery/edit` : isUser ? `/user/${alias}/gallery/edit` : `/kennel/${alias}/gallery/edit`}
-                                >Редактировать все фото</Link>
+                                >
+                                <svg width="15" height="15" viewBox="0 0 19 19" fill="#253C5E" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.71 4.0425C18.1 3.6525 18.1 3.0025 17.71 2.6325L15.37 0.2925C15 -0.0975 14.35 -0.0975 13.96 0.2925L12.12 2.1225L15.87 5.8725L17.71 4.0425ZM0 14.2525V18.0025H3.75L14.81 6.9325L11.06 3.1825L0 14.2525Z" />
+                                </svg>
+                                &nbsp;Редактировать все фото
+                                </Link>
                             }
-                            <span className="ReactGridGallery__controls-link ReactGridGallery__controls-link--add-photo" onClick={() => handleAddPhoto(params.album)}>Добавить фото</span>
+                            <span className="ReactGridGallery__controls-link ReactGridGallery__controls-link--underline" onClick={() => handleAddPhoto(params.album)}>
+                                <svg fill="#253C5E" width="12" height="12" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" />
+                                </svg>
+                                &nbsp;Добавить фото
+                            </span>
                         </>
                     }
                 </div>

@@ -33,9 +33,9 @@ const ModalEditBanner = ({closeModal, updateInfo}) => {
                 closeModal();
                 if(isChanged) updateInfo();
             }}
+            headerName = {"Редактирование фото"}
         >
             <div className="edit-banner-modal__content">
-                <h3 className="edit-banner-modal__title">Редактирование фото</h3>
                 <div className="edit-banner-modal__content">
                     <LocalizationProvider language="ru-RU">
                         <IntlProvider locale="ru" >

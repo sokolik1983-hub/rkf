@@ -4,6 +4,7 @@ import { Grid, GridColumn, GridDetailRow } from "@progress/kendo-react-grid";
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import messages from "./messages.json";
+import PdfPageTemplate from "../../../../components/PdfTemplatePage";
 import "./index.scss";
 
 loadMessages(messages, 'ru');
@@ -107,10 +108,12 @@ const ExhibitionsTable = ({ exhibitions, count, startElement, getNextExhibitions
                 <IntlProvider locale="ru">
                     {grid}
                     <GridPDFExport
+                        fileName="Список мероприятий"
                         ref={gridPDFExport}
                         scale={0.6}
                         margin="1cm"
                         paperSize="A4"
+                        pageTemplate={PdfPageTemplate}
                     >
                         {grid}
                     </GridPDFExport>

@@ -31,9 +31,9 @@ const ModalDeleteDocument = ({ handleSuccess, handleError, getDocuments, documen
             className="delete-document-modal"
             showModal={true}
             handleClose={closeModal}
+            headerName = {'Удаление документа'}
         >
             <div className="delete-document-modal__content">
-                <h3 className="delete-document-modal__title">Удаление документа</h3>
                 {loading ?
                     <Loading centered={false} /> :
                     <>

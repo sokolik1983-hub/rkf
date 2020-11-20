@@ -65,7 +65,7 @@ const ActivateClub = ({club, history, logOutUser}) => {
     return loading ?
         <Loading/> :
         <div className="club-registration__activate">
-            <h3>{code === null ? 'Активация клуба' : 'Подтвердите ваш e-mail'}</h3>
+            <h4 className="club-registration__activate-header">{code === null ? 'Активация клуба' : 'Подтвердите ваш e-mail'}</h4>
             <div className="club-registration__activate-content">
                 {code === null ?
                     <>

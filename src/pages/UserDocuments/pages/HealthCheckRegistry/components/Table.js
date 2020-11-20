@@ -9,13 +9,16 @@ import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
+import moment from "moment";
+import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "Отклоненные" },
-    { "status_id": 2, "StatusName": "В работе" },
-    { "status_id": 3, "StatusName": "Выполненные" }
+    { "status_id": 1, "StatusName": "- Отклоненные" },
+    { "status_id": 2, "StatusName": "* В работе" },
+    { "status_id": 3, "StatusName": "+ Выполненные" }
 ];
 
 const ColumnMenu = (props) => {
@@ -78,7 +81,7 @@ const handleClick = async (e, id) => {
     el.className = 'pedigree-link';
 };
 
-const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting, distinction }) => {
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
@@ -120,15 +123,34 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         sortable
         resizable
         {...gridData}
-        onDataStateChange={handleGridDataChange}
-        style={{ height: "700px" }}>
-        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '170px' : '140px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '320px' : '275px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '235px' : '210px'} columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '170px' : '130px'} columnMenu={ColumnMenu} />
-        <GridColumn field="certificate_document_id" title="Сертификат" width="130px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-        <GridColumn field="status_name" title="Статус" width="130px" columnMenu={ColumnMenu} />
+        onDataStateChange={handleGridDataChange}>
+        <GridColumn field="status_value" title=" " />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+        <GridColumn field="certificate_document_id" title="Сертификат" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
     </Grid>;
+
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#E9EDE9" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#D8FDE4" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
+
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
 
     return (
         <LocalizationProvider language="ru-RU">
@@ -144,26 +166,29 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                     />
                 </div>
                 {documents && <Grid
-                    data={process(documents, gridData)}
-                    pageable
-                    sortable
-                    resizable
-                    {...gridData}
-                    onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `740px` : `680px`}`, margin: '0 auto' }}>
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                    <GridColumn field="status_name" title="Статус" width="100px" columnMenu={ColumnMenu} />
-                    <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
-                </Grid>}
+                        data={process(documents, gridData)}
+                        rowRender={rowRender}
+                        pageable
+                        sortable
+                        resizable
+                        {...gridData}
+                        onDataStateChange={handleGridDataChange}
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `603px`}`, margin: '0 auto' }}>
+                        <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
+                    </Grid>}
                 <GridPDFExport
+                    fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
                     scale={0.3}
                     margin="1cm"
                     paperSize="A4"
+                    pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}
                 </GridPDFExport>

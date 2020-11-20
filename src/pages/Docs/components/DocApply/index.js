@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import ls from "local-storage";
 import { Redirect, useParams } from "react-router-dom";
 import Alert from "components/Alert";
-
 import PedigreeHeader from "./forms/PedigreeHeader";
 import PedigreeTable from "./forms/PedigreeTable";
 import PedigreePayment from "./forms/PedigreePayment";
 import PedigreeDeclarant from "./forms/PedigreeDeclarant";
-
 import LitterHeader from "./forms/LitterHeader";
 import LitterTable from "./forms/LitterTable";
 import LitterPayment from "./forms/LitterPayment";
 import LitterDeclarant from "./forms/LitterDeclarant";
-
 import StageStrip from "./components/StageStrip";
 import DocHead from "../DocHead";
-
 import './index.scss';
 
 const forms = {
@@ -36,16 +32,12 @@ const forms = {
 const DocApply = ({ clubAlias, history }) => {
     const alias = clubAlias;
     let distinction;
-    //const [draft, setDraft] = useState(false);
     const profileId = ls.get('profile_id') ? ls.get('profile_id') : '';
 
     const [errAlert, setErrAlert] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [id, setId] = useState(undefined);
     const [stage, setStage] = useState(0);
-    //const [statusAllowsUpdate, setStatusAllowsUpdate] = useState(true);
-
-
 
     let update = false, view = false;
 
@@ -65,13 +57,6 @@ const DocApply = ({ clubAlias, history }) => {
         url_stage && stages[url_stage] && stage !== stages[url_stage] && setStage(stages[url_stage]);
     } else (setRedirect('/404'))
 
-    //if (!Object.keys(forms).includes(distinction)) setRedirect('/404');
-    //if (!Object.keys(forms[distinction]).includes(url_stage)) setRedirect('/404');
-        
-    /*const setFormValues = values => {
-        setDraft(update && !view && values && values.status_id === 7);
-        setStatusAllowsUpdate(values.status_id ? [2,4,7].includes(values.status_id) : true);
-    }*/
     const FormContent = (forms[distinction] || forms.pedigree)[url_stage] || forms.pedigree.header;
 
     const Title = props => <><div>
@@ -103,14 +88,6 @@ const DocApply = ({ clubAlias, history }) => {
                 onOk={() => setErrAlert(false)}
             />
         }
-        {/*<aside className="documents-page__left">
-            <CustomMenu title="Личный кабинет">
-                <Link to={`/${alias}/documents`} title="Оформление документов">Оформление документов</Link>
-                <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/${alias}`} title="Страница клуба">Страница клуба</Link>
-            </CustomMenu>
-        </aside>
-        */}
         <div className="documents-page__right">
             <FormContent
                 {...{alias, id, profileId, Title, update, view}}

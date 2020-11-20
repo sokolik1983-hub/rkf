@@ -7,8 +7,6 @@ import Alert from "components/Alert";
 import Card from "components/Card";
 import { Form } from "components/Form";
 import DocItemList from "../DocItemList";
-//import { Link } from "react-router-dom";
-//import CustomMenu from "components/CustomMenu";
 import removeNulls from "utils/removeNulls";
 import './index.scss';
 
@@ -38,7 +36,6 @@ const draftAlertProps = {
 const DocApply = ({ clubAlias, history, distinction }) => {
     const [draft, setDraft] = useState(false);
     const apiEndpoint = (distinction === "pedigree" ? apiPedigreeEndpoint : apiLitterEndpoint) + (draft ? '/draft/' : '');
-    //console.log(apiEndpoint);
     const updateSchema = distinction === "pedigree" ? pedigreeUpdateSchema : litterUpdateSchema;
     const validationSchema = distinction === "pedigree" ? pedigreeValidationSchema : litterValidationSchema;
     const [stampCodes, setStampCodes] = useState([]);
@@ -62,14 +59,12 @@ const DocApply = ({ clubAlias, history, distinction }) => {
         email: '',
         folder_number: '',
         declarants: [distinction === "pedigree" ? { ...emptyPedigreeDeclarant, stamp_code_name } : { ...emptyLitterDeclarant, stamp_code_id }],
-
         cash_payment: false,
         payment_document: '',
         payment_date: '',
         payment_number: '',
         payment_name: '',
         inn: '',
-
         full_name: '',
         address: '',
         subscriber_mail: '',
@@ -191,14 +186,6 @@ const DocApply = ({ clubAlias, history, distinction }) => {
                 onOk={() => setErrAlert(false)}
             />
         }
-        {/*<aside className="documents-page__left">
-            <CustomMenu title="Личный кабинет">
-                <Link to={`/${clubAlias}/documents`} title="Оформление документов">Оформление документов</Link>
-                <Link to="/reports" title="Отчеты">Отчеты</Link>
-                <Link to={`/${clubAlias}`} title="Страница клуба">Страница клуба</Link>
-            </CustomMenu>
-        </aside>
-        */}
         <div className="documents-page__right">
             <Form
                 onSuccess={e => setOkAlert(true)}

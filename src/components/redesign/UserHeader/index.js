@@ -4,15 +4,24 @@ import Card from "components/Card";
 import Alert from "components/Alert";
 import { DEFAULT_IMG } from "appConfig";
 import { ActiveUserMark, FederationChoiceMark } from "../../Marks";
-import "./index.scss";
 import Share from "components/Share";
-import MenuComponent from "components/MenuComponent";
+import "./index.scss";
 
 
 const UserHeader = ({ user, logo, name, alias, profileId, federationName, federationAlias, isFederation = false, active_rkf_user, active_member }) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const shareOk = () => setShareAlert(false);
+
+    const setUserType = (user, alias) => {
+        if (alias === 'rkf' || alias === 'rfss' || alias === 'rfls' || alias === 'rfos' || alias === 'oankoo') {
+            return 'Федерация';
+        } else if (user === 'nursery') {
+            return 'Питомник';
+        } else {
+            return 'Клуб';
+        }
+    };
 
     return (
         <Card className="user-header">
@@ -28,7 +37,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, federationName, federa
                         <div style={{ width: '100%' }}>
                             <div>
                                 <p className="user-header__user">
-                                    {user === 'club' ? 'Клуб' : user === 'nursery' ? 'Питомник' : ''}
+                                    {setUserType(user, alias)}
                                 </p>
                                 {active_rkf_user &&
                                     <ActiveUserMark />
@@ -41,21 +50,13 @@ const UserHeader = ({ user, logo, name, alias, profileId, federationName, federa
                                 <h3 className="user-header__name">{name}</h3>
                                 <Share />
                             </div>
-                            {federationName && federationAlias &&
+                            {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
                             }
                         </div>
                     </div>
                 </div>
-                <hr />
-                <MenuComponent
-                    alias={alias}
-                    user={user}
-                    profileId={profileId}
-                    name={name}
-                    noCard={true}
-                    isFederation={isFederation}
-                />
+                {/*<hr />*/}
             </div>
             {shareAlert &&
                 <Alert
