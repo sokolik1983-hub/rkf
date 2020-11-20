@@ -37,9 +37,6 @@ const AddArticle = ({ id, logo, setNeedRequest, userPage, profileInfo, setProfil
     };
 
     const onSuccess = () => {
-        console.log(newsArticleFormConfig.fields);
-        console.log(transformValues.values);
-        console.log(documents);
         if(!!setProfileInfo){
             setProfileInfo({...profileInfo, 
                 counters: {
