@@ -377,7 +377,8 @@ const Application = ({ alias, history, status }) => {
                                                     onBeforeUpload={e => onBeforeUpload(e, 5)}
                                                     onStatusChange={(e) => onStatusChange(e, 'payment_document')}
                                                     onProgress={(e) => onProgress(e, 'payment_document')}
-                                                    validator={editable ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document').find(d => d.id))}
+                                                    validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
+                                                        .find(d => d.id))}
                                                 />
                                                 {values &&
                                                     values.payment_document_id &&
