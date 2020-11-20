@@ -121,14 +121,13 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        const { payment_document_id } = data;
+        const paymentId = formProps.valueGetter('payment_document')[0].id;
         setDisableSubmit(true);
         setDisableFields(false);
         let newData = {
             ...data,
-            payment_document_id: payment_document_id ? payment_document_id : formProps.valueGetter('payment_document')[0].id
+            payment_document_id: paymentId ? paymentId : data.payment_document_id
         };
-
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
@@ -141,8 +140,6 @@ const Application = ({ alias, history, status }) => {
                     ...formProps.valueGetter('documents')
                 ];
             }
-            //if (!payment_document) newData.payment_document_id = values.payment_document_id;
-            //if (!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
         }
 
         await Request({
