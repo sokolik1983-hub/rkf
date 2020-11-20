@@ -12,6 +12,9 @@ import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../../components/PdfTemplatePage";
 import LightTooltip from "../../../../../../components/LightTooltip";
+import CopyCell from '../../../../../Docs/components/CopyCell';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -82,6 +85,7 @@ const handleClick = async (e, id) => {
 };
 
 const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
+    const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
@@ -132,69 +136,94 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
     </Grid>;
 
-const rowRender = (trElement, props) => {
-    const status = props.dataItem.status_id;
-    const green = { backgroundColor: "#E9EDE9" };
-    const red = { backgroundColor: "#FFD6D9" };
-    const grey = { backgroundColor: "#D8FDE4" };
-    const draft = { backgroundColor: "#D4DAED" };
-    const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
-    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-};
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const green = { backgroundColor: "#E9EDE9" };
+        const red = { backgroundColor: "#FFD6D9" };
+        const grey = { backgroundColor: "#D8FDE4" };
+        const draft = { backgroundColor: "#D4DAED" };
+        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
 
-const StatusCell = (props) => {
-    return (
-        <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
-            <td title={props.dataItem.status_name}>
-                {props.dataItem.status_value}
-            </td>
-        </LightTooltip>
-    );
-};
+    const StatusCell = (props) => {
+        return (
+            <LightTooltip title={props.dataItem.status_name} enterDelay={200} leaveDelay={200}>
+                <td title={props.dataItem.status_name}>
+                    {props.dataItem.status_value}
+                </td>
+            </LightTooltip>
+        );
+    };
+
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
 
     return (
-        <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
-                <div className={'user-documents-status__filters-wrap'}>
-                    <strong>Фильтры: </strong>&nbsp;
+        <>
+            <LocalizationProvider language="ru-RU">
+                <IntlProvider locale={'ru'}>
+                    <div className={'user-documents-status__filters-wrap'}>
+                        <strong>Фильтры: </strong>&nbsp;
                     <DropDownList
-                        data={categories}
-                        dataItemKey="status_id"
-                        textField="StatusName"
-                        defaultItem={{ status_id: null, StatusName: "Все" }}
-                        onChange={handleDropDownChange}
-                    />
-                </div>
-                {documents && <Grid
-                    data={process(documents, gridData)}
-                    rowRender={rowRender}
-                    pageable
-                    sortable
-                    resizable
-                    {...gridData}
-                    onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `603px`}`, margin: '0 auto' }}>
-                    <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                    <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
-                </Grid>}
-                <GridPDFExport
-                    fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
-                    ref={gridPDFExport}
-                    scale={0.5}
-                    margin="1cm"
-                    paperSize={["297mm", "210mm"]}
-                    pageTemplate={PdfPageTemplate}
-                >
-                    {gridForExport}
-                </GridPDFExport>
+                            data={categories}
+                            dataItemKey="status_id"
+                            textField="StatusName"
+                            defaultItem={{ status_id: null, StatusName: "Все" }}
+                            onChange={handleDropDownChange}
+                        />
+                    </div>
+                    {documents && <Grid
+                        data={process(documents, gridData)}
+                        rowRender={rowRender}
+                        pageable
+                        sortable
+                        resizable
+                        {...gridData}
+                        onDataStateChange={handleGridDataChange}
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `603px`}`, margin: '0 auto' }}>
+                        <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
+                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
+                    </Grid>}
+                    <GridPDFExport
+                        fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        ref={gridPDFExport}
+                        scale={0.5}
+                        margin="1cm"
+                        paperSize={["297mm", "210mm"]}
+                        pageTemplate={PdfPageTemplate}
+                    >
+                        {gridForExport}
+                    </GridPDFExport>
 
-            </IntlProvider>
-        </LocalizationProvider>
+                </IntlProvider>
+            </LocalizationProvider>
+            <NotificationGroup
+                style={{
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse'
+                }}
+            >
+                <Fade enter={true} exit={true}>
+                    {success.status && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
+        </>
     )
 };
 

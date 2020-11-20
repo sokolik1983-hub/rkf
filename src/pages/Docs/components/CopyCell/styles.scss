@@ -1,0 +1,11 @@
+.CopyCell {
+    &__btn {
+        margin-left: 8px;
+        padding: 0;
+        border: none;
+        &:hover {
+            color: #36f;
+            transition: color 0.2s linear;
+        }
+    }
+}

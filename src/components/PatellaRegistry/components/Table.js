@@ -12,6 +12,9 @@ import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../PdfTemplatePage";
 import LightTooltip from "../../LightTooltip";
+import CopyCell from '../../../pages/Docs/components/CopyCell';
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -83,6 +86,7 @@ const handleClick = async (e, id, profileType) => {
 };
 
 const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction }) => {
+    const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
@@ -153,48 +157,73 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
         );
     };
 
+    const handleSuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+
     return (
-        <LocalizationProvider language="ru-RU">
-            <IntlProvider locale={'ru'}>
-                <div className="club-documents-status__filters-wrap">
-                    <strong>Фильтры: </strong>
-                    <DropDownList
-                        data={categories}
-                        dataItemKey="status_id"
-                        textField="StatusName"
-                        defaultItem={{ status_id: null, StatusName: "Все" }}
-                        onChange={handleDropDownChange}
-                    />
-                </div>
-                {documents && <Grid
-                    data={process(documents, gridData)}
-                    rowRender={rowRender}
-                    pageable
-                    sortable
-                    resizable
-                    {...gridData}
-                    onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `775px` : `644px`}`, margin: "0 auto" }}>
-                    <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                    <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '150px' : '120px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                    <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
-                </Grid>}
-                <GridPDFExport
-                    fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
-                    ref={gridPDFExport}
-                    scale={0.5}
-                    margin="1cm"
-                    paperSize={["297mm", "210mm"]}
-                    pageTemplate={PdfPageTemplate}
-                >
-                    {gridForExport}
-                </GridPDFExport>
-            </IntlProvider>
-        </LocalizationProvider>
+        <>
+            <LocalizationProvider language="ru-RU">
+                <IntlProvider locale={'ru'}>
+                    <div className="club-documents-status__filters-wrap">
+                        <strong>Фильтры: </strong>
+                        <DropDownList
+                            data={categories}
+                            dataItemKey="status_id"
+                            textField="StatusName"
+                            defaultItem={{ status_id: null, StatusName: "Все" }}
+                            onChange={handleDropDownChange}
+                        />
+                    </div>
+                    {documents && <Grid
+                        data={process(documents, gridData)}
+                        rowRender={rowRender}
+                        pageable
+                        sortable
+                        resizable
+                        {...gridData}
+                        onDataStateChange={handleGridDataChange}
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `775px` : `644px`}`, margin: "0 auto" }}>
+                        <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '150px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
+                        <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
+                    </Grid>}
+                    <GridPDFExport
+                        fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        ref={gridPDFExport}
+                        scale={0.5}
+                        margin="1cm"
+                        paperSize={["297mm", "210mm"]}
+                        pageTemplate={PdfPageTemplate}
+                    >
+                        {gridForExport}
+                    </GridPDFExport>
+                </IntlProvider>
+            </LocalizationProvider>
+            <NotificationGroup
+                style={{
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse'
+                }}
+            >
+                <Fade enter={true} exit={true}>
+                    {success.status && <Notification
+                        type={{ style: 'success', icon: true }}
+                        closable={true}
+                        onClose={() => setSuccess(false)}
+                    >
+                        <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                    </Notification>}
+                </Fade>
+            </NotificationGroup>
+        </>
     )
 };
 

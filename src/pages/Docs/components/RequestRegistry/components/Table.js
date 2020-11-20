@@ -12,6 +12,7 @@ import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 import LightTooltip from "../../../../../components/LightTooltip";
+import CopyCell from '../../CopyCell';
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -167,7 +168,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="count_of_litter" title="Щенков" width={fullScreen ? '80px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                                 <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '70px' : '51px'} columnMenu={ColumnMenu} />
                             </Grid>
                                 <GridPDFExport
@@ -200,7 +201,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '100px' : '70px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '95px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="stamp_number" title="Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                                 <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '76px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
