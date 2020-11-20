@@ -75,7 +75,7 @@ const Application = ({ alias, history, status }) => {
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
                 });
-                if (data.documents?.find(d => !d.accept)) {
+                if (data.documents) {
                     values.documents = [];
                 }
                 setValues(data);
