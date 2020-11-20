@@ -203,9 +203,13 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-optional-chaining"
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
     "@storybook/react": "^5.1.11",
     "cypress": "^3.4.1",
     "node-sass": "^4.14.1",

@@ -61,7 +61,7 @@
         "strikethrough": "Перечёркнутый"
     },
     "dropdowns": {
-        "nodata": "Городов не найдено",
+        "nodata": "Ничего не найдено",
         "clear": "Очистить"
     },
     "upload": {
