@@ -3,8 +3,7 @@ import Loading from "../../../../components/Loading";
 import Modal from "../../../../components/Modal";
 import { getHeaders } from "utils/request";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf, trash } from "@progress/kendo-svg-icons";
-import LightTooltip from "components/LightTooltip";
+import { file, trash } from "@progress/kendo-svg-icons";
 import "./index.scss";
 
 
@@ -33,7 +32,7 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
                 documents.map(d => {
                     return <div className="DocumentLinksArray__item" key={d.id}>
                         <div onClick={() => handleClick(d.id)}>
-                            <SvgIcon icon={filePdf} size="default" />
+                            <SvgIcon icon={file} size="default" />
                             <div className="DocumentLinksArray__item-name" >{d.name}</div>
                         </div>
                         {editable && !d.accept && <button
