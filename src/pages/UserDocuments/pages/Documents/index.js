@@ -40,21 +40,14 @@ const Documents = ({ alias }) => (
             <h3 className="documents-card__title">Заявка на получение документов РКФ</h3>
             <p className="documents-card__about">В данном разделе Вы можете оформить заявки на получение следующих документов: дипломы чемпионов, дипломы победителей, племенные сертификаты, рабочие сертификаты. После изготовления диплома/сертификата данные автоматически заносятся в электронную базу РКФ.</p>
             <div className="documents-card__controls">
-                <div className="documents-card__controls-links">
-                    <Link
-                        to={`/user/${alias}/documents/application/form`}
-                        className="documents-card__link"
-                    >Подать заявку</Link>
-                    <Link
-                        to={`/user/${alias}/documents/application/registry`}
-                        className="documents-card__link"
-                    >Реестр</Link>
-                </div>
                 <Link
-                    to="/"
-                    className="documents-card__link _disabled"
-                    onClick={e => e.preventDefault()}
-                >Подробнее...</Link>
+                    to={`/user/${alias}/documents/application/form`}
+                    className="documents-card__link"
+                >Подать заявку</Link>
+                <Link
+                    to={`/user/${alias}/documents/application/registry`}
+                    className="documents-card__link"
+                >Реестр</Link>
             </div>
         </Card>
     </>

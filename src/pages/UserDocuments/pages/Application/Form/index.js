@@ -121,7 +121,7 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        const paymentId = formProps.valueGetter('payment_document')[0].id;
+        const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         setDisableSubmit(true);
         setDisableFields(false);
         let newData = {
@@ -147,7 +147,8 @@ const Application = ({ alias, history, status }) => {
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/user/${alias}/documents`);
+            //setSuccess('Заявка отправлена на рассмотрение');
         }, error => {
             handleError(error);
             setDisableSubmit(false);
@@ -419,16 +420,17 @@ const Application = ({ alias, history, status }) => {
                                             disabled={!editable}
                                         />
                                     </div>
-                                    <div className="application-form__row">
-                                        <Field
-                                            id="comment"
-                                            name="comment"
-                                            label="Комментарий к заявке"
-                                            maxLength={500}
-                                            component={FormTextArea}
-                                            disabled={!editable}
-                                        />
-                                    </div>
+                                    {
+                                        editable && <div className="application-form__row">
+                                            <Field
+                                                id="comment"
+                                                name="comment"
+                                                label="Комментарий к заявке"
+                                                maxLength={500}
+                                                component={FormTextArea}
+                                            />
+                                        </div>
+                                    }
                                 </div>
 
                                 <div className="application-form__controls">
