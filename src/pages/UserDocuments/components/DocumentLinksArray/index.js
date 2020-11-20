@@ -34,9 +34,7 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
                     return <div className="DocumentLinksArray__item" key={d.id}>
                         <div onClick={() => handleClick(d.id)}>
                             <SvgIcon icon={filePdf} size="default" />
-                            <LightTooltip title={d.name} enterDelay={200} leaveDelay={200}>
-                                <div className="DocumentLinksArray__item-name" >{d.name}</div>
-                            </LightTooltip>
+                            <div className="DocumentLinksArray__item-name" >{d.name}</div>
                         </div>
                         {editable && !d.accept && <button
                             className="DocumentLinksArray__delete-btn"
@@ -48,7 +46,7 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
                     </div>
                 })
             }
-            <Modal showModal={showModal} handleClose={() => setShowModal(false)}>
+            <Modal showModal={showModal} handleClose={() => { setShowModal(false); setUrl('') }}>
                 {url ?
                     <embed src={url} className="DocumentLinksArray__embed" /> :
                     <Loading />
