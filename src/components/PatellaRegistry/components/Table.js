@@ -125,7 +125,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
@@ -186,9 +186,9 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                 <GridPDFExport
                     fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
-                    scale={0.3}
+                    scale={0.5}
                     margin="1cm"
-                    paperSize="A4"
+                    paperSize={["297mm", "210mm"]}
                     pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}

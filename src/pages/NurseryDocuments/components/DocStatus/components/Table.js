@@ -98,7 +98,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
         className="club-documents-status__pointer">
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
         <GridColumn field="count" title="Всего заявок" columnMenu={ColumnMenu} />
@@ -155,9 +155,9 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                 <GridPDFExport
                     fileName={distinction === 'pedigree' ? `Статус_оформления_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Статус_регистрации_помёта_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
-                    scale={0.3}
+                    scale={0.5}
                     margin="1cm"
-                    paperSize="A4"
+                    paperSize={["297mm", "210mm"]}
                     pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}

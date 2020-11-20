@@ -117,7 +117,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="id" title="№ заявки" columnMenu={ColumnMenu} />
         <GridColumn field="owner_name" title="ФИО владельца" columnMenu={ColumnMenu} />
@@ -199,9 +199,9 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                 <GridPDFExport
                     fileName={`Реестр_замены_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                     ref={gridPDFExport}
-                    scale={0.3}
+                    scale={0.4}
                     margin="1cm"
-                    paperSize="A4"
+                    paperSize={["297mm", "210mm"]}
                     pageTemplate={PdfPageTemplate}
                 >
                     {gridForExport}

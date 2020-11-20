@@ -81,7 +81,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Изменение статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
@@ -101,7 +101,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
         <GridColumn field="owner_full_name" title="ФИО владельца" columnMenu={ColumnMenu} />
@@ -173,9 +173,9 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridPDFExport
                                     fileName={`Реестр_помёт_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
-                                    scale={0.3}
+                                    scale={0.4}
                                     margin="1cm"
-                                    paperSize="A4"
+                                    paperSize={["297mm", "210mm"]}
                                     pageTemplate={PdfPageTemplate}
                                 >
                                     {litterGridForExport}
@@ -206,9 +206,9 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridPDFExport
                                     fileName={`Реестр_родословная_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                                     ref={gridPDFExport}
-                                    scale={0.3}
+                                    scale={0.4}
                                     margin="1cm"
-                                    paperSize="A4"
+                                    paperSize={["297mm", "210mm"]}
                                     pageTemplate={PdfPageTemplate}
                                 >
                                     {breedGridForExport}
