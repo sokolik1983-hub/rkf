@@ -7,7 +7,7 @@ import { Notification, NotificationGroup } from "@progress/kendo-react-notificat
 import Card from "components/Card";
 import FormInput from "components/kendo/Form/FormInput";
 import FormContactsCheckbox from "components/kendo/Form/FormContactsCheckbox";
-import FormUpload from "components/kendo/Form/FormUpload";
+import FormUpload from "./components/FormUpload";
 import FormDatePicker from "components/kendo/Form/FormDatePicker";
 import FormDropDownList from "components/kendo/Form/FormDropDownList";
 import FormTextArea from "components/kendo/Form/FormTextArea";
@@ -32,7 +32,6 @@ loadMessages(ruMessages, 'ru');
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [disableFields, setDisableFields] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
@@ -123,7 +122,6 @@ const Application = ({ alias, history, status }) => {
     const handleSubmit = async data => {
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         setDisableSubmit(true);
-        setDisableFields(false);
         let newData = {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
@@ -232,7 +230,9 @@ const Application = ({ alias, history, status }) => {
                                     {values && values.rejected_comment &&
                                         <p className="application-form__danger">{values.rejected_comment}</p>
                                     }
-                                    <h4 className="application-form__title" style={{ marginBottom: 0 }}>Добавление заявки</h4>
+                                    <h4 className="application-form__title" style={{ marginBottom: 0 }}>
+                                        {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
+                                    </h4>
                                     <div className="application-form__row-is-foreign">
                                         <div>
                                             <Field
