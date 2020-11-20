@@ -7,6 +7,7 @@ import ModalEditAvatar from "./ModalEditAvatar";
 import ModalDeleteAvatar from "./ModalDeleteAvatar";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { Link } from "react-router-dom";
+import LightTooltip from "../../LightTooltip";
 import "./index.scss";
 
 
@@ -29,14 +30,15 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                                 classNames="user-info__transition"
                                 unmountOnExit
                             >
-                                <button
-                                    className="user-info__edit-btn"
-                                    type="button"
-                                    title="Редактировать"
-                                    onClick={() => setModalType('edit')}
-                                >
-                                    <SvgIcon icon={pencil} size="default" />
-                                </button>
+                                <LightTooltip title="Редактировать" enterDelay={200} leaveDelay={200}>
+                                    <button
+                                        className="user-info__edit-btn"
+                                        type="button"
+                                        onClick={() => setModalType('edit')}
+                                    >
+                                        <SvgIcon icon={pencil} size="default" />
+                                    </button>
+                                </LightTooltip>
                             </CSSTransition>
                             {logo_link &&
                                 <CSSTransition
@@ -45,14 +47,15 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                                     classNames="user-info__transition"
                                     unmountOnExit
                                 >
-                                    <button
-                                        className="user-info__delete-btn"
-                                        type="button"
-                                        title="Удалить"
-                                        onClick={() => setModalType('delete')}
-                                    >
-                                        <SvgIcon icon={trash} size="default" />
-                                    </button>
+                                    <LightTooltip title="Удалить" enterDelay={200} leaveDelay={200}>
+                                        <button
+                                            className="user-info__delete-btn"
+                                            type="button"
+                                            onClick={() => setModalType('delete')}
+                                        >
+                                            <SvgIcon icon={trash} size="default" />
+                                        </button>
+                                    </LightTooltip>
                                 </CSSTransition>
                             }
                         </>
