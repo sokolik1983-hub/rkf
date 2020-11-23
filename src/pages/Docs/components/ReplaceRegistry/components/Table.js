@@ -213,8 +213,9 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         </LocalizationProvider>
         <NotificationGroup
             style={{
-                alignItems: 'flex-start',
-                flexWrap: 'wrap-reverse'
+                position: 'absolute',
+                right: '10px',
+                bottom: '40px',
             }}
         >
             <Fade enter={true} exit={true}>

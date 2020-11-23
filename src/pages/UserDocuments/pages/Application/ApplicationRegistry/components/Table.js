@@ -209,8 +209,9 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             </LocalizationProvider>
             <NotificationGroup
                 style={{
-                    alignItems: 'flex-start',
-                    flexWrap: 'wrap-reverse'
+                    position: 'absolute',
+                    right: '10px',
+                    bottom: '40px',
                 }}
             >
                 <Fade enter={true} exit={true}>
