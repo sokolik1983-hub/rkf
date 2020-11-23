@@ -71,7 +71,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
 
     useEffect(() => {
         if (exporting) {
-            gridPDFExport.current.save(documents, () => setExporting(false));
+            gridPDFExport.current.save(process(documents, gridData).data, () => setExporting(false));
         }
     }, [exporting]);
 
@@ -140,7 +140,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                 <IntlProvider locale={'ru'}>
                     <p>
                         <strong>Фильтры: </strong>&nbsp;
-                <DropDownList
+                        <DropDownList
                             data={categories}
                             dataItemKey="status_id"
                             textField="StatusName"
@@ -181,7 +181,6 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 >
                                     {litterGridForExport}
                                 </GridPDFExport>
-
                             </>
                             :
                             <><Grid

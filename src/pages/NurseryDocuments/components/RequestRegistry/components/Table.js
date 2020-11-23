@@ -71,7 +71,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
 
     useEffect(() => {
         if (exporting) {
-            gridPDFExport.current.save(documents, () => setExporting(false));
+            gridPDFExport.current.save(process(documents, gridData).data, () => setExporting(false));
         }
     }, [exporting]);
 
