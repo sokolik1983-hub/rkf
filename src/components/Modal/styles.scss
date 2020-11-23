@@ -55,6 +55,10 @@
     background: url(/static/icons/cross-gray.svg) center no-repeat;
     background-size: contain;
     cursor: pointer;
+    &:hover {
+      background: url(/static/icons/cross-gray-blue.svg) center no-repeat;
+      background-size: contain;  
+    }
     @media (max-width: 560px) {
       width: 12px;
       height: 12px;

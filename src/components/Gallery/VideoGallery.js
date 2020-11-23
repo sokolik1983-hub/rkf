@@ -55,8 +55,8 @@ const VideoGallery = ({ items, match, getVideos, setStartElement, setShowAlert, 
         <div className="ReactGridGallery__controls">
             <h4>Все видеозаписи</h4>
             {canEdit && <>
-                <span className="ReactGridGallery__controls-link ReactGridGallery__controls-link--underline" onClick={() => handleAddVideo(params.album)}>
-                    <svg fill="#253C5E" width="12" height="12" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                <span className="ReactGridGallery__controls-link" onClick={() => handleAddVideo(params.album)}>
+                    <svg fill="#72839c" width="12" height="12" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" />
                     </svg>
                     &nbsp;Добавить видео
