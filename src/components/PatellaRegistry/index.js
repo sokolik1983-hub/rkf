@@ -3,6 +3,7 @@ import Loading from "components/Loading";
 import Card from "components/Card";
 import Table from './components/Table';
 import { PromiseRequest } from "utils/request";
+import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, distinction, profileType }) => {
@@ -70,7 +71,10 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
                         distinction={distinction}
                     />
                 </div>
-                : <h2>Документов не найдено</h2>}
+                : <div className = "club-documents-status__plug">
+                    <h4 className="club-documents-status__text">Заявок не найдено</h4>
+                    <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
+                </div>}
         </Card>
 };
 
