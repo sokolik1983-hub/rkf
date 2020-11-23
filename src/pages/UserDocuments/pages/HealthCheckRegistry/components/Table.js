@@ -117,7 +117,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
 
     useEffect(() => {
         if (exporting) {
-            gridPDFExport.current.save(documents, () => setExporting(false));
+            gridPDFExport.current.save(process(documents, gridData).data, () => setExporting(false));
         }
     }, [exporting]);
 

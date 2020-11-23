@@ -45,11 +45,10 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
         error => {
             console.log(error.response);
             setInnerDocuments(null);
-        })
-
-
+        });
 
     const up = s => s[0] && s[0].toUpperCase() + s.slice(1);
+
     const deleteRow = (id) => {
         if (window.confirm("Удалить черновик?")) {
             Request({ url: `/api/requests/${up(distinction)}Request`, data: id, method: 'DELETE' },
@@ -64,7 +63,6 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
             )
         }
     };
-
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
@@ -102,11 +100,11 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                         disabled={exporting}
                                     >
                                         Скачать PDF
-                            </button>
+                                    </button>
                                 }
                                 <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                     Увеличить таблицу
-                        </button>
+                                </button>
                             </div>
                             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
                             <Table 
