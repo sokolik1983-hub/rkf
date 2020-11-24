@@ -177,6 +177,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
+                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </div>
                     {documents && <Grid
                         data={process(documents, gridData)}

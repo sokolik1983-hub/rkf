@@ -169,13 +169,14 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
                         <strong>Фильтры: </strong>&nbsp;
-                    <DropDownList
+                        <DropDownList
                             data={categories}
                             dataItemKey="status_id"
                             textField="StatusName"
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
+                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </div>
                     {documents && <Grid
                         data={process(documents, gridData)}

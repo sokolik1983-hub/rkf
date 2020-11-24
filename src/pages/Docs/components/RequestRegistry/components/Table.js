@@ -147,6 +147,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
+                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </p>
                     {
                         documents && distinction === 'litter'
