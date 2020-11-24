@@ -36,7 +36,7 @@ const getAddressString = addressObj => {
 };
 
 
-const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated, user }) => {
+const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
     const [nursery, setNursery] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);

@@ -20,7 +20,7 @@ import MenuComponent from "../../components/MenuComponent";
 import './index.scss';
 
 
-const Exhibitions = ({ history, isOpenFilters, setShowFilters, user }) => {
+const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });

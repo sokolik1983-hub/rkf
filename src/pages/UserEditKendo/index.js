@@ -23,10 +23,12 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
 import ls from "local-storage";
+import {connectShowFilters} from "../../components/Layouts/connectors";
 import './styles.scss';
+import ClickGuard from "../../components/ClickGuard";
 
 
-const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticated, isOpenFilters, setShowFilters }) => {
     const [values, setValues] = useState(defaultValues);
     const [requestData, setRequestData] = useState(null);
     const [cities, setCities] = useState([]);
@@ -202,13 +204,15 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         } else {
             setActiveSection(id);
         }
-    }
+        setShowFilters({ isOpenFilters: false });
+    };
 
     return (!loaded
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout>
+            : <Layout withFilters>
+                <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">
                         <aside className="UserEdit__left">
@@ -239,7 +243,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             {renderSection(activeSection)}
                                         </Card>
                                     </div>
-                                    <div className="UserEdit__inner-right">
+                                    <div className={`UserEdit__inner-right${isOpenFilters ? ' _open' : ''}`}>
                                         <Card>
                                             <ul className="UserEdit__inner-list">
                                                 {Object.keys(sections).map((type, key) => <div
@@ -289,4 +293,4 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     )
 };
 
-export default React.memo(connectAuthVisible(UserEdit));
+export default React.memo(connectShowFilters(connectAuthVisible(UserEdit)));
