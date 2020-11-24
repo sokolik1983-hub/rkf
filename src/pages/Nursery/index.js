@@ -16,11 +16,12 @@ import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGal
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
-import {endpointGetNurseryInfo, kennelNav} from "./config";
+import { endpointGetNurseryInfo, kennelNav } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
+import BreedsList from "../../components/BreedsList";
 import "./index.scss";
 
 
@@ -93,14 +94,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             active_member={nursery.active_member}
                                         />
                                         {nursery.breeds && !!nursery.breeds.length &&
-                                            <Card className="nursery-page__breeds">
-                                                <h4>Породы</h4>
-                                                <ul className="nursery-page__breeds-list">
-                                                    {nursery.breeds.map(item =>
-                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                    )}
-                                                </ul>
-                                            </Card>
+                                            <BreedsList breeds={nursery.breeds} />
                                         }
                                     </>
                                 }
@@ -158,14 +152,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&
-                                                    <Card className="nursery-page__breeds">
-                                                        <h4>Породы</h4>
-                                                        <ul className="nursery-page__breeds-list">
-                                                            {nursery.breeds.map(item =>
-                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                            )}
-                                                        </ul>
-                                                    </Card>
+                                                    <BreedsList breeds={nursery.breeds} />
                                                 }
                                                 <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
                                                 <UserPhotoGallery

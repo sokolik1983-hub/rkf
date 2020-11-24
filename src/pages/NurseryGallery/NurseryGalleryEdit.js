@@ -20,7 +20,8 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {kennelNav} from "../Nursery/config";
+import { kennelNav } from "../Nursery/config";
+import BreedsList from "../../components/BreedsList";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
 
@@ -202,14 +203,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                     active_member={nursery.active_member}
                                                 />
                                                 {nursery.breeds && !!nursery.breeds.length &&
-                                                    <Card className="nursery-page__breeds">
-                                                        <h4>Породы</h4>
-                                                        <ul className="nursery-page__breeds-list">
-                                                            {nursery.breeds.map(item =>
-                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                            )}
-                                                        </ul>
-                                                    </Card>
+                                                    <BreedsList breeds={nursery.breeds} />
                                                 }
                                             </>
                                         }
@@ -241,9 +235,9 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             <div className="NurseryGallery__count-buttons">
                                                                 {!!selectedImages.length &&
                                                                     <span onClick={handleDelete}>
-                                                                    <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
-                                                                    </svg>
+                                                                        <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
+                                                                        </svg>
                                                                     &nbsp;Удалить
                                                                     </span>
                                                                 }
@@ -295,14 +289,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                 {!isMobile &&
                                                     <>
                                                         {nursery.breeds && !!nursery.breeds.length &&
-                                                            <Card className="nursery-page__breeds">
-                                                                <h4>Породы</h4>
-                                                                <ul className="nursery-page__breeds-list">
-                                                                    {nursery.breeds.map(item =>
-                                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                                    )}
-                                                                </ul>
-                                                            </Card>
+                                                            <BreedsList breeds={nursery.breeds} />
                                                         }
                                                         <UserVideoGallery
                                                             alias={alias}

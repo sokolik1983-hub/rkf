@@ -148,6 +148,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             onChange={handleDropDownChange}
                         />
                     </p>
+                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     {
                         documents && distinction === 'litter'
                             ? <>
