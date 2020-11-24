@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useParams } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
 import { Redirect } from "react-router-dom";
-import { Link, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
-import UserBanner from "../../components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";
 import Card from "../../components/Card";
@@ -138,7 +136,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const Breadcrumbs = () => {
         return <div className="UserVideo__breadcrumbs">
             <div className="UserVideo__breadcrumbs-title">
-                {/* <Link className="btn-backward" to={`/user/${alias}/`}> <span>&lsaquo;</span> Личная страница</Link>&nbsp;/&nbsp; */}
                 Видеозаписи
             </div>
         </div>
@@ -153,9 +150,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
-                                {/* {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                                } */}
                                 <Card>
                                     <UserInfo
                                         canEdit={canEdit}
@@ -181,9 +175,6 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                             </StickyBox>
                         </aside>
                         <div className="user-page__right">
-                            {/* {!isMobile &&
-                                <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
-                            } */}
                             <Card>
                                 <Breadcrumbs />
                                 {
