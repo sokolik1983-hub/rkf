@@ -89,10 +89,10 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
         return null
     } else return (
         <Card className="user-gallery">
-            <div className="user-gallery__header" onClick={() => setIsOpen(!isOpen)}>
+            {!videos.length ? <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Видеозаписи</h4></Link>
-                {!isOpen && <div style={{ display: 'flex' }}>
-                    {!videos.length && canEdit ?
+                <div style={{ display: 'flex' }}>
+                    {canEdit &&
                         <LightTooltip title="Добавить видео" enterDelay={200} leaveDelay={200}>
                             <button
                                 className="user-gallery__add-btn"
@@ -101,14 +101,19 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                                     setShowModal(true);
                                 }}
                             >+</button>
-                        </LightTooltip> :
-                        <Link to={pageLink}>Смотреть все</Link>
-                    }
+                        </LightTooltip>}
                     <span className="user-gallery__cutoff"></span>
-                    <span className={`user-gallery__chevron ${isOpen ? `_dropdown_open` : ``}`}></span>
-                </div>}
-                {isOpen && <Link to={pageLink}>Смотреть все</Link>}
+                    <span
+                        className={`user-gallery__chevron ${isOpen ? `_dropdown_open` : ``}`}
+                        onClick={() => setIsOpen(!isOpen)}>
+                    </span>
+                </div>
             </div>
+                :
+                <div className="user-gallery__header">
+                    <Link to={pageLink}><h4 className="user-gallery__title">Видеозаписи</h4></Link>
+                    {canEdit && <Link to={pageLink}>Смотреть все</Link>}
+                </div>}
             <CSSTransition
                 in={isOpen}
                 timeout={50}
@@ -137,32 +142,30 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                                 <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет видеозаписей" />
                             </div>
                     }
-                    {showModal && modalType === 'viewVideo' &&
-                        <VideoModal
-                            showModal={showModal}
-                            handleClose={() => {
-                                setVideoFrame(null);
-                                setModalType('');
-                                setShowModal(false);
-                            }}
-                            className="user-gallery__modal"
-                        >
-                            <div dangerouslySetInnerHTML={{ __html: videoFrame }} />
-                        </VideoModal>
-                    }
-                    {showModal && modalType === 'addVideo' &&
-                        <AddVideoModal
-                            showModal={showModal}
-                            setShowModal={() => {
-                                setModalType('');
-                                setShowModal(false);
-                            }}
-                            onSuccess={addVideo}
-                        />
-                    }
-                    {alert && <Alert {...alert} />}
                 </div>
             </CSSTransition>
+            {showModal && modalType === 'viewVideo' &&
+                <VideoModal
+                    showModal={showModal}
+                    handleClose={() => {
+                        setVideoFrame(null);
+                        setModalType('');
+                        setShowModal(false);
+                    }}
+                    className="user-gallery__modal"
+                >
+                    <div dangerouslySetInnerHTML={{ __html: videoFrame }} />
+                </VideoModal>}
+            {showModal && modalType === 'addVideo' &&
+                <AddVideoModal
+                    showModal={showModal}
+                    setShowModal={() => {
+                        setModalType('');
+                        setShowModal(false);
+                    }}
+                    onSuccess={addVideo}
+                />}
+            {alert && <Alert {...alert} />}
         </Card>
     )
 };
