@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
-import Card from "components/Card";
-import { formatWorkTime } from "utils";
-import { timeSecondsCutter } from "utils/datetime";
-import { Request } from "utils/request";
-import { beautify } from "utils/phone";
-import { Collapse } from 'react-collapse';
+import { Collapse } from "react-collapse";
+import Card from "../../Card";
+import {formatWorkTime} from "../../../utils";
+import {timeSecondsCutter} from "../../../utils/datetime";
+import {Request} from "../../../utils/request";
+import {beautify} from "../../../utils/phone";
 import Counter from "../../CounterComponent";
 import "./index.scss";
 
@@ -35,6 +35,7 @@ const UserContacts = ({
     const [socials, setSocials] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(true);
+    const CollapseRef = useRef(null);
 
     useEffect(() => {
         (() => Request({
@@ -47,20 +48,21 @@ const UserContacts = ({
     const handleClick = e => {
         e.preventDefault();
         setIsOpen(!isOpen);
-    }
+    };
 
-    const CollapseRef = useRef(null);
     if (isHidden && CollapseRef && CollapseRef.current) {
         CollapseRef.current.content.offsetHeight > 150 && setIsHidden(false);
     }
+
     const legal_city_name = legal_city && legal_city.name;
     const city_name = (city && city.name) || legal_city_name;
     const legal_address_or_city = legal_address || legal_city_name;
     const address_or_city = address || legal_address || city_name;
-
     const mainEmail = contacts && contacts.filter(item => item.contact_type_id === 2)[0];
     const mainPhone = contacts && contacts.filter(item => item.contact_type_id === 1)[0];
     //const mainWorkTime = work_time && formatWorkTime(work_time)[0];
+    const showRequisites = !is_active && (!!inn || !!kpp || !!ogrn || !!bank_name || !!bic || !!rs_number);
+
     return (
         <Card className="user-contacts__info-wrap">
             <Collapse isOpened={isOpen} ref={CollapseRef}>
@@ -129,13 +131,13 @@ const UserContacts = ({
                 {legal_address_or_city &&
                     <p className="user-contacts__info-address">
                         <span>Юридический адрес</span>:&nbsp;
-                    <span>{legal_address_or_city}</span>
+                        <span>{legal_address_or_city}</span>
                     </p>
                 }
                 {address_or_city &&
                     <p className="user-contacts__info-address">
                         <span>Фактический адрес</span>:&nbsp;
-                    <span>{address_or_city}</span>
+                        <span>{address_or_city}</span>
                     </p>
                 }
                 <div className="user-contacts__info-site">
@@ -178,33 +180,48 @@ const UserContacts = ({
                         ))}
                     </div>
                 }
-                {!is_active &&
+                {showRequisites &&
                     <div className="user-contacts__info-bank">
                         <h4 className="user-contacts__info-title">Реквизиты</h4>
-                        <p className="user-contacts__info-details" style={{ marginTop: '0' }}>
-                            <span>ИНН: </span> {inn}
-                        </p>
-                        <p className="user-contacts__info-details">
-                            <span>КПП: </span> {kpp}
-                        </p>
-                        <p className="user-contacts__info-details">
-                            <span>ОГРН: </span> {ogrn}
-                        </p>
-                        <p className="user-contacts__info-details">
-                            <span>Банк: </span> {bank_name}
-                        </p>
-                        <p className="user-contacts__info-details">
-                            <span>БИК: </span> {bic}
-                        </p>
-                        <p className="user-contacts__info-details">
-                            <span>Расчетный счет: </span> {rs_number}
-                        </p>
+                        {inn &&
+                            <p className="user-contacts__info-details" style={{marginTop: '0'}}>
+                                <span>ИНН: </span> {inn}
+                            </p>
+                        }
+                        {kpp &&
+                            <p className="user-contacts__info-details">
+                                <span>КПП: </span> {kpp}
+                            </p>
+                        }
+                        {ogrn &&
+                            <p className="user-contacts__info-details">
+                                <span>ОГРН: </span> {ogrn}
+                            </p>
+                        }
+                        {bank_name &&
+                            <p className="user-contacts__info-details">
+                                <span>Банк: </span> {bank_name}
+                            </p>
+                        }
+                        {bic &&
+                            <p className="user-contacts__info-details">
+                                <span>БИК: </span> {bic}
+                            </p>
+                        }
+                        {rs_number &&
+                            <p className="user-contacts__info-details">
+                                <span>Расчетный счет: </span> {rs_number}
+                            </p>
+                        }
                     </div>
-                }</Collapse>
-                {
-                    !!counters && <Counter counters = {counters} profileAlias = {profileAlias}/>
                 }
-            {!isHidden && <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>}
+            </Collapse>
+            {!!counters &&
+                <Counter counters = {counters} profileAlias = {profileAlias}/>
+            }
+            {!isHidden &&
+                <a className={`user-contacts__info-show-more${isOpen ? ' opened' : ''}`} href="/" onClick={handleClick}> </a>
+            }
         </Card>
     );
 };
