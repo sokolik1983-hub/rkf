@@ -118,6 +118,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                 in={isOpen}
                 timeout={50}
                 unmountOnExit
+                classNames="dropdown__gallery"
             >
                 <div className="user-gallery__dropdown-wrap">
                     {loading ?

@@ -139,3 +139,26 @@
     }
   }
 }
+.dropdown__gallery {
+  &-enter,
+  &-appear {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  &-enter-active,
+  &-appear-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+}
