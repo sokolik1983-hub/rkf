@@ -315,11 +315,14 @@ const Application = ({ alias, history, status }) => {
                                         <div>
                                             При загрузке файлов постарайтесь&nbsp;
                                     <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
-                                                <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="application-form__how-to-link"
-                                                >объединить их в один файл</a>
+                                                <>
+                                                    <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="application-form__how-to-link"
+                                                    >объединить их в один файл </a>
+                                                (PDF, JPEG, JPG, PNG)
+                                                </>
                                             </LightTooltip>.
                                 </div>
                                     }
@@ -360,7 +363,7 @@ const Application = ({ alias, history, status }) => {
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Информация о платеже</h4>
                                     {!disableAllFields &&
-                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
                                     }
                                     <div className="application-form__row">
                                         {editable
