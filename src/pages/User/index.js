@@ -42,12 +42,12 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
         await Request({
             url: endpointGetUserInfo + alias
         }, data => {
-            if(needUpdateAvatar) {
-                ls.set('user_info', {...ls.get('user_info'), logo_link: data.logo_link});
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
             }
-
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+            ls.set('user_info', { ...ls.get('user_info'), first_name: data.personal_information.first_name, last_name: data.personal_information.last_name });
         }, error => {
             console.log(error.response);
             setError(error.response);
@@ -67,7 +67,7 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                         <aside className="user-page__left">
                             <StickyBox offsetTop={66}>
                                 {isMobile &&
-                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo}/>
+                                    <UserBanner link={userInfo.headliner_link} canEdit={canEdit} updateInfo={getUserInfo} />
                                 }
                                 <Card>
                                     <UserInfo
@@ -105,8 +105,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                             <UserDescription
                                 mainInfo={userInfo.main_information}
                                 additionalInfo={userInfo.additional_information}
-                                counters = {userInfo.counters}
-                                profileAlias = {`/user/${alias}`}
+                                counters={userInfo.counters}
+                                profileAlias={`/user/${alias}`}
                             />
                             {isMobile &&
                                 <>
@@ -128,8 +128,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                     logo={userInfo.logo_link || DEFAULT_IMG.userAvatar}
                                     setNeedRequest={setNeedRequest}
                                     userPage
-                                    profileInfo = {userInfo}
-                                    setProfileInfo = {setUserInfo}
+                                    profileInfo={userInfo}
+                                    setProfileInfo={setUserInfo}
                                 />
                             }
                             <UserNews
@@ -139,8 +139,8 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
                                 setNeedRequest={setNeedRequest}
                                 first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                 last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
-                                profileInfo = {userInfo}
-                                setProfileInfo = {setUserInfo}
+                                profileInfo={userInfo}
+                                setProfileInfo={setUserInfo}
                             />
                         </div>
                     </Container>
