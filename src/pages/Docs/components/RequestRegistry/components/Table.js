@@ -88,9 +88,12 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field={`${distinction}_request_id`} title="№ пакета" columnMenu={ColumnMenu} />
         <GridColumn field="breeder_full_name" title="Заводчик" columnMenu={ColumnMenu} />
         <GridColumn field="nursery_name" title="Питомник" columnMenu={ColumnMenu} />
+        <GridColumn field="date_of_birth_litter" title="Дата рождения помёта" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_of_birth_litter')} />
         <GridColumn field="count_of_litter" title="Щенков" columnMenu={ColumnMenu} />
         <GridColumn field="breed" title="Порода" columnMenu={ColumnMenu} />
         <GridColumn field="stamp_code" title="Клеймо" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_father_name" title="Производитель (кличка)" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_mother_name" title="Производительница (кличка)" columnMenu={ColumnMenu} />
         <GridColumn field="count_of_documents" title="Док-в" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
     </Grid>;
@@ -147,8 +150,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
-                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </p>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
                     {
                         documents && distinction === 'litter'
                             ? <><Grid
@@ -159,18 +162,21 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 resizable
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
-                                style={{ height: height ? height : "750px", maxWidth: `${fullScreen ? `1035px` : `835px`}`, margin: "0 auto" }}>
+                                style={{ height: height ? height : "750px", maxWidth: `${fullScreen ? `1135px` : `1035px`}`, margin: "0 auto" }}>
                                 <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field="date_change" title="Изменение статуса" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                                <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="breed" title="Порода" width={fullScreen ? '80px' : '80px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="stamp_code" title="Клеймо" width="100px" columnMenu={ColumnMenu} />
-                                <GridColumn field="nursery_name" title="Питомник" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '80px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="nursery_name" title="Питомник" width={fullScreen ? '80px' : '80px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="date_of_birth_litter" title="Дата рождения помёта" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_of_birth_litter')} />
+                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '80px' : '80px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="count_of_litter" title="Щенков" width={fullScreen ? '80px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
+                                <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '60px' : '50px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                                 <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '70px' : '51px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="dog_father_name" title="Производитель (кличка)" width={fullScreen ? '60px' : '50px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="dog_mother_name" title="Производительница (кличка)" width={fullScreen ? '60px' : '50px'} columnMenu={ColumnMenu} />
                             </Grid>
                                 <GridPDFExport
                                     fileName={`Реестр_помёт_${moment(new Date()).format(`DD_MM_YYYY`)}`}
@@ -192,17 +198,17 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 resizable
                                 {...gridData}
                                 onDataStateChange={handleGridDataChange}
-                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1090px` : `835px`}`, margin: "0 auto" }}>
+                                style={{ height: height ? height : "700px", maxWidth: `${fullScreen ? `1090px` : `1035px`}`, margin: "0 auto" }}>
                                 <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                                 <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '145px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '100px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '100px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '90px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '100px' : '70px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '95px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="stamp_number" title="Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="owner_full_name" title="ФИО владельца" width={fullScreen ? '130px' : '150px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? '100px' : '130px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="breed" title="Порода" width={fullScreen ? '120px' : '142px'} columnMenu={ColumnMenu} />
+                                <GridColumn field="stamp_number" title="Клеймо" width={fullScreen ? '110px' : '120px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '76px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
+                                <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '120px' : '90px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                             </Grid>
                                 <GridPDFExport
                                     fileName={`Реестр_родословная_${moment(new Date()).format(`DD_MM_YYYY`)}`}
