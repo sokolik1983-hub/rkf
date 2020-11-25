@@ -125,9 +125,15 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                         <Loading inline={true} /> :
                         images.length
                             ? <div className="ReactGridGallery__wrap" >
-                                <div className="ReactGridGallery__placeholder">
-                                    {[...Array(12)].map((item, key) => <div key={key}><img alt="" src="/static/images/noimg/empty-gallery-item.jpg" /></div>)}
-                                </div>
+                                {!isMobile &&
+                                    <div className="ReactGridGallery__placeholder">
+                                        {[...Array(12)].map((item, key) =>
+                                            <div key={key}>
+                                                <img alt="" src="/static/images/noimg/empty-gallery-item.jpg"/>
+                                            </div>
+                                        )}
+                                    </div>
+                                }
                                 <Gallery
                                     images={images}
                                     enableImageSelection={false}
