@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
-import FormUpload from "components/kendo/Form/FormUpload";
+import FormUpload from "./components/FormUpload";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { file, folder, chevronLeft } from "@progress/kendo-svg-icons";
 import { Button, Chip } from '@progress/kendo-react-buttons';
