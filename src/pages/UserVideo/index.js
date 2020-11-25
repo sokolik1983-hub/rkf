@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useParams } from "react";
+import React, { useEffect, useState } from "react";
 import StickyBox from "react-sticky-box";
 import Loading from "../../components/Loading";
 import Layout from "../../components/Layouts";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import Container from "../../components/Layouts/Container";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "../../components/Layouts/UserMenu";

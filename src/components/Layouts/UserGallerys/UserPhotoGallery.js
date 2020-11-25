@@ -91,16 +91,18 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
         return null
     } else return (
         <Card className="user-gallery">
-            {!images.length ? <div className="user-gallery__header">
+            <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
                 <div style={{ display: 'flex' }}>
-                    {canEdit &&
+                    {canEdit && !images.length ?
                         <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
                             <button
                                 className="user-gallery__add-btn"
                                 onClick={() => setShowModal(true)}
                             >+</button>
-                        </LightTooltip>}
+                        </LightTooltip> :
+                        <Link to={pageLink}>Смотреть все</Link>
+                    }
                     <span className="user-gallery__cutoff"></span>
                     <span
                         className={`user-gallery__chevron ${isOpen ? `_dropdown_open` : ``}`}
@@ -108,12 +110,6 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                     </span>
                 </div>
             </div>
-                :
-                <div className="user-gallery__header">
-                    <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
-                    {canEdit && <Link to={pageLink}>Смотреть все</Link>}
-                </div>}
-
             <CSSTransition
                 in={isOpen}
                 timeout={50}
