@@ -272,7 +272,20 @@
   }
   &__modal {
     & > div {
-      max-width: 550px;
+      max-width: 600px;
+    }
+    .Modal__header{
+      line-height: 1;
+      padding-bottom: 8px;
+    }
+    .Modal__body{
+      padding: 12px;
+    }
+    .Modal__close{
+      width: 14px;
+      height: 14px;
+      top: 14px;
+      right: 12px;
     }
   }
   &__documents {

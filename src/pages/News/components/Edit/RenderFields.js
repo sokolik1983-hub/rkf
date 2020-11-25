@@ -4,7 +4,7 @@ import {connect} from "formik";
 import CustomChipList from "../../../../components/Form/Field/CustomChipList";
 import {FormControls, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
 import AddVideoLink from "../../../../components/UserAddArticle/AddVideoLink";
-import AddPDF from "../../../../components/UserAddArticle/AddPDF";
+import AttachFile from "../../../../components/UserAddArticle/AttachFile";
 import {BAD_SITES} from "../../../../appConfig";
 import {Request} from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
@@ -204,7 +204,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                         />
                     }
                     {modalType === 'pdf' &&
-                        <AddPDF
+                        <AttachFile
                             documents={docs}
                             setDocuments={setDocs}
                             closeModal={closeModal}
