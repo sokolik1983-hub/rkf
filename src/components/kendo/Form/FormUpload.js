@@ -1,8 +1,8 @@
 import React from "react";
-import {FieldWrapper} from "@progress/kendo-react-form";
-import {Label, Error, Hint} from "@progress/kendo-react-labels";
-import {Upload} from "@progress/kendo-react-upload";
-import {IntlProvider, LocalizationProvider, loadMessages} from "@progress/kendo-react-intl";
+import { FieldWrapper } from "@progress/kendo-react-form";
+import { Label, Error, Hint } from "@progress/kendo-react-labels";
+import { Upload } from "@progress/kendo-react-upload";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import kendoMessages from "../../../kendoMessages.json";
 import "./index.scss";
 
@@ -44,9 +44,9 @@ const FormUpload = fieldRenderProps => {
                         onRemove={onRemoveHandler}
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
-                        maxFileSize={10485760}
                         restrictions={{
-                            allowedExtensions: fileFormats || []
+                            allowedExtensions: fileFormats || [],
+                            maxFileSize: 10485760
                         }}
                         {...others}
                     />
