@@ -10,7 +10,7 @@ import "./index.scss";
 const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
     const [breeds, setBreeds] = useState([]);
     const [docs, setDocs] = useState(documents || []);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(null);
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
