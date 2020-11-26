@@ -154,7 +154,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
         <div className="AttachFile">
 
             <Form
-                initialValues={{ documents: documents?.map(d => ({ ...d, uid: d.id.toString(), status: 1 })) || [] }}
+                initialValues={{ documents: documents?.map(d => ({ ...d, uid: d.id?.toString(), status: 1 })) || [] }}
                 render={formRenderProps => {
                     if (!formProps) setFormProps(formRenderProps);
                     return (<FormElement>
