@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
-import FormUpload from "components/kendo/Form/FormUpload";
+import FormUpload from "./components/FormUpload";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { file, folder, chevronLeft } from "@progress/kendo-svg-icons";
 import { Button, Chip } from '@progress/kendo-react-buttons';
@@ -13,7 +13,7 @@ import moment from "moment";
 import "./index.scss";
 
 
-const AttachFile = ({ categories, setDocuments, setCategories, closeModal }) => {
+const AttachFile = ({ documents, categories, setDocuments, setCategories, closeModal }) => {
     const [formProps, setFormProps] = useState(null);
     const [activeCategory, setActiveCategory] = useState('');
     const [touchedCategories, setTouchedCategories] = useState('');
@@ -87,13 +87,14 @@ const AttachFile = ({ categories, setDocuments, setCategories, closeModal }) => 
             ];
             setAttachedDocuments(updated);
             setTouchedCategories(Array.from(new Set(updated.map(d => d.categoryId))));
-            (uploadedDocuments.length + updated.length) > 2 && setAttachBlocked(true);
+            (documents.length + uploadedDocuments.length + updated.length) > 2 && setAttachBlocked(true);
         }
     }
 
     const handleAttach = () => {
         setDocuments([
-            ...uploadedDocuments,
+            ...documents,
+            ...uploadedDocuments?.filter(d => d.status !== 1),
             ...attachedDocuments
         ]);
         closeModal();
@@ -153,7 +154,7 @@ const AttachFile = ({ categories, setDocuments, setCategories, closeModal }) => 
         <div className="AttachFile">
 
             <Form
-                initialValues={{ documents: [] }}
+                initialValues={{ documents: documents?.map(d => ({ ...d, uid: d.id.toString(), status: 1 })) || [] }}
                 render={formRenderProps => {
                     if (!formProps) setFormProps(formRenderProps);
                     return (<FormElement>
