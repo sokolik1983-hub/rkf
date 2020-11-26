@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -17,7 +17,6 @@ const WidgetLogin = forwardRef(
     ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link }, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
-        const [userInfo, setUserInfo] = useState({});
 
         const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
         const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -25,6 +24,8 @@ const WidgetLogin = forwardRef(
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
         const accountType = ls.get('account_type') ? ls.get('account_type') : '';
         const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
+        const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
+        const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
 
         const AuthButtons = () => {
             let path = history.location.pathname;
@@ -38,22 +39,6 @@ const WidgetLogin = forwardRef(
                     <span>Регистрация</span>
                 </Link>}
             </>);
-        };
-
-        useEffect(() => {
-            if (userType === 1) {
-                (() => getUserInfo())();
-            }
-        }, []);
-
-        const getUserInfo = async () => {
-            await Request({
-                url: '/api/owners/owner/public_full/' + alias
-            }, data => {
-                setUserInfo(data);
-            }, error => {
-                console.log(error.response);
-            });
         };
 
         const logoutAsUser = async () => {
@@ -94,7 +79,7 @@ const WidgetLogin = forwardRef(
                                 <ul className="widget-login__list">
                                     <li className="widget-login__item">
                                         {userType === 1 &&
-                                            <Link to={`/user/${alias}`}>{userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}{userInfo.personal_information ? ' ' + userInfo.personal_information.last_name : ''}</Link>
+                                            <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
                                         }
                                         {(userType === 3 || userType === 5) &&
                                             <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
@@ -167,7 +152,7 @@ const WidgetLogin = forwardRef(
                 <Modal className="widget-login__modal"
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
-                    headerName = {"Войти как клуб"}
+                    headerName={"Войти как клуб"}
                 >
                     <LoginAsUser history={history} closeModal={() => setShowModal(false)} />
                 </Modal>

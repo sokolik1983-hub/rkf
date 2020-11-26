@@ -231,10 +231,27 @@
   }
   ._nursery_request_registry {
     margin: 0 auto;
-    max-width: 843px;
+    max-width: 1043px;
   }
   ._nursery_request_controls {
     position: relative;
     top: 40px;
   }
+  &__plug{
+    text-align: center;
+  }
+  &__text{
+    padding: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    color: #253c5e;
+    @media (max-width: 560px) {
+      font-size: 16px;
+      margin-bottom: 0px;
+    }
+  }  
 }

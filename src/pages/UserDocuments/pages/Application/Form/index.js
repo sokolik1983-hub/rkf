@@ -7,7 +7,7 @@ import { Notification, NotificationGroup } from "@progress/kendo-react-notificat
 import Card from "components/Card";
 import FormInput from "components/kendo/Form/FormInput";
 import FormContactsCheckbox from "components/kendo/Form/FormContactsCheckbox";
-import FormUpload from "components/kendo/Form/FormUpload";
+import FormUpload from "./components/FormUpload";
 import FormDatePicker from "components/kendo/Form/FormDatePicker";
 import FormDropDownList from "components/kendo/Form/FormDropDownList";
 import FormTextArea from "components/kendo/Form/FormTextArea";
@@ -32,7 +32,6 @@ loadMessages(ruMessages, 'ru');
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [disableFields, setDisableFields] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
@@ -76,7 +75,7 @@ const Application = ({ alias, history, status }) => {
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
                 });
-                if (data.documents?.find(d => !d.accept)) {
+                if (data.documents) {
                     values.documents = [];
                 }
                 setValues(data);
@@ -121,9 +120,8 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        const paymentId = formProps.valueGetter('payment_document')[0].id;
+        const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         setDisableSubmit(true);
-        setDisableFields(false);
         let newData = {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
@@ -147,7 +145,8 @@ const Application = ({ alias, history, status }) => {
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/user/${alias}/documents`);
+            //setSuccess('Заявка отправлена на рассмотрение');
         }, error => {
             handleError(error);
             setDisableSubmit(false);
@@ -231,7 +230,9 @@ const Application = ({ alias, history, status }) => {
                                     {values && values.rejected_comment &&
                                         <p className="application-form__danger">{values.rejected_comment}</p>
                                     }
-                                    <h4 className="application-form__title" style={{ marginBottom: 0 }}>Добавление заявки</h4>
+                                    <h4 className="application-form__title" style={{ marginBottom: 0 }}>
+                                        {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
+                                    </h4>
                                     <div className="application-form__row-is-foreign">
                                         <div>
                                             <Field
@@ -314,11 +315,14 @@ const Application = ({ alias, history, status }) => {
                                         <div>
                                             При загрузке файлов постарайтесь&nbsp;
                                     <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
-                                                <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="application-form__how-to-link"
-                                                >объединить их в один файл</a>
+                                                <>
+                                                    <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="application-form__how-to-link"
+                                                    >объединить их в один файл </a>
+                                                (PDF, JPEG, JPG, PNG)
+                                                </>
                                             </LightTooltip>.
                                 </div>
                                     }
@@ -359,7 +363,7 @@ const Application = ({ alias, history, status }) => {
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Информация о платеже</h4>
                                     {!disableAllFields &&
-                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
                                     }
                                     <div className="application-form__row">
                                         {editable
@@ -376,7 +380,8 @@ const Application = ({ alias, history, status }) => {
                                                     onBeforeUpload={e => onBeforeUpload(e, 5)}
                                                     onStatusChange={(e) => onStatusChange(e, 'payment_document')}
                                                     onProgress={(e) => onProgress(e, 'payment_document')}
-                                                    validator={editable ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document').find(d => d.id))}
+                                                    validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
+                                                        .find(d => d.id))}
                                                 />
                                                 {values &&
                                                     values.payment_document_id &&
@@ -419,16 +424,17 @@ const Application = ({ alias, history, status }) => {
                                             disabled={!editable}
                                         />
                                     </div>
-                                    <div className="application-form__row">
-                                        <Field
-                                            id="comment"
-                                            name="comment"
-                                            label="Комментарий к заявке"
-                                            maxLength={500}
-                                            component={FormTextArea}
-                                            disabled={!editable}
-                                        />
-                                    </div>
+                                    {
+                                        editable && <div className="application-form__row">
+                                            <Field
+                                                id="comment"
+                                                name="comment"
+                                                label="Комментарий к заявке"
+                                                maxLength={500}
+                                                component={FormTextArea}
+                                            />
+                                        </div>
+                                    }
                                 </div>
 
                                 <div className="application-form__controls">
@@ -448,8 +454,9 @@ const Application = ({ alias, history, status }) => {
             </Card>
             <NotificationGroup
                 style={{
-                    alignItems: 'flex-start',
-                    flexWrap: 'wrap-reverse'
+                    position: 'absolute',
+                    right: '10px',
+                    bottom: '40px',
                 }}
             >
                 <Fade enter={true} exit={true}>

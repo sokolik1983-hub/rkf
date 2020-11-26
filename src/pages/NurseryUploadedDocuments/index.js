@@ -5,7 +5,6 @@ import Layout from "components/Layouts";
 import Container from "components/Layouts/Container";
 import Aside from "components/Layouts/Aside";
 import Loading from "components/Loading";
-import Card from "components/Card";
 import Alert from "components/Alert";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UserHeader from "../../components/redesign/UserHeader";
@@ -17,6 +16,7 @@ import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import UploadedDocuments from "components/UploadedDocuments";
 import {kennelNav} from "../Nursery/config";
+import BreedsList from "../../components/BreedsList";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
 
@@ -87,14 +87,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                 active_member={nursery.active_member}
                                             />
                                             {nursery.breeds && !!nursery.breeds.length &&
-                                                <Card className="nursery-page__breeds">
-                                                    <h4>Породы</h4>
-                                                    <ul className="nursery-page__breeds-list">
-                                                        {nursery.breeds.map(item =>
-                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                        )}
-                                                    </ul>
-                                                </Card>
+                                                <BreedsList breeds={nursery.breeds} />
                                             }
                                         </>
                                     }
@@ -126,14 +119,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&
-                                                        <Card className="nursery-page__breeds">
-                                                            <h4>Породы</h4>
-                                                            <ul className="nursery-page__breeds-list">
-                                                                {nursery.breeds.map(item =>
-                                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                                )}
-                                                            </ul>
-                                                        </Card>
+                                                        <BreedsList breeds={nursery.breeds} />
                                                     }
                                                     <UserPhotoGallery
                                                         alias={alias}

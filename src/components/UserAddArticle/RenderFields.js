@@ -108,6 +108,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                 type="file"
                 name="file"
                 id="file"
+                accept=".jpg, .jpeg, .png"
                 className="ArticleCreateForm__inputfile"
                 onChange={handleChange}
             />

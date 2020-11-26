@@ -8,6 +8,9 @@ import Alert from "../../Alert";
 import { AddPhotoModal } from "../../Gallery";
 import { Request } from "../../../utils/request";
 import { DEFAULT_IMG } from "../../../appConfig";
+import { CSSTransition } from "react-transition-group";
+import useIsMobile from "../../../utils/useIsMobile";
+import useStickyState from "../../../utils/useStickyState";
 import "./index.scss";
 
 
@@ -16,6 +19,8 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(null);
+    const [isOpen, setIsOpen] = useStickyState(false, "is_gallery_open");
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         (() => getImages())();
@@ -60,7 +65,6 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                         });
                     }
                 }
-
                 setImages(imagesArr);
             }
         }, error => handleError(error)
@@ -83,48 +87,71 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
         };
     };
 
-    return (
+    if (!loading && !images.length && isMobile) {
+        return null
+    } else return (
         <Card className="user-gallery">
             <div className="user-gallery__header">
                 <Link to={pageLink}><h4 className="user-gallery__title">Фотогалерея</h4></Link>
-                {!images.length && canEdit ?
-                    <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
-                        <button
-                            className="user-gallery__add-btn"
-                            onClick={() => setShowModal(true)}
-                        >+</button>
-                    </LightTooltip> :
-                    <Link to={pageLink}>Смотреть все</Link>
-                }
+                <div style={{ display: 'flex' }}>
+                    {canEdit && !images.length ?
+                        <LightTooltip title="Добавить фото" enterDelay={200} leaveDelay={200}>
+                            <button
+                                className="user-gallery__add-btn"
+                                onClick={() => setShowModal(true)}
+                            >+</button>
+                        </LightTooltip> :
+                        <Link to={pageLink}>Смотреть все</Link>
+                    }
+                    <span className="user-gallery__cutoff"></span>
+                    <span
+                        className={`user-gallery__chevron ${isOpen ? `_dropdown_open` : ``}`}
+                        onClick={() => setIsOpen(!isOpen)}>
+                    </span>
+                </div>
             </div>
-            {loading ?
-                <Loading inline={true} /> :
-                images.length
-                    ? <div className="ReactGridGallery__wrap" >
-                        <div className="ReactGridGallery__placeholder">
-                            {[...Array(12)].map((item, key) => <div key={key}><img alt="" src="/static/images/noimg/empty-gallery-item.jpg" /></div>)}
-                        </div>
-                        <Gallery
-                            images={images}
-                            enableImageSelection={false}
-                            backdropClosesModal={true}
-                            rowHeight={89}
-                            thumbnailStyle={squareStyle}
-                            imageCountSeparator="&nbsp;из&nbsp;"
-                        />
-                    </div>
-                    : <div className="user-gallery__disabled">
-                        <h4 className="user-gallery__disabled-text">Не добавлено ни одной фотографии</h4>
-                        <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
-                    </div>
-            }
+            <CSSTransition
+                in={isOpen}
+                timeout={50}
+                unmountOnExit
+                classNames="dropdown__gallery"
+            >
+                <div className="user-gallery__dropdown-wrap">
+                    {loading ?
+                        <Loading inline={true} /> :
+                        images.length
+                            ? <div className="ReactGridGallery__wrap" >
+                                {!isMobile &&
+                                    <div className="ReactGridGallery__placeholder">
+                                        {[...Array(12)].map((item, key) =>
+                                            <div key={key}>
+                                                <img alt="" src="/static/images/noimg/empty-gallery-item.jpg" />
+                                            </div>
+                                        )}
+                                    </div>
+                                }
+                                <Gallery
+                                    images={images}
+                                    enableImageSelection={false}
+                                    backdropClosesModal={true}
+                                    rowHeight={89}
+                                    thumbnailStyle={squareStyle}
+                                    imageCountSeparator="&nbsp;из&nbsp;"
+                                />
+                            </div>
+                            : <div className="user-gallery__disabled">
+                                <h4 className="user-gallery__disabled-text">Не добавлено ни одной фотографии</h4>
+                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
+                            </div>
+                    }
+                </div>
+            </CSSTransition>
             {showModal &&
                 <AddPhotoModal
                     showModal={showModal}
                     onModalClose={() => setShowModal(false)}
                     onSuccess={addImagesSuccess}
-                />
-            }
+                />}
             {alert && <Alert {...alert} />}
         </Card>
     )

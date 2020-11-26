@@ -16,7 +16,8 @@ import { VideoGallery } from "components/Gallery";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
-import {kennelNav} from "../Nursery/config";
+import { kennelNav } from "../Nursery/config";
+import BreedsList from "../../components/BreedsList";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
 
@@ -149,14 +150,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                 active_member={nursery.active_member}
                                             />
                                             {nursery.breeds && !!nursery.breeds.length &&
-                                                <Card className="nursery-page__breeds">
-                                                    <h4>Породы</h4>
-                                                    <ul className="nursery-page__breeds-list">
-                                                        {nursery.breeds.map(item =>
-                                                            <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                        )}
-                                                    </ul>
-                                                </Card>
+                                                <BreedsList breeds={nursery.breeds} />
                                             }
                                         </>
                                     }
@@ -215,14 +209,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&
-                                                        <Card className="nursery-page__breeds">
-                                                            <h4>Породы</h4>
-                                                            <ul className="nursery-page__breeds-list">
-                                                                {nursery.breeds.map(item =>
-                                                                    <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                                )}
-                                                            </ul>
-                                                        </Card>
+                                                        <BreedsList breeds={nursery.breeds} />
                                                     }
                                                     <UserPhotoGallery
                                                         alias={alias}

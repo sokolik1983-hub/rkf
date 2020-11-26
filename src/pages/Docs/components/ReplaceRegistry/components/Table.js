@@ -13,6 +13,7 @@ import StickyFilters from "components/StickyFilters";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
+import CopyCell from '../../CopyCell';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
 import LightTooltip from "../../../../../components/LightTooltip";
@@ -106,7 +107,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
 
     useEffect(() => {
         if (exporting) {
-            gridPDFExport.current.save(documents, () => setExporting(false));
+            gridPDFExport.current.save(process(documents, gridData).data, () => setExporting(false));
         }
     }, [exporting]);
 
@@ -117,7 +118,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_value" title=" " />
+        <GridColumn field="status_name" title=" " />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="id" title="№ заявки" columnMenu={ColumnMenu} />
         <GridColumn field="owner_name" title="ФИО владельца" columnMenu={ColumnMenu} />
@@ -175,6 +176,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             )}
                         </div>
                     </div>
+                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                 </StickyFilters>
                 {documents && <>
                     <Grid
@@ -193,16 +195,16 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
                         <GridColumn field="breed_name" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '50px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
                         <GridColumn width="70px" cell={(props) => OptionsCell(props, setErrorReport)} />
                     </Grid>
                     <GridPDFExport
                         fileName={`Реестр_замены_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
-                        scale={0.3}
+                        scale={0.4}
                         margin="1cm"
-                        paperSize="A4"
+                        paperSize={["297mm", "210mm"]}
                         pageTemplate={PdfPageTemplate}
                     >
                         {gridForExport}
@@ -212,8 +214,9 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         </LocalizationProvider>
         <NotificationGroup
             style={{
-                alignItems: 'flex-start',
-                flexWrap: 'wrap-reverse'
+                position: 'absolute',
+                right: '10px',
+                bottom: '40px',
             }}
         >
             <Fade enter={true} exit={true}>

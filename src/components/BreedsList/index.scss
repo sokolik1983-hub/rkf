@@ -1,0 +1,77 @@
+.breeds {
+    width: 300px;
+    min-width: 300px;
+    margin-bottom: 16px;
+    padding: 10px !important;
+    @media (max-width: 990px) {
+        width: 100%;
+    }
+    h4 {
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 24px;
+    }    
+    &__list {
+        list-style: none;
+        border-top: 1px solid #e8e8e8;
+        margin-top: 10px;
+        padding-top: 12px;
+    }
+    &__list-item {
+        color: #72839c;
+        background-color: #e5e5e5;
+        border-radius: 33px;
+        padding: 2px 10px 4px 10px;
+    }
+    &__head {
+        display: flex;
+        justify-content: space-between;
+        & > div {
+            display: flex;
+        }
+    }
+    &__chevron {
+        width: 24px;
+        height: 24px;
+        background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+        transition: all .2s linear;
+        margin-left: 4px;
+        cursor: pointer;
+        &:hover {
+          background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
+        }
+        &._dropdown_open {
+          transform: rotate(180deg);
+        }
+      }
+      &__cutoff {
+        display: block;
+        width: 1px;
+        height: 24px;
+        border-right: 1px solid #72839C;
+        margin-left: 10px;
+      }    
+}
+.dropdown__breeds-list {
+    &-enter,
+    &-appear {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    &-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+}

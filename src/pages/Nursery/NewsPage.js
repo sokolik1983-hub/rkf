@@ -6,10 +6,9 @@ import Aside from "../../components/Layouts/Aside";
 import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import Loading from "../../components/Loading";
-import Card from "../../components/Card";
 import UserHeader from "../../components/redesign/UserHeader";
 import { Request } from "../../utils/request";
-import {endpointGetNurseryInfo, kennelNav} from "./config";
+import { endpointGetNurseryInfo, kennelNav } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -18,6 +17,7 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
+import BreedsList from "../../components/BreedsList";
 import "./index.scss";
 
 
@@ -72,14 +72,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             active_member={nursery.active_member}
                                         />
                                         {nursery.breeds && !!nursery.breeds.length &&
-                                            <Card className="nursery-page__breeds">
-                                                <h4>Породы</h4>
-                                                <ul className="nursery-page__breeds-list">
-                                                    {nursery.breeds.map(item =>
-                                                        <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                    )}
-                                                </ul>
-                                            </Card>
+                                            <BreedsList breeds={nursery.breeds} />
                                         }
                                         <UserPhotoGallery
                                             alias={alias}
@@ -125,14 +118,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&
-                                                    <Card className="nursery-page__breeds">
-                                                        <h4>Породы</h4>
-                                                        <ul className="nursery-page__breeds-list">
-                                                            {nursery.breeds.map(item =>
-                                                                <li className="nursery-page__breeds-item" key={item.id}>{item.name}</li>
-                                                            )}
-                                                        </ul>
-                                                    </Card>
+                                                    <BreedsList breeds={nursery.breeds} />
                                                 }
                                                 <UserPhotoGallery
                                                     alias={alias}

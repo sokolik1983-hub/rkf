@@ -4,6 +4,7 @@ import Card from "components/Card";
 import { Request } from "utils/request";
 import Table from './components/Table';
 import { connectShowFilters } from "components/Layouts/connectors";
+import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 const RequestRegistry = ({ history, distinction }) => {
@@ -71,7 +72,10 @@ const RequestRegistry = ({ history, distinction }) => {
                         setExporting={setExporting}
                     />
                 </div>
-                    : <h2>Документов не найдено</h2>}
+                    : <div className = "club-documents-status__plug">
+                        <h4 className="club-documents-status__text">Заявок не найдено</h4>
+                        <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
+                    </div>}
             </Card>
 };
 

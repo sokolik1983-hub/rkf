@@ -7,6 +7,7 @@ import ClickGuard from "components/ClickGuard";
 import Table from './components/Table';
 import ReportError from './components/ReportError';
 import { connectShowFilters } from "components/Layouts/connectors";
+import { DEFAULT_IMG } from "../../../../appConfig";
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
@@ -103,7 +104,10 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             setExporting={setExporting}
                         />
                     </div>
-                    : <h2>Документов не найдено</h2>}
+                    : <div className = "club-documents-status__plug">
+                        <h4 className="club-documents-status__text">Заявок не найдено</h4>
+                        <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
+                    </div>}
                 {errorReport && <ReportError id={errorReport} onErrorReport={id => setErrorReport(id)} />}
             </Card>
 };

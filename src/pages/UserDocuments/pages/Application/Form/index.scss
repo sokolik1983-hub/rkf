@@ -143,4 +143,10 @@
       bottom: auto;
     }
   }
+  .k-textarea {
+    resize: none;
+    & > .k-input {
+      resize: none;
+    }
+  }
 }
