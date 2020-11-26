@@ -82,8 +82,8 @@
       display: inline-block;
       height: 22px;
       width: 24px;
-      background: url("/static/icons/icon-video.svg") no-repeat center / cover,
-      url("/static/icons/icon-video-blue.svg") no-repeat center / cover;
+      background: url("/static/icons/icon-youtube.svg") no-repeat center / cover,
+      url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
       position: absolute;
       top: 50%;
       left: 0;
@@ -92,7 +92,7 @@
     &:hover {
       color: #3366FF;
       &:before {
-        background: url("/static/icons/icon-video-blue.svg") no-repeat center / cover;
+        background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
       }
     }
   }
