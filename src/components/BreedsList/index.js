@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "../Card";
 import { CSSTransition } from "react-transition-group";
+import useStickyState from "../../utils/useStickyState";
 import "./index.scss";
 
 
 const BreedsList = ({ breeds }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useStickyState(true, "is_breeds_open");
 
     return (
         <Card className="breeds">
@@ -27,7 +28,7 @@ const BreedsList = ({ breeds }) => {
             >
                 <ul className="breeds__list">
                     {breeds.map(item =>
-                        <li key={item.id}><span className="breeds__list-item">{item.name}</span></li>
+                        <li className="breeds__list-item" key={item.id}>{item.name}</li>
                     )}
                 </ul>
             </CSSTransition>
