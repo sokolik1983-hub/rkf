@@ -10,6 +10,7 @@ import "./index.scss";
 const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, adCost, adNumberOfPuppies }) => {
     const [breeds, setBreeds] = useState([]);
     const [docs, setDocs] = useState(documents || []);
+    const [categories, setCategories] = useState([]);
     const [isMating, setIsMating] = useState(false);
     const [isImageDelete, setIsImageDelete] = useState(false);
     const [showAlert, setShowAlert] = useState('');
@@ -37,8 +38,10 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
         } = values;
 
         const documents = docs.map(item => {
-            if (!item.file) item.file = '';
-            return item;
+            return {
+                id: item.id,
+                name: item.name
+            }
         });
 
         return {
@@ -98,6 +101,8 @@ const Edit = ({ id, text, img, videoLink, documents, history, isAd, adBreedId, a
                     videoLink={videoLink}
                     docs={docs}
                     setDocs={setDocs}
+                    categories={categories}
+                    setCategories={setCategories}
                     onCancel={() => history.replace(`/news/${id}`)}
                     isMating={isMating}
                     setIsMating={setIsMating}
