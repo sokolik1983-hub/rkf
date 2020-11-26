@@ -3,10 +3,10 @@ import { FieldWrapper } from "@progress/kendo-react-form";
 import { Label, Error, Hint } from "@progress/kendo-react-labels";
 import { Upload } from "@progress/kendo-react-upload";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import kendoMessages from "../../../kendoMessages.json";
-import "./index.scss";
+import ruMessages from "../ruMessages.json";
+import "./styles.scss";
 
-loadMessages(kendoMessages, 'ru-RU');
+loadMessages(ruMessages, 'Application-ru');
 
 
 const FormUpload = fieldRenderProps => {
@@ -31,7 +31,7 @@ const FormUpload = fieldRenderProps => {
             <Label id={labelId} editorId={id} editorValid={valid} optional={optional}>
                 {label}
             </Label>
-            <LocalizationProvider language="ru-RU">
+            <LocalizationProvider language="Application-ru">
                 <IntlProvider locale="ru" >
                     <Upload
                         id={id}
@@ -45,7 +45,7 @@ const FormUpload = fieldRenderProps => {
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
                         restrictions={{
-                            allowedExtensions: fileFormats || [],
+                            allowedExtensions: ['.pdf'],
                             maxFileSize: 10485760
                         }}
                         {...others}

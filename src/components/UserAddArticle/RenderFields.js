@@ -7,7 +7,7 @@ import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomNumber from "../Form/Field/CustomNumber";
 import CustomChipList from "../Form/Field/CustomChipList";
 import AddVideoLink from "./AddVideoLink";
-import AddPDF from "./AddPDF";
+import AttachFile from "./AttachFile";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
 import WikiHelp from "../WikiHelp";
@@ -16,7 +16,7 @@ import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
 
 
-const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, setDocuments, isMating, setIsMating, userPage, setLoadFile }) => {
+const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, userPage, setLoadFile }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -230,7 +230,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                     showModal={showModal}
                     handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
                     handleX={closeModal}
-                    headerName = {modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
+                    headerName = {modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
                 >
                     {modalType === 'video' &&
                         <AddVideoLink
@@ -239,9 +239,11 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                         />
                     }
                     {modalType === 'pdf' &&
-                        <AddPDF
+                        <AttachFile
                             documents={documents}
+                            categories={categories}
                             setDocuments={setDocuments}
+                            setCategories={setCategories}
                             closeModal={closeModal}
                         />
                     }

@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import getYouTubeID from "get-youtube-id";
-import {connect} from "formik";
+import { connect } from "formik";
 import CustomChipList from "../../../../components/Form/Field/CustomChipList";
-import {FormControls, FormField, FormGroup, SubmitButton} from "../../../../components/Form";
+import { FormControls, FormField, FormGroup, SubmitButton } from "../../../../components/Form";
 import AddVideoLink from "../../../../components/UserAddArticle/AddVideoLink";
-import AddPDF from "../../../../components/UserAddArticle/AddPDF";
-import {BAD_SITES} from "../../../../appConfig";
-import {Request} from "../../../../utils/request";
+import AttachFile from "../../../../components/UserAddArticle/AttachFile";
+import { BAD_SITES } from "../../../../appConfig";
+import { Request } from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 import LightTooltip from "../../../../components/LightTooltip";
 
 
-const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, onCancel, isMating, setIsMating, setIsImageDelete}) => {
+const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
     const [src, setSrc] = useState(imgSrc);
     const [video, setVideo] = useState(videoLink);
     const [advertTypes, setAdvertTypes] = useState([]);
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const {content, is_advert} = formik.values;
+    const { content, is_advert } = formik.values;
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -103,41 +103,41 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             <div className="article-edit__controls">
                 {!src &&
                     <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                    <div className="article-edit__attach-img">
-                        <input
-                            type="file"
-                            name="file"
-                            id="file"
-                            className="article-edit__img-input"
-                            accept=".png, .jpg, .jpeg"
-                            onChange={handleChangeImg}
-                        />
-                        <label htmlFor="file" className="article-edit__attach-img-label"></label>
-                    </div>
+                        <div className="article-edit__attach-img">
+                            <input
+                                type="file"
+                                name="file"
+                                id="file"
+                                className="article-edit__img-input"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={handleChangeImg}
+                            />
+                            <label htmlFor="file" className="article-edit__attach-img-label"></label>
+                        </div>
                     </LightTooltip>
                 }
                 {!is_advert && !video &&
                     <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
-                    <button
-                        className="article-edit__attach-video"
-                        type="button"
-                        onClick={() => {
-                            setModalType('video');
-                            setShowModal(true);
-                        }}
-                    ></button>
+                        <button
+                            className="article-edit__attach-video"
+                            type="button"
+                            onClick={() => {
+                                setModalType('video');
+                                setShowModal(true);
+                            }}
+                        ></button>
                     </LightTooltip>
                 }
                 {docs.length < 3 &&
                     <LightTooltip title="Прикрепить PDF" enterDelay={200} leaveDelay={200}>
-                    <button
-                        className="article-edit__attach-pdf"
-                        type="button"
-                        onClick={() => {
-                            setModalType('pdf');
-                            setShowModal(true);
-                        }}
-                    ></button>
+                        <button
+                            className="article-edit__attach-pdf"
+                            type="button"
+                            onClick={() => {
+                                setModalType('pdf');
+                                setShowModal(true);
+                            }}
+                        ></button>
                     </LightTooltip>
                 }
             </div>
@@ -171,12 +171,12 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
             {is_advert &&
                 <div className="article-edit__advert">
                     <FormGroup inline className="article-edit__ad">
-                        <FormField {...fields.advert_breed_id} options={breeds}/>
-                        <FormField {...fields.advert_cost}/>
-                        {!isMating && <FormField {...fields.advert_number_of_puppies}/>}
+                        <FormField {...fields.advert_breed_id} options={breeds} />
+                        <FormField {...fields.advert_cost} />
+                        {!isMating && <FormField {...fields.advert_number_of_puppies} />}
                     </FormGroup>
                     <FormGroup inline className="article-edit__ad">
-                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating}/>
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
                 </div>
             }
@@ -195,7 +195,7 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                     showModal={showModal}
                     handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
                     handleX={closeModal}
-                    headerName = {modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
+                    headerName={modalType === 'video' ? 'Добавление видео' : 'Добавление документа'}
                 >
                     {modalType === 'video' &&
                         <AddVideoLink
@@ -204,9 +204,11 @@ const RenderFields = ({fields, breeds, formik, text, imgSrc, videoLink, docs, se
                         />
                     }
                     {modalType === 'pdf' &&
-                        <AddPDF
+                        <AttachFile
                             documents={docs}
                             setDocuments={setDocs}
+                            categories={categories}
+                            setCategories={setCategories}
                             closeModal={closeModal}
                         />
                     }
