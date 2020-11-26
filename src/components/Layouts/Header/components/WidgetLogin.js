@@ -24,8 +24,8 @@ const WidgetLogin = forwardRef(
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
         const accountType = ls.get('account_type') ? ls.get('account_type') : '';
         const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
-        const firstName = ls.get('first_name') ? ls.get('first_name').first_name : '';
-        const lastName = ls.get('last_name') ? ls.get('last_name').last_name : '';
+        const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
+        const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
 
         const AuthButtons = () => {
             let path = history.location.pathname;

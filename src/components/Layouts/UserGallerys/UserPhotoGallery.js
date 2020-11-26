@@ -10,6 +10,7 @@ import { Request } from "../../../utils/request";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { CSSTransition } from "react-transition-group";
 import useIsMobile from "../../../utils/useIsMobile";
+import useStickyState from "../../../utils/useStickyState";
 import "./index.scss";
 
 
@@ -18,7 +19,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useStickyState(false, "is_gallery_open");
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -65,7 +66,6 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                     }
                 }
                 setImages(imagesArr);
-                setIsOpen(true);
             }
         }, error => handleError(error)
         );
@@ -125,7 +125,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                                     <div className="ReactGridGallery__placeholder">
                                         {[...Array(12)].map((item, key) =>
                                             <div key={key}>
-                                                <img alt="" src="/static/images/noimg/empty-gallery-item.jpg"/>
+                                                <img alt="" src="/static/images/noimg/empty-gallery-item.jpg" />
                                             </div>
                                         )}
                                     </div>

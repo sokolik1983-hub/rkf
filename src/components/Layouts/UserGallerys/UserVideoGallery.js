@@ -12,6 +12,7 @@ import { Request } from "../../../utils/request";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { CSSTransition } from "react-transition-group";
 import useIsMobile from "../../../utils/useIsMobile";
+import useStickyState from "../../../utils/useStickyState";
 import "./index.scss";
 
 
@@ -22,7 +23,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
     const [modalType, setModalType] = useState('');
     const [alert, setAlert] = useState(null);
     const [videoFrame, setVideoFrame] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useStickyState(false, "is_gallery_open");
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -52,9 +53,6 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
             url: `/api/videogallery/gallery?alias=${alias}&element_count=2`,
         }, data => {
             setVideos(data);
-            if (data.length) {
-                setIsOpen(true);
-            }
         }, error => handleError(error));
         setLoading(false);
     };
