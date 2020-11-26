@@ -19,7 +19,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [alert, setAlert] = useState(null);
-    const [isOpen, setIsOpen] = useStickyState(false, "is_gallery_open");
+    const [isOpen, setIsOpen] = useStickyState(true, "is_photo_gallery_open");
     const isMobile = useIsMobile();
 
     useEffect(() => {

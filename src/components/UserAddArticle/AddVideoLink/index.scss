@@ -5,7 +5,7 @@
     margin-top: 14px;
   }
   &__form-submit {
-    background-color: #3366FF;
+    background-color: #007bff;
     border: none;
     border-radius: 3px;
     padding: 9px 0;
@@ -15,9 +15,14 @@
     line-height: 20px;
     text-align: center;
     color: #FFF;
-    transition: background-color .2s linear;
+    transition: all .2s linear;
+    &:hover {
+      background-color: #0069d9;
+    }
     &:disabled {
-      background-color: #B9B9B9;
+      background-color: #007bff !important;
+      opacity: .65;
+      filter: grayscale(.1);
     }
   }
 }
