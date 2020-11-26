@@ -26,7 +26,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
     const [uploadedDocuments, setUploadedDocuments] = useState([]);
 
     useEffect(() => {
-        !categories.length && getCategories();
+        !categories && getCategories();
         if (documents.length) {
             setAttachedDocuments(documents.filter(d => d.category_id || d.category_id === 0));
             setUploadedDocuments(documents
@@ -46,8 +46,6 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
         }, data => {
             if (data) {
                 setCategories(data);
-            } else {
-                setError('Номер родословной не найден в базе ВЕРК');
             }
         }, error => {
             handleError(error);
@@ -103,7 +101,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
 
     const handleAttach = () => {
         setDocuments([
-            ...uploadedDocuments,
+            ...uploadedDocuments.filter(d => d.status !== 2),
             ...attachedDocuments
         ]);
         closeModal();
@@ -162,7 +160,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
     return (
         <div className="AttachFile">
             {
-                (loaded && !!categories.length)
+                loaded && categories
                     ? <>
                         <Form
                             initialValues={{ documents: uploadedDocuments }}
@@ -186,15 +184,17 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                     />
                                 </FormElement>)
                             }} />
-
-                        <div className="AttachFile__breadcrumbs">
-                            <h3 className="AttachFile__breadcrumbs-title">
-                                {`Категории${activeCategory ? ' / ' + activeCategory.name : ''}`}
-                            </h3>
-                            {activeCategory && <div className="AttachFile__breadcrumbs-back-btn" onClick={() => setActiveCategory(false)}>
-                                <SvgIcon icon={chevronLeft} size="default" />Назад к категориям
-                            </div>}
-                        </div>
+                        {
+                            !!categories.length && <div className="AttachFile__breadcrumbs">
+                                <h3 className="AttachFile__breadcrumbs-title">
+                                    {`Категории${activeCategory ? ' / ' + activeCategory.name : ''}`}
+                                </h3>
+                                {activeCategory && <div className="AttachFile__breadcrumbs-back-btn" onClick={() => setActiveCategory(false)}>
+                                    <SvgIcon icon={chevronLeft} size="default" />Назад к категориям
+                                </div>
+                                }
+                            </div>
+                        }
                         <div className="AttachFile__file-explorer">
                             {activeCategory
                                 ? <div className="AttachFile__documents">
