@@ -94,7 +94,7 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
     const handleAttach = () => {
         setDocuments([
             ...documents,
-            ...uploadedDocuments?.filter(d => d.status !== 1),
+            ...uploadedDocuments?.filter(d => (d.status !== 1 && d.status !== 2)),
             ...attachedDocuments
         ]);
         closeModal();
