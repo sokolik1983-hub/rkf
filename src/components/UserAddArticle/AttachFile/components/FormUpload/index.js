@@ -45,7 +45,7 @@ const FormUpload = fieldRenderProps => {
                         ariaDescribedBy={`${hintId} ${errorId}`}
                         ariaLabelledBy={labelId}
                         restrictions={{
-                            allowedExtensions: fileFormats || [],
+                            allowedExtensions: ['.pdf'],
                             maxFileSize: 10485760
                         }}
                         {...others}

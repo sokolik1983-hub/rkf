@@ -161,7 +161,6 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                         <Field
                             id="documents"
                             name="documents"
-                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                             component={FormUpload}
                             saveUrl={'/api/article/public_document'}
                             saveField="file"
