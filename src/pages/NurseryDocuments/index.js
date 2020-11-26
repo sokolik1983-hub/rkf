@@ -49,6 +49,27 @@ const Docs = ({ history }) => {
                         withShare={false}
                     />
                     <Switch>
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/form'
+                            component={() => <Application alias={nurseryAlias} history={history} />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/view/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="view" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/edit/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="edit" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/registry'
+                            component={() => <ApplicationRegistry history={history}/>}
+                        />
+
                         <Route exact={true} path='/kennel/:route/documents/replace-pedigree/registry' component={() =>
                             <ReplaceRegistry alias={nurseryAlias} history={history} />}
                         />
@@ -140,26 +161,7 @@ const Docs = ({ history }) => {
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
                         />
 
-                        <Route
-                            exact={true}
-                            path='/kennel/:route/documents/application/form'
-                            component={() => <Application alias={nurseryAlias} history={history} />}
-                        />
-                        <Route
-                            exact={true}
-                            path='/kennel/:route/documents/application/view/:docId'
-                            component={() => <Application alias={nurseryAlias} history={history} status="view" />}
-                        />
-                        <Route
-                            exact={true}
-                            path='/kennel/:route/documents/application/edit/:docId'
-                            component={() => <Application alias={nurseryAlias} history={history} status="edit" />}
-                        />
-                        <Route
-                            exact={true}
-                            path='/kennel/:route/documents/application/registry'
-                            component={() => <ApplicationRegistry history={history}/>}
-                        />
+
 
                         <Route path='/kennel/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
                         <Route path='/kennel/:route/documents' component={() => <DocHome nurseryAlias={nurseryAlias} />} />
