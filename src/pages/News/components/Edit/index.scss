@@ -84,7 +84,7 @@
       height: 22px;
       width: 24px;
       background: url("/static/icons/icon-youtube.svg") no-repeat center / cover,
-      url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
+        url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
       position: absolute;
       top: 50%;
       left: 0;
@@ -248,6 +248,15 @@
   &__modal {
     & > div {
       max-width: 550px;
+    }
+    .Modal__body {
+      padding: 12px;
+    }
+    .Modal__close {
+      width: 14px;
+      height: 14px;
+      top: 14px;
+      right: 12px;
     }
   }
 }

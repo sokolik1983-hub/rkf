@@ -21,12 +21,23 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [loaded, setLoaded] = useState(!!categories.length);
+    const [loaded, setLoaded] = useState(false);
     const [attachedDocuments, setAttachedDocuments] = useState([]);
     const [uploadedDocuments, setUploadedDocuments] = useState([]);
 
     useEffect(() => {
         !categories.length && getCategories();
+        if (documents.length) {
+            setAttachedDocuments(documents.filter(d => d.category_id || d.category_id === 0));
+            setUploadedDocuments(documents
+                .filter(d => d.category_id === undefined || d.category_id === null)
+                .map(d => ({ ...d, uid: d.uid ? d.uid : d.id?.toString(), status: 1 }))
+            );
+            setTouchedCategories(Array.from(new Set(documents.map(d => d.category_id))));
+            setLoaded(true);
+        } else {
+            setLoaded(true);
+        }
     }, []);
 
     const getCategories = async () => {
@@ -35,7 +46,6 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
         }, data => {
             if (data) {
                 setCategories(data);
-                setLoaded(true);
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -78,23 +88,22 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
         if (attachedDocuments.find(d => d.id === id)) {
             const updated = attachedDocuments.filter(d => d.id !== id);
             setAttachedDocuments(updated);
-            setTouchedCategories(Array.from(new Set(updated.map(d => d.categoryId))));
+            setTouchedCategories(Array.from(new Set(updated.map(d => d.category_id))));
             setAttachBlocked(false);
         } else {
             const updated = [
                 ...attachedDocuments,
-                { id: id, name: name, categoryId: category.id }
+                { id: id, name: name, category_id: category.id }
             ];
             setAttachedDocuments(updated);
-            setTouchedCategories(Array.from(new Set(updated.map(d => d.categoryId))));
-            (documents.length + uploadedDocuments.length + updated.length) > 2 && setAttachBlocked(true);
+            setTouchedCategories(Array.from(new Set(updated.map(d => d.category_id))));
+            (uploadedDocuments.length + updated.length) > 2 && setAttachBlocked(true);
         }
     }
 
     const handleAttach = () => {
         setDocuments([
-            ...documents,
-            ...uploadedDocuments?.filter(d => (d.status !== 1 && d.status !== 2)),
+            ...uploadedDocuments,
             ...attachedDocuments
         ]);
         closeModal();
@@ -152,33 +161,32 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
 
     return (
         <div className="AttachFile">
-
-            <Form
-                initialValues={{ documents: documents?.map(d => ({ ...d, uid: d.id?.toString(), status: 1 })) || [] }}
-                render={formRenderProps => {
-                    if (!formProps) setFormProps(formRenderProps);
-                    return (<FormElement>
-                        <Field
-                            id="documents"
-                            name="documents"
-                            component={FormUpload}
-                            saveUrl={'/api/article/public_document'}
-                            saveField="file"
-                            multiple={true}
-                            showActionButtons={true}
-                            onAdd={onAdd}
-                            onRemove={onRemove}
-                            onBeforeUpload={e => onBeforeUpload(e, 27)}
-                            onStatusChange={(e) => onStatusChange(e, 'documents')}
-                            onProgress={(e) => onProgress(e, 'documents')}
-                            disabled={attachBlocked}
-                        />
-                    </FormElement>)
-                }} />
             {
-                !loaded
-                    ? <Loading centered={false} />
-                    : !!categories.length && <>
+                (loaded && !!categories.length)
+                    ? <>
+                        <Form
+                            initialValues={{ documents: uploadedDocuments }}
+                            render={formRenderProps => {
+                                if (!formProps) setFormProps(formRenderProps);
+                                return (<FormElement>
+                                    <Field
+                                        id="documents"
+                                        name="documents"
+                                        component={FormUpload}
+                                        saveUrl={'/api/article/public_document'}
+                                        saveField="file"
+                                        multiple={true}
+                                        showActionButtons={true}
+                                        onAdd={onAdd}
+                                        onRemove={onRemove}
+                                        onBeforeUpload={e => onBeforeUpload(e, 27)}
+                                        onStatusChange={(e) => onStatusChange(e, 'documents')}
+                                        onProgress={(e) => onProgress(e, 'documents')}
+                                        disabled={attachBlocked}
+                                    />
+                                </FormElement>)
+                            }} />
+
                         <div className="AttachFile__breadcrumbs">
                             <h3 className="AttachFile__breadcrumbs-title">
                                 {`Категории${activeCategory ? ' / ' + activeCategory.name : ''}`}
@@ -236,23 +244,24 @@ const AttachFile = ({ documents, categories, setDocuments, setCategories, closeM
                                         {
                                             touchedCategories.includes(c.category_id) &&
                                             <div className="AttachFile__category-counter">
-                                                {attachedDocuments.filter(d => d.categoryId === c.category_id).length}
+                                                {attachedDocuments.filter(d => d.category_id === c.category_id).length}
                                             </div>
                                         }
                                     </div>)}
                                 </div>
                             }
                         </div>
+                        <div className="AttachFile__info">
+                            {attachBlocked ? 'Вы прикрепили максимальное количество файлов' : 'Макс. количество: 3 файла'}
+                        </div>
+                        <div className="AttachFile__button">
+                            {(!!attachedDocuments.length || !!uploadedDocuments.length) &&
+                                <Button className="k-button k-primary" onClick={handleAttach} >Прикрепить</Button>
+                            }
+                        </div>
                     </>
+                    : <Loading centered={false} />
             }
-            <div className="AttachFile__info">
-                {attachBlocked ? 'Вы прикрепили максимальное количество файлов' : 'Макс. количество: 3 файла'}
-            </div>
-            <div className="AttachFile__button">
-                {(!!attachedDocuments.length || !!uploadedDocuments.length) &&
-                    <Button className="k-button k-primary" onClick={handleAttach} >Прикрепить</Button>
-                }
-            </div>
             <NotificationGroup
                 style={{
                     alignItems: 'flex-start',
