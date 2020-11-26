@@ -21,6 +21,8 @@ import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
 import Patella from "components/Patella";
 import PatellaRegistry from "components/PatellaRegistry";
+import Application from "./components/Application/Form";
+import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -136,6 +138,27 @@ const Docs = ({ history }) => {
                         />
                         <Route exact={true} path='/kennel/:route/documents/pedigree/:id/edit' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
+                        />
+
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/form'
+                            component={() => <Application alias={nurseryAlias} history={history} />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/view/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="view" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/edit/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="edit" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/registry'
+                            component={() => <ApplicationRegistry history={history}/>}
                         />
 
                         <Route path='/kennel/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
