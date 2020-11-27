@@ -47,7 +47,6 @@ const UserPage = ({ match, profile_id, is_active_profile, isAuthenticated }) => 
             }
             setUserInfo(data);
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
-            ls.set('user_info', { ...ls.get('user_info'), first_name: data.personal_information.first_name, last_name: data.personal_information.last_name });
         }, error => {
             console.log(error.response);
             setError(error.response);
