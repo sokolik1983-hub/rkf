@@ -211,8 +211,8 @@ const Application = ({ alias, history, status }) => {
     return (
         <div className="application-form">
             <Card>
-                <div className="user-documents__breadcrumbs">
-                    <Link to={`/user/${alias}/documents`} className="user-documents__breadcrumbs-link">Личный кабинет</Link>
+                <div className="nursery-documents-status__head">
+                    <Link to={`/user/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>
@@ -299,155 +299,153 @@ const Application = ({ alias, history, status }) => {
                                                         />
                                                     </IntlProvider>
                                                 </LocalizationProvider>
-
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="application-form__content">
-                                    <h4 className="application-form__title">Документы</h4>
-                                    {!!status && values &&
-                                        <DocumentLinksArray
-                                            documents={values.documents}
-                                            editable={editable}
-                                            onRemove={handleDocumentRemove}
-                                        />
-                                    }
-                                    {editable &&
-                                        <>
-                                            <div>
-                                            При загрузке файлов постарайтесь&nbsp;
-                                            <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
-                                                <>
-                                                    <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="application-form__how-to-link"
-                                                    >объединить их в один файл </a>
-                                                    (PDF, JPEG, JPG, PNG)
-                                                </>
-                                            </LightTooltip>.
-                                        </div>
-                                            <div className="application-form__file">
-                                                <Field
-                                                    id="documents"
-                                                    name="documents"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                    component={FormUpload}
-                                                    saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
-                                                    saveField="document"
-                                                    multiple={true}
-                                                    showActionButtons={documentsOverflow ? false : true}
-                                                    onAdd={onAdd}
-                                                    onRemove={onRemove}
-                                                    onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                    onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                    onProgress={(e) => onProgress(e, 'documents')}
-                                                    validator={values?.documents.length
-                                                        ? ''
-                                                        : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
+                                        <h4 className="application-form__title">Документы</h4>
+                                        {!!status && values &&
+                                            <DocumentLinksArray
+                                                documents={values.documents}
+                                                editable={editable}
+                                                onRemove={handleDocumentRemove}
+                                            />
+                                        }
+                                        {editable &&
+                                            <>
+                                                <div>
+                                                    При загрузке файлов постарайтесь&nbsp;
+                                                    <LightTooltip title="Инструкция: конвертирование и объединение файлов" enterDelay={200} leaveDelay={200}>
+                                                        <>
+                                                            <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="application-form__how-to-link"
+                                                            >объединить их в один файл </a>
+                                                            (PDF, JPEG, JPG, PNG)
+                                                        </>
+                                                    </LightTooltip>.
+                                                </div>
+                                                <div className="application-form__file">
+                                                    <Field
+                                                        id="documents"
+                                                        name="documents"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        component={FormUpload}
+                                                        saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                        saveField="document"
+                                                        multiple={true}
+                                                        showActionButtons={documentsOverflow ? false : true}
+                                                        onAdd={onAdd}
+                                                        onRemove={onRemove}
+                                                        onBeforeUpload={e => onBeforeUpload(e, 27)}
+                                                        onStatusChange={(e) => onStatusChange(e, 'documents')}
+                                                        onProgress={(e) => onProgress(e, 'documents')}
+                                                        validator={values?.documents.length
+                                                            ? ''
+                                                            : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
+                                                        }
+                                                    />
+                                                    {values &&
+                                                        values.veterinary_contract_document_id &&
+                                                        !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                        <DocumentLink docId={values.veterinary_contract_document_id} />
                                                     }
-                                                />
-                                                {values &&
-                                                values.veterinary_contract_document_id &&
-                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                <DocumentLink docId={values.veterinary_contract_document_id} />
-                                                }
-                                                {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
-                                                    Вы не можете добавить больше 20 документов
-                                                </div>}
-                                            </div>
-                                        </>
-                                    }
-                                </div>
+                                                    {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
+                                                        Вы не можете добавить больше 20 документов
+                                                    </div>}
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
 
                                     <div className="application-form__content">
-                                    <h4 className="application-form__title">Информация о платеже</h4>
-                                    {!disableAllFields &&
-                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
-                                    }
-                                    <div className="application-form__row">
-                                        {editable ?
-                                            <div className="application-form__file">
-                                                <Field
-                                                    id="payment_document"
-                                                    name="payment_document"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                    component={FormUpload}
-                                                    saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
-                                                    saveField="document"
-                                                    multiple={false}
-                                                    showActionButtons={true}
-                                                    onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                    onStatusChange={(e) => onStatusChange(e, 'payment_document')}
-                                                    onProgress={(e) => onProgress(e, 'payment_document')}
-                                                    validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
-                                                        .find(d => d.id))}
-                                                />
-                                                {values &&
-                                                    values.payment_document_id &&
-                                                    !formRenderProps.valueGetter('payment_document').length &&
+                                        <h4 className="application-form__title">Информация о платеже</h4>
+                                        {!disableAllFields &&
+                                            <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                        }
+                                        <div className="application-form__row">
+                                            {editable ?
+                                                <div className="application-form__file">
+                                                    <Field
+                                                        id="payment_document"
+                                                        name="payment_document"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        component={FormUpload}
+                                                        saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                        saveField="document"
+                                                        multiple={false}
+                                                        showActionButtons={true}
+                                                        onBeforeUpload={e => onBeforeUpload(e, 5)}
+                                                        onStatusChange={(e) => onStatusChange(e, 'payment_document')}
+                                                        onProgress={(e) => onProgress(e, 'payment_document')}
+                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
+                                                            .find(d => d.id))}
+                                                    />
+                                                    {values &&
+                                                        values.payment_document_id &&
+                                                        !formRenderProps.valueGetter('payment_document').length &&
+                                                        <DocumentLink docId={values.payment_document_id} />
+                                                    }
+                                                </div>
+                                                : <div className="application-form__file">
+                                                    <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
                                                     <DocumentLink docId={values.payment_document_id} />
-                                                }
-                                            </div>
-                                            : <div className="application-form__file">
-                                                <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                                <DocumentLink docId={values.payment_document_id} />
+                                                </div>
+                                            }
+                                        </div>
+                                        <div className="application-form__row _payment-info">
+                                    <Field
+                                        id="payment_date"
+                                        name="payment_date"
+                                        label="Дата оплаты"
+                                        max={new Date()}
+                                        component={FormDatePicker}
+                                        validator={dateRequiredValidator}
+                                        disabled={!editable}
+                                    />
+                                    <Field
+                                        id="payment_number"
+                                        name="payment_number"
+                                        label="Номер платежного документа"
+                                        cutValue={30}
+                                        component={FormInput}
+                                        validator={requiredWithTrimValidator}
+                                        disabled={!editable}
+                                    />
+                                    <Field
+                                        id="payment_name"
+                                        name="payment_name"
+                                        label="ФИО плательщика"
+                                        cutValue={150}
+                                        component={FormInput}
+                                        validator={value => nameRequiredValidator(value, 150)}
+                                        disabled={!editable}
+                                    />
+                                </div>
+                                        {editable &&
+                                            <div className="application-form__row">
+                                                <Field
+                                                    id="comment"
+                                                    name="comment"
+                                                    label="Комментарий к заявке"
+                                                    maxLength={500}
+                                                    component={FormTextArea}
+                                                />
                                             </div>
                                         }
                                     </div>
-                                    <div className="application-form__row _payment-info">
-                                        <Field
-                                            id="payment_date"
-                                            name="payment_date"
-                                            label="Дата оплаты"
-                                            max={new Date()}
-                                            component={FormDatePicker}
-                                            validator={dateRequiredValidator}
-                                            disabled={!editable}
-                                        />
-                                        <Field
-                                            id="payment_number"
-                                            name="payment_number"
-                                            label="Номер платежного документа"
-                                            cutValue={30}
-                                            component={FormInput}
-                                            validator={requiredWithTrimValidator}
-                                            disabled={!editable}
-                                        />
-                                        <Field
-                                            id="payment_name"
-                                            name="payment_name"
-                                            label="ФИО плательщика"
-                                            cutValue={150}
-                                            component={FormInput}
-                                            validator={value => nameRequiredValidator(value, 150)}
-                                            disabled={!editable}
-                                        />
-                                    </div>
-                                    {editable &&
-                                        <div className="application-form__row">
-                                            <Field
-                                                id="comment"
-                                                name="comment"
-                                                label="Комментарий к заявке"
-                                                maxLength={500}
-                                                component={FormTextArea}
-                                            />
-                                        </div>
-                                    }
-                                </div>
 
                                     <div className="application-form__controls">
-                                    {editable &&
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary"
-                                            disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
-                                        >Отправить
-                                        </button>
-                                    }
-                                </div>
+                                        {editable &&
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary"
+                                                disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                            >Отправить</button>
+                                        }
+                                    </div>
                                 </FormElement>
                             )}
                         }
