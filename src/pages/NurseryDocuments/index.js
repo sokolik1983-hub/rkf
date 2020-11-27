@@ -32,10 +32,9 @@ const Docs = ({ history }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
     const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
     const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
-    const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
-    const isVisible = personalAccess;
-    const isWithFilters = useRouteMatch('/kennel/:route/documents/replace-pedigree/registry') ? true : false;
+    const isVisible = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
+    const isWithFilters = !!useRouteMatch('/kennel/:route/documents/replace-pedigree/registry');
 
     return !isVisible
         ? <PageNotFound />

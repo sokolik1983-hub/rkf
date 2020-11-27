@@ -334,7 +334,7 @@ const Application = ({ alias, history, status }) => {
                                                 name="documents"
                                                 fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                 component={FormUpload}
-                                                saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                 saveField="document"
                                                 multiple={true}
                                                 showActionButtons={documentsOverflow ? false : true}
@@ -373,7 +373,7 @@ const Application = ({ alias, history, status }) => {
                                                     name="payment_document"
                                                     fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                     component={FormUpload}
-                                                    saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                    saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                     saveField="document"
                                                     multiple={false}
                                                     showActionButtons={true}

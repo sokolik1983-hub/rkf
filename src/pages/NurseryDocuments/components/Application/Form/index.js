@@ -18,9 +18,8 @@ import DocumentLink from "../../DocumentLink";
 import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
-    documentRequiredValidator,
-    requiredWithTrimValidator,
-    documentTypeRequired
+    documentRequiredValidator, requiredWithTrimValidator,
+    documentTypeRequired, innValidator
 } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
@@ -36,19 +35,20 @@ const Application = ({ alias, history, status }) => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
+    const [declarants, setDeclarants] = useState([]);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
     const [documentTypeIds, setDocumentTypeIds] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
-        declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
-        is_foreign_owner: false,
+        declarant_id: 0,
         express: false,
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
-        payment_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        payment_name: '',
+        inn: '',
         comment: '',
         document_type_id: 0,
         rkf_document_type_id: 0,
@@ -59,7 +59,7 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            getDocumentTypes().then(() => setLoaded(true));
+            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -69,7 +69,7 @@ const Application = ({ alias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest?id=${id}`
+                url: `/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
@@ -119,6 +119,20 @@ const Application = ({ alias, history, status }) => {
         });
     };
 
+    const getDeclarants = async () => {
+        await Request({
+            url: `/api/nurseries/nurserydeclarant/nursery_declarants`
+        }, data => {
+            if (data) {
+                setDeclarants(data.map(declarant => ({text: declarant.full_name, value: declarant.id})));
+            } else {
+                setError('Ошибка');
+            }
+        }, error => {
+            handleError(error);
+        });
+    };
+
     const handleSubmit = async data => {
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         setDisableSubmit(true);
@@ -141,12 +155,11 @@ const Application = ({ alias, history, status }) => {
         }
 
         await Request({
-            url: '/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest',
+            url: '/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            history.push(`/user/${alias}/documents`);
-            //setSuccess('Заявка отправлена на рассмотрение');
+            history.push(`/kennel/${alias}/documents`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
@@ -236,33 +249,29 @@ const Application = ({ alias, history, status }) => {
                                         <div className="application-form__row-is-foreign">
                                             <div>
                                                 <Field
-                                                    id="declarant_name"
-                                                    name="declarant_name"
-                                                    label="Ответственное лицо"
-                                                    component={FormInput}
-                                                    disabled={true}
+                                                    id="declarant_id"
+                                                    name="declarant_id"
+                                                    label={<p>Ответственное лицо (<a href={`/kennel/${alias}/documents/responsible/form`}>Создать ответственное лицо</a>)</p>}
+                                                    component={FormDropDownList}
+                                                    data={declarants}
+                                                    defaultItem={values && values.declarant_name
+                                                        ? { text: values.declarant_name, value: values.declarant_id }
+                                                        : { text: "Не выбран", value: 0 }
+                                                    }
+                                                    validator={documentTypeRequired}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                             <div>
                                                 <Field
-                                                    id="is_foreign_owner"
-                                                    name="is_foreign_owner"
-                                                    label="Владелец является иностранным гражданином"
+                                                    id="express"
+                                                    name="express"
+                                                    label="Срочное изготовление"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
-                                        </div>
-                                        <div className="application-form__row row">
-                                            <Field
-                                                id="express"
-                                                name="express"
-                                                label="Срочное изготовление"
-                                                component={FormContactsCheckbox}
-                                                onChange={handleChange}
-                                                disabled={disableAllFields}
-                                            />
                                         </div>
                                         <div className="application-form__row row">
                                             <div>
@@ -273,7 +282,7 @@ const Application = ({ alias, history, status }) => {
                                                     component={FormDropDownList}
                                                     onChange={handleDocTypeChange}
                                                     data={documentTypes.id}
-                                                    defaultItem={values?.document_type_name
+                                                    defaultItem={values && values.document_type_name
                                                         ? { text: values.document_type_name, value: values.document_type_id }
                                                         : { text: "Не выбран", value: 0 }
                                                     }
@@ -290,7 +299,7 @@ const Application = ({ alias, history, status }) => {
                                                             label="Документ"
                                                             component={FormDropDownList}
                                                             data={documentTypeIds}
-                                                            defaultItem={values?.rkf_document_type_name
+                                                            defaultItem={values && values.rkf_document_type_name
                                                                 ? { text: values.rkf_document_type_name, value: values.rkf_document_type_id }
                                                                 : { text: "Не выбран", value: 0 }
                                                             }
@@ -333,10 +342,10 @@ const Application = ({ alias, history, status }) => {
                                                         name="documents"
                                                         fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                         component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                         saveField="document"
                                                         multiple={true}
-                                                        showActionButtons={documentsOverflow ? false : true}
+                                                        showActionButtons={!documentsOverflow}
                                                         onAdd={onAdd}
                                                         onRemove={onRemove}
                                                         onBeforeUpload={e => onBeforeUpload(e, 27)}
@@ -373,13 +382,13 @@ const Application = ({ alias, history, status }) => {
                                                         name="payment_document"
                                                         fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                         component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument'}
+                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
                                                         saveField="document"
                                                         multiple={false}
                                                         showActionButtons={true}
                                                         onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                        onStatusChange={(e) => onStatusChange(e, 'payment_document')}
-                                                        onProgress={(e) => onProgress(e, 'payment_document')}
+                                                        onStatusChange={e => onStatusChange(e, 'payment_document')}
+                                                        onProgress={e => onProgress(e, 'payment_document')}
                                                         validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
                                                             .find(d => d.id))}
                                                     />
@@ -395,35 +404,51 @@ const Application = ({ alias, history, status }) => {
                                                 </div>
                                             }
                                         </div>
-                                        <div className="application-form__row _payment-info">
-                                    <Field
-                                        id="payment_date"
-                                        name="payment_date"
-                                        label="Дата оплаты"
-                                        max={new Date()}
-                                        component={FormDatePicker}
-                                        validator={dateRequiredValidator}
-                                        disabled={!editable}
-                                    />
-                                    <Field
-                                        id="payment_number"
-                                        name="payment_number"
-                                        label="Номер платежного документа"
-                                        cutValue={30}
-                                        component={FormInput}
-                                        validator={requiredWithTrimValidator}
-                                        disabled={!editable}
-                                    />
-                                    <Field
-                                        id="payment_name"
-                                        name="payment_name"
-                                        label="ФИО плательщика"
-                                        cutValue={150}
-                                        component={FormInput}
-                                        validator={value => nameRequiredValidator(value, 150)}
-                                        disabled={!editable}
-                                    />
-                                </div>
+                                        <div className="application-form__row">
+                                            <div>
+                                                <Field
+                                                    id="payment_date"
+                                                    name="payment_date"
+                                                    label="Дата оплаты"
+                                                    max={new Date()}
+                                                    component={FormDatePicker}
+                                                    validator={dateRequiredValidator}
+                                                    disabled={!editable}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="payment_number"
+                                                    name="payment_number"
+                                                    label="Номер платежного документа"
+                                                    cutValue={30}
+                                                    component={FormInput}
+                                                    validator={requiredWithTrimValidator}
+                                                    disabled={!editable}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="application-form__row">
+                                            <Field
+                                                id="payment_name"
+                                                name="payment_name"
+                                                label="ФИО плательщика/наименования юр. лица"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameRequiredValidator(value, 150)}
+                                                disabled={!editable}
+                                            />
+                                            <Field
+                                                id="inn"
+                                                name="inn"
+                                                label="ИНН (для юр. лиц)"
+                                                cutValue={12}
+                                                onlyNumbers={true}
+                                                component={FormInput}
+                                                validator={innValidator}
+                                                disabled={!editable}
+                                            />
+                                        </div>
                                         {editable &&
                                             <div className="application-form__row">
                                                 <Field

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Loading from "components/Loading";
-import Card from "components/Card";
+import Loading from "../../../../../components/Loading";
+import Card from "../../../../../components/Card";
 import Table from "./components/Table";
-import { PromiseRequest } from "utils/request";
+import { Request } from "../../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../../appConfig";
 import "./index.scss";
+
 
 const ApplicationRegistry = ({ history}) => {
     const [loading, setLoading] = useState(true);
@@ -13,65 +14,67 @@ const ApplicationRegistry = ({ history}) => {
     const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
-        (() => PromiseRequest({
-            url: `/api/requests/get_rkf_document_request/ownergetrkfdocumentrequest/register_of_requests`,
+        (() => Request({
+            url: `/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest/register_of_requests`,
             method: 'GET'
-        }).then(
-            data => {
-                setDocuments(data);
-                setLoading(false);
-            }).catch(
-                error => {
-                    console.log(error.response);
-                    setLoading(false);
-                }))();
+        }, data => {
+            setDocuments(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        }))();
     }, []);
 
-    return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
-        <button
-            onClick={() => setStandardView(true)}
-            className="user-documents-status__popup-close"
-        >
-        </button>
-        <Table
-            documents={documents}
-            fullScreen
-        />
-    </Card>
+    return loading ?
+        <Loading /> :
+        !standardView ?
+            <Card className="user-documents-status__popup">
+                <button
+                    onClick={() => setStandardView(true)}
+                    className="user-documents-status__popup-close"
+                >
+                </button>
+                <Table
+                    documents={documents}
+                    fullScreen
+                />
+            </Card>
         :
-        <Card className="user-documents-status">
-            <div className="user-documents-status__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
-                &nbsp;/&nbsp;
-                Заявка на получение документов РКФ
-            </div>
-            {documents && !!documents.length
-                ? <div className="user-documents-status__controls-wrap">
-                    <div className="user-documents-status__controls">
-                        {standardView &&
-                            <button
-                                className="user-documents-status__control user-documents-status__control--downloadIcon"
-                                onClick={() => setExporting(true)}
-                                disabled={exporting}
-                            >
-                                Скачать PDF
-                            </button>
-                        }
-                        <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                            Увеличить таблицу
-                        </button>
-                    </div>
-                    <Table
-                        documents={documents}
-                        exporting={exporting}
-                        setExporting={setExporting}
-                    />
+            <Card className="user-documents-status">
+                <div className="user-documents-status__head">
+                    <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+                    &nbsp;/&nbsp;
+                    Заявка на получение документов РКФ
                 </div>
-                : <div className = "user-documents-status__plug">
-                    <h4 className="user-documents-status__text">Заявок не найдено</h4>
-                    <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
-                </div>}
-        </Card>
+                {documents && !!documents.length
+                    ? <div className="user-documents-status__controls-wrap">
+                        <div className="user-documents-status__controls">
+                            {standardView &&
+                                <button
+                                    className="user-documents-status__control user-documents-status__control--downloadIcon"
+                                    onClick={() => setExporting(true)}
+                                    disabled={exporting}
+                                >
+                                    Скачать PDF
+                                </button>
+                            }
+                            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                                Увеличить таблицу
+                            </button>
+                        </div>
+                        <Table
+                            documents={documents}
+                            exporting={exporting}
+                            setExporting={setExporting}
+                        />
+                    </div>
+                    : <div className = "user-documents-status__plug">
+                        <h4 className="user-documents-status__text">Заявок не найдено</h4>
+                        <img className="user-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
+                    </div>
+                }
+            </Card>
 };
 
 export default React.memo(ApplicationRegistry);

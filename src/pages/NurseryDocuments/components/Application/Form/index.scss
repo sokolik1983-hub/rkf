@@ -21,31 +21,7 @@
     flex-flow: row;
     align-items: flex-start;
     justify-content: flex-start;
-    @media (max-width: 1090px) {
-      &._payment-info {
-        display: block;
-        & > div:not(:last-child) {
-          margin-right: 0;
-        }
-      }
-    }
-    @media (max-width: 990px) {
-      &._payment-info {
-        display: flex;
-        & > div:not(:last-child) {
-          margin-right: 16px;
-        }
-      }
-    }
-    @media (max-width: 730px) {
-      &._payment-info {
-        display: block;
-        & > div:not(:last-child) {
-          margin-right: 0;
-        }
-      }
-    }
-    @media (max-width: 560px) {
+    @media (max-width: 700px) {
       display: block;
       & > div:not(:last-child) {
         margin-right: 0 !important;
@@ -69,21 +45,25 @@
     }
     &-is-foreign {
       display: flex;
-      @media (max-width: 560px) {
-        flex-direction: column;
+      @media (max-width: 700px) {
+        display: block;
       }
       & > div:first-child {
         width: 70%;
         margin-right: 16px;
-        @media (max-width: 560px) {
-          width: auto;
+        @media (max-width: 700px) {
+          width: 100%;
+          margin-right: 0;
         }
         & + div {
           width: 30%;
-          padding-top: 24px;
-          @media (max-width: 560px) {
-            width: auto;
+          padding-top: 31px;
+          @media (max-width: 700px) {
+            width: 100%;
             padding-top: 0;
+          }
+          .k-checkbox-label {
+            line-height: 1.5;
           }
           .k-state-default,
           .k-state-disabled {
@@ -98,7 +78,7 @@
     }
   }
   &__doc-type-id {
-    @media (min-width: 560px) {
+    @media (min-width: 700px) {
       max-width: calc(50% - 8px);
     }
   }
@@ -147,6 +127,13 @@
     & > .k-input {
       resize: none;
     }
+  }
+  .k-picker-wrap {
+    top: 0;
+  }
+  #declarant_id_label p {
+    margin-bottom: 0;
+    letter-spacing: normal;
   }
 }
 
