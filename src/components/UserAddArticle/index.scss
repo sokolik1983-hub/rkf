@@ -310,10 +310,11 @@
         width: 14px;
         height: 18px;
         margin-left: 10px;
-        background: url("/static/icons/delete.svg") no-repeat center / contain,
-          url("/static/icons/delete-red.svg") no-repeat center / contain;
-        &:hover {
-          background: url("/static/icons/delete-red.svg") no-repeat center / contain;
+        span {
+          vertical-align: baseline;
+        }
+        svg {
+          fill: red;
         }
       }
     }
