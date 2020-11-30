@@ -15,7 +15,7 @@ const DocumentLinksArray = ({ documents, editable, onRemove }) => {
     const getDocument = (docId) => {
         if (isNaN(docId) || !docId) return;
 
-        fetch(`/api/requests/dog_health_check_request/doghealthcheckdocument?id=` + docId, { headers })
+        fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=` + docId, { headers })
             .then(res => res.blob())
             .then(data => URL.createObjectURL(data))
             .then(url => setUrl(url));

@@ -47,14 +47,14 @@ const OptionsCell = ({ dataItem }) => {
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/application/view/${id}`}
+            to={`/kennel/${route}/documents/application/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id === 1 ? false : true,
+        disabled: status_id !== 1,
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/application/edit/${id}`}
+            to={`/kennel/${route}/documents/application/edit/${id}`}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
@@ -176,8 +176,8 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
-                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </div>
+                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}

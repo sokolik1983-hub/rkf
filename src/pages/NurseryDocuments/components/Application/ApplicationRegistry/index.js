@@ -33,8 +33,7 @@ const ApplicationRegistry = ({ history}) => {
                 <button
                     onClick={() => setStandardView(true)}
                     className="user-documents-status__popup-close"
-                >
-                </button>
+                />
                 <Table
                     documents={documents}
                     fullScreen

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ls from "local-storage";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
@@ -27,6 +26,8 @@ import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
+
+let counter = 0;
 
 
 const Application = ({ alias, history, status }) => {
@@ -221,11 +222,13 @@ const Application = ({ alias, history, status }) => {
         })
     };
 
+    console.log('render', ++counter, disableSubmit);
+
     return (
         <div className="application-form">
             <Card>
                 <div className="nursery-documents-status__head">
-                    <Link to={`/user/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
+                    <Link to={`/kennel/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>
@@ -237,6 +240,7 @@ const Application = ({ alias, history, status }) => {
                         key={JSON.stringify(initialValues)}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
+
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -258,7 +262,7 @@ const Application = ({ alias, history, status }) => {
                                                         ? { text: values.declarant_name, value: values.declarant_id }
                                                         : { text: "Не выбран", value: 0 }
                                                     }
-                                                    validator={documentTypeRequired}
+                                                    validator={disableAllFields ? '' : documentTypeRequired}
                                                     disabled={disableAllFields}
                                                 />
                                             </div>
