@@ -4,7 +4,6 @@ import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { DropDownButton } from '@progress/kendo-react-buttons';
-import formatDate from 'utils/formatDate';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
@@ -30,7 +29,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
 
 const LinkCell = ({ dataItem }) => {
     const { certificate_document_id } = dataItem;

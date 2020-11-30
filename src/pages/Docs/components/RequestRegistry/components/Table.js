@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
-import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
@@ -29,7 +28,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
 
 const Table = ({ documents, distinction, height, exporting, setExporting, fullScreen }) => {
     const gridPDFExport = useRef(null);
