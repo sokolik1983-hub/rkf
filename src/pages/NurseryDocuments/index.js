@@ -21,6 +21,8 @@ import ReplaceRegistry from "./components/ReplaceRegistry";
 import ReplacePedigree from "./components/ReplacePedigree";
 import Patella from "components/Patella";
 import PatellaRegistry from "components/PatellaRegistry";
+import Application from "./components/Application/Form";
+import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -30,10 +32,9 @@ const Docs = ({ history }) => {
     const nurseryAlias = ls.get('user_info') ? ls.get('user_info').alias : 1;
     const nurseryName = ls.get('user_info') ? ls.get('user_info').name : '';
     const nurseryLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
-    const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
     //const isVisible = isAuthenticated && is_active_profile && match.params.route === nurseryAlias;
-    const isVisible = personalAccess;
-    const isWithFilters = useRouteMatch('/kennel/:route/documents/replace-pedigree/registry') ? true : false;
+    const isVisible = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
+    const isWithFilters = !!useRouteMatch('/kennel/:route/documents/replace-pedigree/registry');
 
     return !isVisible
         ? <PageNotFound />
@@ -47,6 +48,27 @@ const Docs = ({ history }) => {
                         withShare={false}
                     />
                     <Switch>
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/form'
+                            component={() => <Application alias={nurseryAlias} history={history} />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/view/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="view" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/edit/:docId'
+                            component={() => <Application alias={nurseryAlias} history={history} status="edit" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/kennel/:route/documents/application/registry'
+                            component={() => <ApplicationRegistry history={history}/>}
+                        />
+
                         <Route exact={true} path='/kennel/:route/documents/replace-pedigree/registry' component={() =>
                             <ReplaceRegistry alias={nurseryAlias} history={history} />}
                         />
@@ -137,6 +159,8 @@ const Docs = ({ history }) => {
                         <Route exact={true} path='/kennel/:route/documents/pedigree/:id/edit' component={() =>
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
                         />
+
+
 
                         <Route path='/kennel/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
                         <Route path='/kennel/:route/documents' component={() => <DocHome nurseryAlias={nurseryAlias} />} />

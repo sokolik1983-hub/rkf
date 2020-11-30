@@ -10,9 +10,9 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
-import LightTooltip from "../../../../../components/LightTooltip";
-import CopyCell from '../../../../Docs/components/CopyCell';
+import PdfPageTemplate from "../../../../../../components/PdfTemplatePage";
+import LightTooltip from "../../../../../../components/LightTooltip";
+import CopyCell from '../../../../../Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 
@@ -33,28 +33,28 @@ const ColumnMenu = (props) => {
 const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
 
 const LinkCell = ({ dataItem }) => {
-    const { certificate_document_id } = dataItem;
+    const { created_document_id } = dataItem;
     return <td>
-        {certificate_document_id &&
-            <span className="pedigree-link" onClick={e => handleClick(e, certificate_document_id)} >Скачать файл</span>
+        {created_document_id &&
+            <span className="create-document-link" onClick={e => handleClick(e, created_document_id)} >Скачать файл</span>
         }
     </td>
 };
 
 const OptionsCell = ({ dataItem }) => {
-    const { type_id, status_id, id } = dataItem;
+    const { status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
+            to={`/kennel/${route}/documents/application/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id === 1 ? false : true,
+        disabled: status_id !== 1,
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
+            to={`/kennel/${route}/documents/application/edit/${id}`}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
@@ -66,7 +66,7 @@ const handleClick = async (e, id) => {
     let el = e.target;
     el.className = 'stamp-loading';
     el.innerText = 'Загрузка...';
-    await fetch(`/api/requests/dog_health_check_request/doghealthcheckdocument?id=${id}`, {
+    await fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${id}`, {
         method: 'GET',
         headers: getHeaders()
     })
@@ -75,16 +75,16 @@ const handleClick = async (e, id) => {
             let url = window.URL.createObjectURL(blob),
                 a = document.createElement('a');
             a.href = url;
-            a.download = `Сертификат ${id}`;
+            a.download = `Документ ${id}`;
             document.body.appendChild(a);
             a.click();
             a.remove();
         });
     el.innerText = 'Скачать файл';
-    el.className = 'pedigree-link';
+    el.className = 'create-document-link';
 };
 
-const Table = ({ documents, profileType, fullScreen, exporting, setExporting, distinction }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
@@ -133,7 +133,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="certificate_document_id" title="Сертификат" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -169,7 +169,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
                         <strong>Фильтры: </strong>&nbsp;
-                    <DropDownList
+                        <DropDownList
                             data={categories}
                             dataItemKey="status_id"
                             textField="StatusName"
@@ -177,7 +177,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                             onChange={handleDropDownChange}
                         />
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}
@@ -192,11 +192,11 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                        <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                         <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
@@ -205,6 +205,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                     >
                         {gridForExport}
                     </GridPDFExport>
+
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup

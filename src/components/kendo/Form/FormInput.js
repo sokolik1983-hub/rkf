@@ -38,7 +38,7 @@ const FormInput = fieldRenderProps => {
 
     return (
         <FieldWrapper>
-            <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional}>{label}</Label>
+            <Label editorId={id} editorValid={valid} editorDisabled={disabled} optional={optional} >{label}</Label>
             <div className="k-form-field-wrap">
                 <Input
                     valid={valid}

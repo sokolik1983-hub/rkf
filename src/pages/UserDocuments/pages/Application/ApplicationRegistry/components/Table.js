@@ -66,7 +66,7 @@ const handleClick = async (e, id) => {
     let el = e.target;
     el.className = 'stamp-loading';
     el.innerText = 'Загрузка...';
-    await fetch(`/api/requests/get_rkf_document/ownergetrkfdocumentrequestdocument?id=${id}`, {
+    await fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${id}`, {
         method: 'GET',
         headers: getHeaders()
     })
@@ -176,8 +176,8 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                             defaultItem={{ status_id: null, StatusName: "Все" }}
                             onChange={handleDropDownChange}
                         />
-                        <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     </div>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}

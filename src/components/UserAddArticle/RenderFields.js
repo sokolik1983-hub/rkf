@@ -14,6 +14,8 @@ import WikiHelp from "../WikiHelp";
 import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
+import {trash} from "@progress/kendo-svg-icons";
+import {SvgIcon} from "@progress/kendo-react-common";
 
 
 const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, userPage, setLoadFile }) => {
@@ -150,7 +152,9 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                             {documents.map((item, i) =>
                                 <li className="ArticleCreateForm__documents-item" key={i}>
                                     <span>{item.name}</span>
-                                    <button type="button" onClick={() => deleteDocument(i)} />
+                                    <button type="button" onClick={() => deleteDocument(i)}>
+                                        <SvgIcon icon={trash} size="default" />
+                                    </button>
                                 </li>
                             )}
                         </ul>

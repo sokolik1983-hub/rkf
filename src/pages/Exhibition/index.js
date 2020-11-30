@@ -8,9 +8,8 @@ import PropertyP from "../../components/PropertyP";
 import Loading from "../../components/Loading";
 import ExhibitionInfo from "./components/ExhibitionInfo";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {clubNav} from "../Club/config";
+import { clubNav } from "../Club/config";
 import UserMenu from "../../components/Layouts/UserMenu";
-import Disclaimer from "../../components/Disclaimer";
 import { Request } from "../../utils/request";
 import { endpointGetExhibition } from "./config";
 import { useDictionary, getDictElement } from "../../dictionaries";
@@ -20,7 +19,7 @@ import UserHeader from "../../components/redesign/UserHeader";
 import UserGallery from "../../components/redesign/UserGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
-import {isFederationAlias} from "../../utils";
+import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import "./index.scss";
 
@@ -103,7 +102,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         id,
         federation_name,
         federation_alias,
-        headliner_link,
         club_legal_name,
         inn,
         kpp,
@@ -125,9 +123,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                 <StickyBox offsetTop={65}>
                                     <div className="exhibition-page__left-inner">
                                         <div className="mobile-only">
-                                            <Card className="exhibition-page__banner">
-                                                <div style={headliner_link && { backgroundImage: `url(${headliner_link}` }} />
-                                            </Card>
                                             <UserHeader
                                                 user={match.params.route !== 'rkf-online' ? 'club' : ''}
                                                 logo={club_avatar}
@@ -161,13 +156,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserGallery alias={club_alias} />
-                                        <CopyrightInfo/>
+                                        <CopyrightInfo />
                                         <div className="mobile-only">
-                                            <Disclaimer style={{ marginBottom: '12px' }}>
-                                                <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                                                    Инструкция по странице выставки
-                                                </a>
-                                            </Disclaimer>
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                                 {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
@@ -179,14 +169,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                             </aside>
                             <div className="exhibition-page__right">
                                 <div className="desktop-only">
-                                    <Card className="exhibition-page__banner">
-                                        <div style={headliner_link && { backgroundImage: `url(${headliner_link}` }} />
-                                    </Card>
-                                    <Disclaimer style={{ marginBottom: '12px' }}>
-                                        <a className="Disclaimer__support-link" href="https://help.rkf.online/ru/knowledge_base/art/39/cat/3/#/" target="_blank" rel="noopener noreferrer">
-                                            Инструкция по странице выставки
-                                    </a>
-                                    </Disclaimer>
                                     <div className="exhibition-page__title-wrap">
                                         <h2 className="exhibition-page__title">{exhibition.name}</h2>
                                         {canEdit && <Link className="btn__blue" to={`/exhibitions/${exhibition.id}/edit`}>Редактировать</Link>}
