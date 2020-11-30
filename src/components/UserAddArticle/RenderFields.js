@@ -10,19 +10,21 @@ import AddVideoLink from "./AddVideoLink";
 import AttachFile from "./AttachFile";
 import ClientAvatar from "../ClientAvatar";
 import ImagePreview from "../ImagePreview";
-import WikiHelp from "../WikiHelp";
 import { DEFAULT_IMG, BAD_SITES } from "../../appConfig";
 import { Request } from "../../utils/request";
 import LightTooltip from "../LightTooltip";
-import {trash} from "@progress/kendo-svg-icons";
-import {SvgIcon} from "@progress/kendo-react-common";
+import { trash } from "@progress/kendo-svg-icons";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { useFocus } from "../../shared/hooks";
+import OutsideClickHandler from "react-outside-click-handler";
 
 
-const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, userPage, setLoadFile }) => {
+const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
     const [src, setSrc] = useState('');
     const [advertTypes, setAdvertTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
+    const { focus, setFocused, setBlured } = useFocus(false);
 
     const { content, file } = formik.values;
 
@@ -58,7 +60,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
     };
 
     const deleteDocument = index => {
-        if(window.confirm('Вы действительно хотите удалить этот файл?')) {
+        if (window.confirm('Вы действительно хотите удалить этот файл?')) {
             setDocuments([...documents].filter((item, i) => i !== index));
         }
     };
@@ -88,8 +90,8 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
 
     const addRow = () => {
         let charactersInRow = 90;
-        let maxNumberOfRows = 25;
-        let reservedRow = 1;
+        let maxNumberOfRows = 11;
+        let reservedRow = 2;
         let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
 
         if (numberOfRows < maxNumberOfRows) {
@@ -104,26 +106,90 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
         setShowModal(false);
     };
 
+    const handleOutsideClick = () => {
+        setBlured();
+    };
+
     return (
-        <>
-            <input
-                type="file"
-                name="file"
-                id="file"
-                accept=".jpg, .jpeg, .png"
-                className="ArticleCreateForm__inputfile"
-                onChange={handleChange}
-            />
-            <FormGroup className="ArticleCreateForm__wrap">
-                <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
-                <FormField
-                    {...fields.content}
-                    onChange={handleKeyDown}
-                    maxLength="4096"
-                    value={content ? content : ''}
-                    rows={content ? addRow() : "1"}
-                />
-            </FormGroup>
+        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+            <div className={focus ? `_focus` : `_no_focus`}>
+                <FormGroup className="ArticleCreateForm__wrap">
+                    <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
+                    <FormField
+                        {...fields.content}
+                        onChange={handleKeyDown}
+                        onFocus={setFocused}
+                        maxLength="1000"
+                        value={content ? content : ''}
+                        rows={content ? addRow() : focus ? "3" : "1"}
+                    />
+                </FormGroup>
+                <div className="ArticleCreateForm__controls-wrap">
+                    <FormControls className="ArticleCreateForm__controls">
+                        <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
+                            <label htmlFor="file" className="ArticleCreateForm__labelfile" />
+                        </LightTooltip>
+                        <input
+                            type="file"
+                            name="file"
+                            id="file"
+                            accept=".jpg, .jpeg, .png"
+                            className="ArticleCreateForm__inputfile"
+                            onChange={handleChange}
+                        />
+                        {!videoLink &&
+                            <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
+                                <button
+                                    className="ArticleCreateForm__attach-video"
+                                    type="button"
+                                    onClick={() => {
+                                        setModalType('video');
+                                        setShowModal(true);
+                                    }}
+                                />
+                            </LightTooltip>
+                        }
+                        <LightTooltip title="Прикрепить PDF" enterDelay={200} leaveDelay={200}>
+                            <button
+                                className="ArticleCreateForm__attach-pdf"
+                                type="button"
+                                onClick={() => {
+                                    setModalType('pdf');
+                                    setShowModal(true);
+                                }}
+                            />
+                        </LightTooltip>
+                        {!videoLink && focus &&
+                            <CustomCheckbox
+                                id="ad"
+                                label="Объявление"
+                                className="ArticleCreateForm__ad"
+                                checked={isAd}
+                                onChange={() => setIsAd(!isAd)}
+                            />
+                        }
+                    </FormControls>
+                    {content &&
+                        <div className="ArticleCreateForm__length-hint">
+                            <span className="ArticleCreateForm__content-length">
+                                {`осталось ${1000 - content.length} знаков`}
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            {isAd && focus &&
+                <div className="ArticleCreateForm__advert-wrap">
+                    <FormGroup inline>
+                        <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
+                    </FormGroup>
+                    <FormGroup inline className="ArticleCreateForm__advert">
+                        <FormField {...fields.advert_breed_id} />
+                        <CustomNumber {...fields.advert_cost} />
+                        {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
+                    </FormGroup>
+                </div>
+            }
             <>
                 {file &&
                     <div className="ImagePreview__wrap">
@@ -160,73 +226,14 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                         </ul>
                     </div>
                 }
-                {isAd &&
-                    <>
-                        <FormGroup inline className="ArticleCreateForm__advert">
-                            <FormField {...fields.advert_breed_id} />
-                            <CustomNumber {...fields.advert_cost} />
-                            {!isMating && <CustomNumber {...fields.advert_number_of_puppies} />}
-                        </FormGroup>
-                        <FormGroup inline>
-                            <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
-                        </FormGroup>
-                    </>
-                }
-                {content &&
-                    <div className="ArticleCreateForm__length-hint">
-                        <span className="ArticleCreateForm__content-length">
-                            {`осталось ${4096 - content.length} знаков`}
-                        </span>
-                    </div>
-                }
-                <FormControls className="ArticleCreateForm__controls">
-                    <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
-                        <label htmlFor="file" className="ArticleCreateForm__labelfile"/>
-                    </LightTooltip>
-                    {!isAd && !videoLink &&
-                        <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
-                            <button
-                                className="ArticleCreateForm__attach-video"
-                                type="button"
-                                onClick={() => {
-                                    setModalType('video');
-                                    setShowModal(true);
-                                }}
-                            />
-                        </LightTooltip>
-                    }
-                    <LightTooltip title="Прикрепить PDF" enterDelay={200} leaveDelay={200}>
-                        <button
-                            className="ArticleCreateForm__attach-pdf"
-                            type="button"
-                            onClick={() => {
-                                setModalType('pdf');
-                                setShowModal(true);
-                            }}
-                        />
-                    </LightTooltip>
-                    {!videoLink &&
-                        <CustomCheckbox
-                            id="ad"
-                            label="Объявление"
-                            className="ArticleCreateForm__ad"
-                            checked={isAd}
-                            onChange={() => setIsAd(!isAd)}
-                        />
-                    }
-                    <div className="ArticleCreateForm__button-wrap">
-                        {!userPage && <WikiHelp
-                            url="https://help.rkf.online/ru/knowledge_base/art/53/cat/3/#/"
-                            title="Инструкция по добавлению новости"
-                        />}
-                        <SubmitButton
-                            type="submit"
-                            className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
-                        >
-                            Опубликовать
-                        </SubmitButton>
-                    </div>
-                </FormControls>
+                {focus && <div className="ArticleCreateForm__button-wrap">
+                    <SubmitButton
+                        type="submit"
+                        className={`ArticleCreateForm__button ${formik.isValid ? 'active' : ''}`}
+                    >
+                        Опубликовать
+                    </SubmitButton>
+                </div>}
             </>
             {showModal &&
                 <Modal
@@ -234,7 +241,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                     showModal={showModal}
                     handleClose={() => modalType && modalType === 'video' ? closeModal() : null}
                     handleX={closeModal}
-                    headerName = {modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
+                    headerName={modalType === 'video' ? 'Добавление видео' : 'Прикрепление файла'}
                 >
                     {modalType === 'video' &&
                         <AddVideoLink
@@ -253,7 +260,7 @@ const RenderFields = ({fields, logo, formik, isAd, setIsAd, videoLink, setVideoL
                     }
                 </Modal>
             }
-        </>
+        </OutsideClickHandler>
     )
 };
 
