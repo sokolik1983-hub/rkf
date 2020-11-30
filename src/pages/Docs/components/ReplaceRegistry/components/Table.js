@@ -5,7 +5,6 @@ import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-gr
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { DropDownButton } from '@progress/kendo-react-buttons';
 import { Checkbox } from '@progress/kendo-react-inputs';
-import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
@@ -33,7 +32,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
 
 const LinkCell = (props) => {
     const { dataItem } = props;
