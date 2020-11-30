@@ -68,7 +68,7 @@ const Application = ({ alias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest?id=${id}`
+                url: `/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
@@ -120,7 +120,7 @@ const Application = ({ alias, history, status }) => {
 
     const getDeclarants = async () => {
         await Request({
-            url: `/api/nurseries/nurserydeclarant/nursery_declarants`
+            url: `/api/clubs/declarant/club_declarants`
         }, data => {
             if (data) {
                 setDeclarants(data.map(declarant => ({text: declarant.full_name, value: declarant.id})));
@@ -154,11 +154,11 @@ const Application = ({ alias, history, status }) => {
         }
 
         await Request({
-            url: '/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest',
+            url: '/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            history.push(`/kennel/${alias}/documents`);
+            history.push(`/${alias}/documents`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
@@ -223,8 +223,8 @@ const Application = ({ alias, history, status }) => {
     return (
         <div className="application-form">
             <Card>
-                <div className="nursery-documents-status__head">
-                    <Link to={`/kennel/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
+                <div className="club-documents-status__head">
+                    <Link to={`/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>
@@ -254,7 +254,7 @@ const Application = ({ alias, history, status }) => {
                                                         <>
                                                             &nbsp;
                                                             <span>
-                                                                (<a href={`/kennel/${alias}/documents/responsible/form`}>Создать ответственное лицо</a>)
+                                                                (<a href={`/${alias}/documents/responsible/form`}>Создать ответственное лицо</a>)
                                                             </span>
                                                         </>
                                                     }

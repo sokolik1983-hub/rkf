@@ -160,8 +160,6 @@ const Docs = ({ history }) => {
                             <DocApplyLitter nurseryAlias={nurseryAlias} history={history} distinction={"pedigree"} />}
                         />
 
-
-
                         <Route path='/kennel/:route/documents/bookform' component={() => <DocHome bookform={true} nurseryAlias={nurseryAlias} />} />
                         <Route path='/kennel/:route/documents' component={() => <DocHome nurseryAlias={nurseryAlias} />} />
                         <Route component={LoadableNotFound} />
