@@ -112,6 +112,9 @@
   ._patella_controls {
     position: relative;
     top: 65px;
+    @media (max-width: 700px) {
+      top: 0;
+    }
   }
   &__control {
     display: inline-flex;
