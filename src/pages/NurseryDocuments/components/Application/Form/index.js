@@ -251,11 +251,22 @@ const Application = ({ alias, history, status }) => {
                                             {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                         </h4>
                                         <div className="application-form__row-is-foreign">
-                                            <div>
+                                            <div className="application-form__declarant">
+                                                <p className={`k-label${disableAllFields ? ' k-text-disabled' : ''}`}>
+                                                    <span>Ответственное лицо</span>
+                                                    {!disableAllFields &&
+                                                        <>
+                                                            &nbsp;
+                                                            <span>
+                                                                (<a href={`/kennel/${alias}/documents/responsible/form`}>Создать ответственное лицо</a>)
+                                                            </span>
+                                                        </>
+                                                    }
+                                                </p>
                                                 <Field
                                                     id="declarant_id"
                                                     name="declarant_id"
-                                                    label={<p>Ответственное лицо (<a href={`/kennel/${alias}/documents/responsible/form`}>Создать ответственное лицо</a>)</p>}
+                                                    // label={}
                                                     component={FormDropDownList}
                                                     data={declarants}
                                                     defaultItem={values && values.declarant_name
