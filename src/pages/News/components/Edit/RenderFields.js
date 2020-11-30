@@ -9,6 +9,8 @@ import { BAD_SITES } from "../../../../appConfig";
 import { Request } from "../../../../utils/request";
 import Modal from "../../../../components/Modal";
 import LightTooltip from "../../../../components/LightTooltip";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { trash } from "@progress/kendo-svg-icons";
 
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
@@ -162,7 +164,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                         {docs.map((item, i) =>
                             <li className="article-edit__documents-item" key={i}>
                                 <span>{item.name}</span>
-                                <button type="button" onClick={() => handleDeleteDocument(i)} />
+                                <SvgIcon icon={trash} size="default"  onClick={() => handleDeleteDocument(i)} />
                             </li>
                         )}
                     </ul>
