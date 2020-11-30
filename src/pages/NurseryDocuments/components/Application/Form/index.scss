@@ -94,6 +94,19 @@
   &__how-to-link {
     text-decoration: none;
   }
+  &__declarant {
+    p.k-label {
+      margin-bottom: 0;
+      opacity: 1 !important;
+      letter-spacing: normal;
+      &.k-text-disabled {
+        opacity: .65 !important;
+      }
+    }
+    .k-form-field {
+      margin-top: 0;
+    }
+  }
   .btn {
     padding-top: 6px;
     padding-bottom: 6px;
@@ -130,10 +143,6 @@
   }
   .k-picker-wrap {
     top: 0;
-  }
-  #declarant_id_label p {
-    margin-bottom: 0;
-    letter-spacing: normal;
   }
 }
 
