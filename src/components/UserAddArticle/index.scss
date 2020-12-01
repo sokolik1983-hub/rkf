@@ -18,6 +18,13 @@
     resize: vertical;
   }
 
+  .custom-checkbox {
+    @media (max-width: 700px) {
+      position: relative;
+      top: -4px;
+    }
+  }
+
   &__wrap {
     display: flex;
     align-items: center;
@@ -39,13 +46,16 @@
       @media (max-width: 560px) {
         width: 100%;
         font-size: 14px;
-        padding: 11px 12px;
       }
     }
 
     .FormInput--text {
       flex-grow: 1;
       margin: 0 0 0 12px;
+
+      @media (max-width: 700px) {
+        margin: 0;
+      }
     }
 
     .FormInput--error .FormInput__error {
@@ -66,6 +76,7 @@
   &__controls {
     padding-left: 72px;
     align-items: center;
+
     @media (max-width: 700px) {
       padding-left: 10px;
     }
@@ -80,7 +91,7 @@
     &-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 8px
+      margin-top: 8px;
     }
   }
 
@@ -188,6 +199,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media(max-width: 400px) {
+      flex-wrap: nowrap;
+    }
 
     .custom-checkbox {
       &__label {
@@ -234,9 +248,12 @@
     }
 
     &-wrap {
-      margin-left: 60px;
       margin-top: 20px;
       color: #72839C;
+
+      & ._desktop {
+        margin-left: 60px;
+      }
     }
   }
 
@@ -290,6 +307,17 @@
       max-width: 48px !important;
       min-height: 48px !important;
       max-height: 48px !important;
+    }
+
+    @media (max-width: 600px) {
+      min-width: 32px !important;
+      max-width: 32px !important;
+      min-height: 32px !important;
+      max-height: 32px !important;
+    }
+
+    @media (max-width: 700px) {
+      display: none;
     }
   }
 
@@ -409,4 +437,8 @@
 
 .k-chip-selected {
   background-color: #BFD3F7 !important;
+}
+
+.css-1ox0dji-singleValue {
+  color: #72839C !important;
 }

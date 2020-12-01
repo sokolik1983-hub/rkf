@@ -17,6 +17,7 @@ import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useFocus } from "../../shared/hooks";
 import OutsideClickHandler from "react-outside-click-handler";
+import useIsMobile from "../../utils/useIsMobile";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
@@ -25,6 +26,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const { focus, setFocused, setBlured } = useFocus(false);
+    const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
 
@@ -169,7 +171,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             />
                         }
                     </FormControls>
-                    {content &&
+                    {content && !isMobile &&
                         <div className="ArticleCreateForm__length-hint">
                             <span className="ArticleCreateForm__content-length">
                                 {`осталось ${1000 - content.length} знаков`}
@@ -179,7 +181,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                 </div>
             </div>
             {isAd && focus &&
-                <div className="ArticleCreateForm__advert-wrap">
+                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
