@@ -116,7 +116,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="ArticleCreateForm__wrap">
-                    <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
+                    <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
                     <FormField
                         {...fields.content}
                         onChange={handleKeyDown}
@@ -127,7 +127,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                     />
                 </FormGroup>
                 <div className="ArticleCreateForm__controls-wrap">
-                    <FormControls className="ArticleCreateForm__controls">
+                    <FormControls className={`ArticleCreateForm__controls ${focus ? ' _focus' : ''}`}>
                         <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
                             <label htmlFor="file" className="ArticleCreateForm__labelfile" />
                         </LightTooltip>
