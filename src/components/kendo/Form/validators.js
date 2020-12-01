@@ -36,6 +36,12 @@ export const postcodeValidator = (value) => !noUnderscore(value)
         ? "Кол-во цифр: 6-7"
         : "";
 
+export const innValidator = value => !value
+    ? ""
+    : (value.length < 10 || value.length === 11 || value.length > 12)
+        ? "Кол-во цифр: 10 или 12"
+        : "";
+
 export const phoneRequiredValidator = (value) => !value ? requiredMessage : phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99";
 
 export const phoneValidator = (value) => value && value !== phoneMask ? phoneRegex.test(value) ? "" : "Формат: +7(999)999-99-99" : "";
