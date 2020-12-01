@@ -236,6 +236,9 @@
   ._nursery_request_controls {
     position: relative;
     top: 40px;
+    @media (max-width: 700px) {
+      top: 0;
+    }
   }
   &__plug{
     text-align: center;

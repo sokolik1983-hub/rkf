@@ -66,13 +66,15 @@
   &__controls {
     padding-left: 72px;
     align-items: center;
+    @media (max-width: 700px) {
+      padding-left: 10px;
+    }
 
     &>* {
       margin-right: 39px;
-    }
-
-    @media (max-width: 1220px) {
-      padding-left: 62px;
+      @media (max-width: 700px) {
+        margin-right: 5px;
+      }
     }
 
     &-wrap {
