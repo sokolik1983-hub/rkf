@@ -181,7 +181,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                 </div>
             </div>
             {isAd && focus &&
-                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _no_mobile'}`}>
+                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
