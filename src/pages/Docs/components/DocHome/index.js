@@ -48,7 +48,7 @@ const DocumentCards = ({ clubAlias }) => {
             <p>
                 Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на
                 свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.
-        </p>
+            </p>
             <div className="documents-page__support-links">
                 <p>
                     <a href="https://help.rkf.online/ru/knowledge_base/art/37/cat/3/#/" target="_blank" rel="noopener noreferrer">Инструкция по подаче родословной</a>
@@ -125,8 +125,18 @@ const DocumentCards = ({ clubAlias }) => {
                 </div>
             </div>
         </Card>
-
-
+        <Card>
+            <div className="documents-page__icon litter-icon" />
+            <h3>ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ</h3>
+            <p>В данном разделе Вы можете оформить заявки на получение следующих документов: дипломы чемпионов, дипломы победителей, племенные сертификаты, рабочие сертификаты. После изготовления диплома/сертификата данные автоматически заносятся в электронную базу РКФ.</p>
+            <hr />
+            <div className="Card__links">
+                <div>
+                    <Link to={`/${clubAlias}/documents/application/form`}>Подать заявление</Link>
+                    <Link to={`/${clubAlias}/documents/application/registry`}>Реестр заявок</Link>
+                </div>
+            </div>
+        </Card>
         {alert &&
             <Alert
                 title="Внимание!"

@@ -4,6 +4,7 @@ import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { DropDownButton } from '@progress/kendo-react-buttons';
+import formatDate from 'utils/formatDate';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
@@ -29,7 +30,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
+const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
 
 const LinkCell = ({ dataItem }) => {
     const { created_document_id } = dataItem;
@@ -46,14 +47,14 @@ const OptionsCell = ({ dataItem }) => {
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/application/view/${id}`}
+            to={`/kennel/${route}/documents/application/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id === 1 ? false : true,
+        disabled: status_id !== 1,
         render: ({ item }) => <Link
-            to={`/user/${route}/documents/application/edit/${id}`}
+            to={`/kennel/${route}/documents/application/edit/${id}`}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
@@ -89,7 +90,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
-            { field: "date_create", dir: "desc" }
+            { field: "date_create", dir: "asc" }
         ]
     });
 
@@ -176,7 +177,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                             onChange={handleDropDownChange}
                         />
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}
@@ -185,10 +186,10 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `583px`}`, margin: '0 auto' }}>
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `603px`}`, margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
                         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
