@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
 import { DropDownButton } from '@progress/kendo-react-buttons';
-import formatDate from 'utils/formatDate';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
@@ -19,7 +18,7 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{formatDate(dataItem[field])}</td>;
+const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
 
 const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     const { id, status_id } = dataItem;
@@ -71,7 +70,7 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
-            { field: "date_create", dir: "asc" }
+            { field: "date_create", dir: "desc" }
         ]
     });
 
@@ -141,9 +140,9 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     onDataStateChange={handleGridDataChange}
                     onRowClick={handleGridRowClick}
                     className="club-documents-status__pointer"
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `934px` : `574px`}`, margin: "0 auto" }}>
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `934px` : `554px`}`, margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                     <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />

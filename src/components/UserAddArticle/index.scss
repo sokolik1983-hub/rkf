@@ -1,9 +1,11 @@
 .add-article {
-  padding: 12px !important;
+  padding: 10px;
   margin-bottom: 24px !important;
+
   @media (max-width: 560px) {
     margin-bottom: 12px !important;
   }
+
   &__help {
     text-align: right;
   }
@@ -11,13 +13,23 @@
 
 .ArticleCreateForm {
   position: relative;
+
   textarea {
     resize: vertical;
   }
+
+  .custom-checkbox {
+    @media (max-width: 700px) {
+      position: relative;
+      top: -4px;
+    }
+  }
+
   &__wrap {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    flex-grow: 1;
+
     #content {
       border: 1px solid #ebf0f2;
       border-radius: 6px;
@@ -25,58 +37,64 @@
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 11px 16px 11px 16px;
+      padding: 7px 16px 7px 16px;
+
       &:empty {
         height: auto !important;
       }
+
       @media (max-width: 560px) {
         width: 100%;
         font-size: 14px;
-        padding: 11px 12px;
       }
     }
+
     .FormInput--text {
       flex-grow: 1;
       margin: 0 0 0 12px;
+
+      @media (max-width: 700px) {
+        margin: 0;
+      }
     }
+
     .FormInput--error .FormInput__error {
       display: none;
     }
   }
+
   &__length-hint {
     display: flex;
     justify-content: flex-end;
     margin: 10px 0;
   }
+
   &__content-length {
-    color: #72839c;
+    color: #253C5E;
   }
+
   &__controls {
     padding-left: 72px;
     align-items: center;
-    @media (max-width: 1220px) {
-      padding-left: 62px;
+
+    @media (max-width: 700px) {
+      padding-left: 10px;
     }
-    // @media (max-width: 700px) {
-    //   margin-top: 50px;
-    //   padding-left: 0;
-    //   flex-direction: row;
-    //   align-items: flex-start;
-    //   position: relative;
-    //   .ArticleCreateForm__button-wrap {
-    //     width: inherit;
-    //     margin-top: 10px;
-    //     position: absolute;
-    //     right: 0;
-    //     top: 0;
-    //   }
-    // }
-    @media (max-width: 480px) {
-      .ArticleCreateForm__button-wrap {
-        position: static;
+
+    &>* {
+      margin-right: 39px;
+      @media (max-width: 700px) {
+        margin-right: 5px;
       }
     }
+
+    &-wrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
   }
+
   &__labelfile {
     padding-left: 24px;
     margin-bottom: 0;
@@ -85,9 +103,11 @@
     cursor: pointer;
     position: relative;
     transition: color 0.2s linear;
+
     @media (max-width: 700px) {
       margin-bottom: 10px;
     }
+
     &:before {
       content: "";
       display: inline-block;
@@ -100,13 +120,16 @@
       left: 0;
       transform: translateY(-50%);
     }
+
     &:hover {
       color: #3366ff;
+
       &:before {
         background: url("/static/icons/client/attach-image-active.svg") no-repeat center / cover;
       }
     }
   }
+
   &__attach-video,
   &__attach-pdf {
     border: none;
@@ -118,9 +141,11 @@
     cursor: pointer;
     color: #72839c;
     transition: color 0.2s linear;
+
     @media (max-width: 700px) {
       margin-bottom: 10px;
     }
+
     &:before {
       content: "";
       display: inline-block;
@@ -133,21 +158,26 @@
       left: 0;
       transform: translateY(-50%);
     }
+
     &:hover {
       color: #3366ff;
+
       &:before {
         background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
       }
     }
+
     &._disabled {
       opacity: 0.5;
       cursor: default;
       color: #72839c !important;
+
       &:before {
         background: url("/static/icons/icon-youtube.svg") no-repeat center / cover !important;
       }
     }
   }
+
   &__attach-pdf {
     &:before {
       background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
@@ -157,16 +187,22 @@
       left: 0;
       transform: translateY(-50%);
     }
+
     &:hover {
       &:before {
         background: url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
       }
     }
   }
+
   .FormControls {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media(max-width: 400px) {
+      flex-wrap: nowrap;
+    }
+
     .custom-checkbox {
       &__label {
         color: #72839c;
@@ -174,35 +210,53 @@
       }
     }
   }
+
   &__button-wrap {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    @media (max-width: 1175px) {
-      width: 100%;
-      margin-top: 10px;
-    }
-    @media (max-width: 990px) {
-      width: auto;
-      margin-top: 0;
-    }
-    @media (max-width: 870px) {
-      width: 100%;
-      margin-top: 10px;
-    }
-    .wiki-help {
-      margin: 0 10px 0 0;
-    }
+    margin-top: 20px;
   }
+
   &__advert {
+    color: #72839C;
+
     @media (max-width: 767px) {
       display: block;
       margin-bottom: 10px;
+
       .FormInput:not(:last-child) {
         margin: 0 0 10px;
       }
     }
+
+    .FormInput__input {
+      padding: 7px 16px 7px 16px !important;
+
+      &:first-child {
+        padding: 0 !important;
+      }
+    }
+
+    .css-shvkw9-control,
+    .css-8rvjbo-control,
+    .css-shvkw9-control {
+      padding: 1px 0 1px 0 !important;
+    }
+
+    #advert_breed_id {
+      padding: 0 !important;
+    }
+
+    &-wrap {
+      margin-top: 20px;
+      color: #72839C;
+
+      & ._desktop {
+        margin-left: 60px;
+      }
+    }
   }
+
   &__button {
     color: white !important;
     background: #007bff;
@@ -211,16 +265,19 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.1px;
     padding: 6px 16px;
     cursor: default;
     height: 38px;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    margin: 0 auto;
+
     &.active {
       background: #007bff;
       box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);
       opacity: 1;
       cursor: pointer;
+
       &:hover {
         border-color: #0062cc;
         color: #ffffff;
@@ -228,6 +285,7 @@
       }
     }
   }
+
   &__inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -236,30 +294,48 @@
     position: absolute;
     z-index: -1;
   }
+
   .FormInput--file {
     margin-bottom: 6px;
   }
+
   .ClientAvatar {
     align-self: flex-start;
+
     @media (max-width: 1220px) {
       min-width: 48px !important;
       max-width: 48px !important;
       min-height: 48px !important;
       max-height: 48px !important;
     }
+
+    @media (max-width: 600px) {
+      min-width: 32px !important;
+      max-width: 32px !important;
+      min-height: 32px !important;
+      max-height: 32px !important;
+    }
+
+    @media (max-width: 700px) {
+      display: none;
+    }
   }
+
   .ImagePreview {
     text-align: center;
     margin: 16px 0 12px;
+
     &__wrap {
       position: relative;
     }
+
     &__close {
       position: absolute;
       top: 0;
       right: 0;
       cursor: pointer;
     }
+
     img {
       display: block;
       max-height: 680px;
@@ -270,39 +346,48 @@
       border-radius: 6px;
     }
   }
+
   &__modal {
-    & > div {
+    &>div {
       max-width: 600px;
     }
-    .Modal__header{
+
+    .Modal__header {
       line-height: 1;
       padding-bottom: 8px;
     }
-    .Modal__body{
+
+    .Modal__body {
       padding: 12px;
     }
-    .Modal__close{
+
+    .Modal__close {
       width: 14px;
       height: 14px;
       top: 14px;
       right: 12px;
     }
   }
+
   &__documents {
     margin: 16px 0 12px;
+
     &-title {
       font-weight: normal;
       font-size: 18px;
       line-height: 24px;
       margin-bottom: 4px;
     }
+
     &-list {
       list-style: none;
     }
+
     &-item {
       span {
         vertical-align: middle;
       }
+
       button {
         vertical-align: middle;
         border: none;
@@ -310,9 +395,11 @@
         width: 14px;
         height: 18px;
         margin-left: 10px;
+
         span {
           vertical-align: baseline;
         }
+
         svg {
           fill: red;
         }
@@ -322,7 +409,36 @@
 }
 
 #advert_breed_id {
-  & > div {
+  &>div {
     z-index: 2;
   }
+}
+
+._focus {
+  display: flex;
+  flex-direction: column;
+}
+
+._no_focus {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.k-chip-filled:focus,
+.k-chip-filled.k-chip-focused {
+  box-shadow: none !important;
+}
+
+.k-chip {
+  color: #72839C;
+  border: 0 !important;
+}
+
+.k-chip-selected {
+  background-color: #BFD3F7 !important;
+}
+
+.css-1ox0dji-singleValue {
+  color: #72839C !important;
 }
