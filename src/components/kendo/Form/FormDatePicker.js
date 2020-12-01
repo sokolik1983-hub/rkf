@@ -18,7 +18,7 @@ load(
 );
 
 
-const FormDatePicker = (fieldRenderProps) => {
+const FormDatePicker = fieldRenderProps => {
     const {
         validationMessage, touched, label, id, valid,
         disabled, hint, wrapperStyle, hintDirection, value, ...others
@@ -33,7 +33,7 @@ const FormDatePicker = (fieldRenderProps) => {
             <Label id={labelId} editorId={id} editorValid={valid} editorDisabled={disabled}>
                 {label}
             </Label>
-            <div className={'k-form-field-wrap'}>
+            <div className="k-form-field-wrap">
                 <LocalizationProvider language="ru">
                     <IntlProvider locale="ru">
                         <DatePicker

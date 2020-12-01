@@ -24,6 +24,7 @@ import { Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
+import moment from "moment";
 
 loadMessages(ruMessages, 'ru');
 
@@ -135,10 +136,14 @@ const Application = ({ alias, history, status }) => {
     const handleSubmit = async data => {
         const paymentId = formProps.valueGetter('payment_document')[0]?.id;
         setDisableSubmit(true);
+
         let newData = {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
         };
+
+        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
@@ -224,7 +229,7 @@ const Application = ({ alias, history, status }) => {
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
-                    <Link to={`/${alias}/documents`} className="nursery-documents-status__head-link">Личный кабинет</Link>
+                    <Link to={`/${alias}/documents`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Заявка на получение документов РКФ</span>
                 </div>

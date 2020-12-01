@@ -26,6 +26,7 @@ import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import ruMessages from 'kendoMessages.json';
 import "./index.scss";
+import moment from "moment";
 
 loadMessages(ruMessages, 'ru');
 
@@ -126,6 +127,9 @@ const Application = ({ alias, history, status }) => {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
         };
+
+        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
