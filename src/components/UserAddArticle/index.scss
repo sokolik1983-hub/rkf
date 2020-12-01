@@ -19,9 +19,12 @@
   }
 
   .custom-checkbox {
+    margin-left: 20px;
+
     @media (max-width: 700px) {
       position: relative;
       top: -4px;
+      left: -8px;
     }
   }
 
@@ -74,15 +77,23 @@
   }
 
   &__controls {
-    padding-left: 72px;
+    padding-left: 10px;
     align-items: center;
 
-    @media (max-width: 700px) {
-      padding-left: 10px;
+    &._focus {
+      margin-left: 43px;
+      display: flex;
+      flex-direction: row;
+
+      @media (max-width: 700px) {
+        margin-left: 0;
+        padding-left: 0;
+      }
     }
 
     &>* {
-      margin-right: 39px;
+      margin-right: 15px;
+
       @media (max-width: 700px) {
         margin-right: 5px;
       }
@@ -91,7 +102,11 @@
     &-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 8px;
+      margin-top: 4px;
+
+      @media (max-width: 700px) {
+        margin-top: 12px;
+      }
     }
   }
 
@@ -179,6 +194,9 @@
   }
 
   &__attach-pdf {
+    margin-right: 0;
+    padding: 0 0 0 20px;
+
     &:before {
       background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
         url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
@@ -199,6 +217,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     @media(max-width: 400px) {
       flex-wrap: nowrap;
     }
@@ -251,7 +270,7 @@
       margin-top: 20px;
       color: #72839C;
 
-      & ._desktop {
+      &._desktop {
         margin-left: 60px;
       }
     }
@@ -301,20 +320,6 @@
 
   .ClientAvatar {
     align-self: flex-start;
-
-    @media (max-width: 1220px) {
-      min-width: 48px !important;
-      max-width: 48px !important;
-      min-height: 48px !important;
-      max-height: 48px !important;
-    }
-
-    @media (max-width: 600px) {
-      min-width: 32px !important;
-      max-width: 32px !important;
-      min-height: 32px !important;
-      max-height: 32px !important;
-    }
 
     @media (max-width: 700px) {
       display: none;
