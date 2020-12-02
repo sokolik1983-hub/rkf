@@ -92,8 +92,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const addRow = () => {
         let charactersInRow = 90;
         let maxNumberOfRows = 11;
-        let reservedRow = 1;
-        let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
+        let numberOfRows = Math.ceil(content.length / charactersInRow);
 
         if (numberOfRows < maxNumberOfRows) {
             return numberOfRows;
