@@ -24,7 +24,7 @@ const FormInput = fieldRenderProps => {
     } = fieldRenderProps;
 
     const showValidationMessage = touched && validationMessage;
-    const showHint = !showValidationMessage && (hint || maxLength);
+    const showHint = !disabled && !showValidationMessage && (hint || maxLength);
     const errorId = showValidationMessage ? `${id}_error` : '';
 
     const allowMaxLength = str => str.slice(0, cutValue);
