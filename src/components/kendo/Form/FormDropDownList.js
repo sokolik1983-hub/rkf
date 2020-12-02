@@ -3,7 +3,8 @@ import { FieldWrapper } from "@progress/kendo-react-form";
 import { Label, Error } from "@progress/kendo-react-labels";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
 
-const FormDropDownList = (fieldRenderProps) => {
+
+const FormDropDownList = fieldRenderProps => {
     const { validationMessage, touched, label, id, valid, disabled, hint, wrapperStyle, data, value, onChange, ...others } = fieldRenderProps;
     const [dropdownValue, setDropdownValue] = useState(data.filter(d => d.value === value)[0]);
     const editorRef = React.useRef(null);
