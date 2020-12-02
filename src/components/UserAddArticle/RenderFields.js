@@ -162,7 +162,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                 }}
                             />
                         </LightTooltip>
-                        {!videoLink && focus &&
+                        {focus &&
                             <CustomCheckbox
                                 id="ad"
                                 label="Объявление"

@@ -132,7 +132,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                         </div>
                     </LightTooltip>
                 }
-                {!is_advert && !video &&
+                {!video &&
                     <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                         <button
                             className="article-edit__attach-video"
@@ -197,7 +197,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                 </div>
             }
             <FormControls className="article-edit__form-controls">
-                <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
+                <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
                     className={`article-edit__button${formik.isValid ? ' _active' : ''}`}
