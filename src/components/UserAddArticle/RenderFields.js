@@ -124,6 +124,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         maxLength="1000"
                         value={content ? content : ''}
                         rows={content ? addRow() : focus ? "3" : "1"}
+                        className={focus ? `_textarea_focus` : ``}
                     />
                 </FormGroup>
                 <div className="ArticleCreateForm__controls-wrap">

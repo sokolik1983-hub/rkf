@@ -53,6 +53,7 @@ const validationSchema = {
         id: number(),
         dog_name: string().required(reqText),
         dog_color: string().required(reqText),
+        dog_name_lat: string(),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
