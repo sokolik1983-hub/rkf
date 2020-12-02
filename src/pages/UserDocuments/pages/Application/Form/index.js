@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ls from "local-storage";
+import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
@@ -19,19 +20,19 @@ import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator,
     requiredWithTrimValidator,
-    documentTypeRequired
+    documentTypeRequired, requiredValidator
 } from "components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import ruMessages from 'kendoMessages.json';
 import "./index.scss";
-import moment from "moment";
 
 loadMessages(ruMessages, 'ru');
 
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
+    const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
@@ -45,6 +46,8 @@ const Application = ({ alias, history, status }) => {
         declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
         is_foreign_owner: false,
         express: false,
+        pedigree_number: '',
+        dog_name: '',
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
@@ -154,6 +157,22 @@ const Application = ({ alias, history, status }) => {
         }, error => {
             handleError(error);
             setDisableSubmit(false);
+        });
+    };
+
+    const getDogName = async (pedigreeNumber, changeDogName) => {
+        await Request({
+            url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
+        }, data => {
+            if(data) {
+                setDisableFields(true);
+                setError('');
+                changeDogName('dog_name', {value: data.name});
+            } else {
+                setError('Номер родословной не найден в базе ВЕРК');
+            }
+        }, error => {
+            handleError(error);
         });
     };
 
@@ -308,6 +327,51 @@ const Application = ({ alias, history, status }) => {
                                             </LocalizationProvider>
 
                                         </div>
+                                    </div>
+                                    <div className="application-form__row row">
+                                        <Field
+                                            id="pedigree_number"
+                                            name="pedigree_number"
+                                            label="№ родословной собаки"
+                                            hint="Допускается ввод только цифр"
+                                            maxLength={30}
+                                            onlyNumbers={true}
+                                            disabled={disableAllFields || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {!disableAllFields && !disableFields &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => getDogName(
+                                                    formRenderProps.valueGetter('pedigree_number'),
+                                                    formRenderProps.onChange
+                                                )}
+                                                disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                            >Поиск
+                                            </button>
+                                        }
+                                        <Field
+                                            id="dog_name"
+                                            name="dog_name"
+                                            label="Кличка собаки"
+                                            disabled={disableAllFields || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {!disableAllFields && disableFields &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-red"
+                                                onClick={() => {
+                                                    formRenderProps.onChange('pedigree_number', {value: ''});
+                                                    formRenderProps.onChange('dog_name', {value: ''});
+                                                    setDisableFields(false);
+                                                }}
+                                            >Удалить
+                                            </button>
+                                        }
                                     </div>
                                 </div>
 
