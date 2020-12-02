@@ -15,7 +15,14 @@
   position: relative;
 
   textarea {
-    resize: vertical;
+    resize: initial;
+  }
+
+  ._textarea_focus {
+    #content {
+      border-bottom: 1px solid #ebf0f2;
+      border-radius: 0;
+    }
   }
 
   .custom-checkbox {
@@ -34,13 +41,12 @@
     flex-grow: 1;
 
     #content {
-      border: 1px solid #ebf0f2;
-      border-radius: 6px;
+      border: 0;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 7px 16px 7px 16px;
+      padding: 7px 16px 7px 0;
 
       &:empty {
         height: auto !important;
@@ -69,7 +75,6 @@
   &__length-hint {
     display: flex;
     justify-content: flex-end;
-    margin: 10px 0;
   }
 
   &__content-length {
