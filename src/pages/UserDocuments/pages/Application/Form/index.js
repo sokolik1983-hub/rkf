@@ -237,6 +237,9 @@ const Application = ({ alias, history, status }) => {
                                     <h4 className="application-form__title" style={{ marginBottom: 0 }}>
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
+                                    {status ? status === 'edit' ? '' : '' : <p className="application-form__disclaimer">Вы можете подать заявку только на 1 документ.
+                                    Если в заявочном листе отмечено несколько документов, то Вам необходимо создать отдельные заявки на получение каждого из них (заявочный лист обязателен для прикрепления).
+                                        Правила оформления документов и реквизиты для оплаты Вы можете посмотреть на сайте РКФ (http://rkf.org.ru/) в разделе "Документы".</p>}
                                     <div className="application-form__row-is-foreign">
                                         <div>
                                             <Field

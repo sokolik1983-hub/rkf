@@ -166,9 +166,10 @@
       display: inline-block;
       height: 22px;
       width: 24px;
-      background: url("/static/icons/icon-youtube.svg") no-repeat center / cover,
-        url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
+      background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover,
+        url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
       position: absolute;
+      background-size: contain;
       top: 50%;
       left: 0;
       transform: translateY(-50%);
@@ -178,7 +179,8 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
+        background: url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+        background-size: contain;
       }
     }
 
@@ -188,7 +190,8 @@
       color: #72839c !important;
 
       &:before {
-        background: url("/static/icons/icon-youtube.svg") no-repeat center / cover !important;
+        background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover !important;
+        background-size: contain;
       }
     }
   }
@@ -200,6 +203,8 @@
     &:before {
       background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
         url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      height: 22px;
+      width: 24px;
       position: absolute;
       top: 50%;
       left: 0;
@@ -271,7 +276,7 @@
       color: #72839C;
 
       &._desktop {
-        margin-left: 60px;
+        margin-left: 50px;
       }
     }
   }
