@@ -109,7 +109,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     };
 
     const handleOutsideClick = () => {
-        setBlured();
+        !content && setBlured();
     };
 
     return (
