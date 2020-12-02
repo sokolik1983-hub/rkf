@@ -45,6 +45,7 @@ const Application = ({ alias, history, status }) => {
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
+        is_foreign_owner: false,
         express: false,
         pedigree_number: '',
         dog_name: '',
@@ -298,14 +299,24 @@ const Application = ({ alias, history, status }) => {
                                             </div>
                                             <div>
                                                 <Field
-                                                    id="express"
-                                                    name="express"
-                                                    label="Срочное изготовление"
+                                                    id="is_foreign_owner"
+                                                    name="is_foreign_owner"
+                                                    label="Владелец является иностранным гражданином"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
-                                                    disabled={disableAllFields}
+                                                    disabled={!editable}
                                                 />
                                             </div>
+                                        </div>
+                                        <div className="application-form__row row">
+                                            <Field
+                                                id="express"
+                                                name="express"
+                                                label="Срочное изготовление"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={disableAllFields}
+                                            />
                                         </div>
                                         <div className="application-form__row row">
                                             <div>
@@ -352,11 +363,11 @@ const Application = ({ alias, history, status }) => {
                                                 hint="Допускается ввод только цифр"
                                                 maxLength={30}
                                                 onlyNumbers={true}
-                                                disabled={disableAllFields || disableFields}
+                                                disabled={!editable || disableFields}
                                                 component={FormInput}
                                                 validator={requiredValidator}
                                             />
-                                            {!disableAllFields && !disableFields &&
+                                            {editable && !disableFields &&
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary"
@@ -372,11 +383,11 @@ const Application = ({ alias, history, status }) => {
                                                 id="dog_name"
                                                 name="dog_name"
                                                 label="Кличка собаки"
-                                                disabled={disableAllFields || disableFields}
+                                                disabled={!editable || disableFields}
                                                 component={FormInput}
                                                 validator={requiredValidator}
                                             />
-                                            {!disableAllFields && disableFields &&
+                                            {editable && disableFields &&
                                                 <button
                                                     type="button"
                                                     className="btn btn-red"

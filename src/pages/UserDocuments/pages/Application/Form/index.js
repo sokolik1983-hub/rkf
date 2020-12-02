@@ -336,11 +336,11 @@ const Application = ({ alias, history, status }) => {
                                             hint="Допускается ввод только цифр"
                                             maxLength={30}
                                             onlyNumbers={true}
-                                            disabled={disableAllFields || disableFields}
+                                            disabled={!editable || disableFields}
                                             component={FormInput}
                                             validator={requiredValidator}
                                         />
-                                        {!disableAllFields && !disableFields &&
+                                        {editable && !disableFields &&
                                             <button
                                                 type="button"
                                                 className="btn btn-primary"
@@ -356,11 +356,11 @@ const Application = ({ alias, history, status }) => {
                                             id="dog_name"
                                             name="dog_name"
                                             label="Кличка собаки"
-                                            disabled={disableAllFields || disableFields}
+                                            disabled={!editable || disableFields}
                                             component={FormInput}
                                             validator={requiredValidator}
                                         />
-                                        {!disableAllFields && disableFields &&
+                                        {editable && disableFields &&
                                             <button
                                                 type="button"
                                                 className="btn btn-red"

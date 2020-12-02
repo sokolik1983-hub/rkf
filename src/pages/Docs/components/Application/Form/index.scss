@@ -16,12 +16,39 @@
     text-transform: uppercase;
     margin-bottom: 16px;
   }
+  &__disclaimer {
+    margin-top: 16px;
+  }
   &__row {
     display: flex;
     flex-flow: row;
     align-items: flex-start;
     justify-content: flex-start;
-    @media (max-width: 700px) {
+    @media (max-width: 1090px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 990px) {
+      &._payment-info {
+        display: flex;
+        & > div:not(:last-child) {
+          margin-right: 16px;
+        }
+      }
+    }
+    @media (max-width: 730px) {
+      &._payment-info {
+        display: block;
+        & > div:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media (max-width: 560px) {
       display: block;
       & > div:not(:last-child) {
         margin-right: 0 !important;
@@ -52,18 +79,15 @@
         width: 70%;
         margin-right: 16px;
         @media (max-width: 700px) {
-          width: 100%;
+          width: auto;
           margin-right: 0;
         }
         & + div {
           width: 30%;
-          padding-top: 31px;
+          padding-top: 24px;
           @media (max-width: 700px) {
-            width: 100%;
+            width: auto;
             padding-top: 0;
-          }
-          .k-checkbox-label {
-            line-height: 1.5;
           }
           .k-state-default,
           .k-state-disabled {
@@ -78,7 +102,7 @@
     }
   }
   &__doc-type-id {
-    @media (min-width: 700px) {
+    @media (min-width: 560px) {
       max-width: calc(50% - 8px);
     }
   }
@@ -96,6 +120,7 @@
   }
   &__declarant {
     p.k-label {
+      display: block;
       margin-bottom: 0;
       opacity: 1 !important;
       letter-spacing: normal;
@@ -140,9 +165,6 @@
     & > .k-input {
       resize: none;
     }
-  }
-  .k-picker-wrap {
-    top: 0;
   }
 }
 
