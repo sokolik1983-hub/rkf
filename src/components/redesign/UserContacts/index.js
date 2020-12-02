@@ -151,6 +151,7 @@ const UserContacts = ({
                 </div>
                 {socials && !!socials.length &&
                     <div className="user-contacts__info-socials">
+                        <span>Соцсети:&nbsp;</span>
                         {socials.map(item => (
                             <Fragment key={item.id}>
                                 <a href={item.site}
