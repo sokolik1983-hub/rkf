@@ -159,8 +159,7 @@ const UserContacts = ({
                                     rel="noopener noreferrer"
                                 >
                                     {item.description}
-                                </a>
-                                <br />
+                                </a>&nbsp;&nbsp;
                             </Fragment>
                         ))}
                     </div>
