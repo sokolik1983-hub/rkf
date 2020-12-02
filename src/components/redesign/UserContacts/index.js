@@ -113,12 +113,12 @@ const UserContacts = ({
                 </div>
                 {work_time && !!work_time.length &&
                     <div className="user-contacts__info-work-time">
-                        <span>График работы</span>
+                        <span>График работы:&nbsp;</span>
                         {formatWorkTime(work_time).map((period, i) => (
-                            <p key={`work-${i}`}>
+                            <span key={`work-${i}`}>
                                 <span>{period.days.join(', ')}</span>
-                            &nbsp;c {timeSecondsCutter(period.time_from)} до {timeSecondsCutter(period.time_to)}
-                            </p>
+                            &nbsp;c {timeSecondsCutter(period.time_from)} до {timeSecondsCutter(period.time_to)}&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
                         ))}
                     </div>
                 }
