@@ -4,6 +4,7 @@ import { Label, Error } from "@progress/kendo-react-labels";
 import { DatePicker } from "@progress/kendo-react-dateinputs";
 import { IntlProvider, load, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
 import kendoMessages from "../../../kendoMessages.json";
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru');
 
