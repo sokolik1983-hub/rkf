@@ -90,9 +90,10 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     };
 
     const addRow = () => {
-        let charactersInRow = 90;
+        let charactersInRow = 130;
         let maxNumberOfRows = 11;
-        let numberOfRows = Math.ceil(content.length / charactersInRow);
+        let reservedRow = 1;
+        let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
 
         if (numberOfRows < maxNumberOfRows) {
             return numberOfRows;
@@ -132,7 +133,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                         </div>
                     </LightTooltip>
                 }
-                {!video &&
+                {!video && !is_advert &&
                     <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                         <button
                             className="article-edit__attach-video"
