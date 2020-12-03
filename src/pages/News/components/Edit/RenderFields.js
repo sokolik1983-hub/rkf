@@ -133,7 +133,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                         </div>
                     </LightTooltip>
                 }
-                {!video && !is_advert &&
+                {!is_advert && !video &&
                     <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                         <button
                             className="article-edit__attach-video"

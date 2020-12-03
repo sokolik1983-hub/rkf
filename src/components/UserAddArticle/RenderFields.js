@@ -140,7 +140,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />
-                        {!isAd && !videoLink &&
+                        {!videoLink &&
                             <LightTooltip title="Прикрепить ссылку на YouTube" enterDelay={200} leaveDelay={200}>
                                 <button
                                     className="ArticleCreateForm__attach-video"
@@ -162,7 +162,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                                 }}
                             />
                         </LightTooltip>
-                        {focus &&
+                        {!videoLink && focus &&
                             <CustomCheckbox
                                 id="ad"
                                 label="Объявление"
@@ -204,7 +204,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         />
                     </div>
                 }
-                {videoLink && !isAd &&
+                {videoLink &&
                     <div className="ImagePreview__wrap">
                         <ImagePreview src={`https://img.youtube.com/vi/${getYouTubeID(videoLink)}/mqdefault.jpg`} />
                         <img src="/static/icons/file-cross.svg"
