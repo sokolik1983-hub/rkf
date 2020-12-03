@@ -14,7 +14,7 @@ const UserBanner = ({ link, canEdit, updateInfo }) => {
     const [modalType, setModalType] = useState('');
 
     return (
-        <Card className="user-banner" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <Card className={`user-banner ${link ? ` _custom_banner` : ``}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             {canEdit &&
                 <>
                     <CSSTransition
