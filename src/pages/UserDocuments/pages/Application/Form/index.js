@@ -5,36 +5,36 @@ import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import Card from "components/Card";
-import FormInput from "components/kendo/Form/FormInput";
-import FormContactsCheckbox from "components/kendo/Form/FormContactsCheckbox";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import Loading from "../../../../../components/Loading";
+import Card from "../../../../../components/Card";
+import LightTooltip from "../../../../../components/LightTooltip";
+import FormInput from "../../../../../components/kendo/Form/FormInput";
+import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
-import FormDatePicker from "components/kendo/Form/FormDatePicker";
-import FormDropDownList from "components/kendo/Form/FormDropDownList";
-import FormTextArea from "components/kendo/Form/FormTextArea";
+import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
+import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
+import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import DocumentLink from "../../../components/DocumentLink";
 import DocumentLinksArray from "../../../components/DocumentLinksArray";
-import LightTooltip from "components/LightTooltip";
-import Loading from "components/Loading";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator,
     requiredWithTrimValidator,
-    documentTypeRequired, requiredValidator
-} from "components/kendo/Form/validators";
-import { Request } from "../../../../../utils/request";
-import { getHeaders } from "utils/request";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import ruMessages from 'kendoMessages.json';
+    documentTypeRequired, requiredValidator, nameValidator
+} from "../../../../../components/kendo/Form/validators";
+import { Request,  getHeaders} from "../../../../../utils/request";
+import ruMessages from "kendoMessages.json";
 import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
 
-const Application = ({ alias, history, status }) => {
+
+const Application = ({ alias, history, status, owner }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
+    const [disableOwner, setDisableOwner] = useState(true);
     const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
@@ -45,6 +45,9 @@ const Application = ({ alias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
         is_foreign_owner: false,
+        owner_last_name: owner ? owner.last_name : '',
+        owner_first_name: owner ? owner.first_name : '',
+        owner_second_name: owner ? owner.second_name : '',
         express: false,
         pedigree_number: '',
         dog_name: '',
@@ -82,6 +85,9 @@ const Application = ({ alias, history, status }) => {
                 if (data.documents) {
                     values.documents = [];
                 }
+                if(data.is_foreign_owner && status === 'edit') {
+                    setDisableOwner(false);
+                }
                 setValues(data);
                 setInitialValues(values);
                 setLoaded(true);
@@ -105,7 +111,7 @@ const Application = ({ alias, history, status }) => {
         }
     };
 
-    const getDocumentTypes = async (pedigreeNumber, changeDogName) => {
+    const getDocumentTypes = async () => {
         await Request({
             url: `/api/requests/commonrequest/rkf_document_types`
         }, data => {
@@ -176,11 +182,33 @@ const Application = ({ alias, history, status }) => {
         });
     };
 
-    const handleChange = (name) => {
-        formProps.onChange(name, { value: formProps.valueGetter(name) ? false : true })
-    }
+    const handleChange = name => {
+        if(name === 'is_foreign_owner') {
+            const isForeign = !formProps.valueGetter(name);
 
-    const onAdd = (event) => {
+            formProps.onChange('owner_last_name', {value:
+                    !isForeign && owner ? owner.last_name :
+                    values && values.owner_last_name ? values.owner_last_name :
+                    ''
+            });
+            formProps.onChange('owner_first_name', {value:
+                    !isForeign && owner ? owner.first_name :
+                    values && values.owner_first_name ? values.owner_first_name:
+                    ''
+            });
+            formProps.onChange('owner_second_name', {value:
+                    !isForeign && owner && owner.second_name ? owner.second_name:
+                    values && values.owner_second_name ? values.owner_second_name :
+                    ''
+            });
+
+            setDisableOwner(!isForeign);
+        }
+
+        formProps.onChange(name, {value: !formProps.valueGetter(name)});
+    };
+
+    const onAdd = event => {
         const { newState } = event;
         if (status === 'edit') {
             (values.documents?.length + newState.length) > 20
@@ -191,13 +219,13 @@ const Application = ({ alias, history, status }) => {
                 ? setDocumentsOverflow(true)
                 : formProps.onChange('documents', { value: newState })
         }
-    }
+    };
 
-    const onRemove = (event) => {
+    const onRemove = event => {
         const { newState } = event;
         newState.length <= 20 && setDocumentsOverflow(false);
         formProps.onChange('documents', { value: newState })
-    }
+    };
 
     const onProgress = (event, name) => formProps.onChange(name, { value: event.newState });
 
@@ -214,22 +242,22 @@ const Application = ({ alias, history, status }) => {
         } else {
             formProps.onChange(name, { value: newState });
         }
-    }
+    };
 
-    const handleDocTypeChange = (docType) => {
+    const handleDocTypeChange = docType => {
         const { value } = docType;
         setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
-    }
+    };
 
-    const handleDocumentRemove = (id) => {
+    const handleDocumentRemove = id => {
         formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
         setValues({
             ...values,
             documents: values.documents.filter(d => d.id !== id)
         })
-    }
+    };
 
     return (
         <div className="application-form">
@@ -256,7 +284,7 @@ const Application = ({ alias, history, status }) => {
                                     <h4 className="application-form__title" style={{ marginBottom: 0 }}>
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
-                                    {status ? status === 'edit' ? '' : '' : <p className="application-form__disclaimer">Вы можете подать заявку только на 1 документ.
+                                    {!status && <p className="application-form__disclaimer">Вы можете подать заявку только на 1 документ.
                                     Если в заявочном листе отмечено несколько документов, то Вам необходимо создать отдельные заявки на получение каждого из них (заявочный лист обязателен для прикрепления).
                                         Правила оформления документов и реквизиты для оплаты Вы можете посмотреть на сайте РКФ (http://rkf.org.ru/) в разделе "Документы".</p>}
                                     <div className="application-form__row-is-foreign">
@@ -277,6 +305,41 @@ const Application = ({ alias, history, status }) => {
                                                 component={FormContactsCheckbox}
                                                 onChange={handleChange}
                                                 disabled={!editable}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="application-form__row row _payment-info">
+                                        <div>
+                                            <Field
+                                                id="owner_last_name"
+                                                name="owner_last_name"
+                                                label="Фамилия владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameRequiredValidator(value, 150)}
+                                                disabled={disableOwner}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                id="owner_first_name"
+                                                name="owner_first_name"
+                                                label="Имя владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameRequiredValidator(value, 150)}
+                                                disabled={disableOwner}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                id="owner_second_name"
+                                                name="owner_second_name"
+                                                label="Отчество владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameValidator(value, 150)}
+                                                disabled={disableOwner}
                                             />
                                         </div>
                                     </div>
@@ -530,17 +593,6 @@ const Application = ({ alias, history, status }) => {
                     bottom: '40px',
                 }}
             >
-                <Fade enter={true} exit={true}>
-                    {success &&
-                        <Notification
-                            type={{ style: 'success', icon: true }}
-                            closable={true}
-                            onClose={() => setSuccess('')}
-                        >
-                            <span>{success}</span>
-                        </Notification>
-                    }
-                </Fade>
                 <Fade enter={true} exit={true}>
                     {error &&
                         <Notification

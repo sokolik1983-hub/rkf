@@ -19,7 +19,7 @@ import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator
+    documentTypeRequired, innValidator, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
@@ -46,6 +46,9 @@ const Application = ({ alias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
         is_foreign_owner: false,
+        owner_last_name: '',
+        owner_first_name: '',
+        owner_second_name: '',
         express: false,
         pedigree_number: '',
         dog_name: '',
@@ -192,7 +195,7 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleChange = name => {
-        formProps.onChange(name, { value: formProps.valueGetter(name) ? false : true })
+        formProps.onChange(name, { value: !formProps.valueGetter(name) })
     };
 
     const onAdd = event => {
@@ -304,6 +307,41 @@ const Application = ({ alias, history, status }) => {
                                                     label="Владелец является иностранным гражданином"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
+                                                    disabled={!editable}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="application-form__row row _payment-info">
+                                            <div>
+                                                <Field
+                                                    id="owner_last_name"
+                                                    name="owner_last_name"
+                                                    label="Фамилия владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={!editable}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_first_name"
+                                                    name="owner_first_name"
+                                                    label="Имя владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={!editable}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_second_name"
+                                                    name="owner_second_name"
+                                                    label="Отчество владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameValidator(value, 150)}
                                                     disabled={!editable}
                                                 />
                                             </div>

@@ -19,7 +19,7 @@ import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator
+    documentTypeRequired, innValidator, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
@@ -32,11 +32,13 @@ loadMessages(ruMessages, 'ru');
 
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
+    const [disableOwner, setDisableOwner] = useState(true);
     const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
+    const [owner, setOwner] = useState(null);
     const [declarants, setDeclarants] = useState([]);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
     const [documentTypeIds, setDocumentTypeIds] = useState([]);
@@ -46,6 +48,9 @@ const Application = ({ alias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
         is_foreign_owner: false,
+        owner_last_name: '',
+        owner_first_name: '',
+        owner_second_name: '',
         express: false,
         pedigree_number: '',
         dog_name: '',
@@ -64,7 +69,9 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+            Promise.all([getOwner(), getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+        } else if(status === 'edit') {
+            getOwner();
         }
     }, []);
 
@@ -82,6 +89,9 @@ const Application = ({ alias, history, status }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
+                }
+                if(data.is_foreign_owner && status === 'edit') {
+                    setDisableOwner(false);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -104,6 +114,29 @@ const Application = ({ alias, history, status }) => {
                 setError('');
             }, 5000);
         }
+    };
+
+    const getOwner = async () => {
+        await Request({
+            url: `/api/nurseries/Nursery/pedigree_request_information`
+        }, data => {
+            if (data) {
+                setOwner(data);
+
+                if(!status) {
+                    setInitialValues({
+                        ...initialValues,
+                        owner_last_name: data.owner_last_name,
+                        owner_first_name: data.owner_first_name,
+                        owner_second_name: data.owner_second_name || ''
+                    });
+                }
+            } else {
+                setError('Ошибка');
+            }
+        }, error => {
+            handleError(error);
+        });
     };
 
     const getDocumentTypes = async () => {
@@ -191,7 +224,29 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleChange = name => {
-        formProps.onChange(name, { value: formProps.valueGetter(name) ? false : true })
+        if(name === 'is_foreign_owner') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('owner_last_name', {value:
+                    !isForeign && owner ? owner.owner_last_name :
+                    values && values.owner_last_name ? values.owner_last_name :
+                    ''
+            });
+            formProps.onChange('owner_first_name', {value:
+                    !isForeign && owner ? owner.owner_first_name :
+                    values && values.owner_first_name ? values.owner_first_name:
+                    ''
+            });
+            formProps.onChange('owner_second_name', {value:
+                    !isForeign && owner && owner.owner_second_name ? owner.owner_second_name:
+                    values && values.owner_second_name ? values.owner_second_name :
+                    ''
+            });
+
+            setDisableOwner(!isForeign);
+        }
+
+        formProps.onChange(name, { value: !formProps.valueGetter(name) })
     };
 
     const onAdd = event => {
@@ -304,6 +359,41 @@ const Application = ({ alias, history, status }) => {
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
                                                     disabled={!editable}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="application-form__row row _payment-info">
+                                            <div>
+                                                <Field
+                                                    id="owner_last_name"
+                                                    name="owner_last_name"
+                                                    label="Фамилия владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={disableOwner}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_first_name"
+                                                    name="owner_first_name"
+                                                    label="Имя владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={disableOwner}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_second_name"
+                                                    name="owner_second_name"
+                                                    label="Отчество владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameValidator(value, 150)}
+                                                    disabled={disableOwner}
                                                 />
                                             </div>
                                         </div>
