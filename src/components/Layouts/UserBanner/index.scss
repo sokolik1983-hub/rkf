@@ -1,17 +1,28 @@
 .user-banner {
   height: 255px;
-  padding: 10px !important;
-  background: #fff url("/static/images/noimg/empty-gallery.png") no-repeat center / contain;
+  background: #fff url("/static/images/noimg/no-banner.png") no-repeat center center;
+  background-size: cover;
   position: relative;
+
+  &._custom_banner {
+    background: none;
+    background-color: #fff;
+  }
+
   @media (max-width: 560px) {
+    background: #fff url("/static/images/noimg/no-banner-mobile.png") no-repeat center center;
+    background-size: cover;
     height: 25vw;
     padding: 0 !important;
     overflow: hidden;
   }
+
   &__img {
     height: 100%;
   }
-  &__edit-btn, &__delete-btn {
+
+  &__edit-btn,
+  &__delete-btn {
     padding: 0;
     border: none;
     border-radius: 50% !important;
@@ -24,31 +35,39 @@
     position: absolute;
     bottom: 15px;
   }
+
   &__edit-btn {
     left: 15px;
   }
+
   &__delete-btn {
     right: 15px;
+
     svg {
       fill: red !important;
     }
   }
+
   &__transition {
+
     &-enter,
     &-appear {
       opacity: 0;
       transform: translateY(10px);
     }
+
     &-enter-active,
     &-appear-active {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 0.2s, transform 0.2s;
     }
+
     &-exit {
       opacity: 1;
       transform: translateY(0);
     }
+
     &-exit-active {
       opacity: 0;
       transform: translateY(10px);

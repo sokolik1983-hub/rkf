@@ -134,8 +134,7 @@ const UserVideoGallery = ({ alias, pageLink, canEdit }) => {
                                 </div>
                             ) :
                             <div className="user-gallery__disabled">
-                                <h4 className="user-gallery__disabled-text">Не добавлено ни одной видеозаписи</h4>
-                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет видеозаписей" />
+                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyVideoGallery} alt="У вас нет видеозаписей" />
                             </div>
                     }
                 </div>
