@@ -77,12 +77,12 @@ const Table = ({ documents, setDefaultPerson, deletePerson }) => {
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px" }}>
                         <GridColumn field="full_name" title="ФИО" width="230px" columnMenu={ColumnMenu} />
-                        <GridColumn field="phone" title="Телефон" width="120px" columnMenu={ColumnMenu} />
+                        <GridColumn field="phone" title="Телефон" width="127px" columnMenu={ColumnMenu} />
                         <GridColumn field="email" title="Email" width="180px" columnMenu={ColumnMenu} />
                         <GridColumn field="subscriber_mail" title="Абонентский ящик" width="170px" columnMenu={ColumnMenu} cell={subscriberCell} />
                         <GridColumn field="address" title="Адрес" width="200px" columnMenu={ColumnMenu} />
                         <GridColumn field="is_default" title="По умолчанию" width="140px" columnMenu={ColumnMenu} cell={isDefaultCell} />
-                        <GridColumn width="60px" cell={(props) => OptionsCell(props, setDefaultPerson, deletePerson)} />
+                        <GridColumn width="70px" cell={(props) => OptionsCell(props, setDefaultPerson, deletePerson)} />
                     </Grid>
                 }
             </IntlProvider>
