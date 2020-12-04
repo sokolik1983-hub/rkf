@@ -154,6 +154,9 @@
       height: 100vh;
       .k-grid {
         font-size: 16px;
+        & td {
+          border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+        }
       }  
       &-close {
         width: 20px;
@@ -205,6 +208,9 @@
           font-size: 16px;
           margin-bottom: 0px;
         }
+    }
+    & .k-grid td {
+      border-bottom: 1px solid rgba(33, 37, 41, 0.125);
     }
   }
   
