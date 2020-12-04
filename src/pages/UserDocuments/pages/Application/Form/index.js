@@ -65,8 +65,7 @@ const Application = ({ alias, history, status, owner }) => {
 
     useEffect(() => {
         if (!status) {
-            getDocumentTypes();
-            setLoaded(true);
+            getDocumentTypes().then(() => setLoaded(true));
         }
     }, []);
 
@@ -84,9 +83,6 @@ const Application = ({ alias, history, status, owner }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
-                }
-                if(data.is_foreign_owner && status === 'edit') {
-                    setDisableOwner(false);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -304,7 +300,7 @@ const Application = ({ alias, history, status, owner }) => {
                                                 label="Владелец является иностранным гражданином"
                                                 component={FormContactsCheckbox}
                                                 onChange={handleChange}
-                                                disabled={!editable}
+                                                disabled={disableAllFields}
                                             />
                                         </div>
                                     </div>
