@@ -70,8 +70,6 @@ const Application = ({ alias, history, status }) => {
     useEffect(() => {
         if (!status) {
             Promise.all([getOwner(), getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
-        } else if(status === 'edit') {
-            getOwner();
         }
     }, []);
 
@@ -89,9 +87,6 @@ const Application = ({ alias, history, status }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
-                }
-                if(data.is_foreign_owner && status === 'edit') {
-                    setDisableOwner(false);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -123,14 +118,12 @@ const Application = ({ alias, history, status }) => {
             if (data) {
                 setOwner(data);
 
-                if(!status) {
-                    setInitialValues({
-                        ...initialValues,
-                        owner_last_name: data.owner_last_name,
-                        owner_first_name: data.owner_first_name,
-                        owner_second_name: data.owner_second_name || ''
-                    });
-                }
+                setInitialValues({
+                    ...initialValues,
+                    owner_last_name: data.owner_last_name,
+                    owner_first_name: data.owner_first_name,
+                    owner_second_name: data.owner_second_name || ''
+                });
             } else {
                 setError('Ошибка');
             }
@@ -358,7 +351,7 @@ const Application = ({ alias, history, status }) => {
                                                     label="Владелец является иностранным гражданином"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                         </div>

@@ -307,7 +307,7 @@ const Application = ({ alias, history, status }) => {
                                                     label="Владелец является иностранным гражданином"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                         </div>
@@ -320,7 +320,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                             <div>
@@ -331,7 +331,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                             <div>
@@ -342,7 +342,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameValidator(value, 150)}
-                                                    disabled={!editable}
+                                                    disabled={disableAllFields}
                                                 />
                                             </div>
                                         </div>
