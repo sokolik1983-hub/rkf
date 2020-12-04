@@ -35,6 +35,7 @@ const Application = ({ alias, history, status, owner }) => {
     const [disableOwner, setDisableOwner] = useState(true);
     const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
+    const [isForeignPedigree, setIsForeignPedigree] = useState(false);
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
@@ -45,12 +46,13 @@ const Application = ({ alias, history, status, owner }) => {
     const [initialValues, setInitialValues] = useState({
         declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
         is_foreign_owner: false,
-        owner_last_name: owner ? owner.last_name : '',
-        owner_first_name: owner ? owner.first_name : '',
-        owner_second_name: owner ? owner.second_name : '',
+        owner_last_name: !status && owner ? owner.last_name : '',
+        owner_first_name: !status && owner ? owner.first_name : '',
+        owner_second_name: !status && owner ? owner.second_name : '',
         express: false,
         pedigree_number: '',
         dog_name: '',
+        is_foreign_pedigree: false,
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
@@ -83,6 +85,9 @@ const Application = ({ alias, history, status, owner }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
+                }
+                if(data.is_foreign_pedigree) {
+                    setIsForeignPedigree(true);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -199,6 +204,17 @@ const Application = ({ alias, history, status, owner }) => {
             });
 
             setDisableOwner(!isForeign);
+        }
+
+        if(name === 'is_foreign_pedigree') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('pedigree_number', {value: ''});
+
+            formProps.onChange('dog_name', {value: ''});
+
+            setDisableFields(false);
+            setIsForeignPedigree(isForeign);
         }
 
         formProps.onChange(name, {value: !formProps.valueGetter(name)});
@@ -392,14 +408,14 @@ const Application = ({ alias, history, status, owner }) => {
                                             id="pedigree_number"
                                             name="pedigree_number"
                                             label="№ родословной собаки"
-                                            hint="Допускается ввод только цифр"
+                                            hint={!isForeignPedigree ? 'Допускается ввод только цифр' : ''}
                                             maxLength={30}
-                                            onlyNumbers={true}
+                                            onlyNumbers={!isForeignPedigree}
                                             disabled={!editable || disableFields}
                                             component={FormInput}
                                             validator={requiredValidator}
                                         />
-                                        {editable && !disableFields &&
+                                        {editable && !disableFields && !isForeignPedigree &&
                                             <button
                                                 type="button"
                                                 className="btn btn-primary"
@@ -431,6 +447,16 @@ const Application = ({ alias, history, status, owner }) => {
                                             >Удалить
                                             </button>
                                         }
+                                    </div>
+                                    <div className="application-form__row row">
+                                        <Field
+                                            id="is_foreign_pedigree"
+                                            name="is_foreign_pedigree"
+                                            label="Иностранная родословная"
+                                            component={FormContactsCheckbox}
+                                            onChange={handleChange}
+                                            disabled={!editable}
+                                        />
                                     </div>
                                 </div>
 
