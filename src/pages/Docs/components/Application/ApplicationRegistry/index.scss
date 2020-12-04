@@ -157,7 +157,7 @@
         & td {
           border-bottom: 1px solid rgba(33, 37, 41, 0.125);
         }
-      }  
+      }
       &-close {
         width: 20px;
         height: 20px;
@@ -170,7 +170,7 @@
         position: absolute;
         top: 20px;
         right: 35px;
-        z-index: 100;
+        z-index: 9;
         &:hover {
           width: 20px;
           height: 20px;  
