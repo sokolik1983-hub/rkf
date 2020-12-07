@@ -29,7 +29,10 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
+const DateCell = ({ dataItem }, field) => {
+
+    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
+};
 
 const LinkCell = ({ dataItem }) => {
     const { created_document_id } = dataItem;
@@ -38,6 +41,14 @@ const LinkCell = ({ dataItem }) => {
             <span className="create-document-link" onClick={e => handleClick(e, created_document_id)} >Скачать файл</span>
         }
     </td>
+};
+
+const ExpressCell = ({ dataItem }, field) => {
+    const fieldLabel = dataItem[field] ? 'Срочная' : 'Не срочная';
+
+    return (
+        <td>{fieldLabel}</td>
+    );
 };
 
 const OptionsCell = ({ dataItem }) => {
@@ -128,11 +139,15 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title=" " />
+        <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
         <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
+        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
