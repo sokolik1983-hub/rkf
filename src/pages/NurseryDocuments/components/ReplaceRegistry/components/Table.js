@@ -13,7 +13,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../../../Docs/components/CopyCell';
 
@@ -175,7 +175,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             )}
                         </div>
                     </div>
-                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                 </StickyFilters>
                 {documents && <Grid
                     data={process(documents, gridData)}
@@ -203,7 +203,9 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                     scale={0.4}
                     margin="1cm"
                     paperSize={["297mm", "210mm"]}
-                    pageTemplate={PdfPageTemplate}
+                    pageTemplate={() => <PdfPageTemplate
+                        title="ЗАМЕНА РОДОСЛОВНОЙ"
+                    />}
                 >
                     {gridForExport}
                 </GridPDFExport>

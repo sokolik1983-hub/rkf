@@ -8,7 +8,7 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../PdfTemplatePage";
+import PdfPageTemplate from "../../PdfPageTemplate";
 import LightTooltip from "../../LightTooltip";
 import CopyCell from '../../../pages/Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
@@ -104,7 +104,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.value[0] === '1' || e.value[0] === '2' || e.value[0] === '3') {
+        if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
                 logic: 'and',
                 filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
@@ -180,11 +180,11 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                 <IntlProvider locale={'ru'}>
                     <div className="club-documents-status__filters-wrap">
                         <ChipList
-                            selection="multiple"
+                            selection="single"
                             defaultData={categories}
                             onChange={handleDropDownChange}
                         />
-                        <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                        <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     </div>
                     {documents && <Grid
                         data={process(documents, gridData)}
@@ -209,7 +209,9 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
-                        pageTemplate={PdfPageTemplate}
+                        pageTemplate={() => <PdfPageTemplate 
+                            title={distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                        />}
                     >
                         {gridForExport}
                     </GridPDFExport>

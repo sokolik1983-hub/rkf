@@ -9,7 +9,7 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../../../Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
@@ -176,7 +176,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                             onChange={handleDropDownChange}
                         />
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}
@@ -200,7 +200,9 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
-                        pageTemplate={PdfPageTemplate}
+                        pageTemplate={() => <PdfPageTemplate
+                            title={distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                        />}
                     >
                         {gridForExport}
                     </GridPDFExport>

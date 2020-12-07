@@ -6,7 +6,7 @@ import { DropDownButton } from '@progress/kendo-react-buttons';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import moment from "moment";
 import LightTooltip from "../../../../../components/LightTooltip";
 
@@ -160,7 +160,9 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     scale={0.5}
                     margin="1cm"
                     paperSize={["297mm", "210mm"]}
-                    pageTemplate={PdfPageTemplate}
+                    pageTemplate={() => <PdfPageTemplate 
+                        title={distinction === "litter" ? "ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА" : "ОФОРМЛЕНИЕ РОДОСЛОВНОЙ"}
+                    />}
                 >
                     {gridForExport}
                 </GridPDFExport>

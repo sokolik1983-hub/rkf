@@ -17,7 +17,7 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/dysplasia/registry`}
                     className="documents-card__link"
-                >Реестр</Link>
+                >Проверка статуса документов</Link>
             </div>
         </Card>
         <Card className="documents-card">
@@ -32,7 +32,7 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/patella/registry`}
                     className="documents-card__link"
-                >Реестр</Link>
+                >Проверка статуса документов</Link>
             </div>
         </Card>
         <Card className="documents-card">
@@ -47,7 +47,7 @@ const Documents = ({ alias }) => (
                 <Link
                     to={`/user/${alias}/documents/application/registry`}
                     className="documents-card__link"
-                >Реестр</Link>
+                >Проверка статуса документов</Link>
             </div>
         </Card>
     </>

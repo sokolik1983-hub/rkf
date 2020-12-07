@@ -9,7 +9,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../../../Docs/components/CopyCell';
 
@@ -150,7 +150,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                             onChange={handleDropDownChange}
                         />
                     </p>
-                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {
                         documents && distinction === 'litter'
                             ? <>
@@ -184,7 +184,9 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     scale={0.4}
                                     margin="1cm"
                                     paperSize={["297mm", "210mm"]}
-                                    pageTemplate={PdfPageTemplate}
+                                    pageTemplate={() => <PdfPageTemplate
+                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
+                                    />}
                                 >
                                     {litterGridForExport}
                                 </GridPDFExport>
@@ -216,7 +218,9 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                     scale={0.4}
                                     margin="1cm"
                                     paperSize={["297mm", "210mm"]}
-                                    pageTemplate={PdfPageTemplate}
+                                    pageTemplate={() => <PdfPageTemplate
+                                        title={distinction === 'litter' ? 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА' : 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'}
+                                    />}
                                 >
                                     {breedGreedForExport}
                                 </GridPDFExport>

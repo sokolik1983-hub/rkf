@@ -7,7 +7,7 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
@@ -157,7 +157,9 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     scale={0.5}
                     margin="1cm"
                     paperSize={["297mm", "210mm"]}
-                    pageTemplate={PdfPageTemplate}
+                    pageTemplate={() => <PdfPageTemplate
+                            title={distinction === "litter" ? "ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА" : "ОФОРМЛЕНИЕ РОДОСЛОВНОЙ"}
+                        />}
                 >
                     {gridForExport}
                 </GridPDFExport>
