@@ -44,7 +44,7 @@ const Application = ({ alias, history, status, owner }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
-        declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         is_foreign_owner: false,
         owner_last_name: !status && owner ? owner.last_name : '',
         owner_first_name: !status && owner ? owner.first_name : '',
