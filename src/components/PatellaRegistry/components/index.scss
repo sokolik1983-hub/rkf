@@ -13,14 +13,54 @@
 
     &:first-child {
         background-color: #FFD6D9 !important;
+        &::before {
+            content: "";
+            margin-left: 9px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: url("/static/icons/done-arrow.svg") center no-repeat;
+            background-size: contain;
+        }
     }
 
     &:nth-child(2) {
         background-color: #D8FDE4 !important;
+        &::before {
+            content: "";
+            margin-left: 9px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: url("/static/icons/done-arrow.svg") center no-repeat;
+            background-size: contain;
+        }
     }
 
     &:nth-child(3) {
         background-color: #E9EDE9 !important;
+        &::before {
+            content: "";
+            margin-left: 9px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: url("/static/icons/done-arrow.svg") center no-repeat;
+            background-size: contain;
+        }
+    }
+
+    &:nth-child(4) {
+        background-color: #D4DAED !important;
+        &::before {
+            content: "";
+            margin-left: 9px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: url("/static/icons/done-arrow.svg") center no-repeat;
+            background-size: contain;
+        }
     }
 }
 
