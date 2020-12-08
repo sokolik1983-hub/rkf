@@ -101,7 +101,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
-                                    component={() => <PatellaForm alias={userAlias} history={history}/>}
+                                    component={() => <PatellaForm 
+                                        alias={userAlias} 
+                                        history={history}
+                                        owner={userInfo.personal_information}
+                                    />}
                                 />
                                 <Route
                                     exact={true}
@@ -121,7 +125,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/dysplasia/form'
-                                    component={() => <DysplasiaForm alias={userAlias} history={history}/>}
+                                    component={() => <DysplasiaForm 
+                                        alias={userAlias} 
+                                        history={history}
+                                        owner={userInfo.personal_information}
+                                    />}
                                 />
                                 <Route
                                     exact={true}
