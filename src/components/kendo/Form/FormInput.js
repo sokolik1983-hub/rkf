@@ -44,7 +44,7 @@ const FormInput = fieldRenderProps => {
                     valid={valid}
                     type={type}
                     id={id}
-                    value={onlyNumbers ? allowOnlyNumbers(value) : cutValue ? allowMaxLength(value) : value}
+                    value={onlyNumbers ? allowOnlyNumbers(value) : cutValue && value ? allowMaxLength(value) : value}
                     disabled={disabled}
                     ariaDescribedBy={`${errorId}`}
                     {...others}
