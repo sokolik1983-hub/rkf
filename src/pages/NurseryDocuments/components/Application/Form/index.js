@@ -95,6 +95,9 @@ const Application = ({ alias, history, status }) => {
                 }
                 setValues(data);
                 setInitialValues(values);
+                if (!values.owner_last_name) {
+                    getOwner();
+                }
                 setLoaded(true);
             }, error => {
                 history.replace('/404');
