@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import ls from "local-storage";
 import {Form, Field, FormElement} from "@progress/kendo-react-form";
 import {Fade} from "@progress/kendo-react-animation";
 import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
@@ -20,7 +19,7 @@ import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
 
-const PatellaForm = ({alias, history, status}) => {
+const PatellaForm = ({alias, history, status, owner}) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [disableFields, setDisableFields] = useState(false);
@@ -28,14 +27,14 @@ const PatellaForm = ({alias, history, status}) => {
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [initialValues, setInitialValues] = useState({
-        declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         veterinary_contract_document: [],
         pedigree_number: '',
         dog_name: '',
         payment_document: [],
         payment_date: '',
         payment_number: '',
-        payment_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        payment_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         comment: ''
     });
 
