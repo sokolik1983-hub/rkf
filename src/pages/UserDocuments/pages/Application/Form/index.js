@@ -45,9 +45,9 @@ const Application = ({ alias, history, status, owner }) => {
     const [initialValues, setInitialValues] = useState({
         declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         is_foreign_owner: false,
-        owner_last_name: !status && owner ? owner.last_name : '',
-        owner_first_name: !status && owner ? owner.first_name : '',
-        owner_second_name: !status && owner ? owner.second_name : '',
+        owner_last_name: owner ? owner.last_name : '',
+        owner_first_name: owner ? owner.first_name : '',
+        owner_second_name: owner ? owner.second_name : '',
         express: false,
         pedigree_number: '',
         dog_name: '',
