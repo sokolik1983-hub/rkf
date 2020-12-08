@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { DropDownButton } from '@progress/kendo-react-buttons';
+import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
@@ -18,9 +17,18 @@ import { Fade } from '@progress/kendo-react-animation';
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "- Отклоненные" },
-    { "status_id": 2, "StatusName": "* В работе" },
-    { "status_id": 3, "StatusName": "+ Выполненные" }
+    {
+        text: 'Отклоненные',
+        value: '1',
+    },
+    {
+        text: 'В работе',
+        value: '2',
+    },
+    {
+        text: 'Выполненные',
+        value: '3',
+    }
 ];
 
 const ColumnMenu = (props) => {
@@ -98,10 +106,10 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.target.value.status_id !== null) {
+        if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
                 logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.target.value.status_id }]
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
@@ -111,7 +119,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             newDataState.skip = 0
         }
         setGridData(newDataState);
-    }
+    };
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -182,12 +190,9 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
-                        <strong>Фильтры: </strong>&nbsp;
-                        <DropDownList
-                            data={categories}
-                            dataItemKey="status_id"
-                            textField="StatusName"
-                            defaultItem={{ status_id: null, StatusName: "Все" }}
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
                             onChange={handleDropDownChange}
                         />
                     </div>

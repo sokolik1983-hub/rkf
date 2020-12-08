@@ -1,0 +1,28 @@
+.k-selection-single .k-chip-selected.k-chip-filled {
+    border: 0 !important;
+    box-shadow: none !important;
+    color: #253c5e !important;
+
+    &:first-child {
+        background-color: #FFD6D9 !important;
+    }
+
+    &:nth-child(2) {
+        background-color: #D8FDE4 !important;
+    }
+
+    &:nth-child(3) {
+        background-color: #E9EDE9 !important;
+    }
+}
+
+.k-chip {
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+
+    &-list {
+        position: relative;
+        bottom: 15px;
+    }
+}

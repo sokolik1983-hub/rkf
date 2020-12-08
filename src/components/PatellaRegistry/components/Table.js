@@ -120,10 +120,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
             newDataState.skip = 0
         }
         setGridData(newDataState);
-        console.log({ ...gridData });
-        console.log(newDataState);
-        console.log(e)
-    }
+    };
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
