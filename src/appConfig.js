@@ -146,7 +146,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/user/:id',
+        path: '/user/:route',
         component: LoadableModules.LoadableUserPage
     },
     {
@@ -234,6 +234,11 @@ const appRoutes = [
         exact: true,
         path: '/kennel/:route/news',
         component: LoadableModules.LoadableNurseryNews
+    },
+    {
+        exact: true,
+        path: ['/:route/news-feed/:id?', '/kennel/:route/news-feed/:id?', '/user/:route/news-feed/:id?'],
+        component: LoadableModules.LoadableNewsFeed
     },
     {
         exact: false,
