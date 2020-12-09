@@ -144,6 +144,9 @@
   }
   &__right {
     width: calc(100% - 306px);
+    .news-card__text img {
+      display: none;
+    }
   }
   @media (max-width: 990px) {
     .rkf-page__right {
