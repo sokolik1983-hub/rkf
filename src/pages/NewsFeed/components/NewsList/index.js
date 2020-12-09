@@ -14,6 +14,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const profileId = ls.get('profile_id');
+    const userAlias = ls.get('user_info').alias;
 
     useEffect(() => {
         setLoading(true);
@@ -53,7 +54,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                 method: 'DELETE'
             }, () => {
                 setLoading(true);
-                getNews();
+                getNews(1, true);
             },
                 error => {
                     console.log(error);
@@ -90,6 +91,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                         profileId={profileId}
                         deleteNewsItem={deleteNewsItem}
                         handleSuccess={handleSuccess}
+                        userAlias={userAlias}
                     />)
                 }
             </InfiniteScroll>

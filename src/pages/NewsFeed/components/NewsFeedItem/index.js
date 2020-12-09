@@ -29,24 +29,20 @@ const NewsFeedItem = forwardRef(({
     removable,
     onAdClose,
     citiesDict,
-    isAd,
-    adBreedName,
-    adCode,
-    adPrice,
-    adAmount,
-    adCategory,
     isClosedAd,
     videoLink,
     documents,
     changeCityFilter,
+    userAlias,
 
     is_advert,
     advert_breed_id,
+    advert_breed_name,
     advert_code,
     advert_cost,
     advert_number_of_puppies,
+    advert_type_name,
     history,
-
     first_name,
     last_name,
     active_member,
@@ -120,9 +116,10 @@ const NewsFeedItem = forwardRef(({
                             text="Подписки"
                             value="chip"
                             selected={true}
+                            disabled={true}
                         />
 
-                        {canEdit && profileId === profile_id &&
+                        {canEdit && profileId === profile_id && alias === userAlias &&
                             <div className="NewsFeedItem__head-control">
                                 <button
                                     className={`NewsFeedItem__head-control-btn${isOpenControls ? ' _open' : ''}`}
@@ -144,7 +141,7 @@ const NewsFeedItem = forwardRef(({
                                                         <span>Редактировать</span>
                                                     </li>
                                                 }
-                                                {isAd && !isClosedAd &&
+                                                {is_advert && !isClosedAd &&
                                                     <li className="NewsFeedItem__head-control-item" onClick={() => onAdClose(id, setIsOpenControls)}>
                                                         <span className="NewsFeedItem__remove">Закрыть объявление</span>
                                                     </li>
@@ -161,16 +158,16 @@ const NewsFeedItem = forwardRef(({
                     </div>
                 </div>
                 <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''}>
-                    {isAd && <div className="NewsFeedItem__ad">
+                    {is_advert && <div className="NewsFeedItem__ad">
                         <p className="NewsFeedItem__ad-breed">
-                            <span>Порода: {adBreedName}</span>
-                            <span>№{adCode}</span>
+                            <span>Порода: {advert_breed_name}</span>
+                            <span>№{advert_code}</span>
                         </p>
                         <div className="NewsFeedItem__ad-price">
                             <div>
-                                <span>Стоимость: {adPrice ? `${adPrice} руб.` : '-'}</span>
-                                <span>Кол-во щенков: {adAmount}</span>
-                                {adCategory && <span>Категория: {adCategory}</span>}
+                                <span>Стоимость: {advert_cost ? `${advert_cost} руб.` : '-'}</span>
+                                <span>Кол-во щенков: {advert_number_of_puppies}</span>
+                                {advert_type_name && <span>Категория: {advert_type_name}</span>}
                             </div>
                             {isClosedAd && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
                         </div>
@@ -244,18 +241,18 @@ const NewsFeedItem = forwardRef(({
                 <div className="NewsFeedItem__controls-left">
                     <div>
                         <span className="k-icon k-i-heart-outline" />
-                        <span>257</span>
+                        <span>0</span>
                     </div>
                     <div>
                         <span className="k-icon k-i-comment" />
-                        <span>91</span>
+                        <span>0</span>
                     </div>
                     <Share url={`https://rkf.online/news/${id}`} />
                 </div>
                 <div className="NewsFeedItem__controls-right">
                     <div>
                         <span className="k-icon k-i-preview" />
-                        <span>47</span>
+                        <span>0</span>
                     </div>
                 </div>
             </div>
