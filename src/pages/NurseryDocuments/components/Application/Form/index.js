@@ -46,6 +46,7 @@ const Application = ({ alias, history, status }) => {
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [reserveValues, setReserveValues] = useState(null);
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
         is_foreign_owner: false,
@@ -93,14 +94,23 @@ const Application = ({ alias, history, status }) => {
                 if(data.is_foreign_pedigree) {
                     setIsForeignPedigree(true);
                 }
+                if (!data.owner_last_name) {
+                        ( async () => await Request({
+                            url: `/api/nurseries/Nursery/pedigree_request_information`
+                        }, dataInfo => {
+                            if (dataInfo) {
+                                setReserveValues(dataInfo);
+                            }
+                        }, error => {
+                            handleError(error);
+                        }))();
+                }
                 setValues(data);
                 setInitialValues(values);
-                if (!values.owner_last_name) {
-                    getOwner();
-                }
                 setLoaded(true);
             }, error => {
-                history.replace('/404');
+                // history.replace('/404');
+                console.log(error)
             }))();
 
             setDisableAllFields(true);
@@ -384,6 +394,7 @@ const Application = ({ alias, history, status }) => {
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
                                                     disabled={disableOwner}
+                                                    value={values && values.owner_last_name !== null ? values.owner_last_name : reserveValues ? reserveValues.owner_last_name : ''}
                                                 />
                                             </div>
                                             <div>
@@ -395,6 +406,7 @@ const Application = ({ alias, history, status }) => {
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
                                                     disabled={disableOwner}
+                                                    value={values && values.owner_first_name !== null ? values.owner_first_name : reserveValues ? reserveValues.owner_first_name : ''}
                                                 />
                                             </div>
                                             <div>
@@ -406,6 +418,7 @@ const Application = ({ alias, history, status }) => {
                                                     component={FormInput}
                                                     validator={value => nameValidator(value, 150)}
                                                     disabled={disableOwner}
+                                                    value={values && values.owner_second_name !== null ? values.owner_second_name : reserveValues ? reserveValues.owner_second_name : ''}
                                                 />
                                             </div>
                                         </div>
