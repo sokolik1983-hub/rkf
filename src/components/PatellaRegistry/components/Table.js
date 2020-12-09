@@ -2,14 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { DropDownButton } from '@progress/kendo-react-buttons';
+import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../PdfTemplatePage";
+import PdfPageTemplate from "../../PdfPageTemplate";
 import LightTooltip from "../../LightTooltip";
 import CopyCell from '../../../pages/Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
@@ -19,9 +18,18 @@ import "./index.scss";
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "- Отклоненные" },
-    { "status_id": 2, "StatusName": "* В работе" },
-    { "status_id": 3, "StatusName": "+ Выполненные" }
+    {
+        text: 'Отклоненные',
+        value: '1',
+    },
+    {
+        text: 'В работе',
+        value: '2',
+    },
+    {
+        text: 'Выполненные',
+        value: '3',
+    }
 ];
 
 const ColumnMenu = (props) => {
@@ -99,10 +107,10 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.target.value.status_id !== null) {
+        if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
                 logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.target.value.status_id }]
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
@@ -112,7 +120,7 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
             newDataState.skip = 0
         }
         setGridData(newDataState);
-    }
+    };
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -174,15 +182,12 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className="club-documents-status__filters-wrap">
-                        <strong>Фильтры: </strong>
-                        <DropDownList
-                            data={categories}
-                            dataItemKey="status_id"
-                            textField="StatusName"
-                            defaultItem={{ status_id: null, StatusName: "Все" }}
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
                             onChange={handleDropDownChange}
                         />
-                        <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                        <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     </div>
                     {documents && <Grid
                         data={process(documents, gridData)}
@@ -207,7 +212,9 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
-                        pageTemplate={PdfPageTemplate}
+                        pageTemplate={() => <PdfPageTemplate 
+                            title={distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                        />}
                     >
                         {gridForExport}
                     </GridPDFExport>

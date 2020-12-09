@@ -148,7 +148,7 @@
     align-items: center;
     padding: 0;
     border: none;
-    margin: 10px 0 10px 20px;
+    margin: 10px 0 0 20px;
     letter-spacing: .2px;
     color: #72839c;
     transition: color .2s linear;
@@ -235,9 +235,9 @@
   }
   ._nursery_request_controls {
     position: relative;
-    top: 40px;
+    top: 70px;
     @media (max-width: 700px) {
-      top: 0;
+      top: -20px;
     }
   }
   &__plug{
