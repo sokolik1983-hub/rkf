@@ -336,7 +336,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name ? true : false}
+                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
                                                 />
                                             </div>
                                             <div>
@@ -347,7 +347,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name ? true : false}
+                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
                                                 />
                                             </div>
                                             <div>
@@ -358,7 +358,7 @@ const Application = ({ alias, history, status }) => {
                                                     cutValue={150}
                                                     component={FormInput}
                                                     validator={value => nameValidator(value, 150)}
-                                                    disabled={initialValues.owner_last_name ? true : false}
+                                                    disabled={initialValues.owner_last_name || status === 'view' ? true : false}
                                                 />
                                             </div>
                                         </div>
