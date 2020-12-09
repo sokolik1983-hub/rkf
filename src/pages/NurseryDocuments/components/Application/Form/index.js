@@ -392,7 +392,7 @@ const Application = ({ alias, history, status }) => {
                                                     label="Фамилия владельца"
                                                     cutValue={150}
                                                     component={FormInput}
-                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    validator={values && values.owner_first_name === null ? (value => nameValidator(value, 150)) : (value => nameRequiredValidator(value, 150))}
                                                     disabled={disableOwner}
                                                     value={values && values.owner_last_name !== null ? values.owner_last_name : reserveValues ? reserveValues.owner_last_name : ''}
                                                 />
@@ -404,7 +404,7 @@ const Application = ({ alias, history, status }) => {
                                                     label="Имя владельца"
                                                     cutValue={150}
                                                     component={FormInput}
-                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    validator={values && values.owner_first_name === null ? (value => nameValidator(value, 150)) : (value => nameRequiredValidator(value, 150))}
                                                     disabled={disableOwner}
                                                     value={values && values.owner_first_name !== null ? values.owner_first_name : reserveValues ? reserveValues.owner_first_name : ''}
                                                 />
