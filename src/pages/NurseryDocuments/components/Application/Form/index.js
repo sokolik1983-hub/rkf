@@ -90,14 +90,38 @@ const Application = ({ alias, history, status }) => {
                 if (data.documents) {
                     values.documents = [];
                 }
-                if(data.is_foreign_pedigree) {
+                if (data.is_foreign_pedigree) {
                     setIsForeignPedigree(true);
+                }
+                if (!data.owner_last_name) {
+                    (async () => await Request({
+                        url: `/api/nurseries/Nursery/pedigree_request_information`
+                    }, dataInfo => {
+                        if (dataInfo) {
+                            data.owner_last_name = dataInfo.owner_last_name;
+                            data.owner_first_name = dataInfo.owner_first_name;
+                            data.owner_second_name = dataInfo.owner_second_name;
+
+                            let values = {};
+                            Object.keys(initialValues).forEach(key => {
+                                values[key] = data[key] || initialValues[key];
+                            });
+                            if (data.documents) {
+                                values.documents = [];
+                            }
+                            setValues(data);
+                            setInitialValues(values);
+                        }
+                    }, error => {
+                        handleError(error);
+                    }))();
                 }
                 setValues(data);
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
-                history.replace('/404');
+                // history.replace('/404');
+                console.log(error)
             }))();
 
             setDisableAllFields(true);
@@ -160,7 +184,7 @@ const Application = ({ alias, history, status }) => {
             url: `/api/nurseries/nurserydeclarant/nursery_declarants`
         }, data => {
             if (data) {
-                setDeclarants(data.map(declarant => ({text: declarant.full_name, value: declarant.id})));
+                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
             } else {
                 setError('Ошибка');
             }
@@ -209,10 +233,10 @@ const Application = ({ alias, history, status }) => {
         await Request({
             url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
         }, data => {
-            if(data) {
+            if (data) {
                 setDisableFields(true);
                 setError('');
-                changeDogName('dog_name', {value: data.name});
+                changeDogName('dog_name', { value: data.name });
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -222,34 +246,37 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleChange = name => {
-        if(name === 'is_foreign_owner') {
+        if (name === 'is_foreign_owner') {
             const isForeign = !formProps.valueGetter(name);
 
-            formProps.onChange('owner_last_name', {value:
+            formProps.onChange('owner_last_name', {
+                value:
                     !isForeign && owner ? owner.owner_last_name :
-                    values && values.owner_last_name ? values.owner_last_name :
-                    ''
+                        values && values.owner_last_name ? values.owner_last_name :
+                            ''
             });
-            formProps.onChange('owner_first_name', {value:
+            formProps.onChange('owner_first_name', {
+                value:
                     !isForeign && owner ? owner.owner_first_name :
-                    values && values.owner_first_name ? values.owner_first_name:
-                    ''
+                        values && values.owner_first_name ? values.owner_first_name :
+                            ''
             });
-            formProps.onChange('owner_second_name', {value:
-                    !isForeign && owner && owner.owner_second_name ? owner.owner_second_name:
-                    values && values.owner_second_name ? values.owner_second_name :
-                    ''
+            formProps.onChange('owner_second_name', {
+                value:
+                    !isForeign && owner && owner.owner_second_name ? owner.owner_second_name :
+                        values && values.owner_second_name ? values.owner_second_name :
+                            ''
             });
 
             setDisableOwner(!isForeign);
         }
 
-        if(name === 'is_foreign_pedigree') {
+        if (name === 'is_foreign_pedigree') {
             const isForeign = !formProps.valueGetter(name);
 
-            formProps.onChange('pedigree_number', {value: ''});
+            formProps.onChange('pedigree_number', { value: '' });
 
-            formProps.onChange('dog_name', {value: ''});
+            formProps.onChange('dog_name', { value: '' });
 
             setDisableFields(false);
             setIsForeignPedigree(isForeign);
@@ -490,8 +517,8 @@ const Application = ({ alias, history, status }) => {
                                                     type="button"
                                                     className="btn btn-red"
                                                     onClick={() => {
-                                                        formRenderProps.onChange('pedigree_number', {value: ''});
-                                                        formRenderProps.onChange('dog_name', {value: ''});
+                                                        formRenderProps.onChange('pedigree_number', { value: '' });
+                                                        formRenderProps.onChange('dog_name', { value: '' });
                                                         setDisableFields(false);
                                                     }}
                                                 >Удалить
@@ -670,7 +697,8 @@ const Application = ({ alias, history, status }) => {
                                         }
                                     </div>
                                 </FormElement>
-                            )}
+                            )
+                        }
                         }
                     />
                 }
