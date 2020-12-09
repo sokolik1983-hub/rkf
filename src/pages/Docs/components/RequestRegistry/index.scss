@@ -144,9 +144,9 @@
   }
   ._request_registry {
     position: relative;
-    top: 40px;
+    top: 70px;
     @media (max-width: 700px) {
-      top: 0;
+      top: -20px;
     }
   }
   &__plug{

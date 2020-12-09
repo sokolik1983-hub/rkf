@@ -13,6 +13,7 @@ import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 

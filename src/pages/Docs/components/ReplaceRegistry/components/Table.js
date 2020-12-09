@@ -15,7 +15,6 @@ import CopyCell from '../../CopyCell';
 import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
-import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
