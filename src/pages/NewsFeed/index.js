@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import UserLayout from "components/Layouts/UserLayout";
+import ClubLayout from "components/Layouts/ClubLayout";
+import NurseryLayout from "components/Layouts/NurseryLayout";
 import CategoriesList from "./components/CategoriesList";
 import NewsList from "./components/NewsList";
+import ls from "local-storage";
 import "./styles.scss";
+
+const user_type = ls.get('user_info').user_type;
+const Layout = props => {
+    if (user_type === 1) {
+        return <UserLayout {...props} />
+    }
+    else if (user_type === 4) {
+        return <NurseryLayout {...props} />
+    }
+    else {
+        return <ClubLayout {...props} />
+    }
+}
 
 const Content = (props) => <div className="NewsFeed">
     <div className="NewsFeed-left">
@@ -13,14 +29,11 @@ const Content = (props) => <div className="NewsFeed">
     </div>
 </div>;
 
-
 const NewsFeed = (props) => {
     const [activeCategoryId, setActiveCategoryId] = useState(1);
-
-    return (
-        <UserLayout {...props}>
-            <Content activeCategoryId={activeCategoryId} setActiveCategoryId={setActiveCategoryId} />
-        </UserLayout>
+    return (<Layout {...props} user_type={user_type}>
+        <Content activeCategoryId={activeCategoryId} setActiveCategoryId={setActiveCategoryId} />
+    </Layout>
     )
 }
 

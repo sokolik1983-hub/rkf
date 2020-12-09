@@ -148,7 +148,9 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                                 active_member={nursery.active_member}
                                             />
                                         }
-                                        <UserMenu userNav={kennelNav(alias)} />
+                                        <UserMenu userNav={canEdit
+                                            ? kennelNav(alias) // Show NewsFeed menu item to current user only
+                                            : kennelNav(alias).filter(i => i.id !== 2)} />
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&
