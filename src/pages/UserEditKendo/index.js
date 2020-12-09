@@ -12,7 +12,7 @@ import StickyBox from "react-sticky-box";
 import UserBanner from "components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "pages/User/config";
+import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
 import MainInfo from './sections/MainInfo';
 import Contacts from './sections/Contacts';
 import About from './sections/About';

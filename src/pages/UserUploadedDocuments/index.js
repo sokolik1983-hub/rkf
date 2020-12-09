@@ -10,7 +10,7 @@ import StickyBox from "react-sticky-box";
 import UserBanner from "components/Layouts/UserBanner";
 import UserInfo from "../../components/Layouts/UserInfo";
 import UserMenu from "components/Layouts/UserMenu"
-import { endpointGetUserInfo, userNav } from "pages/User/config";
+import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
 import useIsMobile from "utils/useIsMobile";
 import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
