@@ -53,6 +53,7 @@ const NewsFeedItem = forwardRef(({
     canEdit,
     deleteNewsItem,
     handleSuccess,
+    redirect_link,
     profile_id, // News item profile ID
     profileId // User profile ID
 }) => {
@@ -186,11 +187,16 @@ const NewsFeedItem = forwardRef(({
                         />
                     }
                 </div>
-                <div className={`NewsFeedItem__show-all${!canCollapse ? ' _disabled' : ''}`}
-                    onClick={() => canCollapse && setCollapsed(!collapsed)}
-                >
-                    {!collapsed ? 'Подробнее...' : 'Свернуть'}
-                </div>
+                {
+                    redirect_link
+                        ? <div className="NewsFeedItem__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
+                        : <div className={`NewsFeedItem__show-all${!canCollapse ? ' _disabled' : ''}`}
+                            onClick={() => canCollapse && setCollapsed(!collapsed)}
+                        >
+                            {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                        </div>
+                }
+
                 {(picture_link || video_link) &&
                     <div className="NewsFeedItem__media">
                         {picture_link &&

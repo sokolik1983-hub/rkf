@@ -73,7 +73,10 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                                     updateInfo={getUser}
                                 />
                             </Card>
-                            <UserMenu userNav={userNav(alias)} />
+                            <UserMenu userNav={canEdit
+                                    ? userNav(alias) // Show NewsFeed menu item to current user only
+                                    : userNav(alias).filter(i => i.id !== 2)}
+                                />
                             {!isMobile &&
                                 <>
                                     <UserPhotoGallery

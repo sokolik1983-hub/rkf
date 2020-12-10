@@ -439,6 +439,13 @@
       cursor: default;
       opacity: 1;
     }
+    a {
+      color: #253c5e!important;
+      &:hover {
+        color: #36f!important;
+        text-decoration: none!important;
+      }
+    }
   }
   &__modal {
     & > div {

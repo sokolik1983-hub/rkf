@@ -14,9 +14,10 @@ import { buildUrl, getFiltersFromUrl, getInitialFilters } from "./utils";
 import { formatDateCommon } from "../../utils/datetime";
 import { DEFAULT_IMG } from "../../appConfig";
 import shorten from "../../utils/shorten";
-import {clubNav} from "../Club/config";
-import {isFederationAlias} from "../../utils";
+import { clubNav } from "../Club/config";
+import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import ls from "local-storage";
 import './index.scss';
 
 
@@ -160,8 +161,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                         alias={filters.Alias}
                                         name={shorten(displayName)}
                                         isFederation={true}
-                                    /> :
-                                    <UserMenu userNav={clubNav(filters.Alias)} />
+                                    /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} />
                                 }
                             </div>
                         }

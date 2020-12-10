@@ -213,7 +213,9 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                     isFederation={true}
                                                 /> :
-                                                <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                                <UserMenu userNav={canEdit
+                                                    ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
+                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
                                             }
                                             {!isMobile &&
                                                 <>
