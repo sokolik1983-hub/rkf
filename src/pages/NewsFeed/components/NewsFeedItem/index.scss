@@ -218,11 +218,13 @@
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
-      margin-right: 20px;
       background-color: #7899ff4d;
       color: #72839c !important;
       &:hover {
         background: #7899ff5d;
+      }
+      &:not(:last-child) {
+        margin-right: 20px;
       }
     }
   }
@@ -304,7 +306,7 @@
     transition: height 0.2s linear;
     &-breed,
     &-price {
-      margin-bottom: 10px;
+      margin-bottom: 10px !important;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -436,6 +438,13 @@
       border-bottom-color: transparent;
       cursor: default;
       opacity: 1;
+    }
+    a {
+      color: #253c5e!important;
+      &:hover {
+        color: #36f!important;
+        text-decoration: none!important;
+      }
     }
   }
   &__modal {

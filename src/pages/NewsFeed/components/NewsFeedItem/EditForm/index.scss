@@ -175,6 +175,16 @@
         height: auto !important;
       }
     }
+    .k-svg-i-youtube {
+      position: absolute !important;
+      left: calc(50% - 50px);
+      top: calc(50% - 50px);
+      width: 100px !important;
+      height: 100px !important;
+      svg {
+        fill: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
   }
   &__documents {
     margin: 0 0 16px;

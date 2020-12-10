@@ -11,7 +11,7 @@ import { Request } from "utils/request";
 import Modal from "components/Modal";
 import LightTooltip from "components/LightTooltip";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { filePdf, trash } from "@progress/kendo-svg-icons";
+import { filePdf, trash, youtube } from "@progress/kendo-svg-icons";
 import moment from "moment";
 
 
@@ -115,6 +115,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                 }
                 {video &&
                     <div className="article-edit__img" style={{ backgroundImage: `url(https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg)` }}>
+                        <SvgIcon icon={youtube} size="default" />
                         <button className="article-edit__img-delete" onClick={handleDeleteVideoLink}>
                             <SvgIcon icon={trash} size="default" />
                         </button>

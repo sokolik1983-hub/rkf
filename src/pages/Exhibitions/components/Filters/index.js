@@ -17,6 +17,7 @@ import CopyrightInfo from "../../../../components/CopyrightInfo";
 import {clubNav} from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
+import ls from "local-storage";
 import "./index.scss";
 
 
@@ -83,7 +84,9 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                         name={clubName}
                                         isFederation={true}
                                     /> :
-                                    <UserMenu userNav={clubNav(filters.Alias)} />
+                                    <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
+                                        ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} />
                                 }
                             </div>
                         }
