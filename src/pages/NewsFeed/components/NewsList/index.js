@@ -63,6 +63,23 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
         }
     };
 
+    const onAdClose = async (id) => {
+        if (window.confirm('Вы действительно хотите закрыть это объявление?')) {
+            await Request({
+                url: '/api/Article/',
+                method: 'PUT',
+                data: JSON.stringify({ "id": id, "is_closed_advert": true })
+            }, () => {
+                setLoading(true);
+                getNews(1, true);
+            },
+                error => {
+                    console.log(error);
+                    alert('Объявление не закрыто');
+                });
+        }
+    };
+
     const handleSuccess = () => {
         setLoading(true);
         getNews(1, true);
@@ -90,6 +107,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                         canEdit={canEdit}
                         profileId={profileId}
                         deleteNewsItem={deleteNewsItem}
+                        onAdClose={onAdClose}
                         handleSuccess={handleSuccess}
                         userAlias={userAlias}
                     />)

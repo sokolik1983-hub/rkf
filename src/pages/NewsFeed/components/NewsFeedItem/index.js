@@ -29,7 +29,6 @@ const NewsFeedItem = forwardRef(({
     removable,
     onAdClose,
     citiesDict,
-    isClosedAd,
     videoLink,
     documents,
     changeCityFilter,
@@ -42,6 +41,7 @@ const NewsFeedItem = forwardRef(({
     advert_cost,
     advert_number_of_puppies,
     advert_type_name,
+    is_closed_advert,
     history,
     first_name,
     last_name,
@@ -137,13 +137,13 @@ const NewsFeedItem = forwardRef(({
                                             unmountOnExit
                                         >
                                             <ul className="NewsFeedItem__head-control-list">
-                                                {!isClosedAd &&
+                                                {!is_closed_advert &&
                                                     <li className="NewsFeedItem__head-control-item" onClick={() => setIsEditing(true)}>
                                                         <span>Редактировать</span>
                                                     </li>
                                                 }
-                                                {is_advert && !isClosedAd &&
-                                                    <li className="NewsFeedItem__head-control-item" onClick={() => onAdClose(id, setIsOpenControls)}>
+                                                {is_advert && !is_closed_advert &&
+                                                    <li className="NewsFeedItem__head-control-item" onClick={() => onAdClose(id)}>
                                                         <span className="NewsFeedItem__remove">Закрыть объявление</span>
                                                     </li>
                                                 }
@@ -170,7 +170,7 @@ const NewsFeedItem = forwardRef(({
                                 <span>Кол-во щенков: {advert_number_of_puppies}</span>
                                 {advert_type_name && <span>Категория: {advert_type_name}</span>}
                             </div>
-                            {isClosedAd && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
+                            {is_closed_advert && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
                         </div>
                     </div>}
                     <p className="NewsFeedItem__text"
@@ -307,44 +307,7 @@ const NewsFeedItem = forwardRef(({
                         </div>
                     </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'top' }}>
-                    {/* {canEdit && profileId === profile_id &&
-                        <div className="NewsFeedItem__head-control">
-                            <button
-                                className={`NewsFeedItem__head-control-btn${isOpenControls ? ' _open' : ''}`}
-                                onClick={() => setIsOpenControls(!isOpenControls)}
-                            />
-                            {isOpenControls &&
-                                <OutsideClickHandler
-                                    ref={ref}
-                                    onOutsideClick={({ target }) => !target.classList.contains('_open') && setIsOpenControls(false)}>
-                                    <CSSTransition
-                                        in={isOpenControls}
-                                        timeout={350}
-                                        classNames="NewsFeedItem__transition"
-                                        unmountOnExit
-                                    >
-                                        <ul className="NewsFeedItem__head-control-list">
-                                            {!isClosedAd &&
-                                                <li className="NewsFeedItem__head-control-item">
-                                                    <Link to={`${url}/edit`}>Редактировать</Link>
-                                                </li>
-                                            }
-                                            {isAd && !isClosedAd &&
-                                                <li className="NewsFeedItem__head-control-item" onClick={() => onAdClose(id, setIsOpenControls)}>
-                                                    <span className="NewsFeedItem__remove">Закрыть объявление</span>
-                                                </li>
-                                            }
-                                            <li className="NewsFeedItem__head-control-item" onClick={() => deleteNewsItem(id)}>
-                                                <span className="NewsFeedItem__remove">Удалить</span>
-                                            </li>
-                                        </ul>
-                                    </CSSTransition>
-                                </OutsideClickHandler>
-                            }
-                        </div>
-                    } */}
-                </div>
+                <div style={{ display: 'flex', alignItems: 'top' }}></div>
             </div>
             <div>
                 <EditForm id={id}
@@ -371,7 +334,7 @@ const NewsFeedItem = forwardRef(({
 
     return (
         <Card className="NewsFeedItem">
-            <div className={`NewsFeedItem__wrap${isClosedAd ? ' is_closed' : ''}`}>
+            <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&
                     <Lightbox
