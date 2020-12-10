@@ -185,6 +185,29 @@ const Application = ({ alias, history, status }) => {
         }, data => {
             if (data) {
                 setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
+
+                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
+                setInitialValues({
+                    declarant_id: defaultDeclarant,
+                    is_foreign_owner: false,
+                    owner_last_name: '',
+                    owner_first_name: '',
+                    owner_second_name: '',
+                    express: false,
+                    pedigree_number: '',
+                    dog_name: '',
+                    is_foreign_pedigree: false,
+                    payment_date: '',
+                    payment_number: '',
+                    payment_document_id: '',
+                    payment_name: '',
+                    inn: '',
+                    comment: '',
+                    document_type_id: 0,
+                    rkf_document_type_id: 0,
+                    payment_document: [],
+                    documents: []
+                });
             } else {
                 setError('Ошибка');
             }
