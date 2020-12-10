@@ -88,7 +88,7 @@ const Application = ({ alias, history, status }) => {
                 if (data.documents) {
                     values.documents = [];
                 }
-                if(data.is_foreign_pedigree) {
+                if (data.is_foreign_pedigree) {
                     setIsForeignPedigree(true);
                 }
                 setValues(data);
@@ -137,7 +137,30 @@ const Application = ({ alias, history, status }) => {
             url: `/api/clubs/declarant/club_declarants`
         }, data => {
             if (data) {
-                setDeclarants(data.map(declarant => ({text: declarant.full_name, value: declarant.id})));
+                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
+
+                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
+                setInitialValues({
+                    declarant_id: defaultDeclarant,
+                    is_foreign_owner: false,
+                    owner_last_name: '',
+                    owner_first_name: '',
+                    owner_second_name: '',
+                    express: false,
+                    pedigree_number: '',
+                    dog_name: '',
+                    is_foreign_pedigree: false,
+                    payment_date: '',
+                    payment_number: '',
+                    payment_document_id: '',
+                    payment_name: '',
+                    inn: '',
+                    comment: '',
+                    document_type_id: 0,
+                    rkf_document_type_id: 0,
+                    payment_document: [],
+                    documents: []
+                });
             } else {
                 setError('Ошибка');
             }
@@ -187,10 +210,10 @@ const Application = ({ alias, history, status }) => {
         await Request({
             url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
         }, data => {
-            if(data) {
+            if (data) {
                 setDisableFields(true);
                 setError('');
-                changeDogName('dog_name', {value: data.name});
+                changeDogName('dog_name', { value: data.name });
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -200,12 +223,12 @@ const Application = ({ alias, history, status }) => {
     };
 
     const handleChange = name => {
-        if(name === 'is_foreign_pedigree') {
+        if (name === 'is_foreign_pedigree') {
             const isForeign = !formProps.valueGetter(name);
 
-            formProps.onChange('pedigree_number', {value: ''});
+            formProps.onChange('pedigree_number', { value: '' });
 
-            formProps.onChange('dog_name', {value: ''});
+            formProps.onChange('dog_name', { value: '' });
 
             setDisableFields(false);
             setIsForeignPedigree(isForeign);
@@ -446,8 +469,8 @@ const Application = ({ alias, history, status }) => {
                                                     type="button"
                                                     className="btn btn-red"
                                                     onClick={() => {
-                                                        formRenderProps.onChange('pedigree_number', {value: ''});
-                                                        formRenderProps.onChange('dog_name', {value: ''});
+                                                        formRenderProps.onChange('pedigree_number', { value: '' });
+                                                        formRenderProps.onChange('dog_name', { value: '' });
                                                         setDisableFields(false);
                                                     }}
                                                 >Удалить
@@ -615,7 +638,6 @@ const Application = ({ alias, history, status }) => {
                                             </div>
                                         }
                                     </div>
-
                                     <div className="application-form__controls">
                                         {editable &&
                                             <button
@@ -626,7 +648,8 @@ const Application = ({ alias, history, status }) => {
                                         }
                                     </div>
                                 </FormElement>
-                            )}
+                            )
+                        }
                         }
                     />
                 }
