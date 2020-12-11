@@ -153,10 +153,10 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                                             : kennelNav(alias).filter(i => i.id !== 2)} />
                                         {!isMobile &&
                                             <>
+                                                <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
                                                 {nursery.breeds && !!nursery.breeds.length &&
                                                     <BreedsList breeds={nursery.breeds} />
                                                 }
-                                                <Banner type={BANNER_TYPES.kennelPageUnderPhotos} />
                                                 <UserPhotoGallery
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/gallery`}
