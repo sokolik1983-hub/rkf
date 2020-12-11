@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
@@ -18,24 +19,27 @@ import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator
+    documentTypeRequired, innValidator, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
 import { Request } from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
 
-loadMessages(ruMessages, 'ru');
 
-let counter = 0;
+loadMessages(ruMessages, 'ru');
 
 
 const Application = ({ alias, history, status }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
+    const [disableOwner, setDisableOwner] = useState(true);
+    const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
+    const [isForeignPedigree, setIsForeignPedigree] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
+    const [owner, setOwner] = useState(null);
     const [declarants, setDeclarants] = useState([]);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
     const [documentTypeIds, setDocumentTypeIds] = useState([]);
@@ -44,7 +48,14 @@ const Application = ({ alias, history, status }) => {
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
         declarant_id: 0,
+        is_foreign_owner: false,
+        owner_last_name: '',
+        owner_first_name: '',
+        owner_second_name: '',
         express: false,
+        pedigree_number: '',
+        dog_name: '',
+        is_foreign_pedigree: false,
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
@@ -60,7 +71,7 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+            Promise.all([getOwner(), getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
         }
     }, []);
 
@@ -79,11 +90,38 @@ const Application = ({ alias, history, status }) => {
                 if (data.documents) {
                     values.documents = [];
                 }
+                if (data.is_foreign_pedigree) {
+                    setIsForeignPedigree(true);
+                }
+                if (!data.owner_last_name) {
+                    (async () => await Request({
+                        url: `/api/nurseries/Nursery/pedigree_request_information`
+                    }, dataInfo => {
+                        if (dataInfo) {
+                            data.owner_last_name = dataInfo.owner_last_name;
+                            data.owner_first_name = dataInfo.owner_first_name;
+                            data.owner_second_name = dataInfo.owner_second_name;
+
+                            let values = {};
+                            Object.keys(initialValues).forEach(key => {
+                                values[key] = data[key] || initialValues[key];
+                            });
+                            if (data.documents) {
+                                values.documents = [];
+                            }
+                            setValues(data);
+                            setInitialValues(values);
+                        }
+                    }, error => {
+                        handleError(error);
+                    }))();
+                }
                 setValues(data);
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
-                history.replace('/404');
+                // history.replace('/404');
+                console.log(error)
             }))();
 
             setDisableAllFields(true);
@@ -100,6 +138,27 @@ const Application = ({ alias, history, status }) => {
                 setError('');
             }, 5000);
         }
+    };
+
+    const getOwner = async () => {
+        await Request({
+            url: `/api/nurseries/Nursery/pedigree_request_information`
+        }, data => {
+            if (data) {
+                setOwner(data);
+
+                setInitialValues({
+                    ...initialValues,
+                    owner_last_name: data.owner_last_name,
+                    owner_first_name: data.owner_first_name,
+                    owner_second_name: data.owner_second_name || ''
+                });
+            } else {
+                setError('Ошибка');
+            }
+        }, error => {
+            handleError(error);
+        });
     };
 
     const getDocumentTypes = async () => {
@@ -125,7 +184,30 @@ const Application = ({ alias, history, status }) => {
             url: `/api/nurseries/nurserydeclarant/nursery_declarants`
         }, data => {
             if (data) {
-                setDeclarants(data.map(declarant => ({text: declarant.full_name, value: declarant.id})));
+                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
+
+                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
+                setInitialValues({
+                    declarant_id: defaultDeclarant,
+                    is_foreign_owner: false,
+                    owner_last_name: '',
+                    owner_first_name: '',
+                    owner_second_name: '',
+                    express: false,
+                    pedigree_number: '',
+                    dog_name: '',
+                    is_foreign_pedigree: false,
+                    payment_date: '',
+                    payment_number: '',
+                    payment_document_id: '',
+                    payment_name: '',
+                    inn: '',
+                    comment: '',
+                    document_type_id: 0,
+                    rkf_document_type_id: 0,
+                    payment_document: [],
+                    documents: []
+                });
             } else {
                 setError('Ошибка');
             }
@@ -141,6 +223,9 @@ const Application = ({ alias, history, status }) => {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
         };
+
+        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
@@ -167,8 +252,60 @@ const Application = ({ alias, history, status }) => {
         });
     };
 
+    const getDogName = async (pedigreeNumber, changeDogName) => {
+        await Request({
+            url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
+        }, data => {
+            if (data) {
+                setDisableFields(true);
+                setError('');
+                changeDogName('dog_name', { value: data.name });
+            } else {
+                setError('Номер родословной не найден в базе ВЕРК');
+            }
+        }, error => {
+            handleError(error);
+        });
+    };
+
     const handleChange = name => {
-        formProps.onChange(name, { value: formProps.valueGetter(name) ? false : true })
+        if (name === 'is_foreign_owner') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('owner_last_name', {
+                value:
+                    !isForeign && owner ? owner.owner_last_name :
+                        values && values.owner_last_name ? values.owner_last_name :
+                            ''
+            });
+            formProps.onChange('owner_first_name', {
+                value:
+                    !isForeign && owner ? owner.owner_first_name :
+                        values && values.owner_first_name ? values.owner_first_name :
+                            ''
+            });
+            formProps.onChange('owner_second_name', {
+                value:
+                    !isForeign && owner && owner.owner_second_name ? owner.owner_second_name :
+                        values && values.owner_second_name ? values.owner_second_name :
+                            ''
+            });
+
+            setDisableOwner(!isForeign);
+        }
+
+        if (name === 'is_foreign_pedigree') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('pedigree_number', { value: '' });
+
+            formProps.onChange('dog_name', { value: '' });
+
+            setDisableFields(false);
+            setIsForeignPedigree(isForeign);
+        }
+
+        formProps.onChange(name, { value: !formProps.valueGetter(name) })
     };
 
     const onAdd = event => {
@@ -222,8 +359,6 @@ const Application = ({ alias, history, status }) => {
         })
     };
 
-    console.log('render', ++counter, disableSubmit);
-
     return (
         <div className="application-form">
             <Card>
@@ -240,7 +375,6 @@ const Application = ({ alias, history, status }) => {
                         key={JSON.stringify(initialValues)}
                         render={formRenderProps => {
                             if (!formProps) setFormProps(formRenderProps);
-
                             return (
                                 <FormElement>
                                     <div className="application-form__content">
@@ -266,7 +400,6 @@ const Application = ({ alias, history, status }) => {
                                                 <Field
                                                     id="declarant_id"
                                                     name="declarant_id"
-                                                    // label={}
                                                     component={FormDropDownList}
                                                     data={declarants}
                                                     defaultItem={values && values.declarant_name
@@ -279,14 +412,59 @@ const Application = ({ alias, history, status }) => {
                                             </div>
                                             <div>
                                                 <Field
-                                                    id="express"
-                                                    name="express"
-                                                    label="Срочное изготовление"
+                                                    id="is_foreign_owner"
+                                                    name="is_foreign_owner"
+                                                    label="Владелец является иностранным гражданином"
                                                     component={FormContactsCheckbox}
                                                     onChange={handleChange}
                                                     disabled={disableAllFields}
                                                 />
                                             </div>
+                                        </div>
+                                        <div className="application-form__row row _payment-info">
+                                            <div>
+                                                <Field
+                                                    id="owner_last_name"
+                                                    name="owner_last_name"
+                                                    label="Фамилия владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={disableOwner}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_first_name"
+                                                    name="owner_first_name"
+                                                    label="Имя владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={disableOwner}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Field
+                                                    id="owner_second_name"
+                                                    name="owner_second_name"
+                                                    label="Отчество владельца"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameValidator(value, 150)}
+                                                    disabled={disableOwner}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="application-form__row row">
+                                            <Field
+                                                id="express"
+                                                name="express"
+                                                label="Срочное изготовление"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={disableAllFields}
+                                            />
                                         </div>
                                         <div className="application-form__row row">
                                             <div>
@@ -324,6 +502,61 @@ const Application = ({ alias, history, status }) => {
                                                     </IntlProvider>
                                                 </LocalizationProvider>
                                             </div>
+                                        </div>
+                                        <div className="application-form__row row">
+                                            <Field
+                                                id="pedigree_number"
+                                                name="pedigree_number"
+                                                label="№ родословной собаки"
+                                                hint={!isForeignPedigree ? 'Допускается ввод только цифр' : ''}
+                                                maxLength={30}
+                                                onlyNumbers={!isForeignPedigree}
+                                                disabled={!editable || disableFields}
+                                                component={FormInput}
+                                                validator={requiredValidator}
+                                            />
+                                            {editable && !disableFields && !isForeignPedigree &&
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary"
+                                                    onClick={() => getDogName(
+                                                        formRenderProps.valueGetter('pedigree_number'),
+                                                        formRenderProps.onChange
+                                                    )}
+                                                    disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                                >Поиск
+                                                </button>
+                                            }
+                                            <Field
+                                                id="dog_name"
+                                                name="dog_name"
+                                                label="Кличка собаки"
+                                                disabled={!editable || disableFields}
+                                                component={FormInput}
+                                                validator={requiredValidator}
+                                            />
+                                            {editable && disableFields &&
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-red"
+                                                    onClick={() => {
+                                                        formRenderProps.onChange('pedigree_number', { value: '' });
+                                                        formRenderProps.onChange('dog_name', { value: '' });
+                                                        setDisableFields(false);
+                                                    }}
+                                                >Удалить
+                                                </button>
+                                            }
+                                        </div>
+                                        <div className="application-form__row row">
+                                            <Field
+                                                id="is_foreign_pedigree"
+                                                name="is_foreign_pedigree"
+                                                label="Иностранная родословная"
+                                                component={FormContactsCheckbox}
+                                                onChange={handleChange}
+                                                disabled={!editable}
+                                            />
                                         </div>
                                     </div>
 
@@ -487,7 +720,8 @@ const Application = ({ alias, history, status }) => {
                                         }
                                     </div>
                                 </FormElement>
-                            )}
+                            )
+                        }
                         }
                     />
                 }

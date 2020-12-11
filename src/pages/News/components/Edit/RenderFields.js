@@ -11,6 +11,7 @@ import Modal from "../../../../components/Modal";
 import LightTooltip from "../../../../components/LightTooltip";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { trash } from "@progress/kendo-svg-icons";
+import useIsMobile from "../../../../utils/useIsMobile";
 
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
@@ -20,6 +21,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     const [modalType, setModalType] = useState('');
     const [showModal, setShowModal] = useState(false);
     const { content, is_advert } = formik.values;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         formik.setFieldValue('content', text);
@@ -87,18 +89,31 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
         setShowModal(false);
     };
 
+    const addRow = () => {
+        let charactersInRow = 130;
+        let maxNumberOfRows = 11;
+        let reservedRow = 1;
+        let numberOfRows = Math.ceil(content.length / charactersInRow) + reservedRow;
+
+        if (numberOfRows < maxNumberOfRows) {
+            return numberOfRows;
+        } else {
+            return maxNumberOfRows;
+        }
+    };
+
     return (
         <>
             <div className="article-edit__text">
                 <FormField
                     {...fields.content}
                     onChange={handleChangeText}
-                    maxLength="4096"
-                    rows="15"
+                    maxLength="1000"
+                    rows={content && addRow()}
                 />
-                {content &&
+                {content && !isMobile &&
                     <span className="article-edit__content-length">
-                        {`осталось ${4096 - content.length} знаков`}
+                        {`осталось ${1000 - content.length} знаков`}
                     </span>
                 }
             </div>
@@ -164,7 +179,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                         {docs.map((item, i) =>
                             <li className="article-edit__documents-item" key={i}>
                                 <span>{item.name}</span>
-                                <SvgIcon icon={trash} size="default"  onClick={() => handleDeleteDocument(i)} />
+                                <SvgIcon icon={trash} size="default" onClick={() => handleDeleteDocument(i)} />
                             </li>
                         )}
                     </ul>
@@ -183,7 +198,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                 </div>
             }
             <FormControls className="article-edit__form-controls">
-                <button type="button" className="btn btn-simple" onClick={onCancel}>Отмена</button>
+                <button type="button" className="btn" onClick={onCancel}>Отмена</button>
                 <SubmitButton
                     type="submit"
                     className={`article-edit__button${formik.isValid ? ' _active' : ''}`}

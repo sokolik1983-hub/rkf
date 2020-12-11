@@ -23,6 +23,8 @@ import Patella from "components/Patella";
 import PatellaRegistry from "components/PatellaRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
+import Application from "./components/Application/Form";
+import ApplicationRegistry from "./components/Application/ApplicationRegistry";
 import "./index.scss";
 
 
@@ -31,7 +33,7 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
     const clubName = ls.get('user_info') ? ls.get('user_info').name : '';
     const clubLogo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const isVisible = isAuthenticated && is_active_profile && match.params.route === clubAlias;
-    const isWithFilters = useRouteMatch('/:route/documents/replace-pedigree/registry') ? true : false;
+    const isWithFilters = !!useRouteMatch('/:route/documents/replace-pedigree/registry');
 
     return !isVisible
         ? <PageNotFound />
@@ -45,6 +47,27 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         withShare={false}
                     />
                     <Switch>
+                        <Route
+                            exact={true}
+                            path='/:route/documents/application/form'
+                            component={() => <Application alias={clubAlias} history={history} />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/:route/documents/application/view/:docId'
+                            component={() => <Application alias={clubAlias} history={history} status="view" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/:route/documents/application/edit/:docId'
+                            component={() => <Application alias={clubAlias} history={history} status="edit" />}
+                        />
+                        <Route
+                            exact={true}
+                            path='/:route/documents/application/registry'
+                            component={() => <ApplicationRegistry history={history}/>}
+                        />
+
                         <Route exact={true} path='/:route/documents/replace-pedigree/registry' component={() =>
                             <ReplaceRegistry alias={clubAlias} history={history} />}
                         />

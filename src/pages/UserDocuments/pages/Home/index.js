@@ -101,7 +101,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/patella/form'
-                                    component={() => <PatellaForm alias={userAlias} history={history}/>}
+                                    component={() => <PatellaForm 
+                                        alias={userAlias} 
+                                        history={history}
+                                        owner={userInfo.personal_information}
+                                    />}
                                 />
                                 <Route
                                     exact={true}
@@ -121,7 +125,11 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/dysplasia/form'
-                                    component={() => <DysplasiaForm alias={userAlias} history={history}/>}
+                                    component={() => <DysplasiaForm 
+                                        alias={userAlias} 
+                                        history={history}
+                                        owner={userInfo.personal_information}
+                                    />}
                                 />
                                 <Route
                                     exact={true}
@@ -141,17 +149,37 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 <Route
                                     exact={true}
                                     path='/user/:route/documents/application/form'
-                                    component={() => <Application alias={userAlias} history={history} />}
+                                    component={() =>
+                                        <Application
+                                            alias={userAlias}
+                                            history={history}
+                                            owner={userInfo.personal_information}
+                                        />
+                                    }
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/application/view/:docId'
-                                    component={() => <Application alias={userAlias} history={history} status="view" />}
+                                    component={() =>
+                                        <Application
+                                            alias={userAlias}
+                                            history={history}
+                                            status="view"
+                                            owner={userInfo.personal_information}
+                                        />
+                                    }
                                 />
                                 <Route
                                     exact={true}
                                     path='/user/:id/documents/application/edit/:docId'
-                                    component={() => <Application alias={userAlias} history={history} status="edit" />}
+                                    component={() =>
+                                        <Application
+                                            alias={userAlias}
+                                            history={history}
+                                            status="edit"
+                                            owner={userInfo.personal_information}
+                                        />
+                                    }
                                 />
                                 <Route
                                     exact={true}

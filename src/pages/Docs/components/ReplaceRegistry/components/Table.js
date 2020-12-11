@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { DropDownButton } from '@progress/kendo-react-buttons';
+import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
 import { Checkbox } from '@progress/kendo-react-inputs';
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import kendoMessages from 'kendoMessages.json';
@@ -14,16 +13,28 @@ import { Fade } from '@progress/kendo-react-animation';
 import ShareCell from '../../ShareCell';
 import CopyCell from '../../CopyCell';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "- Отклоненные" },
-    { "status_id": 2, "StatusName": "* В работе" },
-    { "status_id": 3, "StatusName": "+ Выполненные" },
-    { "status_id": 4, "StatusName": "? Не отправленные" },
+    {
+        text: 'Отклоненные',
+        value: '1',
+    },
+    {
+        text: 'В работе',
+        value: '2',
+    },
+    {
+        text: 'Выполненные',
+        value: '3',
+    },
+    {
+        text: 'Не отправленные',
+        value: '4',
+    }
 ];
 
 const ColumnMenu = (props) => {
@@ -78,10 +89,10 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.target.value.status_id !== null) {
+        if (e.value === "1" || e.value === "2" || e.value === "3" || e.value === "4") {
             newDataState.filter = {
                 logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.target.value.status_id }]
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
@@ -91,7 +102,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
             newDataState.skip = 0
         }
         setGridData(newDataState);
-    }
+    };
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -152,17 +163,14 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
                 <StickyFilters>
+                    <div className="club-documents-status__chips">
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
+                            onChange={handleDropDownChange}
+                        />
+                    </div>
                     <div className={`club-documents-status__filters${isOpenFilters ? ' _open' : ''}`}>
-                        <div className={'club-documents-status__filters-wrap'}>
-                            <strong>Фильтры: </strong>&nbsp;
-                                <DropDownList
-                                data={categories}
-                                dataItemKey="status_id"
-                                textField="StatusName"
-                                defaultItem={{ status_id: null, StatusName: "Все" }}
-                                onChange={handleDropDownChange}
-                            />
-                        </div>
                         <div className={'club-documents-status__checkbox-wrap'}>
                             {!!reqTypes.length && reqTypes.map(({ id, name }) =>
                                 <Checkbox
@@ -175,7 +183,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             )}
                         </div>
                     </div>
-                    <span style={{fontSize: '12px'}}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                 </StickyFilters>
                 {documents && <>
                     <Grid
@@ -204,7 +212,9 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         scale={0.4}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
-                        pageTemplate={PdfPageTemplate}
+                        pageTemplate={() => <PdfPageTemplate
+                            title="ЗАМЕНА РОДОСЛОВНОЙ"
+                        />}
                     >
                         {gridForExport}
                     </GridPDFExport>

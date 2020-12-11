@@ -15,7 +15,24 @@
   position: relative;
 
   textarea {
-    resize: vertical;
+    resize: initial;
+  }
+
+  ._textarea_focus {
+    #content {
+      border-bottom: 1px solid #ebf0f2;
+      border-radius: 0;
+    }
+  }
+
+  .custom-checkbox {
+    margin-left: 20px;
+
+    @media (max-width: 700px) {
+      position: relative;
+      top: -4px;
+      left: -8px;
+    }
   }
 
   &__wrap {
@@ -24,13 +41,12 @@
     flex-grow: 1;
 
     #content {
-      border: 1px solid #ebf0f2;
-      border-radius: 6px;
+      border: 0;
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: 0.2px;
-      padding: 7px 16px 7px 16px;
+      padding: 7px 16px 7px 0;
 
       &:empty {
         height: auto !important;
@@ -39,13 +55,16 @@
       @media (max-width: 560px) {
         width: 100%;
         font-size: 14px;
-        padding: 11px 12px;
       }
     }
 
     .FormInput--text {
       flex-grow: 1;
       margin: 0 0 0 12px;
+
+      @media (max-width: 700px) {
+        margin: 0;
+      }
     }
 
     .FormInput--error .FormInput__error {
@@ -56,7 +75,6 @@
   &__length-hint {
     display: flex;
     justify-content: flex-end;
-    margin: 10px 0;
   }
 
   &__content-length {
@@ -64,14 +82,23 @@
   }
 
   &__controls {
-    padding-left: 72px;
+    padding-left: 10px;
     align-items: center;
-    @media (max-width: 700px) {
-      padding-left: 10px;
+
+    &._focus {
+      margin-left: 43px;
+      display: flex;
+      flex-direction: row;
+
+      @media (max-width: 700px) {
+        margin-left: 0;
+        padding-left: 0;
+      }
     }
 
     &>* {
-      margin-right: 39px;
+      margin-right: 15px;
+
       @media (max-width: 700px) {
         margin-right: 5px;
       }
@@ -80,7 +107,11 @@
     &-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 8px
+      margin-top: 4px;
+
+      @media (max-width: 700px) {
+        margin-top: 12px;
+      }
     }
   }
 
@@ -140,9 +171,10 @@
       display: inline-block;
       height: 22px;
       width: 24px;
-      background: url("/static/icons/icon-youtube.svg") no-repeat center / cover,
-        url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
+      background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover,
+        url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
       position: absolute;
+      background-size: contain;
       top: 50%;
       left: 0;
       transform: translateY(-50%);
@@ -152,7 +184,8 @@
       color: #3366ff;
 
       &:before {
-        background: url("/static/icons/icon-youtube-blue.svg") no-repeat center / cover;
+        background: url("/static/icons/icon-youtube-add-article-blue.svg") no-repeat center / cover;
+        background-size: contain;
       }
     }
 
@@ -162,15 +195,21 @@
       color: #72839c !important;
 
       &:before {
-        background: url("/static/icons/icon-youtube.svg") no-repeat center / cover !important;
+        background: url("/static/icons/icon-youtube-add-article.svg") no-repeat center / cover !important;
+        background-size: contain;
       }
     }
   }
 
   &__attach-pdf {
+    margin-right: 0;
+    padding: 0 0 0 20px;
+
     &:before {
       background: url("/static/icons/icon-pdf.svg") no-repeat center / contain,
         url("/static/icons/icon-pdf-blue.svg") no-repeat center / contain;
+      height: 22px;
+      width: 24px;
       position: absolute;
       top: 50%;
       left: 0;
@@ -188,6 +227,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    @media(max-width: 400px) {
+      flex-wrap: nowrap;
+    }
 
     .custom-checkbox {
       &__label {
@@ -234,9 +277,12 @@
     }
 
     &-wrap {
-      margin-left: 60px;
       margin-top: 20px;
       color: #72839C;
+
+      &._desktop {
+        margin-left: 50px;
+      }
     }
   }
 
@@ -285,11 +331,8 @@
   .ClientAvatar {
     align-self: flex-start;
 
-    @media (max-width: 1220px) {
-      min-width: 48px !important;
-      max-width: 48px !important;
-      min-height: 48px !important;
-      max-height: 48px !important;
+    @media (max-width: 700px) {
+      display: none;
     }
   }
 
@@ -409,4 +452,8 @@
 
 .k-chip-selected {
   background-color: #BFD3F7 !important;
+}
+
+.css-1ox0dji-singleValue {
+  color: #72839C !important;
 }

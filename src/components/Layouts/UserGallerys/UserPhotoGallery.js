@@ -87,6 +87,38 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
         };
     };
 
+    const getDefaultImagesCount = (array) => {
+        switch (array.length) {
+            case 1:
+                return 3;
+            case 2:
+                return 3;
+            case 3:
+                return 3;
+            case 4:
+                return 6;
+            case 5:
+                return 6;
+            case 6:
+                return 6;
+            case 7:
+                return 9;
+            case 8:
+                return 9;
+            case 9:
+                return 9;
+            case 10:
+                return 12;
+            case 11:
+                return 12;
+            case 12:
+                return 12;
+            default:
+                return 0;
+        }
+
+    };
+
     if (!loading && !images.length && isMobile) {
         return null
     } else return (
@@ -123,7 +155,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                             ? <div className="ReactGridGallery__wrap" >
                                 {!isMobile &&
                                     <div className="ReactGridGallery__placeholder">
-                                        {[...Array(12)].map((item, key) =>
+                                        {[...Array(getDefaultImagesCount(images))].map((item, key) =>
                                             <div key={key}>
                                                 <img alt="" src="/static/images/noimg/empty-gallery-item.jpg" />
                                             </div>
@@ -140,8 +172,7 @@ const UserPhotoGallery = ({ alias, pageLink, canEdit }) => {
                                 />
                             </div>
                             : <div className="user-gallery__disabled">
-                                <h4 className="user-gallery__disabled-text">Не добавлено ни одной фотографии</h4>
-                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyGallery} alt="У вас нет фотографий" />
+                                <img className="user-gallery__disabled-img" src={DEFAULT_IMG.emptyPhotoGallery} alt="У вас нет фотографий" />
                             </div>
                     }
                 </div>

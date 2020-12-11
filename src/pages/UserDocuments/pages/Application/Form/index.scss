@@ -1,5 +1,4 @@
 .application-form {
-  //@import "~bootstrap/scss/bootstrap.scss";
   &__content {
     margin-top: 20px;
     padding-bottom: 20px;
@@ -16,6 +15,9 @@
   &__title {
     text-transform: uppercase;
     margin-bottom: 16px;
+  }
+  &__disclaimer {
+    margin-top: 16px;
   }
   &__row {
     display: flex;

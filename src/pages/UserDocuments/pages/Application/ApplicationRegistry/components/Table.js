@@ -2,25 +2,34 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn, GridColumnMenuFilter } from '@progress/kendo-react-grid';
-import { DropDownList } from '@progress/kendo-react-dropdowns';
-import { DropDownButton } from '@progress/kendo-react-buttons';
+import { DropDownButton, ChipList } from '@progress/kendo-react-buttons';
 import { getHeaders } from "utils/request";
 import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../../../../../components/PdfTemplatePage";
+import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../../components/LightTooltip";
 import CopyCell from '../../../../../Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
 const categories = [
-    { "status_id": 1, "StatusName": "- Отклоненные" },
-    { "status_id": 2, "StatusName": "* В работе" },
-    { "status_id": 3, "StatusName": "+ Выполненные" }
+    {
+        text: 'Отклоненные',
+        value: '1',
+    },
+    {
+        text: 'В работе',
+        value: '2',
+    },
+    {
+        text: 'Выполненные',
+        value: '3',
+    }
 ];
 
 const ColumnMenu = (props) => {
@@ -29,7 +38,10 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
+const DateCell = ({ dataItem }, field) => {
+
+    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
+};
 
 const LinkCell = ({ dataItem }) => {
     const { created_document_id } = dataItem;
@@ -38,6 +50,14 @@ const LinkCell = ({ dataItem }) => {
             <span className="create-document-link" onClick={e => handleClick(e, created_document_id)} >Скачать файл</span>
         }
     </td>
+};
+
+const ExpressCell = ({ dataItem }, field) => {
+    const fieldLabel = dataItem[field] ? 'Срочная' : 'Не срочная';
+
+    return (
+        <td>{fieldLabel}</td>
+    );
 };
 
 const OptionsCell = ({ dataItem }) => {
@@ -95,10 +115,10 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
-        if (e.target.value.status_id !== null) {
+        if (e.value === "1" || e.value === "2" || e.value === "3") {
             newDataState.filter = {
                 logic: 'and',
-                filters: [{ field: 'status_id', operator: 'eq', value: e.target.value.status_id }]
+                filters: [{ field: 'status_id', operator: 'eq', value: e.value[0] }]
             }
             newDataState.skip = 0
         } else {
@@ -108,7 +128,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             newDataState.skip = 0
         }
         setGridData(newDataState);
-    }
+    };
 
     const handleGridDataChange = (e) => {
         setGridData(e.data);
@@ -128,11 +148,15 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title=" " />
+        <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
         <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
+        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -167,16 +191,13 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
-                        <strong>Фильтры: </strong>&nbsp;
-                        <DropDownList
-                            data={categories}
-                            dataItemKey="status_id"
-                            textField="StatusName"
-                            defaultItem={{ status_id: null, StatusName: "Все" }}
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
                             onChange={handleDropDownChange}
                         />
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера заявки нажмите на него.</span>
+                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}
@@ -200,7 +221,9 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
-                        pageTemplate={PdfPageTemplate}
+                        pageTemplate={() => <PdfPageTemplate
+                            title="ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ"
+                        />}
                     >
                         {gridForExport}
                     </GridPDFExport>

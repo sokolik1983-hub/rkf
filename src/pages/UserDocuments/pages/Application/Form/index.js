@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ls from "local-storage";
+import moment from "moment";
 import { Form, Field, FormElement } from "@progress/kendo-react-form";
 import { Fade } from "@progress/kendo-react-animation";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
-import Card from "components/Card";
-import FormInput from "components/kendo/Form/FormInput";
-import FormContactsCheckbox from "components/kendo/Form/FormContactsCheckbox";
+import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
+import Loading from "../../../../../components/Loading";
+import Card from "../../../../../components/Card";
+import LightTooltip from "../../../../../components/LightTooltip";
+import FormInput from "../../../../../components/kendo/Form/FormInput";
+import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
-import FormDatePicker from "components/kendo/Form/FormDatePicker";
-import FormDropDownList from "components/kendo/Form/FormDropDownList";
-import FormTextArea from "components/kendo/Form/FormTextArea";
+import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
+import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
+import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import DocumentLink from "../../../components/DocumentLink";
 import DocumentLinksArray from "../../../components/DocumentLinksArray";
-import LightTooltip from "components/LightTooltip";
-import Loading from "components/Loading";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator,
     requiredWithTrimValidator,
-    documentTypeRequired
-} from "components/kendo/Form/validators";
-import { Request } from "../../../../../utils/request";
-import { getHeaders } from "utils/request";
-import { IntlProvider, LocalizationProvider, loadMessages } from "@progress/kendo-react-intl";
-import ruMessages from 'kendoMessages.json';
+    documentTypeRequired, requiredValidator, nameValidator
+} from "../../../../../components/kendo/Form/validators";
+import { Request,  getHeaders} from "../../../../../utils/request";
+import ruMessages from "kendoMessages.json";
 import "./index.scss";
 
 loadMessages(ruMessages, 'ru');
 
-const Application = ({ alias, history, status }) => {
+
+const Application = ({ alias, history, status, owner }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
+    const [disableOwner, setDisableOwner] = useState(true);
+    const [disableFields, setDisableFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [success, setSuccess] = useState('');
+    const [isForeignPedigree, setIsForeignPedigree] = useState(false);
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
     const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
@@ -41,13 +43,19 @@ const Application = ({ alias, history, status }) => {
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [initialValues, setInitialValues] = useState({
-        declarant_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        declarant_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         is_foreign_owner: false,
+        owner_last_name: owner ? owner.last_name : '',
+        owner_first_name: owner ? owner.first_name : '',
+        owner_second_name: owner ? owner.second_name : '',
         express: false,
+        pedigree_number: '',
+        dog_name: '',
+        is_foreign_pedigree: false,
         payment_date: '',
         payment_number: '',
         payment_document_id: '',
-        payment_name: ls.get('user_info') ? ls.get('user_info').name : '',
+        payment_name: !status && owner ? (owner.last_name + ' ' + owner.first_name + (owner.second_name !== null ? (' ' + owner.second_name) : '')) : '',
         comment: '',
         document_type_id: 0,
         rkf_document_type_id: 0,
@@ -58,8 +66,7 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            getDocumentTypes();
-            setLoaded(true);
+            getDocumentTypes().then(() => setLoaded(true));
         }
     }, []);
 
@@ -77,6 +84,9 @@ const Application = ({ alias, history, status }) => {
                 });
                 if (data.documents) {
                     values.documents = [];
+                }
+                if(data.is_foreign_pedigree) {
+                    setIsForeignPedigree(true);
                 }
                 setValues(data);
                 setInitialValues(values);
@@ -101,7 +111,7 @@ const Application = ({ alias, history, status }) => {
         }
     };
 
-    const getDocumentTypes = async (pedigreeNumber, changeDogName) => {
+    const getDocumentTypes = async () => {
         await Request({
             url: `/api/requests/commonrequest/rkf_document_types`
         }, data => {
@@ -126,6 +136,9 @@ const Application = ({ alias, history, status }) => {
             ...data,
             payment_document_id: paymentId ? paymentId : data.payment_document_id
         };
+
+        newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
+
         delete newData.declarant_name;
         delete newData.document_type_id;
         delete newData.payment_document;
@@ -153,11 +166,60 @@ const Application = ({ alias, history, status }) => {
         });
     };
 
-    const handleChange = (name) => {
-        formProps.onChange(name, { value: formProps.valueGetter(name) ? false : true })
-    }
+    const getDogName = async (pedigreeNumber, changeDogName) => {
+        await Request({
+            url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
+        }, data => {
+            if(data) {
+                setDisableFields(true);
+                setError('');
+                changeDogName('dog_name', {value: data.name});
+            } else {
+                setError('Номер родословной не найден в базе ВЕРК');
+            }
+        }, error => {
+            handleError(error);
+        });
+    };
 
-    const onAdd = (event) => {
+    const handleChange = name => {
+        if(name === 'is_foreign_owner') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('owner_last_name', {value:
+                    !isForeign && owner ? owner.last_name :
+                    values && values.owner_last_name ? values.owner_last_name :
+                    ''
+            });
+            formProps.onChange('owner_first_name', {value:
+                    !isForeign && owner ? owner.first_name :
+                    values && values.owner_first_name ? values.owner_first_name:
+                    ''
+            });
+            formProps.onChange('owner_second_name', {value:
+                    !isForeign && owner && owner.second_name ? owner.second_name:
+                    values && values.owner_second_name ? values.owner_second_name :
+                    ''
+            });
+
+            setDisableOwner(!isForeign);
+        }
+
+        if(name === 'is_foreign_pedigree') {
+            const isForeign = !formProps.valueGetter(name);
+
+            formProps.onChange('pedigree_number', {value: ''});
+
+            formProps.onChange('dog_name', {value: ''});
+
+            setDisableFields(false);
+            setIsForeignPedigree(isForeign);
+        }
+
+        formProps.onChange(name, {value: !formProps.valueGetter(name)});
+    };
+
+    const onAdd = event => {
         const { newState } = event;
         if (status === 'edit') {
             (values.documents?.length + newState.length) > 20
@@ -168,13 +230,13 @@ const Application = ({ alias, history, status }) => {
                 ? setDocumentsOverflow(true)
                 : formProps.onChange('documents', { value: newState })
         }
-    }
+    };
 
-    const onRemove = (event) => {
+    const onRemove = event => {
         const { newState } = event;
         newState.length <= 20 && setDocumentsOverflow(false);
         formProps.onChange('documents', { value: newState })
-    }
+    };
 
     const onProgress = (event, name) => formProps.onChange(name, { value: event.newState });
 
@@ -191,22 +253,22 @@ const Application = ({ alias, history, status }) => {
         } else {
             formProps.onChange(name, { value: newState });
         }
-    }
+    };
 
-    const handleDocTypeChange = (docType) => {
+    const handleDocTypeChange = docType => {
         const { value } = docType;
         setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
         formProps.onChange('document_type_id', { value: docType });
         formProps.onChange('rkf_document_type_id', { value: 0 });
-    }
+    };
 
-    const handleDocumentRemove = (id) => {
+    const handleDocumentRemove = id => {
         formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
         setValues({
             ...values,
             documents: values.documents.filter(d => d.id !== id)
         })
-    }
+    };
 
     return (
         <div className="application-form">
@@ -233,6 +295,9 @@ const Application = ({ alias, history, status }) => {
                                     <h4 className="application-form__title" style={{ marginBottom: 0 }}>
                                         {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                     </h4>
+                                    {!status && <p className="application-form__disclaimer">Вы можете подать заявку только на 1 документ.
+                                    Если в заявочном листе отмечено несколько документов, то Вам необходимо создать отдельные заявки на получение каждого из них (заявочный лист обязателен для прикрепления).
+                                        Правила оформления документов и реквизиты для оплаты Вы можете посмотреть на сайте РКФ (http://rkf.org.ru/) в разделе "Документы".</p>}
                                     <div className="application-form__row-is-foreign">
                                         <div>
                                             <Field
@@ -250,7 +315,42 @@ const Application = ({ alias, history, status }) => {
                                                 label="Владелец является иностранным гражданином"
                                                 component={FormContactsCheckbox}
                                                 onChange={handleChange}
-                                                disabled={!editable}
+                                                disabled={disableAllFields}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="application-form__row row _payment-info">
+                                        <div>
+                                            <Field
+                                                id="owner_last_name"
+                                                name="owner_last_name"
+                                                label="Фамилия владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameRequiredValidator(value, 150)}
+                                                disabled={disableOwner}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                id="owner_first_name"
+                                                name="owner_first_name"
+                                                label="Имя владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameRequiredValidator(value, 150)}
+                                                disabled={disableOwner}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                id="owner_second_name"
+                                                name="owner_second_name"
+                                                label="Отчество владельца"
+                                                cutValue={150}
+                                                component={FormInput}
+                                                validator={value => nameValidator(value, 150)}
+                                                disabled={disableOwner}
                                             />
                                         </div>
                                     </div>
@@ -301,6 +401,61 @@ const Application = ({ alias, history, status }) => {
                                             </LocalizationProvider>
 
                                         </div>
+                                    </div>
+                                    <div className="application-form__row row">
+                                        <Field
+                                            id="pedigree_number"
+                                            name="pedigree_number"
+                                            label="№ родословной собаки"
+                                            hint={!isForeignPedigree ? 'Допускается ввод только цифр' : ''}
+                                            maxLength={30}
+                                            onlyNumbers={!isForeignPedigree}
+                                            disabled={!editable || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {editable && !disableFields && !isForeignPedigree &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => getDogName(
+                                                    formRenderProps.valueGetter('pedigree_number'),
+                                                    formRenderProps.onChange
+                                                )}
+                                                disabled={!formRenderProps.valueGetter('pedigree_number')}
+                                            >Поиск
+                                            </button>
+                                        }
+                                        <Field
+                                            id="dog_name"
+                                            name="dog_name"
+                                            label="Кличка собаки"
+                                            disabled={!editable || disableFields}
+                                            component={FormInput}
+                                            validator={requiredValidator}
+                                        />
+                                        {editable && disableFields &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-red"
+                                                onClick={() => {
+                                                    formRenderProps.onChange('pedigree_number', {value: ''});
+                                                    formRenderProps.onChange('dog_name', {value: ''});
+                                                    setDisableFields(false);
+                                                }}
+                                            >Удалить
+                                            </button>
+                                        }
+                                    </div>
+                                    <div className="application-form__row row">
+                                        <Field
+                                            id="is_foreign_pedigree"
+                                            name="is_foreign_pedigree"
+                                            label="Иностранная родословная"
+                                            component={FormContactsCheckbox}
+                                            onChange={handleChange}
+                                            disabled={!editable}
+                                        />
                                     </div>
                                 </div>
 
@@ -459,17 +614,6 @@ const Application = ({ alias, history, status }) => {
                     bottom: '40px',
                 }}
             >
-                <Fade enter={true} exit={true}>
-                    {success &&
-                        <Notification
-                            type={{ style: 'success', icon: true }}
-                            closable={true}
-                            onClose={() => setSuccess('')}
-                        >
-                            <span>{success}</span>
-                        </Notification>
-                    }
-                </Fade>
                 <Fade enter={true} exit={true}>
                     {error &&
                         <Notification

@@ -17,6 +17,7 @@ import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useFocus } from "../../shared/hooks";
 import OutsideClickHandler from "react-outside-click-handler";
+import useIsMobile from "../../utils/useIsMobile";
 
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
@@ -25,6 +26,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState('');
     const { focus, setFocused, setBlured } = useFocus(false);
+    const isMobile = useIsMobile();
 
     const { content, file } = formik.values;
 
@@ -107,14 +109,14 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     };
 
     const handleOutsideClick = () => {
-        setBlured();
+        !content && setBlured();
     };
 
     return (
         <OutsideClickHandler onOutsideClick={handleOutsideClick}>
             <div className={focus ? `_focus` : `_no_focus`}>
                 <FormGroup className="ArticleCreateForm__wrap">
-                    <ClientAvatar size={60} avatar={logo || DEFAULT_IMG.clubAvatar} />
+                    <ClientAvatar size={40} avatar={logo || DEFAULT_IMG.clubAvatar} />
                     <FormField
                         {...fields.content}
                         onChange={handleKeyDown}
@@ -122,10 +124,11 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                         maxLength="1000"
                         value={content ? content : ''}
                         rows={content ? addRow() : focus ? "3" : "1"}
+                        className={focus ? `_textarea_focus` : ``}
                     />
                 </FormGroup>
                 <div className="ArticleCreateForm__controls-wrap">
-                    <FormControls className="ArticleCreateForm__controls">
+                    <FormControls className={`ArticleCreateForm__controls ${focus ? ' _focus' : ''}`}>
                         <LightTooltip title="Прикрепить изображение" enterDelay={200} leaveDelay={200}>
                             <label htmlFor="file" className="ArticleCreateForm__labelfile" />
                         </LightTooltip>
@@ -169,7 +172,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             />
                         }
                     </FormControls>
-                    {content &&
+                    {content && !isMobile &&
                         <div className="ArticleCreateForm__length-hint">
                             <span className="ArticleCreateForm__content-length">
                                 {`осталось ${1000 - content.length} знаков`}
@@ -179,7 +182,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                 </div>
             </div>
             {isAd && focus &&
-                <div className="ArticleCreateForm__advert-wrap">
+                <div className={`ArticleCreateForm__advert-wrap ${isMobile ? '' : ' _desktop'}`}>
                     <FormGroup inline>
                         <CustomChipList {...fields.advert_type_id} options={advertTypes} setIsMating={setIsMating} />
                     </FormGroup>
