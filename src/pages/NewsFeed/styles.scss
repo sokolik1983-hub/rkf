@@ -131,7 +131,9 @@
         div {
             font-weight: normal;
         }
-
+        &:first-child {
+            margin-top: 0;
+        }
         @media (max-width: 560px) {
             padding: 16px;
         }
