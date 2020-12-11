@@ -2,44 +2,44 @@ export const categories = [
     {
         name: 'Все публикации',
         id: 1,
-        icon: 'k-icon k-i-paste-plain-text'
+        icon: 'NewsFeed__icon NewsFeed__icon--publications'
     },
     {
         name: 'Новости',
         id: 2,
-        icon: 'k-icon k-i-bell'
+        icon: 'NewsFeed__icon NewsFeed__icon--news'
     },
     {
         name: 'Объявления',
         id: 3,
-        icon: 'k-icon k-i-txt'
+        icon: 'NewsFeed__icon NewsFeed__icon--announcements'
     },
     {
         name: 'Фото',
         id: 97,
-        icon: 'k-icon k-i-photo-camera',
+        icon: 'NewsFeed__icon NewsFeed__icon--photo',
         disabled: true
     },
     {
         name: 'Видео',
         id: 98,
-        icon: 'k-icon k-i-youtube',
+        icon: 'NewsFeed__icon NewsFeed__icon--video',
         disabled: true
     },
     {
         name: 'Рекомендации',
         id: 99,
-        icon: 'k-icon k-i-star-outline',
+        icon: 'NewsFeed__icon NewsFeed__icon--recomendations',
         disabled: true
     },
     {
         name: 'Сервисные сообщения',
         id: 4,
-        icon: 'k-icon k-i-warning'
+        icon: 'NewsFeed__icon NewsFeed__icon--service'
     },
     {
         name: 'Информация по заявкам',
         id: 6,
-        icon: 'k-icon k-i-information'
+        icon: 'NewsFeed__icon NewsFeed__icon--information'
     }
 ];
