@@ -218,7 +218,8 @@
     .k-chip.k-chip-filled,
     .k-chip.k-chip-filled.k-chip-selected {
       height: 26px;
-      background-color: #7899ff4d;
+      padding: 4px 6px !important;
+      background-color: #7899ff4d !important;
       color: #72839c !important;
       &:hover {
         background: #7899ff5d;
@@ -440,10 +441,10 @@
       opacity: 1;
     }
     a {
-      color: #253c5e!important;
+      color: #253c5e !important;
       &:hover {
-        color: #36f!important;
-        text-decoration: none!important;
+        color: #36f !important;
+        text-decoration: none !important;
       }
     }
   }
@@ -552,7 +553,7 @@
       }
     }
   }
-  .ya-share2__popup{
+  .ya-share2__popup {
     right: -25px;
   }
 }

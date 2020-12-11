@@ -91,6 +91,11 @@
             flex-shrink: 0;
         }
     }
+    &__inner{
+        &-list{
+            margin-bottom: 0!important;
+        }
+    }
     .Card {
         margin: 10px 0 16px 0;
         padding: 12px !important;
