@@ -91,7 +91,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length
                     ? <div className="nursery-documents-status__controls-wrap">
-                    <div className="nursery-documents-status__controls">
+                    <div className="nursery-documents-status__controls" style={{top: 0}}>
                     {standardView &&
                         <button
                             className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
