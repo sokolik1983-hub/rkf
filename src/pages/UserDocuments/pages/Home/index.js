@@ -20,7 +20,7 @@ import PageNotFound from "../404";
 import { Request } from "../../../../utils/request";
 import { userNav } from "../../config";
 import { connectAuthVisible } from "../../../Login/connectors";
-import { endpointGetUserInfo } from "../../../User/config";
+import { endpointGetUserInfo } from "components/Layouts/UserLayout/config";
 import ApplicationRegistry from "../Application/ApplicationRegistry"
 import "./index.scss";
 

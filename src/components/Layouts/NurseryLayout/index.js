@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import StickyBox from "react-sticky-box";
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layouts";
-import Container from "../../components/Layouts/Container";
-import Aside from "../../components/Layouts/Aside";
-import Card from "../../components/Card";
-import AddArticle from "../../components/UserAddArticle";
-import UserNews from "../../components/Layouts/UserNews";
-import UserMenu from "../../components/Layouts/UserMenu";
+import Loading from "components/Loading";
+import Layout from "components/Layouts";
+import Container from "components/Layouts/Container";
+import Aside from "components/Layouts/Aside";
+import UserMenu from "components/Layouts/UserMenu";
 import UserHeader from "components/redesign/UserHeader";
-import UserDescription from "components/redesign/UserDescription";
-import UserContacts from "components/redesign/UserContacts";
-import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
-import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
-import CopyrightInfo from "../../components/CopyrightInfo";
-import { Request } from "../../utils/request";
+import UserPhotoGallery from "components/Layouts/UserGallerys/UserPhotoGallery";
+import UserVideoGallery from "components/Layouts/UserGallerys/UserVideoGallery";
+import CopyrightInfo from "components/CopyrightInfo";
+import { Request } from "utils/request";
 import { endpointGetNurseryInfo, kennelNav } from "./config";
-import { connectAuthVisible } from "../Login/connectors";
-import useIsMobile from "../../utils/useIsMobile";
-import { BANNER_TYPES } from "../../appConfig";
-import Banner from "../../components/Banner";
-import BreedsList from "../../components/BreedsList";
+import { connectAuthVisible } from "pages/Login/connectors";
+import useIsMobile from "utils/useIsMobile";
+import { BANNER_TYPES } from "appConfig";
+import Banner from "components/Banner";
+import BreedsList from "components/BreedsList";
 import "./index.scss";
 
 
@@ -36,17 +31,21 @@ const getAddressString = addressObj => {
 };
 
 
-const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenticated }) => {
+const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthenticated, children }) => {
     const [nursery, setNursery] = useState(null);
     const [error, setError] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const alias = match.params.id;
+    const alias = match.params.route;
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        (() => Request({
+        (() => getNurserynfo())();
+    }, []);
+
+    const getNurserynfo = async () => {
+        Request({
             url: endpointGetNurseryInfo + alias
         }, data => {
             if (data.user_type !== 4) {
@@ -64,9 +63,8 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             console.log(error.response);
             setError(error.response);
             setLoading(false);
-        }))();
-        return () => setNeedRequest(true);
-    }, [alias]);
+        })
+    };
 
     return loading ?
         <Loading /> :
@@ -77,60 +75,19 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                <Card className="nursery-page__content-banner">
-                                    <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
-                                </Card>
-                                {isMobile &&
-                                    <>
-                                        <UserHeader
-                                            user="nursery"
-                                            logo={nursery.logo_link}
-                                            name={nursery.name || 'Имя отсутствует'}
-                                            alias={alias}
-                                            profileId={nursery.id}
-                                            federationName={nursery.federation_name}
-                                            federationAlias={nursery.federation_alias}
-                                            active_rkf_user={nursery.active_rkf_user}
-                                            active_member={nursery.active_member}
-                                        />
-                                        {nursery.breeds && !!nursery.breeds.length &&
-                                            <BreedsList breeds={nursery.breeds} />
-                                        }
-                                    </>
+                                {
+                                    React.cloneElement(children, {
+                                        isMobile,
+                                        userInfo: nursery,
+                                        getUserInfo: getNurserynfo,
+                                        canEdit,
+                                        alias,
+                                        id: profile_id,
+                                        setNeedRequest,
+                                        needRequest,
+                                        setUserInfo: setNursery
+                                    })
                                 }
-                                <UserDescription description={nursery.description} />
-                                <UserContacts {...nursery} profileAlias={`/kennel/${alias}`} />
-                                {isMobile &&
-                                    <>
-                                        <UserPhotoGallery
-                                            alias={alias}
-                                            pageLink={`/kennel/${alias}/gallery`}
-                                            canEdit={canEdit}
-                                        />
-                                        <UserVideoGallery
-                                            alias={alias}
-                                            pageLink={`/kennel/${alias}/video`}
-                                            canEdit={canEdit}
-                                        />
-                                    </>
-                                }
-                                {canEdit &&
-                                    <AddArticle
-                                        id={nursery.id}
-                                        logo={nursery.logo_link}
-                                        setNeedRequest={setNeedRequest}
-                                        profileInfo={nursery}
-                                        setProfileInfo={setNursery}
-                                    />
-                                }
-                                <UserNews
-                                    canEdit={canEdit}
-                                    alias={alias}
-                                    needRequest={needRequest}
-                                    setNeedRequest={setNeedRequest}
-                                    profileInfo={nursery}
-                                    setProfileInfo={setNursery}
-                                />
                             </div>
                             <Aside className="nursery-page__info">
                                 <StickyBox offsetTop={65}>
@@ -179,4 +136,4 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
             </Layout>
 };
 
-export default React.memo(connectAuthVisible(NurseryPage));
+export default React.memo(connectAuthVisible(NurseryLayout));

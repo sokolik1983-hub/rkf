@@ -10,7 +10,7 @@ import Card from "../../components/Card";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "../User/config";
+import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
 import { VideoGallery } from "../../components/Gallery";
 import useIsMobile from "../../utils/useIsMobile";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -161,7 +161,10 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
-                                <UserMenu userNav={userNav(alias)} />
+                                <UserMenu userNav={canEdit
+                                    ? userNav(alias) // Show NewsFeed menu item to current user only
+                                    : userNav(alias).filter(i => i.id !== 2)}
+                                />
                                 {!isMobile &&
                                     <>
                                         <UserPhotoGallery

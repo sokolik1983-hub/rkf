@@ -18,7 +18,7 @@ import AddArticle from "../../components/UserAddArticle";
 import UserNews from "../../components/Layouts/UserNews";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import {clubNav, endpointGetClubInfo} from "./config";
+import { clubNav, endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import { BANNER_TYPES } from "../../appConfig";
@@ -139,7 +139,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     active_member={clubInfo.active_member}
                                                 />
                                             }
-                                            <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                            <UserMenu userNav={canEdit
+                                                ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
+                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
                                             {!isMobile &&
                                                 <>
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

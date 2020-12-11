@@ -15,7 +15,7 @@ import { Gallery, AddPhotoModal } from "../../components/Gallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
-import { endpointGetUserInfo, userNav } from "../User/config";
+import { endpointGetUserInfo, userNav } from "components/Layouts/UserLayout/config";
 import useIsMobile from "../../utils/useIsMobile";
 import { DEFAULT_IMG } from "../../appConfig";
 import "./index.scss";
@@ -186,7 +186,10 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
-                                <UserMenu userNav={userNav(alias)} />
+                                <UserMenu userNav={canEdit
+                                    ? userNav(alias) // Show NewsFeed menu item to current user only
+                                    : userNav(alias).filter(i => i.id !== 2)}
+                                />
                                 {!isMobile &&
                                     <>
                                         <UserVideoGallery
@@ -218,9 +221,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                                 className="NurseryGallery__buttons-link"
                                                 to={`/user/${alias}/gallery/${params.album}/edit`}
                                             >
-                                            <svg width="15" height="15" viewBox="0 0 19 19" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M17.71 4.0425C18.1 3.6525 18.1 3.0025 17.71 2.6325L15.37 0.2925C15 -0.0975 14.35 -0.0975 13.96 0.2925L12.12 2.1225L15.87 5.8725L17.71 4.0425ZM0 14.2525V18.0025H3.75L14.81 6.9325L11.06 3.1825L0 14.2525Z" />
-                                            </svg>
+                                                <svg width="15" height="15" viewBox="0 0 19 19" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M17.71 4.0425C18.1 3.6525 18.1 3.0025 17.71 2.6325L15.37 0.2925C15 -0.0975 14.35 -0.0975 13.96 0.2925L12.12 2.1225L15.87 5.8725L17.71 4.0425ZM0 14.2525V18.0025H3.75L14.81 6.9325L11.06 3.1825L0 14.2525Z" />
+                                                </svg>
                                             &nbsp;Редактировать</Link>
                                         }
                                         {album && canEdit && album.addition &&
@@ -229,17 +232,17 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                                     className="NurseryGallery__buttons-link"
                                                     onClick={() => handleAlbumDelete(params.album)}
                                                 >
-                                                <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
-                                                </svg>
+                                                    <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
+                                                    </svg>
                                                 &nbsp;Удалить</span>
                                                 <span
                                                     className="NurseryGallery__buttons-link"
                                                     onClick={() => handleAddPhoto()}
                                                 >
-                                                <svg fill="#72839c" width="12" height="12" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" />
-                                                </svg>
+                                                    <svg fill="#72839c" width="12" height="12" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" />
+                                                    </svg>
                                                 &nbsp;Добавить фото</span>
                                             </>
                                         }

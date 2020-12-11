@@ -52,6 +52,11 @@ export const LoadableExhibitionEdit = Loadable({
     loading: Loading
 });
 
+export const LoadableNewsFeed = Loadable({
+    loader: () => import('./pages/NewsFeed'),
+    loading: Loading
+});
+
 export const LoadableNews = Loadable({
     loader: () => import('./pages/News'),
     loading: Loading
