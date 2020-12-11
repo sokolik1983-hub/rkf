@@ -25,17 +25,17 @@ export const clubNav = alias => [
             <path d="M413.84,75.2V466.8H128.16V512H459V75.2Z" />
         </svg>
     },
-    {
-        id: 3,
-        title: 'Публикации',
-        to: `/${alias}/news`,
-        exact: true,
-        icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path d="M116.59.1,53.05,63.63h63.54Z" />
-            <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />
-            <path d="M413.84,75.2V466.8H128.16V512H459V75.2Z" />
-        </svg>
-    },
+    // {
+    //     id: 3,
+    //     title: 'Публикации',
+    //     to: `/${alias}/news`,
+    //     exact: true,
+    //     icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    //         <path d="M116.59.1,53.05,63.63h63.54Z" />
+    //         <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />
+    //         <path d="M413.84,75.2V466.8H128.16V512H459V75.2Z" />
+    //     </svg>
+    // },
     {
         id: 4,
         title: 'Документы',
