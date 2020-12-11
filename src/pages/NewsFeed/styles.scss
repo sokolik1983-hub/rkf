@@ -63,10 +63,12 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            &.active,
-            &.active .k-icon {
+            &.active {
                 color: #3366ff;
                 transition: all 0.2s linear;
+                .NewsFeed__icon {
+                    filter: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightness(101%) contrast(102%);
+                }
             }
             &:hover {
                 color: #3366ff;
@@ -77,9 +79,8 @@
                     flex-grow: 1;
                     justify-content: space-between;
                 }
-                .k-icon {
-                    color: #3366ff;
-                    transition: all 0.2s linear;
+                .NewsFeed__icon {
+                    filter: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightness(101%) contrast(102%);
                 }
             }
             &:first-child {
@@ -91,9 +92,40 @@
             flex-shrink: 0;
         }
     }
-    &__inner{
-        &-list{
-            margin-bottom: 0!important;
+    &__inner {
+        &-list {
+            margin-bottom: 0 !important;
+        }
+    }
+    &__icon {
+        width: 18px;
+        height: 18px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        &--publications {
+            background-image: url("/static/new-icons/publications.svg");
+        }
+        &--news {
+            background-image: url("/static/new-icons/news.svg");
+        }
+        &--announcements {
+            background-image: url("/static/new-icons/announcements.svg");
+        }
+        &--photo {
+            background-image: url("/static/new-icons/photo.svg");
+        }
+        &--video {
+            background-image: url("/static/new-icons/video.svg");
+        }
+        &--recomendations {
+            background-image: url("/static/new-icons/recomendations.svg");
+        }
+        &--service {
+            background-image: url("/static/new-icons/service.svg");
+        }
+        &--information {
+            background-image: url("/static/new-icons/information.svg");
         }
     }
     .Card {
