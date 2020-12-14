@@ -46,6 +46,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/bank-details',
+        component: LoadableModules.LoadableBankDetails
+    },
+    {
+        exact: true,
         path: '/organizations',
         component: LoadableModules.LoadableOrganizations
     },

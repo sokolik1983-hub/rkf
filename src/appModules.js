@@ -222,6 +222,11 @@ export const LoadableBaseSearch = Loadable({
     loading: Loading
 });
 
+export const LoadableBankDetails = Loadable({
+    loader: () => import('./pages/BankDetails'),
+    loading: Loading
+});
+
 export const LoadableConfirmPasswordSuccess = Loadable({
     loader: () => import('./pages/ConfirmPassword/ConfirmSuccess'),
     loading: Loading
