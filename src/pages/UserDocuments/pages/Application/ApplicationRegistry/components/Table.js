@@ -161,11 +161,11 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
-        const green = { backgroundColor: "#E9EDE9" };
-        const red = { backgroundColor: "#FFD6D9" };
-        const grey = { backgroundColor: "#D8FDE4" };
-        const draft = { backgroundColor: "#D4DAED" };
-        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
+        const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
+        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
+        const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
@@ -191,11 +191,13 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
-                        <ChipList
-                            selection="single"
-                            defaultData={categories}
-                            onChange={handleDropDownChange}
-                        />
+                        <div className="chip-list__wrap">
+                            <ChipList
+                                selection="single"
+                                defaultData={categories}
+                                onChange={handleDropDownChange}
+                            />
+                        </div>
                     </div>
                     <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
