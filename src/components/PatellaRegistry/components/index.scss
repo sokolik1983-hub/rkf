@@ -6,86 +6,87 @@
     }
 }
 
-.k-selection-single .k-chip-selected.k-chip-filled {
-    border: 0 !important;
-    box-shadow: none !important;
-    color: #253c5e !important;
+.chip-list__wrap {
+    .k-selection-single .k-chip-selected.k-chip-filled {
+        border: 0 !important;
+        box-shadow: none !important;
 
-    &:first-child {
-        background-color: #FFADB3 !important;
-        &::before {
-            content: "";
-            margin-left: 9px;
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background: url("/static/icons/done-arrow.svg") center no-repeat;
-            background-size: contain;
+        &:first-child {
+            &::before {
+                content: "";
+                margin-left: 9px;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                background: url("/static/icons/done-arrow-red.svg") center no-repeat;
+                background-size: contain;
+            }
+        }
+
+        &:nth-child(2) {
+            &::before {
+                content: "";
+                margin-left: 9px;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                background: url("/static/icons/done-arrow-green.svg") center no-repeat;
+                background-size: contain;
+            }
+        }
+
+        &:nth-child(3) {
+            &::before {
+                content: "";
+                margin-left: 9px;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                background: url("/static/icons/done-arrow-blue.svg") center no-repeat;
+                background-size: contain;
+            }
+        }
+
+        &:nth-child(4) {
+            &::before {
+                content: "";
+                margin-left: 9px;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                background: url("/static/icons/done-arrow-yellow.svg") center no-repeat;
+                background-size: contain;
+            }
         }
     }
 
-    &:nth-child(2) {
-        background-color: #B1FBC9 !important;
-        &::before {
-            content: "";
-            margin-left: 9px;
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background: url("/static/icons/done-arrow.svg") center no-repeat;
-            background-size: contain;
+    .k-chip {
+        border: 0 !important;
+        box-shadow: none !important;
+
+        &:first-child {
+            color: #dc3545 !important;
+            background-color: rgba(220, 53, 69, 0.15) !important; //rejected
         }
-    }
 
-    &:nth-child(3) {
-        background-color: #D2DAD2 !important;
-        &::before {
-            content: "";
-            margin-left: 9px;
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background: url("/static/icons/done-arrow.svg") center no-repeat;
-            background-size: contain;
+        &:nth-child(2) {
+            color: #28a745 !important;
+            background-color: rgba(40, 167, 69, 0.15) !important; //in work
         }
-    }
 
-    &:nth-child(4) {
-        background-color: #B7C1E1 !important;
-        &::before {
-            content: "";
-            margin-left: 9px;
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background: url("/static/icons/done-arrow.svg") center no-repeat;
-            background-size: contain;
+        &:nth-child(3) {
+            color: rgb(23, 162, 184) !important;
+            background-color: rgba(23, 162, 184, 0.15) !important; //done
         }
-    }
-}
 
-.k-chip {
-    border: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+        &:nth-child(4) {
+            color: rgb(255, 193, 7) !important;
+            background-color: rgba(255, 193, 7, 0.15) !important; //not sent
+        }
 
-    &:first-child {
-        background-color: #FFD6D9 !important;
-    }
-    &:nth-child(2) {
-        background-color: #D8FDE4 !important;
-    }
-
-    &:nth-child(3) {
-        background-color: #E9EDE9 !important;
-    }
-
-    &:nth-child(4) {
-        background-color: #D4DAED !important;
-    }
-
-    &-list {
-        position: relative;
-        bottom: 15px;
+        &-list {
+            position: relative;
+            bottom: 15px;
+        }
     }
 }
