@@ -175,7 +175,7 @@
   }
   &__popup {
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -195,7 +195,7 @@
       padding: 0;
       transition: all 0.2s linear;
       position: absolute;
-      top: 33px;
+      top: 15px;
       right: 35px;
       z-index: 9;
       &:hover {
@@ -235,10 +235,18 @@
   }
   ._nursery_request_controls {
     position: relative;
-    top: 70px;
-    @media (max-width: 700px) {
+    top: 35px;
+    z-index: 10;
+    @media (max-width: 990px) {
       top: -20px;
     }
+  }
+  ._registry-wrap {
+    position: relative;
+    top: 15px;
+    ._chips_full_screen {
+      background-color: #3366FF;
+    }  
   }
   &__plug{
     text-align: center;
