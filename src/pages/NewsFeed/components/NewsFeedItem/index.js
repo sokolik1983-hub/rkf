@@ -114,7 +114,7 @@ const NewsFeedItem = forwardRef(({
                     </div>
                     <div className="NewsFeedItem__right" >
                         <Chip
-                            text="Подписки"
+                            text="Подписка"
                             value="chip"
                             selected={true}
                             disabled={true}
