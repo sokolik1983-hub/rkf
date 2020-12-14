@@ -55,11 +55,11 @@
       font-weight: normal;
       font-size: 16px;
       line-height: 1;
-      letter-spacing: .2px;
+      letter-spacing: 0.2px;
       color: #90999e;
       caret-color: #3366ff;
       box-shadow: none;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
       @media (max-width: 560px) {
         padding: 6px 0 6px 30px;
         background-position: left 5px center;
@@ -67,7 +67,7 @@
         min-width: 30px;
         border-color: transparent !important;
         cursor: pointer;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         &._open {
           padding: 6px 26px 6px 30px;
           border-color: #ebf0f2 !important;
@@ -101,9 +101,9 @@
     }
     &-svg {
       fill: #90999e;
-      transition: fill .2s linear;
+      transition: fill 0.2s linear;
       &:hover {
-        fill: #3366FF;
+        fill: #3366ff;
       }
     }
   }
@@ -142,7 +142,7 @@
       width: 28px;
       height: 4px;
       background-color: #90999e;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
       @media (max-width: 560px) {
         width: 24px;
         height: 2px;
@@ -190,7 +190,7 @@
     margin-right: 24px;
     &-icon {
       fill: #90999e;
-      transition: fill .2s linear;
+      transition: fill 0.2s linear;
       &:hover {
         fill: #3366ff;
         stroke: #3366ff;
@@ -299,7 +299,7 @@
             background-color: #f5f8ff;
             color: #3366ff !important;
             .header__nav-icon {
-              fill: #3366FF;
+              fill: #3366ff;
             }
           }
           &.active {
@@ -308,7 +308,7 @@
             color: #3366ff !important;
           }
           &._disabled {
-            opacity: .5;
+            opacity: 0.5;
             background-color: transparent;
             color: #72839c !important;
           }
@@ -443,6 +443,9 @@
       }
     }
   }
+  &__widgets {
+    display: flex;
+  }
 }
 
 .widget-login {
@@ -485,7 +488,7 @@
     width: 24px;
     height: 24px;
     background: url("/static/icons/chevron-down-light.svg") no-repeat center;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     display: inline-block;
     vertical-align: middle;
     border: none;
@@ -571,7 +574,7 @@
         color: #3366ff;
       }
       &._disabled {
-        opacity: .5;
+        opacity: 0.5;
         cursor: not-allowed;
         background-color: transparent;
         color: #72839c;
@@ -597,7 +600,7 @@
     vertical-align: middle;
     &:hover {
       fill: #3366ff;
-      transition: fill .2s linear;
+      transition: fill 0.2s linear;
     }
     @media (max-width: 560px) {
       width: 24px;
@@ -614,13 +617,13 @@
       vertical-align: middle;
       margin-left: 5px;
     }
-      &:hover {
-        color: #3366ff;
-        transition: fill .2s linear;
-    .login-link__icon {
-      stroke: #3366ff;
+    &:hover {
+      color: #3366ff;
+      transition: fill 0.2s linear;
+      .login-link__icon {
+        stroke: #3366ff;
+      }
     }
-  }
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.5px;

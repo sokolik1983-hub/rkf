@@ -1,0 +1,47 @@
+.Notifications {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    position: relative;
+    &__icon {
+        width: 18px;
+        height: 18px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url("/static/new-icons/notifications.svg");
+        cursor: pointer;
+    }
+    &__content {
+        position: absolute;
+        right: 9px;
+        top: 37px;
+        z-index: 1;
+        box-shadow: 0px 0px 4px rgba(51, 102, 255, 0.3);
+        background: white;
+        width: 340px;
+        border-radius: 5px;
+    }
+    &-transition {
+        &-enter,
+        &-appear {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        &-enter-active,
+        &-appear-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        &-exit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        &-exit-active {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+    }
+}
