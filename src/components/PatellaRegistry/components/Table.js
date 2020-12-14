@@ -189,7 +189,6 @@ const Table = ({ documents, profileType, exporting, setExporting, fullScreen, di
                                 onChange={handleDropDownChange}
                             />
                         </div>
-                        <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     </div>
                     {documents && <Grid
                         data={process(documents, gridData)}

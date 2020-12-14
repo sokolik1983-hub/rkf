@@ -191,7 +191,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
-                        <div className="chip-list__wrap">
+                        <div className={`chip-list__wrap ${fullScreen ? `_full_screen` : ``}`}>
                             <ChipList
                                 selection="single"
                                 defaultData={categories}
@@ -199,7 +199,6 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                             />
                         </div>
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}

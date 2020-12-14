@@ -199,7 +199,6 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                             />
                         </div>
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}

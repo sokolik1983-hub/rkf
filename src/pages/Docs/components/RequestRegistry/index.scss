@@ -144,10 +144,15 @@
   }
   ._request_registry {
     position: relative;
-    top: 70px;
-    @media (max-width: 700px) {
+    top: 35px;
+    z-index: 10;
+    @media (max-width: 990px) {
       top: -20px;
     }
+  }
+  ._registry-wrap {
+    position: relative;
+    top: 15px;
   }
   &__plug{
     text-align: center;

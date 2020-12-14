@@ -1,4 +1,7 @@
 .chip-list__wrap {
+    &._full_screen {
+        margin-top: 15px;
+    }
     .k-chip-list {
         flex-wrap: wrap;
     }
