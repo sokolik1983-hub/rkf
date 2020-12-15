@@ -2,15 +2,67 @@
     display: flex;
     align-items: center;
     margin-right: 15px;
-    position: relative;
+    @media (min-width: 560px) {
+        position: relative;
+    }
     &__icon {
         width: 18px;
         height: 18px;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: contain;
-        background-image: url("/static/new-icons/notifications.svg");
+        background-image: url("/static/new-icons/notifications/notifications.svg");
         cursor: pointer;
+        &.with-dot {
+            position: relative;
+            &:after {
+                content: "";
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: red;
+                top: -4px;
+                right: -7px;
+            }
+        }
+    }
+    &__controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        h4 {
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: normal;
+            color: #253c5e;
+            cursor: pointer;
+        }
+        &-arrow {
+            width: 24px;
+            height: 24px;
+            background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+            transition: all 0.2s linear;
+            display: inline-block;
+            vertical-align: middle;
+            border: none;
+            &._widget_open {
+                background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
+                transform: rotate(180deg);
+                top: -29px;
+            }
+        }
+        &-inner {
+            position: absolute;
+            right: -5px;
+            left: -5px;
+            top: 100%;
+            z-index: 1;
+            box-shadow: 0px 0px 4px rgba(51, 102, 255, 0.3);
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+        }
     }
     &__content {
         position: absolute;
@@ -21,6 +73,26 @@
         background: white;
         width: 340px;
         border-radius: 5px;
+        padding: 10px;
+        @media (max-width: 560px) {
+            right: 15px;
+            left: 15px;
+            top: 46px;
+            width: auto;
+        }
+        & > div:first-child {
+            position: relative;
+        }
+    }
+    &__list {
+        &-see-all {
+            display: flex;
+            justify-content: flex-end;
+            a {
+                text-decoration: none;
+                color: #3366ff;
+            }
+        }
     }
     &-transition {
         &-enter,
@@ -42,6 +114,39 @@
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.2s, transform 0.2s;
+        }
+    }
+    .NotificationItem {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #e5e5e5;
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            a {
+                display: block;
+                text-decoration: none;
+                color: #72839c;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                transition: color 0.2s linear;
+                &:hover {
+                    color: #3366ff;
+                }
+            }
+        }
+        &__body {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #b9b9b9;
+        }
+        &__link {
         }
     }
 }
