@@ -1,0 +1,39 @@
+.details-card {
+    &.Card {
+        padding: 19px 17px 10px 17px;
+    }
+
+    font-weight: normal;
+
+    @media (max-width: 560px) {
+        justify-content: flex-end;
+    }
+
+    &__title {
+        margin-bottom: 20px;
+        font-weight: 600 !important;
+    }
+
+    p {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #E5E5E5;
+    }
+
+    &__icon {
+        float: right;
+        width: 145px;
+        height: 145px;
+        margin: 0 0 10px 10px;
+        background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
+
+        @media (max-width: 560px) {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.rkf-logo {
+            background-image: url("/static/icons/rkf_logo.svg");
+        }
+    }
+}
