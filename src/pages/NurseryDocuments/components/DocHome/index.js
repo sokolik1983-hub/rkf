@@ -12,10 +12,8 @@ import "./styles.scss";
 
 const DocumentCards = ({ nurseryAlias }) => {
     const [alert, seAlert] = useState(false);
-    // const handleClick = e => {
-    //     e.preventDefault();
-    //     seAlert(true);
-    // };
+
+
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon litter-icon" />
@@ -105,8 +103,7 @@ const DocumentCards = ({ nurseryAlias }) => {
             <hr />
             <div className="Card__links">
                 <div>
-                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link> 
-                    {/*<span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>*/}
+                    <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/form`}>Подать заявление</Link>
                     <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
