@@ -38,6 +38,10 @@
       }
     }
   }
+  &__controls {
+    position: relative;
+    top: -10px;
+  }
   &__table {
     padding-bottom: 40px;
     overflow-x: auto;

@@ -152,16 +152,13 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <div className="App">
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
-                    <p>
-                        <div className="chip-list__wrap">
-                            <ChipList
-                                selection="single"
-                                defaultData={categories}
-                                onChange={handleDropDownChange}
-                            />
-                        </div>
-                    </p>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
+                    <div className={`chip-list__wrap _registry-wrap ${fullScreen ? ` _chips_full_screen` : ``}`}>
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
+                            onChange={handleDropDownChange}
+                        />
+                    </div>
                     {
                         documents && distinction === 'litter'
                             ? <>

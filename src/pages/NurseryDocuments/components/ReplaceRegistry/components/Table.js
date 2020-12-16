@@ -185,7 +185,6 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                             )}
                         </div>
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                 </StickyFilters>
                 {documents && <Grid
                     data={process(documents, gridData)}

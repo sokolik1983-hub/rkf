@@ -128,15 +128,15 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" columnMenu={ColumnMenu} />
     </Grid>;
 
-const rowRender = (trElement, props) => {
-    const status = props.dataItem.status_id;
-    const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
-    const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
-    const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
-    const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
-    const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
-    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-};
+    const rowRender = (trElement, props) => {
+        const status = props.dataItem.status_id;
+        const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
+        const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
+        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
+        const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
+        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+    };
 
     const StatusCell = (props) => {
         return (
@@ -152,16 +152,13 @@ const rowRender = (trElement, props) => {
         <div className="App">
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
-                    <p>
-                    <div className="chip-list__wrap">
-                            <ChipList
-                                selection="single"
-                                defaultData={categories}
-                                onChange={handleDropDownChange}
-                            />
-                        </div>
-                    </p>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
+                    <div className="chip-list__wrap _registry-wrap">
+                        <ChipList
+                            selection="single"
+                            defaultData={categories}
+                            onChange={handleDropDownChange}
+                        />
+                    </div>
                     {
                         documents && distinction === 'litter'
                             ? <><Grid

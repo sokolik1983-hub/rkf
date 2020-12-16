@@ -22,7 +22,7 @@ import {
     requiredWithTrimValidator,
     documentTypeRequired, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
-import { Request,  getHeaders} from "../../../../../utils/request";
+import { Request, getHeaders } from "../../../../../utils/request";
 import ruMessages from "kendoMessages.json";
 import "./index.scss";
 
@@ -85,7 +85,7 @@ const Application = ({ alias, history, status, owner }) => {
                 if (data.documents) {
                     values.documents = [];
                 }
-                if(data.is_foreign_pedigree) {
+                if (data.is_foreign_pedigree) {
                     setIsForeignPedigree(true);
                 }
                 setValues(data);
@@ -170,10 +170,10 @@ const Application = ({ alias, history, status, owner }) => {
         await Request({
             url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
         }, data => {
-            if(data) {
+            if (data) {
                 setDisableFields(true);
                 setError('');
-                changeDogName('dog_name', {value: data.name});
+                changeDogName('dog_name', { value: data.name });
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -183,40 +183,43 @@ const Application = ({ alias, history, status, owner }) => {
     };
 
     const handleChange = name => {
-        if(name === 'is_foreign_owner') {
+        if (name === 'is_foreign_owner') {
             const isForeign = !formProps.valueGetter(name);
 
-            formProps.onChange('owner_last_name', {value:
+            formProps.onChange('owner_last_name', {
+                value:
                     !isForeign && owner ? owner.last_name :
-                    values && values.owner_last_name ? values.owner_last_name :
-                    ''
+                        values && values.owner_last_name ? values.owner_last_name :
+                            ''
             });
-            formProps.onChange('owner_first_name', {value:
+            formProps.onChange('owner_first_name', {
+                value:
                     !isForeign && owner ? owner.first_name :
-                    values && values.owner_first_name ? values.owner_first_name:
-                    ''
+                        values && values.owner_first_name ? values.owner_first_name :
+                            ''
             });
-            formProps.onChange('owner_second_name', {value:
-                    !isForeign && owner && owner.second_name ? owner.second_name:
-                    values && values.owner_second_name ? values.owner_second_name :
-                    ''
+            formProps.onChange('owner_second_name', {
+                value:
+                    !isForeign && owner && owner.second_name ? owner.second_name :
+                        values && values.owner_second_name ? values.owner_second_name :
+                            ''
             });
 
             setDisableOwner(!isForeign);
         }
 
-        if(name === 'is_foreign_pedigree') {
+        if (name === 'is_foreign_pedigree') {
             const isForeign = !formProps.valueGetter(name);
 
-            formProps.onChange('pedigree_number', {value: ''});
+            formProps.onChange('pedigree_number', { value: '' });
 
-            formProps.onChange('dog_name', {value: ''});
+            formProps.onChange('dog_name', { value: '' });
 
             setDisableFields(false);
             setIsForeignPedigree(isForeign);
         }
 
-        formProps.onChange(name, {value: !formProps.valueGetter(name)});
+        formProps.onChange(name, { value: !formProps.valueGetter(name) });
     };
 
     const onAdd = event => {
@@ -439,8 +442,8 @@ const Application = ({ alias, history, status, owner }) => {
                                                 type="button"
                                                 className="btn btn-red"
                                                 onClick={() => {
-                                                    formRenderProps.onChange('pedigree_number', {value: ''});
-                                                    formRenderProps.onChange('dog_name', {value: ''});
+                                                    formRenderProps.onChange('pedigree_number', { value: '' });
+                                                    formRenderProps.onChange('dog_name', { value: '' });
                                                     setDisableFields(false);
                                                 }}
                                             >Удалить
@@ -517,8 +520,10 @@ const Application = ({ alias, history, status, owner }) => {
 
                                 <div className="application-form__content">
                                     <h4 className="application-form__title">Информация о платеже</h4>
-                                    {!disableAllFields &&
-                                        <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                    {!disableAllFields && <>
+                                        <p style={{marginBottom: '10px'}}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                        <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
+                                    </>
                                     }
                                     <div className="application-form__row">
                                         {editable
