@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Card from "../../../../components/Card";
@@ -6,16 +6,61 @@ import BookformCard from "../../../../components/BookformCard";
 import { LoadableNotFound } from "../../../../appModules";
 import Alert from "../../../../components/Alert";
 import UserMenu from "../../../../components/Layouts/UserMenu";
+import { Request } from "../../../../utils/request";
 import { kennelNav } from "../../config";
+import Loading from "../../../../components/Loading";
 import "./styles.scss";
 
 
+//method statuses
+const _pedigree = 11;
+const _litter = 12;
+const _replacePedigreeExportOld = 13;
+// const _replacePedigreeOld = 14;
+// const _replacePedigreeChangeOwner = 15;
+// const _replacePedigreeRkfFc1 = 16;
+// const _replacePedigreeDuplicate = 17;
+// const _replacePedigreeForeignRegistration = 18;
+// const _replacePedigreeDeclarantError = 19;
+const _dogHealthCheckDysplasia = 20;
+const _dogHealthCheckPatella = 21;
+// const _getRKFDocument = 22;
+
 const DocumentCards = ({ nurseryAlias }) => {
     const [alert, seAlert] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [authorizedAccess, setAuthorizedAccess] = useState([]);
+
+    const pedigree = authorizedAccess.includes(_pedigree);
+    const litter = authorizedAccess.includes(_litter);
+    const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
+    //temporarily hidden
+    //
+    // const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
+    // const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
+    // const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
+    // const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
+    // const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
+    // const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
+    const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
+    const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
+    // const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
 
 
-    return <div className="documents-page__right">
-        <Card>
+    useEffect(() => {
+        (() => Request({
+            url: `/api/nurseries/nursery/request_access`
+        }, data => {
+            setAuthorizedAccess(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        }))();
+    }, []);
+
+    return loading ? <Loading/> : <div className="documents-page__right">
+        {litter && <Card>
             <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
             <p>
@@ -38,8 +83,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
-        </Card>
-        <Card>
+        </Card>}
+        {pedigree && <Card>
             <div className="documents-page__icon pedigree-icon" />
             <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
             <p>
@@ -60,8 +105,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
-        </Card>
-        <Card>
+        </Card>}
+        {litter && <Card>
             <div className="documents-page__icon puppy-icon" />
             <h3>МЕТРИКА ЩЕНКА</h3>
             <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
@@ -70,8 +115,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                 {/* <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
                 <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
             </div>
-        </Card>
-        <Card>
+        </Card>}
+        {replacePedigreeExportOld && <Card>
             <div className="documents-page__icon replace-pedigree-icon" />
             <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
             <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
@@ -95,8 +140,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
                 </div>
             </div>
-        </Card>
-        <Card>
+        </Card>}
+        {dogHealthCheckDysplasia && <Card>
             <div className="documents-page__icon dysplasia-icon" />
             <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
             <p>Для изготовления и получения сертификата о проверке на дисплазию HD и ED необходимо подать заявку, прикрепив договор с печатью ветеринарного учреждения и подписью ветеринарного врача, а также рентгенограмму. Плановый срок изготовления сертификата составляет два месяца со дня подачи документов в РКФ. После изготовления сертификата результаты исследования автоматически вносятся в электронную базу РКФ и в дальнейшем отражаются в родословных потомков собаки.</p>
@@ -107,8 +152,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
-        </Card>
-        <Card>
+        </Card>}
+        {dogHealthCheckPatella && <Card>
             <div className="documents-page__icon patella-icon" />
             <h3>СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)</h3>
             <p>Для оформления сертфиката клинической оценки коленных суставов необходимо обратиться к любому ветеринарному врачу РКФ, лицензированному в системе FCI в качестве специалиста, имеющего право оценки состояния коленных суставов (PL) с выдачей сертификата установленного образца.</p>
@@ -119,7 +164,7 @@ const DocumentCards = ({ nurseryAlias }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
                 </div>
             </div>
-        </Card>
+        </Card>}
         <Card>
             <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ</h3>
