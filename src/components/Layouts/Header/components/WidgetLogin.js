@@ -23,7 +23,6 @@ const WidgetLogin = forwardRef(
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
         const accountType = ls.get('account_type') ? ls.get('account_type') : '';
-        const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
 
@@ -115,11 +114,9 @@ const WidgetLogin = forwardRef(
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                         <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
                                                     </li>
-                                                    {personalAccess &&
-                                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
-                                                        </li>
-                                                    }
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                    </li>
                                                 </>
                                             }
                                             {accountType === 5 && userType === 5 &&
