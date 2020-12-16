@@ -133,6 +133,7 @@ const FormFields = connect(({ formik, update, view, options, alias, setRedirect,
                     <div className="flex-row heading-row">
                         <h4 className="caps">Информация о платеже</h4>
                     </div>
+                    <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
                     <FormGroup inline>
                         <FormFile
                             name='payment_document'
