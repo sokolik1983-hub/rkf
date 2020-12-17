@@ -28,14 +28,12 @@
     flex-flow: column nowrap;
     box-sizing: border-box;
     padding: 0 40px;
+    justify-content: center;
     max-width: 668px;
     width: 100%;
     margin: 0 auto;
     @media (max-width: 560px) {
       padding: 0;
     }
-  }
-  .Card {
-    min-height: 100%;
   }
 }
