@@ -272,6 +272,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/details-viewer/:id',
+        component: LoadableModules.LoadableDetailsViewer
+    },
+    {
+        exact: true,
         path: '/:route',
         component: LoadableModules.LoadableClubPage
     },
