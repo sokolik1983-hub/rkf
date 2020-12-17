@@ -448,8 +448,10 @@
 .widget-login {
   position: relative;
   display: flex;
+  min-width: 126px;
   @media (max-width: 990px) {
     margin-left: auto;
+    min-width: initial;
   }
   &__user-icon {
     height: 40px;
