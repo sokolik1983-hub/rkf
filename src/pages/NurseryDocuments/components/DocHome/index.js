@@ -22,8 +22,8 @@ const _replacePedigreeExportOld = 13;
 // const _replacePedigreeDuplicate = 17;
 // const _replacePedigreeForeignRegistration = 18;
 // const _replacePedigreeDeclarantError = 19;
-const _dogHealthCheckDysplasia = 20;
-const _dogHealthCheckPatella = 21;
+// const _dogHealthCheckDysplasia = 20;
+// const _dogHealthCheckPatella = 21;
 // const _getRKFDocument = 22;
 
 const DocumentCards = ({ nurseryAlias }) => {
@@ -42,8 +42,8 @@ const DocumentCards = ({ nurseryAlias }) => {
     // const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
     // const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
     // const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
-    const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-    const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
+    // const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
+    // const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
     // const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
 
 
@@ -141,7 +141,7 @@ const DocumentCards = ({ nurseryAlias }) => {
                 </div>
             </div>
         </Card>}
-        {dogHealthCheckDysplasia && <Card>
+        <Card>
             <div className="documents-page__icon dysplasia-icon" />
             <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
             <p>Для изготовления и получения сертификата о проверке на дисплазию HD и ED необходимо подать заявку, прикрепив договор с печатью ветеринарного учреждения и подписью ветеринарного врача, а также рентгенограмму. Плановый срок изготовления сертификата составляет два месяца со дня подачи документов в РКФ. После изготовления сертификата результаты исследования автоматически вносятся в электронную базу РКФ и в дальнейшем отражаются в родословных потомков собаки.</p>
@@ -152,8 +152,8 @@ const DocumentCards = ({ nurseryAlias }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
-        </Card>}
-        {dogHealthCheckPatella && <Card>
+        </Card>
+        <Card>
             <div className="documents-page__icon patella-icon" />
             <h3>СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)</h3>
             <p>Для оформления сертфиката клинической оценки коленных суставов необходимо обратиться к любому ветеринарному врачу РКФ, лицензированному в системе FCI в качестве специалиста, имеющего право оценки состояния коленных суставов (PL) с выдачей сертификата установленного образца.</p>
@@ -164,7 +164,7 @@ const DocumentCards = ({ nurseryAlias }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/patella/registry`}>Реестр заявок</Link>
                 </div>
             </div>
-        </Card>}
+        </Card>
         <Card>
             <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ</h3>
