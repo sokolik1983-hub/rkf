@@ -15,17 +15,20 @@ import { kennelNav } from "../NurseryDocuments/config";
 import { userNav } from "../UserDocuments/config";
 import { Request } from "../../utils/request";
 import { getFedInfo, mainFedList, oankooFedList } from "./config";
+import { connectAuthVisible } from "../../pages/Login/connectors";
+import Loading from "../../components/Loading";
 import "./index.scss";
 
-const BankDetails = () => {
+const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
     const [fedIdList, setFedIdList] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
+    const [loading, setLoading] = useState(true);
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const name = ls.get('user_info') ? ls.get('user_info').name : '';
     const logo = ls.get('user_info') ? ls.get('user_info').logo_link : '';
     const user_type = ls.get('user_info') ? ls.get('user_info').user_type : '';
-    const first_name = ls.get('user_info') ? ls.get('user_info').first_name : '';
-    const last_name = ls.get('user_info') ? ls.get('user_info').last_name : '';
 
     useEffect(() => {
         (() => Request({
@@ -37,7 +40,26 @@ const BankDetails = () => {
         }))();
     }, []);
 
-    return (
+    useEffect(() => {
+        Promise.all([getUserInfo()])
+            .then(() => setLoading(false));
+    }, []);
+
+    const getUserInfo = async needUpdateAvatar => {
+        return Request({
+            url: '/api/owners/owner/public_full/' + alias
+        }, data => {
+            if (needUpdateAvatar) {
+                ls.set('user_info', { ...ls.get('user_info'), logo_link: data.logo_link });
+            }
+            setUserInfo(data);
+            setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
+        }, error => {
+            console.log(error.response);
+        });
+    };
+
+    return (loading ? <Loading /> :
         <Layout>
             <div className="redesign">
                 <Container className="content">
@@ -82,13 +104,13 @@ const BankDetails = () => {
                                         <>
                                             <Card style={{ margin: '16px 0 16px 0' }}>
                                                 <UserInfo
-                                                    // canEdit={canEdit}
-                                                    logo_link={logo}
+                                                    canEdit={canEdit}
+                                                    logo_link={userInfo.logo_link}
                                                     share_link={`https://rkf.online/user/${alias}`}
-                                                    first_name={first_name ? first_name : 'Аноним'}
-                                                    last_name={last_name ? last_name : ''}
+                                                    first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
+                                                    last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
                                                     alias={alias}
-                                                // updateInfo={getUserInfo}
+                                                    updateInfo={getUserInfo}
                                                 />
                                             </Card>
                                             <UserMenu
@@ -113,4 +135,4 @@ const BankDetails = () => {
     )
 };
 
-export default React.memo(BankDetails);
+export default connectAuthVisible(React.memo(BankDetails));
