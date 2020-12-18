@@ -14,7 +14,7 @@ import LightTooltip from "../../../LightTooltip";
 
 
 const WidgetLogin = forwardRef(
-    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link }, ref) => {
+    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link ,login_page}, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
 
@@ -54,7 +54,7 @@ const WidgetLogin = forwardRef(
         };
 
         return (
-            <div className="widget-login">
+            <div className={`widget-login ${login_page ? `active` : ``}`}>
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title="Аккаунт" enterDelay={200} leaveDelay={200}>

@@ -28,7 +28,7 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
     }
 
     return (
-        <Layout>
+        <Layout login_page>
             <AuthLayout className="login-page">
                 <LoginForm />
             </AuthLayout>
