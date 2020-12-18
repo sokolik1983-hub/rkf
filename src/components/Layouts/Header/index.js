@@ -8,7 +8,7 @@ import {connectShowFilters} from "../connectors";
 import "./index.scss";
 
 
-const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
+const Header = ({withFilters, isOpenFilters, setShowFilters , login_page}) => (
     <header className="header">
         <Container className="header__content">
             <Link to="/" className="header__logo"/>
@@ -17,7 +17,7 @@ const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
             }
             <Search withFilters={withFilters} />
             <Nav/>
-            <WidgetLogin/>
+            <WidgetLogin login_page={login_page}/>
         </Container>
     </header>
 );
