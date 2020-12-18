@@ -183,6 +183,7 @@
       font-size: 16px;
       & td {
         border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+        text-align: center;
       }
     }  
     &-close {
@@ -214,6 +215,7 @@
     font-size: 14px;
     & td {
       border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+      text-align: center;
     }
   }
   .k-grid-header {
