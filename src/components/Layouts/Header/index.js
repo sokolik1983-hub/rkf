@@ -19,7 +19,7 @@ const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
             <Search withFilters={withFilters} />
             <Nav/>
             <div className="header__widgets">
-                <Notifications/>
+                {/* <Notifications/> */}
                 <WidgetLogin/>
             </div>
         </Container>

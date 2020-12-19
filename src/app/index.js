@@ -69,7 +69,7 @@ const App = ({ history }) => {
 
     useEffect(() => {
         checkAlias();
-        connectToUserHub();
+        //connectToUserHub();
         const unlisten = history.listen(() => checkAlias());
 
         window.addEventListener('beforeunload', resetFilters);
