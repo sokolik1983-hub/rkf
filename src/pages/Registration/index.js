@@ -14,7 +14,7 @@ import "./index.scss";
 
 
 const RegistrationPage = ({ isAuthenticated, history }) => {
-    const [activeTab, setActiveTab] = useState('club');
+    const [activeTab, setActiveTab] = useState('individual');
 
     return isAuthenticated ?
         <Redirect to={'/'} /> :
@@ -24,25 +24,25 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
                     <h1 className="registration-page__title">Регистрация</h1>
                     <div className="registration-page__tabs">
                         <div className="registration-page__tabs-controls">
-                            <div className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
-                                 onClick={() => setActiveTab('club')}
-                            >
-                                Клуб
-                            </div>
-                            <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
-                                 onClick={() => setActiveTab('nursery')}
-                            >
-                                Питомник
-                            </div>
                             <div className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
-                                 onClick={() => setActiveTab('individual')}
+                                onClick={() => setActiveTab('individual')}
                             >
                                 Физическое лицо
                             </div>
+                            <div className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
+                                onClick={() => setActiveTab('nursery')}
+                            >
+                                Питомник
+                            </div>
+                            <div className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
+                                onClick={() => setActiveTab('club')}
+                            >
+                                Клуб
+                            </div>
                         </div>
-                        {activeTab === 'club' && <ClubRegistration/>}
-                        {activeTab === 'nursery' && <NurseryRegistration/>}
-                        {activeTab === 'individual' && <IndividualRegistration history={history}/>}
+                        {activeTab === 'individual' && <IndividualRegistration history={history} />}
+                        {activeTab === 'nursery' && <NurseryRegistration />}
+                        {activeTab === 'club' && <ClubRegistration />}
                     </div>
                 </Card>
             </AuthLayout>
