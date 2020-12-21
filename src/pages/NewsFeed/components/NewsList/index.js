@@ -85,6 +85,22 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
         getNews(1, true);
     }
 
+    const handleUnsubscribe = id => {
+        if (window.confirm('Вы действительно хотите отписаться?')) {
+            Request({
+                url: '/api/article/unsubscribe',
+                method: 'PUT',
+                data: JSON.stringify({ "subscription_profile_id": id })
+            }, () => {
+                getNews(1, true);
+            },
+                ({ response }) => {
+                    alert(Object.values(response?.data?.errors).toString());
+                    setLoading(false);
+                });
+        }
+    }
+
     return loading
         ? <Loading centered={false} />
         : news
@@ -110,6 +126,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                         onAdClose={onAdClose}
                         handleSuccess={handleSuccess}
                         userAlias={userAlias}
+                        handleUnsubscribe={handleUnsubscribe}
                     />)
                 }
             </InfiniteScroll>
