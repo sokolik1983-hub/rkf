@@ -7,9 +7,9 @@ import reducer from "./reducer";
 import './index.scss';
 
 
-const Layout = ({ children, withFilters, showCopyright }) => (
+const Layout = ({ children, withFilters, showCopyright ,login_page}) => (
     <>
-        <Header withFilters={withFilters} />
+        <Header withFilters={withFilters} login_page={login_page} />
         {children}
         <Footer showCopyright={showCopyright} />
     </>
