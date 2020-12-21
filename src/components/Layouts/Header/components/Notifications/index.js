@@ -8,7 +8,7 @@ import { Request } from "utils/request";
 import LightTooltip from "components/LightTooltip";
 import NotificationCategories from "./NotificationCategories";
 import NotificationItem from "./NotificationItem";
-import NotificationsContext from 'app/context';
+import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
 import "./styles.scss";
 
@@ -43,7 +43,7 @@ const Notifications = forwardRef(
         const [currentCategory, setCurrentCategory] = useState(1);
         const [categories, setCategories] = useState(defaultCategories);
 
-        const pushedNotification = useContext(NotificationsContext);
+        const { notification } = useContext(NotificationsContext);
         const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
         const user_type = ls.get('user_info')?.user_type;
 
@@ -55,13 +55,13 @@ const Notifications = forwardRef(
             if (loaded) {
                 const updated = [...notifications];
                 updated?.length > 11 && updated.pop();
-                updated.unshift(JSON.parse(pushedNotification.value));
+                updated.unshift(JSON.parse(notification.value));
                 setNotifications(updated);
             } else {
-                pushedNotification.value.length && setShowDot(true);
+                notification.value.length && setShowDot(true);
             }
-            setShowDot(pushedNotification.hasNewMessage);
-        }, [pushedNotification]);
+            setShowDot(notification.hasNewMessage);
+        }, [notification]);
 
         const getNotifications = async (type = 1) => {
             setLoaded(false);
