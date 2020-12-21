@@ -30,7 +30,7 @@ const Content = (props) => <div className="NewsFeed">
 </div>;
 
 const NewsFeed = (props) => {
-    const [activeCategoryId, setActiveCategoryId] = useState(1);
+    const [activeCategoryId, setActiveCategoryId] = useState(props.match.params.id ? parseInt(props.match.params.id) : 1);
     return (<Layout {...props} user_type={user_type}>
         <Content activeCategoryId={activeCategoryId} setActiveCategoryId={setActiveCategoryId} />
     </Layout>
