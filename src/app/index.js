@@ -5,52 +5,13 @@ import { Request, getHeaders } from "../utils/request";
 import { appRoutes } from "../appConfig";
 import IframePage from "../pages/Static/IframePage";
 import { LoadableNotFound } from "../appModules";
-import * as signalR from "@microsoft/signalr";
-import { isDevEnv } from 'utils';
-import NotificationsContext from './context';
-import { connectAuthVisible } from "pages/Login/connectors";
+import NotificationsProvider from './context';
 import "./kendo.scss";
 import "./index.scss";
 
 
 
-const App = ({ history, isAuthenticated }) => {
-    const [pushedNotification, setPushedNotification] = useState({ value: '', hasNewMessage: false });
-
-    const hubUrl = isDevEnv()
-        ? 'http://dev.uep24.ru/api/hubs/user_hub'
-        : 'https://rkf.online/api/hubs/user_hub';
-
-    const connectToUserHub = () => {
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl(hubUrl,
-                {
-                    skipNegotiation: true,
-                    transport: signalR.HttpTransportType.WebSockets,
-                    accessTokenFactory: () => getHeaders().Authorization.substring(7)
-                }
-            )
-            .withAutomaticReconnect()
-            .build();
-
-        connection.on("sendToUser", (title, data) => {
-            setPushedNotification({
-                ...pushedNotification,
-                value: data
-            });
-        });
-
-        connection.start()
-            .catch(() => console.log('Error while establishing connection :('))
-            .then(function () {
-                connection.invoke('GetConnectionId').then(function (data) {
-                    setPushedNotification({
-                        ...pushedNotification,
-                        hasNewMessage: JSON.parse(data).has_new
-                    });
-                })
-            })
-    }
+const App = ({ history }) => {
 
     const resetFilters = () => {
         ls.remove('ClubsFiltersValues');
@@ -70,7 +31,6 @@ const App = ({ history, isAuthenticated }) => {
 
     useEffect(() => {
         checkAlias();
-        isAuthenticated && connectToUserHub();
         const unlisten = history.listen(() => checkAlias());
 
         window.addEventListener('beforeunload', resetFilters);
@@ -82,7 +42,7 @@ const App = ({ history, isAuthenticated }) => {
     }, []);
 
     return (
-        <NotificationsContext.Provider value={pushedNotification}>
+        <NotificationsProvider>
             <Switch>
                 {!!appRoutes.length && appRoutes.map(route =>
                     <Route
@@ -96,8 +56,8 @@ const App = ({ history, isAuthenticated }) => {
                 <Route exact={true} path='/results/cacib' component={() => <IframePage src="https://tables.rkf.org.ru/Table/tblResExhibitionCACIB.aspx" />} />
                 <Route component={LoadableNotFound} />
             </Switch>
-        </NotificationsContext.Provider>
+        </NotificationsProvider>
     )
 };
 
-export default React.memo(withRouter(connectAuthVisible(App)));
+export default React.memo(withRouter(App));
