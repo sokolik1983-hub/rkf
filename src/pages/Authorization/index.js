@@ -1,16 +1,15 @@
 import React from "react";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import Layout from "../../components/Layouts";
-import AuthLayout from "../../components/Layouts/AuthLayout";
-import LoginForm from "./components/LoginForm";
+import ls from "local-storage";
 import reducer from "./reducer";
 import injectReducer from "../../utils/injectReducer";
-import ls from "local-storage";
+import Layout from "../../components/Layouts";
+import AuthLayout from "../../components/Layouts/AuthLayout";
 import { connectAuthVisible } from "./connectors";
 
 
-const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
+const Authorization = ({ isAuthenticated, is_active_profile, user_type }) => {
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
 
     if (isAuthenticated) {
@@ -31,7 +30,7 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
     return (
         <Layout login_page>
             <AuthLayout className="login-page">
-                <LoginForm />
+
             </AuthLayout>
         </Layout>
     );
@@ -39,4 +38,4 @@ const LoginPage = ({ isAuthenticated, is_active_profile, user_type }) => {
 
 const withReducer = injectReducer({ key: 'authentication', reducer: reducer });
 
-export default compose(withReducer)(connectAuthVisible(React.memo(LoginPage)));
+export default compose(withReducer)(connectAuthVisible(React.memo(Authorization)));
