@@ -44,6 +44,8 @@ const Notifications = forwardRef(
         const [categories, setCategories] = useState(defaultCategories);
 
         const pushedNotification = useContext(NotificationsContext);
+        const alias = ls.get('user_info') ? ls.get('user_info')?.alias : '';
+        const user_type = ls.get('user_info')?.user_type;
 
         useEffect(() => {
             open && getNotifications(currentCategory);
@@ -60,9 +62,6 @@ const Notifications = forwardRef(
             }
             setShowDot(pushedNotification.hasNewMessage);
         }, [pushedNotification]);
-
-        const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
-        const user_type = ls.get('user_info').user_type;
 
         const getNotifications = async (type = 1) => {
             setLoaded(false);

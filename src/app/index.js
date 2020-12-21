@@ -8,12 +8,13 @@ import { LoadableNotFound } from "../appModules";
 import * as signalR from "@microsoft/signalr";
 import { isDevEnv } from 'utils';
 import NotificationsContext from './context';
+import { connectAuthVisible } from "pages/Login/connectors";
 import "./kendo.scss";
 import "./index.scss";
 
 
 
-const App = ({ history }) => {
+const App = ({ history, isAuthenticated }) => {
     const [pushedNotification, setPushedNotification] = useState({ value: '', hasNewMessage: false });
 
     const hubUrl = isDevEnv()
@@ -69,7 +70,7 @@ const App = ({ history }) => {
 
     useEffect(() => {
         checkAlias();
-        //connectToUserHub();
+        isAuthenticated && connectToUserHub();
         const unlisten = history.listen(() => checkAlias());
 
         window.addEventListener('beforeunload', resetFilters);
@@ -99,4 +100,4 @@ const App = ({ history }) => {
     )
 };
 
-export default React.memo(withRouter(App));
+export default React.memo(withRouter(connectAuthVisible(App)));
