@@ -17,19 +17,19 @@ const defaultCategories = [
         id: 2,
         name: 'Новые',
         icon: '/static/new-icons/notifications/new.svg',
-        count: 5
+        count: 0
     },
     {
         id: 3,
         name: 'Обязательные к прочтению',
         icon: '/static/new-icons/notifications/required.svg',
-        count: 15
+        count: 0
     },
     {
         id: 4,
         name: 'Заявки',
         icon: '/static/new-icons/notifications/applications.svg',
-        count: 2
+        count: 0
     },
 ];
 
@@ -66,8 +66,14 @@ const Notifications = forwardRef(
         const getNotifications = async (type = 1) => {
             setLoaded(false);
             await Request({
-                url: `/api/article/notifications?StartElement=1&Type=${type}`
-            }, ({ notifications }) => {
+                url: `/api/article/notifications?IsNeedCounters=true&StartElement=1&Type=${type}`
+            }, ({ notifications, counters }) => {
+                const { counter_of_new, counter_of_must_to_read, counter_of_request } = counters;
+                setCategories([
+                    { ...categories.find(c => c.id === 2), count: counter_of_new },
+                    { ...categories.find(c => c.id === 3), count: counter_of_must_to_read },
+                    { ...categories.find(c => c.id === 4), count: counter_of_request }
+                ]);
                 setNotifications(notifications);
                 setLoaded(true);
             }, error => {
@@ -86,7 +92,7 @@ const Notifications = forwardRef(
                 ? `/user/${alias}/news-feed/${id}`
                 : user_type === 3
                     ? `/${alias}/news-feed/${id}`
-                    : `/nursery/${alias}/news-feed/${id}`;
+                    : `/kennel/${alias}/news-feed/${id}`;
             if (currentCategory === 3) {
                 return buildUrl(4)
             } else if (currentCategory === 4) {

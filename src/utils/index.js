@@ -1,10 +1,7 @@
 import { WEEKDAYS } from "../appConfig";
 
 
-export const isDevEnv = () => {
-    console.log(process.env);
-    return process.env.NODE_ENV !== 'production';
-};
+export const isDevEnv = () => process.env.NODE_ENV !== 'production';
 
 export const formatText = text => JSON.parse(
     JSON.stringify(text)
