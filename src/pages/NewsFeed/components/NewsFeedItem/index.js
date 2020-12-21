@@ -55,7 +55,8 @@ const NewsFeedItem = forwardRef(({
     handleSuccess,
     redirect_link,
     profile_id, // News item profile ID
-    profileId // User profile ID
+    profileId, // User profile ID
+    handleUnsubscribe
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -102,7 +103,7 @@ const NewsFeedItem = forwardRef(({
                                     <FederationChoiceMark />
                                 }
                             </span>
-                            <div style={{display: 'flex'}}>
+                            <div style={{ display: 'flex' }}>
                                 {formatDateTime(create_date)}
                                 {fact_city_name &&
                                     <span className="NewsFeedItem__city" title={fact_city_name}>
@@ -117,7 +118,7 @@ const NewsFeedItem = forwardRef(({
                             text="Подписки"
                             value="chip"
                             selected={true}
-                            disabled={true}
+                            onClick={() => handleUnsubscribe(profile_id)}
                         />
 
                         {canEdit && profileId === profile_id && alias === userAlias &&
@@ -297,7 +298,7 @@ const NewsFeedItem = forwardRef(({
                                 <FederationChoiceMark />
                             }
                         </span>
-                        <div style={{display: 'flex'}}>
+                        <div style={{ display: 'flex' }}>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
                                 <span className="NewsFeedItem__city" title={fact_city_name}>
