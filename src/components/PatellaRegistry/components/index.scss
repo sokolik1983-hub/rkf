@@ -3,6 +3,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start !important;
+        margin-bottom: 10px;
     }
 }
 
@@ -86,8 +87,7 @@
         }
 
         &-list {
-            position: relative;
-            bottom: 15px;
+            outline: none;
         }
     }
 }

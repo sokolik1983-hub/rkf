@@ -8,7 +8,6 @@
   &__head {
     font-size: 24px;
     line-height: 32px;
-    margin-bottom: 40px;
     border-bottom: 1px solid #cbcbcb;
 
     @media (max-width: 560px) {
@@ -133,12 +132,8 @@
   }
 
   ._patella_controls {
-    position: relative;
-    top: 45px;
-
-    @media (max-width: 700px) {
-      top: -20px;
-    }
+    margin-top: 16px;
+    margin-bottom: 7px;
   }
 
   &__control {
@@ -177,7 +172,7 @@
 
   &__popup {
     position: absolute;
-    top: 50px;
+    top: 20px;
     left: 0;
     width: 100vw;
     height: 100vh;

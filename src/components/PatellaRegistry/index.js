@@ -29,14 +29,23 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
     }, []);
 
     return loading ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-        <button
-            onClick={() => setStandardView(true)}
-            className="club-documents-status__popup-close"
-        >
-        </button>
+        <div className="club-documents-status__controls" style={{marginTop: '22px'}}>
+            <button
+                className="club-documents-status__control club-documents-status__control--downloadIcon"
+                onClick={() => setExporting(true)}
+                disabled={exporting}
+            >
+                Скачать PDF
+            </button>
+            <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                Уменьшить таблицу
+            </button>
+        </div>
         <Table
             documents={documents}
             profileType={profileType}
+            exporting={exporting}
+            setExporting={setExporting}
             fullScreen
         />
     </Card>

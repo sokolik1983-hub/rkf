@@ -31,14 +31,23 @@ const RequestRegistry = ({ history, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <button
-                onClick={() => setStandardView(true)}
-                className="club-documents-status__popup-close"
-            >
-            </button>
-            <Table 
-                documents={documents} 
+            <div className="club-documents-status__controls" style={{top: '20px'}}>
+                <button
+                    className="club-documents-status__control club-documents-status__control--downloadIcon"
+                    onClick={() => setExporting(true)}
+                    disabled={exporting}
+                >
+                    Скачать PDF
+                </button>
+                <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    Уменьшить таблицу
+                </button>
+            </div>
+            <Table
+                documents={documents}
                 distinction={distinction}
+                exporting={exporting}
+                setExporting={setExporting}
                 fullScreen
             />
         </Card> :
@@ -65,14 +74,14 @@ const RequestRegistry = ({ history, distinction }) => {
                             Увеличить таблицу
                         </button>
                     </div>
-                    <Table 
-                        documents={documents} 
+                    <Table
+                        documents={documents}
                         distinction={distinction}
                         exporting={exporting}
                         setExporting={setExporting}
                     />
                 </div>
-                    : <div className = "club-documents-status__plug">
+                    : <div className="club-documents-status__plug">
                         <h4 className="club-documents-status__text">Заявок не найдено</h4>
                         <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>}

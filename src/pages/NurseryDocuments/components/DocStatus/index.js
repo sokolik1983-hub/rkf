@@ -65,11 +65,18 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-        <button
-            onClick={() => setStandardView(true)}
-            className="nursery-documents-status__popup-close"
-        >
-        </button>
+                <div className="nursery-documents-status__controls" style={{marginTop: '30px', marginBottom: '10px'}}>
+                    <button
+                        className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                        onClick={() => setExporting(true)}
+                        disabled={exporting}
+                    >
+                        Скачать PDF
+                    </button>
+                    <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                        Уменьшить таблицу
+                    </button>
+                </div>
         <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
         <Table
             documents={documents}
@@ -77,6 +84,8 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             rowClick={rowClick}
             deleteRow={deleteRow}
             setShowModal={setShowModal}
+            exporting={exporting}
+            setExporting={setExporting}
             fullScreen
         />
     </Card> :
@@ -91,7 +100,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
             <div className="nursery-documents-status__table">
                 {documents && !!documents.length
                     ? <div className="nursery-documents-status__controls-wrap">
-                    <div className="nursery-documents-status__controls" style={{top: 0}}>
+                    <div className="nursery-documents-status__controls" style={{marginTop: '8px', marginBottom: '11px'}}>
                     {standardView &&
                         <button
                             className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
