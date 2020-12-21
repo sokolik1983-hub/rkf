@@ -19,7 +19,7 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
     return isAuthenticated ?
         <Redirect to={'/'} /> :
         <Layout>
-            <AuthLayout className="login-page">
+            <AuthLayout className="registration-page">
                 <Card>
                     <h1 className="registration-page__title">Регистрация</h1>
                     <div className="registration-page__tabs">
