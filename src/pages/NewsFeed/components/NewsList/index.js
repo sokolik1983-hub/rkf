@@ -8,7 +8,7 @@ import { DEFAULT_IMG } from "appConfig";
 import ls from "local-storage";
 import './styles.scss';
 
-const NewsList = ({ canEdit, activeCategoryId }) => {
+const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -93,9 +93,10 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                 data: JSON.stringify({ "subscription_profile_id": id })
             }, () => {
                 getNews(1, true);
+                notifySuccess && notifySuccess('Подписка отменена!')
             },
-                ({ response }) => {
-                    alert(Object.values(response?.data?.errors).toString());
+                e => {
+                    notifyError ? notifyError(e) : alert('Произошла ошибка');
                     setLoading(false);
                 });
         }
