@@ -16,12 +16,17 @@ import CopyrightInfo from "components/CopyrightInfo";
 import { Request } from "utils/request";
 import { connectAuthVisible } from "pages/Login/connectors";
 import { endpointGetUserInfo, userNav } from "./config";
+import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
+import { Fade } from '@progress/kendo-react-animation';
 import useIsMobile from "utils/useIsMobile";
 import "./index.scss";
 
 const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }) => {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [errorRedirect, setErrorRedirect] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
@@ -45,16 +50,52 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
             setCanEdit(isAuthenticated && is_active_profile && profile_id === data.profile_id);
         }, error => {
             console.log(error.response);
-            setError(error.response);
+            setErrorRedirect(error.response);
         });
 
         setNeedRequest(true);
         setLoading(false);
     };
 
+    const notifySuccess = (message) => {
+        setSuccess({ status: true, message: message });
+        !success && setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
+    };
+
+    const notifyError = e => {
+        if (e.response) {
+            let message;
+            if (e.response.data) {
+                message = e.response.data.errors
+                    ? Object.values(e.response.data.errors)
+                    : `${e.response.status} ${e.response.statusText}`;
+            } else if (e.response.errors) {
+                message = e.response.errors
+                    ? Object.values(e.response.errors)
+                    : `${e.response.status} ${e.response.statusText}`;
+            } else {
+                message = 'Произошла ошибка';
+            }
+            setErrorMessage(message);
+            setError(true);
+            !error && setTimeout(() => {
+                setError(false);
+            }, 5000);
+        }
+    };
+
+    const onSubscriptionUpdate = (subscribed) => {
+        setUserInfo({
+            ...userInfo,
+            subscribed: subscribed
+        })
+    }
+
     return loading ?
         <Loading /> :
-        error ?
+        errorRedirect ?
             <Redirect to="/404" /> :
             <Layout>
                 <div className="user-page">
@@ -72,7 +113,11 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
-                                        updateInfo={getUserInfo}
+                                        subscribed={userInfo.subscribed}
+                                        subscribed_id={userInfo.profile_id}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                        onSuccess={notifySuccess}
+                                        onError={notifyError}
                                     />
                                 </Card>
                                 <UserMenu userNav={canEdit
@@ -107,11 +152,34 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
                                     id,
                                     setNeedRequest,
                                     needRequest,
-                                    setUserInfo
+                                    setUserInfo,
+                                    onSubscriptionUpdate,
+                                    notifySuccess,
+                                    notifyError
                                 })
                             }
                         </div>
                     </Container>
+                    <NotificationGroup>
+                        <Fade enter={true} exit={true}>
+                            {success.status && <Notification
+                                type={{ style: 'success', icon: true }}
+                                closable={true}
+                                onClose={() => setSuccess(false)}
+                            >
+                                <span>{success.message ? success.message : 'Информация сохранена!'}</span>
+                            </Notification>}
+                        </Fade>
+                        <Fade enter={true} exit={true}>
+                            {error && <Notification
+                                type={{ style: 'error', icon: true }}
+                                closable={true}
+                                onClose={() => setError(false)}
+                            >
+                                <span>{errorMessage}</span>
+                            </Notification>}
+                        </Fade>
+                    </NotificationGroup>
                 </div>
             </Layout>
 };
