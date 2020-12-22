@@ -14,7 +14,7 @@ const NotificationItem = ({ article_id, short_title, short_content, create_date,
     }
 
     return (
-        <div onClick={handleItemClick} className={`NotificationItem${is_read ? ' unread' : ''}`}>
+        <div onClick={handleItemClick} className={`NotificationItem${is_read ? '' : ' unread'}`}>
             <div className="NotificationItem__logo-wrap">
                 <Link to={profileLink}>
                     <div className="NotificationItem__logo" style={{ backgroundImage: `url(${logo_link})` }} />
