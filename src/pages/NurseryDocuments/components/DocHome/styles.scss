@@ -195,3 +195,17 @@
         }
     }
 }
+.documents-card {
+    &__warning {
+        border: 4px solid #ff9b9b;
+        padding: 24px 32px !important;
+        // box-shadow: 0 6px 12px #ff9b9b;
+        &-title {
+            font-size: 18px;
+            line-height: 26px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+    }
+}
