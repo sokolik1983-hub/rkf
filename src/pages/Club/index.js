@@ -55,6 +55,13 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
         return () => setNeedRequest(true);
     }, [match]);
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setClubInfo({
+            ...clubInfo,
+            subscribed: subscribed
+        })
+    }
+
     return loading ?
         <Loading /> :
         error ?
@@ -84,6 +91,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             federationAlias={clubInfo.federation_alias}
                                             active_rkf_user={clubInfo.active_rkf_user}
                                             active_member={clubInfo.active_member}
+                                            canEdit={canEdit}
+                                            subscribed={clubInfo.subscribed}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            isAuthenticated={isAuthenticated}
                                         />
                                     }
                                     <UserDescription description={clubInfo.description} />
@@ -137,6 +148,10 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     federationAlias={clubInfo.federation_alias}
                                                     active_rkf_user={clubInfo.active_rkf_user}
                                                     active_member={clubInfo.active_member}
+                                                    canEdit={canEdit}
+                                                    subscribed={clubInfo.subscribed}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
                                                 />
                                             }
                                             <UserMenu userNav={canEdit

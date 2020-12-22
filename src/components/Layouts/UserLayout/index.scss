@@ -45,4 +45,11 @@
       margin-bottom: 12px;
     }
   }
+  .k-notification-group {
+    align-items: flex-start;
+    flex-wrap: wrap-reverse;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
 }

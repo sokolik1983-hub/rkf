@@ -14,8 +14,8 @@ import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGal
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
 import UploadedDocuments from "components/UploadedDocuments";
-import {clubNav} from "../Club/config";
-import {isFederationAlias} from "../../utils";
+import { clubNav } from "../Club/config";
+import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import "pages/Club/index.scss";
 import './styles.scss';
@@ -46,6 +46,13 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         }, error => console.log(error));
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setClubInfo({
+            ...clubInfo,
+            subscribed: subscribed
+        })
+    }
+
     return (
         <>
             {!pageLoaded && !clubInfo
@@ -67,6 +74,10 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                 federationAlias={clubInfo.federation_alias}
                                                 active_rkf_user={clubInfo.active_rkf_user}
                                                 active_member={clubInfo.active_member}
+                                                canEdit={canEdit}
+                                                subscribed={clubInfo.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
                                             />
                                         </>
                                     }
@@ -91,6 +102,10 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     federationAlias={clubInfo.federation_alias}
                                                     active_rkf_user={clubInfo.active_rkf_user}
                                                     active_member={clubInfo.active_member}
+                                                    canEdit={canEdit}
+                                                    subscribed={clubInfo.subscribed}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
                                                 />
                                             }
                                             {isFederationAlias(clubInfo.club_alias) ?

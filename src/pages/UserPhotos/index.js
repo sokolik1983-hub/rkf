@@ -163,6 +163,13 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
         getImages(1);
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setUserInfo({
+            ...userInfo,
+            subscribed: subscribed
+        })
+    }
+
     return loading ?
         <Loading /> :
         error ?
@@ -183,6 +190,9 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                         first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                         last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                         alias={alias}
+                                        subscribed={userInfo.subscribed}
+                                        subscribed_id={userInfo.profile_id}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
                                         updateInfo={getUserInfo}
                                     />
                                 </Card>
