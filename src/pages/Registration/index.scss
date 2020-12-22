@@ -30,6 +30,8 @@
     margin: 0 auto 24px;
     &-controls {
       display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
       margin-bottom: 24px;
       @media (max-width: 560px) {
         padding: 0 12px;
@@ -38,9 +40,8 @@
     }
   }
   &__tab {
-    width: 50%;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #ccc;
+    padding: 0 10px 16px 10px;
+    border-bottom: 2px solid transparent;
     text-align: center;
     text-transform: uppercase;
     font-size: 14px;
@@ -96,9 +97,15 @@
     }
   }
   .Card {
-    margin: 20px 0;
-  }
-  .auth-layout__content {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
+    @media (max-width: 560px) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 }

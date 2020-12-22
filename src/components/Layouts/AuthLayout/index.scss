@@ -1,41 +1,41 @@
 .auth-layout {
   width: 100%;
-  min-height: 100%;
-  background: url("/static/images/authorization/auth-bg.jpg") no-repeat;
+  min-height: calc(100vh - 102px);
+  background: url("/static/images/authorization/auth-bg.jpg") no-repeat left center;
   background-attachment: fixed;
   background-size: cover;
-  padding-top: 50px;
   display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: stretch;
-  @media (max-width: 560px) {
-    padding-top: 48px;
+  justify-content: flex-end;
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 158px);
   }
-  &__img {
-    display: flex;
-    flex-flow: column nowrap;
-    min-height: 100%;
-    max-width: 25%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-attachment: fixed;
-    flex: 1;
-    @media (max-width: 920px) {
-      display: none;
-    }
+  @media (max-width: 560px) {
+    min-height: calc(100vh - 156px);
   }
   &__content {
     display: flex;
-    flex-flow: column nowrap;
     box-sizing: border-box;
-    padding: 0 40px;
-    justify-content: center;
-    max-width: 668px;
+    max-width: 410px;
     width: 100%;
-    margin: 0 auto;
-    @media (max-width: 560px) {
-      padding: 0;
+    @media (max-width: 700px) {
+      max-width: none;
     }
   }
+  //&__title {
+  //  min-width: 330px;
+  //  max-width: 330px;
+  //  margin-right: 10%;
+  //  display: flex;
+  //  flex-direction: column;
+  //  justify-content: center;
+  //  h1 {
+  //    font-size: 35px;
+  //    line-height: 45px;
+  //    margin-bottom: 35px;
+  //  }
+  //  p {
+  //    font-size: 24px;
+  //    line-height: 27px;
+  //  }
+  //}
 }
