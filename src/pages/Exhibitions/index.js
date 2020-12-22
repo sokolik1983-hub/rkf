@@ -26,6 +26,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
+    const [club, setClub] = useState(null);
     const [exhibitions, setExhibitions] = useState([]);
     const [exhibitionsForTable, setExhibitionsForTable] = useState([]);
     const [startElement, setStartElement] = useState(1);
@@ -106,6 +107,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                 setClubId(club.club_id);
                 setActiveMember(club.active_member);
                 setActiveRkfUser(club.active_rkf_user);
+                setClub(club);
             }
 
             setExhibitionsLoading(false);
@@ -152,6 +154,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         active_rkf_user={active_rkf_user}
                         federationName={federationName}
                         federationAlias={federationAlias}
+                        club={club}
+                        setClub={setClub}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
