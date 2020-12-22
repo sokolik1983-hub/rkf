@@ -6,7 +6,6 @@
   &__head {
     font-size: 24px;
     line-height: 32px;
-    margin-bottom: 40px;
     border-bottom: 1px solid #cbcbcb;
     @media (max-width: 560px) {
       margin-bottom: 16px;
@@ -182,7 +181,7 @@
     }
   }
 }
-.nursery-documents-status__controls {
-  position: relative;
-  top: -20px;
-}
+// .nursery-documents-status__controls {
+//   position: relative;
+//   top: -20px;
+// }

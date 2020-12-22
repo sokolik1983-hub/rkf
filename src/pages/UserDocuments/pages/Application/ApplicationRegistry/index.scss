@@ -6,7 +6,6 @@
     &__head {
       font-size: 24px;
       line-height: 32px;
-      margin-bottom: 40px;
       border-bottom: 1px solid #cbcbcb;
       @media (max-width: 560px) {
         margin-bottom: 16px;
@@ -107,10 +106,8 @@
       align-items: center;
       justify-content: flex-end;
       position: relative;
-      top: 45px;
-      @media (max-width: 700px) {
-        top: -20px;
-      }
+      top: 7px;
+      margin-bottom: 24px;
       &-wrap {
         max-width: 583px;
         margin: 0 auto;
@@ -148,37 +145,13 @@
     }
     &__popup {
       position: absolute;
-      top: 50px;
+      top: 20px;
       left: 0;
       width: 100vw;
       height: 100vh;
       .k-grid {
         font-size: 16px;
       }  
-      &-close {
-        width: 20px;
-        height: 20px;
-        display: block;
-        border: none;
-        background: url("/static/icons/cross-gray.svg") no-repeat center;
-        background-size: contain;
-        padding: 0;
-        transition: all 0.2s linear;
-        position: absolute;
-        top: 20px;
-        right: 35px;
-        z-index: 100;
-        &:hover {
-          width: 20px;
-          height: 20px;  
-          background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
-          background-size: contain;
-        }
-        @media (max-width: 560px) {
-          right: 23px;
-          top: 23px;
-        }
-      }
     }
     .k-grid {
       font-size: 14px;
@@ -187,7 +160,7 @@
       font-size: 12px;
     }
     &__filters-wrap {
-      margin-bottom: 6px;
+      margin-bottom: 9px;
     }
     &__plug{
     text-align: center;

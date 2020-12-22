@@ -51,11 +51,18 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <button
-                onClick={() => setStandardView(true)}
-                className="club-documents-status__popup-close"
-            >
-            </button>
+            <div className="club-documents-status__controls" style={{ marginTop: '24px' }}>
+                <button
+                    className="club-documents-status__control club-documents-status__control--downloadIcon"
+                    onClick={() => setExporting(true)}
+                    disabled={exporting}
+                >
+                    Скачать PDF
+                </button>
+                <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    Уменьшить таблицу
+                </button>
+            </div>
             <Table
                 documents={documents
                     .sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime())
@@ -65,6 +72,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 checkType={checkType}
                 isOpenFilters={isOpenFilters}
                 setErrorReport={setErrorReport}
+                exporting={exporting}
+                setExporting={setExporting}
                 fullScreen
             />
         </Card>
@@ -77,7 +86,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             </div>
                 {documents && !!documents.length
                     ? <div className="_replace_registry_wrap">
-                        <div className="club-documents-status__controls">
+                        <div className="club-documents-status__controls" style={{ marginTop: '17px' }}>
                             {standardView &&
                                 <button
                                     className="club-documents-status__control club-documents-status__control--downloadIcon"
@@ -104,7 +113,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             setExporting={setExporting}
                         />
                     </div>
-                    : <div className = "club-documents-status__plug">
+                    : <div className="club-documents-status__plug">
                         <h4 className="club-documents-status__text">Заявок не найдено</h4>
                         <img className="club-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>}

@@ -29,13 +29,22 @@ const HealthCheckRegistry = ({ history, distinction }) => {
     }, []);
 
     return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
-        <button
-            onClick={() => setStandardView(true)}
-            className="user-documents-status__popup-close"
-        >
-        </button>
+        <div className="user-documents-status__fullscreen-controls">
+            <button
+                className="user-documents-status__control user-documents-status__control--downloadIcon"
+                onClick={() => setExporting(true)}
+                disabled={exporting}
+            >
+                Скачать PDF
+            </button>
+            <button className="user-documents-status__control user-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                Уменьшить таблицу
+            </button>
+        </div>
         <Table
             documents={documents}
+            exporting={exporting}
+            setExporting={setExporting}
             fullScreen
         />
     </Card>
