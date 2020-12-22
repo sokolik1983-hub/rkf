@@ -52,15 +52,13 @@ const Notifications = forwardRef(
         }, [currentCategory]);
 
         useEffect(() => {
+            setShowDot(notification.hasNewMessage);
             if (loaded) {
                 const updated = [...notifications];
                 updated?.length > 11 && updated.pop();
                 updated.unshift(JSON.parse(notification.value));
                 setNotifications(updated);
-            } else {
-                notification.value.length && setShowDot(true);
             }
-            setShowDot(notification.hasNewMessage);
         }, [notification]);
 
         const getNotifications = async (type = 1) => {
