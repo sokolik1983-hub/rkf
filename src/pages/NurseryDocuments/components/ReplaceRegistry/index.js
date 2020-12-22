@@ -51,11 +51,18 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <button
-                onClick={() => setStandardView(true)}
-                className="nursery-documents-status__popup-close"
-            >
-            </button>
+            <div className="nursery-documents-status__controls" style={{marginTop: '10px'}}>
+                <button
+                    className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                    onClick={() => setExporting(true)}
+                    disabled={exporting}
+                >
+                    Скачать PDF
+                </button>
+                <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    Уменьшить таблицу
+                </button>
+            </div>
             <Table
                 documents={documents
                     .sort((a, b) => new Date(b.date_create).getTime() - new Date(a.date_create).getTime())
@@ -65,10 +72,12 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 checkType={checkType}
                 isOpenFilters={isOpenFilters}
                 setErrorReport={setErrorReport}
+                exporting={exporting}
+                setExporting={setExporting}
                 fullScreen
             />
-            </Card>
-            : 
+        </Card>
+            :
             <Card className="club-documents-status">
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="club-documents-status__head">
@@ -78,7 +87,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             </div>
                 {documents && !!documents.length
                     ? <div className="_replace_registry_wrap">
-                        <div className="nursery-documents-status__controls">
+                        <div className="nursery-documents-status__controls" style={{marginTop: '6px', marginBottom: '9px'}}>
                             {standardView &&
                                 <button
                                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
@@ -86,11 +95,11 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                                     disabled={exporting}
                                 >
                                     Скачать PDF
-                        </button>
+                                </button>
                             }
                             <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                 Увеличить таблицу
-                    </button>
+                            </button>
                         </div>
                         <Table
                             documents={documents
@@ -105,7 +114,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                             setExporting={setExporting}
                         />
                     </div>
-                    : <div className = "nursery-documents-status__plug">
+                    : <div className="nursery-documents-status__plug">
                         <h4 className="nursery-documents-status__text">Заявок не найдено</h4>
                         <img className="nursery-documents-status__img" src={DEFAULT_IMG.noNews} alt="Заявок не найдено" />
                     </div>}

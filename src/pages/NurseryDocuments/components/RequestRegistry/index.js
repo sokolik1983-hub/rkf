@@ -31,7 +31,7 @@ const RequestRegistry = ({ history, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-                    <div className="nursery-documents-status__controls _nursery_request_controls" style={{top: '20px'}}>
+                    <div className="nursery-documents-status__controls _nursery_request_controls" style={{position: 'relative', top: '28px'}}>
                     <button
                         className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}

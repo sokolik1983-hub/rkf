@@ -185,30 +185,6 @@
         text-align: center;
       }
     }  
-    &-close {
-      width: 20px;
-      height: 20px;
-      display: block;
-      border: none;
-      background: url("/static/icons/cross-gray.svg") no-repeat center;
-      background-size: contain;
-      padding: 0;
-      transition: all 0.2s linear;
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      z-index: 9;
-      &:hover {
-        width: 20px;
-        height: 20px;  
-        background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
-        background-size: contain;
-      }
-      @media (max-width: 560px) {
-        right: 23px;
-        top: 23px;
-      }
-    }
   }
   .k-grid {
     font-size: 14px;
@@ -236,17 +212,16 @@
   }
   ._nursery_request_controls {
     position: relative;
-    top: 35px;
+    top: 15px;
     @media (max-width: 990px) {
+      margin-top: 25px;
+      margin-bottom: 5px;
       top: -20px;
     }
   }
   ._registry-wrap {
     position: relative;
-    top: 15px;
-    ._chips_full_screen {
-      background-color: #3366FF;
-    }  
+    top: -11px;
   }
   &__plug{
     text-align: center;

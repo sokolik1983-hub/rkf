@@ -44,7 +44,7 @@ const ColumnMenu = (props) => {
 };
 
 const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
-
+const TextCell = ({ dataItem }, field) => <td style={{textAlign: 'left'}}>{dataItem[field]}</td>;
 const LinkCell = (props) => {
     const { dataItem } = props;
     return <td>
@@ -164,7 +164,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
             <IntlProvider locale={'ru'}>
                 <StickyFilters>
                     <div className="club-documents-status__chips">
-                        <div className="chip-list__wrap">
+                        <div className="chip-list__wrap" style={{marginBottom: '15px'}}>
                             <ChipList
                                 selection="single"
                                 defaultData={categories}
@@ -202,7 +202,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                         <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                         <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? 'auto' : '110px'} columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="breed_name" title="Порода" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="breed_name" title="Порода" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed_name')} />
                         <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '130px' : '95px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '75px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />

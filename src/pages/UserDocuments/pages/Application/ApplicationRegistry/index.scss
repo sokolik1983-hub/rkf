@@ -152,30 +152,6 @@
       .k-grid {
         font-size: 16px;
       }  
-      &-close {
-        width: 20px;
-        height: 20px;
-        display: block;
-        border: none;
-        background: url("/static/icons/cross-gray.svg") no-repeat center;
-        background-size: contain;
-        padding: 0;
-        transition: all 0.2s linear;
-        position: absolute;
-        top: 20px;
-        right: 35px;
-        z-index: 100;
-        &:hover {
-          width: 20px;
-          height: 20px;  
-          background: url("/static/icons/cross-gray-blue.svg") no-repeat center;
-          background-size: contain;
-        }
-        @media (max-width: 560px) {
-          right: 23px;
-          top: 23px;
-        }
-      }
     }
     .k-grid {
       font-size: 14px;

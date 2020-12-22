@@ -158,13 +158,14 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
             </LightTooltip>
         );
     };
+    const TextCell = ({ dataItem }, field) => <td style={{textAlign: 'left'}}>{dataItem[field]}</td>;
 
     return (<>
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
                 <StickyFilters>
                     <div className="club-documents-status__chips">
-                        <div className="chip-list__wrap">
+                        <div className="chip-list__wrap" style={{marginBottom: '4px'}}>
                             <ChipList
                                 selection="single"
                                 defaultData={categories}
@@ -200,7 +201,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                     <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? '130px' : '110px'} columnMenu={ColumnMenu} />
                     <GridColumn field="dog_name" title="Кличка" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="breed_name" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="breed_name" title="Порода" width={fullScreen ? '120px' : '80px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed_name')}/>
                     <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '110px' : '95px'} columnMenu={ColumnMenu} />
                     <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                     <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '75px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />
