@@ -159,6 +159,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                 active_member={clubInfo.active_member}
                                                 canEdit={canEdit}
                                                 subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
                                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                                 isAuthenticated={isAuthenticated}
                                             />
@@ -218,6 +219,7 @@ const ClubVideo = ({ isAuthenticated, is_active_profile, profile_id, match, user
                                                     active_member={clubInfo.active_member}
                                                     canEdit={canEdit}
                                                     subscribed={clubInfo.subscribed}
+                                                    member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
                                                 />
