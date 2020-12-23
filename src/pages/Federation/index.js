@@ -38,6 +38,13 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
         }))();
     }, []);
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setFederation({
+            ...federation,
+            subscribed: subscribed
+        })
+    }
+
     if (!loading && !federation) return <PageNotFound />;
 
     return loading ?
@@ -49,6 +56,11 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         logo={federation.logo}
                         name={federation.name}
                         banner_link={federation.header_picture_link}
+                        withSubscribe={true}
+                        subscribed={federation.subscribed}
+                        subscribed_id={profile_id}
+                        member={federation.member}
+                        onSubscriptionUpdate={onSubscriptionUpdate}
                     />
                     <ExhibitionsComponent alias={alias} />
                     <div className="federation-page__photo _mobile">

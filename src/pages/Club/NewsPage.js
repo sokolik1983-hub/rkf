@@ -50,6 +50,13 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
         }))();
     }, [match]);
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setClubInfo({
+            ...clubInfo,
+            subscribed: subscribed
+        })
+    }
+
     return loading ?
         <Loading /> :
         error ?
@@ -71,6 +78,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                             federationAlias={clubInfo.federation_alias}
                                             active_rkf_user={clubInfo.active_rkf_user}
                                             active_member={clubInfo.active_member}
+                                            canEdit={canEdit}
+                                            subscribed={clubInfo.subscribed}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            isAuthenticated={isAuthenticated}
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
@@ -110,6 +121,10 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                 federationAlias={clubInfo.federation_alias}
                                                 active_rkf_user={clubInfo.active_rkf_user}
                                                 active_member={clubInfo.active_member}
+                                                canEdit={canEdit}
+                                                subscribed={clubInfo.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
                                             />
                                         }
                                         {isFederationAlias(clubInfo.club_alias) ?
