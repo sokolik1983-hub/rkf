@@ -1,4 +1,23 @@
 .registration-page {
+  &__main-tabs {
+    border-bottom: 1px solid #90999E;
+    margin-bottom: 50px;
+    padding: 0 25px 5px 25px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__main-tab {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    color: #90999E;
+    &.active {
+      color: #3366FF;
+    }
+  }
   &__message {
     margin-top: 24px;
     text-align: center;
@@ -43,11 +62,9 @@
     padding: 0 10px 16px 10px;
     border-bottom: 2px solid transparent;
     text-align: center;
-    text-transform: uppercase;
     font-size: 14px;
     line-height: 16px;
     font-weight: bold;
-    letter-spacing: 0.3px;
     color: #ccc;
     cursor: pointer;
     position: relative;
@@ -100,9 +117,7 @@
     border-radius: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    padding-top: 50px;
     @media (max-width: 560px) {
       padding-left: 16px;
       padding-right: 16px;

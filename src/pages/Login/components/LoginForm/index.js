@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import { Form, FormGroup, FormField, SubmitButton } from "../../../../components/Form";
 import Error from "../../../../components/Form/Field/Error";
 import CustomCheckbox from "../../../../components/Form/CustomCheckbox";
@@ -7,6 +7,7 @@ import { loginFormConfig } from "./config";
 import Card from "components/Card";
 import { connectLogin } from "../../connectors";
 import "./index.scss";
+import {LOGIN_URL, REGISTRATION_URL} from "../../../../appConfig";
 
 
 const { fields } = loginFormConfig;
@@ -17,7 +18,10 @@ const LoginForm = ({ loginUserSuccess }) => {
     
     return (
         <Card>
-            <h1 className="login-page__title">Вход</h1>
+            <div className="login-page__tabs">
+                <NavLink exac="true" to={LOGIN_URL} className="login-page__tab">Вход</NavLink>
+                <NavLink exac="true" to={REGISTRATION_URL} className="login-page__tab">Регистрация</NavLink>
+            </div>
             <Form
                 className="login-page__form"
                 initialValues={{ email: '', password: '' }

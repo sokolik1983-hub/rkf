@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import { compose } from "redux";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
@@ -11,6 +11,7 @@ import reducer from "../Login/reducer";
 import injectReducer from "../../utils/injectReducer";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
+import {LOGIN_URL, REGISTRATION_URL} from "../../appConfig";
 
 
 const RegistrationPage = ({ isAuthenticated, history }) => {
@@ -21,7 +22,10 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
         <Layout>
             <AuthLayout className="registration-page">
                 <Card>
-                    <h1 className="registration-page__title">Регистрация</h1>
+                    <div className="registration-page__main-tabs">
+                        <NavLink exac="true" to={LOGIN_URL} className="registration-page__main-tab">Вход</NavLink>
+                        <NavLink exac="true" to={REGISTRATION_URL} className="registration-page__main-tab">Регистрация</NavLink>
+                    </div>
                     <div className="registration-page__tabs">
                         <div className="registration-page__tabs-controls">
                             <div className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
@@ -38,6 +42,11 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
                                 onClick={() => setActiveTab('club')}
                             >
                                 Клуб
+                            </div>
+                            <div className={`registration-page__tab _disabled`}
+                                onClick={() => null}
+                            >
+                                НКП
                             </div>
                         </div>
                         {activeTab === 'individual' && <IndividualRegistration history={history} />}
