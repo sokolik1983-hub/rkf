@@ -3,7 +3,7 @@ import { DropDownButton } from '@progress/kendo-react-buttons';
 import { Request } from "utils/request";
 import "./styles.scss";
 
-const UserActions = ({ userType, subscribed_id, subscribed, onSubscriptionUpdate, onSuccess, onError }) => {
+const UserActions = ({ userType, subscribed_id, subscribed, member, onSubscriptionUpdate, onSuccess, onError }) => {
 
     const handleItemClick = ({ itemIndex }) => {
         if (itemIndex === 1) { // Subscription
@@ -15,7 +15,7 @@ const UserActions = ({ userType, subscribed_id, subscribed, onSubscriptionUpdate
                 }, () => {
                     onSubscriptionUpdate(false);
                     onSuccess ? onSuccess('Подписка отменена!') : alert('Подписка отменена!');
-                }, e => onError ? onError(e) : alert('Произошла ошибка'));
+                }, e => onError ? onError(e) : alert(e?.response?.data?.errors ? Object.values(e.response.data.errors).join(', ') : 'Произошла ошибка'));
             } else {
                 Request({
                     url: '/api/article/subscribe',
@@ -24,7 +24,7 @@ const UserActions = ({ userType, subscribed_id, subscribed, onSubscriptionUpdate
                 }, () => {
                     onSubscriptionUpdate(true);
                     onSuccess ? onSuccess('Подписка оформлена!') : alert('Подписка оформлена!');
-                }, e => onError ? onError(e) : alert('Произошла ошибка'));
+                }, e => onError ? onError(e) : alert(e?.response?.data?.errors ? Object.values(e.response.data.errors).join(', ') : 'Произошла ошибка'));
             }
         }
     }
@@ -36,7 +36,7 @@ const UserActions = ({ userType, subscribed_id, subscribed, onSubscriptionUpdate
             popupSettings={{ popupClass: 'UserActions__dropdown' }}
             items={[
                 { text: 'Написать сообщение', disabled: true },
-                { text: subscribed ? 'Подписки' : 'Подписаться', icon: subscribed ? 'check' : '' },
+                { text: subscribed ? 'Подписки' : 'Подписаться', icon: subscribed ? 'check' : '', disabled: member ? true : false },
                 { text: 'Пожаловаться на страницу', disabled: true }
             ]}
         />
