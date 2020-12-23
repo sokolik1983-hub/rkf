@@ -26,9 +26,9 @@ const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => 
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
         },
             data => {
-                setNews(reset ? data.articles : [...news, ...data.articles]);
+                setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
                 setLoading(false);
-                if (data.articles.length < 10) {
+                if (!data || data.articles?.length < 10) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
