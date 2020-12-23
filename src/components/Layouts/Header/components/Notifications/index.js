@@ -52,7 +52,14 @@ const Notifications = forwardRef(
         }, [currentCategory]);
 
         useEffect(() => {
-            setShowDot(notification.hasNewMessage);
+
+            if (notification.value.length) {
+                setShowDot(true);
+                getNotifications(currentCategory);
+            } else {
+                setShowDot(notification.hasNewMessage);
+            }
+
             if (loaded) {
                 const updated = [...notifications];
                 updated?.length > 11 && updated.pop();
@@ -86,17 +93,17 @@ const Notifications = forwardRef(
         }
 
         const getNewsFeedLink = () => {
-            const buildUrl = id => user_type === 1
+            const buildUrl = (id = '') => user_type === 1
                 ? `/user/${alias}/news-feed/${id}`
                 : user_type === 3
                     ? `/${alias}/news-feed/${id}`
                     : `/kennel/${alias}/news-feed/${id}`;
             if (currentCategory === 3) {
-                return buildUrl(4)
+                return buildUrl(4);
             } else if (currentCategory === 4) {
-                return buildUrl(6)
+                return buildUrl(6);
             } else {
-                return `/user/${alias}/news-feed/`
+                return buildUrl();
             }
         }
 
