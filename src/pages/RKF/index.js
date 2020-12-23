@@ -37,6 +37,13 @@ const RKF = ({isAuthenticated, profile_id}) => {
         }))();
     }, []);
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setInfo({
+            ...info,
+            subscribed: subscribed
+        })
+    }
+
     if(!loading && !info) return <PageNotFound/>;
 
     return loading ?
@@ -48,6 +55,11 @@ const RKF = ({isAuthenticated, profile_id}) => {
                         logo={info.logo || "/static/images/header/rkf-logo-transparent.svg"}
                         name={info.name || "Российская Кинологическая Федерация"}
                         banner_link={info.header_picture_link}
+                        withSubscribe={true}
+                        subscribed={true}
+                        subscribed_id={info.id}
+                        member={true}
+                        onSubscriptionUpdate={onSubscriptionUpdate}
                     />
                     <div className="rkf-page__banner">
                         <img src="/static/images/slider/1.jpg" alt="banner"/>

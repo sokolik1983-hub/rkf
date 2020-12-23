@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserLayout from "components/Layouts/UserLayout";
 import ClubLayout from "components/Layouts/ClubLayout";
 import NurseryLayout from "components/Layouts/NurseryLayout";
@@ -30,7 +30,12 @@ const Content = (props) => <div className="NewsFeed">
 </div>;
 
 const NewsFeed = (props) => {
-    const [activeCategoryId, setActiveCategoryId] = useState(props.match.params.id ? parseInt(props.match.params.id) : 1);
+    const [activeCategoryId, setActiveCategoryId] = useState(1);
+
+    useEffect(() => {
+        setActiveCategoryId(props.match.params.id ? parseInt(props.match.params.id) : 1);
+    }, [props.match.params.id])
+
     return (<Layout {...props} user_type={user_type}>
         <Content activeCategoryId={activeCategoryId} setActiveCategoryId={setActiveCategoryId} />
     </Layout>
