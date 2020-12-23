@@ -93,6 +93,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             active_member={clubInfo.active_member}
                                             canEdit={canEdit}
                                             subscribed={clubInfo.subscribed}
+                                            member={clubInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                             isAuthenticated={isAuthenticated}
                                         />
@@ -150,6 +151,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     active_member={clubInfo.active_member}
                                                     canEdit={canEdit}
                                                     subscribed={clubInfo.subscribed}
+                                                    member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
                                                 />

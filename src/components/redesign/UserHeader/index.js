@@ -9,7 +9,7 @@ import UserActions from "components/UserActions";
 import "./index.scss";
 
 
-const UserHeader = ({ user, logo, name, alias, profileId, subscribed, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
+const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const shareOk = () => setShareAlert(false);
@@ -61,6 +61,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, onSubscrip
                                         userType={3}
                                         subscribed_id={profileId}
                                         subscribed={subscribed}
+                                        member={member}
                                         onSubscriptionUpdate={onSubscriptionUpdate}
                                     // onSuccess={onSuccess}
                                     // onError={onError}
