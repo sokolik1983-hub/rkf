@@ -76,6 +76,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                 active_member={clubInfo.active_member}
                                                 canEdit={canEdit}
                                                 subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
                                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                                 isAuthenticated={isAuthenticated}
                                             />
@@ -104,6 +105,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                     active_member={clubInfo.active_member}
                                                     canEdit={canEdit}
                                                     subscribed={clubInfo.subscribed}
+                                                    member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
                                                 />

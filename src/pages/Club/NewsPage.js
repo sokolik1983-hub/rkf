@@ -80,6 +80,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                             active_member={clubInfo.active_member}
                                             canEdit={canEdit}
                                             subscribed={clubInfo.subscribed}
+                                            member={clubInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                             isAuthenticated={isAuthenticated}
                                         />
@@ -123,6 +124,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                 active_member={clubInfo.active_member}
                                                 canEdit={canEdit}
                                                 subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
                                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                                 isAuthenticated={isAuthenticated}
                                             />

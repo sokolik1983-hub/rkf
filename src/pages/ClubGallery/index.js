@@ -191,6 +191,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                 active_member={clubInfo.active_member}
                                                 canEdit={canEdit}
                                                 subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
                                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                                 isAuthenticated={isAuthenticated}
                                             />
@@ -271,6 +272,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                     active_member={clubInfo.active_member}
                                                     canEdit={canEdit}
                                                     subscribed={clubInfo.subscribed}
+                                                    member={clubInfo.member}
                                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                                     isAuthenticated={isAuthenticated}
                                                 />

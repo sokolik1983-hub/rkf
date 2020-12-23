@@ -89,6 +89,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     active_rkf_user={active_rkf_user}
                                     canEdit={canEdit}
                                     subscribed={club.subscribed}
+                                    member={club.member}
                                     subscribed_id={profileId = { profileId }}
                                     onSubscriptionUpdate={onSubscriptionUpdate}
                                     isAuthenticated={isAuthenticated}

@@ -82,6 +82,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                             active_member={clubInfo.active_member}
                                             canEdit={canEdit}
                                             subscribed={clubInfo.subscribed}
+                                            member={clubInfo.member}
                                             onSubscriptionUpdate={onSubscriptionUpdate}
                                             isAuthenticated={isAuthenticated}
                                         />
@@ -114,6 +115,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                 active_member={clubInfo.active_member}
                                                 canEdit={canEdit}
                                                 subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
                                                 onSubscriptionUpdate={onSubscriptionUpdate}
                                                 isAuthenticated={isAuthenticated}
                                             />
