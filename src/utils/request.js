@@ -54,7 +54,7 @@ export const Request = async (options, onSuccess, onError) => {
                 ((error.response.status === 403 && userType === 4) || error.response.status === 401)) {
                 store.dispatch({type: LOGOUT});
                 history.replace(LOGIN_URL);
-            } 
+            }
         }
     })();
 };
