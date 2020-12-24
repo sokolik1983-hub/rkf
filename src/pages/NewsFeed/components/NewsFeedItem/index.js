@@ -60,7 +60,8 @@ const NewsFeedItem = forwardRef(({
     is_liked,
     like_count,
     user_type,
-    is_request_article
+    is_request_article,
+    member = false
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -150,6 +151,7 @@ const NewsFeedItem = forwardRef(({
                             value="chip"
                             selected={true}
                             onClick={() => handleUnsubscribe(profile_id)}
+                            disabled={member ? true : false}
                         />
 
                         {canEdit && profileId === profile_id && alias === userAlias &&
