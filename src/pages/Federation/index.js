@@ -58,7 +58,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         banner_link={federation.header_picture_link}
                         withSubscribe={true}
                         subscribed={federation.subscribed}
-                        subscribed_id={profile_id}
+                        subscribed_id={federation.id}
                         member={federation.member}
                         onSubscriptionUpdate={onSubscriptionUpdate}
                     />
