@@ -61,6 +61,8 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                         subscribed_id={federation.id}
                         member={federation.member}
                         onSubscriptionUpdate={onSubscriptionUpdate}
+                        isAuthenticated={isAuthenticated}
+                        canEdit={canEdit}
                     />
                     <ExhibitionsComponent alias={alias} />
                     <div className="federation-page__photo _mobile">
