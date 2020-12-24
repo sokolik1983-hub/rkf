@@ -146,14 +146,14 @@ const NewsFeedItem = forwardRef(({
                         </span>
                     </div>
                     <div className="NewsFeedItem__right" >
-                        <Chip
-                            text="Подписка"
-                            value="chip"
-                            selected={true}
-                            onClick={() => handleUnsubscribe(profile_id)}
-                            disabled={member ? true : false}
-                        />
-
+                        {
+                            !member && <Chip
+                                text="Подписка"
+                                value="chip"
+                                selected={true}
+                                onClick={() => handleUnsubscribe(profile_id)}
+                            />
+                        }
                         {canEdit && profileId === profile_id && alias === userAlias &&
                             <div className="NewsFeedItem__head-control">
                                 <button
@@ -221,16 +221,20 @@ const NewsFeedItem = forwardRef(({
                         />
                     }
                 </div>
-                {
-                    redirect_link
-                        ? <div className="NewsFeedItem__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
-                        : <div className={`NewsFeedItem__show-all${!canCollapse ? ' _disabled' : ''}`}
-                            onClick={() => canCollapse && setCollapsed(!collapsed)}
-                        >
-                            {!collapsed ? 'Подробнее...' : 'Свернуть'}
-                        </div>
-                }
-
+                <div className="NewsFeedItem__show-all-wrap">
+                    {
+                        is_request_article
+                            ? <div className="NewsFeedItem__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
+                            : <div className={`NewsFeedItem__show-all${!canCollapse ? ' _disabled' : ''}`}
+                                onClick={() => canCollapse && setCollapsed(!collapsed)}
+                            >
+                                {!collapsed ? 'Подробнее...' : 'Свернуть'}
+                            </div>
+                    }
+                    {
+                        is_request_article && <Share url={`https://rkf.online/news/${id}`} />
+                    }
+                </div>
                 {(picture_link || video_link) &&
                     <div className="NewsFeedItem__media">
                         {picture_link &&

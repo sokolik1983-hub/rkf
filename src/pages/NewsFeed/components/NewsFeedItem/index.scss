@@ -10,7 +10,20 @@
       border-bottom: none;
     }
     .NewsFeedItem__show-all {
-      margin-bottom: 0;
+      margin: 0;
+    }
+    .NewsFeedItem__text-wrap {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .NewsFeedItem__show-all-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .Share {
+      height: 20px;
     }
   }
   &__wrap {
