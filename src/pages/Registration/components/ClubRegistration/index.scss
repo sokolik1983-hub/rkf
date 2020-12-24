@@ -1,12 +1,9 @@
 .club-registration {
   text-align: center;
   &__select {
-    margin: 0 auto 24px;
+    width: 100% !important;
+    margin: 0 0 24px;
     text-align: left;
-    @media (max-width: 560px) {
-      width: 100% !important;
-      max-width: 300px;
-    }
   }
   &__empty {
     &-title {
