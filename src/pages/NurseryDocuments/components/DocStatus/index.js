@@ -65,94 +65,104 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-        <button
-            onClick={() => setStandardView(true)}
-            className="nursery-documents-status__popup-close"
-        >
-        </button>
-        <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-        <Table
-            documents={documents}
-            distinction={distinction}
-            rowClick={rowClick}
-            deleteRow={deleteRow}
-            setShowModal={setShowModal}
-            fullScreen
-        />
-    </Card> :
-        <Card className="nursery-documents-status">
-            <div className="nursery-documents-status__head">
-                <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+            <div className="nursery-documents-status__controls" style={{ marginTop: '30px', marginBottom: '10px' }}>
+                <button
+                    className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                    onClick={() => setExporting(true)}
+                    disabled={exporting}
+                >
+                    Скачать PDF
+                    </button>
+                <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    Уменьшить таблицу
+                    </button>
+            </div>
+            <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+            <Table
+                documents={documents}
+                distinction={distinction}
+                rowClick={rowClick}
+                deleteRow={deleteRow}
+                setShowModal={setShowModal}
+                exporting={exporting}
+                setExporting={setExporting}
+                fullScreen
+            />
+        </Card> :
+            <Card className="nursery-documents-status">
+                <div className="nursery-documents-status__head">
+                    <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree'
-                    ? 'Оформление родословной'
-                    : 'Заявление на регистрацию помета'}
-            </div>
-            <div className="nursery-documents-status__table">
-                {documents && !!documents.length
-                    ? <div className="nursery-documents-status__controls-wrap">
-                    <div className="nursery-documents-status__controls" style={{top: 0}}>
-                    {standardView &&
-                        <button
-                            className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
-                            onClick={() => setExporting(true)}
-                            disabled={exporting}
-                        >
-                            Скачать PDF
-                        </button>
-                    }
-                    <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
-                        Увеличить таблицу
-                    </button>
+                        ? 'Оформление родословной'
+                        : 'Заявление на регистрацию помета'}
                 </div>
-                        <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                        <Table 
-                            documents={documents} 
-                            distinction={distinction} 
-                            rowClick={rowClick} 
-                            deleteRow={deleteRow} 
-                            setShowModal={setShowModal}
-                            exporting={exporting}
-                            setExporting={setExporting}
-                        />
-                    </div>
-                    : <h2>Документов не найдено</h2>
-                }
-            </div>
-            {innerDocuments &&
                 <div className="nursery-documents-status__table">
-                    {!!innerDocuments.length
-                        ? <><h3>Вложенные заявки</h3>
-                            <RequestTable
-                                documents={innerDocuments}
+                    {documents && !!documents.length
+                        ? <div className="nursery-documents-status__controls-wrap">
+                            <div className="nursery-documents-status__controls" style={{ marginTop: '8px', marginBottom: '11px' }}>
+                                {standardView &&
+                                    <button
+                                        className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                                        onClick={() => setExporting(true)}
+                                        disabled={exporting}
+                                    >
+                                        Скачать PDF
+                        </button>
+                                }
+                                <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
+                                    Увеличить таблицу
+                    </button>
+                            </div>
+                            <div className="nursery-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
+                            <Table
+                                documents={documents}
                                 distinction={distinction}
-                                height="300px"
-                            /></>
-                        : <h2>Вложенных заявок не найдено</h2>
+                                rowClick={rowClick}
+                                deleteRow={deleteRow}
+                                setShowModal={setShowModal}
+                                exporting={exporting}
+                                setExporting={setExporting}
+                            />
+                        </div>
+                        : <h2>Документов не найдено</h2>
                     }
                 </div>
-            }
-            <div className="nursery-documents-status__bottom">
-                <p>{distinction === 'litter' ?
-                    'В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются: акт вязки, акт обследования помета, копии свидетельств о происхождении производителей, копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно - оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.' :
-                    'Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.'
-                }</p>
-                <Link
-                    to={`/kennel/${nurseryAlias}/documents/${distinction}/form`}
-                    className="btn-add"
-                    title="Добавить новую заявку"
-                >+</Link>
-            </div>
-            {showModal && <Modal
-                showModal={!!showModal}
-                handleClose={() => setShowModal(false)}
-                noBackdrop={true}
-                hideCloseButton={true}
-                className="status-table__modal"
-            >
-                <Declarants id={showModal} />
-            </Modal>}
-        </Card>
+                {innerDocuments &&
+                    <div className="nursery-documents-status__table">
+                        {!!innerDocuments.length
+                            ? <div className="nursery-documents-status__table-wrap">
+                                <h3 className="nursery-documents-status__table-title">Вложенные заявки</h3>
+                                <RequestTable
+                                    documents={innerDocuments}
+                                    distinction={distinction}
+                                    height="300px"
+                                /></div>
+                            : <h2>Вложенных заявок не найдено</h2>
+                        }
+                    </div>
+                }
+                <div className="nursery-documents-status__bottom">
+                    <p>{distinction === 'litter' ?
+                        'В соответствии с требованиями РКФ, с заявлением на регистрацию помета так же принимаются: акт вязки, акт обследования помета, копии свидетельств о происхождении производителей, копии сертификатов всех титулов и рабочих испытаний, заключения по дисплазии, и однократно - оригинал диплома с сертификатной выставки РКФ, копию Свидетельства о регистрации заводской приставки FCI.' :
+                        'Метрика щенка не дает право на племенное использование собаки и подлежит обязательному обмену на свидетельство о происхождении (родословную) РКФ до достижения собакой возраста 15 месяцев.'
+                    }</p>
+                    <Link
+                        to={`/kennel/${nurseryAlias}/documents/${distinction}/form`}
+                        className="btn-add"
+                        title="Добавить новую заявку"
+                    >+</Link>
+                </div>
+                {showModal && <Modal
+                    showModal={!!showModal}
+                    handleClose={() => setShowModal(false)}
+                    noBackdrop={true}
+                    hideCloseButton={true}
+                    className="status-table__modal"
+                >
+                    <Declarants id={showModal} />
+                </Modal>}
+            </Card>
 };
 
 export default React.memo(NurseryDocumentsStatus);

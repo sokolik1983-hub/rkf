@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {Form, Field, FormElement} from "@progress/kendo-react-form";
-import {Fade} from "@progress/kendo-react-animation";
-import {Notification, NotificationGroup} from "@progress/kendo-react-notification";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Form, Field, FormElement } from "@progress/kendo-react-form";
+import { Fade } from "@progress/kendo-react-animation";
+import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import Card from "../../../../components/Card";
 import FormInput from "../../../../components/kendo/Form/FormInput";
 import FormUpload from "../../../../components/kendo/Form/FormUpload";
@@ -14,12 +14,12 @@ import {
     requiredValidator,
     requiredWithTrimValidator
 } from "../../../../components/kendo/Form/validators";
-import {Request} from "../../../../utils/request";
+import { Request } from "../../../../utils/request";
 import flatten from "../../../../utils/flatten";
 import "./index.scss";
 
 
-const DysplasiaForm = ({alias, history, status, owner}) => {
+const DysplasiaForm = ({ alias, history, status, owner }) => {
     const [disableAllFields, setDisableAllFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [disableFields, setDisableFields] = useState(false);
@@ -40,7 +40,7 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
     });
 
     useEffect(() => {
-        if(status) {
+        if (status) {
             const paramsArr = history.location.pathname.split('/');
             const id = paramsArr[paramsArr.length - 1];
 
@@ -57,7 +57,7 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                 history.replace('/404');
             }))();
 
-            if(status === 'view') setDisableAllFields(true);
+            if (status === 'view') setDisableAllFields(true);
         }
     }, [status]);
 
@@ -77,10 +77,10 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
         await Request({
             url: `/api/dog/Dog/everk_dog/${pedigreeNumber}`
         }, data => {
-            if(data) {
+            if (data) {
                 setDisableFields(true);
                 setError('');
-                changeDogName('dog_name', {value: data.name});
+                changeDogName('dog_name', { value: data.name });
             } else {
                 setError('Номер родословной не найден в базе ВЕРК');
             }
@@ -97,14 +97,14 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
         const roentgenogram_document = data.roentgenogram_document.length ? data.roentgenogram_document[0].getRawFile() : null;
         const veterinary_contract_document = data.veterinary_contract_document.length ? data.veterinary_contract_document[0].getRawFile() : null;
 
-        let newData = {...data, veterinary_contract_document, roentgenogram_document, payment_document};
+        let newData = { ...data, veterinary_contract_document, roentgenogram_document, payment_document };
         delete newData.declarant_name;
 
-        if(status === 'edit') {
+        if (status === 'edit') {
             newData.id = values.id;
-            if(!payment_document) newData.payment_document_id = values.payment_document_id;
-            if(!roentgenogram_document) newData.roentgenogram_document_id = values.roentgenogram_document_id;
-            if(!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
+            if (!payment_document) newData.payment_document_id = values.payment_document_id;
+            if (!roentgenogram_document) newData.roentgenogram_document_id = values.roentgenogram_document_id;
+            if (!veterinary_contract_document) newData.veterinary_contract_document_id = values.veterinary_contract_document_id;
         }
 
         newData = flatten(newData);
@@ -145,7 +145,7 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                 {values && values.rejected_comment &&
                                     <p className="dysplasia-form__danger">{values.rejected_comment}</p>
                                 }
-                                <h4 className="dysplasia-form__title" style={{marginBottom: 0}}>
+                                <h4 className="dysplasia-form__title" style={{ marginBottom: 0 }}>
                                     {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                 </h4>
                                 <div className="dysplasia-form__row">
@@ -162,11 +162,11 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                         <>
                                             <div className="dysplasia-form__file">
                                                 <p className="k-label">Заполненный договор-заявка с печатью ветеринарного учреждения и подписью ветеринарного врача (PDF, JPEG, JPG, PNG)</p>
-                                                <DocumentLink docId={values.veterinary_contract_document_id}/>
+                                                <DocumentLink docId={values.veterinary_contract_document_id} />
                                             </div>
                                             <div className="dysplasia-form__file">
                                                 <p className="k-label">Рентгенограмма (PDF, JPEG, JPG, PNG)</p>
-                                                <DocumentLink docId={values.roentgenogram_document_id}/>
+                                                <DocumentLink docId={values.roentgenogram_document_id} />
                                             </div>
                                         </>
                                     }
@@ -182,8 +182,8 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                                     validator={requiredValidator}
                                                 />
                                                 {values &&
-                                                values.veterinary_contract_document_id &&
-                                                !formRenderProps.valueGetter('veterinary_contract_document').length &&
+                                                    values.veterinary_contract_document_id &&
+                                                    !formRenderProps.valueGetter('veterinary_contract_document').length &&
                                                     <DocumentLink docId={values.veterinary_contract_document_id} />
                                                 }
                                             </div>
@@ -197,8 +197,8 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                                     validator={requiredValidator}
                                                 />
                                                 {values &&
-                                                values.roentgenogram_document_id &&
-                                                !formRenderProps.valueGetter('roentgenogram_document').length &&
+                                                    values.roentgenogram_document_id &&
+                                                    !formRenderProps.valueGetter('roentgenogram_document').length &&
                                                     <DocumentLink docId={values.roentgenogram_document_id} />
                                                 }
                                             </div>
@@ -242,8 +242,8 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                             type="button"
                                             className="btn btn-red"
                                             onClick={() => {
-                                                formRenderProps.onChange('pedigree_number', {value: ''});
-                                                formRenderProps.onChange('dog_name', {value: ''});
+                                                formRenderProps.onChange('pedigree_number', { value: '' });
+                                                formRenderProps.onChange('dog_name', { value: '' });
                                                 setDisableFields(false);
                                             }}
                                         >Удалить
@@ -253,14 +253,16 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                             </div>
                             <div className="dysplasia-form__content">
                                 <h4 className="dysplasia-form__title">Информация о платеже</h4>
-                                {!disableAllFields &&
-                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                {!disableAllFields && <>
+                                    <p style={{marginBottom: '10px'}}>Приложите квитанцию об оплате заявки и заполните информацию о платеже.</p>
+                                    <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
+                                </>
                                 }
                                 <div className="dysplasia-form__row">
                                     {disableAllFields && values &&
                                         <div className="dysplasia-form__file">
                                             <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                            <DocumentLink docId={values.payment_document_id}/>
+                                            <DocumentLink docId={values.payment_document_id} />
                                         </div>
                                     }
                                     {!disableAllFields &&
@@ -274,8 +276,8 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                                                 validator={requiredValidator}
                                             />
                                             {values &&
-                                            values.payment_document_id &&
-                                            !formRenderProps.valueGetter('payment_document').length &&
+                                                values.payment_document_id &&
+                                                !formRenderProps.valueGetter('payment_document').length &&
                                                 <DocumentLink docId={values.payment_document_id} />
                                             }
                                         </div>
@@ -346,7 +348,7 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                 <Fade enter={true} exit={true}>
                     {success &&
                         <Notification
-                            type={{style: 'success', icon: true}}
+                            type={{ style: 'success', icon: true }}
                             closable={true}
                             onClose={() => setSuccess('')}
                         >
@@ -357,7 +359,7 @@ const DysplasiaForm = ({alias, history, status, owner}) => {
                 <Fade enter={true} exit={true}>
                     {error &&
                         <Notification
-                            type={{style: 'error', icon: true}}
+                            type={{ style: 'error', icon: true }}
                             closable={true}
                             onClose={() => setError('')}
                         >

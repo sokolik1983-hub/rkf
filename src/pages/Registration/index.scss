@@ -1,4 +1,23 @@
 .registration-page {
+  &__main-tabs {
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 50px;
+    padding: 0 25px 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__main-tab {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    color: #90999E;
+    &.active {
+      color: #3366FF;
+    }
+  }
   &__message {
     margin-top: 24px;
     text-align: center;
@@ -29,47 +48,37 @@
     max-width: 572px;
     margin: 0 auto 24px;
     &-controls {
-      display: flex;
+      border-bottom: 1px solid #e8e8e8;
       margin-bottom: 24px;
-      @media (max-width: 560px) {
-        padding: 0 12px;
-        justify-content: center;
-      }
+      overflow: hidden;
     }
   }
+  &__tabs-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
   &__tab {
-    width: 50%;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 16px;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-    color: #ccc;
+    padding: 0 6px 10px;
+    border-bottom: 2px solid transparent;
     cursor: pointer;
-    position: relative;
-    transition: all 0.2s linear;
-    &:after {
-      content: "";
-      width: 100%;
-      height: 1px;
-      background-color: transparent;
-      position: absolute;
-      left: 0;
-      top: 100%;
-      margin-top: -1px;
-      transition: background-color 0.2s linear;
+    text-align: center;
+    line-height: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: .2px;
+    color: #72839c;
+    white-space: nowrap;
+    transition: all .2s linear;
+    &:hover {
+      color: #3366FF;
     }
     &._active {
-      color: #253c5e;
-      border-bottom-color: #253c5e;
-      &:after {
-        background-color: #253c5e;
-      }
+      border-bottom-color: #3366FF;
     }
     &._disabled {
+      color: #72839c;
+      opacity: .5;
       cursor: default;
     }
     @media (max-width: 560px) {
@@ -93,6 +102,16 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+  .Card {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    @media (max-width: 560px) {
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 }

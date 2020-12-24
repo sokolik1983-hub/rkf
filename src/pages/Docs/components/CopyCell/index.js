@@ -48,7 +48,7 @@ const CopyCell = ({ dataItem }, callback) => {
             : alert('Трек-номер скопирован');
     };
 
-    return <td style={{ padding: '0.75rem 5px' }}>
+    return <td style={{ padding: '0.75rem 5px', textAlign: 'center' }}>
         {dataItem.barcode && <div className="CopyCell">
             <LightTooltip title="Копировать трек-номер" enterDelay={200} leaveDelay={200}>
                 <button

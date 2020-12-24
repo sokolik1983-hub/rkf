@@ -107,15 +107,15 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         <GridColumn field="name" title="ФИО заявителя" columnMenu={ColumnMenu} />
     </Grid>;
 
-    const rowRender = (trElement, props) => {
-        const status = props.dataItem.status_id;
-        const green = { backgroundColor: "#E9EDE9" };
-        const red = { backgroundColor: "#FFD6D9" };
-        const grey = { backgroundColor: "#D8FDE4" };
-        const draft = { backgroundColor: "#D4DAED" };
-        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
-        return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
-    };
+const rowRender = (trElement, props) => {
+    const status = props.dataItem.status_id;
+    const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
+    const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
+    const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+    const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
+    const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
+    return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
+};
 
     const StatusCell = (props) => {
         return (
@@ -140,16 +140,16 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
                     onDataStateChange={handleGridDataChange}
                     onRowClick={handleGridRowClick}
                     className="club-documents-status__pointer"
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `934px` : `554px`}`, margin: "0 auto" }}>
+                    style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `554px`}`, margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                     <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
-                    <GridColumn width="70px" cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
+                    <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? 'auto' : '90px'} columnMenu={ColumnMenu} />
+                    <GridColumn width={fullScreen ? '100px' : '70px'} cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
                 </Grid>}
                 <GridPDFExport
                     fileName={distinction === 'pedigree' ? `Статус_оформления_родословной_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Статус_регистрации_помёта_${moment(new Date()).format(`DD_MM_YYYY`)}`}

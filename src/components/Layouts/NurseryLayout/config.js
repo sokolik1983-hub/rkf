@@ -16,7 +16,7 @@ export const kennelNav = alias => [
     // },
     {
         id: 2,
-        title: 'Лента публикаций',
+        title: 'Подписки',
         to: `/kennel/${alias}/news-feed/`,
         exact: false,
         icon: <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">

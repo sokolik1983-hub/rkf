@@ -66,11 +66,18 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <button
-                onClick={() => setStandardView(true)}
-                className="club-documents-status__popup-close"
-            >
-            </button>
+            <div className="club-documents-status__controls" style={{marginTop: '21px'}}>
+                <button
+                    className="club-documents-status__control club-documents-status__control--downloadIcon"
+                    onClick={() => setExporting(true)}
+                    disabled={exporting}
+                >
+                    Скачать PDF
+                </button>
+                <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                    Уменьшить таблицу
+                </button>
+            </div>
             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
             <Table
                 documents={documents}
@@ -78,6 +85,8 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 rowClick={rowClick}
                 deleteRow={deleteRow}
                 setShowModal={setShowModal}
+                exporting={exporting}
+                setExporting={setExporting}
                 fullScreen
             />
         </Card> :
@@ -92,7 +101,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 <div className="club-documents-status__table">
                     {documents && !!documents.length
                         ? <div className="club-documents-status__controls-wrap _club_pedigree_wrap">
-                            <div className="club-documents-status__controls">
+                            <div className="club-documents-status__controls" style={{marginTop: '15px'}}>
                                 {standardView &&
                                     <button
                                         className="club-documents-status__control club-documents-status__control--downloadIcon"
@@ -107,11 +116,11 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                                 </button>
                             </div>
                             <div className="club-documents-status__disclaimer">Для просмотра вложенных заявок - нажмите на строку таблицы, соответствующую пакету заявок, содержащему интересующую Вас запись</div>
-                            <Table 
-                                documents={documents} 
-                                distinction={distinction} 
-                                rowClick={rowClick} 
-                                deleteRow={deleteRow} 
+                            <Table
+                                documents={documents}
+                                distinction={distinction}
+                                rowClick={rowClick}
+                                deleteRow={deleteRow}
                                 setShowModal={setShowModal}
                                 exporting={exporting}
                                 setExporting={setExporting}
@@ -123,12 +132,12 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 {innerDocuments &&
                     <div className="club-documents-status__table">
                         {!!innerDocuments.length
-                            ? <><h3>Вложенные заявки</h3>
+                            ? <div className="club-documents-status__table-wrap"><h3 className="club-documents-status__table-title">Вложенные заявки</h3>
                                 <RequestTable
                                     documents={innerDocuments}
                                     distinction={distinction}
                                     height="300px"
-                                /></>
+                                /></div>
                             : <h2>Вложенных заявок не найдено</h2>
                         }
                     </div>

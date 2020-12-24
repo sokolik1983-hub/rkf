@@ -44,7 +44,6 @@ const BaseSearch = () => {
             (() => Request({ url: `/api/Club/public/${alias}` },
                 data => {
                     setClubData(data);
-                    console.log(data)
                 },
                 error => {
                     console.log(error.response);

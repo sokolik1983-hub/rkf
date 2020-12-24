@@ -21,7 +21,7 @@ import {
     documentRequiredValidator, requiredWithTrimValidator,
     documentTypeRequired, innValidator, requiredValidator, nameValidator
 } from "../../../../../components/kendo/Form/validators";
-import { Request } from "../../../../../utils/request";
+import {PromiseRequest, Request} from "../../../../../utils/request";
 import { getHeaders } from "../../../../../utils/request";
 import ruMessages from "../../../../../kendoMessages.json"
 import "./index.scss";
@@ -71,7 +71,49 @@ const Application = ({ alias, history, status }) => {
 
     useEffect(() => {
         if (!status) {
-            Promise.all([getOwner(), getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+            Promise.all([
+                PromiseRequest({url: '/api/nurseries/Nursery/pedigree_request_information'}),
+                PromiseRequest({url: '/api/nurseries/nurserydeclarant/nursery_declarants'}),
+                PromiseRequest({url: '/api/requests/commonrequest/rkf_document_types'})
+            ]).then(data => {
+                const owner = data[0];
+                const declarants = data[1];
+                const documents = data[2];
+
+                let newInitialValues = {...initialValues};
+
+                if (owner) {
+                    setOwner(owner);
+
+                    newInitialValues.owner_last_name = owner.owner_last_name;
+                    newInitialValues.owner_first_name = owner.owner_first_name;
+                    newInitialValues.owner_second_name = owner.owner_second_name || '';
+                } else {
+                    setError('Ошибка получения владельца');
+                }
+
+                if (declarants) {
+                    setDeclarants(declarants.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
+
+                    newInitialValues.declarant_id = declarants.find(declarant => declarant.is_default) ? declarants.find(declarant => declarant.is_default).id : 0;
+                } else {
+                    setError('Ошибка получения ответственных лиц');
+                }
+
+                if (documents) {
+                    setDocumentTypes({
+                        ...documentTypes,
+                        id: documents.id.map(d => ({ text: d.name, value: d.id })),
+                        documents: documents.documents.map(d => ({ text: d.name, value: d.id, document_type_id: d.document_type_id }))
+                    });
+                } else {
+                    setError('Ошибка получения документов');
+                }
+
+                setInitialValues(newInitialValues);
+
+                setLoaded(true);
+            }).catch(error => handleError(error));
         }
     }, []);
 
@@ -138,82 +180,6 @@ const Application = ({ alias, history, status }) => {
                 setError('');
             }, 5000);
         }
-    };
-
-    const getOwner = async () => {
-        await Request({
-            url: `/api/nurseries/Nursery/pedigree_request_information`
-        }, data => {
-            if (data) {
-                setOwner(data);
-
-                setInitialValues({
-                    ...initialValues,
-                    owner_last_name: data.owner_last_name,
-                    owner_first_name: data.owner_first_name,
-                    owner_second_name: data.owner_second_name || ''
-                });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const getDocumentTypes = async () => {
-        await Request({
-            url: `/api/requests/commonrequest/rkf_document_types`
-        }, data => {
-            if (data) {
-                setDocumentTypes({
-                    ...documentTypes,
-                    id: data.id.map(d => ({ text: d.name, value: d.id })),
-                    documents: data.documents.map(d => ({ text: d.name, value: d.id, document_type_id: d.document_type_id }))
-                });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const getDeclarants = async () => {
-        await Request({
-            url: `/api/nurseries/nurserydeclarant/nursery_declarants`
-        }, data => {
-            if (data) {
-                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
-
-                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
-                setInitialValues({
-                    declarant_id: defaultDeclarant,
-                    is_foreign_owner: false,
-                    owner_last_name: '',
-                    owner_first_name: '',
-                    owner_second_name: '',
-                    express: false,
-                    pedigree_number: '',
-                    dog_name: '',
-                    is_foreign_pedigree: false,
-                    payment_date: '',
-                    payment_number: '',
-                    payment_document_id: '',
-                    payment_name: '',
-                    inn: '',
-                    comment: '',
-                    document_type_id: 0,
-                    rkf_document_type_id: 0,
-                    payment_document: [],
-                    documents: []
-                });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
     };
 
     const handleSubmit = async data => {
@@ -619,8 +585,10 @@ const Application = ({ alias, history, status }) => {
 
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Информация о платеже</h4>
-                                        {!disableAllFields &&
-                                            <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                        {!disableAllFields && <>
+                                            <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                            <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
+                                        </>
                                         }
                                         <div className="application-form__row">
                                             {editable ?

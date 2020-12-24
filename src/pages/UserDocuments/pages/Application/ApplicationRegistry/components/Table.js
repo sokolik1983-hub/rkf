@@ -161,11 +161,11 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
 
     const rowRender = (trElement, props) => {
         const status = props.dataItem.status_id;
-        const green = { backgroundColor: "#E9EDE9" };
-        const red = { backgroundColor: "#FFD6D9" };
-        const grey = { backgroundColor: "#D8FDE4" };
-        const draft = { backgroundColor: "#D4DAED" };
-        const trProps = { style: status === 1 ? red : status === 2 ? grey : status === 3 ? green : draft };
+        const done = { backgroundColor: "rgba(23, 162, 184, 0.15)" };
+        const rejected = { backgroundColor: "rgba(220, 53, 69, 0.15)" };
+        const in_work = { backgroundColor: "rgba(40, 167, 69, 0.15)" };
+        const not_sent = { backgroundColor: "rgba(255, 193, 7, 0.15)" };
+        const trProps = { style: status === 1 ? rejected : status === 2 ? in_work : status === 3 ? done : not_sent };
         return React.cloneElement(trElement, { ...trProps }, trElement.props.children);
     };
 
@@ -191,13 +191,14 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
                     <div className={'user-documents-status__filters-wrap'}>
-                        <ChipList
-                            selection="single"
-                            defaultData={categories}
-                            onChange={handleDropDownChange}
-                        />
+                        <div className={`chip-list__wrap ${fullScreen ? `_full_screen` : ``}`}>
+                            <ChipList
+                                selection="single"
+                                defaultData={categories}
+                                onChange={handleDropDownChange}
+                            />
+                        </div>
                     </div>
-                    <span style={{ fontSize: '12px' }}>Для копирования трек-номера нажмите на него</span>
                     {documents && <Grid
                         data={process(documents, gridData)}
                         rowRender={rowRender}
@@ -206,14 +207,14 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `664px` : `583px`}`, margin: '0 auto' }}>
+                        style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `583px`}`, margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? '110px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                        <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
                     </Grid>}
                     <GridPDFExport
                         fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}

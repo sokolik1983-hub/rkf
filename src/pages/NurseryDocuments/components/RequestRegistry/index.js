@@ -31,14 +31,23 @@ const RequestRegistry = ({ history, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <button
-                onClick={() => setStandardView(true)}
-                className="nursery-documents-status__popup-close"
-            >
-            </button>
+                    <div className="nursery-documents-status__controls _nursery_request_controls" style={{position: 'relative', top: '28px'}}>
+                    <button
+                        className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                        onClick={() => setExporting(true)}
+                        disabled={exporting}
+                    >
+                        Скачать PDF
+                    </button>
+                    <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(true)}>
+                        Уменьшить таблицу
+                    </button>
+                    </div>
             <Table
                 documents={documents}
                 distinction={distinction}
+                exporting={exporting}
+                setExporting={setExporting}
                 fullScreen
             />
         </Card> :

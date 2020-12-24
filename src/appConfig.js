@@ -46,6 +46,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/bank-details',
+        component: LoadableModules.LoadableBankDetails
+    },
+    {
+        exact: true,
         path: '/organizations',
         component: LoadableModules.LoadableOrganizations
     },
@@ -264,6 +269,11 @@ const appRoutes = [
         exact: true,
         path: '/docs/:id',
         component: LoadableModules.LoadableDocumentsPage
+    },
+    {
+        exact: true,
+        path: '/details-viewer/:id',
+        component: LoadableModules.LoadableDetailsViewer
     },
     {
         exact: true,

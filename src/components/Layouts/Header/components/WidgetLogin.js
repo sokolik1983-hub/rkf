@@ -14,7 +14,7 @@ import LightTooltip from "../../../LightTooltip";
 
 
 const WidgetLogin = forwardRef(
-    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link }, ref) => {
+    ({ isAuthenticated, is_active_profile, loginUserSuccess, logOutUser, logo_link ,login_page}, ref) => {
         const [open, setOpen] = useState(false);
         const [showModal, setShowModal] = useState(false);
 
@@ -23,7 +23,6 @@ const WidgetLogin = forwardRef(
         const logo = ls.get('user_info') ? ls.get('user_info').logo_link : logo_link;
         const userType = ls.get('user_info') ? ls.get('user_info').user_type : '';
         const accountType = ls.get('account_type') ? ls.get('account_type') : '';
-        const personalAccess = ls.get('personal_office_access') ? ls.get('personal_office_access') : false;
         const firstName = ls.get('user_info') ? ls.get('user_info').first_name : '';
         const lastName = ls.get('user_info') ? ls.get('user_info').last_name : '';
 
@@ -55,7 +54,7 @@ const WidgetLogin = forwardRef(
         };
 
         return (
-            <div className="widget-login">
+            <div className={`widget-login ${login_page ? `active` : ``}`}>
                 {isAuthenticated
                     ? <OutsideClickHandler ref={ref} onOutsideClick={() => setOpen(false)}>
                         <LightTooltip title="Аккаунт" enterDelay={200} leaveDelay={200}>
@@ -115,11 +114,9 @@ const WidgetLogin = forwardRef(
                                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                                         <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
                                                     </li>
-                                                    {personalAccess &&
-                                                        <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                            <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
-                                                        </li>
-                                                    }
+                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                        <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                    </li>
                                                 </>
                                             }
                                             {accountType === 5 && userType === 5 &&

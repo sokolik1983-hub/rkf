@@ -9,7 +9,7 @@ import {connectShowFilters} from "../connectors";
 import "./index.scss";
 
 
-const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
+const Header = ({withFilters, isOpenFilters, setShowFilters , login_page}) => (
     <header className="header">
         <Container className="header__content">
             <Link to="/" className="header__logo"/>
@@ -20,7 +20,7 @@ const Header = ({withFilters, isOpenFilters, setShowFilters}) => (
             <Nav/>
             <div className="header__widgets">
                 <Notifications/>
-                <WidgetLogin/>
+                <WidgetLogin login_page={login_page}/>
             </div>
         </Container>
     </header>

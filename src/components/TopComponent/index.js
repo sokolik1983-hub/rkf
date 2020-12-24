@@ -6,7 +6,7 @@ import Share from "components/Share";
 import UserActions from "components/UserActions";
 import "./index.scss";
 
-const TopComponent = ({ logo, name, withShare = true, withSubscribe, banner_link, subscribed, subscribed_id, member, onSubscriptionUpdate }) => {
+const TopComponent = ({ logo, name, withShare = true, withSubscribe, bank_details, banner_link, subscribed, subscribed_id, member, onSubscriptionUpdate }) => {
     const [shareAlert, setShareAlert] = useState(false);
     // const { userAgent, clipboard } = navigator;
     // const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
@@ -51,7 +51,7 @@ const TopComponent = ({ logo, name, withShare = true, withSubscribe, banner_link
     // };
 
     return (
-        <Card className="top-component">
+        <Card className={`top-component ${bank_details ? `_bank_details` : ``}`}>
             {banner_link &&
                 <div className="top-component__banner" style={{ backgroundImage: `url(${banner_link})` }} />
             }

@@ -548,8 +548,10 @@ const Application = ({ alias, history, status }) => {
 
                                     <div className="application-form__content">
                                         <h4 className="application-form__title">Информация о платеже</h4>
-                                        {!disableAllFields &&
-                                            <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                        {!disableAllFields && <>
+                                            <p style={{ marginBottom: '10px' }}>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                            <p>Обращаем Ваше внимание, что платежи могут обрабатываться банком 2-3 дня. При формировании срочной заявки старайтесь произвести платёж заблаговременно.</p>
+                                        </>
                                         }
                                         <div className="application-form__row">
                                             {editable ?

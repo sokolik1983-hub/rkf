@@ -217,8 +217,18 @@ export const LoadableDocumentsPage = Loadable({
     loading: Loading
 });
 
+export const LoadableDetailsViewer = Loadable({
+    loader: () => import('./pages/DetailsViewer'),
+    loading: Loading
+});
+
 export const LoadableBaseSearch = Loadable({
     loader: () => import('./pages/BaseSearch'),
+    loading: Loading
+});
+
+export const LoadableBankDetails = Loadable({
+    loader: () => import('./pages/BankDetails'),
     loading: Loading
 });
 

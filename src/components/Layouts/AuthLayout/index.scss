@@ -1,41 +1,24 @@
 .auth-layout {
   width: 100%;
-  min-height: 100%;
-  background-color: #ffffff;
-  padding-top: 50px;
+  min-height: calc(100vh - 102px);
+  background: url("/static/images/authorization/auth-bg.jpg") no-repeat left center;
+  background-attachment: fixed;
+  background-size: cover;
   display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: stretch;
-  @media (max-width: 560px) {
-    padding-top: 48px;
+  justify-content: flex-end;
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 158px);
   }
-  &__img {
-    display: flex;
-    flex-flow: column nowrap;
-    min-height: 100%;
-    max-width: 25%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-attachment: fixed;
-    flex: 1;
-    @media (max-width: 920px) {
-      display: none;
-    }
+  @media (max-width: 560px) {
+    min-height: calc(100vh - 156px);
   }
   &__content {
     display: flex;
-    flex-flow: column nowrap;
     box-sizing: border-box;
-    padding: 0 40px;
-    max-width: 668px;
+    max-width: 410px;
     width: 100%;
-    margin: 0 auto;
-    @media (max-width: 560px) {
-      padding: 0;
+    @media (max-width: 990px) {
+      max-width: none;
     }
-  }
-  .Card {
-    min-height: 100%;
   }
 }

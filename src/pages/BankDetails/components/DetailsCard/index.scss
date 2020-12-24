@@ -1,0 +1,81 @@
+.details-card {
+    margin-bottom: 16px;
+
+    &.Card {
+        padding: 24px 32px;
+    }
+
+    font-weight: normal;
+
+    @media (max-width: 560px) {
+        justify-content: flex-end;
+    }
+
+    &__title {
+        margin-bottom: 20px;
+        font-weight: 600 !important;
+    }
+
+    &__user-link {
+        padding-right: 175px;
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 700px) {
+            padding-right: 0;
+        }
+    }
+
+    &__text {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #E5E5E5;
+    }
+
+    &__icon {
+        float: right;
+        width: 145px;
+        height: 145px;
+        margin: 0 0 10px 10px;
+        background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
+
+        @media (max-width: 560px) {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.rkf-logo {
+            background-image: url("/static/icons/rkf_logo.svg");
+        }
+
+        &.rfss-logo {
+            background-image: url("/static/icons/rfss-icon.png");
+        }
+
+        &.rfos-logo {
+            background-image: url("/static/icons/rfos-icon.png");
+        }
+
+        &.rfls-logo {
+            background-image: url("/static/icons/rfls-icon.png");
+        }
+
+        &.rfos-logo {
+            background-image: url("/static/icons/rfos-icon.png");
+        }
+
+        &.oankoo-logo {
+            background-image: url("/static/icons/oankoo-icon.png");
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        color: #72839C;
+
+        &:hover {
+            transition: all .2s linear;
+            color: #3366ff;
+        }
+    }
+}

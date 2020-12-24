@@ -36,12 +36,13 @@
     background: url("/static/icons/psw-eye-closed.svg") center no-repeat;
     background-size: contain;
     border: none;
-    @media (max-width: 320px) {
-    }
     &._show-confirm {
       top: 157px;
       background: url("/static/icons/psw-eye-open.svg") center no-repeat;
       background-size: contain;
     }
+  }
+  #passwordConfirm {
+    padding-right: 38px;
   }
 }

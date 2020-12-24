@@ -16,7 +16,7 @@ export const clubNav = alias => [
     },
     {
         id: 2,
-        title: 'Лента публикаций',
+        title: 'Подписки',
         to: `/${alias}/news-feed/`,
         exact: false,
         icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
