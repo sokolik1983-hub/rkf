@@ -393,6 +393,14 @@
         }
       }
     }
+    &-left {
+      .k-i-heart-outline {
+        cursor: pointer;
+      }
+      .colored-icon {
+        color: #3366ff !important;
+      }
+    }
     &-right {
       & > div {
         margin-right: 0;

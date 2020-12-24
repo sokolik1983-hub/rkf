@@ -13,6 +13,7 @@ import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
+import { Request } from "utils/request";
 import moment from "moment";
 import "./index.scss";
 
@@ -56,7 +57,9 @@ const NewsFeedItem = forwardRef(({
     redirect_link,
     profile_id, // News item profile ID
     profileId, // User profile ID
-    handleUnsubscribe
+    handleUnsubscribe,
+    is_liked,
+    like_count
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -70,6 +73,32 @@ const NewsFeedItem = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
+        const [isLiked, setIsLiked] = useState(is_liked);
+        const [likesCount, setLikesCount] = useState(like_count);
+
+        const handleLikeClick = () => {
+            if (isLiked) {
+                Request({
+                    url: `/api/article/remove_like_from_article/`,
+                    method: 'PUT',
+                    data: JSON.stringify({ article_id: id })
+                },
+                    () => {
+                        setIsLiked(!isLiked);
+                        setLikesCount(likesCount - 1);
+                    }, e => console.log(e.response));
+            } else {
+                Request({
+                    url: `/api/article/add_like_to_article/`,
+                    method: 'POST',
+                    data: JSON.stringify({ article_id: id })
+                },
+                    () => {
+                        setIsLiked(!isLiked);
+                        setLikesCount(likesCount + 1);
+                    }, e => console.log(e.response));
+            }
+        }
 
         return <>
             <div className="NewsFeedItem__content">
@@ -247,8 +276,8 @@ const NewsFeedItem = forwardRef(({
             <div className="NewsFeedItem__controls">
                 <div className="NewsFeedItem__controls-left">
                     <div>
-                        <span className="k-icon k-i-heart-outline" />
-                        <span>0</span>
+                        <span className={`k-icon k-i-heart-outline${isLiked ? ' colored-icon' : ''}`} onClick={handleLikeClick} />
+                        <span>{likesCount}</span>
                     </div>
                     <div>
                         <span className="k-icon k-i-comment" />
