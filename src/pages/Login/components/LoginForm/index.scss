@@ -1,9 +1,9 @@
 .login-page {
   background-color: #f5f8ff;
   &__tabs {
-    border-bottom: 1px solid #90999E;
+    border-bottom: 1px solid #e8e8e8;
     margin-bottom: 50px;
-    padding: 0 25px 5px 25px;
+    padding: 0 25px 10px;
     display: flex;
     justify-content: space-between;
     @media (max-width: 560px) {
