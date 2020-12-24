@@ -144,6 +144,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "dev": "node scripts/dev.js",
+    "stage": "node scripts/stage.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
