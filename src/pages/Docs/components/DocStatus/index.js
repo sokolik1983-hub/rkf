@@ -132,12 +132,12 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 {innerDocuments &&
                     <div className="club-documents-status__table">
                         {!!innerDocuments.length
-                            ? <><h3>Вложенные заявки</h3>
+                            ? <div className="club-documents-status__table-wrap"><h3 className="club-documents-status__table-title">Вложенные заявки</h3>
                                 <RequestTable
                                     documents={innerDocuments}
                                     distinction={distinction}
                                     height="300px"
-                                /></>
+                                /></div>
                             : <h2>Вложенных заявок не найдено</h2>
                         }
                     </div>
