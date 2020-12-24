@@ -9,7 +9,7 @@ import UserHeader from "../../components/redesign/UserHeader";
 import CheckStatus from './components/CheckStatus';
 import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
-import {clubNav, endpointGetClubInfo} from "./config";
+import { clubNav, endpointGetClubInfo } from "./config";
 import { connectAuthVisible } from "../Login/connectors";
 import { VideoModal } from "components/Modal";
 import StickyBox from "react-sticky-box";
@@ -17,15 +17,16 @@ import useIsMobile from "../../utils/useIsMobile";
 import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {isFederationAlias} from "../../utils";
+import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import "./index.scss";
 
 
-const DocumentStatus = ({ history, match, user }) => {
+const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, isAuthenticated }) => {
     const [clubInfo, setClubInfo] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [canEdit, setCanEdit] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const isMobile = useIsMobile();
     const alias = match.params.route;
@@ -39,6 +40,7 @@ const DocumentStatus = ({ history, match, user }) => {
             } else {
                 setClubInfo(data);
                 setLoading(false);
+                setCanEdit(isAuthenticated && is_active_profile && profile_id === data.id);
             }
         }, error => {
             console.log(error.response);
@@ -46,6 +48,13 @@ const DocumentStatus = ({ history, match, user }) => {
             setLoading(false);
         }))();
     }, [match]);
+
+    const onSubscriptionUpdate = (subscribed) => {
+        setClubInfo({
+            ...clubInfo,
+            subscribed: subscribed
+        })
+    }
 
     return loading ?
         <Loading /> :
@@ -71,6 +80,11 @@ const DocumentStatus = ({ history, match, user }) => {
                                             federationAlias={clubInfo.federation_alias}
                                             active_rkf_user={clubInfo.active_rkf_user}
                                             active_member={clubInfo.active_member}
+                                            canEdit={canEdit}
+                                            subscribed={clubInfo.subscribed}
+                                            member={clubInfo.member}
+                                            onSubscriptionUpdate={onSubscriptionUpdate}
+                                            isAuthenticated={isAuthenticated}
                                         />
                                         <UserPhotoGallery
                                             alias={clubInfo.club_alias}
@@ -99,6 +113,11 @@ const DocumentStatus = ({ history, match, user }) => {
                                                 isFederation={clubInfo.user_type === 5}
                                                 active_rkf_user={clubInfo.active_rkf_user}
                                                 active_member={clubInfo.active_member}
+                                                canEdit={canEdit}
+                                                subscribed={clubInfo.subscribed}
+                                                member={clubInfo.member}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
                                             />
                                         }
                                         {isFederationAlias(clubInfo.club_alias) ?

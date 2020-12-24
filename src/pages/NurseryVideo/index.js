@@ -127,6 +127,13 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         </div>
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setNursery({
+            ...nursery,
+            subscribed: subscribed
+        })
+    }
+
     return (
         <>
             {!pageLoaded && !nursery
@@ -148,6 +155,10 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                 federationAlias={nursery.federation_alias}
                                                 active_rkf_user={nursery.active_rkf_user}
                                                 active_member={nursery.active_member}
+                                                canEdit={canEdit}
+                                                subscribed={nursery.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
                                             />
                                             {nursery.breeds && !!nursery.breeds.length &&
                                                 <BreedsList breeds={nursery.breeds} />
@@ -203,6 +214,10 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                     federationAlias={nursery.federation_alias}
                                                     active_rkf_user={nursery.active_rkf_user}
                                                     active_member={nursery.active_member}
+                                                    canEdit={canEdit}
+                                                    subscribed={nursery.subscribed}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
                                                 />
                                             }
                                             <UserMenu userNav={canEdit

@@ -8,10 +8,26 @@ import ModalDeleteAvatar from "./ModalDeleteAvatar";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { Link } from "react-router-dom";
 import LightTooltip from "../../LightTooltip";
+import UserActions from "components/UserActions";
+import { connectAuthVisible } from "pages/Login/connectors";
 import "./index.scss";
 
 
-const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updateInfo, alias }) => {
+const UserInfo = ({
+    isAuthenticated,
+    logo_link,
+    share_link,
+    first_name,
+    last_name,
+    canEdit,
+    updateInfo,
+    alias,
+    subscribed_id,
+    subscribed,
+    onSubscriptionUpdate,
+    onSuccess,
+    onError
+}) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
 
@@ -73,9 +89,18 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
                     {last_name && <p title={last_name}>{last_name}</p>}
                 </div>
             </div>
-            <Link to={`/user/${alias}/edit`} className="user-info__edit-profile">
-                Редактировать профиль
-            </Link>
+            {
+                canEdit
+                    ? <Link to={`/user/${alias}/edit`} className="user-info__edit-profile">Редактировать профиль</Link>
+                    : isAuthenticated && <UserActions
+                        userType={1}
+                        subscribed_id={subscribed_id}
+                        subscribed={subscribed}
+                        onSubscriptionUpdate={onSubscriptionUpdate}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                    />
+            }
             {modalType === 'edit' &&
                 <ModalEditAvatar closeModal={() => setModalType('')} updateInfo={updateInfo} />
             }
@@ -86,4 +111,4 @@ const UserInfo = ({ logo_link, share_link, first_name, last_name, canEdit, updat
     )
 };
 
-export default React.memo(UserInfo);
+export default React.memo(connectAuthVisible(UserInfo));

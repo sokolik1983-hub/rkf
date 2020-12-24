@@ -3,9 +3,10 @@ import Card from "../Card";
 import Alert from "../Alert";
 import { DEFAULT_IMG } from "../../appConfig";
 import Share from "components/Share";
+import UserActions from "components/UserActions";
 import "./index.scss";
 
-const TopComponent = ({ logo, name, withShare = true, banner_link, bank_details }) => {
+const TopComponent = ({ logo, name, withShare = true, withSubscribe, bank_details, banner_link, subscribed, subscribed_id, member, onSubscriptionUpdate }) => {
     const [shareAlert, setShareAlert] = useState(false);
     // const { userAgent, clipboard } = navigator;
     // const isSafari = userAgent.match(/safari|ipad|iphone/i) && !userAgent.match(/chrome/i);
@@ -61,7 +62,20 @@ const TopComponent = ({ logo, name, withShare = true, banner_link, bank_details 
                         <h2>{name}</h2>
                     </div>
                 </div>
-                <Share />
+                <div className="top-component__content-buttons">
+                    {
+                        withSubscribe && < UserActions
+                            userType={3}
+                            subscribed_id={subscribed_id}
+                            subscribed={subscribed}
+                            member={member}
+                            onSubscriptionUpdate={onSubscriptionUpdate}
+                        // onSuccess={onSuccess}
+                        // onError={onError}
+                        />
+                    }
+                    <Share />
+                </div>
             </div>
             {shareAlert &&
                 <Alert

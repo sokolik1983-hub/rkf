@@ -5,10 +5,11 @@ import Alert from "components/Alert";
 import { DEFAULT_IMG } from "appConfig";
 import { ActiveUserMark, FederationChoiceMark } from "../../Marks";
 import Share from "components/Share";
+import UserActions from "components/UserActions";
 import "./index.scss";
 
 
-const UserHeader = ({ user, logo, name, alias, profileId, federationName, federationAlias, isFederation = false, active_rkf_user, active_member }) => {
+const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, onSubscriptionUpdate, federationName, federationAlias, isFederation = false, active_rkf_user, active_member, isAuthenticated, canEdit }) => {
     const [shareAlert, setShareAlert] = useState(false);
 
     const shareOk = () => setShareAlert(false);
@@ -52,6 +53,20 @@ const UserHeader = ({ user, logo, name, alias, profileId, federationName, federa
                             </div>
                             {federationName && federationAlias && alias !== 'rkf' && alias !== 'rfss' && alias !== 'rfls' && alias !== 'rfos' && alias !== 'oankoo' &&
                                 <Link to={`/${federationAlias}`} className="user-header__federation">{federationName}</Link>
+                            }
+                            {
+                                !canEdit && isAuthenticated && <>
+                                    <hr style={{ margin: '12px 0 0 0' }} />
+                                    < UserActions
+                                        userType={3}
+                                        subscribed_id={profileId}
+                                        subscribed={subscribed}
+                                        member={member}
+                                        onSubscriptionUpdate={onSubscriptionUpdate}
+                                    // onSuccess={onSuccess}
+                                    // onError={onError}
+                                    />
+                                </>
                             }
                         </div>
                     </div>

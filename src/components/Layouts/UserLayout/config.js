@@ -17,7 +17,7 @@ export const userNav = alias => [
         id: 2,
         title: 'Подписки',
         to: `/user/${alias}/news-feed/`,
-        exact: true,
+        exact: false,
         icon: <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path d="M116.59.1,53.05,63.63h63.54Z" />
             <path d="M383.84,0H146.59V93.64H53V436.8H383.84V0ZM322.06,289.84H114.74v-30H322.06Zm0-63.74H114.74v-30H322.06Zm0-63.73H114.74v-30H322.06Z" />

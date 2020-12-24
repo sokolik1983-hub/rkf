@@ -8,21 +8,23 @@ import CitiesFilter from "../../../../components/Filters/CitiesFilter";
 import CalendarFilter from "../../../../components/Filters/CalendarFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
-import {isFederationAlias, setOverflow} from "../../../../utils";
+import { isFederationAlias, setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
 import { Request } from "../../../../utils/request";
 import { endpointExhibitionsFilters } from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
-import {clubNav} from "../../../Club/config";
+import { clubNav } from "../../../Club/config";
 import UserMenu from "../../../../components/Layouts/UserMenu";
 import MenuComponent from "../../../../components/MenuComponent";
+import { connectAuthVisible } from "pages/Login/connectors";
 import ls from "local-storage";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federationName, federationAlias, active_member, active_rkf_user }) => {
+const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user }) => {
     const [ranks, setRanks] = useState([]);
+    const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,6 +40,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
             setBreeds(data.breeds.filter(item => item.value !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
+            setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
@@ -59,6 +62,13 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
         setClearFilter(true);
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setClub({
+            ...club,
+            subscribed: subscribed
+        })
+    }
+
     return (
         <aside className={`exhibitions-page__filters exhibitions-filters${isOpenFilters ? ' _open' : ''}`}>
             <StickyBox offsetTop={65}>
@@ -77,6 +87,12 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                     federationAlias={federationAlias}
                                     active_member={active_member}
                                     active_rkf_user={active_rkf_user}
+                                    canEdit={canEdit}
+                                    subscribed={club.subscribed}
+                                    member={club.member}
+                                    subscribed_id={profileId = { profileId }}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                    isAuthenticated={isAuthenticated}
                                 />
                                 {isFederationAlias(filters.Alias) ?
                                     <MenuComponent
@@ -131,7 +147,7 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
                                 is_club_link={clubName && filters.Alias}
                             />
                         </div>
-                        <CopyrightInfo/>
+                        <CopyrightInfo />
                     </>
                 }
             </StickyBox>
@@ -139,4 +155,4 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, logo, federation
     )
 };
 
-export default connectShowFilters(React.memo(Filters));
+export default connectAuthVisible(connectShowFilters(React.memo(Filters)));

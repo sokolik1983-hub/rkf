@@ -13,11 +13,11 @@ import { DEFAULT_IMG } from "appConfig";
 import EditForm from "./EditForm";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf } from "@progress/kendo-svg-icons";
+import { Request } from "utils/request";
 import moment from "moment";
 import "./index.scss";
 
 const NewsFeedItem = forwardRef(({
-    user,
     id,
     name,
     alias,
@@ -55,7 +55,12 @@ const NewsFeedItem = forwardRef(({
     handleSuccess,
     redirect_link,
     profile_id, // News item profile ID
-    profileId // User profile ID
+    profileId, // User profile ID
+    handleUnsubscribe,
+    is_liked,
+    like_count,
+    user_type,
+    is_request_article
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -69,16 +74,42 @@ const NewsFeedItem = forwardRef(({
     const ViewItem = () => {
         const [isOpenControls, setIsOpenControls] = useState(false);
         const [collapsed, setCollapsed] = useState(false);
+        const [isLiked, setIsLiked] = useState(is_liked);
+        const [likesCount, setLikesCount] = useState(like_count);
+
+        const handleLikeClick = () => {
+            if (isLiked) {
+                Request({
+                    url: `/api/article/remove_like_from_article/`,
+                    method: 'PUT',
+                    data: JSON.stringify({ article_id: id })
+                },
+                    () => {
+                        setIsLiked(!isLiked);
+                        setLikesCount(likesCount - 1);
+                    }, e => console.log(e.response));
+            } else {
+                Request({
+                    url: `/api/article/add_like_to_article/`,
+                    method: 'POST',
+                    data: JSON.stringify({ article_id: id })
+                },
+                    () => {
+                        setIsLiked(!isLiked);
+                        setLikesCount(likesCount + 1);
+                    }, e => console.log(e.response));
+            }
+        }
 
         return <>
             <div className="NewsFeedItem__content">
                 <div className="NewsFeedItem__head">
                     <div className="NewsFeedItem__left">
-                        <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
+                        <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                             <div className="NewsFeedItem__left-logo" style={{
                                 background: `url(${logo_link ?
                                     logo_link :
-                                    user === 1 ?
+                                    user_type === 1 ?
                                         DEFAULT_IMG.userAvatar :
                                         DEFAULT_IMG.clubAvatar
                                     }) center center/cover no-repeat`
@@ -86,14 +117,15 @@ const NewsFeedItem = forwardRef(({
                         </Link>
                         <span className="NewsFeedItem__left-name">
                             <span>
-                                <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
-                                    {(user === 3 || user === 4 || user === 5) &&
-                                        <>
-                                            <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
+                                    <>
+                                        {user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}
                                 &nbsp;
                             </>
-                                    }
-                                    {user === 1 ? first_name + ' ' + last_name : name}
+                                }
+                                <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+
+                                    {user_type === 1 ? first_name + ' ' + last_name : name}
                                 </Link>
                                 {active_rkf_user &&
                                     <ActiveUserMark />
@@ -102,7 +134,7 @@ const NewsFeedItem = forwardRef(({
                                     <FederationChoiceMark />
                                 }
                             </span>
-                            <div style={{display: 'flex'}}>
+                            <div style={{ display: 'flex' }}>
                                 {formatDateTime(create_date)}
                                 {fact_city_name &&
                                     <span className="NewsFeedItem__city" title={fact_city_name}>
@@ -117,7 +149,7 @@ const NewsFeedItem = forwardRef(({
                             text="Подписка"
                             value="chip"
                             selected={true}
-                            disabled={true}
+                            onClick={() => handleUnsubscribe(profile_id)}
                         />
 
                         {canEdit && profileId === profile_id && alias === userAlias &&
@@ -246,8 +278,8 @@ const NewsFeedItem = forwardRef(({
             <div className="NewsFeedItem__controls">
                 <div className="NewsFeedItem__controls-left">
                     <div>
-                        <span className="k-icon k-i-heart-outline" />
-                        <span>0</span>
+                        <span className={`k-icon k-i-heart-outline${isLiked ? ' colored-icon' : ''}`} onClick={handleLikeClick} />
+                        <span>{likesCount}</span>
                     </div>
                     <div>
                         <span className="k-icon k-i-comment" />
@@ -269,11 +301,11 @@ const NewsFeedItem = forwardRef(({
         <div className="NewsFeedItem__content">
             <div className="NewsFeedItem__head">
                 <div className="NewsFeedItem__left">
-                    <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
+                    <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                         <div className="NewsFeedItem__left-logo" style={{
                             background: `url(${logo_link ?
                                 logo_link :
-                                user === 1 ?
+                                user_type === 1 ?
                                     DEFAULT_IMG.userAvatar :
                                     DEFAULT_IMG.clubAvatar
                                 }) center center/cover no-repeat`
@@ -281,14 +313,14 @@ const NewsFeedItem = forwardRef(({
                     </Link>
                     <span className="NewsFeedItem__left-name">
                         <span>
-                            <Link to={user === 4 ? `/kennel/${alias}` : user === 1 ? `/user/${alias}` : `/${alias}`}>
-                                {(user === 3 || user === 4 || user === 5) &&
+                            <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
+                                {(user_type === 3 || user_type === 4 || user_type === 5) &&
                                     <>
-                                        <span>{user === 3 ? 'Клуб' : user === 4 ? 'Питомник' : user === 5 ? 'Федерация' : ''}</span>
+                                        <span>{user_type === 3 ? 'Клуб' : user_type === 4 ? 'Питомник' : user_type === 5 ? 'Федерация' : ''}</span>
                                 &nbsp;
                             </>
                                 }
-                                {user === 1 ? first_name + ' ' + last_name : name}
+                                {user_type === 1 ? first_name + ' ' + last_name : name}
                             </Link>
                             {active_rkf_user &&
                                 <ActiveUserMark />
@@ -297,7 +329,7 @@ const NewsFeedItem = forwardRef(({
                                 <FederationChoiceMark />
                             }
                         </span>
-                        <div style={{display: 'flex'}}>
+                        <div style={{ display: 'flex' }}>
                             {formatDateTime(create_date)}
                             {fact_city_name &&
                                 <span className="NewsFeedItem__city" title={fact_city_name}>
@@ -333,7 +365,7 @@ const NewsFeedItem = forwardRef(({
     </>;
 
     return (
-        <Card className="NewsFeedItem">
+        <Card className={`NewsFeedItem${is_request_article ? ' is-request-article' : ''}`}>
             <div className={`NewsFeedItem__wrap${is_closed_advert ? ' is_closed' : ''}`}>
                 {isEditing ? <EditItem /> : <ViewItem />}
                 {showPhoto &&

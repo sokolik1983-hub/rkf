@@ -8,7 +8,7 @@ import { DEFAULT_IMG } from "appConfig";
 import ls from "local-storage";
 import './styles.scss';
 
-const NewsList = ({ canEdit, activeCategoryId }) => {
+const NewsList = ({ canEdit, activeCategoryId, notifySuccess, notifyError }) => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [startElement, setStartElement] = useState(1);
@@ -26,9 +26,9 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
             url: `/api/article/articles_feed?profile_id=${profileId}&start_element=${startElement}&size=10&filter_type=${activeCategoryId}`
         },
             data => {
-                setNews(reset ? data.articles : [...news, ...data.articles]);
+                setNews(reset ? data ? data.articles : [] : [...news, ...data.articles]);
                 setLoading(false);
-                if (data.articles.length < 10) {
+                if (!data || data.articles?.length < 10) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
@@ -85,6 +85,23 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
         getNews(1, true);
     }
 
+    const handleUnsubscribe = id => {
+        if (window.confirm('Вы действительно хотите отписаться?')) {
+            Request({
+                url: '/api/article/unsubscribe',
+                method: 'PUT',
+                data: JSON.stringify({ "subscription_profile_id": id })
+            }, () => {
+                getNews(1, true);
+                notifySuccess && notifySuccess('Подписка отменена!')
+            },
+                e => {
+                    notifyError ? notifyError(e) : alert('Произошла ошибка');
+                    setLoading(false);
+                });
+        }
+    }
+
     return loading
         ? <Loading centered={false} />
         : news
@@ -110,6 +127,7 @@ const NewsList = ({ canEdit, activeCategoryId }) => {
                         onAdClose={onAdClose}
                         handleSuccess={handleSuccess}
                         userAlias={userAlias}
+                        handleUnsubscribe={handleUnsubscribe}
                     />)
                 }
             </InfiniteScroll>

@@ -4,6 +4,7 @@ import Container from "../Container";
 import Search from "./components/Search";
 import Nav from "./components/Nav";
 import WidgetLogin from "./components/WidgetLogin";
+import Notifications from "./components/Notifications";
 import {connectShowFilters} from "../connectors";
 import "./index.scss";
 
@@ -17,7 +18,10 @@ const Header = ({withFilters, isOpenFilters, setShowFilters , login_page}) => (
             }
             <Search withFilters={withFilters} />
             <Nav/>
-            <WidgetLogin login_page={login_page}/>
+            <div className="header__widgets">
+                <Notifications/>
+                <WidgetLogin login_page={login_page}/>
+            </div>
         </Container>
     </header>
 );

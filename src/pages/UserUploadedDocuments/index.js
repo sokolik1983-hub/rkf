@@ -51,6 +51,13 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
         });
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setUserInfo({
+            ...userInfo,
+            subscribed: subscribed
+        })
+    }
+
     return (!loaded
         ? <Loading />
         : errorRedirect
@@ -70,13 +77,16 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                                     first_name={userInfo.personal_information ? userInfo.personal_information.first_name : 'Аноним'}
                                     last_name={userInfo.personal_information ? userInfo.personal_information.last_name : ''}
                                     alias={alias}
+                                    subscribed={userInfo.subscribed}
+                                    subscribed_id={userInfo.profile_id}
+                                    onSubscriptionUpdate={onSubscriptionUpdate}
                                     updateInfo={getUser}
                                 />
                             </Card>
                             <UserMenu userNav={canEdit
-                                    ? userNav(alias) // Show NewsFeed menu item to current user only
-                                    : userNav(alias).filter(i => i.id !== 2)}
-                                />
+                                ? userNav(alias) // Show NewsFeed menu item to current user only
+                                : userNav(alias).filter(i => i.id !== 2)}
+                            />
                             {!isMobile &&
                                 <>
                                     <UserPhotoGallery

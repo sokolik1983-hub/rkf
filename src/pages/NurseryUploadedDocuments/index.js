@@ -15,7 +15,7 @@ import { Request } from "utils/request";
 import { connectAuthVisible } from "../Login/connectors";
 import useIsMobile from "../../utils/useIsMobile";
 import UploadedDocuments from "components/UploadedDocuments";
-import {kennelNav} from "../Nursery/config";
+import { kennelNav } from "../Nursery/config";
 import BreedsList from "../../components/BreedsList";
 import "./styles.scss";
 import "pages/Nursery/index.scss";
@@ -64,6 +64,13 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
         });
     };
 
+    const onSubscriptionUpdate = (subscribed) => {
+        setNursery({
+            ...nursery,
+            subscribed: subscribed
+        })
+    }
+
     return (
         <>
             {!pageLoaded && !nursery
@@ -85,6 +92,10 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                 federationAlias={nursery.federation_alias}
                                                 active_rkf_user={nursery.active_rkf_user}
                                                 active_member={nursery.active_member}
+                                                canEdit={canEdit}
+                                                subscribed={nursery.subscribed}
+                                                onSubscriptionUpdate={onSubscriptionUpdate}
+                                                isAuthenticated={isAuthenticated}
                                             />
                                             {nursery.breeds && !!nursery.breeds.length &&
                                                 <BreedsList breeds={nursery.breeds} />
@@ -113,6 +124,10 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                     federationAlias={nursery.federation_alias}
                                                     active_rkf_user={nursery.active_rkf_user}
                                                     active_member={nursery.active_member}
+                                                    canEdit={canEdit}
+                                                    subscribed={nursery.subscribed}
+                                                    onSubscriptionUpdate={onSubscriptionUpdate}
+                                                    isAuthenticated={isAuthenticated}
                                                 />
                                             }
                                             <UserMenu userNav={canEdit
