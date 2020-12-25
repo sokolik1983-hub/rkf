@@ -1,6 +1,7 @@
 import {number, boolean, string, object, mixed, array} from "yup";
 import {reqText, reqEmail, numbersOnly, lat, reqCheckbox} from "../../config.js";
 
+const latOptional = () => string().matches(/^[^а-я]+$/i, {message: 'Поле заполняется латиницей', excludeEmptyString: true})
 
 const endpointGetFederations = '/api/clubs/Federation';
 const apiDoctypeEndpoint = '/api/requests/NurseryLitterRequest/additional_document_types';
@@ -53,7 +54,7 @@ const validationSchema = {
         id: number(),
         dog_name: string().required(reqText),
         dog_color: string().required(reqText),
-        dog_name_lat: string(),
+        dog_name_lat: latOptional(),
         dog_sex_type_id: number().required(reqText).typeError(reqText),
         stamp_number: numbersOnly().required(reqText),
         chip_number: string(),
