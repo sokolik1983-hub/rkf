@@ -37,12 +37,14 @@ const NotificationsProvider = ({ isAuthenticated, children }) => {
         connection.start()
             .catch(() => console.log('Error while establishing connection :('))
             .then(function () {
-                connection.invoke('GetConnectionId').then(function (data) {
-                    setPushedNotification({
-                        ...pushedNotification,
-                        hasNewMessage: JSON.parse(data).has_new
-                    });
-                })
+                if (connection.state === 'Connected') {
+                    connection.invoke('GetConnectionId').then(function (data) {
+                        setPushedNotification({
+                            ...pushedNotification,
+                            hasNewMessage: JSON.parse(data).has_new
+                        });
+                    })
+                }
             })
         setCurrentConnection(connection);
     }
