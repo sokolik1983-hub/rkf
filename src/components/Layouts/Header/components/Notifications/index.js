@@ -71,9 +71,12 @@ const Notifications = forwardRef(
         const getNotifications = async (type = 1) => {
             setLoaded(false);
             await Request({
-                url: `/api/article/notifications?IsNeedCounters=true&StartElement=1&Type=${type}`
+                url: `/api/article/notifications?id=${type}`
             }, ({ notifications, counters }) => {
                 const { counter_of_new, counter_of_must_to_read, counter_of_request } = counters;
+                if (Object.values(counters).reduce((a, b) => a + b) === 0) {
+                    setShowDot(false);
+                }
                 setCategories([
                     { ...categories.find(c => c.id === 2), count: counter_of_new },
                     { ...categories.find(c => c.id === 3), count: counter_of_must_to_read },
@@ -88,7 +91,7 @@ const Notifications = forwardRef(
         }
 
         const handleNotificationsClick = () => {
-            !open && !notifications.length && getNotifications();
+            !open && getNotifications();
             setOpen(!open);
         }
 
@@ -158,13 +161,15 @@ const Notifications = forwardRef(
                                     ? <Loading centered={false} />
                                     : <>
                                         <div className="Notifications__list">
-                                            {
-                                                notifications.length
-                                                    ? notifications.map((n, key) => {
-                                                        return <NotificationItem key={key} {...n} />
-                                                    })
-                                                    : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
-                                            }
+                                            <div className="Notifications__list-inner">
+                                                {
+                                                    notifications.length
+                                                        ? notifications.map((n, key) => {
+                                                            return <NotificationItem key={key} {...n} />
+                                                        })
+                                                        : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
+                                                }
+                                            </div>
                                             <div className="Notifications__list-see-all">
                                                 <Link to={() => getNewsFeedLink()} >Посмотреть все</Link>
                                             </div>
