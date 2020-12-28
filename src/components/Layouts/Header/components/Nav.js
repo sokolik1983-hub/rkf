@@ -10,7 +10,7 @@ import { connectAuthVisible } from "../../../../pages/Login/connectors";
 import useIsMobile from "../../../../utils/useIsMobile";
 
 
-const Nav = ({ isAuthenticated }) => {
+const Nav = ({ isAuthenticated, login_page }) => {
     const [isOpen, setIsOpen] = useState(false);
     const isMobile = useIsMobile();
 
@@ -76,7 +76,7 @@ const Nav = ({ isAuthenticated }) => {
                         )}
                     </ul>
                     {!isAuthenticated &&
-                        <div className="header__nav-item--feedback">
+                        <div className={`header__nav-item--feedback${login_page ? ' login-page' : ''}`}>
                             <Feedback isMainNav={true} />
                         </div>
                     }

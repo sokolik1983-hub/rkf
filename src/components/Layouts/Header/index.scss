@@ -270,6 +270,10 @@
         margin-right: 28px;
         position: relative;
         top: 0;
+        &.login-page {
+          margin: 0;
+          background: none;
+        }
       }
       &--desktop {
         margin-right: 24px;

@@ -1,6 +1,6 @@
 export const categories = [
     {
-        name: 'Все публикации',
+        name: 'Все',
         id: 1,
         icon: 'NewsFeed__icon NewsFeed__icon--publications'
     },
