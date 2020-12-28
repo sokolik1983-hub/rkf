@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {NavLink, Redirect} from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { compose } from "redux";
 import Layout from "../../components/Layouts";
 import AuthLayout from "../../components/Layouts/AuthLayout";
@@ -11,7 +11,8 @@ import IndividualRegistration from "./components/IndividualRegistration";
 import reducer from "../Login/reducer";
 import injectReducer from "../../utils/injectReducer";
 import { connectAuthVisible } from "../Login/connectors";
-import {LOGIN_URL, REGISTRATION_URL} from "../../appConfig";
+import { LOGIN_URL, REGISTRATION_URL } from "../../appConfig";
+import CopyrightInfo from "components/CopyrightInfo";
 import "./index.scss";
 
 
@@ -32,22 +33,22 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
                             <HorizontalSwipe id="registration-page__tabs-controls">
                                 <ul className="registration-page__tabs-list">
                                     <li className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
-                                         onClick={() => setActiveTab('individual')}
+                                        onClick={() => setActiveTab('individual')}
                                     >
                                         Физическое лицо
                                     </li>
                                     <li className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
-                                         onClick={() => setActiveTab('nursery')}
+                                        onClick={() => setActiveTab('nursery')}
                                     >
                                         Питомник
                                     </li>
                                     <li className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
-                                         onClick={() => setActiveTab('club')}
+                                        onClick={() => setActiveTab('club')}
                                     >
                                         Клуб
                                     </li>
                                     <li className={`registration-page__tab _disabled`}
-                                         onClick={() => null}
+                                        onClick={() => null}
                                     >
                                         НКП
                                     </li>
@@ -58,6 +59,7 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
                         {activeTab === 'nursery' && <NurseryRegistration />}
                         {activeTab === 'club' && <ClubRegistration />}
                     </div>
+                    <CopyrightInfo withSocials={true} />
                 </Card>
             </AuthLayout>
         </Layout>

@@ -12,11 +12,19 @@
   @media (max-width: 560px) {
     min-height: calc(100vh - 156px);
   }
+  &.login-page{
+    min-height: calc(100vh - 52px);
+  }
   &__content {
     display: flex;
     box-sizing: border-box;
     max-width: 410px;
     width: 100%;
+    .Card{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     @media (max-width: 990px) {
       max-width: none;
     }
