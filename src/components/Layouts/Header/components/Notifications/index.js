@@ -34,7 +34,7 @@ const defaultCategories = [
 ];
 
 const Notifications = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }, ref) => {
+    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }) => {
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
         const [controlsOpen, setControlsOpen] = useState(false);
@@ -110,6 +110,13 @@ const Notifications = forwardRef(
             }
         }
 
+        const handleOutsideClick = (e) => {
+            if (e?.target.className !== 'Notifications__icon') {
+                setOpen(false);
+                setControlsOpen(false);
+            }
+        }
+
         return (
             <div className="Notifications">
                 {isAuthenticated
@@ -128,7 +135,7 @@ const Notifications = forwardRef(
                             onExited={() => { setNotifications([]); setCurrentCategory(1); }}
                         >
                             <div className="Notifications__content">
-                                <OutsideClickHandler ref={ref} onOutsideClick={() => setControlsOpen(false)}>
+                                <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                     <div className="Notifications__controls">
                                         <h4 onClick={() => setControlsOpen(!controlsOpen)}>
                                             {
@@ -156,25 +163,25 @@ const Notifications = forwardRef(
                                             />
                                         </div>
                                     </CSSTransition>
+                                    {!loaded
+                                        ? <Loading centered={false} />
+                                        : <>
+                                            <div className="Notifications__list">
+                                                <div className="Notifications__list-inner">
+                                                    {
+                                                        notifications.length
+                                                            ? notifications.map((n, key) => {
+                                                                return <NotificationItem key={key} {...n} />
+                                                            })
+                                                            : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
+                                                    }
+                                                </div>
+                                                <div className="Notifications__list-see-all">
+                                                    <Link to={() => getNewsFeedLink()} >Посмотреть все</Link>
+                                                </div>
+                                            </div>
+                                        </>}
                                 </OutsideClickHandler>
-                                {!loaded
-                                    ? <Loading centered={false} />
-                                    : <>
-                                        <div className="Notifications__list">
-                                            <div className="Notifications__list-inner">
-                                                {
-                                                    notifications.length
-                                                        ? notifications.map((n, key) => {
-                                                            return <NotificationItem key={key} {...n} />
-                                                        })
-                                                        : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
-                                                }
-                                            </div>
-                                            <div className="Notifications__list-see-all">
-                                                <Link to={() => getNewsFeedLink()} >Посмотреть все</Link>
-                                            </div>
-                                        </div>
-                                    </>}
                             </div>
                         </CSSTransition>
                     </>
