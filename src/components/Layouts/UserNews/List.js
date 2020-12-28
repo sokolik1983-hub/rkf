@@ -1,14 +1,16 @@
 import React from "react";
-import CardNews from "../../CardNews";
+import CardNewsNew from "../../CardNewsNew";
 
 
-const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name}) => (
+const List = ({list, className, isFullDate = true, removable, onAdClose, onDelete, first_name, last_name, canEdit}) => {
+    return (
     <div className={`list${className ? ' ' + className : ''}`}>
         <ul className="list__content">
             {list && !!list.length && list.map(item =>
                 <li className="list__item" key={item.id}>
-                    <CardNews
+                    <CardNewsNew
                         {...item}
+                        canEdit={canEdit}
                         user={item.user_type}
                         city={item.fact_city_name}
                         date={item.create_date}
@@ -35,6 +37,6 @@ const List = ({list, className, isFullDate = true, removable, onAdClose, onDelet
             )}
         </ul>
     </div>
-);
+);}
 
 export default React.memo(List);
