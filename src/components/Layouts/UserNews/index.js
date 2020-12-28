@@ -56,26 +56,17 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
 
     const deleteArticle = async id => {
         if (window.confirm('Вы действительно хотите удалить эту новость?')) {
-            const el = newsListRef.current;
-            el && window.scrollTo(0, el.offsetTop - 44);
-
             await Request({
-                url: endpointDeleteArticle + id,
+                url: '/api/Article/' + id,
                 method: 'DELETE'
             }, () => {
-                setNeedRequest(true);
-                if(!!profileInfo){
-                    setProfileInfo({...profileInfo, 
-                        counters: {
-                            ...profileInfo.counters,
-                            publications_count: profileInfo.counters.publications_count - 1
-                        }});
-                }
+                setLoading(true);
+                getNews(1, true);
             },
-            error => {
-                console.log(error);
-                alert('Новость не удалена');
-            });
+                error => {
+                    console.log(error);
+                    alert('Новость не удалена');
+                });
         }
     };
 
@@ -132,6 +123,7 @@ const UserNews = ({canEdit, alias, needRequest, setNeedRequest, setProfileInfo, 
             >
                 <List
                     list={news}
+                    canEdit={canEdit}
                     className="user-news"
                     isFullDate={true}
                     removable={canEdit}
