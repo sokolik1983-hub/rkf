@@ -75,11 +75,6 @@ const Nav = ({ isAuthenticated, login_page }) => {
                             </li>
                         )}
                     </ul>
-                    {!isAuthenticated &&
-                        <div className={`header__nav-item--feedback${login_page ? ' login-page' : ''}`}>
-                            <Feedback isMainNav={true} />
-                        </div>
-                    }
                 </>
             }
         </nav>
