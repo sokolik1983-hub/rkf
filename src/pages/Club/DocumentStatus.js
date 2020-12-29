@@ -138,7 +138,7 @@ const DocumentStatus = ({ history, match, user, is_active_profile, profile_id, i
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/video`}
                                                 />
-                                                <CopyrightInfo />
+                                                <CopyrightInfo withSocials={true} />
                                             </>
                                         }
                                     </div>

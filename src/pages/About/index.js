@@ -7,6 +7,8 @@ import Statistics from "../../components/Statistics";
 import FeedbackComponent from "./components/Feedback";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
+import CopyrightInfo from "components/CopyrightInfo";
+import Card from "components/Card";
 import "./index.scss";
 
 
@@ -33,7 +35,8 @@ const AboutPage = () => {
                     <aside className="about-page__info">
                         <FeedbackComponent />
                         <Statistics isAboutPage />
-                        <Banner type = {BANNER_TYPES.aboutRkfOnlineRightSiteBar}/>
+                        <Banner type={BANNER_TYPES.aboutRkfOnlineRightSiteBar} />
+                        <CopyrightInfo withSocials={true} />
                     </aside>
                 </div>
             </Container>

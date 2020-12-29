@@ -148,7 +148,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                                         pageLink={`/kennel/${alias}/video`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo />
+                                                    <CopyrightInfo withSocials={true} />
                                                 </>
                                             }
                                         </div>

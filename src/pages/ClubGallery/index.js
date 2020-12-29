@@ -294,7 +294,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                         pageLink={`/${clubInfo.club_alias}/video`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo />
+                                                    <CopyrightInfo withSocials={true} />
                                                 </>
                                             }
                                         </div>

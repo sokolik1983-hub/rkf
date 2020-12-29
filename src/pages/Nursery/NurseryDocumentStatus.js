@@ -117,7 +117,7 @@ const NurseryDocumentStatus = ({ history, match, user }) => {
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
                                                 />
-                                                <CopyrightInfo />
+                                                <CopyrightInfo withSocials={true} />
                                             </>
                                         }
                                         {isMobile &&

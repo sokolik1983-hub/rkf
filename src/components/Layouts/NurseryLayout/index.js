@@ -124,7 +124,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                                     pageLink={`/kennel/${alias}/video`}
                                                     canEdit={canEdit}
                                                 />
-                                                <CopyrightInfo />
+                                                <CopyrightInfo withSocials={true} />
                                             </>
                                         }
                                     </div>

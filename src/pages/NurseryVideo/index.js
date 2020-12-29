@@ -233,7 +233,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                                         pageLink={`/kennel/${alias}/gallery`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo />
+                                                    <CopyrightInfo withSocials={true} />
                                                 </>
                                             }
                                         </div>

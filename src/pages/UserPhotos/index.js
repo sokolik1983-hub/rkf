@@ -207,7 +207,7 @@ const UserPhotosPage = ({ history, match, profile_id, is_active_profile, isAuthe
                                             pageLink={`/user/${alias}/video`}
                                             canEdit={canEdit}
                                         />
-                                        <CopyrightInfo />
+                                        <CopyrightInfo withSocials={true} />
                                     </>
                                 }
                             </StickyBox>

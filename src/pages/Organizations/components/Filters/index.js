@@ -217,7 +217,7 @@ const Filters = ({ organization_type,
                                 }
                             </>
                         }
-                        <CopyrightInfo />
+                        <CopyrightInfo withSocials={true} />
                     </div>
                 </StickyBox>
             }

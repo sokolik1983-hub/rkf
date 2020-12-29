@@ -130,7 +130,7 @@ const NewsPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                     alias={alias}
                                                     pageLink={`/kennel/${alias}/video`}
                                                 />
-                                                <CopyrightInfo />
+                                                <CopyrightInfo withSocials={true} />
                                             </>
                                         }
                                     </div>
