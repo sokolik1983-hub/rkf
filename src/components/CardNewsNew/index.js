@@ -105,7 +105,7 @@ const CardNewsNew = forwardRef(({
 
         return <>
             <div className="CardNewsNew__content">
-                <div className="CardNewsNew__head" style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__head" style={{margin: '0 12px 0 12px'}}>
                     <div className="CardNewsNew__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                             <div className="CardNewsNew__left-logo" style={{
@@ -188,7 +188,7 @@ const CardNewsNew = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''}  style={{margin: '0 10px 0 10px'}}>
+                <div className={!collapsed ? 'CardNewsNew__text-wrap' : ''}  style={{margin: '0 12px 0 12px'}}>
                     {is_advert && <div className="CardNewsNew__ad">
                         <p className="CardNewsNew__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -208,7 +208,7 @@ const CardNewsNew = forwardRef(({
                         dangerouslySetInnerHTML={{ __html: formatText(content) }}
                     />
                 </div>
-                <div className="CardNewsNew__show-all-wrap"  style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__show-all-wrap"  style={{margin: '0 12px 0 12px'}}>
                     {
                         is_request_article
                             ? <div className="CardNewsNew__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
@@ -246,7 +246,7 @@ const CardNewsNew = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="CardNewsNew__documents"  style={{margin: '0 10px 0 10px'}}>
+                <div className="CardNewsNew__documents"  style={{margin: '0 12px 0 12px'}}>
                     <ul className="CardNewsNew__documents-list">
                         {documents.map(d =>
                             <li className="DocumentItem" key={d.id}>
