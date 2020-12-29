@@ -59,7 +59,8 @@ const CardNewsNew = forwardRef(({
     like_count,
     user_type,
     is_request_article,
-    member = false
+    member = false,
+    isFederation,
 }) => {
     const [canCollapse, setCanCollapse] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -169,7 +170,7 @@ const CardNewsNew = forwardRef(({
                                                         // onClick={() => setIsEditing(true)}
                                                     >
                                                         {/* <span>Редактировать</span> */}
-                                                        <Link to={`${url}/edit`} style={{textDecoration: 'none'}}>Редактировать</Link>
+                                                        {isFederation ? <Link to={`/news/${id}`} style={{textDecoration: 'none'}}>Подробнее...</Link> : <Link to={`${url}/edit`} style={{textDecoration: 'none'}}>Редактировать</Link>}
                                                     </li>
                                                 }
                                                 {is_advert && !is_closed_advert &&

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import NewsCard from "../NewsCard";
+import NewsCardNew from "../../components/CardNewsNew";
 import Placeholder from "../NewsCard/Placeholder";
 import Paginator from "../Paginator";
 import {Request} from "../../utils/request";
@@ -14,7 +14,7 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
 
     const getNews = async page => {
         await Request({
-            url: `/api/Article/public?alias=${alias}&page=${page}&size=5`
+            url: `/api/Article/public_v2?alias=${alias}&page=${page}&size=5`
         }, data => {
             setNews(data.articles);
             setPagesCount(Math.ceil(data.articles_count / 5));
@@ -58,7 +58,12 @@ const NewsComponent = ({alias, page, setPage, needRequest, setNeedRequest, canEd
                 {news && news.length ?
                     news.map(item =>
                         <li className="news-component__item" key={item.id}>
-                            <NewsCard {...item} canEdit={canEdit} onDelete={deleteArticle}/>
+                            <NewsCardNew 
+                                {...item} 
+                                canEdit={canEdit} 
+                                onDelete={deleteArticle} 
+                                isFederation
+                            />
                         </li>
                     ) :
                     newsPlaceholder.map(item =>
