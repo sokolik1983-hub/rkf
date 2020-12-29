@@ -149,7 +149,7 @@ const NewsPage = ({ history, match, profile_id, isAuthenticated, user }) => {
                                                     alias={clubInfo.club_alias}
                                                     pageLink={`/${clubInfo.club_alias}/video`}
                                                 />
-                                                <CopyrightInfo />
+                                                <CopyrightInfo withSocials={true} />
                                             </>
                                         }
                                     </div>

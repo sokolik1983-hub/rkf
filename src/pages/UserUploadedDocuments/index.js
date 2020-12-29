@@ -99,7 +99,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                                         pageLink={`/user/${alias}/video`}
                                         canEdit={canEdit}
                                     />
-                                    <CopyrightInfo />
+                                    <CopyrightInfo withSocials={true} />
                                 </>
                             }
                         </StickyBox>

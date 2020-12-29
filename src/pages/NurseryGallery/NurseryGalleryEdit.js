@@ -296,7 +296,7 @@ const NurseryGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, ma
                                                             pageLink={`/kennel/${alias}/video`}
                                                             canEdit={canEdit}
                                                         />
-                                                        <CopyrightInfo />
+                                                        <CopyrightInfo withSocials={true} />
                                                     </>
                                                 }
                                             </div>

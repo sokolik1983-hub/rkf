@@ -146,8 +146,8 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                 onChange={filter => setFiltersToUrl({ RankIds: filter })}
                                 is_club_link={clubName && filters.Alias}
                             />
+                            <CopyrightInfo withSocials={true} />
                         </div>
-                        <CopyrightInfo />
                     </>
                 }
             </StickyBox>

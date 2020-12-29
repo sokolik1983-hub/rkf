@@ -124,7 +124,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                     {user_type === 4 && <UserMenu
                                         userNav={kennelNav(alias)}
                                     />}
-                                    <CopyrightInfo />
+                                    <CopyrightInfo withSocials={true} />
                                 </div>
                             </StickyBox>
                         </Aside>

@@ -72,7 +72,7 @@ const Home = ({ userAlias, history, profile_id, is_active_profile, isAuthenticat
                                 />
                             </Card>
                             <UserMenu userNav={userNav(userAlias)} />
-                            <CopyrightInfo />
+                            <CopyrightInfo withSocials={true} />
                         </StickyBox>
                     </aside>
                     <div className="user-documents__right">

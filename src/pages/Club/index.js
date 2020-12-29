@@ -172,7 +172,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                                         pageLink={`/${clubInfo.club_alias}/video`}
                                                         canEdit={canEdit}
                                                     />
-                                                    <CopyrightInfo />
+                                                    <CopyrightInfo withSocials={true} />
                                                 </>
                                             }
                                         </div>

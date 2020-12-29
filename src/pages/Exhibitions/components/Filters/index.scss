@@ -34,7 +34,7 @@
     height: calc(100% - 48px);
   }
   &__wrap {
-    background-color: #f5f8ff;
+    overflow: hidden;
     @media (min-width: 990px) {
       margin-bottom: 16px;
     }
@@ -70,7 +70,7 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid transparent;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     &:hover {
       color: #3366ff;
     }

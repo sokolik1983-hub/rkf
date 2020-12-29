@@ -17,6 +17,7 @@ import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import { Request } from "utils/request";
 import Loading from "../../components/Loading";
+import CopyrightInfo from "components/CopyrightInfo";
 
 
 const HomePage = ({ homepage, cities }) => {
@@ -89,10 +90,7 @@ const HomePage = ({ homepage, cities }) => {
                                                 <ClubsMap />
                                             </div>
                                         </Card>
-                                        <div className="home-page__copy-wrap">
-                                            <p>© 1991—{new Date().getFullYear()} СОКО РКФ.</p>
-                                            <p>Политика обработки персональных данных</p>
-                                        </div>
+                                        <CopyrightInfo withSocials={true} />
                                     </div>
                                 </StickyBox>
                             </Aside>

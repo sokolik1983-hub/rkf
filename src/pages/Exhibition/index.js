@@ -156,7 +156,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
                                         <UserGallery alias={club_alias} />
-                                        <CopyrightInfo />
+                                        <CopyrightInfo withSocials={true} />
                                         <div className="mobile-only">
                                             <div className="exhibition-page__title-wrap">
                                                 <h2 className="exhibition-page__title">{exhibition.name}</h2>

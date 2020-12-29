@@ -182,7 +182,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                             pageLink={`/user/${alias}/gallery`}
                                             canEdit={canEdit}
                                         />
-                                        <CopyrightInfo />
+                                        <CopyrightInfo withSocials={true} />
                                     </>
                                 }
                             </StickyBox>

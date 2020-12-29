@@ -228,6 +228,7 @@
       }
     }
     &-inner {
+      overflow: hidden;
       @media (max-width: 990px) {
         .user-header,
         .user-gallery__wrap {

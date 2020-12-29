@@ -136,7 +136,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
                                             pageLink={`/user/${alias}/video`}
                                             canEdit={canEdit}
                                         />
-                                        <CopyrightInfo />
+                                        <CopyrightInfo withSocials={true} />
                                     </>
                                 }
                             </StickyBox>
