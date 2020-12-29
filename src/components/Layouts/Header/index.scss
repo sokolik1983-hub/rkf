@@ -266,15 +266,6 @@
     }
     &-item {
       position: relative;
-      &--feedback {
-        margin-right: 28px;
-        position: relative;
-        top: 0;
-        &.login-page {
-          margin-right: -18px;
-          background: none;
-        }
-      }
       &--desktop {
         margin-right: 24px;
       }
@@ -454,6 +445,23 @@
   }
   &__widgets {
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    @media (min-width: 560px) {
+      min-width: 448px;
+    }
+    &--feedback {
+      margin-right: 28px;
+      position: relative;
+      top: 5px;
+      @media (max-width: 560px) {
+        display: none;
+      }
+      &.login-page {
+        margin-right: -18px;
+        background: none;
+      }
+    }
   }
 }
 
@@ -693,7 +701,4 @@
   &:hover {
     fill: #90999e;
   }
-}
-._uthenticated {
-  margin-left: 17%;
 }
