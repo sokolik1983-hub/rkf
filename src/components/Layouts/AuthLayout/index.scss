@@ -1,6 +1,6 @@
 .auth-layout {
   width: 100%;
-  min-height: calc(100vh - 102px);
+  min-height: calc(100vh - 52px);
   background: url("/static/images/authorization/auth-bg.jpg") no-repeat left center;
   background-attachment: fixed;
   background-size: cover;
@@ -33,5 +33,6 @@
     box-shadow: none;
     padding: 0;
     margin-bottom: 0;
+    height: auto!important;
   }
 }
