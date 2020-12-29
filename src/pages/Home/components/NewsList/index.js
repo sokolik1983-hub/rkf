@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CitySelect from "../../../../components/CitySelect";
 import ListFilter from './ListFilter';
-import CardNews from "../../../../components/CardNews";
+import CardNewsNew from "../../../../components/CardNewsNew";
 import { endpointGetNews } from "../../config";
 import { Request } from "../../../../utils/request";
 import { DEFAULT_IMG } from "../../../../appConfig";
@@ -178,7 +178,7 @@ const NewsList = ({ isFullDate = true, citiesDict, banner }) => {
                     <ul className="NewsList__content">
                         {news && !!news.length && news.map((item,index) => (
                             <li className="NewsList__item" key={item.id}>
-                                <CardNews
+                                <CardNewsNew
                                     {...item}
                                     user={item.user_type}
                                     city={item.fact_city_name}
