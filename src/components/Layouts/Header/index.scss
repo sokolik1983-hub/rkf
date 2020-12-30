@@ -502,11 +502,11 @@
     cursor: pointer;
     &:hover {
       transition: all 0.2s linear;
-      background-color: #eeeeee;
+      // background-color: #eeeeee;
     }
-    &._login_open {
-      background-color: #d8d8d8;
-    }
+    // &._login_open {
+    //   background-color: #d8d8d8;
+    // }
   }
   // &__arrow {
   //   width: 24px;
