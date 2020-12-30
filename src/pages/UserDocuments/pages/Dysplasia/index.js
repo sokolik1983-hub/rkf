@@ -145,7 +145,7 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
                                 {values && values.rejected_comment &&
                                     <p className="dysplasia-form__danger">{values.rejected_comment}</p>
                                 }
-                                <h4 className="dysplasia-form__title" style={{ marginBottom: 0 }}>
+                                <h4 className="dysplasia-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
                                     {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                 </h4>
                                 <div className="dysplasia-form__row">
