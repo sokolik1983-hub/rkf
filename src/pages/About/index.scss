@@ -1,5 +1,6 @@
 .about-page {
   &__content {
+    padding-bottom: 1px;
     h2 {
       font-weight: bold;
       font-size: 36px;
@@ -12,7 +13,7 @@
       }
     }
     .feedback-component__description {
-      text-align: left; 
+      text-align: left;
     }
     &-wrap {
       display: flex;
@@ -31,6 +32,9 @@
         }
       }
     }
+    & + .Footer {
+      display: none;
+    }
   }
   &__news {
     width: 100%;
@@ -42,7 +46,7 @@
     width: 100%;
     max-width: 416px;
     margin-left: 24px;
-    .statistics{
+    .statistics {
       margin-bottom: 16px;
     }
     @media (max-width: 990px) {
