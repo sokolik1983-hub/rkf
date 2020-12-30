@@ -490,14 +490,14 @@
     transition: border-color 0.2s linear;
     position: relative;
     top: 5px;
-    left: 10px;
+    left: 0;
     &._active,
     &._no-logo {
       border-color: #3366ff;
     }
   }
   &__wrap {
-    width: 80px;
+    width: 40px;
     height: 50px;
     cursor: pointer;
     &:hover {
@@ -508,27 +508,27 @@
       background-color: #d8d8d8;
     }
   }
-  &__arrow {
-    width: 24px;
-    height: 24px;
-    background: url("/static/icons/chevron-down-light.svg") no-repeat center;
-    transition: all 0.2s linear;
-    display: inline-block;
-    vertical-align: middle;
-    border: none;
-    position: relative;
-    top: -28px;
-    left: 53px;
-    &._widget_open {
-      background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
-      transform: rotate(180deg);
-      top: -29px;
-    }
-  }
+  // &__arrow {
+  //   width: 24px;
+  //   height: 24px;
+  //   background: url("/static/icons/chevron-down-light.svg") no-repeat center;
+  //   transition: all 0.2s linear;
+  //   display: inline-block;
+  //   vertical-align: middle;
+  //   border: none;
+  //   position: relative;
+  //   top: -28px;
+  //   left: 53px;
+  //   &._widget_open {
+  //     background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
+  //     transform: rotate(180deg);
+  //     top: -29px;
+  //   }
+  // }
   &__content {
     position: absolute;
-    right: -6px;
-    top: 30px;
+    right: 0px;
+    top: 40px;
     z-index: 1;
     margin-top: 16px;
     box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
@@ -541,7 +541,7 @@
       background-color: #253c5e;
       position: absolute;
       top: -8px;
-      right: 14px;
+      right: 8px;
       z-index: -1;
       transform: rotate(45deg);
       box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
