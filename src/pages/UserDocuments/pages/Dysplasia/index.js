@@ -341,8 +341,8 @@ const DysplasiaForm = ({ alias, history, status, owner }) => {
             <NotificationGroup
                 style={{
                     position: 'absolute',
-                    right: '10px',
-                    bottom: '40px',
+                    right: '1vh',
+                    top: '80vh',
                 }}
             >
                 <Fade enter={true} exit={true}>

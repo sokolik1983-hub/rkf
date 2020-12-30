@@ -223,11 +223,11 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
             </IntlProvider>
         </LocalizationProvider>
         <NotificationGroup
-            style={{
-                position: 'absolute',
-                right: '10px',
-                bottom: '40px',
-            }}
+                style={{
+                    position: 'absolute',
+                    right: '1vh',
+                    top: '80vh',
+                }}
         >
             <Fade enter={true} exit={true}>
                 {success.status && <Notification
