@@ -1,5 +1,8 @@
 .NewsFeedItem {
-  padding: 10px !important;
+  padding: 10px 0 10px 0 !important;
+  & + .Card {
+    padding: 10px 0 10px 0 !important;
+  }
   &.is-request-article {
     .NewsFeedItem__controls {
       display: none;
@@ -39,8 +42,6 @@
     }
   }
   &__content {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px;
   }
   &__media {
@@ -49,7 +50,7 @@
     }
   }
   &__photo {
-    padding-bottom: 56.25%; /* 16:9*/
+    padding-bottom: 75%; /* 16:9*/
     height: 0;
     background-repeat: no-repeat;
     background-size: cover;
@@ -379,7 +380,8 @@
   &__documents {
     clear: both;
     padding-bottom: 5px;
-    border-bottom: 1px solid #e5e5e5;
+    padding-top: 5px;
+    border-top: 1px solid #e5e5e5;
     margin: 10px 0;
     &-list {
       list-style: none;
@@ -416,6 +418,7 @@
     justify-content: space-between;
     align-items: center;
     height: 20px;
+    margin-bottom: 5px !important;
     &-left,
     &-right {
       display: flex;

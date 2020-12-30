@@ -125,7 +125,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                                 type="file"
                                 name="file"
                                 id="file"
-                                className="article-edit__img-input"
+                                className="article-edit__image-input"
                                 accept=".png, .jpg, .jpeg"
                                 onChange={handleChangeImg}
                             />
@@ -160,15 +160,15 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
             </div>
             <div className="article-edit__media">
                 {src &&
-                    <div className="article-edit__img">
+                    <div className="article-edit__image">
                         <img src={src} alt="" />
-                        <button className="article-edit__img-delete" onClick={handleDeleteImg} />
+                        <button className="article-edit__image-delete" onClick={handleDeleteImg} />
                     </div>
                 }
                 {video &&
                     <div className="article-edit__video">
                         <img src={`https://img.youtube.com/vi/${getYouTubeID(video)}/mqdefault.jpg`} alt="" />
-                        <button className="article-edit__img-delete" onClick={handleDeleteVideoLink} />
+                        <button className="article-edit__image-delete" onClick={handleDeleteVideoLink} />
                     </div>
                 }
             </div>
