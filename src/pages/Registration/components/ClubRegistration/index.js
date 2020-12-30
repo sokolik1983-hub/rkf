@@ -51,6 +51,7 @@ const ClubRegistration = () => {
 
     return (<>
         <div className="registration-page__holder club-registration">
+            <div className="club-registration__select-title">Город</div>
             <Select
                 className="club-registration__select"
                 placeholder={'Выберите город'}
