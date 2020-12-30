@@ -104,7 +104,7 @@ const NewsFeedItem = forwardRef(({
 
         return <>
             <div className="NewsFeedItem__content">
-                <div className="NewsFeedItem__head">
+                <div className="NewsFeedItem__head"  style={{margin: '0 10px 0 10px'}}>
                     <div className="NewsFeedItem__left">
                         <Link to={user_type === 4 ? `/kennel/${alias}` : user_type === 1 ? `/user/${alias}` : `/${alias}`}>
                             <div className="NewsFeedItem__left-logo" style={{
@@ -192,7 +192,7 @@ const NewsFeedItem = forwardRef(({
                         }
                     </div>
                 </div>
-                <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''}>
+                <div className={!collapsed ? 'NewsFeedItem__text-wrap' : ''}  style={{margin: '0 10px 0 10px'}}>
                     {is_advert && <div className="NewsFeedItem__ad">
                         <p className="NewsFeedItem__ad-breed">
                             <span>Порода: {advert_breed_name}</span>
@@ -221,7 +221,7 @@ const NewsFeedItem = forwardRef(({
                         />
                     }
                 </div>
-                <div className="NewsFeedItem__show-all-wrap">
+                <div className="NewsFeedItem__show-all-wrap" style={{margin: '0 10px 0 10px'}}>
                     {
                         is_request_article
                             ? <div className="NewsFeedItem__show-all"><Link to={redirect_link} target="_blank">Подробнее...</Link></div>
@@ -259,7 +259,7 @@ const NewsFeedItem = forwardRef(({
             </div>
             {
                 documents && !!documents.length &&
-                <div className="NewsFeedItem__documents">
+                <div className="NewsFeedItem__documents" style={{margin: '0 10px 0 10px'}}>
                     <ul className="NewsFeedItem__documents-list">
                         {documents.map(d =>
                             <li className="DocumentItem" key={d.id}>
@@ -281,7 +281,7 @@ const NewsFeedItem = forwardRef(({
                 </div>
             }
             {/* {videoLink && <p className={`NewsFeedItem__video-count ${collapsed ? '_count_collapsed' : ''}`}>Прикрепленные видео: 1</p>} */}
-            <div className="NewsFeedItem__controls">
+            <div className="NewsFeedItem__controls" style={{margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px'}}>
                 <div className="NewsFeedItem__controls-left">
                     <div>
                         <span className={`k-icon k-i-heart-outline${isLiked ? ' colored-icon' : ''}`} onClick={handleLikeClick} />
