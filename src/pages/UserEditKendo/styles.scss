@@ -110,6 +110,13 @@
                 top: 48px;
                 height: calc(100% - 48px);
             }
+            & > .Card {
+                @media (min-width: 560px) {
+                    position: fixed;
+                    max-width: 300px;
+                    min-width: 300px;
+                }
+            }
         }
         .Card {
             padding: 12px !important;
