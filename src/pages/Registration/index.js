@@ -24,40 +24,42 @@ const RegistrationPage = ({ isAuthenticated, history }) => {
         <Layout login_page>
             <AuthLayout className="registration-page">
                 <Card>
-                    <div className="registration-page__main-tabs">
-                        <NavLink exac="true" to={LOGIN_URL} className="registration-page__main-tab">Вход</NavLink>
-                        <NavLink exac="true" to={REGISTRATION_URL} className="registration-page__main-tab">Регистрация</NavLink>
-                    </div>
-                    <div className="registration-page__tabs">
-                        <div className="registration-page__tabs-controls">
-                            <HorizontalSwipe id="registration-page__tabs-controls">
-                                <ul className="registration-page__tabs-list">
-                                    <li className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
-                                        onClick={() => setActiveTab('individual')}
-                                    >
-                                        Физическое лицо
-                                    </li>
-                                    <li className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
-                                        onClick={() => setActiveTab('nursery')}
-                                    >
-                                        Питомник
-                                    </li>
-                                    <li className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
-                                        onClick={() => setActiveTab('club')}
-                                    >
-                                        Клуб
-                                    </li>
-                                    <li className={`registration-page__tab _disabled`}
-                                        onClick={() => null}
-                                    >
-                                        НКП
-                                    </li>
-                                </ul>
-                            </HorizontalSwipe>
+                    <div>
+                        <div className="registration-page__main-tabs">
+                            <NavLink exac="true" to={LOGIN_URL} className="registration-page__main-tab">Вход</NavLink>
+                            <NavLink exac="true" to={REGISTRATION_URL} className="registration-page__main-tab">Регистрация</NavLink>
                         </div>
-                        {activeTab === 'individual' && <IndividualRegistration history={history} />}
-                        {activeTab === 'nursery' && <NurseryRegistration />}
-                        {activeTab === 'club' && <ClubRegistration />}
+                        <div className="registration-page__tabs">
+                            <div className="registration-page__tabs-controls">
+                                <HorizontalSwipe id="registration-page__tabs-controls">
+                                    <ul className="registration-page__tabs-list">
+                                        <li className={`registration-page__tab ${activeTab === 'individual' ? ' _active' : ''}`}
+                                            onClick={() => setActiveTab('individual')}
+                                        >
+                                            Физическое лицо
+                                    </li>
+                                        <li className={`registration-page__tab${activeTab === 'nursery' ? ' _active' : ''}`}
+                                            onClick={() => setActiveTab('nursery')}
+                                        >
+                                            Питомник
+                                    </li>
+                                        <li className={`registration-page__tab${activeTab === 'club' ? ' _active' : ''}`}
+                                            onClick={() => setActiveTab('club')}
+                                        >
+                                            Клуб
+                                    </li>
+                                        <li className={`registration-page__tab _disabled`}
+                                            onClick={() => null}
+                                        >
+                                            НКП
+                                    </li>
+                                    </ul>
+                                </HorizontalSwipe>
+                            </div>
+                            {activeTab === 'individual' && <IndividualRegistration history={history} />}
+                            {activeTab === 'nursery' && <NurseryRegistration />}
+                            {activeTab === 'club' && <ClubRegistration />}
+                        </div>
                     </div>
                     <CopyrightInfo withSocials={true} />
                 </Card>
