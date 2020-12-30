@@ -53,18 +53,20 @@ const ClubRegistration = () => {
         <div className="registration-page__holder club-registration">
             <Select
                 className="club-registration__select"
-                placeholder={'Введите название города'}
+                placeholder={'Выберите город'}
                 noOptionsMessage={() => 'Город не найден'}
                 options={selectOptions}
                 onChange={onCityChange}
                 styles={{
                     input: styles => ({
                         ...styles,
-                        width: 200
+                        width: 200,
+                        height: 41,
+                        paddingTop: '10px',
                     }),
                     container: styles => ({
                         ...styles,
-                        width: 300
+                        width: 300,
                     })
                 }}
             />
