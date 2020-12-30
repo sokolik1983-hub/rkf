@@ -234,10 +234,12 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
                 }
             }
             &-right {
-                padding: 0 10px;
+                padding: 3px 7px 5px;
                 color: white;
                 background: #3366ff;
                 border-radius: 12px;
+                line-height: 1;
+                font-size: 12px;
             }
         }
     }
