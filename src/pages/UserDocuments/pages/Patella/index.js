@@ -142,7 +142,7 @@ const PatellaForm = ({ alias, history, status, owner }) => {
                                 {values && values.rejected_comment &&
                                     <p className="patella-form__danger">{values.rejected_comment}</p>
                                 }
-                                <h4 className="patella-form__title" style={{ marginBottom: 0 }}>
+                                <h4 className="patella-form__title" style={{ marginBottom: 0, marginTop: '10px' }}>
                                     {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                 </h4>
                                 <div className="patella-form__row">
