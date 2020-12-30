@@ -23,7 +23,7 @@ import { Notification, NotificationGroup } from '@progress/kendo-react-notificat
 import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
 import ls from "local-storage";
-import {connectShowFilters} from "../../components/Layouts/connectors";
+import { connectShowFilters } from "../../components/Layouts/connectors";
 import './styles.scss';
 import ClickGuard from "../../components/ClickGuard";
 
@@ -264,8 +264,8 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         <NotificationGroup
                             style={{
                                 position: 'absolute',
-                                right: '10px',
-                                bottom: '40px',
+                                right: '1vh',
+                                top: '80vh',
                             }}
                         >
                             <Fade enter={true} exit={true}>
