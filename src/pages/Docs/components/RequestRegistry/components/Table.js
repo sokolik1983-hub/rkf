@@ -183,7 +183,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
                                 <GridColumn field="breeder_full_name" title="Заводчик" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'breeder_full_name')} />
                                 <GridColumn field="count_of_litter" title="Щенков" width={fullScreen ? '85px' : '37px'} columnMenu={ColumnMenu} />
                                 <GridColumn field={`${distinction}_request_id`} title="№ пакета" width={fullScreen ? '95px' : '50px'} columnMenu={ColumnMenu} />
-                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
+                                <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                                 <GridColumn field="count_of_documents" title="Док-в" width={fullScreen ? '67px' : '51px'} columnMenu={ColumnMenu} />
                                 <GridColumn field="dog_father_name" title="Производитель (кличка)" width={fullScreen ? 'auto' : '104px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'dog_father_name')} />
                                 <GridColumn field="dog_mother_name" title="Производительница (кличка)" width={fullScreen ? 'auto' : '104px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'dog_mother_name')} />
@@ -241,8 +241,8 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
             <NotificationGroup
                 style={{
                     position: 'absolute',
-                    right: '10px',
-                    bottom: '40px',
+                    right: '1vh',
+                    top: '80vh',
                 }}
             >
                 <Fade enter={true} exit={true}>

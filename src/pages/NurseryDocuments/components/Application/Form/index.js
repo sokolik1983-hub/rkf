@@ -347,7 +347,7 @@ const Application = ({ alias, history, status }) => {
                                         {values && values.rejected_comment &&
                                             <p className="application-form__danger">{values.rejected_comment}</p>
                                         }
-                                        <h4 className="application-form__title" style={{ marginBottom: 0 }}>
+                                        <h4 className="application-form__title" style={{ marginBottom: 0, marginTop: '20px' }}>
                                             {status ? status === 'edit' ? 'Редактирование заявки' : 'Просмотр заявки' : 'Добавление заявки'}
                                         </h4>
                                         <div className="application-form__row-is-foreign">
@@ -697,8 +697,8 @@ const Application = ({ alias, history, status }) => {
             <NotificationGroup
                 style={{
                     position: 'absolute',
-                    right: '10px',
-                    bottom: '40px',
+                    right: '1vh',
+                    top: '80vh',
                 }}
             >
                 <Fade enter={true} exit={true}>
