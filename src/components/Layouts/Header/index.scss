@@ -238,6 +238,11 @@
         list-style: none;
         display: flex;
         justify-content: flex-start;
+        .active {
+          .header__nav-icon {
+            fill: #3366ff;
+          }
+        }
       }
       @media (max-width: 990px) {
         display: block;
