@@ -43,6 +43,12 @@
         @media (min-width: 560px) {
             max-width: 250px;
         }
+        & > .Card {
+            @media (min-width: 560px) {
+                position: fixed;
+                max-width: 250px;
+            }
+        }
     }
     &__category {
         &-item {
