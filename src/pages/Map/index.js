@@ -8,7 +8,7 @@ const MapPage = ({ location }) => {
         return <ClubsMap />
     } else {
         return <Layout>
-            <ClubsMap />
+            <ClubsMap fullScreen />
         </Layout>
     };
 };
