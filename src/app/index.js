@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import ls from "local-storage";
-import { Request, getHeaders } from "../utils/request";
+import { Request } from "../utils/request";
 import { appRoutes } from "../appConfig";
 import IframePage from "../pages/Static/IframePage";
 import { LoadableNotFound } from "../appModules";
 import NotificationsProvider from './context';
 import "./kendo.scss";
 import "./index.scss";
-
 
 
 const App = ({ history }) => {

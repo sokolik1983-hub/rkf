@@ -8,7 +8,6 @@ import FeedbackComponent from "./components/Feedback";
 import { BANNER_TYPES } from "../../appConfig";
 import Banner from "../../components/Banner";
 import CopyrightInfo from "components/CopyrightInfo";
-import Card from "components/Card";
 import "./index.scss";
 
 
