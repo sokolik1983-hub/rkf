@@ -1,0 +1,17 @@
+.pedigree-viewer {
+  min-height: calc(100vh - 52px);
+  padding-top: 50px;
+    iframe {
+        width: 700px;
+        height: 800px;
+        margin-left: 300px;
+        border: 0;
+    }
+//   background-color: #f5f8ff;
+//   @media (max-width: 768px) {
+//     min-height: calc(100vh - 108px);
+//   }
+//   @media (max-width: 560px) {
+//     padding-top: 48px;
+//   }
+}
