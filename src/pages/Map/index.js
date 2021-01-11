@@ -5,7 +5,7 @@ import Layout from "../../components/Layouts";
 const MapPage = ({ location }) => {
     const { hash } = location;
     if (hash === '#iframe') {
-        return <ClubsMap />
+        return <ClubsMap fullScreen />
     } else {
         return <Layout>
             <ClubsMap fullScreen />
