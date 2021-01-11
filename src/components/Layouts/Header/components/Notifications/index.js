@@ -123,7 +123,7 @@ const Notifications = forwardRef(
                     && <>
                         <LightTooltip title="Уведомления" enterDelay={200} leaveDelay={200}>
                             <div className="Notifications__icon-wrap">
-                                <div className="Notifications__icon" onClick={handleNotificationsClick} />
+                                <div className={`Notifications__icon ${open ? ` _active` : ``}`} onClick={handleNotificationsClick} />
                                 {showDot && <div className="Notifications__icon-dot" />}
                             </div>
                         </LightTooltip>
