@@ -15,7 +15,8 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
         background-size: contain;
         background-image: url("/static/new-icons/notifications/notifications.svg");
         cursor: pointer;
-        &:hover {
+        &:hover,
+        &._active {
             filter: $blue-color;
         }
         &-wrap {
