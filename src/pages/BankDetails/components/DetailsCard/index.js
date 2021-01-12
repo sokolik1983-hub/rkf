@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import './index.scss';
 
 
-const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard, docList }) => {
+const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard, docList, isRKF }) => {
 
     return (
         <Card className="details-card">
             <div className={`details-card__icon ${iconClassName}`} />
             <h3 className="details-card__title">{title}</h3>
-            <p className="details-card__text">
+            <p className={`details-card__text ${isRKF ? `_RKF` : ``}`}>
                 {description}
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>

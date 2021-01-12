@@ -1,18 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../../components/Card";
-import "./index.scss";
 
 
 const Documents = ({ alias }) => (
     <>
-        <Card className="documents-card__warning">
-            <h3 className="documents-card__warning-title">Уважаемые пользователи!</h3>
-            <p>Обращаем ваше внимание на то, что в период с 31 декабря 2020 по 10 января 2021 года РКФ работать не будет.
-            Все заявки, направленные через платформу РКФ онлайн в этот период, поступят к кинологам в первый
-            рабочий день – 11 января 2021 года. Отсчет сроков изготовления начнется с момента принятия специалистом
-            заявки в работу. 30 декабря офис работает с 9:30 до 15:00.</p>
-        </Card>
         <Card className="documents-card">
             <div className="documents-card__icon _dysplasia" />
             <h3 className="documents-card__title">Сертификат о проверке на дисплазию</h3>
