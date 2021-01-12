@@ -46,6 +46,7 @@ const CardNewsNew = forwardRef(({
     active_member,
     active_rkf_user,
     picture_link,
+    picture_short_link,
     video_link,
     fact_city_name,
     canEdit,
@@ -223,11 +224,11 @@ const CardNewsNew = forwardRef(({
                         is_request_article && <Share url={`https://rkf.online/news/${id}`} />
                     }
                 </div>
-                {(picture_link || video_link) &&
+                {(picture_short_link || video_link) &&
                     <div className="CardNewsNew__media">
-                        {picture_link &&
+                        {picture_short_link &&
                             <div className="CardNewsNew__photo"
-                                style={{ backgroundImage: `url(${picture_link})` }}
+                                style={{ backgroundImage: `url(${picture_short_link})` }}
                                 onClick={() => setShowPhoto(true)}
                             />
                         }
