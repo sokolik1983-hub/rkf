@@ -1,4 +1,9 @@
 .UserControlsWrap {
+    .k-icon {
+        position: absolute;
+        left: 55px;
+        top: 12px;
+    }
     &__dropdown {
         li {
             justify-content: center;

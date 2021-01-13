@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { DropDownButton } from '@progress/kendo-react-buttons';
 import { Request } from "utils/request";
 import useIsMobile from "../../utils/useIsMobile";
 import "./styles.scss";
 
 const UserActions = ({ subscribed_id, subscribed, member, onSubscriptionUpdate, onSuccess, onError }) => {
+    const [open, setOpen] = useState(false);
     const isMobile = useIsMobile();
+
+    const popup = {
+        horizontal: isMobile ? 'right' : 'left',
+        vertical: 'top'
+    };
+
+    const anchor = {
+        horizontal: isMobile ? 'right' : 'left',
+        vertical: 'bottom'
+    };
 
     const handleItemClick = () => {
         if (subscribed) {
@@ -29,16 +40,6 @@ const UserActions = ({ subscribed_id, subscribed, member, onSubscriptionUpdate, 
         }
     }
 
-    const popup = {
-        horizontal: isMobile ? 'right' : 'left',
-        vertical: 'top'
-    };
-
-    const anchor = {
-        horizontal: isMobile ? 'right' : 'left',
-        vertical: 'bottom'
-    };
-
     return <section className="UserControlsWrap">
         <button disabled>Написать сообщение</button>
         <div style={{ display: 'flex' }}>
@@ -47,14 +48,19 @@ const UserActions = ({ subscribed_id, subscribed, member, onSubscriptionUpdate, 
                 disabled={member ? true : false}
                 onClick={handleItemClick}
             >
-                <span className={`UserControlsWrap__subscribe-text ${subscribed ? '_subscribed' : ''}`}>{subscribed ? 'Подписки' : 'Подписаться'}</span>
+                <span className={`UserControlsWrap__subscribe-text ${subscribed ? '_subscribed' : ''}`}>
+                    {subscribed ? 'Подписка' : 'Подписаться'}
+                </span>
             </button>
             <DropDownButton
-                text="..."
-                popupSettings={{ popupClass: 'UserControlsWrap__dropdown', popupAlign: popup, anchorAlign: anchor}}
+                text="Ещё&nbsp;&nbsp;&nbsp;&nbsp;"
+                icon={`k-icon ${open ? `k-i-arrow-chevron-up` : `k-i-arrow-chevron-down`}`}
+                popupSettings={{ popupClass: 'UserControlsWrap__dropdown', popupAlign: popup, anchorAlign: anchor }}
                 items={[
                     { text: 'Пожаловаться', disabled: true }
                 ]}
+                onOpen={() => setOpen(true)}
+                onClose={() => setOpen(false)}
             />
         </div>
     </section>
