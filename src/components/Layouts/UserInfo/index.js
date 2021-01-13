@@ -8,7 +8,7 @@ import ModalDeleteAvatar from "./ModalDeleteAvatar";
 import { DEFAULT_IMG } from "../../../appConfig";
 import { Link } from "react-router-dom";
 import LightTooltip from "../../LightTooltip";
-import UserActions from "components/UserActions";
+import UserActionControls from "components/UserActionControls";
 import { connectAuthVisible } from "pages/Login/connectors";
 import "./index.scss";
 
@@ -92,7 +92,7 @@ const UserInfo = ({
             {
                 canEdit
                     ? <Link to={`/user/${alias}/edit`} className="user-info__edit-profile">Редактировать профиль</Link>
-                    : isAuthenticated && <UserActions
+                    : isAuthenticated && <UserActionControls
                         userType={1}
                         subscribed_id={subscribed_id}
                         subscribed={subscribed}

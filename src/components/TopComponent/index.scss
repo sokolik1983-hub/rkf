@@ -27,15 +27,12 @@
     &-buttons {
       display: flex;
       align-items: center;
-      .UserActions {
+      .UserActionControls {
         width: 280px;
         margin-right: 10px;
         @media (max-width: 560px) {
           display: none;
         }
-      }
-      .k-button {
-        margin-top: 0;
       }
     }
   }
