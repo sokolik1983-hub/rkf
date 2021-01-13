@@ -236,11 +236,11 @@ const NewsFeedItem = forwardRef(({
                         is_request_article && <Share url={`https://rkf.online/news/${id}`} />
                     }
                 </div>
-                {(picture_short_link || video_link) &&
+                {(picture_link || video_link) &&
                     <div className="NewsFeedItem__media">
-                        {picture_short_link &&
+                        {picture_link &&
                             <div className="NewsFeedItem__photo"
-                                style={{ backgroundImage: `url(${picture_short_link})` }}
+                                style={{ backgroundImage: `url(${picture_link})` }}
                                 onClick={() => setShowPhoto(true)}
                             />
                         }
