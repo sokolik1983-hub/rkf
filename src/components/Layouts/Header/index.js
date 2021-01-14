@@ -11,7 +11,7 @@ import Feedback from "components/Feedback";
 import "./index.scss";
 
 
-const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page }) => (
+const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, login_page, setNotificationsLength }) => (
     <header className="header">
         <Container className="header__content">
             <Link to="/" className="header__logo" />
@@ -26,7 +26,7 @@ const Header = ({ isAuthenticated, withFilters, isOpenFilters, setShowFilters, l
                         <Feedback isMainNav={true} />
                     </div>
                 }
-                <Notifications />
+                <Notifications setNotificationsLength={setNotificationsLength} />
                 <WidgetLogin login_page={login_page} />
             </div>
         </Container>

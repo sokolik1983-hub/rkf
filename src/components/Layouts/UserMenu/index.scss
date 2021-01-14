@@ -83,8 +83,24 @@
     }
   }
   &__item {
+    position: relative;
     &:not(:last-child) {
       margin-bottom: 12px;
+    }
+    &-notification {
+      line-height: 1;
+      letter-spacing: .2px;
+      color: #ffffff;
+      font-size: 15px;
+      background-color: #3366FF;
+      border-radius: 33px;
+      padding: 2px 10px 4px;
+      position: absolute;
+      left: 244px;
+      top: 5px;
+      @media (max-width: 990px) {
+        left: 184px;
+      }    
     }
   }
   &__link {

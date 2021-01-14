@@ -33,6 +33,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [notActiveProfile, setNotActiveProfile] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [notificationsLength, setNotificationsLength] = useState(null);
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -68,7 +69,7 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
             <Redirect to="404" /> :
             notActiveProfile ?
                 <NotConfirmed /> :
-                <Layout>
+                <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
@@ -158,7 +159,9 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                             }
                                             <UserMenu userNav={canEdit
                                                 ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
+                                                : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} 
+                                                notificationsLength={notificationsLength}
+                                                />
                                             {!isMobile &&
                                                 <>
                                                     <Banner type={BANNER_TYPES.clubPageUnderPhotos} />

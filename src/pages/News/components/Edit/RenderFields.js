@@ -11,8 +11,21 @@ import Modal from "../../../../components/Modal";
 import LightTooltip from "../../../../components/LightTooltip";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { trash } from "@progress/kendo-svg-icons";
+import fileType from "file-type/browser";
 import useIsMobile from "../../../../utils/useIsMobile";
 
+const accept = ".jpg, .jpeg";
+
+const mimeWhitelist = [
+    "image/jpeg"
+];
+
+const acceptType = file =>
+    fileType
+    .fromBlob(file)
+    .then(x => x.mime)
+    .then(mime => mimeWhitelist.includes(mime))
+    .catch(err => false);
 
 const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, setDocs, categories, setCategories, onCancel, isMating, setIsMating, setIsImageDelete }) => {
     const [src, setSrc] = useState(imgSrc);
@@ -52,8 +65,9 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     };
 
     const handleChangeImg = e => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -62,6 +76,13 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
             setSrc('');
         }
         setIsImageDelete(true);
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы ${accept}`);
+                formik.setFieldValue('file', '');
+                setSrc('');
+            }
+        });
     };
 
     const handleDeleteImg = () => {
@@ -126,7 +147,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                                 name="file"
                                 id="file"
                                 className="article-edit__image-input"
-                                accept=".jpg, .jpeg"
+                                accept={accept}
                                 onChange={handleChangeImg}
                             />
                             <label htmlFor="file" className="article-edit__attach-img-label"></label>
