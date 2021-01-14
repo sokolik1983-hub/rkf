@@ -17,8 +17,21 @@ import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useFocus } from "../../shared/hooks";
 import OutsideClickHandler from "react-outside-click-handler";
+import fileType from "file-type/browser";
 import useIsMobile from "../../utils/useIsMobile";
 
+const accept = ".jpg, .jpeg";
+
+const mimeWhitelist = [
+    "image/jpeg"
+];
+
+const acceptType = file =>
+    fileType
+    .fromBlob(file)
+    .then(x => x.mime)
+    .then(mime => mimeWhitelist.includes(mime))
+    .catch(err => false);
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
     const [src, setSrc] = useState('');
@@ -38,8 +51,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     }, []);
 
     const handleChange = e => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -49,6 +63,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             setSrc('');
             setLoadFile(false);
         }
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы ${accept}`);
+                formik.setFieldValue('file', '');
+            }
+        });
     };
 
     const addVideoLink = link => {
@@ -136,7 +156,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             type="file"
                             name="file"
                             id="file"
-                            accept=".jpg, .jpeg"
+                            accept={accept}
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />
