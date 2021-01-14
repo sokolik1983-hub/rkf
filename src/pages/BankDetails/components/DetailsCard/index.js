@@ -4,24 +4,36 @@ import { Link } from "react-router-dom";
 import './index.scss';
 
 
-const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard, docList, isRKF }) => {
+const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard, docList, fedName }) => {
 
     return (
         <Card className="details-card">
             <div className={`details-card__icon ${iconClassName}`} />
             <h3 className="details-card__title">{title}</h3>
-            <p className={`details-card__text ${isRKF ? `_RKF` : ``}`}>
+            <p className={`details-card__text ${fedName === 'РКФ' ? `_RKF` : ``}`}>
                 {description}
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
-            {!isUserCard && <Link
-                to={`/details-viewer/${documentId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="details-card__link"
-            >
-                Подробнее...
-            </Link>}
+            {!isUserCard && <>
+                <Link
+                    to={`/details-viewer/${documentId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="details-card__link"
+                >
+                    Реквизиты
+                </Link>
+                <Link
+                    to={`/details-viewer/${documentId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="details-card__link"
+                    style={{ marginLeft: '20px' }}
+                >
+                    Размеры взносов в {fedName}
+                </Link>
+            </>
+            }
             {isUserCard && <span className="details-card__user-link">
                 {docList && docList.map((doc, i) => <Link
                     key={i}
@@ -30,8 +42,16 @@ const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    {doc.organization_type === 6 ? 'Фауна' : doc.organization_type === 7 ? 'Элита' : 'РКК'}
+                    {doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}
                 </Link>)}
+                <Link
+                    to={`/details-viewer/${documentId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="details-card__link"
+                >
+                    Размеры взносов в ОАНКОО
+                </Link>
             </span>}
         </Card>
     );

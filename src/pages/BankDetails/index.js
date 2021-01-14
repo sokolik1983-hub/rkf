@@ -72,9 +72,9 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                     />}
                     <div className="base-search__content-wrap">
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
-                            {user_type !== 1 && fedIdList && fedIdList.map((fed, i) => <DetailsCard
+                            {user_type !== 1 && fedIdList?.map((fed, i) => <DetailsCard
                                 key={i}
-                                isRKF={getFedInfo(fed.organization_type).fedName === 'РКФ'} //у карточки РКФ отступ снизу больше
+                                fedName={getFedInfo(fed.organization_type).fedName}
                                 iconClassName={getFedInfo(fed.organization_type).iconClassName}
                                 title={`Реквизиты ${getFedInfo(fed.organization_type).fedName}`}
                                 documentId={fed.document_id}
@@ -85,7 +85,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                             {user_type === 1 && fedIdList && <>
                                 {mainFedList(fedIdList).map((fed, i) => <DetailsCard
                                     key={i}
-                                    isRKF={getFedInfo(fed.organization_type).fedName === 'РКФ'}
+                                    fedName={getFedInfo(fed.organization_type).fedName}
                                     iconClassName={getFedInfo(fed.organization_type).iconClassName}
                                     title={`Реквизиты ${getFedInfo(fed.organization_type).fedName}`}
                                     documentId={fed.document_id}
