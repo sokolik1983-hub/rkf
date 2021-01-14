@@ -126,7 +126,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                                 name="file"
                                 id="file"
                                 className="article-edit__image-input"
-                                accept=".png, .jpg, .jpeg"
+                                accept=".jpg, .jpeg"
                                 onChange={handleChangeImg}
                             />
                             <label htmlFor="file" className="article-edit__attach-img-label"></label>

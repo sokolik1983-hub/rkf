@@ -38,7 +38,7 @@ const DndImageUpload = ({ callback, album_id }) => {
     const PromiseRequest = payload => new Promise((res, rej) => Request(payload, res, rej));
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: '.jpg, .jpeg, .png',
+        accept: '.jpg, .jpeg',
         onDrop: acceptedFiles => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
@@ -124,7 +124,7 @@ const DndImageUpload = ({ callback, album_id }) => {
                     <img src="/static/icons/camera.svg" alt="" /><br />
                     <h3>Загрузка изображений</h3>
                     Перетащите файлы в эту область<br />
-                    Поддерживаемые форматы: JPG, JPEG, PNG
+                    Поддерживаемые форматы: JPG и JPEG
                 </div>
             </div>
             <div className="DndImageUpload__preview">

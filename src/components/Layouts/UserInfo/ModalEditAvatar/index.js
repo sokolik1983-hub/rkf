@@ -33,7 +33,7 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
                 closeModal();
                 if(isChanged) updateInfo();
             }}
-            headerName = {"Редактирование фото"}
+            headerName = {"Редактирование фото (поддерживаемые форматы: JPG и JPEG)"}
         >
             <div className="edit-avatar-modal__content">
                 <div className="edit-avatar-modal__content">
@@ -44,7 +44,7 @@ const ModalEditAvatar = ({closeModal, updateInfo}) => {
                                 multiple={false}
                                 maxFileSize={10485760}
                                 restrictions={{
-                                    allowedExtensions: ['.jpg', '.jpeg', '.png', '.gif']
+                                    allowedExtensions: ['.jpg', '.jpeg']
                                 }}
                                 withCredentials={false}
                                 defaultFiles={[]}

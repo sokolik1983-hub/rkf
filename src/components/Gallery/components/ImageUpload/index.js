@@ -91,7 +91,7 @@ const ImageUpload = ({ callback }) => {
                 onChange={onInputChange}
                 type="file"
                 multiple
-                accept=".jpg,.png,.gif"
+                accept=".jpg, .jpeg"
             />
             <div className="ImageUpload__preview">
                 {previews.map(({ url, name }, index) => <div className="ImageUpload__preview-item" key={index}>
