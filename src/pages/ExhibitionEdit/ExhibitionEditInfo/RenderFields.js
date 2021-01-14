@@ -116,7 +116,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                         name="avatar"
                         id="avatar"
                         className="exhibition-edit__img-input"
-                        accept=".png, .jpg, .jpeg"
+                        accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'avatar')}
                     />
                     <img src={avatarSrc || DEFAULT_IMG.noImage} alt=""/>
@@ -245,7 +245,7 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
                         name="map"
                         id="map"
                         className="exhibition-edit__img-input"
-                        accept=".png, .jpg, .jpeg"
+                        accept=".jpg, .jpeg"
                         onChange={e => handleChangeImg(e, 'map')}
                     />
                     <img src={mapSrc || DEFAULT_IMG.noImage} alt=""/>

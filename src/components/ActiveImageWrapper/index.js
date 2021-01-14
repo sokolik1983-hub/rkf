@@ -140,7 +140,7 @@ function ActiveImageWrapper({
                 ref={inputEl}
                 onChange={onInputChange}
                 type="file"
-                accept=".jpg,.png,.gif"
+                accept=".jpg,.jpeg"
             />
             <div onClick={onEdit}>{state.imagePreview ? renderPreview() : children}</div>
             <div className="ActiveImageWrapper__controls">
