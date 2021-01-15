@@ -30,6 +30,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
+    const [notificationsLength, setNotificationsLength] = useState(null);
     const { route: alias, id } = useParams();
     const isMobile = useIsMobile();
 
@@ -97,7 +98,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
         <Loading /> :
         errorRedirect ?
             <Redirect to="/404" /> :
-            <Layout>
+            <Layout setNotificationsLength={setNotificationsLength}>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
@@ -123,6 +124,7 @@ const UserLayout = ({ profile_id, is_active_profile, isAuthenticated, children }
                                 <UserMenu userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
+                                    notificationsLength={notificationsLength}
                                 />
                                 {!isMobile &&
                                     <>
