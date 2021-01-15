@@ -46,7 +46,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength && <span className="user-nav__item-notification">{notificationsLength}</span>}
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className="user-nav__item-notification">{notificationsLength}</span>}
                             </li>
                         )}
                     </ul>

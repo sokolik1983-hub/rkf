@@ -42,7 +42,7 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(null);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
     const isMobile = useIsMobile();
 
