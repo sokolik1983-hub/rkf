@@ -42,6 +42,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [count, setCount] = useState(0);
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
     const [exporting, setExporting] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -141,7 +142,10 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading ?
         <Loading /> :
-        <Layout withFilters>
+        <Layout 
+            withFilters 
+            setNotificationsLength={setNotificationsLength}
+        >
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
             <div className="exhibitions-page__wrap redesign">
                 <Container className="exhibitions-page content">
@@ -156,6 +160,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         federationAlias={federationAlias}
                         club={club}
                         setClub={setClub}
+                        notificationsLength={notificationsLength}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
@@ -167,7 +172,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                         isFederation={true}
                                     /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} />
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} 
+                                            notificationsLength={notificationsLength}
+                                        />
                                 }
                             </div>
                         }

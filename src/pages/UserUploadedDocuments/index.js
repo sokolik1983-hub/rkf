@@ -25,6 +25,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
     const [loaded, setLoaded] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [canEdit, setCanEdit] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
     const isMobile = useIsMobile();
     const [error, setError] = useState(false);
@@ -62,7 +63,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout>
+            : <Layout setNotificationsLength={setNotificationsLength}>
                 <Container className="UserUploadedDocuments content">
                     <aside className="UserUploadedDocuments__left">
                         <StickyBox offsetTop={66}>
@@ -86,6 +87,7 @@ const UserUploadedDocuments = ({ history, location, match, profile_id, is_active
                             <UserMenu userNav={canEdit
                                 ? userNav(alias) // Show NewsFeed menu item to current user only
                                 : userNav(alias).filter(i => i.id !== 2)}
+                                notificationsLength={notificationsLength}
                             />
                             {!isMobile &&
                                 <>

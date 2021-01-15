@@ -26,6 +26,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.route;
     const isMobile = useIsMobile();
@@ -75,7 +76,7 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout>
+                : <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
@@ -132,7 +133,9 @@ const NurseryUploadedDocuments = ({ location, isAuthenticated, is_active_profile
                                             }
                                             <UserMenu userNav={canEdit
                                                 ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                                : kennelNav(alias).filter(i => i.id !== 2)} />
+                                                : kennelNav(alias).filter(i => i.id !== 2)}
+                                                notificationsLength={notificationsLength}
+                                            />
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&
