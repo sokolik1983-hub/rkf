@@ -7,7 +7,7 @@ import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserMenu = ({ userNav }) => {
+const UserMenu = ({ userNav, notificationsLength }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const isMobile = useIsMobile();
@@ -46,6 +46,7 @@ const UserMenu = ({ userNav }) => {
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className="user-nav__item-notification">{notificationsLength}</span>}
                             </li>
                         )}
                     </ul>

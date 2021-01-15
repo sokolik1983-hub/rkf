@@ -37,6 +37,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
     const [canEdit, setCanEdit] = useState(false);
     const [needRequest, setNeedRequest] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.route;
     const isMobile = useIsMobile();
 
@@ -70,7 +71,7 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
         <Loading /> :
         error ?
             error.status === 422 ? <Redirect to="/kennel/activation" /> : <Redirect to="404" /> :
-            <Layout>
+            <Layout setNotificationsLength={setNotificationsLength}>
                 <div className="redesign">
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
@@ -107,7 +108,9 @@ const NurseryLayout = ({ history, match, profile_id, is_active_profile, isAuthen
                                         }
                                         <UserMenu userNav={canEdit
                                             ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                            : kennelNav(alias).filter(i => i.id !== 2)} />
+                                            : kennelNav(alias).filter(i => i.id !== 2)} 
+                                            notificationsLength={notificationsLength}
+                                            />
                                         {!isMobile &&
                                             <>
                                                 {nursery.breeds && !!nursery.breeds.length &&

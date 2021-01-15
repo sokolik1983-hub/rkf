@@ -31,6 +31,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
     const [startElement, setStartElement] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile();
@@ -138,7 +139,7 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
         <>
             {!pageLoaded && !nursery
                 ? <Loading />
-                : <Layout>
+                : <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content nursery-page">
                             <div className="nursery-page__content-wrap">
@@ -222,7 +223,9 @@ const NurseryVideo = ({ isAuthenticated, is_active_profile, profile_id, match, u
                                             }
                                             <UserMenu userNav={canEdit
                                                 ? kennelNav(alias) // Show NewsFeed menu item to current user only
-                                                : kennelNav(alias).filter(i => i.id !== 2)} />
+                                                : kennelNav(alias).filter(i => i.id !== 2)}
+                                                notificationsLength={notificationsLength}
+                                            />
                                             {!isMobile &&
                                                 <>
                                                     {nursery.breeds && !!nursery.breeds.length &&

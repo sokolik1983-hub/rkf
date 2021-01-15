@@ -17,6 +17,7 @@ import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useFocus } from "../../shared/hooks";
 import OutsideClickHandler from "react-outside-click-handler";
+import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
 
@@ -38,8 +39,9 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
     }, []);
 
     const handleChange = e => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -49,6 +51,12 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
             setSrc('');
             setLoadFile(false);
         }
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+                formik.setFieldValue('file', '');
+            }
+        });
     };
 
     const addVideoLink = link => {
@@ -136,7 +144,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             type="file"
                             name="file"
                             id="file"
-                            accept=".jpg, .jpeg, .png"
+                            accept=".jpg, .jpeg"
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />

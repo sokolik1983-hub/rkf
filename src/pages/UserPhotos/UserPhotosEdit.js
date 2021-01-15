@@ -37,6 +37,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
     const [selectedImages, setSelectedImages] = useState([]);
     const [allSelected, setAllSelected] = useState(false);
     const [startElement, setStartElement] = useState(1);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const alias = match.params.id;
     const isMobile = useIsMobile();
     const params = useParams();
@@ -174,7 +175,7 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                 <Loading /> :
                 error ?
                     <Redirect to="/404" /> :
-                    <Layout>
+                    <Layout setNotificationsLength={setNotificationsLength}>
                         <div className="user-page">
                             <Container className="user-page__content content">
                                 <aside className="user-page__left">
@@ -193,7 +194,10 @@ const UserPhotosEdit = ({ match, profile_id, is_active_profile, isAuthenticated 
                                                 updateInfo={getUserInfo}
                                             />
                                         </Card>
-                                        <UserMenu userNav={userNav(alias)} />
+                                        <UserMenu 
+                                        userNav={userNav(alias)}
+                                        notificationsLength={notificationsLength}
+                                        />
                                         {!isMobile &&
                                             <>
                                                 <UserVideoGallery

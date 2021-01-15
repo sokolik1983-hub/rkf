@@ -22,7 +22,7 @@ import ls from "local-storage";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user }) => {
+const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength }) => {
     const [ranks, setRanks] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
@@ -102,7 +102,9 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     /> :
                                     <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} />
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} 
+                                            notificationsLength={notificationsLength}
+                                        />
                                 }
                             </div>
                         }

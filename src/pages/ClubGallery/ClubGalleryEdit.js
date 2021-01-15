@@ -20,8 +20,8 @@ import { DEFAULT_IMG } from "appConfig";
 import useIsMobile from "../../utils/useIsMobile";
 import UserVideoGallery from "../../components/Layouts/UserGallerys/UserVideoGallery";
 import CopyrightInfo from "../../components/CopyrightInfo";
-import {clubNav} from "../Club/config";
-import {isFederationAlias} from "../../utils";
+import { clubNav } from "../Club/config";
+import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
 import "./styles.scss";
 import "pages/Club/index.scss";
@@ -39,6 +39,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
     const [allSelected, setAllSelected] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = params.id;
     const isMobile = useIsMobile();
@@ -181,7 +182,7 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
             <>
                 {!pageLoaded
                     ? <Loading />
-                    : <Layout>
+                    : <Layout setNotificationsLength={setNotificationsLength}>
                         <div className="redesign">
                             <Container className="content club-page">
                                 <div className="club-page__content-wrap">
@@ -232,9 +233,9 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                             <div className="ClubGallery__count-buttons">
                                                                 {!!selectedImages.length &&
                                                                     <span onClick={handleDelete}>
-                                                                    <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
-                                                                    </svg>
+                                                                        <svg width="12" height="16" viewBox="0 0 14 18" fill="#72839c" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M14 1H10.5L9.5 0H4.5L3.5 1H0V3H14V1ZM1 16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H11C11.5304 18 12.0391 17.7893 12.4142 17.4142C12.7893 17.0391 13 16.5304 13 16V4H1V16Z" />
+                                                                        </svg>
                                                                     &nbsp;Удалить
                                                                     </span>
                                                                 }
@@ -288,7 +289,10 @@ const ClubGalleryEdit = ({ isAuthenticated, is_active_profile, profile_id, match
                                                         name={clubInfo.short_name || clubInfo.name || 'Название клуба отсутствует'}
                                                         isFederation={true}
                                                     /> :
-                                                    <UserMenu userNav={clubNav(clubInfo.club_alias)} />
+                                                    <UserMenu
+                                                        userNav={clubNav(clubInfo.club_alias)}
+                                                        notificationsLength={notificationsLength}
+                                                    />
                                                 }
                                                 {!isMobile &&
                                                     <>

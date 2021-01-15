@@ -34,7 +34,7 @@ const defaultCategories = [
 ];
 
 const Notifications = forwardRef(
-    ({ isAuthenticated, is_active_profile, logOutUser, logo_link }) => {
+    ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }) => {
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
         const [controlsOpen, setControlsOpen] = useState(false);
@@ -48,7 +48,7 @@ const Notifications = forwardRef(
         const user_type = ls.get('user_info')?.user_type;
 
         useEffect(() => {
-            open && getNotifications(currentCategory);
+            getNotifications(currentCategory);
         }, [currentCategory]);
 
         useEffect(() => {
@@ -83,6 +83,7 @@ const Notifications = forwardRef(
                     { ...categories.find(c => c.id === 4), count: counter_of_request }
                 ]);
                 setNotifications(notifications);
+                setNotificationsLength(notifications.filter(n => n.is_read === false).length);
                 setLoaded(true);
             }, error => {
                 console.log(error)
@@ -186,7 +187,7 @@ const Notifications = forwardRef(
                         </CSSTransition>
                     </>
                 }
-            </div >
+            </div>
         )
     }
 );
