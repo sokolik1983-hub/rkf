@@ -17,21 +17,9 @@ import { trash } from "@progress/kendo-svg-icons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useFocus } from "../../shared/hooks";
 import OutsideClickHandler from "react-outside-click-handler";
-import fileType from "file-type/browser";
+import { acceptType } from "../../utils/checkImgType";
 import useIsMobile from "../../utils/useIsMobile";
 
-const accept = ".jpg, .jpeg";
-
-const mimeWhitelist = [
-    "image/jpeg"
-];
-
-const acceptType = file =>
-    fileType
-    .fromBlob(file)
-    .then(x => x.mime)
-    .then(mime => mimeWhitelist.includes(mime))
-    .catch(err => false);
 
 const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideoLink, documents, categories, setDocuments, setCategories, isMating, setIsMating, setLoadFile }) => {
     const [src, setSrc] = useState('');
@@ -65,7 +53,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
         }
         acceptType(file).then(descision => {
             if (!descision) {
-                window.alert(`Поддерживаются только форматы ${accept}`);
+                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
                 formik.setFieldValue('file', '');
             }
         });
@@ -156,7 +144,7 @@ const RenderFields = ({ fields, logo, formik, isAd, setIsAd, videoLink, setVideo
                             type="file"
                             name="file"
                             id="file"
-                            accept={accept}
+                            accept=".jpg, .jpeg"
                             className="ArticleCreateForm__inputfile"
                             onChange={handleChange}
                         />

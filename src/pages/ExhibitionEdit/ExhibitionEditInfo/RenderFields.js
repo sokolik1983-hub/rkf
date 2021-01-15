@@ -3,6 +3,7 @@ import {connect} from 'formik';
 import {FormGroup, FormField, FormControls} from "../../../components/Form";
 import {exhibitionInfoForm} from "../config";
 import {DEFAULT_IMG} from "../../../appConfig";
+import { acceptType } from "../../../utils/checkImgType";
 
 
 const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setInitialValues}) => {
@@ -34,8 +35,9 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
     };
 
     const handleChangeImg = (e, type) => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             formik.setFieldValue(type, file);
             type === 'avatar' ? setAvatarSrc(URL.createObjectURL(file)) : setMapSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -43,6 +45,12 @@ const RenderFields = ({formik, avatar, map, documents, dates, onCancel, setIniti
             formik.setFieldValue('file', '');
             type === 'avatar' ? setAvatarSrc('') : setMapSrc('');
         }
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+                type === 'avatar' ? setAvatarSrc(avatar) : setMapSrc(map);
+            }
+        });
     };
 
     const handleDeleteImg = type => {

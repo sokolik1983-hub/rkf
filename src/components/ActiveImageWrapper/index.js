@@ -3,6 +3,7 @@ import { object, string, func } from 'prop-types'
 import axios from "axios";
 import { getHeaders } from "utils/request";
 import { objectNotEmpty } from "utils/index";
+import { acceptType } from "../../utils/checkImgType";
 
 import Button from 'components/Button'
 
@@ -71,15 +72,25 @@ function ActiveImageWrapper({
     };
 
     const onInputChange = e => {
-        if (e.target.files) {
-            const inputValue = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             setState({
                 ...state,
-                inputValue: inputValue,
-                imagePreview: URL.createObjectURL(inputValue)
+                inputValue: file,
+                imagePreview: URL.createObjectURL(file)
             })
-            onChangeFunc && onChangeFunc(inputValue);
+            onChangeFunc && onChangeFunc(file);
         }
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+                setState({
+                    ...state,
+                    inputValue: '',
+                });    
+            }
+        });
     };
 
     const onSubmit = async () => {
