@@ -47,25 +47,12 @@
     }
   }
   &__photo {
-    padding-bottom: 75%; /* 3:4*/
+    padding-bottom: 130%; /* 4:3 вертикальное фото*/
     height: 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    //border: 1px solid #e8e8e8;
     cursor: pointer;
-    //float: left;
-    // @media (max-width: 560px) {
-    //   width: 100%;
-    //   min-width: auto;
-    //   max-width: none;
-    //   height: 47.8vw;
-    //   min-height: auto;
-    //   max-height: none;
-    //   margin-right: 0;
-    //   margin-bottom: 10px;
-    //   float: none;
-    // }
   }
   &__video {
     position: relative;

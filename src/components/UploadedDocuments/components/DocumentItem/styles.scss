@@ -9,6 +9,18 @@
         &__link {
             display: block;
         }
+        &__download {
+            padding: 0;
+            border: 0;
+            height: 30px;
+            width: 30px;
+            background: url("/static/icons/icon-download.svg") no-repeat center;
+            position: relative;
+            top: 4px;
+            &:hover {
+                background-image: url("/static/icons/icon-download-blue.svg");
+            }
+        }
         &__delete-btn {
             display: flex;
             align-items: center;
