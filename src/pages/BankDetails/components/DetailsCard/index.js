@@ -34,7 +34,6 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                     className="details-card__link"
                 >
                     {<span>{doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}</span>}
-                    {doc.documents.document_type_id === 2 && <span>Размеры взносов в ОАНКО</span>}
                 </Link>)}
                 <Link
                     to={`/details-viewer/${docList[0].documents[1].document_id || docList[1].documents[1].document_id || docList[2].documents[1].document_id}`}
