@@ -112,7 +112,7 @@ const Notifications = forwardRef(
         }
 
         const handleOutsideClick = (e) => {
-            if (e?.target.className !== 'Notifications__icon') {
+            if (!e?.target.className.includes('Notifications__icon')) {
                 setOpen(false);
                 setControlsOpen(false);
             }
