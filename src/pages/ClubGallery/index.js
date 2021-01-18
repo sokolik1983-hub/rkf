@@ -36,6 +36,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
     const [hasMore, setHasMore] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const history = useHistory();
     const alias = params.id;
@@ -172,7 +173,7 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout>
+                : <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
@@ -285,7 +286,9 @@ const ClubGallery = ({ isAuthenticated, is_active_profile, profile_id, match, us
                                                 /> :
                                                 <UserMenu userNav={canEdit
                                                     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
+                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
+                                                    notificationsLength={notificationsLength}
+                                                />
                                             }
                                             {!isMobile &&
                                                 <>

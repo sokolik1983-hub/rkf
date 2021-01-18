@@ -31,6 +31,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
     const [hasMore, setHasMore] = useState(true);
     const [videos, setVideos] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const params = useParams();
     const alias = match.params.id;
     const isMobile = useIsMobile();
@@ -152,7 +153,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
         <Loading /> :
         error ?
             <Redirect to="/404" /> :
-            <Layout>
+            <Layout setNotificationsLength={setNotificationsLength}>
                 <div className="user-page">
                     <Container className="user-page__content content">
                         <aside className="user-page__left">
@@ -174,6 +175,7 @@ const UserVideo = ({ match, profile_id, is_active_profile, isAuthenticated }) =>
                                 <UserMenu userNav={canEdit
                                     ? userNav(alias) // Show NewsFeed menu item to current user only
                                     : userNav(alias).filter(i => i.id !== 2)}
+                                    notificationsLength={notificationsLength}
                                 />
                                 {!isMobile &&
                                     <>

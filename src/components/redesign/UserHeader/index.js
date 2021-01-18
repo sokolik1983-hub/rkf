@@ -5,7 +5,7 @@ import Alert from "components/Alert";
 import { DEFAULT_IMG } from "appConfig";
 import { ActiveUserMark, FederationChoiceMark } from "../../Marks";
 import Share from "components/Share";
-import UserActions from "components/UserActions";
+import UserActionControls from "components/UserActionControls";
 import "./index.scss";
 
 
@@ -57,7 +57,7 @@ const UserHeader = ({ user, logo, name, alias, profileId, subscribed, member, on
                             {
                                 !canEdit && isAuthenticated && <>
                                     <hr style={{ margin: '12px 0 0 0' }} />
-                                    < UserActions
+                                    <UserActionControls
                                         userType={3}
                                         subscribed_id={profileId}
                                         subscribed={subscribed}

@@ -3,7 +3,7 @@ import Card from "../Card";
 import Alert from "../Alert";
 import { DEFAULT_IMG } from "../../appConfig";
 import Share from "components/Share";
-import UserActions from "components/UserActions";
+import UserActionControls from "components/UserActionControls";
 import "./index.scss";
 
 const TopComponent = ({ logo, name, withShare = true, withSubscribe, isAuthenticated, canEdit, bank_details, banner_link, subscribed, subscribed_id, member, onSubscriptionUpdate }) => {
@@ -65,12 +65,13 @@ const TopComponent = ({ logo, name, withShare = true, withSubscribe, isAuthentic
                 <div className="top-component__content-buttons">
                     {
                         withSubscribe && isAuthenticated && !canEdit &&
-                        < UserActions
+                        <UserActionControls
                             userType={3}
                             subscribed_id={subscribed_id}
                             subscribed={subscribed}
                             member={member}
                             onSubscriptionUpdate={onSubscriptionUpdate}
+                            isTopComponent
                         // onSuccess={onSuccess}
                         // onError={onError}
                         />

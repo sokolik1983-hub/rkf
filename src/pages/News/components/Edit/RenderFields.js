@@ -11,6 +11,7 @@ import Modal from "../../../../components/Modal";
 import LightTooltip from "../../../../components/LightTooltip";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { trash } from "@progress/kendo-svg-icons";
+import { acceptType } from "../../../../utils/checkImgType";
 import useIsMobile from "../../../../utils/useIsMobile";
 
 
@@ -52,8 +53,9 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
     };
 
     const handleChangeImg = e => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0];
+        const file = e.target.files[0];
+
+        if (file) {
             formik.setFieldValue('file', file);
             setSrc(URL.createObjectURL(file));
             e.target.value = '';
@@ -62,6 +64,13 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
             setSrc('');
         }
         setIsImageDelete(true);
+        acceptType(file).then(descision => {
+            if (!descision) {
+                window.alert(`Поддерживаются только форматы .jpg, .jpeg`);
+                formik.setFieldValue('file', '');
+                setSrc('');
+            }
+        });
     };
 
     const handleDeleteImg = () => {
@@ -126,7 +135,7 @@ const RenderFields = ({ fields, breeds, formik, text, imgSrc, videoLink, docs, s
                                 name="file"
                                 id="file"
                                 className="article-edit__image-input"
-                                accept=".png, .jpg, .jpeg"
+                                accept=".jpg, .jpeg"
                                 onChange={handleChangeImg}
                             />
                             <label htmlFor="file" className="article-edit__attach-img-label"></label>

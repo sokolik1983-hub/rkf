@@ -253,6 +253,9 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
+    @media (max-width: 700px) {
+      margin-top: 0;
+    }
   }
 
   &__advert {
@@ -309,7 +312,9 @@
     height: 38px;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     margin: 0 auto;
-
+    @media (max-width: 700px) {
+      margin-bottom: 10px;
+    }
     &.active {
       background: #007bff;
       box-shadow: 0 4px 8px rgba(51, 102, 255, 0.3);

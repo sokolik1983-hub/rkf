@@ -25,6 +25,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
     const [clubInfo, setClubInfo] = useState(null);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     let params = useParams();
     const alias = params.route;
     const isMobile = useIsMobile();
@@ -57,7 +58,7 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
         <>
             {!pageLoaded && !clubInfo
                 ? <Loading />
-                : <Layout>
+                : <Layout setNotificationsLength={setNotificationsLength}>
                     <div className="redesign">
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
@@ -118,7 +119,9 @@ const ClubUploadedDocuments = ({ location, isAuthenticated, is_active_profile, p
                                                 /> :
                                                 <UserMenu userNav={canEdit
                                                     ? clubNav(clubInfo.club_alias) // Show NewsFeed menu item to current user only
-                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)} />
+                                                    : clubNav(clubInfo.club_alias).filter(i => i.id !== 2)}
+                                                    notificationsLength={notificationsLength}
+                                                />
                                             }
                                             {!isMobile &&
                                                 <>
