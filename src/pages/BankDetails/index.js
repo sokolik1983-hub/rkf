@@ -32,7 +32,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
 
     useEffect(() => {
         (() => Request({
-            url: `/api/federation/payment_requisites`
+            url: `/api/federation/federation_documents`
         }, data => {
             setFedIdList(data);
         }, error => {
@@ -72,12 +72,12 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                     />}
                     <div className="base-search__content-wrap">
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
-                            {user_type !== 1 && fedIdList && fedIdList.map((fed, i) => <DetailsCard
+                            {user_type !== 1 && fedIdList?.map((fed, i) => <DetailsCard
                                 key={i}
-                                isRKF={getFedInfo(fed.organization_type).fedName === 'РКФ'} //у карточки РКФ отступ снизу больше
+                                fedName={getFedInfo(fed.organization_type).fedName}
                                 iconClassName={getFedInfo(fed.organization_type).iconClassName}
                                 title={`Реквизиты ${getFedInfo(fed.organization_type).fedName}`}
-                                documentId={fed.document_id}
+                                documents={fed.documents}
                                 description={getFedInfo(fed.organization_type).fedName === 'РКФ' ? `В данном разделе Вы можете ознакомиться с реквизитами РКФ для оплаты изготовления документов. Для оформления сертификатов, дипломов и керакарт необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".` :
                                     `В данном разделе Вы можете ознакомиться с реквизитами ${getFedInfo(fed.organization_type).fedName} для оплаты членских взносов и оформления племенных документов. В целях осуществления регистрации помета, изготовления родословной необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".`
                                 }
@@ -85,10 +85,10 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                             {user_type === 1 && fedIdList && <>
                                 {mainFedList(fedIdList).map((fed, i) => <DetailsCard
                                     key={i}
-                                    isRKF={getFedInfo(fed.organization_type).fedName === 'РКФ'}
+                                    fedName={getFedInfo(fed.organization_type).fedName}
                                     iconClassName={getFedInfo(fed.organization_type).iconClassName}
                                     title={`Реквизиты ${getFedInfo(fed.organization_type).fedName}`}
-                                    documentId={fed.document_id}
+                                    documents={fed.documents}
                                     description={getFedInfo(fed.organization_type).fedName === 'РКФ' ? `В данном разделе Вы можете ознакомиться с реквизитами РКФ для оплаты изготовления документов. Для оформления сертификатов, дипломов и керакарт необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".` :
                                         `В данном разделе Вы можете ознакомиться с реквизитами ${getFedInfo(fed.organization_type).fedName} для оплаты членских взносов и оформления племенных документов. В целях осуществления регистрации помета, изготовления родословной необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".`
                                     }
@@ -98,7 +98,6 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                     docList={oankooFedList(fedIdList)}
                                     iconClassName={'oankoo-logo'}
                                     title={`Реквизиты ОАНКОО`}
-                                    documentId={1}
                                     description={`В данном разделе Вы можете ознакомиться с реквизитами ОАНКОО для оплаты членских взносов и оформления племенных документов. В целях осуществления регистрации помета, изготовления родословной необходимо произвести оплату по указанным реквизитам и прикрепить платежный документ к соответствующей заявке в разделе "Оформление документов".`}
                                 />
                             </>}
