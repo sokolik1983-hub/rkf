@@ -17,7 +17,6 @@ const Security = ({setFormModified, history, handleSuccess, handleError}) => {
     const [loading, setLoading] = useState(true);
     const [alias, setAlias] = useState('');
     const [login, setLogin] = useState('');
-    const [aliasError, setAliasError] = useState('');
     const [newLogin, setNewLogin] = useState('');
     const [modalType, setModalType] = useState('');
 
@@ -56,11 +55,6 @@ const Security = ({setFormModified, history, handleSuccess, handleError}) => {
             });
         }, error => {
             handleError(error);
-
-            if(error.response && error.response.data.errors && error.response.data.errors.alias) {
-                setAliasError(error.response.data.errors.alias);
-            }
-
             setLoading(false);
         });
     };
