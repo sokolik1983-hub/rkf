@@ -33,16 +33,16 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    {<span>{doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}</span>}
+                    {doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}
                 </Link>)}
-                <Link
-                    to={`/details-viewer/${docList[0].documents[1].document_id || docList[1].documents[1].document_id || docList[2].documents[1].document_id}`}
+                {docList && <Link
+                    to={`/details-viewer/${docList[0]?.documents[1].document_id || docList[1]?.documents[1].document_id || docList[2]?.documents[1].document_id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    {<span>Размеры взносов в ОАНКО</span>}
-                </Link>
+                    Размеры взносов в ОАНКО
+                </Link>}
             </span>}
         </Card>
     );
