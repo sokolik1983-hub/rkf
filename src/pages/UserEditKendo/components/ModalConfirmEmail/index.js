@@ -13,7 +13,6 @@ import "./index.scss";
 const ModalConfirmEmail = ({email, closeModal, updateInfo}) => {
     const [loading, setLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [error, setError] = useState('');
     const [alert, setAlert] = useState(null);
 
     const handleError = e => {
@@ -43,11 +42,6 @@ const ModalConfirmEmail = ({email, closeModal, updateInfo}) => {
             setLoading(false);
         }, error => {
             handleError(error);
-
-            if(error.response && error.response.data.errors && error.response.data.errors.code) {
-                setError(error.response.data.errors.code);
-            }
-
             setLoading(false);
         });
     };
