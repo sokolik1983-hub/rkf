@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import './index.scss';
 
 
-const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard, docList, fedName }) => {
+const DetailsCard = ({ iconClassName, title, description, documents, isUserCard, docList, fedName }) => {
 
     return (
         <Card className="details-card">
@@ -14,43 +14,35 @@ const DetailsCard = ({ iconClassName, title, description, documentId, isUserCard
                 {description}
                 {isUserCard && <span style={{ display: 'inline-block' }}>Для просмотра реквизитов выберите одну из необходимых Федераций.</span>}
             </p>
-            {!isUserCard && <>
-                <Link
-                    to={`/details-viewer/${documentId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="details-card__link"
-                >
-                    Реквизиты
-                </Link>
-                <Link
-                    to={`/details-viewer/${documentId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="details-card__link"
-                    style={{ marginLeft: '20px' }}
-                >
-                    Размеры взносов в {fedName}
-                </Link>
-            </>
+            {!isUserCard && documents?.map((document, i) => <Link
+                key={i}
+                to={`/details-viewer/${document.document_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="details-card__link"
+                style={{ marginRight: '20px' }}
+            >
+                {document.document_type_id === 1 ? `Реквизиты` : `Размеры взносов в ${fedName}`}
+            </Link>)
             }
             {isUserCard && <span className="details-card__user-link">
-                {docList && docList.map((doc, i) => <Link
+                {docList?.map((doc, i) => <Link
                     key={i}
-                    to={`/details-viewer/${doc.document_id}`}
+                    to={`/details-viewer/${doc.documents[0]?.document_id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    {doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}
+                    {<span>{doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}</span>}
+                    {doc.documents.document_type_id === 2 && <span>Размеры взносов в ОАНКО</span>}
                 </Link>)}
                 <Link
-                    to={`/details-viewer/${documentId}`}
+                    to={`/details-viewer/${docList[0].documents[1].document_id || docList[1].documents[1].document_id || docList[2].documents[1].document_id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    Размеры взносов в ОАНКОО
+                    {<span>Размеры взносов в ОАНКО</span>}
                 </Link>
             </span>}
         </Card>
