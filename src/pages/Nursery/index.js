@@ -85,9 +85,9 @@ const NurseryPage = ({ history, match, profile_id, is_active_profile, isAuthenti
                     <Container className="content nursery-page">
                         <div className="nursery-page__content-wrap">
                             <div className="nursery-page__content">
-                                <Card className="nursery-page__content-banner">
+                                {isMobile && !nursery.headliner_link ? null : <Card className="nursery-page__content-banner">
                                     <div style={nursery.headliner_link && { backgroundImage: `url(${nursery.headliner_link}`, backgroundColor: '#fff' }} />
-                                </Card>
+                                </Card>}
                                 {isMobile &&
                                     <>
                                         <UserHeader

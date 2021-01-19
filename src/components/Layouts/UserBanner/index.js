@@ -6,14 +6,16 @@ import Card from "../../Card";
 import ModalEditBanner from "./ModalEditBanner";
 import ModalDeleteBanner from "./ModalDeleteBanner";
 import LightTooltip from "../../LightTooltip";
+import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
 const UserBanner = ({ link, canEdit, updateInfo }) => {
     const [hover, setHover] = useState(false);
     const [modalType, setModalType] = useState('');
+    const isMobile = useIsMobile();
 
-    return (
+    return isMobile && !link ? null : (
         <Card className={`user-banner ${link ? ` _custom_banner` : ``}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             {canEdit &&
                 <>
