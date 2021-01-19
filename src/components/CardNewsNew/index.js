@@ -273,7 +273,7 @@ const CardNewsNew = forwardRef(({
                 <div className="CardNewsNew__controls-left">
                     <div>
                         <span 
-                            className={`k-icon k-i-heart-outline${isLiked ? ' colored-icon' : ''}`}
+                            className={`k-icon ${isLiked ? ' k-i-heart colored-icon' : ' k-i-heart-outline'}`}
                             // onClick={handleLikeClick}
                         />
                         {/* <span>{likesCount}</span> */}
