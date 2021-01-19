@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../../../components/Loading";
 import CardOrganization from "../../../../components/CardOrganization";
 import CardExhibition from "../../../../components/CardExhibition";
-import CardNews from "../../../../components/CardNews";
+import CardNewsNew from "../../../../components/CardNewsNew";
 import {DEFAULT_IMG} from "../../../../appConfig";
 import {getDictElementsArray, useDictionary} from "../../../../dictionaries";
 import {formatDateCommon} from "../../../../utils/datetime";
@@ -63,7 +63,7 @@ const SearchList = ({searchResult, hasMore, getNextResults}) => {
                                 />
                             }
                             {item.search_type === 'articles' &&
-                                <CardNews
+                                <CardNewsNew
                                     {...item}
                                     user={item.user_type}
                                     city={item.fact_city_name}

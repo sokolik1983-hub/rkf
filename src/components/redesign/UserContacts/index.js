@@ -63,6 +63,20 @@ const UserContacts = ({
     //const mainWorkTime = work_time && formatWorkTime(work_time)[0];
     const showRequisites = !is_active && (!!inn || !!kpp || !!ogrn || !!bank_name || !!bic || !!rs_number);
 
+    const getPhoneString = (main_phone, contactsList) => {
+        let phonesStr = '';
+
+        if (main_phone) phonesStr += `${main_phone.value}, `;
+
+        if (contactsList && !!contactsList.length) {
+            contactsList.filter(item => item.contact_type_id === 1).slice(1).map(contact => (
+                phonesStr += `${beautify(contact.value)}, `
+            ))
+        };
+
+        return phonesStr.substring(0, phonesStr.length - 2);
+    };
+
     return (
         <Card className="user-contacts__info-wrap">
             <Collapse isOpened={isOpen} ref={CollapseRef}>
@@ -86,11 +100,11 @@ const UserContacts = ({
                     </div>
                     : <div className="user-contacts__info-email"><p><span style={{ color: '#253c5e' }}>E-mail:&nbsp;</span>Не указан</p></div>
                 }
-                {mainPhone
+                {mainPhone || contacts
                     ? <div className="user-contacts__info-phone">
                         <p>
-                            <span>{mainPhone.description || 'Телефон'}:&nbsp;</span>
-                            <span>{beautify(mainPhone.value)}</span>
+                            <span>{'Телефон'}:&nbsp;</span>
+                            <span>{getPhoneString(mainPhone, contacts)}</span>
                         </p>
                     </div>
                     : <div className="user-contacts__info-phone"><p><span>Телефон:&nbsp;</span><span>Не указан</span></p></div>
@@ -100,14 +114,6 @@ const UserContacts = ({
                         <p key={contact.id}>
                             <span>{contact.description || 'E-mail'}:&nbsp;</span>
                             <a href={`mailto:${contact.value}`}>{contact.value}</a>
-                        </p>
-                    ))}
-                </div>
-                <div className="user-contacts__info-phone">
-                    {contacts.filter(item => item.contact_type_id === 1).slice(1).map(contact => (
-                        contact.value && <p key={contact.id}>
-                            <span>{contact.description || 'Телефон'}:&nbsp;</span>
-                            <span>{beautify(contact.value)}</span>
                         </p>
                     ))}
                 </div>

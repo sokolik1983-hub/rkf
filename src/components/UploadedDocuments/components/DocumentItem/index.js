@@ -4,6 +4,8 @@ import { SvgIcon } from "@progress/kendo-react-common";
 import { filePdf, trash } from "@progress/kendo-svg-icons";
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 import { Link } from "react-router-dom";
+import { getHeaders } from "../../../../utils/request";
+import LightTooltip from "components/LightTooltip";
 import moment from "moment";
 import "moment/locale/ru";
 import './styles.scss';
@@ -39,6 +41,24 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
         return React.cloneElement(li, li.props, itemChildren);
     }
 
+    const handleClick = async (e, id) => {
+        e.preventDefault();
+        await fetch(`/api/document/publicdocument?id=${id}`, {
+            method: 'GET',
+            headers: getHeaders()
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob),
+                    a = document.createElement('a');
+                a.href = url;
+                a.download = `Документ ${id}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            });
+    };
+
     return <div className="DocumentItem container p-0 mb-4">
         <div className="row d-flex align-items-center">
             <div className="col-5">
@@ -58,7 +78,16 @@ const DocumentItem = ({ category_id, category_name, id, name, date_create, categ
             <div className="col-1">
                 <Share url={`//${window.location.host}/docs/${id}`} />
             </div>
-            <div className="col-5">
+            <div className="col-1">
+                <LightTooltip title="Скачать документ" enterDelay={200} leaveDelay={200}>
+                    <button
+                        className="DocumentItem__download"
+                        onClick={e => handleClick(e, id)}
+                    >
+                    </button>
+                </LightTooltip>
+            </div>
+            <div className="col-4">
                 <DropDownList
                     data={categories}
                     dataItemKey="id"
