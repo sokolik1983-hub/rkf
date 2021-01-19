@@ -502,49 +502,89 @@
     cursor: pointer;
     &:hover {
       transition: all 0.2s linear;
-      // background-color: #eeeeee;
     }
-    // &._login_open {
-    //   background-color: #d8d8d8;
-    // }
   }
-  // &__arrow {
-  //   width: 24px;
-  //   height: 24px;
-  //   background: url("/static/icons/chevron-down-light.svg") no-repeat center;
-  //   transition: all 0.2s linear;
-  //   display: inline-block;
-  //   vertical-align: middle;
-  //   border: none;
-  //   position: relative;
-  //   top: -28px;
-  //   left: 53px;
-  //   &._widget_open {
-  //     background: url("/static/icons/chevron-down-blue.svg") no-repeat center;
-  //     transform: rotate(180deg);
-  //     top: -29px;
-  //   }
-  // }
   &__content {
     position: absolute;
     right: 0px;
-    top: 40px;
+    top: 50px;
     z-index: 1;
-    margin-top: 16px;
     box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
-    &:before {
-      content: "";
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 314px;
+    padding-bottom: 6px;
+    @media (max-width: 375px) {
+      right: -40px;
+    }
+    @media (max-width: 330px) {
+      right: -50px;
+    }
+  }
+  &__userpic {
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    background-position: center;
+    background-size: cover;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-bottom: -30px;
+    &-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 80px;
+      margin: 10px 10px 30px 10px;
+      background: url("/static/images/widget-login/userpic-bg.jpg") center/cover no-repeat;
+    }
+  }
+  &__username {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 18px;
+    a {
       display: block;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      background-color: #253c5e;
-      position: absolute;
-      top: -8px;
-      right: 8px;
-      z-index: -1;
-      transform: rotate(45deg);
-      box-shadow: 0 8px 25px rgba(176, 190, 197, 0.5);
+      text-decoration: none;
+      max-height: 54px;
+      overflow: hidden;
+    }
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #dfe9fb !important;
+    color: #72839c !important;
+    width: 100%;
+    height: 38px;
+    text-align: center;
+    border-radius: 6px;
+    &:hover {
+      opacity: 0.8;
+      transition: all 0.2s linear;
+    }
+    &-wrap {
+      padding: 0 10px 10px 10px;
+    }
+  }
+  &__add-user {
+    color: #72839c;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #e8e8e8;
+    div {
+      padding-left: 35px;
+      background: url("/static/icons/add.svg") left center no-repeat;
+      line-height: 23px;
+      cursor: default;
     }
   }
   .slide-down {
@@ -553,36 +593,18 @@
   &__list {
     list-style: none;
     min-width: 150px;
-    max-width: 300px;
+    max-width: 314px;
     background-color: #fff;
-    border-radius: 6px;
     overflow: hidden;
+    border-top: 1px solid #e8e8e8;
     @media (max-width: 560px) {
       max-width: 245px;
     }
   }
   &__item {
     position: relative;
-    &:first-child {
-      display: block;
-      padding: 8px 36px 8px 16px;
-      color: #fff;
-      background-color: #253c5e;
-      font-weight: 600;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      cursor: default;
-      a {
-        text-decoration: none;
-        color: inherit;
-        &._disabled {
-          cursor: not-allowed;
-        }
-      }
-    }
-    &:not(:first-child) a,
-    &:not(:first-child) span {
+    a,
+    span {
       text-decoration: none;
       white-space: nowrap;
       color: #72839c;
@@ -590,7 +612,7 @@
       font-size: 16px;
       line-height: 22px;
       display: block;
-      padding: 8px 16px;
+      padding: 4px 10px;
       transition: all 0.2s linear;
       cursor: pointer;
       &:hover {
@@ -681,22 +703,22 @@
     &-enter,
     &-appear {
       opacity: 0;
-      transform: translateY(-10px);
+      margin-top: -10px;
     }
     &-enter-active,
     &-appear-active {
       opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 0;
+      transition: opacity 0.2s, margin-top 0.2s;
     }
     &-exit {
       opacity: 1;
-      transform: translateY(0);
+      margin-top: 0;
     }
     &-exit-active {
       opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.2s, transform 0.2s;
+      margin-top: -10px;
+      transition: opacity 0.2s, margin-top 0.2s;
     }
   }
 }
