@@ -65,7 +65,6 @@ const WidgetLogin = forwardRef(
                                 <div className={`widget-login__user-icon${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
                                     style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
                                 />
-                                {/* <button className={`widget-login__arrow ${open ? `_widget_open` : ``}`}></button> */}
                             </div>
                         </LightTooltip>
                         <CSSTransition
@@ -75,58 +74,66 @@ const WidgetLogin = forwardRef(
                             unmountOnExit
                         >
                             <div className="widget-login__content">
-                                <ul className="widget-login__list">
-                                    <li className="widget-login__item">
-                                        {userType === 1 &&
-                                            <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
-                                        }
-                                        {(userType === 3 || userType === 5) &&
-                                            <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
-                                        }
-                                        {userType === 4 &&
-                                            <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
-                                        }
-                                    </li>
+                                <div className="widget-login__userpic-wrap">
+                                    <div className={`widget-login__userpic${open ? ' _active' : !logo ? ' _no-logo' : ''}`}
+                                        style={{ backgroundImage: `url(${logo ? logo : userType === 1 ? DEFAULT_IMG.userAvatar : DEFAULT_IMG.clubAvatar})` }}
+                                    />
+                                </div>
+                                <div className="widget-login__username">
+                                    {userType === 1 &&
+                                        <Link to={`/user/${alias}`}>{firstName ? firstName : 'Аноним'}{lastName ? ' ' + lastName : ''}</Link>
+                                    }
+                                    {(userType === 3 || userType === 5) &&
+                                        <Link to={is_active_profile ? `/${alias}` : "/not-confirmed"}>{name}</Link>
+                                    }
+                                    {userType === 4 &&
+                                        <Link to={is_active_profile ? `/kennel/${alias}` : "/kennel/activation"}>{name}</Link>
+                                    }
+                                </div>
+
+                                <div className="widget-login__button-wrap">
                                     {is_active_profile &&
                                         <>
                                             {userType === 1 &&
-                                                <>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/user/${alias}/edit`} >Редактировать профиль</Link>
-                                                    </li>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
-                                                    </li>
-                                                </>
+                                                <Link className="widget-login__button" to={`/user/${alias}/edit`} >Редактировать профиль</Link>
                                             }
                                             {(userType === 3 || userType === 5) &&
-                                                <>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to="/client">Редактировать профиль</Link>
-                                                    </li>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
-                                                    </li>
-                                                </>
+                                                <Link className="widget-login__button" to="/client" >Редактировать профиль</Link>
                                             }
                                             {userType === 4 &&
-                                                <>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/kennel/${alias}/edit`}>Редактировать профиль</Link>
-                                                    </li>
-                                                    <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                        <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
-                                                    </li>
-                                                </>
+                                                <Link className="widget-login__button" to={`/kennel/${alias}/edit`} >Редактировать профиль</Link>
+                                            }
+                                        </>
+                                    }
+                                </div>
+
+                                <ul className="widget-login__list">
+                                    {is_active_profile &&
+                                        <>
+                                            {userType === 1 &&
+
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <Link to={`/user/${alias}/documents`}>Личный кабинет</Link>
+                                                </li>
+                                            }
+                                            {(userType === 3 || userType === 5) &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <Link to={`/${alias}/documents/`}>Личный кабинет</Link>
+                                                </li>
+                                            }
+                                            {userType === 4 &&
+                                                <li className="widget-login__item" onClick={() => setOpen(false)}>
+                                                    <Link to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
+                                                </li>
                                             }
                                             {accountType === 5 && userType === 5 &&
                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                    <span onClick={() => setShowModal(true)}>Войти как клуб</span>
+                                                    <span onClick={() => setShowModal(true)}>Войти в аккаунт клуба</span>
                                                 </li>
                                             }
                                             {accountType === 5 && userType !== 5 &&
                                                 <li className="widget-login__item" onClick={() => setOpen(false)}>
-                                                    <span onClick={logoutAsUser}>Выйти из клуба</span>
+                                                    <span onClick={logoutAsUser}>Выйти из аккаунта клуба</span>
                                                 </li>
                                             }
                                         </>
@@ -134,6 +141,11 @@ const WidgetLogin = forwardRef(
                                     <li className="widget-login__item widget-login__item--logout" onClick={() => setOpen(false)}>
                                         <Link to="/" onClick={logOutUser}>Выход</Link>
                                     </li>
+
+                                    <li className="widget-login__item widget-login__add-user">
+                                        <div>Добавить пользователя</div>
+                                    </li>
+
                                     <li className="widget-login__item" onClick={() => setOpen(false)}>
                                         <a style={{ color: '#3366ff' }} href="https://help.rkf.online/ru/knowledge_base/art/146/cat/3/" target="_blank" rel="noopener noreferrer">База знаний</a>
                                     </li>
