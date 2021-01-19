@@ -1,14 +1,14 @@
-import React, {Fragment, useState} from "react";
-import {Collapse} from "react-collapse";
+import React, { Fragment, useState } from "react";
+import { Collapse } from "react-collapse";
 import Card from "../../Card";
 import Counter from "../../CounterComponent";
 import "./index.scss";
 
-const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => {
+const UserDescription = ({ mainInfo, additionalInfo, counters, profileAlias }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const normalizeLink = link => {
-        if(!link.includes('https://') || !link.includes('http://')) {
+        if (!link.includes('https://') || !link.includes('http://')) {
             return 'https://' + link;
         }
         return link;
@@ -17,7 +17,7 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
     const getAddressString = addressObj => {
         let address = '';
 
-        if(addressObj) {
+        if (addressObj) {
             if (addressObj.postcode) address += `${addressObj.postcode}, `;
             if (addressObj.city_name) address += `${addressObj.city_name}${addressObj.street_name && `, `}`;
             if (addressObj.street_name) address += `${addressObj.street_name}${addressObj.house_name && `, `}`;
@@ -27,6 +27,16 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
         }
 
         return address;
+    };
+
+    const getPhoneString = (main_phone, phone_status, phonesList) => {
+        let phonesStr = '';
+
+        if (main_phone || phone_status) phonesStr += `${main_phone || phone_status}, `;
+
+        if (phonesList && !!phonesList.length) phonesList.map((phone) => phonesStr += `${phone.value}, `);
+
+        return phonesStr.substring(0, phonesStr.length - 2);
     };
 
     const {
@@ -71,7 +81,7 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
             </p>
             <p className="user-description__item _phone">
                 <span className="user-description__item-title">{main_phone_description || 'Телефон'}:</span>&nbsp;
-                <span>{main_phone_value || main_phone_status}</span>
+                <span>{getPhoneString(main_phone_value, main_phone_status, phones)}</span>
             </p>
             {additionalInfo &&
                 <>
@@ -83,14 +93,6 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
                                     <a href={`mailto:${item.value}`} title={item.value}>
                                         {item.value}
                                     </a>
-                                </p>
-                            )
-                        }
-                        {phones && !!phones.length &&
-                            phones.map(item =>
-                                <p className="user-description__item _phone" key={item.id}>
-                                    <span className="user-description__item-title">{item.description || 'Телефон'}:</span>&nbsp;
-                                    <span title={item.value}>{item.value}</span>
                                 </p>
                             )
                         }
@@ -111,11 +113,11 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
                                 <span className="user-description__item-title">Соцсети:</span>
                                 {social_networks.map(item => (
                                     <Fragment key={item.id}>
-                                        <br/>
+                                        <br />
                                         <a href={normalizeLink(item.site)}
-                                           title={item.description || item.site}
-                                           target="_blank"
-                                           rel="noopener noreferrer"
+                                            title={item.description || item.site}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
                                             {item.description || item.site}
                                         </a>
@@ -126,7 +128,7 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
                         {description &&
                             <div className="user-description__item _describe">
                                 <span className="user-description__item-title">Описание:</span>
-                                <div dangerouslySetInnerHTML={{__html: description}}/>
+                                <div dangerouslySetInnerHTML={{ __html: description }} />
                             </div>
                         }
                     </Collapse>
@@ -137,8 +139,8 @@ const UserDescription = ({mainInfo, additionalInfo, counters, profileAlias}) => 
                 </>
             }
             {
-                !!counters && 
-                <Counter counters = {counters} profileAlias = {profileAlias}/>
+                !!counters &&
+                <Counter counters={counters} profileAlias={profileAlias} />
             }
         </Card>
     )
