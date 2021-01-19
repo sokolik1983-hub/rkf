@@ -285,7 +285,7 @@ const NewsFeedItem = forwardRef(({
             <div className="NewsFeedItem__controls" style={{margin: '0 10px 0 10px', borderTop: '1px solid #e5e5e5', paddingTop: '15px'}}>
                 <div className="NewsFeedItem__controls-left">
                     <div>
-                        <span className={`k-icon k-i-heart-outline${isLiked ? ' colored-icon' : ''}`} onClick={handleLikeClick} />
+                        <span className={`k-icon ${isLiked ? ' k-i-heart colored-icon' : ' k-i-heart-outline'}`} onClick={handleLikeClick} />
                         <span>{likesCount}</span>
                     </div>
                     <div>
