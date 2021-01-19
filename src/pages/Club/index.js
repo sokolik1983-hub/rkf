@@ -74,13 +74,13 @@ const ClubPage = ({ history, match, profile_id, is_active_profile, isAuthenticat
                         <Container className="content club-page">
                             <div className="club-page__content-wrap">
                                 <div className="club-page__content">
-                                    <Card className="club-page__content-banner">
+                                    {isMobile && !clubInfo.headliner_link ? null : <Card className="club-page__content-banner">
                                         {
                                             clubInfo.is_active
                                                 ? <div style={clubInfo.headliner_link && { backgroundImage: `url(${clubInfo.headliner_link}` }} />
                                                 : <div className="club-page__content-banner-inactive" />
                                         }
-                                    </Card>
+                                    </Card>}
                                     {isMobile &&
                                         <UserHeader
                                             user={match.params.route !== 'rkf-online' ? 'club' : ''}
