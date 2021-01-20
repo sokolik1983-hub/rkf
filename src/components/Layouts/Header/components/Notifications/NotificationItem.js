@@ -21,6 +21,14 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
         });
     }
 
+    const formatDate = date => {
+        if (new Date(date).getFullYear() === new Date().getFullYear()) {
+            return moment(create_date).format('DD MMMM')
+        } else {
+            return moment(create_date).format('DD MMMM Y')
+        }
+    }
+
     return (
         <div onClick={handleItemClick} className={`NotificationItem${is_read ? '' : ' unread'}`}>
             <div className="NotificationItem__logo-wrap">
@@ -31,7 +39,7 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
             <div className="NotificationItem__content">
                 <div className="NotificationItem__header">
                     <Link to={profileLink} className="NotificationItem_link">{profile_name}</Link>
-                    <span>{`${moment(create_date).format('L')} г.`}</span>
+                    <span>{`, ${formatDate(create_date)}`}</span>
                 </div>
                 <div className="NotificationItem__body">
                     {short_content}

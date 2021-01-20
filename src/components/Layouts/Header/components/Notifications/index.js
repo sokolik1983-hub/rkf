@@ -21,7 +21,7 @@ const defaultCategories = [
     },
     {
         id: 3,
-        name: 'Обязательные к прочтению',
+        name: 'Важные',
         icon: '/static/new-icons/notifications/required.svg',
         count: 0
     },
@@ -37,7 +37,6 @@ const Notifications = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }) => {
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
-        const [controlsOpen, setControlsOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);
         const [showDot, setShowDot] = useState(null);
         const [currentCategory, setCurrentCategory] = useState(1);
@@ -114,7 +113,6 @@ const Notifications = forwardRef(
         const handleOutsideClick = (e) => {
             if (!e?.target.className.includes('Notifications__icon')) {
                 setOpen(false);
-                setControlsOpen(false);
             }
         }
 
@@ -137,33 +135,16 @@ const Notifications = forwardRef(
                         >
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="Notifications__controls">
-                                        <h4 onClick={() => setControlsOpen(!controlsOpen)}>
-                                            {
-                                                currentCategory === 1
-                                                    ? 'Уведомления'
-                                                    : categories.find(c => c.id === currentCategory).name
-                                            }
-                                        </h4>
-                                        <button
-                                            onClick={() => setControlsOpen(!controlsOpen)}
-                                            className={`Notifications__controls-arrow ${controlsOpen ? `_widget_open` : ``}`}
+                                    <div className="Notifications__title">
+                                        <h4>Уведомления</h4>
+                                    </div>
+                                    <div className="Notifications__tabs">
+                                        <NotificationCategories
+                                            categories={categories}
+                                            currentCategory={currentCategory}
+                                            setCurrentCategory={setCurrentCategory}
                                         />
                                     </div>
-                                    <CSSTransition
-                                        in={controlsOpen}
-                                        timeout={350}
-                                        classNames="Notifications-transition"
-                                        unmountOnExit
-                                    >
-                                        <div className="Notifications__controls-inner">
-                                            <NotificationCategories
-                                                categories={categories}
-                                                setCurrentCategory={setCurrentCategory}
-                                                setControlsOpen={setControlsOpen}
-                                            />
-                                        </div>
-                                    </CSSTransition>
                                     {!loaded
                                         ? <Loading centered={false} />
                                         : <>
@@ -178,7 +159,7 @@ const Notifications = forwardRef(
                                                     }
                                                 </div>
                                                 <div className="Notifications__list-see-all">
-                                                    <Link to={() => getNewsFeedLink()} >Посмотреть все</Link>
+                                                    <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
                                                 </div>
                                             </div>
                                         </>}
