@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { CSSTransition } from "react-transition-group";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,8 @@ import "./index.scss";
 const UserMenu = ({ userNav, notificationsLength }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
+    const [showPlus, setShowPlus] = useState(false);
+    const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile();
 
     const clickOnDisabledLink = e => {
@@ -17,6 +19,19 @@ const UserMenu = ({ userNav, notificationsLength }) => {
         setAlert(true);
     };
 
+    useEffect(() => {
+        checkNotificationsLength(notificationsLength);
+    }, [notificationsLength])
+
+    const checkNotificationsLength = (length) => {
+        if (length > 99) {
+            setShowPlus(true);
+            setNotificationsCount(99);
+        } else {
+            setNotificationsCount(length);
+        }
+    };
+    console.log('notificationsLength', notificationsLength)
     return (
         <div className={`user-nav ${isMobile ? `` : `_desktop_card`}`}>
             <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
@@ -46,7 +61,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className="user-nav__item-notification">{notificationsLength}</span>}
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className={`user-nav__item-notification ${showPlus ? `_plus` : ``}`}>{notificationsCount}</span>}
                             </li>
                         )}
                     </ul>
