@@ -2,7 +2,7 @@ import React from 'react';
 import { SvgIcon } from "@progress/kendo-react-common";
 import { file, copy } from "@progress/kendo-svg-icons";
 import LightTooltip from "components/LightTooltip";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './styles.scss';
 
 const ShareCell = ({ dataItem }, callback) => {
@@ -50,19 +50,19 @@ const ShareCell = ({ dataItem }, callback) => {
             : alert('Ссылка скопирована');
     };
 
-    const getDocId = (link) => {
-        return link.split("?")[1];
-    };
+    // const getDocId = (link) => {
+    //     return link.split("?")[1];
+    // };
 
     return <td style={{ padding: '0.75rem 5px' }}>
         {dataItem.pedigree_link && <div className="ShareCell">
             <LightTooltip title="Перейти по ссылке" enterDelay={200} leaveDelay={200}>
-                <Link className="ShareCell__link" to={`/pedigree-viewer/${getDocId(dataItem.pedigree_link)}`} target="_blank">
+                <a className="ShareCell__link" href={dataItem.pedigree_link} rel="noopener noreferrer" target="_blank">
                     <SvgIcon icon={file} size="default" />
-                </Link>
+                </a>
             </LightTooltip>
             <LightTooltip title="Копировать ссылку" enterDelay={200} leaveDelay={200}>
-                <button className="ShareCell__btn" type="button" onClick={() => copyLink(`https://rkf.online/pedigree-viewer/${getDocId(dataItem.pedigree_link)}`)} >
+                <button className="ShareCell__btn" type="button" onClick={() => copyLink(dataItem.pedigree_link)}>
                     <SvgIcon icon={copy} size="default" />
                 </button>
             </LightTooltip>
