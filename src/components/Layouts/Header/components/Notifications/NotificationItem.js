@@ -5,7 +5,7 @@ import { Request } from "utils/request";
 import "moment/locale/ru";
 moment.locale('ru');
 
-const NotificationItem = ({ article_id, id, profile_name, short_content, create_date, logo_link, profile_alias, user_type, is_read, redirect_link }) => {
+const NotificationItem = ({ article_id, id, profile_name, short_content, create_date, logo_link, profile_alias, user_type, is_read, redirect_link, setOpen }) => {
     const profileLink = user_type === 1 ? `/user/${profile_alias}` : user_type === 3 ? `/${profile_alias}` : `/nursery/${profile_alias}`;
     const handleItemClick = async ({ target }) => {
         await Request({
@@ -38,7 +38,7 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
             </div>
             <div className="NotificationItem__content">
                 <div className="NotificationItem__header">
-                    <Link to={profileLink} className="NotificationItem_link">{profile_name}</Link>
+                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
                     <span>{`, ${formatDate(create_date)}`}</span>
                 </div>
                 <div className="NotificationItem__body">
