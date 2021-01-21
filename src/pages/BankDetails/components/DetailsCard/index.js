@@ -3,9 +3,18 @@ import Card from '../../../../components/Card';
 import { Link } from "react-router-dom";
 import './index.scss';
 
+const setPdfId = (array, docTypeNeeded) => {
+    //doc_type === 1 реквизиты
+    //doc_type === 2 взносы
+    if (docTypeNeeded === 1) {
+        return array.filter(i => i.document_type_id === 1).reduce((a, b) => ({ ...a, ...b }))?.document_id;
+    } else if (docTypeNeeded === 2) {
+        return array.filter(i => i.document_type_id === 2).reduce((a, b) => ({ ...a, ...b }))?.document_id;
+    }
+};
 
 const DetailsCard = ({ iconClassName, title, description, documents, isUserCard, docList, fedName }) => {
-
+    
     return (
         <Card className="details-card">
             <div className={`details-card__icon ${iconClassName}`} />
@@ -28,7 +37,7 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
             {isUserCard && <span className="details-card__user-link">
                 {docList?.map((doc, i) => <Link
                     key={i}
-                    to={`/details-viewer/${doc.documents[0]?.document_id}`}
+                    to={`/details-viewer/${setPdfId(doc.documents, 1)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
@@ -36,12 +45,12 @@ const DetailsCard = ({ iconClassName, title, description, documents, isUserCard,
                     {doc.organization_type === 6 ? 'Реквизиты Фауна' : doc.organization_type === 7 ? 'Реквизиты Элита' : 'Реквизиты РКК'}
                 </Link>)}
                 {docList && <Link
-                    to={`/details-viewer/${docList[0]?.documents[1].document_id || docList[1]?.documents[1].document_id || docList[2]?.documents[1].document_id}`}
+                    to={`/details-viewer/${setPdfId(docList[0].documents, 2) || setPdfId(docList[1].documents, 2) || setPdfId(docList[2].documents, 2)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="details-card__link"
                 >
-                    Размеры взносов в ОАНКО
+                    Размеры взносов в ОАНКОО
                 </Link>}
             </span>}
         </Card>
