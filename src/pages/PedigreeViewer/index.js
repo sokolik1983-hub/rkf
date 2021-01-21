@@ -8,9 +8,9 @@ import "./index.scss";
 const PedigreeViewer = ({ history, match }) => {
 
     return <Layout>
-            <div className="document-page">
+            <div className="pedigree-viewer">
                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.5.207/build/pdf.worker.min.js">
-                    <Viewer fileUrl={`http://pedigreeapi.rkf24.ru:5555/pedigree/NzU0ODM5Nzgy`} />
+                    <Viewer fileUrl={`http://pedigreeapi.rkf24.ru:5555/pedigree/${match.params.id}`} />
                 </Worker>
             </div>
         </Layout>

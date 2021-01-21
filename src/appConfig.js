@@ -277,7 +277,7 @@ const appRoutes = [
     },
     {
         exact: true,
-        path: '/pedigree-viewer',
+        path: '/pedigree-viewer/:id',
         component: LoadableModules.LoadablePedigreeViewer
     },
     {
