@@ -153,7 +153,7 @@ const Notifications = forwardRef(
                                                     {
                                                         notifications.length
                                                             ? notifications.map((n, key) => {
-                                                                return <NotificationItem key={key} {...n} />
+                                                                return <NotificationItem key={key} {...n} setOpen={setOpen} />
                                                             })
                                                             : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
                                                     }
