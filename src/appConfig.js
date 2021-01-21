@@ -277,6 +277,11 @@ const appRoutes = [
     },
     {
         exact: true,
+        path: '/pedigree-viewer/:id',
+        component: LoadableModules.LoadablePedigreeViewer
+    },
+    {
+        exact: true,
         path: '/:route',
         component: LoadableModules.LoadableClubPage
     },

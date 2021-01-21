@@ -222,6 +222,11 @@ export const LoadableDetailsViewer = Loadable({
     loading: Loading
 });
 
+export const LoadablePedigreeViewer = Loadable({
+    loader: () => import('./pages/PedigreeViewer'),
+    loading: Loading
+});
+
 export const LoadableBaseSearch = Loadable({
     loader: () => import('./pages/BaseSearch'),
     loading: Loading
