@@ -31,7 +31,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
             setNotificationsCount(length);
         }
     };
-    console.log('notificationsLength', notificationsLength)
+
     return (
         <div className={`user-nav ${isMobile ? `` : `_desktop_card`}`}>
             <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
