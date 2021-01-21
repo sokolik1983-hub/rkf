@@ -45,6 +45,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
     const [errorMessage, setErrorMessage] = useState(false);
     const [errorRedirect, setErrorRedirect] = useState(false);
     const [formBusy, setFormBusy] = useState(false);
+    const [notificationsLength, setNotificationsLength] = useState(0);
     const prevRequestData = useRef();
     const PromiseRequest = url => new Promise((res, rej) => Request({ url }, res, rej));
 
@@ -211,7 +212,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
         ? <Loading />
         : errorRedirect
             ? <Redirect to="/404" />
-            : <Layout withFilters>
+            : <Layout withFilters setNotificationsLength={setNotificationsLength}>
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="UserEdit__wrap">
                     <Container className="UserEdit content">
@@ -231,7 +232,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                         updateInfo={getUser}
                                     />
                                 </Card>
-                                <UserMenu userNav={userNav(alias)} />
+                                <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength}/>
                             </StickyBox>
                         </aside>
                         <div className="UserEdit__right">
