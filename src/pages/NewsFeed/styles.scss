@@ -33,7 +33,7 @@
             display: flex;
             align-items: center;
             margin-top: 10px;
-            &:nth-child(1), &:nth-child(6) {
+            &:nth-child(4) {
                 border-bottom: 1px solid #e5e5e5;
                 padding-bottom: 10px;
             }
@@ -110,26 +110,17 @@
         &--publications {
             background-image: url("/static/new-icons/publications.svg");
         }
-        &--news {
-            background-image: url("/static/new-icons/news.svg");
+        &--new {
+            background-image: url("/static/new-icons/new.svg");
         }
-        &--announcements {
-            background-image: url("/static/new-icons/announcements.svg");
+        &--required {
+            background-image: url("/static/new-icons/required.svg");
         }
-        &--photo {
-            background-image: url("/static/new-icons/photo.svg");
+        &--applications {
+            background-image: url("/static/new-icons/applications.svg");
         }
-        &--video {
-            background-image: url("/static/new-icons/video.svg");
-        }
-        &--recomendations {
-            background-image: url("/static/new-icons/recomendations.svg");
-        }
-        &--service {
-            background-image: url("/static/new-icons/service.svg");
-        }
-        &--information {
-            background-image: url("/static/new-icons/information.svg");
+        &--archive {
+            background-image: url("/static/new-icons/archive.svg");
         }
     }
     .Card {
