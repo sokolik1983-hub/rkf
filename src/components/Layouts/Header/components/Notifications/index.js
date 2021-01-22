@@ -132,7 +132,7 @@ const Notifications = forwardRef(
                             timeout={350}
                             classNames="Notifications-transition"
                             unmountOnExit
-                            onExited={() => { setNotifications([]); setCurrentCategory(1); }}
+                            onExited={() => { setNotifications([]); setCurrentCategory(2); }}
                         >
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
