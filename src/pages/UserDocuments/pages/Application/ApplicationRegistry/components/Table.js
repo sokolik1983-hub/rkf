@@ -47,7 +47,9 @@ const LinkCell = ({ dataItem }) => {
     const { created_document_id } = dataItem;
     return <td>
         {created_document_id &&
-            <span className="create-document-link" onClick={e => handleClick(e, created_document_id)} >Скачать файл</span>
+            <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
+            <span className="download-document" onClick={e => handleClick(e, created_document_id)}></span>
+            </LightTooltip>
         }
     </td>
 };
@@ -99,8 +101,8 @@ const handleClick = async (e, id) => {
             a.click();
             a.remove();
         });
-    el.innerText = 'Скачать файл';
-    el.className = 'create-document-link';
+    el.innerText = '';
+    el.className = 'download-document';
 };
 
 const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) => {

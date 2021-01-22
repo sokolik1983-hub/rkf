@@ -112,8 +112,15 @@
     margin-left: 40px;
   }
 
-  .pedigree-link {
+  .download-document {
+    display: inline-block;
     cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background: url("/static/icons/icon-download.svg") no-repeat center;
+    &:hover {
+      background-image: url("/static/icons/icon-download-blue.svg");
+    }
   }
 
   .stamp-loading {
