@@ -40,7 +40,7 @@ const Notifications = forwardRef(
         const [open, setOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);
         const [showDot, setShowDot] = useState(null);
-        const [currentCategory, setCurrentCategory] = useState(1);
+        const [currentCategory, setCurrentCategory] = useState(2);
         const [categories, setCategories] = useState(defaultCategories);
 
         const { notification } = useContext(NotificationsContext);
@@ -68,7 +68,7 @@ const Notifications = forwardRef(
             }
         }, [notification]);
 
-        const getNotifications = async (type = 1) => {
+        const getNotifications = async (type = 2) => {
             setLoaded(false);
             await Request({
                 url: `/api/article/notifications?id=${type}`
@@ -137,7 +137,7 @@ const Notifications = forwardRef(
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                     <div className="Notifications__title">
-                                        <h4>Уведомления</h4>
+                                        <Link to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Уведомления</Link>
                                     </div>
                                     <div className="Notifications__tabs">
                                         <NotificationCategories

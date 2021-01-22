@@ -23,9 +23,9 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
 
     const formatDate = date => {
         if (new Date(date).getFullYear() === new Date().getFullYear()) {
-            return moment(create_date).format('DD MMMM')
+            return moment(create_date).format('DD MMM')
         } else {
-            return moment(create_date).format('DD MMMM Y')
+            return moment(create_date).format('DD MMM Y')
         }
     }
 
@@ -37,11 +37,13 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
                 </Link>
             </div>
             <div className="NotificationItem__content">
-                <div className="NotificationItem__header">
+                {/* <div className="NotificationItem__header">
                     <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
                     <span>{`, ${formatDate(create_date)}`}</span>
-                </div>
+                </div> */}
                 <div className="NotificationItem__body">
+                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
+                    <span>{`, ${formatDate(create_date)}`}</span>&nbsp;
                     {short_content}
                 </div>
             </div>
