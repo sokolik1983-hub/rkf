@@ -517,7 +517,7 @@
     padding-bottom: 6px;
     @media (max-width: 560px) {
       top: 48px;
-  }
+    }
     @media (max-width: 375px) {
       right: -40px;
     }
@@ -545,10 +545,15 @@
     }
   }
   &__username {
-    padding: 10px;
+    padding: 4px 10px;
     text-align: center;
     font-size: 18px;
     line-height: 18px;
+    margin: 36px 0 6px 0;
+    &:hover {
+      background: whitesmoke;
+      transition: all 0.2s linear;
+    }
     a {
       display: block;
       text-decoration: none;
@@ -601,9 +606,6 @@
     background-color: #fff;
     overflow: hidden;
     border-top: 1px solid #e8e8e8;
-    @media (max-width: 560px) {
-      max-width: 245px;
-    }
   }
   &__item {
     position: relative;
