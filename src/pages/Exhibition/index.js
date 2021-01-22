@@ -28,7 +28,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const exhibitionId = match.params.id;
     const { dictionary } = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
@@ -116,7 +115,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         ? <PageNotFound />
         : loading
             ? <Loading />
-            : <Layout setNotificationsLength={setNotificationsLength}>
+            : <Layout>
                 <div className="exhibition-page redesign">
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
@@ -155,7 +154,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             /> :
                                             <UserMenu
                                                 userNav={clubNav(club_alias)}
-                                                notificationsLength={notificationsLength}
+                                                isExhibitionPage={true}
                                             />
                                         }
                                         <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />

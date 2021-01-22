@@ -7,7 +7,7 @@ import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserMenu = ({ userNav, notificationsLength }) => {
+const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
     const [showPlus, setShowPlus] = useState(false);
@@ -51,7 +51,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                 >
                     <ul className="user-nav__list">
                         {userNav.map(navItem =>
-                            <li className="user-nav__item" key={navItem.id}>
+                            <li className={`user-nav__item ${isExhibitionPage && navItem.title === 'Уведомления' ? ` _hidden` : ``}`} key={navItem.id}>
                                 <NavLink
                                     to={navItem.to}
                                     exact={navItem.exact}
@@ -61,7 +61,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className={`user-nav__item-notification ${showPlus ? `_plus` : ``}`}>{notificationsCount}</span>}
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && <span className={`user-nav__item-notification ${showPlus ? `_plus` : ``}`}>{notificationsCount}</span>}
                             </li>
                         )}
                     </ul>

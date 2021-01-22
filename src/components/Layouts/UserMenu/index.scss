@@ -119,6 +119,9 @@
         }
       }
     }
+    &._hidden {
+      display: none;
+    }
   }
   &__link {
     text-decoration: none;
