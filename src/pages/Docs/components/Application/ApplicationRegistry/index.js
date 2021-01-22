@@ -30,7 +30,7 @@ const ApplicationRegistry = ({ history}) => {
         <Loading /> :
         !standardView ?
             <Card className="user-documents-status__popup">
-                <div className="user-documents-status__controls" style={{marginTop: '20px', marginBottom: '10px'}}>
+                <div className="user-documents-status__controls">
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
                         onClick={() => setExporting(true)}
@@ -57,7 +57,7 @@ const ApplicationRegistry = ({ history}) => {
                     Заявка на получение документов РКФ
                 </div>
                 {documents && !!documents.length
-                    ? <div className="user-documents-status__controls-wrap">
+                    ? <div>
                         <div className="user-documents-status__controls">
                             {standardView &&
                                 <button

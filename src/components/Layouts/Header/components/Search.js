@@ -1,16 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import history from "../../../../utils/history";
 
 
-const Search = ({withFilters}) => {
+const Search = ({ withFilters }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClicked, setIsClicked] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
         setIsClicked(true);
-        if(searchValue) {
+        if (searchValue) {
             setSearchValue('');
             setIsClicked(false);
             history.push(`/search?string_filter=${searchValue.trim()}&search_type=8`);
@@ -32,13 +32,13 @@ const Search = ({withFilters}) => {
                     className={`header__search-control${isClicked ? ' _open' : ''}`}
                     type="text"
                     placeholder="Поиск"
-                    onChange={({target}) => setSearchValue(target.value)}
+                    onChange={({ target }) => setSearchValue(target.value)}
                     onClick={() => setIsClicked(true)}
                     value={searchValue}
                 />
                 <button type="submit" className="header__search-submit">
                     <svg className="header__search-svg" width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.7106 11.0006H12.5006L16.7406 15.2606C17.1506 15.6706 17.1506 16.3406 16.7406 16.7506C16.3306 17.1606 15.6606 17.1606 15.2506 16.7506L11.0006 12.5006V11.7106L10.7306 11.4306C9.33063 12.6306 7.42063 13.2506 5.39063 12.9106C2.61063 12.4406 0.390626 10.1206 0.0506256 7.32063C-0.469374 3.09063 3.09063 -0.469374 7.32063 0.0506256C10.1206 0.390626 12.4406 2.61063 12.9106 5.39063C13.2506 7.42063 12.6306 9.33063 11.4306 10.7306L11.7106 11.0006ZM2.00063 6.50063C2.00063 8.99063 4.01063 11.0006 6.50063 11.0006C8.99063 11.0006 11.0006 8.99063 11.0006 6.50063C11.0006 4.01063 8.99063 2.00063 6.50063 2.00063C4.01063 2.00063 2.00063 4.01063 2.00063 6.50063Z"/>
+                        <path d="M16.7978 15.8238L11.4497 10.4757C12.3686 9.33622 12.8741 7.93027 12.8741 6.44162C12.8741 4.72324 12.2032 3.10595 10.9903 1.89297C9.7773 0.68 8.16 0 6.43243 0C4.70486 0 3.10595 0.670811 1.88378 1.88378C0.661622 3.09676 0 4.71405 0 6.44162C0 8.16 0.670811 9.7773 1.88378 10.9903C3.09676 12.2032 4.71405 12.8741 6.43243 12.8741C7.92108 12.8741 9.32703 12.3686 10.4665 11.4497L15.8146 16.7978C15.9524 16.9357 16.127 17 16.3016 17C16.4762 17 16.6508 16.9357 16.7887 16.7978C17.0643 16.5314 17.0643 16.0903 16.7978 15.8238ZM2.85784 10.0162C1.90216 9.06054 1.37838 7.79243 1.37838 6.44162C1.37838 5.09081 1.90216 3.8227 2.85784 2.86703C3.81351 1.91135 5.08162 1.37838 6.43243 1.37838C7.78324 1.37838 9.05135 1.90216 10.007 2.85784C10.9627 3.81351 11.4865 5.08162 11.4865 6.43243C11.4865 7.78324 10.9627 9.05135 10.007 10.007C9.06054 10.9719 7.79243 11.4957 6.43243 11.4957C5.07243 11.4957 3.81351 10.9719 2.85784 10.0162Z" />
                     </svg>
                 </button>
                 {isClicked &&

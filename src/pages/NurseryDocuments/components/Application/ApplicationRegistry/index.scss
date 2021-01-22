@@ -106,11 +106,10 @@
       align-items: center;
       justify-content: flex-end;
       position: relative;
-      top: 7px;
-      margin-bottom: 24px;
-      &-wrap {
-        max-width: 603px;
-        margin: 0 auto;
+      top: 29px;
+      @media (max-width: 760px) {
+        top: 5px;
+        margin-bottom: 17px;
       }
     }
     &__control {

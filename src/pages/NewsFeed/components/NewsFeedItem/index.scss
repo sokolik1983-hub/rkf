@@ -298,6 +298,9 @@
     word-wrap: break-word;
     transition: height 0.2s linear;
     margin-bottom: 0 !important;
+    &._disabled {
+      margin-bottom: 10px !important;
+    }
     * {
       max-width: 100% !important;
       line-height: 20px;
@@ -452,10 +455,7 @@
       color: #36f;
     }
     &._disabled {
-      color: #b9c1ce;
-      border-bottom-color: transparent;
-      cursor: default;
-      opacity: 1;
+      display: none;
     }
     a {
       color: #253c5e !important;
