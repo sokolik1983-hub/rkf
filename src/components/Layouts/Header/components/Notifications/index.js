@@ -10,6 +10,7 @@ import NotificationCategories from "./NotificationCategories";
 import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
+import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 
 const defaultCategories = [
@@ -145,24 +146,40 @@ const Notifications = forwardRef(
                                             setCurrentCategory={setCurrentCategory}
                                         />
                                     </div>
-                                    {!loaded
-                                        ? <Loading centered={false} />
-                                        : <>
-                                            <div className="Notifications__list">
-                                                <div className="Notifications__list-inner">
-                                                    {
-                                                        notifications.length
-                                                            ? notifications.map((n, key) => {
-                                                                return <NotificationItem key={key} {...n} setOpen={setOpen} />
-                                                            })
-                                                            : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
-                                                    }
+                                    <div className="Notifications__list-wrap">
+                                        {!loaded
+                                            ? <Loading centered={false} />
+                                            : <>
+                                                <div className="Notifications__list">
+                                                    <div className="Notifications__list-inner">
+                                                        {
+                                                            notifications.length
+                                                                ? notifications.map((n, key) => {
+                                                                    return <>
+                                                                        <NotificationItem key={key} {...n} setOpen={setOpen} />
+                                                                        {++key === notifications.length &&
+                                                                            <div className="NotificationItem end-message">
+                                                                                <h4>Уведомлений больше нет</h4>
+                                                                                <img
+                                                                                    src={DEFAULT_IMG.noNews}
+                                                                                    alt="Уведомлений больше нет"
+                                                                                    style={{ width: notifications.length > 2 ? '100px' : 'auto' }}
+                                                                                />
+                                                                            </div>}
+                                                                    </>
+                                                                })
+                                                                : <div className="NotificationItem nothing-found">
+                                                                    <h4>Здесь будут ваши уведомления</h4>
+                                                                    <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
+                                                                </div>
+                                                        }
+                                                    </div>
+                                                    <div className="Notifications__list-see-all">
+                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                    </div>
                                                 </div>
-                                                <div className="Notifications__list-see-all">
-                                                    <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
-                                                </div>
-                                            </div>
-                                        </>}
+                                            </>}
+                                    </div>
                                 </OutsideClickHandler>
                             </div>
                         </CSSTransition>
