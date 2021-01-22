@@ -211,9 +211,9 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '233px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
                         <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
-                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '233px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />
