@@ -124,17 +124,17 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    &-wrap {
-      max-width: 583px;
-      margin: 0 auto;
-    }
   }
 
   ._patella_controls {
-    margin-top: 16px;
-    margin-bottom: 7px;
-  }
+    margin-top: -15px;
+    position: relative;
+    top: 28px;
+    @media (max-width: 800px) {
+      margin-top: 25px;
+      top: -17px;
+    }
+   }
 
   &__control {
     display: inline-flex;

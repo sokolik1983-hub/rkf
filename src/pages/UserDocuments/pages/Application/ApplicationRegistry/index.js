@@ -28,7 +28,7 @@ const ApplicationRegistry = ({ history}) => {
     }, []);
 
     return loading ? <Loading /> : !standardView ? <Card className="user-documents-status__popup">
-        <div className="user-documents-status__controls" style={{marginTop: '20px', marginBottom: '10px'}}>
+        <div className="user-documents-status__controls" style={{position: 'relative', top: '43px'}}>
             <button
                 className="user-documents-status__control user-documents-status__control--downloadIcon"
                 onClick={() => setExporting(true)}

@@ -208,7 +208,7 @@ const NewsFeedItem = forwardRef(({
                             {is_closed_advert && <div className="NewsFeedItem__ad-inactive" >Объявление не активно</div>}
                         </div>
                     </div>}
-                    <p className="NewsFeedItem__text"
+                    <p className={`NewsFeedItem__text${!canCollapse ? ' _disabled' : ''}`}
                         ref={ref}
                         dangerouslySetInnerHTML={{ __html: formatText(content) }}
                     />
