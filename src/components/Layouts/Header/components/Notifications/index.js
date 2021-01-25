@@ -97,7 +97,7 @@ const Notifications = forwardRef(
         }
 
         const getNewsFeedLink = () => {
-            const buildUrl = (id = '') => user_type === 1
+            const buildUrl = (id = 7) => user_type === 1
                 ? `/user/${alias}/news-feed/${id}`
                 : user_type === 3
                     ? `/${alias}/news-feed/${id}`

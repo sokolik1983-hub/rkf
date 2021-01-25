@@ -10,6 +10,11 @@ export const categories = [
         icon: 'NewsFeed__icon NewsFeed__icon--new'
     },
     {
+        name: 'Подписки',
+        id: 8,
+        icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
+    },
+    {
         name: 'Важные',
         id: 4,
         icon: 'NewsFeed__icon NewsFeed__icon--required'
