@@ -60,7 +60,7 @@ const RequestRegistry = ({ history, distinction }) => {
                         : 'ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА'}
                 </div>
                 {documents && !!documents.length ?
-                    <div className="_nursery_request_registry">
+                    <div>
                         <div className="nursery-documents-status__controls _nursery_request_controls">
                             {standardView &&
                                 <button
