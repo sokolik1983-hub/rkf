@@ -159,8 +159,6 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
         <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
         <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
-        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
     </Grid>;
 
     const rowRender = (trElement, props) => {

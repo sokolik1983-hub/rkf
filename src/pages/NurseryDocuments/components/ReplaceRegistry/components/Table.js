@@ -15,6 +15,7 @@ import moment from "moment";
 import PdfPageTemplate from "../../../../../components/PdfPageTemplate";
 import LightTooltip from "../../../../../components/LightTooltip";
 import CopyCell from '../../../../Docs/components/CopyCell';
+import "./index.scss";
 
 loadMessages(kendoMessages, 'ru-RU');
 
@@ -128,7 +129,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title=" " />
+        <GridColumn field="status_name" title="Статус" />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="id" title="№ заявки" columnMenu={ColumnMenu} />
         <GridColumn field="owner_name" title="ФИО владельца" columnMenu={ColumnMenu} />
@@ -164,8 +165,8 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         <LocalizationProvider language="ru-RU">
             <IntlProvider locale={'ru'}>
                 <StickyFilters>
-                    <div className="club-documents-status__chips">
-                        <div className="chip-list__wrap" style={{marginBottom: '4px'}}>
+                    <div className="club-documents-status__chips" style={{marginTop: '10px'}}>
+                        <div className="chip-list__wrap">
                             <ChipList
                                 selection="single"
                                 defaultData={categories}
@@ -195,13 +196,13 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                     resizable
                     {...gridData}
                     onDataStateChange={handleGridDataChange}
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `793px`}`, margin: "0 auto" }}>
+                    style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '130px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                     <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? 'auto' : '110px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? 'auto' : '240px'} columnMenu={ColumnMenu} />
                     <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="breed_name" title="Порода" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed_name')}/>
+                    <GridColumn field="breed_name" title="Порода" width={fullScreen ? 'auto' : '227px'} columnMenu={ColumnMenu} cell={props => TextCell(props, 'breed_name')}/>
                     <GridColumn field="stamp_code" title="Чип/Клеймо" width={fullScreen ? '110px' : '95px'} columnMenu={ColumnMenu} />
                     <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                     <GridColumn field="pedigree_link" title="Ссылка на эл. копию документа" width={fullScreen ? '125px' : '75px'} columnMenu={ColumnMenu} cell={(props) => ShareCell(props, handleSuccess)} />

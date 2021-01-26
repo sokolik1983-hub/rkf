@@ -51,7 +51,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls" style={{ marginTop: '24px' }}>
+            <div className="club-documents-status__controls _replace_registry" style={{top: '45px', right: '33px'}}>
                 <button
                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
@@ -85,8 +85,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
                 {documents && !!documents.length
-                    ? <div className="_replace_registry_wrap">
-                        <div className="club-documents-status__controls" style={{ marginTop: '17px' }}>
+                    ? <div style={{position: 'relative'}}>
+                        <div className="club-documents-status__controls _replace_registry">
                             {standardView &&
                                 <button
                                     className="club-documents-status__control club-documents-status__control--downloadIcon"
