@@ -66,7 +66,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls" style={{marginTop: '21px'}}>
+            <div className="club-documents-status__controls" style={{position: 'relative' ,top: '35px'}}>
                 <button
                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
@@ -100,7 +100,7 @@ const ClubDocumentsStatus = ({ history, clubAlias, distinction }) => {
                 </div>
                 <div className="club-documents-status__table">
                     {documents && !!documents.length
-                        ? <div className="club-documents-status__controls-wrap _club_pedigree_wrap">
+                        ? <div className="club-documents-status__controls-wrap">
                             <div className="club-documents-status__controls" style={{marginTop: '15px'}}>
                                 {standardView &&
                                     <button

@@ -51,7 +51,7 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <div className="nursery-documents-status__controls" style={{marginTop: '10px'}}>
+            <div className="nursery-documents-status__controls _replace_registry" style={{top: '44px', right: '33px'}}>
                 <button
                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
@@ -86,8 +86,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
                 {documents && !!documents.length
-                    ? <div className="_replace_registry_wrap">
-                        <div className="nursery-documents-status__controls" style={{marginTop: '6px', marginBottom: '9px'}}>
+                    ? <div style={{position: 'relative'}}>
+                        <div className="nursery-documents-status__controls _replace_registry">
                             {standardView &&
                                 <button
                                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"

@@ -57,7 +57,7 @@ const ApplicationRegistry = ({ history}) => {
                     Заявка на получение документов РКФ
                 </div>
                 {documents && !!documents.length
-                    ? <div>
+                    ? <div style={{marginTop: '-16px'}}>
                         <div className="user-documents-status__controls">
                             {standardView &&
                                 <button

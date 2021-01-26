@@ -65,7 +65,7 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <div className="nursery-documents-status__controls" style={{ marginTop: '30px', marginBottom: '10px' }}>
+            <div className="nursery-documents-status__controls"  style={{position: 'relative' ,top: '35px'}}>
                 <button
                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}

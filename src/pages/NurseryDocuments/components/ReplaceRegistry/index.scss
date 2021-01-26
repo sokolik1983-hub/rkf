@@ -159,10 +159,6 @@
       bottom: auto;
     }
   }
-  ._replace_registry_wrap {
-    max-width: 793px;
-    margin: 0 auto;
-  }
   &__plug{
     text-align: center;
   }
@@ -181,7 +177,15 @@
     }
   }
 }
-// .nursery-documents-status__controls {
-//   position: relative;
-//   top: -20px;
-// }
+.nursery-documents-status__controls {
+  &._replace_registry {
+    position: absolute;
+    top: 14px;
+    z-index: 9;
+    right: 0;
+    width: 330px;
+    @media (max-width: 990px) {
+      top: -5px;
+    }
+  }
+}
