@@ -21,10 +21,12 @@ import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+    const isMobile = useIsMobile();
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -157,7 +159,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 isExhibitionPage={true}
                                             />
                                         }
-                                        <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
+                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />}
                                         <UserPhotoGallery
                                             alias={club_alias}
                                             pageLink={`/${club_alias}/gallery`}
@@ -226,6 +228,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         }
                                     </div>
                                 </Card>
+                                {isMobile && <div style={{ marginTop: '16px' }}>
+                                    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
+                                </div>}
                             </div>
                         </div>
                     </Container>

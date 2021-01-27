@@ -4,6 +4,7 @@ import ls from "local-storage";
 import Layout from "../../components/Layouts";
 import Home from "./pages/Home";
 import {connectAuthVisible} from "../Login/connectors";
+import "./index.scss";
 
 
 const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => {
@@ -13,7 +14,7 @@ const UserDocuments = ({history, match, is_active_profile, isAuthenticated}) => 
     if(!isVisible) history.goBack();
 
     return (
-        <Layout>
+        <Layout className="user-documents">
             <Switch>
                 {/*Здесь страницы без меню*/}
                 <Route component={() => <Home userAlias={userAlias} history={history}/>} /> {/*Все страницы с меню*/}
