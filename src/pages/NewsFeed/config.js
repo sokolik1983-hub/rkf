@@ -6,27 +6,27 @@ export const categories = [
     },
     {
         name: 'Новые',
-        id: 7,
+        id: 2,
         icon: 'NewsFeed__icon NewsFeed__icon--new'
     },
     {
-        name: 'Подписки',
-        id: 8,
-        icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
-    },
-    {
         name: 'Важные',
-        id: 4,
+        id: 3,
         icon: 'NewsFeed__icon NewsFeed__icon--required'
     },
     {
-        name: 'Информация по заявкам',
-        id: 6,
+        name: 'Заявки',
+        id: 4,
         icon: 'NewsFeed__icon NewsFeed__icon--applications'
     },
     {
+        name: 'Подписки',
+        id: 5,
+        icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
+    },
+    {
         name: 'Архив',
-        id: 99,
+        id: 6,
         icon: 'NewsFeed__icon NewsFeed__icon--archive',
         disabled: true
     }
