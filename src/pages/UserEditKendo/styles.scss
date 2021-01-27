@@ -10,6 +10,11 @@
     @media (max-width: 990px) {
         display: block;
     }
+    &__wrap {
+        & + .Footer {
+            display: none;
+        }    
+    }
     &__right {
         width: calc(100% - 316px);
         margin-top: 16px;

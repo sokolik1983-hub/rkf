@@ -14,6 +14,7 @@ import ContactsComponent from "../../components/ContactsComponent";
 import DocumentsComponent from "../../components/DocumentsComponent";
 import { Request } from "../../utils/request";
 import { connectAuthVisible } from "../Login/connectors";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import "./index.scss";
 
 
@@ -93,6 +94,7 @@ const Federation = ({ match, isAuthenticated, profile_id }) => {
                             {federation.documents && !!federation.documents.length &&
                                 <DocumentsComponent documents={federation.documents} />
                             }
+                            <CopyrightInfo withSocials={true} />
                         </aside>
                         <div className="federation-page__right">
                             <AboutComponent description={federation.description} />

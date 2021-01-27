@@ -5,9 +5,6 @@
     }
     & + .Footer {
         display: none;
-        @media (max-width: 990px) {
-            display: block;
-        }
     }
     &__content {
         display: flex;

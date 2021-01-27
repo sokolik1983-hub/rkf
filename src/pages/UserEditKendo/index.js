@@ -24,6 +24,7 @@ import { Fade } from '@progress/kendo-react-animation';
 import moment from "moment";
 import ls from "local-storage";
 import { connectShowFilters } from "../../components/Layouts/connectors";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import './styles.scss';
 import ClickGuard from "../../components/ClickGuard";
 
@@ -233,6 +234,7 @@ const UserEdit = ({ history, match, profile_id, is_active_profile, isAuthenticat
                                     />
                                 </Card>
                                 <UserMenu userNav={userNav(alias)} notificationsLength={notificationsLength}/>
+                                <CopyrightInfo withSocials={true} />
                             </StickyBox>
                         </aside>
                         <div className="UserEdit__right">

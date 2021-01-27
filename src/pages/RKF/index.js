@@ -14,6 +14,7 @@ import DocumentsComponent from "../../components/DocumentsComponent";
 import MembersComponent from "../../components/MembersComponent";
 import {Request} from "../../utils/request";
 import {connectAuthVisible} from "../Login/connectors";
+import CopyrightInfo from "../../components/CopyrightInfo";
 import "./index.scss";
 
 
@@ -92,6 +93,7 @@ const RKF = ({isAuthenticated, profile_id}) => {
                             <ContactsComponent {...info}/>
                             {info.documents && !!info.documents.length && <DocumentsComponent documents={info.documents}/>}
                             {info.members && !!info.members.length && <MembersComponent members={info.members}/>}
+                            <CopyrightInfo withSocials={true} />
                         </aside>
                         <div className="rkf-page__right">
                             {info.description && <AboutComponent description={info.description}/>}

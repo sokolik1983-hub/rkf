@@ -1,4 +1,7 @@
 .documents-page {
+    & + .Footer {
+        display: none;
+    }
     &__support-links {
         font-weight: normal;
         a {
