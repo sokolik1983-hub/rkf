@@ -106,6 +106,23 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
         ]
     });
 
+    useEffect(() => {
+        handleDropDown()
+    }, []);
+
+    const handleDropDown = () => {
+        const document_id = window.location.href.split('=')[1];
+        let newDataState = { ...gridData }
+        if (document_id) {
+            newDataState.filter = {
+                logic: 'and',
+                filters: [{ field: 'barcode', operator: 'eq', value: document_id }]
+            }
+            newDataState.skip = 0
+        }
+        setGridData(newDataState);
+    };
+
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
         if (e.value === "1" || e.value === "2" || e.value === "3") {
