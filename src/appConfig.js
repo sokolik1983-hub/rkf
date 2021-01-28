@@ -95,6 +95,11 @@ const appRoutes = [
         component: LoadableModules.LoadableExhibition
     },
     {
+        exact: false,
+        path: '/educationals/:id',
+        component: LoadableModules.LoadableEducational
+    },
+    {
         exact: true,
         path: '/news/:id/edit',
         component: LoadableModules.LoadableNews

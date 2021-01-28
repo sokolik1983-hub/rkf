@@ -16,6 +16,10 @@ const ListFilter = ({ categoryId }) => {
         if (calendarButton) calendarButton.classList.remove('active');
 
         setFiltersToUrl({ CategoryId: type });
+
+        if (type === 4 || (activeType === 4 && type !== 4)) {
+            setFiltersToUrl({ CityIds: [] });
+        }
     };
 
     return (
@@ -33,19 +37,25 @@ const ListFilter = ({ categoryId }) => {
                         <span
                             className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
                             onClick={() => handleClick(1)}
-                        >Выставочные мероприятия</span>
+                        >Выставочные</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
                             onClick={() => handleClick(2)}
-                        >Племенные мероприятия</span>
+                        >Племенные</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 3 ? ' _active' : ''}`}
                             onClick={() => handleClick(3)}
                         >Состязания и испытания рабочих качеств</span>
+                    </li>
+                    <li className="list-filter__item">
+                        <span
+                            className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
+                            onClick={() => handleClick(4)}
+                        >Обучение</span>
                     </li>
                 </ul>
             </HorizontalSwipe>

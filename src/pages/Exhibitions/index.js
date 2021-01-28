@@ -17,12 +17,17 @@ import shorten from "../../utils/shorten";
 import { clubNav } from "../Club/config";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import SignUpModal from "pages/Educational/components/SignUpModal";
 import ls from "local-storage";
 import './index.scss';
+import moment from "moment";
+import "moment/locale/ru";
+moment.locale('ru');
 
 
 const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [loading, setLoading] = useState(true);
+    const [listLoading, setListLoading] = useState(false);
     const [exhibitionsLoading, setExhibitionsLoading] = useState(true);
     const [filters, setFilters] = useState({ ...getInitialFilters() });
     const [url, setUrl] = useState(buildUrl({ ...filters }));
@@ -43,6 +48,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
     const [needUpdateTable, setNeedUpdateTable] = useState(false);
     const [exporting, setExporting] = useState(false);
     const [notificationsLength, setNotificationsLength] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+
+    const isEducational = parseInt(filters.CategoryId) === 4 ? true : false;
 
     useEffect(() => {
         const unListen = history.listen(() => {
@@ -61,7 +69,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
         await Request({
             url: `${url}&StartElement=${startElem}&ElementCount=50`
         }, data => {
-            if (data.exhibitions.length) {
+            if (data.exhibitions?.length) {
                 const modifiedExhibitions = data.exhibitions.map(exhibition => {
                     exhibition.date = '';
                     if (exhibition.dates && exhibition.dates.length) {
@@ -81,6 +89,24 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                 });
 
                 if (data.exhibitions.length < 50) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
+                }
+                setExhibitionsForTable(modifiedExhibitions);
+                setExhibitions(startElem === 1 ? modifiedExhibitions : [...exhibitions, ...modifiedExhibitions]);
+            } else if (isEducational && data.length) {
+                const modifiedExhibitions = data.map(educationEvent => {
+                    educationEvent.date = moment(educationEvent.date_begin).format('DD.MM.YYYY');
+                    educationEvent.club_string = `Клуб ${educationEvent.organizer_name}, ${educationEvent.city_name}`;
+                    educationEvent.rank_string = educationEvent.ranks && educationEvent.ranks.length ? educationEvent.ranks.map(rank => rank.name).join(', ') : 'Не указано';
+                    educationEvent.club_rank_string = educationEvent.club_string;
+                    educationEvent.breed_string = educationEvent.breeds && educationEvent.breeds.length ? educationEvent.breeds.map(breed => breed.name).join(', ') : 'Не указано';
+                    educationEvent.url = `/educationals/${educationEvent.id}`;
+                    return educationEvent;
+                });
+
+                if (data.length < 50) {
                     setHasMore(false);
                 } else {
                     setHasMore(true);
@@ -113,11 +139,13 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
             setExhibitionsLoading(false);
             setLoading(false);
+            setListLoading(false);
         }, error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setExhibitionsLoading(false);
             setLoading(false);
+            setListLoading(false);
         });
     };
 
@@ -134,6 +162,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
     useEffect(() => {
         if (url) {
+            setListLoading(true);
             setStartElement(1);
             setNeedUpdateTable(true);
             (() => getExhibitions(url, 1))();
@@ -142,8 +171,8 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading ?
         <Loading /> :
-        <Layout 
-            withFilters 
+        <Layout
+            withFilters
             setNotificationsLength={setNotificationsLength}
         >
             <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
@@ -161,6 +190,7 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                         club={club}
                         setClub={setClub}
                         notificationsLength={notificationsLength}
+                        isEducational={isEducational}
                     />
                     <div className="exhibitions-page__content">
                         {filters.Alias && displayName &&
@@ -172,9 +202,9 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                         isFederation={true}
                                     /> : <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} 
-                                            notificationsLength={notificationsLength}
-                                        />
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                        notificationsLength={notificationsLength}
+                                    />
                                 }
                             </div>
                         }
@@ -193,25 +223,39 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                 {standardView ? 'Переключиться на табличный вид' : 'Вернуться к стандартному просмотру'}
                             </button>
                         </div>
-                        {standardView ?
-                            <ExhibitionsList
-                                exhibitions={exhibitions}
-                                getNextExhibitions={getNextExhibitions}
-                                hasMore={hasMore}
-                                loading={exhibitionsLoading}
-                            /> :
-                            <ExhibitionsTable
-                                exhibitions={exhibitionsForTable}
-                                count={count}
-                                startElement={startElement - 1}
-                                needUpdate={needUpdateTable}
-                                getNextExhibitions={getNextExhibitionsForTable}
-                                exporting={exporting}
-                                setExporting={setExporting}
-                            />
+                        {
+                            listLoading
+                                ? <Loading centered={false} />
+                                : <>{standardView ?
+                                    <ExhibitionsList
+                                        exhibitions={exhibitions}
+                                        isEducational={isEducational}
+                                        getNextExhibitions={getNextExhibitions}
+                                        hasMore={hasMore}
+                                        loading={exhibitionsLoading}
+                                        setShowModal={setShowModal}
+                                    /> :
+                                    <ExhibitionsTable
+                                        exhibitions={exhibitionsForTable}
+                                        count={count}
+                                        startElement={startElement - 1}
+                                        needUpdate={needUpdateTable}
+                                        getNextExhibitions={getNextExhibitionsForTable}
+                                        exporting={exporting}
+                                        setExporting={setExporting}
+                                    />
+                                }</>
                         }
                     </div>
                 </Container>
+                {showModal &&
+                    <SignUpModal
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        title={showModal.name}
+                        id={showModal.id}
+                    />
+                }
             </div>
         </Layout>
 };
