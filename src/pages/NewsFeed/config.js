@@ -6,27 +6,27 @@ export const categories = [
     },
     {
         name: 'Новые',
-        id: 2,
+        id: 7,
         icon: 'NewsFeed__icon NewsFeed__icon--new'
     },
     {
         name: 'Важные',
-        id: 3,
+        id: 4,
         icon: 'NewsFeed__icon NewsFeed__icon--required'
     },
     {
         name: 'Заявки',
-        id: 4,
+        id: 6,
         icon: 'NewsFeed__icon NewsFeed__icon--applications'
     },
     {
         name: 'Подписки',
-        id: 5,
+        id: 8,
         icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
     },
     {
         name: 'Архив',
-        id: 6,
+        id: 99,
         icon: 'NewsFeed__icon NewsFeed__icon--archive',
         disabled: true
     }
