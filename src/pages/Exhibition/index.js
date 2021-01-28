@@ -24,7 +24,7 @@ import MenuComponent from "../../components/MenuComponent";
 import "./index.scss";
 
 
-const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+const Educational = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -233,4 +233,4 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
             </Layout>
 };
 
-export default connectAuthVisible(React.memo(Exhibition));
+export default connectAuthVisible(React.memo(Educational));

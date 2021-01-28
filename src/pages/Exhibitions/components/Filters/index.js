@@ -5,13 +5,15 @@ import UserHeader from "../../../../components/redesign/UserHeader";
 import BreedsFilter from "../../../../components/Filters/BreedsFilter";
 import RanksFilter from "../../../../components/Filters/RanksFilter";
 import CitiesFilter from "../../../../components/Filters/CitiesFilter";
+import FormatFilter from "../../../../components/Filters/FormatFilter";
+import PaymentFormFilter from "../../../../components/Filters/PaymentFormFilter";
 import CalendarFilter from "../../../../components/Filters/CalendarFilter";
 import { connectShowFilters } from "../../../../components/Layouts/connectors";
 import { setFiltersToUrl, getEmptyFilters } from "../../utils";
 import { isFederationAlias, setOverflow } from "../../../../utils";
 import Card from "../../../../components/Card";
-import { Request } from "../../../../utils/request";
-import { endpointExhibitionsFilters } from "../../config";
+import { PromiseRequest } from "../../../../utils/request";
+import { endpointExhibitionsFilters, endpointEducationalsFilters } from "../../config";
 import RangeCalendarExhibitions from "../../../../components/kendo/RangeCalendar/RangeCalendarExhibitions.js";
 import CopyrightInfo from "../../../../components/CopyrightInfo";
 import { clubNav } from "../../../Club/config";
@@ -22,31 +24,33 @@ import ls from "local-storage";
 import "./index.scss";
 
 
-const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength }) => {
+const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, isAuthenticated, logo, federationName, federationAlias, active_member, active_rkf_user, notificationsLength, isEducational }) => {
     const [ranks, setRanks] = useState([]);
     const [canEdit, setCanEdit] = useState(false);
     const [breeds, setBreeds] = useState([]);
-    const [cities, setCities] = useState([]);
+    const [cities, setCities] = useState({ exhibitionCities: [], educationalCities: [] });
     const [loading, setLoading] = useState(true);
     const [clear_filter, setClearFilter] = useState(false);
     const [range_clicked, setRangeClicked] = useState(false);
 
     useEffect(() => {
-        (() => Request({
-            url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}`
-        }, data => {
-            setCities(data.cities);
-            setRanks(data.ranks);
-            setBreeds(data.breeds.filter(item => item.value !== 1));
+        Promise.all([
+            PromiseRequest({ url: `${endpointExhibitionsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}` }),
+            PromiseRequest({ url: `${endpointEducationalsFilters}${filters.Alias ? '?Alias=' + filters.Alias : ''}` })
+        ]).then(data => {
+            setCities({ exhibitionCities: data[0].cities, educationalCities: data[1].cities });
+            setRanks(data[0].ranks);
+            setBreeds(data[0].breeds.filter(item => item.value !== 1));
             setLoading(false);
             window.scrollTo(0, 0);
             setCanEdit(isAuthenticated && ls.get('is_active_profile') && ls.get('profile_id') === profileId);
-        }, error => {
+        }).catch(error => {
             console.log(error.response);
             if (error.response) alert(`Ошибка: ${error.response.status}`);
             setLoading(false);
-        }))();
+        });
     }, [filters.Alias]);
+
 
     useEffect(() => {
         setOverflow(isOpenFilters);
@@ -102,9 +106,9 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     /> :
                                     <UserMenu userNav={filters.Alias === ls.get('user_info')?.alias
                                         ? clubNav(filters.Alias) // Show NewsFeed menu item to current user only
-                                        : clubNav(filters.Alias).filter(i => i.id !== 2)} 
-                                            notificationsLength={notificationsLength}
-                                        />
+                                        : clubNav(filters.Alias).filter(i => i.id !== 2)}
+                                        notificationsLength={notificationsLength}
+                                    />
                                 }
                             </div>
                         }
@@ -130,24 +134,36 @@ const Filters = ({ isOpenFilters, filters, clubName, profileId, club, setClub, i
                                     />
                                 </div>
                             </Card>
-                            <BreedsFilter
-                                breeds={breeds}
-                                breed_ids={filters.BreedIds}
-                                onChange={filter => setFiltersToUrl({ BreedIds: filter })}
-                                is_club_link={clubName && filters.Alias}
-                            />
+                            {parseInt(filters.CategoryId) === 4
+                                ? <FormatFilter
+                                    format_ids={filters.TypeIds}
+                                    onChange={filter => setFiltersToUrl({ TypeIds: filter })}
+                                    is_club_link={clubName && filters.Alias}
+                                />
+                                : <BreedsFilter
+                                    breeds={breeds}
+                                    breed_ids={filters.BreedIds}
+                                    onChange={filter => setFiltersToUrl({ BreedIds: filter })}
+                                    is_club_link={clubName && filters.Alias}
+                                />}
                             <CitiesFilter
-                                cities={cities}
+                                cities={isEducational ? cities.educationalCities : cities.exhibitionCities}
                                 city_ids={filters.CityIds}
                                 onChange={filter => setFiltersToUrl({ CityIds: filter })}
                                 is_club_link={clubName && filters.Alias}
                             />
-                            <RanksFilter
-                                ranks={ranks}
-                                rank_ids={filters.RankIds}
-                                onChange={filter => setFiltersToUrl({ RankIds: filter })}
-                                is_club_link={clubName && filters.Alias}
-                            />
+                            {parseInt(filters.CategoryId) === 4
+                                ? <PaymentFormFilter
+                                    payment_form_ids={filters.PaymentFormTypeIds}
+                                    onChange={filter => setFiltersToUrl({ PaymentFormTypeIds: filter })}
+                                    is_club_link={clubName && filters.Alias}
+                                />
+                                : <RanksFilter
+                                    ranks={ranks}
+                                    rank_ids={filters.RankIds}
+                                    onChange={filter => setFiltersToUrl({ RankIds: filter })}
+                                    is_club_link={clubName && filters.Alias}
+                                />}
                             <CopyrightInfo withSocials={true} />
                         </div>
                     </>

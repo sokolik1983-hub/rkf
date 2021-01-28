@@ -1,0 +1,375 @@
+.card-educational {
+  padding: 10px !important;
+  ._mobile {
+    @media (min-width: 820px) {
+      display: none;
+    }
+    @media (max-width: 820px) {
+      .card-educational__city {
+        display: block;
+        margin-right: 4px;
+      }
+      .card-educational__rank {
+        margin-left: 4px;
+        white-space: nowrap;
+      }
+      &.card-educational__header-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 18px;
+        color: #72839c;
+      }
+    }
+  }
+  &__wrap {
+    display: flex;
+    @media (max-width: 560px) {
+      flex-direction: column-reverse;
+    }
+  }
+  &__photo {
+    text-decoration: none;
+    display: block;
+    min-height: 162px;
+    min-width: 288px;
+    max-height: 162px;
+    max-width: 288px;
+    margin-right: 10px;
+    border-radius: 6px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    cursor: pointer;
+    @media (max-width: 560px) {
+      min-height: 154px;
+      min-width: 100%;
+      max-height: 154px;
+      max-width: none;
+    }
+  }
+  &__content {
+    overflow: hidden;
+    width: calc(100% - 298px);
+    @media (max-width: 560px) {
+      width: 100%;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+    @media (max-width: 820px) {
+      display: block;
+    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+      padding-right: 16px;
+      @media (max-width: 820px) {
+        padding-right: 0;
+      }
+    }
+  }
+  &__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #253c5e;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    transition: color 0.2s linear;
+    &:hover {
+      color: #3366ff;
+    }
+    @media (max-width: 820px) {
+      font-size: 15px;
+      line-height: 20px;
+      max-height: 40px;
+      margin-bottom: 4px;
+      white-space: initial;
+    }
+  }
+  &__city {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #72839c;
+    padding-left: 18px;
+    white-space: nowrap;
+    cursor: pointer;
+    &:before {
+      content: "";
+      width: 12px;
+      height: 16px;
+      background: url("/static/icons/pin-gray.svg") center center/contain no-repeat;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      color: #3366ff;
+      &:before {
+        background: url("/static/icons/pin.svg") center center/contain no-repeat;
+      }
+    }
+    @media (max-width: 820px) {
+      display: none;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+  &__reports {
+    display: none;
+    @media (max-width: 820px) {
+      display: block;
+    }
+    & > span {
+      font-size: 14px;
+    }
+    &_block {
+      display: flex;
+      text-align: left;
+    }
+    &_link {
+      padding-right: 8px;
+      a {
+        background: url(/static/icons/icon-pdf.svg) no-repeat center/contain,
+          url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+      }
+      a:hover {
+        background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+      }
+    }
+  }
+  &__author {
+    @media (max-width: 820px) {
+      margin-bottom: 2px;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #253c5e;
+    margin-bottom: 16px;
+    &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      & > a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+        color: #253c5e;
+        &.card-educational__federation {
+          display: none;
+          color: #72839c;
+          transition: color 0.2s linear;
+          &:hover {
+            color: #3366ff;
+          }
+        }
+      }
+      ._mobile {
+        color: #90999e;
+        span {
+          color: #72839c;
+        }
+      }
+    }
+    @media (max-width: 820px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 18px;
+      .card-educational__subtitle {
+        display: none;
+      }
+      & > a {
+        font-size: 14px;
+        line-height: 18px;
+        overflow: hidden;
+        p {
+          display: block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        &.card-educational__federation {
+          display: block;
+          overflow: visible;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  &__subtitle {
+    display: block;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #90999e;
+  }
+  &__subtitle_link {
+    a {
+      background: url(/static/icons/icon-pdf.svg) no-repeat center/contain,
+        url(/static/icons/icon-pdf-blue.svg) no-repeat center/contain;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      padding-right: 23px;
+    }
+    a:hover {
+      background: url("/static/icons/icon-pdf-blue.svg") no-repeat center/contain;
+    }
+  }
+  &__club-name {
+    max-height: 40px;
+    overflow: hidden;
+    color: #3366ff;
+
+    span {
+      color: #72839c;
+    }
+  }
+  &__club-logo {
+    display: flex;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 4px 8px 4px 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &__info {
+    display: flex;
+    @media (max-width: 820px) {
+      display: none;
+    }
+    & > div {
+      max-width: 125px;
+      margin-right: 55px;
+      white-space: nowrap;
+      a {
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        text-decoration: none;
+        color: #253c5e;
+        transition: color 0.2s linear;
+        &:hover {
+          color: #3366ff;
+        }
+      }
+      p {
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #72839c;
+      }
+      &.card-educational__rank {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 50px;
+        @media (max-width: 1200px) {
+          flex-grow: 0;
+        }
+        p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+    @media (max-width: 1200px) {
+      & > div:first-child {
+        margin-right: 52px;
+      }
+      & > div:nth-child(2) {
+        margin-right: 27px;
+      }
+      & > div:nth-child(3) {
+        margin-right: 20px;
+      }
+      & > div:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+  &__controls {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__show-all,
+  &__sign-up {
+    text-decoration: none;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    color: #72839c;
+    transition: color 0.2s linear;
+    cursor: pointer;
+    &:hover {
+      color: #36f;
+    }
+    &._disabled {
+      color: #b9c1ce !important;
+    }
+  }
+  &__sign-up {
+    margin-left: 20px;
+    &:not(._mobile) {
+      @media (max-width: 820px) {
+        display: none;
+      }
+    }
+  }
+  .Share {
+    .ya-share2__icon_more {
+      height: 16px;
+      background-color: white;
+      &:after {
+        width: 16px;
+        height: 16px;
+        top: 0;
+        background: #fff url("/static/icons/icon-share-3-gray.svg") no-repeat 50% / contain;
+      }
+      &:hover:after {
+        background: #fff url("/static/icons/icon-share-3.svg") no-repeat 50% / contain;
+      }
+    }
+  }
+}
