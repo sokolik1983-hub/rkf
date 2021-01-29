@@ -19,8 +19,8 @@ class DetailComponent extends GridDetailRow {
                 {dataItem.city_name && <p className="educational-page__address-subtitle">
                     <span>Адрес: </span>{`г. ${dataItem.city_name}${dataItem.location_address ? ', ' + dataItem.location_address : ''}`}
                 </p>}
-                {!!dataItem.contact_emails?.length && <p className="educational-page__address-subtitle"><span>Телефон: </span>{dataItem.contact_emails.join(', ')}</p>}
-                {!!dataItem.contact_phones?.length && <p className="educational-page__address-subtitle"><span>E-mail: </span>{dataItem.contact_phones.join(', ')}</p>}
+                {!!dataItem.contact_phones?.length && <p className="educational-page__address-subtitle"><span>Телефон: </span>{dataItem.contact_phones.join(', ')}</p>}
+                {!!dataItem.contact_emails?.length && <p className="educational-page__address-subtitle"><span>E-mail: </span>{dataItem.contact_emails.join(', ')}</p>}
 
                 <Link to={dataItem.url}>Подробнее...</Link>
             </div>
