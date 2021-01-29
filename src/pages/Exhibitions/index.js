@@ -6,6 +6,7 @@ import Filters from "./components/Filters";
 import ListFilter from "./components/Filters/components/ListFilter";
 import ExhibitionsList from "./components/ExhibitionsList";
 import ExhibitionsTable from "./components/ExhibitionsTable";
+import EducationalsTable from "./components/EducationalsTable";
 import ClickGuard from "../../components/ClickGuard";
 import UserMenu from "../../components/Layouts/UserMenu";
 import { Request } from "../../utils/request";
@@ -98,10 +99,10 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
             } else if (isEducational && data.length) {
                 const modifiedExhibitions = data.map(educationEvent => {
                     educationEvent.date = moment(educationEvent.date_begin).format('DD.MM.YYYY');
-                    educationEvent.club_string = `Клуб ${educationEvent.organizer_name}, ${educationEvent.city_name}`;
-                    educationEvent.rank_string = educationEvent.ranks && educationEvent.ranks.length ? educationEvent.ranks.map(rank => rank.name).join(', ') : 'Не указано';
-                    educationEvent.club_rank_string = educationEvent.club_string;
-                    educationEvent.breed_string = educationEvent.breeds && educationEvent.breeds.length ? educationEvent.breeds.map(breed => breed.name).join(', ') : 'Не указано';
+                    educationEvent.event_name = educationEvent.name;
+                    educationEvent.type = educationEvent.type_name;
+                    educationEvent.form = educationEvent.payment_form_type_name;
+
                     educationEvent.url = `/educationals/${educationEvent.id}`;
                     return educationEvent;
                 });
@@ -235,15 +236,25 @@ const Exhibitions = ({ history, isOpenFilters, setShowFilters }) => {
                                         loading={exhibitionsLoading}
                                         setShowModal={setShowModal}
                                     /> :
-                                    <ExhibitionsTable
-                                        exhibitions={exhibitionsForTable}
-                                        count={count}
-                                        startElement={startElement - 1}
-                                        needUpdate={needUpdateTable}
-                                        getNextExhibitions={getNextExhibitionsForTable}
-                                        exporting={exporting}
-                                        setExporting={setExporting}
-                                    />
+                                    isEducational
+                                        ? <EducationalsTable
+                                            exhibitions={exhibitionsForTable}
+                                            count={count}
+                                            startElement={startElement - 1}
+                                            needUpdate={needUpdateTable}
+                                            getNextExhibitions={getNextExhibitionsForTable}
+                                            exporting={exporting}
+                                            setExporting={setExporting}
+                                        />
+                                        : <ExhibitionsTable
+                                            exhibitions={exhibitionsForTable}
+                                            count={count}
+                                            startElement={startElement - 1}
+                                            needUpdate={needUpdateTable}
+                                            getNextExhibitions={getNextExhibitionsForTable}
+                                            exporting={exporting}
+                                            setExporting={setExporting}
+                                        />
                                 }</>
                         }
                     </div>

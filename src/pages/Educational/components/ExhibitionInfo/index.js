@@ -12,11 +12,15 @@ const ExhibitionInfo = ({
     description,
     documents,
     city_name,
+    contact_emails,
+    contact_phones,
     type_name,
     payment_form_type_name,
     lecturer,
     type_id,
-    link_address
+    link_address,
+    price,
+    location_address
 }) => {
     const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -34,13 +38,14 @@ const ExhibitionInfo = ({
                     <h5 className="educational-info__subtitle">Тип:</h5>
                     <div>{type_name}</div>
                     <h5 className="educational-info__subtitle">Форма:</h5>
-                    <div>{payment_form_type_name}</div>
+                    <div>{`${payment_form_type_name}${price ? ', стоимость участия: ' + price + ' рублей' : ''}`}</div>
                 </div>
                 <div className="educational-info__right">
                     <CountDown
                         startDate={date_begin}
                         //endDate={date_begin}
                         reportsDateEnd={date_begin}
+                        isEducational={true}
                     />
                 </div>
             </Card>
@@ -74,7 +79,11 @@ const ExhibitionInfo = ({
                         type_id === 1
                             ? <>
                                 <h4 className="educational-page__address-title">Адрес проведения и контакты</h4>
-                                {city_name && <p>{`г. ${city_name}`}</p>}
+                                {city_name && <p className="educational-page__address-subtitle">
+                                    <span>Адрес: </span>{`г. ${city_name}${location_address ? ', ' + location_address : ''}`}
+                                </p>}
+                                {contact_emails && <p className="educational-page__address-subtitle"><span>Телефон: </span>{contact_emails.join(', ')}</p>}
+                                {contact_phones && <p className="educational-page__address-subtitle"><span>E-mail: </span>{contact_phones.join(', ')}</p>}
                             </>
                             : <>
                                 <h4 className="educational-page__address-title">Ссылка на мероприятие</h4>

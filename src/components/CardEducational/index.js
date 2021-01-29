@@ -26,6 +26,7 @@ const CardEducational = ({ id,
     organizer_logo,
     organizer_alias,
     date_begin,
+    registration_show,
     setShowModal }) => (
     <Card className="card-educational">
         <div className="card-educational__wrap">
@@ -36,19 +37,25 @@ const CardEducational = ({ id,
                         <Link className="card-educational__title" to={url} title={name}>{name && formatText(name)}</Link>
                     </div>
                     <div className="card-educational__header-info _mobile">
-                        <span
+                        {
+                            city_id && <span
+                                className="card-educational__city"
+                                onClick={() => setFilters ? setFilters(city_id) : null}
+                                title={city_name}
+                            >{city_name}</span>
+                        }
+                        <span className="card-educational__date">{moment(date_begin).format('DD.MM.YYYY')}</span>
+                        <span className="card-exhibition__rank">{type_name}</span>
+                    </div>
+
+                    {
+                        city_id && <span
                             className="card-educational__city"
                             onClick={() => setFilters ? setFilters(city_id) : null}
                             title={city_name}
                         >{city_name}</span>
-                        <span className="card-educational__date">{moment(date_begin).format('DD.MM.YYYY')}</span>
-                        <span className="card-exhibition__rank">{type_name}</span>
-                    </div>
-                    <span
-                        className="card-educational__city"
-                        onClick={() => setFilters ? setFilters(city_id) : null}
-                        title={city_name}
-                    >{city_name}</span>
+                    }
+
                 </div>
                 <div className="card-educational__author">
                     <span className="card-educational__subtitle">Организатор</span>
@@ -95,8 +102,12 @@ const CardEducational = ({ id,
         <div className="card-educational__controls">
             <div>
                 <Link className="card-educational__show-all" to={url}>Подробнее...</Link>
-                <span className="card-educational__sign-up" onClick={() => setShowModal({ name: name, id: id })}>Записаться на мероприятие</span>
-                <span className="card-educational__sign-up _mobile" onClick={() => setShowModal({ name: name, id: id })} >Записаться</span>
+                {
+                    registration_show && <>
+                        <span className="card-educational__sign-up" onClick={() => setShowModal({ name: name, id: id })}>Записаться на мероприятие</span>
+                        <span className="card-educational__sign-up _mobile" onClick={() => setShowModal({ name: name, id: id })} >Записаться</span>
+                    </>
+                }
             </div>
             <Share url={`https://rkf.online${url}`} />
         </div>

@@ -28,16 +28,16 @@ const PaymentFormFilter = ({ payment_form_ids, onChange }) => {
                         <CustomCheckbox
                             id={"payment-form-filter-1"}
                             label="Платная"
-                            checked={payment_form_ids.includes(1)}
-                            onChange={() => handleChange(1)}
+                            checked={payment_form_ids.includes(2)}
+                            onChange={() => handleChange(2)}
                         />
                     </li>
                     <li>
                         <CustomCheckbox
                             id={"payment-form-filter-2"}
                             label="Бесплатная"
-                            checked={payment_form_ids.includes(2)}
-                            onChange={() => handleChange(2)}
+                            checked={payment_form_ids.includes(1)}
+                            onChange={() => handleChange(1)}
                         />
                     </li>
                 </ul>
