@@ -54,6 +54,7 @@ const SignUpForm = ({ title, id, closeModal }) => {
     return (
         <div className="educational-sign-up">
             <h2 className="educational-sign-up__title">{title}</h2>
+            <h3>Убедитесь в правильности заполнения ФИО</h3>
             {
                 loading
                     ? <Loading inline={true} />

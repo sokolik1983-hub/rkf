@@ -75,7 +75,6 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         organizer_name,
         organizer_alias,
         federation_name,
-        federation_alias,
         organizer_logo,
         picture_link,
         date_begin,
@@ -104,10 +103,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                                 name={organizer_name || 'Название отсутствует'}
                                                 alias={organizer_alias}
                                                 profileId={id}
-                                                federationName={federation_name}
-                                                federationAlias={federation_alias}
-                                            // active_member={active_member}
-                                            // active_rkf_user={active_rkf_user}
+                                                federationName={organizer_name}
+                                                federationAlias={organizer_alias}
                                             />
                                         </div>
                                         <UserHeader
@@ -116,10 +113,8 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             name={organizer_name || 'Название отсутствует'}
                                             alias={organizer_alias}
                                             profileId={id}
-                                            federationName={federation_name}
-                                            federationAlias={federation_alias}
-                                        // active_member={active_member}
-                                        // active_rkf_user={active_rkf_user}
+                                            federationName={organizer_name}
+                                            federationAlias={organizer_alias}
                                         />
                                         {isFederationAlias(organizer_alias) ?
                                             <MenuComponent
@@ -173,9 +168,11 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         <PropertyP name="Расчетный счет" value={account_number} />
                                     </div>
                                 </Card>
-                                <Card className="educational-page__sign-up">
-                                    <button onClick={() => setShowModal(true)} className="btn btn-primary">Записаться на мероприятие</button>
-                                </Card>
+                                {
+                                    registration_show && <Card className="educational-page__sign-up">
+                                        <button onClick={() => setShowModal(true)} className="btn btn-primary">Записаться на мероприятие</button>
+                                    </Card>
+                                }
                             </div>
                         </div>
                     </Container>

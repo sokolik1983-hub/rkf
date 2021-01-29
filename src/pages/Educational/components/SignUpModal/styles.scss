@@ -6,6 +6,11 @@
         color: #253c5e;
         margin-top: 16px;
     }
+    & > h3 {
+        margin: 15px 0;
+        font-size: 14px;
+        line-height: 18px;
+    }
     &__form {
         &-controls {
             text-align: center;
@@ -22,11 +27,18 @@
             }
         }
     }
-    #comments{
+    #comments {
         resize: none;
     }
     .Loading {
         display: flex;
         justify-content: center;
+    }
+}
+.educational-page {
+    &__modal {
+        & > div {
+            max-width: 870px;
+        }
     }
 }
