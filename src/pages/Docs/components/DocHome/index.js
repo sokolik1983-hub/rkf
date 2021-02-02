@@ -81,10 +81,10 @@ const DocumentCards = ({ clubAlias }) => {
             <hr />
             <div className="Card__link-columns">
                 <div>
-                    <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`} >По внутренней родословной старого образца</Link>
-                    <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`} >По экспортной родословной старого образца</Link>
-                    <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`} >По заявлению при смене владельца</Link>
-                    <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`} >Замена родословной по ошибке заявителя</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/2/form`}>По внутренней родословной старого образца</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/1/form`}>По экспортной родословной старого образца</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/4/form`}>По заявлению при смене владельца</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/7/form`}>Замена родословной по ошибке заявителя</Link>
                 </div>
                 <div>
                     <Link to={`/${clubAlias}/documents/replace-pedigree/5/form`} >По родословной выданной вне системы РКФ/FCI</Link>
@@ -95,7 +95,7 @@ const DocumentCards = ({ clubAlias }) => {
             <hr />
             <div className="Card__link-columns">
                 <div>
-                    <Link to={`/${clubAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
+                    <Link to={`/${clubAlias}/documents/replace-pedigree/registry`}>Реестр заявок</Link>
                 </div>
             </div>
         </Card>
@@ -107,7 +107,6 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <div>
                     <Link to={`/${clubAlias}/documents/dysplasia/form`}>Подать заявление</Link>
-                    {/*<span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>*/}
                     <Link to={`/${clubAlias}/documents/dysplasia/registry`}>Реестр заявок</Link>
                 </div>
             </div>
@@ -120,7 +119,6 @@ const DocumentCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <div>
                     <Link to={`/${clubAlias}/documents/patella/form`}>Подать заявление</Link>
-                    {/*<span style={{ color: '#72839c', fontWeight: '600', marginRight: '20px' }}>Подать заявление</span>*/}
                     <Link to={`/${clubAlias}/documents/patella/registry`}>Реестр заявок</Link>
                 </div>
             </div>
@@ -192,6 +190,18 @@ const ResponsibleCards = ({ clubAlias }) => {
             <div className="Card__links">
                 <Link to={`/${clubAlias}/documents/responsible/form`}>Назначить ответственное лицо</Link>
                 <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
+            </div>
+        </Card>
+        <Card>
+            <div className="documents-page__icon membership-icon" />
+            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
+            <p>
+            В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
             </div>
         </Card>
     </div>

@@ -8,9 +8,9 @@ import { IntlProvider, LocalizationProvider, loadMessages } from '@progress/kend
 import { GridPDFExport } from "@progress/kendo-react-pdf";
 import kendoMessages from 'kendoMessages.json';
 import moment from "moment";
-import PdfPageTemplate from "../../PdfPageTemplate";
-import LightTooltip from "../../LightTooltip";
-import CopyCell from '../../../pages/Docs/components/CopyCell';
+import PdfPageTemplate from "../../../../../../components/PdfPageTemplate";
+import LightTooltip from "../../../../../../components/LightTooltip";
+import CopyCell from '../../../../../Docs/components/CopyCell';
 import { Notification, NotificationGroup } from '@progress/kendo-react-notification';
 import { Fade } from '@progress/kendo-react-animation';
 import "./index.scss";
@@ -43,41 +43,57 @@ const DateCell = ({ dataItem }, field) => {
     return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
 };
 
-const LinkCell = ({ dataItem }, profileType) => {
-    const { certificate_document_id } = dataItem;
+const ExpressCell = ({ dataItem }, field) => {
+    const fieldLabel = dataItem[field] ? 'Срочная' : 'Не срочная';
+
+    return (
+        <td>{fieldLabel}</td>
+    );
+};
+
+const LinkCell = ({ dataItem }) => {
+    const { created_document_id } = dataItem;
     return <td>
-        {certificate_document_id &&
-            <span className="pedigree-link" onClick={e => handleClick(e, certificate_document_id, profileType)} >Скачать файл</span>
+        {created_document_id &&
+            <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
+                <span className="download-document" onClick={e => handleClick(e, created_document_id)}></span>
+            </LightTooltip>
         }
     </td>
 };
 
-const OptionsCell = ({ dataItem }, profileType) => {
-    const { type_id, status_id, id } = dataItem;
+const OptionsCell = ({ dataItem }, setErrorReport) => {
+    const { status_id, id } = dataItem;
     const { route } = useParams();
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/view/${id}`}
+            to={`/${route}/documents/responsible/checkmembership/form/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id === 1 ? false : true,
+        disabled: status_id !== 1,
         render: ({ item }) => <Link
-            to={`${profileType === "kennel" ? '/kennel' : ''}/${route}/documents/${type_id === 1 ? "dysplasia" : "patella"}/edit/${id}`}
+            to={`/${route}/documents/responsible/checkmembership/form/edit/${id}`}
             className="row-control__link">{item.text}</Link>
-    }].filter(o => !o.disabled);
+    },
+    {
+        text: 'Сообщить об ошибке кинолога',
+        disabled: status_id === 3 ? false : true,
+        render: ({ item }) => <span className="row-control__link" onClick={() => setErrorReport(id)}>{item.text}</span>
+    }
+].filter(o => !o.disabled);
 
     return <td><DropDownButton icon="more-horizontal" items={options} /></td>
 };
 
-const handleClick = async (e, id, profileType) => {
+const handleClick = async (e, id) => {
     e.preventDefault();
     let el = e.target;
     el.className = 'stamp-loading';
     el.innerText = 'Загрузка...';
-    await fetch(`/api/requests/dog_health_check_request/${profileType === 'kennel' ? 'kennel' : ''}doghealthcheckdocument?id=${id}`, {
+    await fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=${id}`, {
         method: 'GET',
         headers: getHeaders()
     })
@@ -86,25 +102,25 @@ const handleClick = async (e, id, profileType) => {
             let url = window.URL.createObjectURL(blob),
                 a = document.createElement('a');
             a.href = url;
-            a.download = `Сертификат ${id}`;
+            a.download = `Документ ${id}`;
             document.body.appendChild(a);
             a.click();
             a.remove();
         });
-    el.innerText = 'Скачать файл';
-    el.className = 'pedigree-link';
+    el.innerText = '';
+    el.className = 'download-document';
 };
 
-const Table = ({ documents, profileType, exporting, setExporting, fullScreen, distinction }) => {
+const Table = ({ documents, profileType, fullScreen, exporting, setExporting, setErrorReport }) => {
     const [success, setSuccess] = useState(false);
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
         sort: [
-            { field: "date_create", dir: "desc" }
+            { field: "date_create", dir: "asc" }
         ]
     });
-console.log('gridData', documents);
+
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
         if (e.value === "1" || e.value === "2" || e.value === "3") {
@@ -139,15 +155,16 @@ console.log('gridData', documents);
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title=" " />
+        <GridColumn field="status_name" title="Статус" />
+        <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
-        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
-        <GridColumn field="certificate_document_id" title="Сертификат" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
         <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
         <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
+        <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
+        <GridColumn field="created_document_id" title="Документ" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+        <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -181,7 +198,7 @@ console.log('gridData', documents);
         <>
             <LocalizationProvider language="ru-RU">
                 <IntlProvider locale={'ru'}>
-                    <div className="club-documents-status__filters-wrap">
+                    <div className={'user-documents-status__filters-wrap'}>
                         <div className="chip-list__wrap">
                             <ChipList
                                 selection="single"
@@ -198,27 +215,30 @@ console.log('gridData', documents);
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `583px`}`, margin: "0 auto" }}>
+                        style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '160px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '160px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
-                        <GridColumn field="certificate_document_id" title="Сертификат" width={fullScreen ? '150px' : '100px'} columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
-                        <GridColumn width="70px" cell={props => OptionsCell(props, profileType)} />
+                        <GridColumn field="created_document_id" title="Документ" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
+                        <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}
                     <GridPDFExport
-                        fileName={distinction === "dysplasia" ? `Сертификат_дисплазия_${moment(new Date()).format(`DD_MM_YYYY`)}` : `Сертификат_пателла_${moment(new Date()).format(`DD_MM_YYYY`)}`}
+                        fileName={`Получение_документов_РКФ_${moment(new Date()).format(`DD_MM_YYYY`)}`}
                         ref={gridPDFExport}
                         scale={0.5}
                         margin="1cm"
                         paperSize={["297mm", "210mm"]}
                         pageTemplate={() => <PdfPageTemplate
-                            title={distinction === "dysplasia" ? "СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ" : "СЕРТИФИКАТ КЛИНИЧЕСКОЙ ОЦЕНКИ КОЛЕННЫХ СУСТАВОВ (PL) (ПАТЕЛЛА)"}
+                            title="ЗАЯВКА НА ПОЛУЧЕНИЕ ДОКУМЕНТОВ РКФ"
                         />}
                     >
                         {gridForExport}
                     </GridPDFExport>
+
                 </IntlProvider>
             </LocalizationProvider>
             <NotificationGroup

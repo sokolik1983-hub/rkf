@@ -202,6 +202,18 @@ const ResponsibleCards = ({ nurseryAlias }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
+        <Card>
+            <div className="documents-page__icon membership-icon" />
+            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
+            <p>
+            В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+            </p>
+            <hr />
+            <div className="Card__links">
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
+            </div>
+        </Card>
     </div>
 };
 

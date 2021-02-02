@@ -52,7 +52,7 @@ const ApplicationRegistry = ({ history}) => {
             <div className="user-documents-status__head">
                 <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
                 &nbsp;/&nbsp;
-                Заявка на получение документов РКФ
+                Реестр предоставленных документов
             </div>
             {documents && !!documents.length
                 ? <div className="user-documents-status__controls-wrap">
