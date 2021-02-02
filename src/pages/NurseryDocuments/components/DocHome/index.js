@@ -25,41 +25,27 @@ const _replacePedigreeExportOld = 13;
 // const _dogHealthCheckDysplasia = 20;
 // const _dogHealthCheckPatella = 21;
 // const _getRKFDocument = 22;
+const _checkMembership = 23;
 
-const DocumentCards = ({ nurseryAlias }) => {
+//temporarily hidden
+//
+// const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
+// const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
+// const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
+// const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
+// const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
+// const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
+// const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
+// const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
+// const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
+
+const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
     const [alert, seAlert] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [authorizedAccess, setAuthorizedAccess] = useState([]);
-
     const pedigree = authorizedAccess.includes(_pedigree);
     const litter = authorizedAccess.includes(_litter);
     const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
-    //temporarily hidden
-    //
-    // const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
-    // const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
-    // const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
-    // const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
-    // const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
-    // const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
-    // const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-    // const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
-    // const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
 
-
-    useEffect(() => {
-        (() => Request({
-            url: `/api/nurseries/nursery/request_access`
-        }, data => {
-            setAuthorizedAccess(data);
-            setLoading(false);
-        }, error => {
-            console.log(error.response);
-            setLoading(false);
-        }))();
-    }, []);
-
-    return loading ? <Loading/> : <div className="documents-page__right">
+    return <div className="documents-page__right">
         {litter && <Card>
             <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
@@ -188,7 +174,9 @@ const DocumentCards = ({ nurseryAlias }) => {
     </div>
 };
 
-const ResponsibleCards = ({ nurseryAlias }) => {
+const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
+    const checkMembership = authorizedAccess.includes(_checkMembership);
+
     return <div className="documents-page__right">
         <Card>
             <div className="documents-page__icon declarants-icon" />
@@ -202,23 +190,38 @@ const ResponsibleCards = ({ nurseryAlias }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card>
+        {checkMembership && <Card>
             <div className="documents-page__icon membership-icon" />
             <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
             <p>
-            В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+                В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
             </p>
             <hr />
             <div className="Card__links">
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
             </div>
-        </Card>
+        </Card>}
     </div>
 };
 
-const DocHome = ({ nurseryAlias }) => (
-    <div className="documents-page__info">
+const DocHome = ({ nurseryAlias }) => {
+    const [loading, setLoading] = useState(true);
+    const [authorizedAccess, setAuthorizedAccess] = useState([]);
+
+    useEffect(() => {
+        (() => Request({
+            url: `/api/requests/commonrequest/request_access`
+        }, data => {
+            setAuthorizedAccess(data);
+            setLoading(false);
+        }, error => {
+            console.log(error.response);
+            setLoading(false);
+        }))();
+    }, []);
+
+    return (loading ? <Loading /> : <div className="documents-page__info">
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
                 <UserMenu userNav={kennelNav(nurseryAlias)} />
@@ -230,13 +233,14 @@ const DocHome = ({ nurseryAlias }) => (
             </StickyBox>
         </aside>
         <Switch>
-            <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards nurseryAlias={nurseryAlias} />} />
+            <Route path='/kennel/:route/documents/responsible' component={() => <ResponsibleCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} />} />
             <Route path='/kennel/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/nurseries/Nursery/nursery_federation' />} />
             <Route path='/kennel/:route/documents/review' component={() => <BookformCard url='/api/nurseries/Nursery/nursery_federation' />} />
-            <Route path='/kennel/:route/documents' component={() => <DocumentCards nurseryAlias={nurseryAlias} />} />
+            <Route path='/kennel/:route/documents' component={() => <DocumentCards authorizedAccess={authorizedAccess} nurseryAlias={nurseryAlias} />} />
             <Route component={LoadableNotFound} />
         </Switch>
     </div>
-);
+    )
+};
 
 export default React.memo(DocHome);
