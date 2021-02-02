@@ -5,7 +5,7 @@ import { Request } from "utils/request";
 import "moment/locale/ru";
 moment.locale('ru');
 
-const NotificationItem = ({ article_id, id, profile_name, short_content, create_date, logo_link, profile_alias, user_type, is_read, redirect_link }) => {
+const NotificationItem = ({ article_id, id, profile_name, short_content, create_date, logo_link, profile_alias, user_type, is_read, redirect_link, setOpen }) => {
     const profileLink = user_type === 1 ? `/user/${profile_alias}` : user_type === 3 ? `/${profile_alias}` : `/nursery/${profile_alias}`;
     const handleItemClick = async ({ target }) => {
         await Request({
@@ -21,6 +21,14 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
         });
     }
 
+    const formatDate = date => {
+        if (new Date(date).getFullYear() === new Date().getFullYear()) {
+            return moment(create_date).format('DD MMM')
+        } else {
+            return moment(create_date).format('DD MMM Y')
+        }
+    }
+
     return (
         <div onClick={handleItemClick} className={`NotificationItem${is_read ? '' : ' unread'}`}>
             <div className="NotificationItem__logo-wrap">
@@ -29,11 +37,13 @@ const NotificationItem = ({ article_id, id, profile_name, short_content, create_
                 </Link>
             </div>
             <div className="NotificationItem__content">
-                <div className="NotificationItem__header">
-                    <Link to={profileLink} className="NotificationItem_link">{profile_name}</Link>
-                    <span>{`${moment(create_date).format('L')} г.`}</span>
-                </div>
+                {/* <div className="NotificationItem__header">
+                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
+                    <span>{`, ${formatDate(create_date)}`}</span>
+                </div> */}
                 <div className="NotificationItem__body">
+                    <Link to={profileLink} className="NotificationItem_link" onClick={() => setOpen(false)}>{profile_name}</Link>
+                    <span>{`, ${formatDate(create_date)}`}</span>&nbsp;
                     {short_content}
                 </div>
             </div>

@@ -100,7 +100,27 @@
       top: 5px;
       @media (max-width: 990px) {
         left: 184px;
-      }    
+      }
+      &._plus {
+        left: 234px;
+        padding-right: 20px;
+        @media (max-width: 990px) {
+          left: 174px;
+        }  
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          background: url("/static/icons/icon-plus.svg") center no-repeat;
+          top: 7px;
+          left: 30px;
+        }
+      }
+    }
+    &._hidden {
+      display: none;
     }
   }
   &__link {

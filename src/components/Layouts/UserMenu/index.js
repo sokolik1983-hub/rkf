@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { CSSTransition } from "react-transition-group";
 import { NavLink } from "react-router-dom";
@@ -7,14 +7,29 @@ import useIsMobile from "../../../utils/useIsMobile";
 import "./index.scss";
 
 
-const UserMenu = ({ userNav, notificationsLength }) => {
+const UserMenu = ({ userNav, notificationsLength, isExhibitionPage }) => {
     const [alert, setAlert] = useState(false);
     const [open, setOpen] = useState(false);
+    const [showPlus, setShowPlus] = useState(false);
+    const [notificationsCount, setNotificationsCount] = useState(0);
     const isMobile = useIsMobile();
 
     const clickOnDisabledLink = e => {
         e.preventDefault();
         setAlert(true);
+    };
+
+    useEffect(() => {
+        checkNotificationsLength(notificationsLength);
+    }, [notificationsLength])
+
+    const checkNotificationsLength = (length) => {
+        if (length > 99) {
+            setShowPlus(true);
+            setNotificationsCount(99);
+        } else {
+            setNotificationsCount(length);
+        }
     };
 
     return (
@@ -36,7 +51,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                 >
                     <ul className="user-nav__list">
                         {userNav.map(navItem =>
-                            <li className="user-nav__item" key={navItem.id}>
+                            <li className={`user-nav__item ${isExhibitionPage && navItem.title === 'Уведомления' ? ` _hidden` : ``}`} key={navItem.id}>
                                 <NavLink
                                     to={navItem.to}
                                     exact={navItem.exact}
@@ -46,7 +61,7 @@ const UserMenu = ({ userNav, notificationsLength }) => {
                                     {navItem.icon}
                                     <span>{navItem.title}</span>
                                 </NavLink>
-                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && <span className="user-nav__item-notification">{notificationsLength}</span>}
+                                {navItem.title === 'Уведомления' && notificationsLength !== 0 && notificationsLength && <span className={`user-nav__item-notification ${showPlus ? `_plus` : ``}`}>{notificationsCount}</span>}
                             </li>
                         )}
                     </ul>

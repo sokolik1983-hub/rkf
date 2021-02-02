@@ -138,7 +138,6 @@
     }
   }
   ._request_registry_wrap {
-    max-width: 1035px;
     margin: 0 auto;
     margin-top: -5px;
   }
@@ -148,8 +147,9 @@
   ._request_registry {
     position: relative;
     top: 18px;
-    @media (max-width: 990px) {
-      top: -20px;
+    @media (max-width: 1135px) {
+      margin-top: 33px;
+      top: -25px;
     }
   }
   ._registry-wrap {

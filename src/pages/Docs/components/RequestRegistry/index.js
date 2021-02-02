@@ -5,6 +5,8 @@ import { Request } from "utils/request";
 import Table from './components/Table';
 import { connectShowFilters } from "components/Layouts/connectors";
 import { DEFAULT_IMG } from "../../../../appConfig";
+import { Link } from 'react-router-dom';
+import ls from "local-storage";
 import "./index.scss";
 
 const RequestRegistry = ({ history, distinction }) => {
@@ -12,6 +14,8 @@ const RequestRegistry = ({ history, distinction }) => {
     const [documents, setDocuments] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
+    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const document_id = window.location.href.split('=')[1];
 
     useEffect(() => {
         (() => Request({
@@ -31,7 +35,14 @@ const RequestRegistry = ({ history, distinction }) => {
 
     return loading ?
         <Loading /> : !standardView ? <Card className="club-documents-status__popup">
-            <div className="club-documents-status__controls" style={{top: '20px'}}>
+            <div className="club-documents-status__controls" style={{ position: 'relative', top: '20px' }}>
+                {document_id && <button
+                    className="club-documents-status__control club-documents-status__control--resetIcon"
+                >
+                    <Link to={`/${alias}/documents/${distinction === 'pedigree' ? `pedigree` : `litter`}/requests`}>
+                        Вернуться к списку
+                    </Link>
+                </button>}
                 <button
                     className="club-documents-status__control club-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
@@ -50,10 +61,11 @@ const RequestRegistry = ({ history, distinction }) => {
                 setExporting={setExporting}
                 fullScreen
             />
-        </Card> :
+        </Card>
+            :
             <Card className="club-documents-status">
                 <div className="club-documents-status__head">
-                    <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+                    <Link className="btn-backward" to={`/${alias}/documents`}>Личный кабинет</Link>
                 &nbsp;/&nbsp;
                 {distinction === 'pedigree'
                         ? 'ОФОРМЛЕНИЕ РОДОСЛОВНОЙ'
@@ -61,15 +73,20 @@ const RequestRegistry = ({ history, distinction }) => {
                 </div>
                 {documents && !!documents.length ? <div className="_request_registry_wrap">
                     <div className="club-documents-status__controls _request_registry">
-                        {standardView &&
-                            <button
-                                className="club-documents-status__control club-documents-status__control--downloadIcon"
-                                onClick={() => setExporting(true)}
-                                disabled={exporting}
-                            >
-                                Скачать PDF
+                        {document_id && <button
+                            className="club-documents-status__control club-documents-status__control--resetIcon"
+                        >
+                            <Link to={`/${alias}/documents/${distinction === 'pedigree' ? `pedigree` : `litter`}/requests`}>
+                                Вернуться к списку
+                            </Link>
+                        </button>}
+                        <button
+                            className="club-documents-status__control club-documents-status__control--downloadIcon"
+                            onClick={() => setExporting(true)}
+                            disabled={exporting}
+                        >
+                            Скачать PDF
                             </button>
-                        }
                         <button className="club-documents-status__control club-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                             Увеличить таблицу
                         </button>

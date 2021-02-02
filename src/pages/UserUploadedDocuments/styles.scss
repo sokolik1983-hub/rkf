@@ -1,4 +1,7 @@
 .UserUploadedDocuments {
+    & + .Footer {
+        display: none;
+    }
     a:hover {
         text-decoration: none;
     }

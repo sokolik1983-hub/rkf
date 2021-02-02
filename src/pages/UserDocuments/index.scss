@@ -1,0 +1,5 @@
+.user-documents {
+  & + .Footer {
+      display: none;
+  }
+}

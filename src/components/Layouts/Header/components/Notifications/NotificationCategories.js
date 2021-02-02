@@ -1,25 +1,20 @@
 import React from "react";
 
-const NotificationCategories = ({ categories, setCurrentCategory, setControlsOpen }) => {
+const NotificationCategories = ({ categories, currentCategory, setCurrentCategory }) => {
 
     const handleClick = (id) => {
         setCurrentCategory(id);
-        setControlsOpen(false);
     }
 
     return (
         <div className="NotificationCategories">
             {categories.map(c => {
                 return (
-                    <div className="NotificationCategories__item" key={c.id} onClick={() => handleClick(c.id)}>
-                        <div className="NotificationCategories__item-left">
-                            <div>
-                                <div className="NotificationCategories__item-icon" style={{ backgroundImage: `url(${c.icon})` }} />
-                                <span>{c.name}</span>
-                            </div>
-                        </div>
-                        <div className="NotificationCategories__item-right">
-                            {c.count}
+                    <div className={`NotificationCategories__item${currentCategory === c.id ? ' _active' : ''}`} key={c.id} onClick={() => handleClick(c.id)}>
+                        <div className="NotificationCategories__item-inner">
+                            <div className="NotificationCategories__item-icon" style={{ backgroundImage: `url(${c.icon})` }} />
+                            <div className="NotificationCategories__item-name">{c.name}</div>
+                            <div className="NotificationCategories__item-count">{c.count}</div>
                         </div>
                     </div>
                 )

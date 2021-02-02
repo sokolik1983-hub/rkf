@@ -9,6 +9,7 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import { Request } from "../../../../utils/request";
 import { kennelNav } from "../../config";
 import Loading from "../../../../components/Loading";
+import CopyrightInfo from "../../../../components/CopyrightInfo";
 import "./styles.scss";
 
 
@@ -230,6 +231,7 @@ const DocHome = ({ nurseryAlias }) => {
                         <img src="/static/images/publications/breeder-club.png" alt="" />
                     </a>
                 </div>
+                <CopyrightInfo withSocials={true} />
             </StickyBox>
         </aside>
         <Switch>

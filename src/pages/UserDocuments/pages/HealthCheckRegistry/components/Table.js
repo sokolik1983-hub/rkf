@@ -46,7 +46,9 @@ const LinkCell = ({ dataItem }) => {
     const { certificate_document_id } = dataItem;
     return <td>
         {certificate_document_id &&
-            <span className="pedigree-link" onClick={e => handleClick(e, certificate_document_id)} >Скачать файл</span>
+            <LightTooltip title="Скачать файл" enterDelay={200} leaveDelay={200}>
+                <span className="download-document" onClick={e => handleClick(e, certificate_document_id)}></span>
+            </LightTooltip>
         }
     </td>
 };
@@ -90,8 +92,8 @@ const handleClick = async (e, id) => {
             a.click();
             a.remove();
         });
-    el.innerText = 'Скачать файл';
-    el.className = 'pedigree-link';
+    el.innerText = '';
+    el.className = 'download-document';
 };
 
 const Table = ({ documents, profileType, fullScreen, exporting, setExporting, distinction }) => {
@@ -103,6 +105,23 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
             { field: "date_create", dir: "desc" }
         ]
     });
+
+    useEffect(() => {
+        handleDropDown()
+    }, []);
+
+    const handleDropDown = () => {
+        const document_id = window.location.href.split('=')[1];
+        let newDataState = { ...gridData }
+        if (document_id) {
+            newDataState.filter = {
+                logic: 'and',
+                filters: [{ field: 'barcode', operator: 'eq', value: document_id }]
+            }
+            newDataState.skip = 0
+        }
+        setGridData(newDataState);
+    };
 
     const handleDropDownChange = (e) => {
         let newDataState = { ...gridData }
@@ -138,15 +157,15 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
         resizable
         {...gridData}
         onDataStateChange={handleGridDataChange}>
-        <GridColumn field="status_name" title=" " />
+        <GridColumn field="status_name" title="Статус" />
         <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
         <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
+        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
+        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
         <GridColumn field="certificate_document_id" title="Сертификат" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
         <GridColumn field="production_department_date" title="Дата передачи в производственный департамент" columnMenu={ColumnMenu} cell={props => DateCell(props, 'production_department_date')} />
-        <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
-        <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
     </Grid>;
 
     const rowRender = (trElement, props) => {
@@ -197,11 +216,13 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting, di
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `583px`}`, margin: '0 auto' }}>
+                        style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
                         <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
                         <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '100px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '152px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '133px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn field="certificate_document_id" title="Сертификат" width="100px" columnMenu={ColumnMenu} cell={props => LinkCell(props, profileType)} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, profileType)} />

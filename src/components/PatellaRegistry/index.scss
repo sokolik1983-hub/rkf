@@ -112,8 +112,15 @@
     margin-left: 40px;
   }
 
-  .pedigree-link {
+  .download-document {
+    display: inline-block;
     cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background: url("/static/icons/icon-download.svg") no-repeat center;
+    &:hover {
+      background-image: url("/static/icons/icon-download-blue.svg");
+    }
   }
 
   .stamp-loading {
@@ -125,16 +132,21 @@
     align-items: center;
     justify-content: flex-end;
 
-    &-wrap {
-      max-width: 583px;
-      margin: 0 auto;
+    @media (max-width: 500px) {
+      flex-direction: column;
+      align-items: start;
     }
   }
 
   ._patella_controls {
-    margin-top: 16px;
-    margin-bottom: 7px;
-  }
+    margin-top: -15px;
+    position: relative;
+    top: 28px;
+    @media (max-width: 980px) {
+      margin-top: 25px;
+      top: -17px;
+    }
+   }
 
   &__control {
     display: inline-flex;
@@ -146,6 +158,20 @@
     color: #72839c;
     transition: color .2s linear;
     position: relative;
+
+    @media (max-width: 500px) {
+      margin: 10px 0 0 0;
+    }
+
+    & a {
+      text-decoration: none;
+      color: #72839c;
+      letter-spacing: .2px;
+      transition: color .2s linear;
+      &:hover {
+        color: #3366FF;
+      }  
+    }
 
     &:hover {
       color: #3366FF;
@@ -167,6 +193,15 @@
       display: inline-block;
       margin-right: 10px;
       background: url(/static/icons/downloadIcon.svg) no-repeat center / cover;
+    }
+
+    &--resetIcon:before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      margin-right: 10px;
+      background: url(/static/icons/arrow-left.svg) no-repeat center / cover;
     }
   }
 

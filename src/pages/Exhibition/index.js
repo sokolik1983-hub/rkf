@@ -16,19 +16,20 @@ import { useDictionary, getDictElement } from "../../dictionaries";
 import { connectAuthVisible } from "../Login/connectors";
 import { DEFAULT_IMG, BANNER_TYPES } from "../../appConfig";
 import UserHeader from "../../components/redesign/UserHeader";
-import UserGallery from "../../components/redesign/UserGallery";
+import UserPhotoGallery from "../../components/Layouts/UserGallerys/UserPhotoGallery";
 import StickyBox from "react-sticky-box";
 import Banner from "../../components/Banner";
 import { isFederationAlias } from "../../utils";
 import MenuComponent from "../../components/MenuComponent";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 
 const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) => {
+    const isMobile = useIsMobile();
     const [exhibition, setExhibition] = useState({ club_information: {} });
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [notificationsLength, setNotificationsLength] = useState(0);
     const exhibitionId = match.params.id;
     const { dictionary } = useDictionary('cities');
     const city = exhibition ? getDictElement(dictionary, exhibition.city_id) : null;
@@ -116,7 +117,7 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
         ? <PageNotFound />
         : loading
             ? <Loading />
-            : <Layout setNotificationsLength={setNotificationsLength}>
+            : <Layout>
                 <div className="exhibition-page redesign">
                     <Container className="content exhibition-page__content">
                         <div className="exhibition-page__info">
@@ -155,11 +156,14 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                             /> :
                                             <UserMenu
                                                 userNav={clubNav(club_alias)}
-                                                notificationsLength={notificationsLength}
+                                                isExhibitionPage={true}
                                             />
                                         }
-                                        <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
-                                        <UserGallery alias={club_alias} />
+                                        {!isMobile && <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />}
+                                        <UserPhotoGallery
+                                            alias={club_alias}
+                                            pageLink={`/${club_alias}/gallery`}
+                                        />
                                         <CopyrightInfo withSocials={true} />
                                         <div className="mobile-only">
                                             <div className="exhibition-page__title-wrap">
@@ -224,6 +228,9 @@ const Exhibition = ({ match, isAuthenticated, profile_id, is_active_profile }) =
                                         }
                                     </div>
                                 </Card>
+                                {isMobile && <div style={{ marginTop: '16px' }}>
+                                    <Banner type={BANNER_TYPES.exhibitionPageLeftSiteBar} />
+                                </div>}
                             </div>
                         </div>
                     </Container>

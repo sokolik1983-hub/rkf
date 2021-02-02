@@ -8,9 +8,6 @@
   }
   & + .Footer {
     display: none;
-    @media (max-width: 990px) {
-      display: block;
-    }
   }
   &__content {
     display: flex;
@@ -31,6 +28,7 @@
     width: 300px;
     min-width: 300px;
     margin: 16px 16px 0 0;
+    padding-bottom: 16px;
     @media (max-width: 990px) {
       width: 100%;
       min-width: auto;

@@ -10,6 +10,7 @@ import NotificationCategories from "./NotificationCategories";
 import NotificationItem from "./NotificationItem";
 import { NotificationsContext } from 'app/context';
 import Loading from "components/Loading";
+import { DEFAULT_IMG } from "appConfig";
 import "./styles.scss";
 
 const defaultCategories = [
@@ -21,7 +22,7 @@ const defaultCategories = [
     },
     {
         id: 3,
-        name: 'Обязательные к прочтению',
+        name: 'Важные',
         icon: '/static/new-icons/notifications/required.svg',
         count: 0
     },
@@ -37,10 +38,9 @@ const Notifications = forwardRef(
     ({ isAuthenticated, is_active_profile, logOutUser, logo_link, setNotificationsLength }) => {
         const [loaded, setLoaded] = useState(false);
         const [open, setOpen] = useState(false);
-        const [controlsOpen, setControlsOpen] = useState(false);
         const [notifications, setNotifications] = useState([]);
         const [showDot, setShowDot] = useState(null);
-        const [currentCategory, setCurrentCategory] = useState(1);
+        const [currentCategory, setCurrentCategory] = useState(2);
         const [categories, setCategories] = useState(defaultCategories);
 
         const { notification } = useContext(NotificationsContext);
@@ -68,7 +68,7 @@ const Notifications = forwardRef(
             }
         }, [notification]);
 
-        const getNotifications = async (type = 1) => {
+        const getNotifications = async (type = 2) => {
             setLoaded(false);
             await Request({
                 url: `/api/article/notifications?id=${type}`
@@ -96,16 +96,19 @@ const Notifications = forwardRef(
             setOpen(!open);
         }
 
-        const getNewsFeedLink = () => {
+        const getNewsFeedLink = (noId = false) => {
             const buildUrl = (id = '') => user_type === 1
                 ? `/user/${alias}/news-feed/${id}`
                 : user_type === 3
                     ? `/${alias}/news-feed/${id}`
                     : `/kennel/${alias}/news-feed/${id}`;
+            if (noId) return buildUrl();
             if (currentCategory === 3) {
                 return buildUrl(4);
             } else if (currentCategory === 4) {
                 return buildUrl(6);
+            } else if (currentCategory === 2) {
+                return buildUrl(7);
             } else {
                 return buildUrl();
             }
@@ -114,7 +117,6 @@ const Notifications = forwardRef(
         const handleOutsideClick = (e) => {
             if (!e?.target.className.includes('Notifications__icon')) {
                 setOpen(false);
-                setControlsOpen(false);
             }
         }
 
@@ -133,55 +135,54 @@ const Notifications = forwardRef(
                             timeout={350}
                             classNames="Notifications-transition"
                             unmountOnExit
-                            onExited={() => { setNotifications([]); setCurrentCategory(1); }}
+                            onExited={() => { setNotifications([]); setCurrentCategory(2); }}
                         >
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="Notifications__controls">
-                                        <h4 onClick={() => setControlsOpen(!controlsOpen)}>
-                                            {
-                                                currentCategory === 1
-                                                    ? 'Уведомления'
-                                                    : categories.find(c => c.id === currentCategory).name
-                                            }
-                                        </h4>
-                                        <button
-                                            onClick={() => setControlsOpen(!controlsOpen)}
-                                            className={`Notifications__controls-arrow ${controlsOpen ? `_widget_open` : ``}`}
+                                    <div className="Notifications__title">
+                                        <Link to={() => getNewsFeedLink(true)} onClick={() => setOpen(false)}>Уведомления</Link>
+                                    </div>
+                                    <div className="Notifications__tabs">
+                                        <NotificationCategories
+                                            categories={categories}
+                                            currentCategory={currentCategory}
+                                            setCurrentCategory={setCurrentCategory}
                                         />
                                     </div>
-                                    <CSSTransition
-                                        in={controlsOpen}
-                                        timeout={350}
-                                        classNames="Notifications-transition"
-                                        unmountOnExit
-                                    >
-                                        <div className="Notifications__controls-inner">
-                                            <NotificationCategories
-                                                categories={categories}
-                                                setCurrentCategory={setCurrentCategory}
-                                                setControlsOpen={setControlsOpen}
-                                            />
-                                        </div>
-                                    </CSSTransition>
-                                    {!loaded
-                                        ? <Loading centered={false} />
-                                        : <>
-                                            <div className="Notifications__list">
-                                                <div className="Notifications__list-inner">
-                                                    {
-                                                        notifications.length
-                                                            ? notifications.map((n, key) => {
-                                                                return <NotificationItem key={key} {...n} />
-                                                            })
-                                                            : <div className="NotificationItem nothing-found" style={{ textAlign: 'center' }}>Ничего не найдено</div>
-                                                    }
+                                    <div className="Notifications__list-wrap">
+                                        {!loaded
+                                            ? <Loading centered={false} />
+                                            : <>
+                                                <div className="Notifications__list">
+                                                    <div className="Notifications__list-inner">
+                                                        {
+                                                            notifications.length
+                                                                ? notifications.map((n, key) => {
+                                                                    return <>
+                                                                        <NotificationItem key={key} {...n} setOpen={setOpen} />
+                                                                        {++key === notifications.length &&
+                                                                            <div className="NotificationItem end-message">
+                                                                                <h4>Уведомлений больше нет</h4>
+                                                                                <img
+                                                                                    src={DEFAULT_IMG.noNews}
+                                                                                    alt="Уведомлений больше нет"
+                                                                                    style={{ width: notifications.length > 2 ? '100px' : 'auto' }}
+                                                                                />
+                                                                            </div>}
+                                                                    </>
+                                                                })
+                                                                : <div className="NotificationItem nothing-found">
+                                                                    <h4>Здесь будут ваши уведомления</h4>
+                                                                    <img src={DEFAULT_IMG.noNews} alt="Здесь будут ваши уведомления" />
+                                                                </div>
+                                                        }
+                                                    </div>
+                                                    <div className="Notifications__list-see-all">
+                                                        <Link className="btn btn-primary" to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Посмотреть все</Link>
+                                                    </div>
                                                 </div>
-                                                <div className="Notifications__list-see-all">
-                                                    <Link to={() => getNewsFeedLink()} >Посмотреть все</Link>
-                                                </div>
-                                            </div>
-                                        </>}
+                                            </>}
+                                    </div>
                                 </OutsideClickHandler>
                             </div>
                         </CSSTransition>

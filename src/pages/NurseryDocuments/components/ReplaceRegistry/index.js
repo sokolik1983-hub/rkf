@@ -8,6 +8,8 @@ import Table from './components/Table';
 import ReportError from './components/ReportError';
 import { connectShowFilters } from "components/Layouts/connectors";
 import { DEFAULT_IMG } from "../../../../appConfig";
+import { Link } from 'react-router-dom';
+import ls from "local-storage";
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
@@ -18,6 +20,8 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
     const [errorReport, setErrorReport] = useState(null);
     const [standardView, setStandardView] = useState(true);
     const [exporting, setExporting] = useState(false);
+    const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
+    const document_id = window.location.href.split('=')[1];
 
     const checkType = i => setCheckedTypes(checkedTypes.includes(i)
         ? checkedTypes.filter(x => x !== i)
@@ -51,7 +55,14 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
 
     return loading
         ? <Loading /> : !standardView ? <Card className="nursery-documents-status__popup">
-            <div className="nursery-documents-status__controls" style={{marginTop: '10px'}}>
+            <div className="nursery-documents-status__controls _replace_registry" style={{ top: '44px', right: '33px' }}>
+                {document_id && <button
+                    className="nursery-documents-status__control nursery-documents-status__control--resetIcon"
+                >
+                    <Link to={`/kennel/${alias}/documents/replace-pedigree/registry`}>
+                        Вернуться к списку
+                    </Link>
+                </button>}
                 <button
                     className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
                     onClick={() => setExporting(true)}
@@ -81,22 +92,27 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             <Card className="club-documents-status">
                 <ClickGuard value={isOpenFilters} callback={() => setShowFilters({ isOpenFilters: false })} />
                 <div className="club-documents-status__head">
-                    <button className="btn-backward" onClick={() => history.goBack()}>Личный кабинет</button>
+                    <Link className="btn-backward" to={`/kennel/${alias}/documents`}>Личный кабинет</Link>
                 &nbsp;/&nbsp;
                 ЗАМЕНА РОДОСЛОВНОЙ
             </div>
                 {documents && !!documents.length
-                    ? <div className="_replace_registry_wrap">
-                        <div className="nursery-documents-status__controls" style={{marginTop: '6px', marginBottom: '9px'}}>
-                            {standardView &&
-                                <button
-                                    className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
-                                    onClick={() => setExporting(true)}
-                                    disabled={exporting}
-                                >
-                                    Скачать PDF
+                    ? <div style={{ position: 'relative' }}>
+                        <div className="nursery-documents-status__controls _replace_registry">
+                            {document_id && <button
+                                className="nursery-documents-status__control nursery-documents-status__control--resetIcon"
+                            >
+                                <Link to={`/kennel/${alias}/documents/replace-pedigree/registry`}>
+                                    Вернуться к списку
+                                </Link>
+                            </button>}
+                            <button
+                                className="nursery-documents-status__control nursery-documents-status__control--downloadIcon"
+                                onClick={() => setExporting(true)}
+                                disabled={exporting}
+                            >
+                                Скачать PDF
                                 </button>
-                            }
                             <button className="nursery-documents-status__control nursery-documents-status__control--tableIcon" onClick={() => setStandardView(false)}>
                                 Увеличить таблицу
                             </button>

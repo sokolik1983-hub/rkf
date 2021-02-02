@@ -10,6 +10,7 @@ import UserMenu from "../../../../components/Layouts/UserMenu";
 import { clubNav } from "../../config";
 import Loading from "../../../../components/Loading";
 import { Request } from "../../../../utils/request";
+import CopyrightInfo from "../../../../components/CopyrightInfo";
 import "./styles.scss";
 
 
@@ -258,6 +259,7 @@ const DocHome = ({ clubAlias }) => {
         <aside className="documents-page__left">
             <StickyBox offsetTop={65}>
                 <UserMenu userNav={clubNav(clubAlias)} />
+                <CopyrightInfo withSocials={true} />
             </StickyBox>
         </aside>
         <Switch>
