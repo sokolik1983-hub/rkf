@@ -4,7 +4,7 @@ import Error from './Error';
 import Label from './Label';
 
 const CustomNumber = (props) => {
-    const {formik, name} = props;
+    const {formik, name, maxLength} = props;
 
     const handleChange = ({ target }) => {
         formik.setFieldValue(name, target.value.replace(/\D/g, ''));
@@ -17,6 +17,7 @@ const CustomNumber = (props) => {
                 value={getIn(formik.values, name)}
                 onChange={handleChange}
                 className="FormInput__input"
+                maxLength={maxLength}
                 {...props}
             />
             <Error name={name} />
