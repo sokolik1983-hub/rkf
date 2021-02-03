@@ -13,70 +13,74 @@ import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker"
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
 import DocumentLink from "../../DocumentLink";
-import DocumentLinksArray from "../../DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
-    documentTypeRequired, innValidator, requiredValidator, nameValidator
+    documentTypeRequired, innValidator, requiredValidator
 } from "../../../../../components/kendo/Form/validators";
 import { Request, getHeaders } from "../../../../../utils/request";
+import { years } from "./config";
 import "./index.scss";
 
 
-const CheckMembershipForm = ({ alias, history, status }) => {
+const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
     const headers = { 'Authorization': `Bearer ${localStorage.getItem("apikey")}` };
 
     const [disableAllFields, setDisableAllFields] = useState(false);
-    const [disableFields, setDisableFields] = useState(false);
+    const [disableIsActualFields, setDisableIsActualFields] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
-    const [isForeignPedigree, setIsForeignPedigree] = useState(false);
+    const [isActual, setIsActual] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [values, setValues] = useState(null);
-    const [declarants, setDeclarants] = useState([]);
-    const [documentTypes, setDocumentTypes] = useState({ id: [], documents: [] });
-    const [documentTypeIds, setDocumentTypeIds] = useState([]);
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
+    const [docTypes, setDocTypes] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [confirmationHref, setConfirmationHref] = useState('');
+    const [documents, setDocuments] = useState([]);
     const [initialValues, setInitialValues] = useState({
-        declarant_id: 0,
-        is_foreign_owner: false,
-        owner_last_name: '',
-        owner_first_name: '',
-        owner_second_name: '',
-        express: false,
-        pedigree_number: '',
-        dog_name: '',
-        is_foreign_pedigree: false,
+        is_actual: false,
+        comment: '',
+        changes_confirmation_document_id: [],
+        membership_confirmation_document_id: [],
+        mating_whelping_book_document_id: [],
+        mating_whelping_book_document_year: '',
+        payment_document_id: [],
         payment_date: '',
         payment_number: '',
-        payment_document_id: '',
         payment_name: '',
         inn: '',
-        comment: '',
-        document_type_id: 0,
-        rkf_document_type_id: 0,
-        payment_document: [],
         documents: []
     });
-    const editable = !status || status === 'edit';
 
+    const editable = !status || status === 'edit';
+    const isView = status === 'view' || status === 'edit';
+
+    //get .doc checkmembership template document
     useEffect(() => {
         Promise.all([
-            fetch('/api/requests/PedigreeRequest/personal_data_document', { headers })
+            fetch('/api/requests/membership_confirmation_request/membershipconfirmationdocument/membership_document', { headers })
                 .then(response => response.blob())
                 .then(data => setConfirmationHref(URL.createObjectURL(data)))
+                .then(() => setLoaded(true))
         ])
-
     }, []);
 
     useEffect(() => {
-        if (!status) {
-            Promise.all([getDocumentTypes(), getDeclarants()]).then(() => setLoaded(true));
+        if (status === 'edit') {
+            (() => Request({
+                url: `/api/requests/commonrequest/membership_confirmation_additional_doc_types`
+            }, data => {
+                setDocTypes(data);
+                setLoaded(true);
+            }, error => {
+                // history.replace('/404');
+                console.log(error)
+            }))();
+            // setDisableAllFields(true);
         }
-    }, []);
+    }, [status]);
 
     useEffect(() => {
         if (status) {
@@ -84,25 +88,25 @@ const CheckMembershipForm = ({ alias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/get_rkf_document_request/kennelgetrkfdocumentrequest?id=${id}`
+                url: `/api/requests/membership_confirmation_request/membershipconfirmationrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
                     values[key] = data[key] || initialValues[key];
                 });
                 if (data.documents) {
-                    values.documents = [];
+                    setDocuments(data.documents);
                 }
-                if (data.is_foreign_pedigree) {
-                    setIsForeignPedigree(true);
+                if (data.is_actual) {
+                    setIsActual(true);
                 }
                 setValues(data);
                 setInitialValues(values);
                 setLoaded(true);
             }, error => {
-                history.replace('/404');
+                // history.replace('/404');
+                console.log(error)
             }))();
-
             setDisableAllFields(true);
         }
     }, [status]);
@@ -119,75 +123,26 @@ const CheckMembershipForm = ({ alias, history, status }) => {
         }
     };
 
-    const getDocumentTypes = async () => {
-        await Request({
-            url: `/api/requests/commonrequest/rkf_document_types`
-        }, data => {
-            if (data) {
-                setDocumentTypes({
-                    ...documentTypes,
-                    id: data.id.map(d => ({ text: d.name, value: d.id })),
-                    documents: data.documents.map(d => ({ text: d.name, value: d.id, document_type_id: d.document_type_id }))
-                });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
-    const getDeclarants = async () => {
-        await Request({
-            url: `/api/nurseries/nurserydeclarant/nursery_declarants`
-        }, data => {
-            if (data) {
-                setDeclarants(data.map(declarant => ({ text: declarant.full_name, value: declarant.id })));
-
-                let defaultDeclarant = data.sort((a, b) => Number(b.is_default) - Number(a.is_default))[0].id;
-                setInitialValues({
-                    declarant_id: defaultDeclarant,
-                    is_foreign_owner: false,
-                    owner_last_name: '',
-                    owner_first_name: '',
-                    owner_second_name: '',
-                    express: false,
-                    pedigree_number: '',
-                    dog_name: '',
-                    is_foreign_pedigree: false,
-                    payment_date: '',
-                    payment_number: '',
-                    payment_document_id: '',
-                    payment_name: '',
-                    inn: '',
-                    comment: '',
-                    document_type_id: 0,
-                    rkf_document_type_id: 0,
-                    payment_document: [],
-                    documents: []
-                });
-            } else {
-                setError('Ошибка');
-            }
-        }, error => {
-            handleError(error);
-        });
-    };
-
     const handleSubmit = async data => {
-        const paymentId = formProps.valueGetter('payment_document')[0]?.id;
+        const changesConfirmationDocumentId = formProps.valueGetter('changes_confirmation_document_id')[0]?.id;
+        const membershipConfirmationDocumentId = formProps.valueGetter('membership_confirmation_document_id')[0]?.id;
+        const matingWhelpingBookDocumentId = formProps.valueGetter('mating_whelping_book_document_id')[0]?.id;
+        const paymentId = formProps.valueGetter('payment_document_id')[0]?.id;
+
         setDisableSubmit(true);
 
         let newData = {
             ...data,
-            payment_document_id: paymentId ? paymentId : data.payment_document_id
+            payment_document_id: paymentId ? paymentId : data.payment_document_id,
+            changes_confirmation_document_id: changesConfirmationDocumentId ? changesConfirmationDocumentId : data.changes_confirmation_document_id,
+            membership_confirmation_document_id: membershipConfirmationDocumentId ? membershipConfirmationDocumentId : data.membership_confirmation_document_id,
+            mating_whelping_book_document_id: matingWhelpingBookDocumentId ? matingWhelpingBookDocumentId : data.mating_whelping_book_document_id,
         };
 
         newData.payment_date = moment(newData.payment_date).format("YYYY-MM-DD");
 
-        delete newData.declarant_name;
-        delete newData.document_type_id;
-        delete newData.payment_document;
+        // delete newData.document_type_id;
+        // delete newData.payment_document;
 
         if (status === 'edit') {
             newData.id = values.id;
@@ -200,49 +155,48 @@ const CheckMembershipForm = ({ alias, history, status }) => {
         }
 
         await Request({
-            url: '/api/requests/get_rkf_document_request/clubgetrkfdocumentrequest',
+            url: '/api/requests/membership_confirmation_request/kennelmembershipconfirmationrequest',
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            history.push(`/${alias}/documents`);
+            history.push(`/kennel/${nurseryAlias}/documents/responsible`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
         });
     };
 
-    const handleChange = name => {
-        if (name === 'is_foreign_pedigree') {
-            const isForeign = !formProps.valueGetter(name);
+    const handleIsActualChange = (name) => {
+        if (name === 'is_actual') {
+            const isActual = !formProps.valueGetter(name);
 
-            formProps.onChange('pedigree_number', { value: '' });
+            formProps.onChange('comment', { value: '' });
 
-            formProps.onChange('dog_name', { value: '' });
+            formProps.onChange('changes_confirmation_document_id', { value: [] });
 
-            setDisableFields(false);
-            setIsForeignPedigree(isForeign);
+            setDisableIsActualFields(!disableIsActualFields);
+            setIsActual(isActual);
         }
-
         formProps.onChange(name, { value: !formProps.valueGetter(name) })
     };
 
-    const onAdd = event => {
-        const { newState } = event;
+    const onAdd = (e, doc_type) => {
+        const { newState } = e;
         if (status === 'edit') {
-            (values.documents?.length + newState.length) > 20
+            (values.documents?.length + newState.length) > 10
                 ? setDocumentsOverflow(true)
-                : formProps.onChange('documents', { value: newState })
+                : formProps.onChange(`${doc_type}`, { value: newState })
         } else {
-            newState.length > 20
+            newState.length > 10
                 ? setDocumentsOverflow(true)
-                : formProps.onChange('documents', { value: newState })
+                : formProps.onChange(`${doc_type}`, { value: newState })
         }
     };
 
-    const onRemove = event => {
-        const { newState } = event;
-        newState.length <= 20 && setDocumentsOverflow(false);
-        formProps.onChange('documents', { value: newState })
+    const onRemove = (e, doc_type) => {
+        const { newState } = e;
+        newState.length <= 10 && setDocumentsOverflow(false);
+        formProps.onChange(`${doc_type}`, { value: newState })
     };
 
     const onProgress = (event, name) => formProps.onChange(name, { value: event.newState });
@@ -262,15 +216,13 @@ const CheckMembershipForm = ({ alias, history, status }) => {
         }
     };
 
-    const handleDocTypeChange = docType => {
-        const { value } = docType;
-        setDocumentTypeIds(documentTypes.documents.filter(d => d.document_type_id === value));
-        formProps.onChange('document_type_id', { value: docType });
-        formProps.onChange('rkf_document_type_id', { value: 0 });
+    const handleYearChange = year => {
+        const { value } = year;
+        formProps.onChange('mating_whelping_book_document_year', { value: value });
     };
 
     const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 20 && setDocumentsOverflow(false);
+        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 10 && setDocumentsOverflow(false);
         setValues({
             ...values,
             documents: values.documents.filter(d => d.id !== id)
@@ -281,38 +233,38 @@ const CheckMembershipForm = ({ alias, history, status }) => {
         <div className="application-form">
             <Card>
                 <div className="club-documents-status__head">
-                    <Link to={`/${alias}/documents/responsible`} className="club-documents-status__head-link">Личный кабинет</Link>
+                    <Link to={`/kennel/${nurseryAlias}/documents/responsible`} className="club-documents-status__head-link">Личный кабинет</Link>
                     &nbsp;/&nbsp;
                     <span className="user-documents__breadcrumbs-item">Подтверждение членства</span>
                 </div>
-                {!loaded ?
-                    <Loading centered={false} /> :
-                    <Form
-                        onSubmit={handleSubmit}
-                        initialValues={initialValues}
-                        key={JSON.stringify(initialValues)}
-                        render={formRenderProps => {
-                            if (!formProps) setFormProps(formRenderProps);
-                            return (
-                                <FormElement>
-                                    <div className="application-form__content">
-                                        {values && values.rejected_comment &&
-                                            <p className="application-form__danger">{values.rejected_comment}</p>
-                                        }
-                                        <div className="application-form__row-is-foreign">
-                                            <div>
-                                                <Field
-                                                    id="is_foreign_owner"
-                                                    name="is_foreign_owner"
-                                                    label="Подтверждаю актуальность данных на платформе"
-                                                    component={FormContactsCheckbox}
-                                                    onChange={handleChange}
-                                                    disabled={disableAllFields}
-                                                />
+                {
+                    !loaded ?
+                        <Loading centered={false} /> :
+                        <Form
+                            onSubmit={handleSubmit}
+                            initialValues={initialValues}
+                            key={JSON.stringify(initialValues)}
+                            render={formRenderProps => {
+                                if (!formProps) setFormProps(formRenderProps);
+                                return (
+                                    <FormElement>
+                                        <div className="application-form__content">
+                                            {values && values.rejected_comment &&
+                                                <p className="application-form__danger">{values.rejected_comment}</p>
+                                            }
+                                            <div className="application-form__row-is-foreign">
+                                                <div>
+                                                    <Field
+                                                        id="is_actual"
+                                                        name="is_actual"
+                                                        label="Подтверждаю актуальность данных на платформе"
+                                                        component={FormContactsCheckbox}
+                                                        onChange={handleIsActualChange}
+                                                        disabled={disableAllFields}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="application-form__row row">
-                                            {editable &&
+                                            <div className="application-form__row row">
                                                 <div className="application-form__row">
                                                     <Field
                                                         id="comment"
@@ -321,246 +273,226 @@ const CheckMembershipForm = ({ alias, history, status }) => {
                                                         maxLength={500}
                                                         component={FormTextArea}
                                                         placeholder="Прошу изменить/добавить данные"
+                                                        disabled={disableAllFields || disableIsActualFields}
+                                                        validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
                                                     />
                                                 </div>
-                                            }
-                                        </div>
-                                        <div>
+                                            </div>
                                             <div>
-                                                Документ для подтверждения вносимых изменений
+                                                <div>
+                                                    Документ для подтверждения вносимых изменений
                                             </div>
-                                            <div className="application-form__file">
-                                                <Field
-                                                    id="documents"
-                                                    name="documents"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                    component={FormUpload}
-                                                    saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                    saveField="document"
-                                                    multiple={true}
-                                                    showActionButtons={!documentsOverflow}
-                                                    onAdd={onAdd}
-                                                    onRemove={onRemove}
-                                                    onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                    onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                    onProgress={(e) => onProgress(e, 'documents')}
-                                                    validator={values?.documents.length
-                                                        ? ''
-                                                        : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
-                                                    }
-                                                />
-                                                {values &&
-                                                    values.veterinary_contract_document_id &&
-                                                    !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
-                                                }
-                                                {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
-                                                    Вы не можете добавить больше 20 документов
-                                                    </div>}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div style={{ display: 'inline-block' }}>
-                                                Заявление о подтверждении членства
-                                            </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
-                                            <div className="application-form__file">
-                                                <Field
-                                                    id="documents"
-                                                    name="documents"
-                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                    component={FormUpload}
-                                                    saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                    saveField="document"
-                                                    multiple={true}
-                                                    showActionButtons={!documentsOverflow}
-                                                    onAdd={onAdd}
-                                                    onRemove={onRemove}
-                                                    onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                    onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                    onProgress={(e) => onProgress(e, 'documents')}
-                                                    validator={values?.documents.length
-                                                        ? ''
-                                                        : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
-                                                    }
-                                                />
-                                                {values &&
-                                                    values.veterinary_contract_document_id &&
-                                                    !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                    <DocumentLink docId={values.veterinary_contract_document_id} />
-                                                }
-                                                {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
-                                                    Вы не можете добавить больше 20 документов
-                                                    </div>}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            {!!status && values &&
-                                                <DocumentLinksArray
-                                                    documents={values.documents}
-                                                    editable={editable}
-                                                    onRemove={handleDocumentRemove}
-                                                />
-                                            }
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                                                <div style={{ flexGrow: 1, marginRight: '20px' }}>
-                                                    <div>
-                                                        Книга вязок и щенений&nbsp;&nbsp;&nbsp;
-                                                        <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="application-form__how-to-link"
-                                                        >Инструкция по объединению файлов / изображений</a>
-                                                    </div>
-                                                    <div style={{ color: '#90999e' }}>Книга вязок должна быть прикреплена единым многостраничным файлом.</div>
-                                                    <div className="application-form__file">
-                                                        <Field
-                                                            id="documents"
-                                                            name="documents"
-                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                            component={FormUpload}
-                                                            saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
-                                                            saveField="document"
-                                                            multiple={true}
-                                                            showActionButtons={!documentsOverflow}
-                                                            onAdd={onAdd}
-                                                            onRemove={onRemove}
-                                                            onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                            onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                            onProgress={(e) => onProgress(e, 'documents')}
-                                                            validator={values?.documents.length
-                                                                ? ''
-                                                                : () => documentRequiredValidator(formProps?.valueGetter('documents').find(d => d.id))
-                                                            }
-                                                        />
-                                                        {values &&
-                                                            values.veterinary_contract_document_id &&
-                                                            !formRenderProps.valueGetter('veterinary_contract_document').length &&
-                                                            <DocumentLink docId={values.veterinary_contract_document_id} />
-                                                        }
-                                                        {documentsOverflow && <div id="documents_error" role="alert" className="k-form-error k-text-start">
-                                                            Вы не можете добавить больше 20 документов
-                                                    </div>}
-                                                    </div>
-                                                </div>
-                                                <div style={{ position: 'relative', top: '56px' }}>
-                                                    <Field
-                                                        id="document_type_id"
-                                                        name="document_type_id"
-                                                        component={FormDropDownList}
-                                                        onChange={handleDocTypeChange}
-                                                        data={documentTypes.id}
-                                                        defaultItem={values && values.document_type_name
-                                                            ? { text: values.document_type_name, value: values.document_type_id }
-                                                            : { text: "Выберите год", value: 0 }
-                                                        }
-                                                        validator={disableAllFields ? '' : documentTypeRequired}
-                                                        disabled={disableAllFields}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                    <div className="application-form__content">
-                                        <h4 className="application-form__title">Информация о платеже</h4>
-                                        {!disableAllFields && <>
-                                            <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
-                                        </>
-                                        }
-                                        <div className="application-form__row">
-                                            {editable ?
                                                 <div className="application-form__file">
-                                                    <Field
-                                                        id="payment_document"
-                                                        name="payment_document"
+                                                    {!isView ? <Field
+                                                        id="changes_confirmation_document_id"
+                                                        name="changes_confirmation_document_id"
                                                         fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                         component={FormUpload}
-                                                        saveUrl={'/api/requests/get_rkf_document/getrkfdocumentrequestdocument'}
+                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
                                                         saveField="document"
                                                         multiple={false}
-                                                        showActionButtons={true}
+                                                        showActionButtons={!documentsOverflow}
+                                                        onAdd={e => onAdd(e, 'changes_confirmation_document_id')}
+                                                        onRemove={e => onRemove(e, 'changes_confirmation_document_id')}
+                                                        onBeforeUpload={e => onBeforeUpload(e, 49)}
+                                                        onStatusChange={(e) => onStatusChange(e, 'changes_confirmation_document_id')}
+                                                        onProgress={(e) => onProgress(e, 'changes_confirmation_document_id')}
+                                                        disabled={disableAllFields || disableIsActualFields}
+                                                        validator={values?.documents.length || disableAllFields || disableIsActualFields
+                                                            ? ''
+                                                            : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id').find(d => d.id))
+                                                        }
+                                                    /> : <>
+                                                            {values &&
+                                                                values.changes_confirmation_document_id &&
+                                                                !formRenderProps.valueGetter('changes_confirmation_document_id').length &&
+                                                                <DocumentLink docId={values.changes_confirmation_document_id} />
+                                                            }</>}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div style={{ display: 'inline-block' }}>
+                                                    Заявление о подтверждении членства
+                                            </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
+                                                <div className="application-form__file">
+                                                    {!isView ? <Field
+                                                        id="membership_confirmation_document_id"
+                                                        name="membership_confirmation_document_id"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        component={FormUpload}
+                                                        showActionButtons={!documentsOverflow}
+                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                        saveField="document"
+                                                        multiple={false}
+                                                        onAdd={e => onAdd(e, 'membership_confirmation_document_id')}
+                                                        onRemove={e => onRemove(e, 'membership_confirmation_document_id')}
+                                                        onBeforeUpload={e => onBeforeUpload(e, 50)}
+                                                        onStatusChange={(e) => onStatusChange(e, 'membership_confirmation_document_id')}
+                                                        onProgress={(e) => onProgress(e, 'membership_confirmation_document_id')}
+                                                        disabled={disableAllFields}
+                                                        validator={values?.documents.length || disableAllFields
+                                                            ? ''
+                                                            : () => documentRequiredValidator(formProps?.valueGetter('membership_confirmation_document_id').find(d => d.id))
+                                                        }
+                                                    /> : <>
+                                                            {values &&
+                                                                values.membership_confirmation_document_id &&
+                                                                !formRenderProps.valueGetter('membership_confirmation_document_id').length &&
+                                                                <DocumentLink docId={values.membership_confirmation_document_id} />
+                                                            }</>}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="application-form__row" style={{ flexWrap: 'wrap' }}>
+                                                    <div>
+                                                        <div>
+                                                            Книга вязок и щенений&nbsp;&nbsp;&nbsp;
+                                                        <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="application-form__how-to-link"
+                                                            >Инструкция по объединению файлов / изображений</a>
+                                                        </div>
+                                                        <div style={{ color: '#90999e' }}>Книга вязок должна быть прикреплена единым многостраничным файлом.</div>
+                                                        <div className="application-form__file">
+                                                            {!isView ? <Field
+                                                                id="mating_whelping_book_document_id"
+                                                                name="mating_whelping_book_document_id"
+                                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                                component={FormUpload}
+                                                                showActionButtons={!documentsOverflow}
+                                                                saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                                saveField="document"
+                                                                multiple={false}
+                                                                onAdd={e => onAdd(e, 'mating_whelping_book_document_id')}
+                                                                onRemove={e => onRemove(e, 'mating_whelping_book_document_id')}
+                                                                onBeforeUpload={e => onBeforeUpload(e, 51)}
+                                                                onStatusChange={(e) => onStatusChange(e, 'mating_whelping_book_document_id')}
+                                                                onProgress={(e) => onProgress(e, 'mating_whelping_book_document_id')}
+                                                                disabled={disableAllFields}
+                                                                validator={values?.documents.length || disableAllFields
+                                                                    ? ''
+                                                                    : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
+                                                                }
+                                                            /> : <>
+                                                                    {values &&
+                                                                        values.mating_whelping_book_document_id &&
+                                                                        !formRenderProps.valueGetter('mating_whelping_book_document_id').length &&
+                                                                        <DocumentLink docId={values.mating_whelping_book_document_id} />
+                                                                    }</>}
+                                                        </div>
+                                                    </div>
+                                                    <div className="application-form__year">
+                                                        <Field
+                                                            id="mating_whelping_book_document_year"
+                                                            name="mating_whelping_book_document_year"
+                                                            component={FormDropDownList}
+                                                            onChange={handleYearChange}
+                                                            data={years}
+                                                            defaultItem={values && values.mating_whelping_book_document_year
+                                                                ? { text: values.mating_whelping_book_document_year, value: values.mating_whelping_book_document_year }
+                                                                : { text: "Выберите год", value: 0 }
+                                                            }
+                                                            validator={disableAllFields ? '' : documentTypeRequired}
+                                                            disabled={disableAllFields}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="application-form__content">
+                                            <h4 className="application-form__title">Информация о платеже</h4>
+                                            {!disableAllFields && <>
+                                                <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                            </>}
+                                            <div className="application-form__row">
+                                                <div className="application-form__file">
+                                                    {!isView ? <Field
+                                                        id="payment_document_id"
+                                                        name="payment_document_id"
+                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                        component={FormUpload}
+                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                        saveField="document"
+                                                        multiple={false}
+                                                        showActionButtons={!documentsOverflow}
+                                                        onAdd={e => onAdd(e, 'payment_document_id')}
+                                                        onRemove={e => onRemove(e, 'payment_document_id')}
                                                         onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                        onStatusChange={e => onStatusChange(e, 'payment_document')}
-                                                        onProgress={e => onProgress(e, 'payment_document')}
-                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document')
-                                                            .find(d => d.id))}
+                                                        onStatusChange={e => onStatusChange(e, 'payment_document_id')}
+                                                        onProgress={e => onProgress(e, 'payment_document_id')}
+                                                        disabled={disableAllFields}
+                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document_id').find(d => d.id))}
+                                                    /> : <>
+                                                            {values &&
+                                                                values.payment_document_id &&
+                                                                !formRenderProps.valueGetter('payment_document_id').length &&
+                                                                <DocumentLink docId={values.payment_document_id} />
+                                                            }</>}
+                                                </div>
+                                            </div>
+                                            <div className="application-form__row">
+                                                <div>
+                                                    <Field
+                                                        id="payment_date"
+                                                        name="payment_date"
+                                                        label="Дата оплаты"
+                                                        max={new Date()}
+                                                        component={FormDatePicker}
+                                                        validator={dateRequiredValidator}
+                                                        disabled={disableAllFields}
+
                                                     />
-                                                    {values &&
-                                                        values.payment_document_id &&
-                                                        !formRenderProps.valueGetter('payment_document').length &&
-                                                        <DocumentLink docId={values.payment_document_id} />
-                                                    }
                                                 </div>
-                                                : <div className="application-form__file">
-                                                    <p className="k-label">Квитанция об оплате (PDF, JPEG, JPG, PNG)</p>
-                                                    <DocumentLink docId={values.payment_document_id} />
+                                                <div>
+                                                    <Field
+                                                        id="payment_number"
+                                                        name="payment_number"
+                                                        label="Номер платежного документа"
+                                                        cutValue={30}
+                                                        component={FormInput}
+                                                        validator={requiredWithTrimValidator}
+                                                        disabled={disableAllFields}
+
+                                                    />
                                                 </div>
+                                            </div>
+                                            <div className="application-form__row">
+                                                <Field
+                                                    id="payment_name"
+                                                    name="payment_name"
+                                                    label="ФИО плательщика/наименования юр. лица"
+                                                    cutValue={150}
+                                                    component={FormInput}
+                                                    validator={value => nameRequiredValidator(value, 150)}
+                                                    disabled={disableAllFields}
+                                                />
+                                                <Field
+                                                    id="inn"
+                                                    name="inn"
+                                                    label="ИНН (для юр. лиц)"
+                                                    cutValue={12}
+                                                    onlyNumbers={true}
+                                                    component={FormInput}
+                                                    validator={innValidator}
+                                                    disabled={disableAllFields}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="application-form__controls">
+                                            {editable &&
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                    disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                                >Отправить</button>
                                             }
                                         </div>
-                                        <div className="application-form__row">
-                                            <div>
-                                                <Field
-                                                    id="payment_date"
-                                                    name="payment_date"
-                                                    label="Дата оплаты"
-                                                    max={new Date()}
-                                                    component={FormDatePicker}
-                                                    validator={dateRequiredValidator}
-                                                    disabled={!editable}
-                                                />
-                                            </div>
-                                            <div>
-                                                <Field
-                                                    id="payment_number"
-                                                    name="payment_number"
-                                                    label="Номер платежного документа"
-                                                    cutValue={30}
-                                                    component={FormInput}
-                                                    validator={requiredWithTrimValidator}
-                                                    disabled={!editable}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="application-form__row">
-                                            <Field
-                                                id="payment_name"
-                                                name="payment_name"
-                                                label="ФИО плательщика/наименования юр. лица"
-                                                cutValue={150}
-                                                component={FormInput}
-                                                validator={value => nameRequiredValidator(value, 150)}
-                                                disabled={!editable}
-                                            />
-                                            <Field
-                                                id="inn"
-                                                name="inn"
-                                                label="ИНН (для юр. лиц)"
-                                                cutValue={12}
-                                                onlyNumbers={true}
-                                                component={FormInput}
-                                                validator={innValidator}
-                                                disabled={!editable}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="application-form__controls">
-                                        {editable &&
-                                            <button
-                                                type="submit"
-                                                className="btn btn-primary"
-                                                disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
-                                            >Отправить</button>
-                                        }
-                                    </div>
-                                </FormElement>
-                            )
-                        }
-                        }
-                    />
+                                    </FormElement>
+                                )
+                            }
+                            }
+                        />
                 }
             </Card>
             <NotificationGroup
@@ -593,7 +525,7 @@ const CheckMembershipForm = ({ alias, history, status }) => {
                     }
                 </Fade>
             </NotificationGroup>
-        </div>
+        </div >
     )
 };
 
