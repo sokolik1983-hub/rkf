@@ -88,7 +88,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
             const id = paramsArr[paramsArr.length - 1];
 
             (() => Request({
-                url: `/api/requests/membership_confirmation_request/membershipconfirmationrequest?id=${id}`
+                url: `/api/requests/membership_confirmation_request/kennelmembershipconfirmationrequest?id=${id}`
             }, data => {
                 let values = {};
                 Object.keys(initialValues).forEach(key => {
