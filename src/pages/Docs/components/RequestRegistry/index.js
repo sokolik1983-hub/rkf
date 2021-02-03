@@ -7,6 +7,7 @@ import { connectShowFilters } from "components/Layouts/connectors";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
+import moment from "moment";
 import "./index.scss";
 
 const RequestRegistry = ({ history, distinction }) => {
@@ -24,7 +25,12 @@ const RequestRegistry = ({ history, distinction }) => {
                 '/api/requests/LitterRequest/register_of_requests'
         },
             data => {
-                setDocuments(data);
+                setDocuments(data.map(({ date_change, date_create, date_of_birth_litter, ...rest }) => ({
+                    date_change: moment(date_change).format('DD.MM.YY'),
+                    date_create: moment(date_create).format('DD.MM.YY'),
+                    date_of_birth_litter: moment(date_of_birth_litter).format('DD.MM.YY'),
+                    ...rest
+                })));
                 setLoading(false);
             },
             error => {

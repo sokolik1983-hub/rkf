@@ -7,6 +7,7 @@ import Modal from "components/Modal";
 import RequestTable from "../RequestRegistry/components/Table";
 import { Request } from "utils/request";
 import Declarants from "./components/Declarants";
+import moment from "moment";
 import "./index.scss";
 
 const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
@@ -25,7 +26,10 @@ const NurseryDocumentsStatus = ({ history, nurseryAlias, distinction }) => {
                 '/api/requests/NurseryLitterRequest/headers_base_info'
         },
             data => {
-                setDocuments(data);
+                setDocuments(data.map(({ date_create, ...rest }) => ({
+                    date_create: moment(date_create).format('DD.MM.YY'),
+                    ...rest
+                })));
                 setLoading(false);
             },
             error => {

@@ -10,6 +10,7 @@ import { connectShowFilters } from "components/Layouts/connectors";
 import { DEFAULT_IMG } from "../../../../appConfig";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
+import moment from "moment";
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
@@ -42,7 +43,10 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             }),
             PromiseRequest({ url: '/api/requests/commonrequest/replace_pedigree_type' })
         ]).then(data => {
-            setDocuments(data[0]);
+            setDocuments(data[0].map(({ date_create, production_department_date, ...rest }) => ({
+                date_create: moment(date_create).format('DD.MM.YY'),
+                ...rest
+            })));
             setReqTypes(data[1]);
             setCheckedTypes(data[1].map(({ id }) => id));
             setLoading(false);
