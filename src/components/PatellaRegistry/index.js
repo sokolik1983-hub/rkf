@@ -6,6 +6,7 @@ import { PromiseRequest } from "utils/request";
 import { DEFAULT_IMG } from "../../appConfig";
 import { Link } from 'react-router-dom';
 import ls from "local-storage";
+import moment from "moment";
 import "./index.scss";
 
 const ReplaceRegistry = ({ history, distinction, profileType }) => {
@@ -23,7 +24,11 @@ const ReplaceRegistry = ({ history, distinction, profileType }) => {
             data: { type_id: distinction === "dysplasia" ? 1 : 2 }
         }).then(
             data => {
-                setDocuments(data);
+                setDocuments(data.map(({ date_change, date_create, ...rest }) => ({
+                    date_change: moment(date_change).format('DD.MM.YY'),
+                    date_create: moment(date_create).format('DD.MM.YY'),
+                    ...rest
+                })));
                 setLoading(false);
             }).catch(
                 error => {
