@@ -9,10 +9,10 @@ import Card from "../../../../../components/Card";
 import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
+import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import { DropDownList } from '@progress/kendo-react-dropdowns';
 import DocumentLink from "../../DocumentLink";
 import {
     dateRequiredValidator, nameRequiredValidator,
@@ -33,7 +33,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
     const [isActual, setIsActual] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [values, setValues] = useState(null);
+    const [values, setValues] = useState({});
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [docTypes, setDocTypes] = useState([]);
@@ -57,13 +57,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
 
     const editable = !status || status === 'edit';
     const isView = status === 'view' || status === 'edit';
-
-    const itemRender = (li) => {
-        const itemChildren = <div style={{ textOverflow: 'ellipsis', display: 'block', overflow: 'hidden' }}>
-            {li.props.children}
-        </div>;
-        return React.cloneElement(li, li.props, itemChildren);
-    }
 
     //get .doc checkmembership template document
     useEffect(() => {
@@ -230,14 +223,6 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         formProps.onChange('mating_whelping_book_document_year', { value: value });
     };
 
-    const handleDocumentRemove = id => {
-        formProps.valueGetter('documents').length + (values.documents.length - 1) <= 10 && setDocumentsOverflow(false);
-        setValues({
-            ...values,
-            documents: values.documents.filter(d => d.id !== id)
-        })
-    };
-
     return (
         <div className="application-form">
             <Card>
@@ -249,297 +234,269 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                 {
                     !loaded ?
                         <Loading centered={false} /> :
-                        <Form
-                            onSubmit={handleSubmit}
-                            initialValues={initialValues}
-                            key={JSON.stringify(initialValues)}
-                            render={formRenderProps => {
-                                if (!formProps) setFormProps(formRenderProps);
-                                return (
-                                    <FormElement>
-                                        <div className="application-form__content">
-                                            {values && values.rejected_comment &&
-                                                <p className="application-form__danger">{values.rejected_comment}</p>
-                                            }
-                                            <div className="application-form__row-is-foreign">
-                                                <div>
-                                                    <Field
-                                                        id="is_actual"
-                                                        name="is_actual"
-                                                        label="Подтверждаю актуальность данных на платформе"
-                                                        component={FormContactsCheckbox}
-                                                        onChange={handleIsActualChange}
-                                                        disabled={disableAllFields}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="application-form__row row">
-                                                <div className="application-form__row">
-                                                    <Field
-                                                        id="comment"
-                                                        name="comment"
-                                                        label="Комментарий"
-                                                        maxLength={500}
-                                                        component={FormTextArea}
-                                                        placeholder="Прошу изменить/добавить данные"
-                                                        disabled={disableAllFields || disableIsActualFields}
-                                                        validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    Документ для подтверждения вносимых изменений
-                                            </div>
-                                                <div className="application-form__file">
-                                                    {!isView ? <Field
-                                                        id="changes_confirmation_document_id"
-                                                        name="changes_confirmation_document_id"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
-                                                        saveField="document"
-                                                        multiple={false}
-                                                        showActionButtons={!documentsOverflow}
-                                                        onAdd={e => onAdd(e, 'changes_confirmation_document_id')}
-                                                        onRemove={e => onRemove(e, 'changes_confirmation_document_id')}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 49)}
-                                                        onStatusChange={(e) => onStatusChange(e, 'changes_confirmation_document_id')}
-                                                        onProgress={(e) => onProgress(e, 'changes_confirmation_document_id')}
-                                                        disabled={disableAllFields || disableIsActualFields}
-                                                        validator={values?.documents.length || disableAllFields || disableIsActualFields
-                                                            ? ''
-                                                            : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id').find(d => d.id))
-                                                        }
-                                                    /> : <>
-                                                            {values &&
-                                                                values.changes_confirmation_document_id &&
-                                                                !formRenderProps.valueGetter('changes_confirmation_document_id').length &&
-                                                                <DocumentLink docId={values.changes_confirmation_document_id} />
-                                                            }</>}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ display: 'inline-block' }}>
-                                                    Заявление о подтверждении членства
-                                            </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
-                                                <div className="application-form__file">
-                                                    {!isView ? <Field
-                                                        id="membership_confirmation_document_id"
-                                                        name="membership_confirmation_document_id"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        showActionButtons={!documentsOverflow}
-                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
-                                                        saveField="document"
-                                                        multiple={false}
-                                                        onAdd={e => onAdd(e, 'membership_confirmation_document_id')}
-                                                        onRemove={e => onRemove(e, 'membership_confirmation_document_id')}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 50)}
-                                                        onStatusChange={(e) => onStatusChange(e, 'membership_confirmation_document_id')}
-                                                        onProgress={(e) => onProgress(e, 'membership_confirmation_document_id')}
-                                                        disabled={disableAllFields}
-                                                        validator={values?.documents.length || disableAllFields
-                                                            ? ''
-                                                            : () => documentRequiredValidator(formProps?.valueGetter('membership_confirmation_document_id').find(d => d.id))
-                                                        }
-                                                    /> : <>
-                                                            {values &&
-                                                                values.membership_confirmation_document_id &&
-                                                                !formRenderProps.valueGetter('membership_confirmation_document_id').length &&
-                                                                <DocumentLink docId={values.membership_confirmation_document_id} />
-                                                            }</>}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="application-form__row" style={{ flexWrap: 'wrap' }}>
+                        <>
+                            <Form
+                                onSubmit={handleSubmit}
+                                initialValues={initialValues}
+                                key={JSON.stringify(initialValues)}
+                                render={formRenderProps => {
+                                    if (!formProps) setFormProps(formRenderProps);
+                                    return (
+                                        <FormElement>
+                                            <div className="application-form__content">
+                                                {values && values.rejected_comment &&
+                                                    <p className="application-form__danger">{values.rejected_comment}</p>
+                                                }
+                                                <div className="application-form__row-is-foreign">
                                                     <div>
-                                                        <div>
-                                                            Книга вязок и щенений&nbsp;&nbsp;&nbsp;
-                                                        <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="application-form__how-to-link"
-                                                            >Инструкция по объединению файлов / изображений</a>
-                                                        </div>
-                                                        <div style={{ color: '#90999e' }}>Книга вязок должна быть прикреплена единым многостраничным файлом.</div>
-                                                        <div className="application-form__file">
-                                                            {!isView ? <Field
-                                                                id="mating_whelping_book_document_id"
-                                                                name="mating_whelping_book_document_id"
-                                                                fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                                component={FormUpload}
-                                                                showActionButtons={!documentsOverflow}
-                                                                saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
-                                                                saveField="document"
-                                                                multiple={false}
-                                                                onAdd={e => onAdd(e, 'mating_whelping_book_document_id')}
-                                                                onRemove={e => onRemove(e, 'mating_whelping_book_document_id')}
-                                                                onBeforeUpload={e => onBeforeUpload(e, 51)}
-                                                                onStatusChange={(e) => onStatusChange(e, 'mating_whelping_book_document_id')}
-                                                                onProgress={(e) => onProgress(e, 'mating_whelping_book_document_id')}
-                                                                disabled={disableAllFields}
-                                                                validator={values?.documents.length || disableAllFields
-                                                                    ? ''
-                                                                    : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
-                                                                }
-                                                            /> : <>
-                                                                    {values &&
-                                                                        values.mating_whelping_book_document_id &&
-                                                                        !formRenderProps.valueGetter('mating_whelping_book_document_id').length &&
-                                                                        <DocumentLink docId={values.mating_whelping_book_document_id} />
-                                                                    }</>}
-                                                        </div>
-                                                    </div>
-                                                    <div className="application-form__year">
                                                         <Field
-                                                            id="mating_whelping_book_document_year"
-                                                            name="mating_whelping_book_document_year"
-                                                            component={FormDropDownList}
-                                                            onChange={handleYearChange}
-                                                            data={years}
-                                                            defaultItem={values && values.mating_whelping_book_document_year
-                                                                ? { text: values.mating_whelping_book_document_year, value: values.mating_whelping_book_document_year }
-                                                                : { text: "Выберите год", value: 0 }
-                                                            }
-                                                            validator={disableAllFields ? '' : documentTypeRequired}
+                                                            id="is_actual"
+                                                            name="is_actual"
+                                                            label="Подтверждаю актуальность данных на платформе"
+                                                            component={FormContactsCheckbox}
+                                                            onChange={handleIsActualChange}
                                                             disabled={disableAllFields}
                                                         />
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div className="application-form__content">
-                                            <h4 className="application-form__title">Информация о платеже</h4>
-                                            {!disableAllFields && <>
-                                                <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
-                                            </>}
-                                            <div className="application-form__row">
-                                                <div className="application-form__file">
-                                                    {!isView ? <Field
-                                                        id="payment_document_id"
-                                                        name="payment_document_id"
-                                                        fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
-                                                        component={FormUpload}
-                                                        saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
-                                                        saveField="document"
-                                                        multiple={false}
-                                                        showActionButtons={!documentsOverflow}
-                                                        onAdd={e => onAdd(e, 'payment_document_id')}
-                                                        onRemove={e => onRemove(e, 'payment_document_id')}
-                                                        onBeforeUpload={e => onBeforeUpload(e, 5)}
-                                                        onStatusChange={e => onStatusChange(e, 'payment_document_id')}
-                                                        onProgress={e => onProgress(e, 'payment_document_id')}
-                                                        disabled={disableAllFields}
-                                                        validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document_id').find(d => d.id))}
-                                                    /> : <>
-                                                            {values &&
-                                                                values.payment_document_id &&
-                                                                !formRenderProps.valueGetter('payment_document_id').length &&
-                                                                <DocumentLink docId={values.payment_document_id} />
-                                                            }</>}
-                                                </div>
-                                            </div>
-                                            <div className="application-form__row">
-                                                <div>
-                                                    <Field
-                                                        id="payment_date"
-                                                        name="payment_date"
-                                                        label="Дата оплаты"
-                                                        max={new Date()}
-                                                        component={FormDatePicker}
-                                                        validator={dateRequiredValidator}
-                                                        disabled={disableAllFields}
-
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <Field
-                                                        id="payment_number"
-                                                        name="payment_number"
-                                                        label="Номер платежного документа"
-                                                        cutValue={30}
-                                                        component={FormInput}
-                                                        validator={requiredWithTrimValidator}
-                                                        disabled={disableAllFields}
-
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="application-form__row">
-                                                <Field
-                                                    id="payment_name"
-                                                    name="payment_name"
-                                                    label="ФИО плательщика/наименования юр. лица"
-                                                    cutValue={150}
-                                                    component={FormInput}
-                                                    validator={value => nameRequiredValidator(value, 150)}
-                                                    disabled={disableAllFields}
-                                                />
-                                                <Field
-                                                    id="inn"
-                                                    name="inn"
-                                                    label="ИНН (для юр. лиц)"
-                                                    cutValue={12}
-                                                    onlyNumbers={true}
-                                                    component={FormInput}
-                                                    validator={innValidator}
-                                                    disabled={disableAllFields}
-                                                />
-                                            </div>
-                                            {status === 'edit' && <div style={{ marginTop: '20px' }}>
-                                                <div className="application-form__additional-title">Загрузите дополнительный документ</div>
-                                                <div className="application-form__row">
-                                                    {/* <div>
-                                                        <DropDownList
-                                                            data={docTypes}
-                                                            dataItemKey="id"
-                                                            textField="name_rus"
-                                                            value={category}
-                                                            itemRender={itemRender}
-                                                            onChange={handleDropDownChange}
-                                                            defaultItem={{ name_rus: "Тип документа", id: 0 }}
-                                                        />
-                                                    </div> */}
-                                                    <div>
+                                                <div className="application-form__row row">
+                                                    <div className="application-form__row">
                                                         <Field
-                                                            id="documents"
-                                                            name="documents"
+                                                            id="comment"
+                                                            name="comment"
+                                                            label="Комментарий"
+                                                            maxLength={500}
+                                                            component={FormTextArea}
+                                                            placeholder="Прошу изменить/добавить данные"
+                                                            disabled={disableAllFields || disableIsActualFields}
+                                                            validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        Документ для подтверждения вносимых изменений
+                                            </div>
+                                                    <div className="application-form__file">
+                                                        {!isView ? <Field
+                                                            id="changes_confirmation_document_id"
+                                                            name="changes_confirmation_document_id"
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                            component={FormUpload}
+                                                            saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                            saveField="document"
+                                                            multiple={false}
+                                                            showActionButtons={!documentsOverflow}
+                                                            onAdd={e => onAdd(e, 'changes_confirmation_document_id')}
+                                                            onRemove={e => onRemove(e, 'changes_confirmation_document_id')}
+                                                            onBeforeUpload={e => onBeforeUpload(e, 49)}
+                                                            onStatusChange={(e) => onStatusChange(e, 'changes_confirmation_document_id')}
+                                                            onProgress={(e) => onProgress(e, 'changes_confirmation_document_id')}
+                                                            disabled={disableAllFields || disableIsActualFields}
+                                                            validator={values?.documents?.length || disableAllFields || disableIsActualFields
+                                                                ? ''
+                                                                : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id').find(d => d.id))
+                                                            }
+                                                        /> : <>
+                                                                {values &&
+                                                                    values.changes_confirmation_document_id &&
+                                                                    !formRenderProps.valueGetter('changes_confirmation_document_id').length &&
+                                                                    <DocumentLink docId={values.changes_confirmation_document_id} />
+                                                                }</>}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div style={{ display: 'inline-block' }}>
+                                                        Заявление о подтверждении членства
+                                            </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
+                                                    <div className="application-form__file">
+                                                        {!isView ? <Field
+                                                            id="membership_confirmation_document_id"
+                                                            name="membership_confirmation_document_id"
                                                             fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
                                                             component={FormUpload}
                                                             showActionButtons={!documentsOverflow}
                                                             saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
                                                             saveField="document"
-                                                            multiple={true}
-                                                            onAdd={e => onAdd(e, 'documents')}
-                                                            onRemove={e => onRemove(e, 'documents')}
-                                                            onBeforeUpload={e => onBeforeUpload(e, 27)}
-                                                            onStatusChange={(e) => onStatusChange(e, 'documents')}
-                                                            onProgress={(e) => onProgress(e, 'documents')}
-                                                            disabled={false}
-                                                            // validator={values?.documents.length || disableAllFields
-                                                            //     ? ''
-                                                            //     : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
-                                                            // }
+                                                            multiple={false}
+                                                            onAdd={e => onAdd(e, 'membership_confirmation_document_id')}
+                                                            onRemove={e => onRemove(e, 'membership_confirmation_document_id')}
+                                                            onBeforeUpload={e => onBeforeUpload(e, 50)}
+                                                            onStatusChange={(e) => onStatusChange(e, 'membership_confirmation_document_id')}
+                                                            onProgress={(e) => onProgress(e, 'membership_confirmation_document_id')}
+                                                            disabled={disableAllFields}
+                                                            validator={values?.documents?.length || disableAllFields
+                                                                ? ''
+                                                                : () => documentRequiredValidator(formProps?.valueGetter('membership_confirmation_document_id').find(d => d.id))
+                                                            }
+                                                        /> : <>
+                                                                {values &&
+                                                                    values.membership_confirmation_document_id &&
+                                                                    !formRenderProps.valueGetter('membership_confirmation_document_id').length &&
+                                                                    <DocumentLink docId={values.membership_confirmation_document_id} />
+                                                                }</>}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="application-form__row" style={{ flexWrap: 'wrap' }}>
+                                                        <div>
+                                                            <div>
+                                                                Книга вязок и щенений&nbsp;&nbsp;&nbsp;
+                                                        <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="application-form__how-to-link"
+                                                                >Инструкция по объединению файлов / изображений</a>
+                                                            </div>
+                                                            <div style={{ color: '#90999e' }}>Книга вязок должна быть прикреплена единым многостраничным файлом.</div>
+                                                            <div className="application-form__file">
+                                                                {!isView ? <Field
+                                                                    id="mating_whelping_book_document_id"
+                                                                    name="mating_whelping_book_document_id"
+                                                                    fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                                    component={FormUpload}
+                                                                    showActionButtons={!documentsOverflow}
+                                                                    saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                                    saveField="document"
+                                                                    multiple={false}
+                                                                    onAdd={e => onAdd(e, 'mating_whelping_book_document_id')}
+                                                                    onRemove={e => onRemove(e, 'mating_whelping_book_document_id')}
+                                                                    onBeforeUpload={e => onBeforeUpload(e, 51)}
+                                                                    onStatusChange={(e) => onStatusChange(e, 'mating_whelping_book_document_id')}
+                                                                    onProgress={(e) => onProgress(e, 'mating_whelping_book_document_id')}
+                                                                    disabled={disableAllFields}
+                                                                    validator={values?.documents?.length || disableAllFields
+                                                                        ? ''
+                                                                        : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
+                                                                    }
+                                                                /> : <>
+                                                                        {values &&
+                                                                            values.mating_whelping_book_document_id &&
+                                                                            !formRenderProps.valueGetter('mating_whelping_book_document_id').length &&
+                                                                            <DocumentLink docId={values.mating_whelping_book_document_id} />
+                                                                        }</>}
+                                                            </div>
+                                                        </div>
+                                                        <div className="application-form__year">
+                                                            <Field
+                                                                id="mating_whelping_book_document_year"
+                                                                name="mating_whelping_book_document_year"
+                                                                component={FormDropDownList}
+                                                                onChange={handleYearChange}
+                                                                data={years}
+                                                                defaultItem={values && values.mating_whelping_book_document_year
+                                                                    ? { text: values.mating_whelping_book_document_year, value: values.mating_whelping_book_document_year }
+                                                                    : { text: "Выберите год", value: 0 }
+                                                                }
+                                                                validator={disableAllFields ? '' : documentTypeRequired}
+                                                                disabled={disableAllFields}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="application-form__content">
+                                                <h4 className="application-form__title">Информация о платеже</h4>
+                                                {!disableAllFields && <>
+                                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                                </>}
+                                                <div className="application-form__row">
+                                                    <div className="application-form__file">
+                                                        {!isView ? <Field
+                                                            id="payment_document_id"
+                                                            name="payment_document_id"
+                                                            fileFormats={['.pdf', '.jpg', '.jpeg', '.png']}
+                                                            component={FormUpload}
+                                                            saveUrl={'/api/requests/membership_confirmation_request/membershipconfirmationdocument'}
+                                                            saveField="document"
+                                                            multiple={false}
+                                                            showActionButtons={!documentsOverflow}
+                                                            onAdd={e => onAdd(e, 'payment_document_id')}
+                                                            onRemove={e => onRemove(e, 'payment_document_id')}
+                                                            onBeforeUpload={e => onBeforeUpload(e, 5)}
+                                                            onStatusChange={e => onStatusChange(e, 'payment_document_id')}
+                                                            onProgress={e => onProgress(e, 'payment_document_id')}
+                                                            disabled={disableAllFields}
+                                                            validator={status === 'edit' ? '' : () => documentRequiredValidator(formProps?.valueGetter('payment_document_id').find(d => d.id))}
+                                                        /> : <>
+                                                                {values &&
+                                                                    values.payment_document_id &&
+                                                                    !formRenderProps.valueGetter('payment_document_id').length &&
+                                                                    <DocumentLink docId={values.payment_document_id} />
+                                                                }</>}
+                                                    </div>
+                                                </div>
+                                                <div className="application-form__row">
+                                                    <div>
+                                                        <Field
+                                                            id="payment_date"
+                                                            name="payment_date"
+                                                            label="Дата оплаты"
+                                                            max={new Date()}
+                                                            component={FormDatePicker}
+                                                            validator={dateRequiredValidator}
+                                                            disabled={disableAllFields}
+
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <Field
+                                                            id="payment_number"
+                                                            name="payment_number"
+                                                            label="Номер платежного документа"
+                                                            cutValue={30}
+                                                            component={FormInput}
+                                                            validator={requiredWithTrimValidator}
+                                                            disabled={disableAllFields}
+
                                                         />
                                                     </div>
                                                 </div>
-                                            </div>}
-                                        </div>
-                                        <div className="application-form__controls">
-                                            {editable &&
-                                                <button
-                                                    type="submit"
-                                                    className="btn btn-primary"
-                                                    disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
-                                                >Отправить</button>
-                                            }
-                                        </div>
-                                    </FormElement>
-                                )
-                            }
-                            }
-                        />
+                                                <div className="application-form__row">
+                                                    <Field
+                                                        id="payment_name"
+                                                        name="payment_name"
+                                                        label="ФИО плательщика/наименования юр. лица"
+                                                        cutValue={150}
+                                                        component={FormInput}
+                                                        validator={value => nameRequiredValidator(value, 150)}
+                                                        disabled={disableAllFields}
+                                                    />
+                                                    <Field
+                                                        id="inn"
+                                                        name="inn"
+                                                        label="ИНН (для юр. лиц)"
+                                                        cutValue={12}
+                                                        onlyNumbers={true}
+                                                        component={FormInput}
+                                                        validator={innValidator}
+                                                        disabled={disableAllFields}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="application-form__controls">
+                                                {editable && status !== 'edit' &&
+                                                    <button
+                                                        type="submit"
+                                                        className="btn btn-primary"
+                                                        disabled={!formRenderProps.modified || !formRenderProps.valid || disableSubmit}
+                                                    >Отправить</button>
+                                                }
+                                            </div>
+                                        </FormElement>
+                                    )
+                                }
+                                }
+                            />
+                            {status === 'edit' && <AdditionalDocuments
+                                id={values.id}
+                                attachedDocuments={values.documents}
+                                history={history}
+                                clubAlias={clubAlias}
+                                docTypes={docTypes}
+                                handleError={handleError}
+                            />}
+                        </>
                 }
             </Card>
             <NotificationGroup
