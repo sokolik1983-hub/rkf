@@ -1,10 +1,20 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { getHeaders } from "utils/request";
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 
-const AdditionalDocumentField = ({ setShowModal, setUrl, documents, setDocuments, docTypes, setDocumentsOverflow, setDisableSubmit, document_id, document_type_id, accept }) => {
-    const [dropdownValue, setDropdownValue] = useState(docTypes.filter(d => d.id === document_type_id)[0]);
+const AdditionalDocumentField = ({
+    setShowModal,
+    setUrl,
+    documents,
+    setDocuments,
+    docTypes,
+    setDocumentsOverflow,
+    setDisableSubmit,
+    document_id,
+    document_type_id,
+    accept
+}) => {
     const headers = getHeaders();
 
     const getDocument = (docId) => {
@@ -31,25 +41,13 @@ const AdditionalDocumentField = ({ setShowModal, setUrl, documents, setDocuments
         }
     }
 
-    const handleDropDownChange = ({ value }) => {
-        const updatedItem = documents[documents.findIndex(d => d.document_id === document_id)];
-        updatedItem.document_type_id = value.id;
-        setDocuments([
-            ...documents.filter(d => d.document_id !== document_id),
-            updatedItem
-        ]);
-        setDropdownValue(docTypes.filter(d => d.id === value.id)[0]);
-        setDisableSubmit(false);
-    }
-
     return (<div className="AdditionalDocumentField">
         <DropDownList
             data={docTypes}
             dataItemKey="id"
             textField="name_rus"
-            value={dropdownValue}
-            onChange={handleDropDownChange}
-            disabled={accept}
+            value={docTypes.filter(d => d.id === document_type_id)[0]}
+            disabled={true}
         />
         <div className="AdditionalDocumentField__name">
             <div onClick={() => handleClick(document_id)}>

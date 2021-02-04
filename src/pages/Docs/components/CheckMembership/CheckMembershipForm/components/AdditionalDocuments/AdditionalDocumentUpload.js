@@ -33,6 +33,7 @@ const AdditionalDocumentUpload = ({ documents, setDocuments, docTypes, documents
             textField="name_rus"
             onChange={({ value }) => setDocumentType(value.id)}
             defaultItem={{ name_rus: "Выберите тип", id: 0 }}
+            disabled={documentsOverflow}
         />
         <Field
             id="documents"

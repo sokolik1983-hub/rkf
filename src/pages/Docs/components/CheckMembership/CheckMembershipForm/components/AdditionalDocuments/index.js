@@ -18,6 +18,7 @@ const AdditionalDocuments = ({ id, attachedDocuments, history, clubAlias, docTyp
 
     useEffect(() => {
         setDocuments(attachedDocuments);
+        attachedDocuments?.length >= 10 && setDocumentsOverflow(true);
     }, [attachedDocuments])
 
     const handleSubmit = async () => {
