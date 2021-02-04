@@ -13,7 +13,8 @@ import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
-import DocumentLink from "../../DocumentLink";
+import DocumentLink from "./components/DocumentLinksArray";
+import DocumentLinksArray from "./components/DocumentLinksArray";
 import {
     dateRequiredValidator, nameRequiredValidator,
     documentRequiredValidator, requiredWithTrimValidator,
@@ -222,7 +223,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
         const { value } = year;
         formProps.onChange('mating_whelping_book_document_year', { value: value });
     };
-
+console.log('documents', documents)
     return (
         <div className="application-form">
             <Card>
@@ -247,7 +248,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                 {values && values.rejected_comment &&
                                                     <p className="application-form__danger">{values.rejected_comment}</p>
                                                 }
-                                                <div className="application-form__row-is-foreign">
+                                                <div className="application-form__row-is-actual">
                                                     <div>
                                                         <Field
                                                             id="is_actual"
@@ -306,7 +307,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                 }</>}
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div style={{ marginTop: '30px' }}>
                                                     <div style={{ display: 'inline-block' }}>
                                                         Заявление о подтверждении членства
                                             </div>&nbsp;&nbsp;&nbsp;<a href={confirmationHref} style={{ textDecoration: 'none' }}>Скачать бланк</a>
@@ -340,7 +341,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                 </div>
                                                 <div>
                                                     <div className="application-form__row" style={{ flexWrap: 'wrap' }}>
-                                                        <div>
+                                                        <div style={{ marginTop: '30px' }}>
                                                             <div>
                                                                 Книга вязок и щенений&nbsp;&nbsp;&nbsp;
                                                         <a href="https://help.rkf.online/ru/knowledge_base/art/72/cat/3/konvertirovanie-i-obyedinenie-fajlov-dlja-podachi-obraschenij-na-platforme-rkfonline"
@@ -378,7 +379,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                                         }</>}
                                                             </div>
                                                         </div>
-                                                        <div className="application-form__year">
+                                                        <div className={`application-form__year ${status ? `_status` : ``}`}>
                                                             <Field
                                                                 id="mating_whelping_book_document_year"
                                                                 name="mating_whelping_book_document_year"
@@ -399,7 +400,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                             <div className="application-form__content">
                                                 <h4 className="application-form__title">Информация о платеже</h4>
                                                 {!disableAllFields && <>
-                                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже (PDF, JPEG, JPG, PNG).</p>
+                                                    <p>Приложите квитанцию об оплате заявки и заполните информацию о платеже<br />(PDF, JPEG, JPG, PNG).</p>
                                                 </>}
                                                 <div className="application-form__row">
                                                     <div className="application-form__file">
@@ -497,6 +498,13 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                 docTypes={docTypes}
                                 handleError={handleError}
                             />}
+                            {status === 'view' && documents &&
+                                <div><h3 className="application-form__additional-title">Дополнительные документы</h3>
+                                    <DocumentLinksArray
+                                        documents={documents}
+                                    />
+                                </div>
+                            }
                         </>
                 }
             </Card>
