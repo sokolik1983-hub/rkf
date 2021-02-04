@@ -1,11 +1,24 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { getHeaders } from "utils/request";
 import { DropDownList } from '@progress/kendo-react-dropdowns';
 
-const AdditionalDocumentField = ({ documents, setDocuments, docTypes, setDocumentsOverflow, setDisableSubmit, document_id, document_type_id, accept }) => {
-
+const AdditionalDocumentField = ({ setShowModal, setUrl, documents, setDocuments, docTypes, setDocumentsOverflow, setDisableSubmit, document_id, document_type_id, accept }) => {
     const [dropdownValue, setDropdownValue] = useState(docTypes.filter(d => d.id === document_type_id)[0]);
+    const headers = getHeaders();
+
+    const getDocument = (docId) => {
+        if (isNaN(docId) || !docId) return;
+        fetch(`/api/requests/get_rkf_document/getrkfdocumentrequestdocument?id=` + docId, { headers })
+            .then(res => res.blob())
+            .then(data => URL.createObjectURL(data))
+            .then(url => setUrl(url));
+    };
+
+    const handleClick = (id) => {
+        setShowModal(true);
+        getDocument(id);
+    }
 
     const handleRemove = () => {
         if (window.confirm('Удалить документ?')) {
@@ -26,6 +39,7 @@ const AdditionalDocumentField = ({ documents, setDocuments, docTypes, setDocumen
             updatedItem
         ]);
         setDropdownValue(docTypes.filter(d => d.id === value.id)[0]);
+        setDisableSubmit(false);
     }
 
     return (<div className="AdditionalDocumentField">
@@ -38,19 +52,16 @@ const AdditionalDocumentField = ({ documents, setDocuments, docTypes, setDocumen
             disabled={accept}
         />
         <div className="AdditionalDocumentField__name">
-            <Link
-                to={`/docs/${document_id}`}
-                target="_blank"
-                className="d-flex align-items-center"
-                rel="noopener noreferrer"
-            >
+            <div onClick={() => handleClick(document_id)}>
                 <span className="AdditionalDocumentField__name-icon" />
                 {docTypes.filter(d => d.id === document_type_id)[0].name_rus}
-            </Link>
+            </div>
         </div>
-        <div className="AdditionalDocumentField__remove">
-            <span onClick={() => handleRemove()} className="k-icon k-i-trash" />
-        </div>
+        {
+            !accept && <div className="AdditionalDocumentField__remove">
+                <span onClick={() => handleRemove()} className="k-icon k-i-trash" />
+            </div>
+        }
     </div>)
 }
 
