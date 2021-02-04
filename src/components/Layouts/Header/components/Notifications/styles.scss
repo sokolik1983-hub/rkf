@@ -3,7 +3,7 @@ $blue-color: invert(52%) sepia(84%) saturate(6200%) hue-rotate(218deg) brightnes
 .Notifications {
     display: flex;
     align-items: center;
-    margin-right: 15px;
+    margin-right: 28px;
     height: 50px;
     @media (min-width: 560px) {
         position: relative;

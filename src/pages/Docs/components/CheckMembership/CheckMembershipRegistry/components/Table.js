@@ -37,11 +37,6 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => {
-
-    return (dataItem[field] === null ? <td></td> : <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>);
-};
-
 const OptionsCell = ({ dataItem }, setErrorReport) => {
     const { status_id, id } = dataItem;
     const { route } = useParams();
@@ -130,8 +125,9 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
+        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
+        <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
         <GridColumn field="mating_whelping_book_document_year" title="Год" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
         <GridColumn field="barcode" title="Трек-номер" columnMenu={ColumnMenu} />
     </Grid>;
@@ -184,11 +180,12 @@ const Table = ({ documents, fullScreen, exporting, setExporting, setErrorReport 
                         resizable
                         {...gridData}
                         onDataStateChange={handleGridDataChange}
-                        style={{ height: "700px", width: "auto", margin: '0 auto' }}>
+                        style={{ height: "700px", maxWidth: `${fullScreen ? 'auto' : '703px'}`, margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
-                        <GridColumn field="mating_whelping_book_document_year" title="Год" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="federation_name" title="Федерация" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="mating_whelping_book_document_year" title="Год" width={fullScreen ? 'auto' : '120px'} columnMenu={ColumnMenu} />
                         <GridColumn field="barcode" title="Трек-номер" width={fullScreen ? '130px' : '120px'} columnMenu={ColumnMenu} cell={(props) => CopyCell(props, handleSuccess)} />
                         <GridColumn width={fullScreen ? '100px' : '70px'} cell={props => OptionsCell(props, setErrorReport)} />
                     </Grid>}

@@ -3,7 +3,7 @@
     margin-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
-    &:nth-child(3) {
+    &:nth-child(2) {
       border: none;
       padding-bottom: 0;
     }
@@ -12,9 +12,32 @@
     text-align: right;
     margin-top: 10px;
   }
+  &__date {
+    position: relative;
+    top: 56px;
+    width: 155px;
+    @media (max-width: 790px) {
+      top: 0;
+    }
+  }
   &__title {
     text-transform: uppercase;
     margin-bottom: 16px;
+  }
+  &__additional-title {
+    border-top: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+    padding-top: 10px;
+  }
+  &__year {
+    flex-grow: 0 !important;
+    position: relative;
+    top: 55px;
+    min-width: 155px;
+    @media (max-width: 680px) {
+      flex-grow: 1 !important;
+      top: 0;
+    }
   }
   &__disclaimer {
     margin-top: 16px;

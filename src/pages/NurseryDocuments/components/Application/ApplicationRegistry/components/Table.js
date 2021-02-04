@@ -160,8 +160,8 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
         <GridColumn field="express" title="Срочность" cell={props => ExpressCell(props, 'express')} columnMenu={ColumnMenu} />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
+        <GridColumn field="date_change" title="Дата последнего изменения статуса" columnMenu={ColumnMenu} />
         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" columnMenu={ColumnMenu} />
         <GridColumn field="pedigree_number" title="Номер родословной" columnMenu={ColumnMenu} />
         <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
@@ -228,8 +228,8 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
                         onDataStateChange={handleGridDataChange}
                         style={{ height: "700px", width: "auto", margin: '0 auto' }}>
                         <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_change')} />
+                        <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
+                        <GridColumn field="date_change" title="Дата последнего изменения статуса" width={fullScreen ? '130px' : '90px'} columnMenu={ColumnMenu} />
                         <GridColumn field="declarant_full_name" title="ФИО ответственного лица" width={fullScreen ? 'auto' : '258px'} columnMenu={ColumnMenu} />
                         <GridColumn field="pedigree_number" title="Номер родословной" width={fullScreen ? '100px' : '100px'} columnMenu={ColumnMenu} />
                         <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '259px'} columnMenu={ColumnMenu} />

@@ -7,7 +7,7 @@ import Modal from 'components/Modal';
 import './styles.scss';
 
 const config = {
-    action: '/api/requests/replace_pedigree_request/replacepedigreerequest/error',
+    action: '/api/requests/membership_confirmation_request/kennelmembershipconfirmationrequest/error',
     format: "multipart/form-data",
     fields: {
         error_message: {
@@ -20,7 +20,7 @@ const config = {
         document: {
             name: 'document',
             type: 'file',
-            accept: '.jpg, .jpeg, .png'
+            accept: '.jpg, .jpeg, .png, .pdf'
         }
     },
     validationSchema: object().shape({
@@ -48,7 +48,7 @@ const ReportErrorForm = ({ id, setIsOpen }) => {
     const transformValues = values => ({ ...values, id });
 
     return <div className="ReportErrorForm">
-        <h2 className="ReportErrorForm__title">Сообщить об ошибке кинолога</h2>
+        <h2 className="ReportErrorForm__title">Сообщить об ошибке</h2>
         <Form
             {...config}
             onSuccess={handleSusccess}
@@ -59,7 +59,7 @@ const ReportErrorForm = ({ id, setIsOpen }) => {
             <FormGroup>
                 <FormField {...fields.error_message} />
                 <div className="FormInput">
-                    <label htmlFor="document">Прикрепите файл (JPEG, JPG, PNG)</label>
+                    <label htmlFor="document">Прикрепите файл (JPEG, JPG, PNG, PDF)</label>
                     <FormFile {...fields.document} />
                 </div>
             </FormGroup>

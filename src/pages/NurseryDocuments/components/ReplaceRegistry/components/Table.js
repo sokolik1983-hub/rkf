@@ -44,8 +44,6 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
-
 const LinkCell = (props) => {
     const { dataItem } = props;
     return <td>
@@ -147,7 +145,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
         {...gridData}
         onDataStateChange={handleGridDataChange}>
         <GridColumn field="status_name" title="Статус" />
-        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="date_create" title="Дата создания" columnMenu={ColumnMenu} />
         <GridColumn field="id" title="№ заявки" columnMenu={ColumnMenu} />
         <GridColumn field="owner_name" title="ФИО владельца" columnMenu={ColumnMenu} />
         <GridColumn field="dog_name" title="Кличка" columnMenu={ColumnMenu} />
@@ -215,7 +213,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
                     onDataStateChange={handleGridDataChange}
                     style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '130px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+                    <GridColumn field="date_create" title="Дата создания" width={fullScreen ? '130px' : '130px'} columnMenu={ColumnMenu} />
                     <GridColumn field="id" title="№ заявки" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
                     <GridColumn field="owner_name" title="ФИО владельца" width={fullScreen ? 'auto' : '240px'} columnMenu={ColumnMenu} />
                     <GridColumn field="dog_name" title="Кличка" width={fullScreen ? 'auto' : '80px'} columnMenu={ColumnMenu} />
