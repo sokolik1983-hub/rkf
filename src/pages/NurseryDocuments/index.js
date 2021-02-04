@@ -71,17 +71,17 @@ const Docs = ({ history }) => {
                     <Route
                         exact={true}
                         path='/kennel/:route/documents/responsible/checkmembership/form'
-                        component={() => <CheckMembershipForm alias={nurseryAlias} history={history} />}
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} />}
                     />
                     <Route
                         exact={true}
                         path='/kennel/:route/documents/responsible/checkmembership/form/view/:docId'
-                        component={() => <CheckMembershipForm alias={nurseryAlias} history={history} status="view" />}
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} status="view" />}
                     />
                     <Route
                         exact={true}
                         path='/kennel/:route/documents/responsible/checkmembership/form/edit/:docId'
-                        component={() => <CheckMembershipForm alias={nurseryAlias} history={history} status="edit" />}
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} status="edit" />}
                     />
                     <Route
                         exact={true}

@@ -43,7 +43,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
     const [initialValues, setInitialValues] = useState({
         is_actual: false,
         comment: '',
-        changes_confirmation_document_id: [],
+        changes_confirmation_document_id: null,
         membership_confirmation_document_id: [],
         mating_whelping_book_document_id: [],
         mating_whelping_book_document_year: '',
@@ -126,7 +126,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
     };
 
     const handleSubmit = async data => {
-        const changesConfirmationDocumentId = formProps.valueGetter('changes_confirmation_document_id')[0]?.id;
+        const changesConfirmationDocumentId = formProps.valueGetter('changes_confirmation_document_id') === null ? null : formProps.valueGetter('changes_confirmation_document_id')[0]?.id;
         const membershipConfirmationDocumentId = formProps.valueGetter('membership_confirmation_document_id')[0]?.id;
         const matingWhelpingBookDocumentId = formProps.valueGetter('mating_whelping_book_document_id')[0]?.id;
         const paymentId = formProps.valueGetter('payment_document_id')[0]?.id;
@@ -161,7 +161,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
             method: status === 'edit' ? 'PUT' : 'POST',
             data: JSON.stringify(newData)
         }, () => {
-            history.push(`/${clubAlias}/documents`);
+            history.push(`/${clubAlias}/documents/responsible`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
@@ -174,7 +174,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
 
             formProps.onChange('comment', { value: '' });
 
-            formProps.onChange('changes_confirmation_document_id', { value: [] });
+            formProps.onChange('changes_confirmation_document_id', { value: null });
 
             setDisableIsActualFields(!disableIsActualFields);
             setIsActual(isActual);
@@ -254,6 +254,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                             name="is_actual"
                                                             label="Подтверждаю актуальность данных на платформе"
                                                             component={FormContactsCheckbox}
+                                                            value={isActual}
                                                             onChange={handleIsActualChange}
                                                             disabled={disableAllFields}
                                                         />
@@ -295,12 +296,12 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                             disabled={disableAllFields || disableIsActualFields}
                                                             validator={values?.documents?.length || disableAllFields || disableIsActualFields
                                                                 ? ''
-                                                                : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id').find(d => d.id))
+                                                                : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id')?.find(d => d.id))
                                                             }
                                                         /> : <>
                                                                 {values &&
                                                                     values.changes_confirmation_document_id &&
-                                                                    !formRenderProps.valueGetter('changes_confirmation_document_id').length &&
+                                                                    !formRenderProps.valueGetter('changes_confirmation_document_id')?.length &&
                                                                     <DocumentLink docId={values.changes_confirmation_document_id} />
                                                                 }</>}
                                                     </div>
