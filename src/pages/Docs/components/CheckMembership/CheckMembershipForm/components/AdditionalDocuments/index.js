@@ -21,7 +21,7 @@ const AdditionalDocuments = ({ id, attachedDocuments, history, clubAlias, docTyp
         const data = {
             id: id,
             documents: documents.map(d => ({
-                id: id,
+                id: d.id ? d.id : null,
                 document_id: d.document_id,
                 document_type_id: d.document_type_id
             }))
