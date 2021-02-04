@@ -20,7 +20,7 @@ import Loading from "../../components/Loading";
 import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
-const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
+const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated, history }) => {
     const [fedIdList, setFedIdList] = useState(null);
     const [canEdit, setCanEdit] = useState(false);
     const [userInfo, setUserInfo] = useState({});
@@ -39,13 +39,16 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
             setFedIdList(data);
         }, error => {
             console.log(error.response);
+            history.replace('/');
         }))();
     }, []);
 
     useEffect(() => {
-        Promise.all([getUserInfo()])
-            .then(() => setLoading(false));
-    }, []);
+       if (user_type === 1) { Promise.all([getUserInfo()])
+            .then(() => setLoading(false));} else {
+                setLoading(false)
+            }
+    }, [user_type]);
 
     const getUserInfo = async needUpdateAvatar => {
         return Request({
@@ -73,7 +76,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         bank_details
                     />}
                     <div className="base-search__content-wrap">
-                        {isMobile && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
+                        {isMobile && user_type === 1 && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
                             <UserInfo
                                 canEdit={canEdit}
                                 logo_link={userInfo.logo_link}
