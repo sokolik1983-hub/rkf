@@ -46,7 +46,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
         changes_confirmation_document_id: null,
         membership_confirmation_document_id: [],
         mating_whelping_book_document_id: [],
-        mating_whelping_book_document_year: '',
+        mating_whelping_book_document_year: 0,
         payment_document_id: [],
         payment_date: '',
         payment_number: '',
