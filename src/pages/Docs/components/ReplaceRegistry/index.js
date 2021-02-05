@@ -43,7 +43,9 @@ const ReplaceRegistry = ({ history, isOpenFilters, setShowFilters }) => {
             }),
             PromiseRequest({ url: '/api/requests/commonrequest/replace_pedigree_type' })
         ]).then(data => {
-            setDocuments(data[0].map(({ date_create, production_department_date, ...rest }) => ({
+            setDocuments(data[0].sort(function (a, b) {
+                return new Date(b.date_create) - new Date(a.date_create);
+            }).map(({ date_create, production_department_date, ...rest }) => ({
                 date_create: moment(date_create).format('DD.MM.YY'),
                 ...rest
             })));
