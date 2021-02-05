@@ -12,6 +12,8 @@ import ClubDocumentsStatus from "./components/DocStatus";
 import PuppiesMetrics from "./components/PuppiesMetrics";
 import ResponsiblePersonForm from "./components/ResponsiblePersonForm";
 import ResponsivePersonTable from "./components/ResponsiblePersonTable";
+import CheckMembershipForm from "./components/CheckMembership/CheckMembershipForm";
+import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import DocRegistry from "./components/Print/DocRegistry";
 import PuppyMetrics from "./components/Print/PuppyMetrics";
 import AddStamp from "./components/Stamps/AddStamp";
@@ -133,6 +135,18 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         />
                         <Route exact={true} path='/:route/documents/responsible/:id/edit' component={() =>
                             <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form' component={() =>
+                            <CheckMembershipForm clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/registry' component={() =>
+                            <CheckMembershipRegistry clubAlias={clubAlias} history={history} />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/view/:docId' component={() => 
+                            <CheckMembershipForm clubAlias={clubAlias} history={history} status="view" />}
+                        />
+                        <Route exact={true} path='/:route/documents/responsible/checkmembership/form/edit/:docId' component={() => 
+                            <CheckMembershipForm clubAlias={clubAlias} history={history} status="edit" />}
                         />
                         <Route exact={true} path='/:route/documents/responsible/table' component={() =>
                             <ResponsivePersonTable clubAlias={clubAlias} history={history} />}

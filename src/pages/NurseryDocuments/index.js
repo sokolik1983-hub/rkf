@@ -23,6 +23,8 @@ import Patella from "components/Patella";
 import PatellaRegistry from "components/PatellaRegistry";
 import Application from "./components/Application/Form";
 import ApplicationRegistry from "./components/Application/ApplicationRegistry";
+import CheckMembershipForm from "./components/CheckMembership/CheckMembershipForm";
+import CheckMembershipRegistry from "./components/CheckMembership/CheckMembershipRegistry";
 import { LoadableNotFound } from "../../appModules";
 import { connectAuthVisible } from "../Login/connectors";
 import "./index.scss";
@@ -65,6 +67,26 @@ const Docs = ({ history }) => {
                         exact={true}
                         path='/kennel/:route/documents/application/registry'
                         component={() => <ApplicationRegistry history={history} />}
+                    />
+                    <Route
+                        exact={true}
+                        path='/kennel/:route/documents/responsible/checkmembership/form'
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} />}
+                    />
+                    <Route
+                        exact={true}
+                        path='/kennel/:route/documents/responsible/checkmembership/form/view/:docId'
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} status="view" />}
+                    />
+                    <Route
+                        exact={true}
+                        path='/kennel/:route/documents/responsible/checkmembership/form/edit/:docId'
+                        component={() => <CheckMembershipForm nurseryAlias={nurseryAlias} history={history} status="edit" />}
+                    />
+                    <Route
+                        exact={true}
+                        path='/kennel/:route/documents/responsible/checkmembership/registry'
+                        component={() => <CheckMembershipRegistry history={history} />}
                     />
 
                     <Route exact={true} path='/kennel/:route/documents/replace-pedigree/registry' component={() =>

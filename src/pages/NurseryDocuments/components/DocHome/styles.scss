@@ -14,7 +14,18 @@
             }
         }
     }
+    &__alert-card {
+        border: 3px solid red;
+        box-shadow: 0 6px 12px red;
+        h3 {
+            text-align: center;
+        }
+    }
     .Card {
+        &._inactive {
+            opacity: 0.5;
+            pointer-events: none;
+        }
         margin-bottom: 1em;
         h3 {
             font-size: 18px;

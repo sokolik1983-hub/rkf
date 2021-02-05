@@ -32,7 +32,7 @@ const CardExhibition = ({ title,
                 <div className="card-exhibition__content">
                     <div className="card-exhibition__header">
                         <div>
-                            <Link className="card-exhibition__title" to={url} title={title}>{formatText(title)}</Link>
+                            <Link className="card-exhibition__title" to={url} title={title}>{title && formatText(title)}</Link>
                         </div>
                         <div className="card-exhibition__header-info _mobile">
                             <span
