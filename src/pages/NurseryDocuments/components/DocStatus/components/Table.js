@@ -18,8 +18,6 @@ const ColumnMenu = (props) => {
     </div>
 };
 
-const DateCell = ({ dataItem }, field) => <td>{moment(dataItem[field]).format('DD.MM.YY')}</td>;
-
 const OptionsCell = ({ dataItem }, distinction, deleteRow, setShowModal) => {
     const { id, status_id } = dataItem;
     const { route } = useParams();
@@ -97,8 +95,8 @@ const Table = ({ documents, distinction, rowClick, deleteRow, setShowModal, expo
         onDataStateChange={handleGridDataChange}
         onRowClick={handleGridRowClick}
         className="club-documents-status__pointer">
-        <GridColumn field="status_name" title=" " />
-        <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
+        <GridColumn field="status_name" title="Статус" />
+        <GridColumn field="date_create" title="Дата регистрации" columnMenu={ColumnMenu} />
         <GridColumn field="federation_name" title="Федерация" columnMenu={ColumnMenu} />
         <GridColumn field="count" title="Всего заявок" columnMenu={ColumnMenu} />
         <GridColumn field="count_done" title="Изготовлено" columnMenu={ColumnMenu} />
@@ -140,15 +138,15 @@ const rowRender = (trElement, props) => {
                     onDataStateChange={handleGridDataChange}
                     onRowClick={handleGridRowClick}
                     className="club-documents-status__pointer"
-                    style={{ height: "700px", maxWidth: `${fullScreen ? `auto` : `554px`}`, margin: "0 auto" }}>
+                    style={{ height: "700px", width: "auto", margin: "0 auto" }}>
                     <GridColumn field="status_value" cell={StatusCell} title=" " width={fullScreen ? '32px' : '31px'} />
-                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '80px'} columnMenu={ColumnMenu} cell={props => DateCell(props, 'date_create')} />
-                    <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '80px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '50px'} columnMenu={ColumnMenu} />
-                    <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? 'auto' : '90px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="date_create" title="Дата регистрации" width={fullScreen ? '130px' : '150px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="federation_name" title="Федерация" width={fullScreen ? '110px' : '168px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count" title="Всего заявок" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count_done" title="Изготовлено" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="count_in_work" title="В работе" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="id" title="№ документа" width={fullScreen ? '120px' : '120px'} columnMenu={ColumnMenu} />
+                    <GridColumn field="name" title="ФИО заявителя" width={fullScreen ? 'auto' : '218px'} columnMenu={ColumnMenu} />
                     <GridColumn width={fullScreen ? '100px' : '70px'} cell={(props) => OptionsCell(props, distinction, deleteRow, setShowModal)} />
                 </Grid>}
                 <GridPDFExport

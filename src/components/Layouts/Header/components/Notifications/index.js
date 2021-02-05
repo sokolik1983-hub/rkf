@@ -96,16 +96,19 @@ const Notifications = forwardRef(
             setOpen(!open);
         }
 
-        const getNewsFeedLink = () => {
+        const getNewsFeedLink = (noId = false) => {
             const buildUrl = (id = '') => user_type === 1
                 ? `/user/${alias}/news-feed/${id}`
                 : user_type === 3
                     ? `/${alias}/news-feed/${id}`
                     : `/kennel/${alias}/news-feed/${id}`;
+            if (noId) return buildUrl();
             if (currentCategory === 3) {
                 return buildUrl(4);
             } else if (currentCategory === 4) {
                 return buildUrl(6);
+            } else if (currentCategory === 2) {
+                return buildUrl(7);
             } else {
                 return buildUrl();
             }
@@ -137,7 +140,7 @@ const Notifications = forwardRef(
                             <div className="Notifications__content">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
                                     <div className="Notifications__title">
-                                        <Link to={() => getNewsFeedLink()} onClick={() => setOpen(false)}>Уведомления</Link>
+                                        <Link to={() => getNewsFeedLink(true)} onClick={() => setOpen(false)}>Уведомления</Link>
                                     </div>
                                     <div className="Notifications__tabs">
                                         <NotificationCategories

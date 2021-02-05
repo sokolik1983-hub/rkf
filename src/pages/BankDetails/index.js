@@ -17,6 +17,7 @@ import { Request } from "../../utils/request";
 import { getFedInfo, mainFedList, oankooFedList } from "./config";
 import { connectAuthVisible } from "../../pages/Login/connectors";
 import Loading from "../../components/Loading";
+import useIsMobile from "../../utils/useIsMobile";
 import "./index.scss";
 
 const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) => {
@@ -24,6 +25,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
     const [canEdit, setCanEdit] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(true);
+    const isMobile = useIsMobile();
 
     const alias = ls.get('user_info') ? ls.get('user_info').alias : '';
     const name = ls.get('user_info') ? ls.get('user_info').name : '';
@@ -71,6 +73,17 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                         bank_details
                     />}
                     <div className="base-search__content-wrap">
+                        {isMobile && <Card style={{ margin: '16px 0 16px 0', padding: '10px' }}>
+                            <UserInfo
+                                canEdit={canEdit}
+                                logo_link={userInfo.logo_link}
+                                share_link={`https://rkf.online/user/${alias}`}
+                                first_name={userInfo.personal_information.first_name ? userInfo.personal_information.first_name : 'Аноним'}
+                                last_name={userInfo.personal_information.last_name ? userInfo.personal_information.last_name : ''}
+                                alias={alias}
+                                updateInfo={getUserInfo}
+                            />
+                        </Card>}
                         <div className={`base-search__content ${user_type === 1 ? `_user_page` : ``}`}>
                             {user_type !== 1 && fedIdList?.map((fed, i) => <DetailsCard
                                 key={i}
@@ -107,7 +120,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                 <div className="base-search__info-inner">
                                     {user_type === 1 &&
                                         <>
-                                            <Card style={{ margin: '16px 0 16px 0' }}>
+                                            {!isMobile && <Card style={{ margin: '16px 0 16px 0' }}>
                                                 <UserInfo
                                                     canEdit={canEdit}
                                                     logo_link={userInfo.logo_link}
@@ -117,7 +130,7 @@ const BankDetails = ({ match, profile_id, is_active_profile, isAuthenticated }) 
                                                     alias={alias}
                                                     updateInfo={getUserInfo}
                                                 />
-                                            </Card>
+                                            </Card>}
                                             <UserMenu
                                                 userNav={userNav(alias)}
                                             />

@@ -1,6 +1,9 @@
 .documents-page {
   background-color: #f5f8ff;
   min-height: 96vh;
+  & + .Footer {
+    display: none;
+  }
   &__content {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -44,7 +47,6 @@
     width: 145px;
     height: 145px;
     margin: 0 0 10px 10px;
-    //border-radius: 50%;
     background: url("/static/images/news/empty_list.png") center center/contain no-repeat;
     @media (max-width: 560px) {
       width: 100px;
@@ -70,6 +72,9 @@
     }
     &.declarants-icon {
       background-image: url("/static/images/documents/declarants-icon.svg");
+    }
+    &.membership-icon {
+      background-image: url("/static/images/documents/membership-icon.svg");
     }
     &.registration-icon {
       background-image: url("/static/images/documents/registration-icon.svg");

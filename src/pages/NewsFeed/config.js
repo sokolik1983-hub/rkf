@@ -15,9 +15,14 @@ export const categories = [
         icon: 'NewsFeed__icon NewsFeed__icon--required'
     },
     {
-        name: 'Информация по заявкам',
+        name: 'Заявки',
         id: 6,
         icon: 'NewsFeed__icon NewsFeed__icon--applications'
+    },
+    {
+        name: 'Подписки',
+        id: 8,
+        icon: 'NewsFeed__icon NewsFeed__icon--subscriptions'
     },
     {
         name: 'Архив',

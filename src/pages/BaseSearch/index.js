@@ -231,9 +231,9 @@ const BaseSearch = () => {
                                                         <ClubsMap />
                                                     </div>
                                                 </Card>
-                                                <CopyrightInfo withSocials={true} />
                                             </>
                                     }
+                                    <CopyrightInfo withSocials={true} />
                                 </div>
                             </StickyBox>
                         </Aside>

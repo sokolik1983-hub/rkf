@@ -7,6 +7,10 @@
     &.with-socials {
       text-align: center;
     }
+    & p {
+      padding: 0 !important;
+      letter-spacing: normal !important;
+    }
   }
   &-socials {
     display: flex;

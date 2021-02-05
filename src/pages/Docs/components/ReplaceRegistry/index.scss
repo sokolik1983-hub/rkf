@@ -38,8 +38,23 @@
     }
   }
   &__controls {
-    position: relative;
-    top: -10px;
+    &._replace_registry {
+      position: absolute;
+      top: 14px;
+      z-index: 9;
+      right: 0;
+      width: 520px;
+      @media (max-width: 1110px) {
+        top: 0;
+      }
+      @media (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        left: -20px;
+        width: 200px;
+      }
+    }
   }
   &__table {
     padding-bottom: 40px;
@@ -172,10 +187,6 @@
       top: 48px;
       bottom: auto;
     }
-  }
-  ._replace_registry_wrap {
-    max-width: 793px;
-    margin: 0 auto;
   }
   &__plug{
     text-align: center;
