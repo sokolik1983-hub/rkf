@@ -82,15 +82,14 @@ const ExhibitionInfo = ({
                                 {city_name && <p className="educational-page__address-subtitle">
                                     <span>Адрес: </span>{`г. ${city_name}${location_address ? ', ' + location_address : ''}`}
                                 </p>}
-                                {contact_phones && <p className="educational-page__address-subtitle"><span>Телефон: </span>{contact_phones.join(', ')}</p>}
-                                {contact_emails && <p className="educational-page__address-subtitle"><span>E-mail: </span>{contact_emails.join(', ')}</p>}
                             </>
                             : <>
                                 <h4 className="educational-page__address-title">Ссылка на мероприятие</h4>
                                 {link_address && <p>{`${link_address}`}</p>}
                             </>
                     }
-
+                    {!!contact_phones?.length && <p className="educational-page__address-subtitle"><span>Телефон: </span>{contact_phones.join(', ')}</p>}
+                    {!!contact_emails?.length && <p className="educational-page__address-subtitle"><span>E-mail: </span>{contact_emails.join(', ')}</p>}
                 </div>
             </Card>
             <Card className="educational-info">
