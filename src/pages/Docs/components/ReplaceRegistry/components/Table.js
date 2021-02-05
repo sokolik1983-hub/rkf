@@ -82,9 +82,7 @@ const Table = ({ documents, reqTypes, checkedTypes, checkType, isOpenFilters, se
     const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {

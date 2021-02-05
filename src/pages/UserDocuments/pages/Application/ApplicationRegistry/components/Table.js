@@ -110,9 +110,7 @@ const Table = ({ documents, profileType, fullScreen, exporting, setExporting }) 
     const gridPDFExport = useRef(null);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {

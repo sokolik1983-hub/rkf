@@ -46,9 +46,7 @@ const Table = ({ documents, distinction, height, exporting, setExporting, fullSc
     const [success, setSuccess] = useState(false);
     const [gridData, setGridData] = useState({
         skip: 0, take: 50,
-        sort: [
-            { field: "date_create", dir: "desc" }
-        ]
+        sort: []
     });
 
     useEffect(() => {
