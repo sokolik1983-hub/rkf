@@ -27,7 +27,7 @@ const _replacePedigreeExportOld = 13;
 const _dogHealthCheckDysplasia = 20;
 const _dogHealthCheckPatella = 21;
 const _getRKFDocument = 22;
-// const _checkMembership = 23;
+const _checkMembership = 23;
 
 //temporarily hidden
 //
@@ -51,7 +51,7 @@ const DocumentCards = ({ clubAlias, authorizedAccess }) => {
     return <div className="documents-page__right">
         {!hasAccess && <Card className="documents-page__alert-card">
             <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
-            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
+            <p style={{ padding: 0, textAlign: 'center' }}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
                 и подать заявку на подтверждение членства.</p>
         </Card>}
         <Card className={litter ? `` : `_inactive`}>
@@ -214,7 +214,7 @@ const StampCards = ({ clubAlias }) => {
     </div>
 };
 
-const ResponsibleCards = ({ clubAlias }) => {
+const ResponsibleCards = ({ clubAlias, authorizedAccess }) => {
 
     return <div className="documents-page__right">
         <Card>
@@ -229,18 +229,20 @@ const ResponsibleCards = ({ clubAlias }) => {
                 <Link to={`/${clubAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        <Card>
-            <div className="documents-page__icon membership-icon" />
-            <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
-            <p>
-                В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
+        {
+            authorizedAccess?.includes(_checkMembership) && <Card>
+                <div className="documents-page__icon membership-icon" />
+                <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
+                <p>
+                    В данном разделе можно направить электронную копию племенной книги за прошедший год и предоставить квитанцию об оплате ежегодного членского взноса.
             </p>
-            <hr />
-            <div className="Card__links">
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
-                <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
-            </div>
-        </Card>
+                <hr />
+                <div className="Card__links">
+                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
+                    <Link to={`/${clubAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
+                </div>
+            </Card>
+        }
     </div>
 };
 
@@ -268,7 +270,7 @@ const DocHome = ({ clubAlias }) => {
             </StickyBox>
         </aside>
         <Switch>
-            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} />} />
+            <Route path='/:route/documents/responsible' component={() => <ResponsibleCards clubAlias={clubAlias} authorizedAccess={authorizedAccess} />} />
             <Route path='/:route/documents/stamps' component={() => <StampCards clubAlias={clubAlias} />} />
             <Route path='/:route/documents/bookform' component={() => <BookformCard distinction='bookform' url='/api/Club/club_federation' />} />
             <Route path='/:route/documents/review' component={() => <BookformCard url='/api/Club/club_federation' />} />
