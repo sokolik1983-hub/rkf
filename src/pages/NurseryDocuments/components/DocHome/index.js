@@ -45,9 +45,15 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
     const pedigree = authorizedAccess.includes(_pedigree);
     const litter = authorizedAccess.includes(_litter);
     const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
+    const hasAccess = pedigree && litter && replacePedigreeExportOld;
 
     return <div className="documents-page__right">
-        {litter && <Card>
+    {!hasAccess && <Card className="documents-page__alert-card">
+            <h3>УВАЖАЕМЫЙ ПОЛЬЗОВАТЕЛЬ!</h3>
+            <p style={{padding: 0, textAlign: 'center'}}>Для продолжения работы с личным кабинетов Вам необходимо подтвердить членство Вашей организации. Для этого Вам необходимо перейти в раздел "Организационная информация" вашего личного кабинета
+                и подать заявку на подтверждение членства.</p>
+        </Card>}
+        <Card className={litter ? `` : `_inactive`}>
             <div className="documents-page__icon litter-icon" />
             <h3>ЗАЯВЛЕНИЕ НА РЕГИСТРАЦИЮ ПОМЕТА</h3>
             <p>
@@ -70,8 +76,8 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/litter/status`}> Проверить статус документа</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/litter/requests`}> Реестр заявок</Link>
             </div>
-        </Card>}
-        {pedigree && <Card>
+        </Card>
+        <Card className={pedigree ? `` : `_inactive`}>
             <div className="documents-page__icon pedigree-icon" />
             <h3>ОФОРМЛЕНИЕ РОДОСЛОВНОЙ</h3>
             <p>
@@ -92,8 +98,8 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/pedigree/status`}> Проверить статус документа</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/pedigree/requests`}> Реестр заявок</Link>
             </div>
-        </Card>}
-        {litter && <Card>
+        </Card>
+        <Card className={litter ? `` : `_inactive`}>
             <div className="documents-page__icon puppy-icon" />
             <h3>МЕТРИКА ЩЕНКА</h3>
             <p>Метрика щенка автоматически формируется на основании данных, указанных при регистрации помета. Формирование документа на основании данных, предоставленных другой кинологической организацией может быть реализован посредством ввода кода клейма собаки. ФИО владельца собаки могут быть указаны заявителем в разделе редактирования метрики щенка.</p>
@@ -102,8 +108,8 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
                 {/* <Link to={`/kennel/${nurseryAlias}/documents/puppy/metrics`}>Реестр метрик</Link> */}
                 <span style={{ color: '#72839c', fontWeight: '600' }}>Реестр метрик</span>
             </div>
-        </Card>}
-        {replacePedigreeExportOld && <Card>
+        </Card>
+        <Card className={replacePedigreeExportOld ? `` : `_inactive`}>
             <div className="documents-page__icon replace-pedigree-icon" />
             <h3>ЗАМЕНА РОДОСЛОВНОЙ</h3>
             <p>Обмен родословной возможен при наличии у заявителя внутренней или экспортной родословной РКФ старого образца или свидетельства о регистрации, выданного зарубежной кинологической организацией. Кроме того, при подаче соответствующего заявления может быть осуществлена выдача дубликата родословной или замена владельца в документе.</p>
@@ -127,7 +133,7 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
                     <Link to={`/kennel/${nurseryAlias}/documents/replace-pedigree/registry`} >Реестр заявок</Link>
                 </div>
             </div>
-        </Card>}
+        </Card>
         <Card>
             <div className="documents-page__icon dysplasia-icon" />
             <h3>СЕРТИФИКАТ О ПРОВЕРКЕ НА ДИСПЛАЗИЮ</h3>
