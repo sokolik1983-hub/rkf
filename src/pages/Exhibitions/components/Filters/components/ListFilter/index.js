@@ -37,13 +37,13 @@ const ListFilter = ({ categoryId }) => {
                         <span
                             className={`list-filter__control${activeType === 1 ? ' _active' : ''}`}
                             onClick={() => handleClick(1)}
-                        >Выставочные</span>
+                        >Выставочные мероприятия</span>
                     </li>
                     <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 2 ? ' _active' : ''}`}
                             onClick={() => handleClick(2)}
-                        >Племенные</span>
+                        >Племенные мероприятия</span>
                     </li>
                     <li className="list-filter__item">
                         <span
@@ -51,12 +51,12 @@ const ListFilter = ({ categoryId }) => {
                             onClick={() => handleClick(3)}
                         >Состязания и испытания рабочих качеств</span>
                     </li>
-                    <li className="list-filter__item">
+                    {/* <li className="list-filter__item">
                         <span
                             className={`list-filter__control${activeType === 4 ? ' _active' : ''}`}
                             onClick={() => handleClick(4)}
                         >Обучение</span>
-                    </li>
+                    </li> */}
                 </ul>
             </HorizontalSwipe>
         </div>
