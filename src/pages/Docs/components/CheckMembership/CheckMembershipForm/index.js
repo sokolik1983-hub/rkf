@@ -266,7 +266,7 @@ const CheckMembershipForm = ({ clubAlias, history, status }) => {
                                                             label="Комментарий"
                                                             maxLength={500}
                                                             component={FormTextArea}
-                                                            placeholder="Прошу изменить/добавить данные"
+                                                            placeholder={!isActual ? `Прошу изменить/добавить данные` : ``}
                                                             disabled={disableAllFields || disableIsActualFields}
                                                             validator={disableAllFields || disableIsActualFields ? '' : value => requiredValidator(value)}
                                                         />

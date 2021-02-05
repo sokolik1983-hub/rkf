@@ -37,7 +37,7 @@ const AdditionalDocuments = ({ id, attachedDocuments, history, alias, docTypes, 
             method: 'PUT',
             data: JSON.stringify(data)
         }, () => {
-            history.push(`/${alias}/documents/responsible`);
+            history.push(`/kennel/${alias}/documents/responsible`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
