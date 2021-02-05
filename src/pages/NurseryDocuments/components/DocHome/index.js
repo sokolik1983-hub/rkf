@@ -30,21 +30,21 @@ const _checkMembership = 23;
 
 //temporarily hidden
 //
-// const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
-// const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
-// const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
-// const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
-// const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
-// const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
-// const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-// const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
-// const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
+// const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
+// const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);
+// const replacePedigreeRkfFc1 = authorizedAccess?.includes(_replacePedigreeRkfFc1);
+// const replacePedigreeDuplicate = authorizedAccess?.includes(_replacePedigreeDuplicate);
+// const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
+// const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
+// const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
+// const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
+// const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
 
 const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
     const [alert, seAlert] = useState(false);
-    const pedigree = authorizedAccess.includes(_pedigree);
-    const litter = authorizedAccess.includes(_litter);
-    const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
+    const pedigree = authorizedAccess?.includes(_pedigree);
+    const litter = authorizedAccess?.includes(_litter);
+    const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
     const hasAccess = pedigree && litter && replacePedigreeExportOld;
 
     return <div className="documents-page__right">
@@ -182,7 +182,6 @@ const DocumentCards = ({ nurseryAlias, authorizedAccess }) => {
 };
 
 const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
-    const checkMembership = authorizedAccess.includes(_checkMembership);
 
     return <div className="documents-page__right">
         <Card>
@@ -197,7 +196,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/table`}>Реестр ответственных лиц</Link>
             </div>
         </Card>
-        {checkMembership && <Card>
+        <Card>
             <div className="documents-page__icon membership-icon" />
             <h3>ПОДТВЕРЖДЕНИЕ ЧЛЕНСТВА</h3>
             <p>
@@ -208,7 +207,7 @@ const ResponsibleCards = ({ nurseryAlias, authorizedAccess }) => {
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/form`}>Предоставить данные</Link>
                 <Link to={`/kennel/${nurseryAlias}/documents/responsible/checkmembership/registry`}>Реестр предоставленных документов</Link>
             </div>
-        </Card>}
+        </Card>
     </div>
 };
 
