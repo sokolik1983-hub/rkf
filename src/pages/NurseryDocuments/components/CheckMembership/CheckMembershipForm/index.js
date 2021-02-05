@@ -9,6 +9,7 @@ import Card from "../../../../../components/Card";
 import FormInput from "../../../../../components/kendo/Form/FormInput";
 import FormContactsCheckbox from "../../../../../components/kendo/Form/FormContactsCheckbox";
 import FormUpload from "./components/FormUpload";
+import AdditionalDocuments from "./components/AdditionalDocuments";
 import FormDatePicker from "../../../../../components/kendo/Form/FormDatePicker";
 import FormDropDownList from "../../../../../components/kendo/Form/FormDropDownList";
 import FormTextArea from "../../../../../components/kendo/Form/FormTextArea";
@@ -33,7 +34,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
     const [isActual, setIsActual] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [values, setValues] = useState(null);
+    const [values, setValues] = useState({});
     const [formProps, setFormProps] = useState(null);
     const [documentsOverflow, setDocumentsOverflow] = useState(false);
     const [docTypes, setDocTypes] = useState([]);
@@ -496,6 +497,14 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                 }
                                 }
                             />
+                            {status === 'edit' && <AdditionalDocuments
+                                id={values.id}
+                                attachedDocuments={values.documents}
+                                history={history}
+                                alias={nurseryAlias}
+                                docTypes={docTypes}
+                                handleError={handleError}
+                            />}
                             {status === 'view' && documents &&
                                 <div><h3 className="application-form__additional-title">Дополнительные документы</h3>
                                     <DocumentLinksArray

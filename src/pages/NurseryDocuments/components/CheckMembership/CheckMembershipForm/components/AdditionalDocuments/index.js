@@ -8,7 +8,7 @@ import Loading from "components/Loading";
 import "./styles.scss";
 
 
-const AdditionalDocuments = ({ id, attachedDocuments, history, clubAlias, docTypes, handleError }) => {
+const AdditionalDocuments = ({ id, attachedDocuments, history, alias, docTypes, handleError }) => {
     const [documents, setDocuments] = useState([]);
     const [disableSubmit, setDisableSubmit] = useState(true);
     const [formProps, setFormProps] = useState(null);
@@ -33,11 +33,11 @@ const AdditionalDocuments = ({ id, attachedDocuments, history, clubAlias, docTyp
         };
 
         await Request({
-            url: '/api/requests/membership_confirmation_request/membershipconfirmationrequest',
+            url: '/api/requests/membership_confirmation_request/kennelmembershipconfirmationrequest',
             method: 'PUT',
             data: JSON.stringify(data)
         }, () => {
-            history.push(`/${clubAlias}/documents/responsible`);
+            history.push(`/${alias}/documents/responsible`);
         }, error => {
             handleError(error);
             setDisableSubmit(false);
