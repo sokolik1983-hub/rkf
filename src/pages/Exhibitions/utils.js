@@ -1,5 +1,5 @@
 import history from "../../utils/history";
-import { endpointGetExhibitions } from "./config";
+import { endpointGetExhibitions, endpointGetEducationals } from "./config";
 import { formatDateToString } from "../../utils/datetime";
 
 const buildUrlParams = filter => {
@@ -15,7 +15,7 @@ const buildUrlParams = filter => {
                 if (filter[key] > 0) {
                     params = params + `${key}=${filter[key]}&`;
                 }
-            } else if (key === 'RankIds' || key === 'BreedIds' || key === 'CityIds') {
+            } else if (key === 'RankIds' || key === 'BreedIds' || key === 'CityIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 if (filter[key].length) {
                     params = params + filter[key].map(r => `${key}=${r}&`).join('');
                 }
@@ -34,10 +34,13 @@ const buildUrlParams = filter => {
 
 export const buildUrl = filter => {
     filter = filter || {};
-
     const params = buildUrlParams(filter);
 
-    return endpointGetExhibitions + params;
+    if (parseInt(filter.CategoryId) === 4) {
+        return endpointGetEducationals + params;
+    } else {
+        return endpointGetExhibitions + params;
+    }
 };
 
 export const getFiltersFromUrl = () => {
@@ -52,7 +55,7 @@ export const getFiltersFromUrl = () => {
             const key = param.split('=')[0];
             const value = param.split('=')[1];
 
-            if (key === 'CityIds' || key === 'RankIds' || key === 'BreedIds') {
+            if (key === 'CityIds' || key === 'RankIds' || key === 'BreedIds' || key === 'TypeIds' || key === 'PaymentFormTypeIds') {
                 filtersFromUrl[key] = filtersFromUrl[key] ? [...filtersFromUrl[key], +value] : [+value];
             } else {
                 filtersFromUrl[key] = key === 'PageNumber' ? +value : value;
@@ -81,6 +84,8 @@ export const getEmptyFilters = (alias = null) => ({
     ClubIds: null,
     RankIds: [],
     BreedIds: [],
+    TypeIds: [],
+    PaymentFormTypeIds: [],
     CategoryId: 0,
     DateFrom: formatDateToString(new Date()),
     DateTo: null

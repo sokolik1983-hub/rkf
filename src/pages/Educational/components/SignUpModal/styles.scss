@@ -1,0 +1,44 @@
+.educational-sign-up {
+    &__title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+        color: #253c5e;
+        margin-top: 16px;
+    }
+    & > h3 {
+        margin: 15px 0;
+        font-size: 14px;
+        line-height: 18px;
+    }
+    &__form {
+        &-controls {
+            text-align: center;
+        }
+        &-row {
+            @media (min-width: 560px) {
+                display: flex;
+                .k-form-field {
+                    width: 32%;
+                    &:not(:last-child) {
+                        margin-right: 2%;
+                    }
+                }
+            }
+        }
+    }
+    #comments {
+        resize: none;
+    }
+    .Loading {
+        display: flex;
+        justify-content: center;
+    }
+}
+.educational-page {
+    &__modal {
+        & > div {
+            max-width: 870px;
+        }
+    }
+}

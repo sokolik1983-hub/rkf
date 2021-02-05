@@ -4,7 +4,7 @@ import declension from "../../utils/declension";
 import "./index.scss";
 
 
-const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks }) => {
+const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks, isEducational }) => {
     const getEndDate = () => calculateCountDown(
         Date.now() < +new Date(startDate) ?
             startDate :
@@ -43,7 +43,7 @@ const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks }) => {
                     <h4 className="countdown__title">До окончания мероприятия осталось</h4> :
                     isCount ?
                         <h4 className="countdown__title">До окончания срока подачи отчёта осталось</h4> :
-                        <h4 className="countdown__title">Отчёты</h4>
+                        <h4 className="countdown__title">{isEducational ? '' : 'Отчёты'}</h4>
             }
             {isCount &&
                 <div className="countdown__timer">
@@ -85,7 +85,7 @@ const CountDown = ({ startDate, endDate, reportsDateEnd, reportsLinks }) => {
                                 </tr>
                             })
                             : <tr>
-                                <td colSpan="2">Отчёты не найдены</td>
+                                <td colSpan="2">{isEducational ? 'Мероприятие уже состоялось' : 'Отчёты не найдены'}</td>
                             </tr>
                         }
                     </tbody>
