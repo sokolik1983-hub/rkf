@@ -31,21 +31,21 @@ const _getRKFDocument = 22;
 
 //temporarily hidden
 //
-// const replacePedigreeOld = authorizedAccess.includes(_replacePedigreeOld);
-// const replacePedigreeChangeOwner = authorizedAccess.includes(_replacePedigreeChangeOwner);
-// const replacePedigreeRkfFc1 = authorizedAccess.includes(_replacePedigreeRkfFc1);
-// const replacePedigreeDuplicate = authorizedAccess.includes(_replacePedigreeDuplicate);
-// const replacePedigreeForeignRegistration = authorizedAccess.includes(_replacePedigreeForeignRegistration);
-// const replacePedigreeDeclarantError = authorizedAccess.includes(_replacePedigreeDeclarantError);
+// const replacePedigreeOld = authorizedAccess?.includes(_replacePedigreeOld);
+// const replacePedigreeChangeOwner = authorizedAccess?.includes(_replacePedigreeChangeOwner);
+// const replacePedigreeRkfFc1 = authorizedAccess?.includes(_replacePedigreeRkfFc1);
+// const replacePedigreeDuplicate = authorizedAccess?.includes(_replacePedigreeDuplicate);
+// const replacePedigreeForeignRegistration = authorizedAccess?.includes(_replacePedigreeForeignRegistration);
+// const replacePedigreeDeclarantError = authorizedAccess?.includes(_replacePedigreeDeclarantError);
 
 const DocumentCards = ({ clubAlias, authorizedAccess }) => {
     const [alert, seAlert] = useState(false);
-    const pedigree = authorizedAccess.includes(_pedigree);
-    const litter = authorizedAccess.includes(_litter);
-    const replacePedigreeExportOld = authorizedAccess.includes(_replacePedigreeExportOld);
-    const dogHealthCheckDysplasia = authorizedAccess.includes(_dogHealthCheckDysplasia);
-    const dogHealthCheckPatella = authorizedAccess.includes(_dogHealthCheckPatella);
-    const getRKFDocument = authorizedAccess.includes(_getRKFDocument);
+    const pedigree = authorizedAccess?.includes(_pedigree);
+    const litter = authorizedAccess?.includes(_litter);
+    const replacePedigreeExportOld = authorizedAccess?.includes(_replacePedigreeExportOld);
+    const dogHealthCheckDysplasia = authorizedAccess?.includes(_dogHealthCheckDysplasia);
+    const dogHealthCheckPatella = authorizedAccess?.includes(_dogHealthCheckPatella);
+    const getRKFDocument = authorizedAccess?.includes(_getRKFDocument);
     const hasAccess = pedigree && litter && replacePedigreeExportOld && dogHealthCheckDysplasia && dogHealthCheckPatella && getRKFDocument;
 
     return <div className="documents-page__right">
