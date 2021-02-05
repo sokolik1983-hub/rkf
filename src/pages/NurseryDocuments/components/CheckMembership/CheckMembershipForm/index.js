@@ -291,7 +291,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             onStatusChange={(e) => onStatusChange(e, 'changes_confirmation_document_id')}
                                                             onProgress={(e) => onProgress(e, 'changes_confirmation_document_id')}
                                                             disabled={disableAllFields || disableIsActualFields}
-                                                            validator={values?.documents.length || disableAllFields || disableIsActualFields
+                                                            validator={values?.documents?.length || disableAllFields || disableIsActualFields
                                                                 ? ''
                                                                 : () => documentRequiredValidator(formProps?.valueGetter('changes_confirmation_document_id')?.find(d => d.id))
                                                             }
@@ -323,7 +323,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                             onStatusChange={(e) => onStatusChange(e, 'membership_confirmation_document_id')}
                                                             onProgress={(e) => onProgress(e, 'membership_confirmation_document_id')}
                                                             disabled={disableAllFields}
-                                                            validator={values?.documents.length || disableAllFields
+                                                            validator={values?.documents?.length || disableAllFields
                                                                 ? ''
                                                                 : () => documentRequiredValidator(formProps?.valueGetter('membership_confirmation_document_id').find(d => d.id))
                                                             }
@@ -363,7 +363,7 @@ const CheckMembershipForm = ({ nurseryAlias, history, status }) => {
                                                                     onStatusChange={(e) => onStatusChange(e, 'mating_whelping_book_document_id')}
                                                                     onProgress={(e) => onProgress(e, 'mating_whelping_book_document_id')}
                                                                     disabled={disableAllFields}
-                                                                    validator={values?.documents.length || disableAllFields
+                                                                    validator={values?.documents?.length || disableAllFields
                                                                         ? ''
                                                                         : () => documentRequiredValidator(formProps?.valueGetter('mating_whelping_book_document_id').find(d => d.id))
                                                                     }
