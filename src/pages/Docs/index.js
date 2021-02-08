@@ -144,6 +144,12 @@ const Docs = ({ history, match, is_active_profile, isAuthenticated }) => {
                         <Route exact={true} path='/:route/documents/exhibitions/application/form/edit/:docId' component={() =>
                             <ExhibitionsForm clubAlias={clubAlias} history={history} status="edit" />}
                         />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/form/change/:docId' component={() =>
+                            <ExhibitionsForm clubAlias={clubAlias} history={history} status="change" />}
+                        />
+                        <Route exact={true} path='/:route/documents/exhibitions/application/form/cancel/:docId' component={() =>
+                            <ExhibitionsForm clubAlias={clubAlias} history={history} status="cancel" />}
+                        />
                         <Route exact={true} path='/:route/documents/responsible/form' component={() =>
                             <ResponsiblePersonForm clubAlias={clubAlias} history={history} />}
                         />

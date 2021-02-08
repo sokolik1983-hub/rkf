@@ -68,14 +68,28 @@ const OptionsCell = ({ dataItem }) => {
     const options = [{
         text: 'Подробнее',
         render: ({ item }) => <Link
-            to={`/${route}/documents/application/view/${id}`}
+            to={`/${route}/documents/exhibitions/application/form/view/${id}`}
             className="row-control__link">{item.text}</Link>
     },
     {
         text: 'Ответить',
-        disabled: status_id !== 1,
+        disabled: status_id === 1 ? false : true,
         render: ({ item }) => <Link
-            to={`/${route}/documents/application/edit/${id}`}
+            to={`/${route}/documents/exhibitions/application/form/edit/${id}`}
+            className="row-control__link">{item.text}</Link>
+    },
+    {
+        text: 'Перенести',
+        disabled: status_id === 2 ? false : true,
+        render: ({ item }) => <Link
+            to={`/${route}/documents/exhibitions/application/form/change/${id}`}
+            className="row-control__link">{item.text}</Link>
+    },
+    {
+        text: 'Отменить',
+        disabled: status_id === 2 ? false : true,
+        render: ({ item }) => <Link
+            to={`/${route}/documents/exhibitions/application/form/cancel/${id}`}
             className="row-control__link">{item.text}</Link>
     }].filter(o => !o.disabled);
 
