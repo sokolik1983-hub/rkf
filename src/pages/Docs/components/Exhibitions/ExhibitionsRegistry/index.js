@@ -45,9 +45,9 @@ const ExhibitionsRegistry = ({ history }) => {
                     {document_id && <button
                         className="user-documents-status__control user-documents-status__control--resetIcon"
                     >
-                        <Link to={`/${alias}/documents/application/registry`}>
+                        <Link to={`/${alias}/documents/exhibitions/application/registry`}>
                             Вернуться к списку
-                            </Link>
+                        </Link>
                     </button>}
                     <button
                         className="user-documents-status__control user-documents-status__control--downloadIcon"
@@ -70,9 +70,9 @@ const ExhibitionsRegistry = ({ history }) => {
             :
             <Card className="user-documents-status">
                 <div className="user-documents-status__head">
-                    <Link className="btn-backward" to={`/${alias}/documents`}>Личный кабинет</Link>
+                    <Link className="btn-backward" to={`/${alias}/documents/exhibitions`}>Личный кабинет</Link>
                     &nbsp;/&nbsp;
-                    Заявка на получение документов РКФ
+                    Заявка на проведение выставки
                 </div>
                 {documents && !!documents.length
                     ? <div>
@@ -80,9 +80,9 @@ const ExhibitionsRegistry = ({ history }) => {
                             {document_id && <button
                                 className="user-documents-status__control user-documents-status__control--resetIcon"
                             >
-                                <Link to={`/${alias}/documents/application/registry`}>
+                                <Link to={`/${alias}/documents/exhibitions/application/registry`}>
                                     Вернуться к списку
-                            </Link>
+                                </Link>
                             </button>}
                             <button
                                 className="user-documents-status__control user-documents-status__control--downloadIcon"
